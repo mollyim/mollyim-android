@@ -55,6 +55,7 @@ import org.whispersystems.signalservice.internal.push.exceptions.InAppPaymentPro
 import java.security.SecureRandom
 import java.util.Currency
 import java.util.Optional
+import java.util.concurrent.locks.Lock
 import kotlin.jvm.optionals.getOrNull
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -230,10 +231,11 @@ object InAppPaymentsRepository {
   /**
    * Returns the object to utilize as a mutex for recurring subscriptions.
    */
-  fun resolveMutex(inAppPaymentId: InAppPaymentTable.InAppPaymentId): Any {
+  @WorkerThread
+  fun resolveLock(inAppPaymentId: InAppPaymentTable.InAppPaymentId): Lock {
     val payment = SignalDatabase.inAppPayments.getById(inAppPaymentId) ?: error("Not found")
 
-    return payment.type.requireSubscriberType()
+    return payment.type.requireSubscriberType().lock
   }
 
   /**

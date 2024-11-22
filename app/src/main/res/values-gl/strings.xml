@@ -1325,20 +1325,6 @@
     <string name="ManageGroupActivity_more">máis</string>
     <string name="ManageGroupActivity_add_group_description">Engadir descrición do grupo…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Transferir desde dispositivo Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Transfire a túa conta e as mensaxes do teu antigo dispositivo Android.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Iniciar sesión sen transferencia</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Continúa o proceso sen transferir as mensaxes e arquivos</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Restaurar copia de seguranza local</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Restaurar as túas mensaxes empregando un ficheiro de copia de segurranza gardado no teu dispositivo.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Descargando copia de seguranza…</string>
@@ -1356,12 +1342,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Todas as túas mensaxes</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Restaurar desde copia de seguranza</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Só se inclúe o contido enviado ou recibido nos últimos %1$d días.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">A túa copia de seguranza inclúe:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Restaurar copia de seguranza</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">A túa última copia de seguranza foi o %1$s ás %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Buscando información da copia de seguranza…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notificarme as mencións</string>
@@ -3463,7 +3453,7 @@
         <item>Outros</item>
         <item>Pagamentos (MobileCoin)</item>
         <item>Donativos e insignias</item>
-        <item>Signal Android Backup</item>
+        <item>Copia de seguranza de Signal Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Envío de rexistro de depuración de Signal Android</string>
@@ -4304,6 +4294,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Escribín esta frase de acceso. Sen ela non poderei restaurar unha copia de seguranza.</string>
     <string name="registration_activity__restore_backup">Restaurar copia de seguranza</string>
     <string name="registration_activity__transfer_or_restore_account">Transferir ou restaurar a conta</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Restaurar ou transferir</string>
     <string name="registration_activity__transfer_account">Transferir conta</string>
     <string name="registration_activity__skip">Omitir</string>
     <string name="preferences_chats__chat_backups">Copias de seguranza das conversas</string>
@@ -5124,7 +5116,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Grupos</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Só mostrar mensaxes de conversas grupais</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Engadir</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7426,11 +7418,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Cancelouse o teu plan de copia de seguranza de Signal porque non se puido procesar o pagamento. Esta é a túa última oportunidade de descargar os teus arquivos almacenados na copia antes de que se eliminen.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Libera %1$s do dispositivo</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Para rematar a descarga da copia de seguranza de Signal, o dispositivo necesita %1$s de espazo de almacenamento.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Para liberar espazo descarga ou elimina as aplicacións que non empregues ou arquivos de gran tamaño.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">A túa subscrición da copia de seguranza non se puido renovar</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7458,7 +7450,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Agora non</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Intentar máis tarde</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Eliminaranse os arquivos</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7470,9 +7462,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Omitir</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Saltar restauración?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Se non completas a restauración, os arquivos da túa copia de seguranza eliminaranse a próxima vez que o teu dispositivo complete unha nova copia de seguranza.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7528,10 +7520,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/mes · Renóvase o %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Cambiar ou cancelar subscrición</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">A túa última copia de seguranza foi o %1$s ás %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7850,5 +7838,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Icona de recordatorio</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Teño o meu antigo teléfono</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Escanea o código QR dende a túa conta actual de Signal para unha configuración rápida</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Non teño o meu antigo teléfono</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Ou estás a reinstalar Signal no mesmo dispositivo</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Restaurar ou transferir conta</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Descarga o teu historial de mensaxes e a conta de Signal neste dispositivo.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Dende unha copia de seguranza de Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">O teu plan gratuíto ou de pago de Copia de seguranza de Signal</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Dende un cartafol de copia de seguranza</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Dende un arquivo de copia de seguranza</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Escolle a copia de seguranza que gardaches</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Desde o teu antigo teléfono</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Transferencia directa dende o teu antigo dispositivo Android</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Restaurar copia de seguranza local</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Restaura as túas mensaxes empregando unha copia de seguranza gardada no teu dispositivo. Se non o fas agora non poderás restaurala posteriormente.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Escribe a túa clave de seguranza</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">A túa clave de seguranza é un código de 64 díxitos esencial para recuperar a túa conta e os datos.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Non tes a clave de seguranza?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Clave de seguranza</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">As copias de seguranza non poden recuperarse sen o código de 64 díxitos. Se perdiches a clave de seguranza, Signal non restaurará a túa copia de seguranza.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Se tes o antigo dispositivo podes consultar a clave de seguranza en Configuración &gt; Conversas &gt; Copias de seguranza de Signal. Despois selecciona «Ver clave de seguranza».</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Máis información</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Omitir e non restaurar</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Escanea este código no teu antigo teléfono</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Abre Signal no antigo dispositivo</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Preme a icona da cámara </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Escanea este código coa cámara</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Non é posible xerar un código QR</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Xa escaneado no antigo dispositivo</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Tentar de novo</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Transferir conta</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">A túa conta transferirase a un novo dispositivo. O dispositivo poderá ver os teus grupos e contactos, acceder ás conversas e enviar mensaxes no teu nome. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Máis información</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Transferir conta</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">As mensaxes e a información das conversas están protexidas por unha encriptación de extremo a extremo en todos os dispositivos</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Desbloquea para transferir a conta</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Continúa no teu outro dispositivo</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Continúa a transferencia da túa conta no outro dispositivo.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Recuperación completada</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Comezou a transferencia das túas mensaxes e da conta de Signal ao outro dispositivo. Signal xa non funcionará neste dispositivo.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Transferencia completada</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Transferíronse as túas mensaxes e a conta de Signal ao outro dispositivo. Signal xa non funcionará neste dispositivo.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">De acordo</string>
+
+
     <!-- EOF -->
 </resources>

@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSheetFragment;
+import org.thoughtcrime.securesms.conversationlist.RestoreCompleteBottomSheetDialog;
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor;
@@ -187,7 +188,16 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   protected void onResume() {
     super.onResume();
     dynamicTheme.onResume(this);
-    if (SignalStore.misc().isOldDeviceTransferLocked()) {
+
+    if (SignalStore.misc().getShouldShowLinkedDevicesReminder()) {
+      SignalStore.misc().setShouldShowLinkedDevicesReminder(false);
+      RelinkDevicesReminderBottomSheetFragment.show(getSupportFragmentManager());
+    }
+
+    if (SignalStore.registration().isRestoringOnNewDevice()) {
+      SignalStore.registration().setRestoringOnNewDevice(false);
+      RestoreCompleteBottomSheetDialog.show(getSupportFragmentManager());
+    } else if (SignalStore.misc().isOldDeviceTransferLocked()) {
       new MaterialAlertDialogBuilder(this)
           .setTitle(R.string.OldDeviceTransferLockedDialog__complete_registration_on_your_new_device)
           .setMessage(R.string.OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device)
@@ -198,11 +208,6 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
           })
           .setCancelable(false)
           .show();
-    }
-
-    if (SignalStore.misc().getShouldShowLinkedDevicesReminder()) {
-      SignalStore.misc().setShouldShowLinkedDevicesReminder(false);
-      RelinkDevicesReminderBottomSheetFragment.show(getSupportFragmentManager());
     }
 
     updateTabVisibility();

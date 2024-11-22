@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">تېخىمۇ كۆپ</string>
     <string name="ManageGroupActivity_add_group_description">گۇرۇپپا تونۇشتۇرۇشى قوش…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android ئۈسكۈنىسىدىن يۆتكەيدۇ</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">ھېساباتىڭىزنى ۋە ئۇچۇرلىرىڭىزنى كونا ئاندىرويىد ئۈسكۈنىسىدىن يۆتكەڭ.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">يۆتكىمەي تۇرۇپلا تىزىملاپ كىرىش</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">ئۇچۇر ۋە مېدىيالارنى يۆتكىمەي تۇرۇپلا داۋاملاشتۇرۇش</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">يەرلىك زاپاسلاشنى ئەسلىگە كەلتۈرۈش</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">ئۈسكۈنىڭىزدە ساقلىۋالغان زاپاس ھۆججەتتىن ئۇچۇرلىرىڭىزنى ئەسلىگە كەلتۈرۈڭ.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">زاپاس مەلۇماتنى چۈشۈرۈۋاتىدۇ…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">بارلىق ئۇچۇرلىرىڭىز</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">زاپاستىن ئەسلىگە كەلتۈرىدۇ</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">پەقەت ئالدىنقى %1$d كۈنلەردە ئەۋەتىلگەن ياكى تاپشۇرۇۋېلىنغان مېدىيالار بار.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">زاپاسلىغان مەلۇماتلار تۆۋەندىكىلەرنى ئۆز ئىچىگە ئالىدۇ:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">زاپاسنى ئەسلىگە كەلتۈرۈش</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">ئاخىرقى قېتىملىق زاپاسلاش %1$s %2$s دە ئېلىپ بېرىلغان.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">زاپاسلاش تەپسىلاتلىرىنى قوبۇللاش…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">ئاتالسام ئەسكەرتسۇن</string>
@@ -3364,7 +3354,7 @@
         <item>باشقىلار</item>
         <item>چىقىم (MobileCoin)</item>
         <item>ئىئانە ۋە ئىزنەك</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android زاپاسلانمىسى</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">سىگنال ئاندىرويىد خاتالىق خاتىرىسىنى يوللاش</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">بۇ ئىم ئىبارىسىنى يېزىۋالدىم. بۇ بولمىسا، مەن بىر زاپاسنى ئەسلىگە كەلتۈرەلمەيمەن.</string>
     <string name="registration_activity__restore_backup">زاپاسنى ئەسلىگە كەلتۈرۈش</string>
     <string name="registration_activity__transfer_or_restore_account">ھېساباتنى يۆتكە ياكى ئەسلىگە كەلتۈر</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">ئەسلىگە كەلتۈرۈش ياكى يۆتكەش</string>
     <string name="registration_activity__transfer_account">ھېساباتنى يۆتكە</string>
     <string name="registration_activity__skip">ئاتلا</string>
     <string name="preferences_chats__chat_backups">پاراڭ زاپاسلانمىسى</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">گۇرۇپپىلار</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">پەقەت گۇرۇپپا پاراڭلىرىدىن كەلگەن ئۇچۇرلار</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">قوشۇش</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -6535,7 +6527,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">تۆۋەندىكى «تەڭشەككە كىرىش» كۇنۇپكىسىنى چېكىڭ</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">«تەڭشەك ئاگاھلاندۇرۇشى ۋە ئەسكەرتىشكە رۇخسەت.» نى ئېچىڭ</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">«تەڭشەك ئاگاھلاندۇرۇشى ۋە ئەسكەرتىشكە رۇخسەت قىلىش.» نى ئېچىڭ</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">تەڭشەكلەرگە يۆتكەل</string>
 
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">سىزنىڭ سىگنال مېدىيا زاپاسلاش پىلانىڭىز ئەمەلدىن قالدۇرۇلدى ، چۈنكى بىز تۆلىگەن ھەققىڭىزنى بىرتەرەپ قىلالمىدۇق. بۇ سىزنىڭ مېدىيا ئۆچۈرۈلۈشتىن بۇرۇن زاپاسلاشتىكى ئەڭ ئاخىرقى پۇرسىتىڭىز.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">بۇ ئۈسكۈنىدىكى %1$s بوشلۇقنى بېكارلاڭ</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">سىگنال زاپاسلاشنى چۈشۈرۈشنى تاماملاش ئۈچۈن ئۈسكۈنىڭىز %1$s ساقلاش بوشلۇقىغا ئېھتىياجلىق.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">بوشلۇق ھازىرلاش ئۈچۈن ئشلىتىلمىگەن ئەپلەرنى ياكى چوڭ ھەجىملىك مەزمۇنلارنى چۈشۈرۈۋېتىڭ ياكى ئۆچۈرۈڭ.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">زاپاسلاش مۇشتەرىلىكىڭىز يېڭىلىنىشنى تاماملىيالمىدى</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">ھازىر ئەمەس</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">سەل تۇرۇپ قايتا سىناڭ</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">مېدىيا ئۆچۈرۈلىدۇ</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">ئاتلا</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">ئەسلىگە كەلتۈرۈشتى ئاتلامسىز؟</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">ئەگەر «ئەسلىگە كەلتۈرۈشتىن ئاتلاش» نى تاللىسىڭىز زاپاسلىغاندا قېلىپ قالغان مېدىيا ۋە قۇشۇمچە ھۆججەتلەر كېيىنكى قېتىم ئۈسكۈنىڭىز يېڭى زاپاسلاشنى تاماملىغاندا ئۆچۈرۈۋېتىلىدۇ.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/ ئايلىقى · %2$s يېڭىلىنىدۇ</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">مۇشتەرىلىكنى ئۆزگەرتىش ياكى بىكار قىلىش</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">ئاخىرقى قېتىملىق زاپاسلاش %1$s %2$s دە ئېلىپ بېرىلغان.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">ئەسكەرتىش سىنبەلگىسى</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">مېنىڭ كونا تېلېفونىم بار</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">تېز باشلاش ئۈچۈن نۆۋەتتىكى سىگنال ھېساباتىڭىزدىن QR كودىنى سىكانىرلاڭ</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">كونا تېلېفونۇم يېنىمدا يوق</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">ياكى ئوخشاش ئۈسكۈنىدە سىگنالنى قايتا قاچىلاۋاتىسىز</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">ھېساباتنى ئەسلىگە كەلتۈرۈش ياكى يۆتكەش</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">سىگنال ھېساباتىڭىز ۋە ئۇچۇر تارىخىڭىزنى بۇ ئۈسكۈنىگە قاچىلاڭ.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">سىگنال زاپاسلانمىسىدىن</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">ھەقسىز ياكى ھەقلىق سىگنال زاپاسلاش پىلانىڭىز</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">بىر تال زاپاسلاش ھۆججەت قىسقۇچىدىن</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">بىر تال زاپاس ھۆججەتتىن</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">ساقلىۋالغان زاپاسلاشتىن بىرنى تاللاڭ</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">كونا تېلېفونىڭىزدىن</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">كونا ئاندىرويىد ئۈسكۈنىڭىزدىن بىۋاسىتە يۆتكەڭ</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">يەرلىك زاپاسلاشنى ئەسلىگە كەلتۈرۈش</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">ئۈسكۈنىڭىزدە ساقلىغان زاپاسلاشتىن ئۇچۇرلىرىڭىزنى ئەسلىگە كەلتۈرۈڭ. ئەگەر ھازىر ئەسلىگە كەلتۈرمىسىڭىز ، كېيىن ئەسلىگە كەلتۈرەلمەيسىز.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">زاپاسلاش ئاچقۇچىڭىزنى كىرگۈزۈڭ</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">زاپاسلاش ئاچقۇچىڭىز ھېساباتىڭىز ۋە سانلىق مەلۇماتلىرىڭىزنى ئەسلىگە كەلتۈرۈش ئۈچۈن تەلەپ قىلىنىدىغان 64 خانىلىق كود.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">زاپاسلاش ئاچقۇچى يوقمۇ؟</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">زاپاسلاش ئاچقۇچى</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">زاپاسلاشنى 64 خانىلىق ئەسلىگە كەلتۈرۈش كودى بولمىسا ئەسلىگە كەلتۈرگىلى بولمايدۇ. ئەگەر زاپاسلاش ئاچقۇچىڭىزنى يوقىتىپ قويغان بولسىڭىز ، سىگنال ياردەملىشىپ زاپاسلاشنى ئەسلىگە كەلتۈرەلمەيدۇ.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">ئەگەر كونا ئۈسكۈنىڭىز بولسا تەڭشەك&gt; پاراڭلار&gt; سىگنال زاپاسلىرى دىن زاپاسلاش ئاچقۇچىنى كۆرەلەيسىز. ئاندىن «زاپاسلاش ئاچقۇچىنى كۆرۈش» نى چېكىڭ.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">تەپسىلاتى</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">ئەسلىگە كەلتۈرۈشتى ئاتلاڭ</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">كونا تېلېفونىڭىز بىلەن بۇ كودنى سىكانىرلاڭ</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">كونا ئۈسكۈنىڭىزدە سىگنالنى ئېچىڭ</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">كامېرا سىنبەلگىسىنى چېكىڭ </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">بۇ كودنى كامېرا بىلەن سىكانىرلاڭ</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR كودنى ھاسىل قىلالمىدى</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">كونا ئۈسكۈنىدە سىكانىرلاندى</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">قايتا سىنا</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">ھېساباتنى يۆتكە</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">ھېساباتىڭىز يېڭى ئۈسكۈنىگە يۆتكىلىدۇ. بۇ ئۈسكۈنە گۇرۇپپا ۋە ئالاقىداشلىرىڭىزنى كۆرەلەيدۇ ، پاراڭلىرىڭىزنى زىيارەت قىلالايدۇ ۋە نامىڭىزدا ئۇچۇر ئەۋەتەلەيدۇ. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">تەپسىلاتى</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">ھېساباتنى يۆتكە</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">ئۇچۇر ۋە پاراڭلار بارلىق ئۈسكۈنىلىرىڭىزدە ئاخىرىغىچە مەخپىيلەشتۈرۈلگەن</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">ھېساباتنى يۆتكەش ئۈچۈن قۇلۇپنى ئېچىش</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">يەنە بىر ئۈسكىنىڭزدە داۋاملاشتۇرڭ</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">ھېساباتىڭىزنى باشقا ئۈسكۈنىڭىزگە يۆتكەشنى داۋاملاشتۇرۇڭ.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">ئەسلىگە كەلتۈرۈش تاماملاندى</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">سىگنال ھېساباتىڭىز ۋە ئۇچۇرلىرىڭىز باشقا ئۈسكۈنىڭىزگە يۆتكىلىشكە باشلىدى. سىگنال ئەمدى بۇ ئۈسكۈنىدە ئىشلىمەيدۇ.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">يۆتكەش تاماملاندى</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">سىگنال ھېساباتىڭىز ۋە ئۇچۇرلىرىڭىز باشقا ئۈسكۈنىڭىزگە يۆتكەلدى. سىگنال ئەمدى بۇ ئۈسكۈنىدە ئىشلىمەيدۇ.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">جەزملە</string>
+
+
     <!-- EOF -->
 </resources>

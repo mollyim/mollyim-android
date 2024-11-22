@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">lebih</string>
     <string name="ManageGroupActivity_add_group_description">Tambah penerangan kumpulan…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Pindah daripada peranti Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Pindahkan akaun dan mesej anda daripada peranti Android lama anda.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Log masuk tanpa memindahkan</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Teruskan tanpa memindahkan mesej dan media anda</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Pulihkan sandaran setempat</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Pulihkan mesej anda daripada fail sandaran yang disimpan pada peranti anda.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Memuat turun sandaran…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Semua mesej anda</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Pulihkan dari sandaran</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Hanya media yang dihantar atau diterima dalam %1$d hari yang lalu disertakan.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Sandaran anda termasuk:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Memulihkan sandaran</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Sandaran terakhir anda telah dibuat pada %1$s pada %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Mengambil butiran sandaran…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Maklumkan saya untuk Sebutan</string>
@@ -3364,7 +3354,7 @@
         <item>Lain-lain</item>
         <item>Pembayaran (MobileCoin)</item>
         <item>Derma &amp; Lencana</item>
-        <item>Signal Android Backup</item>
+        <item>Sandaran Signal Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Penyerahan Log Nyahpepijat Signal Android</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Saya telah menulis frasa laluan tersebut. Saya tidak memulihkan sandaran tanpanya.</string>
     <string name="registration_activity__restore_backup">Memulihkan sandaran</string>
     <string name="registration_activity__transfer_or_restore_account">Pindahkan atau pulihkan akaun</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Pulihkan atau pindahkan</string>
     <string name="registration_activity__transfer_account">Pindahkan akaun</string>
     <string name="registration_activity__skip">Langkau</string>
     <string name="preferences_chats__chat_backups">Sandaran sembang</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Kumpulan</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Hanya mesej daripada sembang kumpulan</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Tambah</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Pelan sandaran media Signal anda telah dibatalkan kerana kami tidak dapat memproses pembayaran anda. Ini adalah peluang terakhir anda untuk memuat turun media dalam sandaran anda sebelum ia dipadamkan.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Kosongkan %1$s pada peranti ini</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Untuk menyelesaikan muat turun Sandaran Signal anda, peranti anda memerlukan %1$s ruang storan.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Untuk mengosongkan ruang, nyahpasang atau padamkan aplikasi yang tidak digunakan atau kandungan yang bersaiz besar.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Langganan sandaran anda gagal diperbaharui</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Bukan sekarang</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Cuba lagi nanti</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Media akan dipadamkan</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Langkau</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Langkau pemulihan?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Jika anda langkau pemulihan, baki media dan lampiran dalam sandaran anda akan dipadamkan pada kali seterusnya peranti anda melengkapkan sandaran baharu.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/bulan · Perbaharui semula %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Tukar atau batalkan langganan</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Sandaran terakhir anda telah dibuat pada %1$s pada %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Ikon peringatan</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Saya mempunyai telefon lama saya</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Imbas kod QR daripada akaun Signal semasa anda untuk bermula dengan cepat</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Saya tidak mempunyai telefon lama saya</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Atau anda memasang semula Signal pada peranti yang sama</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Pulihkan atau pindahkan akaun</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Dapatkan akaun Signal dan sejarah mesej anda ke peranti ini.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Daripada Sandaran Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Pelan Sandaran Signal percuma atau berbayar anda</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Daripada folder sandaran</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Daripada fail sandaran</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Pilih sandaran yang telah anda simpan</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Dari telefon lama anda</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Pindahkan terus dari Android lama anda</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Pulihkan sandaran setempat</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Pulihkan mesej anda daripada sandaran yang disimpan pada peranti anda. Jika anda tidak memulihkan sekarang, anda tidak akan dapat memulihkan kemudian.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Masukkan kunci sandaran anda</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Kunci sandaran anda ialah kod 64 digit yang diperlukan untuk memulihkan akaun dan data anda.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Tiada kunci sandaran?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Kunci sandaran</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Sandaran tidak boleh dipulihkan tanpa kod pemulihan 64 digit mereka. Jika anda kehilangan kunci sandaran, Signal tidak dapat membantu memulihkan sandaran anda.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Jika mempunyai peranti lama anda, anda boleh melihat kunci sandaran dalam Tetapan &gt; Sembang &gt; Sandaran Signal. Kemudian ketik Lihat kunci sandaran.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Ketahui lebih lanjut</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Langkau dan jangan pulihkan</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Imbas kod ini dengan telefon lama anda</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Buka Signal pada peranti lama anda</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Ketik ikon kamera </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Imbas kod ini dengan kamera</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Tidak dapat menjana kod QR</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Diimbas pada peranti lama</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Cuba Semula</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Pindahkan akaun</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Akaun anda akan dipindahkan ke peranti baharu. Peranti ini dapat melihat kumpulan dan kenalan anda, mengakses sembang dan menghantar mesej atas nama anda. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Ketahui lebih lanjut</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Pindahkan akaun</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Mesej dan maklumat sembang dilindungi oleh penyulitan hujung ke hujung pada semua peranti</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Buka kunci untuk memindahkan akaun</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Teruskan pada peranti anda yang lain</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Teruskan memindahkan akaun anda pada peranti anda yang lain.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Restore selesai</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Akaun Signal dan mesej anda telah mula dipindahkan ke peranti anda yang lain. Signal kini tidak aktif pada peranti ini.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Pemindahan selesai</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Akaun Signal dan mesej anda telah dipindahkan ke peranti anda yang lain. Signal kini tidak lagi aktif pada peranti ini.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Okey</string>
+
+
     <!-- EOF -->
 </resources>

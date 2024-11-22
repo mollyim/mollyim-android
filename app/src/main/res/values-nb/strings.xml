@@ -1325,20 +1325,6 @@
     <string name="ManageGroupActivity_more">mer</string>
     <string name="ManageGroupActivity_add_group_description">Legg til gruppebeskrivelse…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Overfør fra Android-enhet</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Overfør kontoen og meldingene fra den gamle Android-enheten din.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Logg inn uten å overføre</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Fortsett uten å overføre meldingene og mediefilene dine</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Gjenopprett lokal sikkerhetskopi</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Gjenopprett meldingene dine fra en sikkerhetskopi lagret lokalt på enheten.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Laster ned sikkerhetskopi …</string>
@@ -1356,12 +1342,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">alle meldingene dine</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Gjenopprett fra sikkerhetskopi</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Dette inkluderer kun mediefiler du har sendt eller mottatt de siste %1$d dagene.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Sikkerhetskopien inneholder:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Gjenopprett sikkerhetskopi</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Den siste sikkerhetskopieringen ble gjort kl. %2$s den %1$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Henter informasjon om sikkerhetskopien …</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Varsle meg om omtaler</string>
@@ -3463,7 +3453,7 @@
         <item>Annet</item>
         <item>Betalinger (MobileCoin)</item>
         <item>Pengebeløp og merker</item>
-        <item>Signal Android Backup</item>
+        <item>Sikkerhetskopiering i Signal for Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Innsending av feilsøkingslogg for Signal på Android</string>
@@ -4304,6 +4294,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Jeg har notert passordfrasen. Uten denne blir det umulig å bruke sikkerhetskopien til gjenoppretting.</string>
     <string name="registration_activity__restore_backup">Gjenopprett fra sikkerhetskopi</string>
     <string name="registration_activity__transfer_or_restore_account">Overfør eller gjenopprett konto</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Gjenopprett eller overfør</string>
     <string name="registration_activity__transfer_account">Overfør konto</string>
     <string name="registration_activity__skip">Hopp over</string>
     <string name="preferences_chats__chat_backups">Sikkerhetskopi av samtaler</string>
@@ -5124,7 +5116,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Gruppesamtaler</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Kun meldinger fra gruppesamtaler</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Legg til</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -6687,7 +6679,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Trykk på «Gå til innstillinger» nedenfor</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Slå på «Tillat innstillingsalarmer og -påminnelser»</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Slå på «Gi tillatelse til å sette alarmer og påminnelser».</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Gå til innstillinger</string>
 
@@ -7426,11 +7418,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Abonnementet ditt på sikkerhetskopiering av mediefiler i Signal er kansellert fordi vi ikke kunne behandle betalingen din. Dette er din siste sjanse til å laste ned de sikkerhetskopierte mediefilene før de slettes.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Du trenger %1$s mer lagringsplass</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Enheten trenger %1$s mer lagringsplass for å kunne laste ned hele sikkerhetskopien fra Signal.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Det kan være lurt å slette eller avinstallere ubrukte apper og store filer for å få mer plass.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Abonnementet på sikkerhetskopiering kunne ikke fornyes</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7458,7 +7450,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Ikke nå</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Prøv senere</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Mediefilene slettes</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7470,9 +7462,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Hopp over</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Vil du hoppe over gjenoppretting?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Hvis du velger å hoppe over, vil resten av mediefilene og vedleggene i sikkerhetskopien din slettes neste gang enheten sikkerhetskopieres.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7528,10 +7520,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s per måned · Fornyes %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Endre eller si opp abonnement</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Den siste sikkerhetskopieringen ble gjort kl. %2$s den %1$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7850,5 +7838,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Påminnelsesikon</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Jeg har den gamle enheten</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Du kan skanne en QR-kode fra Signal-kontoen din for å komme kjapt i gang</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Jeg har ikke den gamle enheten</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Eller du skal installere Signal på nytt på samme enhet</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Gjenopprette eller overføre en konto</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Få tilgang til Signal-kontoen og meldingsloggen din på denne enheten.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Fra Signal-sikkerhetskopi</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Fra abonnementet ditt på sikkerhetskopiering fra Signal</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Fra en nedlastet sikkerhetskopi</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Fra en sikkerhetskopi</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Velg en fil du har lagret tidligere</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Fra den gamle enheten</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Overfør direkte fra den gamle Android-enheten din</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Gjenopprett lokal sikkerhetskopi</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Gjenopprett meldingene dine fra sikkerhetskopien som ble lagret på enheten. Du får ikke mulighet til å gjøre dette senere.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Skriv inn sikkerhetskoden</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Sikkerhetskoden består av 64 tall og kreves for å gjenopprette kontoen og dataene dine.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Mangler du koden?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Sikkerhetskode</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Det er ikke mulig å gjenopprette sikkerhetskopier uten den 64-sifrede koden. Dersom du mister den, kan ikke Signal hjelpe deg med å gjenopprette sikkerhetskopien.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Hvis du har den gamle enheten din, finner du sikkerhetskoden ved å gå til Innstillinger &gt; Samtaler &gt; Sikkerhetskopiering av Signal. Der trykker du på «Se sikkerhetskode».</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Les mer</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Hopp over gjenoppretting</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Skann denne QR-koden med den gamle enheten</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Åpne Signal på den gamle enheten.</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Trykk på kamera-ikonet. </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Skann koden med kameraet.</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR-koden kunne ikke genereres</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Skannet på annen enhet</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Prøv på nytt</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Overfør konto</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Dette innebærer at kontoen din overføres til en annen enhet. Enheten får tilgang til gruppene, kontaktene og samtalene dine og kan sende meldinger i ditt navn. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Les mer</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Overfør konto</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Meldinger og samtaleinnhold beskyttes av ende-til-ende-kryptering på alle enheter</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Lås opp for å overføre kontoen</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Fortsett på den andre enheten</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Fortsett kontooverføringen på den andre enheten.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Gjenoppretting er utført</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Signal-kontoen og meldingene dine overføres til den andre enheten. Signal er nå deaktivert på denne enheten.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Overføring fullført</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Signal-kontoen og meldingene dine ble overført til den andre enheten. Signal er nå deaktivert på denne enheten.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Greit</string>
+
+
     <!-- EOF -->
 </resources>

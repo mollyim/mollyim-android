@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">បន្ថែម</string>
     <string name="ManageGroupActivity_add_group_description">បន្ថែមការពណ៌នាក្រុម…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">ផ្ទេរពីឧបករណ៍ Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">ផ្ទេរគណនី និងសាររបស់អ្នកពីឧបករណ៍ Android ចាស់របស់អ្នក។</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">ចូលដោយមិនចាំបាច់ផ្ទេរ</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">បន្តដោយមិនបាច់ផ្ទេរសារ និងមេឌៀរបស់អ្នក</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">ស្តារការបម្រុងទុកក្នុងឧបករណ៍</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">ស្ដារសាររបស់អ្នកពីឯកសារបម្រុងទុកដែលអ្នកបានរក្សាទុកនៅលើឧបករណ៍របស់អ្នក។</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">កំពុងទាញយកការបម្រុងទុក…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">សារទាំងអស់របស់អ្នក</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">ស្តារចេញពីការបម្រុងទុក</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">មានតែមេឌៀដែលបានផ្ញើ ឬទទួលបានក្នុងរយៈពេល %1$d ថ្ងៃចុងក្រោយប៉ុណ្ណោះដែលត្រូវបានរួមបញ្ចូល។</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">ការបម្រុងទុករបស់អ្នករួមមាន៖</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">ស្តារការបម្រុងទុក</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">ការបម្រុងទុកចុងក្រោយរបស់អ្នកត្រូវបានធ្វើឡើងនៅ %1$s ម៉ោង %2$s។</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">កំពុងទាញយកព័ត៌មានលម្អិតនៃការបម្រុងទុក…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">ជូនដំណឹងខ្ញុំសម្រាប់ការហៅឈ្មោះ</string>
@@ -3364,7 +3354,7 @@
         <item>ផ្សេងៗ</item>
         <item>ការទូទាត់ (MobileCoin)</item>
         <item>ការបរិច្ចាគ និងស្លាក</item>
-        <item>Signal Android Backup</item>
+        <item>ការបម្រុងទុក Signal Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">ការដាក់បញ្ជូនកំណត់ហេតុបញ្ហា Signal Android</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">ខ្ញុំបានកត់ឃ្លាសម្ងាត់ទុកហើយ។ បើគ្មានវា ខ្ញុំនឹងមិនអាចស្តារការបម្រុងទុកបានទេ។</string>
     <string name="registration_activity__restore_backup">ស្តារការបម្រុងទុក</string>
     <string name="registration_activity__transfer_or_restore_account">បញ្ជូន ឬ ស្តារ គណនី</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">ស្តារ ឬផ្ទេរ</string>
     <string name="registration_activity__transfer_account">បញ្ជូនគណនី</string>
     <string name="registration_activity__skip">រំលង</string>
     <string name="preferences_chats__chat_backups">ការបម្រុងទុកការជជែក</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">ក្រុម</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">សម្រាប់តែសារពីការជជែកជាក្រុមប៉ុណ្ណោះ</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">បញ្ចូល</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">គម្រោងបម្រុងទុកមេឌៀ Signal របស់អ្នកត្រូវបានលុបចោល ដោយសារយើងមិនអាចដំណើរការការបង់ប្រាក់របស់អ្នកបាន។ នេះជាឱកាសចុងក្រោយរបស់អ្នកក្នុងការទាញយកមេឌៀនៅក្នុងការបម្រុងទុករបស់អ្នក មុនពេលវាត្រូវបានលុបចោល។</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">បង្កើនទំហំទំនេរ %1$s នៅលើឧបករណ៍នេះ</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">ដើម្បីបញ្ចប់ការទាញយកការបម្រុងទុក Signal ឧបករណ៍របស់អ្នកត្រូវការទំហំផ្ទុក %1$s។</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">ដើម្បីបង្កើនទំហំទំនេរ ឬលុបកម្មវិធីដែលមិនប្រើ ឬខ្លឹមសារដែលមានទំហំឯកសារធំៗ។</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">ការជាវការបម្រុងទុករបស់អ្នកមិនអាចបន្តបានទេ</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">ឥឡូវកុំទាន់</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">ព្យាយាមនៅពេលក្រោយ</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">មេឌៀនឹងត្រូវបានលុបចោល</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">រំលង</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">រំលងការស្តារឡើងវិញ?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">ប្រសិនបើអ្នករំលងការស្ដារឡើងវិញ នោះមេឌៀ និងឯកសារភ្ជាប់ដែលនៅសល់នៅក្នុងការបម្រុងទុករបស់អ្នកនឹងត្រូវបានលុប នៅពេលដែលឧបករណ៍របស់អ្នកបញ្ចប់ការបម្រុងទុកថ្មីនៅលើកក្រោយ។</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7323,7 +7315,7 @@
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">ការស្តារបានបញ្ចប់</string>
     <!-- Status action label for seeing more details about storage space -->
-    <string name="BackupStatus__details">លម្អិត</string>
+    <string name="BackupStatus__details">ព័ត៌មានលម្អិត</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">កំពុងរង់ចាំ Wi-Fi…</string>
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/ខែ · ភ្ជាប់ឡើងវិញ%2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">ផ្លាស់ប្តូរ ឬបោះបង់ការជាវ</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">ការបម្រុងទុកចុងក្រោយរបស់អ្នកត្រូវបានធ្វើឡើងនៅ %1$s ម៉ោង %2$s។</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">រូបក្រើនរំលឹក</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">ខ្ញុំមានទូរសព្ទចាស់របស់ខ្ញុំ</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">ស្គែនកូដ QR ពីគណនី Signal បច្ចុប្បន្នរបស់អ្នកដើម្បីចាប់ផ្តើមបានលឿន</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">ខ្ញុំមិនមានទូរសព្ទចាស់ទេ</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">ឬអ្នកកំពុងដំឡើង Signal ឡើងវិញនៅលើឧបករណ៍តែមួយ</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">ស្តារ ឬផ្ទេរគណនី</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">ទាញគណនី Signal និងប្រវត្តិសាររបស់អ្នកដាក់នៅលើឧបករណ៍នេះ។</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">ពីការបម្រុងទុក Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">គម្រោងបម្រុងទុក Signal ឥតគិតថ្លៃ ឬបង់ប្រាក់របស់អ្នក</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">ពីថតឯកសារបម្រុងទុក</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">ពីឯកសារបម្រុងទុក</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">ជ្រើសរើសការបម្រុងទុកដែលអ្នកបានរក្សាទុក</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">ពីទូរសព្ទចាស់របស់អ្នក</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">ផ្ទេរដោយផ្ទាល់ពីឧបករណ៍ Android ចាស់របស់អ្នក</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">ស្តារការបម្រុងទុកក្នុងឧបករណ៍</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">ស្ដារសាររបស់អ្នកពីការបម្រុងទុកដែលអ្នកបានរក្សាទុកនៅលើឧបករណ៍របស់អ្នក។ ប្រសិនបើអ្នកមិនស្តារឥឡូវនេះទេ អ្នកនឹងមិនអាចស្តារនៅពេលក្រោយបានទេ។</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">បញ្ចូលសោបម្រុងទុករបស់អ្នក</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">សោបម្រុងទុករបស់អ្នកគឺជាលេខកូដ 64 ខ្ទង់ដែលត្រូវការចាំបាច់ដើម្បីស្តារយកគណនី និងទិន្នន័យរបស់អ្នកមកវិញ។</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">គ្មានសោបម្រុងទុកទេ?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">សោបម្រុងទុក</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">ការបម្រុងទុកមិនអាចស្តារបានទេបើវាគ្មានលេខកូដស្តារ 64 ខ្ទង់នោះទេ។ ប្រសិនបើអ្នកបាត់សោបម្រុងទុករបស់អ្នក Signal មិនអាចជួយស្ដារការបម្រុងទុករបស់អ្នកបានទេ។</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">ប្រសិនបើអ្នកមានឧបករណ៍ចាស់ អ្នកអាចមើលសោបម្រុងទុករបស់អ្នកនៅក្នុងការកំណត់ &gt; ការជជែក &gt; ការបម្រុងទុក Signal។ បន្ទាប់មកចុច មើលសោបម្រុងទុក។</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">ស្វែងយល់បន្ថែម</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">រំលង ហើយកុំស្តារ</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">ស្គែនកូដនេះដោយប្រើទូរសព្ទចាស់របស់អ្នក</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">បើក Signal នៅលើឧបករណ៍ចាស់របស់អ្នក</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">ចុចលើរូបកាមេរ៉ា </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">ស្គែនកូដនេះដោយប្រើកាមេរ៉ា</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">មិនអាចបង្កើតកូដ QR បានទេ</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">បានស្គែននៅលើឧបករណ៍ចាស់</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">ព្យាយាមម្តងទៀត</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">ផ្ទេរគណនី</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">គណនីរបស់អ្នកនឹងត្រូវបានផ្ទេរទៅឧបករណ៍ថ្មីមួយ។ ឧបករណ៍នេះនឹងអាចមើលឃើញក្រុម និងទំនាក់ទំនងរបស់អ្នក ចូលទៅការជជែករបស់អ្នក និងផ្ញើសារជាឈ្មោះរបស់អ្នកបាន។ %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">ស្វែងយល់បន្ថែម</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">ផ្ទេរគណនី</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">សារ និងព័ត៌មានជជែកត្រូវបានការពារដោយការអ៊ីនគ្រីបទាំងសងខាងនៅលើឧបករណ៍ទាំងអស់</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">ដោះសោដើម្បីផ្ទេរគណនី</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">បន្តនៅលើឧបករណ៍ផ្សេងទៀតរបស់អ្នក</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">បន្តផ្ទេរគណនីរបស់អ្នកនៅលើឧបករណ៍ផ្សេងទៀតរបស់អ្នក។</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">ការស្តារបានបញ្ចប់</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">គណនី និងសារ Signal របស់អ្នកបានចាប់ផ្តើមផ្ទេរទៅឧបករណ៍ផ្សេងទៀតរបស់អ្នកហើយ។ ឥឡូវនេះ Signal លែងសកម្មនៅលើឧបករណ៍នេះហើយ។</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">ការផ្ទេរបានបញ្ចប់</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">គណនី និងសារ Signal របស់អ្នកត្រូវបានផ្ទេរទៅឧបករណ៍ផ្សេងទៀតរបស់អ្នកហើយ។ ឥឡូវនេះ Signal លែងសកម្មនៅលើឧបករណ៍នេះហើយ។</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">យល់ព្រម</string>
+
+
     <!-- EOF -->
 </resources>

@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">နောက်ထပ်</string>
     <string name="ManageGroupActivity_add_group_description">အဖွဲ့ ဖော်ပြချက် ပေါင်းထည့်ရန်…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android စက်မှ လွှဲပြောင်းမည်</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">သင့်အကောင့်နှင့် မက်ဆေ့ချ်များကို သင့် Android စက်ဟောင်းမှ လွှဲပြောင်းပါ။</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">လွှဲပြောင်းခြင်းမရှိဘဲ ဝင်ရောက်ခြင်း</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">သင့်မက်ဆေ့ချ်များနှင့် မီဒီယာများကို မလွှဲပြောင်းဘဲ ဆက်လက်လုပ်ဆောင်ပါ</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">စက်အတွင်း ဘက်ခ်အပ် ပြုလုပ်ခြင်း</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">သင့်စက်ပေါ်တွင် သင်သိမ်းဆည်းထားသော ဘက်ခ်အပ်ဖိုင်တစ်ခုမှ မက်ဆေ့ချ်များကို ပြန်လည်ရယူပါ။</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">ဘက်ခ်အပ်များကို ဒေါင်းလုဒ်လုပ်နေသည်…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">သင်၏ မက်ဆေ့ချ်များအားလုံး</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">ဘက်ခ်အပ်မှ ပြန်လည်ရယူမည်</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">လွန်ခဲ့သော %1$d ရက်အတွင်း ပေးပို့ထားသည့် သို့မဟုတ် လက်ခံရရှိသည့် မီဒီယာများသာ ပါဝင်ပါသည်။</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">သင့် ဘက်ခ်အပ်တွင် အောက်ပါတို့ပါဝင်သည်-</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">ဘက်ခ်အပ်မှ ပြန်လည်ရယူမည်</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">သင်၏နောက်ဆုံး ဘက်ခ်အပ်ကို %1$s တွင် %2$s အချိန်က ပြုလုပ်ခဲ့သည်။</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">ဘက်ခ်အပ်အသေးစိတ်ကို ရယူနေသည်…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">မန်းရှင်းများရှိလျှင် ကျွန်ုပ်ကိုအသိပေးပါ</string>
@@ -3364,7 +3354,7 @@
         <item>အခြား</item>
         <item>ငွေပေးချေမှုများ (MobileCoin)</item>
         <item>လှူဒါန်းမှုများနှင့် ဘဲ့ဂျ်များ</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android ဘက်ခ်အပ်</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android ပြစ်ချက်မှတ်တမ်း ပေးပို့ခြင်း</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">စကားဝှက်ကို ရေးမှတ်ပြီးပါပြီ။ စကားဝှက်မပါလျှင် အရံသိမ်းထားသောဖိုင်များကို ပြန်မရနိုင်ပါ။</string>
     <string name="registration_activity__restore_backup">အရန်သိမ်းထားသည်များကို ပြန်ရယူမယ်</string>
     <string name="registration_activity__transfer_or_restore_account">အကောင့် လွှဲပြောင်းမယ် သို့ ပြန်လည်ရယူမယ်</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">ပြန်ယူရန် သို့မဟုတ် လွှဲပြောင်းရန်</string>
     <string name="registration_activity__transfer_account">အကောင့်လွှဲမယ်</string>
     <string name="registration_activity__skip">ကျော်ပါ</string>
     <string name="preferences_chats__chat_backups">ချက်(တ်) အရန်သိမ်းဆည်းမှုများ</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">အဖွဲ့များ</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">အဖွဲ့လိုက်ချက်(တ်)မှ မက်ဆေ့ချ်များသာ</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">ပေါင်းထည့်မည်</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">သင့်ငွေပေးချေမှုကို ကျွန်ုပ်တို့ မလုပ်ဆောင်နိုင်ခဲ့သောကြောင့် သင်၏ Signal မီဒီယာ ဘက်ခ်အပ်အစီအစဉ်ကို ပယ်ဖျက်လိုက်ပါသည်။ မဖျက်မီ ဘက်ခ်အပ်လုပ်ထားသော မီဒီယာကို ဒေါင်းလုဒ်လုပ်ရန်အတွက် နောက်ဆုံးအခွင့်အရေးဖြစ်သည်။</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">ဤစက်တွင် နေရာလွတ် %1$s ထွက်လာအောင်ရှင်းထုတ်ပါ</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Signal ဘက်ခ်အပ်ကို ဒေါင်းလုဒ်လုပ်ရန် သင့်စက်တွင် သိုလှောင်ရန်နေရာ %1$s လိုအပ်ပါသည်။</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">နေရာလွတ် ထွက်လာအောင် အသုံးမပြုသော အက်ပ်များ သို့မဟုတ်အရွယ်အစားကြီးသော ဖိုင်များကို Offload လုပ်ရန် သို့မဟုတ် ဖျက်ရန်။</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">သင်၏ ဘက်ခ်အပ် ပုံမှန်လှူဒါန်းငွေ သက်တမ်းတိုးမှု မအောင်မြင်ပါ</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">ယခု မလုပ်သေးပါ</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">နောက်မှ ကြိုးစားကြည့်ပါ</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">မီဒီယာကို ဖျက်လိုက်ပါမည်</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">ကျော်မည်</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">ပြန်လည်ရယူခြင်းကို ကျော်လိုပါသလား။</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">ပြန်လည်ရယူခြင်းကို ကျော်လိုက်ပါက သင့်စက်တွင် ဘက်ခ်အပ်အသစ်တစ်ကြိမ်ပြုလုပ်ပြီးနောက်၌ သင့် ဘက်ခ်အပ်တွင် ကျန်ရှိသည့်မီဒီယာနှင့် ပူးတွဲဖိုင်များအား ဖျက်လိုက်ပါမည်။</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">တစ်လလျှင် %1$s · %2$s တွင် သက်တမ်းတိုးမည်</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">ပုံမှန်လှူဒါန်းငွေကို ပြောင်းရန် သို့မဟုတ် ပယ်ဖျက်ရန်</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">သင်၏နောက်ဆုံး ဘက်ခ်အပ်ကို %1$s တွင် %2$s အချိန်က ပြုလုပ်ခဲ့သည်။</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">သတိပေးချက် သင်္ကေတ</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">ကျွန်ုပ်တွင် ဖုန်းအဟောင်းရှိသည်</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">လျင်မြန်စွာစတင်ရန် သင့် လက်ရှိ Signal အကောင့်မှ QR ကုဒ်တစ်ခုကို စကင်ဖတ်ပါ</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">ကျွန်ုပ်တွင် ဖုန်းအဟောင်းမရှိပါ</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">သို့မဟုတ် သင်သည် ထိုစက်တွင်ပင် Signal ကို ပြန်လည်ထည့်သွင်းနေသည်</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">အကောင့်ကို ပြန်ယူရန် သို့မဟုတ် လွှဲပြောင်းရန်</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">သင်၏ Signal အကောင့်နှင့် မက်ဆေ့ချ်မှတ်တမ်းကို ဤစက်ပေါ်တွင် ရယူရန်</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Signal ဘက်ခ်အပ်မှ</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">သင်၏ အခမဲ့ သို့မဟုတ် အခပေး Signal ဘက်ခ်အပ်အစီစဉ်</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">ဘက်ခ်အပ်ဖိုင်တွဲမှ</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">ဘက်ခ်အပ်ဖိုင်မှ</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">သင်သိမ်းဆည်းထားသော ဘက်ခ်အပ်ကိုရွေးပါ</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">သင့်ဖုန်းအဟောင်းမှ</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">သင်၏ Android အဟောင်းမှ တိုက်ရိုက်လွှဲပြောင်းပါ</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">စက်အတွင်း ဘက်ခ်အပ် ပြုလုပ်ခြင်း</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">သင့်စက်ပေါ်တွင် သင်သိမ်းဆည်းထားသော ဘက်ခ်အပ်မှ မက်ဆေ့ချ်များကို ပြန်လည်ရယူပါ။ ယခု ပြန်လည်မရယူလျှင် နောက်မှပြန်လည်မရယူနိုင်ပါ။</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">သင့် ဘက်ခ်အပ်ကီးကို ထည့်ပါ။</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">သင့် ဘက်ခ်အပ်ကီးသည် သင့်အကောင့်နှင့် ဒေတာကို ပြန်လည်ရယူရန်လိုအပ်သော ဂဏန်း 64 လုံးပါ ကုဒ်တစ်ခုဖြစ်သည်။</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">ဘက်ခ်အပ်ကီး မရှိဘူးလား။</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">သင့် ဘက်ခ်အပ်ကီး</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">ဂဏန်း 64 လုံးရှိသော ပြန်လည်ရယူရေးကုဒ်မပါဘဲ ဘက်ခ်အပ်များကို ပြန်လည်ရယူ၍မရပါ။ သင့် ဘက်ခ်အပ်ကီး ပျောက်ဆုံးသွားပါက သင်၏ဘက်ခ်အပ်ကို ပြန်လည်ရယူနိုင်တော့မည် မဟုတ်ပါ။</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">သင့်စက်အဟောင်းရှိလျှင် ဘက်ခ်အပ်ကီးကို ဆက်တင် &gt; ချက်(တ်) &gt; Signal ဘက်ခ်အပ် တွင် ကြည့်ရှုနိုင်သည်။ ထို့နောက် ဘက်ခ်အပ်ကီးကိုကြည့်ရန် ကိုနှိပ်ပါ။</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">ပိုမိုလေ့လာရန်</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">ကျော်ပြီး ပြန်လည်ရယူခြင်းမပြုပါ</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">သင့်ဖုန်းအဟောင်းဖြင့် ဤကုဒ်ကို စကင်ဖတ်ပါ</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">သင့်စက်အဟောင်းတွင် Signal ကိုဖွင့်ပါ</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">ကင်မရာအိုင်ကွန်ကို နှိပ်ပါ </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">ကင်မရာဖြင့် ဤကုဒ်ကို စကင်ဖတ်ပါ</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR ကုဒ်ကို ပြုလုပ်၍မရပါ</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">စက်အဟောင်းတွင် စကင်ဖတ်ထားသည်</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">ထပ်ကြိုးစားပါ</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">အကောင့်လွှဲပြောင်းမည်</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">သင့်အကောင့်ကို စက်အသစ်တစ်ခုသို့ လွှဲပြောင်းပေးမည်ဖြစ်သည်။ ဤစက်သည် သင့်အဖွဲ့များနှင့် အဆက်အသွယ်များကို မြင်နိုင်မည်ဖြစ်ပြီး၊ သင့်ချက်(တ်)များကို ဝင်ရောက်ကြည့်ရှုကာ သင့်အမည်ဖြင့် မက်ဆေ့ချ်များ ပေးပို့နိုင်မည်ဖြစ်သည်။ %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">ပိုမိုလေ့လာရန်</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">အကောင့်လွှဲပြောင်းမည်</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">စက်အားလုံးရှိ မက်ဆေ့ချ်များနှင့် ချက်(တ်)အချက်အလက်ကို ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ခြင်းဖြင့် ကာကွယ်ထားသည်</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">အကောင့်လွှဲပြောင်းရန် လော့ခ်ဖွင့်ပါ</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">သင့် အခြားစက်ပေါ်တွင် ဆက်လုပ်ရန်</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">သင့်အကောင့်ကို သင့်အခြားစက်ပေါ်တွင် ဆက်လက်လွှဲပြောင်းပါ။</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">ပြန်လည်ရယူခြင်း ပြီးစီးပါပြီ</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">သင်၏ Signal အကောင့်နှင့် မက်ဆေ့ချ်များကို သင့်အခြားစက်သို့ စတင်လွှဲပြောင်းနေပြီဖြစ်သည်။ Signal သည် ဤစက်တွင် အလုပ်မလုပ်တော့ပါ။</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">လွှဲပြောင်းမှု ပြီးဆုံးပြီ</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">သင်၏ Signal အကောင့်နှင့် မက်ဆေ့ချ်များကို သင့်အခြားစက်သို့ လွှဲပြောင်းပြီးပါပြီ။ Signal သည် ဤစက်တွင် အလုပ်မလုပ်တော့ပါ။</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">အိုကေ</string>
+
+
     <!-- EOF -->
 </resources>

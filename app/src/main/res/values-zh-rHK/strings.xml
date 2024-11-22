@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">更多</string>
     <string name="ManageGroupActivity_add_group_description">新增群組描述…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">從 Android 裝置轉移</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">從舊的 Android 裝置轉移你的帳戶和訊息。</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">登入而不作轉移</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">不轉移訊息及媒體並繼續</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">還原本機備份</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">從你儲存在裝置上的備份檔案還原訊息。</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">正在下載備份…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">所有你的訊息</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">從備份還原</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">只包含過去 %1$d 天內發送或接收的媒體。</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">你的備份包括：</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">備份還原</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">你上次備份是在 %1$s 的 %2$s 進行的。</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">正在擷取備份詳細資訊…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">通知我有關提及</string>
@@ -3364,7 +3354,7 @@
         <item>其他</item>
         <item>付款 (MobileCoin)</item>
         <item>捐款及徽章</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android 備份</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android 除錯日誌提交</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">我已寫下此密碼。若然遺失，我將會無法還原備份。</string>
     <string name="registration_activity__restore_backup">備份還原</string>
     <string name="registration_activity__transfer_or_restore_account">轉移或還原帳戶</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">還原或轉移</string>
     <string name="registration_activity__transfer_account">轉移帳戶</string>
     <string name="registration_activity__skip">略過</string>
     <string name="preferences_chats__chat_backups">聊天備份</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">群組</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">只有群組聊天的訊息</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">新增</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -6535,7 +6527,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">點按下方的「前往設定」按鈕</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">開啟「允許設定鬧鐘及提醒」</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">開啟「允許設定鬧鐘及提醒。」</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">前往設定</string>
 
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">由於我們無法處理你的付款，你的 Signal 媒體備份計畫已被取消。若要下載備份內的媒體，這是刪除備份之前的最後機會。</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">在此裝置上釋放 %1$s</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">要完成下載 Signal 備份，你的裝置需要 %1$s 的儲存空間。</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">要釋放儲存空間，請卸載或刪除未使用的應用程式，或檔案較大的內容。</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">你的備份定期贊助無法續訂</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">現在不要</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">請稍後嘗試</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">媒體將被刪除</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">略過</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">要跳過還原嗎？</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">如果你跳過還原，備份內尚餘的媒體和附件將在你的裝置下次完成新備份時被刪除。</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/月 · %2$s 續期</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">更改或取消定期贊助</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">你上次備份是在 %1$s 的 %2$s 進行的。</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">提醒圖示</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">我有我的舊手機</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">從你目前的 Signal 帳戶掃描二維碼以快速開始使用</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">我沒有我的舊手機</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">或者你正在同一裝置上重新安裝 Signal</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">還原或轉移帳戶</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">將你的 Signal 帳戶和訊息紀錄載入此裝置。</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">從 Signal 備份</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">你的免費或付費 Signal 備份計畫</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">從備份資料夾</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">從備份檔案</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">選擇你已儲存的備份</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">從你的舊手機</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">直接從舊的 Android 手機轉移</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">還原本機備份</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">從你儲存在裝置的備份中還原你的訊息。若你現在不還原，之後將無法還原。</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">輸入你的備份金鑰</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">你的備份金鑰是恢復你帳戶和資料所需的一組 64 位數的代碼。</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">沒有備份金鑰？</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">備份金鑰</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">如果沒有 64 位數的恢復代碼，則無法還原備份。如果你遺失了備份金鑰，Signal 將會無法幫助還原備份。</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">如果你有舊裝置，則可以在「設定」 &gt; 「聊天」 &gt; 「Signal 備份」中檢視備份金鑰。然後輕按檢視備份金鑰。</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">了解更多</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">跳過並不還原</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">使用舊手機掃描此二維碼</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">在你的舊裝置開啟 Signal</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">輕按相機圖示 </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">使用相機掃描此二維碼</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">無法產生二維碼</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">已在舊的裝置上掃瞄</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">重試</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">轉移帳戶</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">你的帳戶將轉移到新裝置。此裝置可查看你的群組和聯絡人、存取你的聊天，以及以你的名義傳送訊息。%1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">了解更多</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">轉移帳戶</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">所有裝置上的訊息和聊天資訊均受端對端加密的保護</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">解鎖以轉移帳戶</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">在你的另一部裝置上繼續</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">在另一部裝置上繼續轉移你的帳戶。</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">還原完成</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">你的 Signal 帳戶和訊息已開始轉移到另一部裝置。此裝置上的 Signal 現在已停用。</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">轉移完成</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">你的 Signal 帳戶和訊息已轉移到另一部裝置。此裝置上的 Signal 現在已停用。</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">確定</string>
+
+
     <!-- EOF -->
 </resources>

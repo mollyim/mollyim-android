@@ -52,6 +52,7 @@ class RemoteConfig_StaticValuesTest {
       "libSignalWebSocketEnabled",
       "restoreAfterRegistration",
       "libSignalWebSocketShadowingPercentage",
+      "linkAndSync",
       "CRASH_PROMPT_CONFIG",
       "PROMPT_BATTERY_SAVER",
       "PROMPT_FOR_NOTIFICATION_LOGS",

@@ -1325,20 +1325,6 @@
     <string name="ManageGroupActivity_more">ਹੋਰ</string>
     <string name="ManageGroupActivity_add_group_description">ਗਰੁੱਪ ਦੀ ਜਾਣਕਾਰੀ ਜੋੜੋ…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android ਡਿਵਾਈਸ ਤੋਂ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">ਆਪਣੇ ਪੁਰਾਣੇ Android ਡਿਵਾਈਸ ਤੋਂ ਆਪਣਾ ਖਾਤਾ ਅਤੇ ਸੁਨੇਹੇ ਟ੍ਰਾਂਸਫਰ ਕਰੋ।</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਬਿਨਾਂ ਲੌਗ ਇਨ ਕਰੋ</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">ਆਪਣੇ ਸੁਨੇਹੇ ਅਤੇ ਮੀਡੀਆ ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਬਿਨਾਂ ਜਾਰੀ ਰੱਖੋ</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">ਸਥਾਨਕ ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">ਇੱਕ ਬੈਕਅੱਪ ਫ਼ਾਈਲ ਤੋਂ ਆਪਣੇ ਸੁਨੇਹਿਆਂ ਨੂੰ ਰੀਸਟੋਰ ਕਰੋ ਜੋ ਤੁਸੀਂ ਆਪਣੇ ਡਿਵਾਈਸ \'ਤੇ ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਸੀ।</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">ਬੈਕਅੱਪ ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
@@ -1356,12 +1342,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">ਤੁਹਾਡੇ ਸਾਰੇ ਸੁਨੇਹੇ</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">ਬੈਕਅੱਪ ਤੋਂ ਰੀਸਟੋਰ ਕਰੋ</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">ਸਿਰਫ਼ ਪਿਛਲੇ %1$d ਦਿਨਾਂ ਵਿੱਚ ਭੇਜਿਆ ਜਾਂ ਪ੍ਰਾਪਤ ਹੋਇਆ ਮੀਡੀਆ ਸ਼ਾਮਲ ਹੈ।</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">ਤੁਹਾਡਾ ਆਖਰੀ ਬੈਕਅੱਪ %1$s ਨੂੰ %2$s ਲਿਆ ਗਿਆ ਸੀ।</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">ਬੈਕਅੱਪ ਦੇ ਵੇਰਵੇ ਪ੍ਰਾਪਤ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">ਹਵਾਲਿਆਂ ਲਈ ਮੈਨੂੰ ਸੂਚਿਤ ਕਰੋ</string>
@@ -3460,10 +3450,10 @@
         <item>ਫੀਚਰ ਲਈ ਬੇਨਤੀ</item>
         <item>ਸਵਾਲ</item>
         <item>ਫੀਡਬੈਕ</item>
-        <item>ਹੋਰ</item>
+        <item>ਕੁਝ ਹੋਰ</item>
         <item>ਭੁਗਤਾਨ (MobileCoin)</item>
         <item>ਦਾਨ ਅਤੇ ਬੈਜ</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android ਬੈਕਅੱਪ</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android ਡੀਬੱਗ ਲੌਗ ਸਪੁਰਦਗੀ</string>
@@ -4304,6 +4294,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">ਮੈਂ ਇਹ ਪਾਸਫ਼੍ਰੇਜ਼ ਲਿੱਖ ਲਿਆ ਹੈ. ਇਸ ਤੋਂ ਬਿਨਾਂ, ਮੈਂ ਬੈਕਅੱਪ ਨੂੰ ਰੀਸਟੋਰ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ ਹੋਵਾਂਗਾ.</string>
     <string name="registration_activity__restore_backup">ਬੈਕਅਪ ਬਹਾਲ ਕਰੋ</string>
     <string name="registration_activity__transfer_or_restore_account">ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰੋ ਜਾਂ ਬਹਾਲ ਕਰੋ</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">ਰੀਸਟੋਰ ਜਾਂ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
     <string name="registration_activity__transfer_account">ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
     <string name="registration_activity__skip">ਛੱਡੋ</string>
     <string name="preferences_chats__chat_backups">ਚੈਟ ਬੈਕਅਪ</string>
@@ -5124,7 +5116,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">ਗਰੁੱਪ</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">ਸਿਰਫ਼ ਗਰੁੱਪ ਚੈਟ ਦੇ ਸੁਨੇਹੇ</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">ਸ਼ਾਮਲ ਕਰੋ</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7426,11 +7418,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">ਤੁਹਾਡਾ Signal ਮੀਡੀਆ ਬੈਕਅੱਪ ਪਲਾਨ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿਉਂਕਿ ਅਸੀਂ ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਨਹੀਂ ਕਰ ਸਕੇ। ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਵਿੱਚ ਮੌਜੂਦ ਮੀਡੀਆ ਮਿਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਇਸਨੂੰ ਡਾਊਨਲੋਡ ਕਰਨ ਦਾ ਇਹ ਤੁਹਾਡਾ ਕੋਲ ਆਖਰੀ ਮੌਕਾ ਹੈ।</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">ਇਸ ਡਿਵਾਈਸ \'ਤੇ %1$s ਖਾਲੀ ਕਰੋ</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">ਤੁਹਾਡੇ Signal ਬੈਕਅੱਪ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰਨਾ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਡਿਵਾਈਸ ਵਿੱਚ %1$s ਸਟੋਰੇਜ ਥਾਂ ਲੋੜੀਂਦੀ ਹੈ।</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">ਥਾਂ ਖਾਲੀ ਕਰਨ ਲਈ, ਵਰਤੀਆਂ ਨਾ ਜਾਣ ਵਾਲੀਆਂ ਐਪਾਂ ਜਾਂ ਵੱਡੇ ਆਕਾਰ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਔਫਲੋਡ ਕਰੋ ਜਾਂ ਮਿਟਾਓ।</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਰੀਨਿਊ ਕਰਨਾ ਅਸਫਲ ਰਿਹਾ</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7458,7 +7450,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">ਹਾਲੇ ਨਹੀਂ</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">ਬਾਅਦ ਵਿੱਚ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">ਮੀਡੀਆ ਮਿਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7470,9 +7462,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">ਛੱਡੋ</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">ਕੀ ਰੀਸਟੋਰ ਕਰਨਾ ਛੱਡਣਾ ਹੈ?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">ਜੇਕਰ ਤੁਸੀਂ ਰੀਸਟੋਰ ਕਰਨਾ ਛੱਡ ਦਿੰਦੇ ਹੋ, ਤਾਂ ਅਗਲੀ ਵਾਰ ਜਦੋਂ ਤੁਹਾਡਾ ਡਿਵਾਈਸ ਇੱਕ ਨਵਾਂ ਬੈਕਅੱਪ ਪੂਰਾ ਕਰੇਗਾ ਤਾਂ ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਵਿੱਚ ਬਾਕੀ ਬਚੇ ਮੀਡੀਆ ਅਤੇ ਅਟੈਚਮੈਂਟ ਨੂੰ ਮਿਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ।</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7528,10 +7520,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/ਮਹੀਨਾ · ਰੀਨਿਊ ਹੋਣ ਦੀ ਮਿਤੀ %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਬਦਲੋ ਜਾਂ ਰੱਦ ਕਰੋ</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">ਤੁਹਾਡਾ ਆਖਰੀ ਬੈਕਅੱਪ %1$s ਨੂੰ %2$s ਲਿਆ ਗਿਆ ਸੀ।</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7850,5 +7838,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">ਰੀਮਾਈਂਡਰ ਆਈਕਨ</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">ਮੇਰੇ ਕੋਲ ਮੇਰਾ ਪੁਰਾਣਾ ਫ਼ੋਨ ਹੈ</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">ਫਟਾਫਟ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਆਪਣੇ ਮੌਜੂਦਾ Signal ਖਾਤੇ ਤੋਂ QR ਕੋਡ ਸਕੈਨ ਕਰੋ</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">ਮੇਰੇ ਕੋਲ ਮੇਰਾ ਪੁਰਾਣਾ ਫ਼ੋਨ ਨਹੀਂ ਹੈ</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">ਜਾਂ ਤੁਸੀਂ ਉਸੇ ਡਿਵਾਈਸ \'ਤੇ Signal ਨੂੰ ਮੁੜ ਇੰਸਟਾਲ ਕਰ ਰਹੇ ਹੋ</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">ਖਾਤਾ ਰੀਸਟੋਰ ਕਰੋ ਜਾਂ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">ਇਸ ਡਿਵਾਈਸ \'ਤੇ ਆਪਣਾ Signal ਖਾਤਾ ਅਤੇ ਪੁਰਾਣੇ ਸੁਨੇਹੇ ਪ੍ਰਾਪਤ ਕਰੋ।</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Signal ਬੈਕਅੱਪ ਤੋਂ</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">ਤੁਹਾਡੀ ਮੁਫ਼ਤ ਜਾਂ ਭੁਗਤਾਨਸ਼ੁਦਾ Signal ਬੈਕਅੱਪ ਪਲਾਨ</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">ਬੈਕਅੱਪ ਫੋਲਡਰ ਤੋਂ</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">ਬੈਕਅੱਪ ਫ਼ਾਈਲ ਤੋਂ</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">ਆਪਣੇ ਸੇਵ ਕੀਤੇ ਬੈਕਅੱਪ ਨੂੰ ਚੁਣੋ</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">ਆਪਣੇ ਪੁਰਾਣੇ ਫ਼ੋਨ ਤੋਂ</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">ਸਿੱਧਾ ਆਪਣੇ ਪੁਰਾਣੇ Android ਡਿਵਾਈਸ ਤੋਂ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">ਲੋਕਲ ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">ਆਪਣੇ ਡਿਵਾਈਸ \'ਤੇ ਸੇਵ ਕੀਤੇ ਬੈਕਅੱਪ ਵਿੱਚੋਂ ਆਪਣੇ ਸੁਨੇਹਿਆਂ ਨੂੰ ਰੀਸਟੋਰ ਕਰੋ। ਜੇਕਰ ਤੁਸੀਂ ਹੁਣੇ ਰੀਸਟੋਰ ਨਹੀਂ ਕਰਦੇ ਹੋ, ਤਾਂ ਤੁਸੀਂ ਬਾਅਦ ਵਿੱਚ ਰੀਸਟੋਰ ਨਹੀਂ ਕਰ ਸਕੋਗੇ।</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">ਆਪਣੀ ਬੈਕਅੱਪ ਕੁੰਜੀ ਦਰਜ ਕਰੋ</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਕੁੰਜੀ ਤੁਹਾਡੇ ਖਾਤੇ ਅਤੇ ਡਾਟਾ ਨੂੰ ਰਿਕਵਰ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ 64-ਅੰਕਾਂ ਵਾਲਾ ਕੋਡ ਹੈ।</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">ਤੁਹਾਡੇ ਕੋਲ ਬੈਕਅੱਪ ਕੁੰਜੀ ਨਹੀਂ ਹੈ?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">ਬੈਕਅੱਪ ਕੁੰਜੀ</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">ਉਹਨਾਂ ਦੇ 64-ਅੰਕਾਂ ਦੇ ਰਿਕਵਰੀ ਕੋਡ ਤੋਂ ਬਿਨਾਂ ਬੈਕਅੱਪ ਰਿਕਵਰ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੀ ਬੈਕਅੱਪ ਕੁੰਜੀ ਗੁਆ ਦਿੱਤੀ ਹੈ ਤਾਂ Signal ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਨੂੰ ਰੀਸਟੋਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਨਹੀਂ ਕਰ ਸਕਦਾ।</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">ਜੇਕਰ ਤੁਹਾਡੇ ਕੋਲ ਤੁਹਾਡਾ ਪੁਰਾਣੀ ਡਿਵਾਈਸ ਹੈ ਤਾਂ ਤੁਸੀਂ ਸੈਟਿੰਗਾਂ &gt; ਚੈਟ &gt; Signal ਬੈਕਅੱਪ ਵਿੱਚ ਆਪਣੀ ਬੈਕਅੱਪ ਕੁੰਜੀ ਦੇਖ ਸਕਦੇ ਹੋ। ਫਿਰ ਬੈਕਅੱਪ ਕੁੰਜੀ ਦੇਖੋ \'ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">ਹੋਰ ਜਾਣੋ</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">ਛੱਡੋ ਅਤੇ ਰੀਸਟੋਰ ਨਾ ਕਰੋ</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">ਆਪਣੇ ਪੁਰਾਣੇ ਫ਼ੋਨ ਨਾਲ ਇਸ ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰੋ</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">ਆਪਣੇ ਪੁਰਾਣੇ ਡਿਵਾਈਸ \'ਤੇ Signal ਖੋਲ੍ਹੋ</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">ਕੈਮਰਾ ਆਈਕਨ \'ਤੇ ਟੈਪ ਕਰੋ </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">ਕੈਮਰੇ ਨਾਲ ਇਸ ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰੋ</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR ਕੋਡ ਬਣਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ ਰਹੇ</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">ਪੁਰਾਣੇ ਡਿਵਾਈਸ \'ਤੇ ਸਕੈਨ ਕੀਤਾ ਗਿਆ</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">ਤੁਹਾਡਾ ਖਾਤਾ ਇੱਕ ਨਵੇਂ ਡਿਵਾਈਸ \'ਤੇ ਟ੍ਰਾਂਸਫਰ ਕੀਤਾ ਜਾਵੇਗਾ। ਇਸ ਡਿਵਾਈਸ \'ਤੇ ਤੁਹਾਡੇ ਗਰੁੱਪਾਂ ਅਤੇ ਸੰਪਰਕਾਂ ਨੂੰ ਦੇਖਿਆ ਜਾ ਸਕਦਾ ਹੈ, ਤੁਹਾਡੀਆਂ ਚੈਟਾਂ ਤੱਕ ਪਹੁੰਚ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ ਅਤੇ ਤੁਹਾਡੇ ਨਾਮ ਨਾਲ ਸੁਨੇਹੇ ਭੇਜੇ ਜਾ ਸਕਦੇ ਹਨ। %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">ਹੋਰ ਜਾਣੋ</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰੋ</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">ਸੁਨੇਹੇ ਅਤੇ ਚੈਟ ਦੀ ਜਾਣਕਾਰੀ ਸਾਰੇ ਡਿਵਾਈਸਾਂ ਉੱਤੇ ਸਿਰੇ-ਤੋਂ-ਸਿਰੇ ਤੱਕ ਇਨਕ੍ਰਿਪਸ਼ਨ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੁੰਦੀ ਹੈ</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰਨ ਲਈ ਅਨਲੌਕ ਕਰੋ</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">ਆਪਣੇ ਦੂਜੇ ਡਿਵਾਈਸ \'ਤੇ ਜਾਰੀ ਰੱਖੋ</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">ਆਪਣੇ ਦੂਜੇ ਡਿਵਾਈਸ \'ਤੇ ਆਪਣਾ ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰਨਾ ਜਾਰੀ ਰੱਖੋ।</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">ਰੀਸਟੋਰ ਕਰਨ ਦਾ ਕਾਰਜ ਪੂਰਾ ਹੋਇਆ</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">ਤੁਹਾਡੇ Signal ਖਾਤੇ ਅਤੇ ਸੁਨੇਹਿਆਂ ਨੂੰ ਤੁਹਾਡੇ ਦੂਜੇ ਡਿਵਾਈਸ \'ਤੇ ਟ੍ਰਾਂਸਫਰ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ। Signal ਹੁਣ ਇਸ ਡਿਵਾਈਸ \'ਤੇ ਅਕਿਰਿਆਸ਼ੀਲ ਹੈ।</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">ਟ੍ਰਾਂਸਫਰ ਪੂਰਾ ਹੋਇਆ</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">ਤੁਹਾਡੇ Signal ਖਾਤੇ ਅਤੇ ਸੁਨੇਹਿਆਂ ਨੂੰ ਤੁਹਾਡੇ ਦੂਜੇ ਡਿਵਾਈਸ \'ਤੇ ਟ੍ਰਾਂਸਫਰ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ। Signal ਹੁਣ ਇਸ ਡਿਵਾਈਸ \'ਤੇ ਅਕਿਰਿਆਸ਼ੀਲ ਹੈ।</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">ਠੀਕ ਹੈ</string>
+
+
     <!-- EOF -->
 </resources>

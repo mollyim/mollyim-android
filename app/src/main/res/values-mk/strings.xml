@@ -1325,20 +1325,6 @@
     <string name="ManageGroupActivity_more">повеќе</string>
     <string name="ManageGroupActivity_add_group_description">Додадете опис на групата…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Префрли од Android уред</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Пренесете ги вашата корисничка сметка и историјата на пораки од вашиот стар Android уред.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Најавете се без пренос</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Продолжете без пренос на вашите пораки и медиумски датотеки</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Вратете податоци од локална резервна копија</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Вратете ги вашите пораки од резервна копија сочувана на вашиот уред.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Се презема резервнатата копија…</string>
@@ -1356,12 +1342,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Сите ваши пораки</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Врати од резервна копија</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Вклучени се само медиумските датотеки кои биле испратени или примени во последните %1$d дена.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Вашата резервна копија ги вклучува:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Обнови последна копија</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Вашата последна резервна копија беше направена на %1$s во %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Се преземаат деталите за резервната копија…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Извести кога некој ќе ме спомне</string>
@@ -3463,7 +3453,7 @@
         <item>Друго</item>
         <item>Плаќања (MobileCoin)</item>
         <item>Донации и беџови</item>
-        <item>Signal Android Backup</item>
+        <item>Резервна копија на Signal Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Поднесување запис за отстранување грешки на Signal за Android</string>
@@ -4304,6 +4294,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ја запишав оваа лозинка. Без неа нема да можам да ја вратам резервната копија.</string>
     <string name="registration_activity__restore_backup">Обнови последна копија</string>
     <string name="registration_activity__transfer_or_restore_account">Префрли или поврати сметка</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Вратете или пренесете</string>
     <string name="registration_activity__transfer_account">Префрли сметка</string>
     <string name="registration_activity__skip">Прескокни</string>
     <string name="preferences_chats__chat_backups">Резервни копии на разговори</string>
@@ -5124,7 +5116,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Групи</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Само пораки од групни разговори</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Додај</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -6687,7 +6679,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Допрете на копчето „Оди во поставувањата“ подолу</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Вклучете ја опцијата „Овозможи известувања и потсетувања за поставувањата“.</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Вклучете ја опцијата „Овозможи известувања и потсетувања за поставувањето“.</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Оди во поставувањата</string>
 
@@ -7426,11 +7418,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Вашиот претплатен пакет на резервни копии за медиумски датотеки на Signal е откажан зашто не можевме да го обработиме вашето плаќање. Ова ви е последна можност да ги преземете медиумските датотеки од вашата резервна копија пред да се избришат.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Ослободете %1$s на овој уред</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">За да се заврши преземањето на вашата Signal резервна копија, потребен е простор за складирање од %1$s на вашиот уред.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">За да ослбодите простор, отстранете ги или избришете ги апликациите кои не ги користите или датотеките кои зафаќаат голем простор.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Вашата претплата на резервни копии не успеа да се обнови</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7458,7 +7450,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Не сега</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Обидете се подоцна</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Медиумските датотеки ќе бидат избришани</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7470,9 +7462,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Прескокни</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Да се прескокне враќањето?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Ако го прескокнете враќањето, преостанатите медиумските датотеки и прилози во вашата резервна копија ќе бидат избришани следниот пат кога вашиот уред ќе прави нова резервна копија.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7528,10 +7520,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/месец · Се обновува на %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Сменете ја или откажете ја претплатата</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Вашата последна резервна копија беше направена на %1$s во %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7850,5 +7838,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Икона за потсетник</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Го имам мојот стар телефон</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Скенирајте QR-код од вашата тековна корисничка сметка на Signal за да започнете брзо</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Го немам мојот стар телефон</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Или ако реинсталирате Signal на истиот уред</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Вратете или пренесете ја вашата корисничка сметка</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Пренесете ја вашата Signal корисничка сметка и историјата на пораки на овој уред.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Од Signal резервни копии</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Вашиот бесплатен или платен пакет на резервни копии</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Од папка за резервни копии</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Од резервна копија</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Изберете резервна копија што сте ја зачувале</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Од вашиот стар телефон</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Пренесете директно од вашиот стар Android</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Вратете податоци од локална резервна копија</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Вратете ги вашите пораки од резервната копија сочувана на вашиот уред. Ако не ги вратите сега нема да можете да го направите тоа подоцна.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Внесете го вашиот клуч за резервни копии</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Вашиот клуч за резервни копии е код од 64 цифри којшто ви помага да си ги вратите корисничката сметка и податоците.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Немате клуч за резервни копии?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Клуч за резервни копии</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Резервните копии не може да се вратат без нивниот код за враќање од 64 цифри. Ако го имате изгубено вашиот клуч за резервни копии, Signal не може да ви помогне да си ја вратите резервната копија.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Ако го имате вашиот стар уред можете да го видите вашиот клуч за резервни копии во Поставувања &gt; Разговори &gt; Signal резервни копии. Потоа допрете на „Види го клучот за резервни копии“.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Дознајте повеќе</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Прескокнете и не враќајте</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Скенирајте го овој код со вашиот стар телефон</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Отворете го Signal на вашиот стар уред</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Допрете ја иконата на камерата </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Скенирајте го овој код со камерата</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Не може да се генерира QR-код</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Скенирано на стар уред</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Обидете се повторно</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Префрли сметка</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Вашата корисничка сметка ќе биде пренесена на нов уред. Овој уред ќе може да ги види вашите групи и контакти, да има пристап до вашите разговори и да испраќа пораки во ваше име. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Дознајте повеќе</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Префрли сметка</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Пораките и информациите за разговорите се заштитени со целосно шифрирање на сите уреди</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Отклучете за да ја пренесете корисничката сметка</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Продолжете на вашиот друг уред</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Продолжете со пренесување на вашата корисничка сметка на другиот уред.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Враќањето е завршено</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Вашата Signal корисничка сметка и пораките почнаа да се пренесуваат на другиот ваш уред. Signal сега е неактивен на овој уред.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Трансферот е завршен</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Вашата Signal корисничка сметка и пораките беа пренесени на другиот ваш уред. Signal сега е неактивен на овој уред.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Во ред</string>
+
+
     <!-- EOF -->
 </resources>

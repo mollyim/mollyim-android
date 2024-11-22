@@ -18,11 +18,11 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1484
-val canonicalVersionName = "7.24.2"
+val canonicalVersionCode = 1487
+val canonicalVersionName = "7.25.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
-val mollyRevision = 2
+val mollyRevision = 1
 
 val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
@@ -83,7 +83,6 @@ android {
   ndkVersion = signalNdkVersion
 
   flavorDimensions += listOf("environment", "license", "distribution")
-  useLibrary("org.apache.http.legacy")
   testBuildType = "instrumentation"
 
   android.bundle.language.enableSplit = false
@@ -491,7 +490,6 @@ dependencies {
   implementation(libs.molly.ringrtc)
   implementation(libs.leolin.shortcutbadger)
   implementation(libs.emilsjolander.stickylistheaders)
-  implementation(libs.apache.httpclient.android)
   implementation(libs.glide.glide)
   implementation(libs.roundedimageview)
   implementation(libs.materialish.progress)

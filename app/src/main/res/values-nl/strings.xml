@@ -1325,20 +1325,6 @@
     <string name="ManageGroupActivity_more">meer</string>
     <string name="ManageGroupActivity_add_group_description">Voeg een groepsomschrijving toe…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Overzetten vanaf een Android-apparaat</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Zet je account en berichten over van je oude iOS-apparaat.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Inloggen zonder overzetten</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Ga door zonder je berichten en media over te zetten</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Lokale back-upgegevens terugzetten</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Herstel je berichten vanaf een back-upbestand dat je op je apparaat hebt opgeslagen.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Back-up aan het downloaden…</string>
@@ -1356,12 +1342,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Al je berichten</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Gegevens vanuit een back-up terugzetten</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Uitsluitend media die in de afgelopen %1$d dagen zijn verzonden of ontvangen, zijn inbegrepen.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Je back-up omvat:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Back-upgegevens terugzetten</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">De laatste back-up is gemaakt op %1$s om %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Back-upgegevens aan het ophalen…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Meldingen bij vermeldingen</string>
@@ -3457,13 +3447,13 @@
     <string-array name="HelpFragment__categories_6">
         <item>Selecteer een optie</item>
         <item>Er werkt iets niet goed</item>
-        <item>Verzoek voor nieuwe functie</item>
+        <item>Verzoek nieuwe functie</item>
         <item>Vraag</item>
         <item>Feedback</item>
         <item>Anders</item>
         <item>Betalingen (MobileCoin)</item>
         <item>Donaties &amp; badges</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android back-up</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android-foutopsporingslog ingediend</string>
@@ -3611,7 +3601,7 @@
     <!-- Cancelling the operation of changing the app icon. -->
     <string name="preferences__app_icon_dialog_cancel">Annuleren</string>
     <!-- Title for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_title">Wijzig het app-pictogram en de naam in %1$s</string>
+    <string name="preferences__app_icon_dialog_title">Wijzig het app-pictogram en de naam in  ’%1$s’</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_description">Molly moet worden gesloten om het app-pictogram en de naam te wijzigen. Meldingen geven altijd het standaard Molly-pictogram en de standaard app-naam weer.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
@@ -4304,6 +4294,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ik heb dit wachtwoord opgeschreven. Zonder dit wachtwoord kan ik back-ups niet gebruiken om gegevens terug te zetten.</string>
     <string name="registration_activity__restore_backup">Back-upgegevens terugzetten</string>
     <string name="registration_activity__transfer_or_restore_account">Account overzetten of herstellen</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Herstellen of overzetten</string>
     <string name="registration_activity__transfer_account">Account overzetten</string>
     <string name="registration_activity__skip">Overslaan</string>
     <string name="preferences_chats__chat_backups">Back-up van chats</string>
@@ -5124,7 +5116,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Groepen</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Alleen berichten van groepschats</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Toevoegen</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7076,7 +7068,7 @@
     <!-- Shown during empty state -->
     <string name="CallLogFragment__get_started_by_calling_a_friend">Begin door een contact te bellen.</string>
     <!-- Displayed as a message in a dialog when deleting multiple items -->
-    <string name="CallLogFragment__call_links_youve_created">Oproeplinks die je hebt gemaakt, zullen niet langer werken voor personen die ze al hebben ontvangen.</string>
+    <string name="CallLogFragment__call_links_youve_created">Oproeplinks die jij hebt gemaakt, zullen niet langer werken voor personen die ze al hebben ontvangen.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -7426,11 +7418,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Je mediaback-upabonnement in Signal is stopgezet omdat we je betaling niet konden verwerken. Dit is de laatste mogelijkheid om de media in je back-up te downloaden voordat deze worden verwijderd.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Maak %1$s vrij op dit apparaat</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Om het downloaden van je Signal back-up te voltooien, heeft je apparaat %1$s opslagruimte nodig.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Om ruimte vrij te maken, kun je ongebruikte apps of grote bestanden verwijderen.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Je back-upabonnement kon niet worden verlengd</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7458,7 +7450,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Niet nu</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Later proberen</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Media worden verwijderd</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7470,9 +7462,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Overslaan</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Herstel overslaan?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Als je herstellen overslaat, worden de resterende media en bijlagen in je back-up verwijderd de volgende keer dat je apparaat een back-up voltooit.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7528,10 +7520,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/maand · Wordt %2$s vernieuwd</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Abonnement wijzigen of opzeggen</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">De laatste back-up is gemaakt op %1$s om %2$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7850,5 +7838,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Herinneringspictogram</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Ik heb mijn oude telefoon</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Scan een QR-code met je oude telefoon om snel aan de slag te gaan</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Ik heb mijn oude telefoon niet</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Of je installeert Signal opnieuw op hetzelfde apparaat</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Account herstellen of overzetten</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Zet je Signal-account en chatgeschiedenis op dit apparaat.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Vanaf Signal back-ups</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Je gratis of betaalde Signal backup-abonnement</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Vanaf een back-upmap</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Vanaf een back-upbestand</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Selecteer een back-up die je hebt opgeslagen</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Vanaf je oude telefoon</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Zet rechtstreeks over vanaf je oude Android-apparaat</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Lokale back-upgegevens terugzetten</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Herstel je berichten vanaf de back-up die je op je apparaat hebt opgeslagen. Als je nu niet herstelt, is dat op een later moment niet meer mogelijk.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Voer je back-upsleutel in</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Je back-upsleutel is een 64-cijferige code die je nodig hebt om je account en gegevens te herstellen.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Geen back-upsleutel?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Back-upsleutel</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Back-ups kunnen niet worden hersteld zonder de 64-cijferige herstelcode. Als je de back-upsleutel kwijt bent, kan Signal je niet helpen je back-up te herstellen.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Op je oude apparaat kun je de back-upsleutel bekijken in Instellingen &gt; Chats &gt; Signal back-ups. Tik vervolgens op Back-upsleutel weergeven.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Meer lezen</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Overslaan en niet herstellen</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Scan deze code met je oude telefoon</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Open Signal op je oude apparaat</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Tik op het camerapictogram </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Scan deze code met de camera</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Kan geen QR-code genereren</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Gescand op oud apparaat</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Opnieuw proberen</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Account overzetten</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Je account wordt overgezet naar een nieuw apparaat. Dit apparaat zal je groepen en contacten kunnen inzien, toegang krijgen tot je chats en berichten uit jouw naam kunnen versturen. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Meer lezen</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Account overzetten</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Berichten en chatgegevens worden beschermd door end-to-end-versleuteling op al je apparaten</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Ontgrendel om account over te zetten</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Doorgaan op je andere apparaat</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Doorgaan met het overzetten van je account op je andere apparaat.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Herstellen is voltooid</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Je Signal-account en berichten worden overgezet naar je andere apparaat. Signal is nu inactief op dit apparaat.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Overzetten voltooid</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Je Signal-account en berichten zijn overgezet naar je andere apparaat. Signal is nu inactief op dit apparaat.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Oké</string>
+
+
     <!-- EOF -->
 </resources>

@@ -5,8 +5,6 @@ import okio.ByteString;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
-import org.whispersystems.signalservice.api.util.SleepTimer;
-import org.whispersystems.signalservice.api.util.UptimeSleepTimer;
 import org.whispersystems.signalservice.api.websocket.HealthMonitor;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.crypto.PrimaryProvisioningCipher;

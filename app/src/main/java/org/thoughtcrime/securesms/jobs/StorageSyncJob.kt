@@ -37,6 +37,12 @@ import org.whispersystems.signalservice.api.storage.SignalStorageManifest
 import org.whispersystems.signalservice.api.storage.SignalStorageRecord
 import org.whispersystems.signalservice.api.storage.SignalStoryDistributionListRecord
 import org.whispersystems.signalservice.api.storage.StorageId
+import org.whispersystems.signalservice.api.storage.toSignalAccountRecord
+import org.whispersystems.signalservice.api.storage.toSignalCallLinkRecord
+import org.whispersystems.signalservice.api.storage.toSignalContactRecord
+import org.whispersystems.signalservice.api.storage.toSignalGroupV1Record
+import org.whispersystems.signalservice.api.storage.toSignalGroupV2Record
+import org.whispersystems.signalservice.api.storage.toSignalStoryDistributionListRecord
 import org.whispersystems.signalservice.internal.push.SyncMessage
 import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord
 import java.io.IOException
@@ -100,13 +106,11 @@ import java.util.stream.Collectors
  * - Update the respective model (i.e. [SignalContactRecord])
  * - Add getters
  * - Update the builder
- * - Update [SignalRecord.describeDiff].
- * - Update the respective record processor (i.e [ContactRecordProcessor]). You need to make
- * sure that you're:
- * - Merging the attributes, likely preferring remote
- * - Adding to doParamsMatch()
- * - Adding the parameter to the builder chain when creating a merged model
- * - Update builder usage in StorageSyncModels
+ * - Update the respective record processor (i.e [ContactRecordProcessor]). You need to make sure that you're:
+ *   - Merging the attributes, likely preferring remote
+ *   - Adding to doParamsMatch()
+ *   - Adding the parameter to the builder chain when creating a merged model
+ *   - Update builder usage in StorageSyncModels
  * - Handle the new data when writing to the local storage
  * (i.e. [RecipientTable.applyStorageSyncContactUpdate]).
  * - Make sure that whenever you change the field in the UI, we rotate the storageId for that row
@@ -139,7 +143,7 @@ class StorageSyncJob private constructor(parameters: Parameters) : BaseJob(param
 
   @Throws(IOException::class, RetryLaterException::class, UntrustedIdentityException::class)
   override fun onRun() {
-    if (!SignalStore.svr.hasPin() && !SignalStore.svr.hasOptedOut() && !SignalStore.storageService.hasStorageKeyFromPrimary()) {
+    if (!SignalStore.svr.hasOptedInWithAccess() && !SignalStore.svr.hasOptedOut() && !SignalStore.storageService.hasStorageKeyFromPrimary()) {
       Log.i(TAG, "Doesn't have a PIN. Skipping.")
       return
     }
@@ -166,7 +170,7 @@ class StorageSyncJob private constructor(parameters: Parameters) : BaseJob(param
         AppDependencies.jobManager.add(MultiDeviceStorageSyncRequestJob())
       }
 
-      SignalStore.storageService.onSyncCompleted()
+      SignalStore.storageService.lastSyncTime = System.currentTimeMillis()
     } catch (e: InvalidKeyException) {
       if (SignalStore.account.isPrimaryDevice) {
         Log.w(TAG, "Failed to decrypt remote storage! Force-pushing and syncing the storage key to linked devices.", e)
@@ -196,7 +200,7 @@ class StorageSyncJob private constructor(parameters: Parameters) : BaseJob(param
     val stopwatch = Stopwatch("StorageSync")
     val db = SignalDatabase.rawDatabase
     val accountManager = AppDependencies.signalServiceAccountManager
-    val storageServiceKey = SignalStore.storageService.getOrCreateStorageKey()
+    val storageServiceKey = SignalStore.storageService.storageKey
 
     val localManifest = SignalStore.storageService.manifest
     val remoteManifest = accountManager.getStorageManifestIfDifferentVersion(storageServiceKey, localManifest.version).orElse(localManifest)
@@ -221,14 +225,14 @@ class StorageSyncJob private constructor(parameters: Parameters) : BaseJob(param
       var localStorageIdsBeforeMerge = getAllLocalStorageIds(self)
       var idDifference = StorageSyncHelper.findIdDifference(remoteManifest.storageIds, localStorageIdsBeforeMerge)
 
-      if (idDifference.hasTypeMismatches() && SignalStore.account.isPrimaryDevice) {
+      if (idDifference.hasTypeMismatches && SignalStore.account.isPrimaryDevice) {
         Log.w(TAG, "[Remote Sync] Found type mismatches in the ID sets! Scheduling a force push after this sync completes.")
         needsForcePush = true
       }
 
       Log.i(TAG, "[Remote Sync] Pre-Merge ID Difference :: $idDifference")
 
-      if (idDifference.localOnlyIds.size > 0) {
+      if (idDifference.localOnlyIds.isNotEmpty()) {
         val updated = SignalDatabase.recipients.removeStorageIdsFromLocalOnlyUnregisteredRecipients(idDifference.localOnlyIds)
 
         if (updated > 0) {
@@ -368,14 +372,14 @@ class StorageSyncJob private constructor(parameters: Parameters) : BaseJob(param
   @Throws(IOException::class)
   private fun processKnownRecords(context: Context, records: StorageRecordCollection) {
     ContactRecordProcessor().process(records.contacts, StorageSyncHelper.KEY_GENERATOR)
-    GroupV1RecordProcessor(context).process(records.gv1, StorageSyncHelper.KEY_GENERATOR)
-    GroupV2RecordProcessor(context).process(records.gv2, StorageSyncHelper.KEY_GENERATOR)
+    GroupV1RecordProcessor().process(records.gv1, StorageSyncHelper.KEY_GENERATOR)
+    GroupV2RecordProcessor().process(records.gv2, StorageSyncHelper.KEY_GENERATOR)
     AccountRecordProcessor(context, freshSelf()).process(records.account, StorageSyncHelper.KEY_GENERATOR)
     StoryDistributionListRecordProcessor().process(records.storyDistributionLists, StorageSyncHelper.KEY_GENERATOR)
     CallLinkRecordProcessor().process(records.callLinkRecords, StorageSyncHelper.KEY_GENERATOR)
   }
 
-  private fun getAllLocalStorageIds(self: Recipient): List<StorageId?> {
+  private fun getAllLocalStorageIds(self: Recipient): List<StorageId> {
     return SignalDatabase.recipients.getContactStorageSyncIds() +
       listOf(StorageId.forAccount(self.storageId)) +
       SignalDatabase.unknownStorageIds.allUnknownIds
@@ -477,18 +481,18 @@ class StorageSyncJob private constructor(parameters: Parameters) : BaseJob(param
 
     init {
       for (record in records) {
-        if (record.contact.isPresent) {
-          contacts += record.contact.get()
-        } else if (record.groupV1.isPresent) {
-          gv1 += record.groupV1.get()
-        } else if (record.groupV2.isPresent) {
-          gv2 += record.groupV2.get()
-        } else if (record.account.isPresent) {
-          account += record.account.get()
-        } else if (record.storyDistributionList.isPresent) {
-          storyDistributionLists += record.storyDistributionList.get()
-        } else if (record.callLink.isPresent) {
-          callLinkRecords += record.callLink.get()
+        if (record.proto.contact != null) {
+          contacts += record.proto.contact!!.toSignalContactRecord(record.id)
+        } else if (record.proto.groupV1 != null) {
+          gv1 += record.proto.groupV1!!.toSignalGroupV1Record(record.id)
+        } else if (record.proto.groupV2 != null) {
+          gv2 += record.proto.groupV2!!.toSignalGroupV2Record(record.id)
+        } else if (record.proto.account != null) {
+          account += record.proto.account!!.toSignalAccountRecord(record.id)
+        } else if (record.proto.storyDistributionList != null) {
+          storyDistributionLists += record.proto.storyDistributionList!!.toSignalStoryDistributionListRecord(record.id)
+        } else if (record.proto.callLink != null) {
+          callLinkRecords += record.proto.callLink!!.toSignalCallLinkRecord(record.id)
         } else if (record.id.isUnknown) {
           unknown += record
         } else {

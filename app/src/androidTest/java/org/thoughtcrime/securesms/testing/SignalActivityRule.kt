@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
 import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
@@ -101,7 +102,7 @@ class SignalActivityRule(private val othersCount: Int = 4, private val createGro
         pniRegistrationId = RegistrationRepository.getPniRegistrationId(),
         recoveryPassword = "asdfasdfasdfasdf"
       )
-      val remoteResult = RegistrationRepository.AccountRegistrationResult(
+      val remoteResult = AccountRegistrationResult(
         uuid = UUID.randomUUID().toString(),
         pni = UUID.randomUUID().toString(),
         storageCapable = false,

@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">มีอีก</string>
     <string name="ManageGroupActivity_add_group_description">เพิ่มคำอธิบายกลุ่ม…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">ถ่ายโอนจากอุปกรณ์ Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">ถ่ายโอนบัญชีและข้อความจากอุปกรณ์ Android เครื่องเก่าของคุณ</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">เข้าสู่ระบบโดยไม่ถ่ายโอนข้อมูล</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">ดำเนินการต่อโดยไม่ถ่ายโอนข้อความและไฟล์สื่อของคุณ</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">กู้คืนข้อมูลสำรองจากอุปกรณ์</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">กู้คืนข้อความของคุณจากไฟล์ข้อมูลสำรองที่บันทึกไว้ในอุปกรณ์</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">กำลังดาวน์โหลดข้อมูลสำรอง…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">ข้อความทั้งหมด</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">กู้คืนจากข้อมูลสำรอง</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">โดยข้อมูลสำรองจะรวมไฟล์สื่อที่ส่งหรือได้รับภายใน %1$d วันที่ผ่านมาเท่านั้น</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">ข้อมูลสำรองของคุณประกอบด้วย:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">กู้คืนจากข้อมูลสำรอง</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">คุณสำรองข้อมูลครั้งล่าสุดเมื่อวันที่ %1$s เวลา %2$s</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">กำลังเรียกดูข้อมูลสำรอง…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">แจ้งให้ฉันรู้สำหรับการกล่าวถึง</string>
@@ -3361,10 +3351,10 @@
         <item>คำขอฟีเจอร์</item>
         <item>คำถาม</item>
         <item>ข้อเสนอแนะ</item>
-        <item>อื่น</item>
+        <item>อื่นๆ</item>
         <item>การชำระเงิน (MobileCoin)</item>
         <item>การบริจาคและโล่</item>
-        <item>Signal Android Backup</item>
+        <item>การสำรองข้อมูลของ Signal Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">การส่งรายงานบันทึกดีบักสำหรับ Signal Android</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">ฉันได้จดบันทึกวลีรหัสผ่านนี้แล้ว หากจำไม่ได้ ฉันจะไม่สามารถกู้คืนจากข้อมูลสำรองได้</string>
     <string name="registration_activity__restore_backup">กู้คืนจากข้อมูลสำรอง</string>
     <string name="registration_activity__transfer_or_restore_account">ถ่ายโอนหรือกู้คืนบัญชี</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">กู้คืนหรือถ่ายโอน</string>
     <string name="registration_activity__transfer_account">ถ่ายโอนบัญชี</string>
     <string name="registration_activity__skip">ข้าม</string>
     <string name="preferences_chats__chat_backups">ข้อมูลสำรองของแชท</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">กลุ่ม</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">ข้อความจากแชทกลุ่มเท่านั้น</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">เพิ่ม</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">แพ็กเกจสำรองข้อมูลสื่อของคุณถูกยกเลิกเนื่องจาก Signal ประมวลผลการชำระเงินของคุณไม่ได้ นี่เป็นโอกาสสุดท้ายที่คุณจะสามารถดาวน์โหลดไฟล์สื่อที่เก็บอยู่ในข้อมูลสำรองก่อนที่ข้อมูลจะถูกลบ</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">เพิ่มพื้นที่ %1$s บนอุปกรณ์เครื่องนี้</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">อุปกรณ์ของคุณต้องมีพื้นที่จัดเก็บ %1$s จึงจะสามารถดาวน์โหลดข้อมูลสำรอง Signal ให้เสร็จสมบูรณ์ได้</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">โปรดเพิ่มพื้นที่จัดเก็บด้วยการออฟโหลดหรือลบแอปที่ไม่ได้ใช้งาน รวมถึงไฟล์ที่มีขนาดใหญ่</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">ไม่สามารถต่ออายุแพ็กเกจสำรองข้อมูลของคุณ</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">ไว้ทีหลัง</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">ลองอีกครั้งในภายหลัง</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">สื่อจะถูกลบ</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">ข้าม</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">ข้ามการกู้คืนใช่หรือไม่</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">หากข้ามการกู้คืน ไฟล์สื่อและไฟล์แนบที่หลงเหลืออยู่ในข้อมูลสำรองของคุณจะถูกลบเมื่ออุปกรณ์สำรองข้อมูลเสร็จสมบูรณ์ในครั้งต่อไป</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/เดือน · ต่ออายุ %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">เปลี่ยนหรือยกเลิกการสมัคร</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">คุณสำรองข้อมูลครั้งล่าสุดเมื่อวันที่ %1$s เวลา %2$s</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">ไอคอนการเตือนความจำ</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">ฉันมีโทรศัพท์เครื่องเก่า</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">เริ่มใช้งานได้เร็วทันใจด้วยการสแกนคิวอาร์โค้ดจากบัญชี Signal ที่คุณใช้อยู่</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">ฉันไม่มีโทรศัพท์เครื่องเก่า</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">หรือติดตั้ง Signal ใหม่บนอุปกรณ์เครื่องเดียวกันนั้น</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">กู้คืนหรือถ่ายโอนบัญชี</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">ส่งข้อมูลบัญชี Signal และประวัติการส่งข้อความของคุณมายังอุปกรณ์เครื่องนี้</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">จากการสำรองข้อมูลของ Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">แพ็กเกจสำรองข้อมูลของ Signal แบบฟรีหรือแบบชำระค่าบริการ</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">จากโฟลเดอร์ข้อมูลสำรอง</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">จากไฟล์ข้อมูลสำรอง</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">เลือกข้อมูลสำรองที่คุณเคยบันทึกไว้</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">จากโทรศัพท์เครื่องเก่า</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">ถ่ายโอนโดยตรงจากโทรศัพท์ Android เครื่องเก่าของคุณ</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">กู้คืนข้อมูลสำรองจากอุปกรณ์</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">กู้คืนข้อความของคุณจากข้อมูลสำรองที่บันทึกไว้ในอุปกรณ์ หากไม่กู้คืนตอนนี้ คุณจะไม่สามารถกู้คืนได้อีกในภายหลัง</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">ใส่กุญแจสำรองของคุณ</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">กุญแจสำรองคือรหัส 64 หลักที่คุณต้องใช้ในการกู้คืนบัญชีและข้อมูล</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">ไม่มีกุญแจสำรองใช่หรือไม่</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">กุญแจสำรอง</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">ไม่สามารถกู้คืนข้อมูลสำรองในกรณีที่ไม่มีรหัสกู้คืน 64 หลัก Signal จะไม่สามารถช่วยกู้คืนข้อมูลสำรองของคุณหากคุณทำกุญแจสำรองหาย</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">โดยหากคุณยังมีอุปกรณ์เครื่องเก่า สามารถเปิดดูกุญแจสำรองได้ในการตั้งค่า &gt; แชท &gt; การสำรองข้อมูลของ Signal จากนั้นแตะที่ดูกุญแจสำรอง</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">ข้ามและไม่กู้คืนข้อมูล</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">ใช้โทรศัพท์เครื่องเก่าของคุณสแกนโค้ดนี้</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">เปิดแอป Signal บนอุปกรณ์เครื่องเก่า</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">แตะที่ไอคอนกล้อง </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">ใช้กล้องสแกนโค้ดนี้</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">ไม่สามารถสร้างคิวอาร์โค้ดได้</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">ใช้อุปกรณ์เครื่องเก่าสแกนแล้ว</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">ลองใหม่</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">ถ่ายโอนบัญชี</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">บัญชีของคุณจะถูกถ่ายโอนไปยังอุปกรณ์เครื่องใหม่ ซึ่งอุปกรณ์เครื่องนี้จะสามารถเห็นกลุ่ม รายชื่อผู้ติดต่อ เข้าถึงแชทของคุณ และส่งข้อความด้วยชื่อของคุณ %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">ถ่ายโอนบัญชี</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">ปกป้องข้อความและข้อมูลการแชทด้วยการเข้ารหัสตั้งแต่ต้นทางถึงปลายทางบนอุปกรณ์ทุกเครื่อง</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">ปลดล็อกเพื่อถ่ายโอนบัญชี</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">ดำเนินการต่อบนอุปกรณ์อีกเครื่อง</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">ดำเนินการถ่ายโอนบัญชีต่อบนอุปกรณ์อีกเครื่องของคุณ</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">กู้คืนเสร็จสิ้น</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">เริ่มการถ่ายโอนบัญชี Signal และข้อความของคุณไปยังอุปกรณ์อีกเครื่องแล้ว ขณะนี้ Signal บนอุปกรณ์เครื่องนี้จะหยุดทำงาน</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">การถ่ายโอนสำเร็จ</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">ถ่ายโอนบัญชี Signal และข้อความของคุณไปยังอุปกรณ์อีกเครื่องเรียบร้อยแล้ว ขณะนี้ Signal บนอุปกรณ์เครื่องนี้จะหยุดทำงาน</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">ตกลง</string>
+
+
     <!-- EOF -->
 </resources>

@@ -11,7 +11,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.push.AccountManagerFactory
-import org.thoughtcrime.securesms.registration.data.RegistrationRepository.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.network.DeviceUuidRequestResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
@@ -107,7 +106,7 @@ class LinkDeviceRepository(password: String) {
           SignalStore.account.setDeviceName(deviceName)
           SignalStore.account.setAciIdentityKeysFromPrimaryDevice(registration.aciIdentity)
           SignalStore.account.setPniIdentityKeyAfterChangeNumber(registration.pniIdentity)
-          SignalStore.registration.markHasUploadedProfile()
+          SignalStore.registration.hasUploadedProfile = true
 
           AccountRegistrationResult(
             uuid = registration.aci.toString(),

@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">thêm</string>
     <string name="ManageGroupActivity_add_group_description">Thêm mô tả nhóm…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Chuyển từ thiết bị Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Chuyển tài khoản và tin nhắn từ thiết bị Android cũ của bạn.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Đăng nhập và không chuyển dữ liệu</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Tiếp tục và không chuyển tin nhắn cùng tệp đa phương tiện</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Khôi phục bản sao lưu cục bộ</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Khôi phục tin nhắn từ một bản sao lưu bạn đã lưu trên thiết bị của mình.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Đang tải bản sao lưu…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Tất cả tin nhắn</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Khôi phục từ bản sao lưu</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Chỉ tập tin đa phương tiện được gửi và nhận trong %1$d ngày qua được bao gồm.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Bản sao lưu bao gồm:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Khôi phục từ bản sao lưu</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Bản sao lưu gần nhất của bạn là vào lúc %2$s ngày %1$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Đang thu thập thông tin bản sao lưu…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Thông báo khi tôi được nhắc tên</string>
@@ -3364,7 +3354,7 @@
         <item>Khác</item>
         <item>Lựa chọn Thanh toán (MobileCoin)</item>
         <item>Khoản ủng hộ &amp; Huy hiệu</item>
-        <item>Signal Android Backup</item>
+        <item>Bản sao lưu Signal Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Gửi Nhật Ký Gỡ Lỗi Signal Android</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Tôi đã ghi lại mật khẩu này. Không có nó, tôi sẽ không thể khôi phục bản sao lưu.</string>
     <string name="registration_activity__restore_backup">Khôi phục từ bản sao lưu</string>
     <string name="registration_activity__transfer_or_restore_account">Chuyển hoặc khôi phục tài khoản</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Khôi phục hoặc chuyển</string>
     <string name="registration_activity__transfer_account">Chuyển tài khoản</string>
     <string name="registration_activity__skip">Bỏ qua</string>
     <string name="preferences_chats__chat_backups">Sao lưu tin nhắn</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Nhóm</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Chỉ có tin nhắn từ cuộc trò chuyện nhóm</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Thêm</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -6535,7 +6527,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Nhấn nút \"Vào Cài đặt\" bên dưới</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Bật \"Cho phép Thông báo và Nhắc nhở.\"</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Bật \"Cho phép cài đặt báo thức và lời nhắc\".</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Đến mục cài đặt</string>
 
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Gói đăng ký sao lưu tập tin đa phương tiện Signal của bạn đã bị hủy vì chúng tôi không thể xử lý khoản thanh toán của bạn. Đây là cơ hội cuối cùng để bạn tải tập tin đa phương tiện trong bản sao lưu của mình trước khi những nội dung này bị xóa.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Giải phóng %1$s trên thiết bị này</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Để hoàn thành tải Bản sao lưu Signal của bạn, thiết bị của bạn cần %1$s dung lượng trống.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Để giải phóng dung lượng, xóa ứng dụng bạn không dùng hoặc nội dung có dung lượng lớn.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Gia hạn không thành công gói đăng ký sao lưu của bạn</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Để sau</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Thử sau</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Tập tin đa phương tiện sẽ được xóa</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Bỏ qua</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Bỏ qua khôi phục?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Nếu bạn bỏ qua việc khôi phục, các tập tin đa phương tiện và tập tin đính kèm còn lại trong bản sao lưu của bạn sẽ được xóa trong lần tiếp theo thiết bị của bạn hoàn tất một bản sao lưu mới.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/tháng. Gia hạn %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Đổi hoặc hủy gói đăng ký</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Bản sao lưu gần nhất của bạn là vào lúc %2$s ngày %1$s.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Biểu tượng lời nhắc</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Tôi có điện thoại cũ</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Quét mã QR từ tài khoản Signal điện thoại của bạn để nhanh chóng bắt đầu</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Tôi không có điện thoại cũ</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Hoặc bạn đang cài lại Signal trên cùng thiết bị</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Khôi phục hoặc chuyển tài khoản</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Mang tài khoản Signal và lịch sử tin nhắn của bạn lên thiết bị này.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Bản sao lưu từ Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Gói sao lưu Signal miễn phí hoặc trả phí của bạn</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Từ thư mục sao lưu</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Từ tập tin sao lưu</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Chọn một tập tin sao lưu bạn đã lưu</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Từ điện thoại cũ của bạn</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Chuyển trực tiếp từ điện thoại Android cũ của bạn</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Khôi phục bản sao lưu cục bộ</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Khôi phục tin nhắn từ một tập tin sao lưu bạn đã lưu trên thiết bị của mình. Nếu bạn không khôi phục bây giờ, bạn sẽ không khôi phục được sau này.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Nhập mã khóa sao lưu</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Yêu cầu có mã khóa sao lưu có 64 chữ số của bạn để khôi phục tài khoản và dữ liệu.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Không có mã khóa sao lưu?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Mã khóa sao lưu</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Không thể khôi phục bản sao lưu nếu không có mã khóa sao lưu 64 chữ số. Nếu bạn đã để mất mã khóa sao lưu của mình, Signal không thể hỗ trợ bạn khôi phục bản sao lưu.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Nếu có thiết bị cũ của mình, bạn có thể xem mã khóa sao lưu trong Cài đặt &gt; Trò chuyện &gt; Sao lưu. Sau đó nhấn Xem mã khóa sao lưu.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Tìm hiểu thêm</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Bỏ qua và không khôi phục</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Quét mã với điện thoại của bạn</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Mở Signal trên thiết bị cũ của bạn</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Nhấn biểu tượng camera </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Quét mã này với camera</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Không thể tạo mã QR</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Đã quét trên thiết bị cũ</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Thử lại</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Chuyển tài khoản</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Tài khoản của bạn sẽ dược chuyển đến một thiết bị mới. Thiết bị này sẽ có thể thấy được nhóm và liên hệ của bạn, truy cập các cuộc trò chuyện của bạn, và gửi tin nhắn với danh tính của bạn. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Tìm hiểu thêm</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Chuyển tài khoản</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Thông tin tin nhắn và cuộc trò chuyện được bảo vệ bằng hình thức mã hóa đầu cuối trên tất cả thiết bị</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Mở khóa để chuyển tài khoản</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Tiếp tục trên thiết bị khác của bạn</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Tiếp tục chuyển tài khoản trên thiết bị khác của bạn.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Hoàn tất khôi phục</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Tài khoản và tin nhắn Signal của bạn đã bắt đầu được chuyển đến thiết bị khác của bạn. Signal hiện không còn hoạt động trên thiết bị này.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Chuyển hoàn tất</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Tài khoản và tin nhắn Signal của bạn đã được chuyển đến thiết bị khác của bạn. Signal hiện không còn hoạt động trên thiết bị này.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">OK</string>
+
+
     <!-- EOF -->
 </resources>

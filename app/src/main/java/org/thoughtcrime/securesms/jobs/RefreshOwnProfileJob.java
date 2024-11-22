@@ -82,7 +82,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       return;
     }
 
-    if (SignalStore.svr().hasPin() && !SignalStore.svr().hasOptedOut() && SignalStore.storageService().getLastSyncTime() == 0) {
+    if (SignalStore.svr().hasOptedInWithAccess() && !SignalStore.svr().hasOptedOut() && SignalStore.storageService().getLastSyncTime() == 0) {
       Log.i(TAG, "Registered with PIN but haven't completed storage sync yet.");
       return;
     }

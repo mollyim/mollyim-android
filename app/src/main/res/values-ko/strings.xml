@@ -1287,20 +1287,6 @@
     <string name="ManageGroupActivity_more">더</string>
     <string name="ManageGroupActivity_add_group_description">그룹 설명 추가하기…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android 기기에서 전송</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">이전 Android 기기에서 내 계정과 메시지를 전송합니다.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">전송하지 않고 로그인</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">메시지와 미디어를 전송하지 않고 계속</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">로컬 백업 복원</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">내 기기에 저장한 백업 파일에서 내 메시지를 복원합니다.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">백업을 다운로드하는 중…</string>
@@ -1318,12 +1304,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">모든 메시지</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">백업에서 복원</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">지난 %1$d일간 보내거나 받은 미디어만 포함합니다.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">백업 내용:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">백업 복원</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">마지막 백업이 완료된 시간은 %1$s %2$s입니다.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">백업 세부 정보를 가져오는 중…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">멘션 알림</string>
@@ -3357,14 +3347,14 @@
     <string name="HelpFragment__please_be_as_descriptive_as_possible">저희가 문제를 해결할 수 있도록 최대한으로 설명해 주세요.</string>
     <string-array name="HelpFragment__categories_6">
         <item>옵션을 선택하세요.</item>
-        <item>오류</item>
+        <item>오류 발생</item>
         <item>기능 요청</item>
         <item>질문</item>
         <item>피드백</item>
         <item>기타</item>
         <item>결제(MobileCoin)</item>
         <item>기부 및 배지</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android 백업</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android 디버그 로그 제출</string>
@@ -4193,6 +4183,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">암호를 적었습니다. 비밀번호를 잊었을 때 백업을 복구할 수 없다는 점에 동의합니다.</string>
     <string name="registration_activity__restore_backup">백업 복원</string>
     <string name="registration_activity__transfer_or_restore_account">계정 이전 또는 복원</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">복원 또는 전송</string>
     <string name="registration_activity__transfer_account">계정 이전</string>
     <string name="registration_activity__skip">건너뛰기</string>
     <string name="preferences_chats__chat_backups">대화 백업</string>
@@ -5004,7 +4996,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">그룹</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">그룹 대화의 메시지만</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">추가</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -7054,7 +7046,7 @@
     <!-- Displayed as title in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__delete_link">링크를 삭제할까요?</string>
     <!-- Displayed as body in dialog when user attempts to delete the link -->
-    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">이 링크는 더 이상 누구도 사용할 수 없습니다.</string>
+    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">이 링크는 더 이상 아무도 사용할 수 없습니다.</string>
 
     <!-- Button label for the link button in the username link settings -->
     <string name="UsernameLinkSettings_link_button_label">링크</string>
@@ -7265,11 +7257,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">결제를 처리할 수 없어 Signal 미디어 백업 플랜을 취소했습니다. 미디어가 삭제되기 전에 다운로드할 수 있는 마지막 기회입니다.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">기기에서 %1$s 공간을 확보하세요</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">기기에서 Signal 백업 다운로드를 완료하려면 %1$s 저장 공간이 필요합니다.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">공간을 확보하려면 사용하지 않는 앱이나 파일 크기가 큰 콘텐츠를 오프로드하거나 삭제하세요.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">백업 구독 갱신 실패</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7297,7 +7289,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">나중에</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">나중에 시도</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">미디어가 삭제됩니다.</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7309,9 +7301,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">건너뛰기</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">복원을 건너뛰시겠어요?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">복원을 건너뛸 경우 다음번에 기기가 새로운 백업을 완료할 시 백업에 남은 미디어와 첨부 파일이 삭제됩니다.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7367,10 +7359,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/월 · %2$s 갱신</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">구독 변경 또는 취소</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">마지막 백업이 완료된 시간은 %1$s %2$s입니다.</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7683,5 +7671,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">미리 알림 아이콘</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">이전 휴대폰을 가지고 있음</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">현재 Signal 계정에서 QR 코드를 스캔하여 빠르게 시작하세요</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">이전 휴대폰이 없음</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">또는 동일한 기기에 Signal을 다시 설치하는 중입니다</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">계정 복원 또는 전송</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Signal 계정과 메시지 기록을 이 기기로 가져옵니다.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Signal 백업에서 복원</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">무료 또는 유료 Signal 백업 플랜</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">백업 폴더에서 복원</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">백업 파일에서 복원</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">저장한 백업 선택</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">이전 휴대폰에서 전송</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">이전 Android에서 바로 전송</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">로컬 백업 복원</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">기기에 저장한 백업에서 메시지를 복원합니다. 지금 복원하지 않으면 나중에 복원할 수 없습니다.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">백업 키 입력</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">백업 키는 계정과 데이터를 복원하는 데 필요한 64자 코드입니다.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">백업 키가 없으신가요?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">백업 키</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">64자 복원 코드 없이는 백업을 복원할 수 없습니다. 백업 키를 분실한 경우 Signal에서 백업을 복원할 수 없습니다.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">이전 기기를 가지고 있다면 설정 &gt; 대화 &gt; Signal 백업에서 백업 키를 확인할 수 있습니다. 백업 키 보기를 탭하세요.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">자세히 알아보기</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">건너 뛰고 복원하지 않음</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">이전 휴대폰으로 이 코드 스캔</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">이전 기기에서 Signal을 엽니다</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">카메라 아이콘을 탭합니다 </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">카메라로 이 코드를 스캔합니다</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR 코드를 생성하지 못함</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">이전 기기에서 스캔했습니다</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">재시도</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">계정 전송</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">계정을 새 기기로 전송합니다. 이 기기는 그룹과 연락처를 보고, 대화에 액세스하고, 사용자의 이름으로 메시지를 보낼 수 있습니다. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">자세히 알아보기</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">계정 이전</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">메시지와 대화 정보는 모든 장치에서 엔드투엔드 암호화로 보호됩니다</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">잠금 해제하여 계정 전송</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">다른 기기에서 계속</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">다른 기기에서 계정 전송을 계속하세요.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">복구가 완료되었습니다.</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Signal 계정과 메시지를 다른 기기로 전송하기 시작했습니다. 이제 이 기기의 Signal이 비활성화됩니다.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">전송 완료</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Signal 계정과 메시지를 다른 기기로 전송했습니다. 이제 이 기기의 Signal이 비활성화됩니다.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">확인</string>
+
+
     <!-- EOF -->
 </resources>

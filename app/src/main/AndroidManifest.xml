@@ -642,7 +642,7 @@
               android:exported="false"/>
 
     <activity android:name=".groups.ui.invitesandrequests.ManagePendingAndRequestingMembersActivity"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="false"/>
 
@@ -819,12 +819,24 @@
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:exported="false"/>
 
+    <activity android:name=".registrationv3.olddevice.TransferAccountActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+        android:exported="false"/>
+
     <activity android:name=".registration.ui.RegistrationActivity"
               android:launchMode="singleTask"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
+
+    <activity android:name=".registrationv3.ui.RegistrationActivity"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+        android:windowSoftInputMode="stateHidden|adjustResize"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:exported="false"/>
 
     <activity android:name=".restore.RestoreActivity"
               android:launchMode="singleTask"
@@ -943,7 +955,7 @@
               android:windowSoftInputMode="stateVisible|adjustResize"
               android:exported="false"/>
 
-    <activity android:name=".registration.ui.restore.RemoteRestoreActivity"
+    <activity android:name=".registrationv3.ui.restore.RemoteRestoreActivity"
               android:theme="@style/Signal.DayNight.NoActionBar"
               android:exported="false"/>
 
@@ -1040,13 +1052,13 @@
 
     <activity android:name=".megaphone.ClientDeprecatedActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:launchMode="singleTask"
               android:exported="false"/>
 
     <activity android:name=".ratelimit.RecaptchaProofActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
     <activity android:name=".wallpaper.crop.WallpaperImageSelectionActivity"
@@ -1362,8 +1374,6 @@
             <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.HANGUP"/>
         </intent-filter>
     </receiver>
-
-    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
 </application>
 </manifest>

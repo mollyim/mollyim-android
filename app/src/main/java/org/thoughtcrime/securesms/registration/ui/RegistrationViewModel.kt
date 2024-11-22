@@ -36,6 +36,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
+import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.LinkDeviceRepository
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
 import org.thoughtcrime.securesms.registration.data.RegistrationData
@@ -832,7 +833,7 @@ class RegistrationViewModel : ViewModel() {
     handleRegistrationResult(context, registrationData, registrationResponse, false)
   }
 
-  private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: RegistrationRepository.AccountRegistrationResult, reglockEnabled: Boolean) {
+  private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: AccountRegistrationResult, reglockEnabled: Boolean) {
     Log.v(TAG, "onSuccessfulRegistration()")
     val metadata = LocalRegistrationMetadataUtil.createLocalRegistrationMetadata(SignalStore.account.aciIdentityKey, SignalStore.account.pniIdentityKey, registrationData, remoteResult, reglockEnabled)
     RegistrationRepository.registerAccountLocally(context, metadata)
@@ -876,12 +877,12 @@ class RegistrationViewModel : ViewModel() {
     viewModelScope.launch(context = coroutineExceptionHandler) {
       val linkDeviceRepository = LinkDeviceRepository(password)
 
-      val deviceUuid = when (val result = linkDeviceRepository.requestDeviceLinkUuid()) {
-        is DeviceUuidRequestResult.Success -> result.uuid
-        is DeviceUuidRequestResult.UnknownError -> {
-          registrationErrorHandler(RegisterAccountResult.UnknownError(result.getCause()))
-          return@launch
+      val deviceUuid = linkDeviceRepository.requestDeviceLinkUuid().let { result ->
+        if (result !is DeviceUuidRequestResult.Success || result.uuid == null) {
+            registrationErrorHandler(RegisterAccountResult.UnknownError(result.getCause()))
+            return@launch
         }
+        result.uuid
       }
 
       val deviceKeyPair: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()

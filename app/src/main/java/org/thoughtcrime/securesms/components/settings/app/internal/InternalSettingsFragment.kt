@@ -715,8 +715,8 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
               AdvancedPrivacySettingsRepository.DisablePushMessagesResult.SUCCESS -> {
                 SignalStore.account.setRegistered(false)
                 SignalStore.registration.clearRegistrationComplete()
-                SignalStore.registration.clearHasUploadedProfile()
-                SignalStore.registration.clearSkippedTransferOrRestore()
+                SignalStore.registration.hasUploadedProfile = false
+                SignalStore.registration.debugClearSkippedTransferOrRestore()
                 Toast.makeText(context, "Unregistered!", Toast.LENGTH_SHORT).show()
               }
 

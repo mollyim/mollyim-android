@@ -15,6 +15,6 @@ sealed class DeviceUuidRequestResult(cause: Throwable?) : RegistrationResult(cau
     }
   }
 
-  class Success(val uuid: String) : DeviceUuidRequestResult(null)
+  class Success(val uuid: String?) : DeviceUuidRequestResult(null)
   class UnknownError(cause: Throwable) : DeviceUuidRequestResult(cause)
 }

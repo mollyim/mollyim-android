@@ -8,6 +8,7 @@ package org.thoughtcrime.securesms.pin
 import android.app.backup.BackupManager
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
+import okio.ByteString.Companion.toByteString
 import org.signal.core.util.Stopwatch
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BuildConfig
@@ -163,12 +164,15 @@ object SvrRepository {
             Log.i(TAG, "[restoreMasterKeyPostRegistration] Successfully restored master key. $implementation", true)
             stopwatch.split("restore")
 
+            SignalStore.registration.localRegistrationMetadata?.let { metadata ->
+              SignalStore.registration.localRegistrationMetadata = metadata.copy(masterKey = response.masterKey.serialize().toByteString(), pin = userPin)
+            }
+
             SignalStore.svr.setMasterKey(response.masterKey, userPin)
             SignalStore.svr.isRegistrationLockEnabled = false
             SignalStore.pin.resetPinReminders()
-            SignalStore.svr.isPinForgottenOrSkipped = false
             SignalStore.pin.keyboardType = pinKeyboardType
-            SignalStore.storageService.setNeedsAccountRestore(false)
+            SignalStore.storageService.needsAccountRestore = false
 
             when (implementation.svrVersion) {
               SvrVersion.SVR2 -> SignalStore.svr.appendSvr2AuthTokenToList(response.authorization.asBasic())
@@ -264,7 +268,6 @@ object SvrRepository {
         Log.i(TAG, "[setPin] Success!", true)
 
         SignalStore.svr.setMasterKey(masterKey, userPin)
-        SignalStore.svr.isPinForgottenOrSkipped = false
         responses
           .filterIsInstance<BackupResponse.Success>()
           .forEach {
@@ -301,8 +304,7 @@ object SvrRepository {
     masterKey: MasterKey?,
     userPin: String?,
     hasPinToRestore: Boolean,
-    setRegistrationLockEnabled: Boolean,
-    isLinkedDevice: Boolean,
+    setRegistrationLockEnabled: Boolean
   ) {
     Log.i(TAG, "[onRegistrationComplete] Starting", true)
     operationLock.withLock {
@@ -322,14 +324,13 @@ object SvrRepository {
         SignalStore.pin.resetPinReminders()
 
         AppDependencies.jobManager.add(ResetSvrGuessCountJob())
-      } else if (isLinkedDevice && masterKey != null) {
-        Log.i(TAG, "[onRegistrationComplete] Registration as linked device.", true)
-        SignalStore.storageService.setStorageKeyFromPrimary(masterKey.deriveStorageServiceKey())
-        SignalStore.svr.clearRegistrationLockAndPin()
+      } else if (masterKey != null) {
+        Log.i(TAG, "[onRegistrationComplete] ReRegistered with key without pin")
+        SignalStore.svr.setMasterKey(masterKey, null)
       } else if (hasPinToRestore) {
         Log.i(TAG, "[onRegistrationComplete] Has a PIN to restore.", true)
         SignalStore.svr.clearRegistrationLockAndPin()
-        SignalStore.storageService.setNeedsAccountRestore(true)
+        SignalStore.storageService.needsAccountRestore = true
       } else {
         Log.i(TAG, "[onRegistrationComplete] No registration lock or PIN at all.", true)
         SignalStore.svr.clearRegistrationLockAndPin()
@@ -346,8 +347,7 @@ object SvrRepository {
   fun onPinRestoreForgottenOrSkipped() {
     operationLock.withLock {
       SignalStore.svr.clearRegistrationLockAndPin()
-      SignalStore.storageService.setNeedsAccountRestore(false)
-      SignalStore.svr.isPinForgottenOrSkipped = true
+      SignalStore.storageService.needsAccountRestore = false
     }
   }
 
@@ -369,7 +369,7 @@ object SvrRepository {
   @Throws(IOException::class)
   fun enableRegistrationLockForUserWithPin() {
     operationLock.withLock {
-      check(SignalStore.svr.hasPin() && !SignalStore.svr.hasOptedOut()) { "Must have a PIN to set a registration lock!" }
+      check(SignalStore.svr.hasOptedInWithAccess() && !SignalStore.svr.hasOptedOut()) { "Must have a PIN to set a registration lock!" }
 
       Log.i(TAG, "[enableRegistrationLockForUserWithPin] Enabling registration lock.", true)
       AppDependencies.signalServiceAccountManager.enableRegistrationLock(SignalStore.svr.masterKey)
@@ -383,7 +383,7 @@ object SvrRepository {
   @Throws(IOException::class)
   fun disableRegistrationLockForUserWithPin() {
     operationLock.withLock {
-      check(SignalStore.svr.hasPin() && !SignalStore.svr.hasOptedOut()) { "Must have a PIN to disable registration lock!" }
+      check(SignalStore.svr.hasOptedInWithAccess() && !SignalStore.svr.hasOptedOut()) { "Must have a PIN to disable registration lock!" }
 
       Log.i(TAG, "[disableRegistrationLockForUserWithPin] Disabling registration lock.", true)
       AppDependencies.signalServiceAccountManager.disableRegistrationLock()
@@ -413,7 +413,7 @@ object SvrRepository {
         false
       }
 
-      if (newToken && SignalStore.svr.hasPin()) {
+      if (newToken && SignalStore.svr.hasOptedInWithAccess()) {
         BackupManager(AppDependencies.application).dataChanged()
       }
     } catch (e: Throwable) {
@@ -474,7 +474,7 @@ object SvrRepository {
   private val hasNoRegistrationLock: Boolean
     get() {
       return !SignalStore.svr.isRegistrationLockEnabled &&
-        !SignalStore.svr.hasPin() &&
+        !SignalStore.svr.hasOptedInWithAccess() &&
         !SignalStore.svr.hasOptedOut()
     }
 }

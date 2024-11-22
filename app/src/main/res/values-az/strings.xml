@@ -1325,20 +1325,6 @@
     <string name="ManageGroupActivity_more">daha çox</string>
     <string name="ManageGroupActivity_add_group_description">Qrup açıqlaması əlavə edin…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android cihazınızdan köçürün</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Köhnə Android cihazındakı hesab və mesajlarınızı köçürün.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Köçürmədən daxil olun</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Mesajlarınızı və media fayllarını ötürmədən davam edin</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Yerli ehtiyat nüsxəni bərpa edin</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Mesajları cihazınızda saxladığınız ehtiyat nüsxə faylından bərpa edin.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Ehtiyat nüsxə endirilir…</string>
@@ -1356,12 +1342,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Bütün mesajlarınız</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Nüsxədən geri yükləyin</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Yalnız son %1$d gün ərzində göndərilən və qəbul edilən media fayllar əhatə olunub.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Ehtiyat nüsxənizə bunlar daxildir:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Nüsxəni geri yüklə</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Son ehtiyat nüsxəniz çıxarılıb: %1$s tarixi saat %2$s</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Ehtiyat nüsxə təfərrüatları əldə edilir…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Adım çəkiləndə bildir</string>
@@ -3463,7 +3453,7 @@
         <item>Digər</item>
         <item>Ödənişlər (MobileCoin)</item>
         <item>İanələr və Nişanlar</item>
-        <item>Signal Android Backup</item>
+        <item>Signal Android Ehtiyat nüsxəsi</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android sazlama jurnalının göndərilməsi</string>
@@ -4304,6 +4294,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Bu parolu güvənli bir yerə yazdım. Parol olmadan, bir nüsxəni geri yükləyə bilmərəm.</string>
     <string name="registration_activity__restore_backup">Nüsxəni geri yüklə</string>
     <string name="registration_activity__transfer_or_restore_account">Hesabınızı köçürün və ya geri yükləyin</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Bərpa et və ya köçür</string>
     <string name="registration_activity__transfer_account">Hesabı köçür</string>
     <string name="registration_activity__skip">Ötür</string>
     <string name="preferences_chats__chat_backups">Çat nüsxələri</string>
@@ -5124,7 +5116,7 @@
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">Qruplar</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">Only messages from group chats</string>
+    <string name="ChatFoldersFragment__only_group_messages">Yalnız qrup çatlarından olan mesajlar</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">Əlavə et</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
@@ -6687,7 +6679,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Aşağıdan \"Parametrlərə keç\" düyməsinə toxunun</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">\"Xəbərdarlıq və xatırladıcı parametrlərinə icazə ver\" funksiyasını aktivləşdirin.</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">\"Signal və xatırlatma parametrlərinin quraşdırılmasına icazə ver\" funksiyasını aktivləşdirin.</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Parametrlərə keçin</string>
 
@@ -7426,11 +7418,11 @@
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Ödənişinizi emal edə bilmədiyimizə görə Signal media faylı üçün ehtiyat nüsxə planınız ləğv edilib. Silinməzdən əvvəl ehtiyat nüsxənizdəki media faylını endirmək üçün bu son şansınızdır.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
-    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Free up %1$s on this device</string>
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Bu cihazda %1$s həcmində yer boşaldın</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">To finish downloading your Signal Backup your device needs %1$s of storage space.</string>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Signal Ehtiyat nüsxənizin endirilməsini tamamlamaq üçün cihazınızda %1$s həcmində yaddaşa ehtiyac var.</string>
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
-    <string name="BackupAlertBottomSheet__to_free_up_space_offload">To free up space offload or delete unused apps or content large in file size.</string>
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Yer boşaltmaq üçün istifadə olunmayan tətbiqləri və ya fayl həcmi böyük olan məzmunu boşaldın və ya silin.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Ehtiyat nüsxə abunəliyinizi yeniləmək mümkün olmadı</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7458,7 +7450,7 @@
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">İndi yox</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
-    <string name="BackupAlertBottomSheet__try_later">Try later</string>
+    <string name="BackupAlertBottomSheet__try_later">Daha sonra cəhd et</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Media faylı silinəcək</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7470,9 +7462,9 @@
     <!-- Dialog action to skip media download -->
     <string name="BackupAlertBottomSheet__skip">Ötür</string>
     <!-- Dialog title for skipping media restore -->
-    <string name="BackupAlertBottomSheet__skip_restore_question">Skip restore?</string>
+    <string name="BackupAlertBottomSheet__skip_restore_question">Bərpaetmə ötürülsün?</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">If you skip restore the remaining media and attachments in your backup will be deleted the next time your device completes a new backup.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore">Bərpaetməni ötürsəniz, ehtiyat nüsxənizdəki media faylları və qoşmalar növbəti dəfə cihazınız yeni ehtiyat nüsxəsini tamamladıqda silinəcəkdir.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7528,10 +7520,6 @@
     <string name="BackupsTypeSettingsFragment__s_month_renews_s">%1$s/ay · Yenilənir %2$s</string>
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Abunəliyi dəyişin və ya ləğv edin</string>
-
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Son ehtiyat nüsxəniz çıxarılıb: %1$s tarixi saat %2$s</string>
 
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
@@ -7850,5 +7838,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Xatırlatma piktoqramı</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Köhnə telefonum əlimdədir</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Prosesi sürətləndirmək üçün cari Signal hesabınızdan QR kodunu skan edin</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Köhnə telefonum əlimdə deyil</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Yaxud da Signal-ı eyni cihazda yenidən quraşdırırsınız</string>
+
+    <!-- Screen title for selecting which restore method to use during registartion -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Hesabı köçür və ya bərpa et</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Signal hesabınızı və mesaj tarixçəsini bu cihaza köçürün.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Signal ehtiyat nüsxələrindən</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Pulsuz və ya ödənişli Signal Ehtiyat nüsxə planı</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Ehtiyat nüsxə qovluğundan</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Ehtiyat nüsxə faylından</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Yaddaşda saxladığınız ehtiyat nüsxəni seçin</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Köhnə telefonunuzdan</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Birbaşa köhnə Androiddən köçür</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Yerli ehtiyat nüsxəni bərpa edin</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Cihazınızda saxlanmış ehtiyat nüsxədən mesajlarınızı bərpa edin. İndi bərpa etməsəniz, daha sonra bərpa etmək mümkün olmayacaq.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Ehtiyat nüsxə şifrəsini daxil edin</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Ehtiyat nüsxə şifrəniz hesabınızı və verilənlərinizi bərpa etmək üçün tələb olunan 64 rəqəmli bir koddur.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Ehtiyat nüsxə şifrəsi yoxdur?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Ehtiyat nüsxə şifrəsi</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">64 rəqəmli bərpa kodu olmadan ehtiyat nüsxələri bərpa etmək mümkün deyil. Ehtiyat nüsxə şifrənizi itirsəniz, Signal ehtiyat nüsxənizin bərpasına kömək edə bilməz.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Köhnə cihazınız varsa, Parametrlər &gt; Çatlar &gt; Signal ehtiyat nüsxələri bölmələrinə keçərək ehtiyat nüsxə şifrənizə baxa bilərsiniz. Sonra isə \"Ehtiyat nüsxə şifrəsinə bax\" seçiminə klikəyin.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Daha ətraflı</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Ötür və bərpa etmə</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Bu kodu köhnə telefonunuzla skan edin</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Signal-ı köhnə cihazınızda açın</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Kamera piktoqramına klikləyin </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Bu kodu kamera ilə skan edin</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR kodunu yaratmaq mümkün olmadı</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Köhnə cihazla skan edildi</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Yenidən sına</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Hesabı köçür</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Hesabınız yeni bir cihaza köçürüləcəkdir. Bu cihazdan qrup və kontaktlarınızı görə, çatlarınıza daxil ola və öz adınızla mesaj göndərə bilərsiniz. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Daha ətraflı</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Hesabı köçür</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Mesajlar və çat məlumatları bütün cihazlarda tam şifrələmə ilə qorunur</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Hesabın köçürülməsi üçün kilidi açın</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Digər cihazınızdan davam edin</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Digər cihazınızda hesabınızın köçürülməsinə davam edin.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Geri yükləmə tamamlandı</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Signal hesabınız və mesajlarınız digər cihazınıza köçürülməyə başlayıb. Artıq Signal bu cihazda aktiv deyil.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Köçürmə tamamlandı</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Signal hesabınız və mesajlarınız digər cihazınıza köçürülüb. Artıq Signal bu cihazda aktiv deyil.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Oldu</string>
+
+
     <!-- EOF -->
 </resources>
