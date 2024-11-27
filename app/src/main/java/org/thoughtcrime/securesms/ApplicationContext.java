@@ -47,6 +47,7 @@ import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
+import org.thoughtcrime.securesms.backup.v2.BackupRepository;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
@@ -61,6 +62,7 @@ import org.thoughtcrime.securesms.emoji.EmojiSource;
 import org.thoughtcrime.securesms.emoji.JumboEmoji;
 import org.thoughtcrime.securesms.gcm.FcmFetchManager;
 import org.thoughtcrime.securesms.jobs.AccountConsistencyWorkerJob;
+import org.thoughtcrime.securesms.jobs.BackupRefreshJob;
 import org.thoughtcrime.securesms.jobs.BackupSubscriptionCheckJob;
 import org.thoughtcrime.securesms.jobs.BuildExpirationConfirmationJob;
 import org.thoughtcrime.securesms.jobs.CheckServiceReachabilityJob;
@@ -278,10 +280,12 @@ public class ApplicationContext extends Application implements AppForegroundObse
     FcmFetchManager.onForeground(this);
 
     SignalExecutors.BOUNDED.execute(() -> {
+      BackupRefreshJob.enqueueIfNecessary();
       RemoteConfig.refreshIfNecessary();
       RetrieveProfileJob.enqueueRoutineFetchIfNecessary();
       executePendingContactSync();
       checkBuildExpiration();
+      checkFreeDiskSpace();
       MemoryTracker.start();
       BackupSubscriptionCheckJob.enqueueIfAble();
 
@@ -359,6 +363,13 @@ public class ApplicationContext extends Application implements AppForegroundObse
     if (Util.getTimeUntilBuildExpiry(SignalStore.misc().getEstimatedServerTime()) <= 0 && !SignalStore.misc().isClientDeprecated()) {
       Log.w(TAG, "Build potentially expired! Enqueing job to check.", true);
       AppDependencies.getJobManager().add(new BuildExpirationConfirmationJob());
+    }
+  }
+
+  public void checkFreeDiskSpace() {
+    if (RemoteConfig.messageBackups()) {
+      long availableBytes = BackupRepository.INSTANCE.getFreeStorageSpace().getBytes();
+      SignalStore.backup().setSpaceAvailableOnDiskBytes(availableBytes);
     }
   }
 

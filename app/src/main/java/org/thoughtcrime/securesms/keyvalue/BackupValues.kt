@@ -35,6 +35,7 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_BACKUP_LAST_PROTO_SIZE = "backup.lastProtoSize"
     private const val KEY_BACKUP_TIER = "backup.backupTier"
     private const val KEY_LATEST_BACKUP_TIER = "backup.latestBackupTier"
+    private const val KEY_LAST_CHECK_IN_MILLIS = "backup.lastCheckInMilliseconds"
 
     private const val KEY_NEXT_BACKUP_TIME = "backup.nextBackupTime"
     private const val KEY_LAST_BACKUP_TIME = "backup.lastBackupTime"
@@ -57,6 +58,9 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_TIME = "backup.failed.acknowledged.snooze.time"
     private const val KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_COUNT = "backup.failed.acknowledged.snooze.count"
     private const val KEY_BACKUP_FAIL_SHEET_SNOOZE_TIME = "backup.failed.sheet.snooze"
+    private const val KEY_BACKUP_FAIL_SPACE_REMAINING = "backup.failed.space.remaining"
+
+    private const val KEY_USER_MANUALLY_SKIPPED_MEDIA_RESTORE = "backup.user.manually.skipped.media.restore"
 
     private const val KEY_MEDIA_ROOT_BACKUP_KEY = "backup.mediaRootBackupKey"
 
@@ -89,11 +93,15 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   var lastMediaSyncTime: Long by longValue(KEY_LAST_BACKUP_MEDIA_SYNC_TIME, -1)
   var backupFrequency: BackupFrequency by enumValue(KEY_BACKUP_FREQUENCY, BackupFrequency.MANUAL, BackupFrequency.Serializer)
 
+  var userManuallySkippedMediaRestore: Boolean by booleanValue(KEY_USER_MANUALLY_SKIPPED_MEDIA_RESTORE, false)
+
+  var lastCheckInMillis: Long by longValue(KEY_LAST_CHECK_IN_MILLIS, 0L)
+
   /**
    * Key used to backup messages.
    */
   val messageBackupKey: MessageBackupKey
-    get() = SignalStore.svr.masterKey.derivateMessageBackupKey()
+    get() = SignalStore.account.accountEntropyPool.deriveMessageBackupKey()
 
   /**
    * Key used to backup media. Purely random and separate from the message backup key.
@@ -172,9 +180,18 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   /** True if we believe we have successfully uploaded a backup, otherwise false. */
   var hasBackupBeenUploaded: Boolean by booleanValue(KEY_BACKUP_UPLOADED, false)
 
-  val hasBackupFailure: Boolean = getBoolean(KEY_BACKUP_FAIL, false)
+  val hasBackupFailure: Boolean get() = getBoolean(KEY_BACKUP_FAIL, false)
   val nextBackupFailureSnoozeTime: Duration get() = getLong(KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_TIME, 0L).milliseconds
   val nextBackupFailureSheetSnoozeTime: Duration get() = getLong(KEY_BACKUP_FAIL_SHEET_SNOOZE_TIME, getNextBackupFailureSheetSnoozeTime(lastBackupTime.milliseconds).inWholeMilliseconds).milliseconds
+
+  /**
+   * Denotes how many bytes are still available on the disk for writing. Used to display
+   * the disk full error and sheet. Set when we believe there might be an "out of space"
+   * failure in BackupRestoreMediaJob and each time the application is brought into the
+   * foreground. We never clear this value, so it can't be used as an indicator that
+   * something bad happened, it can only be utilized as a reference for comparison.
+   */
+  var spaceAvailableOnDiskBytes: Long by longValue(KEY_BACKUP_FAIL_SPACE_REMAINING, -1L)
 
   /**
    * Call when the user disables backups. Clears/resets all relevant fields.

@@ -1011,6 +1011,16 @@
     <!-- Button in dialog to retry linking a device with a qr code -->
     <string name="AddLinkDeviceFragment__retry">قايتا سىنا</string>
 
+    <!-- LinkDeviceSyncBottomSheet -->
+    <!-- Option in bottom sheet to transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_transfer">ئۇچۇر تارىخىنى يۆتكەش</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">تېكىست ئۇچۇرلىرىڭىزنى ۋە يېقىنقى مېدىيانى ئۈستەل يۈزىڭىزگە يۆتكەڭ</string>
+    <!-- Option in bottom sheet to not transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_dont_transfer">يۆتكىمەڭ</string>
+    <!-- Description in bottom sheet of what not transferring history will do -->
+    <string name="LinkDeviceSyncBottomSheet_no_old_messages">ھېچقانداق كونا ئۇچۇرلار ياكى مېدىيا ئۈستەل يۈزىگە يۆتكەلمەيدۇ</string>
+
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">«%1$s» نى ئاجرىتامسىز؟</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">بۇ ئۈسكۈنىنى ئاجراتقاندىن كېيىن، ئۇ داۋاملىق ئۇچۇر ئەۋەتەلمەيدۇ ياكى قوبۇل قىلالمايدۇ.</string>
@@ -5676,6 +5686,10 @@
     <string name="DonationsErrors__your_payment">ئىئانىڭىزنى بىر تەرەپ قىلالمىدى ۋە سىزدىن پۇل تۇتۇلمىدى. قايتا سىناڭ.</string>
     <string name="DonationsErrors__still_processing">تېخىچە بىر تەرەپ قىلىۋاتىدۇ</string>
     <string name="DonationsErrors__couldnt_add_badge">ئىزنەك قوشقىلى بولمىدى</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
+    <string name="DonationsError__something_went_wrong">خاتالىق كۆرۈلدى</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
+    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">زاپاسلاش مۇشتەرىلىكىڭىزنى كۆرسەتكىلى بولمىدى. ياردەم خادىمى بىلەن ئالاقىلىشىڭ.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">ئىزنەكنى دەلىللىيەلمىدى</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
@@ -5955,8 +5969,6 @@
     <string name="DonationReceiptDetailsFragment__amount">سومما</string>
     <!-- Donation receipts thanks -->
     <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Signal نى قوللىغانلىقىڭىزغا رەھمەت. سىزنىڭ ئىئانىڭىز ئەركىن ئىپادىلەش ھوقۇقىنى قوغداش ۋە دۇنيادىكى مىليونلىغان كىشىلەرنىڭ ئالاقىلىشىش بىخەتەرلىكىگە كاپالەتلىك قىلىدىغان ئوچۇق مەنبە مەخپىيەتلىك تېخنىكىسىنى ئىلگىرى سۈرۈش بۇرچىمىزنى ئىشقا ئاشۇرۇشقا ياردەم قىلىدۇ. ئەگەر سىز ئامېرىكا پۇقراسى بولسىڭىز، بۇ تالوننى باج خاتىرىڭىز ئۈچۈن ساقلاپ قويۇڭ. Signal تېخنىكا فوندى (Signal Technology Foundation) ئامېرىكا دۆلەت ئىچى باج قانۇنى 501c3 ماددىسىدىكى بەلگىلىمە بويىچە باجدىن كەچۈرۈم قىلىنىدىغان تاپاۋەتسىز ئورگان بولۇپ ھېسابلىنىدۇ. فېدېراتسىيە باج ID نومۇرىمىز 82-4506840.</string>
-    <!-- Donation receipt type -->
-    <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
     <string name="DonationReceiptListFragment__no_receipts">تالون يوق</string>
 
@@ -7043,6 +7055,8 @@
     <string name="CallLinkDetailsFragment__delete_call_link">چاقىرىق ئۇلانمىسىنى ئۆچۈرۈش</string>
     <!-- Displayed whenever a name change, revocation, etc, fails. -->
     <string name="CallLinkDetailsFragment__couldnt_save_changes">ئۆزگەرتىش ساقلانمىدى. تور ئۇلىنىشىنى تەكشۈرۈپ قايتا سىناڭ.</string>
+    <!-- Displayed when the call link is in use when the user tries to delete it -->
+    <string name="CallLinkDetailsFragment__couldnt_delete_call_link">چاقىرىق ئۇلانمىسىنى ھازىر ئىشلىتىلىۋاتقانلىقى ئۈچۈن ئۆچۈرۈگىلى بولمىدى.</string>
     <!-- Displayed as title in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__delete_link">ئۇلانمىنى ئۆچۈرەمسىز؟</string>
     <!-- Displayed as body in dialog when user attempts to delete the link -->
@@ -7303,7 +7317,7 @@
     <!-- Dialog title for skipping media restore -->
     <string name="BackupAlertBottomSheet__skip_restore_question">ئەسلىگە كەلتۈرۈشتى ئاتلامسىز؟</string>
     <!-- Dialog text for skipping media restore -->
-    <string name="BackupAlertBottomSheet__if_you_skip_restore">ئەگەر «ئەسلىگە كەلتۈرۈشتىن ئاتلاش» نى تاللىسىڭىز زاپاسلىغاندا قېلىپ قالغان مېدىيا ۋە قۇشۇمچە ھۆججەتلەر كېيىنكى قېتىم ئۈسكۈنىڭىز يېڭى زاپاسلاشنى تاماملىغاندا ئۆچۈرۈۋېتىلىدۇ.</string>
+    <string name="BackupAlertBottomSheet__if_you_skip_restore_the">ئەگەر زاپاس مېدىيا ۋە قوشۇمچە ھۆججەتلەرنى ئەسلىگە كەلتۈرۈشتىن ئاتلاپ ئۆتۈپ كەتسىڭىز ، كىيىن ساقلاش بوشلۇقى چىققاندا چۈشۈرگىلى بولىدۇ.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7379,6 +7393,8 @@
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">ئۈسكۈنىدىكى ساقلاش بوشلۇقىنى ئەلالاشتۇرۇش</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">ئىشلىتىلمىگەن مېدىيا چۈشۈرۋېتىلىدۇ، ئەمما زاپاسلىغان ئورۇندىن خالىغان ۋاقىتتا چۈشۈرەلەيسىز.</string>
+    <!-- Dialog message for paid tier pending dialog -->
+    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">ساقلاشنى ئەلالاشتۇرۇش پەقەت سىگنال زاپاسلاشنىڭ ھەقلىق دەرىجىسى بىلەنلا ئىشلىتىلىدۇ. زاپاسلاش مۇشتەرىلىكىڭىز يەنىلا بىر تەرەپ قىلىنىۋاتىدۇ ، تېخى قوزغىتىلمىدى. كىيىنچە قايتا سىناڭ.</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -7682,7 +7698,7 @@
     <!-- Row subtitle for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_reinstalling">ياكى ئوخشاش ئۈسكۈنىدە سىگنالنى قايتا قاچىلاۋاتىسىز</string>
 
-    <!-- Screen title for selecting which restore method to use during registartion -->
+    <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">ھېساباتنى ئەسلىگە كەلتۈرۈش ياكى يۆتكەش</string>
     <!-- Screen subtitle for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__get_your_signal_account">سىگنال ھېساباتىڭىز ۋە ئۇچۇر تارىخىڭىزنى بۇ ئۈسكۈنىگە قاچىلاڭ.</string>
@@ -7715,9 +7731,9 @@
     <!-- Backup key text field hint -->
     <string name="EnterBackupKey_backup_key">زاپاسلاش ئاچقۇچى</string>
     <!-- Backup key not known bottom sheet info paragraph 1 -->
-    <string name="EnterBackupKey_no_key_paragraph_1">زاپاسلاشنى 64 خانىلىق ئەسلىگە كەلتۈرۈش كودى بولمىسا ئەسلىگە كەلتۈرگىلى بولمايدۇ. ئەگەر زاپاسلاش ئاچقۇچىڭىزنى يوقىتىپ قويغان بولسىڭىز ، سىگنال ياردەملىشىپ زاپاسلاشنى ئەسلىگە كەلتۈرەلمەيدۇ.</string>
+    <string name="EnterBackupKey_no_key_paragraph_1">زاپاسلاشلارنى 64 خانىلىق ئەسلىگە كەلتۈرۈش كودى بولمىسا ئەسلىگە كەلتۈرگىلى بولمايدۇ. ئەگەر زاپاسلاش ئاچقۇچىڭىزنى يوقىتىپ قويغان بولسىڭىز ، سىگنال ياردەملىشىپ زاپاسلاشنى ئەسلىگە كەلتۈرەلمەيدۇ.</string>
     <!-- Backup key not known bottom sheet info paragraph 2 -->
-    <string name="EnterBackupKey_no_key_paragraph_2">ئەگەر كونا ئۈسكۈنىڭىز بولسا تەڭشەك&gt; پاراڭلار&gt; سىگنال زاپاسلىرى دىن زاپاسلاش ئاچقۇچىنى كۆرەلەيسىز. ئاندىن «زاپاسلاش ئاچقۇچىنى كۆرۈش» نى چېكىڭ.</string>
+    <string name="EnterBackupKey_no_key_paragraph_2">ئەگەر كونا ئۈسكۈنىڭىز بولسا تەڭشەك &gt; زاپاسلىرى دىن زاپاسلاش ئاچقۇچىنى كۆرەلەيسىز. ئاندىن «زاپاسلاش ئاچقۇچىنى كۆرۈش» نى چېكىڭ.</string>
     <!-- Backup key not known bottom sheet button to learn more about it -->
     <string name="EnterBackupKey_learn_more">تەپسىلاتى</string>
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->

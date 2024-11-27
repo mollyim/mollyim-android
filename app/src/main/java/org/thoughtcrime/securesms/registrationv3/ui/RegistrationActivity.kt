@@ -15,6 +15,7 @@ import androidx.navigation.ActivityNavigator
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.MainActivity
+import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
@@ -30,7 +31,7 @@ import org.thoughtcrime.securesms.util.RemoteConfig
 /**
  * Activity to hold the entire registration process.
  */
-class RegistrationActivity : BaseActivity() {
+class RegistrationActivity : PassphraseRequiredActivity() {
 
   private val TAG = Log.tag(RegistrationActivity::class.java)
 
@@ -43,10 +44,10 @@ class RegistrationActivity : BaseActivity() {
     lifecycle.addObserver(SmsRetrieverObserver())
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     dynamicTheme.onCreate(this)
 
-    super.onCreate(savedInstanceState)
+    super.onCreate(savedInstanceState, ready)
     setContentView(R.layout.activity_registration_navigation_v3)
 
     sharedViewModel.isReregister = intent.getBooleanExtra(RE_REGISTRATION_EXTRA, false)
@@ -64,7 +65,7 @@ class RegistrationActivity : BaseActivity() {
   }
 
   private fun handleSuccessfulVerify() {
-    if (SignalStore.misc.hasLinkedDevices) {
+    if (SignalStore.account.hasLinkedDevices) {
       SignalStore.misc.shouldShowLinkedDevicesReminder = sharedViewModel.isReregister
     }
 

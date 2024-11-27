@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1487
-val canonicalVersionName = "7.25.2"
+val canonicalVersionCode = 1489
+val canonicalVersionName = "7.26.1"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -576,8 +576,6 @@ dependencies {
   androidTestImplementation(testLibs.androidx.test.core)
   androidTestImplementation(testLibs.androidx.test.core.ktx)
   androidTestImplementation(testLibs.androidx.test.ext.junit.ktx)
-  androidTestImplementation(testLibs.mockito.android)
-  androidTestImplementation(testLibs.mockito.kotlin)
   androidTestImplementation(testLibs.mockk.android)
   androidTestImplementation(testLibs.square.okhttp.mockserver)
   androidTestImplementation(testLibs.diff.utils)

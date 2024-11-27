@@ -20,7 +20,11 @@ fun Network.createChatService(
 ): ChatService {
   val username = credentialsProvider?.username ?: ""
   val password = credentialsProvider?.password ?: ""
-  return this.createChatService(username, password, receiveStories)
+  return if (username.isEmpty() && password.isEmpty()) {
+    this.createUnauthChatService(null)
+  } else {
+    this.createAuthChatService(username, password, receiveStories, null)
+  }
 }
 
 /**

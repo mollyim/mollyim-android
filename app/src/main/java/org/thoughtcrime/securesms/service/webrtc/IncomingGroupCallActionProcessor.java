@@ -182,7 +182,7 @@ public final class IncomingGroupCallActionProcessor extends DeviceAwareActionPro
   protected @NonNull WebRtcServiceState handleAcceptCall(@NonNull WebRtcServiceState currentState, boolean answerWithVideo) {
     byte[] groupId = currentState.getCallInfoState().getCallRecipient().requireGroupId().getDecodedId();
     GroupCall groupCall = webRtcInteractor.getCallManager().createGroupCall(groupId,
-                                                                            SignalStore.internal().groupCallingServer(),
+                                                                            SignalStore.internal().getGroupCallingServer(),
                                                                             WebRtcUtil.getProxyInfo(),
                                                                             new byte[0],
                                                                             AUDIO_LEVELS_INTERVAL,

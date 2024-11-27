@@ -54,11 +54,11 @@ class AddLinkDeviceFragment : ComposeFragment() {
       onLinkNewDeviceWithUrl = { url ->
         navController.popBackStack()
         viewModel.onQrCodeScanned(url)
-        viewModel.addDevice()
+        viewModel.addDevice(shouldSync = false)
       },
       onQrCodeApproved = {
         navController.popBackStack()
-        viewModel.addDevice()
+        viewModel.addDevice(shouldSync = false)
       },
       onQrCodeDismissed = { viewModel.onQrCodeDismissed() },
       onQrCodeRetry = { viewModel.onQrCodeScanned(state.linkUri.toString()) },
@@ -126,6 +126,7 @@ private fun MainScreen(
         linkDeviceResult = state.linkDeviceResult,
         onLinkDeviceSuccess = onLinkDeviceSuccess,
         onLinkDeviceFailure = onLinkDeviceFailure,
+        navController = navController,
         modifier = Modifier.padding(contentPadding)
       )
     } else {

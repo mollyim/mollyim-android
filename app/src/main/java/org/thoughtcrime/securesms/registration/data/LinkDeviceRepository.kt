@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.registration.data.network.DeviceUuidRequestResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
@@ -78,7 +79,7 @@ class LinkDeviceRepository(password: String) {
           registrationLock = registrationLock,
           unidentifiedAccessKey = unidentifiedAccessKey,
           unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
-          capabilities = AppCapabilities.getCapabilities(true),
+          capabilities = AppCapabilities.getCapabilities(true, RemoteConfig.storageServiceEncryptionV2),
           discoverableByPhoneNumber = !notDiscoverable,
           name = Base64.encodeWithPadding(encryptedDeviceName),
           pniRegistrationId = pniRegistrationId,

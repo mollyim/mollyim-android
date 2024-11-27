@@ -54,6 +54,7 @@ import org.signal.core.ui.theme.SignalTheme
 import org.signal.core.util.bytes
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.MainActivity
+import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.RestoreV2Event
@@ -68,7 +69,7 @@ import java.util.Locale
 /**
  * Restore backup from remote source.
  */
-class RemoteRestoreActivity : BaseActivity() {
+class RemoteRestoreActivity : PassphraseRequiredActivity() {
   companion object {
     fun getIntent(context: Context): Intent {
       return Intent(context, RemoteRestoreActivity::class.java)
@@ -77,8 +78,8 @@ class RemoteRestoreActivity : BaseActivity() {
 
   private val viewModel: RemoteRestoreViewModel by viewModels()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    super.onCreate(savedInstanceState, ready)
 
     lifecycleScope.launch {
       val restored = viewModel

@@ -271,6 +271,9 @@
         android:id="@+id/addLinkDeviceFragment"
         android:name="org.thoughtcrime.securesms.linkdevice.AddLinkDeviceFragment"
         android:label="link_device_add_fragment">
+        <action
+            android:id="@+id/action_addLinkDeviceFragment_to_linkDeviceSyncBottomSheet"
+            app:destination="@id/linkDeviceSyncBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/linkDeviceIntroBottomSheet"
@@ -283,6 +286,9 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
     </dialog>
+    <dialog
+        android:id="@+id/linkDeviceSyncBottomSheet"
+        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceSyncBottomSheet" />
 
     <!-- Payments -->
     <activity
@@ -767,6 +773,9 @@
         <action
             android:id="@+id/action_internalSettingsFragment_to_internalBackupPlaygroundFragment"
             app:destination="@id/internalBackupPlaygroundFragment" />
+        <action
+            android:id="@+id/action_internalSettingsFragment_to_internalStorageServicePlaygroundFragment"
+            app:destination="@id/internalStorageServicePlaygroundFragment" />
     </fragment>
 
     <fragment
@@ -818,6 +827,11 @@
         android:id="@+id/internalBackupPlaygroundFragment"
         android:name="org.thoughtcrime.securesms.components.settings.app.internal.backup.InternalBackupPlaygroundFragment"
         android:label="internal_backup_playground_fragment" />
+
+    <fragment
+        android:id="@+id/internalStorageServicePlaygroundFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.internal.storage.InternalStorageServicePlaygroundFragment"
+        android:label="internal_storage_service_playground_fragment" />
 
     <!-- endregion -->
 

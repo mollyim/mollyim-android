@@ -283,7 +283,7 @@ public class PushServiceSocket {
   private static final String STICKER_MANIFEST_PATH          = "stickers/%s/manifest.proto";
   private static final String STICKER_PATH                   = "stickers/%s/full/%d";
 
-  private static final String GROUPSV2_CREDENTIAL       = "/v1/certificate/auth/group?redemptionStartSeconds=%d&redemptionEndSeconds=%d&zkcCredential=true";
+  private static final String GROUPSV2_CREDENTIAL       = "/v1/certificate/auth/group?redemptionStartSeconds=%d&redemptionEndSeconds=%d";
   private static final String GROUPSV2_GROUP            = "/v2/groups/";
   private static final String GROUPSV2_GROUP_PASSWORD   = "/v2/groups/?inviteLinkPassword=%s";
   private static final String GROUPSV2_GROUP_CHANGES    = "/v2/groups/logs/%s?maxSupportedChangeEpoch=%d&includeFirstState=%s&includeLastState=false";
@@ -349,10 +349,11 @@ public class PushServiceSocket {
   private static final String CALL_LINK_CREATION_AUTH = "/v1/call-link/create-auth";
   private static final String SERVER_DELIVERED_TIMESTAMP_HEADER = "X-Signal-Timestamp";
 
-  private static final Map<String, String> NO_HEADERS            = Collections.emptyMap();
-  private static final ResponseCodeHandler NO_HANDLER            = new EmptyResponseCodeHandler();
-  private static final ResponseCodeHandler UNOPINIONATED_HANDLER = new UnopinionatedResponseCodeHandler();
-  private static final ResponseCodeHandler LONG_POLL_HANDLER     = new LongPollingResponseCodeHandler();
+  private static final Map<String, String> NO_HEADERS                         = Collections.emptyMap();
+  private static final ResponseCodeHandler NO_HANDLER                         = new EmptyResponseCodeHandler();
+  private static final ResponseCodeHandler LONG_POLL_HANDLER                  = new LongPollingResponseCodeHandler();
+  private static final ResponseCodeHandler UNOPINIONATED_HANDLER              = new UnopinionatedResponseCodeHandler();
+  private static final ResponseCodeHandler UNOPINIONATED_BINARY_ERROR_HANDLER = new UnopinionatedBinaryErrorResponseCodeHandler();
 
   public static final long CDN2_RESUMABLE_LINK_LIFETIME_MILLIS = TimeUnit.DAYS.toMillis(7);
 
@@ -563,6 +564,24 @@ public class PushServiceSocket {
 
     String response = makeServiceRequestWithoutAuthentication(ARCHIVE_INFO, "GET", null, headers, NO_HANDLER);
     return JsonUtil.fromJson(response, ArchiveGetBackupInfoResponse.class);
+  }
+
+  /**
+   * POST credential presentation to the server to keep backup alive.
+   */
+  public void refreshBackup(ArchiveCredentialPresentation credentialPresentation) throws IOException {
+    Map<String, String> headers = credentialPresentation.toHeaders();
+
+    makeServiceRequestWithoutAuthentication(ARCHIVE_INFO, "POST", null, headers, UNOPINIONATED_HANDLER);
+  }
+
+  /**
+   * DELETE credential presentation to the server to delete backup.
+   */
+  public void deleteBackup(ArchiveCredentialPresentation credentialPresentation) throws IOException {
+    Map<String, String> headers = credentialPresentation.toHeaders();
+
+    makeServiceRequestWithoutAuthentication(ARCHIVE_INFO, "DELETE", null, headers, UNOPINIONATED_HANDLER);
   }
 
   public List<ArchiveGetMediaItemsResponse.StoredMediaObject> debugGetAllArchiveMediaItems(ArchiveCredentialPresentation credentialPresentation) throws IOException {
@@ -1633,6 +1652,10 @@ public class PushServiceSocket {
     }
   }
 
+  public void writeStorageItems(String authToken, WriteOperation writeOperation) throws IOException {
+    makeStorageRequest(authToken, "/v1/storage", "PUT", protobufRequestBody(writeOperation), UNOPINIONATED_BINARY_ERROR_HANDLER);
+  }
+
   public void pingStorageService() throws IOException {
     try (Response response = makeStorageRequest(null, "/ping", "GET", null, NO_HANDLER)) {
       return;
@@ -2017,7 +2040,11 @@ public class PushServiceSocket {
   }
 
   public void uploadBackupFile(AttachmentUploadForm uploadForm, String resumableUploadUrl, InputStream data, long dataLength) throws IOException {
-    uploadToCdn3(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null, uploadForm.headers);
+    if (uploadForm.cdn == 2) {
+      uploadToCdn2(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null);
+    } else {
+      uploadToCdn3(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null, uploadForm.headers);
+    }
   }
 
   private AttachmentDigest uploadToCdn3(String resumableUrl,
@@ -2884,6 +2911,24 @@ public class PushServiceSocket {
     }
   }
 
+  /**
+   * A {@link ResponseCodeHandler} that only throws {@link NonSuccessfulResponseCodeException} with the response body.
+   * Any further processing is left to the caller.
+   */
+  private static class UnopinionatedBinaryErrorResponseCodeHandler implements ResponseCodeHandler {
+    @Override
+    public void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException, PushNetworkException {
+      if (responseCode < 200 || responseCode > 299) {
+        byte[] bodyBytes = null;
+        if (body != null) {
+          bodyBytes = readBodyBytes(body);
+        }
+
+        throw new NonSuccessfulResponseCodeException(responseCode, "Response: " + responseCode, bodyBytes);
+      }
+    }
+  }
+
   public enum ClientSet { KeyBackup }
 
   public CredentialResponse retrieveGroupsV2Credentials(long todaySeconds)
@@ -2902,16 +2947,19 @@ public class PushServiceSocket {
 
   private static final ResponseCodeHandler GROUPS_V2_PUT_RESPONSE_HANDLER   = (responseCode, body) -> {
     if (responseCode == 409) throw new GroupExistsException();
-  };;
+  };
+
   private static final ResponseCodeHandler GROUPS_V2_GET_CURRENT_HANDLER    = (responseCode, body) -> {
     switch (responseCode) {
       case 403: throw new NotInGroupException();
       case 404: throw new GroupNotFoundException();
     }
   };
+
   private static final ResponseCodeHandler GROUPS_V2_PATCH_RESPONSE_HANDLER = (responseCode, body) -> {
     if (responseCode == 400) throw new GroupPatchNotAcceptedException();
   };
+
   private static final ResponseCodeHandler GROUPS_V2_GET_JOIN_INFO_HANDLER  = new ResponseCodeHandler() {
     @Override
     public void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException {
