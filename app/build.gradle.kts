@@ -18,11 +18,11 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1479
-val canonicalVersionName = "7.22.2"
+val canonicalVersionCode = 1489
+val canonicalVersionName = "7.26.1"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
-val mollyRevision = 2
+val mollyRevision = 1
 
 val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
@@ -83,7 +83,6 @@ android {
   ndkVersion = signalNdkVersion
 
   flavorDimensions += listOf("environment", "license", "distribution")
-  useLibrary("org.apache.http.legacy")
   testBuildType = "instrumentation"
 
   android.bundle.language.enableSplit = false
@@ -157,6 +156,7 @@ android {
   }
 
   buildFeatures {
+    buildConfig = true
     viewBinding = true
     compose = true
   }
@@ -253,7 +253,6 @@ android {
         "proguard/proguard-glide.pro",
         "proguard/proguard-shortcutbadger.pro",
         "proguard/proguard-retrofit.pro",
-        "proguard/proguard-webrtc.pro",
         "proguard/proguard-klinker.pro",
         "proguard/proguard-mobilecoin.pro",
         "proguard/proguard-retrolambda.pro",
@@ -491,7 +490,6 @@ dependencies {
   implementation(libs.molly.ringrtc)
   implementation(libs.leolin.shortcutbadger)
   implementation(libs.emilsjolander.stickylistheaders)
-  implementation(libs.apache.httpclient.android)
   implementation(libs.glide.glide)
   implementation(libs.roundedimageview)
   implementation(libs.materialish.progress)
@@ -517,6 +515,7 @@ dependencies {
   implementation(libs.dnsjava)
   implementation(libs.kotlinx.collections.immutable)
   implementation(libs.accompanist.permissions)
+  implementation(libs.accompanist.drawablepainter)
   implementation(libs.kotlin.stdlib.jdk8)
   implementation(libs.kotlin.reflect)
   "gmsImplementation"(libs.kotlinx.coroutines.play.services)
@@ -532,6 +531,13 @@ dependencies {
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
+  implementation(libs.unifiedpush.connector) {
+    exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
+    exclude(group = "com.google.protobuf", module = "protobuf-java")
+  }
+  implementation(libs.unifiedpush.connector.ui) {
+    exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
+  }
 
   "gmsImplementation"(project(":billing"))
 
@@ -570,8 +576,6 @@ dependencies {
   androidTestImplementation(testLibs.androidx.test.core)
   androidTestImplementation(testLibs.androidx.test.core.ktx)
   androidTestImplementation(testLibs.androidx.test.ext.junit.ktx)
-  androidTestImplementation(testLibs.mockito.android)
-  androidTestImplementation(testLibs.mockito.kotlin)
   androidTestImplementation(testLibs.mockk.android)
   androidTestImplementation(testLibs.square.okhttp.mockserver)
   androidTestImplementation(testLibs.diff.utils)

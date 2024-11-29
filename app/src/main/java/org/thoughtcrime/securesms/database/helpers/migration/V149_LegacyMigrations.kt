@@ -2098,7 +2098,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
   private fun getLocalAci(context: Application): ACI? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.1.aci"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.aci", "account.1.aci"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           ACI.parseOrNull(cursor.requireString("value"))
         } else {

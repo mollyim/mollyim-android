@@ -172,6 +172,14 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
 
+      clickPref(
+        title = DSLSettingsText.from("Storage Service Playground"),
+        summary = DSLSettingsText.from("Test and view storage service stuff."),
+        onClick = {
+          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToInternalStorageServicePlaygroundFragment())
+        }
+      )
+
       switchPref(
         title = DSLSettingsText.from("'Internal Details' button"),
         summary = DSLSettingsText.from("Show a button in conversation settings that lets you see more information about a user."),
@@ -213,6 +221,22 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
               SignalDatabase.kyberPreKeys.debugDeleteAll()
 
               Toast.makeText(requireContext(), "All prekeys deleted!", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Delete UnifiedPush ping"),
+        summary = DSLSettingsText.from("Make as Molly never received the ping from MollySocket. Will cause UnifiedPush to stop and Websocket to restart."),
+        onClick = {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete UnifiedPush ping?")
+            .setMessage("Are you sure?")
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+              SignalStore.unifiedpush.lastReceivedTime = 0
+              Toast.makeText(requireContext(), "UnifiedPush ping deleted!", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -393,7 +417,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       clickPref(
         title = DSLSettingsText.from("Force emoji download"),
-        summary = DSLSettingsText.from("Download the latest emoji set if it\\'s newer than what we have."),
+        summary = DSLSettingsText.from("Download the latest emoji set if it's newer than what we have."),
         onClick = {
           AppDependencies.jobManager.add(DownloadLatestEmojiDataJob(true))
         }
@@ -401,7 +425,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       clickPref(
         title = DSLSettingsText.from("Force search index download"),
-        summary = DSLSettingsText.from("Download the latest emoji search index if it\\'s newer than what we have."),
+        summary = DSLSettingsText.from("Download the latest emoji search index if it's newer than what we have."),
         onClick = {
           EmojiSearchIndexDownloadJob.scheduleImmediately()
         }
@@ -482,19 +506,19 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       radioListPref(
         title = DSLSettingsText.from("Audio processing method"),
-        listItems = CallManager.AudioProcessingMethod.values().map { it.name }.toTypedArray(),
-        selected = CallManager.AudioProcessingMethod.values().indexOf(state.callingAudioProcessingMethod),
+        listItems = CallManager.AudioProcessingMethod.entries.map { it.name }.toTypedArray(),
+        selected = CallManager.AudioProcessingMethod.entries.indexOf(state.callingAudioProcessingMethod),
         onSelected = {
-          viewModel.setInternalCallingAudioProcessingMethod(CallManager.AudioProcessingMethod.values()[it])
+          viewModel.setInternalCallingAudioProcessingMethod(CallManager.AudioProcessingMethod.entries[it])
         }
       )
 
       radioListPref(
         title = DSLSettingsText.from("Bandwidth mode"),
-        listItems = CallManager.DataMode.values().map { it.name }.toTypedArray(),
-        selected = CallManager.DataMode.values().indexOf(state.callingDataMode),
+        listItems = CallManager.DataMode.entries.map { it.name }.toTypedArray(),
+        selected = CallManager.DataMode.entries.indexOf(state.callingDataMode),
         onSelected = {
-          viewModel.setInternalCallingDataMode(CallManager.DataMode.values()[it])
+          viewModel.setInternalCallingDataMode(CallManager.DataMode.entries[it])
         }
       )
 
@@ -699,8 +723,8 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
               AdvancedPrivacySettingsRepository.DisablePushMessagesResult.SUCCESS -> {
                 SignalStore.account.setRegistered(false)
                 SignalStore.registration.clearRegistrationComplete()
-                SignalStore.registration.clearHasUploadedProfile()
-                SignalStore.registration.clearSkippedTransferOrRestore()
+                SignalStore.registration.hasUploadedProfile = false
+                SignalStore.registration.debugClearSkippedTransferOrRestore()
                 Toast.makeText(context, "Unregistered!", Toast.LENGTH_SHORT).show()
               }
 

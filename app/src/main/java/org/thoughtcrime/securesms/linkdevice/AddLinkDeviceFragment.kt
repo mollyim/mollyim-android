@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -39,7 +39,7 @@ class AddLinkDeviceFragment : ComposeFragment() {
   @OptIn(ExperimentalPermissionsApi::class)
   @Composable
   override fun FragmentContent() {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val navController: NavController by remember { mutableStateOf(findNavController()) }
     val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
@@ -48,21 +48,24 @@ class AddLinkDeviceFragment : ComposeFragment() {
       navController = navController,
       hasPermissions = cameraPermissionState.status.isGranted,
       linkWithoutQrCode = state.linkWithoutQrCode,
-      onLinkDeviceWithUrl = { url ->
-        viewModel.onQrCodeScanned(url)
-        viewModel.addDevice()
-      },
       onRequestPermissions = { askPermissions() },
       onShowFrontCamera = { viewModel.showFrontCamera() },
       onQrCodeScanned = { data -> viewModel.onQrCodeScanned(data) },
-      onQrCodeApproved = { viewModel.addDevice() },
-      onQrCodeDismissed = { viewModel.onQrCodeDismissed() },
-      onQrCodeRetry = { viewModel.onQrCodeScanned(state.url) },
-      onLinkDeviceSuccess = {
-        viewModel.onLinkDeviceResult(true)
+      onLinkNewDeviceWithUrl = { url ->
         navController.popBackStack()
+        viewModel.onQrCodeScanned(url)
+        viewModel.addDevice(shouldSync = false)
       },
-      onLinkDeviceFailure = { viewModel.onLinkDeviceResult(false) }
+      onQrCodeApproved = {
+        navController.popBackStack()
+        viewModel.addDevice(shouldSync = false)
+      },
+      onQrCodeDismissed = { viewModel.onQrCodeDismissed() },
+      onQrCodeRetry = { viewModel.onQrCodeScanned(state.linkUri.toString()) },
+      onLinkDeviceSuccess = {
+        viewModel.onLinkDeviceResult(showSheet = true)
+      },
+      onLinkDeviceFailure = { viewModel.onLinkDeviceResult(showSheet = false) }
     )
   }
 
@@ -87,7 +90,7 @@ private fun MainScreen(
   navController: NavController? = null,
   hasPermissions: Boolean = false,
   linkWithoutQrCode: Boolean = false,
-  onLinkDeviceWithUrl: (String) -> Unit = {},
+  onLinkNewDeviceWithUrl: (String) -> Unit = {},
   onRequestPermissions: () -> Unit = {},
   onShowFrontCamera: () -> Unit = {},
   onQrCodeScanned: (String) -> Unit = {},
@@ -115,8 +118,7 @@ private fun MainScreen(
         hasPermission = hasPermissions,
         onRequestPermissions = onRequestPermissions,
         showFrontCamera = state.showFrontCamera,
-        qrCodeFound = state.qrCodeFound,
-        qrCodeInvalid = state.qrCodeInvalid,
+        qrCodeState = state.qrCodeState,
         onQrCodeScanned = onQrCodeScanned,
         onQrCodeAccepted = onQrCodeApproved,
         onQrCodeDismissed = onQrCodeDismissed,
@@ -124,12 +126,12 @@ private fun MainScreen(
         linkDeviceResult = state.linkDeviceResult,
         onLinkDeviceSuccess = onLinkDeviceSuccess,
         onLinkDeviceFailure = onLinkDeviceFailure,
+        navController = navController,
         modifier = Modifier.padding(contentPadding)
       )
     } else {
       LinkDeviceManualEntryScreen(
-        onLinkDeviceWithUrl = onLinkDeviceWithUrl,
-        qrCodeFound = state.qrCodeFound,
+        onLinkNewDeviceWithUrl = onLinkNewDeviceWithUrl,
         linkDeviceResult = state.linkDeviceResult,
         onLinkDeviceSuccess = onLinkDeviceSuccess,
         onLinkDeviceFailure = onLinkDeviceFailure,

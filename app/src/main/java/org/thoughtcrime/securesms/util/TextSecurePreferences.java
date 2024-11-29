@@ -59,7 +59,6 @@ public class TextSecurePreferences {
   private static final String LED_BLINK_PREF_CUSTOM            = "pref_led_blink_custom";
   public  static final String SCREEN_SECURITY_PREF             = "pref_screen_security";
   private static final String ENTER_SENDS_PREF                 = "pref_enter_sends";
-  private static final String ENTER_PRESENT_PREF               = "pref_enter_key";
   private static final String PROMPTED_PUSH_REGISTRATION_PREF  = "pref_prompted_push_registration";
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
   public  static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
@@ -82,7 +81,6 @@ public class TextSecurePreferences {
   public  static final String MEDIA_DOWNLOAD_ROAMING_PREF      = "pref_media_download_roaming";
 
   public  static final String SYSTEM_EMOJI_PREF                = "pref_system_emoji";
-  private static final String MULTI_DEVICE_PROVISIONED_PREF    = "pref_multi_device";
   public  static final String DIRECT_CAPTURE_CAMERA_ID         = "pref_direct_capture_camera_id";
   public  static final String ALWAYS_RELAY_CALLS_PREF          = "pref_turn_only";
   public  static final String READ_RECEIPTS_PREF               = "pref_read_receipts";
@@ -124,12 +122,8 @@ public class TextSecurePreferences {
   @Deprecated
   private static final String REGISTRATION_LOCK_PIN_PREF_V1            = "pref_registration_lock_pin";
 
-  public static final  String REGISTRATION_LOCK_PREF_V2                = "pref_registration_lock_v2";
-
   private static final String REGISTRATION_LOCK_LAST_REMINDER_TIME_POST_KBS = "pref_registration_lock_last_reminder_time_post_kbs";
   private static final String REGISTRATION_LOCK_NEXT_REMINDER_INTERVAL      = "pref_registration_lock_next_reminder_interval";
-
-  public  static final String SIGNAL_PIN_CHANGE = "pref_kbs_change";
 
   public  static final String SERVICE_OUTAGE         = "pref_service_outage";
   private static final String LAST_OUTAGE_CHECK_TIME = "pref_last_outage_check_time";
@@ -159,10 +153,6 @@ public class TextSecurePreferences {
   private static final String MEDIA_KEYBOARD_MODE = "pref_media_keyboard_mode";
   public  static final String RECENT_STORAGE_KEY  = "pref_recent_emoji2";
 
-  private static final String VIEW_ONCE_TOOLTIP_SEEN = "pref_revealable_message_tooltip_seen";
-
-  private static final String SEEN_CAMERA_FIRST_TOOLTIP = "pref_seen_camera_first_tooltip";
-
   private static final String JOB_MANAGER_VERSION = "pref_job_manager_version";
 
   private static final String APP_MIGRATION_VERSION = "pref_app_migration_version";
@@ -172,8 +162,6 @@ public class TextSecurePreferences {
   private static final String HAS_SEEN_SWIPE_TO_REPLY = "pref_has_seen_swipe_to_reply";
 
   private static final String HAS_SEEN_VIDEO_RECORDING_TOOLTIP = "camerax.fragment.has.dismissed.video.recording.tooltip";
-
-  private static final String STORAGE_MANIFEST_VERSION = "pref_storage_manifest_version";
 
   private static final String GOOGLE_MAP_TYPE = "pref_google_map_type";
 
@@ -416,11 +404,6 @@ public class TextSecurePreferences {
     setBooleanPreference(context, BIOMETRIC_SCREEN_LOCK, value);
   }
 
-  public static boolean isV1RegistrationLockEnabled(@NonNull Context context) {
-    //noinspection deprecation
-    return getBooleanPreference(context, REGISTRATION_LOCK_PREF_V1, false);
-  }
-
   /**
    * @deprecated Use only during re-reg where user had pinV1.
    */
@@ -639,14 +622,6 @@ public class TextSecurePreferences {
     return getIntegerPreference(context, DIRECT_CAPTURE_CAMERA_ID, CameraInfo.CAMERA_FACING_FRONT);
   }
 
-  public static void setMultiDevice(Context context, boolean value) {
-    setBooleanPreference(context, MULTI_DEVICE_PROVISIONED_PREF, value);
-  }
-
-  public static boolean isMultiDevice(Context context) {
-    return getBooleanPreference(context, MULTI_DEVICE_PROVISIONED_PREF, false);
-  }
-
   @Deprecated
   public static NotificationPrivacyPreference getNotificationPrivacy(Context context) {
     return new NotificationPrivacyPreference(getStringPreference(context, NOTIFICATION_PRIVACY_PREF, "none"));
@@ -741,10 +716,6 @@ public class TextSecurePreferences {
 
   public static void setUpdateApkIncludeBetaEnabled(@NonNull Context context, boolean value) {
     setBooleanPreference(context, UPDATE_APK_INCLUDE_BETA, value);
-  }
-
-  public static boolean isEnterImeKeyEnabled(Context context) {
-    return getBooleanPreference(context, ENTER_PRESENT_PREF, false);
   }
 
   @Deprecated
@@ -987,22 +958,6 @@ public class TextSecurePreferences {
     return MediaKeyboardMode.valueOf(name);
   }
 
-  public static void setHasSeenViewOnceTooltip(Context context, boolean value) {
-    setBooleanPreference(context, VIEW_ONCE_TOOLTIP_SEEN, value);
-  }
-
-  public static boolean hasSeenViewOnceTooltip(Context context) {
-    return getBooleanPreference(context, VIEW_ONCE_TOOLTIP_SEEN, false);
-  }
-
-  public static void setHasSeenCameraFirstTooltip(Context context, boolean value) {
-    setBooleanPreference(context, SEEN_CAMERA_FIRST_TOOLTIP, value);
-  }
-
-  public static boolean hasSeenCameraFirstTooltip(Context context) {
-    return getBooleanPreference(context, SEEN_CAMERA_FIRST_TOOLTIP, false);
-  }
-
   public static void setJobManagerVersion(Context context, int version) {
     setIntegerPrefrence(context, JOB_MANAGER_VERSION, version);
   }
@@ -1041,10 +996,6 @@ public class TextSecurePreferences {
 
   public static void setHasSeenVideoRecordingTooltip(Context context, boolean value) {
     setBooleanPreference(context, HAS_SEEN_VIDEO_RECORDING_TOOLTIP, value);
-  }
-
-  public static void setStorageManifestVersion(Context context, long version) {
-    setLongPreference(context, STORAGE_MANIFEST_VERSION, version);
   }
 
   public static void setBooleanPreference(Context context, String key, boolean value) {

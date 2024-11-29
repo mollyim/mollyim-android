@@ -101,7 +101,7 @@
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Фотосуреттер немесе бейнелер табылмады. Signal сіз таңдаған фотосуреттерді және бейнелерді қолдана алады.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Фотосуреттер немесе бейнелер табылмады. Molly сіз таңдаған фотосуреттерді және бейнелерді қолдана алады.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Мультимедиа таңдайтын қолданбаны табу мүмкін емес.</string>
@@ -273,25 +273,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Микрофонды пайдалануға рұқсат етіңіз</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Фотосуреттер түсіру үшін Signal қолданбасына камераны пайдалануға рұқсат керек.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Фотосуреттер түсіру үшін Molly қолданбасына камераны пайдалануға рұқсат керек.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Фотосуреттер мен видео түсіру үшін Signal қолданбасына камера ашық болу керек.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Фотосуреттер мен видео түсіру үшін Molly қолданбасына камера ашық болу керек.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Фотосуреттер мен видео түсіру үшін Signal қолданбасына камера мен микрофонды пайдалануға рұқсат керек.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Фотосуреттер мен видео түсіру үшін Molly қолданбасына камера мен микрофонды пайдалануға рұқсат керек.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Видеоларды дауыспен түсіру үшін Signal қолданбасына микрофонды пайдалануға рұқсат керек.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Видеоларды дауыспен түсіру үшін Molly қолданбасына микрофонды пайдалануға рұқсат керек.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR кодты сканерлеу үшін Signal қолданбасына камераны пайдалануға рұқсат керек.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR кодты сканерлеу үшін Molly қолданбасына камераны пайдалануға рұқсат керек.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Фотосуретке түсіру үшін Signal қолданбасына камераны пайдалануға рұқсат керек</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Фотосуретке түсіру үшін Molly қолданбасына камераны пайдалануға рұқсат керек</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR кодтарды сканерлеу үшін Signal қолданбасына камераны пайдалануға рұқсат керек</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR кодтарды сканерлеу үшін Molly қолданбасына камераны пайдалануға рұқсат керек</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Видео түсіру үшін Signal қолданбасына микрофонды пайдалануға рұқсат керек</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Видео түсіру үшін Molly қолданбасына микрофонды пайдалануға рұқсат керек</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Signal-да фотосуреттер түсіру үшін:</string>
+    <string name="CameraXFragment_to_capture_photos">Molly-да фотосуреттер түсіру үшін:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Signal-да фотосуреттер мен видеоларды түсіру үшін:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Molly-да фотосуреттер мен видеоларды түсіру үшін:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Видеоларды дауыспен түсіру үшін:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -746,7 +746,7 @@
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">\"%1$s\" қалтасына қосылды</string>
     <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
+    <string name="AddToFolderBottomSheet_this_chat_is_already">Бұл чат \"%1$s\" қалтасында тұр</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Хабарландыру профилі</string>
@@ -978,14 +978,18 @@
     <string name="LinkDeviceFragment__my_linked_devices">Байланыстырылған құрылғыларым</string>
     <!-- Dialog confirmation to unlink a device -->
     <string name="LinkDeviceFragment__unlink">Байланыстырмау</string>
-    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
-    <string name="LinkDeviceFragment__s_unlinked">%1$s байланысы ажыратылды</string>
+    <!-- Toast message indicating a device has been unlinked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">\"%1$s\" құрылғысы ажыратылды</string>
+    <!-- Toast message indicating a device has been successfully linked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_linked">\"%1$s\" құрылғысы байланыстырылды</string>
     <!-- Progress dialog message indicating that a device is currently being linked with an account -->
     <string name="LinkDeviceFragment__linking_device">Құрылғыны байланыстыру…</string>
     <!-- Toast message shown after a device has been linked -->
     <string name="LinkDeviceFragment__device_approved">Құрылғы мақұлданды</string>
     <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
     <string name="LinkDeviceFragment__loading">Жүктелуде…</string>
+    <!-- Progress dialog message indicating that you are syncing messages to your linked device -->
+    <string name="LinkDeviceFragment__syncing_messages">Хабарлар синхрондалып жатыр…</string>
     <!-- Text message shown when the user has no linked devices -->
     <string name="LinkDeviceFragment__no_linked_devices">Байланыстырылған құрылғылар жоқ</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
@@ -996,6 +1000,14 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Растау үшін \"Жалғастыру\" түймесін түртіп, телефоныңыздың құлпын ашыңыз. Signal PIN кодын енгізбеңіз.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Жалғастыру</string>
+    <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_title">Хабарлар синхрондалмады</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_body">Хабарларыңыз байланыстырылған құрылғыға тасымалданбады. Құрылғыны қайта байланыстырып, хабарларды тағы тасымалдап көруіңізге болады немесе хабарлар тарихын тасымалдамай жалғастырып көріңіз.</string>
+    <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Қайта байланыстырып көру</string>
+    <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
+    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Тасымалдамай жалғастыру</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -1019,8 +1031,18 @@
     <!-- Button in dialog to retry linking a device with a qr code -->
     <string name="AddLinkDeviceFragment__retry">Қайтадан байқап көру</string>
 
+    <!-- LinkDeviceSyncBottomSheet -->
+    <!-- Option in bottom sheet to transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_transfer">Transfer message history</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Transfer your text messages and recent media to your desktop</string>
+    <!-- Option in bottom sheet to not transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_dont_transfer">Аудармау</string>
+    <!-- Description in bottom sheet of what not transferring history will do -->
+    <string name="LinkDeviceSyncBottomSheet_no_old_messages">No old messages or media will be transferred to your desktop</string>
+
     <!-- DeviceListActivity -->
-    <string name="DeviceListActivity_unlink_s">\"%1$s\" байланысын жою керек пе?</string>
+    <string name="DeviceListActivity_unlink_s">\"%1$s\" құрылғысын ажырату керек пе?</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">Бұл құрылғымен байланысты жою арқылы ол хат жібере немесе қабылдай алмайтын болады.</string>
     <string name="DeviceListActivity_network_connection_failed">Желі байланысы орнатылмады</string>
     <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
@@ -1313,20 +1335,6 @@
     <string name="ManageGroupActivity_more">толығырақ</string>
     <string name="ManageGroupActivity_add_group_description">Топ сипаттамасын қосу…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Android құрылғысынан тасымалдау</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Аккаунтыңызды және хаттарыңызды ескі Android құрылғыңыздан аударыңыз.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Тасымалдамай кіру</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Хаттар мен мультимедианы тасымалдамай жалғастыру</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Жергілікті резервтік көшірмені қалпына келтіру</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Құрылғыңызда сақталған резервтік файлдан хаттарды қалпына келтіріңіз.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Резервтік көшірме жүктеп алынуда…</string>
@@ -1344,12 +1352,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Барлық хат</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Резервтік көшірмеден қалпына келтіру</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Соңғы %1$d күнде жіберілген немесе қабылданған мультимедиа ғана кіреді.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Резервтік көшірме:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Сақтық көшірмені қалпына келтіру</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Соңғы резервтік көшірме %1$s күні сағат%2$s жасалды.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Сақтық көшірме мәліметтері алынып жатыр…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Менің атым аталғанда хабарландыру алғым келеді</string>
@@ -2017,10 +2029,10 @@
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Қазір жаңарту</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Signal қолданбасының бұл нұсқасының мерзімі бүгін бітеді. Ең соңғы нұсқасын орнатыңыз.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Molly қолданбасының бұл нұсқасының мерзімі бүгін бітеді. Ең соңғы нұсқасын орнатыңыз.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Signal қолданбасының бұл нұсқасының мерзімі ертең бітеді. Ең соңғы нұсқасын орнатыңыз.</item>
-        <item quantity="other">Signal қолданбасының бұл нұсқасының мерзімі %1$d күннен кейін бітеді. Ең соңғы нұсқасын орнатыңыз.</item>
+        <item quantity="one">Molly қолданбасының бұл нұсқасының мерзімі ертең бітеді. Ең соңғы нұсқасын орнатыңыз.</item>
+        <item quantity="other">Molly қолданбасының бұл нұсқасының мерзімі %1$d күннен кейін бітеді. Ең соңғы нұсқасын орнатыңыз.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
@@ -3442,7 +3454,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Журналдар жүктеп салынбады</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Мәселенің төркінін түсіну үшін барынша нақтылап жазуыңызды сұраймыз.</string>
-    <string-array name="HelpFragment__categories_5">
+    <string-array name="HelpFragment__categories_6">
         <item>Опцияны таңдаңыз</item>
         <item>Бірдеңе жұмыс істеп тұрған жоқ</item>
         <item>Функцияны сұрау</item>
@@ -3451,6 +3463,7 @@
         <item>Басқа</item>
         <item>Төлемдер (MobileCoin)</item>
         <item>Демеушіліктер және Таңбалар</item>
+        <item>Signal Android сақтық көшірмесі</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android ақауларды түзету журналын жіберу</string>
@@ -4291,6 +4304,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Бұл құпия сөйлемді жазып алдым. Ол болмаса, мен резервтік көшірмені қалпына келтіре алмаймын.</string>
     <string name="registration_activity__restore_backup">Сақтық көшірмені қалпына келтіру</string>
     <string name="registration_activity__transfer_or_restore_account">Аккаунтты тасымалдау немесе қалпына келтіру</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Қалпына келтіру немесе тасымалдау</string>
     <string name="registration_activity__transfer_account">Аккаунтты тасымалдау</string>
     <string name="registration_activity__skip">Өткізіп жіберу</string>
     <string name="preferences_chats__chat_backups">Чаттың резервтік көшірмелері</string>
@@ -4945,6 +4960,11 @@
     <string name="QualitySelectorBottomSheetDialog__media_quality">Мультимедиа сапасы</string>
 
     <!-- AppSettingsFragment -->
+    <!-- String alerting user that something is wrong with their backups subscription -->
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Signal Backups жазылымыңызды жаңартыңыз</string>
+    <!-- String alerting user that backup failed -->
+    <string name="AppSettingsFragment__couldnt_complete_backup">Резервтік көшірмелеуді аяқтау мүмкін болмады</string>
+    <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Достарыңызды шақырыңыз</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
     <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Донор жазылушы идентификаторы буферге көшірілді</string>
@@ -5167,9 +5187,9 @@
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">Сақтау</string>
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
-    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <string name="CreateFoldersFragment__discard_changes_title">Өзгерістерді сақтамау керек пе?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
-    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <string name="CreateFoldersFragment__you_will_lose_changes">Бұл қалтаға енгізген өзгерістеріңіз сақталмай қалады.</string>
     <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">Тастау</string>
     <!-- Text that when pressed will delete the current folder -->
@@ -5179,7 +5199,7 @@
     <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
     <string name="CreateFoldersFragment__see_all">Барлығын көру</string>
     <!-- Toast shown when trying to make a folder with no name -->
-    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
+    <string name="CreateFoldersFragment__please_enter_name">Қалта атын енгізіңіз</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5799,6 +5819,10 @@
     <string name="DonationsErrors__your_payment">Демеуіңізді өңдеу мүмкін болмады және сізден ақы алынбады. Қайталап көріңіз.</string>
     <string name="DonationsErrors__still_processing">Әлі өңделуде</string>
     <string name="DonationsErrors__couldnt_add_badge">Таңба қосу мүмкін емес</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
+    <string name="DonationsError__something_went_wrong">Something went wrong</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
+    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">Your backups subscription couldn\'t be displayed. Please contact support.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">Таңбаның жарамдылығын тексеру мүмкін болмады</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
@@ -6078,8 +6102,6 @@
     <string name="DonationReceiptDetailsFragment__amount">Сома</string>
     <!-- Donation receipts thanks -->
     <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Signal-ға қолдау көрсеткеніңіз үшін рақмет. Әр адам ойын жасырмай айта алатын және әлемнің түкпір-түкпіріндегі адамдармен қауіпсіз сөйлесуге мүмкіндік беретін бастапқы көзі ашық құпия технология әзірлеуге үлес қосасыз. Егер Америка Құрама Штаттарының резиденті болсаңыз, осы чекті сақтап қойыңыз, салық жазбаларына керек болады. Signal Technology Foundation – Ішкі табыс туралы кодекстің 501c3 бөлімі бойынша Америка Құрама Штаттарындағы салықтан босатылған коммерциялық емес ұйым. Біздің федералдық салық идентификаторымыз – 82–4506840.</string>
-    <!-- Donation receipt type -->
-    <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
     <string name="DonationReceiptListFragment__no_receipts">Чек жоқ</string>
 
@@ -6669,7 +6691,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Төменде көрсетілген \"Параметрлерге өту\" түймесін басыңыз</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">\"Параметрлер туралы дабылдар мен еске салғыштарға рұқсат ету\" функциясын қосыңыз.</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">\"Оятқыштар мен еске салғыштар орнатуға рұқсат ету\" функциясын қосыңыз.</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Параметрлерге өту</string>
 
@@ -7190,10 +7212,12 @@
     <string name="CallLinkDetailsFragment__delete_call_link">Қоңырау сілтемесін жою</string>
     <!-- Displayed whenever a name change, revocation, etc, fails. -->
     <string name="CallLinkDetailsFragment__couldnt_save_changes">Өзгерістер сақталмады. Желі байланысын тексеріп, қайталап көріңіз.</string>
+    <!-- Displayed when the call link is in use when the user tries to delete it -->
+    <string name="CallLinkDetailsFragment__couldnt_delete_call_link">Couldn\'t delete call link as it is currently in use.</string>
     <!-- Displayed as title in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__delete_link">Сілтемені жою керек пе?</string>
     <!-- Displayed as body in dialog when user attempts to delete the link -->
-    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Сілтемесі бар адамдардың ешқайсысы оны аша алмайды.</string>
+    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Сілтемесі бар адамдардың ешқайсысы енді оны аша алмайды.</string>
 
     <!-- Button label for the link button in the username link settings -->
     <string name="UsernameLinkSettings_link_button_label">Сілтеме</string>
@@ -7407,15 +7431,12 @@
     <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Мультмедиаңыз бүгін жойылады</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Signal мультимедиасының резервтік көшірмесі жоспарынан бас тартылды, себебі төлеміңізді қабылдай алмадық. Резервтік көшірмеңіздегі мультимедианы жүктеп алудың соңғы мүмкіндігі, одан кейін ол жойылады.</string>
-    <!-- Sheet title when user does not have enough space to download their backup -->
-    <string name="BackupAlertBottomSheet__cant_complete_download">Жүктеп алу мүмкін емес</string>
+    <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Құрылғыңызда %1$s орын босатыңыз</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Құрылғыңыздағы бос орын жеткіліксіз. Резервтік көшірмеңізде сақталған мультимедианы жүктеп алу үшін %1$s орын босатыңыз.</string>
-    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
-    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">«Өткізіп жіберу» опциясын таңдасаңыз, резервтік көшірмедегі мультимедиа %1$d күннен кейін жойылады.</item>
-        <item quantity="other">«Өткізіп жіберу» опциясын таңдасаңыз, резервтік көшірмедегі мультимедиа %1$d күннен кейін жойылады.</item>
-    </plurals>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Signal сақтық көшірмелерін жүктеп алуды аяқтау үшін құрылғыңызда %1$s орын болуы керек.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Орын босату үшін көп орын алатын әрі қолданылмайтын қолданбалар мен контентті жойыңыз.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Сақтық көшірме жазылымының мерзімі ұзартылмады</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7427,7 +7448,11 @@
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Толық ақпарат</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
-    <string name="BackupAlertBottomSheet__skip">Өткізіп жіберу</string>
+    <string name="BackupAlertBottomSheet__skip_restore">Қалпына келтіру функциясын өткізіп жіберу</string>
+    <!-- Primary action button to start backup immediately -->
+    <string name="BackupAlertBottomSheet__back_up_now">Қазір сақтық көшірме жасау</string>
+    <!-- Primary action button when user doesn\'t have enough space -->
+    <string name="BackupAlertBottomSheet__got_it">Түсінікті</string>
     <!-- Primary action button to manage subscription in Google Play -->
     <string name="BackupAlertBottomSheet__manage_subscription">Жазылымды басқару</string>
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
@@ -7438,6 +7463,8 @@
     <string name="BackupAlertBottomSheet__dont_download_media">Мультимедианы жүктеп алмау</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Кейін</string>
+    <!-- Secondary action button to dismiss could not complete backup sheet -->
+    <string name="BackupAlertBottomSheet__try_later">Кейінірек көру</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Мультимедиа жойылады</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7446,6 +7473,12 @@
     <string name="BackupAlertBottomSheet__download">Жүктеп алу</string>
     <!-- Dialog action to not download now -->
     <string name="BackupAlertBottomSheet__dont_download">Жүктеп алмау</string>
+    <!-- Dialog action to skip media download -->
+    <string name="BackupAlertBottomSheet__skip">Өткізіп жіберу</string>
+    <!-- Dialog title for skipping media restore -->
+    <string name="BackupAlertBottomSheet__skip_restore_question">Қалпына келтіруді өткізіп жіберу керек пе?</string>
+    <!-- Dialog text for skipping media restore -->
+    <string name="BackupAlertBottomSheet__if_you_skip_restore_the">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time when storage space becomes available.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7456,6 +7489,8 @@
     <string name="BackupStatus__restore_paused">Қалпына келтіру кідіртілді</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Қалпына келтірілді</string>
+    <!-- Status action label for seeing more details about storage space -->
+    <string name="BackupStatus__details">Details</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Wi-Fi желісі күтіліп жатыр…</string>
@@ -7500,10 +7535,6 @@
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Жазылымды өзгерту немесе одан бас тарту</string>
 
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Соңғы резервтік көшірме %1$s күні сағат%2$s жасалды.</string>
-
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
     <string name="ManageStorageSettingsFragment_chat_limit">Чат лимиттері</string>
@@ -7523,6 +7554,8 @@
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Құрылғыдағы сақтау орнын оңтайландыру</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Қолданылмаған мультимедиа алып тасталады, бірақ оны резервтік көшірмеден кез келген уақытта жүктеп алуға болады.</string>
+    <!-- Dialog message for paid tier pending dialog -->
+    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Storage optimization can only be used with the paid tier of Signal Backups. Your backups subscription is still processing and not yet active. Please try again later.</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -7542,6 +7575,16 @@
     </plurals>
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToStartMediaBackupSheet__subscribe_for_s_month">Айына %1$s тұратын жоспарға жазылу</string>
+
+    <!-- MediaNoLongerAvailableSheet -->
+    <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
+    <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Бұл мультимедиа енді жоқ</string>
+    <!-- Body on a bottom sheet explaining that the user can enable backups -->
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Барлық мультимедианың сақтық көшірмесін жасай бастау үшін Signal Backups қызметін іске қосып, ақылы деңгейді таңдаңыз.</string>
+    <!-- Primary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__continue">Жалғастыру</string>
+    <!-- Secondary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__not_now">Кейін</string>
 
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Жою процедурасы барлық құрылғыңызда синхрондалады.</string>
@@ -7663,6 +7706,55 @@
     <string name="RemoteBackupsSettingsFragment__downloading_your_backup">Сақтық көшірмені жүктеп алу</string>
     <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Сақтық көшірменің өлшеміне байланысты бұл ұзақ уақытқа созылуы мүмкін. Жүктеп алу процесі жүріп жатқанда, телефоныңызды әдеттегідей пайдалана аласыз.</string>
+    <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
+    <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
+        <item quantity="one">Бұл құрылғыдағы жазылымыңыз алдағы %1$d күн жарамды болады. Signal Backups қызметін пайдалануды жалғастыру үшін, жазылымды жаңартыңыз.</item>
+        <item quantity="other">Бұл құрылғыдағы жазылымыңыз алдағы %1$d күн жарамды болады. Signal Backups қызметін пайдалануды жалғастыру үшін, жазылымды жаңартыңыз.</item>
+    </plurals>
+    <!-- Button label to start subscription renewal -->
+    <string name="RemoteBackupsSettingsFragment__renew">Жаңарту</string>
+    <!-- Button label to learn more about why subscription disappeared -->
+    <string name="RemoteBackupsSettingsFragment__learn_more">Толық ақпарат</string>
+    <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
+    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
+        <item quantity="one">Сізде %1$s сақтық көшірме деректері бар, олар бұл құрылғыда емес. %2$d күннен кейін жазылым мерзімі аяқталғанда, сақтық көшірмеңіз жойылады.</item>
+        <item quantity="other">Сізде %1$s сақтық көшірме деректері бар, олар бұл құрылғыда емес. %2$d күннен кейін жазылым мерзімі аяқталғанда, сақтық көшірмеңіз жойылады.</item>
+    </plurals>
+    <!-- Displayed in row when backup is available for download to let user start download -->
+    <string name="RemoteBackupsSettingsFragment__download">Жүктеп алу</string>
+    <!-- Dialog title for skipping download of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_download_question">Жүктеп алуды өткізіп жіберу керек пе?</string>
+    <!-- Dialog body for skiping download of backed up media -->
+    <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
+        <item quantity="one">Жүктеп алуды өткізіп жіберсеңіз, сақтық көшірмедегі қалған мультимедиа және тіркемелер %1$d күннен кейін жойылады.</item>
+        <item quantity="other">Жүктеп алуды өткізіп жіберсеңіз, сақтық көшірмедегі қалған мультимедиа және тіркемелер %1$d күннен кейін жойылады.</item>
+    </plurals>
+    <!-- Positive dialog action to skip download -->
+    <string name="RemoteBackupsSettingsFragment__skip">Өткізіп жіберу</string>
+    <!-- Dialog title for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Сақтық көшірмелер өшірілмеді және жойылмады</string>
+    <!-- Dialog body for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Желі қатесі пайда болды. Интернет байланысын тексеріп, қайталап көріңіз.</string>
+
+    <!-- SubscriptionNotFoundBottomSheet -->
+    <!-- Displayed as a bottom sheet title -->
+    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Жазылым табылмады</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Жазылымыңыз қалпына келтірілмеді.</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">Ол мынадай жағдайда орын алуы мүмкін:</string>
+    <!-- First item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">Play Store дүкеніне басқа Google аккаунтымен кірдіңіз.</string>
+    <!-- Second item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">iPhone-нан тасымалдадыңыз.</string>
+    <!-- Third item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">Жазылымыңыздың мерзімі жақында аяқталды.</string>
+    <!-- Note underneath bullet points -->
+    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">Ескі телефоныңызда жұмыс істеп тұрған жазылымыңыз болса, оның мерзімі ұзарғанға дейін, одан бас тартыңыз.</string>
+    <!-- Action button label to acknowledge and dismiss sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__got_it">Түсінікті</string>
+    <!-- Action button label to contact support -->
+    <string name="SubscriptionNotFoundBottomSheet__contact_support">Қолдау қызметіне хабарласу</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -7682,7 +7774,7 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Резервтік кілтіңіз</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Резервтік кілтіңіз – 64 таңбалы код. Ол Molly қайта орнатылған кезде, резервтік көшірмені қалпына келтіруге мүмкіндік береді.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Your backup key is a 64-character code that lets you restore your backup when you re-install Molly.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Кілтіңізді ұмытып қалсаңыз, резервтік көшірмені қалпына келтіре алмайсыз. Molly резервтік көшірмені қалпына келтіруге көмектесе алмайды.</string>
     <!-- Action button label -->
@@ -7762,5 +7854,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Еске салғыш белгішесі</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Ескі телефоным бар</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Қазіргі Signal аккаунтыңыздан QR кодын сканерлеп, жылдам бастаңыз</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Ескі телефоным жоқ</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Or you\'re reinstalling Molly on the same device</string>
+
+    <!-- Screen title for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Аккаунтты қалпына келтіру немесе тасымалдау</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Signal аккаунтыңызды және хабарлар тарихын осы құрылғыға сақтаңыз.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Signal-дың сақтық көшірмелерінен</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Тегін немесе ақылы Signal cақтық көшірме жоспары</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Сақтық көшірме қалтасынан</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Сақтық көшірме файлынан</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Сіз сақтаған сақтық көшірмені таңдаңыз</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Ескі телефоннан</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Ескі Android құрылғыңыздан тікелей тасымалдау</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Жергілікті резервтік көшірмені қалпына келтіру</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Құрылғыңызда сақталған сақтық көшірмеден хабарларды қалпына келтіріңіз. Оны қазір қалпына келтірмесеңіз, кейінірек қалпына келтіре алмай қаласыз.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Сақтық кілтті енгізіңіз</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Your backup key is a 64-character code required to recover your account and data.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Сақтық кілт жоқ па?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Сақтық кілт</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Backups can\'t be recovered without their 64-character recovery code. If you\'ve lost your backup key Signal can\'t help restore your backup.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">If you have your old device you can view your backup key in Settings &gt; Backups. Then tap View backup key.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Толық ақпарат</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Өткізіп жіберу және қалпына келтірмеу</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Осы кодты ескі телефоныңызбен сканерлеңіз</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Signal қолданбасын ескі құрылғыңызда ашыңыз</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Камера белгішесін түртіңіз </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Осы кодты камерамен сканерлеңіз</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR коды жасалмады</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Ескі құрылғыда сканерленді</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Қайтадан байқап көру</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Аккаунтты тасымалдау</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Аккаунтыңыз жаңа құрылғыға тасымалданады. Бұл құрылғы сіздің топтарыңыз бен контактілеріңізді көре алады, чаттарыңызды пайдалана алады және сіздің атыңыздан хабарлар жібере алады. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Толық ақпарат</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Аккаунтты тасымалдау</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Хабарлар мен чат туралы ақпарат барлық құрылғыда тура шифрлау әдісімен қорғалады</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Аккаунтты тасымалдау үшін құрылғының құлпын ашыңыз</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Басқа құрылғыда жалғастыру</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Аккаунтыңызды тасымалдауды басқа құрылғыңызда жалғастырыңыз.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Қалпына келтірілді</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Signal аккаунтыңыз бен хабарларыңыз басқа құрылғыңызға тасымалдана бастады. Signal бұл құрылғыда қазір жұмыс істеп тұрған жоқ.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Тасымалдау аяқталды</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Signal аккаунтыңыз бен хабарларыңыз басқа құрылғыңызға тасымалданды. Signal бұл құрылғыда қазір жұмыс істеп тұрған жоқ.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Жарайды</string>
+
+
     <!-- EOF -->
 </resources>

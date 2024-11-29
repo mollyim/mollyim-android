@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.conversation.v2
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.Window
@@ -12,6 +13,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.conversation.ConversationIntents
+import org.thoughtcrime.securesms.util.ConfigurationUtil
 import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import java.util.concurrent.TimeUnit
@@ -86,6 +88,13 @@ open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaCo
     // in constraint-layout which mixes up insets when replacing the fragment via onNewIntent.
     finish()
     startActivity(intent)
+  }
+
+  override fun onConfigurationChanged(newConfiguration: Configuration) {
+    super.onConfigurationChanged(newConfiguration)
+    if (ConfigurationUtil.isUiModeChanged(resources.configuration, newConfiguration)) {
+      recreate()
+    }
   }
 
   private fun replaceFragment() {

@@ -3,6 +3,7 @@ package org.whispersystems.signalservice.internal.websocket
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkStatic
 import io.mockk.verify
 import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.Before
@@ -11,6 +12,7 @@ import org.signal.libsignal.internal.CompletableFuture
 import org.signal.libsignal.net.ChatService
 import org.signal.libsignal.net.ChatService.DebugInfo
 import org.signal.libsignal.net.IpType
+import org.signal.libsignal.net.Network
 import org.whispersystems.signalservice.api.websocket.HealthMonitor
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import java.util.concurrent.CountDownLatch
@@ -25,20 +27,23 @@ class LibSignalChatConnectionTest {
   private val executor: ExecutorService = Executors.newSingleThreadExecutor()
   private val healthMonitor = mockk<HealthMonitor>()
   private val chatService = mockk<ChatService>()
-  private val connection = LibSignalChatConnection("test", chatService, healthMonitor, isAuthenticated = false)
+  private val network = mockk<Network>()
+  private val connection = LibSignalChatConnection("test", network, null, false, healthMonitor)
 
   @Before
   fun before() {
     clearAllMocks()
+    mockkStatic(Network::createChatService)
     every { healthMonitor.onMessageError(any(), any()) }
     every { healthMonitor.onKeepAliveResponse(any(), any(), any()) }
+    every { network.createChatService(any(), any()) } answers { chatService }
   }
 
   @Test
   fun orderOfStatesOnSuccessfulConnect() {
     val latch = CountDownLatch(1)
 
-    every { chatService.connectUnauthenticated() } answers {
+    every { chatService.connect() } answers {
       delay {
         it.complete(DEBUG_INFO)
         latch.countDown()
@@ -65,7 +70,7 @@ class LibSignalChatConnectionTest {
     val connectionException = RuntimeException("connect failed")
     val latch = CountDownLatch(1)
 
-    every { chatService.connectUnauthenticated() } answers {
+    every { chatService.connect() } answers {
       delay {
         it.completeExceptionally(connectionException)
       }
@@ -91,7 +96,7 @@ class LibSignalChatConnectionTest {
     val connectLatch = CountDownLatch(1)
     val disconnectLatch = CountDownLatch(1)
 
-    every { chatService.connectUnauthenticated() } answers {
+    every { chatService.connect() } answers {
       delay {
         it.complete(DEBUG_INFO)
         connectLatch.countDown()
@@ -127,25 +132,37 @@ class LibSignalChatConnectionTest {
   fun orderOfStatesOnDisconnectFailure() {
     val disconnectException = RuntimeException("disconnect failed")
 
-    val latch = CountDownLatch(1)
+    val connectLatch = CountDownLatch(1)
+    val disconnectLatch = CountDownLatch(1)
 
     every { chatService.disconnect() } answers {
       delay {
         it.completeExceptionally(disconnectException)
+        disconnectLatch.countDown()
       }
     }
 
-    val observer = TestObserver<WebSocketConnectionState>()
+    every { chatService.connect() } answers {
+      delay {
+        it.complete(DEBUG_INFO)
+        connectLatch.countDown()
+      }
+    }
 
+    connection.connect()
+
+    connectLatch.await(100, TimeUnit.MILLISECONDS)
+
+    val observer = TestObserver<WebSocketConnectionState>()
     connection.state.subscribe(observer)
 
     connection.disconnect()
 
-    latch.await(100, TimeUnit.MILLISECONDS)
+    disconnectLatch.await(100, TimeUnit.MILLISECONDS)
 
     observer.assertNotComplete()
     observer.assertValues(
-      WebSocketConnectionState.DISCONNECTED,
+      WebSocketConnectionState.CONNECTED,
       WebSocketConnectionState.DISCONNECTING,
       WebSocketConnectionState.DISCONNECTED
     )
@@ -155,12 +172,20 @@ class LibSignalChatConnectionTest {
   fun keepAliveSuccess() {
     val latch = CountDownLatch(1)
 
-    every { chatService.unauthenticatedSendAndDebug(any()) } answers {
+    every { chatService.sendAndDebug(any()) } answers {
       delay {
         it.complete(make_debug_response(RESPONSE_SUCCESS))
         latch.countDown()
       }
     }
+
+    every { chatService.connect() } answers {
+      delay {
+        it.complete(DEBUG_INFO)
+      }
+    }
+
+    connection.connect()
 
     connection.sendKeepAlive()
 
@@ -179,11 +204,19 @@ class LibSignalChatConnectionTest {
     for (response in listOf(RESPONSE_ERROR, RESPONSE_SERVER_ERROR)) {
       val latch = CountDownLatch(1)
 
-      every { chatService.unauthenticatedSendAndDebug(any()) } answers {
+      every { chatService.sendAndDebug(any()) } answers {
         delay {
           it.complete(make_debug_response(response))
         }
       }
+
+      every { chatService.connect() } answers {
+        delay {
+          it.complete(DEBUG_INFO)
+        }
+      }
+
+      connection.connect()
 
       connection.sendKeepAlive()
       latch.await(100, TimeUnit.MILLISECONDS)
@@ -200,28 +233,41 @@ class LibSignalChatConnectionTest {
   @Test
   fun keepAliveConnectionFailure() {
     val connectionFailure = RuntimeException("Sending keep-alive failed")
-    val latch = CountDownLatch(1)
+
+    val connectLatch = CountDownLatch(1)
+    val keepAliveFailureLatch = CountDownLatch(1)
 
     every {
-      chatService.unauthenticatedSendAndDebug(any())
+      chatService.sendAndDebug(any())
     } answers {
       delay {
         it.completeExceptionally(connectionFailure)
+        keepAliveFailureLatch.countDown()
       }
     }
+
+    every { chatService.connect() } answers {
+      delay {
+        it.complete(DEBUG_INFO)
+        connectLatch.countDown()
+      }
+    }
+
+    connection.connect()
+    connectLatch.await(100, TimeUnit.MILLISECONDS)
 
     val observer = TestObserver<WebSocketConnectionState>()
     connection.state.subscribe(observer)
 
     connection.sendKeepAlive()
 
-    latch.await(100, TimeUnit.MILLISECONDS)
+    keepAliveFailureLatch.await(100, TimeUnit.MILLISECONDS)
 
     observer.assertNotComplete()
     observer.assertValues(
-      // This is the starting state
-      WebSocketConnectionState.DISCONNECTED,
-      // This one is the result of a keep-alive failure
+      // We start in the connected state
+      WebSocketConnectionState.CONNECTED,
+      // Disconnects as a result of keep-alive failure
       WebSocketConnectionState.DISCONNECTED
     )
     verify(exactly = 0) {

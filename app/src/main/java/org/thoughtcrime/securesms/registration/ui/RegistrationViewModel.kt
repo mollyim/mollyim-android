@@ -36,6 +36,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
+import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.LinkDeviceRepository
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
 import org.thoughtcrime.securesms.registration.data.RegistrationData
@@ -624,7 +625,7 @@ class RegistrationViewModel : ViewModel() {
       if (RegistrationRepository.doesPinMatchLocalHash(pin)) {
         Log.d(TAG, "Found recovery password, attempting to re-register.")
         viewModelScope.launch(context = coroutineExceptionHandler) {
-          verifyReRegisterInternal(context, pin, SignalStore.svr.getOrCreateMasterKey())
+          verifyReRegisterInternal(context, pin, SignalStore.svr.masterKey)
           setInProgress(false)
         }
       } else {
@@ -794,7 +795,7 @@ class RegistrationViewModel : ViewModel() {
       reglock = true
       if (pin == null && SignalStore.svr.registrationLockToken != null) {
         Log.d(TAG, "Retrying registration with stored credentials.")
-        result = RegistrationRepository.registerAccount(context, sessionId, registrationData, SignalStore.svr.pin) { SignalStore.svr.getOrCreateMasterKey() }
+        result = RegistrationRepository.registerAccount(context, sessionId, registrationData, SignalStore.svr.pin) { SignalStore.svr.masterKey }
       } else if (result.svr2Credentials != null || result.svr3Credentials != null) {
         Log.d(TAG, "Retrying registration with received credentials (svr2: ${result.svr2Credentials != null}, svr3: ${result.svr3Credentials != null}).")
         val svr2Credentials = result.svr2Credentials
@@ -832,7 +833,7 @@ class RegistrationViewModel : ViewModel() {
     handleRegistrationResult(context, registrationData, registrationResponse, false)
   }
 
-  private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: RegistrationRepository.AccountRegistrationResult, reglockEnabled: Boolean) {
+  private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: AccountRegistrationResult, reglockEnabled: Boolean) {
     Log.v(TAG, "onSuccessfulRegistration()")
     val metadata = LocalRegistrationMetadataUtil.createLocalRegistrationMetadata(SignalStore.account.aciIdentityKey, SignalStore.account.pniIdentityKey, registrationData, remoteResult, reglockEnabled)
     RegistrationRepository.registerAccountLocally(context, metadata)
@@ -876,12 +877,12 @@ class RegistrationViewModel : ViewModel() {
     viewModelScope.launch(context = coroutineExceptionHandler) {
       val linkDeviceRepository = LinkDeviceRepository(password)
 
-      val deviceUuid = when (val result = linkDeviceRepository.requestDeviceLinkUuid()) {
-        is DeviceUuidRequestResult.Success -> result.uuid
-        is DeviceUuidRequestResult.UnknownError -> {
-          registrationErrorHandler(RegisterAccountResult.UnknownError(result.getCause()))
-          return@launch
+      val deviceUuid = linkDeviceRepository.requestDeviceLinkUuid().let { result ->
+        if (result !is DeviceUuidRequestResult.Success || result.uuid == null) {
+            registrationErrorHandler(RegisterAccountResult.UnknownError(result.getCause()))
+            return@launch
         }
+        result.uuid
       }
 
       val deviceKeyPair: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
@@ -976,7 +977,7 @@ class RegistrationViewModel : ViewModel() {
     val currentState = store.value
     val code = currentState.enteredCode
     val e164: String = currentState.phoneNumber?.toE164() ?: throw IllegalStateException("Can't construct registration data without E164!")
-    val recoveryPassword = if (currentState.sessionId == null) SignalStore.svr.getRecoveryPassword() else null
+    val recoveryPassword = if (currentState.sessionId == null) SignalStore.svr.recoveryPassword else null
     return RegistrationData(code, e164, password, RegistrationRepository.getRegistrationId(), RegistrationRepository.getProfileKey(e164), currentState.fcmToken, RegistrationRepository.getPniRegistrationId(), recoveryPassword)
   }
 

@@ -1650,7 +1650,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       }
 
       override fun deserialize(data: Int): ReadState {
-        return ReadState.values().first { it.code == data }
+        return entries.first { it.code == data }
       }
     }
   }
@@ -1735,7 +1735,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       override fun serialize(data: Event): Int = data.code
 
       override fun deserialize(data: Int): Event {
-        return values().firstOrNull {
+        return entries.firstOrNull {
           it.code == data
         } ?: throw IllegalArgumentException("Unknown event $data")
       }

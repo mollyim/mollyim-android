@@ -11,7 +11,6 @@ import org.thoughtcrime.securesms.badges.Badges
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toDecimalValue
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository.toPaymentSourceType
-import org.thoughtcrime.securesms.components.settings.app.subscription.manage.DonationRedemptionJobStatus
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
@@ -26,6 +25,7 @@ import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.internal.EmptyResponse
 import org.whispersystems.signalservice.internal.ServiceResponse
 import java.util.Locale
+import kotlin.concurrent.withLock
 import kotlin.jvm.optionals.getOrNull
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -89,7 +89,7 @@ class InAppPaymentKeepAliveJob private constructor(
   }
 
   override fun onRun() {
-    synchronized(type) {
+    type.lock.withLock {
       doRun()
     }
   }
@@ -310,7 +310,7 @@ class InAppPaymentKeepAliveJob private constructor(
     override fun create(parameters: Parameters, serializedData: ByteArray?): InAppPaymentKeepAliveJob {
       return InAppPaymentKeepAliveJob(
         parameters,
-        InAppPaymentSubscriberRecord.Type.values().first { it.code == JsonJobData.deserialize(serializedData).getInt(DATA_TYPE) }
+        InAppPaymentSubscriberRecord.Type.entries.first { it.code == JsonJobData.deserialize(serializedData).getInt(DATA_TYPE) }
       )
     }
   }

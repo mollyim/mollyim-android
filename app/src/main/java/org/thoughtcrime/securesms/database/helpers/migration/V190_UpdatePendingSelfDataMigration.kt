@@ -109,7 +109,7 @@ object V190_UpdatePendingSelfDataMigration : SignalDatabaseMigration {
   private fun getLocalAci(context: Application): ServiceId.ACI? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.1.aci"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.aci", "account.1.aci"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           ServiceId.ACI.parseOrNull(cursor.requireString("value"))
         } else {
@@ -126,7 +126,7 @@ object V190_UpdatePendingSelfDataMigration : SignalDatabaseMigration {
   private fun getLocalE164(context: Application): String? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.1.e164"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.e164", "account.1.e164"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           cursor.requireString("value")
         } else {

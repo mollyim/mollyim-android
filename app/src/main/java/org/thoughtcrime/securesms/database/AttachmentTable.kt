@@ -433,7 +433,7 @@ class AttachmentTable(
       return emptyMap()
     }
 
-    val query = SqlUtil.buildSingleCollectionQuery(MESSAGE_ID, mmsIds)
+    val query = SqlUtil.buildFastCollectionQuery(MESSAGE_ID, mmsIds)
 
     return readableDatabase
       .select(*PROJECTION)
@@ -1298,7 +1298,8 @@ class AttachmentTable(
       REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE to uploadResult.incrementalDigestChunkSize,
       DATA_SIZE to uploadResult.dataSize,
       DATA_HASH_END to dataHashEnd,
-      UPLOAD_TIMESTAMP to uploadResult.uploadTimestamp
+      UPLOAD_TIMESTAMP to uploadResult.uploadTimestamp,
+      BLUR_HASH to uploadResult.blurHash
     )
 
     val dataFilePath = getDataFilePath(id) ?: throw IOException("No data file found for attachment!")
@@ -1582,7 +1583,7 @@ class AttachmentTable(
       SELECT
           $mmsId,
           $CONTENT_TYPE,
-          $TRANSFER_PROGRESS_PENDING,
+          $TRANSFER_NEEDS_RESTORE,
           $CDN_NUMBER,
           $REMOTE_LOCATION,
           $REMOTE_DIGEST,
@@ -2228,8 +2229,6 @@ class AttachmentTable(
         put(CDN_NUMBER, attachment.cdn.serialize())
         put(REMOTE_LOCATION, attachment.remoteLocation)
         put(REMOTE_DIGEST, attachment.remoteDigest)
-        put(REMOTE_INCREMENTAL_DIGEST, attachment.incrementalDigest)
-        put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, attachment.incrementalMacChunkSize)
         put(REMOTE_KEY, attachment.remoteKey)
         put(FILE_NAME, StorageUtil.getCleanFileName(attachment.fileName))
         put(DATA_SIZE, attachment.size)
@@ -2250,6 +2249,13 @@ class AttachmentTable(
           put(STICKER_PACK_KEY, sticker.packKey)
           put(STICKER_ID, sticker.stickerId)
           put(STICKER_EMOJI, sticker.emoji)
+        }
+
+        if (attachment.incrementalDigest?.isNotEmpty() == true && attachment.incrementalMacChunkSize != 0) {
+          put(REMOTE_INCREMENTAL_DIGEST, attachment.incrementalDigest)
+          put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, attachment.incrementalMacChunkSize)
+        } else {
+          putNull(REMOTE_INCREMENTAL_DIGEST)
         }
       }
 
@@ -2280,8 +2286,6 @@ class AttachmentTable(
         put(CDN_NUMBER, attachment.cdn.serialize())
         put(REMOTE_LOCATION, attachment.remoteLocation)
         put(REMOTE_DIGEST, attachment.remoteDigest)
-        put(REMOTE_INCREMENTAL_DIGEST, attachment.incrementalDigest)
-        put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, attachment.incrementalMacChunkSize)
         put(REMOTE_KEY, attachment.remoteKey)
         put(FILE_NAME, StorageUtil.getCleanFileName(attachment.fileName))
         put(DATA_SIZE, attachment.size)
@@ -2308,6 +2312,13 @@ class AttachmentTable(
           put(STICKER_PACK_KEY, sticker.packKey)
           put(STICKER_ID, sticker.stickerId)
           put(STICKER_EMOJI, sticker.emoji)
+        }
+
+        if (attachment.incrementalDigest?.isNotEmpty() == true && attachment.incrementalMacChunkSize != 0) {
+          put(REMOTE_INCREMENTAL_DIGEST, attachment.incrementalDigest)
+          put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, attachment.incrementalMacChunkSize)
+        } else {
+          putNull(REMOTE_INCREMENTAL_DIGEST)
         }
       }
 
@@ -2429,8 +2440,6 @@ class AttachmentTable(
       contentValues.put(CDN_NUMBER, uploadTemplate?.cdn?.serialize() ?: Cdn.CDN_0.serialize())
       contentValues.put(REMOTE_LOCATION, uploadTemplate?.remoteLocation)
       contentValues.put(REMOTE_DIGEST, uploadTemplate?.remoteDigest)
-      contentValues.put(REMOTE_INCREMENTAL_DIGEST, uploadTemplate?.incrementalDigest)
-      contentValues.put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, uploadTemplate?.incrementalMacChunkSize ?: 0)
       contentValues.put(REMOTE_KEY, uploadTemplate?.remoteKey)
       contentValues.put(REMOTE_IV, uploadTemplate?.remoteIv)
       contentValues.put(FILE_NAME, StorageUtil.getCleanFileName(attachment.fileName))
@@ -2446,7 +2455,14 @@ class AttachmentTable(
       contentValues.put(TRANSFORM_PROPERTIES, transformProperties.serialize())
       contentValues.put(ATTACHMENT_UUID, attachment.uuid?.toString())
 
-      if (attachment.transformProperties?.videoEdited == true) {
+      if (uploadTemplate?.incrementalDigest?.isNotEmpty() == true && uploadTemplate.incrementalMacChunkSize != 0) {
+        contentValues.put(REMOTE_INCREMENTAL_DIGEST, uploadTemplate.incrementalDigest)
+        contentValues.put(REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE, uploadTemplate.incrementalMacChunkSize)
+      } else {
+        contentValues.putNull(REMOTE_INCREMENTAL_DIGEST)
+      }
+
+      if (attachment.transformProperties?.videoTrimStartTimeUs != 0L) {
         contentValues.putNull(BLUR_HASH)
       } else {
         contentValues.put(BLUR_HASH, uploadTemplate.getVisualHashStringOrNull())
@@ -2786,7 +2802,7 @@ class AttachmentTable(
 
     companion object {
       fun deserialize(value: Int): ThumbnailRestoreState {
-        return values().firstOrNull { it.value == value } ?: NONE
+        return entries.firstOrNull { it.value == value } ?: NONE
       }
     }
   }
@@ -2826,7 +2842,7 @@ class AttachmentTable(
 
     companion object {
       fun deserialize(value: Int): ArchiveTransferState {
-        return values().firstOrNull { it.value == value } ?: NONE
+        return entries.firstOrNull { it.value == value } ?: NONE
       }
     }
   }

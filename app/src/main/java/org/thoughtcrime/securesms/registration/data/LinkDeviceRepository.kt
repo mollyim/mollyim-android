@@ -11,10 +11,10 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.push.AccountManagerFactory
-import org.thoughtcrime.securesms.registration.data.RegistrationRepository.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.network.DeviceUuidRequestResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
@@ -79,7 +79,7 @@ class LinkDeviceRepository(password: String) {
           registrationLock = registrationLock,
           unidentifiedAccessKey = unidentifiedAccessKey,
           unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
-          capabilities = AppCapabilities.getCapabilities(true),
+          capabilities = AppCapabilities.getCapabilities(true, RemoteConfig.storageServiceEncryptionV2),
           discoverableByPhoneNumber = !notDiscoverable,
           name = Base64.encodeWithPadding(encryptedDeviceName),
           pniRegistrationId = pniRegistrationId,
@@ -107,7 +107,7 @@ class LinkDeviceRepository(password: String) {
           SignalStore.account.setDeviceName(deviceName)
           SignalStore.account.setAciIdentityKeysFromPrimaryDevice(registration.aciIdentity)
           SignalStore.account.setPniIdentityKeyAfterChangeNumber(registration.pniIdentity)
-          SignalStore.registration.markHasUploadedProfile()
+          SignalStore.registration.hasUploadedProfile = true
 
           AccountRegistrationResult(
             uuid = registration.aci.toString(),

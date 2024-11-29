@@ -20,6 +20,8 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
+import org.signal.core.util.billing.BillingPurchaseResult
+import org.signal.core.util.bytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.money.FiatMoney
 import org.signal.donations.InAppPaymentType
@@ -63,7 +65,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
     )
   )
 
-  private val _restoreState: MutableStateFlow<BackupRestoreState> = MutableStateFlow(BackupRestoreState(false, BackupStatusData.RestoringMedia()))
+  private val _restoreState: MutableStateFlow<BackupRestoreState> = MutableStateFlow(BackupRestoreState.None)
   private val latestPurchaseId = MutableSharedFlow<InAppPaymentTable.InAppPaymentId>()
 
   val state: StateFlow<RemoteBackupsSettingsState> = _state
@@ -85,8 +87,14 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         if (restoreProgress.enabled) {
           Log.d(TAG, "Backup is being restored. Collecting updates.")
           restoreProgress.dataFlow.collectLatest { latest ->
-            _restoreState.update { BackupRestoreState(restoreProgress.enabled, latest) }
+            _restoreState.update { BackupRestoreState.FromBackupStatusData(latest) }
           }
+        } else if (SignalStore.backup.totalRestorableAttachmentSize > 0L) {
+          _restoreState.update { BackupRestoreState.Ready(SignalStore.backup.totalRestorableAttachmentSize.bytes.toUnitString()) }
+        } else if (BackupRepository.shouldDisplayBackupFailedSettingsRow()) {
+          _restoreState.update { BackupRestoreState.FromBackupStatusData(BackupStatusData.CouldNotCompleteBackup) }
+        } else {
+          _restoreState.update { BackupRestoreState.None }
         }
 
         delay(1.seconds)
@@ -104,6 +112,18 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
     _state.update { it.copy(backupsFrequency = backupsFrequency) }
     MessageBackupListener.setNextBackupTimeToIntervalFromNow()
     MessageBackupListener.schedule(AppDependencies.application)
+  }
+
+  fun beginMediaRestore() {
+    // TODO - [backups] Begin media restore.
+  }
+
+  fun skipMediaRestore() {
+    BackupRepository.skipMediaRestore()
+  }
+
+  fun cancelMediaRestore() {
+    // TODO - [backups] Cancel in-progress media restoration
   }
 
   fun requestDialog(dialog: RemoteBackupsSettingsState.Dialog) {
@@ -153,6 +173,44 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
       return
     }
 
+    if (SignalStore.backup.subscriptionStateMismatchDetected) {
+      Log.d(TAG, "[subscriptionStateMismatchDetected] A mismatch was detected.")
+
+      val hasActiveGooglePlayBillingSubscription = when (val purchaseResult = AppDependencies.billingApi.queryPurchases()) {
+        is BillingPurchaseResult.Success -> purchaseResult.isAcknowledged && purchaseResult.isWithinTheLastMonth()
+        else -> false
+      }
+
+      Log.d(TAG, "[subscriptionStateMismatchDetected] hasActiveGooglePlayBillingSubscription: $hasActiveGooglePlayBillingSubscription")
+
+      val activeSubscription = withContext(Dispatchers.IO) {
+        RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP).getOrNull()
+      }
+
+      val hasActiveSignalSubscription = activeSubscription?.isActive == true
+
+      Log.d(TAG, "[subscriptionStateMismatchDetected] hasActiveSignalSubscription: $hasActiveSignalSubscription")
+
+      val type = withContext(Dispatchers.IO) {
+        BackupRepository.getBackupsType(MessageBackupTier.PAID) as MessageBackupsType.Paid
+      }
+
+      if (hasActiveSignalSubscription && !hasActiveGooglePlayBillingSubscription) {
+        _state.update {
+          it.copy(
+            backupState = RemoteBackupsSettingsState.BackupState.SubscriptionMismatchMissingGooglePlay(
+              messageBackupsType = type,
+              renewalTime = activeSubscription!!.activeSubscription.endOfCurrentPeriod.seconds
+            )
+          )
+        }
+      }
+
+      // TODO [backups] - handle other cases.
+
+      return
+    }
+
     when (tier) {
       MessageBackupTier.PAID -> {
         Log.d(TAG, "Attempting to retrieve subscription details for active PAID backup.")
@@ -179,10 +237,12 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
                     price = FiatMoney.fromSignalNetworkAmount(subscription.amount, Currency.getInstance(subscription.currency)),
                     renewalTime = subscription.endOfCurrentPeriod.seconds
                   )
+
                   subscription.isCanceled -> RemoteBackupsSettingsState.BackupState.Canceled(
                     messageBackupsType = type,
                     renewalTime = subscription.endOfCurrentPeriod.seconds
                   )
+
                   else -> RemoteBackupsSettingsState.BackupState.Inactive(
                     messageBackupsType = type,
                     renewalTime = subscription.endOfCurrentPeriod.seconds

@@ -416,7 +416,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
                                                                                                    CallLinkSecretParams.deriveFromRootKey(callLinkRootKey.getKeyBytes())
                                                                                                );
 
-        callManager.peekCallLinkCall(SignalStore.internal().groupCallingServer(), callLinkAuthCredentialPresentation.serialize(), callLinkRootKey, peekInfo -> {
+        callManager.peekCallLinkCall(SignalStore.internal().getGroupCallingServer(), callLinkAuthCredentialPresentation.serialize(), callLinkRootKey, peekInfo -> {
           PeekInfo info = peekInfo.getValue();
           if (info == null) {
             Log.w(TAG, "Failed to get peek info: " + peekInfo.getStatus());
@@ -466,7 +466,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         List<GroupCall.GroupMemberInfo> members = Stream.of(GroupManager.getUuidCipherTexts(context, groupId))
                                                         .map(entry -> new GroupCall.GroupMemberInfo(entry.getKey(), entry.getValue().serialize()))
                                                         .toList();
-        callManager.peekGroupCall(SignalStore.internal().groupCallingServer(), credential.token.getBytes(Charsets.UTF_8), members, peekInfo -> {
+        callManager.peekGroupCall(SignalStore.internal().getGroupCallingServer(), credential.token.getBytes(Charsets.UTF_8), members, peekInfo -> {
           Long threadId = SignalDatabase.threads().getThreadIdFor(group.getId());
 
           if (threadId != null) {
@@ -510,7 +510,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
                                                               .map(entry -> new GroupCall.GroupMemberInfo(entry.getKey(), entry.getValue().serialize()))
                                                               .collect(Collectors.toList());
 
-        callManager.peekGroupCall(SignalStore.internal().groupCallingServer(),
+        callManager.peekGroupCall(SignalStore.internal().getGroupCallingServer(),
                                   credential.token.getBytes(Charsets.UTF_8),
                                   members,
                                   peekInfo -> receivedGroupCallPeekForRingingCheck(info, peekInfo));
@@ -1029,14 +1029,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   public void retrieveTurnServers(@NonNull RemotePeer remotePeer) {
     networkExecutor.execute(() -> {
       try {
-        TurnServerInfo turnServerInfo = AppDependencies.getSignalServiceAccountManager().getTurnServerInfo();
-
-        List<TurnServerInfo> turnServerInfos = new ArrayList<>();
-        if (turnServerInfo != null) {
-          turnServerInfos.add(turnServerInfo);
-          turnServerInfos.addAll(turnServerInfo.getIceServers());
-        }
-
+        List<TurnServerInfo> turnServerInfos = AppDependencies.getSignalServiceAccountManager().getTurnServerInfo();
         List<PeerConnection.IceServer> iceServers = mapToIceServers(turnServerInfos);
         process((s, p) -> {
           RemotePeer activePeer = s.getCallInfoState().getActivePeer();
@@ -1201,7 +1194,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         .calls()
         .updateOneToOneCall(remotePeer.getCallId().longValue(), CallTable.Event.ACCEPTED, null);
 
-    if (TextSecurePreferences.isMultiDevice(context)) {
+    if (SignalStore.account().hasLinkedDevices()) {
       networkExecutor.execute(() -> {
         try {
           SyncMessage.CallEvent callEvent = CallEventSyncMessageUtil.createAcceptedSyncMessage(remotePeer, System.currentTimeMillis(), isOutgoing, isVideoCall);
@@ -1218,7 +1211,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         .calls()
         .updateOneToOneCall(remotePeer.getCallId().longValue(), CallTable.Event.NOT_ACCEPTED, null);
 
-    if (TextSecurePreferences.isMultiDevice(context)) {
+    if (SignalStore.account().hasLinkedDevices()) {
       networkExecutor.execute(() -> {
         try {
           SyncMessage.CallEvent callEvent = CallEventSyncMessageUtil.createNotAcceptedSyncMessage(remotePeer, System.currentTimeMillis(), isOutgoing, isVideoCall);
@@ -1231,7 +1224,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void sendGroupCallNotAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing) {
-    if (TextSecurePreferences.isMultiDevice(context)) {
+    if (SignalStore.account().hasLinkedDevices()) {
       networkExecutor.execute(() -> {
         try {
           SyncMessage.CallEvent callEvent = CallEventSyncMessageUtil.createNotAcceptedSyncMessage(remotePeer, System.currentTimeMillis(), isOutgoing, true);

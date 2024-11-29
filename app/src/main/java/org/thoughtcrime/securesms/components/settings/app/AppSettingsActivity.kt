@@ -254,7 +254,7 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
 
     companion object {
       fun fromCode(code: Int?): StartLocation {
-        return values().find { code == it.code } ?: HOME
+        return entries.find { code == it.code } ?: HOME
       }
     }
   }

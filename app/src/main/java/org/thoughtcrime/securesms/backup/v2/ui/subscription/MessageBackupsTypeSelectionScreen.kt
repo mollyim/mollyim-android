@@ -59,6 +59,8 @@ import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.ByteUnit
 import java.math.BigDecimal
 import java.util.Currency
+import kotlin.time.Duration.Companion.days
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Screen which allows the user to select their preferred backup type.
@@ -83,7 +85,7 @@ fun MessageBackupsTypeSelectionScreen(
     Column(
       modifier = Modifier
         .padding(paddingValues)
-        .padding(horizontal = dimensionResource(id = R.dimen.core_ui__gutter))
+        .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
         .fillMaxSize()
     ) {
       LazyColumn(
@@ -368,7 +370,8 @@ fun testBackupTypes(): List<MessageBackupsType> {
     ),
     MessageBackupsType.Paid(
       pricePerMonth = FiatMoney(BigDecimal.ONE, Currency.getInstance("USD")),
-      storageAllowanceBytes = 107374182400
+      storageAllowanceBytes = 107374182400,
+      mediaTtl = 30.days
     )
   )
 }

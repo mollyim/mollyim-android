@@ -31,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +47,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import org.signal.core.ui.Buttons
@@ -82,7 +82,7 @@ class CreateFoldersFragment : ComposeFragment() {
           if (viewModel.hasChanges() && !viewModel.hasEmptyName()) {
             viewModel.showConfirmationDialog(true)
           } else {
-            findNavController().popBackStack()
+            requireActivity().onNavigateUp()
           }
         }
       }
@@ -91,7 +91,7 @@ class CreateFoldersFragment : ComposeFragment() {
 
   @Composable
   override fun FragmentContent() {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val navController: NavController by remember { mutableStateOf(findNavController()) }
     val focusRequester = remember { FocusRequester() }
     val isNewFolder = state.originalFolder.id == -1L
@@ -116,7 +116,7 @@ class CreateFoldersFragment : ComposeFragment() {
         if (viewModel.hasChanges() && !viewModel.hasEmptyName()) {
           viewModel.showConfirmationDialog(true)
         } else {
-          navController.popBackStack()
+          requireActivity().onNavigateUp()
         }
       },
       navigationIconPainter = painterResource(id = R.drawable.ic_arrow_left_24),
@@ -142,25 +142,23 @@ class CreateFoldersFragment : ComposeFragment() {
         onDeleteClicked = { viewModel.showDeleteDialog(true) },
         onDeleteConfirmed = {
           viewModel.deleteFolder(requireContext())
-          navController.popBackStack()
+          requireActivity().onNavigateUp()
         },
         onDeleteDismissed = {
           viewModel.showDeleteDialog(false)
         },
-        onCreateConfirmed = { shouldExit ->
+        onCreateConfirmed = {
           if (isNewFolder) {
             viewModel.createFolder(requireContext())
           } else {
             viewModel.updateFolder(requireContext())
           }
-          if (shouldExit) {
-            navController.popBackStack()
-          }
+          requireActivity().onNavigateUp()
         },
         onCreateDismissed = { shouldExit ->
           viewModel.showConfirmationDialog(false)
           if (shouldExit) {
-            navController.popBackStack()
+            requireActivity().onNavigateUp()
           }
         },
         onShowToast = {
@@ -191,7 +189,7 @@ fun CreateFolderScreen(
   onDeleteClicked: () -> Unit = {},
   onDeleteConfirmed: () -> Unit = {},
   onDeleteDismissed: () -> Unit = {},
-  onCreateConfirmed: (Boolean) -> Unit = {},
+  onCreateConfirmed: () -> Unit = {},
   onCreateDismissed: (Boolean) -> Unit = {},
   onShowToast: () -> Unit = {}
 ) {
@@ -366,42 +364,35 @@ fun CreateFolderScreen(
       }
     }
 
-    if (hasChanges && isNewFolder) {
-      Buttons.MediumTonal(
-        onClick = { onCreateConfirmed(true) },
-        modifier = modifier
-          .align(Alignment.BottomEnd)
-          .padding(end = 16.dp, bottom = 16.dp)
-      ) {
-        Text(text = stringResource(R.string.CreateFoldersFragment__create))
-      }
-    } else if (!isNewFolder) {
-      Buttons.MediumTonal(
-        colors = ButtonDefaults.filledTonalButtonColors(
-          contentColor = if (state.currentFolder.name.isEmpty()) {
-            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-          } else {
-            MaterialTheme.colorScheme.onSurface
-          },
-          containerColor = if (state.currentFolder.name.isEmpty()) {
-            MaterialTheme.colorScheme.surfaceVariant
-          } else {
-            MaterialTheme.colorScheme.primaryContainer
-          },
-          disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
-        enabled = hasChanges,
-        onClick = {
-          if (state.currentFolder.name.isEmpty()) {
-            onShowToast()
-          } else {
-            onCreateConfirmed(true)
-          }
+    Buttons.MediumTonal(
+      colors = ButtonDefaults.filledTonalButtonColors(
+        contentColor = if (state.currentFolder.name.isEmpty()) {
+          MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+        } else {
+          MaterialTheme.colorScheme.onSurface
         },
-        modifier = modifier
-          .align(Alignment.BottomEnd)
-          .padding(end = 16.dp, bottom = 16.dp)
-      ) {
+        containerColor = if (state.currentFolder.name.isEmpty()) {
+          MaterialTheme.colorScheme.surfaceVariant
+        } else {
+          MaterialTheme.colorScheme.primaryContainer
+        },
+        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant
+      ),
+      enabled = hasChanges,
+      onClick = {
+        if (state.currentFolder.name.isEmpty()) {
+          onShowToast()
+        } else {
+          onCreateConfirmed()
+        }
+      },
+      modifier = modifier
+        .align(Alignment.BottomEnd)
+        .padding(end = 16.dp, bottom = 16.dp)
+    ) {
+      if (isNewFolder) {
+        Text(text = stringResource(R.string.CreateFoldersFragment__create))
+      } else {
         Text(text = stringResource(R.string.CreateFoldersFragment__save))
       }
     }

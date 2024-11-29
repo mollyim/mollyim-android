@@ -55,6 +55,7 @@ import org.whispersystems.signalservice.internal.push.exceptions.InAppPaymentPro
 import java.security.SecureRandom
 import java.util.Currency
 import java.util.Optional
+import java.util.concurrent.locks.Lock
 import kotlin.jvm.optionals.getOrNull
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -230,10 +231,11 @@ object InAppPaymentsRepository {
   /**
    * Returns the object to utilize as a mutex for recurring subscriptions.
    */
-  fun resolveMutex(inAppPaymentId: InAppPaymentTable.InAppPaymentId): Any {
+  @WorkerThread
+  fun resolveLock(inAppPaymentId: InAppPaymentTable.InAppPaymentId): Lock {
     val payment = SignalDatabase.inAppPayments.getById(inAppPaymentId) ?: error("Not found")
 
-    return payment.type.requireSubscriberType()
+    return payment.type.requireSubscriberType().lock
   }
 
   /**
@@ -526,14 +528,6 @@ object InAppPaymentsRepository {
    * Emits a stream of status updates for donations of the given type. Only One-time donations and recurring donations are currently supported.
    */
   fun observeInAppPaymentRedemption(type: InAppPaymentType): Observable<DonationRedemptionJobStatus> {
-    val jobStatusObservable: Observable<DonationRedemptionJobStatus> = when (type) {
-      InAppPaymentType.UNKNOWN -> Observable.empty()
-      InAppPaymentType.ONE_TIME_GIFT -> Observable.empty()
-      InAppPaymentType.ONE_TIME_DONATION -> Observable.empty()
-      InAppPaymentType.RECURRING_DONATION -> Observable.empty()
-      InAppPaymentType.RECURRING_BACKUP -> Observable.empty()
-    }
-
     val fromDatabase: Observable<DonationRedemptionJobStatus> = Observable.create { emitter ->
       val observer = InAppPaymentObserver {
         val latestInAppPayment = SignalDatabase.inAppPayments.getLatestInAppPaymentByType(type)
@@ -544,7 +538,7 @@ object InAppPaymentsRepository {
       AppDependencies.databaseObserver.registerInAppPaymentObserver(observer)
       emitter.setCancellable { AppDependencies.databaseObserver.unregisterObserver(observer) }
     }.switchMap { inAppPaymentOptional ->
-      val inAppPayment = inAppPaymentOptional.getOrNull() ?: return@switchMap jobStatusObservable
+      val inAppPayment = inAppPaymentOptional.getOrNull() ?: return@switchMap Observable.just(DonationRedemptionJobStatus.None)
 
       val value = when (inAppPayment.state) {
         InAppPaymentTable.State.CREATED -> error("This should have been filtered out.")
@@ -573,15 +567,7 @@ object InAppPaymentsRepository {
       Observable.just(value)
     }
 
-    return fromDatabase
-      .switchMap {
-        if (it == DonationRedemptionJobStatus.None) {
-          jobStatusObservable
-        } else {
-          Observable.just(it)
-        }
-      }
-      .distinctUntilChanged()
+    return fromDatabase.distinctUntilChanged()
   }
 
   fun scheduleSyncForAccountRecordChange() {

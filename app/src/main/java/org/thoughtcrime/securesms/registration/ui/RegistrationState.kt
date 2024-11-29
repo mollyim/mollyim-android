@@ -28,7 +28,7 @@ data class RegistrationState(
   val deviceLinkUrl: String? = null,
   val inProgress: Boolean = false,
   val isReRegister: Boolean = false,
-  val recoveryPassword: String? = SignalStore.svr.getRecoveryPassword(),
+  val recoveryPassword: String? = SignalStore.svr.recoveryPassword,
   val canSkipSms: Boolean = false,
   val svr2AuthCredentials: AuthCredentials? = null,
   val svr3AuthCredentials: Svr3Credentials? = null,

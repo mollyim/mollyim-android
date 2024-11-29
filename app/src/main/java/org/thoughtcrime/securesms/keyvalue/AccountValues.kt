@@ -3,11 +3,11 @@ package org.thoughtcrime.securesms.keyvalue
 import android.content.Context
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
+import org.signal.core.util.nullIfBlank
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.ecc.Curve
 import org.signal.libsignal.protocol.util.Medium
-import org.thoughtcrime.securesms.crypto.EncryptedPreferences
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.crypto.storage.PreKeyMetadataStore
@@ -17,6 +17,7 @@ import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.Util
+import org.whispersystems.signalservice.api.AccountEntropyPool
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import org.whispersystems.signalservice.api.push.ServiceId.PNI
 import org.whispersystems.signalservice.api.push.ServiceIds
@@ -25,58 +26,73 @@ import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.api.util.toByteArray
 import java.security.SecureRandom
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
+import org.signal.libsignal.messagebackup.AccountEntropyPool as LibSignalAccountEntropyPool
 
 class AccountValues internal constructor(store: KeyValueStore, context: Context) : SignalStoreValues(store) {
 
   companion object {
     private val TAG = Log.tag(AccountValues::class.java)
+    private const val KEY_SERVICE_PASSWORD = "account.service_password"
+    private const val KEY_REGISTRATION_ID = "account.registration_id"
+    private const val KEY_FCM_ENABLED = "account.fcm_enabled"
+    private const val KEY_FCM_TOKEN = "account.fcm_token"
+    private const val KEY_FCM_TOKEN_VERSION = "account.fcm_token_version"
+    private const val KEY_FCM_TOKEN_LAST_SET_TIME = "account.fcm_token_last_set_time"
+    private const val KEY_DEVICE_NAME = "account.device_name"
+    private const val KEY_DEVICE_ID = "account.device_id"
+    private const val KEY_PNI_REGISTRATION_ID = "account.pni_registration_id"
 
-    // MOLLY: Ensure all keys below are parametrized with the account number
-    private const val KEY_SERVICE_PASSWORD = "account.1.service_password"
-    private const val KEY_REGISTRATION_ID = "account.1.registration_id"
-    private const val KEY_FCM_ENABLED = "account.1.fcm_enabled"
-    private const val KEY_FCM_TOKEN = "account.1.fcm_token"
-    private const val KEY_FCM_TOKEN_VERSION = "account.1.fcm_token_version"
-    private const val KEY_FCM_TOKEN_LAST_SET_TIME = "account.1.fcm_token_last_set_time"
-    private const val KEY_DEVICE_NAME = "account.1.device_name"
-    private const val KEY_DEVICE_ID = "account.1.device_id"
-    private const val KEY_PNI_REGISTRATION_ID = "account.1.pni_registration_id"
-    private const val KEY_ACI_SIGNED_PREKEY_REGISTERED = "account.1.aci_signed_prekey_registered"
-    private const val KEY_ACI_NEXT_SIGNED_PREKEY_ID = "account.1.aci_next_signed_prekey_id"
-    private const val KEY_ACI_ACTIVE_SIGNED_PREKEY_ID = "account.1.aci_active_signed_prekey_id"
-    private const val KEY_ACI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.1.aci_last_signed_prekey_rotation_time"
-    private const val KEY_ACI_NEXT_ONE_TIME_PREKEY_ID = "account.1.aci_next_one_time_prekey_id"
-    private const val KEY_PNI_SIGNED_PREKEY_REGISTERED = "account.1.pni_signed_prekey_registered"
-    private const val KEY_PNI_NEXT_SIGNED_PREKEY_ID = "account.1.pni_next_signed_prekey_id"
-    private const val KEY_PNI_ACTIVE_SIGNED_PREKEY_ID = "account.1.pni_active_signed_prekey_id"
-    private const val KEY_PNI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.1.pni_last_signed_prekey_rotation_time"
-    private const val KEY_PNI_NEXT_ONE_TIME_PREKEY_ID = "account.1.pni_next_one_time_prekey_id"
-    private const val KEY_E164 = "account.1.e164"
-    private const val KEY_ACI = "account.1.aci"
-    private const val KEY_PNI = "account.1.pni"
-    private const val KEY_IS_REGISTERED = "account.1.is_registered"
-
-    // MOLLY: Leave these keys untouched to preserve compatibility with Signal backups
     private const val KEY_ACI_IDENTITY_PUBLIC_KEY = "account.aci_identity_public_key"
     private const val KEY_ACI_IDENTITY_PRIVATE_KEY = "account.aci_identity_private_key"
-    private const val KEY_PNI_IDENTITY_PUBLIC_KEY = "account.pni_identity_public_key"
-    private const val KEY_PNI_IDENTITY_PRIVATE_KEY = "account.pni_identity_private_key"
+    private const val KEY_ACI_SIGNED_PREKEY_REGISTERED = "account.aci_signed_prekey_registered"
+    private const val KEY_ACI_NEXT_SIGNED_PREKEY_ID = "account.aci_next_signed_prekey_id"
+    private const val KEY_ACI_ACTIVE_SIGNED_PREKEY_ID = "account.aci_active_signed_prekey_id"
+    private const val KEY_ACI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.aci_last_signed_prekey_rotation_time"
+    private const val KEY_ACI_NEXT_ONE_TIME_PREKEY_ID = "account.aci_next_one_time_prekey_id"
     private const val KEY_ACI_NEXT_KYBER_PREKEY_ID = "account.aci_next_kyber_prekey_id"
     private const val KEY_ACI_LAST_RESORT_KYBER_PREKEY_ID = "account.aci_last_resort_kyber_prekey_id"
     private const val KEY_ACI_LAST_RESORT_KYBER_PREKEY_ROTATION_TIME = "account.aci_last_resort_kyber_prekey_rotation_time"
+
+    private const val KEY_PNI_IDENTITY_PUBLIC_KEY = "account.pni_identity_public_key"
+    private const val KEY_PNI_IDENTITY_PRIVATE_KEY = "account.pni_identity_private_key"
+    private const val KEY_PNI_SIGNED_PREKEY_REGISTERED = "account.pni_signed_prekey_registered"
+    private const val KEY_PNI_NEXT_SIGNED_PREKEY_ID = "account.pni_next_signed_prekey_id"
+    private const val KEY_PNI_ACTIVE_SIGNED_PREKEY_ID = "account.pni_active_signed_prekey_id"
+    private const val KEY_PNI_LAST_SIGNED_PREKEY_ROTATION_TIME = "account.pni_last_signed_prekey_rotation_time"
+    private const val KEY_PNI_NEXT_ONE_TIME_PREKEY_ID = "account.pni_next_one_time_prekey_id"
     private const val KEY_PNI_NEXT_KYBER_PREKEY_ID = "account.pni_next_kyber_prekey_id"
     private const val KEY_PNI_LAST_RESORT_KYBER_PREKEY_ID = "account.pni_last_resort_kyber_prekey_id"
     private const val KEY_PNI_LAST_RESORT_KYBER_PREKEY_ROTATION_TIME = "account.pni_last_resort_kyber_prekey_rotation_time"
+
     private const val KEY_USERNAME = "account.username"
     private const val KEY_USERNAME_LINK_ENTROPY = "account.username_link_entropy"
     private const val KEY_USERNAME_LINK_SERVER_ID = "account.username_link_server_id"
     private const val KEY_USERNAME_SYNC_STATE = "phoneNumberPrivacy.usernameSyncState"
     private const val KEY_USERNAME_SYNC_ERROR_COUNT = "phoneNumberPrivacy.usernameErrorCount"
+
+    private const val KEY_E164 = "account.e164"
+    private const val KEY_ACI = "account.aci"
+    private const val KEY_PNI = "account.pni"
+    private const val KEY_IS_REGISTERED = "account.is_registered"
+
+    private const val KEY_HAS_LINKED_DEVICES = "account.has_linked_devices"
+
+    private const val KEY_ACCOUNT_ENTROPY_POOL = "account.account_entropy_pool"
+
+    private val AEP_LOCK = ReentrantLock()
   }
 
   init {
-    if (!store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) {
-      migrateFromSharedPrefs(context)
+    if (store.containsKey("account.1.pni")) {
+      migrateLegacyAccountKeys()
+    }
+
+    // MOLLY: At this point, the store format is aligned with upstream
+
+    if (!store.containsKey(KEY_HAS_LINKED_DEVICES)) {
+      migrateFromSharedPrefsV3(context)
     }
 
     store.getString(KEY_PNI, null)?.let { pni ->
@@ -96,8 +112,35 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       KEY_PNI_IDENTITY_PRIVATE_KEY,
       KEY_USERNAME,
       KEY_USERNAME_LINK_ENTROPY,
-      KEY_USERNAME_LINK_SERVER_ID
+      KEY_USERNAME_LINK_SERVER_ID,
+      KEY_ACCOUNT_ENTROPY_POOL
     )
+  }
+
+  val accountEntropyPool: AccountEntropyPool
+    get() {
+      AEP_LOCK.withLock {
+        getString(KEY_ACCOUNT_ENTROPY_POOL, null)?.let {
+          return AccountEntropyPool(it)
+        }
+
+        Log.i(TAG, "Generating Account Entropy Pool (AEP)...")
+        val newAep = LibSignalAccountEntropyPool.generate()
+        putString(KEY_ACCOUNT_ENTROPY_POOL, newAep)
+        return AccountEntropyPool(newAep)
+      }
+    }
+
+  fun restoreAccountEntropyPool(aep: AccountEntropyPool) {
+    AEP_LOCK.withLock {
+      store.beginWrite().putString(KEY_ACCOUNT_ENTROPY_POOL, aep.value).commit()
+    }
+  }
+
+  fun resetAccountEntropyPool() {
+    AEP_LOCK.withLock {
+      store.beginWrite().putString(KEY_ACCOUNT_ENTROPY_POOL, null).commit()
+    }
   }
 
   /** The local user's [ACI]. */
@@ -317,7 +360,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   @get:JvmName("isPushAvailable")
   val pushAvailable: Boolean
-    get() = canReceiveFcm
+    get() = canReceiveFcm || SignalStore.unifiedpush.isAvailableOrAirGapped
 
   /** The FCM token, which allows the server to send us FCM messages. */
   var fcmToken: String?
@@ -397,10 +440,10 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   var username: String?
     get() {
       val value = getString(KEY_USERNAME, null)
-      return if (value.isNullOrBlank()) null else value
+      return value.nullIfBlank()
     }
     set(value) {
-      putString(KEY_USERNAME, value)
+      putString(KEY_USERNAME, value.nullIfBlank())
     }
 
   /** The local user's username link components, if set. */
@@ -447,71 +490,65 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     AppDependencies.groupsV2Authorization.clear()
   }
 
-  private fun migrateFromSharedPrefs(context: Context) {
-    Log.i(TAG, "Migrating account values from shared prefs:")
+  /**
+   * Whether or not the user has linked devices.
+   */
+  @get:JvmName("hasLinkedDevices")
+  var hasLinkedDevices by booleanValue(KEY_HAS_LINKED_DEVICES, false)
+
+  // MOLLY: Keys were parametrized with the account number until 7.23.1
+  private fun migrateLegacyAccountKeys() {
+    Log.i(TAG, "Migrating legacy account values.")
+    store.beginWrite().apply {
+      listOf(
+        "account.service_password" to String,
+        "account.registration_id" to Int,
+        "account.fcm_enabled" to Boolean,
+        "account.fcm_token" to String,
+        "account.fcm_token_version" to Int,
+        "account.fcm_token_last_set_time" to Long,
+        "account.device_name" to String,
+        "account.device_id" to Int,
+        "account.pni_registration_id" to Int,
+        "account.aci_signed_prekey_registered" to Boolean,
+        "account.aci_next_signed_prekey_id" to Int,
+        "account.aci_active_signed_prekey_id" to Int,
+        "account.aci_last_signed_prekey_rotation_time" to Long,
+        "account.aci_next_one_time_prekey_id" to Int,
+        "account.pni_signed_prekey_registered" to Boolean,
+        "account.pni_next_signed_prekey_id" to Int,
+        "account.pni_active_signed_prekey_id" to Int,
+        "account.pni_last_signed_prekey_rotation_time" to Long,
+        "account.pni_next_one_time_prekey_id" to Int,
+        "account.e164" to String,
+        "account.aci" to String,
+        "account.pni" to String,
+        "account.is_registered" to Boolean,
+      ).associateWith { (key, _) ->
+        key.replace("account", "account.1")
+      }.forEach { (toKey, type), fromKey ->
+        if (store.containsKey(fromKey)) {
+          Log.i(TAG, "Migrating: $fromKey")
+          when (type) {
+            String -> putString(toKey, store.getString(fromKey, null))
+            Boolean -> putBoolean(toKey, store.getBoolean(fromKey, false))
+            Int -> putInteger(toKey, store.getInteger(fromKey, 0))
+            Long -> putLong(toKey, store.getLong(fromKey, 0))
+            else -> error("Not implemented")
+          }
+          remove(fromKey)
+        }
+      }
+      apply()
+    }
+  }
+
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  private fun migrateFromSharedPrefsV3(context: Context) {
+    Log.i(TAG, "[V3] Migrating account values from shared prefs.")
 
     val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
-    val identitySharedPrefs = EncryptedPreferences.create(context, "SecureSMS-Preferences")
-
-    if (sharedPrefs.contains("pref_local_uuid")) {
-      Log.i(TAG, "Migrating ACI.")
-
-      // MOLLY: This migration is always run in Signal, so migrateFromSharedPrefsV1()
-      // might set FCM to true before registration.
-      store
-        .beginWrite()
-        .putString(KEY_ACI, sharedPrefs.getString("pref_local_uuid", null))
-        .putString(KEY_E164, sharedPrefs.getString("pref_local_number", null))
-        .putString(KEY_SERVICE_PASSWORD, sharedPrefs.getString("pref_gcm_password", null))
-        .putBoolean(KEY_IS_REGISTERED, sharedPrefs.getBoolean("pref_gcm_registered", false))
-        .putInteger(KEY_REGISTRATION_ID, sharedPrefs.getInt("pref_local_registration_id", 0))
-        .putBoolean(KEY_FCM_ENABLED, !sharedPrefs.getBoolean("pref_gcm_disabled", false))
-        .putString(KEY_FCM_TOKEN, sharedPrefs.getString("pref_gcm_registration_id", null))
-        .putInteger(KEY_FCM_TOKEN_VERSION, sharedPrefs.getInt("pref_gcm_registration_id_version", 0))
-        .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, sharedPrefs.getLong("pref_gcm_registration_id_last_set_time", 0))
-        .commit()
-
-      sharedPrefs
-        .edit()
-        .remove("pref_local_uuid")
-        .apply()
-    } else {
-      Log.w(TAG, "No pre-existing ACI! No migration.")
-    }
-
-    // MOLLY: Key for PNI hadn't account number before 5.31.6-1
-    if (store.containsKey("account.pni") && store.getString("account.1.pni", null) == null) {
-      store
-        .beginWrite()
-        .putString("account.1.pni", store.getString("account.pni", null))
-        .remove("account.pni")
-        .apply()
-    }
-
-    if (identitySharedPrefs.contains("pref_identity_public_v3")) {
-      Log.i(TAG, "Migrating modern identity key.")
-
-      val identityPublic = Base64.decode(identitySharedPrefs.getString("pref_identity_public_v3", null)!!)
-      val identityPrivate = Base64.decode(identitySharedPrefs.getString("pref_identity_private_v3", null)!!)
-
-      store
-        .beginWrite()
-        .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, identityPublic)
-        .putBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, identityPrivate)
-        .putInteger(KEY_ACI_NEXT_SIGNED_PREKEY_ID, sharedPrefs.getInt("pref_next_signed_pre_key_id", SecureRandom().nextInt(Medium.MAX_VALUE)))
-        .putInteger(KEY_ACI_ACTIVE_SIGNED_PREKEY_ID, sharedPrefs.getInt("pref_active_signed_pre_key_id", -1))
-        .putInteger(KEY_ACI_NEXT_ONE_TIME_PREKEY_ID, sharedPrefs.getInt("pref_next_pre_key_id", SecureRandom().nextInt(Medium.MAX_VALUE)))
-        .putBoolean(KEY_ACI_SIGNED_PREKEY_REGISTERED, sharedPrefs.getBoolean("pref_signed_prekey_registered", false))
-        .commit()
-
-      identitySharedPrefs
-        .edit()
-        .remove("pref_identity_public_v3")
-        .remove("pref_identity_private_v3")
-        .apply()
-    } else {
-      Log.w(TAG, "No pre-existing identity key! No migration.")
-    }
+    putBoolean(KEY_HAS_LINKED_DEVICES, sharedPrefs.getBoolean("pref_multi_device", false))
   }
 
   enum class UsernameSyncState(private val value: Long) {
@@ -528,7 +565,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
     companion object {
       fun deserialize(value: Long): UsernameSyncState {
-        return values().firstOrNull { it.value == value } ?: throw IllegalArgumentException("Invalid value: $value")
+        return entries.firstOrNull { it.value == value } ?: throw IllegalArgumentException("Invalid value: $value")
       }
     }
   }

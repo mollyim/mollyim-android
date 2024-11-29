@@ -45,8 +45,8 @@
     <string name="ApplicationMigrationActivity__signal_is_updating">O Molly está atualizando…</string>
 
     <!-- ApplicationPreferencesActivity -->
-    <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Você ainda não definiu uma frase-chave!</string>
-    <string name="ApplicationPreferencesActivity_disable_passphrase">Desabilitar frase-chave?</string>
+    <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Você ainda não definiu uma frase de recuperação!</string>
+    <string name="ApplicationPreferencesActivity_disable_passphrase">Desabilitar frase de recuperação?</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Isto irá destravar permanentemente as notificações do Molly e de mensagens.</string>
     <string name="ApplicationPreferencesActivity_disable">Desabilitar</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Erro ao conectar-se com o servidor!</string>
@@ -101,7 +101,7 @@
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Nenhuma foto ou vídeo encontrados. O Signal acessa somente as fotos e vídeos que você selecionou.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Nenhuma foto ou vídeo encontrados. O Molly acessa somente as fotos e vídeos que você selecionou.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Não foi possível encontrar um aplicativo para selecionar arquivos de mídia.</string>
@@ -273,25 +273,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Permitir acesso ao microfone</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Para tirar fotos, permita que o Signal acesse a câmera.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Para tirar fotos, permita que o Molly acesse a câmera.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Para tirar fotos e gravar vídeos, permita que o Signal acesse a câmera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Para tirar fotos e gravar vídeos, permita que o Molly acesse a câmera.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Para tirar fotos e gravar vídeos, permita que o Signal acesse a câmera e o microfone.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Para tirar fotos e gravar vídeos, permita que o Molly acesse a câmera e o microfone.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Para gravar vídeos com som, permita que o Signal acesse o microfone.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Para gravar vídeos com som, permita que o Molly acesse o microfone.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Para escanear um QR code, permita que o Signal acesse a câmera.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Para escanear um QR code, permita que o Molly acesse a câmera.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">O Signal precisa acessar a câmera para tirar fotos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">O Molly precisa acessar a câmera para tirar fotos</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">O Signal precisa acessar a câmera para escanear QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">O Molly precisa acessar a câmera para escanear QR codes</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">O Signal precisa acessar o microfone para gravar um vídeo</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">O Molly precisa acessar o microfone para gravar um vídeo</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Para tirar fotos no Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Para tirar fotos no Molly:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Para tirar fotos e gravar vídeos no Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Para tirar fotos e gravar vídeos no Molly:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Para gravar vídeos com som:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -746,7 +746,7 @@
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Adicionado a \"%1$s\"</string>
     <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
+    <string name="AddToFolderBottomSheet_this_chat_is_already">Esta conversa já está na pasta \"%1$s\"</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Perfil de notificações</string>
@@ -871,14 +871,14 @@
 
     <!-- BackupsPreferenceFragment -->
     <string name="BackupsPreferenceFragment__chat_backups">Backup de chats</string>
-    <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Os backups são criptografados com uma frase-chave e armazenados no seu dispositivo.</string>
+    <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Os backups são criptografados com uma frase de recuperação e armazenados no seu dispositivo.</string>
     <string name="BackupsPreferenceFragment__create_backup">Criar backup</string>
     <string name="BackupsPreferenceFragment__last_backup">Último backup: %1$s</string>
     <string name="BackupsPreferenceFragment__backup_folder">Pasta do backup</string>
     <!-- Title for a preference item allowing the user to selected the hour of the day when their chats are backed up. -->
     <string name="BackupsPreferenceFragment__backup_time">Horário do backup</string>
-    <string name="BackupsPreferenceFragment__verify_backup_passphrase">Verificar frase-chave de backup</string>
-    <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Teste sua frase-chave de backup e verifique se ela corresponde</string>
+    <string name="BackupsPreferenceFragment__verify_backup_passphrase">Verificar frase de recuperação de backup</string>
+    <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Teste sua frase de recuperação de backup e verifique se ela corresponde</string>
     <string name="BackupsPreferenceFragment__turn_on">Ativar</string>
     <string name="BackupsPreferenceFragment__turn_off">Desativar</string>
     <string name="BackupsPreferenceFragment__to_restore_a_backup">"Para restaurar um backup, faça uma nova instalação do Molly. Abra o aplicativo e toque no \"Restaurar o backup\", depois localize um arquivo de backup. %1$s"</string>
@@ -978,14 +978,18 @@
     <string name="LinkDeviceFragment__my_linked_devices">Meus dispositivos vinculados</string>
     <!-- Dialog confirmation to unlink a device -->
     <string name="LinkDeviceFragment__unlink">Desvincular</string>
-    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
-    <string name="LinkDeviceFragment__s_unlinked">%1$s desvinculado</string>
+    <!-- Toast message indicating a device has been unlinked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">\"%1$s\" desvinculado</string>
+    <!-- Toast message indicating a device has been successfully linked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_linked">\"%1$s\" vinculado</string>
     <!-- Progress dialog message indicating that a device is currently being linked with an account -->
     <string name="LinkDeviceFragment__linking_device">Vinculando dispositivo…</string>
     <!-- Toast message shown after a device has been linked -->
     <string name="LinkDeviceFragment__device_approved">Dispositivo aprovado</string>
     <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
     <string name="LinkDeviceFragment__loading">Carregando…</string>
+    <!-- Progress dialog message indicating that you are syncing messages to your linked device -->
+    <string name="LinkDeviceFragment__syncing_messages">Sincronizando mensagens…</string>
     <!-- Text message shown when the user has no linked devices -->
     <string name="LinkDeviceFragment__no_linked_devices">Nenhum dispositivo vinculado</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
@@ -996,6 +1000,14 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Toque em continuar e insira a senha ou padrão de desbloqueio do seu aparelho para prosseguir. Não digite seu PIN do Signal.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Continuar</string>
+    <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_title">Falha na sincronização de mensagens</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_body">Não foi possível transferir suas mensagens para o dispositivo vinculado. Tente vincular e transferir novamente ou continuar sem transferir seu histórico de mensagens.</string>
+    <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Tente vincular novamente</string>
+    <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
+    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Continuar sem transferir</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -1019,8 +1031,18 @@
     <!-- Button in dialog to retry linking a device with a qr code -->
     <string name="AddLinkDeviceFragment__retry">Tente novamente</string>
 
+    <!-- LinkDeviceSyncBottomSheet -->
+    <!-- Option in bottom sheet to transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_transfer">Transfer message history</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Transfer your text messages and recent media to your desktop</string>
+    <!-- Option in bottom sheet to not transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_dont_transfer">Não transferir</string>
+    <!-- Description in bottom sheet of what not transferring history will do -->
+    <string name="LinkDeviceSyncBottomSheet_no_old_messages">No old messages or media will be transferred to your desktop</string>
+
     <!-- DeviceListActivity -->
-    <string name="DeviceListActivity_unlink_s">Desvincular \'%1$s\'?</string>
+    <string name="DeviceListActivity_unlink_s">Desvincular \"%1$s\"?</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">Ao desvincular este dispositivo, ele não será mais capaz de enviar ou receber mensagens.</string>
     <string name="DeviceListActivity_network_connection_failed">Falha na conexão de rede</string>
     <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
@@ -1313,20 +1335,6 @@
     <string name="ManageGroupActivity_more">mais</string>
     <string name="ManageGroupActivity_add_group_description">Adicionar descrição do grupo…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Transferir de aparelho Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Transfira sua conta e mensagens do seu dispositivo Android antigo.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Fazer login sem transferir</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Continue sem transferir suas mensagens e arquivos de mídia</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Restaurar backup local</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Restaure suas mensagens de um arquivo de backup salvo no dispositivo.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Baixando backup…</string>
@@ -1344,12 +1352,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Todas as mensagens</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Restaurar do backup</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Somente arquivos de mídia enviados ou recebidos nos últimos %1$d dias serão incluídos.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Seu backup inclui:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Restaurar backup</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Seu último backup foi feito em %1$s à(s) %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Buscando detalhes do backup…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notifique-me ao ser mencionado</string>
@@ -1989,8 +2001,8 @@
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Frases-chave não correspondem!</string>
-    <string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Frase-chave anterior incorreta!</string>
-    <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Insira uma nova frase-chave!</string>
+    <string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Frase de recuperação anterior incorreta!</string>
+    <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Insira uma nova frase de recuperação!</string>
 
     <!-- DeviceProvisioningActivity -->
     <string name="DeviceProvisioningActivity_link_this_device">Vincular este dispositivo?</string>
@@ -2017,17 +2029,17 @@
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Atualize agora</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Esta versão do Signal perderá suporte hoje. Atualize para a versão mais recente.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Esta versão do Molly perderá suporte hoje. Atualize para a versão mais recente.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Esta versão do Signal será descontinuada amanhã. Atualize para a versão mais recente.</item>
-        <item quantity="other">Esta versão do Signal será descontinuada em %1$d dias. Atualize para a versão mais recente.</item>
+        <item quantity="one">Esta versão do Molly será descontinuada amanhã. Atualize para a versão mais recente.</item>
+        <item quantity="other">Esta versão do Molly será descontinuada em %1$d dias. Atualize para a versão mais recente.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
-    <string name="PassphrasePromptActivity_enter_passphrase">Inserir frase-chave</string>
+    <string name="PassphrasePromptActivity_enter_passphrase">Inserir frase de recuperação</string>
     <string name="PassphrasePromptActivity_watermark_content_description">Ícone do Molly</string>
-    <string name="PassphrasePromptActivity_ok_button_content_description">Enviar frase-chave</string>
-    <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Frase-chave inválida!</string>
+    <string name="PassphrasePromptActivity_ok_button_content_description">Enviar frase de recuperação</string>
+    <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Frase de recuperação inválida!</string>
     <string name="PassphrasePromptActivity_unlock_signal">Destrancar Molly</string>
     <!-- This is the subject line for the email that is sent to support -->
     <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Tela de bloqueio</string>
@@ -3011,9 +3023,9 @@
     <string name="WebRtcCallControls_reject_call_description">Recusar chamada</string>
 
     <!-- change_passphrase_activity -->
-    <string name="change_passphrase_activity__old_passphrase">Frase-chave antiga</string>
-    <string name="change_passphrase_activity__new_passphrase">Nova frase-chave</string>
-    <string name="change_passphrase_activity__repeat_new_passphrase">Repita a nova frase-chave</string>
+    <string name="change_passphrase_activity__old_passphrase">Frase de recuperação antiga</string>
+    <string name="change_passphrase_activity__new_passphrase">Nova frase de recuperação</string>
+    <string name="change_passphrase_activity__repeat_new_passphrase">Repita a nova frase de recuperação</string>
 
     <!-- contact_selection_activity -->
     <string name="contact_selection_activity__invite_to_signal">Convidar para o Molly</string>
@@ -3410,9 +3422,9 @@
     <string name="MessageDetails__view_edit_history">Ver histórico de edições</string>
 
     <!-- AndroidManifest.xml -->
-    <string name="AndroidManifest__create_passphrase">Criar frase-chave</string>
+    <string name="AndroidManifest__create_passphrase">Criar frase de recuperação</string>
     <string name="AndroidManifest__select_contacts">Selecionar contatos</string>
-    <string name="AndroidManifest__change_passphrase">Alterar frase-chave</string>
+    <string name="AndroidManifest__change_passphrase">Alterar frase de recuperação</string>
     <string name="AndroidManifest__verify_safety_number">Verificar número de segurança</string>
     <string name="AndroidManifest__media_preview">Pré-visualização de mídia</string>
     <string name="AndroidManifest__message_details">Detalhes da mensagem</string>
@@ -3442,7 +3454,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Não foi possível enviar o registro</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Por favor, seja o mais detalhista possível para nos ajudar a entender o problema.</string>
-    <string-array name="HelpFragment__categories_5">
+    <string-array name="HelpFragment__categories_6">
         <item>Selecione uma opção</item>
         <item>Algo não está funcionando</item>
         <item>Solicitação de recurso</item>
@@ -3451,6 +3463,7 @@
         <item>Outro</item>
         <item>Pagamentos (MobileCoin)</item>
         <item>Doações e selos</item>
+        <item>Backup do Signal para Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Envio de log de depuração do Signal para Android</string>
@@ -3523,14 +3536,14 @@
     <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Chats silenciados que estão arquivados permanecerão arquivados quando uma nova mensagem chegar.</string>
     <string name="preferences__generate_link_previews">Gerar pré-visualização de links</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Carregar pré-visualizações de links diretamente dos sites em mensagens que você envia.</string>
-    <string name="preferences__change_passphrase">Alterar frase-chave</string>
-    <string name="preferences__change_your_passphrase">Alterar sua frase-chave</string>
+    <string name="preferences__change_passphrase">Alterar frase de recuperação</string>
+    <string name="preferences__change_your_passphrase">Alterar sua frase de recuperação</string>
     <!-- Legacy preference menu item to enable a passphrase screen lock that is only available to those who have previously had a passphrase -->
-    <string name="preferences__enable_passphrase">Habilitar o bloqueio da tela com frase-chave</string>
-    <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Bloquear tela e notificações com frase-chave</string>
+    <string name="preferences__enable_passphrase">Habilitar o bloqueio da tela com frase de recuperação</string>
+    <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Bloquear tela e notificações com frase de recuperação</string>
     <string name="preferences__screen_security">Segurança da tela</string>
     <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Trancar automaticamente o Signal após um determinado período de inatividade</string>
-    <string name="preferences__inactivity_timeout_passphrase">Frase-chave de expiração por inatividade</string>
+    <string name="preferences__inactivity_timeout_passphrase">Frase de recuperação após período de inatividade</string>
     <string name="preferences__inactivity_timeout_interval">Período de expiração por inatividade</string>
     <string name="preferences__notifications">Notificações</string>
     <string name="preferences__led_color">Cor do LED</string>
@@ -4284,25 +4297,27 @@
     <string name="Permissions_continue">Continuar</string>
     <string name="Permissions_not_now">Agora não</string>
     <string name="SQLCipherMigrationHelper_migrating_signal_database">Migrando a base de dados do Signal</string>
-    <string name="enter_backup_passphrase_dialog__backup_passphrase">Frase-chave de backup</string>
-    <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Os backups serão salvos no armazenamento externo e criptografados com a frase-chave abaixo. Você precisa desta frase-chave para restaurar um backup.</string>
-    <string name="backup_enable_dialog__you_must_have_this_passphrase">Você deve ter esta frase-chave para restaurar um backup.</string>
+    <string name="enter_backup_passphrase_dialog__backup_passphrase">Frase de recuperação de backup</string>
+    <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Os backups serão salvos no armazenamento externo e criptografados com a frase de recuperação abaixo. Você precisa desta frase de recuperação para restaurar um backup.</string>
+    <string name="backup_enable_dialog__you_must_have_this_passphrase">Você deve ter esta frase de recuperação para restaurar um backup.</string>
     <string name="backup_enable_dialog__folder">Pasta</string>
-    <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Eu anotei esta frase-chave. Sem ela eu não conseguirei restaurar um backup.</string>
+    <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Eu anotei esta frase de recuperação. Sem ela eu não conseguirei restaurar um backup.</string>
     <string name="registration_activity__restore_backup">Restaurar backup</string>
     <string name="registration_activity__transfer_or_restore_account">Transferir ou restaurar conta</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Restaurar ou transferir</string>
     <string name="registration_activity__transfer_account">Transferir conta</string>
     <string name="registration_activity__skip">Ignorar</string>
     <string name="preferences_chats__chat_backups">Backups de chat</string>
     <string name="preferences_chats__transfer_account">Transferir conta</string>
     <string name="preferences_chats__transfer_account_to_a_new_android_device">Transferir conta para um novo dispositivo Android</string>
     <!-- Title for dialog to enter in the backup passphrase -->
-    <string name="RegistrationActivity_enter_backup_passphrase">Digite a frase-chave de backup</string>
+    <string name="RegistrationActivity_enter_backup_passphrase">Digite a frase de recuperação de backup</string>
     <string name="RegistrationActivity_restore">Restaurar</string>
     <string name="RegistrationActivity_backup_failure_downgrade">Não é possível importar backups de versões recentes</string>
     <!-- Error message indicating that we could not restore the user\'s backup. Displayed in a toast at the bottom of the screen. -->
     <string name="RegistrationActivity_backup_failure_foreign_key">O backup contém dados incorretos</string>
-    <string name="RegistrationActivity_incorrect_backup_passphrase">Frase-chave de backup incorreta</string>
+    <string name="RegistrationActivity_incorrect_backup_passphrase">Frase de recuperação de backup incorreta</string>
     <string name="RegistrationActivity_checking">Checando…</string>
     <string name="RegistrationActivity_d_messages_so_far">%1$d mensagens até agora…</string>
     <string name="RegistrationActivity_restore_from_backup">Restaurar do backup?</string>
@@ -4319,9 +4334,9 @@
     <string name="BackupDialog_choose_folder">Escolher pasta</string>
     <string name="BackupDialog_copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="BackupDialog_no_file_picker_available">Nenhum seletor de arquivos disponível.</string>
-    <string name="BackupDialog_enter_backup_passphrase_to_verify">Digite sua frase-chave de backup para verificação</string>
+    <string name="BackupDialog_enter_backup_passphrase_to_verify">Digite sua frase de recuperação de backup para verificação</string>
     <string name="BackupDialog_verify">Verificar</string>
-    <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Você digitou com sucesso sua frase-chave de backup</string>
+    <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Você digitou com sucesso sua frase de recuperação de backup</string>
     <string name="BackupDialog_passphrase_was_not_correct">A senha está incorreta</string>
     <string name="LocalBackupJob_creating_signal_backup">Criando backup do Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
@@ -4945,6 +4960,11 @@
     <string name="QualitySelectorBottomSheetDialog__media_quality">Qualidade das fotos</string>
 
     <!-- AppSettingsFragment -->
+    <!-- String alerting user that something is wrong with their backups subscription -->
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Renove sua assinatura dos backups do Signal</string>
+    <!-- String alerting user that backup failed -->
+    <string name="AppSettingsFragment__couldnt_complete_backup">Não foi possível concluir o backup</string>
+    <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Convide seus amigos</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
     <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">ID de assinante do doador copiada para a área de transferência</string>
@@ -5167,9 +5187,9 @@
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">Salvar</string>
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
-    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <string name="CreateFoldersFragment__discard_changes_title">Descartar alterações?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
-    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <string name="CreateFoldersFragment__you_will_lose_changes">Você perderá as alterações feitas nessa pasta.</string>
     <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">Descartar</string>
     <!-- Text that when pressed will delete the current folder -->
@@ -5179,7 +5199,7 @@
     <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
     <string name="CreateFoldersFragment__see_all">Ver tudo</string>
     <!-- Toast shown when trying to make a folder with no name -->
-    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
+    <string name="CreateFoldersFragment__please_enter_name">Digite o nome da pasta</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5799,6 +5819,10 @@
     <string name="DonationsErrors__your_payment">Não foi possível efetuar a doação e a cobrança não foi realizada. Tente novamente.</string>
     <string name="DonationsErrors__still_processing">Ainda em processamento</string>
     <string name="DonationsErrors__couldnt_add_badge">Não foi possível adicionar o selo</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
+    <string name="DonationsError__something_went_wrong">Something went wrong</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
+    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">Your backups subscription couldn\'t be displayed. Please contact support.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">Falha na validação do selo</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
@@ -6078,8 +6102,6 @@
     <string name="DonationReceiptDetailsFragment__amount">Valor</string>
     <!-- Donation receipts thanks -->
     <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Obrigado por apoiar o Signal. Sua contribuição ajuda a incentivar a missão de desenvolver uma tecnologia de privacidade de software livre que protege a liberdade de expressão e permite a comunicação global segura para milhões de pessoas em todo o mundo. Se você for residente nos Estados Unidos, por favor, fique com este recibo para seus registros fiscais. A Signal Technology Foundation é uma organização sem fins lucrativos isenta de impostos nos Estados Unidos, sob a seção 501c3 do Código da Receita Federal. Nossa CNPJ é 82-4506840.</string>
-    <!-- Donation receipt type -->
-    <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
     <string name="DonationReceiptListFragment__no_receipts">Nenhuma nota fiscal</string>
 
@@ -6669,7 +6691,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Toque no botão \"Acessar configurações\" abaixo</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Toque em \"Permitir alarmes e lembretes\".</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Toque em \"Permitir configurações de alarmes e lembretes\".</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Acessar configurações</string>
 
@@ -7190,10 +7212,12 @@
     <string name="CallLinkDetailsFragment__delete_call_link">Excluir link de chamada</string>
     <!-- Displayed whenever a name change, revocation, etc, fails. -->
     <string name="CallLinkDetailsFragment__couldnt_save_changes">Não foi possível salvar as alterações. Verifique sua conexão de rede e tente novamente.</string>
+    <!-- Displayed when the call link is in use when the user tries to delete it -->
+    <string name="CallLinkDetailsFragment__couldnt_delete_call_link">Couldn\'t delete call link as it is currently in use.</string>
     <!-- Displayed as title in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__delete_link">Excluir link?</string>
     <!-- Displayed as body in dialog when user attempts to delete the link -->
-    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Este link não funcionará mais.</string>
+    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Este link não funcionará mais para ninguém que o tenha.</string>
 
     <!-- Button label for the link button in the username link settings -->
     <string name="UsernameLinkSettings_link_button_label">Link</string>
@@ -7407,15 +7431,12 @@
     <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Seus arquivos de mídia serão excluídos hoje</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Seu plano de backup de mídia do Signal foi cancelado porque o pagamento não pôde ser processado. Essa é sua última chance de baixar os arquivos de mídia do backup antes que eles sejam excluídos.</string>
-    <!-- Sheet title when user does not have enough space to download their backup -->
-    <string name="BackupAlertBottomSheet__cant_complete_download">Não é possível concluir o download</string>
+    <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Libere %1$s neste dispositivo</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Seu dispositivo não tem espaço livre suficiente. Libere %1$s de espaço para baixar o arquivo de mídia armazenado no seu backup.</string>
-    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
-    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">Se você selecionar \"Pular\", os arquivos de mídia do seu backup serão excluídos em %1$d dia.</item>
-        <item quantity="other">Se você selecionar \"Pular\", os arquivos de mídia do seu backup serão excluídos em %1$d dias.</item>
-    </plurals>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Para concluir o download do Signal Backup, seu dispositivo precisa de %1$s de espaço de armazenamento.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Para liberar espaço, descarregue ou exclua aplicativos não utilizados ou arquivos pesados.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Não foi possível renovar seu plano de assinatura de backups. </string>
     <!-- Sheet body when user payment failed to process -->
@@ -7427,7 +7448,11 @@
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Saiba mais</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
-    <string name="BackupAlertBottomSheet__skip">Pular</string>
+    <string name="BackupAlertBottomSheet__skip_restore">Pular restauração</string>
+    <!-- Primary action button to start backup immediately -->
+    <string name="BackupAlertBottomSheet__back_up_now">Fazer backup agora</string>
+    <!-- Primary action button when user doesn\'t have enough space -->
+    <string name="BackupAlertBottomSheet__got_it">Entendi</string>
     <!-- Primary action button to manage subscription in Google Play -->
     <string name="BackupAlertBottomSheet__manage_subscription">Gerenciar plano</string>
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
@@ -7438,6 +7463,8 @@
     <string name="BackupAlertBottomSheet__dont_download_media">Não quero baixar os arquivos de mídia</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Agora não</string>
+    <!-- Secondary action button to dismiss could not complete backup sheet -->
+    <string name="BackupAlertBottomSheet__try_later">Tente mais tarde</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Seus arquivos de mídia serão excluídos</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7446,6 +7473,12 @@
     <string name="BackupAlertBottomSheet__download">Baixar</string>
     <!-- Dialog action to not download now -->
     <string name="BackupAlertBottomSheet__dont_download">Não quero baixar</string>
+    <!-- Dialog action to skip media download -->
+    <string name="BackupAlertBottomSheet__skip">Pular</string>
+    <!-- Dialog title for skipping media restore -->
+    <string name="BackupAlertBottomSheet__skip_restore_question">Pular restauração?</string>
+    <!-- Dialog text for skipping media restore -->
+    <string name="BackupAlertBottomSheet__if_you_skip_restore_the">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time when storage space becomes available.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7456,6 +7489,8 @@
     <string name="BackupStatus__restore_paused">Restauração interrompida</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Restauração concluída</string>
+    <!-- Status action label for seeing more details about storage space -->
+    <string name="BackupStatus__details">Detalhes</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Aguardando rede Wi-Fi…</string>
@@ -7500,10 +7535,6 @@
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Alterar ou cancelar assinatura</string>
 
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Seu último backup foi feito em %1$s à(s) %2$s.</string>
-
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
     <string name="ManageStorageSettingsFragment_chat_limit">Limites de histórico de mensagens</string>
@@ -7523,6 +7554,8 @@
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Otimizar armazenamento no dispositivo</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Arquivos de mídia não utilizados serão descarregados, mas poderão ser baixados do seu backup a qualquer momento.</string>
+    <!-- Dialog message for paid tier pending dialog -->
+    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Storage optimization can only be used with the paid tier of Signal Backups. Your backups subscription is still processing and not yet active. Please try again later.</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -7542,6 +7575,16 @@
     </plurals>
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToStartMediaBackupSheet__subscribe_for_s_month">Assine por %1$s/mês</string>
+
+    <!-- MediaNoLongerAvailableSheet -->
+    <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
+    <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Este arquivo de mídia não está mais disponível.</string>
+    <!-- Body on a bottom sheet explaining that the user can enable backups -->
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Para começar a fazer backup de todos os seus arquivos de mídia, ative os Backups do Signal e escolha o plano pago.</string>
+    <!-- Primary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__continue">Continuar</string>
+    <!-- Secondary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__not_now">Agora não</string>
 
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Agora, quando você excluir algo, isso será apagado de todos os seus dispositivos.</string>
@@ -7663,6 +7706,55 @@
     <string name="RemoteBackupsSettingsFragment__downloading_your_backup">Baixando seu backup</string>
     <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Dependendo do tamanho do backup, o processo pode levar bastante tempo. Você pode usar o telefone normalmente enquanto o download é realizado.</string>
+    <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
+    <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
+        <item quantity="one">Sua assinatura neste dispositivo é válida por mais %1$d dia. Renove para continuar usando os backups do Signal</item>
+        <item quantity="other">Sua assinatura neste dispositivo é válida por mais %1$d dias. Renove para continuar usando os backups do Signal</item>
+    </plurals>
+    <!-- Button label to start subscription renewal -->
+    <string name="RemoteBackupsSettingsFragment__renew">Renovar</string>
+    <!-- Button label to learn more about why subscription disappeared -->
+    <string name="RemoteBackupsSettingsFragment__learn_more">Saiba mais</string>
+    <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
+    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
+        <item quantity="one">Você tem %1$s de dados de backup que não estão neste dispositivo. Seu backup será apagado quando sua assinatura terminar em %2$d dia.</item>
+        <item quantity="other">Você tem %1$s de dados de backup que não estão neste dispositivo. Seu backup será apagado quando sua assinatura terminar em %2$d dias.</item>
+    </plurals>
+    <!-- Displayed in row when backup is available for download to let user start download -->
+    <string name="RemoteBackupsSettingsFragment__download">Baixar</string>
+    <!-- Dialog title for skipping download of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_download_question">Pular download?</string>
+    <!-- Dialog body for skiping download of backed up media -->
+    <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
+        <item quantity="one">Se você pular o download, os arquivos de mídia e anexos do seu backup serão apagados em %1$d dia.</item>
+        <item quantity="other">Se você pular o download, os arquivos de mídia e anexos do seu backup serão apagados em %1$d dias.</item>
+    </plurals>
+    <!-- Positive dialog action to skip download -->
+    <string name="RemoteBackupsSettingsFragment__skip">Pular</string>
+    <!-- Dialog title for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Não foi possível desativar e apagar backups</string>
+    <!-- Dialog body for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Ocorreu um erro na rede. Verifique sua conexão à Internet e tente novamente.</string>
+
+    <!-- SubscriptionNotFoundBottomSheet -->
+    <!-- Displayed as a bottom sheet title -->
+    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Assinatura não encontrada</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Não foi possível restaurar sua assinatura.</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">Isso pode acontecer se:</string>
+    <!-- First item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">Você acessar a Play Store com uma conta diferente do Google.</string>
+    <!-- Second item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">A transferência estiver sendo feita de um iPhone.</string>
+    <!-- Third item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">Sua assinatura expirar.</string>
+    <!-- Note underneath bullet points -->
+    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">Caso você tenha uma assinatura ativa no telefone antigo, considere cancelar antes da próxima renovação.</string>
+    <!-- Action button label to acknowledge and dismiss sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__got_it">Entendi</string>
+    <!-- Action button label to contact support -->
+    <string name="SubscriptionNotFoundBottomSheet__contact_support">Entre em contato com o suporte</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -7682,7 +7774,7 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Sua chave de backup</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Sua chave de backup é um código de 64 dígitos que permite restaurar seu backup ao reinstalar o Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Your backup key is a 64-character code that lets you restore your backup when you re-install Molly.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Se você esquecer sua chave, não será possível restaurar o backup. O Molly não tem como ajudar na recuperação do seu backup. </string>
     <!-- Action button label -->
@@ -7762,5 +7854,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Ícone de lembrete</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Eu tenho meu telefone antigo</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Escaneie um QR code da sua conta atual do Signal para começar rapidamente</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Não tenho meu telefone antigo</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Or you\'re reinstalling Molly on the same device</string>
+
+    <!-- Screen title for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Restaurar ou transferir conta</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Baixe sua conta e histórico de mensagens do Signal neste dispositivo.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Dos backups do Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Seu plano de backup do Signal grátis ou pago</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">De uma pasta de backup</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">De um arquivo de backup</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Escolha um backup que você salvou</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Do seu telefone antigo</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Transfira diretamente do seu Android antigo</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Restaurar backup local</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Restaure suas mensagens de um backup salvo no seu dispositivo. Se não restaurar agora, você não poderá fazer isso mais tarde.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Digite sua chave de backup</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Your backup key is a 64-character code required to recover your account and data.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Não tem uma chave de backup?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Chave de backup</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Backups can\'t be recovered without their 64-character recovery code. If you\'ve lost your backup key Signal can\'t help restore your backup.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">If you have your old device you can view your backup key in Settings &gt; Backups. Then tap View backup key.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Saiba mais</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Ignorar e não restaurar</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Escaneie esse código com seu telefone antigo</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Abra o Signal no seu dispositivo Android antigo</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Toque no ícone da câmera </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Escaneie esse código com a câmera</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Não foi possível gerar o QR code</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Escaneado no seu dispositivo antigo</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Tente novamente</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Transferir conta</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Sua conta será transferida para outro dispositivo, onde você poderá ver grupos e contatos, acessar conversas e enviar mensagens em seu nome. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Saiba mais</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Transferir conta</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">As mensagens e informações das conversas são protegidas por criptografia de ponta a ponta em todos os dispositivos</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Desbloqueie para transferir a conta</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Continuar em outro aparelho</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Continue transferindo sua conta em outro dispositivo.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Restauração concluída</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Sua conta e mensagens do Signal começaram a ser transferidas para outro aparelho. O Signal agora está inativo neste dispositivo.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Transferência concluída</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Sua conta e mensagens do Signal foram transferidas para outro aparelho. O Signal agora está inativo neste dispositivo.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Ok</string>
+
+
     <!-- EOF -->
 </resources>

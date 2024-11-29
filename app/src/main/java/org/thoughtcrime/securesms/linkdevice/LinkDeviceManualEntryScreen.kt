@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -34,12 +33,12 @@ import org.signal.core.ui.Buttons
 import org.signal.core.ui.Previews
 import org.signal.core.ui.SignalPreview
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository.LinkDeviceResult
 
 @Composable
 fun LinkDeviceManualEntryScreen(
-  onLinkDeviceWithUrl: (String) -> Unit,
-  qrCodeFound: Boolean,
-  linkDeviceResult: LinkDeviceRepository.LinkDeviceResult,
+  onLinkNewDeviceWithUrl: (String) -> Unit,
+  linkDeviceResult: LinkDeviceResult,
   onLinkDeviceSuccess: () -> Unit,
   onLinkDeviceFailure: () -> Unit,
   modifier: Modifier = Modifier
@@ -48,18 +47,18 @@ fun LinkDeviceManualEntryScreen(
 
   LaunchedEffect(linkDeviceResult) {
     when (linkDeviceResult) {
-      LinkDeviceRepository.LinkDeviceResult.SUCCESS -> onLinkDeviceSuccess()
-      LinkDeviceRepository.LinkDeviceResult.NO_DEVICE -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_no_device, onLinkDeviceFailure)
-      LinkDeviceRepository.LinkDeviceResult.NETWORK_ERROR -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_network_error, onLinkDeviceFailure)
-      LinkDeviceRepository.LinkDeviceResult.KEY_ERROR -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_key_error, onLinkDeviceFailure)
-      LinkDeviceRepository.LinkDeviceResult.LIMIT_EXCEEDED -> makeToast(context, R.string.DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already, onLinkDeviceFailure)
-      LinkDeviceRepository.LinkDeviceResult.BAD_CODE -> makeToast(context, R.string.DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code, onLinkDeviceFailure)
-      LinkDeviceRepository.LinkDeviceResult.UNKNOWN -> Unit
+      is LinkDeviceResult.Success -> onLinkDeviceSuccess()
+      is LinkDeviceResult.NoDevice -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_no_device, onLinkDeviceFailure)
+      is LinkDeviceResult.NetworkError -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_network_error, onLinkDeviceFailure)
+      is LinkDeviceResult.KeyError -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_key_error, onLinkDeviceFailure)
+      is LinkDeviceResult.LimitExceeded -> makeToast(context, R.string.DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already, onLinkDeviceFailure)
+      is LinkDeviceResult.BadCode -> makeToast(context, R.string.DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code, onLinkDeviceFailure)
+      is LinkDeviceResult.None -> Unit
     }
   }
 
   var qrLink by remember { mutableStateOf("") }
-  val isQrLinkValid = LinkDeviceRepository.isValidQr(Uri.parse(qrLink))
+  var isValid by remember { mutableStateOf(false) }
 
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -89,8 +88,11 @@ fun LinkDeviceManualEntryScreen(
         )
         TextField(
           value = qrLink,
-          onValueChange = { qrLink = it },
-          isError = !isQrLinkValid,
+          onValueChange = {
+            isValid = LinkDeviceRepository.isValidQr(Uri.parse(it))
+            qrLink = it
+          },
+          isError = !isValid,
           placeholder = {
             Text(
               text = stringResource(id = R.string.enter_device_link_dialog__url),
@@ -121,21 +123,14 @@ fun LinkDeviceManualEntryScreen(
     }
 
     Row {
-      if (qrCodeFound) {
-          CircularProgressIndicator(
-            modifier = Modifier
-              .padding(vertical = 16.dp)
-          )
-      } else {
-        Buttons.LargeTonal(
-          enabled = isQrLinkValid,
-          onClick = { onLinkDeviceWithUrl(qrLink) },
-          modifier = Modifier
-            .defaultMinSize(minWidth = 220.dp)
-            .padding(vertical = 16.dp)
-        ) {
-          Text(text = stringResource(id = R.string.device_list_fragment__link_new_device))
-        }
+      Buttons.LargeTonal(
+        enabled = isValid,
+        onClick = { onLinkNewDeviceWithUrl(qrLink) },
+        modifier = Modifier
+          .defaultMinSize(minWidth = 220.dp)
+          .padding(vertical = 16.dp)
+      ) {
+        Text(text = stringResource(id = R.string.device_list_fragment__link_new_device))
       }
     }
   }
@@ -151,9 +146,8 @@ private fun makeToast(context: Context, messageId: Int, onLinkDeviceFailure: () 
 private fun LinkDeviceManualEntryScreenPreview() {
   Previews.Preview {
     LinkDeviceManualEntryScreen(
-      onLinkDeviceWithUrl = {},
-      qrCodeFound = false,
-      linkDeviceResult = LinkDeviceRepository.LinkDeviceResult.SUCCESS,
+      onLinkNewDeviceWithUrl = {},
+      linkDeviceResult = LinkDeviceResult.None,
       onLinkDeviceSuccess = {},
       onLinkDeviceFailure = {},
     )

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="website_url" translatable="false">https://molly.im</string>
+    <string name="mollysocket_setup_url" translatable="false">https://github.com/mollyim/mollysocket</string>
     <string name="error" translatable="false">Error</string>
     <string name="arrays__on_inactivity_timeout">If you go a certain time without unlocking your device</string>
     <string name="arrays__none">None</string>
@@ -130,7 +131,44 @@
     <string name="NotificationsSettingsFragment__push_notifications">Push notifications</string>
     <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Select your preferred service for push notifications. If unavailable, the app will automatically use WebSocket to ensure notifications are delivered.</string>
     <string name="NotificationsSettingsFragment__delivery_service">Delivery service</string>
+    <string name="NotificationsSettingsFragment__configure_unifiedpush">Configure UnifiedPush</string>
+    <string name="NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server">To use UnifiedPush, you need access to a MollySocket server to link your Signal account.\n\nStart by scanning the QR code provided by your server.</string>
+    <string name="NotificationsSettingsFragment__mollysocket_server">MollySocket server</string>
+    <string name="NotificationsSettingsFragment__not_selected">Not selected</string>
+    <string name="UnifiedPushSettingsFragment__none_available">None available</string>
+    <string name="UnifiedPushSettingsFragment__distributor_app">Distributor app</string>
+    <string name="UnifiedPushSettingsFragment__status">Status</string>
+    <string name="UnifiedPushSettingsFragment__tap_to_copy_to_clipboard">Tap to copy to clipboard</string>
+    <string name="UnifiedPushSettingsFragment__server_parameters">Server parameters</string>
+    <string name="UnifiedPushSettingsFragment__account_id">Account ID</string>
+    <string name="UnifiedPushSettingsFragment__test_configuration">Test configuration</string>
+    <string name="UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket">Tap to request a test notification from MollySocket</string>
+    <string name="UnifiedPushSettingsFragment__a_test_notification_should_appear_in_a_few_moments">A test notification should appear in a few moments…</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing">Missing MollySocket URL</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_pending">Pending</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_air_gapped_pending">Waiting for confirmation from the MollySocket server</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_bad_response">Invalid response from server</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_forbidden_uuid">The account ID is refused by the server</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_linked_device_error">Unable to create the linked device</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_missing_endpoint">Waiting for UnifiedPush distributor response</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_forbidden_endpoint">The endpoint is forbidden by the server</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_no_distributor">No UnifiedPush distributor installed</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_distributor_not_selected">No distributor app selected</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_hit">You\'ve reached the limit of %d linked devices. To link your MollySocket server, please remove a device first.</string>
+    <string name="UnifiedPushNotificationBuilder__endpoint_changed_air_gapped">Your UnifiedPush endpoint has changed. You must update your connection on MollySocket.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_password">Your registration on MollySocket is no longer valid. Please remove the linked device and try registering again.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_uuid">Your account was refused by the MollySocket server. Please check the allowed UUIDs in the server configuration.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_endpoint">Your push server was refused by the MollySocket server. Please check the permitted endpoints in the server configuration.</string>
+    <string name="UnifiedPushNotificationBuilder__registration_failed">Registration with your UnifiedPush distributor failed. This could be due to a network issue or a missing requirement from your distributor.</string>
+    <string name="UnifiedPushNotificationBuilder__this_is_a_test_notification">This is a test notification from the MollySocket server.</string>
+    <string name="NotificationDeliveryMethod__unifiedpush" translatable="false">UnifiedPush</string>
     <string name="NotificationDeliveryMethod__fcm" translatable="false">FCM (Google Play Services)</string>
     <string name="NotificationDeliveryMethod__websocket" translatable="false">WebSocket</string>
     <string name="IncomingMessageObserver_websocket_service">WebSocket Service</string>
+    <string name="MollySocketLink_scan_the_qr_code">"Scan the QR code displayed on your MollySocket server's homepage or in the console.</string>
+    <string name="MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code">Try scanning another image containing a MollySocket QR code.</string>
+    <string name="MollySocketLink_mollysocket_server_not_found_at_s">MollySocket server not found at \'%s\'</string>
+    <string name="MollySocketLink_experienced_a_network_error_please_try_again">Experienced a network error. Please try again.</string>
+    <string name="UnifiedPushSettingsFragment__mollysocket_server">MollySocket server</string>
+    <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Air gapped</string>
 </resources>

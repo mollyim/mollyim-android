@@ -101,7 +101,7 @@
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Nincsenek fotók vagy videók. A Signal csak az általad kiválasztott fotókhoz és videókhoz fér hozzá.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Nincsenek fotók vagy videók. A Molly csak az általad kiválasztott fotókhoz és videókhoz fér hozzá.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Nem található alkalmazás médiafájl kiválasztásához.</string>
@@ -273,25 +273,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Hozzáférés engedélyezése a mikrofonodhoz</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Fotók készítéséhez engedélyezd a Signalnak a kamerához való hozzáférést.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Fotók készítéséhez engedélyezd a Mollynak a kamerához való hozzáférést.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Fotók és videók készítéséhez engedélyezd a Signalnak a kamerához való hozzáférést!</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Fotók és videók készítéséhez engedélyezd a Mollynak a kamerához való hozzáférést!</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Fotók és videók készítéséhez engedélyezd a Signalnak a kamerához és a mikrofonhoz való hozzáférést.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Fotók és videók készítéséhez engedélyezd a Mollynak a kamerához és a mikrofonhoz való hozzáférést.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Hangos videók rögzítéséhez engedélyezd a Signalnak a mikrofonhoz való hozzáférést.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Hangos videók rögzítéséhez engedélyezd a Mollynak a mikrofonhoz való hozzáférést.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR-kód beolvasásához engedélyezd a Signalnak a kamerához való hozzáférést.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR-kód beolvasásához engedélyezd a Mollynak a kamerához való hozzáférést.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Fotók készítéséhez a Signalnak hozzá kell férnie a kamerához</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Fotók készítéséhez a Mollynak hozzá kell férnie a kamerához</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR-kód beolvasásához a Signalnak hozzá kell férnie a kamerához</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR-kód beolvasásához a Mollynak hozzá kell férnie a kamerához</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Videó rögzítéséhez a Signalnak hozzá kell férnie a mikrofonhoz</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Videó rögzítéséhez a Mollynak hozzá kell férnie a mikrofonhoz</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Fotók rögzítése a Signalban:</string>
+    <string name="CameraXFragment_to_capture_photos">Fotók rögzítése a Mollyban:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Fotók és videók rögzítése a Signalban:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Fotók és videók rögzítése a Mollyban:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Videók rögzítése hanggal:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -746,7 +746,7 @@
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Hozzáadva ehhez: „%1$s”</string>
     <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
+    <string name="AddToFolderBottomSheet_this_chat_is_already">Ez a csevegés már a(z) „%1$s” mappában van</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Értesítési profilok</string>
@@ -978,14 +978,18 @@
     <string name="LinkDeviceFragment__my_linked_devices">Kapcsolt eszközeim</string>
     <!-- Dialog confirmation to unlink a device -->
     <string name="LinkDeviceFragment__unlink">Társítás megszüntetése</string>
-    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
-    <string name="LinkDeviceFragment__s_unlinked">%1$s leválasztva</string>
+    <!-- Toast message indicating a device has been unlinked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_unlinked">„%1$s” társítás megszüntetve</string>
+    <!-- Toast message indicating a device has been successfully linked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_linked">„%1$s” összekapcsolva</string>
     <!-- Progress dialog message indicating that a device is currently being linked with an account -->
     <string name="LinkDeviceFragment__linking_device">Eszköz összekapcsolása…</string>
     <!-- Toast message shown after a device has been linked -->
     <string name="LinkDeviceFragment__device_approved">Eszköz jóváhagyva</string>
     <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
     <string name="LinkDeviceFragment__loading">Betöltés…</string>
+    <!-- Progress dialog message indicating that you are syncing messages to your linked device -->
+    <string name="LinkDeviceFragment__syncing_messages">Üzenetek szinkronizálása…</string>
     <!-- Text message shown when the user has no linked devices -->
     <string name="LinkDeviceFragment__no_linked_devices">Nincsenek kapcsolt eszközök</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
@@ -996,6 +1000,14 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Koppints a Folytatás gombra, és a megerősítéshez add meg a telefonod feloldó kódját. Ne a Signal PIN-kódodat add meg.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Tovább</string>
+    <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_title">Az üzenetek szinkronizálása sikertelen</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_body">Az üzeneteidet nem sikerült átvinni a kapcsolt eszközre. Megpróbálhatod újra összekapcsolni és átvinni azokat, vagy folytathatod az üzenetelőzmények átvitele nélkül.</string>
+    <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Próbáld meg újra összekapcsolni</string>
+    <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
+    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Folytatás átvitel nélkül</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -1019,8 +1031,18 @@
     <!-- Button in dialog to retry linking a device with a qr code -->
     <string name="AddLinkDeviceFragment__retry">Újra</string>
 
+    <!-- LinkDeviceSyncBottomSheet -->
+    <!-- Option in bottom sheet to transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_transfer">Transfer message history</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Transfer your text messages and recent media to your desktop</string>
+    <!-- Option in bottom sheet to not transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_dont_transfer">Ne utalja át</string>
+    <!-- Description in bottom sheet of what not transferring history will do -->
+    <string name="LinkDeviceSyncBottomSheet_no_old_messages">No old messages or media will be transferred to your desktop</string>
+
     <!-- DeviceListActivity -->
-    <string name="DeviceListActivity_unlink_s">Társítás megszüntetése ezzel: \'%1$s\'?</string>
+    <string name="DeviceListActivity_unlink_s">Társítás megszüntetése ezzel: \"%1$s\"?</string>
     <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">Az eszköz a társítás megszüntetését követően nem lesz képes üzenetek küldésére vagy fogadására.</string>
     <string name="DeviceListActivity_network_connection_failed">Hálózati kapcsolódás sikertelen</string>
     <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
@@ -1313,20 +1335,6 @@
     <string name="ManageGroupActivity_more">tovább</string>
     <string name="ManageGroupActivity_add_group_description">Csoportleírás hozzáadása…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Átvitel Android eszközről</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Vidd át a fiókodat és az üzeneteidet régi Android-eszközödről.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Bejelentkezés átvitel nélkül</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Folytatás az üzenetek és a médiafájlok átvitele nélkül</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Helyi biztonsági mentés visszaállítása</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Állítsd vissza az üzeneteidet az eszközödre mentett biztonsági fájlból.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Biztonsági mentés letöltése…</string>
@@ -1344,12 +1352,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Az összes üzeneted</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Visszaállítás biztonsági mentésből</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Csak az elmúlt %1$d napban küldött vagy fogadott médiafájlokat tartalmazza.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">A biztonsági másolat a következőket tartalmazza:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Biztonsági mentés visszaállítása</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Az utolsó biztonsági mentés dátuma: %1$s, %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Biztonsági mentés részleteinek lekérése…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Értesítsen említés esetén</string>
@@ -2017,10 +2029,10 @@
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Frissítés most</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">A Signal jelenleg telepített verziója ma lejár. Frissíts a legújabb verzióra!</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">A Molly jelenleg telepített verziója ma lejár. Frissíts a legújabb verzióra!</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">A Signal jelenleg telepített verziója holnap lejár. Frissíts a legújabb verzióra!</item>
-        <item quantity="other">A Signal jelenleg telepített verziója %1$d napon belül lejár. Frissíts a legújabb verzióra!</item>
+        <item quantity="one">A Molly jelenleg telepített verziója holnap lejár. Frissíts a legújabb verzióra!</item>
+        <item quantity="other">A Molly jelenleg telepített verziója %1$d napon belül lejár. Frissíts a legújabb verzióra!</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
@@ -3442,7 +3454,7 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Nem sikerült feltölteni a naplót</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Hogy megérthessük a problémát, fogalmazz olyan pontosan, amennyire csak lehetséges!</string>
-    <string-array name="HelpFragment__categories_5">
+    <string-array name="HelpFragment__categories_6">
         <item>Kérjük, válassz egy opciót</item>
         <item>Valami nem működik</item>
         <item>Funkciókérés</item>
@@ -3451,6 +3463,7 @@
         <item>Egyéb</item>
         <item>Fizetések (MobileCoin)</item>
         <item>Adományok és jelvények</item>
+        <item>Signal Android biztonsági mentés</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">A Signal Android hibajavítási naplójának benyújtása</string>
@@ -4291,6 +4304,8 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Feljegyeztem ezt a jelmondatot. Enélkül nem leszek képes visszaállítani biztonsági mentést.</string>
     <string name="registration_activity__restore_backup">Biztonsági mentés visszaállítása</string>
     <string name="registration_activity__transfer_or_restore_account">Fiók átvitele vagy helyreállítása</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Visszaállítás vagy átvitel</string>
     <string name="registration_activity__transfer_account">Fiók átvitele</string>
     <string name="registration_activity__skip">Kihagyás</string>
     <string name="preferences_chats__chat_backups">Csevegések biztonsági mentése</string>
@@ -4945,6 +4960,11 @@
     <string name="QualitySelectorBottomSheetDialog__media_quality">Médiafájl minősége</string>
 
     <!-- AppSettingsFragment -->
+    <!-- String alerting user that something is wrong with their backups subscription -->
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Újítsd meg Signal Biztonsági mentések visszaállítása előfizetésedet</string>
+    <!-- String alerting user that backup failed -->
+    <string name="AppSettingsFragment__couldnt_complete_backup">Nem sikerült elvégezni a biztonsági mentést</string>
+    <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Hívd meg barátaidat!</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
     <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Előfizetői donor azonosítója a vágólapra másolva</string>
@@ -5167,9 +5187,9 @@
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">Mentés</string>
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
-    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <string name="CreateFoldersFragment__discard_changes_title">Elveted a változásokat?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
-    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <string name="CreateFoldersFragment__you_will_lose_changes">A mappában végzett módosítások elvesznek.</string>
     <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">Elvetés</string>
     <!-- Text that when pressed will delete the current folder -->
@@ -5179,7 +5199,7 @@
     <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
     <string name="CreateFoldersFragment__see_all">Összes megtekintése</string>
     <!-- Toast shown when trying to make a folder with no name -->
-    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
+    <string name="CreateFoldersFragment__please_enter_name">Kérjük, adj meg egy mappanevet</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5799,6 +5819,10 @@
     <string name="DonationsErrors__your_payment">Az adományod feldolgozása sikertelen, nem került összeg levonásra. Próbáld újra!</string>
     <string name="DonationsErrors__still_processing">Még dolgozunk</string>
     <string name="DonationsErrors__couldnt_add_badge">Jelvény hozzáadása sikertelen.</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
+    <string name="DonationsError__something_went_wrong">Something went wrong</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
+    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">Your backups subscription couldn\'t be displayed. Please contact support.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">Nem sikerült ellenőrizni a jelvényhez való jogosultságodat.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
@@ -6078,8 +6102,6 @@
     <string name="DonationReceiptDetailsFragment__amount">Összeg</string>
     <!-- Donation receipts thanks -->
     <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Köszönjük, hogy támogatod a Signalt! Adományoddal hozzájárulsz a szabad véleménynyilvánítást és milliók számára biztonságos kommunikációt lehetővé tévő, nyílt forrású, magánéletet védő technológiák fejlesztéséhez. Ha az Egyesült Államokban adózol, kérünk, őrizd meg ezt a nyugtát adóbevallásodhoz. A Signal Technology Foundation egy adómentes, non-profit szervezet, amely az USA területén az 501c3 Internal Revenue Code hatálya alá tartozik. Szövetségi adóazonosító: 82-4506840.</string>
-    <!-- Donation receipt type -->
-    <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
     <string name="DonationReceiptListFragment__no_receipts">Nincsenek nyugták</string>
 
@@ -7190,6 +7212,8 @@
     <string name="CallLinkDetailsFragment__delete_call_link">Híváshivatkozás törlése</string>
     <!-- Displayed whenever a name change, revocation, etc, fails. -->
     <string name="CallLinkDetailsFragment__couldnt_save_changes">Nem sikerült elmenteni a változtatásokat. Ellenőrizd a hálózati kapcsolatot, és próbáld újra!</string>
+    <!-- Displayed when the call link is in use when the user tries to delete it -->
+    <string name="CallLinkDetailsFragment__couldnt_delete_call_link">Couldn\'t delete call link as it is currently in use.</string>
     <!-- Displayed as title in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__delete_link">Hivatkozás törlése?</string>
     <!-- Displayed as body in dialog when user attempts to delete the link -->
@@ -7407,15 +7431,12 @@
     <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">A médiafájlod ma törlésre kerül</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">A médiafájlok biztonsági mentésére vonatkozó Signal-előfizetésedet töröltük, mert nem tudtuk feldolgozni a tranzakciót. Ez az utolsó lehetőséged arra, hogy letöltsd a biztonsági mentésben lévő médiafájlt, mielőtt törlésre kerül.</string>
-    <!-- Sheet title when user does not have enough space to download their backup -->
-    <string name="BackupAlertBottomSheet__cant_complete_download">A letöltés nem végezhető el</string>
+    <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Szabadíts fel %1$s tárhelyet ezen az eszközön</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">Az eszközödön nincs elég szabad hely. Szabadíts fel %1$s helyet a biztonsági mentésben tárolt médiafájlok letöltéséhez.</string>
-    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
-    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">Ha a „Kihagyás” lehetőséget választod, a biztonsági mentésben tárolt médiafájlok %1$d napon belül törlődnek.</item>
-        <item quantity="other">Ha a „Kihagyás” lehetőséget választod, a biztonsági mentésben tárolt médiafájlok %1$d napon belül törlődnek.</item>
-    </plurals>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">A Signal Backup letöltésének befejezéséhez eszközödnek %1$s tárhelyre van szüksége.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Hely felszabadításához töltsd le vagy töröld a nem használt alkalmazásokat vagy nagy fájlméretű tartalmakat.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Nem sikerült megújítani a biztonsági mentésre vonatkozó előfizetésedet</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7427,7 +7448,11 @@
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Tudj meg többet</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
-    <string name="BackupAlertBottomSheet__skip">Kihagyás</string>
+    <string name="BackupAlertBottomSheet__skip_restore">Visszaállítás kihagyása</string>
+    <!-- Primary action button to start backup immediately -->
+    <string name="BackupAlertBottomSheet__back_up_now">Biztonsági mentés készítése</string>
+    <!-- Primary action button when user doesn\'t have enough space -->
+    <string name="BackupAlertBottomSheet__got_it">Rendben</string>
     <!-- Primary action button to manage subscription in Google Play -->
     <string name="BackupAlertBottomSheet__manage_subscription">Előfizetés kezelése</string>
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
@@ -7438,6 +7463,8 @@
     <string name="BackupAlertBottomSheet__dont_download_media">Nem töltöm le a médiafájlt</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Később</string>
+    <!-- Secondary action button to dismiss could not complete backup sheet -->
+    <string name="BackupAlertBottomSheet__try_later">Próbáld újra később!</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">A médiafájl törlésre kerül</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7446,6 +7473,12 @@
     <string name="BackupAlertBottomSheet__download">Letöltés</string>
     <!-- Dialog action to not download now -->
     <string name="BackupAlertBottomSheet__dont_download">Nem töltöm le</string>
+    <!-- Dialog action to skip media download -->
+    <string name="BackupAlertBottomSheet__skip">Kihagyás</string>
+    <!-- Dialog title for skipping media restore -->
+    <string name="BackupAlertBottomSheet__skip_restore_question">Visszaállítás kihagyása?</string>
+    <!-- Dialog text for skipping media restore -->
+    <string name="BackupAlertBottomSheet__if_you_skip_restore_the">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time when storage space becomes available.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7456,6 +7489,8 @@
     <string name="BackupStatus__restore_paused">Visszaállítás szünetel</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Visszaállítás kész</string>
+    <!-- Status action label for seeing more details about storage space -->
+    <string name="BackupStatus__details">Részletek</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Várakozás a wifi-re…</string>
@@ -7500,10 +7535,6 @@
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Előfizetés módosítása vagy lemondása</string>
 
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Az utolsó biztonsági mentés dátuma: %1$s, %2$s.</string>
-
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
     <string name="ManageStorageSettingsFragment_chat_limit">A csevegés hosszának korlátja</string>
@@ -7523,6 +7554,8 @@
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Az eszköz tárhelyének optimalizálása</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">A fel nem használt médiafájlokat a rendszer eltávolítja, de bármikor letöltheted őket a biztonsági másolatból.</string>
+    <!-- Dialog message for paid tier pending dialog -->
+    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Storage optimization can only be used with the paid tier of Signal Backups. Your backups subscription is still processing and not yet active. Please try again later.</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -7542,6 +7575,16 @@
     </plurals>
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToStartMediaBackupSheet__subscribe_for_s_month">Fizess elő %1$s/hó áron</string>
+
+    <!-- MediaNoLongerAvailableSheet -->
+    <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
+    <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Ez a médiafájl már nem érhető el</string>
+    <!-- Body on a bottom sheet explaining that the user can enable backups -->
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Az összes média biztonsági mentésének megkezdéséhez engedélyezd a Signal Biztonsági mentések visszaállítása funkciót, és válaszd ki a fizetett kategóriát.</string>
+    <!-- Primary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__continue">Tovább</string>
+    <!-- Secondary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__not_now">Később</string>
 
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">A törlés mostantól az összes eszközödön szinkronizálva van</string>
@@ -7663,6 +7706,55 @@
     <string name="RemoteBackupsSettingsFragment__downloading_your_backup">A biztonsági másolat letöltése</string>
     <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">A biztonsági másolat méretétől függően ez sokáig eltarthat. Letöltés közben a szokásos módon használhatod a telefonodat.</string>
+    <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
+    <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
+        <item quantity="one">Előfizetésed ezen az eszközön a következő %1$d napig érvényes. A Signal Biztonsági mentések visszaállítása használatának folytatásához újítsd meg</item>
+        <item quantity="other">Előfizetésed ezen az eszközön a következő %1$d napig érvényes. A Signal Biztonsági mentések visszaállítása használatának folytatásához újítsd meg</item>
+    </plurals>
+    <!-- Button label to start subscription renewal -->
+    <string name="RemoteBackupsSettingsFragment__renew">Megújítás</string>
+    <!-- Button label to learn more about why subscription disappeared -->
+    <string name="RemoteBackupsSettingsFragment__learn_more">Tudj meg többet</string>
+    <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
+    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
+        <item quantity="one">%1$s biztonsági mentési adatod van, amely nem található ezen az eszközön. A biztonsági másolatot töröljük, ha az előfizetésed %2$d napon belül lejár.</item>
+        <item quantity="other">%1$s biztonsági mentési adatod van, amely nem található ezen az eszközön. A biztonsági másolatot töröljük, ha az előfizetésed %2$d napon belül lejár.</item>
+    </plurals>
+    <!-- Displayed in row when backup is available for download to let user start download -->
+    <string name="RemoteBackupsSettingsFragment__download">Letöltés</string>
+    <!-- Dialog title for skipping download of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_download_question">Letöltés kihagyása?</string>
+    <!-- Dialog body for skiping download of backed up media -->
+    <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
+        <item quantity="one">Ha kihagyod a többi médiafájl és a mellékletek letöltését, a biztonsági másolat %1$d napon belül törlődik.</item>
+        <item quantity="other">Ha kihagyod a többi médiafájl és a mellékletek letöltését, a biztonsági másolat %1$d napon belül törlődik.</item>
+    </plurals>
+    <!-- Positive dialog action to skip download -->
+    <string name="RemoteBackupsSettingsFragment__skip">Kihagyás</string>
+    <!-- Dialog title for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Nem sikerült kikapcsolni és törölni a biztonsági másolatokat</string>
+    <!-- Dialog body for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Hálózati hiba történt. Ellenőrizd az internetkapcsolatot, és próbáld újra.</string>
+
+    <!-- SubscriptionNotFoundBottomSheet -->
+    <!-- Displayed as a bottom sheet title -->
+    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Az előfizetés nem található</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Az előfizetésedet nem sikerült visszaállítani.</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">Ez akkor fordulhat elő, ha:</string>
+    <!-- First item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">egy másik Google-fiókkal jelentkeztél be a Play Áruházba.</string>
+    <!-- Second item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">iPhone-ról vitted át.</string>
+    <!-- Third item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">előfizetésed nemrég lejárt.</string>
+    <!-- Note underneath bullet points -->
+    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">Ha régi telefonodon aktív előfizetésed van, fontold meg annak lemondását, mielőtt megújítanád.</string>
+    <!-- Action button label to acknowledge and dismiss sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__got_it">Rendben</string>
+    <!-- Action button label to contact support -->
+    <string name="SubscriptionNotFoundBottomSheet__contact_support">Segítségkérés</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -7682,7 +7774,7 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">A biztonsági kulcsod</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">A biztonsági kulcs egy 64 számjegyű kód, amely lehetővé teszi a biztonsági másolat visszaállítását a Molly újratelepítésekor.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Your backup key is a 64-character code that lets you restore your backup when you re-install Molly.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Ha elfelejted a kulcsod, nem tudod visszaállítani a biztonsági másolatot. A Molly nem tud segíteni a biztonsági másolat helyreállításában.</string>
     <!-- Action button label -->
@@ -7762,5 +7854,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Emlékeztető ikon</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">Nálam van a régi telefonom</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">A gyors kezdéshez olvasd be a QR-kódot jelenlegi Signal-fiókodból</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Nincs nálam a régi telefonom</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Or you\'re reinstalling Molly on the same device</string>
+
+    <!-- Screen title for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Fiók visszaállítása vagy átvitele</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Helyezd át Signal-fiókodat és üzenetelőzményeidet erre az eszközre.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">A Signal biztonsági mentéseiből</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Az ingyenes vagy fizetett Signal biztonsági mentési csomag</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">Egy biztonsági mentés mappából</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">Biztonsági másolati fájlból</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Válassz egy mentett biztonsági másolatot</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">A régi telefonodról</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Vidd át közvetlenül régi Android-eszközödről</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Helyi biztonsági mentés visszaállítása</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Állítsd vissza az üzeneteidet az eszközödre mentett biztonsági másolatból. Ha most nem állítod vissza, később nem fogod tudni visszaállítani.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Add meg a biztonsági kulcsot</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Your backup key is a 64-character code required to recover your account and data.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Nincs biztonsági kulcsod?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Biztonsági kulcs</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Backups can\'t be recovered without their 64-character recovery code. If you\'ve lost your backup key Signal can\'t help restore your backup.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">If you have your old device you can view your backup key in Settings &gt; Backups. Then tap View backup key.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Tudj meg többet</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Kihagyás és visszaállítás</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Olvasd be ezt a kódot a régi telefonoddal</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Nyisd meg a Signalt a régi eszközödön</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Koppints a kamera ikonra </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Olvasd be ezt a kódot a kamerával</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">QR-kód generálása sikertelen</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Régi eszközön beolvasva</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Újra</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Fiók átvitele</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Fiókod átkerül egy új eszközre. Ez az eszköz láthatja a csoportjaidat és a névjegyeidet, hozzáférhet a csevegéseidhez, és üzeneteket küldhet a nevedben. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Tudj meg többet</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Fiók átvitele</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Az üzeneteket és a csevegési információkat végpontok közötti titkosítás védi minden eszközön</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">A fiók átviteléhez oldd fel</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Folytasd a másik eszközön</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Folytasd a fiókod átvitelét a másik eszközödön.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Visszaállítás kész</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">A Signal-fiók és az üzenetek átvitele megkezdődött a másik eszközre. A Signal most inaktív ezen az eszközön.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Átvitel kész</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">A Signal-fiók és az üzenetek átkerültek a másik eszközödre. A Signal most inaktív ezen az eszközön.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">OK</string>
+
+
     <!-- EOF -->
 </resources>

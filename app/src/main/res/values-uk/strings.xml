@@ -101,7 +101,7 @@
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Фото чи відео не знайдено. Signal має доступ лише до вибраних вами фото і відео.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Фото чи відео не знайдено. Molly має доступ лише до вибраних вами фото і відео.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Не знайдено застосунок для вибору медіафайлів.</string>
@@ -277,25 +277,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Надайте доступ до мікрофона</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Щоб знімати фото, надайте Signal доступ до камери.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Щоб знімати фото, надайте Molly доступ до камери.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Щоб знімати фото і відео, надайте Signal доступ до камери.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Щоб знімати фото і відео, надайте Molly доступ до камери.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Щоб знімати фото і відео, надайте Signal доступ до камери й мікрофона.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Щоб знімати фото і відео, надайте Molly доступ до камери й мікрофона.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Щоб знімати відео зі звуком, надайте Signal доступ до мікрофона.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Щоб знімати відео зі звуком, надайте Molly доступ до мікрофона.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Щоб сканувати QR-коди, надайте Signal доступ до камери.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Щоб сканувати QR-коди, надайте Molly доступ до камери.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal потребує доступу до камери, щоб знімати фото</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly потребує доступу до камери, щоб знімати фото</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal потребує доступу до камери, щоб сканувати QR-коди</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly потребує доступу до камери, щоб сканувати QR-коди</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal потребує доступу до мікрофона, щоб знімати відео</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Molly потребує доступу до мікрофона, щоб знімати відео</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Щоб знімати фото через Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Щоб знімати фото через Molly:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Щоб знімати фото і відео через Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Щоб знімати фото і відео через Molly:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Щоб знімати відео зі звуком:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -782,11 +782,11 @@
     <string name="ConversationListFragment_remove_from_folder">Вилучити з папки</string>
 
     <!-- Bottom sheet title when choosing a folder to add a chat to -->
-    <string name="AddToFolderBottomSheet_choose_a_folder">Виберіть папку</string>
+    <string name="AddToFolderBottomSheet_choose_a_folder">Оберіть папку</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Додано в «%1$s»</string>
     <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">This chat is already in the folder \"%1$s\"</string>
+    <string name="AddToFolderBottomSheet_this_chat_is_already">Цей чат уже включено в папку «%1$s»</string>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Профіль сповіщень</string>
@@ -1018,14 +1018,18 @@
     <string name="LinkDeviceFragment__my_linked_devices">Мої зв\'язані пристрої</string>
     <!-- Dialog confirmation to unlink a device -->
     <string name="LinkDeviceFragment__unlink">Відв\'язати</string>
-    <!-- Toast message indicating a device has been unlinked where %s is the name of the device -->
+    <!-- Toast message indicating a device has been unlinked, where %s is the name of the device -->
     <string name="LinkDeviceFragment__s_unlinked">«%1$s» відв\'язано</string>
+    <!-- Toast message indicating a device has been successfully linked, where %s is the name of the device -->
+    <string name="LinkDeviceFragment__s_linked">«%1$s» зв\'язано</string>
     <!-- Progress dialog message indicating that a device is currently being linked with an account -->
     <string name="LinkDeviceFragment__linking_device">Зв\'язування пристрою…</string>
     <!-- Toast message shown after a device has been linked -->
     <string name="LinkDeviceFragment__device_approved">Пристрій схвалено</string>
     <!-- Progress dialog message indicating that the list of linked devices is currently loading -->
     <string name="LinkDeviceFragment__loading">Завантаження…</string>
+    <!-- Progress dialog message indicating that you are syncing messages to your linked device -->
+    <string name="LinkDeviceFragment__syncing_messages">Синхронізація повідомлень…</string>
     <!-- Text message shown when the user has no linked devices -->
     <string name="LinkDeviceFragment__no_linked_devices">Зв\'язаних пристроїв немає</string>
     <!-- Title on biometrics prompt explaining what biometrics are being used for -->
@@ -1036,6 +1040,14 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Натисніть «Продовжити» та введіть свій пароль для розблокування телефона. Не вводьте PIN-коду Signal.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Продовжити</string>
+    <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_title">Повідомлення не синхронізовано</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
+    <string name="LinkDeviceFragment__sync_failure_body">Ваші повідомлення не вдалося перенести на зв\'язаний пристрій. Ви можете ще раз спробувати зв\'язати пристрій і перенести дані або продовжити без перенесення історії повідомлень.</string>
+    <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Спробувати знову</string>
+    <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
+    <string name="LinkDeviceFragment__sync_failure_dismiss_button">Продовжити без перенесення</string>
 
     <!-- AddLinkDeviceFragment -->
     <!-- Description text shown on the QR code scanner when linking a device -->
@@ -1058,6 +1070,16 @@
     <string name="AddLinkDeviceFragment__this_qr_code_not_valid">Це не QR-код для зв\'язування. Переконайтеся, що ви скануєте QR-код на пристрої, який хочете зв’язати.</string>
     <!-- Button in dialog to retry linking a device with a qr code -->
     <string name="AddLinkDeviceFragment__retry">Сканувати знову</string>
+
+    <!-- LinkDeviceSyncBottomSheet -->
+    <!-- Option in bottom sheet to transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_transfer">Transfer message history</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Transfer your text messages and recent media to your desktop</string>
+    <!-- Option in bottom sheet to not transfer message history -->
+    <string name="LinkDeviceSyncBottomSheet_dont_transfer">Не переказувати</string>
+    <!-- Description in bottom sheet of what not transferring history will do -->
+    <string name="LinkDeviceSyncBottomSheet_no_old_messages">No old messages or media will be transferred to your desktop</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Відв\'язати «%1$s»?</string>
@@ -1389,20 +1411,6 @@
     <string name="ManageGroupActivity_more">більше</string>
     <string name="ManageGroupActivity_add_group_description">Додати опис групи…</string>
 
-    <!-- MoreTransferOrRestoreOptionsSheet -->
-    <!-- Row title for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_from_android_device">Перенести з пристрою з ОС Android</string>
-    <!-- Row description for transfer option -->
-    <string name="MoreTransferOrRestoreOptionsSheet__transfer_your_account_and_messages">Перенесіть акаунт і повідомлення зі старого пристрою Android.</string>
-    <!-- Row title for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__log_in_without_transferring">Увійти без перенесення даних</string>
-    <!-- Row description for logging in without transfer -->
-    <string name="MoreTransferOrRestoreOptionsSheet__continue_without_transferring">Продовжити без перенесення повідомлень і медіафайлів</string>
-    <!-- Row title for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_local_backup">Відновити з локальної резервної копії</string>
-    <!-- Row description for restoring from local backup -->
-    <string name="MoreTransferOrRestoreOptionsSheet__restore_your_messages">Відновіть повідомлення з резервної копії, збереженої на вашому пристрої.</string>
-
     <!-- RemoteRestoreActivity -->
     <!-- Progress dialog label when downloading a backup -->
     <string name="RemoteRestoreActivity__downloading_backup">Завантаження резервної копії…</string>
@@ -1420,12 +1428,16 @@
     <string name="RemoteRestoreActivity__all_of_your_messages">Усі ваші повідомлення</string>
     <!-- Screen title for restoring from backup -->
     <string name="RemoteRestoreActivity__restore_from_backup">Відновлення з резервної копії</string>
-    <!-- Notice about what media will be included in backups. Placeholder is days, and is curerntly fixed at 30. -->
+    <!-- Notice about what media will be included in backups. Placeholder is days, and is currently fixed at 30. -->
     <string name="RemoteRestoreActivity__only_media_sent_or_received">Вона містить лише медіафайли, надіслані та отримані за минулі %1$d днів.</string>
     <!-- Section title for explaining what your backup includes -->
     <string name="RemoteRestoreActivity__your_backup_includes">Ваша резервна копія містить:</string>
     <!-- Primary action button copy for starting restoration -->
     <string name="RemoteRestoreActivity__restore_backup">Відновити з резервної копії</string>
+    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
+    <string name="RemoteRestoreActivity__backup_created_at">Дата і час створення останньої резервної копії: %1$s, %2$s.</string>
+    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+    <string name="RemoteRestoreActivity__fetching_backup_details">Отримання інформації про резервну копію…</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Сповіщати про згадки</string>
@@ -2141,12 +2153,12 @@
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Оновити зараз</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Сьогодні ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Сьогодні ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Завтра ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
-        <item quantity="few">Через %1$d дні ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
-        <item quantity="many">Через %1$d днів ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
-        <item quantity="other">Через %1$d дня ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="one">Завтра ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="few">Через %1$d дні ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="many">Через %1$d днів ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="other">Через %1$d дня ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
@@ -2156,7 +2168,7 @@
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Неправильний пароль!</string>
     <string name="PassphrasePromptActivity_unlock_signal">Розблокувати Molly</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Екран блокування</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly для Android: Блокування екрана</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Мапа</string>
@@ -3381,7 +3393,7 @@
     <!-- EnableCallNotificationSettingsDialog__call_notifications_checklist -->
     <string name="EnableCallNotificationSettingsDialog__call_notifications_enabled">Сповіщення про виклики ввімкнено.</string>
     <string name="EnableCallNotificationSettingsDialog__enable_call_notifications">Увімкнути сповіщення про виклики</string>
-    <string name="EnableCallNotificationSettingsDialog__enable_background_activity">Увімкніть фонову активність</string>
+    <string name="EnableCallNotificationSettingsDialog__enable_background_activity">Увімкнути фонову активність</string>
     <string name="EnableCallNotificationSettingsDialog__everything_looks_good_now">Тепер усе добре!</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_show_notifications">Щоб отримувати сповіщення про виклики, натисніть тут і ввімкніть «Показувати сповіщення».</string>
     <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_notifications">Щоб отримувати сповіщення про виклики, натисніть тут і ввімкніть сповіщення, а також перевірте, чи ввімкнено звук і спливні сповіщення.</string>
@@ -3585,20 +3597,20 @@
     <string name="webrtc_answer_decline_button__swipe_down_to_reject">Потягніть вниз, щоб відхилити</string>
 
     <!-- message_details_header -->
-    <string name="message_details_header__issues_need_your_attention">Є деякі проблеми, що потребують вашої уваги.</string>
+    <string name="message_details_header__issues_need_your_attention">Є проблеми, що потребують вашої уваги.</string>
     <string name="message_details_header_sent">Надіслано</string>
     <string name="message_details_header_received">Отримано</string>
     <string name="message_details_header_disappears">Зникне через</string>
     <string name="message_details_header_via">Через</string>
 
     <!-- message_details_recipient_header -->
-    <string name="message_details_recipient_header__pending_send">Очікування</string>
+    <string name="message_details_recipient_header__pending_send">Інформацію ще не отримано</string>
     <string name="message_details_recipient_header__sent_to">Кому надіслано:</string>
     <string name="message_details_recipient_header__sent_from">Відправник</string>
     <string name="message_details_recipient_header__delivered_to">Кому доставлено:</string>
     <string name="message_details_recipient_header__read_by">Хто прочитав:</string>
     <string name="message_details_recipient_header__not_sent">Не надіслано</string>
-    <string name="message_details_recipient_header__viewed">Переглянули</string>
+    <string name="message_details_recipient_header__viewed">Хто переглянув:</string>
     <string name="message_details_recipient_header__skipped">Кому не доставлено:</string>
 
     <!-- message_Details_recipient -->
@@ -3608,11 +3620,11 @@
     <string name="MessageDetails__view_edit_history">Переглянути правки</string>
 
     <!-- AndroidManifest.xml -->
-    <string name="AndroidManifest__create_passphrase">Створити фразу-пароль</string>
-    <string name="AndroidManifest__select_contacts">Обрати контакти</string>
-    <string name="AndroidManifest__change_passphrase">Змінити фразу-пароль</string>
+    <string name="AndroidManifest__create_passphrase">Створити пароль</string>
+    <string name="AndroidManifest__select_contacts">Вибрати контакти</string>
+    <string name="AndroidManifest__change_passphrase">Змінити пароль</string>
     <string name="AndroidManifest__verify_safety_number">Перевірка коду безпеки</string>
-    <string name="AndroidManifest__media_preview">Попередній перегляд медіа</string>
+    <string name="AndroidManifest__media_preview">Попередній вигляд медіафайлів</string>
     <string name="AndroidManifest__message_details">Про повідомлення</string>
     <string name="AndroidManifest__linked_devices">Зв\'язані пристрої</string>
     <string name="AndroidManifest__invite_friends">Запросити друзів</string>
@@ -3625,7 +3637,7 @@
     <string name="HelpFragment__tell_us_whats_going_on">Поясніть, що сталося</string>
     <string name="HelpFragment__include_debug_log">Долучити журнал налагодження.</string>
     <string name="HelpFragment__whats_this">Що це?</string>
-    <string name="HelpFragment__how_do_you_feel">Який у вас настрій?</string>
+    <string name="HelpFragment__how_do_you_feel">Який у вас настрій? (необов\'язково)</string>
     <string name="HelpFragment__tell_us_why_youre_reaching_out">Яка причина вашого звернення?</string>
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_5" translatable="false">emoji_5</string> -->
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_4" translatable="false">emoji_4</string> -->
@@ -3635,20 +3647,21 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__debug_info" translatable="false">https://support.signal.org/hc/articles/360007318591</string> -->
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string> -->
     <!-- Heading used within support email that lists additional information to help with debugging -->
-    <string name="HelpFragment__support_info">Допоміжна інформація</string>
-    <string name="HelpFragment__signal_android_support_request">Запит на підтримку Signal на Android</string>
+    <string name="HelpFragment__support_info">Інформація для служби підтримки</string>
+    <string name="HelpFragment__signal_android_support_request">Звернення в службу підтримки щодо Signal для Android</string>
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
-    <string name="HelpFragment__could_not_upload_logs">Не вдалося вивантажити логи</string>
-    <string name="HelpFragment__please_be_as_descriptive_as_possible">Будь ласка, пишіть якомога детальніше, щоб допомогти нам зрозуміти проблему.</string>
-    <string-array name="HelpFragment__categories_5">
+    <string name="HelpFragment__could_not_upload_logs">Не вдалося вивантажити журнал налагодження</string>
+    <string name="HelpFragment__please_be_as_descriptive_as_possible">Будь ласка, опишіть проблему якомога детальніше, це нам допоможе.</string>
+    <string-array name="HelpFragment__categories_6">
         <item>Виберіть варіант</item>
         <item>Щось не працює</item>
         <item>Бракує функції</item>
         <item>Питання</item>
         <item>Відгук</item>
-        <item>Інша причина</item>
+        <item>Інше</item>
         <item>Платежі (MobileCoin)</item>
         <item>Донати і значки</item>
+        <item>Резервне копіювання від Signal для Android</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Подання журналу налагодження Signal Android</string>
@@ -3660,11 +3673,11 @@
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Це повідомлення</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Недавні</string>
-    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Посмішки &amp; Люди</string>
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Смайлики і люди</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">Природа</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__food">Їжа</string>
-    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__activities">Активність</string>
-    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__places">Місця</string>
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__activities">Заняття</string>
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__places">Місцевості</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__objects">Предмети</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__symbols">Символи</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Прапори</string>
@@ -3706,10 +3719,10 @@
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">
-        <item quantity="one">%1$d год</item>
-        <item quantity="few">%1$d год</item>
-        <item quantity="many">%1$d год</item>
-        <item quantity="other">%1$d год</item>
+        <item quantity="one">%1$d година</item>
+        <item quantity="few">%1$d години</item>
+        <item quantity="many">%1$d годин</item>
+        <item quantity="other">%1$d години</item>
     </plurals>
 
     <!-- preferences.xml -->
@@ -3723,24 +3736,24 @@
     <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Заархівовані чати з вимкненими сповіщеннями залишаються в архіві, якщо надходять нові повідомлення.</string>
     <string name="preferences__generate_link_previews">Генерувати попередній вигляд вебсторінок</string>
     <string name="preferences__retrieve_link_previews_from_websites_for_messages">Показувати попередній вигляд вебсторінок за посиланнями, які ви надсилаєте в повідомленнях.</string>
-    <string name="preferences__change_passphrase">Змінити фразу-пароль</string>
-    <string name="preferences__change_your_passphrase">Змінить вашу фразу-пароль</string>
+    <string name="preferences__change_passphrase">Змінити пароль</string>
+    <string name="preferences__change_your_passphrase">Змініть свій пароль</string>
     <!-- Legacy preference menu item to enable a passphrase screen lock that is only available to those who have previously had a passphrase -->
-    <string name="preferences__enable_passphrase">Увімкнути фразу-пароль</string>
-    <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Захистити Сигнал та сповіщення повідомлень фразою-паролем</string>
+    <string name="preferences__enable_passphrase">Увімкнути блокування екрана паролем</string>
+    <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Блокувати екран і сповіщення паролем</string>
     <string name="preferences__screen_security">Безпека екрана</string>
-    <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Автоблокувати Signal після певного часу неактивності</string>
-    <string name="preferences__inactivity_timeout_passphrase">Фраза-пароль після спливання часу неактивності</string>
-    <string name="preferences__inactivity_timeout_interval">Інтервал часу неактивності</string>
+    <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Автоматично блокувати Signal після певного періоду бездіяльності</string>
+    <string name="preferences__inactivity_timeout_passphrase">Пароль у разі бездіяльності</string>
+    <string name="preferences__inactivity_timeout_interval">Мінімальна тривалість періоду бездіяльності</string>
     <string name="preferences__notifications">Сповіщення</string>
     <string name="preferences__led_color">Колір LED</string>
     <string name="preferences__led_color_unknown">Невідомо</string>
-    <string name="preferences__pref_led_blink_title">Шаблон мерехтіння LED</string>
+    <string name="preferences__pref_led_blink_title">Схема мерехтіння LED</string>
     <string name="preferences__customize">Налаштувати</string>
-    <string name="preferences__change_sound_and_vibration">Змінити звук та вібрацію</string>
+    <string name="preferences__change_sound_and_vibration">Змінити звук і вібрацію</string>
     <!-- Preference menu item to control the sound of notifications -->
-    <string name="preferences__sound">Звук</string>
-    <string name="preferences__silent">Беззвучно</string>
+    <string name="preferences__sound">Мелодія</string>
+    <string name="preferences__silent">Без звуку</string>
     <string name="preferences__default">Системна</string>
     <string name="preferences__repeat_alerts">Повторювати звуковий сигнал</string>
     <string name="preferences__never">Ніколи</string>
@@ -3755,11 +3768,11 @@
     <string name="preferences__blue">Синій</string>
     <string name="preferences__orange">Помаранчевий</string>
     <string name="preferences__cyan">Бірюзовий</string>
-    <string name="preferences__magenta">Фіолетовий</string>
+    <string name="preferences__magenta">Малиновий</string>
     <string name="preferences__white">Білий</string>
     <string name="preferences__none">Без обмежень</string>
     <string name="preferences__fast">Швидко</string>
-    <string name="preferences__normal">Звичайний</string>
+    <string name="preferences__normal">Звичайна</string>
     <string name="preferences__slow">Повільно</string>
     <string name="preferences__help">Допомога</string>
     <string name="preferences__advanced">Розширені</string>
@@ -3776,7 +3789,7 @@
     <string name="preferences__mmsc_username">Ім\'я користувача MMSC</string>
     <string name="preferences__mmsc_password">Пароль MMSC</string>
     <string name="preferences__sms_delivery_reports">Звіти про доставку SMS</string>
-    <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Запитувати звіт про доставку для кожного відісланого вами SMS</string>
+    <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Надсилати запит на звіт про доставку для кожного вашого надісланого SMS-повідомлення</string>
     <string name="preferences__data_and_storage">Дані та пам\'ять</string>
     <string name="preferences__storage">Пам\'ять</string>
     <string name="preferences__payments">Платежі</string>
@@ -3812,18 +3825,18 @@
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
     <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Зображення, яке показує, де буде видно змінений значок застосунку.</string>
     <string name="preferences__disable_pin">Вимкнути PIN-код</string>
-    <string name="preferences__enable_pin">Ввімкнути PIN</string>
+    <string name="preferences__enable_pin">Увімкнути PIN-код</string>
     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Якщо ви вимкнете PIN-код, то в разі повторної реєстрації в Signal усі ваші дані буде втрачено. Щоб цього уникнути, необхідно заздалегідь вручну створити їхню резервну копію. З вимкненим PIN-кодом неможливо ввімкнути блокування реєстрації.</string>
-    <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PIN-коди зберігають інформацію в Signal зашифрованою, тому тільки ви можете отримати до неї доступ. Ваш профіль, налаштування та контакти буде відновлено, коли ви встановите застосунок знов. PIN-код не потрібен, щоб відкрити застосунок.</string>
+    <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PIN-коди забезпечують шифрування інформації, що зберігається в Signal, щоб отримати до неї доступ могли тільки ви. У разі перевстановлення Signal ви зможете відновити свій профіль, налаштування й контакти.  Щоб відкрити застосунок, PIN-код не потрібен.</string>
     <string name="preferences__system_default">Системна</string>
     <string name="preferences__language">Мова</string>
-    <string name="preferences__signal_messages_and_calls">Повідомлення та виклики Signal</string>
+    <string name="preferences__signal_messages_and_calls">Повідомлення і виклики Signal</string>
     <string name="preferences__advanced_pin_settings">Керування PIN-кодом</string>
-    <string name="preferences__free_private_messages_and_calls">Безкоштовні приватні повідомлення та виклики для користувачів Signal</string>
+    <string name="preferences__free_private_messages_and_calls">Безплатні конфіденційні повідомлення і виклики для користувачів Signal</string>
     <string name="preferences__submit_debug_log">Надіслати журнал налагодження</string>
     <string name="preferences__delete_account">Видалити акаунт</string>
-    <string name="preferences__support_wifi_calling">Режим сумісності \'WiFi Calling\'</string>
-    <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Увімкніть, якщо ваш пристрій використовує доставку SMS/MMS через WiFi (вмикайте лише якщо «WiFi Calling» увімкнен на вашому пристрої)</string>
+    <string name="preferences__support_wifi_calling">Режим сумісності з викликами через WiFi</string>
+    <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Увімкніть, якщо ваш пристрій використовує доставку SMS/MMS через WiFi (вмикайте, тільки на вашому пристрої активовано виклики через WiFi)</string>
     <string name="preferences__incognito_keyboard">Клавіатура в анонімному режимі</string>
     <string name="preferences__read_receipts">Відмітки про читання</string>
     <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Якщо вимкнути відмітки про читання, ви не будете бачити, чи ваші повідомлення прочитали.</string>
@@ -3895,7 +3908,7 @@
     <string name="preferences_notifications__ringtone">Мелодія дзвінка</string>
     <string name="preferences_chats__message_text_size">Розмір шрифту повідомлень</string>
     <!-- Option in settings that will provide a shortcut to notification system settings to control the priority of Signal notifications -->
-    <string name="preferences_notifications__priority">Пріоритет</string>
+    <string name="preferences_notifications__priority">Пріоритетність</string>
     <!-- Option in settings to trouble shoot delayed notifications -->
     <string name="preferences_notifications__troubleshoot">Усунення неполадок зі сповіщеннями</string>
     <!-- Heading for the \'censorship circumvention\' section of privacy preferences -->
@@ -3911,9 +3924,9 @@
     <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">В обході цензури немає потреби. З\'єднання з Signal уже встановлено.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet -->
     <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Обхід цензури можна активувати лише за наявності з\'єднання з інтернетом.</string>
-    <string name="preferences_communication__category_sealed_sender">Захищений відправник</string>
+    <string name="preferences_communication__category_sealed_sender">Заcекречений відправник</string>
     <string name="preferences_communication__sealed_sender_allow_from_anyone">Дозволити від будь-кого</string>
-    <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Отримувати повідомлення від захищених відправників, які не з вашого списку контактів, або з якими ви не поділилися профілем.</string>
+    <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Отримувати повідомлення від засекречених відправників, навіть якщо вони не з вашого списку контактів або ви не ділилися з ними профілем.</string>
     <string name="preferences_proxy">Проксі-сервер</string>
     <string name="preferences_use_proxy">Проксі-сервер</string>
     <string name="preferences_off">Вимк.</string>
@@ -3924,11 +3937,11 @@
     <string name="preferences_save">Зберегти</string>
     <string name="preferences_connecting_to_proxy">Триває з\'єднання з проксі-сервером…</string>
     <string name="preferences_connected_to_proxy">З\'єднання з проксі-сервером установлено</string>
-    <string name="preferences_connection_failed">З\'єднання не вдалася!</string>
+    <string name="preferences_connection_failed">Відсутній зв\'язок з мережею!</string>
     <string name="preferences_couldnt_connect_to_the_proxy">Помилка з\'єднання з проксі-сервером. Перевірте, чи правильно введено адресу, й повторіть спробу.</string>
     <string name="preferences_you_are_connected_to_the_proxy">Ви з\'єднані з проксі-сервером. Проксі-сервер можна завжди вимкнути в налаштуваннях.</string>
     <string name="preferences_success">Успіх</string>
-    <string name="preferences_failed_to_connect">Не вдалось підключитися</string>
+    <string name="preferences_failed_to_connect">Не вдалося з\'єднатися з мережею</string>
     <string name="preferences_enter_proxy_address">Введіть адресу проксі-сервера</string>
     <!-- Preference title for changing navigation (bottom) bar size -->
     <string name="preferences_navigation_bar_size">Розмір панелі навігації</string>
@@ -3958,47 +3971,47 @@
     <string name="PaymentsHomeFragment__activate_payments">Увімкнути платежі</string>
     <string name="PaymentsHomeFragment__activating_payments">Вмикаємо платежі…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Відновити платіжний профіль</string>
-    <string name="PaymentsHomeFragment__no_recent_activity_yet">Жодної активності останнім часом</string>
-    <string name="PaymentsHomeFragment__recent_activity">Недавня активність</string>
+    <string name="PaymentsHomeFragment__no_recent_activity_yet">Останнім часом не було ніяких трансакцій</string>
+    <string name="PaymentsHomeFragment__recent_activity">Недавні трансакції</string>
     <string name="PaymentsHomeFragment__see_all">Показати решту</string>
     <string name="PaymentsHomeFragment__add_funds">Додати кошти</string>
-    <string name="PaymentsHomeFragment__send">Відправити</string>
-    <string name="PaymentsHomeFragment__sent_s">Відправлено %1$s</string>
+    <string name="PaymentsHomeFragment__send">Надіслати</string>
+    <string name="PaymentsHomeFragment__sent_s">Надіслано %1$s</string>
     <string name="PaymentsHomeFragment__received_s">Отримано %1$s</string>
-    <string name="PaymentsHomeFragment__transfer_to_exchange">Перекажіть на обмін</string>
+    <string name="PaymentsHomeFragment__transfer_to_exchange">Переказати для обміну</string>
     <string name="PaymentsHomeFragment__currency_conversion">Конвертування валюти</string>
     <string name="PaymentsHomeFragment__deactivate_payments">Вимкнути платежі</string>
     <string name="PaymentsHomeFragment__recovery_phrase">Кодова фраза</string>
     <string name="PaymentsHomeFragment__help">Допомога</string>
-    <string name="PaymentsHomeFragment__coin_cleanup_fee">Плата за очищення монет</string>
+    <string name="PaymentsHomeFragment__coin_cleanup_fee">Комісія за поглинення криптовалюти</string>
     <string name="PaymentsHomeFragment__sent_payment">Надісланий платіж</string>
     <string name="PaymentsHomeFragment__received_payment">Отриманий платіж</string>
-    <string name="PaymentsHomeFragment__processing_payment">Обробка платежу</string>
+    <string name="PaymentsHomeFragment__processing_payment">Опрацювання платежу</string>
     <string name="PaymentsHomeFragment__unknown_amount">---</string>
     <string name="PaymentsHomeFragment__currency_conversion_not_available">Конвертування валюти недоступно</string>
     <string name="PaymentsHomeFragment__cant_display_currency_conversion">Не вдалось відобразити конвертування валюти. Перевірте з’єднання телефону і повторіть спробу.</string>
-    <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Платежі недоступні у вашому регіоні.</string>
-    <string name="PaymentsHomeFragment__could_not_enable_payments">Не вдалося увімкнути платежі. Спробуйте пізніше.</string>
+    <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">У вашому регіоні платежі недоступні.</string>
+    <string name="PaymentsHomeFragment__could_not_enable_payments">Не вдалось увімкнути платежі. Спробуйте пізніше.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Вимкнути платежі?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ви не зможете відправляти або отримувати MobileCoin в Molly, якщо вимкнете платежі.</string>
-    <string name="PaymentsHomeFragment__deactivate">Вимкнути</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ви не зможете ні надсилати, ні отримувати MobileCoin у Molly, якщо деактивуєте платежі.</string>
+    <string name="PaymentsHomeFragment__deactivate">Деактивувати</string>
     <string name="PaymentsHomeFragment__continue">Продовжити</string>
-    <string name="PaymentsHomeFragment__balance_is_not_currently_available">Баланс в даний момент недоступний.</string>
+    <string name="PaymentsHomeFragment__balance_is_not_currently_available">Поки що баланс недоступний.</string>
     <string name="PaymentsHomeFragment__payments_deactivated">Платежі вимкнено.</string>
-    <string name="PaymentsHomeFragment__payment_failed">Платіж не вдався</string>
-    <string name="PaymentsHomeFragment__details">Деталі</string>
+    <string name="PaymentsHomeFragment__payment_failed">Не вдалося здійснити платіж</string>
+    <string name="PaymentsHomeFragment__details">Докладніше</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
     <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Ви можете використовувати Molly, щоб надсилати й отримувати валюту MobileCoin. Усі платежі здійснюються відповідно до Умов використання MobileCoin і гаманця MobileCoin. Можуть виникнути певні проблеми, як-от втрата платежів чи коштів, які неможливо відновити. </string>
     <string name="PaymentsHomeFragment__activate">Активувати</string>
-    <string name="PaymentsHomeFragment__view_mobile_coin_terms">Дивитись умови використання MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Платежі у Molly більше недоступні. Ви все ще можете переказати кошти на обмін, але більше не зможете надсилати та отримувати платежі, поповнювати рахунок.</string>
+    <string name="PaymentsHomeFragment__view_mobile_coin_terms">Ознайомитися з умовами використання MobileCoin</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Платежі у Molly більше не доступні. Ви й досі можете переказувати кошти для обміну, але більше не можете надсилати та отримувати платежі та поповнювати рахунок.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
-    <string name="PaymentsHomeFragment__turn_on">Увімкнути Захист платежів для майбутніх операцій?</string>
+    <string name="PaymentsHomeFragment__turn_on">Увімкнути захист платежів для надсилання коштів у майбутньому?</string>
     <!-- Alert dialog description for why payment lock should be enabled before sending payments -->
-    <string name="PaymentsHomeFragment__add_an_additional_layer">Забезпечте додатковий захист платежів, увімкнувши розблокування екрана Android чи розблокування відбитком пальця.</string>
+    <string name="PaymentsHomeFragment__add_an_additional_layer">Додатково убезпечте платежі, зробивши обов\'язковим розблокування екрана для переказу коштів: або шляхом введення пароля від Android, або скануванням відбитка пальця.</string>
     <!-- Alert dialog button to enable payment lock -->
     <string name="PaymentsHomeFragment__enable">Увімкнути</string>
     <!-- Alert dialog button to not enable payment lock for now -->
@@ -4075,59 +4088,59 @@
     <string name="PaymentsAddMoneyFragment__your_wallet_address">Адреса вашого гаманця</string>
     <string name="PaymentsAddMoneyFragment__copy">Копіювати</string>
     <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Скопійовано в буфер обміну</string>
-    <string name="PaymentsAddMoneyFragment__to_add_funds">Щоб додати кошти — надішліть MobileCoin на адресу вашого гаманця. Розпочніть платіж з вашого облікового запису на біржі, що підтримує MobileCoin, зіскануйте QR-код, а потім скопіюйте адресу вашого гаманця.</string>
+    <string name="PaymentsAddMoneyFragment__to_add_funds">Щоб додати кошти, надішліть MobileCoin на адресу свого гаманця. Почніть трансакцію у своєму обліковому записі на біржі, що підтримує MobileCoin, і зіскануйте QR-код або скопіюйте адресу свого гаманця.</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsAddMoneyFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string> -->
 
     <!-- PaymentsDetailsFragment -->
-    <string name="PaymentsDetailsFragment__details">Деталі</string>
+    <string name="PaymentsDetailsFragment__details">Докладніше</string>
     <string name="PaymentsDetailsFragment__status">Стан</string>
-    <string name="PaymentsDetailsFragment__submitting_payment">Платіж відправляється…</string>
-    <string name="PaymentsDetailsFragment__processing_payment">Обробка платежу…</string>
-    <string name="PaymentsDetailsFragment__payment_complete">Платіж завершено</string>
-    <string name="PaymentsDetailsFragment__payment_failed">Платіж не вдався</string>
+    <string name="PaymentsDetailsFragment__submitting_payment">Надсилання платежу…</string>
+    <string name="PaymentsDetailsFragment__processing_payment">Опрацювання платежу…</string>
+    <string name="PaymentsDetailsFragment__payment_complete">Платіж здійснено</string>
+    <string name="PaymentsDetailsFragment__payment_failed">Не вдалося здійснити платіж</string>
     <string name="PaymentsDetailsFragment__network_fee">Комісія мережі</string>
     <string name="PaymentsDetailsFragment__sent_by">Відправник</string>
-    <string name="PaymentsDetailsFragment__sent_to_s">Надіслано до %1$s</string>
-    <string name="PaymentsDetailsFragment__you_on_s_at_s">Ви %1$s в %2$s</string>
-    <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s%2$s в %3$s</string>
+    <string name="PaymentsDetailsFragment__sent_to_s">Надіслано користувачеві %1$s</string>
+    <string name="PaymentsDetailsFragment__you_on_s_at_s">Ви у %1$s о %2$s</string>
+    <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s у %2$s о %3$s</string>
     <!-- Prefix to a name to indicate who a payment was sent to -->
-    <string name="PaymentsDetailsFragment__to">Кому</string>
+    <string name="PaymentsDetailsFragment__to">Кому:</string>
     <string name="PaymentsDetailsFragment__from">Відправник</string>
     <string name="PaymentsDetailsFragment__information">Деталі транзакції, зокрема сума платежу і час транзакції, є частиною особового рахунку MobileCoin.</string>
-    <string name="PaymentsDetailsFragment__coin_cleanup_fee">Плата за очищення монет</string>
-    <string name="PaymentsDetailsFragment__coin_cleanup_information">«Плата за очищення монет» стягується коли ваші монети неможливо сполучити для завершення транзакції. Очищення дозволить надсилати платежі далі.</string>
-    <string name="PaymentsDetailsFragment__no_details_available">Деталі цієї транзакції недоступні</string>
+    <string name="PaymentsDetailsFragment__coin_cleanup_fee">Плата за округлення койнів</string>
+    <string name="PaymentsDetailsFragment__coin_cleanup_information">«Плата за округлення койнів» стягується, коли ваші койни неможливо згрупувати для здійснення трансакції. Округлення дасть вам змогу продовжити надсилати платежі.</string>
+    <string name="PaymentsDetailsFragment__no_details_available">Інша інформація про цю трансакцію відсутня</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsDetailsFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_details</string> -->
   <!-- Removed by excludeNonTranslatables <string name="PaymentsDetailsFragment__learn_more__cleanup_fee" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_details_fees</string> -->
     <string name="PaymentsDetailsFragment__sent_payment">Надісланий платіж</string>
     <string name="PaymentsDetailsFragment__received_payment">Отриманий платіж</string>
-    <string name="PaymentsDeatilsFragment__payment_completed_s">Платіж завершено %1$s</string>
+    <string name="PaymentsDeatilsFragment__payment_completed_s">Платіж здійснено %1$s</string>
     <string name="PaymentsDetailsFragment__block_number">Заблокувати номер</string>
 
     <!-- PaymentsTransferFragment -->
     <string name="PaymentsTransferFragment__transfer">Переказ</string>
-    <string name="PaymentsTransferFragment__scan_qr_code">Сканувати QR-код</string>
-    <string name="PaymentsTransferFragment__to_scan_or_enter_wallet_address">До: відскануйте або введіть адресу гаманця</string>
-    <string name="PaymentsTransferFragment__you_can_transfer">Ви можете переказувати MobileCoin платежем на адресу гаманця, що його було надано біржею. Адреса гаманця — це рядок цифр та літер, який зазвичай розміщується під QR-кодом.</string>
+    <string name="PaymentsTransferFragment__scan_qr_code">Зіскануйте QR-код</string>
+    <string name="PaymentsTransferFragment__to_scan_or_enter_wallet_address">Кому: зіскануйте або введіть адресу гаманця</string>
+    <string name="PaymentsTransferFragment__you_can_transfer">Переказ MobileCoin можна здійснити як переказ на адресу гаманця, надану біржею. Адреса гаманця складається з цифр і літер і зазвичай зазначається під QR-кодом.</string>
     <string name="PaymentsTransferFragment__next">Далі</string>
     <string name="PaymentsTransferFragment__invalid_address">Неправильна адреса</string>
-    <string name="PaymentsTransferFragment__check_the_wallet_address">Перевірте адресу гаманця, на який ви намагаєтеся переказати кошти, і спробуйте ще раз.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ви не можете переказати на власну адресу гаманця Molly. Введіть адресу гаманця зі свого облікового запису на підтримуваній біржі.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Щоб сканувати QR-код, Molly необхідний доступ до камери.</string>
+    <string name="PaymentsTransferFragment__check_the_wallet_address">Перевірте адресу гаманця, на який ви переказуєте кошти, і повторіть переказ.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ви не можете здійснювати перекази на власний гаманець Molly. Введіть адресу гаманця зі свого облікового запису на підтримуваній біржі.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Щоб зісканувати QR-код, надайте Molly доступ до камери.</string>
     <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Для сканування QR-кодів Molly потребує доступу до камери. Перейдіть у налаштування, відкрийте «Дозволи» та виберіть камеру.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Щоб сканувати QR-код, Molly необхідний доступ до камери.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Щоб зісканувати QR-код, надайте Molly доступ до камери.</string>
     <string name="PaymentsTransferFragment__settings">Налаштування</string>
 
     <!-- PaymentsTransferQrScanFragment -->
-    <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Сканувати QR-код адреси</string>
-    <string name="PaymentsTransferQrScanFragment__scan_the_address_qr_code_of_the_payee">Скануйте QR-код адреси одержувача платежу.</string>
+    <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Зіскануйте адресу</string>
+    <string name="PaymentsTransferQrScanFragment__scan_the_address_qr_code_of_the_payee">Зіскануйте QR-код адреси одержувача платежу</string>
 
     <!-- CreatePaymentFragment -->
     <!-- Button text to request the payment from a user -->
-    <string name="CreatePaymentFragment__request">Запит</string>
-    <string name="CreatePaymentFragment__pay">Переказати</string>
+    <string name="CreatePaymentFragment__request">Запит на платіж</string>
+    <string name="CreatePaymentFragment__pay">Переказ</string>
     <string name="CreatePaymentFragment__available_balance_s">Доступний баланс: %1$s</string>
-    <string name="CreatePaymentFragment__toggle_content_description">Переключити</string>
+    <string name="CreatePaymentFragment__toggle_content_description">Перемкнути</string>
     <string name="CreatePaymentFragment__1">1</string>
     <string name="CreatePaymentFragment__2">2</string>
     <string name="CreatePaymentFragment__3">3</string>
@@ -4140,7 +4153,7 @@
     <string name="CreatePaymentFragment__decimal">.</string>
     <string name="CreatePaymentFragment__0">0</string>
     <string name="CreatePaymentFragment__lt">&lt;</string>
-    <string name="CreatePaymentFragment__backspace">Повернутись</string>
+    <string name="CreatePaymentFragment__backspace">Видалення останньої цифри</string>
     <string name="CreatePaymentFragment__add_note">Додати примітку</string>
     <string name="CreatePaymentFragment__conversions_are_just_estimates">Курси обміну валют приблизні та можуть не відображати остаточну суму.</string>
   <!-- Removed by excludeNonTranslatables <string name="CreatePaymentFragment__learn_more__conversions" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_currency_conversion</string> -->
@@ -4158,20 +4171,20 @@
     <string name="ConfirmPayment__to">Кому</string>
     <string name="ConfirmPayment__total_amount">Загальна сума</string>
     <string name="ConfirmPayment__balance_s">Баланс: %1$s</string>
-    <string name="ConfirmPayment__submitting_payment">Платіж відправляється…</string>
-    <string name="ConfirmPayment__processing_payment">Обробка платежу…</string>
-    <string name="ConfirmPayment__payment_complete">Платіж завершено</string>
-    <string name="ConfirmPayment__payment_failed">Платіж не вдався</string>
-    <string name="ConfirmPayment__payment_will_continue_processing">Обробка оплати продовжуватиметься</string>
-    <string name="ConfirmPaymentFragment__invalid_recipient">Неправильний отримувач</string>
+    <string name="ConfirmPayment__submitting_payment">Надсилання платежу…</string>
+    <string name="ConfirmPayment__processing_payment">Опрацювання платежу…</string>
+    <string name="ConfirmPayment__payment_complete">Платіж здійснено</string>
+    <string name="ConfirmPayment__payment_failed">Не вдалося здійснити платіж</string>
+    <string name="ConfirmPayment__payment_will_continue_processing">Опрацювання платежу триватиме</string>
+    <string name="ConfirmPaymentFragment__invalid_recipient">Неналежний отримувач</string>
     <!-- Title of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
-    <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Не вдалося відобразити захист платежів</string>
+    <string name="ConfirmPaymentFragment__failed_to_show_payment_lock">Не вдалося показати заблокований екран</string>
     <!-- Body of a dialog show when we were unable to present the user\'s screenlock before sending a payment -->
-    <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Ви увімкнули захист платежів у налаштуваннях, але його не вдалося відобразити.</string>
+    <string name="ConfirmPaymentFragment__you_enabled_payment_lock_in_the_settings">Ви ввімкнули в налаштуваннях захист платежів, але його не вдалося показати.</string>
     <!-- Button in a dialog that will take the user to the privacy settings -->
-    <string name="ConfirmPaymentFragment__go_to_settings">Перейдіть до налаштувань</string>
-    <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Ця особа не активувала платежі</string>
-    <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Не вдалося запросити комісію мережі. Щоб продовжити цей платіж, натисніть \"ОК\", щоб спробувати ще раз.</string>
+    <string name="ConfirmPaymentFragment__go_to_settings">Відкрити налаштування</string>
+    <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Цей користувач не активував платежі</string>
+    <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Не вдалося стягнути комісію мережі. Щоб продовжити цей платіж, натисніть «ОК» і здійсніть переказ ще раз.</string>
 
     <!-- BiometricDeviceAuthentication -->
     <!-- Biometric/Device authentication prompt title -->
@@ -4207,10 +4220,10 @@
 
     <!-- Heading which shows how many messages are currently selected -->
     <plurals name="conversation_context__s_selected">
-        <item quantity="one">%1$d обрано</item>
-        <item quantity="few">%1$d обрано</item>
-        <item quantity="many">%1$d обрано</item>
-        <item quantity="other">%1$d обрано</item>
+        <item quantity="one">Вибрано %1$d</item>
+        <item quantity="few">Вибрано %1$d</item>
+        <item quantity="many">Вибрано %1$d</item>
+        <item quantity="other">Вибрано %1$d</item>
     </plurals>
 
     <!-- conversation_context_image -->
@@ -4251,7 +4264,7 @@
     <!-- conversation_list -->
     <string name="conversation_list_settings_shortcut">Ярлик налаштувань</string>
     <string name="conversation_list_search_description">Пошук</string>
-    <string name="conversation_list__pinned">Закріплено</string>
+    <string name="conversation_list__pinned">Закріплені</string>
     <string name="conversation_list__chats">Чати</string>
     <!-- A warning shown in a toast that tells you that you can\'t pin any more chats. Pinning a chat means keeping the chat at the top of your chat list. The placeholder represents how many chats you\'re allowed to pin. -->
     <string name="conversation_list__you_can_only_pin_up_to_d_chats">Ви можете прикріпити тільки до %1$d чатів</string>
@@ -4259,12 +4272,12 @@
     <!-- conversation_list_item_view -->
     <!-- Content description for contact avatar photo -->
     <string name="conversation_list_item_view__contact_photo_image">Зображення контакту</string>
-    <string name="conversation_list_item_view__archived">Архівовано</string>
+    <string name="conversation_list_item_view__archived">Архівовані</string>
 
 
     <!-- conversation_list_fragment -->
     <string name="conversation_list_fragment__fab_content_description">Новий чат</string>
-    <string name="conversation_list_fragment__open_camera_description">Відкрити Камеру</string>
+    <string name="conversation_list_fragment__open_camera_description">Відкрити камеру</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Чатів поки що немає.\n Напишіть щось друзям.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Чатів немає</string>
@@ -4326,7 +4339,7 @@
     <string name="text_secure_normal__menu_new_group">Нова група</string>
     <string name="text_secure_normal__menu_settings">Налаштування</string>
     <string name="text_secure_normal__menu_clear_passphrase">Заблокувати</string>
-    <string name="text_secure_normal__mark_all_as_read">Позначити усі як прочитані</string>
+    <string name="text_secure_normal__mark_all_as_read">Позначити всі як прочитані</string>
     <string name="text_secure_normal__invite_friends">Запросити друзів</string>
     <!-- Overflow menu entry to filter unread chats -->
     <string name="text_secure_normal__filter_unread_chats">Показати непрочитані чати</string>
@@ -4334,11 +4347,11 @@
     <string name="text_secure_normal__clear_unread_filter">Скасувати фільтр за непрочитаними</string>
 
     <!-- verify_display_fragment -->
-    <string name="verify_display_fragment_context_menu__copy_to_clipboard">Скопіювати до буфера обміну</string>
-    <string name="verify_display_fragment_context_menu__compare_with_clipboard">Порівняти із буфером обміну</string>
+    <string name="verify_display_fragment_context_menu__copy_to_clipboard">Скопіювати в буфер обміну</string>
+    <string name="verify_display_fragment_context_menu__compare_with_clipboard">Порівняти з буфером обміну</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_service_outage_text">Signal зазнав технічних труднощів. Ми тяжко працюємо щоб відновити сервіс якомога швидше.</string>
+    <string name="reminder_header_service_outage_text">У Signal виникли технічні проблеми. Ми робимо все можливе, щоб якнайшвидше відновити роботу.</string>
     <string name="reminder_header_progress">%1$d%%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
     <string name="reminder_cds_warning_body">Наразі Signal не може обробити приватні контакти вашого телефону.</string>
@@ -4355,7 +4368,7 @@
 
 
     <!-- media_preview_activity -->
-    <string name="media_preview_activity__media_content_description">Попередній перегляд медіа</string>
+    <string name="media_preview_activity__media_content_description">Попередній вигляд медіафайлів</string>
 
     <!-- new_conversation_activity -->
     <string name="new_conversation_activity__refresh">Оновити</string>
@@ -4385,32 +4398,32 @@
         <item quantity="other">Мінімальна довжина PIN-коду — %1$d цифри</item>
     </plurals>
     <string name="CreateKbsPinFragment__create_a_new_pin">Створити новий PIN-код</string>
-    <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Ви можете змінити свій PIN-код, поки цей пристрій зареєстровано.</string>
-    <string name="CreateKbsPinFragment__create_your_pin">Створити PIN-код</string>
+    <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Змінити PIN-код можна, якщо цей пристрій зареєстровано.</string>
+    <string name="CreateKbsPinFragment__create_your_pin">Створіть PIN-код</string>
     <string name="CreateKbsPinFragment__pins_can_help_you_restore_your_account">PIN-код потрібен для відновлення акаунту й шифрування інформації, яку ви зберігаєте в Signal. </string>
-    <string name="CreateKbsPinFragment__choose_a_stronger_pin">Виберіть більш надійний PIN-код</string>
+    <string name="CreateKbsPinFragment__choose_a_stronger_pin">Придумайте надійніший PIN-код</string>
 
     <!-- ConfirmKbsPinFragment -->
     <string name="ConfirmKbsPinFragment__pins_dont_match">PIN-коди не збігаються. Спробуйте ще раз.</string>
     <!-- Prompt for the user to repeat entering the PIN in order to help them remember it correctly.   -->
     <string name="ConfirmKbsPinFragment__re_enter_the_pin_you_just_created">Введіть створений PIN-код ще раз.</string>
-    <string name="ConfirmKbsPinFragment__confirm_your_pin">Підтвердьте ваш ПІН.</string>
+    <string name="ConfirmKbsPinFragment__confirm_your_pin">Підтвердьте PIN-код.</string>
     <string name="ConfirmKbsPinFragment__pin_creation_failed">Не вдалося створити PIN-код</string>
-    <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">Ваш PIN-код не був збережений. Ми попросимо вас пізніше створити PIN-код.</string>
-    <string name="ConfirmKbsPinFragment__pin_created">PIN створений.</string>
+    <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">Ваш PIN-код не збережено. Ми попросимо вас створити PIN-код пізніше.</string>
+    <string name="ConfirmKbsPinFragment__pin_created">PIN-код створено.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Введіть PIN-код ще раз</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Створення PIN-коду…</string>
 
     <!-- KbsSplashFragment -->
-    <string name="KbsSplashFragment__introducing_pins">Представляємо PIN-коди</string>
-    <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN-коди зберігають інформацію в Signal зашифрованою, тому тільки ви можете отримати до неї доступ. Ваш профіль, налаштування та контакти буде відновлено, коли ви встановите застосунок знов. PIN-код не потрібен, щоб відкрити застосунок.</string>
+    <string name="KbsSplashFragment__introducing_pins">Новинка: PIN-коди</string>
+    <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN-коди забезпечують шифрування інформації, що зберігається в Signal, щоб отримати до неї доступ могли тільки ви. У разі перевстановлення Signal ви зможете відновити свій профіль, налаштування й контакти. Щоб відкрити застосунок, PIN-код не потрібен.</string>
     <string name="KbsSplashFragment__learn_more">Дізнатися більше</string>
   <!-- Removed by excludeNonTranslatables <string name="KbsSplashFragment__learn_more_link" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
     <string name="KbsSplashFragment__registration_lock_equals_pin">Блокування реєстрації = PIN-код</string>
     <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Блокування реєстрації тепер називається PIN-кодом, і цей код здатний на більше. Оновіть його одразу.</string>
     <string name="KbsSplashFragment__update_pin">Оновити PIN-код</string>
-    <string name="KbsSplashFragment__create_your_pin">Створити PIN-код</string>
-    <string name="KbsSplashFragment__learn_more_about_pins">Дізнатися більше про PIN-коди</string>
+    <string name="KbsSplashFragment__create_your_pin">Створіть PIN-код</string>
+    <string name="KbsSplashFragment__learn_more_about_pins">Докладніше про PIN-коди</string>
     <string name="KbsSplashFragment__disable_pin">Вимкнути PIN-код</string>
 
     <!-- KBS Reminder Dialog -->
@@ -4419,7 +4432,7 @@
     <string name="KbsReminderDialog__skip">Пропустити</string>
     <string name="KbsReminderDialog__submit">Надіслати</string>
     <string name="KbsReminderDialog__forgot_pin">Забули PIN-код?</string>
-    <string name="KbsReminderDialog__incorrect_pin_try_again">Неправильний PIN-код. Будь ласка спробуйте ще раз.</string>
+    <string name="KbsReminderDialog__incorrect_pin_try_again">Неправильний PIN-код. Введіть код ще раз.</string>
 
     <!-- AccountLockedFragment -->
     <string name="AccountLockedFragment__account_locked">Акаунт заблоковано</string>
@@ -4435,12 +4448,12 @@
     <string name="RegistrationLockFragment__enter_the_pin_you_created_for_your_account">Введіть PIN-код, який ви створили для свого акаунту.</string>
     <!-- Button label to prompt the user to switch between an alphanumeric and numeric-only keyboards -->
     <string name="RegistrationLockFragment__switch_keyboard">Перемкнути клавіатуру</string>
-    <string name="RegistrationLockFragment__incorrect_pin_try_again">Неправильний PIN-код. Будь ласка спробуйте ще раз.</string>
+    <string name="RegistrationLockFragment__incorrect_pin_try_again">Неправильний PIN-код. Введіть код ще раз.</string>
     <string name="RegistrationLockFragment__forgot_pin">Забули PIN-код?</string>
     <string name="RegistrationLockFragment__incorrect_pin">Неправильний PIN-код</string>
-    <string name="RegistrationLockFragment__forgot_your_pin">Забули свій PIN-код?</string>
+    <string name="RegistrationLockFragment__forgot_your_pin">Забули PIN-код?</string>
     <string name="RegistrationLockFragment__not_many_tries_left">Спроб майже не лишилося!</string>
-    <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Реєстрація в Signal - Потрібна допомога з PIN-кодом для Android (v2 PIN)</string>
+    <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Реєстрація в Signal: Потрібна допомога з PIN-кодом для Android (v2 PIN)</string>
 
     <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
         <item quantity="one">З міркувань конфіденційності та безпеки відновлення PIN-коду не передбачено. Якщо ви забули свій PIN-код, то через %1$d день без активності в акаунті зможете зареєструватися заново через SMS. При цьому всю інформацію з вашого акаунту й весь вміст буде видалено.</item>
@@ -4450,10 +4463,10 @@
     </plurals>
 
     <plurals name="RegistrationLockFragment__incorrect_pin_d_attempts_remaining">
-        <item quantity="one">Невірний PIN-код. Залишилась %1$d спроба.</item>
-        <item quantity="few">Невірний PIN-код. Залишилось %1$d спроб.</item>
-        <item quantity="many">Невірний PIN-код. Залишилось %1$d спроб.</item>
-        <item quantity="other">Невірний PIN-код. Залишилось %1$d спроб.</item>
+        <item quantity="one">Неправильний PIN-код. У вас є ще %1$d спроба.</item>
+        <item quantity="few">Неправильний PIN-код. У вас є ще %1$d спроби.</item>
+        <item quantity="many">Неправильний PIN-код. У вас є ще %1$d спроб.</item>
+        <item quantity="other">Неправильний PIN-код. У вас є ще %1$d спроби.</item>
     </plurals>
 
     <plurals name="RegistrationLockFragment__if_you_run_out_of_attempts_your_account_will_be_locked_for_d_days">
@@ -4471,18 +4484,18 @@
     </plurals>
 
     <plurals name="RegistrationLockFragment__d_attempts_remaining">
-        <item quantity="one">Залишилось %1$d спроба.</item>
-        <item quantity="few">Залишилось %1$d спроб.</item>
-        <item quantity="many">Залишилось %1$d спроб.</item>
-        <item quantity="other">Залишилось %1$d спроб.</item>
+        <item quantity="one">У вас є ще %1$d спроба.</item>
+        <item quantity="few">У вас є ще %1$d спроби.</item>
+        <item quantity="many">У вас є ще %1$d спроб.</item>
+        <item quantity="other">У вас є ще %1$d спроби.</item>
     </plurals>
 
     <!-- CalleeMustAcceptMessageRequestDialogFragment -->
-    <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s отримає запит з повідомленням від вас. Ви зможете подзвонити коли ваше повідомлення запиту приймуть.</string>
+    <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s отримає від вас запит на повідомлення. Ви зможете дзвонити цьому користувачеві, коли ваш запит на повідомлення буде прийнято.</string>
 
     <!-- KBS Megaphone -->
     <string name="KbsMegaphone__create_a_pin">Створіть PIN-код</string>
-    <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-коди зберігають інформацію в сервісі Signal зашифровано.</string>
+    <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-коди забезпечують шифрування інформації, що зберігається в Signal.</string>
     <string name="KbsMegaphone__create_pin">Створити PIN-код</string>
 
     <!-- CallNotificationBuilder -->
@@ -4502,7 +4515,7 @@
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Завантаження…</string>
     <string name="CallNotificationBuilder_connecting">Триває з\'єднання…</string>
-    <string name="Permissions_permission_required">Необхідний дозвіл</string>
+    <string name="Permissions_permission_required">Необхідно надати дозвіл</string>
     <string name="Permissions_continue">Продовжити</string>
     <string name="Permissions_not_now">Не зараз</string>
     <string name="SQLCipherMigrationHelper_migrating_signal_database">Міграція бази даних Signal</string>
@@ -4513,22 +4526,24 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">У мене збережено цей пароль. Без нього відновлення з резервної копії неможливе.</string>
     <string name="registration_activity__restore_backup">Відновити з резервної копії</string>
     <string name="registration_activity__transfer_or_restore_account">Перенести або відновити акаунт</string>
+    <!-- Screen title for restoring or transfering account -->
+    <string name="registration_activity__restore_or_transfer">Відновлення або перенесення акаунту</string>
     <string name="registration_activity__transfer_account">Перенести акаунт</string>
     <string name="registration_activity__skip">Пропустити</string>
     <string name="preferences_chats__chat_backups">Резервні копії чатів</string>
     <string name="preferences_chats__transfer_account">Перенести акаунт</string>
     <string name="preferences_chats__transfer_account_to_a_new_android_device">Перенесіть акаунт на новий пристрій з ОС Android</string>
     <!-- Title for dialog to enter in the backup passphrase -->
-    <string name="RegistrationActivity_enter_backup_passphrase">Введіть фразу-пароль</string>
+    <string name="RegistrationActivity_enter_backup_passphrase">Введіть пароль</string>
     <string name="RegistrationActivity_restore">Відновити</string>
     <string name="RegistrationActivity_backup_failure_downgrade">Імпорт резервних копій з нових версій Signal неможливий</string>
     <!-- Error message indicating that we could not restore the user\'s backup. Displayed in a toast at the bottom of the screen. -->
     <string name="RegistrationActivity_backup_failure_foreign_key">Резервна копія містить неправильно сформовані дані</string>
-    <string name="RegistrationActivity_incorrect_backup_passphrase">Хибна фраза-пароль!</string>
+    <string name="RegistrationActivity_incorrect_backup_passphrase">Неправильний пароль</string>
     <string name="RegistrationActivity_checking">Перевірка…</string>
-    <string name="RegistrationActivity_d_messages_so_far">Залишилось %1$d повідомлень…</string>
+    <string name="RegistrationActivity_d_messages_so_far">Загальна кількість повідомлень: %1$d…</string>
     <string name="RegistrationActivity_restore_from_backup">Відновити з резервної копії?</string>
-    <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Відновити ваші повідомлення та медіа-файли із локальної резервної копії. Якщо Ви не бажаєте цього робити зараз, це можна зробити потім.</string>
+    <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Відновіть повідомлення й медіафайли з локальної резервної копії. Якщо ви не відновите їх зараз, то не зможете зробити цього пізніше.</string>
     <string name="RegistrationActivity_backup_size_s">Розмір резервної копії: %1$s</string>
     <string name="RegistrationActivity_backup_timestamp_s">Часова позначка резервної копії: %1$s</string>
     <string name="BackupDialog_enable_local_backups">Увімкнути локальне резервне копіювання?</string>
@@ -4540,31 +4555,31 @@
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Щоб увімкнути резервне копіювання, оберіть папку. У ній будуть зберігатися нові резервні копії.</string>
     <string name="BackupDialog_choose_folder">Обрати папку</string>
     <string name="BackupDialog_copied_to_clipboard">Скопійовано в буфер обміну</string>
-    <string name="BackupDialog_no_file_picker_available">Відсутня програма для вибору файлів.</string>
+    <string name="BackupDialog_no_file_picker_available">Файловий менеджер не знайдено.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Ваш пароль від резервної копії</string>
     <string name="BackupDialog_verify">Перевірити</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Ваш пароль від резервної копії правильний</string>
-    <string name="BackupDialog_passphrase_was_not_correct">Фраза-пароль була неправильна</string>
+    <string name="BackupDialog_passphrase_was_not_correct">Пароль неправильний</string>
     <string name="LocalBackupJob_creating_signal_backup">Створення резервної копії Molly…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Перевіряємо резервну копію Molly…</string>
-    <string name="LocalBackupJobApi29_backup_failed">Створення резервної копії не вдалось</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Перевірка резервної копії Molly…</string>
+    <string name="LocalBackupJobApi29_backup_failed">Не вдалося створити резервну копію</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Ваша папка для резервних копій була видалена або переміщена.</string>
-    <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Ваш файл резервної копії занадто великий для зберігання на цьому носії.</string>
-    <string name="LocalBackupJobApi29_there_is_not_enough_space">Недостатньо місця, щоб зберегти вашу резервну копію.</string>
+    <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Файл резервної копії завеликий, для його збереження бракує пам\'яті.</string>
+    <string name="LocalBackupJobApi29_there_is_not_enough_space">Недостатньо місця для збереження резервної копії.</string>
     <!-- Error message shown if a newly created backup could not be verified as accurate -->
-    <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">Не вдалося створити і перевірити останню резервну копію. Будь ласка, створіть ще одну.</string>
+    <string name="LocalBackupJobApi29_your_backup_could_not_be_verified">Не вдалося створити і перевірити останню резервну копію. Вам необхідно створити нову копію.</string>
     <!-- Error message shown if a very large attachment is encountered during the backup creation and causes the backup to fail -->
     <string name="LocalBackupJobApi29_your_backup_contains_a_very_large_file">Резервна копія містить великий файл, який неможливо зберегти. Будь ласка, видаліть його і створіть нову резервну копію.</string>
-    <string name="LocalBackupJobApi29_tap_to_manage_backups">Натисніть, щоб керувати резервним копіюванням.</string>
+    <string name="LocalBackupJobApi29_tap_to_manage_backups">Торкніться для налаштування резервного копіювання.</string>
     <string name="RegistrationActivity_wrong_number">Неправильний номер?</string>
     <!--    Countdown to when the user can request a new code via phone call during registration.-->
     <string name="RegistrationActivity_call_me_instead_available_in">Подзвоніть мені (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Надішліть код ще раз (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Зверніться в службу підтримки Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Реєстрація в Molly - код підтвердження для Android</string>
-    <string name="RegistrationActivity_incorrect_code">Невірний код</string>
+    <string name="RegistrationActivity_contact_signal_support">Звернутися в службу підтримки Molly</string>
+    <string name="RegistrationActivity_code_support_subject">Реєстрація в Molly: Код підтвердження для Android</string>
+    <string name="RegistrationActivity_incorrect_code">Неправильний код</string>
     <string name="BackupUtil_never">Ніколи</string>
     <string name="BackupUtil_unknown">Невідомо</string>
     <!-- Phone number heading displayed as a screen title -->
@@ -4601,23 +4616,23 @@
     <!-- Snackbar text shown when trying to enable screen lock but the user does not have a password or biometrics enabled -->
     <string name="preferences_app_protection__to_use_screen_lock">Щоб використовувати блокування екрана, встановіть на цьому пристрої PIN-код, графічний ключ або пароль.</string>
     <string name="preferences_app_protection__signal_pin">PIN-код Signal</string>
-    <string name="preferences_app_protection__create_a_pin">Створіть PIN-код</string>
+    <string name="preferences_app_protection__create_a_pin">Створити PIN-код</string>
     <string name="preferences_app_protection__change_your_pin">Змінити PIN-код</string>
     <string name="preferences_app_protection__pin_reminders">Нагадувати PIN-код</string>
     <string name="preferences_app_protection__turn_off">Вимкнути</string>
-    <string name="preferences_app_protection__confirm_pin">Підтвердити PIN</string>
+    <string name="preferences_app_protection__confirm_pin">Підтвердьте PIN-код</string>
     <string name="preferences_app_protection__confirm_your_signal_pin">Підтвердьте PIN-код Signal</string>
     <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">PIN-код необхідно запам’ятати або надійно зберегти, оскільки його неможливо відновити. Якщо ви забудете свій PIN-код, то можете втратити дані при повторній реєстрації акаунту в Signal.</string>
-    <string name="preferences_app_protection__incorrect_pin_try_again">Неправильний PIN-код. Будь ласка спробуйте ще раз.</string>
+    <string name="preferences_app_protection__incorrect_pin_try_again">Неправильний PIN-код. Введіть код ще раз.</string>
     <string name="preferences_app_protection__failed_to_enable_registration_lock">Не вдалося ввімкнути блокування реєстрації.</string>
     <string name="preferences_app_protection__failed_to_disable_registration_lock">Не вдалося вимкнути блокування реєстрації.</string>
     <string name="AppProtectionPreferenceFragment_none">Немає</string>
     <string name="preferences_app_protection__registration_lock">Блокувати реєстрацію</string>
     <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">Необхідно ввести PIN-код для блокування реєстрації</string>
-    <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">Ваш PIN-код містить не менше %1$d цифр або символів</string>
+    <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">У вашому PIN-коді щонайменше %1$d цифр / символів</string>
     <string name="RegistrationActivity_too_many_attempts">Забагато спроб</string>
     <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Ви зробили забагато невдалих спроб введення PIN-коду для блокування реєстрації. Ви знову зможете ввести код через день.</string>
-    <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Ви зробили надто багато спроб. Будь ласка, спробуйте ще раз пізніше</string>
+    <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Ви зробили забагато спроб. Будь ласка, спробуйте ще раз пізніше</string>
     <string name="RegistrationActivity_error_connecting_to_service">Помилка з\'єднання із сервісом</string>
     <string name="preferences_chats__backups">Резервні копії</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
@@ -4637,7 +4652,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Використовувати блокування екрана</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Якщо ви вийдете із застосунку чи перейдете в інший, то повинні будете розблокувати Molly — так само, як розблоковуєте свій пристрій. Під час блокування екрану застосунку в сповіщеннях не буде показано вміст повідомлень.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Якщо ви вийдете із застосунку чи перейдете в інший, то повинні будете розблокувати Molly — так само, як розблоковуєте свій пристрій. Під час блокування екрана застосунку в сповіщеннях не буде показано вміст повідомлень.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Активувати блокування екрана</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4678,12 +4693,12 @@
 
     <!-- TransferOrRestoreFragment -->
     <string name="TransferOrRestoreFragment__transfer_or_restore_account">Перенести або відновити акаунт</string>
-    <string name="TransferOrRestoreFragment__if_you_have_previously_registered_a_signal_account">Якщо ви вже зареєстрували акаунт Signal, то можете перенести або відновити свій акаунт і повідомлення</string>
+    <string name="TransferOrRestoreFragment__if_you_have_previously_registered_a_signal_account">Якщо ви вже реєстрували акаунт Signal, то можете перенести або відновити свій акаунт і повідомлення</string>
     <string name="TransferOrRestoreFragment__transfer_from_android_device">Перенести з пристрою з ОС Android</string>
-    <string name="TransferOrRestoreFragment__transfer_your_account_and_messages_from_your_old_android_device">Перенести акаунт і повідомлення зі старого пристрою Android. Необхідний доступ до старого пристрою.</string>
-    <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">У вас повинен бути доступ до свого старого пристрою.</string>
+    <string name="TransferOrRestoreFragment__transfer_your_account_and_messages_from_your_old_android_device">Перенесіть акаунт і повідомлення зі старого пристрою Android. Необхідний доступ до старого пристрою.</string>
+    <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Ви повинні мати доступ до свого старого пристрою.</string>
     <string name="TransferOrRestoreFragment__restore_from_backup">Відновити з резервної копії</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Відновити ваші повідомлення із локальної резервної копії. Якщо ви не бажаєте зробити це зараз, ви не зможете відновити їх пізніше.</string>
+    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Відновіть повідомлення з локальної резервної копії. Якщо ви не відновите їх зараз, то не зможете зробити цього пізніше.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Відновити з локальної резервної копії</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Відновити з резервної копії Signal</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Відновити всі текстові повідомлення + медіафайли за минулі 30 днів</string>
@@ -4695,83 +4710,83 @@
     <string name="TransferOrRestoreFragment__skip_transfer_description">Продовжити без перенесення повідомлень і медіафайлів</string>
 
     <!-- NewDeviceTransferInstructionsFragment -->
-    <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Відкрийте Signal на своєму старому Android-телефоні</string>
+    <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Відкрийте Signal на старому телефоні з ОС Android</string>
     <string name="NewDeviceTransferInstructions__continue">Продовжити</string>
     <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Натисніть фото свого профілю в лівому верхньому кутку, щоб відкрити Настройки</string>
+    <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Торкніться свого фото профілю в лівому верхньому кутку, щоб відкрити налаштування</string>
     <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
     <string name="NewDeviceTransferInstructions__tap_on_account">"Натисніть «Акаунт»"</string>
     <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
     <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">"Натисніть «Перенести акаунт», а потім «Продовжити» на обох пристроях"</string>
 
     <!-- NewDeviceTransferSetupFragment -->
-    <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Готуємося до підключення до вашого старого Android-пристрою…</string>
-    <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Ще трохи, скоро закінчимо</string>
-    <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Очікуємо підключення старого Android-пристрою…</string>
+    <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Підготовка до з\'єднання з вашим старим пристроєм з ОС Android…</string>
+    <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Ще трохи, скоро все буде готово</string>
+    <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Очікуйте з\'єднання зі старим пристроєм з ОС Android…</string>
     <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly потребує доступу до місцеположення, щоб виявити ваш старий пристрій з ОС Android і з\'єднатися з ним.</string>
     <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Необхідно ввімкнути геодані, щоб Molly зміг виявити ваш старий пристрій з ОС Android і з\'єднатися з ним.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Wi-Fi повинен бути включений, щоб Molly зміг виявити ваш старий Android-пристрій і з\'єднатися з ним. При цьому підключатися до будь-якої мережі Wi-Fi не обов\'язково.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Вибачте, але схоже, що цей пристрій не підтримує Wi-Fi Direct. Molly використовує Wi-Fi Direct, щоб виявити ваш старий пристрій Android і з\'єднатися з ним. Однак ви можете відновити свій акаунт з резервної копії.</string>
-    <string name="NewDeviceTransferSetup__restore_a_backup">Відновити резервну копію</string>
-    <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">При спробі підключення до вашого старого Android-пристрою сталась несподівана помилка.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Необхідно ввімкнути Wi-Fi, щоб Molly зміг виявити ваш старий пристрій з ОС Android і з\'єднатися з ним. Wi-Fi має бути ввімкнутий, але підключатися до мережі Wi-Fi не обов\'язково.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">На жаль, імовірно, цей пристрій не підтримує Wi-Fi Direct. Molly використовує Wi-Fi Direct, щоб виявити ваш старий пристрій з ОС Android і з\'єднатися з ним. Ви в будь-якому разі можете відновити свій акаунт з резервної копії.</string>
+    <string name="NewDeviceTransferSetup__restore_a_backup">Відновити з резервної копії</string>
+    <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Під час з\'єднання з вашим старим пристроєм з ОС Android сталася несподівана помилка.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
-    <string name="OldDeviceTransferSetup__searching_for_new_android_device">Пошук нового Android пристрою…</string>
+    <string name="OldDeviceTransferSetup__searching_for_new_android_device">Пошук нового пристрою Android…</string>
     <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly потребує доступу до місцеположення, щоб виявити ваш новий пристрій з ОС Android і з\'єднатися з ним.</string>
     <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Необхідно ввімкнути геодані, щоб Molly зміг виявити ваш новий пристрій з ОС Android і з\'єднатися з ним.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Wi-Fi повинен бути включений, щоб Molly зміг виявити ваш новий Android-пристрій і з\'єднатися з ним. При цьому підключатися до будь-якої мережі Wi-Fi не обов\'язково.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Вибачте, але схоже, що цей пристрій не підтримує Wi-Fi Direct. Molly використовує Wi-Fi Direct, щоб виявити ваш новий пристрій Android і з\'єднатися з ним. Ви все одно можете створити резервну копію, щоб відновити свій акаунт на новому пристрої Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Необхідно ввімкнути Wi-Fi, щоб Molly зміг виявити ваш новий пристрій з ОС Android і з\'єднатися з ним. Wi-Fi має бути ввімкнутий, але підключатися до мережі Wi-Fi не обов\'язково.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">На жаль, імовірно, цей пристрій не підтримує Wi-Fi Direct. Molly використовує Wi-Fi Direct, щоб виявити ваш новий пристрій з ОС Android і з\'єднатися з ним. Ви в будь-якому разі можете створити резервну копію, щоб відновити з неї акаунт на новому пристрої з ОС Android.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Створити резервну копію</string>
-    <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">При спробі підключення до вашого нового Android-пристрою сталась несподівана помилка.</string>
+    <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Під час з\'єднання з вашим новим пристроєм з ОС Android сталася несподівана помилка.</string>
 
     <!-- DeviceTransferSetupFragment -->
-    <string name="DeviceTransferSetup__unable_to_open_wifi_settings">Не вдалося відкрити настройки Wi-Fi. Будь-ласка, включіть Wi-Fi вручну.</string>
+    <string name="DeviceTransferSetup__unable_to_open_wifi_settings">Не вдалося відкрити налаштування Wi-Fi. Увімкніть Wi-Fi вручну.</string>
     <!-- Message on button that will prompt for location permissions in order to complete a device transfer -->
     <string name="DeviceTransferSetup__grant_location_permission">Надати доступ до місцеположення</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Увімкнути геодані</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Увімкнути Wi-Fi</string>
     <string name="DeviceTransferSetup__error_connecting">Помилка під час з\'єднання</string>
-    <string name="DeviceTransferSetup__retry">Повторити</string>
+    <string name="DeviceTransferSetup__retry">Перенести ще раз</string>
     <string name="DeviceTransferSetup__submit_debug_logs">Надіслати журнали налагодження</string>
-    <string name="DeviceTransferSetup__verify_code">Перевірити код</string>
-    <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Перевірте, що вказаний нижче код однаковий на обох ваших пристроях. Потім натисніть \"Продовжити\".</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">Цифри не збігаються</string>
+    <string name="DeviceTransferSetup__verify_code">Перевірте код</string>
+    <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Переконайтеся, що наведений нижче код однаковий на обох ваших пристроях. Потім натисніть «Продовжити».</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">Коди не збігаються</string>
     <string name="DeviceTransferSetup__continue">Продовжити</string>
-    <string name="DeviceTransferSetup__if_the_numbers_on_your_devices_do_not_match_its_possible_you_connected_to_the_wrong_device">Якщо цифри на ваших пристроях не збігаються, можливо, ви підключилися не до того пристрою. Щоб виправити це, зупиніть перенесення і спробуйте ще раз, тримаючи обидва ваших пристрою близько один до одного.</string>
+    <string name="DeviceTransferSetup__if_the_numbers_on_your_devices_do_not_match_its_possible_you_connected_to_the_wrong_device">Якщо коди на ваших пристроях не збігаються, можливо, ви з\'єдналися не з тим пристроєм. Щоб це виправити, зупиніть перенесення даних і повторіть з\'єднання, тримаючи обидва пристрої поряд один з одним.</string>
     <string name="DeviceTransferSetup__stop_transfer">Зупинити перенесення</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Неможливо знайти старий пристрій</string>
-    <string name="DeviceTransferSetup__unable_to_discover_new_device">Неможливо знайти новий пристрій</string>
-    <string name="DeviceTransferSetup__make_sure_the_following_permissions_are_enabled">Переконайтеся, що наступні дозволи та сервіси включені:</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Не вдалося знайти старий пристрій</string>
+    <string name="DeviceTransferSetup__unable_to_discover_new_device">Не вдалося знайти новий пристрій</string>
+    <string name="DeviceTransferSetup__make_sure_the_following_permissions_are_enabled">Перевірте, чи надано такі дозволи й увімкнено такі сервіси:</string>
     <string name="DeviceTransferSetup__location_permission">Доступ до місцеположення</string>
     <string name="DeviceTransferSetup__location_services">Геодані</string>
     <string name="DeviceTransferSetup__wifi">Wi-Fi</string>
     <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">На екрані Wi-Fi Direct, видаліть всі групи які запам\'ятались і від\'єднайте будь-які запрошені або з\'єднані пристрої.</string>
     <string name="DeviceTransferSetup__wifi_direct_screen">Екран Wi-Fi Direct</string>
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Спробуйте вимкнути і ввімкнути Wi-Fi на обох пристроях.</string>
-    <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Переконайтеся, що обидва пристрої знаходяться в режимі переносу.</string>
+    <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Переконайтеся, що на обох пристроях здійснюється перенос.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Перейти на сторінку підтримки</string>
-    <string name="DeviceTransferSetup__try_again">Спробувати знову</string>
-    <string name="DeviceTransferSetup__waiting_for_other_device">Очікування інших пристроїв.</string>
-    <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Натисніть \"Продовжити\" на вашому іншому пристрої, щоб почати передачу.</string>
-    <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Натисніть \"Продовжити\" на іншому пристрої…</string>
+    <string name="DeviceTransferSetup__try_again">Повторити спробу</string>
+    <string name="DeviceTransferSetup__waiting_for_other_device">Очікування іншого пристрою</string>
+    <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Натисніть «Продовжити» на іншому пристрої, щоб почати передачу.</string>
+    <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Натисніть «Продовжити» на іншому пристрої…</string>
 
     <!-- NewDeviceTransferFragment -->
-    <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Неможливо перенести з новіших версій Signal</string>
+    <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Неможливо перенести дані з новіших версій Signal</string>
     <!-- Error message indicating that we could not finish the user\'s device transfer. Displayed in a toast at the bottom of the screen. -->
     <string name="NewDeviceTransfer__failure_foreign_key">Передані дані були сформовані неправильно</string>
 
     <!-- DeviceTransferFragment -->
-    <string name="DeviceTransfer__transferring_data">Передача даних</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Тримайте обидва пристрої поруч один з одним. Не вимикайте ні один з пристроїв і залишайте Molly відкритим. Перекази захищені наскрізним шифруванням.</string>
-    <string name="DeviceTransfer__d_messages_so_far">Залишилось %1$d повідомлень…</string>
+    <string name="DeviceTransfer__transferring_data">Триває передача даних</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Пристрої повинні бути поряд один з одним. Не вимикайте жодного з пристроїв і не закривайте на них Molly. Перенесення даних захищено наскрізним шифруванням.</string>
+    <string name="DeviceTransfer__d_messages_so_far">Кількість повідомлень на цю мить: %1$d…</string>
     <!-- Filled in with total percentage of messages transferred -->
-    <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% повідомлень на цей час…</string>
+    <string name="DeviceTransfer__s_of_messages_so_far">Уже %1$s%% повідомлень…</string>
     <string name="DeviceTransfer__cancel">Скасувати</string>
-    <string name="DeviceTransfer__try_again">Спробувати знову</string>
+    <string name="DeviceTransfer__try_again">Повторити спробу</string>
     <string name="DeviceTransfer__stop_transfer">Зупинити перенесення</string>
-    <string name="DeviceTransfer__all_transfer_progress_will_be_lost">Весь прогрес перенесення буде втрачено.</string>
-    <string name="DeviceTransfer__transfer_failed">Помилка перенесення</string>
-    <string name="DeviceTransfer__unable_to_transfer">Не вдалось перенести</string>
+    <string name="DeviceTransfer__all_transfer_progress_will_be_lost">Перенесені на цю мить дані не буде збережено.</string>
+    <string name="DeviceTransfer__transfer_failed">Не вдалося здійснити перенос</string>
+    <string name="DeviceTransfer__unable_to_transfer">Неможливо перенести дані</string>
 
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Перенесення акаунту</string>
@@ -4784,28 +4799,28 @@
     <string name="OldDeviceTransferInstructions__continue">Продовжити</string>
 
     <!-- OldDeviceTransferComplete -->
-    <string name="OldDeviceTransferComplete__go_to_your_new_device">Перейдіть до вашого нового пристрою</string>
-    <string name="OldDeviceTransferComplete__your_signal_data_has_Been_transferred_to_your_new_device">Ваші дані Signal були перенесені на новий пристрій. Щоб завершити процес перенесення, вам необхідно продовжити реєстрацію на своєму новому пристрої.</string>
+    <string name="OldDeviceTransferComplete__go_to_your_new_device">Скористайтеся новим пристроєм</string>
+    <string name="OldDeviceTransferComplete__your_signal_data_has_Been_transferred_to_your_new_device">Ваші дані з Signal перенесено на новий пристрій. Для завершення процесу переносу необхідно продовжити реєстрацію на новому пристрої.</string>
     <string name="OldDeviceTransferComplete__close">Закрити</string>
 
     <!-- NewDeviceTransferComplete -->
-    <string name="NewDeviceTransferComplete__transfer_successful">Перенесення успішне</string>
+    <string name="NewDeviceTransferComplete__transfer_successful">Дані успішно перенесено</string>
     <string name="NewDeviceTransferComplete__transfer_complete">Перенесення завершено</string>
-    <string name="NewDeviceTransferComplete__to_complete_the_transfer_process_you_must_continue_registration">Щоб завершити процес перенесення, вам необхідно продовжити реєстрацію.</string>
+    <string name="NewDeviceTransferComplete__to_complete_the_transfer_process_you_must_continue_registration">Щоб завершити процес переносу, необхідно продовжити реєстрацію.</string>
     <string name="NewDeviceTransferComplete__continue_registration">Продовжити реєстрацію</string>
 
     <!-- DeviceToDeviceTransferService -->
     <string name="DeviceToDeviceTransferService_content_title">Перенести акаунт</string>
-    <string name="DeviceToDeviceTransferService_status_ready">Підготовка до підключення до вашого іншого Android-пристрою…</string>
-    <string name="DeviceToDeviceTransferService_status_starting_up">Підготовка до підключення до вашого іншого Android-пристрою…</string>
-    <string name="DeviceToDeviceTransferService_status_discovery">Пошук іншого Android-пристрою…</string>
+    <string name="DeviceToDeviceTransferService_status_ready">Підготовка до підключення до іншого пристрою з ОС Android…</string>
+    <string name="DeviceToDeviceTransferService_status_starting_up">Підготовка до підключення до іншого пристрою з ОС Android…</string>
+    <string name="DeviceToDeviceTransferService_status_discovery">Пошук іншого пристрою з ОС Android…</string>
     <string name="DeviceToDeviceTransferService_status_network_connected">Триває з\'єднання з іншим пристроєм з ОС Android…</string>
     <string name="DeviceToDeviceTransferService_status_verification_required">Необхідна перевірка</string>
     <string name="DeviceToDeviceTransferService_status_service_connected">Переносимо акаунт…</string>
 
     <!-- OldDeviceTransferLockedDialog -->
-    <string name="OldDeviceTransferLockedDialog__complete_registration_on_your_new_device">Завершіть реєстрацію на своєму новому пристрої</string>
-    <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">Ваш акаунт Signal перенесено на новий пристрій, і тепер вам потрібно завершити реєстрацію на ньому. На цьому пристрої Signal буде неактивний.</string>
+    <string name="OldDeviceTransferLockedDialog__complete_registration_on_your_new_device">Завершіть реєстрацію на новому пристрої</string>
+    <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">Ваш акаунт Signal перенесено на новий пристрій, але вам ще необхідно завершити на ньому реєстрацію. На цьому пристрої Signal буде деактивовано.</string>
     <string name="OldDeviceTransferLockedDialog__done">Готово</string>
     <string name="OldDeviceTransferLockedDialog__cancel_and_activate_this_device">Скасувати та активувати цей пристрій</string>
 
@@ -4816,7 +4831,7 @@
     <string name="RecipientBottomSheet_unblock">Розблокувати</string>
     <string name="RecipientBottomSheet_add_to_contacts">Додати до контактів</string>
     <!-- Error message that displays when a user tries to tap to view system contact details but has no app that supports it -->
-    <string name="RecipientBottomSheet_unable_to_open_contacts">Неможливо знайти застосунок для відкриття контактів.</string>
+    <string name="RecipientBottomSheet_unable_to_open_contacts">Не знайдено застосунок, який міг би відкрити контакти.</string>
     <string name="RecipientBottomSheet_add_to_a_group">Додати до групи</string>
     <string name="RecipientBottomSheet_add_to_another_group">Додати до іншої групи</string>
     <string name="RecipientBottomSheet_view_safety_number">Переглянути код безпеки</string>
@@ -4825,7 +4840,7 @@
     <string name="RecipientBottomSheet_remove_from_group">Вилучити з групи</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">Вилучити %1$s як адміністратора групи?</string>
-    <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"«%1$s» зможе змінювати цю групу і її учасників."</string>
+    <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"%1$s зможе змінювати інформацію про цю групу і її склад."</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">Вилучити %1$s з цієї групи?</string>
     <!-- Dialog message shown when removing someone from a group with group link being active to indicate they will not be able to rejoin -->
@@ -4835,27 +4850,27 @@
 
     <string name="GroupRecipientListItem_admin">Адміністратор</string>
     <!-- Button text to approve a user that has requested to join a group -->
-    <string name="GroupRecipientListItem_approve_description">Прийняти</string>
+    <string name="GroupRecipientListItem_approve_description">Схвалити</string>
     <string name="GroupRecipientListItem_deny_description">Відхилити</string>
 
 
     <!-- GroupsLearnMoreBottomSheetDialogFragment -->
-    <string name="GroupsLearnMore_legacy_vs_new_groups">Успадковані та Нові групи</string>
-    <string name="GroupsLearnMore_what_are_legacy_groups">Що таке Успадковані групи?</string>
-    <string name="GroupsLearnMore_paragraph_1">Успадковані групи — це групи, що не є сумісними з можливостями Нових груп, як-от адміністратори та більш детальні оновлення груп.</string>
-    <string name="GroupsLearnMore_can_i_upgrade_a_legacy_group">Чи можу я оновити успадковану групу?</string>
-    <string name="GroupsLearnMore_paragraph_2">Успадковані групи поки не можуть бути оновлені до Нових груп, але ви можете створити Нову групу з тими ж учасниками, якщо вони використовують найновішу версію Signal.</string>
-    <string name="GroupsLearnMore_paragraph_3">В майбутньому Signal надасть можливість оновлювати Успадковані групи.</string>
+    <string name="GroupsLearnMore_legacy_vs_new_groups">Застарілі і нові групи</string>
+    <string name="GroupsLearnMore_what_are_legacy_groups">Що таке застарілі групи?</string>
+    <string name="GroupsLearnMore_paragraph_1">Застарілі групи несумісні з такими особливостями нових груп, як наявність адміністраторів і докладніші оновлення груп.</string>
+    <string name="GroupsLearnMore_can_i_upgrade_a_legacy_group">Чи можна оновити застарілу групу?</string>
+    <string name="GroupsLearnMore_paragraph_2">Застарілі групи поки що неможливо оновлювати до нових, але ви можете створити нову групу з тими ж учасниками, якщо вони використовують найновішу версію Signal.</string>
+    <string name="GroupsLearnMore_paragraph_3">У майбутньому Signal забезпечить можливість оновлення застарілих груп.</string>
 
     <!-- GroupLinkBottomSheetDialogFragment -->
-    <string name="GroupLinkBottomSheet_share_hint_requiring_approval">За цим посиланням усі можуть побачити назву й фото профілю групи та подати запит на приєднання. Діліться ним тільки з тими, кому довіряєте.</string>
-    <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Будь-хто у кого є це посилання, може переглянути ім\'я та фото цієї групи та приєднатися до неї. Діліться ним з людьми, яким ви довіряєте.</string>
+    <string name="GroupLinkBottomSheet_share_hint_requiring_approval">За цим посиланням усі можуть побачити назву й зображення групи й подати запит на приєднання. Діліться ним тільки з тими, кому довіряєте.</string>
+    <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">За цим посиланням усі можуть побачити назву й зображення групи й подати запит на приєднання. Діліться ним тільки з тими, кому довіряєте.</string>
     <string name="GroupLinkBottomSheet_share_via_signal">Надіслати в Molly</string>
     <string name="GroupLinkBottomSheet_copy">Копіювати</string>
     <string name="GroupLinkBottomSheet_qr_code">QR-код</string>
     <string name="GroupLinkBottomSheet_share">Поділитися</string>
     <string name="GroupLinkBottomSheet_copied_to_clipboard">Скопійовано в буфер обміну</string>
-    <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Це посилання в даний момент не доступне</string>
+    <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Це посилання зараз неактивне</string>
 
     <!-- VoiceNotePlaybackPreparer -->
     <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Не вдалося відтворити голосове повідомлення</string>
@@ -4891,7 +4906,7 @@
         <item quantity="other">Якщо ви не впевнені, хто надіслав запит, перегляньте контакти нижче й вчиніть як пропонується.</item>
     </plurals>
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Інших спільних груп немає.</string>
-    <string name="ReviewCardDialogFragment__no_groups_in_common">Немає спільних груп.</string>
+    <string name="ReviewCardDialogFragment__no_groups_in_common">Спільних груп немає.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
         <item quantity="one">%1$d спільна група</item>
         <item quantity="few">%1$d спільні групи</item>
@@ -4921,9 +4936,9 @@
     <string name="ReviewCard__s_is_in_your_system_contacts">%1$s є в контактах телефона</string>
 
     <!-- CallParticipantsListUpdatePopupWindow -->
-    <string name="CallParticipantsListUpdatePopupWindow__s_joined">Приєднався: %1$s</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s та %2$s приєднались</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s і %3$s приєднались</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_joined">Приєднався користувач %1$s</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">Приєдналися %1$s і %2$s</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">Приєдналися %1$s, %2$s і %3$s</string>
     <!-- Toast message shown in group call when 3 or more people join -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">
         <item quantity="one">%1$s, %2$s і ще %3$d користувач приєдналися до виклику</item>
@@ -4932,9 +4947,9 @@
         <item quantity="other">%1$s, %2$s і ще %3$d користувача приєдналися до виклику</item>
     </plurals>
     <!-- Toast/popup text shown when someone leaves a group call -->
-    <string name="CallParticipantsListUpdatePopupWindow__s_left">Залишив розмову: %1$s</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s та %2$s покинули розмову</string>
-    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s,%2$s та %3$s покинули розмову</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_left">Користувач %1$s покинув виклик</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s і %2$s покинули виклик</string>
+    <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s і %3$s покинули виклик</string>
     <!-- Toast message shown in group call when 3 or more people leave -->
     <plurals name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">
         <item quantity="one">%1$s, %2$s і ще %3$d користувач покинули виклик</item>
@@ -4949,7 +4964,7 @@
 
     <!-- WifiToCellularPopupWindow -->
     <!-- Message shown during a call when the WiFi network is unusable, and cellular data starts to be used for the call instead. -->
-    <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Слабкий сигнал Wi-Fi. Увімкнено стільникову мережу.</string>
+    <string name="WifiToCellularPopupWindow__weak_wifi_switched_to_cellular">Слабкий сигнал Wi-Fi. Виклик здійснюється через мобільний інтернет.</string>
 
     <!-- DeleteAccountFragment -->
     <string name="DeleteAccountFragment__deleting_your_account_will">Видалення акаунту:</string>
@@ -4958,27 +4973,27 @@
     <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Видалення ваших облікових даних і фото профілю</string>
     <string name="DeleteAccountFragment__delete_all_your_messages">Видалення всіх ваших повідомлень</string>
     <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Видаліть %1$s з вашого платіжного профілю</string>
-    <string name="DeleteAccountFragment__no_country_code">Код країни не вказано</string>
-    <string name="DeleteAccountFragment__no_number">Номер не вказано</string>
-    <string name="DeleteAccountFragment__the_phone_number">Наданий номер телефону не належить до вашого акаунту.</string>
+    <string name="DeleteAccountFragment__no_country_code">Не зазначено код країни</string>
+    <string name="DeleteAccountFragment__no_number">Не зазначено номер</string>
+    <string name="DeleteAccountFragment__the_phone_number">Ви ввели номер телефону, не пов\'язаний з вашим акаунтом.</string>
     <string name="DeleteAccountFragment__are_you_sure">Ви точно хочете видалити свій акаунт?</string>
     <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Ваш акаунт Signal буде видалено, а налаштування застосунку скинуто. Після завершення цього процесу застосунок закриється.</string>
     <string name="DeleteAccountFragment__failed_to_delete_local_data">Не вдалося видалити локальні дані. Ви можете видалити їх вручну в системних налаштуваннях програми.</string>
-    <string name="DeleteAccountFragment__launch_app_settings">Відкрийте Налаштування програми</string>
+    <string name="DeleteAccountFragment__launch_app_settings">Відкрити налаштування застосунку</string>
     <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
-    <string name="DeleteAccountFragment__leaving_groups">Залишаємо групи…</string>
+    <string name="DeleteAccountFragment__leaving_groups">Триває вихід з груп…</string>
     <!-- Title of progress dialog shown when a user deletes their account and the process has left all groups -->
     <string name="DeleteAccountFragment__deleting_account">Видаляємо акаунт…</string>
     <!-- Message of progress dialog shown when a user deletes their account and the process is canceling their subscription -->
     <string name="DeleteAccountFragment__canceling_your_subscription">Скасовуємо вашу підписку…</string>
     <!-- Message of progress dialog shown when a user deletes their account and the process is leaving groups -->
-    <string name="DeleteAccountFragment__depending_on_the_number_of_groups">В залежності від кількості груп це може зайняти декілька хвилин</string>
+    <string name="DeleteAccountFragment__depending_on_the_number_of_groups">Він може зайняти кілька хвилин — час залежить від кількості ваших груп</string>
     <!-- Message of progress dialog shown when a user deletes their account and the process has left all groups -->
-    <string name="DeleteAccountFragment__deleting_all_user_data_and_resetting">Видаляємо дані користувача та скидаємо застосунок</string>
+    <string name="DeleteAccountFragment__deleting_all_user_data_and_resetting">Триває видалення даних користувача й скидання застосунку</string>
     <!-- Title of error dialog shown when a network error occurs during account deletion -->
     <string name="DeleteAccountFragment__account_not_deleted">Акаунт не видалено</string>
     <!-- Message of error dialog shown when a network error occurs during account deletion -->
-    <string name="DeleteAccountFragment__there_was_a_problem">Сталася помилка під час завершення процесу видалення. Перевірте з\'єднання з мережею та спробуйте ще.</string>
+    <string name="DeleteAccountFragment__there_was_a_problem">Під час видалення сталася помилка. Перевірте з\'єднання з мережею і повторіть видалення.</string>
 
     <!-- DeleteAccountCountryPickerFragment -->
     <string name="DeleteAccountCountryPickerFragment__search_countries">Пошук країн</string>
@@ -4995,13 +5010,13 @@
     <!-- ShareActivity -->
     <string name="ShareActivity__share">Поділитися</string>
     <!-- Label to describe circular spinner button -->
-    <string name="ShareActivity__send">Відправити</string>
+    <string name="ShareActivity__send">Надсилання</string>
     <string name="ShareActivity__comma_s">, %1$s</string>
     <!-- Toast when the incoming intent is invalid -->
-    <string name="ShareActivity__could_not_get_share_data_from_intent">Не вдалося поділитися даними.</string>
+    <string name="ShareActivity__could_not_get_share_data_from_intent">Не вдалося виконати запит і поділитися даними.</string>
 
     <!-- MultiShareDialogs -->
-    <string name="MultiShareDialogs__failed_to_send_to_some_users">Не вдалося відправити деяким користувачам</string>
+    <string name="MultiShareDialogs__failed_to_send_to_some_users">Не вдалося надіслати деяким користувачам</string>
     <string name="MultiShareDialogs__you_can_only_share_with_up_to">Ви можете поділитися до %1$d бесідами</string>
 
     <!-- ChatWallpaperActivity -->
@@ -5022,13 +5037,13 @@
     <string name="ChatWallpaperFragment__reset_all_colors">Скинути всі кольори</string>
     <string name="ChatWallpaperFragment__reset_default_wallpaper">Скинути стандартні шпалери</string>
     <string name="ChatWallpaperFragment__reset_all_wallpapers">Скинути всі шпалери</string>
-    <string name="ChatWallpaperFragment__reset_wallpapers">Скинути всі шпалери</string>
+    <string name="ChatWallpaperFragment__reset_wallpapers">Скинути шпалери</string>
     <string name="ChatWallpaperFragment__reset_wallpaper">Скинути шпалери</string>
     <string name="ChatWallpaperFragment__reset_wallpaper_question">Скинути шпалери?</string>
 
     <!-- ChatWallpaperSelectionFragment -->
     <string name="ChatWallpaperSelectionFragment__choose_from_photos">Обрати з фотографій</string>
-    <string name="ChatWallpaperSelectionFragment__presets">Шаблони</string>
+    <string name="ChatWallpaperSelectionFragment__presets">Готові шпалери</string>
 
     <!-- ChatWallpaperPreviewActivity -->
     <string name="ChatWallpaperPreviewActivity__preview">Попередній вигляд</string>
@@ -5041,28 +5056,28 @@
     <!-- WallpaperImageSelectionActivity -->
 
     <!-- WallpaperCropActivity -->
-    <string name="WallpaperCropActivity__pinch_to_zoom_drag_to_adjust">Розведіть чи зведіть два пальці для зміни масштабу, потягніть для зміни положення.</string>
+    <string name="WallpaperCropActivity__pinch_to_zoom_drag_to_adjust">Розведіть два пальці, щоб збільшити, зведіть — щоб зменшити, потягніть, щоб зсунути фото.</string>
     <string name="WallpaperCropActivity__set_wallpaper_for_all_chats">Це будуть шпалери для всіх чатів.</string>
     <string name="WallpaperCropActivity__set_wallpaper_for_s">Це будуть шпалери для чату «%1$s».</string>
-    <string name="WallpaperCropActivity__error_setting_wallpaper">Помилка встановлення шпалери.</string>
+    <string name="WallpaperCropActivity__error_setting_wallpaper">Під час установлення шпалер сталася помилка.</string>
     <string name="WallpaperCropActivity__blur_photo">Розмити фото</string>
 
     <!-- InfoCard -->
     <string name="payment_info_card_about_mobilecoin">Про MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin — нова цифрова валюта, націлена на конфіденційність.</string>
-    <string name="payment_info_card_adding_funds">Додавання коштів</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Ви можете додавати кошти для використання у Molly надсилаючи MobileCoin на адресу вашого гаманця.</string>
-    <string name="payment_info_card_cashing_out">Виведення коштів</string>
-    <string name="payment_info_card_you_can_cash_out_mobilecoin">Ви можете вивести MobileCoin у будь-який час на біржах, які підтримують MobileCoin. Лише здійсніть переказ коштів на свій рахунок на такій біржі.</string>
+    <string name="payment_info_card_adding_funds">Як додавати кошти</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Ви можете додавати кошти для використання в Molly, надсилаючи MobileCoin на адресу свого гаманця.</string>
+    <string name="payment_info_card_cashing_out">Як виводити кошти</string>
+    <string name="payment_info_card_you_can_cash_out_mobilecoin">Вивести MobileCoin можна на біржі, яка підтримує MobileCoin. Просто здійсніть переказ на свій рахунок на такій біржі.</string>
     <string name="payment_info_card_hide_this_card">Сховати цю картку?</string>
     <string name="payment_info_card_hide">Сховати</string>
     <!-- Title of save recovery phrase card -->
     <string name="payment_info_card_save_recovery_phrase">Зберегти кодову фразу</string>
-    <string name="payment_info_card_your_recovery_phrase_gives_you">Кодова фраза надає ще один спосіб відновлення вашого платіжного профілю.</string>
+    <string name="payment_info_card_your_recovery_phrase_gives_you">Кодова фраза — це ще один спосіб відновлення платіжного профілю.</string>
     <!-- Button in save recovery phrase card -->
     <string name="payment_info_card_save_your_phrase">Збережіть свою фразу</string>
-    <string name="payment_info_card_update_your_pin">Оновити PIN-код</string>
-    <string name="payment_info_card_with_a_high_balance">Якщо ви маєте високий баланс, пропонуємо створити буквено-цифровий PIN-код для більшої безпеки вашого акаунту.</string>
+    <string name="payment_info_card_update_your_pin">Оновить PIN-код</string>
+    <string name="payment_info_card_with_a_high_balance">Якщо у вас велика сума на рахунку, рекомендуємо створити буквено-цифровий PIN-код для надійнішого захисту акаунту.</string>
     <string name="payment_info_card_update_pin">Оновити PIN-код</string>
 
   <!-- Removed by excludeNonTranslatables <string name="payment_info_card__learn_more__about_mobilecoin" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_which_ones</string> -->
@@ -5070,20 +5085,20 @@
   <!-- Removed by excludeNonTranslatables <string name="payment_info_card__learn_more__cashing_out" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_to_exchange</string> -->
 
     <!-- DeactivateWalletFragment -->
-    <string name="DeactivateWalletFragment__deactivate_wallet">Вимкнути гаманець</string>
+    <string name="DeactivateWalletFragment__deactivate_wallet">Деактивувати гаманець</string>
     <string name="DeactivateWalletFragment__your_balance">Ваш баланс</string>
     <string name="DeactivateWalletFragment__its_recommended_that_you">Перед вимкненням платежів рекомендуємо вивести кошти в інший гаманець. Якщо ви цього не зробите, то в разі повторної активації платежів кошти залишаться у вашому гаманці, зв\'язаному із Molly.</string>
-    <string name="DeactivateWalletFragment__transfer_remaining_balance">Перевести кошти, що залишились на балансі</string>
-    <string name="DeactivateWalletFragment__deactivate_without_transferring">Вимкнути без переводу коштів</string>
-    <string name="DeactivateWalletFragment__deactivate">Вимкнути</string>
-    <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Вимкнути без переводу коштів?</string>
+    <string name="DeactivateWalletFragment__transfer_remaining_balance">Перевести залишок коштів</string>
+    <string name="DeactivateWalletFragment__deactivate_without_transferring">Деактивувати без переведення</string>
+    <string name="DeactivateWalletFragment__deactivate">Деактивувати</string>
+    <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Деактивувати без переведення коштів?</string>
     <string name="DeactivateWalletFragment__your_balance_will_remain">Баланс залишиться в гаманці, прив\'язаному до Molly, якщо ви вирішите знов увімкнути платежі.</string>
-    <string name="DeactivateWalletFragment__error_deactivating_wallet">Помилка при вимкненні гаманця.</string>
+    <string name="DeactivateWalletFragment__error_deactivating_wallet">Під час деактивації гаманця сталася помилка.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
     <!-- PaymentsRecoveryStartFragment -->
     <string name="PaymentsRecoveryStartFragment__recovery_phrase">Кодова фраза</string>
-    <string name="PaymentsRecoveryStartFragment__view_recovery_phrase">Огляд кодової фрази</string>
+    <string name="PaymentsRecoveryStartFragment__view_recovery_phrase">Перегляньте кодову фразу</string>
     <!-- Title in save recovery phrase screen -->
     <string name="PaymentsRecoveryStartFragment__save_recovery_phrase">Збережіть кодову фразу</string>
     <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Введіть кодову фразу</string>
@@ -5114,7 +5129,7 @@
     <string name="PaymentsRecoveryPasteFragment__paste_recovery_phrase">Вставити кодову фразу</string>
     <string name="PaymentsRecoveryPasteFragment__recovery_phrase">Кодова фраза</string>
     <string name="PaymentsRecoveryPasteFragment__next">Далі</string>
-    <string name="PaymentsRecoveryPasteFragment__invalid_recovery_phrase">Хибна кодова фраза</string>
+    <string name="PaymentsRecoveryPasteFragment__invalid_recovery_phrase">Неправильна кодова фраза</string>
     <string name="PaymentsRecoveryPasteFragment__make_sure">Перевірте, чи ви ввели %1$d слова, і повторіть спробу.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsRecoveryStartFragment__learn_more__view" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_view_passphrase</string> -->
@@ -5124,30 +5139,30 @@
     <string name="PaymentsRecoveryPhraseFragment__next">Далі</string>
     <string name="PaymentsRecoveryPhraseFragment__edit">Редагувати</string>
     <string name="PaymentsRecoveryPhraseFragment__your_recovery_phrase">Ваша кодова фраза</string>
-    <string name="PaymentsRecoveryPhraseFragment__write_down_the_following_d_words">Запишіть наступні %1$d слова одне за одним. Зберігайте записане у надійному місці.</string>
-    <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered">Переконайтесь, що ви правильно ввели фразу.</string>
-    <string name="PaymentsRecoveryPhraseFragment__do_not_screenshot_or_send_by_email">Не робіть знімків екрану та не відправляйте електронною поштою.</string>
+    <string name="PaymentsRecoveryPhraseFragment__write_down_the_following_d_words">Запишіть ці %1$d слова в такому ж порядку. Збережіть цей список слів у надійному місці.</string>
+    <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered">Перевірте, чи ви правильно ввели кодову фразу.</string>
+    <string name="PaymentsRecoveryPhraseFragment__do_not_screenshot_or_send_by_email">Не робіть знімків екрана й не пересилайте електронною поштою.</string>
     <string name="PaymentsRecoveryPhraseFragment__payments_account_restored">Платіжний профіль відновлено.</string>
     <string name="PaymentsRecoveryPhraseFragment__invalid_recovery_phrase">Неправильна кодова фраза</string>
-    <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered_your_phrase_correctly_and_try_again">Переконайтесь, що ви ввели правильно фразу і повторіть спробу.</string>
-    <string name="PaymentsRecoveryPhraseFragment__copy_to_clipboard">Копіювати до буферу обміну?</string>
-    <string name="PaymentsRecoveryPhraseFragment__if_you_choose_to_store">Якщо ви оберете цифровий спосіб збереження кодової фрази — упевніться, що вона надійно зберігається у місці, якому ви довіряєте.</string>
+    <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered_your_phrase_correctly_and_try_again">Перевірте, чи ви правильно ввели кодову фразу, і повторіть спробу.</string>
+    <string name="PaymentsRecoveryPhraseFragment__copy_to_clipboard">Копіювати в буфер обміну?</string>
+    <string name="PaymentsRecoveryPhraseFragment__if_you_choose_to_store">Якщо ви хочете зберегти кодову фразу в цифровому форматі, оберіть захищений і надійний носій.</string>
     <string name="PaymentsRecoveryPhraseFragment__copy">Копіювати</string>
 
     <!-- PaymentsRecoveryPhraseConfirmFragment -->
-    <string name="PaymentRecoveryPhraseConfirmFragment__confirm_recovery_phrase">Підтвердження кодової фрази</string>
-    <string name="PaymentRecoveryPhraseConfirmFragment__enter_the_following_words">Введіть наступні слова з вашої кодової фрази.</string>
+    <string name="PaymentRecoveryPhraseConfirmFragment__confirm_recovery_phrase">Підтвердьте кодову фразу</string>
+    <string name="PaymentRecoveryPhraseConfirmFragment__enter_the_following_words">Введіть зазначені слова зі своєї кодової фрази.</string>
     <string name="PaymentRecoveryPhraseConfirmFragment__word_d">Слово %1$d</string>
-    <string name="PaymentRecoveryPhraseConfirmFragment__see_phrase_again">Подивитись кодову фразу ще раз</string>
+    <string name="PaymentRecoveryPhraseConfirmFragment__see_phrase_again">Показати кодову фразу ще раз</string>
     <string name="PaymentRecoveryPhraseConfirmFragment__done">Готово</string>
     <string name="PaymentRecoveryPhraseConfirmFragment__recovery_phrase_confirmed">Кодову фразу підтверджено</string>
 
     <!-- PaymentsRecoveryEntryFragment -->
     <string name="PaymentsRecoveryEntryFragment__enter_recovery_phrase">Введіть кодову фразу</string>
-    <string name="PaymentsRecoveryEntryFragment__enter_word_d">Ввести слово %1$d</string>
+    <string name="PaymentsRecoveryEntryFragment__enter_word_d">Введіть слово %1$d</string>
     <string name="PaymentsRecoveryEntryFragment__word_d">Слово %1$d</string>
     <string name="PaymentsRecoveryEntryFragment__next">Далі</string>
-    <string name="PaymentsRecoveryEntryFragment__invalid_word">Хибне слово</string>
+    <string name="PaymentsRecoveryEntryFragment__invalid_word">Неправильне слово</string>
 
     <!-- UnreadPayments -->
     <string name="UnreadPayments__s_sent_you_s">%1$s переказав вам %2$s</string>
@@ -5183,6 +5198,11 @@
     <string name="QualitySelectorBottomSheetDialog__media_quality">Якість медіафайлів</string>
 
     <!-- AppSettingsFragment -->
+    <!-- String alerting user that something is wrong with their backups subscription -->
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Поновіть передплату на резервне копіювання від Signal</string>
+    <!-- String alerting user that backup failed -->
+    <string name="AppSettingsFragment__couldnt_complete_backup">Резервне копіювання не завершено</string>
+    <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Запросити друзів</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
     <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">Ідентифікатор підписника-донора скопійовано в буфер обміну</string>
@@ -5413,9 +5433,9 @@
     <!-- Button text to save the changes to a folder after it has been edited -->
     <string name="CreateFoldersFragment__save">Зберегти</string>
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
-    <string name="CreateFoldersFragment__discard_changes_title">Discard changes?</string>
+    <string name="CreateFoldersFragment__discard_changes_title">Відхилити зміни?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
-    <string name="CreateFoldersFragment__you_will_lose_changes">You\'ll lose the changes you\'ve made to this folder.</string>
+    <string name="CreateFoldersFragment__you_will_lose_changes">Жодні зміни в цій папці не буде збережено.</string>
     <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">Відхилити</string>
     <!-- Text that when pressed will delete the current folder -->
@@ -5425,7 +5445,7 @@
     <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
     <string name="CreateFoldersFragment__see_all">Показати решту</string>
     <!-- Toast shown when trying to make a folder with no name -->
-    <string name="CreateFoldersFragment__please_enter_name">Please enter a folder name</string>
+    <string name="CreateFoldersFragment__please_enter_name">Введіть назву папки</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
@@ -5465,11 +5485,11 @@
     <string name="PrivacySettingsFragment__app_security">Безпека застосунку</string>
     <!-- This refers to the multi-tasking overview (recent apps) from the Android operating system.-->
     <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Блокувати знімки екрана в режимі перегляду недавніх застосунків і в самому Signal.</string>
-    <string name="PrivacySettingsFragment__signal_message_and_calls">Повідомлення і виклики в Signal, завжди ретранслювати виклики, захищений відправник</string>
+    <string name="PrivacySettingsFragment__signal_message_and_calls">Повідомлення і виклики в Signal, завжди ретранслювати виклики, засекречений відправник</string>
     <string name="PrivacySettingsFragment__default_timer_for_new_changes">Стандартний таймер для нових чатів</string>
     <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Установіть стандартний таймер для тимчасових повідомлень у всіх нових чатах, які ви починаєте.</string>
     <!-- Summary for stories preference to launch into story privacy settings -->
-    <string name="PrivacySettingsFragment__payment_lock_require_lock">Увімкніть розблокування екрана Android чи розблокування відбитком пальця для переказу коштів</string>
+    <string name="PrivacySettingsFragment__payment_lock_require_lock">Зробити обов\'язковим розблокування екрана Android або сканування відбитка пальця для переказу коштів</string>
     <!-- Alert dialog title when payment lock cannot be enabled -->
     <string name="PrivacySettingsFragment__cant_enable_title">Не вдалось увімкнути захист платежів</string>
     <!-- Alert dialog description to setup screen lock or fingerprint in phone settings -->
@@ -5482,7 +5502,7 @@
     <!-- AdvancedPrivacySettingsFragment -->
   <!-- Removed by excludeNonTranslatables <string name="AdvancedPrivacySettingsFragment__sealed_sender_link" translatable="false">https://signal.org/blog/sealed-sender</string> -->
     <string name="AdvancedPrivacySettingsFragment__show_status_icon">Показувати значок статусу</string>
-    <string name="AdvancedPrivacySettingsFragment__show_an_icon">Показувати піктограму в деталях повідомлення, доставлених за допомогою захищеного відправника.</string>
+    <string name="AdvancedPrivacySettingsFragment__show_an_icon">Показувати піктограму в інформації про повідомлення, доставлене від засекреченого відправника.</string>
 
     <!-- ExpireTimerSettingsFragment -->
     <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Якщо ввімкнути цю функцію, нові повідомлення, надіслані та отримані в нових чатах, що ви починаєте, зникатимуть після перегляду.</string>
@@ -6065,6 +6085,10 @@
     <string name="DonationsErrors__your_payment">Не вдалося обробити донат. Кошти не було стягнуто. Спробуйте ще раз.</string>
     <string name="DonationsErrors__still_processing">Ще обробляється</string>
     <string name="DonationsErrors__couldnt_add_badge">Не вдалося додати значок</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
+    <string name="DonationsError__something_went_wrong">Something went wrong</string>
+    <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
+    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">Your backups subscription couldn\'t be displayed. Please contact support.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">Не вдалося перевірити значок</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
@@ -6344,8 +6368,6 @@
     <string name="DonationReceiptDetailsFragment__amount">Сума</string>
     <!-- Donation receipts thanks -->
     <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Дякуємо за підтримку Signal. Ваш внесок допомагає реалізувати нашу місію: розробляти технологію конфіденційного обміну повідомленнями з відкритим кодом, яка захищає свободу слова й робить можливим безпечне спілкування для мільйонів людей у всьому світі. Якщо ви резидент Сполучених Штатів Америки, збережіть це підтвердження для звітування в податкові органи. Signal Technology Foundation — звільнена від оподаткування неприбуткова організація, створена відповідно до розділу 501c3 податкового кодексу США. Наш федеральний податковий номер: 82–4506840.</string>
-    <!-- Donation receipt type -->
-    <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
     <!-- Donation reciepts screen empty state title -->
     <string name="DonationReceiptListFragment__no_receipts">Підтверджень немає</string>
 
@@ -6973,7 +6995,7 @@
     <!-- Re-enable backups permission bottom sheet instruction 1 text -->
     <string name="BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below">Натисніть «Перейти до налаштувань» нижче</string>
     <!-- Re-enable backups permission bottom sheet instruction 2 text -->
-    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Увімкніть «Дозволити сповіщення і нагадування».</string>
+    <string name="BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders">Увімкніть «Дозволити встановлювати будильники й нагадування».</string>
     <!-- Re-enable backups permission bottom sheet call to action button to open settings -->
     <string name="BackupSchedulePermissionMegaphone__go_to_settings">Перейдіть до налаштувань</string>
 
@@ -7208,7 +7230,7 @@
 
     <!-- GroupStoryEducationSheet -->
     <!-- Displayed as the title of the education bottom sheet -->
-    <string name="GroupStoryEducationSheet__introducing_group_stories">Запроваджуємо групові історії</string>
+    <string name="GroupStoryEducationSheet__introducing_group_stories">Новинка: групові історії</string>
     <!-- Line item on the sheet explaining group stories -->
     <string name="GroupStoryEducationSheet__share_story_updates_to">Діліться оновленнями історій у своєму груповому чаті.</string>
     <!-- Line item on the sheet explaining that anyone in the group can share to group stories -->
@@ -7504,10 +7526,12 @@
     <string name="CallLinkDetailsFragment__delete_call_link">Видалити посилання на виклик</string>
     <!-- Displayed whenever a name change, revocation, etc, fails. -->
     <string name="CallLinkDetailsFragment__couldnt_save_changes">Не вдалося зберегти зміни. Перевірте підключення до мережі і спробуйте знову.</string>
+    <!-- Displayed when the call link is in use when the user tries to delete it -->
+    <string name="CallLinkDetailsFragment__couldnt_delete_call_link">Couldn\'t delete call link as it is currently in use.</string>
     <!-- Displayed as title in dialog when user attempts to delete the link -->
     <string name="CallLinkDetailsFragment__delete_link">Видалити посилання?</string>
     <!-- Displayed as body in dialog when user attempts to delete the link -->
-    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Посилання більше не працюватиме для тих, хто його має.</string>
+    <string name="CallLinkDetailsFragment__this_link_will_no_longer_work">Якщо ви надсилали комусь це посилання, воно більше не працюватиме.</string>
 
     <!-- Button label for the link button in the username link settings -->
     <string name="UsernameLinkSettings_link_button_label">Посилання</string>
@@ -7729,17 +7753,12 @@
     <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Сьогодні буде видалено ваші медіафайли</string>
     <!-- Sheet body part 1 when user\'s media will be deleted today -->
     <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Резервне копіювання медіафайлів у Signal було скасовано, тому що ми не змогли опрацювати ваш платіж. Ви маєте останню можливість завантажити медіафайли з резервної копії, поки їх не видалено.</string>
-    <!-- Sheet title when user does not have enough space to download their backup -->
-    <string name="BackupAlertBottomSheet__cant_complete_download">Неможливо завершити завантаження</string>
+    <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
+    <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Звільніть %1$s на цьому пристрої</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
-    <string name="BackupAlertBottomSheet__your_device_does_not_have_enough_free_space">На пристрої недостатньо місця. Звільніть %1$s, щоб завантажити медіафайли з резервної копії.</string>
-    <!-- Sheet body part 2 when user does not have enough space to download their backup. Placeholder is the number of days until deletion -->
-    <plurals name="BackupAlertBottomSheet__if_you_choose_skip">
-        <item quantity="one">Якщо вибрати «Пропустити», медіафайли з резервної копії буде видалено через %1$d день.</item>
-        <item quantity="few">Якщо вибрати «Пропустити», медіафайли з резервної копії буде видалено через %1$d дні.</item>
-        <item quantity="many">Якщо вибрати «Пропустити», медіафайли з резервної копії буде видалено через %1$d днів.</item>
-        <item quantity="other">Якщо вибрати «Пропустити», медіафайли з резервної копії буде видалено через %1$d дня.</item>
-    </plurals>
+    <string name="BackupAlertBottomSheet__to_finish_downloading_your_signal_backup">Щоб завершити завантаження резервної копії від Signal, на пристрої має бути %1$s вільної пам\'яті.</string>
+    <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
+    <string name="BackupAlertBottomSheet__to_free_up_space_offload">Звільніть місце, усунувши або видаливши непотрібні застосунки або файли великого розміру.</string>
     <!-- Sheet title when user payment failed to process -->
     <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Не вдалося продовжити передплату на резервне копіювання</string>
     <!-- Sheet body when user payment failed to process -->
@@ -7751,7 +7770,11 @@
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Дізнатися більше</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
-    <string name="BackupAlertBottomSheet__skip">Пропустити</string>
+    <string name="BackupAlertBottomSheet__skip_restore">Не відновлювати</string>
+    <!-- Primary action button to start backup immediately -->
+    <string name="BackupAlertBottomSheet__back_up_now">Створити копію зараз</string>
+    <!-- Primary action button when user doesn\'t have enough space -->
+    <string name="BackupAlertBottomSheet__got_it">Зрозуміло</string>
     <!-- Primary action button to manage subscription in Google Play -->
     <string name="BackupAlertBottomSheet__manage_subscription">Керувати передплатою</string>
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
@@ -7762,6 +7785,8 @@
     <string name="BackupAlertBottomSheet__dont_download_media">Не завантажувати медіафайлів</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Не зараз</string>
+    <!-- Secondary action button to dismiss could not complete backup sheet -->
+    <string name="BackupAlertBottomSheet__try_later">Пізніше</string>
     <!-- Dialog title for last chance to download backup -->
     <string name="BackupAlertBottomSheet__media_will_be_deleted">Видалення медіафайлів</string>
     <!-- Dialog message for last chance to download backup -->
@@ -7770,6 +7795,12 @@
     <string name="BackupAlertBottomSheet__download">Вивантажити</string>
     <!-- Dialog action to not download now -->
     <string name="BackupAlertBottomSheet__dont_download">Не вивантажувати</string>
+    <!-- Dialog action to skip media download -->
+    <string name="BackupAlertBottomSheet__skip">Пропустити</string>
+    <!-- Dialog title for skipping media restore -->
+    <string name="BackupAlertBottomSheet__skip_restore_question">Пропустити відновлення?</string>
+    <!-- Dialog text for skipping media restore -->
+    <string name="BackupAlertBottomSheet__if_you_skip_restore_the">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time when storage space becomes available.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7780,6 +7811,8 @@
     <string name="BackupStatus__restore_paused">Відновлення припинено</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Відновлення завершено</string>
+    <!-- Status action label for seeing more details about storage space -->
+    <string name="BackupStatus__details">Докладніше</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Очікування Wi-Fi…</string>
@@ -7824,10 +7857,6 @@
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Змінити або скасувати передплату</string>
 
-    <!-- RemoteRestoreActivity -->
-    <!-- Displayed at restore time to tell the user when their last backup was made. %$1s is replaced with the date (e.g. March 5, 2024) and %$2s is replaced with the time (e.g. 9:00am) -->
-    <string name="RemoteRestoreActivity__backup_created_at">Дата і час створення останньої резервної копії: %1$s, %2$s.</string>
-
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
     <string name="ManageStorageSettingsFragment_chat_limit">Обмеження чатів</string>
@@ -7847,12 +7876,14 @@
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Оптимізувати внутрішню пам\'ять</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Пам\'ять буде звільнено від медіафайлів, які не використовуються; їх можна в будь-який час вивантажити з резервної копії.</string>
+    <!-- Dialog message for paid tier pending dialog -->
+    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Storage optimization can only be used with the paid tier of Signal Backups. Your backups subscription is still processing and not yet active. Please try again later.</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
     <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_to_enable_this_feature">Функція доступна за передплатою</string>
     <!-- Subtitle of bottom sheet detailing that the user must upgrade to enable storage optimization -->
-    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">Оптимізація пам\'яті доступна тим, хто користується платним резервним копіюванням Signal. Оформте передплату, щоб використовувати цю функцію.</string>
+    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">Оптимізація пам\'яті доступна тим, хто користується платним резервним копіюванням від Signal. Оформте передплату, щоб використовувати цю функцію.</string>
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToEnableOptimizedStorageSheet__subscribe_for_s_month">Передплатити за %1$s/місяць</string>
 
@@ -7868,6 +7899,16 @@
     </plurals>
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToStartMediaBackupSheet__subscribe_for_s_month">Передплатити за %1$s/місяць</string>
+
+    <!-- MediaNoLongerAvailableSheet -->
+    <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
+    <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Цей медіафайл більше не доступний</string>
+    <!-- Body on a bottom sheet explaining that the user can enable backups -->
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Щоб створювати резервні копії всіх медіафайлів, увімкніть резервне копіювання від Signal і оформте передплату.</string>
+    <!-- Primary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__continue">Продовжити</string>
+    <!-- Secondary action button on bottom sheet -->
+    <string name="MediaNoLongerAvailableSheet__not_now">Не зараз</string>
 
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Тепер видалення синхронізується на всіх ваших пристроях</string>
@@ -7888,7 +7929,7 @@
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Displayed on the title bar -->
-    <string name="RemoteBackupsSettingsFragment__signal_backups">Резервне копіювання Signal</string>
+    <string name="RemoteBackupsSettingsFragment__signal_backups">Резервне копіювання від Signal</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Історія платежів</string>
     <!-- Section header for backup information -->
@@ -7989,6 +8030,61 @@
     <string name="RemoteBackupsSettingsFragment__downloading_your_backup">Завантаження резервної копії</string>
     <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Що більший розмір резервної копії, то довше триватиме її завантаження. Поки воно триває, ви можете користуватися телефоном як зазвичай.</string>
+    <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
+    <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
+        <item quantity="one">Передплата на цьому пристрої буде дійсна ще %1$d день. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
+        <item quantity="few">Передплата на цьому пристрої буде дійсна ще %1$d дні. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
+        <item quantity="many">Передплата на цьому пристрої буде дійсна ще %1$d днів. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
+        <item quantity="other">Передплата на цьому пристрої буде дійсна ще %1$d дня. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
+    </plurals>
+    <!-- Button label to start subscription renewal -->
+    <string name="RemoteBackupsSettingsFragment__renew">Поновити</string>
+    <!-- Button label to learn more about why subscription disappeared -->
+    <string name="RemoteBackupsSettingsFragment__learn_more">Докладніше</string>
+    <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
+    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
+        <item quantity="one">%1$s даних вашої резервної копії зберігається не на цьому пристрої. Резервну копію буде видалено через %2$d день, коли скінчиться ваша передплата.</item>
+        <item quantity="few">%1$s даних вашої резервної копії зберігається не на цьому пристрої. Резервну копію буде видалено через %2$d дні, коли скінчиться ваша передплата.</item>
+        <item quantity="many">%1$s даних вашої резервної копії зберігається не на цьому пристрої. Резервну копію буде видалено через %2$d днів, коли скінчиться ваша передплата.</item>
+        <item quantity="other">%1$s даних вашої резервної копії зберігається не на цьому пристрої. Резервну копію буде видалено через %2$d дня, коли скінчиться ваша передплата.</item>
+    </plurals>
+    <!-- Displayed in row when backup is available for download to let user start download -->
+    <string name="RemoteBackupsSettingsFragment__download">Завантажити</string>
+    <!-- Dialog title for skipping download of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_download_question">Не завантажувати?</string>
+    <!-- Dialog body for skiping download of backed up media -->
+    <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
+        <item quantity="one">Якщо пропустити завантаження, медіафайли та вкладення, що залишились у резервній копії, буде видалено через %1$d день.</item>
+        <item quantity="few">Якщо пропустити завантаження, медіафайли та вкладення, що залишились у резервній копії, буде видалено через %1$d дні.</item>
+        <item quantity="many">Якщо пропустити завантаження, медіафайли та вкладення, що залишились у резервній копії, буде видалено через %1$d днів.</item>
+        <item quantity="other">Якщо пропустити завантаження, медіафайли та вкладення, що залишились у резервній копії, буде видалено через %1$d дня.</item>
+    </plurals>
+    <!-- Positive dialog action to skip download -->
+    <string name="RemoteBackupsSettingsFragment__skip">Пропустити</string>
+    <!-- Dialog title for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Не вдалося вимкнути й видалити резервну копію</string>
+    <!-- Dialog body for network error while trying to disable backups -->
+    <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Виникла мережева помилка. Перевірте з\'єднання з інтернетом і вимкніть резервне копіювання ще раз.</string>
+
+    <!-- SubscriptionNotFoundBottomSheet -->
+    <!-- Displayed as a bottom sheet title -->
+    <string name="SubscriptionNotFoundBottomSheet__subscription_not_found">Передплату не знайдено</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_couldnt_be_restored">Не вдалося відновити передплату.</string>
+    <!-- Displayed below title on bottom sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__this_could_happen_if">Можливі причини:</string>
+    <!-- First item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__youre_signed_into_the_play_store_with_a_different_google_account">Ви ввійшли в магазин Google Play через інший акаунт Google.</string>
+    <!-- Second item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__you_transferred_from_an_iphone">Ви перенесли дані з iPhone.</string>
+    <!-- Third item in a bulleted list of reasons -->
+    <string name="SubscriptionNotFoundBottomSheet__your_subscription_recently_expired">Термін передплати нещодавно минув.</string>
+    <!-- Note underneath bullet points -->
+    <string name="SubscriptionNotFoundBottomSheet__if_you_have_an_active_subscription_on">Якщо ви маєте активну передплату на старому телефоні, радимо скасувати її до чергового списання коштів.</string>
+    <!-- Action button label to acknowledge and dismiss sheet -->
+    <string name="SubscriptionNotFoundBottomSheet__got_it">Зрозуміло</string>
+    <!-- Action button label to contact support -->
+    <string name="SubscriptionNotFoundBottomSheet__contact_support">Звернутися в службу підтримки</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -8008,7 +8104,7 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Ключ від резервної копії</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ключ від резервної копії — це 64-значний код, який дозволяє відновити дані з резервної копії в разі перевстановлення Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Your backup key is a 64-character code that lets you restore your backup when you re-install Molly.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Якщо ви забудете цей ключ, то не зможете відновити дані з резервної копії. Molly не зможе допомогти вам з відновленням даних.</string>
     <!-- Action button label -->
@@ -8092,5 +8188,101 @@
 
     <!-- Accessible content description for the reminder view, describing the icon in the view. -->
     <string name="ReminderView_icon_content_description">Значок нагадування</string>
+
+    <!-- Row title for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">У мене лишився старий телефон</string>
+    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+    <string name="WelcomeFragment_restore_action_scan_qr">Для швидшого початку зіскануйте QR-код пристроєм, на якому зараз використовуєте Signal</string>
+
+    <!-- Row title for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">У мене не лишилося старого телефона</string>
+    <!-- Row subtitle for restore/transfer without using a previous device -->
+    <string name="WelcomeFragment_restore_action_reinstalling">Or you\'re reinstalling Molly on the same device</string>
+
+    <!-- Screen title for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Відновлення або перенесення акаунту</string>
+    <!-- Screen subtitle for selecting which restore method to use during registration -->
+    <string name="SelectRestoreMethodFragment__get_your_signal_account">Перенесіть акаунт Signal і історію повідомлень на цей пристрій.</string>
+    <!-- Option title for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Зі сховища резервних копій Signal</string>
+    <!-- Option subtitle for restoring via signal backups -->
+    <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Безкоштовне або платне резервне копіювання від Signal</string>
+    <!-- Option title for restoring via a local backup folder -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_folder">З папки з резервною копією</string>
+    <!-- Option title for restoring via a local backup file -->
+    <string name="SelectRestoreMethodFragment__from_a_backup_file">З файлу резервної копії</string>
+    <!-- Option subtitle for restoring via a local backup -->
+    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Виберіть збережену резервну копію</string>
+    <!-- Option title for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__from_your_old_phone">Зі старого телефона</string>
+    <!-- Option subtitle for restoring via device transfer -->
+    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Перенесіть безпосередньо зі старого пристрою з ОС Android</string>
+
+    <!-- Screen title for restore via local backup -->
+    <string name="RestoreLocalBackup_title">Відновлення з локальної резервної копії</string>
+    <!-- Screen subtitle for restore via local backup -->
+    <string name="RestoreLocalBackup_subtitle">Відновіть повідомлення з резервної копії, збереженої на пристрої. Якщо ви не відновите їх зараз, то не зможете зробити цього пізніше.</string>
+
+    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_title">Введіть ключ від резервної копії</string>
+    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
+    <string name="EnterBackupKey_subtitle">Your backup key is a 64-character code required to recover your account and data.</string>
+    <!-- Button to skip entering backup key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Не зберегли ключа?</string>
+    <!-- Backup key text field hint -->
+    <string name="EnterBackupKey_backup_key">Ключ від резервної копії</string>
+    <!-- Backup key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Backups can\'t be recovered without their 64-character recovery code. If you\'ve lost your backup key Signal can\'t help restore your backup.</string>
+    <!-- Backup key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">If you have your old device you can view your backup key in Settings &gt; Backups. Then tap View backup key.</string>
+    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <string name="EnterBackupKey_learn_more">Докладніше</string>
+    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <string name="EnterBackupKey_skip_and_dont_restore">Продовжити без відновлення</string>
+
+    <!-- Title for restore via qr screen -->
+    <string name="RestoreViaQr_title">Зіскануйте цей QR-код старим телефоном</string>
+    <!-- First instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_1">Відкрийте Signal на старому телефоні</string>
+    <!-- Second instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_2">Торкніться значка камери </string>
+    <!-- Third instruction on what to do with restore via qr code -->
+    <string name="RestoreViaQr_instruction_3">Зіскануйте QR-код камерою</string>
+    <!-- Error message shown when qr code could not be loaded -->
+    <string name="RestoreViaQr_qr_code_error">Не вдалося створити QR-код</string>
+    <!-- Status message shown when qr code already scanned by other device -->
+    <string name="RestoreViaQr_qr_code_scanned">Зіскановано старим пристроєм</string>
+    <!-- Error button text to retry getting a qr code -->
+    <string name="RestoreViaQr_retry">Повторити спробу</string>
+
+    <!-- Old device Transfer account screen title -->
+    <string name="TransferAccount_title">Перенесення акаунту</string>
+    <!-- Old device Transfer account screen body message with learn more placeholder -->
+    <string name="TransferAccount_body">Ваш акаунт буде перенесено на новий пристрій. Такий пристрій зможе бачити ваші групи й контакти, отримає доступ до ваших чатів, і з нього надсилатимуться повідомлення від вашого імені. %1$s</string>
+    <!-- Old device Transfer account learn more placed into TransferAccount_body -->
+    <string name="TransferAccount_learn_more">Докладніше</string>
+    <!-- Old device Transfer account button text to confirm transfer account to new device -->
+    <string name="TransferAccount_button">Перенести акаунт</string>
+    <!-- Old device Transfer account footnote text describing e2e encryption for all data -->
+    <string name="TransferAccount_messages_e2e">Повідомлення й інформацію про чати захищено наскрізним шифруванням на всіх пристроях</string>
+    <!-- Old device Transfer account screen title for system dialog shown to confirm OS device authentication (fingerprint, pattern, pin, etc.) -->
+    <string name="TransferAccount_unlock_to_transfer">Розблокуйте, щоб перенести акаунт</string>
+    <!-- Old device Transfer account bottom sheet dialog title -->
+    <string name="TransferAccount_continue_on_your_other_device">Продовжте на новому пристрої</string>
+    <!-- Old device Transfer account bottom sheet dialog body -->
+    <string name="TransferAccount_continue_on_your_other_device_details">Щоб продовжити перенесення акаунту, візьміть новий пристрій.</string>
+
+    <!-- Restore Complete bottom sheet dialog title -->
+    <string name="RestoreCompleteBottomSheet_restore_complete">Відновлення завершено</string>
+    <!-- Restore Complete bottom sheet dialog message -->
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Почалося перенесення вашого акаунту Signal і повідомлень на новий пристрій. На цьому пристрої Signal більше не активний.</string>
+    <!-- Restore Complete bottom sheet dialog title after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete">Перенесення завершено</string>
+    <!-- Restore Complete bottom sheet dialog message after device transfer -->
+    <string name="RestoreCompleteBottomSheet_transfer_complete_message">Ваш акаунт Signal і повідомлення перенесено на новий пристрій. На цьому пристрої Signal більше не активний.</string>
+    <!-- Restore Complete bottom sheet dialog button text to dismiss sheet -->
+    <string name="RestoreCompleteBottomSheet_button">Зрозуміло</string>
+
+
     <!-- EOF -->
 </resources>

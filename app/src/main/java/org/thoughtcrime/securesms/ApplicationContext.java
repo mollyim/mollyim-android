@@ -47,6 +47,7 @@ import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
+import org.thoughtcrime.securesms.backup.v2.BackupRepository;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
@@ -61,6 +62,7 @@ import org.thoughtcrime.securesms.emoji.EmojiSource;
 import org.thoughtcrime.securesms.emoji.JumboEmoji;
 import org.thoughtcrime.securesms.gcm.FcmFetchManager;
 import org.thoughtcrime.securesms.jobs.AccountConsistencyWorkerJob;
+import org.thoughtcrime.securesms.jobs.BackupRefreshJob;
 import org.thoughtcrime.securesms.jobs.BackupSubscriptionCheckJob;
 import org.thoughtcrime.securesms.jobs.BuildExpirationConfirmationJob;
 import org.thoughtcrime.securesms.jobs.CheckServiceReachabilityJob;
@@ -80,7 +82,9 @@ import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
+import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
@@ -121,12 +125,12 @@ import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWra
 
 import java.io.InterruptedIOException;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.unifiedpush.UnifiedPushDistributor;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -199,7 +203,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addBlocking("security-provider", this::initializeSecurityProvider)
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", this::initializeRx)
-                            .addBlocking("scrubber", () -> Scrubber.setIdentifierHmacKeyProvider(() -> SignalStore.svr().getOrCreateMasterKey().deriveLoggingKey()))
+                            .addBlocking("scrubber", () -> Scrubber.setIdentifierHmacKeyProvider(() -> SignalStore.svr().getMasterKey().deriveLoggingKey()))
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
                             .addBlocking("app-migrations", this::initializeApplicationMigrations)
@@ -276,10 +280,12 @@ public class ApplicationContext extends Application implements AppForegroundObse
     FcmFetchManager.onForeground(this);
 
     SignalExecutors.BOUNDED.execute(() -> {
+      BackupRefreshJob.enqueueIfNecessary();
       RemoteConfig.refreshIfNecessary();
       RetrieveProfileJob.enqueueRoutineFetchIfNecessary();
       executePendingContactSync();
       checkBuildExpiration();
+      checkFreeDiskSpace();
       MemoryTracker.start();
       BackupSubscriptionCheckJob.enqueueIfAble();
 
@@ -357,6 +363,13 @@ public class ApplicationContext extends Application implements AppForegroundObse
     if (Util.getTimeUntilBuildExpiry(SignalStore.misc().getEstimatedServerTime()) <= 0 && !SignalStore.misc().isClientDeprecated()) {
       Log.w(TAG, "Build potentially expired! Enqueing job to check.", true);
       AppDependencies.getJobManager().add(new BuildExpirationConfirmationJob());
+    }
+  }
+
+  public void checkFreeDiskSpace() {
+    if (RemoteConfig.messageBackups()) {
+      long availableBytes = BackupRepository.INSTANCE.getFreeStorageSpace().getBytes();
+      SignalStore.backup().setSpaceAvailableOnDiskBytes(availableBytes);
     }
   }
 
@@ -504,18 +517,35 @@ public class ApplicationContext extends Application implements AppForegroundObse
       return;
     }
 
-    boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
-    boolean forceWebSocket     = SignalStore.internal().isWebsocketModeForced();
-    boolean forceFcm           = !forceWebSocket && SignalStore.internal().isFcmModeForced();
+    NotificationDeliveryMethod method = SignalStore.settings().getPreferredNotificationMethod();
 
-    if (forceWebSocket || !BuildConfig.USE_PLAY_SERVICES) {
+    boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
+    boolean unifiedPushEnabled = SignalStore.unifiedpush().isEnabled();
+
+    if (method != NotificationDeliveryMethod.FCM || !BuildConfig.USE_PLAY_SERVICES) {
       if (fcmEnabled) {
         Log.i(TAG, "Play Services not allowed. Disabling FCM.");
         updateFcmStatus(false);
       } else {
-        Log.d(TAG, "FCM is disabled.");
+        Log.d(TAG, "FCM is already disabled.");
       }
-    } else if (forceFcm && !fcmEnabled && BuildConfig.USE_PLAY_SERVICES) {
+      if (method == NotificationDeliveryMethod.UNIFIEDPUSH) {
+        if (SignalStore.account().isLinkedDevice()) {
+          Log.i(TAG, "UnifiedPush not supported in linked devices.");
+          updateUnifiedPushStatus(false);
+        } else if (!unifiedPushEnabled) {
+          Log.i(TAG, "Switching to UnifiedPush.");
+          updateUnifiedPushStatus(true);
+        } else {
+          AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
+        }
+      } else {
+        if (unifiedPushEnabled) {
+          Log.i(TAG, "Switching to WebSocket.");
+          updateUnifiedPushStatus(false);
+        }
+      }
+    } else if (!fcmEnabled) {
       Log.i(TAG, "FCM preferred. Updating to use FCM.");
       updateFcmStatus(true);
     } else {
@@ -543,6 +573,16 @@ public class ApplicationContext extends Application implements AppForegroundObse
     AppDependencies.getJobManager().startChain(new FcmRefreshJob())
                                    .then(new RefreshAttributesJob())
                                    .enqueue();
+  }
+
+  private void updateUnifiedPushStatus(boolean enabled) {
+    SignalStore.unifiedpush().setEnabled(enabled);
+    if (enabled) {
+      UnifiedPushDistributor.registerApp(SignalStore.unifiedpush().getMollySocketVapid());
+    } else {
+      UnifiedPushDistributor.unregisterApp();
+    }
+    AppDependencies.getJobManager().add(new UnifiedPushRefreshJob());
   }
 
   private void initializeExpiringMessageManager() {

@@ -42,9 +42,12 @@ import org.whispersystems.signalservice.api.archive.ArchiveApi
 import org.whispersystems.signalservice.api.attachment.AttachmentApi
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
 import org.whispersystems.signalservice.api.keys.KeysApi
+import org.whispersystems.signalservice.api.link.LinkDeviceApi
+import org.whispersystems.signalservice.api.registration.RegistrationApi
 import org.whispersystems.signalservice.api.services.CallLinksService
 import org.whispersystems.signalservice.api.services.DonationsService
 import org.whispersystems.signalservice.api.services.ProfileService
+import org.whispersystems.signalservice.api.storage.StorageServiceApi
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import org.whispersystems.signalservice.internal.push.PushServiceSocket
 import java.util.function.Supplier
@@ -98,7 +101,7 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk()
   }
 
-  override fun provideIncomingMessageObserver(): IncomingMessageObserver {
+  override fun provideIncomingMessageObserver(signalWebSocket: SignalWebSocket): IncomingMessageObserver {
     return mockk()
   }
 
@@ -215,6 +218,18 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
   }
 
   override fun provideAttachmentApi(signalWebSocket: SignalWebSocket, pushServiceSocket: PushServiceSocket): AttachmentApi {
+    return mockk()
+  }
+
+  override fun provideLinkDeviceApi(pushServiceSocket: PushServiceSocket): LinkDeviceApi {
+    return mockk()
+  }
+
+  override fun provideRegistrationApi(pushServiceSocket: PushServiceSocket): RegistrationApi {
+    return mockk()
+  }
+
+  override fun provideStorageServiceApi(pushServiceSocket: PushServiceSocket): StorageServiceApi {
     return mockk()
   }
 }

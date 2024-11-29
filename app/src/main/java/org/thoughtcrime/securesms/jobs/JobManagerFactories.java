@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.jobmanager.migrations.SendReadReceiptsJobMigra
 import org.thoughtcrime.securesms.jobmanager.migrations.SenderKeyDistributionSendJobRecipientMigration;
 import org.thoughtcrime.securesms.migrations.AccountConsistencyMigrationJob;
 import org.thoughtcrime.securesms.migrations.AccountRecordMigrationJob;
+import org.thoughtcrime.securesms.migrations.AepMigrationJob;
 import org.thoughtcrime.securesms.migrations.ApplyUnknownFieldsToSelfMigrationJob;
 import org.thoughtcrime.securesms.migrations.AttachmentCleanupMigrationJob;
 import org.thoughtcrime.securesms.migrations.AttachmentHashBackfillMigrationJob;
@@ -102,7 +103,7 @@ public final class JobManagerFactories {
   public static Map<String, Job.Factory> getJobFactories(@NonNull Application application) {
     return new HashMap<String, Job.Factory>() {{
       put(AccountConsistencyWorkerJob.KEY,           new AccountConsistencyWorkerJob.Factory());
-      put("AllDataSyncRequestJob",                   new FailingJob.Factory());
+      put("AllDataSyncRequestJob",                   new FailingJob.Factory()); // MOLLY
       put(AnalyzeDatabaseJob.KEY,                    new AnalyzeDatabaseJob.Factory());
       put(ApkUpdateJob.KEY,                          new ApkUpdateJob.Factory());
       put(ArchiveAttachmentBackfillJob.KEY,          new ArchiveAttachmentBackfillJob.Factory());
@@ -121,7 +122,6 @@ public final class JobManagerFactories {
       put(BackupMessagesJob.KEY,                     new BackupMessagesJob.Factory());
       put(BackupRestoreJob.KEY,                      new BackupRestoreJob.Factory());
       put(BackupRestoreMediaJob.KEY,                 new BackupRestoreMediaJob.Factory());
-      put("BoostReceiptCredentialsSubmissionJob",    new FailingJob.Factory());
       put(BackupSubscriptionCheckJob.KEY,            new BackupSubscriptionCheckJob.Factory());
       put(BuildExpirationConfirmationJob.KEY,        new BuildExpirationConfirmationJob.Factory());
       put(CallLinkPeekJob.KEY,                       new CallLinkPeekJob.Factory());
@@ -131,23 +131,21 @@ public final class JobManagerFactories {
       put(CheckRestoreMediaLeftJob.KEY,              new CheckRestoreMediaLeftJob.Factory());
       put(CheckServiceReachabilityJob.KEY,           new CheckServiceReachabilityJob.Factory());
       put(CleanPreKeysJob.KEY,                       new CleanPreKeysJob.Factory());
-      put(ContactLinkRebuildMigrationJob.KEY,        new ContactLinkRebuildMigrationJob.Factory());
       put(ConversationShortcutRankingUpdateJob.KEY,  new ConversationShortcutRankingUpdateJob.Factory());
       put(ConversationShortcutUpdateJob.KEY,         new ConversationShortcutUpdateJob.Factory());
       put(CopyAttachmentToArchiveJob.KEY,            new CopyAttachmentToArchiveJob.Factory());
       put(CreateReleaseChannelJob.KEY,               new CreateReleaseChannelJob.Factory());
       put(DeleteAbandonedAttachmentsJob.KEY,         new DeleteAbandonedAttachmentsJob.Factory());
       put(DirectoryRefreshJob.KEY,                   new DirectoryRefreshJob.Factory());
-      put("DonationReceiptRedemptionJob",            new FailingJob.Factory());
       put(DownloadLatestEmojiDataJob.KEY,            new DownloadLatestEmojiDataJob.Factory());
       put(EmojiSearchIndexDownloadJob.KEY,           new EmojiSearchIndexDownloadJob.Factory());
       put(FcmRefreshJob.KEY,                         new FcmRefreshJob.Factory());
+      put(UnifiedPushRefreshJob.KEY,                 new UnifiedPushRefreshJob.Factory());  // MOLLY
       put(FetchRemoteMegaphoneImageJob.KEY,          new FetchRemoteMegaphoneImageJob.Factory());
       put(FontDownloaderJob.KEY,                     new FontDownloaderJob.Factory());
       put(ForceUpdateGroupV2Job.KEY,                 new ForceUpdateGroupV2Job.Factory());
       put(ForceUpdateGroupV2WorkerJob.KEY,           new ForceUpdateGroupV2WorkerJob.Factory());
       put(GenerateAudioWaveFormJob.KEY,              new GenerateAudioWaveFormJob.Factory());
-      put("SendGiftJob",                             new FailingJob.Factory());
       put(GroupCallUpdateSendJob.KEY,                new GroupCallUpdateSendJob.Factory());
       put(GroupCallPeekJob.KEY,                      new GroupCallPeekJob.Factory());
       put(GroupCallPeekWorkerJob.KEY,                new GroupCallPeekWorkerJob.Factory());
@@ -195,7 +193,7 @@ public final class JobManagerFactories {
       put(PaymentNotificationSendJobV2.KEY,          new PaymentNotificationSendJobV2.Factory());
       put(PaymentSendJob.KEY,                        new PaymentSendJob.Factory());
       put(PaymentTransactionCheckJob.KEY,            new PaymentTransactionCheckJob.Factory());
-      put("PnpInitializeDevicesJob",                 new FailingJob.Factory());
+      put("PnpInitializeDevicesJob",                 new FailingJob.Factory()); // MOLLY
       put(PreKeysSyncJob.KEY,                        new PreKeysSyncJob.Factory());
       put("ExternalLaunchDonationJob",               new FailingJob.Factory());
       put(ProfileKeySendJob.KEY,                     new ProfileKeySendJob.Factory());
@@ -236,6 +234,7 @@ public final class JobManagerFactories {
       put(SendReadReceiptJob.KEY,                    new SendReadReceiptJob.Factory(application));
       put(SendRetryReceiptJob.KEY,                   new SendRetryReceiptJob.Factory());
       put(SendViewedReceiptJob.KEY,                  new SendViewedReceiptJob.Factory(application));
+      put(StorageRotateManifestJob.KEY,              new StorageRotateManifestJob.Factory());
       put(SyncSystemContactLinksJob.KEY,             new SyncSystemContactLinksJob.Factory());
       put(MultiDeviceStorySendSyncJob.KEY,           new MultiDeviceStorySendSyncJob.Factory());
       put(ResetSvrGuessCountJob.KEY,                 new ResetSvrGuessCountJob.Factory());
@@ -245,9 +244,6 @@ public final class JobManagerFactories {
       put(StorageAccountRestoreJob.KEY,              new StorageAccountRestoreJob.Factory());
       put(StorageForcePushJob.KEY,                   new StorageForcePushJob.Factory());
       put(StorageSyncJob.KEY,                        new StorageSyncJob.Factory());
-      put("SubscriptionKeepAliveJob",                new FailingJob.Factory());
-      put("SubscriptionReceiptCredentialsSubmissionJob", new FailingJob.Factory()); // SubscriptionReceiptRequestResponseJob.java
-      put(SubscriberIdMigrationJob.KEY,              new SubscriberIdMigrationJob.Factory());
       put(StoryOnboardingDownloadJob.KEY,            new StoryOnboardingDownloadJob.Factory());
       put(SubmitRateLimitPushChallengeJob.KEY,       new SubmitRateLimitPushChallengeJob.Factory());
       put(Svr2MirrorJob.KEY,                         new Svr2MirrorJob.Factory());
@@ -261,6 +257,7 @@ public final class JobManagerFactories {
       // Migrations
       put(AccountConsistencyMigrationJob.KEY,           new AccountConsistencyMigrationJob.Factory());
       put(AccountRecordMigrationJob.KEY,                new AccountRecordMigrationJob.Factory());
+      put(AepMigrationJob.KEY,                          new AepMigrationJob.Factory());
       put(ApplyUnknownFieldsToSelfMigrationJob.KEY,     new ApplyUnknownFieldsToSelfMigrationJob.Factory());
       put(AttachmentCleanupMigrationJob.KEY,            new AttachmentCleanupMigrationJob.Factory());
       put(AttachmentHashBackfillMigrationJob.KEY,       new AttachmentHashBackfillMigrationJob.Factory());
@@ -271,9 +268,11 @@ public final class JobManagerFactories {
       put(BackfillDigestsForDuplicatesMigrationJob.KEY, new BackfillDigestsForDuplicatesMigrationJob.Factory());
       put(BackupJitterMigrationJob.KEY,                 new BackupJitterMigrationJob.Factory());
       put(BackupNotificationMigrationJob.KEY,           new BackupNotificationMigrationJob.Factory());
+      put(BackupRefreshJob.KEY,                         new BackupRefreshJob.Factory());
       put(BlobStorageLocationMigrationJob.KEY,          new BlobStorageLocationMigrationJob.Factory());
       put("CachedAttachmentsMigrationJob",              new FailingJob.Factory());
       put(ClearGlideCacheMigrationJob.KEY,              new ClearGlideCacheMigrationJob.Factory());
+      put(ContactLinkRebuildMigrationJob.KEY,        new ContactLinkRebuildMigrationJob.Factory());
       put(CopyUsernameToSignalStoreMigrationJob.KEY,    new CopyUsernameToSignalStoreMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                     new DatabaseMigrationJob.Factory());
       put(DeleteDeprecatedLogsMigrationJob.KEY,         new DeleteDeprecatedLogsMigrationJob.Factory());
@@ -305,6 +304,7 @@ public final class JobManagerFactories {
       put(StorageServiceMigrationJob.KEY,               new StorageServiceMigrationJob.Factory());
       put(StorageServiceSystemNameMigrationJob.KEY,     new StorageServiceSystemNameMigrationJob.Factory());
       put(StoryViewedReceiptsStateMigrationJob.KEY,     new StoryViewedReceiptsStateMigrationJob.Factory());
+      put(SubscriberIdMigrationJob.KEY,              new SubscriberIdMigrationJob.Factory());
       put(Svr2MirrorMigrationJob.KEY,                   new Svr2MirrorMigrationJob.Factory());
       put(SyncCallLinksMigrationJob.KEY,                new SyncCallLinksMigrationJob.Factory());
       put(SyncDistributionListsMigrationJob.KEY,        new SyncDistributionListsMigrationJob.Factory());
@@ -317,46 +317,52 @@ public final class JobManagerFactories {
       put(WallpaperStorageMigrationJob.KEY,             new WallpaperStorageMigrationJob.Factory());
 
       // Dead jobs
-      put(FailingJob.KEY,                            new FailingJob.Factory());
-      put(PassingMigrationJob.KEY,                   new PassingMigrationJob.Factory());
-      put("PushContentReceiveJob",                   new FailingJob.Factory());
-      put("AttachmentUploadJob",                     new FailingJob.Factory());
-      put("MmsSendJob",                              new FailingJob.Factory());
-      put("RefreshUnidentifiedDeliveryAbilityJob",   new FailingJob.Factory());
-      put("Argon2TestJob",                           new FailingJob.Factory());
-      put("Argon2TestMigrationJob",                  new PassingMigrationJob.Factory());
-      put("StorageKeyRotationMigrationJob",          new PassingMigrationJob.Factory());
-      put("StorageSyncJob",                          new StorageSyncJob.Factory());
-      put("WakeGroupV2Job",                          new FailingJob.Factory());
-      put("LeaveGroupJob",                           new FailingJob.Factory());
-      put("PushGroupUpdateJob",                      new FailingJob.Factory());
-      put("RequestGroupInfoJob",                     new FailingJob.Factory());
-      put("RotateSignedPreKeyJob",                   new PreKeysSyncJob.Factory());
-      put("CreateSignedPreKeyJob",                   new PreKeysSyncJob.Factory());
-      put("RefreshPreKeysJob",                       new PreKeysSyncJob.Factory());
-      put("RecipientChangedNumberJob",               new FailingJob.Factory());
-      put("PushTextSendJob",                         new IndividualSendJob.Factory());
-      put("MultiDevicePniIdentityUpdateJob",         new FailingJob.Factory());
-      put("MultiDeviceGroupUpdateJob",               new FailingJob.Factory());
-      put("CallSyncEventJob",                        new FailingJob.Factory());
-      put("RegistrationPinV2MigrationJob",           new FailingJob.Factory());
-      put("KbsEnclaveMigrationWorkerJob",            new FailingJob.Factory());
-      put("KbsEnclaveMigrationJob",                  new PassingMigrationJob.Factory());
-      put("ClearFallbackKbsEnclaveJob",              new FailingJob.Factory());
-      put("PushDecryptJob",                          new FailingJob.Factory());
-      put("PushDecryptDrainedJob",                   new FailingJob.Factory());
-      put("PushProcessJob",                          new FailingJob.Factory());
-      put("DecryptionsDrainedMigrationJob",          new PassingMigrationJob.Factory());
-      put("MmsReceiveJob",                           new FailingJob.Factory());
-      put("MmsDownloadJob",                          new FailingJob.Factory());
-      put("SmsReceiveJob",                           new FailingJob.Factory());
-      put("StoryReadStateMigrationJob",              new PassingMigrationJob.Factory());
-      put("GroupV1MigrationJob",                     new FailingJob.Factory());
-      put("NewRegistrationUsernameSyncJob",          new FailingJob.Factory());
-      put("SmsSendJob",                              new FailingJob.Factory());
-      put("SmsSentJob",                              new FailingJob.Factory());
-      put("MmsSendJobV2",                            new FailingJob.Factory());
-      put("AttachmentUploadJobV2",                   new FailingJob.Factory());
+      put(FailingJob.KEY,                                new FailingJob.Factory());
+      put(PassingMigrationJob.KEY,                       new PassingMigrationJob.Factory());
+      put("PushContentReceiveJob",                       new FailingJob.Factory());
+      put("AttachmentUploadJob",                         new FailingJob.Factory());
+      put("MmsSendJob",                                  new FailingJob.Factory());
+      put("RefreshUnidentifiedDeliveryAbilityJob",       new FailingJob.Factory());
+      put("Argon2TestJob",                               new FailingJob.Factory());
+      put("Argon2TestMigrationJob",                      new PassingMigrationJob.Factory());
+      put("StorageKeyRotationMigrationJob",              new PassingMigrationJob.Factory());
+      put("StorageSyncJob",                              new StorageSyncJob.Factory());
+      put("WakeGroupV2Job",                              new FailingJob.Factory());
+      put("LeaveGroupJob",                               new FailingJob.Factory());
+      put("PushGroupUpdateJob",                          new FailingJob.Factory());
+      put("RequestGroupInfoJob",                         new FailingJob.Factory());
+      put("RotateSignedPreKeyJob",                       new PreKeysSyncJob.Factory());
+      put("CreateSignedPreKeyJob",                       new PreKeysSyncJob.Factory());
+      put("RefreshPreKeysJob",                           new PreKeysSyncJob.Factory());
+      put("RecipientChangedNumberJob",                   new FailingJob.Factory());
+      put("PushTextSendJob",                             new IndividualSendJob.Factory());
+      put("MultiDevicePniIdentityUpdateJob",             new FailingJob.Factory());
+      put("MultiDeviceGroupUpdateJob",                   new FailingJob.Factory());
+      put("CallSyncEventJob",                            new FailingJob.Factory());
+      put("RegistrationPinV2MigrationJob",               new FailingJob.Factory());
+      put("KbsEnclaveMigrationWorkerJob",                new FailingJob.Factory());
+      put("KbsEnclaveMigrationJob",                      new PassingMigrationJob.Factory());
+      put("ClearFallbackKbsEnclaveJob",                  new FailingJob.Factory());
+      put("PushDecryptJob",                              new FailingJob.Factory());
+      put("PushDecryptDrainedJob",                       new FailingJob.Factory());
+      put("PushProcessJob",                              new FailingJob.Factory());
+      put("DecryptionsDrainedMigrationJob",              new PassingMigrationJob.Factory());
+      put("MmsReceiveJob",                               new FailingJob.Factory());
+      put("MmsDownloadJob",                              new FailingJob.Factory());
+      put("SmsReceiveJob",                               new FailingJob.Factory());
+      put("StoryReadStateMigrationJob",                  new PassingMigrationJob.Factory());
+      put("GroupV1MigrationJob",                         new FailingJob.Factory());
+      put("NewRegistrationUsernameSyncJob",              new FailingJob.Factory());
+      put("SmsSendJob",                                  new FailingJob.Factory());
+      put("SmsSentJob",                                  new FailingJob.Factory());
+      put("MmsSendJobV2",                                new FailingJob.Factory());
+      put("AttachmentUploadJobV2",                       new FailingJob.Factory());
+      put("SubscriptionKeepAliveJob",                    new FailingJob.Factory());
+      put("ExternalLaunchDonationJob",                   new FailingJob.Factory());
+      put("BoostReceiptCredentialsSubmissionJob",        new FailingJob.Factory());
+      put("SubscriptionReceiptCredentialsSubmissionJob", new FailingJob.Factory());
+      put("DonationReceiptRedemptionJob",                new FailingJob.Factory());
+      put("SendGiftJob",                                 new FailingJob.Factory());
     }};
   }
 

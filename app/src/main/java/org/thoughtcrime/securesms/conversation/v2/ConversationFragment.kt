@@ -108,6 +108,7 @@ import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.audio.AudioRecorder
+import org.thoughtcrime.securesms.billing.upgrade.UpgradeToStartMediaBackupSheet
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
 import org.thoughtcrime.securesms.components.AnimatingToggle
 import org.thoughtcrime.securesms.components.ComposeText
@@ -129,6 +130,7 @@ import org.thoughtcrime.securesms.components.location.SignalPlace
 import org.thoughtcrime.securesms.components.mention.MentionAnnotation
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsActivity
 import org.thoughtcrime.securesms.components.spoiler.SpoilerAnnotation
 import org.thoughtcrime.securesms.components.voice.VoiceNoteDraft
@@ -2860,6 +2862,14 @@ class ConversationFragment :
       this@ConversationFragment.showPaymentTombstoneLearnMoreDialog()
     }
 
+    override fun onDisplayMediaNoLongerAvailableSheet() {
+      if (SignalStore.backup.areBackupsEnabled) {
+        UpgradeToStartMediaBackupSheet().show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+      } else {
+        MediaNoLongerAvailableBottomSheet().show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+      }
+    }
+
     override fun onMessageWithErrorClicked(messageRecord: MessageRecord) {
       val recipientId = viewModel.recipientSnapshot?.id ?: return
       if (messageRecord.isIdentityMismatchFailure) {
@@ -2986,6 +2996,8 @@ class ConversationFragment :
         startActivity(EditProfileActivity.getIntentForUsernameEdit(requireContext()))
       } else if ("calls_tab" == action) {
         startActivity(MainActivity.clearTopAndOpenTab(requireContext(), ConversationListTab.CALLS))
+      } else if ("chat_folder" == action) {
+        startActivity(AppSettingsActivity.chatFolders(requireContext()))
       }
     }
 

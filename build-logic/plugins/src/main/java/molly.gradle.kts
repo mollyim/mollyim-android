@@ -16,7 +16,7 @@ object StringsXmlParser {
     val doc = docBuilder.parse(stringsFile).apply {
       xmlStandalone = true
     }
-    return doc to doc.getStringElements()
+    return doc to doc.getElements("string") + doc.getElements("plurals")
   }
 
   fun writeToFile(doc: Document, file: File) {
@@ -24,9 +24,9 @@ object StringsXmlParser {
     transformer.transform(DOMSource(doc), StreamResult(file))
   }
 
-  private fun Document.getStringElements() =
-    getElementsByTagName("string").let { nodeList ->
-      (0 until nodeList.length).map { nodeList.item(it) as Element }
+  private fun Document.getElements(tagName: String) =
+    getElementsByTagName(tagName).let { nodes ->
+      (0 until nodes.length).map { nodes.item(it) as Element }
     }
 }
 
@@ -39,7 +39,7 @@ val updateTranslationsForMolly by tasks.registering {
     val (_, englishStrings) = StringsXmlParser.parse(englishFile)
 
     // Gather all string names containing "mollyify" attribute
-    val mollyStringNames = englishStrings
+    val mollyifyList = englishStrings
       .filter { it.getAttribute("mollyify") == "true" }
       .map { it.getAttribute("name") }
       .toSet()
@@ -52,20 +52,25 @@ val updateTranslationsForMolly by tasks.registering {
         val (translationDoc, translatedStrings) = StringsXmlParser.parse(translationFile)
         var modified = false
 
-        translatedStrings.forEach { translatedString ->
-          with(translatedString) {
-            val stringName = getAttribute("name")
-            if (stringName in mollyStringNames) {
-              val oldContent = textContent
-              textContent = textContent
-                .replace("Signal", "Molly")
-                .replace("signal.org", "molly.im")
-              if (oldContent != textContent) {
-                modified = true
+        translatedStrings.forEach { elem ->
+          val name = elem.getAttribute("name")
+          if (name in mollyifyList) {
+            when (elem.tagName) {
+              "string" -> {
+                modified = elem.replaceSignalRefs() or modified
+              }
+
+              "plurals" -> {
+                val items = elem.getElementsByTagName("item")
+                for (i in 0 until items.length) {
+                  val item = items.item(i) as Element
+                  modified = item.replaceSignalRefs() or modified
+                }
               }
             }
           }
         }
+
         if (modified) {
           // Write back the modified translation file only if replacements were made
           StringsXmlParser.writeToFile(translationDoc, translationFile)
@@ -76,6 +81,14 @@ val updateTranslationsForMolly by tasks.registering {
       }
     }
   }
+}
+
+private fun Element.replaceSignalRefs(): Boolean {
+  val oldContent = textContent
+  textContent = textContent
+    .replace("Signal", "Molly")
+    .replace("signal.org", "molly.im")
+  return oldContent != textContent
 }
 
 val version by tasks.registering {

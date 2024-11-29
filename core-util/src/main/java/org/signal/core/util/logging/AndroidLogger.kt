@@ -42,7 +42,7 @@ object AndroidLogger : Log.Logger() {
       val process = Runtime.getRuntime().exec("logcat -d")
       val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
       val log = StringBuilder()
-      val separator = System.getProperty("line.separator")
+      val separator = System.lineSeparator()
       do {
         val line = bufferedReader.readLine() ?: break
         log.append(line)
