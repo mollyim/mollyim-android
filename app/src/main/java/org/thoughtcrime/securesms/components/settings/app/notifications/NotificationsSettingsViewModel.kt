@@ -128,6 +128,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
   fun initializeMollySocket(mollySocket: MollySocket) {
     SignalStore.unifiedpush.apply {
       airGapped = mollySocket is MollySocket.AirGapped
+      lastReceivedTime = 0
       mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
       mollySocketVapid = mollySocket.vapid
     }

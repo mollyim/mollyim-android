@@ -428,8 +428,8 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
         if (method != previousMethod) {
           MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.NotificationsSettingsFragment__mollysocket_server)
-            .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_running_mollysocket)
-            .setPositiveButton(R.string.RegistrationActivity_i_understand) { _, _ ->
+            .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server)
+            .setPositiveButton(R.string.AddLinkDeviceFragment__scan_qr_code) { _, _ ->
               qrScanLauncher.launch()
             }
             .setNegativeButton(R.string.RegistrationActivity_cancel, null)

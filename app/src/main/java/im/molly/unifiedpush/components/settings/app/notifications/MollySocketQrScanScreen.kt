@@ -1,17 +1,14 @@
 package im.molly.unifiedpush.components.settings.app.notifications
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,7 +45,7 @@ fun MollySocketQrScanScreen(
 ) {
   when (qrScanResult) {
     QrScanResult.InvalidData -> {
-      QrScanResultDialog(message = stringResource(R.string.MollySocketLink_the_qr_code_was_invalid), onDismiss = onQrResultHandled)
+      QrScanResultDialog(message = stringResource(R.string.UsernameLinkSettings_qr_result_invalid), onDismiss = onQrResultHandled)
     }
 
     QrScanResult.NetworkError -> {
@@ -97,7 +94,7 @@ fun MollySocketQrScanScreen(
         },
         hasPermission = hasCameraPermission,
         onRequestPermissions = onOpenCameraClicked,
-        qrHeaderLabelString = ""
+        qrHeaderLabelString = stringResource(R.string.MollySocketLink_scan_the_qr_code)
       )
       FloatingActionButton(
         shape = CircleShape,
@@ -113,20 +110,6 @@ fun MollySocketQrScanScreen(
           colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
         )
       }
-    }
-
-    Row(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp),
-      verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.Center
-    ) {
-      Text(
-        text = stringResource(R.string.UsernameLinkSettings_qr_scan_description),
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
-      )
     }
   }
 }

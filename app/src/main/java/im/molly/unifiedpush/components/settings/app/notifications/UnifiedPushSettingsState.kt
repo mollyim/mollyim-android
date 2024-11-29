@@ -15,7 +15,7 @@ data class UnifiedPushSettingsState(
   val registrationStatus: RegistrationStatus,
   val distributors: List<Distributor>,
   val selected: Int,
+  val selectedNotAck: Boolean,
   val endpoint: String?,
   val mollySocketUrl: String?,
-  val serverUnreachable: Boolean?,
 )
