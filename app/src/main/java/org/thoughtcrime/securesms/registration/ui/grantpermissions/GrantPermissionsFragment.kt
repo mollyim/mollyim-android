@@ -6,6 +6,7 @@
 package org.thoughtcrime.securesms.registration.ui.grantpermissions
 
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -28,6 +29,7 @@ import org.thoughtcrime.securesms.registration.fragments.WelcomePermissions
 import org.thoughtcrime.securesms.registration.ui.RegistrationCheckpoint
 import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
 import org.thoughtcrime.securesms.restore.RestoreActivity
+import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.BackupUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -97,6 +99,11 @@ class GrantPermissionsFragment : ComposeFragment() {
     }
     sharedViewModel.maybePrefillE164(requireContext())
     sharedViewModel.setRegistrationCheckpoint(RegistrationCheckpoint.PERMISSIONS_GRANTED)
+    // MOLLY: Repost LOCKED_STATUS notification; run even if POST_NOTIFICATION is denied
+    val intent = Intent(requireContext(), KeyCachingService::class.java).apply {
+      action = KeyCachingService.LOCALE_CHANGE_EVENT
+    }
+    requireContext().startService(intent)
     proceedToNextScreen()
   }
 
