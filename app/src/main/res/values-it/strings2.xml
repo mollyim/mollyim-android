@@ -118,4 +118,14 @@
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Una volta associati, i nuovi messaggi vengono sincronizzati tra i dispositivi, ma la cronologia dei messaggi precedenti non verrà trasferita.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly consente di associare altri dispositivi Android che utilizzano Molly, oltre a computer e iPad che utilizzano Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Per Android: Visitare %s per installare Molly.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Notifiche</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Consentire a Molly di inviare notifiche tempestive, anche quando il dispositivo è in standby.</string>
+    <string name="DozeReminder_disable_battery_restrictions">Disattivare le restrizioni della batteria</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Impossibile registrarsi con Play Services</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Passare a un servizio alternativo di notifica in Impostazioni &gt; Notifiche o risolvere il problema con Play Services.</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">Si è verificato un errore durante la registrazione per le notifiche. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Verificare che Google Play Services sia installato e abilitato, oppure passare a un servizio alternativo di notifica.</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Selezionare il servizio preferito per le notifiche. Se non è disponibile, l\'applicazione utilizzerà automaticamente WebSocket per garantire la consegna delle notifiche.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Servizio di consegna</string>
+    <string name="IncomingMessageObserver_websocket_service">Servizio WebSocket</string>
 </resources>

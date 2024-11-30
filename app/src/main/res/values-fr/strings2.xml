@@ -118,4 +118,14 @@
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly peut être lié à d\'autres appareils Android avec Molly, ainsi qu\'avec des ordinateurs et des iPads avec Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Pour les appareils Android : Visitez %s pour installer Molly.</string>
     <string name="LinkDeviceFragment__use_molly_on_another_devices">Utilisez Molly sur un autre appareil. Vos messages seront synchronisés avec vos appareils liés.</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Autoriser Molly à fournir des notifications en temps opportun, même lorsque votre appareil est en veille.</string>
+    <string name="DozeReminder_disable_battery_restrictions">Désactiver les limitations de la batterie</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Impossible de s’inscrire auprès de Play Services</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Passer à un service de poussées alternatif dans Paramètres &gt; Notifications ou corrigez le problème avec Play Services.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Notifications poussées</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Sélectionnez votre service préféré pour les notifications poussées. Si elle n\'est pas disponible, l\'application utilisera automatiquement WebSocket pour assurer la distribution des notifications.</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">Une erreur s\'est produite lors de l\'enregistrement pour les notifications poussées. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Veuillez vérifier si Google Play Services est installé et activé, ou passer à un autre service de notifications poussées.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Service de distribution</string>
+    <string name="IncomingMessageObserver_websocket_service">Service WebSocket</string>
 </resources>

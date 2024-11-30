@@ -120,4 +120,14 @@
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Odată asociate, mesajele noi se sincronizează între aparate, dar mesajele anterioare nu vor fi transferate.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly acceptă asocierea cu alte aparate Android care utilizează Molly, precum și cu iPad-uri și computere care utilizează Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Pentru Android: A se vedea %s pentru a instala Molly.</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Nu se poate înregistra la Play Services</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Permite ca Molly să transmită rapid notificările, chiar și atunci când aparatul tău nu este utilizat.</string>
+    <string name="DozeReminder_disable_battery_restrictions">Dezactivează restricțiile bateriei</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Treci la un serviciu alternativ de notificare în Reglări &gt; Notificări sau rezolvă problema cu Play Services.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Notificări</string>
+    <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">A apărut o eroare în timpul înregistrării pentru notificări. %s</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Verifică dacă Google Play Services este instalat și activat sau treci la un serviciu alternativ de notificare.</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Alege serviciul preferat pentru notificări. Dacă nu este disponibil, aplicația va utiliza automat WebSocket pentru a se asigura că notificările vor fi livrate.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Serviciul de livrare</string>
+    <string name="IncomingMessageObserver_websocket_service">Serviciul WebSocket</string>
 </resources>
