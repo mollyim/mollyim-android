@@ -41,12 +41,16 @@
 
     <style name="AppCompatAlertDialogStyleLight" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/signal_colorPrimary</item>
-        <item name="android:textColor">@null</item>
+        <item name="colorOnPrimary">@color/signal_colorPrimary</item>
+        <item name="android:colorBackground">@color/signal_colorSurface1</item>
+        <item name="android:textColor">@color/signal_colorOnSurface</item>
     </style>
 
     <style name="AppCompatAlertDialogStyleDark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/signal_colorPrimary</item>
-        <item name="android:textColor">@null</item>
+        <item name="colorOnPrimary">@color/signal_colorPrimary</item>
+        <item name="android:colorBackground">@color/signal_colorSurface1</item>
+        <item name="android:textColor">@color/signal_colorOnSurface</item>
     </style>
 
     <style name="AppCompatDialogStyleLight" parent="Theme.AppCompat.Light.Dialog">

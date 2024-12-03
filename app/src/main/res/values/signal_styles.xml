@@ -250,7 +250,7 @@
 
     <style name="Widget.Signal.CheckedTextView" parent="Widget.Material3.CheckedTextView">
         <item name="android:textAppearance">@style/Signal.Text.BodyLarge</item>
-        <item name="android:textColor">@color/signal_colorOnSurfaceVariant</item>
+        <item name="android:textColor">@color/signal_colorOnSurface</item>
         <item name="drawableTint">@color/signal_selection_control_button_tint</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/signal_selection_control_button_tint</item>
     </style>
