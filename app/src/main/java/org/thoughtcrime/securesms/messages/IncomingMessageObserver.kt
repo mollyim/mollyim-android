@@ -504,7 +504,7 @@ class IncomingMessageObserver(private val context: Application, private val sign
         .setPriority(NotificationCompat.PRIORITY_MIN)
         .setCategory(NotificationCompat.CATEGORY_SERVICE)
         .setWhen(0)
-        .setSmallIcon(R.drawable.ic_molly_background_connection)
+        .setSmallIcon(R.drawable.ic_notification_websocket)
         .build()
       return notification
     }
