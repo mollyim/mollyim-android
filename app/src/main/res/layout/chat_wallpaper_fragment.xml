@@ -22,7 +22,7 @@
                 android:id="@+id/chat_wallpaper_preview_lightbox"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@color/signal_background_tertiary"
+                android:background="@color/settings_chat_wallpaper_preview_background"
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_space"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
