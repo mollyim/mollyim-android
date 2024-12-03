@@ -17,7 +17,8 @@ enum class UsernameQrCodeColorScheme(
     borderColor = Color(0xFF506ECD),
     foregroundColor = Color(0xFF2449C0),
     backgroundColor = Color(0xFFEDF0FA),
-    key = "blue"
+    // MOLLY: blue is the new purple
+    key = "purple"
   ),
   White(
     borderColor = Color(0xFFFFFFFF),
@@ -61,7 +62,8 @@ enum class UsernameQrCodeColorScheme(
     borderColor = Color(0xFF9E7BE9),
     foregroundColor = Color(0xFF7651C5),
     backgroundColor = Color(0xFFF5F3FA),
-    key = "purple"
+    // MOLLY: purple is upstream blue
+    key = "blue"
   );
 
   fun serialize(): String {

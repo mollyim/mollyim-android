@@ -76,7 +76,7 @@ class CreateReleaseChannelJob private constructor(parameters: Parameters) : Base
     AvatarRenderer.renderAvatar(
       context,
       Avatar.Resource(
-        R.drawable.ic_molly_logo,
+        R.drawable.logo_round_filled,
         Avatars.ColorPair(ContextCompat.getColor(context, R.color.notification_background_ultramarine), ContextCompat.getColor(context, R.color.core_white), "")
       ),
       onAvatarRendered = { media ->

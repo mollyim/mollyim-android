@@ -9,9 +9,9 @@ object ChatColorsPalette {
     // region Default
 
     @JvmField
-    val ULTRAMARINE = ChatColors.forColor(
+    val INDIGO = ChatColors.forColor(
       ChatColors.Id.BuiltIn,
-      0xFF5F4BF1.toInt()
+      0xFF315FF4.toInt()
     )
 
     // endregion
@@ -40,8 +40,7 @@ object ChatColorsPalette {
     val BLUE = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF336BA3.toInt())
 
     @JvmField
-    // MOLLY: Preserving the original ULTRAMARINE color
-    val INDIGO = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF315FF4.toInt())
+    val ULTRAMARINE = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF6058CA.toInt())
 
     @JvmField
     val VIOLET = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF9932CB.toInt())
