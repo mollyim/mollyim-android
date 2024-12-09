@@ -26,13 +26,17 @@ import java.util.concurrent.TimeUnit
  */
 class UnifiedPushRefreshJob private constructor(
   private val testPing: Boolean,
+  private val fromNewEndpoint: Boolean,
   parameters: Parameters,
 ) : BaseJob(parameters) {
 
   constructor() : this(testPing = false)
 
-  constructor(testPing: Boolean) : this(
+  constructor(testPing: Boolean) : this(testPing = testPing, fromNewEndpoint = false)
+
+  constructor(testPing: Boolean, fromNewEndpoint: Boolean) : this(
     testPing = testPing,
+    fromNewEndpoint = fromNewEndpoint,
     parameters = Parameters.Builder()
       .setQueue(FcmRefreshJob.QUEUE_KEY)
       .addConstraint(NetworkConstraint.KEY)
@@ -107,7 +111,9 @@ class UnifiedPushRefreshJob private constructor(
       }
     }
 
-    UnifiedPushDistributor.registerApp(vapid)
+    if (!fromNewEndpoint) {
+      UnifiedPushDistributor.registerApp(vapid)
+    }
 
     if (!UnifiedPushDistributor.checkIfActive() || endpoint == null) {
       Log.e(TAG, "Distributor is not active or endpoint is missing.")
@@ -163,6 +169,7 @@ class UnifiedPushRefreshJob private constructor(
   override fun serialize(): ByteArray? {
     return JsonJobData.Builder()
       .putBoolean(KEY_PING, testPing)
+      .putBoolean(KEY_FROM_NEW_ENDPOINT, fromNewEndpoint)
       .serialize()
   }
 
@@ -173,6 +180,7 @@ class UnifiedPushRefreshJob private constructor(
       val data = JsonJobData.deserialize(serializedData)
       return UnifiedPushRefreshJob(
         testPing = data.getBoolean(KEY_PING),
+        fromNewEndpoint = data.getBoolean(KEY_FROM_NEW_ENDPOINT),
         parameters = parameters,
       )
     }
@@ -183,5 +191,6 @@ class UnifiedPushRefreshJob private constructor(
 
     const val KEY = "UnifiedPushRefreshJob"
     private const val KEY_PING = "ping"
+    private const val KEY_FROM_NEW_ENDPOINT = "fromNewEndpoint"
   }
 }
