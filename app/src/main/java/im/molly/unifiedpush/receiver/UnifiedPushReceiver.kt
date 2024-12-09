@@ -90,7 +90,7 @@ class UnifiedPushReceiver : MessagingReceiver() {
       message.contains("\"test\":true") -> {
         Log.d(TAG, "Test message received.")
         UnifiedPushNotificationBuilder(context).setNotificationTest()
-        AppDependencies.jobManager.add(UnifiedPushRefreshJob())
+        AppDependencies.jobManager.add(UnifiedPushRefreshJob(testPing = false, fromNewEndpoint = true))
       }
 
       else -> {
@@ -117,7 +117,7 @@ class UnifiedPushReceiver : MessagingReceiver() {
     val stored = SignalStore.unifiedpush.endpoint
     return if (endpoint != stored) {
       SignalStore.unifiedpush.endpoint = endpoint
-      AppDependencies.jobManager.add(UnifiedPushRefreshJob())
+      AppDependencies.jobManager.add(UnifiedPushRefreshJob(testPing = false, fromNewEndpoint = true))
       true
     } else false
   }
