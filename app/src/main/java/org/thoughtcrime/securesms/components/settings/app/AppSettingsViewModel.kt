@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
-import org.thoughtcrime.securesms.components.settings.app.subscription.InAppDonations
 import org.thoughtcrime.securesms.conversationlist.model.UnreadPaymentsLiveData
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -17,10 +16,9 @@ class AppSettingsViewModel : ViewModel() {
 
   private val store = Store(
     AppSettingsState(
-      0,
-      SignalStore.inAppPayments.isLikelyASustainer() || InAppDonations.hasAtLeastOnePaymentMethodAvailable(),
-      TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
-      SignalStore.misc.isClientDeprecated
+      unreadPaymentsCount = 0,
+      userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
+      clientDeprecated = SignalStore.misc.isClientDeprecated,
     )
   )
 
