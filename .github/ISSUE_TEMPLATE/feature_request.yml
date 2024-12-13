@@ -1,17 +1,19 @@
-name: ✨ Feature request
-description: Suggest an idea for Molly
+name: "✨ Feature Request"
+description: "Suggest a new feature or enhancement."
 labels: [ "feature-request" ]
 body:
   - type: checkboxes
+    id: guidelines
     attributes:
-      label: Is there an existing request for this?
-      description: Please search to see if there are already any open or closed issues to avoid creating duplicates.
+      label: "Guidelines"
+      description: "Please search for similar requests to avoid duplicates. If you find a similar one, comment there instead. [Search existing requests](https://github.com/mollyim/mollyim-android/issues?q=is%3Aissue+label%3Afeature-request)."
       options:
-        - label: I have searched the existing issues
+        - label: "Yes, I have searched the existing requests"
           required: true
   - type: textarea
+    id: description-of-feature
     attributes:
-      label: Feature description
-      description: Describe the feature you'd like to see.
+      label: "Feature Description"
+      description: "Describe the feature you'd like to see added."
     validations:
       required: true

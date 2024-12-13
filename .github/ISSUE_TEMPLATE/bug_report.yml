@@ -1,66 +1,62 @@
-name: 🛠️ Bug report
-description: Let us know that something isn't working as intended
+name: "🐛 Bug Report"
+description: "Help us fix issues by providing a detailed report."
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
   - type: checkboxes
+    id: guidelines
     attributes:
-      label: Is there an existing issue for this?
-      description: Please search to see if an issue already exists to avoid creating duplicates.
+      label: "Guidelines"
+      description: "Please check for existing issues first: https://github.com/mollyim/mollyim-android/issues/?q=is%3Aissue"
       options:
-        - label: I have searched the existing issues
+        - label: "Yes, I have searched for duplicates"
           required: true
   - type: textarea
-    id: description
+    id: description-of-bug
     attributes:
-      label: Bug description
-      description: |
-        Describe here the issue that you're experiencing.
-
-        Tip: You can attach images by clicking this area to highlight it and then dragging files in.
+      label: "Bug Description"
+      description: "Explain the problem clearly, including steps to reproduce."
+      placeholder: "What did you do, and what went wrong?"
     validations:
       required: true
   - type: textarea
-    id: result
+    id: screenshots
     attributes:
-      label: Steps to reproduce
-      description: Share the steps needed to reliably reproduce the problem. Please include actual and expected results.
-      value: |
-        1.
-        2.
+      label: "Screenshots"
+      description: "How to take screenshots: https://support.google.com/android/answer/9075928"
+      placeholder: "Drag and drop images or videos here."
     validations:
       required: false
   - type: input
-    id: version
+    id: device-model
     attributes:
-      label: Molly version
-      description: What version of Molly are you running?
-      placeholder: v0.0.0-0-FOSS
-    validations:
-      required: true
-  - type: input
-    id: os
-    attributes:
-      label: Android version
-      description: What version of Android you have on your device?
-      placeholder: Android 12
+      label: "Device Model"
+      description: "Found in Settings → About Phone."
+      placeholder: "e.g. Samsung Galaxy S24"
     validations:
       required: false
   - type: input
-    id: device
+    id: android-version
     attributes:
-      label: Device
-      description: What device are you seeing the problem on?
-      placeholder: Manufacturer Model
+      label: "Android Version"
+      description: "Found in Settings → About Phone."
+      placeholder: "e.g. Android 14"
     validations:
       required: false
   - type: input
-    id: debuglog
+    id: app-version
     attributes:
-      label: Link to debug log
-      description: Immediately after the bug has happened submit a debug log via Molly's settings (Help -> Debug log) and paste the link below.
-      placeholder: https://debuglogs.org/
+      label: "Molly Version"
+      description: "Found in Molly's Settings → Help"
+      placeholder: "App version, e.g. 7.17.6-1"
+    validations:
+      required: false
+  - type: input
+    id: debug-log
+    attributes:
+      label: "Link to Debug Log"
+      description: |
+        If possible, include a debug log via Molly’s Settings → Help → Debug Log. 
+        Copy the URL here. Logs cover ~24 hours, so capture it soon after encountering the bug.
+        More info: https://support.signal.org/hc/en-us/articles/360007318591#android_debug
+      placeholder: "e.g. https://debuglogs.org/..."
     validations:
       required: false
