@@ -78,15 +78,14 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.payments.FailureReason
 import org.thoughtcrime.securesms.payments.State
-import org.thoughtcrime.securesms.payments.proto.PaymentMetaData
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.JsonUtils
+import org.thoughtcrime.securesms.util.MediaUtil
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.api.util.toByteArray
 import java.io.Closeable
 import java.io.IOException
-import java.util.HashMap
 import java.util.LinkedList
 import java.util.Queue
 import java.util.concurrent.Callable
@@ -221,8 +220,8 @@ class ChatItemArchiveExporter(
 
         MessageTypes.isExpirationTimerUpdate(record.type) -> {
           builder.updateMessage = ChatUpdateMessage(expirationTimerChange = ExpirationTimerChatUpdate(record.expiresIn))
-          builder.expireStartDate = 0
-          builder.expiresInMs = 0
+          builder.expireStartDate = null
+          builder.expiresInMs = null
         }
 
         MessageTypes.isProfileChange(record.type) -> {
@@ -238,7 +237,12 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isGroupV2(record.type) && MessageTypes.isGroupUpdate(record.type) -> {
-          builder.updateMessage = record.toRemoteGroupUpdate() ?: continue
+          val update = record.toRemoteGroupUpdate() ?: continue
+          if (update.groupChange!!.updates.isEmpty()) {
+            Log.w(TAG, "Group update record with ID ${record.id} missing updates. Skipping.")
+            continue
+          }
+          builder.updateMessage = update
         }
 
         MessageTypes.isGroupV1MigrationEvent(record.type) -> {
@@ -390,43 +394,43 @@ private fun BackupMessageRecord.toBasicChatItemBuilder(selfRecipientId: Recipien
     chatId = record.threadId
     authorId = record.fromRecipientId
     dateSent = record.dateSent
-    expireStartDate = if (record.expireStarted > 0) record.expireStarted else 0
-    expiresInMs = if (record.expiresIn > 0) record.expiresIn else 0
+    expireStartDate = record.expireStarted.takeIf { it > 0 }
+    expiresInMs = record.expiresIn.takeIf { it > 0 }
     revisions = emptyList()
     sms = record.type.isSmsType()
-    if (record.type.isDirectionlessType()) {
+    if (record.type.isDirectionlessType() || record.messageExtras?.gv2UpdateDescription != null) {
       directionless = ChatItem.DirectionlessMessageDetails()
     } else if (MessageTypes.isOutgoingMessageType(record.type) || record.fromRecipientId == selfRecipientId.toLong()) {
       outgoing = ChatItem.OutgoingMessageDetails(
         sendStatus = record.toRemoteSendStatus(isGroupThread, groupReceipts, exportState)
       )
 
-      if (expiresInMs > 0 && outgoing?.sendStatus?.all { it.pending == null && it.failed == null } == true) {
+      if (expiresInMs != null && outgoing?.sendStatus?.all { it.pending == null && it.failed == null } == true) {
         Log.w(TAG, "Outgoing expiring message was sent but the timer wasn't started! Fixing.")
         expireStartDate = record.dateReceived
       }
     } else {
       incoming = ChatItem.IncomingMessageDetails(
-        dateServerSent = max(record.dateServer, 0),
+        dateServerSent = record.dateServer.takeIf { it > 0 },
         dateReceived = record.dateReceived,
         read = record.read,
         sealedSender = record.sealedSender
       )
 
-      if (expiresInMs > 0 && incoming?.read == true && expireStartDate == 0L) {
+      if (expiresInMs != null && incoming?.read == true && expireStartDate == null) {
         Log.w(TAG, "Incoming expiring message was read but the timer wasn't started! Fixing.")
         expireStartDate = record.dateReceived
       }
     }
   }
 
-  if (!MessageTypes.isExpirationTimerUpdate(record.type) && builder.expiresInMs > 0 && builder.expireStartDate + builder.expiresInMs < backupStartTime + 1.days.inWholeMilliseconds) {
+  if (!MessageTypes.isExpirationTimerUpdate(record.type) && builder.expiresInMs != null && builder.expireStartDate != null && builder.expireStartDate!! + builder.expiresInMs!! < backupStartTime + 1.days.inWholeMilliseconds) {
     Log.w(TAG, "Message expires too soon! Must skip.")
     return null
   }
 
-  if (builder.expireStartDate > 0 && builder.expiresInMs == 0L) {
-    builder.expireStartDate = 0
+  if (builder.expireStartDate != null && builder.expiresInMs == null) {
+    builder.expireStartDate = null
   }
 
   return builder
@@ -542,7 +546,10 @@ private fun CallTable.Call.toRemoteCallUpdate(db: SignalDatabase, messageRecord:
             CallTable.Event.NOT_ACCEPTED -> IndividualCall.State.NOT_ACCEPTED
             CallTable.Event.ONGOING -> IndividualCall.State.ACCEPTED
             CallTable.Event.DELETE -> return null
-            else -> IndividualCall.State.UNKNOWN_STATE
+            else -> {
+              Log.w(TAG, "Unable to map 1:1 call state from event: ${this.event.name}")
+              IndividualCall.State.UNKNOWN_STATE
+            }
           },
           startedCallTimestamp = this.timestamp,
           read = messageRecord.read
@@ -781,7 +788,18 @@ private fun BackupMessageRecord.toRemoteQuote(mediaArchiveEnabled: Boolean, atta
     return null
   }
 
-  val type = QuoteModel.Type.fromCode(this.quoteType)
+  val localType = QuoteModel.Type.fromCode(this.quoteType)
+  val remoteType = when (localType) {
+    QuoteModel.Type.NORMAL -> {
+      if (attachments?.any { it.contentType == MediaUtil.VIEW_ONCE } == true) {
+        Quote.Type.VIEW_ONCE
+      } else {
+        Quote.Type.NORMAL
+      }
+    }
+    QuoteModel.Type.GIFT_BADGE -> Quote.Type.GIFT_BADGE
+  }
+
   return Quote(
     targetSentTimestamp = this.quoteTargetSentTimestamp.takeIf { !this.quoteMissing && it != MessageTable.QUOTE_TARGET_MISSING_ID },
     authorId = this.quoteAuthor,
@@ -791,11 +809,12 @@ private fun BackupMessageRecord.toRemoteQuote(mediaArchiveEnabled: Boolean, atta
         bodyRanges = this.quoteBodyRanges?.toRemoteBodyRanges() ?: emptyList()
       )
     },
-    attachments = attachments?.toRemoteQuoteAttachments(mediaArchiveEnabled) ?: emptyList(),
-    type = when (type) {
-      QuoteModel.Type.NORMAL -> Quote.Type.NORMAL
-      QuoteModel.Type.GIFT_BADGE -> Quote.Type.GIFTBADGE
-    }
+    attachments = if (remoteType == Quote.Type.VIEW_ONCE) {
+      emptyList()
+    } else {
+      attachments?.toRemoteQuoteAttachments(mediaArchiveEnabled) ?: emptyList()
+    },
+    type = remoteType
   )
 }
 
@@ -841,7 +860,7 @@ private fun List<DatabaseAttachment>.toRemoteQuoteAttachments(mediaArchiveEnable
         mediaArchiveEnabled = mediaArchiveEnabled,
         flagOverride = MessageAttachment.Flag.NONE,
         contentTypeOverride = "image/jpeg"
-      ).takeUnless { it.pointer?.invalidAttachmentLocator != null }
+      )
     )
   }
 }
@@ -882,17 +901,15 @@ private fun PaymentTable.PaymentTransaction.toRemoteTransactionDetails(): Paymen
       timestamp = this.timestamp,
       blockIndex = this.blockIndex,
       blockTimestamp = this.blockTimestamp,
-      mobileCoinIdentification = this.paymentMetaData.mobileCoinTxoIdentification?.toRemote(),
+      mobileCoinIdentification = this.paymentMetaData.mobileCoinTxoIdentification?.let {
+        PaymentNotification.TransactionDetails.MobileCoinTxoIdentification(
+          publicKey = it.publicKey.takeIf { this.direction.isReceived } ?: emptyList(),
+          keyImages = it.keyImages.takeIf { this.direction.isSent } ?: emptyList()
+        )
+      },
       transaction = this.transaction?.toByteString(),
       receipt = this.receipt?.toByteString()
     )
-  )
-}
-
-private fun PaymentMetaData.MobileCoinTxoIdentification.toRemote(): PaymentNotification.TransactionDetails.MobileCoinTxoIdentification {
-  return PaymentNotification.TransactionDetails.MobileCoinTxoIdentification(
-    publicKey = this.publicKey,
-    keyImages = this.keyImages
   )
 }
 

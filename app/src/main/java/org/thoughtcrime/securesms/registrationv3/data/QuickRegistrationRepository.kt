@@ -11,7 +11,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import org.signal.core.util.Base64.decode
-import org.signal.core.util.Hex
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.InvalidKeyException
@@ -81,15 +80,16 @@ object QuickRegistrationRepository {
           RegistrationProvisionMessage(
             e164 = SignalStore.account.requireE164(),
             aci = SignalStore.account.requireAci().toByteString(),
-            accountEntropyPool = Hex.toStringCondensed(SignalStore.svr.masterKey.serialize()),
+            accountEntropyPool = SignalStore.account.accountEntropyPool.value,
             pin = pin,
             platform = RegistrationProvisionMessage.Platform.ANDROID,
             backupTimestampMs = SignalStore.backup.lastBackupTime.coerceAtLeast(0L),
             tier = when (SignalStore.backup.backupTier) {
               MessageBackupTier.PAID -> RegistrationProvisionMessage.Tier.PAID
-              MessageBackupTier.FREE,
-              null -> RegistrationProvisionMessage.Tier.FREE
+              MessageBackupTier.FREE -> RegistrationProvisionMessage.Tier.FREE
+              null -> null
             },
+            backupSizeBytes = SignalStore.backup.totalBackupSize,
             restoreMethodToken = restoreMethodToken
           )
         )
@@ -146,7 +146,7 @@ object QuickRegistrationRepository {
 
     Log.d(TAG, "Waiting for restore method with token: ***${restoreMethodToken.takeLast(4)}")
     while (retries-- > 0 && result !is NetworkResult.Success && coroutineContext.isActive) {
-      Log.d(TAG, "Remaining tries $retries...")
+      Log.d(TAG, "Waiting, remaining tries: $retries")
       val api = AppDependencies.registrationApi
       result = api.waitForRestoreMethod(restoreMethodToken)
       Log.d(TAG, "Result: $result")
@@ -156,7 +156,7 @@ object QuickRegistrationRepository {
       Log.i(TAG, "Restore method selected on new device ${result.result}")
       return result.result
     } else {
-      Log.w(TAG, "Failed to determine restore method, using default")
+      Log.w(TAG, "Failed to determine restore method, using DECLINE")
       return RestoreMethod.DECLINE
     }
   }

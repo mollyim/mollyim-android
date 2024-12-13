@@ -38,7 +38,8 @@ fun FilePointer?.toLocalAttachment(
   stickerLocator: StickerLocator? = null,
   contentType: String? = this?.contentType,
   fileName: String? = this?.fileName,
-  uuid: ByteString? = null
+  uuid: ByteString? = null,
+  quote: Boolean = false
 ): Attachment? {
   if (this == null) return null
 
@@ -61,7 +62,7 @@ fun FilePointer?.toLocalAttachment(
       isGif = gif,
       caption = Optional.ofNullable(this.caption),
       blurHash = Optional.ofNullable(this.blurHash),
-      uploadTimestamp = this.attachmentLocator.uploadTimestamp,
+      uploadTimestamp = this.attachmentLocator.uploadTimestamp ?: 0,
       uuid = UuidUtil.fromByteStringOrNull(uuid)
     )
     return PointerAttachment.forPointer(
@@ -82,7 +83,7 @@ fun FilePointer?.toLocalAttachment(
       voiceNote = voiceNote,
       borderless = borderless,
       gif = gif,
-      quote = false,
+      quote = quote,
       stickerLocator = stickerLocator,
       uuid = UuidUtil.fromByteStringOrNull(uuid)
     )
@@ -108,7 +109,7 @@ fun FilePointer?.toLocalAttachment(
       voiceNote = voiceNote,
       borderless = borderless,
       gif = gif,
-      quote = false,
+      quote = quote,
       stickerLocator = stickerLocator,
       uuid = UuidUtil.fromByteStringOrNull(uuid),
       fileName = fileName
@@ -164,7 +165,7 @@ fun DatabaseAttachment.toRemoteFilePointer(mediaArchiveEnabled: Boolean, content
   builder.attachmentLocator = FilePointer.AttachmentLocator(
     cdnKey = this.remoteLocation,
     cdnNumber = this.cdn.cdnNumber,
-    uploadTimestamp = this.uploadTimestamp,
+    uploadTimestamp = this.uploadTimestamp.takeIf { it > 0 },
     key = Base64.decode(remoteKey).toByteString(),
     size = this.size.toInt(),
     digest = this.remoteDigest.toByteString()

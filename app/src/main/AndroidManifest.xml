@@ -90,6 +90,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
     <!-- For vestigial telecom integration service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
 
@@ -1095,12 +1096,6 @@
 
     <service
         android:enabled="true"
-        android:name=".service.webrtc.WebRtcCallService"
-        android:foregroundServiceType="dataSync"
-        android:exported="false"/>
-
-    <service
-        android:enabled="true"
         android:exported="false"
         android:name=".service.KeyCachingService"
         android:foregroundServiceType="remoteMessaging"/>
@@ -1364,7 +1359,7 @@
     <service
         android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"
         android:exported="false"
-        android:foregroundServiceType="dataSync|microphone" />
+        android:foregroundServiceType="dataSync|microphone|camera" />
 
     <receiver android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver" android:exported="false">
         <intent-filter>

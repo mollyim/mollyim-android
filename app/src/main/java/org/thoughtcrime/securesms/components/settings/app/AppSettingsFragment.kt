@@ -211,7 +211,7 @@ private fun AppSettingsContent(
             }
           }
 
-          BackupFailureState.COULD_NOT_COMPLETE_BACKUP -> {
+          BackupFailureState.BACKUP_FAILED, BackupFailureState.COULD_NOT_COMPLETE_BACKUP -> {
             item {
               Dividers.Default()
 

@@ -50,7 +50,6 @@ class RemoteConfig_StaticValuesTest {
       "useLibsignalNetForCdsiLookup",
       "messageBackups",
       "libSignalWebSocketEnabled",
-      "restoreAfterRegistration",
       "libSignalWebSocketShadowingPercentage",
       "linkAndSync",
       "CRASH_PROMPT_CONFIG",

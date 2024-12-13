@@ -934,15 +934,6 @@ object RemoteConfig {
     hotSwappable = true
   )
 
-  /** Whether or not to use active call manager instead of WebRtcCallService.  */
-  @JvmStatic
-  @get:JvmName("useActiveCallManager")
-  val useActiveCallManager: Boolean by remoteBoolean(
-    key = "android.calling.useActiveCallManager.6",
-    defaultValue = false,
-    hotSwappable = false
-  )
-
   /** Whether the in-app GIF search is available for use.  */
   @JvmStatic
   @get:JvmName("gifSearchAvailable")
@@ -1023,14 +1014,13 @@ object RemoteConfig {
   /** Whether or not to launch the restore activity after registration is complete, rather than before.  */
   @JvmStatic
   @get:JvmName("restoreAfterRegistration")
-  // val restoreAfterRegistration: Boolean by remoteValue(
-  //   key = "android.registration.restorePostRegistration",
-  //   hotSwappable = false,
-  //   active = false
-  // ) { value ->
-  //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
-  // }
-  val restoreAfterRegistration: Boolean = false
+  val restoreAfterRegistration: Boolean by remoteValue(
+    key = "android.registration.restorePostRegistration",
+    hotSwappable = false,
+    active = false  // MOLLY: Test before enabling it
+  ) { value ->
+    value.asBoolean(false)
+  }
 
   /**
    * Percentage [0, 100] of web socket requests that will be "shadowed" by sending

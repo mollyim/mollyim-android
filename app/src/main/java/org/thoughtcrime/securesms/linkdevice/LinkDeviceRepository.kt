@@ -5,6 +5,8 @@ import org.signal.core.util.Base64
 import org.signal.core.util.Stopwatch
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
+import org.signal.core.util.logging.logD
+import org.signal.core.util.logging.logI
 import org.signal.core.util.logging.logW
 import org.signal.libsignal.protocol.InvalidKeyException
 import org.signal.libsignal.protocol.ecc.Curve
@@ -13,6 +15,7 @@ import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.devicelist.protos.DeviceName
+import org.thoughtcrime.securesms.jobs.DeviceNameChangeJob
 import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
@@ -29,6 +32,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.charset.StandardCharsets
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -198,6 +202,7 @@ object LinkDeviceRepository {
 
       when (result) {
         is NetworkResult.Success -> {
+          Log.d(TAG, "[waitForDeviceToBeLinked] Sucessfully found device after waiting ${System.currentTimeMillis() - startTime} ms.")
           return result.result
         }
         is NetworkResult.ApplicationError -> {
@@ -239,34 +244,35 @@ object LinkDeviceRepository {
     } catch (e: Exception) {
       return LinkUploadArchiveResult.BackupCreationFailure(e)
     }
+    Log.d(TAG, "[createAndUploadArchive] Successfully created backup.")
     stopwatch.split("create-backup")
 
     when (val result = ArchiveValidator.validate(tempBackupFile, ephemeralMessageBackupKey)) {
       ArchiveValidator.ValidationResult.Success -> {
-        Log.d(TAG, "Successfully passed validation.")
+        Log.d(TAG, "[createAndUploadArchive] Successfully passed validation.")
       }
       is ArchiveValidator.ValidationResult.ReadError -> {
-        Log.w(TAG, "Failed to read the file during validation!", result.exception)
+        Log.w(TAG, "[createAndUploadArchive] Failed to read the file during validation!", result.exception)
         return LinkUploadArchiveResult.BackupCreationFailure(result.exception)
       }
       is ArchiveValidator.ValidationResult.ValidationError -> {
-        Log.w(TAG, "The backup file fails validation!", result.exception)
+        Log.w(TAG, "[createAndUploadArchive] The backup file fails validation!", result.exception)
         return LinkUploadArchiveResult.BackupCreationFailure(result.exception)
       }
     }
     stopwatch.split("validate-backup")
 
     val uploadForm = when (val result = SignalNetwork.attachments.getAttachmentV4UploadForm()) {
-      is NetworkResult.Success -> result.result
+      is NetworkResult.Success -> result.result.logD(TAG, "[createAndUploadArchive] Successfully retrieved upload form.")
       is NetworkResult.ApplicationError -> throw result.throwable
-      is NetworkResult.NetworkError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "Network error when fetching form.", result.exception)
-      is NetworkResult.StatusCodeError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "Status code error when fetching form.", result.exception)
+      is NetworkResult.NetworkError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "[createAndUploadArchive] Network error when fetching form.", result.exception)
+      is NetworkResult.StatusCodeError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "[createAndUploadArchive] Status code error when fetching form.", result.exception)
     }
 
     when (val result = uploadArchive(tempBackupFile, uploadForm)) {
-      is NetworkResult.Success -> Log.i(TAG, "Successfully uploaded backup.")
-      is NetworkResult.NetworkError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "Network error when uploading archive.", result.exception)
-      is NetworkResult.StatusCodeError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "Status code error when uploading archive.", result.exception)
+      is NetworkResult.Success -> Log.i(TAG, "[createAndUploadArchive] Successfully uploaded backup.")
+      is NetworkResult.NetworkError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "[createAndUploadArchive] Network error when uploading archive.", result.exception)
+      is NetworkResult.StatusCodeError -> return LinkUploadArchiveResult.NetworkError(result.exception).logW(TAG, "[createAndUploadArchive] Status code error when uploading archive.", result.exception)
       is NetworkResult.ApplicationError -> throw result.throwable
     }
     stopwatch.split("upload-backup")
@@ -279,13 +285,13 @@ object LinkDeviceRepository {
     )
 
     when (transferSetResult) {
-      is NetworkResult.Success -> Log.i(TAG, "Successfully set transfer archive.")
+      is NetworkResult.Success -> Log.i(TAG, "[createAndUploadArchive] Successfully set transfer archive.")
       is NetworkResult.ApplicationError -> throw transferSetResult.throwable
-      is NetworkResult.NetworkError -> return LinkUploadArchiveResult.NetworkError(transferSetResult.exception).logW(TAG, "Network error when setting transfer archive.", transferSetResult.exception)
+      is NetworkResult.NetworkError -> return LinkUploadArchiveResult.NetworkError(transferSetResult.exception).logW(TAG, "[createAndUploadArchive] Network error when setting transfer archive.", transferSetResult.exception)
       is NetworkResult.StatusCodeError -> {
         return when (transferSetResult.code) {
-          422 -> LinkUploadArchiveResult.BadRequest(transferSetResult.exception).logW(TAG, "422 when setting transfer archive.", transferSetResult.exception)
-          else -> LinkUploadArchiveResult.NetworkError(transferSetResult.exception).logW(TAG, "Status code error when setting transfer archive.", transferSetResult.exception)
+          422 -> LinkUploadArchiveResult.BadRequest(transferSetResult.exception).logW(TAG, "[createAndUploadArchive] 422 when setting transfer archive.", transferSetResult.exception)
+          else -> LinkUploadArchiveResult.NetworkError(transferSetResult.exception).logW(TAG, "[createAndUploadArchive] Status code error when setting transfer archive.", transferSetResult.exception)
         }
       }
     }
@@ -334,6 +340,28 @@ object LinkDeviceRepository {
     return NetworkResult.NetworkError(IOException("Hit max retries!"))
   }
 
+  /**
+   * Changes the name of a linked device and sends a sync message if successful
+   */
+  fun changeDeviceName(deviceName: String, deviceId: Int): DeviceNameChangeResult {
+    val encryptedDeviceName = Base64.encodeWithoutPadding(DeviceNameCipher.encryptDeviceName(deviceName.toByteArray(StandardCharsets.UTF_8), SignalStore.account.aciIdentityKey))
+    return when (val result = SignalNetwork.linkDevice.setDeviceName(encryptedDeviceName, deviceId)) {
+      is NetworkResult.Success -> {
+        AppDependencies.jobManager.add(DeviceNameChangeJob(deviceId))
+        DeviceNameChangeResult.Success.logI(TAG, "Successfully changed device name")
+      }
+      is NetworkResult.NetworkError -> {
+        DeviceNameChangeResult.NetworkError(result.exception).logW(TAG, "Could not change name due to network error.", result.exception)
+      }
+      is NetworkResult.StatusCodeError -> {
+        DeviceNameChangeResult.NetworkError(result.exception).logW(TAG, "Could not change name due to status code error ${result.code}")
+      }
+      is NetworkResult.ApplicationError -> {
+        throw result.throwable.logW(TAG, "Could not change name due to application error.")
+      }
+    }
+  }
+
   sealed interface LinkDeviceResult {
     data object None : LinkDeviceResult
     data class Success(val token: String) : LinkDeviceResult
@@ -349,5 +377,10 @@ object LinkDeviceRepository {
     data class BackupCreationFailure(val exception: Exception) : LinkUploadArchiveResult
     data class BadRequest(val exception: IOException) : LinkUploadArchiveResult
     data class NetworkError(val exception: IOException) : LinkUploadArchiveResult
+  }
+
+  sealed interface DeviceNameChangeResult {
+    data object Success : DeviceNameChangeResult
+    data class NetworkError(val exception: IOException) : DeviceNameChangeResult
   }
 }

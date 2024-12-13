@@ -136,6 +136,7 @@ public final class JobManagerFactories {
       put(CopyAttachmentToArchiveJob.KEY,            new CopyAttachmentToArchiveJob.Factory());
       put(CreateReleaseChannelJob.KEY,               new CreateReleaseChannelJob.Factory());
       put(DeleteAbandonedAttachmentsJob.KEY,         new DeleteAbandonedAttachmentsJob.Factory());
+      put(DeviceNameChangeJob.KEY,                   new DeviceNameChangeJob.Factory());
       put(DirectoryRefreshJob.KEY,                   new DirectoryRefreshJob.Factory());
       put(DownloadLatestEmojiDataJob.KEY,            new DownloadLatestEmojiDataJob.Factory());
       put(EmojiSearchIndexDownloadJob.KEY,           new EmojiSearchIndexDownloadJob.Factory());
@@ -195,7 +196,6 @@ public final class JobManagerFactories {
       put(PaymentTransactionCheckJob.KEY,            new PaymentTransactionCheckJob.Factory());
       put("PnpInitializeDevicesJob",                 new FailingJob.Factory()); // MOLLY
       put(PreKeysSyncJob.KEY,                        new PreKeysSyncJob.Factory());
-      put("ExternalLaunchDonationJob",               new FailingJob.Factory());
       put(ProfileKeySendJob.KEY,                     new ProfileKeySendJob.Factory());
       put(ProfileUploadJob.KEY,                      new ProfileUploadJob.Factory());
       put(PushDistributionListSendJob.KEY,           new PushDistributionListSendJob.Factory());
@@ -267,6 +267,7 @@ public final class JobManagerFactories {
       put(BackfillDigestsMigrationJob.KEY,              new BackfillDigestsMigrationJob.Factory());
       put(BackfillDigestsForDuplicatesMigrationJob.KEY, new BackfillDigestsForDuplicatesMigrationJob.Factory());
       put(BackupJitterMigrationJob.KEY,                 new BackupJitterMigrationJob.Factory());
+      put(BackupMediaSnapshotSyncJob.KEY,               new BackupMediaSnapshotSyncJob.Factory());
       put(BackupNotificationMigrationJob.KEY,           new BackupNotificationMigrationJob.Factory());
       put(BackupRefreshJob.KEY,                         new BackupRefreshJob.Factory());
       put(BlobStorageLocationMigrationJob.KEY,          new BlobStorageLocationMigrationJob.Factory());

@@ -6,6 +6,7 @@
 
 package org.whispersystems.signalservice.internal.websocket
 
+import org.signal.libsignal.net.ChatListener
 import org.signal.libsignal.net.ChatService
 import org.signal.libsignal.net.Network
 import org.whispersystems.signalservice.api.util.CredentialsProvider
@@ -16,14 +17,15 @@ import org.whispersystems.signalservice.internal.configuration.SignalServiceConf
  */
 fun Network.createChatService(
   credentialsProvider: CredentialsProvider? = null,
-  receiveStories: Boolean
+  receiveStories: Boolean,
+  listener: ChatListener? = null
 ): ChatService {
   val username = credentialsProvider?.username ?: ""
   val password = credentialsProvider?.password ?: ""
   return if (username.isEmpty() && password.isEmpty()) {
-    this.createUnauthChatService(null)
+    this.createUnauthChatService(listener)
   } else {
-    this.createAuthChatService(username, password, receiveStories, null)
+    this.createAuthChatService(username, password, receiveStories, listener)
   }
 }
 

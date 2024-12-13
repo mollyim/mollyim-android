@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.backup.v2
 
+import android.database.Cursor
 import android.os.Environment
 import android.os.StatFs
 import androidx.annotation.WorkerThread
@@ -26,6 +27,8 @@ import org.signal.core.util.getAllTableDefinitions
 import org.signal.core.util.getAllTriggerDefinitions
 import org.signal.core.util.getForeignKeyViolations
 import org.signal.core.util.logging.Log
+import org.signal.core.util.requireInt
+import org.signal.core.util.requireNonNullString
 import org.signal.core.util.stream.NonClosingOutputStream
 import org.signal.core.util.urlEncode
 import org.signal.core.util.withinTransaction
@@ -101,6 +104,7 @@ import java.time.ZonedDateTime
 import java.util.Locale
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import org.signal.libsignal.messagebackup.MessageBackupKey as LibSignalMessageBackupKey
 
@@ -200,14 +204,27 @@ object BackupRepository {
   }
 
   /**
-   * Whether the "Could not complete backup" row should be displayed in settings.
+   * Whether the "Backup Failed" row should be displayed in settings.
+   * Shown when the initial backup creation has failed
    */
   fun shouldDisplayBackupFailedSettingsRow(): Boolean {
     if (shouldNotDisplayBackupFailedMessaging()) {
       return false
     }
 
-    return SignalStore.backup.hasBackupFailure
+    return !SignalStore.backup.hasBackupBeenUploaded && SignalStore.backup.hasBackupFailure
+  }
+
+  /**
+   * Whether the "Could not complete backup" row should be displayed in settings.
+   * Shown when a new backup could not be created but there is an existing one already
+   */
+  fun shouldDisplayCouldNotCompleteBackupSettingsRow(): Boolean {
+    if (shouldNotDisplayBackupFailedMessaging()) {
+      return false
+    }
+
+    return SignalStore.backup.hasBackupBeenUploaded && SignalStore.backup.hasBackupFailure
   }
 
   /**
@@ -226,7 +243,8 @@ object BackupRepository {
   }
 
   /**
-   * Whether or not the "Could not complete backup" sheet should be displayed.
+   * Whether or not the "Backup failed" sheet should be displayed.
+   * Should only be displayed if this is the failure of the initial backup creation.
    */
   @JvmStatic
   fun shouldDisplayBackupFailedSheet(): Boolean {
@@ -234,11 +252,66 @@ object BackupRepository {
       return false
     }
 
-    return System.currentTimeMillis().milliseconds > SignalStore.backup.nextBackupFailureSheetSnoozeTime
+    return !SignalStore.backup.hasBackupBeenUploaded && System.currentTimeMillis().milliseconds > SignalStore.backup.nextBackupFailureSheetSnoozeTime
+  }
+
+  /**
+   * Whether or not the "Could not complete backup" sheet should be displayed.
+   */
+  @JvmStatic
+  fun shouldDisplayCouldNotCompleteBackupSheet(): Boolean {
+    if (shouldNotDisplayBackupFailedMessaging()) {
+      return false
+    }
+
+    return SignalStore.backup.hasBackupBeenUploaded && System.currentTimeMillis().milliseconds > SignalStore.backup.nextBackupFailureSheetSnoozeTime
+  }
+
+  fun snoozeYourMediaWillBeDeletedTodaySheet() {
+    SignalStore.backup.lastCheckInSnoozeMillis = System.currentTimeMillis()
+  }
+
+  /**
+   * Whether or not the "Your media will be deleted today" sheet should be displayed.
+   */
+  suspend fun shouldDisplayYourMediaWillBeDeletedTodaySheet(): Boolean {
+    if (shouldNotDisplayBackupFailedMessaging() || !SignalStore.backup.hasBackupBeenUploaded || !SignalStore.backup.optimizeStorage) {
+      return false
+    }
+
+    val paidType = try {
+      withContext(Dispatchers.IO) {
+        getPaidType()
+      }
+    } catch (e: IOException) {
+      Log.w(TAG, "Failed to retrieve paid type.", e)
+      return false
+    }
+
+    if (paidType == null) {
+      Log.w(TAG, "Paid type is not available on this device.")
+      return false
+    }
+
+    val lastCheckIn = SignalStore.backup.lastCheckInMillis.milliseconds
+    if (lastCheckIn == 0.milliseconds) {
+      Log.w(TAG, "LastCheckIn has not yet been set.")
+      return false
+    }
+
+    val lastSnoozeTime = SignalStore.backup.lastCheckInSnoozeMillis.milliseconds
+    val now = System.currentTimeMillis().milliseconds
+    val mediaTtl = paidType.mediaTtl
+    val mediaExpiration = lastCheckIn + mediaTtl
+
+    val isNowAfterSnooze = now < lastSnoozeTime || now >= lastSnoozeTime + 4.hours
+    val isNowWithin24HoursOfMediaExpiration = now < mediaExpiration && (mediaExpiration - now) <= 1.days
+
+    return isNowAfterSnooze && isNowWithin24HoursOfMediaExpiration
   }
 
   private fun shouldNotDisplayBackupFailedMessaging(): Boolean {
-    return !RemoteConfig.messageBackups || !SignalStore.backup.areBackupsEnabled || !SignalStore.backup.hasBackupBeenUploaded
+    return !RemoteConfig.messageBackups || !SignalStore.backup.areBackupsEnabled
   }
 
   /**
@@ -376,7 +449,8 @@ object BackupRepository {
     plaintext: Boolean = false,
     currentTime: Long = System.currentTimeMillis(),
     mediaBackupEnabled: Boolean = SignalStore.backup.backsUpMedia,
-    cancellationSignal: () -> Boolean = { false }
+    cancellationSignal: () -> Boolean = { false },
+    exportExtras: ((SignalDatabase) -> Unit)? = null
   ) {
     val writer: BackupExportWriter = if (plaintext) {
       PlainTextBackupWriter(outputStream)
@@ -389,7 +463,7 @@ object BackupRepository {
       )
     }
 
-    export(currentTime = currentTime, isLocal = false, writer = writer, mediaBackupEnabled = mediaBackupEnabled, cancellationSignal = cancellationSignal)
+    export(currentTime = currentTime, isLocal = false, writer = writer, mediaBackupEnabled = mediaBackupEnabled, cancellationSignal = cancellationSignal, exportExtras = exportExtras)
   }
 
   /**
@@ -770,8 +844,8 @@ object BackupRepository {
   }
 
   fun validate(length: Long, inputStreamFactory: () -> InputStream, selfData: SelfData): ValidationResult {
-    val masterKey = SignalStore.svr.masterKey
-    val key = LibSignalMessageBackupKey(masterKey.serialize(), Aci.parseFromBinary(selfData.aci.toByteArray()))
+    val accountEntropyPool = SignalStore.account.accountEntropyPool.value
+    val key = LibSignalMessageBackupKey(accountEntropyPool, Aci.parseFromBinary(selfData.aci.toByteArray()))
 
     return MessageBackup.validate(key, MessageBackup.Purpose.REMOTE_BACKUP, inputStreamFactory, length)
   }
@@ -1116,25 +1190,43 @@ object BackupRepository {
   }
 
   fun restoreBackupTier(aci: ACI): MessageBackupTier? {
-    // TODO: more complete error handling
-    try {
-      val lastModified = getBackupFileLastModified().successOrThrow()
-      if (lastModified != null) {
-        SignalStore.backup.lastBackupTime = lastModified.toMillis()
+    val tierResult = getBackupTier(aci)
+    when {
+      tierResult is NetworkResult.Success -> {
+        SignalStore.backup.backupTier = tierResult.result
+        Log.d(TAG, "Backup tier restored: ${SignalStore.backup.backupTier}")
       }
-    } catch (e: Exception) {
-      Log.i(TAG, "Could not check for backup file.", e)
-      SignalStore.backup.backupTier = null
-      return null
-    }
-    SignalStore.backup.backupTier = try {
-      getBackupTier(aci).successOrThrow()
-    } catch (e: Exception) {
-      Log.i(TAG, "Could not retrieve backup tier.", e)
-      null
+
+      tierResult is NetworkResult.StatusCodeError && tierResult.code == 404 -> {
+        Log.i(TAG, "Backups not enabled")
+        SignalStore.backup.backupTier = null
+      }
+
+      else -> {
+        Log.w(TAG, "Could not retrieve backup tier.", tierResult.getCause())
+        return SignalStore.backup.backupTier
+      }
     }
 
+    SignalStore.backup.isBackupTierRestored = true
+
     if (SignalStore.backup.backupTier != null) {
+      val timestampResult = getBackupFileLastModified()
+      when {
+        timestampResult is NetworkResult.Success -> {
+          timestampResult.result?.let { SignalStore.backup.lastBackupTime = it.toMillis() }
+        }
+
+        timestampResult is NetworkResult.StatusCodeError && timestampResult.code == 404 -> {
+          Log.i(TAG, "No backup file exists")
+          SignalStore.backup.lastBackupTime = 0L
+        }
+
+        else -> {
+          Log.w(TAG, "Could not check for backup file.", timestampResult.getCause())
+        }
+      }
+
       SignalStore.uiHints.markHasEverEnabledRemoteBackups()
     }
 
@@ -1178,7 +1270,7 @@ object BackupRepository {
     }
   }
 
-  private suspend fun getFreeType(): MessageBackupsType {
+  private suspend fun getFreeType(): MessageBackupsType.Free {
     val config = getSubscriptionsConfiguration()
 
     return MessageBackupsType.Free(
@@ -1186,7 +1278,7 @@ object BackupRepository {
     )
   }
 
-  private suspend fun getPaidType(): MessageBackupsType? {
+  private suspend fun getPaidType(): MessageBackupsType.Paid? {
     val config = getSubscriptionsConfiguration()
     val product = AppDependencies.billingApi.queryProduct() ?: return null
     val backupLevelConfiguration = config.backupConfiguration.backupLevelConfigurationMap[SubscriptionsConfiguration.BACKUPS_LEVEL] ?: return null
@@ -1365,4 +1457,35 @@ class BackupMetadata(
 sealed class ImportResult {
   data class Success(val backupTime: Long) : ImportResult()
   data object Failure : ImportResult()
+}
+
+/**
+ * Iterator that reads values from the given cursor. Expects that ARCHIVE_MEDIA_ID and ARCHIVE_CDN are both
+ * present and non-null in the cursor.
+ *
+ * This class does not assume ownership of the cursor. Recommended usage is within a use statement:
+ *
+ *
+ * ```
+ * databaseCall().use { cursor ->
+ *   val iterator = ArchivedMediaObjectIterator(cursor)
+ *   // Use the iterator...
+ * }
+ * // Cursor is closed after use block.
+ * ```
+ */
+class ArchivedMediaObjectIterator(private val cursor: Cursor) : Iterator<ArchivedMediaObject> {
+
+  init {
+    cursor.moveToFirst()
+  }
+
+  override fun hasNext(): Boolean = !cursor.isAfterLast
+
+  override fun next(): ArchivedMediaObject {
+    val mediaId = cursor.requireNonNullString(AttachmentTable.ARCHIVE_MEDIA_ID)
+    val cdn = cursor.requireInt(AttachmentTable.ARCHIVE_CDN)
+    cursor.moveToNext()
+    return ArchivedMediaObject(mediaId, cdn)
+  }
 }

@@ -22,13 +22,12 @@ object BackupAlertDelegate {
     lifecycle.coroutineScope.launch {
       lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
         if (BackupRepository.shouldDisplayBackupFailedSheet()) {
+          BackupAlertBottomSheet.create(BackupAlert.BackupFailed).show(fragmentManager, null)
+        } else if (BackupRepository.shouldDisplayCouldNotCompleteBackupSheet()) {
           BackupAlertBottomSheet.create(BackupAlert.CouldNotCompleteBackup(daysSinceLastBackup = SignalStore.backup.daysSinceLastBackup)).show(fragmentManager, null)
+        } else if (BackupRepository.shouldDisplayYourMediaWillBeDeletedTodaySheet()) {
+          BackupAlertBottomSheet.create(BackupAlert.MediaWillBeDeletedToday).show(fragmentManager, null)
         }
-
-        // TODO [backups] Check if media will be deleted within 24hrs and display warning sheet.
-
-        // TODO [backups]
-        // Get unnotified backup download failures & display sheet
       }
     }
   }

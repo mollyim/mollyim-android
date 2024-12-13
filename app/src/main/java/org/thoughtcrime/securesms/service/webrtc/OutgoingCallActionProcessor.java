@@ -144,6 +144,7 @@ public class OutgoingCallActionProcessor extends DeviceAwareActionProcessor {
       return currentState;
     }
 
+    boolean         hideIp          = !activePeer.getRecipient().isProfileSharing() || callSetupState.isAlwaysTurnServers();
     VideoState      videoState      = currentState.getVideoState();
     CallParticipant callParticipant = Objects.requireNonNull(currentState.getCallInfoState().getRemoteCallParticipant(activePeer.getRecipient()));
 
@@ -158,7 +159,7 @@ public class OutgoingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 videoState.requireCamera(),
                                                 callSetupState.getIceServers(),
                                                 WebRtcUtil.getProxyInfo(),
-                                                callSetupState.isAlwaysTurnServers(),
+                                                hideIp,
                                                 NetworkUtil.getCallingDataMode(context),
                                                 AUDIO_LEVELS_INTERVAL,
                                                 currentState.getCallSetupState(activePeer).isEnableVideoOnCreate());

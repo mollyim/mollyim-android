@@ -83,6 +83,8 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.v2.BackupFrequency
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
+import org.thoughtcrime.securesms.backup.v2.ui.BackupAlert
+import org.thoughtcrime.securesms.backup.v2.ui.BackupAlertBottomSheet
 import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusData
 import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusRow
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
@@ -233,6 +235,10 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
       requireActivity().finish()
       requireActivity().startActivity(AppSettingsActivity.help(requireContext(), HelpFragment.REMOTE_BACKUPS_INDEX))
     }
+
+    override fun onLearnMoreAboutBackupFailure() {
+      BackupAlertBottomSheet.create(BackupAlert.BackupFailed).show(parentFragmentManager, null)
+    }
   }
 
   private fun displayBackupKey() {
@@ -314,6 +320,7 @@ private interface ContentCallbacks {
   fun onRenewLostSubscription() = Unit
   fun onLearnMoreAboutLostSubscription() = Unit
   fun onContactSupport() = Unit
+  fun onLearnMoreAboutBackupFailure() = Unit
 }
 
 @Composable
@@ -392,7 +399,8 @@ private fun RemoteBackupsSettingsContent(
               BackupStatusRow(
                 backupStatusData = backupRestoreState.backupStatusData,
                 onCancelClick = contentCallbacks::onCancelMediaRestore,
-                onSkipClick = contentCallbacks::onSkipMediaRestore
+                onSkipClick = contentCallbacks::onSkipMediaRestore,
+                onLearnMoreClick = contentCallbacks::onLearnMoreAboutBackupFailure
               )
             }
           } else if (backupRestoreState is BackupRestoreState.Ready && backupState is RemoteBackupsSettingsState.BackupState.Canceled) {
@@ -420,7 +428,8 @@ private fun RemoteBackupsSettingsContent(
             BackupStatusRow(
               backupStatusData = backupRestoreState.backupStatusData,
               onCancelClick = contentCallbacks::onCancelMediaRestore,
-              onSkipClick = contentCallbacks::onSkipMediaRestore
+              onSkipClick = contentCallbacks::onSkipMediaRestore,
+              onLearnMoreClick = contentCallbacks::onLearnMoreAboutBackupFailure
             )
           }
         }
@@ -550,7 +559,7 @@ private fun LazyListScope.appendBackupDetailsItems(
     }
   } else {
     item {
-      InProgressBackupRow(progress = backupProgress.completedAttachments.toInt(), totalProgress = backupProgress.totalAttachments.toInt())
+      InProgressBackupRow(archiveUploadProgressState = backupProgress)
     }
   }
 
@@ -900,9 +909,11 @@ private fun SubscriptionMismatchMissingGooglePlayCard(
 
 @Composable
 private fun InProgressBackupRow(
-  progress: Int?,
-  totalProgress: Int?
+  archiveUploadProgressState: ArchiveUploadProgressState
 ) {
+  val progress = archiveUploadProgressState.completedAttachments
+  val totalProgress = archiveUploadProgressState.totalAttachments
+
   Row(
     modifier = Modifier
       .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
@@ -911,7 +922,7 @@ private fun InProgressBackupRow(
     Column(
       modifier = Modifier.weight(1f)
     ) {
-      if (totalProgress == null || totalProgress == 0) {
+      if (totalProgress == 0L) {
         LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
       } else {
         LinearProgressIndicator(
@@ -920,13 +931,30 @@ private fun InProgressBackupRow(
         )
       }
 
+      val inProgressText = if (totalProgress == 0L) {
+        getProgressStateMessage(archiveUploadProgressState.state)
+      } else {
+        stringResource(R.string.RemoteBackupsSettingsFragment__d_slash_d, progress ?: 0, totalProgress)
+      }
+
       Text(
-        text = stringResource(R.string.RemoteBackupsSettingsFragment__d_slash_d, progress ?: 0, totalProgress ?: 0),
+        text = inProgressText,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant
       )
     }
   }
+}
+
+@Composable
+private fun getProgressStateMessage(state: ArchiveUploadProgressState.State): String {
+  val stringId = when (state) {
+    ArchiveUploadProgressState.State.None, ArchiveUploadProgressState.State.BackingUpMessages -> R.string.RemoteBackupsSettingsFragment__processing_backup
+    ArchiveUploadProgressState.State.UploadingMessages -> R.string.RemoteBackupsSettingsFragment__uploading_messages
+    ArchiveUploadProgressState.State.UploadingAttachments -> R.string.RemoteBackupsSettingsFragment__processing_backup
+  }
+
+  return stringResource(stringId)
 }
 
 @Composable
@@ -1322,7 +1350,7 @@ private fun LastBackupRowPreview() {
 @Composable
 private fun InProgressRowPreview() {
   Previews.Preview {
-    InProgressBackupRow(50, 100)
+    InProgressBackupRow(archiveUploadProgressState = ArchiveUploadProgressState())
   }
 }
 

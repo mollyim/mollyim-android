@@ -248,6 +248,13 @@
             android:id="@+id/action_linkDeviceFragment_to_linkDeviceIntroBottomSheet"
             app:destination="@id/linkDeviceIntroBottomSheet" />
         <action
+            android:id="@+id/action_linkDeviceFragment_to_editDeviceNameFragment"
+            app:destination="@id/editDeviceNameFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
             android:id="@+id/action_linkDeviceFragment_to_linkDeviceFinishedSheet"
             app:destination="@id/linkDeviceFinishedSheet" />
         <action
@@ -266,6 +273,10 @@
     <dialog
         android:id="@+id/linkDeviceEducationSheet"
         android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceEducationSheet" />
+
+    <fragment
+        android:id="@+id/editDeviceNameFragment"
+        android:name="org.thoughtcrime.securesms.linkdevice.EditDeviceNameFragment" />
 
     <fragment
         android:id="@+id/addLinkDeviceFragment"
@@ -776,6 +787,9 @@
         <action
             android:id="@+id/action_internalSettingsFragment_to_internalStorageServicePlaygroundFragment"
             app:destination="@id/internalStorageServicePlaygroundFragment" />
+        <action
+            android:id="@+id/action_internalSettingsFragment_to_internalSqlitePlaygroundFragment"
+            app:destination="@id/internalSqlitePlaygroundFragment" />
     </fragment>
 
     <fragment
@@ -832,6 +846,11 @@
         android:id="@+id/internalStorageServicePlaygroundFragment"
         android:name="org.thoughtcrime.securesms.components.settings.app.internal.storage.InternalStorageServicePlaygroundFragment"
         android:label="internal_storage_service_playground_fragment" />
+
+    <fragment
+        android:id="@+id/internalSqlitePlaygroundFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.internal.sqlite.InternalSqlitePlaygroundFragment"
+        android:label="internal_sqlite_playground_fragment" />
 
     <!-- endregion -->
 
