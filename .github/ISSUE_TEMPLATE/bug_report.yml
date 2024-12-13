@@ -5,9 +5,9 @@ body:
     id: guidelines
     attributes:
       label: "Guidelines"
-      description: "Please check for existing issues first: https://github.com/mollyim/mollyim-android/issues/?q=is%3Aissue"
+      description: "Please search for already reported issues to avoid submitting a duplicate. [Search existing issues](https://github.com/mollyim/mollyim-android/issues?q=is%3Aissue+-label%3Afeature-request)."
       options:
-        - label: "Yes, I have searched for duplicates"
+        - label: "Yes, I have searched for existing issues"
           required: true
   - type: textarea
     id: description-of-bug
@@ -29,24 +29,24 @@ body:
     id: device-model
     attributes:
       label: "Device Model"
-      description: "Found in Settings → About Phone."
-      placeholder: "e.g. Samsung Galaxy S24"
+      description: "Found in Settings ► About Phone."
+      placeholder: "e.g. Pixel 9"
     validations:
       required: false
   - type: input
     id: android-version
     attributes:
       label: "Android Version"
-      description: "Found in Settings → About Phone."
+      description: "Found in Settings ► About Phone."
       placeholder: "e.g. Android 14"
     validations:
       required: false
   - type: input
     id: app-version
     attributes:
-      label: "Molly Version"
-      description: "Found in Molly's Settings → Help"
-      placeholder: "App version, e.g. 7.17.6-1"
+      label: "App Version"
+      description: "Found in Molly's Settings ► Help"
+      placeholder: "e.g. v7.21.5-2"
     validations:
       required: false
   - type: input
@@ -54,9 +54,8 @@ body:
     attributes:
       label: "Link to Debug Log"
       description: |
-        If possible, include a debug log via Molly’s Settings → Help → Debug Log. 
-        Copy the URL here. Logs cover ~24 hours, so capture it soon after encountering the bug.
-        More info: https://support.signal.org/hc/en-us/articles/360007318591#android_debug
+        If possible, include a debug log via Molly’s Settings ► Help ► Debug Log. Copy the URL here.
+        Logs cover ~24 hours, so capture it soon after encountering the bug.
       placeholder: "e.g. https://debuglogs.org/..."
     validations:
       required: false
