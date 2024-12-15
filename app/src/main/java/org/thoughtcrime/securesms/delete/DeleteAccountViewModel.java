@@ -15,16 +15,11 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
-import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.payments.Balance;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.DefaultValueLiveData;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
-import org.whispersystems.signalservice.api.payments.FormatterOptions;
-import org.whispersystems.signalservice.api.payments.Money;
 
 import java.util.List;
-import java.util.Optional;
 
 public class DeleteAccountViewModel extends ViewModel {
 
@@ -36,7 +31,6 @@ public class DeleteAccountViewModel extends ViewModel {
   private final MutableLiveData<Long>               nationalNumber;
   private final MutableLiveData<String>             query;
   private final SingleLiveEvent<DeleteAccountEvent> events;
-  private final LiveData<Optional<String>>          walletBalance;
 
   public DeleteAccountViewModel(@NonNull DeleteAccountRepository repository) {
     this.repository         = repository;
@@ -47,12 +41,6 @@ public class DeleteAccountViewModel extends ViewModel {
     this.countryDisplayName = Transformations.map(regionCode, repository::getRegionDisplayName);
     this.filteredCountries  = Transformations.map(query, q -> Stream.of(allCountries).filter(country -> isMatch(q, country)).toList());
     this.events             = new SingleLiveEvent<>();
-    this.walletBalance      = Transformations.map(SignalStore.payments().liveMobileCoinBalance(),
-                                                  DeleteAccountViewModel::getFormattedWalletBalance);
-  }
-
-  @NonNull LiveData<Optional<String>> getWalletBalance() {
-    return walletBalance;
   }
 
   @NonNull LiveData<List<Country>> getFilteredCountries() {
@@ -134,15 +122,6 @@ public class DeleteAccountViewModel extends ViewModel {
         regionCode.setValue(phoneNumberRegion);
       }
     } catch (NumberParseException ignored) {
-    }
-  }
-
-  private static @NonNull Optional<String> getFormattedWalletBalance(@NonNull Balance balance) {
-    Money amount = balance.getFullAmount();
-    if (amount.isPositive()) {
-      return Optional.of(amount.toString(FormatterOptions.defaults()));
-    } else {
-      return Optional.empty();
     }
   }
 

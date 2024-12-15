@@ -28,7 +28,6 @@ import org.thoughtcrime.securesms.backup.v2.proto.GroupCall
 import org.thoughtcrime.securesms.backup.v2.proto.IndividualCall
 import org.thoughtcrime.securesms.backup.v2.proto.LinkPreview
 import org.thoughtcrime.securesms.backup.v2.proto.MessageAttachment
-import org.thoughtcrime.securesms.backup.v2.proto.PaymentNotification
 import org.thoughtcrime.securesms.backup.v2.proto.Quote
 import org.thoughtcrime.securesms.backup.v2.proto.Reaction
 import org.thoughtcrime.securesms.backup.v2.proto.SendStatus
@@ -53,26 +52,18 @@ import org.thoughtcrime.securesms.database.documents.NetworkFailureSet
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.database.model.databaseprotos.CryptoValue
 import org.thoughtcrime.securesms.database.model.databaseprotos.GV2UpdateDescription
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
-import org.thoughtcrime.securesms.database.model.databaseprotos.PaymentTombstone
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails
 import org.thoughtcrime.securesms.database.model.databaseprotos.SessionSwitchoverEvent
 import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent
 import org.thoughtcrime.securesms.mms.QuoteModel
-import org.thoughtcrime.securesms.payments.CryptoValueUtil
-import org.thoughtcrime.securesms.payments.Direction
-import org.thoughtcrime.securesms.payments.FailureReason
-import org.thoughtcrime.securesms.payments.State
-import org.thoughtcrime.securesms.payments.proto.PaymentMetaData
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.MediaUtil
-import org.whispersystems.signalservice.api.payments.Money
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.internal.push.DataMessage
@@ -294,21 +285,6 @@ class ChatItemArchiveImporter(
       }
     }
 
-    if (this.paymentNotification != null) {
-      followUp = { messageRowId ->
-        val uuid = tryRestorePayment(this, chatRecipientId)
-        if (uuid != null) {
-          db.update(MessageTable.TABLE_NAME)
-            .values(
-              MessageTable.BODY to uuid.toString(),
-              MessageTable.TYPE to ((contentValues.getAsLong(MessageTable.TYPE) and MessageTypes.SPECIAL_TYPES_MASK.inv()) or MessageTypes.SPECIAL_TYPE_PAYMENTS_NOTIFICATION)
-            )
-            .where("${MessageTable.ID} = ?", messageRowId)
-            .run()
-        }
-      }
-    }
-
     if (this.contactMessage != null) {
       val contacts = this.contactMessage.contact.map { backupContact ->
         Contact(
@@ -502,44 +478,11 @@ class ChatItemArchiveImporter(
       this.standardMessage != null -> contentValues.addStandardMessage(this.standardMessage)
       this.remoteDeletedMessage != null -> contentValues.put(MessageTable.REMOTE_DELETED, 1)
       this.updateMessage != null -> contentValues.addUpdateMessage(this.updateMessage)
-      this.paymentNotification != null -> contentValues.addPaymentNotification(this, chatRecipientId)
       this.giftBadge != null -> contentValues.addGiftBadge(this.giftBadge)
       this.viewOnceMessage != null -> contentValues.addViewOnce(this.viewOnceMessage)
     }
 
     return contentValues
-  }
-
-  private fun tryRestorePayment(chatItem: ChatItem, chatRecipientId: RecipientId): UUID? {
-    val paymentNotification = chatItem.paymentNotification!!
-
-    val amount = paymentNotification.amountMob?.tryParseMoney() ?: return null
-    val fee = paymentNotification.feeMob?.tryParseMoney() ?: return null
-
-    if (paymentNotification.transactionDetails?.failedTransaction != null) {
-      return null
-    }
-
-    val transaction = paymentNotification.transactionDetails?.transaction
-
-    val mobileCoinIdentification = transaction?.mobileCoinIdentification?.toLocal() ?: return null
-
-    return SignalDatabase.payments.restoreFromBackup(
-      chatRecipientId,
-      transaction.timestamp ?: 0,
-      transaction.blockIndex ?: 0,
-      transaction.blockTimestamp ?: 0,
-      paymentNotification.note ?: "",
-      if (chatItem.outgoing != null) Direction.SENT else Direction.RECEIVED,
-      transaction.status.toLocalStatus(),
-      amount,
-      fee,
-      transaction.transaction?.toByteArray(),
-      transaction.receipt?.toByteArray(),
-      mobileCoinIdentification,
-      chatItem.incoming?.read ?: true,
-      null
-    )
   }
 
   private fun ChatItem.toReactionContentValues(messageId: Long): List<ContentValues> {
@@ -747,89 +690,6 @@ class ChatItemArchiveImporter(
     this.put(MessageTable.TYPE, typeFlags)
   }
 
-  /**
-   * Add the payment notification to the chat item.
-   *
-   * Note we add a tombstone first, then post insertion update it to a proper notification
-   */
-  private fun ContentValues.addPaymentNotification(chatItem: ChatItem, chatRecipientId: RecipientId) {
-    val paymentNotification = chatItem.paymentNotification!!
-    if (chatItem.paymentNotification.amountMob.isNullOrEmpty()) {
-      this.addPaymentTombstoneNoAmount()
-      return
-    }
-    val amount = paymentNotification.amountMob?.tryParseMoney() ?: return this.addPaymentTombstoneNoAmount()
-    val fee = paymentNotification.feeMob?.tryParseMoney() ?: return this.addPaymentTombstoneNoAmount()
-
-    if (chatItem.paymentNotification.transactionDetails?.failedTransaction != null) {
-      this.addFailedPaymentNotification(chatItem, amount, fee, chatRecipientId)
-      return
-    }
-    this.addPaymentTombstoneNoMetadata(chatItem.paymentNotification)
-  }
-
-  private fun PaymentNotification.TransactionDetails.MobileCoinTxoIdentification.toLocal(): PaymentMetaData {
-    return PaymentMetaData(
-      mobileCoinTxoIdentification = PaymentMetaData.MobileCoinTxoIdentification(
-        publicKey = this.publicKey,
-        keyImages = this.keyImages
-      )
-    )
-  }
-
-  private fun ContentValues.addFailedPaymentNotification(chatItem: ChatItem, amount: Money, fee: Money, chatRecipientId: RecipientId) {
-    val uuid = SignalDatabase.payments.restoreFromBackup(
-      chatRecipientId,
-      0,
-      0,
-      0,
-      chatItem.paymentNotification?.note ?: "",
-      if (chatItem.outgoing != null) Direction.SENT else Direction.RECEIVED,
-      State.FAILED,
-      amount,
-      fee,
-      null,
-      null,
-      null,
-      chatItem.incoming?.read ?: true,
-      chatItem.paymentNotification?.transactionDetails?.failedTransaction?.reason?.toLocalPaymentFailureReason()
-    )
-    if (uuid != null) {
-      put(MessageTable.BODY, uuid.toString())
-      put(MessageTable.TYPE, getAsLong(MessageTable.TYPE) or MessageTypes.SPECIAL_TYPE_PAYMENTS_NOTIFICATION)
-    } else {
-      addPaymentTombstoneNoMetadata(chatItem.paymentNotification!!)
-    }
-  }
-
-  private fun PaymentNotification.TransactionDetails.FailedTransaction.FailureReason.toLocalPaymentFailureReason(): FailureReason {
-    return when (this) {
-      PaymentNotification.TransactionDetails.FailedTransaction.FailureReason.GENERIC -> FailureReason.UNKNOWN
-      PaymentNotification.TransactionDetails.FailedTransaction.FailureReason.NETWORK -> FailureReason.NETWORK
-      PaymentNotification.TransactionDetails.FailedTransaction.FailureReason.INSUFFICIENT_FUNDS -> FailureReason.INSUFFICIENT_FUNDS
-    }
-  }
-
-  private fun ContentValues.addPaymentTombstoneNoAmount() {
-    put(MessageTable.TYPE, getAsLong(MessageTable.TYPE) or MessageTypes.SPECIAL_TYPE_PAYMENTS_TOMBSTONE)
-  }
-
-  private fun ContentValues.addPaymentTombstoneNoMetadata(paymentNotification: PaymentNotification) {
-    put(MessageTable.TYPE, getAsLong(MessageTable.TYPE) or MessageTypes.SPECIAL_TYPE_PAYMENTS_TOMBSTONE)
-    val amount = tryParseCryptoValue(paymentNotification.amountMob)
-    val fee = tryParseCryptoValue(paymentNotification.feeMob)
-    put(
-      MessageTable.MESSAGE_EXTRAS,
-      MessageExtras(
-        paymentTombstone = PaymentTombstone(
-          note = paymentNotification.note,
-          amount = amount,
-          fee = fee
-        )
-      ).encode()
-    )
-  }
-
   private fun ContentValues.addGiftBadge(giftBadge: BackupGiftBadge) {
     val dbGiftBadge = GiftBadge(
       redemptionToken = giftBadge.receiptCredentialPresentation,
@@ -848,31 +708,6 @@ class ChatItemArchiveImporter(
     put(MessageTable.VIEW_ONCE, true.toInt())
   }
 
-  private fun String?.tryParseMoney(): Money? {
-    if (this.isNullOrEmpty()) {
-      return null
-    }
-
-    val amountCryptoValue = tryParseCryptoValue(this)
-    return if (amountCryptoValue != null) {
-      CryptoValueUtil.cryptoValueToMoney(amountCryptoValue)
-    } else {
-      null
-    }
-  }
-
-  private fun tryParseCryptoValue(bigIntegerString: String?): CryptoValue? {
-    if (bigIntegerString == null) {
-      return null
-    }
-    val amount = try {
-      BigInteger(bigIntegerString).toString()
-    } catch (e: NumberFormatException) {
-      return null
-    }
-    return CryptoValue(mobileCoinValue = CryptoValue.MobileCoinValue(picoMobileCoin = amount))
-  }
-
   private fun ContentValues.addQuote(quote: Quote) {
     this.put(MessageTable.QUOTE_ID, quote.targetSentTimestamp ?: MessageTable.QUOTE_TARGET_MISSING_ID)
     this.put(MessageTable.QUOTE_AUTHOR, importState.requireLocalRecipientId(quote.authorId).serialize())
@@ -880,15 +715,6 @@ class ChatItemArchiveImporter(
     this.put(MessageTable.QUOTE_TYPE, quote.type.toLocalQuoteType())
     this.put(MessageTable.QUOTE_BODY_RANGES, quote.text?.bodyRanges?.toLocalBodyRanges()?.encode())
     this.put(MessageTable.QUOTE_MISSING, (quote.targetSentTimestamp == null).toInt())
-  }
-
-  private fun PaymentNotification.TransactionDetails.Transaction.Status?.toLocalStatus(): State {
-    return when (this) {
-      PaymentNotification.TransactionDetails.Transaction.Status.INITIAL -> State.INITIAL
-      PaymentNotification.TransactionDetails.Transaction.Status.SUBMITTED -> State.SUBMITTED
-      PaymentNotification.TransactionDetails.Transaction.Status.SUCCESSFUL -> State.SUCCESSFUL
-      else -> State.INITIAL
-    }
   }
 
   private fun Quote.Type.toLocalQuoteType(): Int {

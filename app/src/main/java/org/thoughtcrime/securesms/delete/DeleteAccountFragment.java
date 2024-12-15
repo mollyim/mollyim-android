@@ -69,7 +69,6 @@ public class DeleteAccountFragment extends Fragment {
     viewModel.getCountryDisplayName().observe(getViewLifecycleOwner(), this::setCountryDisplay);
     viewModel.getRegionCode().observe(getViewLifecycleOwner(), this::handleRegionUpdated);
     viewModel.getEvents().observe(getViewLifecycleOwner(), this::handleEvent);
-    viewModel.getWalletBalance().observe(getViewLifecycleOwner(), this::updateBullets);
 
     initializeNumberInput();
 

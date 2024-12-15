@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.messages
 
 import android.content.Context
 import android.text.TextUtils
-import com.mobilecoin.lib.exceptions.SerializationException
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.Base64
 import org.signal.core.util.Hex
@@ -27,7 +26,6 @@ import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.MessageTable.InsertResult
 import org.thoughtcrime.securesms.database.MessageType
 import org.thoughtcrime.securesms.database.NoSuchMessageException
-import org.thoughtcrime.securesms.database.PaymentTable.PublicKeyConflictException
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.GroupRecord
 import org.thoughtcrime.securesms.database.model.Mention
@@ -49,8 +47,6 @@ import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
 import org.thoughtcrime.securesms.jobs.GroupCallPeekJob
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob
-import org.thoughtcrime.securesms.jobs.PaymentLedgerUpdateJob
-import org.thoughtcrime.securesms.jobs.PaymentTransactionCheckJob
 import org.thoughtcrime.securesms.jobs.ProfileKeySendJob
 import org.thoughtcrime.securesms.jobs.PushProcessEarlyMessagesJob
 import org.thoughtcrime.securesms.jobs.PushProcessMessageJob
@@ -98,7 +94,6 @@ import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.isStory
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
-import org.whispersystems.signalservice.api.payments.Money
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import org.whispersystems.signalservice.api.util.Preconditions
@@ -648,60 +643,7 @@ object DataMessageProcessor {
     senderRecipientId: RecipientId,
     receivedTime: Long
   ): InsertResult? {
-    log(envelope.timestamp!!, "Payment message.")
-
-    if (message.payment?.notification?.mobileCoin?.receipt == null) {
-      warn(envelope.timestamp!!, "Ignoring payment message without notification")
-      return null
-    }
-
-    val paymentNotification = message.payment!!.notification!!
-    val uuid = UUID.randomUUID()
-    val queue = "Payment_" + PushProcessMessageJob.getQueueName(senderRecipientId)
-
-    try {
-      SignalDatabase.payments.createIncomingPayment(
-        uuid,
-        senderRecipientId,
-        message.timestamp!!,
-        paymentNotification.note ?: "",
-        Money.MobileCoin.ZERO,
-        Money.MobileCoin.ZERO,
-        paymentNotification.mobileCoin!!.receipt!!.toByteArray(),
-        true
-      )
-
-      val mediaMessage = IncomingMessage(
-        from = senderRecipientId,
-        body = uuid.toString(),
-        sentTimeMillis = envelope.timestamp!!,
-        serverTimeMillis = envelope.serverTimestamp!!,
-        receivedTimeMillis = receivedTime,
-        expiresIn = message.expireTimerDuration.inWholeMilliseconds,
-        isUnidentified = metadata.sealedSender,
-        serverGuid = envelope.serverGuid,
-        type = MessageType.PAYMENTS_NOTIFICATION
-      )
-
-      val insertResult: InsertResult? = SignalDatabase.messages.insertMessageInbox(mediaMessage, -1).orNull()
-      if (insertResult != null) {
-        AppDependencies.messageNotifier.updateNotification(context, ConversationId.forConversation(insertResult.threadId))
-        return insertResult
-      }
-    } catch (e: PublicKeyConflictException) {
-      warn(envelope.timestamp!!, "Ignoring payment with public key already in database")
-    } catch (e: SerializationException) {
-      warn(envelope.timestamp!!, "Ignoring payment with bad data.", e)
-    } catch (e: MmsException) {
-      throw StorageFailedException(e, metadata.sourceServiceId.toString(), metadata.sourceDeviceId)
-    } finally {
-      SignalDatabase.runPostSuccessfulTransaction {
-        AppDependencies.jobManager
-          .startChain(PaymentTransactionCheckJob(uuid, queue))
-          .then(PaymentLedgerUpdateJob.updateLedger())
-          .enqueue()
-      }
-    }
+    log(envelope.timestamp!!, "Ignoring payment message.")
 
     return null
   }
@@ -1079,10 +1021,6 @@ object DataMessageProcessor {
             .filter { it.thumbnail.isPresent }
             .map { it.thumbnail.get() }
         }
-      }
-
-      if (quotedMessage.isPaymentNotification) {
-        quotedMessage = SignalDatabase.payments.updateMessageWithPayment(quotedMessage) as MmsMessageRecord
       }
 
       val body = if (quotedMessage.isPaymentNotification) quotedMessage.getDisplayBody(context).toString() else quotedMessage.body

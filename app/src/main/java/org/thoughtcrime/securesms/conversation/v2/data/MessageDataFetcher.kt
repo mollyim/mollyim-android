@@ -22,8 +22,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.payments.Payment
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.whispersystems.signalservice.api.util.UuidUtil
-import java.util.UUID
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
@@ -73,19 +71,6 @@ object MessageDataFetcher {
       SignalDatabase.attachments.getAttachmentsForMessages(messageIds)
     }
 
-    val paymentsFuture = executor.submitTimed {
-      val paymentUuidToMessageId: Map<UUID, Long> = messageRecords
-        .filter { it.isMms && it.isPaymentNotification }
-        .map { UuidUtil.parseOrNull(it.body) to it.id }
-        .filter { it.first != null }
-        .associate { it.first to it.second }
-
-      SignalDatabase
-        .payments
-        .getPayments(paymentUuidToMessageId.keys)
-        .associateBy { paymentUuidToMessageId[it.uuid]!! }
-    }
-
     val callsFuture = executor.submitTimed {
       SignalDatabase.calls.getCalls(messageIds)
     }
@@ -103,13 +88,12 @@ object MessageDataFetcher {
     val hasBeenQuotedResult = hasBeenQuotedFuture.get()
     val reactionsResult = reactionsFuture.get()
     val attachmentsResult = attachmentsFuture.get()
-    val paymentsResult = paymentsFuture.get()
     val callsResult = callsFuture.get()
     val recipientsResult = recipientsFuture.get()
 
     val wallTimeMs = (System.nanoTime() - startTimeNanos).nanoseconds.toDouble(DurationUnit.MILLISECONDS)
 
-    val cpuTimeNanos = arrayOf(mentionsResult, hasBeenQuotedResult, reactionsResult, attachmentsResult, paymentsResult, callsResult, recipientsResult).sumOf { it.durationNanos }
+    val cpuTimeNanos = arrayOf(mentionsResult, hasBeenQuotedResult, reactionsResult, attachmentsResult, callsResult, recipientsResult).sumOf { it.durationNanos }
     val cpuTimeMs = cpuTimeNanos.nanoseconds.toDouble(DurationUnit.MILLISECONDS)
 
     return ExtraMessageData(
@@ -117,9 +101,9 @@ object MessageDataFetcher {
       hasBeenQuoted = hasBeenQuotedResult.result,
       reactions = reactionsResult.result,
       attachments = attachmentsResult.result,
-      payments = paymentsResult.result,
+      payments = emptyMap(),
       calls = callsResult.result,
-      timeLog = "mentions: ${mentionsResult.duration}, is-quoted: ${hasBeenQuotedResult.duration}, reactions: ${reactionsResult.duration}, attachments: ${attachmentsResult.duration}, payments: ${paymentsResult.duration}, calls: ${callsResult.duration} >> cpuTime: ${cpuTimeMs.roundedString(2)}, wallTime: ${wallTimeMs.roundedString(2)}"
+      timeLog = "mentions: ${mentionsResult.duration}, is-quoted: ${hasBeenQuotedResult.duration}, reactions: ${reactionsResult.duration}, attachments: ${attachmentsResult.duration}, calls: ${callsResult.duration} >> cpuTime: ${cpuTimeMs.roundedString(2)}, wallTime: ${wallTimeMs.roundedString(2)}"
     )
   }
 

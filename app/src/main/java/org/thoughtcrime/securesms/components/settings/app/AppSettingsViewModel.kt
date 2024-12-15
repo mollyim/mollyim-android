@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
-import org.thoughtcrime.securesms.conversationlist.model.UnreadPaymentsLiveData
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -22,15 +21,10 @@ class AppSettingsViewModel : ViewModel() {
     )
   )
 
-  private val unreadPaymentsLiveData = UnreadPaymentsLiveData()
   private val disposables = CompositeDisposable()
 
   val state: LiveData<AppSettingsState> = store.stateLiveData
   val self: LiveData<BioRecipientState> = Recipient.self().live().liveData.map { BioRecipientState(it) }
-
-  init {
-    store.update(unreadPaymentsLiveData) { payments, state -> state.copy(unreadPaymentsCount = payments.map { it.unreadCount }.orElse(0)) }
-  }
 
   override fun onCleared() {
     disposables.clear()

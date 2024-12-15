@@ -254,7 +254,6 @@ android {
         "proguard/proguard-shortcutbadger.pro",
         "proguard/proguard-retrofit.pro",
         "proguard/proguard-klinker.pro",
-        "proguard/proguard-mobilecoin.pro",
         "proguard/proguard-retrolambda.pro",
         "proguard/proguard-okhttp.pro",
         "proguard/proguard-ez-vcard.pro",
@@ -486,7 +485,6 @@ dependencies {
   implementation(libs.conscrypt.android)
   implementation(libs.signal.aesgcmprovider)
   implementation(libs.libsignal.android)
-  implementation(libs.mobilecoin)
   implementation(libs.molly.ringrtc)
   implementation(libs.leolin.shortcutbadger)
   implementation(libs.emilsjolander.stickylistheaders)

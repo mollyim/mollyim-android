@@ -1,6 +1,6 @@
 package org.thoughtcrime.securesms.conversation;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Interface for responding to scheduled message dialogs blocking the send flow for permissions check.

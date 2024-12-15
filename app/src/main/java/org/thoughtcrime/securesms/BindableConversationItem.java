@@ -118,8 +118,6 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
     void onBlockJoinRequest(@NonNull Recipient recipient);
     void onRecipientNameClicked(@NonNull RecipientId target);
     void onInviteToSignalClicked();
-    void onActivatePaymentsClicked();
-    void onSendPaymentClicked(@NonNull RecipientId recipientId);
     void onScheduledIndicatorClicked(@NonNull View view, @NonNull ConversationMessage conversationMessage);
     /** @return true if handled, false if you want to let the normal url handling continue */
     boolean onUrlClicked(@NonNull String url);
@@ -131,7 +129,6 @@ public interface BindableConversationItem extends Unbindable, GiphyMp4Playable, 
     void onReportSpamLearnMoreClicked();
     void onMessageRequestAcceptOptionsClicked();
     void onItemDoubleClick(MultiselectPart multiselectPart);
-    void onPaymentTombstoneClicked();
     void onDisplayMediaNoLongerAvailableSheet();
   }
 }

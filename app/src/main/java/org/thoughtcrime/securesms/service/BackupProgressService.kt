@@ -10,6 +10,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.CheckResult
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import org.signal.core.util.PendingIntentFlags
@@ -19,7 +20,6 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import java.util.concurrent.locks.ReentrantLock
-import javax.annotation.CheckReturnValue
 import kotlin.concurrent.withLock
 
 /**
@@ -38,7 +38,7 @@ class BackupProgressService : SafeForegroundService() {
     private var progress: Float = 0f
     private var indeterminate: Boolean = true
 
-    @CheckReturnValue
+    @CheckResult
     fun start(context: Context, startingTitle: String): Controller {
       controllerLock.withLock {
         if (controller != null) {

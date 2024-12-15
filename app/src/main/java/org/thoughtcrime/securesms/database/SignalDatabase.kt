@@ -48,7 +48,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val storageIdDatabase: UnknownStorageIdTable = UnknownStorageIdTable(context, this)
   val remappedRecordTables: RemappedRecordTables = RemappedRecordTables(context, this)
   val mentionTable: MentionTable = MentionTable(context, this)
-  val paymentTable: PaymentTable = PaymentTable(context, this)
   val chatColorsTable: ChatColorsTable = ChatColorsTable(context, this)
   val emojiSearchTable: EmojiSearchTable = EmojiSearchTable(context, this)
   val messageSendLogTables: MessageSendLogTables = MessageSendLogTables(context, this)
@@ -92,7 +91,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.execSQL(StickerTable.CREATE_TABLE)
     db.execSQL(UnknownStorageIdTable.CREATE_TABLE)
     db.execSQL(MentionTable.CREATE_TABLE)
-    db.execSQL(PaymentTable.CREATE_TABLE)
     db.execSQL(ChatColorsTable.CREATE_TABLE)
     db.execSQL(EmojiSearchTable.CREATE_TABLE)
     db.execSQL(AvatarPickerDatabase.CREATE_TABLE)
@@ -126,7 +124,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, StickerTable.CREATE_INDEXES)
     executeStatements(db, UnknownStorageIdTable.CREATE_INDEXES)
     executeStatements(db, MentionTable.CREATE_INDEXES)
-    executeStatements(db, PaymentTable.CREATE_INDEXES)
     executeStatements(db, MessageSendLogTables.CREATE_INDEXES)
     executeStatements(db, NotificationProfileDatabase.CREATE_INDEXES)
     executeStatements(db, DonationReceiptTable.CREATE_INDEXS)
@@ -410,11 +407,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     @get:JvmName("notificationProfiles")
     val notificationProfiles: NotificationProfileDatabase
       get() = instance!!.notificationProfileDatabase
-
-    @get:JvmStatic
-    @get:JvmName("payments")
-    val payments: PaymentTable
-      get() = instance!!.paymentTable
 
     @get:JvmStatic
     @get:JvmName("pendingRetryReceipts")

@@ -81,10 +81,6 @@ class MessageQuotesRepository {
       }
       .map { ConversationMessageFactory.createWithUnresolvedData(application, it, threadRecipient) }
 
-    if (originalRecord.isPaymentNotification) {
-      originalRecord = SignalDatabase.payments.updateMessageWithPayment(originalRecord)
-    }
-
     originalRecord = ReactionHelper()
       .apply {
         add(originalRecord)

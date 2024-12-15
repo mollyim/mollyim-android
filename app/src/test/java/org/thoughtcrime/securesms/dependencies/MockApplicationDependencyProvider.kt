@@ -17,7 +17,6 @@ import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
 import org.thoughtcrime.securesms.net.NetworkManager
 import org.thoughtcrime.securesms.notifications.MessageNotifier
-import org.thoughtcrime.securesms.payments.Payments
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager
@@ -135,10 +134,6 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
 
   override fun provideDatabaseObserver(): DatabaseObserver {
     return Mockito.mock(DatabaseObserver::class.java)
-  }
-
-  override fun providePayments(signalServiceAccountManager: SignalServiceAccountManager): Payments {
-    return mockk(relaxed = true)
   }
 
   override fun provideSignalCallManager(): SignalCallManager {

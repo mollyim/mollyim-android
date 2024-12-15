@@ -161,8 +161,6 @@ class EditMessageHistoryDialog : FixedRoundedCornerBottomSheetDialogFragment() {
     override fun onCallToAction(action: String) = Unit
     override fun onDonateClicked() = Unit
     override fun onRecipientNameClicked(target: RecipientId) = Unit
-    override fun onActivatePaymentsClicked() = Unit
-    override fun onSendPaymentClicked(recipientId: RecipientId) = Unit
     override fun onEditedIndicatorClicked(conversationMessage: ConversationMessage) = Unit
     override fun onShowSafetyTips(forGroup: Boolean) = Unit
     override fun onReportSpamLearnMoreClicked() = Unit

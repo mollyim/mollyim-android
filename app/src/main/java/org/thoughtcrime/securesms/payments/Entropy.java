@@ -3,15 +3,10 @@ package org.thoughtcrime.securesms.payments;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mobilecoin.lib.Mnemonics;
-import com.mobilecoin.lib.exceptions.BadEntropyException;
-import com.mobilecoin.lib.exceptions.BadMnemonicException;
-
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.payments.PaymentsConstants;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 public final class Entropy {
@@ -41,18 +36,5 @@ public final class Entropy {
 
   public byte[] getBytes() {
     return bytes;
-  }
-
-  public Mnemonic asMnemonic() {
-    try {
-      String mnemonic = Mnemonics.bip39EntropyToMnemonic(bytes);
-      byte[] check    = Mnemonics.bip39EntropyFromMnemonic(mnemonic);
-      if (!Arrays.equals(bytes, check)) {
-        throw new AssertionError("Round trip mnemonic failure");
-      }
-      return new Mnemonic(mnemonic);
-    } catch (BadEntropyException | BadMnemonicException e) {
-      throw new AssertionError(e);
-    }
   }
 }

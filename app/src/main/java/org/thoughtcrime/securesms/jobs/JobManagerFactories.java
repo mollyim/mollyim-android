@@ -71,7 +71,6 @@ import org.thoughtcrime.securesms.migrations.PreKeysSyncMigrationJob;
 import org.thoughtcrime.securesms.migrations.ProfileMigrationJob;
 import org.thoughtcrime.securesms.migrations.ProfileSharingUpdateMigrationJob;
 import org.thoughtcrime.securesms.migrations.RebuildMessageSearchIndexMigrationJob;
-import org.thoughtcrime.securesms.migrations.RecheckPaymentsMigrationJob;
 import org.thoughtcrime.securesms.migrations.SelfRegisteredStateMigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerAdditionMigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerDayByDayMigrationJob;
@@ -175,7 +174,7 @@ public final class JobManagerFactories {
       put(MultiDeviceDeleteSyncJob.KEY,              new MultiDeviceDeleteSyncJob.Factory());
       put(MultiDeviceKeysUpdateJob.KEY,              new MultiDeviceKeysUpdateJob.Factory());
       put(MultiDeviceMessageRequestResponseJob.KEY,  new MultiDeviceMessageRequestResponseJob.Factory());
-      put(MultiDeviceOutgoingPaymentSyncJob.KEY,     new MultiDeviceOutgoingPaymentSyncJob.Factory());
+      put("MultiDeviceOutgoingPaymentSyncJob",       new FailingJob.Factory()); // MOLLY
       put(MultiDeviceProfileContentUpdateJob.KEY,    new MultiDeviceProfileContentUpdateJob.Factory());
       put(MultiDeviceProfileKeyUpdateJob.KEY,        new MultiDeviceProfileKeyUpdateJob.Factory());
       put(MultiDeviceReadUpdateJob.KEY,              new MultiDeviceReadUpdateJob.Factory());
@@ -189,11 +188,11 @@ public final class JobManagerFactories {
       put(NullMessageSendJob.KEY,                    new NullMessageSendJob.Factory());
       put(OptimizeMediaJob.KEY,                      new OptimizeMediaJob.Factory());
       put(OptimizeMessageSearchIndexJob.KEY,         new OptimizeMessageSearchIndexJob.Factory());
-      put(PaymentLedgerUpdateJob.KEY,                new PaymentLedgerUpdateJob.Factory());
-      put(PaymentNotificationSendJob.KEY,            new PaymentNotificationSendJob.Factory());
-      put(PaymentNotificationSendJobV2.KEY,          new PaymentNotificationSendJobV2.Factory());
-      put(PaymentSendJob.KEY,                        new PaymentSendJob.Factory());
-      put(PaymentTransactionCheckJob.KEY,            new PaymentTransactionCheckJob.Factory());
+      put("PaymentLedgerUpdateJob",                  new FailingJob.Factory()); // MOLLY
+      put("PaymentNotificationSendJob",              new FailingJob.Factory()); // MOLLY
+      put("PaymentNotificationSendJobV2",            new FailingJob.Factory()); // MOLLY
+      put("PaymentSendJob",                          new FailingJob.Factory()); // MOLLY
+      put("PaymentTransactionCheckJob",              new FailingJob.Factory()); // MOLLY
       put("PnpInitializeDevicesJob",                 new FailingJob.Factory()); // MOLLY
       put(PreKeysSyncJob.KEY,                        new PreKeysSyncJob.Factory());
       put(ProfileKeySendJob.KEY,                     new ProfileKeySendJob.Factory());
@@ -230,7 +229,7 @@ public final class JobManagerFactories {
       put(RotateProfileKeyJob.KEY,                   new RotateProfileKeyJob.Factory());
       put(SenderKeyDistributionSendJob.KEY,          new SenderKeyDistributionSendJob.Factory());
       put(SendDeliveryReceiptJob.KEY,                new SendDeliveryReceiptJob.Factory());
-      put(SendPaymentsActivatedJob.KEY,              new SendPaymentsActivatedJob.Factory());
+      put("SendPaymentsActivatedJob",                new FailingJob.Factory()); // MOLLY
       put(SendReadReceiptJob.KEY,                    new SendReadReceiptJob.Factory(application));
       put(SendRetryReceiptJob.KEY,                   new SendRetryReceiptJob.Factory());
       put(SendViewedReceiptJob.KEY,                  new SendViewedReceiptJob.Factory(application));
@@ -293,7 +292,7 @@ public final class JobManagerFactories {
       put(ProfileMigrationJob.KEY,                      new ProfileMigrationJob.Factory());
       put(ProfileSharingUpdateMigrationJob.KEY,         new ProfileSharingUpdateMigrationJob.Factory());
       put(RebuildMessageSearchIndexMigrationJob.KEY,    new RebuildMessageSearchIndexMigrationJob.Factory());
-      put(RecheckPaymentsMigrationJob.KEY,              new RecheckPaymentsMigrationJob.Factory());
+      put("RecheckPaymentsMigrationJob",                new FailingJob.Factory());  // MOLLY
       put("RecipientSearchMigrationJob",                new FailingJob.Factory());
       put(SelfRegisteredStateMigrationJob.KEY,          new SelfRegisteredStateMigrationJob.Factory());
       put("StickerLaunchMigrationJob",                  new FailingJob.Factory());

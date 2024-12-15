@@ -22,12 +22,9 @@ import org.thoughtcrime.securesms.conversation.AttachmentKeyboard
 import org.thoughtcrime.securesms.conversation.AttachmentKeyboardButton
 import org.thoughtcrime.securesms.conversation.ManageContextMenu
 import org.thoughtcrime.securesms.conversation.v2.ConversationViewModel
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.permissions.PermissionCompat
 import org.thoughtcrime.securesms.permissions.Permissions
-import org.thoughtcrime.securesms.recipients.Recipient
-import java.util.function.Predicate
 
 /**
  * Fragment wrapped version of [AttachmentKeyboard] to help encapsulate logic the view
@@ -47,7 +44,6 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
   private lateinit var attachmentKeyboardView: AttachmentKeyboard
 
   private val lifecycleDisposable = LifecycleDisposable()
-  private val removePaymentFilter: Predicate<AttachmentKeyboardButton> = Predicate { button -> button != AttachmentKeyboardButton.PAYMENT }
 
   @Suppress("ReplaceGetOrSet")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,9 +53,6 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
     attachmentKeyboardView = view.findViewById(R.id.attachment_keyboard)
     attachmentKeyboardView.apply {
       setCallback(this@AttachmentKeyboardFragment)
-      if (!SignalStore.payments.paymentsAvailability.isSendAllowed) {
-        filterAttachmentKeyboardButtons(removePaymentFilter)
-      }
     }
 
     viewModel.getRecentMedia()
@@ -70,17 +63,11 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
 
     conversationViewModel = ViewModelProvider(requireParentFragment()).get(ConversationViewModel::class.java)
 
-    val snapshot = conversationViewModel.recipientSnapshot
-    if (snapshot != null) {
-      updatePaymentsAvailable(snapshot)
-    }
-
     conversationViewModel
       .recipient
       .observeOn(AndroidSchedulers.mainThread())
       .subscribeBy {
         attachmentKeyboardView.setWallpaperEnabled(it.hasWallpaper)
-        updatePaymentsAvailable(it)
       }
       .addTo(lifecycleDisposable)
   }
@@ -124,18 +111,5 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
       .request(*PermissionCompat.forImagesAndVideos())
       .onAnyResult { viewModel.refreshRecentMedia() }
       .execute()
-  }
-
-  private fun updatePaymentsAvailable(recipient: Recipient) {
-    val paymentsValues = SignalStore.payments
-    if (paymentsValues.paymentsAvailability.isSendAllowed &&
-      !recipient.isSelf &&
-      !recipient.isGroup &&
-      recipient.isRegistered
-    ) {
-      attachmentKeyboardView.filterAttachmentKeyboardButtons(null)
-    } else {
-      attachmentKeyboardView.filterAttachmentKeyboardButtons(removePaymentFilter)
-    }
   }
 }

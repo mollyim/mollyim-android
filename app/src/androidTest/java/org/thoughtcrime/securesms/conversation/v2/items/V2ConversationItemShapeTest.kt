@@ -302,10 +302,6 @@ class V2ConversationItemShapeTest {
 
     override fun onInviteToSignalClicked() = Unit
 
-    override fun onActivatePaymentsClicked() = Unit
-
-    override fun onSendPaymentClicked(recipientId: RecipientId) = Unit
-
     override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) = Unit
 
     override fun onUrlClicked(url: String): Boolean = false

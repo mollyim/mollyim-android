@@ -13,7 +13,6 @@ import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
-import org.thoughtcrime.securesms.database.PaymentTable;
 import org.thoughtcrime.securesms.database.RecipientTable.SealedSenderAccessMode;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
@@ -49,16 +48,13 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
-import org.whispersystems.signalservice.api.util.UuidUtil;
 import org.whispersystems.signalservice.internal.push.BodyRange;
-import org.whispersystems.signalservice.internal.push.DataMessage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class IndividualSendJob extends PushSendJob {
@@ -265,7 +261,7 @@ public class IndividualSendJob extends PushSendJob {
       List<SharedContact>                        sharedContacts      = getSharedContactsFor(message);
       List<SignalServicePreview>                 previews            = getPreviewsFor(message);
       SignalServiceDataMessage.GiftBadge         giftBadge           = getGiftBadgeFor(message);
-      SignalServiceDataMessage.Payment           payment             = getPayment(message);
+      SignalServiceDataMessage.Payment           payment             = null;
       List<BodyRange>                            bodyRanges          = getBodyRanges(message);
       SignalServiceDataMessage.Builder           mediaMessageBuilder = SignalServiceDataMessage.newBuilder()
                                                                                                .withBody(message.getBody())
@@ -355,39 +351,6 @@ public class IndividualSendJob extends PushSendJob {
       throw new UndeliverableMessageException(e);
     } catch (ServerRejectedException e) {
       throw new UndeliverableMessageException(e);
-    }
-  }
-
-  private SignalServiceDataMessage.Payment getPayment(OutgoingMessage message) {
-    if (message.isPaymentsNotification()) {
-      UUID                            paymentUuid = UuidUtil.parseOrThrow(message.getBody());
-      PaymentTable.PaymentTransaction payment     = SignalDatabase.payments().getPayment(paymentUuid);
-
-      if (payment == null) {
-        Log.w(TAG, "Could not find payment, cannot send notification " + paymentUuid);
-        return null;
-      }
-
-      if (payment.getReceipt() == null) {
-        Log.w(TAG, "Could not find payment receipt, cannot send notification " + paymentUuid);
-        return null;
-      }
-
-      return new SignalServiceDataMessage.Payment(new SignalServiceDataMessage.PaymentNotification(payment.getReceipt(), payment.getNote()), null);
-    } else {
-      DataMessage.Payment.Activation.Type type = null;
-
-      if (message.isRequestToActivatePayments()) {
-        type = DataMessage.Payment.Activation.Type.REQUEST;
-      } else if (message.isPaymentsActivated()) {
-        type = DataMessage.Payment.Activation.Type.ACTIVATED;
-      }
-
-      if (type != null) {
-        return new SignalServiceDataMessage.Payment(null, new SignalServiceDataMessage.PaymentActivation(type));
-      } else {
-        return null;
-      }
     }
   }
 

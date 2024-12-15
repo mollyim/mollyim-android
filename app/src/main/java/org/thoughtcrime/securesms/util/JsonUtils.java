@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.util;
 
+import androidx.annotation.Nullable;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -12,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class JsonUtils {
 

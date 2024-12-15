@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Consumer;
 
-import com.mobilecoin.lib.util.Hex;
+import org.signal.core.util.Hex;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,7 +93,7 @@ public class EmojiDownloader {
         savedMd5 = EmojiFiles.getMd5(context, version, name.getUuid());
       }
 
-      if (!Arrays.equals(savedMd5, Hex.toByteArray(responseMD5))) {
+      if (!Arrays.equals(savedMd5, Hex.fromStringCondensed(responseMD5))) {
         EmojiFiles.delete(context, version, name.getUuid());
         throw new IOException("MD5 Mismatch.");
       }

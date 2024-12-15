@@ -47,13 +47,6 @@ dependencyResolutionManagement {
         includeModule("org.signal", "sqlcipher-android")
       }
     }
-    maven {
-      url = uri("https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/")
-      content {
-        includeModule("com.mobilecoin", "android-bindings")
-        includeModule("com.mobilecoin", "android-sdk")
-      }
-    }
   }
   versionCatalogs {
     // libs.versions.toml is automatically registered.

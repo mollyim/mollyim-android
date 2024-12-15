@@ -1,9 +1,5 @@
 package org.thoughtcrime.securesms.components.settings.app.internal
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -46,7 +42,6 @@ import org.thoughtcrime.securesms.jobs.StorageForcePushJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
 import org.thoughtcrime.securesms.megaphone.Megaphones
-import org.thoughtcrime.securesms.payments.DataExportUtil
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
@@ -303,18 +298,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         summary = DSLSettingsText.from("Click to clear all local metrics state."),
         onClick = {
           clearAllLocalMetricsState()
-        }
-      )
-
-      dividerPref()
-
-      sectionHeaderPref(DSLSettingsText.from("Payments"))
-
-      clickPref(
-        title = DSLSettingsText.from("Copy payments data"),
-        summary = DSLSettingsText.from("Copy all payment records to clipboard."),
-        onClick = {
-          copyPaymentsDataToClipboard()
         }
       )
 
@@ -745,42 +728,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
             }
           }
         }
-      }
-      .setNegativeButton(android.R.string.cancel, null)
-      .show()
-  }
-
-  private fun copyPaymentsDataToClipboard() {
-    MaterialAlertDialogBuilder(requireContext())
-      .setMessage(
-        """
-    Local payments history will be copied to the clipboard.
-    It may therefore compromise privacy.
-    However, no private keys will be copied.
-        """.trimIndent()
-      )
-      .setPositiveButton(
-        "Copy"
-      ) { _: DialogInterface?, _: Int ->
-        val context: Context = AppDependencies.application
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-
-        SimpleTask.run<Any?>(
-          SignalExecutors.UNBOUNDED,
-          {
-            val tsv = DataExportUtil.createTsv()
-            val clip = ClipData.newPlainText(context.getString(R.string.app_name), tsv)
-            clipboard.setPrimaryClip(clip)
-            null
-          },
-          {
-            Toast.makeText(
-              context,
-              "Payments have been copied",
-              Toast.LENGTH_SHORT
-            ).show()
-          }
-        )
       }
       .setNegativeButton(android.R.string.cancel, null)
       .show()

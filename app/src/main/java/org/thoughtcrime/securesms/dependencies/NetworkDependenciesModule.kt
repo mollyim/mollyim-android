@@ -21,7 +21,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
 import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
-import org.thoughtcrime.securesms.payments.Payments
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
 import org.thoughtcrime.securesms.push.SignalServiceTrustStore
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
@@ -112,10 +111,6 @@ class NetworkDependenciesModule(
 
   val signalServiceMessageReceiver: SignalServiceMessageReceiver by lazy {
     provider.provideSignalServiceMessageReceiver(pushServiceSocket)
-  }
-
-  val payments: Payments by lazy {
-    provider.providePayments(signalServiceAccountManager)
   }
 
   val callLinksService: CallLinksService by lazy {

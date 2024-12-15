@@ -321,14 +321,6 @@ class MessageDetailsFragment : FullScreenDialogFragment(), MessageDetailsAdapter
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 
-  override fun onActivatePaymentsClicked() {
-    Log.w(TAG, "Not yet implemented!", Exception())
-  }
-
-  override fun onSendPaymentClicked(recipientId: RecipientId) {
-    Log.w(TAG, "Not yet implemented!", Exception())
-  }
-
   override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) {
     Log.w(TAG, "Not yet implemented!", Exception())
   }
@@ -367,10 +359,6 @@ class MessageDetailsFragment : FullScreenDialogFragment(), MessageDetailsAdapter
   }
 
   override fun onItemDoubleClick(multiselectPart: MultiselectPart?) {
-    Log.w(TAG, "Not yet implemented!", Exception())
-  }
-
-  override fun onPaymentTombstoneClicked() {
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 

@@ -100,7 +100,6 @@ import org.signal.core.util.dp
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.setActionItemTint
-import org.signal.donations.InAppPaymentType
 import org.signal.ringrtc.CallLinkRootKey
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.GroupMembersDialog
@@ -267,7 +266,6 @@ import org.thoughtcrime.securesms.mms.StickerSlide
 import org.thoughtcrime.securesms.mms.VideoSlide
 import org.thoughtcrime.securesms.nicknames.NicknameActivity
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
-import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment
@@ -2410,18 +2408,6 @@ class ConversationFragment :
     actionMode = (requireActivity() as AppCompatActivity).startSupportActionMode(actionModeCallback)
   }
 
-  private fun handleViewPaymentDetails(conversationMessage: ConversationMessage) {
-    val record: MmsMessageRecord = conversationMessage.messageRecord as? MmsMessageRecord ?: return
-    val payment = record.payment
-    if (payment == null || record.isPaymentTombstone) {
-      showPaymentTombstoneLearnMoreDialog()
-      return
-    }
-    if (record.isPaymentNotification) {
-      startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), payment.uuid))
-    }
-  }
-
   private fun showPaymentTombstoneLearnMoreDialog() {
     val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
     dialogBuilder
@@ -2854,10 +2840,6 @@ class ConversationFragment :
       DoubleTapEditEducationSheet(conversationMessage).show(childFragmentManager, DoubleTapEditEducationSheet.KEY)
     }
 
-    override fun onPaymentTombstoneClicked() {
-      this@ConversationFragment.showPaymentTombstoneLearnMoreDialog()
-    }
-
     override fun onDisplayMediaNoLongerAvailableSheet() {
       if (SignalStore.backup.areBackupsEnabled) {
         UpgradeToStartMediaBackupSheet().show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
@@ -3024,15 +3006,6 @@ class ConversationFragment :
         requireContext(),
         this@ConversationFragment::startActivity
       )
-    }
-
-    override fun onActivatePaymentsClicked() {
-      startActivity(Intent(requireContext(), PaymentsActivity::class.java))
-    }
-
-    override fun onSendPaymentClicked(recipientId: RecipientId) {
-      val recipient = viewModel.recipientSnapshot ?: return
-      AttachmentManager.selectPayment(this@ConversationFragment, recipient)
     }
 
     override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) = Unit
@@ -3588,7 +3561,6 @@ class ConversationFragment :
         ConversationReactionOverlay.Action.DOWNLOAD -> handleSaveAttachment(conversationMessage.messageRecord as MmsMessageRecord)
         ConversationReactionOverlay.Action.COPY -> handleCopyMessage(conversationMessage.multiselectCollection.toSet())
         ConversationReactionOverlay.Action.MULTISELECT -> handleEnterMultiselect(conversationMessage)
-        ConversationReactionOverlay.Action.PAYMENT_DETAILS -> handleViewPaymentDetails(conversationMessage)
         ConversationReactionOverlay.Action.VIEW_INFO -> handleDisplayDetails(conversationMessage)
         ConversationReactionOverlay.Action.DELETE -> handleDeleteMessages(conversationMessage.multiselectCollection.toSet())
       }
@@ -4201,7 +4173,6 @@ class ConversationFragment :
           AttachmentKeyboardButton.GALLERY -> conversationActivityResultContracts.launchGallery(recipient.id, composeText.textTrimmed, inputPanel.quote.isPresent)
           AttachmentKeyboardButton.CONTACT -> conversationActivityResultContracts.launchSelectContact()
           AttachmentKeyboardButton.LOCATION -> conversationActivityResultContracts.launchSelectLocation(recipient.chatColors)
-          AttachmentKeyboardButton.PAYMENT -> AttachmentManager.selectPayment(this@ConversationFragment, recipient)
           AttachmentKeyboardButton.FILE -> {
             if (!conversationActivityResultContracts.launchSelectFile()) {
               toast(R.string.AttachmentManager_cant_open_media_selection, Toast.LENGTH_LONG)
