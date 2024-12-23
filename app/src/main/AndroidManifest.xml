@@ -96,6 +96,7 @@
     <application android:name=".ApplicationContext"
                  android:icon="@mipmap/ic_launcher"
                  android:label="@string/app_name"
+                 android:memtagMode="async"
                  android:supportsRtl="true"
                  android:resizeableActivity="true"
                  android:fullBackupOnly="false"
