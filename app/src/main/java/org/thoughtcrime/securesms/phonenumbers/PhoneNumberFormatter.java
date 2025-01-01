@@ -33,7 +33,6 @@ public class PhoneNumberFormatter {
   private static final String UNKNOWN_NUMBER = "Unknown";
 
   private static final Set<String>  EXCLUDE_FROM_MANUAL_SHORTCODE_4 = SetUtil.newHashSet("AC", "NC", "NU", "TK");
-  private static final Set<String>  MANUAL_SHORTCODE_6              = SetUtil.newHashSet("DE", "FI", "GB", "SK");
   private static final Set<Integer> NATIONAL_FORMAT_COUNTRY_CODES   = SetUtil.newHashSet(1 /*US*/, 44 /*UK*/);
 
   private static final Pattern US_NO_AREACODE = Pattern.compile("^(\\d{7})$");
@@ -129,11 +128,7 @@ public class PhoneNumberFormatter {
       else                             return number.trim();
     }
 
-    if (bareNumber.length() <= 6 && MANUAL_SHORTCODE_6.contains(localCountryCode)) {
-      return bareNumber;
-    }
-
-    if (bareNumber.length() <= 4 && !EXCLUDE_FROM_MANUAL_SHORTCODE_4.contains(localCountryCode)) {
+    if (bareNumber.length() <= 6) {
       return bareNumber;
     }
 

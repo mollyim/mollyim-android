@@ -18,8 +18,8 @@ apply {
   from("fix-profm.gradle")
 }
 
-val canonicalVersionCode = 1491
-val canonicalVersionName = "7.27.1"
+val canonicalVersionCode = 1496
+val canonicalVersionName = "7.28.4"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -222,6 +222,7 @@ android {
 
     // MOLLY: Rely on the built-in variables FLAVOR and BUILD_TYPE instead of BUILD_*_TYPE
     buildConfigField("String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\"")
+    buildConfigField("String", "STRIPE_BASE_URL", "\"https://api.stripe.com/v1\"")
     buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_live_6cmGZopuTsV8novGgJJW9JpC00vLIgtQ1D\"")
     buildConfigField("boolean", "TRACING_ENABLED", "false")
 
@@ -281,6 +282,8 @@ android {
       isMinifyEnabled = false
       matchingFallbacks += "debug"
       applicationIdSuffix = ".instrumentation"
+
+      buildConfigField("String", "STRIPE_BASE_URL", "\"http://127.0.0.1:8080/stripe\"")
     }
 
     create("spinner") {

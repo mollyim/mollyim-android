@@ -867,6 +867,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         }),
         new MediaRestoreProgressBanner(new MediaRestoreProgressBanner.RestoreProgressBannerListener() {
           @Override
+          public void onBannerClick() {
+            startActivity(AppSettingsActivity.backupsSettings(requireContext()));
+          }
+
+          @Override
           public void onActionClick(@NonNull BackupStatusData backupStatusData) {
             if (backupStatusData instanceof BackupStatusData.NotEnoughFreeSpace) {
               BackupAlertBottomSheet.create(new BackupAlert.DiskFull(((BackupStatusData.NotEnoughFreeSpace) backupStatusData).getRequiredSpace()))
@@ -987,7 +992,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     lifecycleDisposable.add(
         viewModel.getSelectedState().subscribe(conversations -> {
           defaultAdapter.setSelectedConversations(conversations);
-          updateMultiSelectState();
+          if (conversations.isEmpty()) {
+            endActionModeIfActive();
+          } else {
+            updateMultiSelectState();
+          }
         })
     );
   }
@@ -1217,8 +1226,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
           @Override
           protected Void doInBackground(Void... params) {
+            Log.d(TAG, "[handleDelete] Deleting " + selectedConversations.size() + " chats");
             SignalDatabase.threads().deleteConversations(selectedConversations, true);
             AppDependencies.getMessageNotifier().updateNotification(requireActivity());
+            Log.d(TAG, "[handleDelete] Delete complete");
             return null;
           }
 
@@ -1387,12 +1398,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       handleCreateConversation(conversation.getThreadRecord().getThreadId(), conversation.getThreadRecord().getRecipient(), conversation.getThreadRecord().getDistributionType());
     } else {
       viewModel.toggleConversationSelected(conversation);
-
-      if (viewModel.currentSelectedConversations().isEmpty()) {
-        endActionModeIfActive();
-      } else {
-        updateMultiSelectState();
-      }
     }
   }
 

@@ -67,6 +67,11 @@ class ArchiveImportExportTests {
   }
 
 //  @Test
+  fun chatFolders() {
+    runTests { it.startsWith("chat_folder_") }
+  }
+
+//  @Test
   fun chatItemContactMessage() {
     runTests { it.startsWith("chat_item_contact_message_") }
   }
@@ -191,7 +196,12 @@ class ArchiveImportExportTests {
     runTests { it.startsWith("chat_item_view_once_") }
   }
 
-  //  @Test
+//  @Test
+  fun notificationProfiles() {
+    runTests { it.startsWith("notification_profile_") }
+  }
+
+//  @Test
   fun recipientCallLink() {
     runTests { it.startsWith("recipient_call_link_") }
   }
@@ -288,20 +298,6 @@ class ArchiveImportExportTests {
       selfData = BackupRepository.SelfData(SELF_ACI, SELF_PNI, SELF_E164, ProfileKey(SELF_PROFILE_KEY)),
       plaintext = true
     )
-  }
-
-  private fun assertPassesValidator(testName: String, generatedBackupData: ByteArray): TestResult.Failure? {
-    try {
-      BackupRepository.validate(
-        length = generatedBackupData.size.toLong(),
-        inputStreamFactory = { ByteArrayInputStream(generatedBackupData) },
-        selfData = BackupRepository.SelfData(SELF_ACI, SELF_PNI, SELF_E164, ProfileKey(SELF_PROFILE_KEY))
-      )
-    } catch (e: Exception) {
-      return TestResult.Failure(testName, "Generated backup failed validation: ${e.message}")
-    }
-
-    return null
   }
 
   private fun checkEquivalent(testName: String, import: ByteArray, export: ByteArray): TestResult.Failure? {

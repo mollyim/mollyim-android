@@ -391,7 +391,7 @@ object RegistrationRepository {
   /**
    * Submit the necessary assets as a verified account so that the user can actually use the service.
    */
-  suspend fun registerAccount(context: Context, sessionId: String?, registrationData: RegistrationData, pin: String? = null, masterKeyProducer: MasterKeyProducer? = null): RegisterAccountResult =
+  suspend fun registerAccount(context: Context, sessionId: String?, registrationData: RegistrationData, recoveryPassword: String?, pin: String? = null, masterKeyProducer: MasterKeyProducer? = null): RegisterAccountResult =
     withContext(Dispatchers.IO) {
       Log.v(TAG, "registerAccount()")
       val api: RegistrationApi = AccountManagerFactory.getInstance().createUnauthenticated(context, registrationData.e164, SignalServiceAddress.DEFAULT_DEVICE_ID, registrationData.password).registrationApi
@@ -423,7 +423,7 @@ object RegistrationRepository {
         discoverableByPhoneNumber = SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode == PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.DISCOVERABLE,
         name = null,
         pniRegistrationId = registrationData.pniRegistrationId,
-        recoveryPassword = registrationData.recoveryPassword
+        recoveryPassword = recoveryPassword
       )
 
       SignalStore.account.generateAciIdentityKeyIfNecessary()
@@ -435,7 +435,7 @@ object RegistrationRepository {
       val aciPreKeyCollection = generateSignedAndLastResortPreKeys(aciIdentity, SignalStore.account.aciPreKeys)
       val pniPreKeyCollection = generateSignedAndLastResortPreKeys(pniIdentity, SignalStore.account.pniPreKeys)
 
-      val result: NetworkResult<AccountRegistrationResult> = api.registerAccount(sessionId, registrationData.recoveryPassword, accountAttributes, aciPreKeyCollection, pniPreKeyCollection, registrationData.fcmToken, true)
+      val result: NetworkResult<AccountRegistrationResult> = api.registerAccount(sessionId, recoveryPassword, accountAttributes, aciPreKeyCollection, pniPreKeyCollection, registrationData.fcmToken, true)
         .map { accountRegistrationResponse: VerifyAccountResponse ->
           AccountRegistrationResult(
             uuid = accountRegistrationResponse.uuid,

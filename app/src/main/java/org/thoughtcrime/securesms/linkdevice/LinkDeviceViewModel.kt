@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.linkdevice.LinkDeviceSettingsState.QrCodeState
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.backup.MessageBackupKey
+import org.whispersystems.signalservice.api.link.TransferArchiveError
 import org.whispersystems.signalservice.api.link.WaitForLinkedDeviceResponse
 import kotlin.time.Duration.Companion.seconds
 
@@ -195,6 +196,8 @@ class LinkDeviceViewModel : ViewModel() {
   }
 
   private fun addDeviceWithSync(linkUri: Uri) {
+    Log.d(TAG, "[addDeviceWithSync] Beginning device adding process.")
+
     val ephemeralMessageBackupKey = MessageBackupKey(Util.getSecretBytes(32))
     val result = LinkDeviceRepository.addDevice(linkUri, ephemeralMessageBackupKey)
 
@@ -206,15 +209,17 @@ class LinkDeviceViewModel : ViewModel() {
       )
     }
 
+    Log.d(TAG, "[addDeviceWithSync] Got result: $result")
+
     if (result !is LinkDeviceResult.Success) {
-      Log.w(TAG, "Unable to link device $result")
+      Log.w(TAG, "[addDeviceWithSync] Unable to link device $result")
       return
     }
 
-    Log.i(TAG, "Waiting for a new linked device...")
+    Log.i(TAG, "[addDeviceWithSync] Waiting for a new linked device...")
     val waitResult: WaitForLinkedDeviceResponse? = LinkDeviceRepository.waitForDeviceToBeLinked(result.token, maxWaitTime = 60.seconds)
     if (waitResult == null) {
-      Log.i(TAG, "No linked device found!")
+      Log.i(TAG, "[addDeviceWithSync] No linked device found!")
       _state.update {
         it.copy(
           dialogState = DialogState.SyncingTimedOut
@@ -223,7 +228,7 @@ class LinkDeviceViewModel : ViewModel() {
       return
     }
 
-    Log.i(TAG, "Found a linked device!")
+    Log.d(TAG, "[addDeviceWithSync] Found a linked device!")
 
     _state.update {
       it.copy(
@@ -232,10 +237,13 @@ class LinkDeviceViewModel : ViewModel() {
       )
     }
 
-    Log.i(TAG, "Beginning the archive generation process...")
+    Log.d(TAG, "[addDeviceWithSync] Beginning the archive generation process...")
     val uploadResult = LinkDeviceRepository.createAndUploadArchive(ephemeralMessageBackupKey, waitResult.id, waitResult.created)
+
+    Log.d(TAG, "[addDeviceWithSync] Archive finished with result: $uploadResult")
     when (uploadResult) {
       LinkDeviceRepository.LinkUploadArchiveResult.Success -> {
+        Log.i(TAG, "[addDeviceWithSync] Successfully uploaded archive.")
         _state.update {
           it.copy(
             oneTimeEvent = OneTimeEvent.ToastLinked(waitResult.getPlaintextDeviceName()),
@@ -247,9 +255,10 @@ class LinkDeviceViewModel : ViewModel() {
       is LinkDeviceRepository.LinkUploadArchiveResult.BackupCreationFailure,
       is LinkDeviceRepository.LinkUploadArchiveResult.BadRequest,
       is LinkDeviceRepository.LinkUploadArchiveResult.NetworkError -> {
+        Log.w(TAG, "[addDeviceWithSync] Failed to upload the archive! Result: $uploadResult")
         _state.update {
           it.copy(
-            dialogState = DialogState.SyncingFailed(waitResult.id)
+            dialogState = DialogState.SyncingFailed(waitResult.id, waitResult.created)
           )
         }
       }
@@ -298,16 +307,29 @@ class LinkDeviceViewModel : ViewModel() {
     return this.getQueryParameter("capabilities")?.split(",")?.contains("backup") == true
   }
 
-  fun onSyncErrorIgnored() {
+  fun onSyncErrorIgnored() = viewModelScope.launch(Dispatchers.IO) {
+    val dialogState = _state.value.dialogState
+    if (dialogState is DialogState.SyncingFailed) {
+      Log.i(TAG, "Alerting linked device of sync failure - will not retry")
+      LinkDeviceRepository.sendTransferArchiveError(dialogState.deviceId, dialogState.deviceCreatedAt, TransferArchiveError.CONTINUE_WITHOUT_UPLOAD)
+    }
+
     _state.update {
-      it.copy(dialogState = DialogState.None)
+      it.copy(
+        linkDeviceResult = LinkDeviceResult.None,
+        dialogState = DialogState.None
+      )
     }
   }
 
-  fun onSyncErrorRetryRequested(deviceId: Int?) = viewModelScope.launch(Dispatchers.IO) {
-    if (deviceId != null) {
+  fun onSyncErrorRetryRequested() = viewModelScope.launch(Dispatchers.IO) {
+    val dialogState = _state.value.dialogState
+    if (dialogState is DialogState.SyncingFailed) {
+      Log.i(TAG, "Alerting linked device of sync failure - will retry")
+      LinkDeviceRepository.sendTransferArchiveError(dialogState.deviceId, dialogState.deviceCreatedAt, TransferArchiveError.RELINK_REQUESTED)
+
       Log.i(TAG, "Need to unlink device first...")
-      val success = LinkDeviceRepository.removeDevice(deviceId)
+      val success = LinkDeviceRepository.removeDevice(dialogState.deviceId)
       if (!success) {
         Log.w(TAG, "Failed to remove device! We did our best. Continuing.")
       }
@@ -315,6 +337,7 @@ class LinkDeviceViewModel : ViewModel() {
 
     _state.update {
       it.copy(
+        linkDeviceResult = LinkDeviceResult.None,
         dialogState = DialogState.None,
         oneTimeEvent = OneTimeEvent.LaunchQrCodeScanner
       )

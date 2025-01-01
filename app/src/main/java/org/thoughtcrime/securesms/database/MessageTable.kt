@@ -1819,6 +1819,21 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       .readToSingleInt()
   }
 
+  /**
+   * Given a set of thread ids, return the count of all messages in the table that match that thread id. This will include *all* messages, and is
+   * explicitly for use as a "fuzzy total"
+   */
+  fun getApproximateExportableMessageCount(threadIds: Set<Long>): Long {
+    val queries = SqlUtil.buildCollectionQuery(THREAD_ID, threadIds)
+    return queries.sumOf {
+      readableDatabase.count()
+        .from(TABLE_NAME)
+        .where(it.where, it.whereArgs)
+        .run()
+        .readToSingleLong(0L)
+    }
+  }
+
   fun canSetUniversalTimer(threadId: Long): Boolean {
     if (threadId == -1L) {
       return true
@@ -4808,17 +4823,25 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   override fun remapRecipient(fromId: RecipientId, toId: RecipientId) {
-    writableDatabase
+    val fromCount = writableDatabase
       .update(TABLE_NAME)
       .values(FROM_RECIPIENT_ID to toId.serialize())
       .where("$FROM_RECIPIENT_ID = ?", fromId)
       .run()
 
-    writableDatabase
+    val toCount = writableDatabase
       .update(TABLE_NAME)
       .values(TO_RECIPIENT_ID to toId.serialize())
       .where("$TO_RECIPIENT_ID = ?", fromId)
       .run()
+
+    val quoteAuthorCount = writableDatabase
+      .update(TABLE_NAME)
+      .values(QUOTE_AUTHOR to toId.serialize())
+      .where("$QUOTE_AUTHOR = ?", fromId)
+      .run()
+
+    Log.d(TAG, "Remapped $fromId to $toId. fromRecipient: $fromCount, toRecipient: $toCount, quoteAuthor: $quoteAuthorCount")
   }
 
   override fun remapThread(fromId: Long, toId: Long) {
