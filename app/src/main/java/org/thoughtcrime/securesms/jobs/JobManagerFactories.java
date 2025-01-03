@@ -25,6 +25,8 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NotInCallConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NotInCallConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.RestoreAttachmentConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.RestoreAttachmentConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.WifiConstraint;
 import org.thoughtcrime.securesms.jobmanager.migrations.DonationReceiptRedemptionJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.GroupCallPeekJobDataMigration;
@@ -49,6 +51,7 @@ import org.thoughtcrime.securesms.migrations.BackfillDigestsForDuplicatesMigrati
 import org.thoughtcrime.securesms.migrations.BackfillDigestsMigrationJob;
 import org.thoughtcrime.securesms.migrations.BackupJitterMigrationJob;
 import org.thoughtcrime.securesms.migrations.BackupNotificationMigrationJob;
+import org.thoughtcrime.securesms.migrations.BadE164MigrationJob;
 import org.thoughtcrime.securesms.migrations.BlobStorageLocationMigrationJob;
 import org.thoughtcrime.securesms.migrations.ClearGlideCacheMigrationJob;
 import org.thoughtcrime.securesms.migrations.ContactLinkRebuildMigrationJob;
@@ -269,6 +272,7 @@ public final class JobManagerFactories {
       put(BackupMediaSnapshotSyncJob.KEY,               new BackupMediaSnapshotSyncJob.Factory());
       put(BackupNotificationMigrationJob.KEY,           new BackupNotificationMigrationJob.Factory());
       put(BackupRefreshJob.KEY,                         new BackupRefreshJob.Factory());
+      put(BadE164MigrationJob.KEY,                      new BadE164MigrationJob.Factory());
       put(BlobStorageLocationMigrationJob.KEY,          new BlobStorageLocationMigrationJob.Factory());
       put("CachedAttachmentsMigrationJob",              new FailingJob.Factory());
       put(ClearGlideCacheMigrationJob.KEY,              new ClearGlideCacheMigrationJob.Factory());
@@ -378,6 +382,7 @@ public final class JobManagerFactories {
       put(NetworkConstraint.KEY,                     new NetworkConstraint.Factory(application));
       put(NotInCallConstraint.KEY,                   new NotInCallConstraint.Factory());
       put(WifiConstraint.KEY,                        new WifiConstraint.Factory(application));
+      put(RestoreAttachmentConstraint.KEY,           new RestoreAttachmentConstraint.Factory(application));
     }};
   }
 
@@ -388,7 +393,8 @@ public final class JobManagerFactories {
                          new DecryptionsDrainedConstraintObserver(),
                          new NotInCallConstraintObserver(),
                          ChangeNumberConstraintObserver.INSTANCE,
-                         DataRestoreConstraintObserver.INSTANCE);
+                         DataRestoreConstraintObserver.INSTANCE,
+                         RestoreAttachmentConstraintObserver.INSTANCE);
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {

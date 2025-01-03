@@ -319,7 +319,9 @@ public class WebRtcCallActivity extends PassphraseRequiredActivity implements Sa
     Log.i(TAG, "onPause");
     super.onPause();
 
-    EventBus.getDefault().unregister(this);
+    if (!isInPipMode() || isFinishing()) {
+      EventBus.getDefault().unregister(this);
+    }
 
     if (!callPermissionsDialogController.isAskingForPermission() && !viewModel.isCallStarting() && !isChangingConfigurations()) {
       CallParticipantsState state = viewModel.getCallParticipantsStateSnapshot();

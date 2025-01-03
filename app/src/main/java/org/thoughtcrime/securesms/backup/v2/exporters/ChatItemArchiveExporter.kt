@@ -229,7 +229,7 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isThreadMergeType(record.type) -> {
-          builder.updateMessage = record.toRemoteThreadMergeUpdate()
+          builder.updateMessage = record.toRemoteThreadMergeUpdate() ?: continue
         }
 
         MessageTypes.isGroupV2(record.type) && MessageTypes.isGroupUpdate(record.type) -> {
@@ -296,7 +296,11 @@ class ChatItemArchiveExporter(
       if (record.latestRevisionId == null) {
         val previousEdits = revisionMap.remove(record.id)
         if (previousEdits != null) {
-          builder.revisions = previousEdits
+          if (builder.standardMessage != null) {
+            builder.revisions = previousEdits
+          } else {
+            Log.w(TAG, "[${record.dateSent}] Attempted to set revisions on a non-standard message! Ignoring.")
+          }
         }
         buffer += builder.build()
       } else {
@@ -386,36 +390,60 @@ private fun simpleUpdate(type: SimpleChatUpdate.Type): ChatUpdateMessage {
 private fun BackupMessageRecord.toBasicChatItemBuilder(selfRecipientId: RecipientId, isGroupThread: Boolean, groupReceipts: List<GroupReceiptTable.GroupReceiptInfo>?, exportState: ExportState, backupStartTime: Long): ChatItem.Builder? {
   val record = this
 
+  val direction = when {
+    record.type.isDirectionlessType() || record.messageExtras?.gv2UpdateDescription != null -> {
+      Direction.DIRECTIONLESS
+    }
+    MessageTypes.isOutgoingMessageType(record.type) || record.fromRecipientId == selfRecipientId.toLong() -> {
+      Direction.OUTGOING
+    }
+    else -> {
+      Direction.INCOMING
+    }
+  }
+
+  // If a user restores a backup with a different number, then they'll have outgoing messages from a non-self contact.
+  // We want to ensure all outgoing messages are from ourselves.
+  val fromRecipientId = if (direction == Direction.OUTGOING) {
+    selfRecipientId.toLong()
+  } else {
+    record.fromRecipientId
+  }
+
   val builder = ChatItem.Builder().apply {
     chatId = record.threadId
-    authorId = record.fromRecipientId
+    authorId = fromRecipientId
     dateSent = record.dateSent
     expireStartDate = record.expireStarted.takeIf { it > 0 }
     expiresInMs = record.expiresIn.takeIf { it > 0 }
     revisions = emptyList()
     sms = record.type.isSmsType()
-    if (record.type.isDirectionlessType() || record.messageExtras?.gv2UpdateDescription != null) {
-      directionless = ChatItem.DirectionlessMessageDetails()
-    } else if (MessageTypes.isOutgoingMessageType(record.type) || record.fromRecipientId == selfRecipientId.toLong()) {
-      outgoing = ChatItem.OutgoingMessageDetails(
-        sendStatus = record.toRemoteSendStatus(isGroupThread, groupReceipts, exportState)
-      )
-
-      if (expiresInMs != null && outgoing?.sendStatus?.all { it.pending == null && it.failed == null } == true) {
-        Log.w(TAG, "Outgoing expiring message was sent but the timer wasn't started! Fixing.")
-        expireStartDate = record.dateReceived
+    when (direction) {
+      Direction.DIRECTIONLESS -> {
+        directionless = ChatItem.DirectionlessMessageDetails()
       }
-    } else {
-      incoming = ChatItem.IncomingMessageDetails(
-        dateServerSent = record.dateServer.takeIf { it > 0 },
-        dateReceived = record.dateReceived,
-        read = record.read,
-        sealedSender = record.sealedSender
-      )
+      Direction.OUTGOING -> {
+        outgoing = ChatItem.OutgoingMessageDetails(
+          sendStatus = record.toRemoteSendStatus(isGroupThread, groupReceipts, exportState)
+        )
 
-      if (expiresInMs != null && incoming?.read == true && expireStartDate == null) {
-        Log.w(TAG, "Incoming expiring message was read but the timer wasn't started! Fixing.")
-        expireStartDate = record.dateReceived
+        if (expiresInMs != null && outgoing?.sendStatus?.all { it.pending == null && it.failed == null } == true) {
+          Log.w(TAG, "Outgoing expiring message was sent but the timer wasn't started! Fixing.")
+          expireStartDate = record.dateReceived
+        }
+      }
+      Direction.INCOMING -> {
+        incoming = ChatItem.IncomingMessageDetails(
+          dateServerSent = record.dateServer.takeIf { it > 0 },
+          dateReceived = record.dateReceived,
+          read = record.read,
+          sealedSender = record.sealedSender
+        )
+
+        if (expiresInMs != null && incoming?.read == true && expireStartDate == null) {
+          Log.w(TAG, "Incoming expiring message was read but the timer wasn't started! Fixing.")
+          expireStartDate = record.dateReceived
+        }
       }
     }
   }
@@ -460,19 +488,20 @@ private fun BackupMessageRecord.toRemoteSessionSwitchoverUpdate(): ChatUpdateMes
   )
 }
 
-private fun BackupMessageRecord.toRemoteThreadMergeUpdate(): ChatUpdateMessage {
+private fun BackupMessageRecord.toRemoteThreadMergeUpdate(): ChatUpdateMessage? {
   if (this.body == null) {
-    return ChatUpdateMessage(threadMerge = ThreadMergeChatUpdate())
+    return null
   }
 
-  return ChatUpdateMessage(
-    threadMerge = try {
-      val event = ThreadMergeEvent.ADAPTER.decode(Base64.decodeOrThrow(this.body))
-      ThreadMergeChatUpdate(event.previousE164.e164ToLong()!!)
-    } catch (e: IOException) {
-      ThreadMergeChatUpdate()
+  try {
+    val e164 = ThreadMergeEvent.ADAPTER.decode(Base64.decodeOrThrow(this.body)).previousE164.e164ToLong()
+    if (e164 != null) {
+      return ChatUpdateMessage(threadMerge = ThreadMergeChatUpdate(e164))
     }
-  )
+  } catch (_: IOException) {
+  }
+
+  return null
 }
 
 private fun BackupMessageRecord.toRemoteGroupUpdate(): ChatUpdateMessage? {
@@ -1220,10 +1249,14 @@ private class BackupMessageRecord(
   val viewOnce: Boolean
 )
 
-data class ExtraMessageData(
+private data class ExtraMessageData(
   val mentionsById: Map<Long, List<Mention>>,
   val reactionsById: Map<Long, List<ReactionRecord>>,
   val attachmentsById: Map<Long, List<DatabaseAttachment>>,
   val groupReceiptsById: Map<Long, List<GroupReceiptTable.GroupReceiptInfo>>,
   val isGroupThreadById: Map<Long, Boolean>
 )
+
+private enum class Direction {
+  OUTGOING, INCOMING, DIRECTIONLESS
+}
