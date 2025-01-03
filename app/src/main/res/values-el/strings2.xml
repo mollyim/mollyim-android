@@ -2,9 +2,9 @@
 <resources>
     <string name="preferences__enable_debug_log">Ενεργοποίηση αρχείου καταγραφής εντοπισμού σφαλμάτων</string>
     <string name="AppProtectionPreferenceFragment_instant">Άμεσα</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Τώρα μπορείτε να ορίσετε ένα συνθηματικό, για να ξεκλειδώσετε τη βάση δεδομένων σας. Μέχρι να ξεκλειδωθεί, δε θα μπορέσετε να λάβετε ειδοποιήσεις ή κλήσεις από το Molly. Αυτό θα προστατεύσει τα δεδομένα σας σε περίπτωση κλοπής ή απώλειας της συσκευής σας.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Τώρα μπορείς να ορίσεις ένα συνθηματικό, για να ξεκλειδώσεις τη βάση δεδομένων σου. Μέχρι να ξεκλειδωθεί, δε θα μπορείς να λάβεις ειδοποιήσεις ή κλήσεις από το Molly. Αυτό θα προστατεύσει τα δεδομένα σου σε περίπτωση κλοπής ή απώλειας της συσκευής σου.</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nΕκτιμώμενος απαιτούμενος χρόνος σπάσιμου συνθηματικού: %2$s.\n\nΠροτίμηση: %3$s</string>
-    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Παρακαλώ επιλέξτε ένα συνθηματικό για την κρυπτογράφηση των δεδομένων σας.\n\nΤο συνθηματικό σας θα πρέπει να είναι ισχυρό.</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Παρακαλώ επέλεξε ένα συνθηματικό για την κρυπτογράφηση των δεδομένων σου.\n\nΤο συνθηματικό σου θα πρέπει να είναι ισχυρό.</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">Προστασία της βάσης δεδομένων του Molly με ένα συνθηματικό</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Γίνεται δημιουργία κλειδιών. Αυτό ενδέχεται να πάρει λίγη ώρα…</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Γίνεται ασφαλής εκκαθάριση</string>
@@ -16,8 +16,8 @@
     <string name="preferences__passphrase_lock">Κρυπτογράφηση βάσης δεδομένων</string>
     <string name="preferences__device_lock_timeout">Χρονικό όριο κλειδώματος συσκευής</string>
     <string name="preferences__automatic_lockdown">Αυτόματο κλείδωμα</string>
-    <string name="arrays__on_inactivity_timeout">Αν περάσετε ένα συγκεκριμένο χρονικό διάστημα χωρίς να ξεκλειδώσετε τη συσκευή σας</string>
-    <string name="BlockUnblockDialog_block_and_delete">Αποκλεισμός και διαγραφή</string>
+    <string name="arrays__on_inactivity_timeout">Αν περάσεις ένα συγκεκριμένο χρονικό διάστημα χωρίς να ξεκλειδώσεις τη συσκευή σου</string>
+    <string name="BlockUnblockDialog_block_and_delete">Αποκλεισμός και Διαγραφή</string>
     <string name="prompt_passphrase_activity__molly_is_locked">Το Molly είναι κλειδωμένο</string>
     <string name="preferences__block_unknown">Αποκλεισμών αγνώστων</string>
     <string name="preferences__include_beta_updates">Συμπερίληψη δοκιμαστικών εκδόσεων</string>
@@ -32,7 +32,7 @@
     <string name="NetworkPreferenceFragment_get_orbot">Απόκτηση Orbot</string>
     <string name="ApplicationPreferencesActivity_network_summary">Διαμεσολάβηση %1$s</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Το Molly δε θα συνδεθεί χωρίς το Orbot, που δεν είναι εγκατεστημένο σ\' αυτή τη συσκευή.</string>
-    <string name="RegistrationActivity_network_settings">Ρυθμίσεις Δικτύου</string>
+    <string name="RegistrationActivity_network_settings">Ρυθμίσεις δικτύου</string>
     <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">Συντηρούμε το Molly με την υποστήριξη σας! Μπορείς να κάνεις δωρεά στο Open Collective αν θες.</string>
     <string name="arrays__daily">Καθημερινά</string>
     <string name="arrays__weekly">Εβδομαδιαία</string>
@@ -97,11 +97,11 @@
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">Τα μηνύματα είναι ιδιωτικά σε όλες τις συνδεδεμένες συσκευές.</string>
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Μόλις συνδεθούν, τα νέα μηνύματα συγχρονίζονται μεταξύ των συσκευών, αλλά προηγούμενο ιστορικό μηνυμάτων δεν θα μεταφερθεί.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Το Molly υποστηρίζει σύνδεση με άλλες συσκευές Android που χρησιμοποιούν Molly, καθώς και επιτραπέζιους υπολογιστές και iPad με Signal.</string>
-    <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Για συσκευές Android: Επισκεφτείτε το %s για να εγκατάσταση του Molly.</string>
+    <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Για συσκευές Android: Επισκέψου το %s για να εγκατάσταση του Molly.</string>
     <string name="DonateMegaphone_molly_is_free_software">Το Molly είναι δωρεάν λογισμικό</string>
     <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Για ενημερώσεις, παρακαλώ έλεγξε το κατάστημα των εφαρμογών σου. Αυτή η έκδοση δεν περιέχει ενσωματωμένο πρόγραμμα ενημέρωσης.</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Το Molly χρειάζεται τις άδειες επαφών και πολυμέσων για να σε βοηθήσει να βρεις τους φίλους σου και να στείλεις μηνύματα. Οι επαφές σου μεταφορτώνονται χρησιμοποιώντας τον εντοπισμό ιδιωτικών επαφών του Signal, πράγμα που σημαίνει ότι είναι κρυπτογραφημένες από άκρο σε άκρο και δεν είναι ποτέ ορατές στην υπηρεσία Signal.</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Η Molly χρειάζεται τις άδειες επαφών για να σε βοηθήσει να βρείτε τους φίλους σου. Οι επαφές σου μεταφορτώνονται χρησιμοποιώντας τον εντοπισμό ιδιωτικών επαφών του Signal, πράγμα που σημαίνει ότι είναι κρυπτογραφημένες από άκρο σε άκρο και δεν είναι ποτέ ορατές στην υπηρεσία Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Το Molly χρειάζεται τις άδειες επαφών για να σε βοηθήσει να βρείτε τους φίλους σου. Οι επαφές σου μεταφορτώνονται χρησιμοποιώντας τον εντοπισμό ιδιωτικών επαφών του Signal, πράγμα που σημαίνει ότι είναι κρυπτογραφημένες από άκρο σε άκρο και δεν είναι ποτέ ορατές στην υπηρεσία Signal.</string>
     <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Το Molly μπορεί να ελέγχει περιοδικά για νέες εκδόσεις και να σου ζητά να τις εγκαταστήσεις.</string>
     <string name="DeviceListItem_primary">Κύρια</string>
     <string name="RegistrationActivity_link_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια σύνδεσης της συσκευής. Έλεγξε τη συνδεσιμότητα του δικτύου σου και δοκίμασε ξανά</string>
@@ -126,4 +126,31 @@
     <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Επέλεξε την υπηρεσία που προτιμάς για ειδοποιήσεις push. Εάν δεν είναι διαθέσιμη, η εφαρμογή θα χρησιμοποιήσει αυτόματα το WebSocket για να διασφαλίσει την παράδοση των ειδοποιήσεων.</string>
     <string name="NotificationsSettingsFragment__delivery_service">Υπηρεσία παράδοσης</string>
     <string name="IncomingMessageObserver_websocket_service">Υπηρεσία WebSocket</string>
+    <string name="NotificationsSettingsFragment__configure_unifiedpush">Ρύθμιση UnifiedPush</string>
+    <string name="NotificationsSettingsFragment__mollysocket_server">Διακομιστής MollySocket</string>
+    <string name="NotificationsSettingsFragment__not_selected">Δεν επιλέχθηκε</string>
+    <string name="UnifiedPushSettingsFragment__none_available">Κανένα διαθέσιμο</string>
+    <string name="UnifiedPushSettingsFragment__distributor_app">Εφαρμογή διανομής</string>
+    <string name="UnifiedPushSettingsFragment__status">Κατάσταση</string>
+    <string name="UnifiedPushSettingsFragment__tap_to_copy_to_clipboard">Πάτα για αντιγραφή στο πρόχειρο</string>
+    <string name="UnifiedPushSettingsFragment__server_parameters">Παράμετροι διακομιστή</string>
+    <string name="UnifiedPushSettingsFragment__account_id">ID λογαριασμού</string>
+    <string name="UnifiedPushSettingsFragment__test_configuration">Δοκιμή ρύθμισης</string>
+    <string name="UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket">Πατα για αίτηση δοκιμαστικής ειδοποίησης από το MollySocket</string>
+    <string name="UnifiedPushSettingsFragment__a_test_notification_should_appear_in_a_few_moments">Μια δοκιμαστική ειδοποίηση θα εμφανιστεί σύντομα…</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing">Λείπει MollySocket URL</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_pending">Σε αναμονή</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_bad_response">Μη έγκυρη απάντηση από τον διακομιστή</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_forbidden_uuid">Το ID λογαριασμού απορρίφθηκε από τον διακομιστή</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_linked_device_error">Αδυναμία δημιουργίας συνδεδεμένης συσκευής</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_missing_endpoint">Αναμονή απάντησης διανομέα UnifiedPush</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_forbidden_endpoint">Το τελικό σημείο απαγορεύεται από τον διακομιστή</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_distributor_not_selected">Δεν επιλέχθηκε εφαρμογή διανομέα</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_hit">Έφτασες το όριο των %d συνδεδεμένων συσκευών. Για να συνδέσεις τον διακομιστή MollySocket σου, παρακαλούμε αφαίρεσε μια συσκευή πρώτα.</string>
+    <string name="UnifiedPushNotificationBuilder__endpoint_changed_air_gapped">Το τελικό σημείο του UnifiedPush σου έχει αλλάξει. Πρέπει να ενημερώσεις τη σύνδεσή σου με το MollySocket.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_password">Η εγγραφή σου στο MollySocket δεν είναι πλέον έγκυρη. Παρακαλώ αφαίρεσε τη συνδεδεμένη συσκευή και δοκίμασε να εγγραφείς ξανά.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_uuid">Ο λογαριασμός σου απορρίφθηκε από τον διακομιστή MollySocket. Παρακαλούμε ελέγξτε τα επιτρεπόμενα UUIDs στη ρύθμιση του διακομιστή.</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_no_distributor">Δεν έχει εγκατασταθεί διανομέας UnifiedPush</string>
+    <string name="NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server">Για να χρησιμοποιήσεις το UnifiedPush, χρειάζεσαι πρόσβαση σε διακομιστή MollySocket για να συνδέσεις τον λογαριασμό σου στο Signal.\n\nΞεκίνα με τη σάρωση του κωδικού QR που παρέχεται από τον διακομιστή σου.</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_air_gapped_pending">Αναμονή επιβεβαίωσης από τον διακομιστή MollySocket</string>
 </resources>
