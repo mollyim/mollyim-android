@@ -107,6 +107,7 @@ class LinkDeviceRepository(password: String) {
           SignalStore.account.setDeviceName(deviceName)
           SignalStore.account.setAciIdentityKeysFromPrimaryDevice(registration.aciIdentity)
           SignalStore.account.setPniIdentityKeyAfterChangeNumber(registration.pniIdentity)
+          SignalStore.account.hasLinkedDevices = true
           SignalStore.registration.hasUploadedProfile = true
 
           AccountRegistrationResult(

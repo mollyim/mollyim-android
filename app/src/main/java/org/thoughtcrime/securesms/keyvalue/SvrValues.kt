@@ -143,7 +143,7 @@ class SvrValues internal constructor(store: KeyValueStore) : SignalStoreValues(s
 
   @Synchronized
   fun hasOptedInWithAccess(): Boolean {
-    return hasPin() || restoredViaAccountEntropyPool
+    return hasPin() || restoredViaAccountEntropyPool || SignalStore.account.isLinkedDevice
   }
 
   @Synchronized
