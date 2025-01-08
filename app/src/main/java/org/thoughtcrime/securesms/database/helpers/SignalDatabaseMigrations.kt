@@ -117,6 +117,8 @@ import org.thoughtcrime.securesms.database.helpers.migration.V257_CreateBackupMe
 import org.thoughtcrime.securesms.database.helpers.migration.V258_FixGroupRevokedInviteeUpdate
 import org.thoughtcrime.securesms.database.helpers.migration.V259_AdjustNotificationProfileMidnightEndTimes
 import org.thoughtcrime.securesms.database.helpers.migration.V260_RemapQuoteAuthors
+import org.thoughtcrime.securesms.database.helpers.migration.V261_RemapCallRingers
+import org.thoughtcrime.securesms.database.helpers.migration.V263_InAppPaymentsSubscriberTableRebuild
 
 /**
  * Contains all of the database migrations for [SignalDatabase]. Broken into a separate file for cleanliness.
@@ -238,10 +240,13 @@ object SignalDatabaseMigrations {
     257 to V257_CreateBackupMediaSyncTable,
     258 to V258_FixGroupRevokedInviteeUpdate,
     259 to V259_AdjustNotificationProfileMidnightEndTimes,
-    260 to V260_RemapQuoteAuthors
+    260 to V260_RemapQuoteAuthors,
+    261 to V261_RemapCallRingers,
+    // V263 was originally V262, but a typo in the version mapping caused it not to be run.
+    263 to V263_InAppPaymentsSubscriberTableRebuild
   )
 
-  const val DATABASE_VERSION = 260
+  const val DATABASE_VERSION = 263
 
   @JvmStatic
   fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

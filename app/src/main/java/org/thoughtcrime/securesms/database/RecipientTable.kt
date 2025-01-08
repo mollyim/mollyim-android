@@ -8,7 +8,6 @@ import android.net.Uri
 import android.text.TextUtils
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.contentValuesOf
-import app.cash.exhaustive.Exhaustive
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.Base64
 import org.signal.core.util.Bitmask
@@ -2468,7 +2467,6 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     var changedNumberId: RecipientId? = null
 
     for (operation in changeSet.operations) {
-      @Exhaustive
       when (operation) {
         is PnpOperation.RemoveE164,
         is PnpOperation.RemovePni,
@@ -2505,7 +2503,6 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   fun writePnpChangeSetToDisk(changeSet: PnpChangeSet, inputPni: PNI?, pniVerified: Boolean): RecipientId {
     var hadThreadMerge = false
     for (operation in changeSet.operations) {
-      @Exhaustive
       when (operation) {
         is PnpOperation.RemoveE164 -> {
           writableDatabase

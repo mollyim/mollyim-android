@@ -79,7 +79,7 @@ class LinkDeviceRepository(password: String) {
           registrationLock = registrationLock,
           unidentifiedAccessKey = unidentifiedAccessKey,
           unrestrictedUnidentifiedAccess = universalUnidentifiedAccess,
-          capabilities = AppCapabilities.getCapabilities(true, RemoteConfig.storageServiceEncryptionV2),
+          capabilities = AppCapabilities.getCapabilities(storageCapable = true),
           discoverableByPhoneNumber = !notDiscoverable,
           name = Base64.encodeWithPadding(encryptedDeviceName),
           pniRegistrationId = pniRegistrationId,

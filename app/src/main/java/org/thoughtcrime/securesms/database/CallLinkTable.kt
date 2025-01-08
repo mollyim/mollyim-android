@@ -455,7 +455,7 @@ class CallLinkTable(context: Context, databaseHelper: SignalDatabase) : Database
       $limitOffset
     """.trimIndent()
 
-    return readableDatabase.query(statement, searchFilter?.whereArgs)
+    return readableDatabase.query(statement, searchFilter?.whereArgs ?: arrayOf())
   }
 
   private object CallLinkSerializer : Serializer<CallLink, ContentValues> {
@@ -527,11 +527,7 @@ class CallLinkTable(context: Context, databaseHelper: SignalDatabase) : Database
 
   override fun remapRecipient(fromId: RecipientId, toId: RecipientId) {
     val count = writableDatabase.update(TABLE_NAME)
-      .values(
-        contentValuesOf(
-          RECIPIENT_ID to toId.toLong()
-        )
-      )
+      .values(RECIPIENT_ID to toId.toLong())
       .where("$RECIPIENT_ID = ?", fromId.toLong())
       .run()
 

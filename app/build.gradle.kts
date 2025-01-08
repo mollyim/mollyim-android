@@ -2,24 +2,17 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import java.io.ByteArrayOutputStream
 
 plugins {
-  id("com.android.application")
-  id("kotlin-android")
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.jetbrains.kotlin.android)
+  alias(libs.plugins.compose.compiler)
   id("androidx.navigation.safeargs")
-  id("org.jetbrains.kotlin.android")
-  id("app.cash.exhaustive")
   id("kotlin-parcelize")
   id("com.squareup.wire")
   id("molly")
 }
 
-// Sort baseline.profm for reproducible builds
-// See issue: https://issuetracker.google.com/issues/231837768
-apply {
-  from("fix-profm.gradle")
-}
-
-val canonicalVersionCode = 1496
-val canonicalVersionName = "7.28.4"
+val canonicalVersionCode = 1497
+val canonicalVersionName = "7.29.0"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -549,9 +542,7 @@ dependencies {
   }
 
   testImplementation(testLibs.junit.junit)
-  testImplementation(testLibs.assertj.core)
-  testImplementation(testLibs.mockito.core)
-  testImplementation(testLibs.mockito.kotlin)
+  testImplementation(testLibs.assertk)
   testImplementation(testLibs.androidx.test.core)
   testImplementation(testLibs.robolectric.robolectric) {
     exclude(group = "com.google.protobuf", module = "protobuf-java")

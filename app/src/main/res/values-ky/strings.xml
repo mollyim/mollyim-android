@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -42,12 +45,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly жаңырууда…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal жаңырууда…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Сыр сөз айкашын али кое элексиз!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Сыр сөз айкашын өчүрөсүзбү?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ушуну менен, Molly колдонмосу такыр кулпуланбай, билдирмелери сырсөзсүз көрүнө берет.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ушуну менен, Signal колдонмосу такыр кулпуланбай, билдирмелери сырсөзсүз көрүнө берет.</string>
     <string name="ApplicationPreferencesActivity_disable">Өчүрүү</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Серверге туташууда ката кетти!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN-коддор катталууну кулпулоо үчүн керек. Алгач катталууну кулпулоо функциясын өчүрүп, кийин PIN-коддорду өчүрүңүз.</string>
@@ -84,7 +87,7 @@
     <string name="AttachmentKeyboard_file">Файл</string>
     <string name="AttachmentKeyboard_contact">Байланыш</string>
     <string name="AttachmentKeyboard_location">Жүргөн жер</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly сүрөттөрүңүз менен видеолоруңузду сиздин уруксатыңыз менен көрсөтөт</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal сүрөттөрүңүз менен видеолоруңузду сиздин уруксатыңыз менен көрсөтөт</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Кирүүгө уруксат берүү</string>
     <string name="AttachmentKeyboard_payment">Төлөм</string>
@@ -95,34 +98,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Тууралоо бөлүмүнө өтүү</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Molly\'га сүрөттөр же видеолор жеткиликсиз</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Signal\'га сүрөттөр же видеолор жеткиликсиз</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Бир дагы сүрөт табылган жок, бул жерде көрүнө турган сүрөттөр менен видеолорду тандаңыз же уруксаттарды өзгөртүңүз</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Бир дагы сүрөт же видео табылган жок. Molly\'га сиз тандаган сүрөттөр менен видеолор гана жеткиликтүү.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Бир дагы сүрөт же видео табылган жок. Signal\'га сиз тандаган сүрөттөр менен видеолор гана жеткиликтүү.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Медиафайлдарды тандай турган колдонмо табылган жок.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly колдонмосуна сүрөттөрдү, видеолорду же аудиолорду тиркөө үчүн Сактагычка кирүүгө уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Сактагыч\" дегенди иштетиңиз.</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly колдонмосуна байланыштын маалыматын тиркөө үчүн Байланыштарды колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Байланыштар\" дегенди иштетиңиз.</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly колдонмосуна турган жериңизди тиркөө үчүн Жүргөн жерди аныктоо функциясын колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Жүргөн жерди аныктоо\" дегенди иштетиңиз.</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal колдонмосуна сүрөттөрдү, видеолорду же аудиолорду тиркөө үчүн Сактагычка кирүүгө уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Сактагыч\" дегенди иштетиңиз.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal колдонмосуна байланыштын маалыматын тиркөө үчүн Байланыштарды колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Байланыштар\" дегенди иштетиңиз.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal колдонмосуна турган жериңизди тиркөө үчүн Жүргөн жерди аныктоо функциясын колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Жүргөн жерди аныктоо\" дегенди иштетиңиз.</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Жүргөн жериңизди көрсөтүңүз</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Жүргөн жериңизди жөнөтүү үчүн:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Жүргөн жериңизди жөнөткөнгө Molly\'га уруксат бериңиз.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Жүргөн жериңизди жөнөткөнгө Signal\'га уруксат бериңиз.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Жүргөн жериңизди жөнөтүү үчүн Molly кайда жүргөнүңүздү көрүшү керек.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Жүргөн жериңизди жөнөтүү үчүн Signal кайда жүргөнүңүздү көрүшү керек.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Сактагычка мүмкүнчүлүк берүү</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Сүрөттөр менен видеолорду көрсөтүү үчүн:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Сүрөттөрүңүз менен видеолоруңузду Molly\'га жеткиликтүү кылыңыз.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Сүрөттөрүңүз менен видеолоруңузду Signal\'га жеткиликтүү кылыңыз.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s төлөмдөр кызматын иштете элек </string>
@@ -271,25 +274,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Микрофонуңузга уруксат бериңиз</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Сүрөт тартуу үчүн Molly колдонмосуна камерага кирүүсүнө уруксат бериңиз.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Сүрөт тартуу үчүн Signal колдонмосуна камерага кирүүсүнө уруксат бериңиз.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Сүрөт же видео тартуу үчүн Molly колдонмосуна камераны колдонууга уруксат беришиңиз керек.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Сүрөт же видео тартуу үчүн Signal колдонмосуна камераны колдонууга уруксат беришиңиз керек.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Сүрөт жана видео тартуу үчүн Molly колдонмосуна камерага жана микрофонго кирүүсүнө уруксат бериңиз.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Сүрөт жана видео тартуу үчүн Signal колдонмосуна камерага жана микрофонго кирүүсүнө уруксат бериңиз.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Үн менен видео тартуу үчүн Molly колдонмосуна микрофонуңузга кирүүгө уруксат бериңиз.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Үн менен видео тартуу үчүн Signal колдонмосуна микрофонуңузга кирүүгө уруксат бериңиз.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR кодун скандоо үчүн Molly колдонмосуна камерага кирүүсүнө уруксат бериңиз.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR кодун скандоо үчүн Signal колдонмосуна камерага кирүүсүнө уруксат бериңиз.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Сүрөт тартуу үчүн Molly камерага кирүү мүмкүнчүлүгүн талап кылат</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Сүрөт тартуу үчүн Signal камерага кирүү мүмкүнчүлүгүн талап кылат</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR коддорун скандоо үчүн Molly колдонмосу камерага кирүүсү керек</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR коддорун скандоо үчүн Signal колдонмосу камерага кирүүсү керек</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Видеого тартуу үчүн Molly микрофонду колдонушу керек</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Видеого тартуу үчүн Signal микрофонду колдонушу керек</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Molly\'да сүрөт тартуу үчүн:</string>
+    <string name="CameraXFragment_to_capture_photos">Signal\'да сүрөт тартуу үчүн:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Molly\'да сүрөт жана видео тартуу үчүн:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Signal\'да сүрөт жана видео тартуу үчүн:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Үн менен видео тартуу үчүн:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -307,7 +310,7 @@
     <string name="CameraContacts_no_signal_contacts">Signal байланыштары жок</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Сүрөттөрдү камеранын баскычы менен Signal\'дын колдонуучуларына гана жөнөтө аласыз. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Керектүү адамды таппай жатасызбы?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Байланышыңызды Molly\'га чакырыңыз</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Байланышыңызды Signal\'га чакырыңыз</string>
     <string name="CameraContacts__menu_search">Издөө</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -321,12 +324,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Жок, рахмат</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Molly\'ды жаңыртуу</string>
+    <string name="ClientDeprecatedActivity_update_signal">Signal\'ды жаңыртуу</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Колдонмонун бул версиясы жарабай калган. Башкалар менен жазыша берүү үчүн аны жаңыртыңыз.</string>
     <string name="ClientDeprecatedActivity_update">Жаңыртуу</string>
     <string name="ClientDeprecatedActivity_dont_update">Жок, жаңыртпайм</string>
     <string name="ClientDeprecatedActivity_warning">Эскертүү</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly\'дын версиясы эскирип калган. Буга чейин жазышкан билдирүүлөрүңүздү көрө алганыңыз менен, колдонмону жаңыртмайынча, башкалар менен жазыша албайсыз.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal\'дын версиясы эскирип калган. Буга чейин жазышкан билдирүүлөрүңүздү көрө алганыңыз менен, колдонмону жаңыртмайынча, башкалар менен жазыша албайсыз.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Серепчи табылган жок.</string>
@@ -367,8 +370,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Билдирүү %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Molly Аудио чалуу %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Molly Видео чалуу %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Аудио чалуу %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Видео чалуу %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -406,6 +409,7 @@
     <!-- Footer shown in legacy SMS message where %s is the name of the recipient the message is going to -->
     <string name="ConversationItem_to_s">Каякка: %1$s</string>
     <string name="ConversationItem_read_more">Дагы</string>
+    <!-- Footer shown at the end of long body messages to download more of it -->
     <string name="ConversationItem_download_more">  Дагы жүктөп алуу</string>
     <string name="ConversationItem_pending">  Күтүлүүдө</string>
     <string name="ConversationItem_this_message_was_deleted">Бул билдирүү өчүрүлгөн.</string>
@@ -462,7 +466,7 @@
     <string name="ConversationActivity_transport_signal">Signal билдирүүсү</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Билдирүү жөнөтүү</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Molly\'га өтүп алыңыз: %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Signal\'га өтүп алыңыз: %1$s</string>
     <string name="ConversationActivity_specify_recipient">Байланыш тандаңыз</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Тиркеменин көлөмү жөнөтүлүп жаткан билдирүү үчүн белгиленген чектен ашып кетти.</string>
     <string name="ConversationActivity_unable_to_record_audio">Аудио жазылбай жатат!</string>
@@ -481,18 +485,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Аудио билдирүү жөнөтүү үчүн:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Аудио билдирүү жаздыруу үчүн Molly\'га микрофонуңуз керек.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Аудио билдирүү жаздыруу үчүн Signal\'га микрофонуңуз керек.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Аудио билдирүү жаздыруу үчүн Molly\'га микрофон керек.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly колдонмосуна аудио билдирүүлөрдү жөнөтүү үчүн микрофонду колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" дегенди иштетиңиз.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Аудио билдирүү жаздыруу үчүн Signal\'га микрофон керек.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal колдонмосуна аудио билдирүүлөрдү жөнөтүү үчүн микрофонду колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" дегенди иштетиңиз.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly колдонмосуна %1$s чалуу үчүн микрофон менен камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" жана \"Камера\" дегенди иштетиңиз.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Сүрөт же видео тартуу үчүн Molly колдонмосуна камераны колдонууга уруксат беришиңиз керек.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly колдонмосуна сүрөт же видео тартуу үчүн камераны колдонууга уруксат беришиңиз керек, бирок сиз аны четке каккансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Камера\" дегенди иштетиңиз.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Сүрөт же видео тартуу үчүн Molly колдонмосуна камераны колдонууга уруксат беришиңиз керек.</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal колдонмосуна %1$s чалуу үчүн микрофон менен камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" жана \"Камера\" дегенди иштетиңиз.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Сүрөт же видео тартуу үчүн Signal колдонмосуна камераны колдонууга уруксат беришиңиз керек.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal колдонмосуна сүрөт же видео тартуу үчүн камераны колдонууга уруксат беришиңиз керек, бирок сиз аны четке каккансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Камера\" дегенди иштетиңиз.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Сүрөт же видео тартуу үчүн Signal колдонмосуна камераны колдонууга уруксат беришиңиз керек.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Видеону үнү менен тартуу үчүн микрофонду колдонууга уруксат бериңиз.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly колдонмосуна видео тартуу үчүн микрофонду колдонууга уруксат беришиңиз керек, бирок сиз баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" дегенди иштетиңиз.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Видео тартуу үчүн Molly колдонмосуна микрофонду колдонууга уруксат керек.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal колдонмосуна видео тартуу үчүн микрофонду колдонууга уруксат беришиңиз керек, бирок сиз баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" дегенди иштетиңиз.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Видео тартуу үчүн Signal колдонмосуна микрофонду колдонууга уруксат керек.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Жок</string>
@@ -513,9 +517,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Чалып баштоо үчүн:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Чалып баштоо үчүн Molly\'га микрофонуңуз керек.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Чалып баштоо үчүн Signal\'га микрофонуңуз керек.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Чалып баштоо үчүн Molly\'га микрофон керек.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Чалып баштоо үчүн Signal\'га микрофон керек.</string>
 
 
     <string name="ConversationActivity_join">Кошулуу</string>
@@ -529,9 +533,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal кызматында мындан ары SMS менен жазыша албайсыз. %1$s менен бул жерден сүйлөшө берүү үчүн аны Signal\'га чакырыңыз.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Бул адам Molly\'ды колдонбой калган. Бул жерден сүйлөшө берүү үчүн аны Molly\'га чакырыңыз.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Бул адам Signal\'ды колдонбой калган. Бул жерден сүйлөшө берүү үчүн аны Signal\'га чакырыңыз.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Molly\'га чакыруу</string>
+    <string name="ConversationActivity__invite_to_signal">Signal\'га чакыруу</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Жакында дагы бир жолу эстетип коебуз.</string>
 
@@ -613,13 +617,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Бөгөттөлдү</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Molly\'ды жаңыртуу</string>
+    <string name="ConversationFragment__update_build">Signal\'ды жаңыртуу</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Molly\'га кайра катталыңыз</string>
+    <string name="ConversationFragment__reregister_signal">Signal\'га кайра катталыңыз</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Артка өтүү.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Molly\'ды ачуу</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Signal\'ды ачуу</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Мындан ары ырасталбайт</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -780,9 +784,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Мени телефон номерим аркылуу кимдер таба алышат?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Телефон номериңизди билген адам сизди Molly\'да көрүп, сүйлөшө алат.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Телефон номериңизди билген адам сизди Signal\'да көрүп, сүйлөшө алат.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Билдирүү жазмайынча же маектешип баштамайынча, сиздин Molly\'да отурганыңызды эч ким билбейт.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Билдирүү жазмайынча же маектешип баштамайынча, сиздин Signal\'да отурганыңызды эч ким билбейт.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Резервдик көчүрмөлөрдөн калыбына келтирилсинби?</string>
@@ -861,7 +865,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Камдык көчүрмөңүздүн сыр сөз айкашын сынап көрүп, анын иштеп жатканын текшериңиз</string>
     <string name="BackupsPreferenceFragment__turn_on">Күйгүзүү</string>
     <string name="BackupsPreferenceFragment__turn_off">Өчүрүү</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Камдык көчүрмөдөн калыбына келтирүү үчүн Molly\'дын жаңы көчүрмөсүн орнотуңуз. Колдонмону ачып, \"Камдык көчүрмөнү калыбына келтирүү\" дегенди басып, камдык көчүрмөнүн файлын тандаңыз. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Камдык көчүрмөдөн калыбына келтирүү үчүн Signal\'дын жаңы көчүрмөсүн орнотуңуз. Колдонмону ачып, \"Камдык көчүрмөнү калыбына келтирүү\" дегенди басып, камдык көчүрмөнүн файлын тандаңыз. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Кененирээк маалымат</string>
     <string name="BackupsPreferenceFragment__in_progress">Иштелип жатат…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -870,7 +874,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d болуп калды …</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% болуп калды…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly колдонмосуна камдык көчүрмөлөрдү түзүү үчүн сактагычты колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Сактагыч\" дегенди иштетиңиз.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal колдонмосуна камдык көчүрмөлөрдү түзүү үчүн сактагычты колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Сактагыч\" дегенди иштетиңиз.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Камдык көчүрмөнүн убакытын коюңуз</string>
 
@@ -937,7 +941,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Маектин сессиясы жаңырды</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly баштан аяк шифрлөөнү колдонгондуктан, кээде маегиңиздин сессиясын жаңыртууга туура келет. Маегиңиздин коопсуздугу бузулбаганы менен, ушул адамдан келген билдирүүнү көрбөй калышыңыз мүмкүн. Андыктан билдирүүсүн дагы бир жолу жөнөтүп койсун.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal баштан аяк шифрлөөнү колдонгондуктан, кээде маегиңиздин сессиясын жаңыртууга туура келет. Маегиңиздин коопсуздугу бузулбаганы менен, ушул адамдан келген билдирүүнү көрбөй калышыңыз мүмкүн. Андыктан билдирүүсүн дагы бир жолу жөнөтүп койсун.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1018,7 +1022,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Башка түзмөктөн ажыратуу</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Molly\'ды башка түзмөгүңүздөн ажыратасыз.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Signal\'ды башка түзмөгүңүздөн ажыратасыз.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Түзмөк байланышпай калды</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1057,10 +1061,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Google Play кызматтары жок болгондо оптималдаштыруу</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Бул түзмөктө Google Play кызматтары иштебейт. Molly колдонулбаганда билдирүүлөрдү алганга мүмкүнчүлүк бербеген батареяны үнөмдөө функциясын өчүрүү үчүн бул жерди басып коюңуз.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Бул түзмөктө Google Play кызматтары иштебейт. Signal колдонулбаганда билдирүүлөрдү алганга мүмкүнчүлүк бербеген батареяны үнөмдөө функциясын өчүрүү үчүн бул жерди басып коюңуз.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly\'дын бул версиясы эскирип калган. Жазышкыңыз келсе, аны жаңыртыңыз.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal\'дын бул версиясы эскирип калган. Жазышкыңыз келсе, аны жаңыртыңыз.</string>
     <string name="ExpiredBuildReminder_update_now">Жаңыртуу</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1197,7 +1201,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Мүчүлүштүктөр журналдары аркылуу маселени аныктап, чече алабыз. Аларда сизди аныктаган маалымат болбойт.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly\'да ката кетти. Мүчүлүштүктөр журналын жөнөтөсүзбү?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal\'да ката кетти. Мүчүлүштүктөр журналын жөнөтөсүзбү?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Билдирүүлөр келбей жатат окшойт. Мүчүлүштүктөр журналын жөнөтөсүзбү?</string>
 
@@ -1205,12 +1209,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Батареяны үнөмдөө режиминен улам, билдирмелер кечигип келүүдө</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Билдирмелер кечикпей келиши үчүн Molly\'дын батареяны үнөмдөө режимин өчүрүп койсоңуз болот.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Билдирмелер кечикпей келиши үчүн Signal\'дын батареяны үнөмдөө режимин өчүрүп койсоңуз болот.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Батареяны үнөмдөө режиминен улам, билдирмелер кечигип келүүдө</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Билдирмелер кечикпей келиши үчүн Molly\'дын батареяны үнөмдөө режимин өчүрүп койсоңуз болот. Түзмөккө байланыштуу нускамаларды көрүү үчүн \"Улантуу\" дегенди басыңыз.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Билдирмелер кечикпей келиши үчүн Signal\'дын батареяны үнөмдөө режимин өчүрүп койсоңуз болот. Түзмөккө байланыштуу нускамаларды көрүү үчүн \"Улантуу\" дегенди басыңыз.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Жок, рахмат</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1219,7 +1223,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Билдирүүлөр келбей жатат окшойт</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Билдирүүлөр келбей жатса, түзмөгүңүздү өчүрүп күйгүзүп көрүңүз. Көйгөй чечилбесе, Molly\'дын кардарларды тейлеген кызматына кайрылыңыз.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Билдирүүлөр келбей жатса, түзмөгүңүздү өчүрүп күйгүзүп көрүңүз. Көйгөй чечилбесе, Signal\'дын кардарларды тейлеген кызматына кайрылыңыз.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Түшүндүм</string>
 
@@ -1258,6 +1262,7 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">Бүттү</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Бул адамды эски топторго кошо албайсыз.</string>
+    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
         <item quantity="other">кошуу%3$d мүчөнү \"%2$s\" кошосузбу?</item>
     </plurals>
@@ -1412,7 +1417,9 @@
     <string name="CustomNotificationsDialogFragment__change_sound_and_vibration">Үн менен дирилдөөнү өзгөртүү</string>
     <string name="CustomNotificationsDialogFragment__call_settings">Чалуу параметрлери</string>
     <string name="CustomNotificationsDialogFragment__ringtone">Шыңгыр</string>
+    <!-- Subtitle when the ringtone used for calls is the default system -->
     <string name="CustomNotificationsDialogFragment__default">Демейки</string>
+    <!-- Subtitle when the ringtone used for calls is unknown -->
     <string name="CustomNotificationsDialogFragment__unknown">Белгисиз</string>
 
     <!-- ShareableGroupLinkDialogFragment -->
@@ -1509,12 +1516,12 @@
     <string name="InviteActivity_cancel">Жокко чыгаруу</string>
     <string name="InviteActivity_sending">Жөнөтүлүүдө…</string>
     <string name="InviteActivity_invitations_sent">Чакыруулар жөнөтүлдү!</string>
-    <string name="InviteActivity_invite_to_signal">Molly\'га чакыруу</string>
+    <string name="InviteActivity_invite_to_signal">Signal\'га чакыруу</string>
     <string name="InviteActivity_send_sms">SMS жөнөтүү (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">Бул байланышка (%1$d) SMS чакырууларын жөнөтөсүзбү?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Molly\'га өтүп алыңыз: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Signal\'га өтүп алыңыз: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Бөлүшө турган колдонмолоруңуз жок окшойт.</string>
 
@@ -1529,7 +1536,7 @@
     <string name="LongMessageActivity_your_message">Сиздин билдирүүңүз</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Фондук байланыш күйгүзүлдү</string>
 
     <!-- MediaOverviewActivity -->
@@ -1585,6 +1592,7 @@
     <string name="Megaphones_verify_pin">PIN кодду ырастоо</string>
     <string name="Megaphones_get_started">Баштадык</string>
     <string name="Megaphones_new_group">Жаңы топ</string>
+    <!-- Text in a card view to invite friends as part of the onboarding megaphone -->
     <string name="Megaphones_invite_friends">Досторду чакыруу</string>
     <string name="Megaphones_chat_colors">Маектин түсү</string>
     <string name="Megaphones_add_a_profile_photo">Сүрөт кошуу</string>
@@ -1593,10 +1601,10 @@
     <string name="MessageQuotesBottomSheet_replies">Жооптор</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Molly аркылуу чалып баштадыңыз</string>
+    <string name="NotificationBarManager__establishing_signal_call">Signal аркылуу чалып баштадыңыз</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Molly аркылуу чалуу кызматы</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Molly аркылуу чалуу кызматы токтотулууда</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Signal аркылуу чалуу кызматы</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Signal аркылуу чалуу кызматы токтотулууда</string>
     <string name="NotificationBarManager__cancel_call">Чалууну токтотуу</string>
 
     <!-- NotificationsMegaphone -->
@@ -1902,7 +1910,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Жакында Signal\'дан SMS билдирүүлөрүн жөнөтө албай каласыз. %1$s менен бул жерден сүйлөшө берүү үчүн аны Signal\'га чакырыңыз.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Мындан ары Molly\'дан SMS билдирүүлөрүн жөнөтө албайсыз. %1$s менен бул жерден сүйлөшө берүү үчүн аны Molly\'га чакырыңыз.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Мындан ары Signal\'дан SMS билдирүүлөрүн жөнөтө албайсыз. %1$s менен бул жерден сүйлөшө берүү үчүн аны Signal\'га чакырыңыз.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Төлөм: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -1984,24 +1992,24 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal түзмөгүн байланыштырасызбы?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Signal түзмөгүн үчүнчү тараптын сканери аркылуу байланыштырганы жатат окшойсуз. Коопсуздук максатында, кодду Signal аркылуу скандаңыз.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly колдонмосуна QR кодун скандоо үчүн камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Камера\" дегенди иштетиңиз.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal колдонмосуна QR кодун скандоо үчүн камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Камера\" дегенди иштетиңиз.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">QR кодду скандоо үчүн камерага уруксат алышыңыз керек</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Жаңыртуу</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Molly\'дын бул версиясынын мөөнөтү бүгүн бүтөт. Эң акыркы версиясына жаңыртыңыз.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Signal\'дын бул версиясынын мөөнөтү бүгүн бүтөт. Эң акыркы версиясына жаңыртыңыз.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="other">Molly\'дын бул версиясынын мөөнөтү %1$d күндөн кийин бүтөт. Эң акыркы версиясына жаңыртыңыз.</item>
+        <item quantity="other">Signal\'дын бул версиясынын мөөнөтү %1$d күндөн кийин бүтөт. Эң акыркы версиясына жаңыртыңыз.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Сыр сөз айкашын киргизиңиз</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Molly сүрөтчөсү</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Signal сүрөтчөсү</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Сыр сөз айкашын тапшыруу</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Сыр сөз айкашы туура эмес!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Molly\'ды бөгөттөн чыгаруу</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Signal\'ды бөгөттөн чыгаруу</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Кулпу экраны</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Кулпу экраны</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Карта</string>
@@ -2068,7 +2076,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Жазышууну улантуу үчүн текшерүүдөн өтүп коюңуз</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly кызматында спамдарга жол бербөө үчүн текшерүүдөн өтүп коюңуз.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal кызматында спамдарга жол бербөө үчүн текшерүүдөн өтүп коюңуз.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Текшерүүдөн өткөндөн кийин мурункудай жазыша бересиз. Токтоп турган билдирүүлөрдүн баары дароо жөнөтүлөт.</string>
 
     <!-- Recipient -->
@@ -2076,7 +2084,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Менин окуям</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Molly аркылуу чалуу</string>
+    <string name="Recipient_signal_call">Signal аркылуу чалуу</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Бөгөттөө</string>
@@ -2112,9 +2120,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Видеоңузду ойнотуу үчүн бул жерди басыңыз</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s чалуу үчүн Molly колдонмосуна камераңыз керек</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s чалуу үчүн Signal колдонмосуна камераңыз керек</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Байланышка чыктыңыз…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Кайра байланышып жатасыз…</string>
@@ -2169,23 +2177,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Камераңызга кирүүгө уруксат бериңиз</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Чалып баштоо же чалууга кошулуу үчүн Molly\'га камераңыз жана микрофонуңуз керек.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Чалып баштоо же чалууга кошулуу үчүн Signal\'га камераңыз жана микрофонуңуз керек.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Чалып баштоо же чалууга кошулуу үчүн Molly\'га микрофонуңуз керек.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Чалып баштоо же чалууга кошулуу үчүн Signal\'га микрофонуңуз керек.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Видео режимди иштетүү үчүн Molly\'га камераңызды колдонгонго уруксат беришиңиз керек.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Видео режимди иштетүү үчүн Signal\'га камераңызды колдонгонго уруксат беришиңиз керек.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Чалып баштоо же чалууга кошулуу үчүн Molly\'га микрофонуңуз керек.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Чалып баштоо же чалууга кошулуу үчүн Signal\'га микрофонуңуз керек.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Видеоңузду иштетүү үчүн Molly\'га камераңыз керек</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Видеоңузду иштетүү үчүн Signal\'га камераңыз керек</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Чалып баштоо же чалууга кошулуу үчүн:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Видеоңузду иштетүү үчүн:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Molly аркылуу чалуу</string>
-    <string name="WebRtcCallView__signal_video_call">Molly аркылуу видео чалуу</string>
+    <string name="WebRtcCallView__signal_call">Signal аркылуу чалуу</string>
+    <string name="WebRtcCallView__signal_video_call">Signal аркылуу видео чалуу</string>
     <string name="WebRtcCallView__start_call">Чалып баштоо</string>
     <string name="WebRtcCallView__join_call">Чалууга кошулуу</string>
     <string name="WebRtcCallView__call_is_full">Орун жок</string>
@@ -2370,6 +2378,7 @@
 
     <!-- RecaptchaProofActivity -->
     <string name="RecaptchaProofActivity_failed_to_submit">Тапшырылбай калды</string>
+    <!-- Toolbar title when solving a captcha -->
     <string name="RecaptchaProofActivity_complete_verification">Ырастоону бүтүрүү</string>
 
     <!-- RegistrationActivity -->
@@ -2390,7 +2399,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Номерди текшерүү үчүн сизге чалуу келет.</string>
     <string name="RegistrationActivity_edit_number">Номерди алмаштыруу</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play кызматтары көрсөтүлбөй жатат</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Бул жабдыкта Google Play кызматтары көрсөтүлбөй жатат. Сиз дагы эле Molly\'ды колдонууну улантууңуз мүмкүн, бирок бул кофигурациянын ишенимдүүлүгү жана натыйжалуулугу төмөндөшү мүмкүн. \\ N \\ nЭгер сиз көп тажрыйбалуу колдонуучу болбосоңуз, кийинчерээк Android ROM\'ун иштетпесеңиз же бул катаны жаңылыштык аркылуу көрүп жатам деп ойлосоңуз, сураныч, көйгөйдү чечүү үчүн support@molly.im почта адресине жазып, жардам сурап кайрылыңыз.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Бул жабдыкта Google Play кызматтары көрсөтүлбөй жатат. Сиз дагы эле Signal\'ды колдонууну улантууңуз мүмкүн, бирок бул кофигурациянын ишенимдүүлүгү жана натыйжалуулугу төмөндөшү мүмкүн. \\ N \\ nЭгер сиз көп тажрыйбалуу колдонуучу болбосоңуз, кийинчерээк Android ROM\'ун иштетпесеңиз же бул катаны жаңылыштык аркылуу көрүп жатам деп ойлосоңуз, сураныч, көйгөйдү чечүү үчүн support@signal.org почта адресине жазып, жардам сурап кайрылыңыз.</string>
     <string name="RegistrationActivity_i_understand">Түшүнүктүү</string>
     <string name="RegistrationActivity_play_services_error">Google Play сервистерин жүргүзүүдө ката бар</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play кызматтары жаңыртылууда же убактылуу иштебей жатат. Сураныч, дагы бир жолу аракет кылып көрүңүз.</string>
@@ -2410,7 +2419,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Телефон номери туура эмес</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Телефон номерин туура эмес киргиздиңиз окшойт (%1$s).\n\nМындай эмес беле %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Телефон номеринин форматы</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Телефон номеринин форматы</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Чалуу суралды</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2482,13 +2491,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Байланыштарга кошуу</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Molly\'га чакыруу</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Signal\'га чакыруу</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal билдирүүсү</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal аркылуу чалуу</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Байланыштарга кошуу</string>
-    <string name="SharedContactView_invite_to_signal">Molly\'га чакыруу</string>
+    <string name="SharedContactView_invite_to_signal">Signal\'га чакыруу</string>
     <string name="SharedContactView_message">Signal билдирүүсү</string>
 
     <!-- SignalBottomActionBar -->
@@ -2622,11 +2631,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s номери %2$s деген кишиге таандык</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Molly\'ды жаңыртуу</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Molly\'дын жаңы версиясы чыкты. Жаңыртуу үчүн басыңыз.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Molly жаңырбай калды</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Signal\'ды жаңыртуу</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Signal\'дын жаңы версиясы чыкты. Жаңыртуу үчүн басыңыз.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Signal жаңырбай калды</string>
     <string name="ApkUpdateNotifications_failed_general_body">Бир аздан соң аракет кылып көрөбүз.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly ийгиликтүү жаңырды</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal ийгиликтүү жаңырды</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Автоматтык түрдө %1$s версиясына жаңырды.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">%1$s версиясына жаңырттыңыз.</string>
 
@@ -2697,7 +2706,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Signal\'дагы коопсуздук кодубуз:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Бөлүшө турган колдонмолоруңуз жок окшойт.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Алмашуу буферинде коопсуздук коду жок</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly колдонмосуна QR кодун скандоо үчүн камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Камера\" дегенди иштетиңиз.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal колдонмосуна QR кодун скандоо үчүн камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Камера\" дегенди иштетиңиз.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Камерага уруксат алынбагандыктан, QR код скандалган жок</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s менен болгон коопсуздук кодун көрүү үчүн жазышып башташыңар керек.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2727,14 +2736,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Ачуу үчүн тийип коюңуз</string>
-    <string name="KeyCachingService_passphrase_cached">Molly\'дын кулпусу ачылды</string>
-    <string name="KeyCachingService_lock">Molly\'ды кулпулоо</string>
+    <string name="KeyCachingService_passphrase_cached">Signal\'дын кулпусу ачылды</string>
+    <string name="KeyCachingService_lock">Signal\'ды кулпулоо</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Сиз</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Медиафайлдын мындай түрү колдоого алынбайт</string>
     <string name="MediaPreviewActivity_draft">Долбоор</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Тышкы сактагычка сактоо үчүн Molly колдонмосуна сактагычты колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Сактагыч\" дегенди иштетиңиз.</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Тышкы сактагычка сактоо үчүн Signal колдонмосуна сактагычты колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Сактагыч\" дегенди иштетиңиз.</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Уруксат алмайынча, тышкы сактагычка сактай албайт.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Билдирүүнү өчүрөсүзбү?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Билдирүү биротоло өчөт.</string>
@@ -2778,7 +2787,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Билдирүү жеткен жок.</string>
     <string name="MessageNotifier_error_delivering_message">Билдирүүнү жеткирүүдө ката кетти.</string>
     <string name="MessageNotifier_message_delivery_paused">Билдирүүнү жеткирүү тындырылды.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly\'да жазышууну улантуу үчүн текшерүүдөн өтүңүз.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal\'да жазышууну улантуу үчүн текшерүүдөн өтүңүз.</string>
     <string name="MessageNotifier_mark_all_as_read">Баарын окулду деп белгилөө</string>
     <string name="MessageNotifier_mark_read">Окулду деп белгилөө</string>
     <string name="MessageNotifier_turn_off_these_notifications">Бул билдирмелерди өчүрүү</string>
@@ -2800,7 +2809,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Стикериңизге %1$s деген сезимин билдирди.</string>
     <string name="MessageNotifier_this_message_was_deleted">Бул билдирүү өчүрүлгөн.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">«Molly\'га байланыш кошулду» деген билдирмени өчүрөсүзбү? Аны кайра Molly\'дан &gt; Тууралоо &gt; Билдирмелер бөлүмүнөн иштете аласыз.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">«Signal\'га байланыш кошулду» деген билдирмени өчүрөсүзбү? Аны кайра Signal\'дан &gt; Тууралоо &gt; Билдирмелер бөлүмүнөн иштете аласыз.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2841,7 +2850,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly бекилип турганда ыкчам жооп бере албайсыз!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal бекилип турганда ыкчам жооп бере албайсыз!</string>
     <string name="QuickResponseService_problem_sending_message">Билдирүү жөнөтүлбөй калды!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2861,7 +2870,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Туура эмес ыкчам баскыч</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Жаңы билдирүү</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Жазышуу өтүнүчү</string>
     <string name="SingleRecipientNotificationBuilder_you">Сиз</string>
@@ -2890,6 +2899,7 @@
 
     <!-- ThumbnailView -->
     <string name="ThumbnailView_Play_video_description">Видеону ойнотуу</string>
+    <!-- Content description to describe an icon that indicates a video has captions -->
     <string name="ThumbnailView_Has_a_caption_description">Колтамгасы бар</string>
 
     <!-- TransferControlView -->
@@ -2906,7 +2916,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Бул түзмөк каттоодон чыгарылды. Телефон номериңизди Molly\'га башка түзмөктөн каттаган окшойсуз.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Бул түзмөк каттоодон чыгарылды. Телефон номериңизди Signal\'га башка түзмөктөн каттаган окшойсуз.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Түзмөктү кайра каттаңыз</string>
 
@@ -2919,10 +2929,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Чалууга жооп берүү үчүн Molly колдонмосуна микрофонуңуз керек.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Чалууга жооп берүү үчүн Signal колдонмосуна микрофонуңуз керек.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Видео чалууга жооп берүү үчүн Molly колдонмосуна микрофонуңуз менен камераңызды колдонгонго уруксат бериңиз.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Чалуу же чалууларды кабыл алуу үчүн Molly колдонмосуна микрофон менен камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" жана \"Камера\" дегенди иштетиңиз.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Видео чалууга жооп берүү үчүн Signal колдонмосуна микрофонуңуз менен камераңызды колдонгонго уруксат бериңиз.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Чалуу же чалууларды кабыл алуу үчүн Signal колдонмосуна микрофон менен камераны колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Микрофон\" жана \"Камера\" дегенди иштетиңиз.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Байланышкан түзмөктө жооп берилди.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Байланышкан түзмөктө четке кагылды.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Байланышкан түзмөктө бош эмес.</string>
@@ -2967,7 +2977,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Жаңы сыр сөз айкашын кайталаңыз</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Molly\'га чакыруу</string>
+    <string name="contact_selection_activity__invite_to_signal">Signal\'га чакыруу</string>
     <string name="contact_selection_activity__new_group">Жаңы топ</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Байланыштарды жаңыртуу</string>
@@ -2993,7 +3003,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Байланыштын сүрөтү</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly колдонмосуна байланыштарды көрсөтүү үчүн Байланыштарды колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Байланыштар\" дегенди иштетиңиз.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal колдонмосуна байланыштарды көрсөтүү үчүн Байланыштарды колдонууга уруксат беришиңиз керек, бирок сиз андан баш тарткансыз. Колдонмонун параметрлерине кирүү үчүн \"Улантуу\" дегенди басып, \"Уруксаттар\" дегенди тандап, \"Байланыштар\" дегенди иштетиңиз.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Байланыштар алынып жатканда ката кетти, тармакты текшерип көрүңүз</string>
     <string name="ContactSelectionListFragment_username_not_found">Колдонуучунун аты табылган жок</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" Signal колдонуучусу эмес. Колдонуучу атын текшерип, кайталап көрүңүз."</string>
@@ -3021,7 +3031,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Байланыштарыңызга кирүүгө уруксат бериңиз. Байланыштарыңыз шифрленип, Signal кызматына көрүнбөйт.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Байланыштарды көрсөтүү үчүн Molly\'га алар жеткиликтүү болушу керек.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Байланыштарды көрсөтүү үчүн Signal\'га алар жеткиликтүү болушу керек.</string>
     <string name="contact_selection_list_fragment__show_contacts">Байланыштарды көрсөтүү</string>
 
     <!-- contact_selection_list_item -->
@@ -3124,7 +3134,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Калкып чыкма маектер — Android функциясы. Аны Molly маектери үчүн өчүрүп койсоңуз болот.</string>
+    <string name="BubbleOptOutTooltip__description">Калкып чыкма маектер — Android функциясы. Аны Signal маектери үчүн өчүрүп койсоңуз болот.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Азыр эмес</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3286,9 +3296,9 @@
     <string name="EditProfileFragment__group_description">Топ тууралуу учкай маалымат</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Molly\'ды жаңыртуу</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Signal\'ды жаңыртуу</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Molly\'дын бул версиясы эскирип калды. Molly\'ды колдоно берүү үчүн аны жаңыртыңыз.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Signal\'дын бул версиясы эскирип калды. Signal\'ды колдоно берүү үчүн аны жаңыртыңыз.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Жаңыртуу</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3389,10 +3399,10 @@
         <item>Жаңы функциялар талап кылынат</item>
         <item>Суроо берүү</item>
         <item>Пикир билдирүү</item>
-        <item>Башка</item>
-        <item>Төлөмдөр (MobileCoin)</item>
-        <item>Салым кошуу жана төшбелгилер</item>
-        <item>Signal Android камдык көчүрмөсү</item>
+        <item>Payments (MobileCoin)</item>
+        <item>Donations &amp; Badges</item>
+        <item>Signal Android Backup</item>
+        <item>Other</item>
     </string-array>
     <!-- Subject of email when submitting debug logs to help debug slow notifications -->
     <string name="DebugLogsPromptDialogFragment__signal_android_support_request">Signal Android мүчүлүштүктөрдү аныктоо журналын жөнөтүү</string>
@@ -3471,7 +3481,9 @@
     <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Экранды жана билдирмелерди сыр сөз айкашы менен кулпулайсыз</string>
     <string name="preferences__screen_security">Экранды коргоо</string>
     <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Белгилүү бир убакыт бою эч нерсе жасалбаса, Signal автоматтык түрдө кулпуланат</string>
+    <!-- Legacy preference menu item to enable locking of app after inactivity -->
     <string name="preferences__inactivity_timeout_passphrase">Эч нерсе жасалбагандагы сыр сөз айкашы</string>
+    <!-- Legacy preference menu item to choose the interval of inactivity before lockout -->
     <string name="preferences__inactivity_timeout_interval">Аракетсиздик мезгили</string>
     <string name="preferences__notifications">Билдирмелер</string>
     <string name="preferences__led_color">LED түсү</string>
@@ -3482,6 +3494,7 @@
     <!-- Preference menu item to control the sound of notifications -->
     <string name="preferences__sound">Үн</string>
     <string name="preferences__silent">Үнсүз</string>
+    <!-- Preference menu item to use the default sound for notifications -->
     <string name="preferences__default">Демейки</string>
     <string name="preferences__repeat_alerts">Билдирмелер канча жолу кайталанат</string>
     <string name="preferences__never">Кайталанбайт</string>
@@ -3498,13 +3511,14 @@
     <string name="preferences__cyan">Көгүш</string>
     <string name="preferences__magenta">Мажента</string>
     <string name="preferences__white">Ак</string>
+    <!-- Text shown when no preference label has been selected -->
     <string name="preferences__none">Эч бир</string>
     <string name="preferences__fast">Тез</string>
     <string name="preferences__normal">Кадимки</string>
     <string name="preferences__slow">Жай</string>
     <string name="preferences__help">Жардам</string>
     <string name="preferences__advanced">Өркүндөтүлгөн</string>
-    <string name="preferences__donate_to_signal">Molly\'га колдоо көрсөтүү</string>
+    <string name="preferences__donate_to_signal">Signal\'га колдоо көрсөтүү</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Купуялык</string>
     <!-- Preference label for stories -->
@@ -3541,13 +3555,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Колдонмонун сүрөтчөсү жана аталышы \"%1$s\" болуп өзгөрүлөт</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Колдонмонун сүрөтчөсү менен аталышы өзгөрүшү үчүн Molly\'ды жабышыңыз керек. Билдирмелерде такай демейки Molly сүрөтчөсү менен аталышы көрүнүп турат.</string>
+    <string name="preferences__app_icon_dialog_description">Колдонмонун сүрөтчөсү менен аталышы өзгөрүшү үчүн Signal\'ды жабышыңыз керек. Билдирмелерде такай демейки Signal сүрөтчөсү менен аталышы көрүнүп турат.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Телефонуңуздун башкы экранында жана колдонмонун тактасында көрүнө турган колдонмонун сүрөтчөсү менен аталышын тандаңыз. Билдирмелерде такай демейки Molly сүрөтчөсү менен аталышы көрүнүп турат. Кененирээк маалымат</string>
+    <string name="preferences__app_icon_warning_learn_more">Телефонуңуздун башкы экранында жана колдонмонун тактасында көрүнө турган колдонмонун сүрөтчөсү менен аталышын тандаңыз. Билдирмелерде такай демейки Signal сүрөтчөсү менен аталышы көрүнүп турат. Кененирээк маалымат</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Колдонмолордун сүрөтчөлөрү менен аталыштары башкы экранда жана колдонмонун тактасында көрүнөт.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Билдирмелерде такай демейки Molly сүрөтчөсү менен аталышы көрүнүп турат.</string>
+    <string name="preferences__app_icon_notification_warning">Билдирмелерде такай демейки Signal сүрөтчөсү менен аталышы көрүнүп турат.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Кененирээк маалымат</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3637,7 +3651,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Цензураны кыйгап өтүү</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Цензураны кыйгап өтүү</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Эгер иштетилсе, Molly цензураны кыйгап өтүүгө аракет кылат. Molly цензураланган жерде болбосоңуз, бул функцияны иштетпеңиз.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Эгер иштетилсе, Signal цензураны кыйгап өтүүгө аракет кылат. Signal цензураланган жерде болбосоңуз, бул функцияны иштетпеңиз.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Аккаунтуңуздун телефон номеринин негизинде цензураны кыйгап өтүү иштетилди.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3689,7 +3703,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Төлөмдөр</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Коопсуздук максатында, MobileCoin жаңы санарип акчасын жөнөтүү жана алуу үчүн Molly\'ды колдонуңуз. Баштоо үчүн иштетиңиз.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Коопсуздук максатында, MobileCoin жаңы санарип акчасын жөнөтүү жана алуу үчүн Signal\'ды колдонуңуз. Баштоо үчүн иштетиңиз.</string>
     <string name="PaymentsHomeFragment__activate_payments">Төлөмдөрдү активдештирүү</string>
     <string name="PaymentsHomeFragment__activating_payments">Төлөмдөрдү активдештирүү…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Төлөм аккаунтун калыбына келтирүү</string>
@@ -3715,7 +3729,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Төлөмдөр сиздин аймакта жеткиликтүү эмес.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Төлөмдөр иштетилген жок. Кийинчерээк кайра аракет кылыңыз.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Төлөмдөр өчүрүлсүнбү?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Төлөмдөрдү өчүрсөңүз, Molly\'дагы MobileCoin жөнөтө албай же ала албайсыз.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Төлөмдөрдү өчүрсөңүз, Signal\'дагы MobileCoin жөнөтө албай же ала албайсыз.</string>
     <string name="PaymentsHomeFragment__deactivate">Деактивдештирүү</string>
     <string name="PaymentsHomeFragment__continue">Улантуу</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Баланс учурда жеткиликтүү эмес.</string>
@@ -3724,7 +3738,7 @@
     <string name="PaymentsHomeFragment__details">Чоо-жайы</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin\'дерди Molly аркылуу жөнөтүп, ала аласыз. Бардык төлөмдөр MobileCoins жана MobileCoin Wallet кызматтарын Пайдалануу шарттары боюнча жүргүзүлөт. Көйгөйлөр келип чыгышы мүмкүн жана жоголгон төлөмдөр менен каражаттарыңыз кайра калыбына келбейт. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin\'дерди Signal аркылуу жөнөтүп, ала аласыз. Бардык төлөмдөр MobileCoins жана MobileCoin Wallet кызматтарын Пайдалануу шарттары боюнча жүргүзүлөт. Көйгөйлөр келип чыгышы мүмкүн жана жоголгон төлөмдөр менен каражаттарыңыз кайра калыбына келбейт. </string>
     <string name="PaymentsHomeFragment__activate">Активдештирүү</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin шарттарын көрүү</string>
     <string name="PaymentsHomeFragment__payments_not_available">Сигналдагы төлөмдөр мындан ары жеткиликсиз. Сиз дагы эле биржага акча которо аласыз, бирок мындан ары төлөмдөрдү жөнүү жана алуу же каражат кошуу болбойт.</string>
@@ -3755,7 +3769,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Уруксаттарды иштетүү</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Тааныган адамдар менен жазышууга жардам берүү үчүн Molly ушул уруксаттарды сурайт. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Тааныган адамдар менен жазышууга жардам берүү үчүн Signal ушул уруксаттарды сурайт. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Билдирмелер</string>
     <!-- Notifications permission row description -->
@@ -3847,10 +3861,10 @@
     <string name="PaymentsTransferFragment__next">Кийинки</string>
     <string name="PaymentsTransferFragment__invalid_address">Жараксыз дарек</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Которууга аракет кылып жаткан капчык дарегин текшерип, кайра аракет кылыңыз.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Сиз өзүңүздүн Molly капчыгыңыздын дарегине которо албайсыз. Колдоого алынган биржадагы аккаунтуңуздан капчыктын дарегин киргизиңиз.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR кодун сканерлөө үчүн Molly камерага кирүү уруксатын алышы керек.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QR кодун сканерлөө үчүн Molly\'га камерага кирүүгө уруксат керек. Тууралоого өтүп, \"Уруксаттарды\" тандап, \"Камераны\" иштетиңиз.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR кодун сканерлөө үчүн Molly камерага кирүү уруксатын алышы керек.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Сиз өзүңүздүн Signal капчыгыңыздын дарегине которо албайсыз. Колдоого алынган биржадагы аккаунтуңуздан капчыктын дарегин киргизиңиз.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR кодун сканерлөө үчүн Signal камерага кирүү уруксатын алышы керек.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QR кодун сканерлөө үчүн Signal\'га камерага кирүүгө уруксат керек. Тууралоого өтүп, \"Уруксаттарды\" тандап, \"Камераны\" иштетиңиз.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR кодун сканерлөө үчүн Signal камерага кирүү уруксатын алышы керек.</string>
     <string name="PaymentsTransferFragment__settings">Тууралоо</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4084,6 +4098,7 @@
 
 
     <!-- media_preview_activity -->
+    <!-- Content description of images or videos when viewing media -->
     <string name="media_preview_activity__media_content_description">Медиафайлды алдын ала карап көрүү</string>
 
     <!-- new_conversation_activity -->
@@ -4195,17 +4210,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly\'да кимдир бирөө үн режиминде чалып жатат</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal\'да кимдир бирөө үн режиминде чалып жатат</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly\'да кимдир бирөө видео режимде чалып жатат</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal\'да кимдир бирөө видео режимде чалып жатат</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly аркылуу топтун ичинде чалып жатат</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Signal аркылуу топтун ичинде чалып жатат</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Учурдагы Molly аудио чалуусу</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Учурдагы Signal аудио чалуусу</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Учурдагы Molly видео чалуусу</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Учурдагы Signal видео чалуусу</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Учурдагы Molly топтук чалуусу</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Учурдагы Signal топтук чалуусу</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Жүктөлүүдө…</string>
@@ -4250,6 +4265,7 @@
     <string name="BackupDialog_disable_and_delete_all_local_backups">Бардык жергиликтүү камдык көчүрмөлөр өчүрүлсүнбү?</string>
     <string name="BackupDialog_delete_backups_statement">Камдык көчүрмөлөрдү өчүрүү</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Камдык көчүрмөлөрдү иштетүү үчүн папканы тандаңыз. Камдык көчүрмөлөр бул жерге сакталат.</string>
+    <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">Папка тандоо</string>
     <string name="BackupDialog_copied_to_clipboard">Буферге көчүрүлдү</string>
     <string name="BackupDialog_no_file_picker_available">Файл тандагыч жеткиликсиз.</string>
@@ -4257,9 +4273,9 @@
     <string name="BackupDialog_verify">Ооба</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Сиз камдык купуя сөз айкашыңызды ийгиликтүү киргиздиңиз</string>
     <string name="BackupDialog_passphrase_was_not_correct">Купуя сөз айкашы туура эмес</string>
-    <string name="LocalBackupJob_creating_signal_backup">Molly\'дын камдык көчүрмөсү түзүлүүдө…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Signal\'дын камдык көчүрмөсү түзүлүүдө…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Molly камдык көчүрмөсү ырасталууда…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Signal камдык көчүрмөсү ырасталууда…</string>
     <string name="LocalBackupJobApi29_backup_failed">Камдык көчүрмө сакталган жок</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Камдык папкаңыз жок кылынды же жылдырылды.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Камдык файлыңыз бул томдо сактоо үчүн өтө чоң.</string>
@@ -4274,15 +4290,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Мага чал (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Код кайра жөнөтүлөт (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Molly\'дын кардарларды колдоо кызматы менен байланышыңыз</string>
-    <string name="RegistrationActivity_code_support_subject">Molly\'ды каттоо - Android үчүн текшерүү коду</string>
+    <string name="RegistrationActivity_contact_signal_support">Signal\'дын кардарларды колдоо кызматы менен байланышыңыз</string>
+    <string name="RegistrationActivity_code_support_subject">Signal\'ды каттоо - Android үчүн текшерүү коду</string>
     <string name="RegistrationActivity_incorrect_code">Код туура эмес</string>
     <string name="BackupUtil_never">Эч качан</string>
     <string name="BackupUtil_unknown">Белгисиз</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Телефон номериңиз</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Телефон номериңиз кимдерге көрүнүп, Molly\'да сиз менен кимдер байланыша алышат.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Телефон номериңиз кимдерге көрүнүп, Signal\'да сиз менен кимдер байланыша алышат.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Менин номерим кимге көрүнөт</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4333,11 +4349,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">Сервиске ката байланышуу</string>
     <string name="preferences_chats__backups">Камдык көчүрмөлөр</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Molly\'дын кулпусун ачуу</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Signal\'дын кулпусун ачуу</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Molly\'дын кулпусун Android түзмөгүнүн кулпусу менен ачыңыз.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Signal\'дын кулпусун Android түзмөгүнүн кулпусу менен ачыңыз.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Экран кулпуланып, Molly түзмөктүн кулпусу менен корголуп турат. Molly\'ды жүзүңүз, манжаңыздын изи, PIN код, сырсөз же графикалык ачкыч сыяктуу телефонуңуздун кулпусу менен ачасыз.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Экран кулпуланып, Signal түзмөктүн кулпусу менен корголуп турат. Signal\'ды жүзүңүз, манжаңыздын изи, PIN код, сырсөз же графикалык ачкыч сыяктуу телефонуңуздун кулпусу менен ачасыз.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Кардарларды колдоо кызматына кайрылуу</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4363,9 +4379,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Башка убакытта</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Molly\'дын экранын кулпулоо</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Signal\'дын экранын кулпулоо</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Molly\'дын экран кулпусун өчүрүү</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Signal\'дын экран кулпусун өчүрүү</string>
 
     <string name="Recipient_unknown">Белгисиз</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4420,19 +4436,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Эски Android түзмөгүнө туташууга даярдалууда…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Бир аздан кийин даяр болот</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Эски Android түзмөгүнүн туташуусу күтүлүүдө…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Эски Android түзмөгүңүздү таап, ага туташуу үчүн Molly жүргөн жерди аныктоо уруксаты талап кылынат.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Эски Android түзмөгүңүздү таап, ага туташуу үчүн Molly жүргөн жерди аныктоо кызматтарын иштетиши керек.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly эски Android түзмөгүңүздү таап, ага туташуу үчүн Wi-Fi иштетилиши керек. Сиз эч кандай Wi-Fi тармагына туташуунун кереги жок.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Кечиресиз, бирок бул түзмөк Wi-Fi Direct\'ти колдобойт окшойт. Molly эски Android түзмөгүңүздү аныктоо жана ага туташуу үчүн Wi-Fi Direct\'ти колдонот. Бирок, сиз аккаунтуңузду камдык көчүрмөдөн калыбына келтире аласыз.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Эски Android түзмөгүңүздү таап, ага туташуу үчүн Signal жүргөн жерди аныктоо уруксаты талап кылынат.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Эски Android түзмөгүңүздү таап, ага туташуу үчүн Signal жүргөн жерди аныктоо кызматтарын иштетиши керек.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal эски Android түзмөгүңүздү таап, ага туташуу үчүн Wi-Fi иштетилиши керек. Сиз эч кандай Wi-Fi тармагына туташуунун кереги жок.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Кечиресиз, бирок бул түзмөк Wi-Fi Direct\'ти колдобойт окшойт. Signal эски Android түзмөгүңүздү аныктоо жана ага туташуу үчүн Wi-Fi Direct\'ти колдонот. Бирок, сиз аккаунтуңузду камдык көчүрмөдөн калыбына келтире аласыз.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Камдык көчүрмөнү калыбына келтирүү</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Эски Android түзмөгүңүзгө туташуу аракетинде күтүлбөгөн ката кетти.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Жаңы Android түзмөгү изделүүдө…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Жаңы Android түзмөгүңүздү таап, ага туташуу үчүн Molly\'га жүргөн жерди аныктоо уруксаты керек.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly жаңы Android түзмөгүңүздү таап, ага туташуу үчүн жүргөн жерди аныктоо кызматтары иштетилиши керек.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly жаңы Android түзмөгүңүздү аныктоо жана ага туташуу үчүн Wi-Fi иштетилиши керек. Сиз эч кандай Wi-Fi тармагына туташуунун кереги жок.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Кечиресиз, бул түзмөк Wi-Fi Direct\'ти колдобойт окшойт. Molly жаңы Android түзмөгүңүздү таап, ага туташуу үчүн Wi-Fi Direct\'ти колдонот. Жаңы Android түзмөгүңүздө каттоо эсебиңизди калыбына келтирүү үчүн дагы эле камдык көчүрмөнү түзө аласыз.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Жаңы Android түзмөгүңүздү таап, ага туташуу үчүн Signal\'га жүргөн жерди аныктоо уруксаты керек.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal жаңы Android түзмөгүңүздү таап, ага туташуу үчүн жүргөн жерди аныктоо кызматтары иштетилиши керек.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal жаңы Android түзмөгүңүздү аныктоо жана ага туташуу үчүн Wi-Fi иштетилиши керек. Сиз эч кандай Wi-Fi тармагына туташуунун кереги жок.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Кечиресиз, бул түзмөк Wi-Fi Direct\'ти колдобойт окшойт. Signal жаңы Android түзмөгүңүздү таап, ага туташуу үчүн Wi-Fi Direct\'ти колдонот. Жаңы Android түзмөгүңүздө каттоо эсебиңизди калыбына келтирүү үчүн дагы эле камдык көчүрмөнү түзө аласыз.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Камдык көчүрмөсүн түзүү</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Жаңы Android түзмөгүңүзгө туташуу аракетинде күтүлбөгөн ката кетти.</string>
 
@@ -4474,7 +4490,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Берилмелер которулууда</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Эки түзмөктү бири-бирине жакын кармаңыз. Түзмөктөрүңүздү күйгүзүп, Molly\'ды ачык калтырыңыз. Которуу баштан аяк шифрленген.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Эки түзмөктү бири-бирине жакын кармаңыз. Түзмөктөрүңүздү күйгүзүп, Signal\'ды ачык калтырыңыз. Которуу баштан аяк шифрленген.</string>
     <string name="DeviceTransfer__d_messages_so_far">Азырынча %1$d билдирүү…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">Азырынча %1$s%% билдирүү…</string>
@@ -4488,7 +4504,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Аккаунтту которуу</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Жаңы Android түзмөгүңүзгө Molly жүктөп алыңыз</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Жаңы Android түзмөгүңүзгө Signal жүктөп алыңыз</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"\"Аккаунтту которуу же калыбына келтирүү\" баскычын басыңыз"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4562,7 +4578,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Бул шилтемеси бар ар бир адам топтун атын жана сүрөтүн көрүп, кошулуу өтүнүчүн жөнөтө алат. Аны ишенген адамдарыңыз менен бөлүшүңүз.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Бул шилтеме менен каалаган адам топтун атын жана сүрөтүн көрүп, топко кошула алат. Аны ишенген адамдарыңыз менен бөлүшүңүз.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Molly аркылуу бөлүшүү</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Signal аркылуу бөлүшүү</string>
     <string name="GroupLinkBottomSheet_copy">Көчүрүү</string>
     <string name="GroupLinkBottomSheet_qr_code">QR коду</string>
     <string name="GroupLinkBottomSheet_share">Бөлүшүү</string>
@@ -4687,6 +4703,7 @@
     <string name="ShareActivity__share">Бөлүшүү</string>
     <!-- Label to describe circular spinner button -->
     <string name="ShareActivity__send">Жөнөтүү</string>
+    <!-- When sharing to a list of people, %1$s is the name of a person -->
     <string name="ShareActivity__comma_s">, %1$s</string>
     <!-- Toast when the incoming intent is invalid -->
     <string name="ShareActivity__could_not_get_share_data_from_intent">Маалымат алынган жок.</string>
@@ -4742,7 +4759,7 @@
     <string name="payment_info_card_about_mobilecoin">MobileCoin жөнүндө</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin - жаңы коопсуз санариптик акча бирдиги.</string>
     <string name="payment_info_card_adding_funds">Каражаттарды кошуу</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Капчыгыңыздын дарегине MobileCoin жөнөтүү аркылуу Molly\'да колдонуу үчүн каражат кошсоңуз болот.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Капчыгыңыздын дарегине MobileCoin жөнөтүү аркылуу Signal\'да колдонуу үчүн каражат кошсоңуз болот.</string>
     <string name="payment_info_card_cashing_out">Акчаны алуу</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin\'ди колдогон биржада MobileCoin\'ди каалаган убакта накталай аласыз. Жөн гана ошол биржадагы аккаунтуңузга каражат которуңуз.</string>
     <string name="payment_info_card_hide_this_card">Бул карта жашырылсынбы?</string>
@@ -4763,12 +4780,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Капчыкты өчүрүү</string>
     <string name="DeactivateWalletFragment__your_balance">Балансыңыз</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Төлөмдөрдү өчүрүүдөн мурун акчаңызды башка капчыкка которуп коюңуз. Эгер акчаңызды азыр которбосоңуз, төлөмдөрдү кайра иштеткенде, алар Molly\'га байланган капчыгыңызда кала берет.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Төлөмдөрдү өчүрүүдөн мурун акчаңызды башка капчыкка которуп коюңуз. Эгер акчаңызды азыр которбосоңуз, төлөмдөрдү кайра иштеткенде, алар Signal\'га байланган капчыгыңызда кала берет.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Калган балансты которуу</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Которуусуз өчүрүү</string>
     <string name="DeactivateWalletFragment__deactivate">Деактивдештирүү</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Которуусуз өчүрүлсүнбү?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Төлөмдөрдү кайра иштеткениңизде, каражаттар Molly\'га байланган капчыгыңызда кала берет.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Төлөмдөрдү кайра иштеткениңизде, каражаттар Signal\'га байланган капчыгыңызда кала берет.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Капчыкты өчүрүү катасы.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5191,7 +5208,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Уруксаттамалар</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Шарттар жана жоболор; Купуялык Саясаты</string>
-    <string name="HelpFragment__copyright_signal_messenger">Molly Mesenger автордук укугу</string>
+    <string name="HelpFragment__copyright_signal_messenger">Signal Mesenger автордук укугу</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 боюнча уруксаттамаланган</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5347,6 +5364,7 @@
     <string name="SoundsAndNotificationsSettingsFragment__not_muted">Үнү өчүрүлгөн эмес</string>
     <string name="SoundsAndNotificationsSettingsFragment__mentions">Айтып өтүүлөр</string>
     <string name="SoundsAndNotificationsSettingsFragment__always_notify">Дайыма билип тургум келет</string>
+    <!-- Dialog option to not send notifications if mentioned when the conversation is muted -->
     <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">Билдирбегиле</string>
     <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Жеке билдирмелер</string>
 
@@ -5436,7 +5454,7 @@
     <!-- DSLSettingsToolbar -->
     <string name="DSLSettingsToolbar__navigate_up">Өйдө чабыттоо</string>
     <string name="MultiselectForwardFragment__forward_to">Багыттоо</string>
-    <!-- Displayed when sharing content via the fragment -->
+    <!-- Displayed when sharing content to people via the fragment -->
     <string name="MultiselectForwardFragment__share_with">Ким менен бөлүшүү керек</string>
     <string name="MultiselectForwardFragment__add_a_message">Билдирүү кошуу</string>
     <string name="MultiselectForwardFragment__faster_forwards">Тезирээк багытоо</string>
@@ -5636,9 +5654,9 @@
     <string name="MySupportPreference__learn_more">Кененирээк маалымат</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Molly\'ды жаңыртуу</string>
+    <string name="UpdateSignalExpiredDialog__title">Signal\'ды жаңыртуу</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Molly\'дын бул версиясы эскирип калды. Molly\'ды колдоно берүү үчүн аны жаңыртыңыз.</string>
+    <string name="UpdateSignalExpiredDialog__message">Signal\'дын бул версиясы эскирип калды. Signal\'ды колдоно берүү үчүн аны жаңыртыңыз.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Жаңыртуу</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5647,7 +5665,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Түзмөк катталган жок</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Бул түзмөк каттоодон чыгарылды. Бул түзмөктө Molly\'ды колдоно берүү үчүн аны каттаңыз.</string>
+    <string name="ReregisterSignalDialog__message">Бул түзмөк каттоодон чыгарылды. Бул түзмөктө Signal\'ды колдоно берүү үчүн аны каттаңыз.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Кайра каттоо</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -5966,7 +5984,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Тандоочу ачылбай койду.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Билдирмелерди күйгүзүү үчүн Molly\'га аларды көрсөткөнгө уруксат беришиңиз керек.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Билдирмелерди күйгүзүү үчүн Signal\'га аларды көрсөткөнгө уруксат беришиңиз керек.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Күйгүзүү</string>
 
@@ -6287,7 +6305,7 @@
     <!-- Displayed when copying group story reply text to clipboard -->
     <string name="StoryGroupReplyFragment__copied_to_clipboard">Буферге көчүрүлдү</string>
     <!-- Displayed in story caption when content is longer than 5 lines -->
-    <string name="StoryViewerPageFragment__see_more">Кененирээк маалымат</string>
+    <string name="StoryViewerPageFragment__read_more">Read more</string>
     <!-- Displayed in toast after sending a direct reply -->
     <string name="StoryDirectReplyDialogFragment__sending_reply">Жооп жөнөтүлүүдө…</string>
     <!-- Displayed in the viewer when a story is no longer available -->
@@ -7494,6 +7512,8 @@
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Displayed on the title bar -->
     <string name="RemoteBackupsSettingsFragment__signal_backups">Signal\'дын камдык көчүрмөлөрү</string>
+    <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
+    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Төлөмдөр</string>
     <!-- Section header for backup information -->
@@ -7545,7 +7565,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Качан бүттү: %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Жаңы телефон алганыңызда же Molly\'ды кайра орнотконуңузда эч качан дайындарыңызды жоготуп албашыңыз үчүн билдирүүлөр таржымалыңыздын камдык көчүрмөсүн сактаңыз.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Жаңы телефон алганыңызда же Signal\'ды кайра орнотконуңузда эч качан дайындарыңызды жоготуп албашыңыз үчүн билдирүүлөр таржымалыңыздын камдык көчүрмөсүн сактаңыз.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Камдык көчүрмөнүн башка сактоо жолдору</string>
     <!-- Row title for performing on-device backup -->
@@ -7671,9 +7691,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Камдык көчүрмөнүн ачкычы</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Камдык көчүрмөңүздүн ачкычы 64 орундуу код болуп, Molly\'ды кайра орнотконуңузда сакталган нерселерди калыбына келтиргенге жардам берет.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Камдык көчүрмөңүздүн ачкычы 64 орундуу код болуп, Signal\'ды кайра орнотконуңузда сакталган нерселерди калыбына келтиргенге жардам берет.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">PIN кодуңузду унутуп калсаңыз, камдык көчүрмөлөрүңүздү калыбына келтире албай каласыз. Molly да жардам бере албайт.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">PIN кодуңузду унутуп калсаңыз, камдык көчүрмөлөрүңүздү калыбына келтире албай каласыз. Signal да жардам бере албайт.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Кийинки</string>
 
@@ -7689,7 +7709,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Ачкычыңызды коопсуз жерде сактаңыз</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Ачкычыңызды жоготуп алсаңыз, Molly камдык көчүрмөлөрүңүздү калыбына келтире албай калат. Аны эч ким көрбөгөн коопсуз жерде сактап, эч ким менен бөлүшпөңүз.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Ачкычыңызды жоготуп алсаңыз, Signal камдык көчүрмөлөрүңүздү калыбына келтире албай калат. Аны эч ким көрбөгөн коопсуз жерде сактап, эч ким менен бөлүшпөңүз.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Ачкычымды жаздырып алдым</string>
     <!-- Sheet action button label -->
@@ -7758,7 +7778,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Эски телефонум жок</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">Же Molly\'ды ошол эле телефонго кайра орнотуңуз</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">Же Signal\'ды ошол эле телефонго кайра орнотуңуз</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Аккаунтту калыбына келтирүү же өткөрүү</string>

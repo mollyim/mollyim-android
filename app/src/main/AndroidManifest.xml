@@ -223,7 +223,8 @@
 
       <meta-data
           android:name="android.service.chooser.chooser_target_service"
-                android:value="androidx.sharetarget.ChooserTargetServiceCompat" />
+          android:value="androidx.sharetarget.ChooserTargetServiceCompat"
+          tools:targetApi="23" />
 
     </activity>
 
@@ -1110,7 +1111,8 @@
         android:name=".service.webrtc.AndroidCallConnectionService"
         android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
         android:foregroundServiceType="phoneCall"
-        android:exported="true">
+        android:exported="true"
+        tools:targetApi="28">
         <intent-filter>
             <action android:name="android.telecom.ConnectionService" />
         </intent-filter>
