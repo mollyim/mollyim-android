@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -45,12 +42,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal-i po përditësohet…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly-i po përditësohet…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Nuk keni caktuar ende një frazëkalimi!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Të çaktivizohet frazëkalimi?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Kjo do të zhbllokojë përgjithmonë njoftimet e Signal dhe mesazheve.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Kjo do të zhbllokojë përgjithmonë njoftimet e Molly dhe mesazheve.</string>
     <string name="ApplicationPreferencesActivity_disable">Çaktivizoje</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Ka ndodhur një gabim në lidhjen me serverin!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN-et kërkohen për mbylljen e regjistrimit. Për të çaktivizuar PIN-et, së pari çaktivizoni mbylljen e regjistrimit.</string>
@@ -87,7 +84,7 @@
     <string name="AttachmentKeyboard_file">Kartelë</string>
     <string name="AttachmentKeyboard_contact">Kontakt</string>
     <string name="AttachmentKeyboard_location">Vendndodhje</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal ka nevojë për leje për të shfaqur fotot dhe videot</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly ka nevojë për leje për të shfaqur fotot dhe videot</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Lejoje Përdorimin</string>
     <string name="AttachmentKeyboard_payment">Pagesë</string>
@@ -98,34 +95,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Kalo te Rregullimet</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Signal ka lejehyrje të kufizuar te fotot ose videot</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Molly ka lejehyrje të kufizuar te fotot ose videot</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Nuk u gjet asnjë foto, zgjidh fotot dhe videot për t\'i shfaqur këtu ose ndrysho lejehyrjet</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Nuk u gjet asnjë foto ose video. Signal ka lejehyrje vetëm te fotot dhe videot që ke zgjedhur.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Nuk u gjet asnjë foto ose video. Molly ka lejehyrje vetëm te fotot dhe videot që ke zgjedhur.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Nuk gjendet një aplikacion për të përzgjedhur median.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal kërkon lejen e Storage për të bashkëngjitur foto, video ose audio, por i është refuzuar përgjithmonë. Ju lutemi, vazhdoni te menuja e parametrave të aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Storage\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal kërkon lejen e Kontakteve për të bashkangjitur informacionin e kontaktit, por i është refuzuar përgjithmonë. Ju lutemi, vazhdoni te menuja e parametrave të aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Kontaktet\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal kërkon lejen e Vendndodhjes për të bashkangjitur një vendndodhje, por i është refuzuar përgjithmonë. Ju lutemi, vazhdoni te menuja e parametrave të aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Vendndodhja\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly kërkon lejen e Storage për të bashkëngjitur foto, video ose audio, por i është refuzuar përgjithmonë. Ju lutemi, vazhdoni te menuja e parametrave të aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Storage\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly kërkon lejen e Kontakteve për të bashkangjitur informacionin e kontaktit, por i është refuzuar përgjithmonë. Ju lutemi, vazhdoni te menuja e parametrave të aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Kontaktet\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly kërkon lejen e Vendndodhjes për të bashkangjitur një vendndodhje, por i është refuzuar përgjithmonë. Ju lutemi, vazhdoni te menuja e parametrave të aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Vendndodhja\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Lejo aksesin në vendndodhje</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Për të dërguar vendndodhjen:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Lejo aksesin e Signal për të dërguar vendndodhjen.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Lejo aksesin e Molly për të dërguar vendndodhjen.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal-it i duhet të ketë akses tek vendndodhja në mënyrë që ta dërgojë atë.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly-it i duhet të ketë akses tek vendndodhja në mënyrë që ta dërgojë atë.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Lejo aksesin në hapësirën ruajtëse</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Për të shfaqur foto dhe video:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Signal ka nevojë për lejehyrje për të shfaqur fotot dhe videot.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Molly ka nevojë për lejehyrje për të shfaqur fotot dhe videot.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s nuk ka aktivizuar Pagesat </string>
@@ -276,25 +273,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Lejo aksesin në mikrofon</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Për të bërë fotografi, lejoj aksesin nga Signal që të përdorë kamerën.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Për të bërë fotografi, lejoj aksesin nga Molly që të përdorë kamerën.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Për të bërë foto dhe video, lejo qasjen e Signal-it në kamerë.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Për të bërë foto dhe video, lejo qasjen e Molly-it në kamerë.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Për të bërë foto dhe video, lejo përdorimin e kamerës dhe mikrofonit nga Signal.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Për të bërë foto dhe video, lejo përdorimin e kamerës dhe mikrofonit nga Molly.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Për të regjistruar video me zë, lejo përdorimin e mikrofonit nga Signal.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Për të regjistruar video me zë, lejo përdorimin e mikrofonit nga Molly.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Për të skanuar kod QR, lejo përdorimin e kamerës nga Signal.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Për të skanuar kod QR, lejo përdorimin e kamerës nga Molly.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal duhet të aksesojë kamerën që të bëjë fotografi</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly duhet të aksesojë kamerën që të bëjë fotografi</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal duhet të aksesojë kamerën që të skanojë kode QR</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly duhet të aksesojë kamerën që të skanojë kode QR</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal duhet të aksesojë mikrofonin që të regjistrojë video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Molly duhet të aksesojë mikrofonin që të regjistrojë video</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Për të bërë foto në Signal:</string>
+    <string name="CameraXFragment_to_capture_photos">Për të bërë foto në Molly:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Për të bërë foto dhe video në Signal:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Për të bërë foto dhe video në Molly:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Për të regjistruar video me zë:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -313,7 +310,7 @@
     <string name="CameraContacts_no_signal_contacts">Nuk ka kontakte të Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Ju mund të përdorni vetëm butonin e kamerës për të dërguar foto te kontaktet e Signal-it. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Nuk mund ta gjeni dot atë që po kërkoni?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Ftoni një kontakt që t\'i bashkohet Signal-it</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Ftoni një kontakt që t\'i bashkohet Molly-it</string>
     <string name="CameraContacts__menu_search">Kërko</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -327,12 +324,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Jo, faleminderit</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Përditësoni Signal-in</string>
+    <string name="ClientDeprecatedActivity_update_signal">Përditësoni Molly-in</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Ky version i aplikacionit nuk funksionon më. Për të vazhduar dërgimin dhe marrjen e mesazheve, përditësojeni atë në versionin më të fundit.</string>
     <string name="ClientDeprecatedActivity_update">Përditësoje</string>
     <string name="ClientDeprecatedActivity_dont_update">Mos e përditëso</string>
     <string name="ClientDeprecatedActivity_warning">Paralajmërim</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Versioni yt i Signal ka skaduar. Mund të shikosh historikun e mesazheve, por nuk do të mund të dërgosh ose marrësh mesazhe, derisa ta përditësosh.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Versioni yt i Molly ka skaduar. Mund të shikosh historikun e mesazheve, por nuk do të mund të dërgosh ose marrësh mesazhe, derisa ta përditësosh.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nuk u gjet asnjë shfletues ueb.</string>
@@ -373,8 +370,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">%1$s mesazhi</string>
-    <string name="ContactsDatabase_signal_call_s">Thirrje zanore në Signal %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Thirrje me video në Signal %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Thirrje zanore në Molly %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Thirrje me video në Molly %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -471,7 +468,7 @@
     <string name="ConversationActivity_transport_signal">Mesazh Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Dërgoni mesazh</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Le të kalojmë tek Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Le të kalojmë tek Molly %1$s</string>
     <string name="ConversationActivity_specify_recipient">Ju lutemi, zgjidhni një kontakt</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Bashkëngjitja tejkalon kufijtë e madhësisë për llojin e mesazhit që po dërgoni.</string>
     <string name="ConversationActivity_unable_to_record_audio">Nuk mund të regjistrohet audio!</string>
@@ -490,18 +487,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Për të dërguar mesazhe zanore:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Për të dërguar mesazhe zanore, lejo aksesin e Signal në mikrofon.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Për të dërguar mesazhe zanore, lejo aksesin e Molly në mikrofon.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal duhet të aksesojë mikrofonin që të regjistrojë mesazhe zanore.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal kërkon lejen e aktivizimit të Mikrofonit për të dërguar mesazhe audio, por është i mbyllur përgjithmonë. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Mikrofoni\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly duhet të aksesojë mikrofonin që të regjistrojë mesazhe zanore.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly kërkon lejen e aktivizimit të Mikrofonit për të dërguar mesazhe audio, por është i mbyllur përgjithmonë. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Mikrofoni\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal ka nevojë për lejet e aktivizimit të mikrofonit dhe të kamerës për të telefonuar%1$s, por janë mbyllur përgjithmonë. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Mikrofoni\" dhe \"Kamera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Për të bërë foto dhe video, lejo qasjen e Signal-it në kamerë.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal ka nevojë për lejen e aktivizimit të kamerës për të bërë foto ose video, por është i mbyllur përgjithmonë. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal ka nevojë për lejet e aktivizimit të kamerës për të bërë foto ose video</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly ka nevojë për lejet e aktivizimit të mikrofonit dhe të kamerës për të telefonuar%1$s, por janë mbyllur përgjithmonë. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Mikrofoni\" dhe \"Kamera\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Për të bërë foto dhe video, lejo qasjen e Molly-it në kamerë.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly ka nevojë për lejen e aktivizimit të kamerës për të bërë foto ose video, por është i mbyllur përgjithmonë. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ka nevojë për lejet e aktivizimit të kamerës për të bërë foto ose video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aktivizo lejen e mikrofonit për të bërë video me zë.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal ka nevojë për lejet e aktivizimit të mikrofonit për të regjistruar video, por ato janë refuzuar. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Mikrofoni\" dhe \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal ka nevojë për lejet e aktivizimit të mikrofonit për të regjistruar video.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly ka nevojë për lejet e aktivizimit të mikrofonit për të regjistruar video, por ato janë refuzuar. Ju lutemi, vazhdoni te parametrat e aplikacionit, zgjidhni \"Lejet\" dhe aktivizoni \"Mikrofoni\" dhe \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly ka nevojë për lejet e aktivizimit të mikrofonit për të regjistruar video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Jo</string>
@@ -522,9 +519,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Për të nisur telefonatën:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Për të bërë një telefonatë, lejo aksesin e Signal në mikrofon.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Për të bërë një telefonatë, lejo aksesin e Molly në mikrofon.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal duhet të aksesojë mikrofonin që të nisë një telefonatë.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly duhet të aksesojë mikrofonin që të nisë një telefonatë.</string>
 
 
     <string name="ConversationActivity_join">Bashkohu</string>
@@ -538,9 +535,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Mesazhet SMS nuk mbështeten më nga Signal. Fto %1$s te Signal për ta vazhduar bisedën këtu.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ky person nuk përdor më Signal. Ftoji në Signal për ta vazhduar bisedën këtu.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ky person nuk përdor më Molly. Ftoji në Molly për ta vazhduar bisedën këtu.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Ftoje në Signal</string>
+    <string name="ConversationActivity__invite_to_signal">Ftoje në Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Së shpejti do të kujtoheni përsëri.</string>
 
@@ -628,13 +625,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Bllokuar</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Përditësoni Signal-in</string>
+    <string name="ConversationFragment__update_build">Përditësoni Molly-in</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Regjistro sërish Signal</string>
+    <string name="ConversationFragment__reregister_signal">Regjistro sërish Molly</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Lundro prapa.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Hap Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Hap Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Nuk verifikohet më</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -804,9 +801,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Kush mund të më gjejë nëpërmjet numrit?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Kushdo që e ka numrin tënd të telefonit do të shohë se ti ke Signal dhe mund të të shkruajë.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Kushdo që e ka numrin tënd të telefonit do të shohë se ti ke Molly dhe mund të të shkruajë.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Askush nuk do të shohë se je në Signal nëse nuk dërgon mesazhe ose nëse nuk ke biseda ekzistuese.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Askush nuk do të shohë se je në Molly nëse nuk dërgon mesazhe ose nëse nuk ke biseda ekzistuese.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Të rikthehet prej kopjeruajtjeje?</string>
@@ -885,7 +882,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Testoni frazëkalimin tuaj për kopjeruajtjen dhe verifikoni që përputhet</string>
     <string name="BackupsPreferenceFragment__turn_on">Aktivizoje</string>
     <string name="BackupsPreferenceFragment__turn_off">Çaktivizoje</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Që të riktheni një kopjeruajtje, instaloni një kopje të re të Signal-it. Hapni aplikacionin dhe prekni “Riktheni kopjeruajtje”, mandej lokalizoni një kartelë kopjeruajtjeje. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Që të riktheni një kopjeruajtje, instaloni një kopje të re të Molly-it. Hapni aplikacionin dhe prekni “Riktheni kopjeruajtje”, mandej lokalizoni një kartelë kopjeruajtjeje. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Mësoni më shumë</string>
     <string name="BackupsPreferenceFragment__in_progress">Në proçes…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -894,7 +891,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d deri më tani…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% deri më tani…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Që të mund të krijohen kopjeruajtje, Signal kërkon leje mbi depozitë të jashtme, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\" dhe aktivizoni \"Depozitim\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Që të mund të krijohen kopjeruajtje, Molly kërkon leje mbi depozitë të jashtme, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\" dhe aktivizoni \"Depozitim\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Vendos kohën e kopjeruajtjes</string>
 
@@ -961,7 +958,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Sesioni i bisedës u rifreskua</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal përdor kodimin nga skaji në skaj dhe ndonjëherë mund t\'i duhet të rifreskojë seancën tënde të bisedës. Kjo nuk ndikon në sigurinë e bisedës, por mund të kesh humbur një mesazh nga ky kontakt dhe mund t\'i kërkosh që ta ridërgojë.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly përdor kodimin nga skaji në skaj dhe ndonjëherë mund t\'i duhet të rifreskojë seancën tënde të bisedës. Kjo nuk ndikon në sigurinë e bisedës, por mund të kesh humbur një mesazh nga ky kontakt dhe mund t\'i kërkosh që ta ridërgojë.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1042,7 +1039,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Përfundo lidhjen në pajisjen tjetër</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Përfundo lidhjen e Signal në pajisjen tjetër.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Përfundo lidhjen e Molly në pajisjen tjetër.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Lidhja e Pajisjes Dështoi</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1081,10 +1078,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimizoje për Shërbime Play që mungojnë</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kjo pajisje nuk i mbulon shërbimet e Play. Klikoni për të çaktivizuar optimizimet e baterisë së sistemit që pengojnë Signal-in të marrë mesazhe kur është joaktiv.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kjo pajisje nuk i mbulon shërbimet e Play. Klikoni për të çaktivizuar optimizimet e baterisë së sistemit që pengojnë Molly-in të marrë mesazhe kur është joaktiv.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ky version i Signal-it ka skaduar. Që të dërgoni dhe merrni mesazhe, përditësojeni që tani.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ky version i Molly-it ka skaduar. Që të dërgoni dhe merrni mesazhe, përditësojeni që tani.</string>
     <string name="ExpiredBuildReminder_update_now">Përditësoje tani</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1235,7 +1232,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Regjistrat e korrigjimit të gabimeve na ndihmojnë të diagnostikojmë dhe rregullojmë problemin dhe nuk përmbajnë informacion identifikues.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal hasi në një problem. Të paraqitet regjistri i korrigjimit?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly hasi në një problem. Të paraqitet regjistri i korrigjimit?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Mund të mos marrësh mesazhe. Të paraqitet regjistri i diagnostikimeve?</string>
 
@@ -1243,12 +1240,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Njoftimet mund të vonohen për shkak të optimizimeve të baterisë</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Mund të çaktivizoni optimizimet e baterisë për Signal për t\'u siguruar që njoftimet e mesazheve nuk do të vonohen.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Mund të çaktivizoni optimizimet e baterisë për Molly për t\'u siguruar që njoftimet e mesazheve nuk do të vonohen.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Njoftimet mund të vonohen për shkak të optimizimeve të baterisë</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Mund të çaktivizosh optimizimet e baterisë për Signal për t\'u siguruar që njoftimet e mesazheve nuk do të vonohen. Kliko \"Vazhdo\" për të parë udhëzimet specifike të pajisjes.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Mund të çaktivizosh optimizimet e baterisë për Molly për t\'u siguruar që njoftimet e mesazheve nuk do të vonohen. Kliko \"Vazhdo\" për të parë udhëzimet specifike të pajisjes.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Jo, faleminderit</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1257,7 +1254,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Mund të mos marrësh mesazhe</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Rindezja e pajisjes mund të ndihmojë në zgjidhjen e problemit të dërgimit të mesazhit. Nëse ky problem vazhdon, kontakto ndihmën nga Signal.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Rindezja e pajisjes mund të ndihmojë në zgjidhjen e problemit të dërgimit të mesazhit. Nëse ky problem vazhdon, kontakto ndihmën nga Molly.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">E kuptova</string>
 
@@ -1558,13 +1555,13 @@
     <string name="InviteActivity_cancel">Anuloje</string>
     <string name="InviteActivity_sending">Po dërgohet…</string>
     <string name="InviteActivity_invitations_sent">Ftesat u dërguan!</string>
-    <string name="InviteActivity_invite_to_signal">Ftojeni në Signal</string>
+    <string name="InviteActivity_invite_to_signal">Ftojeni në Molly</string>
     <string name="InviteActivity_send_sms">Dërgo SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Të dërgohet %1$d ftesë SMS?</item>
         <item quantity="other">Të dërgohen %1$d ftesa SMS?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Le të kalojmë në Signal: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Le të kalojmë në Molly: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Duket sikur s\\’keni aplikacione me të cilat të ndani.</string>
 
@@ -1579,7 +1576,7 @@
     <string name="LongMessageActivity_your_message">Mesazhi juaj</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">U aktivizua lidhja në prapaskenë</string>
 
     <!-- MediaOverviewActivity -->
@@ -1649,10 +1646,10 @@
     <string name="MessageQuotesBottomSheet_replies">Përgjigje</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Po bëhet thirrje Signal</string>
+    <string name="NotificationBarManager__establishing_signal_call">Po bëhet thirrje Molly</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Po fillon shërbimi i thirrjes telefonike i Signal</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Po ndalet shërbimi Signal i thirrjeve</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Po fillon shërbimi i thirrjes telefonike i Molly</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Po ndalet shërbimi Molly i thirrjeve</string>
     <string name="NotificationBarManager__cancel_call">Anuloje thirrjen</string>
 
     <!-- NotificationsMegaphone -->
@@ -1968,7 +1965,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Së shpejti nuk do të mund të dërgosh më mesazhe SMS nga Signal. Fto %1$s te Signal për ta vazhduar bisedën këtu.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Nuk mund të dërgosh më mesazhe SMS në Signal. Fto %1$s te Signal për ta mbajtur bisedën këtu.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Nuk mund të dërgosh më mesazhe SMS në Molly. Fto %1$s te Molly për ta mbajtur bisedën këtu.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Pagesë: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2054,25 +2051,25 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Të lidhet një pajisje Signal?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Duket sikur po provoni të lidhni një pajisje Signal duke përdorur skaner të një pale të tretë. Si masë mbrojtëse, ju lutemi, riskanojeni kodin që nga brenda Signal-it.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Që të mund të skanojë një kod QR, Signal lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerën\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Që të mund të skanojë një kod QR, Molly lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerën\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">S\\’arrihet të skanohet kod QR pa leje mbi Kamerën</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Përditësoje tani</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Ky version i Signal-it do të skadojë sot. Përditësojeni me versionin më të freskët.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Ky version i Molly-it do të skadojë sot. Përditësojeni me versionin më të freskët.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Ky version i Signal skadon nesër. Përditësoje me versionin më të ri.</item>
-        <item quantity="other">Ky version i Signal skadon për %1$d ditë. Përditësoje me versionin më të ri.</item>
+        <item quantity="one">Ky version i Molly skadon nesër. Përditësoje me versionin më të ri.</item>
+        <item quantity="other">Ky version i Molly skadon për %1$d ditë. Përditësoje me versionin më të ri.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Jepni frazëkalimin</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Ikona e Signal-it</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Ikona e Molly-it</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Parashtroje frazëkalimin</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Frazëkalim i pavlefshëm!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Shkyçe Signal-in</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Shkyçe Molly-in</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Kyçje Ekrani</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Kyçje Ekrani</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Hartë</string>
@@ -2140,7 +2137,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verifikojeni, që të vazhdoni shkëmbim mesazhesh</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Që të ndihmoni të pengohen në Signal mesazhe të padëshiruar, ju lutemi, plotësoni verifikimin.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Që të ndihmoni të pengohen në Molly mesazhe të padëshiruar, ju lutemi, plotësoni verifikimin.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Pas verifikimit, mund të vazhdoni të shkëmbeni mesazhe. Çfarëdo mesazhesh të ndalur do të dërgohen automatikisht.</string>
 
     <!-- Recipient -->
@@ -2148,7 +2145,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Postimi im i përkohshëm</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Thirrje përmes Signal</string>
+    <string name="Recipient_signal_call">Thirrje përmes Molly</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Blloko</string>
@@ -2184,9 +2181,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Prekeni këtu që të ktheni te videoja juaj</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Për të thirrur %1$s, Signal-i lyp leje përdorimi të kamerës tuaj</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Për të thirrur %1$s, Molly-i lyp leje përdorimi të kamerës tuaj</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Po thirret…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Po rilidhet…</string>
@@ -2247,23 +2244,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Lejo përdorimin e kamerës</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Për të bërë ose për t\'iu bashkuar një telefonate, jepi akses Signal në kamera dhe mikrofon.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Për të bërë ose për t\'iu bashkuar një telefonate, jepi akses Molly në kamera dhe mikrofon.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Për të bërë ose për t\'iu bashkuar një telefonate, jepi akses Signal në mikrofon.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Për të bërë ose për t\'iu bashkuar një telefonate, jepi akses Molly në mikrofon.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Për të aktivizuar videon, jepi akses Signal te kamera.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Për të aktivizuar videon, jepi akses Molly te kamera.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal ka nevojë për leje përdorimi të mikrofonit për të nisur ose për t\'iu bashkuar një telefonate.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly ka nevojë për leje përdorimi të mikrofonit për të nisur ose për t\'iu bashkuar një telefonate.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal duhet të ketë akses te kamera për të aktivizuar videon</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly duhet të ketë akses te kamera për të aktivizuar videon</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Për të filluar ose për t\'iu bashkuar një telefonate:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Për të aktivizuar videon:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Thirrje Signal</string>
-    <string name="WebRtcCallView__signal_video_call">Thirrje Signal Me Video</string>
+    <string name="WebRtcCallView__signal_call">Thirrje Molly</string>
+    <string name="WebRtcCallView__signal_video_call">Thirrje Molly Me Video</string>
     <string name="WebRtcCallView__start_call">Nise Thirrjen</string>
     <string name="WebRtcCallView__join_call">Hyni në Thirrje</string>
     <string name="WebRtcCallView__call_is_full">Thirrja është plot</string>
@@ -2483,7 +2480,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Do t\\’ju vijë një thirrje për të verifikuar këtë numër.</string>
     <string name="RegistrationActivity_edit_number">Modifiko numrin</string>
     <string name="RegistrationActivity_missing_google_play_services">Mungojnë Shërbimet Google Play</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Në këtë pajisje mungojnë Shërbimet Google Play. Mundeni prapëseprapë ta përdorni Signal-in, por ky formësim mund të sjellë qëndrueshmëri ose funksionim të reduktuar.\n\nNëse s\\’jeni përdorues i përparuar, s\\’po përdorni një ROM Android të modifikuar, ose besoni se po e shihni gabimisht këtë, ju lutemi, lidhuni me support@signal.org për ndihmë në diagnostikikim.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Në këtë pajisje mungojnë Shërbimet Google Play. Mundeni prapëseprapë ta përdorni Molly-in, por ky formësim mund të sjellë qëndrueshmëri ose funksionim të reduktuar.\n\nNëse s\\’jeni përdorues i përparuar, s\\’po përdorni një ROM Android të modifikuar, ose besoni se po e shihni gabimisht këtë, ju lutemi, lidhuni me support@molly.im për ndihmë në diagnostikikim.</string>
     <string name="RegistrationActivity_i_understand">E kuptoj</string>
     <string name="RegistrationActivity_play_services_error">Gabim nga Shërbime Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Shërbimet Google Play po përditësohen ose janë përkohësisht jashtë funksionimi. Ju lutemi, riprovoni.</string>
@@ -2503,7 +2500,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Format jostandard numrash</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Numri që dhatë (%1$s) duket të jetë në një format jo standard.\n\nKishit ndërmend %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Formati i numrit të telefonit</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Formati i numrit të telefonit</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">U kërkua thirrje</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2576,13 +2573,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Shtoje te Kontaktet</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Ftoje në Signal</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Ftoje në Molly</string>
     <string name="SharedContactDetailsActivity_signal_message">Mesazhe Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Thirrje përmes Signal-i</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Shtoje te Kontakte</string>
-    <string name="SharedContactView_invite_to_signal">Ftoje në Signal</string>
+    <string name="SharedContactView_invite_to_signal">Ftoje në Molly</string>
     <string name="SharedContactView_message">Mesazhe Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2716,11 +2713,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s i përket %2$s</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Përditësim i Signal-it</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Një version i ri i Signal është i disponueshëm. Kliko për ta përditësuar.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signal nuk u përditësua</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Përditësim i Molly-it</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Një version i ri i Molly është i disponueshëm. Kliko për ta përditësuar.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Molly nuk u përditësua</string>
     <string name="ApkUpdateNotifications_failed_general_body">Do të provojmë përsëri më vonë.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal u përditësua me sukses</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly u përditësua me sukses</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Je përditësuar automatikisht në versionin %1$s.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">U përditësove në versionin %1$s.</string>
 
@@ -2792,7 +2789,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Numri ynë i sigurisë për Signal:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Duket se s\\’keni ndonjë aplikacion me të cilin të ndahet.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Në të papastër s\\’u gjet numër sigurie për krahasim</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Që të mund të skanojë një kod QR, Signal kërkon leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Që të mund të skanojë një kod QR, Molly kërkon leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">S\\’arrihet të skanohet kodi QR pa lejim të kamerës</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">You must first exchange messages Që të mund të shihni numrin e sigurisë për %1$s, së pari duhet të shkëmbeni mesazhe.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2822,14 +2819,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Prekeni për ta hapur.</string>
-    <string name="KeyCachingService_passphrase_cached">Signal-i u shkyç</string>
-    <string name="KeyCachingService_lock">Kyçe Signal-in</string>
+    <string name="KeyCachingService_passphrase_cached">Molly-i u shkyç</string>
+    <string name="KeyCachingService_lock">Kyçe Molly-in</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Ju</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Lloj media i pambuluar</string>
     <string name="MediaPreviewActivity_draft">Skicë</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Për të ruajtur gjëra në depozitë të jashtme, Signal kërkon leje Depozitimi, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Depozitim\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Për të ruajtur gjëra në depozitë të jashtme, Molly kërkon leje Depozitimi, por kjo i është mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Depozitim\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">S\\’bëhet dot ruajtje në depozitë të jashtme pa leje</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Të fshihet mesazhi?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Kjo do ta fshijë përgjithmonë këtë mesazh.</string>
@@ -2875,7 +2872,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">S\\’u arrit të dërgohej mesazhi.</string>
     <string name="MessageNotifier_error_delivering_message">Gabim në dërgimin e mesazhit.</string>
     <string name="MessageNotifier_message_delivery_paused">U ndal dërgimi i mesazheve.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Që të vazhdoni të shkëmbeni mesazhe në Signal, verifikojeni.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Që të vazhdoni të shkëmbeni mesazhe në Molly, verifikojeni.</string>
     <string name="MessageNotifier_mark_all_as_read">Vëru shenjë të gjithëve si të lexuar</string>
     <string name="MessageNotifier_mark_read">Vëri shenjë si të lexuar</string>
     <string name="MessageNotifier_turn_off_these_notifications">Çaktivizoji këto njoftime</string>
@@ -2897,7 +2894,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reagoi me %1$s ndaj ngjitësit tënd.</string>
     <string name="MessageNotifier_this_message_was_deleted">Ky mesazh u fshi.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Të çaktivizohen njoftime Signal për kontakte të sapoardhur? Mund t’i aktivizoni sërish që nga Signal &gt; Parametrat &gt; Njoftime.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Të çaktivizohen njoftime Molly për kontakte të sapoardhur? Mund t’i aktivizoni sërish që nga Molly &gt; Parametrat &gt; Njoftime.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2938,7 +2935,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">S\\’bëhet dot përgjigje e shpejtë, kur Signal-i është i kyçur!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">S\\’bëhet dot përgjigje e shpejtë, kur Molly-i është i kyçur!</string>
     <string name="QuickResponseService_problem_sending_message">Problem në dërgim mesazhi!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2958,7 +2955,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Shkurtore e pavlefshme</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Mesazh i ri</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Kërkesë mesazhi</string>
     <string name="SingleRecipientNotificationBuilder_you">Ju</string>
@@ -3005,7 +3002,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Kjo pajisje nuk është më e regjistruar. Ka të ngjarë sepse e ke regjistruar numrin tënd të telefonit në Signal në një pajisje tjetër.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Kjo pajisje nuk është më e regjistruar. Ka të ngjarë sepse e ke regjistruar numrin tënd të telefonit në Molly në një pajisje tjetër.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Regjistro sërish pajisjen</string>
 
@@ -3018,10 +3015,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Që t’i përgjigjeni thirrjes, jepini Signal-it leje të përdorë mikrofonin tuaj.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Që t’i përgjigjeni thirrjes, jepini Molly-it leje të përdorë mikrofonin tuaj.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Që t\'i përgjigjesh thirrjes me video, jepi leje Signal të përdorë mikrofonin dhe kamerën.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Që të bëjë ose pranojë thirrje, Signal kërkon leje mbi Mikrofonin dhe Kamerën, por këto i janë mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Që t\'i përgjigjesh thirrjes me video, jepi leje Molly të përdorë mikrofonin dhe kamerën.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Që të bëjë ose pranojë thirrje, Molly kërkon leje mbi Mikrofonin dhe Kamerën, por këto i janë mohuar. Ju lutemi, kaloni te parametrat e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">U përgjigj në një pajisje të lidhur.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Hedhur tej në një pajisje të lidhur.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">I zënë në një pajisje të lidhur.</string>
@@ -3066,7 +3063,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Përsëritni frazëkalimin e ri</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Ftojeni në Signal</string>
+    <string name="contact_selection_activity__invite_to_signal">Ftojeni në Molly</string>
     <string name="contact_selection_activity__new_group">Grup i ri</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Rifresko kontaktet</string>
@@ -3092,7 +3089,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Foto Kontakti</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Që të mund të shfaqë kontaktet tuaja, Signal kërkon leje mbi Kontaktet, por këto i janë mohuar. Ju lutemi, kaloni te menuja e parametrave të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Që të mund të shfaqë kontaktet tuaja, Molly kërkon leje mbi Kontaktet, por këto i janë mohuar. Ju lutemi, kaloni te menuja e parametrave të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Gabim në marrje kontaktesh, kontrolloni lidhjen tuaj në rrjet</string>
     <string name="ContactSelectionListFragment_username_not_found">Emri i përdoruesit nuk u gjet</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" nuk është përdorues i Signal Ju lutemi, kontrollo emrin e përdoruesit dhe riprovo."</string>
@@ -3121,7 +3118,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Lejo aksesin te kontaktet. Kontaktet janë të koduara dhe nuk janë të dukshme për shërbimin e Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Që të mund t\\’i shfaqë, Signal-i lyp leje përdorimi të kontakteve.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Që të mund t\\’i shfaqë, Molly-i lyp leje përdorimi të kontakteve.</string>
     <string name="contact_selection_list_fragment__show_contacts">Shfaq Kontaktet</string>
 
     <!-- contact_selection_list_item -->
@@ -3226,7 +3223,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Flluskat janë një veçori e Android që mund ta çaktivizosh për bisedat në Signal.</string>
+    <string name="BubbleOptOutTooltip__description">Flluskat janë një veçori e Android që mund ta çaktivizosh për bisedat në Molly.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Jo tani</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3395,9 +3392,9 @@
     <string name="EditProfileFragment__group_description">Përshkrim grupi</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Përditësoni Signal-in</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Përditësoni Molly-in</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Ky version i Signal ka skaduar. Përditëso tani për të vazhduar përdorimin e Signal.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Ky version i Molly ka skaduar. Përditëso tani për të vazhduar përdorimin e Molly.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Përditësoje</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3618,7 +3615,7 @@
     <string name="preferences__slow">I ngadaltë</string>
     <string name="preferences__help">Ndihmë</string>
     <string name="preferences__advanced">Të mëtejshme</string>
-    <string name="preferences__donate_to_signal">Dhuro për Signal</string>
+    <string name="preferences__donate_to_signal">Dhuro për Molly</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Privatësi</string>
     <!-- Preference label for stories -->
@@ -3655,13 +3652,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Ndrysho ikonën dhe emrin e aplikacionit në \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Signal do të duhet të mbyllet për të ndryshuar ikonën dhe emrin e aplikacionit. Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Signal.</string>
+    <string name="preferences__app_icon_dialog_description">Molly do të duhet të mbyllet për të ndryshuar ikonën dhe emrin e aplikacionit. Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Molly.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Zgjidh një ikonë dhe një emër aplikacioni, i cili do të jetë i dukshëm në ekranin bazë të telefonit tënd dhe në skedarin e aplikacionit. Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Signal. Mëso më shumë</string>
+    <string name="preferences__app_icon_warning_learn_more">Zgjidh një ikonë dhe një emër aplikacioni, i cili do të jetë i dukshëm në ekranin bazë të telefonit tënd dhe në skedarin e aplikacionit. Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Molly. Mëso më shumë</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Ikonat dhe emrat e aplikacioneve janë të dukshme në ekranin bazë dhe në skedarin e aplikacioneve.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Signal.</string>
+    <string name="preferences__app_icon_notification_warning">Njoftimet do të shfaqin gjithmonë ikonën dhe emrin e paracaktuar të Molly.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Mëso më shumë</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3753,7 +3750,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Anashkalim censurimi</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Anashkalim censurimi</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Në u aktivizoftë, Signal-i do të përpiqet të anashkalojë censurime. Mos e aktivizoni këtë veçori, po qe se nuk gjendeni diku ku Signal-i censurohet.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Në u aktivizoftë, Molly-i do të përpiqet të anashkalojë censurime. Mos e aktivizoni këtë veçori, po qe se nuk gjendeni diku ku Molly-i censurohet.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Anashkalimi i censurimit është aktivizuar për numrin e telefonit të llogarisë tuaj.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3805,7 +3802,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Ju prezantojmë pagesat</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Përdor Signal për të dërguar dhe për të marrë MobileCoin, një monedhë e re digjitale e fokusuar te privatësia. Që t’ia fillosh, aktivizoje.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Përdor Molly për të dërguar dhe për të marrë MobileCoin, një monedhë e re digjitale e fokusuar te privatësia. Që t’ia fillosh, aktivizoje.</string>
     <string name="PaymentsHomeFragment__activate_payments">Pagesa</string>
     <string name="PaymentsHomeFragment__activating_payments">Po aktivizohen pagesa…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Riktheni llogari pagesash</string>
@@ -3831,7 +3828,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Pagesat s\\’janë të përdorshme në rajonin tuaj.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">S\\’u aktivizuan dot pagesat. Riprovoni më vonë.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Të çaktivizohen Pagesa?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">S\\’do të jeni në gjendje të dërgoni ose merrni Mobilecoin në Signal, nëse çaktivizoni pagesat.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">S\\’do të jeni në gjendje të dërgoni ose merrni Mobilecoin në Molly, nëse çaktivizoni pagesat.</string>
     <string name="PaymentsHomeFragment__deactivate">Çaktivizoje</string>
     <string name="PaymentsHomeFragment__continue">Vazhdo</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Depozitë aktualisht jo e përdorshme.</string>
@@ -3840,10 +3837,10 @@
     <string name="PaymentsHomeFragment__details">Hollësi</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Mund të përdorësh Signal për të dërguar dhe për të marrë MobileCoin. Të gjitha pagesat i nënshtrohen kushteve të përdorimit për MobileCoins dhe Portofolin MobileCoin. Mund të hasni disa probleme dhe pagesat ose bilancet që mund të humbni nuk mund të rikuperohen. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Mund të përdorësh Molly për të dërguar dhe për të marrë MobileCoin. Të gjitha pagesat i nënshtrohen kushteve të përdorimit për MobileCoins dhe Portofolin MobileCoin. Mund të hasni disa probleme dhe pagesat ose bilancet që mund të humbni nuk mund të rikuperohen. </string>
     <string name="PaymentsHomeFragment__activate">Aktivizoje</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Shihni kushte MobileCoin-i</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Pagesat në Signal s\\’janë më të përdorshme. Mundeni ende të shpërngulni fonde në një platformë, por s\\’mund të dërgoni apo merrni më pagesa, apo të shtoni fonde.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Pagesat në Molly s\\’janë më të përdorshme. Mundeni ende të shpërngulni fonde në një platformë, por s\\’mund të dërgoni apo merrni më pagesa, apo të shtoni fonde.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3871,7 +3868,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Lejo lejet</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Për të të ndihmuar t\'u dërgosh mesazh njerëzve që njeh, Signal do t\'i kërkojë këto leje. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Për të të ndihmuar t\'u dërgosh mesazh njerëzve që njeh, Molly do t\'i kërkojë këto leje. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Njoftime</string>
     <!-- Notifications permission row description -->
@@ -3963,10 +3960,10 @@
     <string name="PaymentsTransferFragment__next">Tjetër</string>
     <string name="PaymentsTransferFragment__invalid_address">Adresë e pavlefshme</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Kontrolloni adresën e portofolit që po përpiqeni të shpërngulni dhe riprovoni.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">S\\’mund të shpërngulni te adresa e portofolit tuaj Signal. Jepni adresën e portofolit prej llogarisë tuaj në një platformë që mbulohet.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Që të skanohet një kod QR, Signal-i ka nevojë të përdorë kamerën.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal i duhet leje përdorimi Kamere për të marrë një kod QR. Kaloni te parametrat, përzgjidhni “Leje”, dhe aktivizoni “Kamera”.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Që të skanohet një kod QR, Signal-i ka nevojë të përdorë kamerën.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">S\\’mund të shpërngulni te adresa e portofolit tuaj Molly. Jepni adresën e portofolit prej llogarisë tuaj në një platformë që mbulohet.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Që të skanohet një kod QR, Molly-i ka nevojë të përdorë kamerën.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly i duhet leje përdorimi Kamere për të marrë një kod QR. Kaloni te parametrat, përzgjidhni “Leje”, dhe aktivizoni “Kamera”.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Që të skanohet një kod QR, Molly-i ka nevojë të përdorë kamerën.</string>
     <string name="PaymentsTransferFragment__settings">Parametrat</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4321,17 +4318,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Thirrje zanore hyrëse në Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Thirrje zanore hyrëse në Molly</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Thirrje video hyrëse në Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Thirrje video hyrëse në Molly</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Thirrje ardhëse për grup Signal</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Thirrje ardhëse për grup Molly</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Thirrje zanore në Signal në vijim</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Thirrje zanore në Molly në vijim</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Thirrje video në Signal në vijim</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Thirrje video në Molly në vijim</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Thirrje në grup në Signal në vijim</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Thirrje në grup në Molly në vijim</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Po ngarkohet…</string>
@@ -4384,9 +4381,9 @@
     <string name="BackupDialog_verify">Verifikoje</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">E dhatë me sukses frazëkalimin tuaj të kopjeruajtjes</string>
     <string name="BackupDialog_passphrase_was_not_correct">Frazëkalimi s\\’qe i saktë</string>
-    <string name="LocalBackupJob_creating_signal_backup">Po krijohet kopjeruajtje Signal-i…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Po krijohet kopjeruajtje Molly-i…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Duke verifikuar rezervat e Signal…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Duke verifikuar rezervat e Molly…</string>
     <string name="LocalBackupJobApi29_backup_failed">Kopjeruajtja dështoi</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Drejtoria juaj e kopjeruajtjeve është fshirë ose lëvizur.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Kartela e kopjeruajtjes tuaj është shumë e madhe për t\\’u depozituar në këtë vëllim.</string>
@@ -4401,15 +4398,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Më telefono (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Ridërgo kodin (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Lidhuni Me Asistencën e Signal-it</string>
-    <string name="RegistrationActivity_code_support_subject">Regjistrim Signal-i - Kod Verifikimi për Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Lidhuni Me Asistencën e Molly-it</string>
+    <string name="RegistrationActivity_code_support_subject">Regjistrim Molly-i - Kod Verifikimi për Android</string>
     <string name="RegistrationActivity_incorrect_code">Kod i gabuar</string>
     <string name="BackupUtil_never">Kurrë</string>
     <string name="BackupUtil_unknown">E panjohur</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Numër telefoni</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Zgjidh se kush mund ta shohë numrin tënd të telefonit dhe kush mund të të kontaktojë nëpërmjet tij në Signal.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Zgjidh se kush mund ta shohë numrin tënd të telefonit dhe kush mund të të kontaktojë nëpërmjet tij në Molly.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Kush mund të shohë numrin tim</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4460,11 +4457,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">Gabim në lidhjen me shërbimin</string>
     <string name="preferences_chats__backups">Kopjeruajtje</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Zhblloko Signal</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Zhblloko Molly</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Përdor parametrat e kyçjes së pajisjes Android për të shkyçur Signal.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Përdor parametrat e kyçjes së pajisjes Android për të shkyçur Molly.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Kyçja e ekranit është aktive dhe Signal është i siguruar në mënyrë të sigurt me parametrat e kyçjes së pajisjes. Zhblloko Signal në të njëjtën mënyrë siç do ta zhbllokoje normalisht telefonin tënd, gjë që mund të bëhet me shkyçjen me fytyrë, shkyçjen me shenjën e gishtave, me PIN, fjalëkalim ose vijëzim.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Kyçja e ekranit është aktive dhe Molly është i siguruar në mënyrë të sigurt me parametrat e kyçjes së pajisjes. Zhblloko Molly në të njëjtën mënyrë siç do ta zhbllokoje normalisht telefonin tënd, gjë që mund të bëhet me shkyçjen me fytyrë, shkyçjen me shenjën e gishtave, me PIN, fjalëkalim ose vijëzim.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Kontakto ndihmën</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4476,7 +4473,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Përdor kyçjen e ekranit</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Parametrat e kyçjes së pajisjes Android do të kërkohen për të shkyçur Signal kur largohesh ose ndërron aplikacionet. Kur kyçet, pamjet paraprake të njoftimeve nuk do të shfaqin përmbajtjen e mesazhit.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Parametrat e kyçjes së pajisjes Android do të kërkohen për të shkyçur Molly kur largohesh ose ndërron aplikacionet. Kur kyçet, pamjet paraprake të njoftimeve nuk do të shfaqin përmbajtjen e mesazhit.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Nis kyçjen e ekranit</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4490,9 +4487,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Kohë e personalizuar</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Përdor kyçjen e ekranit të Signal</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Përdor kyçjen e ekranit të Molly</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Çaktivizo kyçjen e ekranit të Signal</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Çaktivizo kyçjen e ekranit të Molly</string>
 
     <string name="Recipient_unknown">I panjohur</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4547,19 +4544,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Po gatitet të lidhet me një pajisje Android të vjetër…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Po ha një çast, duhet të jetë gati së shpejti</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Po pritet që të lidhet pajisje e vjetër Android…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-i lyp leje vendndodhjesh që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-i lyp aktivizim shërbimesh vendndodhjesh që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-i lyp Wi-Fi të hapur që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android. Wi-Fi duhet të jetë i hapur, por jo edhe të jetë i lidhur në një rrjet Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Na ndjeni, duket se kjo pajisje s\\’mbulon Wi-Fi Direct. Signal-i e përdor Wi-Fi Direct që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android. Mundeni ende të riktheni një kopjeruajtje, që të riktheni llogarinë tuaj nga pajisja juaj e vjetër Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly-i lyp leje vendndodhjesh që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly-i lyp aktivizim shërbimesh vendndodhjesh që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly-i lyp Wi-Fi të hapur që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android. Wi-Fi duhet të jetë i hapur, por jo edhe të jetë i lidhur në një rrjet Wi-Fi.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Na ndjeni, duket se kjo pajisje s\\’mbulon Wi-Fi Direct. Molly-i e përdor Wi-Fi Direct që të pikasë dhe lidhet me pajisjen tuaj të vjetër Android. Mundeni ende të riktheni një kopjeruajtje, që të riktheni llogarinë tuaj nga pajisja juaj e vjetër Android.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Riktheni një kopjeruajtje</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ndodhi një gabim i papritur teksa provohej të lidhej me pajisjen tuaj të vjetër Android.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Po kërkohet për pajisje të re Android…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-i lyp leje vendndodhjesh që të pikasë dhe lidhet me pajisjen tuaj të re Android.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-i lyp aktivizim shërbimesh vendndodhjesh, për të pikasur dhe për t\\’u lidhur me pajisjen tuaj të re Android.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-i lyp Wi-Fi të hapur që të pikasë dhe lidhet me pajisjen tuaj të re Android. Wi-Fi duhet të jetë i hapur, por jo edhe të jetë i lidhur në një rrjet Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Na ndjeni, duket se kjo pajisje s\\’mbulon Wi-Fi Direct. Signal-i e përdor Wi-Fi Direct që të pikasë dhe lidhet me pajisjen tuaj të re Android. Mundeni ende të krijoni një kopjeruajtje, që të riktheni llogarinë tuaj nga pajisja juaj e re Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly-i lyp leje vendndodhjesh që të pikasë dhe lidhet me pajisjen tuaj të re Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly-i lyp aktivizim shërbimesh vendndodhjesh, për të pikasur dhe për t\\’u lidhur me pajisjen tuaj të re Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly-i lyp Wi-Fi të hapur që të pikasë dhe lidhet me pajisjen tuaj të re Android. Wi-Fi duhet të jetë i hapur, por jo edhe të jetë i lidhur në një rrjet Wi-Fi.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Na ndjeni, duket se kjo pajisje s\\’mbulon Wi-Fi Direct. Molly-i e përdor Wi-Fi Direct që të pikasë dhe lidhet me pajisjen tuaj të re Android. Mundeni ende të krijoni një kopjeruajtje, që të riktheni llogarinë tuaj nga pajisja juaj e re Android.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Krijoni kopjeruajtje</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ndodhi një gabim i papritur teksa provohej të lidhej me pajisjen tuaj të re Android.</string>
 
@@ -4601,7 +4598,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Shpërngulje të dhënash</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Mbajini të dyja pajisjet afër njëra-tjetrës. Mos fikni pajisjet dhe mbajeni hapur Signal-in. Shpërnguljet janë të fshehtëzuara skaj-më-skaj.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Mbajini të dyja pajisjet afër njëra-tjetrës. Mos fikni pajisjet dhe mbajeni hapur Molly-in. Shpërnguljet janë të fshehtëzuara skaj-më-skaj.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d mesazhe deri këtu…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% mesazhe deri këtu…</string>
@@ -4615,7 +4612,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Shpërngul Llogari</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Shkarkojeni Signal-in në pajisjen tuaj të re Android</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Shkarkojeni Molly-in në pajisjen tuaj të re Android</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Prekni mbi “Shpërngulni ose riktheni llogari”"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4689,7 +4686,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Cilido me këtë lidhje mund të shohë emrin dhe foton e këtij grupi dhe mund të kërkojë të bëhet pjesë e tij. Jepuani njerëzve të cilëve u besoni.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Cilido me këtë lidhje mund të shohë emrin dhe foton e këtij grupi dhe mund të bëhet pjesë e tij. Jepuani njerëzve të cilëve u besoni.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Ndajeni përmes Signal-i</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Ndajeni përmes Molly-i</string>
     <string name="GroupLinkBottomSheet_copy">Kopjoje</string>
     <string name="GroupLinkBottomSheet_qr_code">Kod QR</string>
     <string name="GroupLinkBottomSheet_share">Ndajeni Me të Tjerë</string>
@@ -4877,7 +4874,7 @@
     <string name="payment_info_card_about_mobilecoin">Rreth MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin është një monedhë e re digjitale e fokusuar te privatësia.</string>
     <string name="payment_info_card_adding_funds">Shtim fondesh</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Mund të shtoni fonde për përdorim në Signal duke dërguar MobileCoin në adresën e portofolit tuaj.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Mund të shtoni fonde për përdorim në Molly duke dërguar MobileCoin në adresën e portofolit tuaj.</string>
     <string name="payment_info_card_cashing_out">Thyerje çeqesh</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Mund të thyeni MobileCoin në çfarëdo kohe në një platformë që mbulon MobileCoin. Thjesht bëni një shpërngulje te llogaria juaj në atë platformë.</string>
     <string name="payment_info_card_hide_this_card">Të fshihet kjo kartë?</string>
@@ -4898,12 +4895,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Çaktivizoni Portofolin</string>
     <string name="DeactivateWalletFragment__your_balance">Depozita juaj</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Rekomandohet që të transferosh fondet e tua në një portofol tjetër, para se të çaktivizosh pagesat. Nëse zgjedh të mos transferosh fondet e tua tani, do të mbeten në portofolin tënd të lidhur me Signal, nëse riaktivizon pagesat.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Rekomandohet që të transferosh fondet e tua në një portofol tjetër, para se të çaktivizosh pagesat. Nëse zgjedh të mos transferosh fondet e tua tani, do të mbeten në portofolin tënd të lidhur me Molly, nëse riaktivizon pagesat.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Shpërngulni depozitën e mbetur</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Çaktivizoje pa e shpërngulur</string>
     <string name="DeactivateWalletFragment__deactivate">Çaktivizoje</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Të çaktivizohet pa e shpërngulur?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Depozita jote do të mbetet në portofolin tënd të lidhur me Signal, nëse zgjedh të riaktivizosh pagesat.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Depozita jote do të mbetet në portofolin tënd të lidhur me Molly, nëse zgjedh të riaktivizosh pagesat.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Gabim gjatë çaktivizimit të portofolit.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5332,7 +5329,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licencat</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Kushte &amp; Rregulla Privatësie</string>
-    <string name="HelpFragment__copyright_signal_messenger">Të drejta kopjimi Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Të drejta kopjimi Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licencuar sipas GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5787,9 +5784,9 @@
     <string name="MySupportPreference__learn_more">Mëso më shumë</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Përditësoni Signal-in</string>
+    <string name="UpdateSignalExpiredDialog__title">Përditësoni Molly-in</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Ky version i Signal ka skaduar. Përditëso tani për të vazhduar përdorimin e Signal.</string>
+    <string name="UpdateSignalExpiredDialog__message">Ky version i Molly ka skaduar. Përditëso tani për të vazhduar përdorimin e Molly.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Përditësoje</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5798,7 +5795,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Pajisja nuk është regjistruar</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Kjo pajisje nuk është më e regjistruar. Regjistrohu sërish për të vazhduar përdorimin e Signal në këtë pajisje.</string>
+    <string name="ReregisterSignalDialog__message">Kjo pajisje nuk është më e regjistruar. Regjistrohu sërish për të vazhduar përdorimin e Molly në këtë pajisje.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Riregjistroje</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6117,7 +6114,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">S\\’u arrit të hapet zgjedhësi.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Për të aktivizuar njoftimet, Signal ka nevojë për leje për t\'i shfaqur ato.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Për të aktivizuar njoftimet, Molly ka nevojë për leje për t\'i shfaqur ato.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Aktivizo</string>
 
@@ -7729,7 +7726,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Ka skaduar më %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Bëj kopjeruajtje të historikut të mesazheve në mënyrë që të mos i humbasësh kurrë të dhënat kur merr një telefon të ri ose kur e riinstalon sërish Signal.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Bëj kopjeruajtje të historikut të mesazheve në mënyrë që të mos i humbasësh kurrë të dhënat kur merr një telefon të ri ose kur e riinstalon sërish Molly.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Mënyra të tjera për kopjeruajtje</string>
     <!-- Row title for performing on-device backup -->
@@ -7859,9 +7856,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Kodi yt i kopjeruajtjes</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Kodi i kopjeruajtjes është 64-shifror dhe të lejon ta rikthesh kopjeruajtjen kur riinstalon Signal.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Kodi i kopjeruajtjes është 64-shifror dhe të lejon ta rikthesh kopjeruajtjen kur riinstalon Molly.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Nëse harron kodin, nuk do të jesh në gjendje të rikthesh kopjeruajtjen. Signal nuk mund të të ndihmojë të rikuperosh kopjeruajtjen.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Nëse harron kodin, nuk do të jesh në gjendje të rikthesh kopjeruajtjen. Molly nuk mund të të ndihmojë të rikuperosh kopjeruajtjen.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Tjetër</string>
 
@@ -7877,7 +7874,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Ruaj kodin në mënyrë të sigurt</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Signal nuk do të jetë në gjendje të të ndihmojë në rikthimin e kopjeruajtjes nëse humb kodin. Ruaje në një vend të sigurt dhe mos e ndaj me të tjerët.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Molly nuk do të jetë në gjendje të të ndihmojë në rikthimin e kopjeruajtjes nëse humb kodin. Ruaje në një vend të sigurt dhe mos e ndaj me të tjerët.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">E kam regjistruar kodin tim</string>
     <!-- Sheet action button label -->
@@ -7948,7 +7945,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Nuk e kam telefonin e vjetër</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">Ose je duke e riinstaluar Signal në të njëjtën pajisje</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">Ose je duke e riinstaluar Molly në të njëjtën pajisje</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Rikthe ose transfero llogarinë</string>

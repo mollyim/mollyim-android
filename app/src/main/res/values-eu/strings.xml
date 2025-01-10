@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -45,12 +42,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal eguneratzen ari da…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly eguneratzen ari da…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Oraindik ez duzu pasaesaldia ezarri!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Desaktibatu nahi duzu pasaesaldia?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
     <string name="ApplicationPreferencesActivity_disable">Desaktibatu</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Errorea zerbitzariarekin konektatzerakoan!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PINak beharrezkoak dira erregistratzeko blokeoa aktibatzeko. Pinak desaktibatzeko, mesedez, lehenago desaktibatu erregistratzeko blokeoa.</string>
@@ -87,7 +84,7 @@
     <string name="AttachmentKeyboard_file">Artxiboa</string>
     <string name="AttachmentKeyboard_contact">Kontaktua</string>
     <string name="AttachmentKeyboard_location">Kokalekua</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-ek baimena behar du argazki eta bideoak erakusteko</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly-ek baimena behar du argazki eta bideoak erakusteko</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Sartzeko Baimena Eman</string>
     <string name="AttachmentKeyboard_payment">Ordainketa</string>
@@ -98,34 +95,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Joan Ezarpenetara</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Signal-ek argazki eta bideoetarako sarbide mugatua du</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Molly-ek argazki eta bideoetarako sarbide mugatua du</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Ez da argazkirik aurkitu. Hautatu hemen agertuko diren argazki eta bideoak, edo aldatu baimenak</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Ez da argazki edo bideorik aurkitu. Signal-ek zuk hautatutako argazki eta bideotarako sarbidea du bakarrik.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Ez da argazki edo bideorik aurkitu. Molly-ek zuk hautatutako argazki eta bideotarako sarbidea du bakarrik.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Ez da multimedia fitxategia aukeratzeko aplikaziorik aurkitu.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal aplikazioak Gordailurako baimena behar du argazkiak, bideoak edo audioak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal aplikazioak Kontaktuetarako baimena behar du kontaktuak atzitu ahal izateko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kontaktuak\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal aplikazioak Kokapenerako baimena behar du kokalekuak bidali ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kokalekua\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly aplikazioak Gordailurako baimena behar du argazkiak, bideoak edo audioak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly aplikazioak Kontaktuetarako baimena behar du kontaktuak atzitu ahal izateko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kontaktuak\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly aplikazioak Kokapenerako baimena behar du kokalekuak bidali ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kokalekua\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Eman kokapena atzitzeko baimena</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Kokapena bidaltzeko:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Eman Signal-i kokapena bidaltzeko baimena.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Eman Molly-i kokapena bidaltzeko baimena.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signal-ek kokapena atzitu behar du zure kokapena bidaltzeko.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Molly-ek kokapena atzitu behar du zure kokapena bidaltzeko.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Eman biltegia atzitzeko baimena</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Argazkiak eta bideoak erakusteko:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Argazki eta bideoak erakusteko, Signal-ek sarbidea behar du.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Argazki eta bideoak erakusteko, Molly-ek sarbidea behar du.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s(e)k ez ditu aktibatu ordainketak </string>
@@ -276,25 +273,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Eman mikrofonoa atzitzeko baimena</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Argazkiak ateratzeko, eman Signal-i kamera erabiltzeko baimena.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Argazkiak ateratzeko, eman Molly-i kamera erabiltzeko baimena.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Argazkiak eta bideoak grabatzeko, eman baimena Signali kamera erabiltzeko.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Argazkiak eta bideoak grabatzeko, eman baimena Mollyi kamera erabiltzeko.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Argazkiak atera eta bideoak grabatzeko, eman Signal-i kamera eta mikrofonoa erabiltzeko baimena.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Argazkiak atera eta bideoak grabatzeko, eman Molly-i kamera eta mikrofonoa erabiltzeko baimena.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Soinua duten bideoak grabatzeko, eman Signal-i mikrofonoa erabiltzeko baimena.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Soinua duten bideoak grabatzeko, eman Molly-i mikrofonoa erabiltzeko baimena.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR kodeak eskaneatzeko, eman Signal-i kamera erabiltzeko baimena.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR kodeak eskaneatzeko, eman Molly-i kamera erabiltzeko baimena.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal-ek kamera erabili behar du argazkiak ateratzeko</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly-ek kamera erabili behar du argazkiak ateratzeko</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal-ek kamera erabili behar du QR kodeak eskaneatzeko</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly-ek kamera erabili behar du QR kodeak eskaneatzeko</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal-ek mikrofonoa erabili behar du bideoak grabatzeko</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Molly-ek mikrofonoa erabili behar du bideoak grabatzeko</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Signal-en argazkiak ateratzeko:</string>
+    <string name="CameraXFragment_to_capture_photos">Molly-en argazkiak ateratzeko:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Signal-en argazkiak atera eta bideoak grabatzeko:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Molly-en argazkiak atera eta bideoak grabatzeko:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Soinua duten bideoak grabatzeko:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -313,7 +310,7 @@
     <string name="CameraContacts_no_signal_contacts">Signal kontakturik ez</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Signal kontaktuei argazkiak bidaltzeko kamerako botoia erabil dezakezu soilik. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Ez al duzu aurkitzen bilatzen ari zarena?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Gonbidatu kontaktu bat Signal aplikazaiora batzeko</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Gonbidatu kontaktu bat Molly aplikazaiora batzeko</string>
     <string name="CameraContacts__menu_search">Bilatu</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -327,12 +324,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Ez eskerrik asko</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Eguneratu Signal</string>
+    <string name="ClientDeprecatedActivity_update_signal">Eguneratu Molly</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Aplikazioaren bertsio honek jadanik ez dauka bermerik. Mezuak jasotzen eta bidaltzen jarraitzeko, eguneratu azken bertsiora.</string>
     <string name="ClientDeprecatedActivity_update">Eguneratu</string>
     <string name="ClientDeprecatedActivity_dont_update">Ez Eguneratu</string>
     <string name="ClientDeprecatedActivity_warning">Markatutako zenbakia ez dago Signalen erregistratuta. SMS bidez gonbidatu nahiko zenuke?</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal-en bertsio hau iraungi egin da. Zure mezuen historia ikusi dezakezu, baina, aplikazioa eguneratu arte, ezingo duzu mezurik bidali edo jaso.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly-en bertsio hau iraungi egin da. Zure mezuen historia ikusi dezakezu, baina, aplikazioa eguneratu arte, ezingo duzu mezurik bidali edo jaso.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Ezin izan da nabigatzailerik aurkitu.</string>
@@ -373,8 +370,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Mezu %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Signal-eko ahots-deia %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signal-eko bideodeia %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Molly-eko ahots-deia %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Molly-eko bideodeia %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -471,7 +468,7 @@
     <string name="ConversationActivity_transport_signal">Signal mezua</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Bidali mezua</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Signalera aldatu dezagun %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Mollyera aldatu dezagun %1$s</string>
     <string name="ConversationActivity_specify_recipient">Kontaktu bat aukeratu, mesedez</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Eranskina handiegia da bidaltzen ari zaren mezu motarako.</string>
     <string name="ConversationActivity_unable_to_record_audio">Ezgai audioa grabatzeko!</string>
@@ -490,18 +487,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Ahots-mezuak bidaltzeko:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Ahots-mezuak bidaltzeko, eman Signal-i mikrofonoa atzitzeko baimena.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Ahots-mezuak bidaltzeko, eman Molly-i mikrofonoa atzitzeko baimena.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal-ek mikrofonoa atzitu behar du ahots-mezua grabatzeko.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signalek Mikrofonorako baimena behar du audio mezuak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\"</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly-ek mikrofonoa atzitu behar du ahots-mezua grabatzeko.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mollyek Mikrofonorako baimena behar du audio mezuak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\"</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal aplikazioak Mikronofoa eta Kamera baimenak behar ditu %1$skontaktuari deitzeko, baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Argazkiak eta bideoak grabatzeko, eman baimena Signali kamera erabiltzeko.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal aplikazioak Kamera baimena behar du argazkiak eta bideoak egiteko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signalek Kamera baimena behar du argazkiak eta bideoak egiteko</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly aplikazioak Mikronofoa eta Kamera baimenak behar ditu %1$skontaktuari deitzeko, baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Argazkiak eta bideoak grabatzeko, eman baimena Mollyi kamera erabiltzeko.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly aplikazioak Kamera baimena behar du argazkiak eta bideoak egiteko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Mollyek Kamera baimena behar du argazkiak eta bideoak egiteko</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Gaitu mikrofonorako baimena soinua duten bideoak grabatu ahal izateko.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal aplikazioak mikrofonorako baimena behar du bideoak grabatu ahal izateko.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly aplikazioak mikrofonorako baimena behar du bideoak grabatu ahal izateko.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
     <string name="ConversationActivity_no">Ez</string>
@@ -522,9 +519,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Deia hasteko:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Deia hasteko, eman Signal-i mikrofonoa atzitzeko baimena.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Deia hasteko, eman Molly-i mikrofonoa atzitzeko baimena.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal-ek mikrofonoa atzitu behar du deia hasteko.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly-ek mikrofonoa atzitu behar du deia hasteko.</string>
 
 
     <string name="ConversationActivity_join">Batu</string>
@@ -538,9 +535,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal-en jada ez dira onartzen SMS mezuak. %1$s(r)ekin duzun elkarrizketa mantentzeko, gonbida ezazu Signal-era.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Pertsona honek jada ez du Signal erabiltzen. Harekin duzun elkarrizketa mantentzeko, gonbida ezazu Signal-era.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Pertsona honek jada ez du Molly erabiltzen. Harekin duzun elkarrizketa mantentzeko, gonbida ezazu Molly-era.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Gonbidatu Signal erabiltzera</string>
+    <string name="ConversationActivity__invite_to_signal">Gonbidatu Molly erabiltzera</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Laster gogoraraziko zaizu berriro.</string>
 
@@ -628,13 +625,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Blokeatuta</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Eguneratu Signal</string>
+    <string name="ConversationFragment__update_build">Eguneratu Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Erregistratu Signal berriro</string>
+    <string name="ConversationFragment__reregister_signal">Erregistratu Molly berriro</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Egin atzera.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Ireki Signal</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Ireki Molly</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Jada ez dago egiaztatuta</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -804,9 +801,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Nork topa nazake nire telefono-zenbakia bilatuta?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Zure telefono-zenbakia daukaten pertsonek Signal-en zaudela ikusi eta zurekin txateatu ahalko dute.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Zure telefono-zenbakia daukaten pertsonek Molly-en zaudela ikusi eta zurekin txateatu ahalko dute.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ezingo du inork ikusi Signal-en zaudela, salbu eta mezuak bidaltzen badituzu edo lehendik txaten bat baduzu norbaitekin.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ezingo du inork ikusi Molly-en zaudela, salbu eta mezuak bidaltzen badituzu edo lehendik txaten bat baduzu norbaitekin.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Babeskopia berreskuratu?</string>
@@ -894,7 +891,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d dagoeneko…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%% %1$s oraingoz…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Ezarri babeskopiak egiteko ordua</string>
 
@@ -961,7 +958,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Txat-saioa eguneratu da</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signalek muturretik-muturrerako enkriptatzea erabiltzen du eta noizbehinka txat-saioa eguneratu beharko duzu. Horrek ez du eraginik zure txataren segurtasunean, baina agian kontaktu horren mezuren bat galdu duzu, eta berriz bidaltzeko eskatu beharko zenioke.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Mollyek muturretik-muturrerako enkriptatzea erabiltzen du eta noizbehinka txat-saioa eguneratu beharko duzu. Horrek ez du eraginik zure txataren segurtasunean, baina agian kontaktu horren mezuren bat galdu duzu, eta berriz bidaltzeko eskatu beharko zenioke.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1042,7 +1039,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Osatu lotzeko prozesua beste gailuan</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Amaitu Signal beste gailuan lotzen.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Amaitu Molly beste gailuan lotzen.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Gailua lotzeak huts egin du.</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1081,10 +1078,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimizatu Google Play-ren zerbitzuetarko</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Gailu honek ez du onartzen Play Services. Signal inaktibo dagoenean mezuak eskuratzea galarazten dioten sistemaren bateria-optimizazioak desgaitzeko, sakatu hau.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Gailu honek ez du onartzen Play Services. Molly inaktibo dagoenean mezuak eskuratzea galarazten dioten sistemaren bateria-optimizazioak desgaitzeko, sakatu hau.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signalen bertsio hau iraungi da. Eguneratu orain mezuak bidali eta jaso ahal izateko.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Mollyen bertsio hau iraungi da. Eguneratu orain mezuak bidali eta jaso ahal izateko.</string>
     <string name="ExpiredBuildReminder_update_now">Eguneratu orain</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1235,7 +1232,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Arazte-erregistroak arazoa diagnostikatzen eta konpontzen laguntzen digu, eta ez dute identifikazio-informaziorik.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal-ek arazo bat aurkitu du. Arazketa-erregistroa bidali nahi duzu?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly-ek arazo bat aurkitu du. Arazketa-erregistroa bidali nahi duzu?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Agian ez zara mezuak jasotzen ari. Arazketa-erregistroa bidali nahi duzu?</string>
 
@@ -1243,12 +1240,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Bateriaren optimizazioak direla eta, baliteke jakinarazpenak atzeratzea</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Mezuen jakinarazpenak atzeratuko ez direla ziurtatzeko, Signal-en bateria-optimizazioak desgatu ditzakezu.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Mezuen jakinarazpenak atzeratuko ez direla ziurtatzeko, Molly-en bateria-optimizazioak desgatu ditzakezu.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Bateriaren optimizazioak direla eta, baliteke jakinarazpenak atzeratzea</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Mezuen jakinarazpenak atzeratuko ez direla ziurtatzeko, desgaitu Signal-en bateria-optimizazioak. Gailu honetarako jarraibideak ikusteko, sakatu \"Jarraitu\".</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Mezuen jakinarazpenak atzeratuko ez direla ziurtatzeko, desgaitu Molly-en bateria-optimizazioak. Gailu honetarako jarraibideak ikusteko, sakatu \"Jarraitu\".</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Ez eskerrik asko</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1257,7 +1254,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Agian ez zara mezuak jasotzen ari</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Gailua berrabiarazita, baliteke mezuak entregatzea eragozten duen akatsa konpontzea. Arazoak bere horretan jarraitzen badu, jarri harremanetan Signal-en laguntza-zerbitzuarekin.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Gailua berrabiarazita, baliteke mezuak entregatzea eragozten duen akatsa konpontzea. Arazoak bere horretan jarraitzen badu, jarri harremanetan Molly-en laguntza-zerbitzuarekin.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Ulertu dut</string>
 
@@ -1558,13 +1555,13 @@
     <string name="InviteActivity_cancel">Utzi</string>
     <string name="InviteActivity_sending">Bidaltzen…</string>
     <string name="InviteActivity_invitations_sent">Gonbidapenak bidali dira!</string>
-    <string name="InviteActivity_invite_to_signal">Gonbidatu Signal erabiltzera</string>
+    <string name="InviteActivity_invite_to_signal">Gonbidatu Molly erabiltzera</string>
     <string name="InviteActivity_send_sms">Bidali SMS bat (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Bidali SMS gonbidapen %1$d?</item>
         <item quantity="other">Bidali %1$d SMS gonbidapen?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Signalera alda dezagun: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Mollyera alda dezagun: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Dirudienez ez duzu partekatzeko aplikazio bakar bat ere.</string>
 
@@ -1579,7 +1576,7 @@
     <string name="LongMessageActivity_your_message">Zure mezua</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">Atzeko planoko konexioa gaituta</string>
 
     <!-- MediaOverviewActivity -->
@@ -1649,10 +1646,10 @@
     <string name="MessageQuotesBottomSheet_replies">Erantzunak</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Signal deia finkatzen</string>
+    <string name="NotificationBarManager__establishing_signal_call">Molly deia finkatzen</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Signal-en dei-zerbitzua abiarazten</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Signal-en dei-zerbitzua geldiarazten</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Molly-en dei-zerbitzua abiarazten</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Molly-en dei-zerbitzua geldiarazten</string>
     <string name="NotificationBarManager__cancel_call">Deia utzi</string>
 
     <!-- NotificationsMegaphone -->
@@ -1968,7 +1965,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Laster, ezin izango duzu SMS mezurik bidali Signal-etik. %1$s(r)ekin duzun elkarrizketa mantentzeko, gonbida ezazu Signal-era.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Jada ezin duzu SMS mezurik bidali Signal-en. %1$s(r)ekin duzun elkarrizketa mantentzeko, gonbida ezazu Signal-era.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Jada ezin duzu SMS mezurik bidali Molly-en. %1$s(r)ekin duzun elkarrizketa mantentzeko, gonbida ezazu Molly-era.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Ordainketa: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2054,25 +2051,25 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Lotu Signal gailu bat?</string>
     <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Signalez kanpoko eskaner batez parekatzen omen duzu Signal gailu bat. Zure segurtasunerako, eskaneatu kodea Signaletik mesedez.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signalek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mollyek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Ezin da QR koderik eskaneatu Kamera baimen gabe</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Eguneratu orain</string>
     <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Singalen bertsio hau gaur iraungiko da. Eguneratu azken bertsiora.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Signal-en bertsio hau bihar iraungiko da. Eguneratu azken bertsiora.</item>
-        <item quantity="other">Signal-en bertsio hau %1$d egun barru iraungiko da. Eguneratu azken bertsiora.</item>
+        <item quantity="one">Molly-en bertsio hau bihar iraungiko da. Eguneratu azken bertsiora.</item>
+        <item quantity="other">Molly-en bertsio hau %1$d egun barru iraungiko da. Eguneratu azken bertsiora.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Pasaesaldia idatzi</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal ikonoa</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly ikonoa</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Bidali pasaesaldia</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Pasaesaldi baliogabea!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Desblokeatu Signal</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Desblokeatu Molly</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Blokeatu pantaila</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - Blokeatu pantaila</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Mapa</string>
@@ -2140,7 +2137,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Mezuak bidaltzen jarraitzeko, egiaztatu.</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal-en spamik ez dagoela ziurtatzeko, osatu egiaztapena.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly-en spamik ez dagoela ziurtatzeko, osatu egiaztapena.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Egiaztatu ondoren, mezuak bidaltzen jarraitu ahalko duzu. Pausatutako mezuak automatikoki bidaliko dira.</string>
 
     <!-- Recipient -->
@@ -2148,7 +2145,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Nire istorioa</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal deia</string>
+    <string name="Recipient_signal_call">Molly deia</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Blokeatu</string>
@@ -2184,9 +2181,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Sakatu hau bideoa aktibatzeko</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s erabiltzaileari deitzeko, Signalek zure kamera erabiltzeko baimena behar du</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s erabiltzaileari deitzeko, Mollyek zure kamera erabiltzeko baimena behar du</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Deitzen…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Berriro konektatzen…</string>
@@ -2247,23 +2244,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Eman kamerarako sarbidea</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Dei bat hasteko edo dei batean sartzeko, eman Signal-i kamera eta mikrofonoa erabiltzeko baimena.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Dei bat hasteko edo dei batean sartzeko, eman Molly-i kamera eta mikrofonoa erabiltzeko baimena.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Dei bat hasteko edo dei batean sartzeko, eman Signal-i mikrofonoa erabiltzeko baimena.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Dei bat hasteko edo dei batean sartzeko, eman Molly-i mikrofonoa erabiltzeko baimena.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Bideoa gaitzeko, eman Signal-i kamera atzitzeko baimena.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Bideoa gaitzeko, eman Molly-i kamera atzitzeko baimena.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Dei bat hasteko edo dei batean sartzeko, Signal-ek mikrofonoa erabiltzeko baimena behar du.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Dei bat hasteko edo dei batean sartzeko, Molly-ek mikrofonoa erabiltzeko baimena behar du.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Bideoa gaitzeko, Signal-ek kamera erabiltzeko baimena behar du</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Bideoa gaitzeko, Molly-ek kamera erabiltzeko baimena behar du</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Dei bat hasteko edo dei batean sartzeko:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Bideoa gaitzeko:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal deia</string>
-    <string name="WebRtcCallView__signal_video_call">Signal-eko bideodeia</string>
+    <string name="WebRtcCallView__signal_call">Molly deia</string>
+    <string name="WebRtcCallView__signal_video_call">Molly-eko bideodeia</string>
     <string name="WebRtcCallView__start_call">Hasi Deia</string>
     <string name="WebRtcCallView__join_call">Deira Sartu</string>
     <string name="WebRtcCallView__call_is_full">Deia beteta dago</string>
@@ -2483,7 +2480,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Zenbaki hau egiaztatzeko deia jasoko duzu.</string>
     <string name="RegistrationActivity_edit_number">Zenbakia editatu</string>
     <string name="RegistrationActivity_missing_google_play_services">Ez dira topatzen Google Play-ren zerbitzuak</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Signal erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@signal.org helbidean.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Molly erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@molly.im helbidean.</string>
     <string name="RegistrationActivity_i_understand">Ulertzen dut</string>
     <string name="RegistrationActivity_play_services_error">Play Services-en Errorea</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services eguneratzen ari da edo tenporalki ez dago erabilgarri. Mesedez, berriro saia zaitez.</string>
@@ -2503,7 +2500,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Zenbaki-formatu ez-estandarra</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Idatzi duzun zenbakiak (%1$s) formatu ez-estandar bat du.\n\n%2$s esan nahi al zenuen?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Telefono-zenbakien formatua</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Telefono-zenbakien formatua</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Deia eskatu da</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2576,13 +2573,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Gehitu kontaktu-zerrendan</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Gonbidatu Signal erabiltzera</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Gonbidatu Molly erabiltzera</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal mezua</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal deia</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Gehitu kontaktu-zerrendan</string>
-    <string name="SharedContactView_invite_to_signal">Gonbidatu Signal erabiltzera</string>
+    <string name="SharedContactView_invite_to_signal">Gonbidatu Molly erabiltzera</string>
     <string name="SharedContactView_message">Signal mezua</string>
 
     <!-- SignalBottomActionBar -->
@@ -2716,11 +2713,11 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s zenbakia %2$s erabiltzailearena da</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal eguneratu</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Signal-en bertsio berri bat dago. Eguneratzeko, sakatu hau.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Ezin izan da eguneratu Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly eguneratu</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Molly-en bertsio berri bat dago. Eguneratzeko, sakatu hau.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Ezin izan da eguneratu Molly</string>
     <string name="ApkUpdateNotifications_failed_general_body">Berriro saiatuko gara geroago.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Eguneratu da Signal</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Eguneratu da Molly</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">%1$s bertsioa automatikoki instalatu da.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">%1$s bertsiora eguneratu duzu aplikazioa.</string>
 
@@ -2792,7 +2789,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Gure Signal-en segurtasun zenbakia:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Dirudienez ez duzu partekatzeko aplikazio bakar bat ere.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Ez da aurkitu konparantzeko segurtasun zenbakirik arbelean</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signalek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mollyek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Ezin da QR kodea eskaneatu Kamera baimen gabe</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Mezuak trukatu behar duzu %1$s erabiltzailearen segurtasun zenbakia ikusi ahal izateko.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2822,14 +2819,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Ukitu irekitzeko.</string>
-    <string name="KeyCachingService_passphrase_cached">Signal desblokeatuta dago</string>
-    <string name="KeyCachingService_lock">Blokeatu Signal</string>
+    <string name="KeyCachingService_passphrase_cached">Molly desblokeatuta dago</string>
+    <string name="KeyCachingService_lock">Blokeatu Molly</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Zu</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Multimedia fitxategi mota ez-onartua</string>
     <string name="MediaPreviewActivity_draft">Zirriborroa</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signalek Gordailu baimena behar du kanpoko gordailuan datuak idazteko baina baimena ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mollyek Gordailu baimena behar du kanpoko gordailuan datuak idazteko baina baimena ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Ezin izan da kanpoko gordailuan idatzi baimen faltagatik</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Mezua ezabatu nahi duzu?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Behin betiko ezabatuko du mezua.</string>
@@ -2875,7 +2872,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Mezuaren banaketak huts egin du.</string>
     <string name="MessageNotifier_error_delivering_message">Errorea mezua banatzen.</string>
     <string name="MessageNotifier_message_delivery_paused">Mezuaren entrega pausatu egin da.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal-en mezuak bidaltzen jarraitzeko, egiaztatu.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly-en mezuak bidaltzen jarraitzeko, egiaztatu.</string>
     <string name="MessageNotifier_mark_all_as_read">Markatu denak irrakurritako gisa</string>
     <string name="MessageNotifier_mark_read">Markatu irakurritako gisa</string>
     <string name="MessageNotifier_turn_off_these_notifications">Desaktibatu jakinarazpen hauek</string>
@@ -2897,7 +2894,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Zure eranskailuari bidalitako erreakzioa: %1$s.</string>
     <string name="MessageNotifier_this_message_was_deleted">Mezu hau ezabatu egin da.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Desaktibatu nahi duzu kontaktu bat batzen denean bidaltzen diren jakinarazpenak? Berriro aktiba ditzakezu Signal &gt; Ezarpenak &gt; Jakinarazpenak atalean.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Desaktibatu nahi duzu kontaktu bat batzen denean bidaltzen diren jakinarazpenak? Berriro aktiba ditzakezu Molly &gt; Ezarpenak &gt; Jakinarazpenak atalean.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -2938,7 +2935,7 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Erantzun bizkorra eskuraezina Signal blokeatuta badago!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Erantzun bizkorra eskuraezina Molly blokeatuta badago!</string>
     <string name="QuickResponseService_problem_sending_message">Arazoa mezua bidaltzen!</string>
 
     <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
@@ -2958,7 +2955,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Lasterbide baliogabea</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Mezu berria</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Mezu-eskaera</string>
     <string name="SingleRecipientNotificationBuilder_you">Zu</string>
@@ -3005,7 +3002,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Gailu hau jada ez dago erregistratuta. Ziurrenik zure telefono-zenbakia Signal-ekin beste gailu batean erregistratu duzulako gertatu da hori.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Gailu hau jada ez dago erregistratuta. Ziurrenik zure telefono-zenbakia Molly-ekin beste gailu batean erregistratu duzulako gertatu da hori.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Erregistratu gailua berriro</string>
 
@@ -3018,10 +3015,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Deiari erantzuteko, eman Signal-i mikrofonoa atzitzeko baimena.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Deiari erantzuteko, eman Molly-i mikrofonoa atzitzeko baimena.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Bideo-deiari erantzuteko, eman Signal-i mikrofonorako eta kamerarako sarbidea.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signalek Mikronofoa eta Kamera baimenak behar ditu deiak egin edo jasotzeko baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Bideo-deiari erantzuteko, eman Molly-i mikrofonorako eta kamerarako sarbidea.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mollyek Mikronofoa eta Kamera baimenak behar ditu deiak egin edo jasotzeko baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Erantzunda lotutako gailu batean.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Ukatuta lotutako gailu batean.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Okupatuta lotutako gailu batean.</string>
@@ -3066,7 +3063,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Errepikatu pasaesaldi berria</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Gonbidatu Signal erabiltzera</string>
+    <string name="contact_selection_activity__invite_to_signal">Gonbidatu Molly erabiltzera</string>
     <string name="contact_selection_activity__new_group">Talde berria</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Freskatu kontaktuak</string>
@@ -3226,7 +3223,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Burbuilak Android-eko eginbide bat dira, eta Signal-en txatetarako desaktibatu egin ditzakezu.</string>
+    <string name="BubbleOptOutTooltip__description">Burbuilak Android-eko eginbide bat dira, eta Molly-en txatetarako desaktibatu egin ditzakezu.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Orain ez</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3395,9 +3392,9 @@
     <string name="EditProfileFragment__group_description">Taldearen deskribapena</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Eguneratu Signal</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Eguneratu Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Signal-en bertsio hau zaharkituta dago. Eguneratu orain Signal erabiltzen jarraitzeko.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Molly-en bertsio hau zaharkituta dago. Eguneratu orain Molly erabiltzen jarraitzeko.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Eguneratu</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3618,7 +3615,7 @@
     <string name="preferences__slow">Motela</string>
     <string name="preferences__help">Laguntza</string>
     <string name="preferences__advanced">Aurreratua</string>
-    <string name="preferences__donate_to_signal">Egin dohaintza bat Signal-i</string>
+    <string name="preferences__donate_to_signal">Egin dohaintza bat Molly-i</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Pribatutasuna</string>
     <!-- Preference label for stories -->
@@ -3655,13 +3652,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Ezarri \"%1$s\" aplikazioaren ikono eta izen gisa</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Aplikazioaren ikonoa eta izena aldatzeko, Signal itxi egin beharko da. Jakinarazpenek beti erakutsiko dituzte Signal-en ikono eta izen lehenetsiak.</string>
+    <string name="preferences__app_icon_dialog_description">Aplikazioaren ikonoa eta izena aldatzeko, Molly itxi egin beharko da. Jakinarazpenek beti erakutsiko dituzte Molly-en ikono eta izen lehenetsiak.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Hautatu aplikazioaren zer ikono eta izen nahi duzun telefonoaren hasierako pantailan eta aplikazio-menuan ikusgai egotea. Jakinarazpenek beti erakutsiko dituzte Signal-en ikono eta izen lehenetsiak. Informazio gehiago</string>
+    <string name="preferences__app_icon_warning_learn_more">Hautatu aplikazioaren zer ikono eta izen nahi duzun telefonoaren hasierako pantailan eta aplikazio-menuan ikusgai egotea. Jakinarazpenek beti erakutsiko dituzte Molly-en ikono eta izen lehenetsiak. Informazio gehiago</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Aplikazioen ikonoak eta izenak hasierako pantailan eta aplikazio-menuan daude ikusgai.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Jakinarazpenek beti erakutsiko dituzte Signal-en ikono eta izen lehenetsiak.</string>
+    <string name="preferences__app_icon_notification_warning">Jakinarazpenek beti erakutsiko dituzte Molly-en ikono eta izen lehenetsiak.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Informazio gehiago</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3753,7 +3750,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Zentsura ekiditeko aukera</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Zentsura ekiditeko aukera</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Aukera aktibatuta egonez gero, Signal zentsura ekiditen saiatuko da. Ez aktibatu aukera hau Signal zentsuratuta dagoen kokaen batean egon ezik.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Aukera aktibatuta egonez gero, Molly zentsura ekiditen saiatuko da. Ez aktibatu aukera hau Molly zentsuratuta dagoen kokaen batean egon ezik.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Zentsura ekiditeko aukera zure kontuaren telefono-zenbakian oinarrituta aktibatu da.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3805,7 +3802,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Ordainketen aurkezpena</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Erabili Signal MobileCoin-ak (pribatutasunaren inguruan ardaztutako dibisa digital berria) bidali eta jasotzeko. Erabiltzeko, aktiba ezazu.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Erabili Molly MobileCoin-ak (pribatutasunaren inguruan ardaztutako dibisa digital berria) bidali eta jasotzeko. Erabiltzeko, aktiba ezazu.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktibatu Ordainketak</string>
     <string name="PaymentsHomeFragment__activating_payments">Ordainketak aktibatzen…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Berrezarri ordainketen kontua</string>
@@ -3831,7 +3828,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Ordainketak eginbidea ez dago erabilgarri zure lurraldean.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Ezin izan dira gaitu ordainketak. Saiatu geroago.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Ordainketak eginbidea desaktibatu nahi duzu?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ordainketak eginbidea desaktibatzen baduzu, ezingo duzu bidali edo jaso MobileCoin-ik Signal-en.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ordainketak eginbidea desaktibatzen baduzu, ezingo duzu bidali edo jaso MobileCoin-ik Molly-en.</string>
     <string name="PaymentsHomeFragment__deactivate">Desaktibatu</string>
     <string name="PaymentsHomeFragment__continue">Jarraitu</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Saldoa ez dago erabilgarri une honetan.</string>
@@ -3840,10 +3837,10 @@
     <string name="PaymentsHomeFragment__details">Xehetasunak</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin bidali eta jasotzeko erabil dezakezu Signal. Ordainketa guztiak MobileCoin-en eta MobileCoin Wallet-en Erabilera-baldintzen menpe daude. Baliteke arazoak izatea, eta haien ondorioz galdutako ordainketa eta saldoak ezin dira berreskuratu. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoin bidali eta jasotzeko erabil dezakezu Molly. Ordainketa guztiak MobileCoin-en eta MobileCoin Wallet-en Erabilera-baldintzen menpe daude. Baliteke arazoak izatea, eta haien ondorioz galdutako ordainketa eta saldoak ezin dira berreskuratu. </string>
     <string name="PaymentsHomeFragment__activate">Aktibatu</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Ikusi MobileCoin-en baldintzak</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Signal-eko ordainketak jada ez daude erabilgarri. Funtsak truke-plataformetara transferitzen jarrai dezakezu, baina jada ezin dituzu bidali eta jaso ordainketak, ezta funtsak gehitu ere.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Molly-eko ordainketak jada ez daude erabilgarri. Funtsak truke-plataformetara transferitzen jarrai dezakezu, baina jada ezin dituzu bidali eta jaso ordainketak, ezta funtsak gehitu ere.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -3871,7 +3868,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Onartu baimenak</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Ezagutzen dituzun pertsonei mezuak bidaltzen laguntzeko, Signal-ek baimen hauek eskatuko ditu. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Ezagutzen dituzun pertsonei mezuak bidaltzen laguntzeko, Molly-ek baimen hauek eskatuko ditu. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Jakinarazpenak</string>
     <!-- Notifications permission row description -->
@@ -3963,10 +3960,10 @@
     <string name="PaymentsTransferFragment__next">Hurrengoa</string>
     <string name="PaymentsTransferFragment__invalid_address">Helbide baliogabea</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Begiratu tranferentzia egin nahi duzun diru-zorroaren helbidea eta saiatu berriro.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ezin duzu zure Signal diru-zorroaren helbidera transferitu. Sartu diru-zorroaren helbidean zure kontutik, baliozko trukean.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR kode bat eskaneatzeko, Signal-ek zure kamera erabiltzeko baimena behar du</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal-ek kamera erabiltzeko baimena behar du QR kode bat harrapatzeko. Joan ezarpenetara, aukeratu \"baimenak\" eta ahalbidetu \"kamera\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR kode bat eskaneatzeko, Signalek zure kamera erabiltzeko baimena behar du</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ezin duzu zure Molly diru-zorroaren helbidera transferitu. Sartu diru-zorroaren helbidean zure kontutik, baliozko trukean.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR kode bat eskaneatzeko, Molly-ek zure kamera erabiltzeko baimena behar du</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly-ek kamera erabiltzeko baimena behar du QR kode bat harrapatzeko. Joan ezarpenetara, aukeratu \"baimenak\" eta ahalbidetu \"kamera\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR kode bat eskaneatzeko, Mollyek zure kamera erabiltzeko baimena behar du</string>
     <string name="PaymentsTransferFragment__settings">Ezarpenak</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4321,17 +4318,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal-eko sarrerako ahots-deia</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly-eko sarrerako ahots-deia</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal-eko sarrerako bideodeia</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly-eko sarrerako bideodeia</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Signal-eko sarrerako talde-deia</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly-eko sarrerako talde-deia</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Signal-eko ahots-dei bat abian</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly-eko ahots-dei bat abian</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Signal-eko bideodei bat abian</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Molly-eko bideodei bat abian</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Signal-eko taldeko dei bat abian</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Molly-eko taldeko dei bat abian</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Kargatzen…</string>
@@ -4384,9 +4381,9 @@
     <string name="BackupDialog_verify">Baieztatu</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Ondo sartu duzu zure babeskopiaren pasaesaldia</string>
     <string name="BackupDialog_passphrase_was_not_correct">Pasaesaldi ez da zuzena</string>
-    <string name="LocalBackupJob_creating_signal_backup">Signal babeskopia sortzen…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Molly babeskopia sortzen…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Signal-en babeskopia egiaztatzen…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Molly-en babeskopia egiaztatzen…</string>
     <string name="LocalBackupJobApi29_backup_failed">Babeskopiak huts egin du</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Babeskopiak gordetzeko karpeta ezabatu edo mugitu egin da.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Zure babeskopia duen fitxategia handiegia da bolumen honetan gordetzeko.</string>
@@ -4401,15 +4398,15 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Dei iezadazu (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Bidali berriro kodea (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Harremanetan jarri Signal Laguntza Taldearekin</string>
-    <string name="RegistrationActivity_code_support_subject">Signal Errejistratzea - Androiderako Egiaztatze Kodea</string>
+    <string name="RegistrationActivity_contact_signal_support">Harremanetan jarri Molly Laguntza Taldearekin</string>
+    <string name="RegistrationActivity_code_support_subject">Molly Errejistratzea - Androiderako Egiaztatze Kodea</string>
     <string name="RegistrationActivity_incorrect_code">Kodea ez da zuzena</string>
     <string name="BackupUtil_never">Inoiz ez</string>
     <string name="BackupUtil_unknown">Ezezaguna</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Telefono-zenbakia</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Aukeratu nork ikus dezakeen zure telefono-zenbakia eta nor jar daitekeen zurekin harremanetan Signal-en.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Aukeratu nork ikus dezakeen zure telefono-zenbakia eta nor jar daitekeen zurekin harremanetan Molly-en.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Nork ikus dezake nire zenbakia?</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4460,11 +4457,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">Errorea zerbitzura konektatzean</string>
     <string name="preferences_chats__backups">Babes-kopiak</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Desblokeatu Signal</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Desblokeatu Molly</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Signal desblokeatzeko, erabili Android-eko gailuaren blokeatze-ezarpenak.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Molly desblokeatzeko, erabili Android-eko gailuaren blokeatze-ezarpenak.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Pantaila-blokeoa aktibatuta dago, eta Signal babestuta dago gailuaren blokeatze-ezarpenekin. Desblokeatu Signal telefonoa desblokeatuko bazenu bezala; hots, aurpegia, hatz-marka, PINa, pasahitza edo eredua erabilita.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Pantaila-blokeoa aktibatuta dago, eta Molly babestuta dago gailuaren blokeatze-ezarpenekin. Desblokeatu Molly telefonoa desblokeatuko bazenu bezala; hots, aurpegia, hatz-marka, PINa, pasahitza edo eredua erabilita.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Jarri harremanetan laguntza-zerbitzuarekin</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4476,7 +4473,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Erabili pantaila-blokeoa</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Aplikazioetatik irteten zarenean edo aplikazioz aldatzen zarenean, Android-eko gailuaren blokeatze-ezarpenek Signal desblokeatu beharko dute. Blokeatuta dagoen bitartean, jakinarazpenen aurrebistetan ez da ikusiko mezuen edukia.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Aplikazioetatik irteten zarenean edo aplikazioz aldatzen zarenean, Android-eko gailuaren blokeatze-ezarpenek Molly desblokeatu beharko dute. Blokeatuta dagoen bitartean, jakinarazpenen aurrebistetan ez da ikusiko mezuen edukia.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Aktibatu pantaila-blokeoa</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4490,9 +4487,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Denbora pertsonalizatua</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Erabili Signal-en pantaila-blokeoa</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Erabili Molly-en pantaila-blokeoa</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Desaktibatu Signal-en pantaila-blokeoa</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Desaktibatu Molly-en pantaila-blokeoa</string>
 
     <string name="Recipient_unknown">Ezezaguna</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4547,19 +4544,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Android gailu zaharrera konektatzeko prestatzen…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Itxaron momentu batez, laster prest egon beharko litzateke</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Android gailu zaharra konektatzeko zain…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-ek kokapen-baimena behar du zure Android gailu zaharra ezagutzeko eta konektatzeko.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-ek kokapen-zerbitzu gaituak behar ditu zure Android gailu zaharra ezagutzeko eta harekin konektatzeko.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-ek Wi-Fi aktibatuta behar du zure Android gailu zaharra ezagutzeko eta harekin konektatzeko. Wi-Fi-a aktibatuta egon behar da, baina ez da zertan Wi-Fi sare batera konektatuta egon behar.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Barkatu, badirudi gailu honek ez duela Wi-Fi Direct onartzen. Signal-ek Wi-Fi Direct erabiltzen du zure Android gailu zaharra ezagutzeko eta harekin konektatzeko. Hala ere, babeskopia bat leheneratu dezakezu zure kontua zure Android gailu zaharretik leheneratzeko.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly-ek kokapen-baimena behar du zure Android gailu zaharra ezagutzeko eta konektatzeko.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly-ek kokapen-zerbitzu gaituak behar ditu zure Android gailu zaharra ezagutzeko eta harekin konektatzeko.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly-ek Wi-Fi aktibatuta behar du zure Android gailu zaharra ezagutzeko eta harekin konektatzeko. Wi-Fi-a aktibatuta egon behar da, baina ez da zertan Wi-Fi sare batera konektatuta egon behar.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Barkatu, badirudi gailu honek ez duela Wi-Fi Direct onartzen. Molly-ek Wi-Fi Direct erabiltzen du zure Android gailu zaharra ezagutzeko eta harekin konektatzeko. Hala ere, babeskopia bat leheneratu dezakezu zure kontua zure Android gailu zaharretik leheneratzeko.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Berreskuratu babeskopia</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ustekabeko errore bat gertatu da Android gailu zaharrera konektatzen saiatzean.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Android gailu berri baten bila…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-ek kokapen-baimena behar du zure Android gailu berria ezagutzeko eta konektatzeko.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-ek kokapen-zerbitzu gaituak behar ditu zure Android gailu berria ezagutzeko eta harekin konektatzeko.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-ek Wi-Fi aktibatuta behar du zure Android gailu berria ezagutzeko eta harekin konektatzeko. Wi-Fi-a aktibatuta egon behar da, baina ez da zertan Wi-Fi sare batera konektatuta egon behar.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Barkatu, badirudi gailu honek ez duela Wi-Fi Direct onartzen. Signal-ek Wi-Fi Direct erabiltzen du zure Android gailu berria ezagutzeko eta harekin konektatzeko. Hala ere, babeskopia bat leheneratu dezakezu zure kontua zure Android gailu berritik leheneratzeko.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly-ek kokapen-baimena behar du zure Android gailu berria ezagutzeko eta konektatzeko.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly-ek kokapen-zerbitzu gaituak behar ditu zure Android gailu berria ezagutzeko eta harekin konektatzeko.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly-ek Wi-Fi aktibatuta behar du zure Android gailu berria ezagutzeko eta harekin konektatzeko. Wi-Fi-a aktibatuta egon behar da, baina ez da zertan Wi-Fi sare batera konektatuta egon behar.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Barkatu, badirudi gailu honek ez duela Wi-Fi Direct onartzen. Molly-ek Wi-Fi Direct erabiltzen du zure Android gailu berria ezagutzeko eta harekin konektatzeko. Hala ere, babeskopia bat leheneratu dezakezu zure kontua zure Android gailu berritik leheneratzeko.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Sortu babeskopia</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ustekabeko errore bat gertatu da Android gailu berrira konektatzen saiatzean.</string>
 
@@ -4601,7 +4598,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Datuak transferitzen</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantendu bi gailuak elkarrengandik gertu. Ez itzali gailuak eta Signal irekita mantendu. Tranferentziak muturretik-muturrera enkriptatuta daude.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantendu bi gailuak elkarrengandik gertu. Ez itzali gailuak eta Molly irekita mantendu. Tranferentziak muturretik-muturrera enkriptatuta daude.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d mezu orain arte…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% mezu orain arte…</string>
@@ -4615,7 +4612,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Transferitu kontua</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Deskargatu Signal zure Android gailu berrian</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Deskargatu Molly zure Android gailu berrian</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Sakatu \"Transferitu edo leheneratu kontua\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4689,7 +4686,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Esteka hau duen edonork ikus ditzake taldearen izena eta argazkia eta sartzeko eska dezake. Partekatu konfiantzako jendearekin.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Esteka hau duen edonork taldearen izena eta argazkia ikus ditzake eta taldean sartu. Partekatu konfiantzako jendearekin</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Partekatu Signal bidez</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Partekatu Molly bidez</string>
     <string name="GroupLinkBottomSheet_copy">Kopiatu</string>
     <string name="GroupLinkBottomSheet_qr_code">QR Kodea</string>
     <string name="GroupLinkBottomSheet_share">Elkarbanatu</string>
@@ -4877,7 +4874,7 @@
     <string name="payment_info_card_about_mobilecoin">MobileCoin-i buruz</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin pribatutasunean ardaztutako dibisa digital berri bat da.</string>
     <string name="payment_info_card_adding_funds">Funtsak gehitzen</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Signal-en erabiltzeko funtsak gehi ditzakezu MobileCoin zure diru-zorroaren helbidera bidalita.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Molly-en erabiltzeko funtsak gehi ditzakezu MobileCoin zure diru-zorroaren helbidera bidalita.</string>
     <string name="payment_info_card_cashing_out">Kobratzen</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin edonoiz atera dezakezu MobileCoin onartzen duen truke batean. Egin transferentzia bat truke horretan zure kontura.</string>
     <string name="payment_info_card_hide_this_card">Txartel hau ezkutatu?</string>
@@ -4898,12 +4895,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Diru-zorroa deskatibatu</string>
     <string name="DeactivateWalletFragment__your_balance">Zure balantzea</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Ordainketak desaktibatu aurretik, funtsak beste zorro baten helbidera transferitzea gomendatzen da. Dirua orain ez transferitzea aukeratzen baduzu, ordainketak berriro aktibatzen badituzu, Signal-ekin lotutako zorroan jarraituko du.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Ordainketak desaktibatu aurretik, funtsak beste zorro baten helbidera transferitzea gomendatzen da. Dirua orain ez transferitzea aukeratzen baduzu, ordainketak berriro aktibatzen badituzu, Molly-ekin lotutako zorroan jarraituko du.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Transferitu gainerako balantzea</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Desaktibatu transferitu gabe</string>
     <string name="DeactivateWalletFragment__deactivate">Desaktibatu</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Desaktibatu transferitu gabe?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Ordainketak berriro aktibatzea aukeratzen baduzu, saldoa Signal-ekin lotutako zorroan geratuko da.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Ordainketak berriro aktibatzea aukeratzen baduzu, saldoa Molly-ekin lotutako zorroan geratuko da.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Errorea diru-zorroa desaktibatzean.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5332,7 +5329,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Lizentziak</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Baldintzak eta Pribatutasun Arauak</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 lizentziapean</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5787,9 +5784,9 @@
     <string name="MySupportPreference__learn_more">Informazio gehiago</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Eguneratu Signal</string>
+    <string name="UpdateSignalExpiredDialog__title">Eguneratu Molly</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Signal-en bertsio hau zaharkituta dago. Eguneratu orain Signal erabiltzen jarraitzeko.</string>
+    <string name="UpdateSignalExpiredDialog__message">Molly-en bertsio hau zaharkituta dago. Eguneratu orain Molly erabiltzen jarraitzeko.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Eguneratu</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5798,7 +5795,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Gailua ez dago erregistratuta</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Gailu hau jada ez dago erregistratuta. Erregistra ezazu berriro gailu honetan Signal erabiltzen jarraitzeko.</string>
+    <string name="ReregisterSignalDialog__message">Gailu hau jada ez dago erregistratuta. Erregistra ezazu berriro gailu honetan Molly erabiltzen jarraitzeko.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Bierregistratu</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6117,7 +6114,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Ezin izan da hautatzailea ireki.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Jakinarazpenak gaitzeko, Signal-ek haiek bistaratzeko baimena behar du.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Jakinarazpenak gaitzeko, Molly-ek haiek bistaratzeko baimena behar du.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Aktibatu</string>
 
@@ -7729,7 +7726,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Iraungitze-data: %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Egin mezu-historiaren babeskopia, gailuz aldatzean edo Signal berriro instalatzean ez dezazun daturik galdu.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Egin mezu-historiaren babeskopia, gailuz aldatzean edo Molly berriro instalatzean ez dezazun daturik galdu.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Babeskopiak egiteko beste modu batzuk</string>
     <!-- Row title for performing on-device backup -->
@@ -7859,9 +7856,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Zure babeskopia-gakoa</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Babeskopia-gakoa 64 karaktereko kode bat da, eta Signal berriro instalatzean babeskopia leheneratzeko aukera ematen dizu.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Babeskopia-gakoa 64 karaktereko kode bat da, eta Molly berriro instalatzean babeskopia leheneratzeko aukera ematen dizu.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Gakoa ahaztuz gero, ezingo duzu leheneratu babeskopia. Signal-ek ezin dizu lagundu babeskopia berreskuratzen.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Gakoa ahaztuz gero, ezingo duzu leheneratu babeskopia. Molly-ek ezin dizu lagundu babeskopia berreskuratzen.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Hurrengoa</string>
 
@@ -7877,7 +7874,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Mantendu gakoa seguru</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Gakoa galduz gero, Signal-ek ezingo dizu lagundu babeskopia leheneratzen. Gorde ezazu toki seguru batean, eta ez ezazu inorekin partekatu.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Gakoa galduz gero, Molly-ek ezingo dizu lagundu babeskopia leheneratzen. Gorde ezazu toki seguru batean, eta ez ezazu inorekin partekatu.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Apuntatu dut gakoa</string>
     <!-- Sheet action button label -->
@@ -7948,7 +7945,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Ez daukat telefono zaharra</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">Edo Signal gailu berean berriro instalatzen ari zara</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">Edo Molly gailu berean berriro instalatzen ari zara</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Leheneratu edo transferitu kontua</string>
