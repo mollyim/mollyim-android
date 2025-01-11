@@ -82,7 +82,12 @@ object MollySocketRepository {
       registrationLock = null,
       unidentifiedAccessKey = null,
       unrestrictedUnidentifiedAccess = true,
-      capabilities = AppCapabilities.getCapabilities(true, RemoteConfig.storageServiceEncryptionV2),
+      capabilities = AccountAttributes.Capabilities(
+        storage = false,
+        deleteSync = false,
+        versionedExpirationTimer = false,
+        storageServiceEncryptionV2 = false,
+      ),
       discoverableByPhoneNumber = !notDiscoverable,
       name = Base64.encodeWithPadding(encryptedDeviceName),
       pniRegistrationId = SignalStore.account.pniRegistrationId,

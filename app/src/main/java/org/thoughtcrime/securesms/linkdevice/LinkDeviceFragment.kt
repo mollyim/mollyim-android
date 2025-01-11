@@ -138,7 +138,7 @@ class LinkDeviceFragment : ComposeFragment() {
           Toast.makeText(context, context.getString(R.string.DeviceListActivity_network_failed), Toast.LENGTH_LONG).show()
         }
         LinkDeviceSettingsState.OneTimeEvent.LaunchQrCodeScanner -> {
-          navController.navigateToQrScannerIfAuthed()
+          navController.navigateToQrScannerIfAuthed(state.seenBioAuthEducationSheet)
         }
         LinkDeviceSettingsState.OneTimeEvent.ShowFinishedSheet -> {
           navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceFinishedSheet)
@@ -157,12 +157,12 @@ class LinkDeviceFragment : ComposeFragment() {
       }
     }
 
-    LaunchedEffect(state.seenEducationSheet) {
-      if (state.seenEducationSheet) {
+    LaunchedEffect(state.seenBioAuthEducationSheet) {
+      if (state.seenBioAuthEducationSheet) {
         if (!biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }) {
           navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
         }
-        viewModel.markEducationSheetSeen(false)
+        viewModel.markBioAuthEducationSheetSeen(false)
       }
     }
 
@@ -176,7 +176,7 @@ class LinkDeviceFragment : ComposeFragment() {
         state = state,
         modifier = Modifier.padding(contentPadding),
         onLearnMoreClicked = { navController.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceLearnMoreBottomSheet) },
-        onLinkNewDeviceClicked = { navController.navigateToQrScannerIfAuthed() },
+        onLinkNewDeviceClicked = { navController.navigateToQrScannerIfAuthed(!state.needsBioAuthEducationSheet) },
         onDeviceSelectedForRemoval = { device -> viewModel.setDeviceToRemove(device) },
         onDeviceRemovalConfirmed = { device -> viewModel.removeDevice(device) },
         onSyncFailureRetryRequested = { viewModel.onSyncErrorRetryRequested() },
@@ -189,8 +189,12 @@ class LinkDeviceFragment : ComposeFragment() {
     }
   }
 
-  private fun NavController.navigateToQrScannerIfAuthed() {
-    if (biometricAuth.canAuthenticate(requireContext())) {
+  private fun NavController.navigateToQrScannerIfAuthed(seenEducation: Boolean) {
+    if (seenEducation && biometricAuth.canAuthenticate(requireContext())) {
+      if (!biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }) {
+        this.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+      }
+    } else if (biometricAuth.canAuthenticate(requireContext())) {
       this.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceEducationSheet)
     } else {
       this.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
@@ -297,7 +301,9 @@ fun DeviceListScreen(
 
     Buttons.LargeTonal(
       onClick = onLinkNewDeviceClicked,
-      modifier = Modifier.defaultMinSize(300.dp).padding(bottom = 8.dp)
+      modifier = Modifier
+        .defaultMinSize(300.dp)
+        .padding(bottom = 8.dp)
     ) {
       Text(stringResource(id = R.string.LinkDeviceFragment__link_a_new_device))
     }
@@ -401,7 +407,10 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
     )
 
     Column(
-      modifier = Modifier.align(Alignment.CenterVertically).padding(start = 16.dp).weight(1f)
+      modifier = Modifier
+        .align(Alignment.CenterVertically)
+        .padding(start = 16.dp)
+        .weight(1f)
     ) {
       Text(text = titleString, style = MaterialTheme.typography.bodyLarge)
       Text(stringResource(R.string.DeviceListItem_linked_s, linkedDate), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -412,7 +421,9 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
       Icon(
         painterResource(id = R.drawable.symbol_more_vertical),
         contentDescription = null,
-        modifier = Modifier.padding(top = 16.dp, end = 16.dp).clickable { menuController.show() }
+        modifier = Modifier
+          .padding(top = 16.dp, end = 16.dp)
+          .clickable { menuController.show() }
       )
 
       DropdownMenus.Menu(controller = menuController, offsetX = 16.dp, offsetY = 4.dp) { controller ->

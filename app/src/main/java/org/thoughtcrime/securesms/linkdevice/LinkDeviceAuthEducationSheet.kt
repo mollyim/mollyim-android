@@ -27,7 +27,7 @@ import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 /**
  * Education sheet shown before biometrics when linking a device
  */
-class LinkDeviceEducationSheet : ComposeBottomSheetDialogFragment() {
+class LinkDeviceAuthEducationSheet : ComposeBottomSheetDialogFragment() {
 
   override val peekHeightPercentage: Float = 0.67f
 
@@ -39,12 +39,12 @@ class LinkDeviceEducationSheet : ComposeBottomSheetDialogFragment() {
   }
 
   override fun onCancel(dialog: DialogInterface) {
-    viewModel.markEducationSheetSeen(true)
+    viewModel.markBioAuthEducationSheetSeen(true)
     super.onCancel(dialog)
   }
 
   fun onDismiss() {
-    viewModel.markEducationSheetSeen(true)
+    viewModel.markBioAuthEducationSheetSeen(true)
     dismissAllowingStateLoss()
   }
 }

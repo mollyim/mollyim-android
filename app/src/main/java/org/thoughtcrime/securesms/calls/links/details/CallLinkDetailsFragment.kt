@@ -81,7 +81,7 @@ class CallLinkDetailsFragment : ComposeFragment(), CallLinkDetailsCallback {
 
   @Composable
   override fun FragmentContent() {
-    val state by viewModel.state
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val showAlreadyInACall by viewModel.showAlreadyInACall.collectAsStateWithLifecycle(false)
 
     CallLinkDetails(
@@ -166,9 +166,14 @@ class CallLinkDetailsFragment : ComposeFragment(), CallLinkDetailsCallback {
 
   override fun onApproveAllMembersChanged(checked: Boolean) {
     lifecycleDisposable += viewModel.setApproveAllMembers(checked).observeOn(AndroidSchedulers.mainThread()).subscribeBy(onSuccess = {
-      if (it !is UpdateCallLinkResult.Update) {
+      if (it is UpdateCallLinkResult.Failure) {
         Log.w(TAG, "Failed to change restrictions. $it")
-        toastFailure()
+
+        if (it.status == 409.toShort()) {
+          toastCallLinkInUse()
+        } else {
+          toastFailure()
+        }
       }
     }, onError = handleError("onApproveAllMembersChanged"))
   }
@@ -187,6 +192,10 @@ class CallLinkDetailsFragment : ComposeFragment(), CallLinkDetailsCallback {
       Log.w(TAG, "Failure during $method", it)
       toastFailure()
     }
+  }
+
+  private fun toastCallLinkInUse() {
+    Toast.makeText(requireContext(), R.string.CallLinkDetailsFragment__couldnt_update_admin_approval, Toast.LENGTH_LONG).show()
   }
 
   private fun toastFailure() {
@@ -236,6 +245,7 @@ private fun CallLinkDetailsPreview() {
   SignalTheme(false) {
     CallLinkDetails(
       CallLinkDetailsState(
+        false,
         false,
         callLink
       ),
@@ -297,7 +307,8 @@ private fun CallLinkDetails(
         Rows.ToggleRow(
           checked = state.callLink.state.restrictions == Restrictions.ADMIN_APPROVAL,
           text = stringResource(id = R.string.CallLinkDetailsFragment__require_admin_approval),
-          onCheckChanged = callback::onApproveAllMembersChanged
+          onCheckChanged = callback::onApproveAllMembersChanged,
+          isLoading = state.isLoadingAdminApprovalChange
         )
 
         Dividers.Default()

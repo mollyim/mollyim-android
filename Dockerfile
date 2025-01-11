@@ -23,11 +23,11 @@ RUN yes | sdkmanager --licenses
 RUN sdkmanager "platform-tools"
 
 ARG NDK_VERSION=27.0.12077973
-ARG COMPILE_SDK_VERSION=34
 ARG BUILD_TOOLS_VERSION=34.0.0
+ARG COMPILE_SDK_VERSION=android-35
 
 RUN sdkmanager "ndk;${NDK_VERSION}"
-RUN sdkmanager "platforms;android-${COMPILE_SDK_VERSION}"
+RUN sdkmanager "platforms;${COMPILE_SDK_VERSION}"
 RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}"
 
 COPY gradlew /molly/

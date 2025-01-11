@@ -31,6 +31,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
@@ -976,7 +977,11 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   }
 
   private boolean hasExtraText(MessageRecord messageRecord) {
-    return MessageRecordUtil.hasExtraText(messageRecord) || (!messageRecord.isDisplayBodyEmpty(context) && isContentCondensed());
+    return MessageRecordUtil.hasExtraText(messageRecord);
+  }
+
+  private boolean hasCondensedContent(MessageRecord messageRecord) {
+    return !messageRecord.isDisplayBodyEmpty(context) && isContentCondensed();
   }
 
   private boolean hasQuote(MessageRecord messageRecord) {
@@ -1040,7 +1045,8 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
 
       if (hasExtraText(messageRecord)) {
         bodyText.setOverflowText(getLongMessageSpan(messageRecord));
-        bodyText.setMaxLength(messageRecord.getBody().length() - 2);
+        int trimmedLength = TextUtils.getTrimmedLength(styledText);
+        bodyText.setMaxLength(trimmedLength - 2);
       }
 
       if (messageRecord.isOutgoing()) {
@@ -1050,6 +1056,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       }
 
       if (isContentCondensed()) {
+        bodyText.setOverflowText(getLongMessageSpan(messageRecord));
         bodyText.setMaxLines(CONDENSED_MODE_MAX_LINES);
       } else {
         bodyText.setMaxLines(Integer.MAX_VALUE);
@@ -1298,7 +1305,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       mediaThumbnailStub.require().setPlayVideoClickListener(playVideoClickListener);
       mediaThumbnailStub.require().setOnLongClickListener(passthroughClickListener);
       mediaThumbnailStub.require().setOnClickListener(passthroughClickListener);
-      mediaThumbnailStub.require().showShade(messageRecord.isDisplayBodyEmpty(getContext()) && !hasExtraText(messageRecord));
+      mediaThumbnailStub.require().showShade(messageRecord.isDisplayBodyEmpty(getContext()) && !hasExtraText(messageRecord) && !hasCondensedContent(messageRecord));
       mediaThumbnailStub.require().setImageResource(requestManager,
                                                     thumbnailSlides,
                                                     showControls,
@@ -1445,7 +1452,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       topEnd   = 0;
     }
 
-    if (hasLinkPreview(messageRecord) || hasExtraText(messageRecord)) {
+    if (hasLinkPreview(messageRecord) || hasExtraText(messageRecord) || hasCondensedContent(messageRecord)) {
       bottomStart = 0;
       bottomEnd   = 0;
     }

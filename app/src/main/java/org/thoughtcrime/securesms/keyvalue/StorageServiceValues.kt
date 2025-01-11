@@ -41,11 +41,6 @@ class StorageServiceValues internal constructor(store: KeyValueStore) : SignalSt
     remove(SYNC_STORAGE_KEY)
   }
 
-  @Synchronized
-  fun hasStorageKeyFromPrimary(): Boolean {
-    return SignalStore.account.isLinkedDevice && store.containsKey(SYNC_STORAGE_KEY)
-  }
-
   var lastSyncTime: Long by longValue(LAST_SYNC_TIME, 0)
 
   var needsAccountRestore: Boolean by booleanValue(NEEDS_ACCOUNT_RESTORE, false)

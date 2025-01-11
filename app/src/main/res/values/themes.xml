@@ -137,7 +137,7 @@
         <!-- Allows for Overrides -->
     </style>
 
-    <style name="TextSecure.BaseLightTheme" parent="@style/Theme.MaterialComponents.Light.Bridge">
+    <style name="TextSecure.BaseLightTheme" parent="@style/Theme.Material3.Light">
         <item name="theme_type">light</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
@@ -148,6 +148,7 @@
         <item name="colorSecondaryContainer">@color/signal_colorSecondaryContainer</item>
         <item name="colorSurface">@color/signal_colorSurface</item>
         <item name="colorSurfaceVariant">@color/signal_colorSurfaceVariant</item>
+        <item name="colorSurfaceContainer">@color/signal_colorSurface</item>
         <item name="colorOnPrimary">@color/signal_colorOnPrimary</item>
         <item name="colorOnPrimaryContainer">@color/signal_colorOnPrimaryContainer</item>
         <item name="colorOnSecondary">@color/signal_colorOnSecondary</item>
@@ -220,13 +221,15 @@
 
         <item name="materialCalendarStyle">@style/Signal.Widget.Calendar</item>
         <item name="materialCalendarTheme">@style/Signal.ThemeOverlay.Calendar</item>
+
+        <item name="materialCardViewOutlinedStyle">@style/Widget.Material3.CardView.Filled</item>
     </style>
 
     <style name="TextSecure.DarkTheme" parent="@style/TextSecure.BaseDarkTheme">
         <!-- leave empty to allow overriding -->
     </style>
 
-    <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.MaterialComponents.Bridge">
+    <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.Material3.Dark">
         <item name="theme_type">dark</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
@@ -237,6 +240,7 @@
         <item name="colorSecondaryContainer">@color/signal_colorSecondaryContainer</item>
         <item name="colorSurface">@color/signal_colorSurface</item>
         <item name="colorSurfaceVariant">@color/signal_colorSurfaceVariant</item>
+        <item name="colorSurfaceContainer">@color/signal_colorSurface</item>
         <item name="colorOnPrimary">@color/signal_colorOnPrimary</item>
         <item name="colorOnPrimaryContainer">@color/signal_colorOnPrimaryContainer</item>
         <item name="colorOnSecondary">@color/signal_colorOnSecondary</item>
@@ -310,6 +314,8 @@
 
         <item name="materialCalendarStyle">@style/Signal.Widget.Calendar</item>
         <item name="materialCalendarTheme">@style/Signal.ThemeOverlay.Calendar</item>
+
+        <item name="materialCardViewOutlinedStyle">@style/Widget.Material3.CardView.Filled</item>
     </style>
 
     <style name="Theme.Signal.AlertDialog.Light.Cornered" parent="MaterialAlertDialog.Material3">

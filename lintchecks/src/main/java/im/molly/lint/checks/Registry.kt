@@ -4,9 +4,11 @@ import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 
+import org.signal.lint.Registry as SignalRegistry
+
 @Suppress("unused")
 class Registry : IssueRegistry() {
-  private val signalIssues = org.signal.lint.Registry().issues
+  private val signalIssues = SignalRegistry().issues
 
   override val issues = signalIssues + listOf(
     BaseActivityDetector.ISSUE_DIRECT_SUBCLASS,

@@ -2,24 +2,17 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import java.io.ByteArrayOutputStream
 
 plugins {
-  id("com.android.application")
-  id("kotlin-android")
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.jetbrains.kotlin.android)
+  alias(libs.plugins.compose.compiler)
   id("androidx.navigation.safeargs")
-  id("org.jetbrains.kotlin.android")
-  id("app.cash.exhaustive")
   id("kotlin-parcelize")
   id("com.squareup.wire")
   id("molly")
 }
 
-// Sort baseline.profm for reproducible builds
-// See issue: https://issuetracker.google.com/issues/231837768
-apply {
-  from("fix-profm.gradle")
-}
-
-val canonicalVersionCode = 1496
-val canonicalVersionName = "7.28.4"
+val canonicalVersionCode = 1499
+val canonicalVersionName = "7.29.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -531,7 +524,7 @@ dependencies {
   implementation(libs.molly.native.utils)
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
-  "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
+  "fossImplementation"(libs.osmdroid.android)
   implementation(libs.unifiedpush.connector) {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
     exclude(group = "com.google.protobuf", module = "protobuf-java")
@@ -549,9 +542,7 @@ dependencies {
   }
 
   testImplementation(testLibs.junit.junit)
-  testImplementation(testLibs.assertj.core)
-  testImplementation(testLibs.mockito.core)
-  testImplementation(testLibs.mockito.kotlin)
+  testImplementation(testLibs.assertk)
   testImplementation(testLibs.androidx.test.core)
   testImplementation(testLibs.robolectric.robolectric) {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
