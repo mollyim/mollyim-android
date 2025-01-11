@@ -524,7 +524,7 @@ dependencies {
   implementation(libs.molly.native.utils)
   implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
-  "fossImplementation"("org.osmdroid:osmdroid-android:6.1.16")
+  "fossImplementation"(libs.osmdroid.android)
   implementation(libs.unifiedpush.connector) {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
     exclude(group = "com.google.protobuf", module = "protobuf-java")
