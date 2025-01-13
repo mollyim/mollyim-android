@@ -11,8 +11,8 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1499
-val canonicalVersionName = "7.29.2"
+val canonicalVersionCode = 1500
+val canonicalVersionName = "7.29.3"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
