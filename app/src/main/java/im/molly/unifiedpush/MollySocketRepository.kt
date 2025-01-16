@@ -24,7 +24,6 @@ import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.thoughtcrime.securesms.util.JsonUtils
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.account.AccountAttributes
@@ -82,12 +81,7 @@ object MollySocketRepository {
       registrationLock = null,
       unidentifiedAccessKey = null,
       unrestrictedUnidentifiedAccess = true,
-      capabilities = AccountAttributes.Capabilities(
-        storage = false,
-        deleteSync = false,
-        versionedExpirationTimer = false,
-        storageServiceEncryptionV2 = false,
-      ),
+      capabilities = AppCapabilities.getCapabilities(storageCapable = false),
       discoverableByPhoneNumber = !notDiscoverable,
       name = Base64.encodeWithPadding(encryptedDeviceName),
       pniRegistrationId = SignalStore.account.pniRegistrationId,
