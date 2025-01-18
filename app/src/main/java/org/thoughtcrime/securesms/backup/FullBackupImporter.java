@@ -243,7 +243,7 @@ public class FullBackupImporter extends FullBackupBase {
     contentValues.put(StickerTable.FILE_RANDOM, output.first);
 
     db.update(StickerTable.TABLE_NAME, contentValues,
-              StickerTable._ID + " = ?",
+              StickerTable.ID + " = ?",
               new String[] {String.valueOf(sticker.rowId)});
   }
 

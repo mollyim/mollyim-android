@@ -202,6 +202,11 @@ object BackupRepository {
     return alertAfter <= now
   }
 
+  @JvmStatic
+  fun shouldDisplayBackupAlreadyRedeemedIndicator(): Boolean {
+    return !(shouldNotDisplayBackupFailedMessaging() || !SignalStore.backup.hasBackupAlreadyRedeemedError)
+  }
+
   /**
    * Whether the "Backup Failed" row should be displayed in settings.
    * Shown when the initial backup creation has failed
@@ -224,6 +229,10 @@ object BackupRepository {
     }
 
     return SignalStore.backup.hasBackupBeenUploaded && SignalStore.backup.hasBackupFailure
+  }
+
+  fun markBackupAlreadyRedeemedIndicatorClicked() {
+    SignalStore.backup.hasBackupAlreadyRedeemedError = false
   }
 
   /**
@@ -504,7 +513,8 @@ object BackupRepository {
       eventTimer.emit("store-db-snapshot")
 
       val exportState = ExportState(backupTime = currentTime, mediaBackupEnabled = mediaBackupEnabled)
-      val selfRecipientId = dbSnapshot.recipientTable.getByAci(signalStoreSnapshot.accountValues.aci!!).get().toLong().let { RecipientId.from(it) }
+      val selfAci = signalStoreSnapshot.accountValues.aci!!
+      val selfRecipientId = dbSnapshot.recipientTable.getByAci(selfAci).get().toLong().let { RecipientId.from(it) }
 
       var frameCount = 0L
 
@@ -513,7 +523,8 @@ object BackupRepository {
           BackupInfo(
             version = VERSION,
             backupTimeMs = exportState.backupTime,
-            mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey.value.toByteString()
+            mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey.value.toByteString(),
+            firstAppVersion = SignalStore.backup.firstAppVersion
           )
         )
         frameCount++
@@ -532,7 +543,7 @@ object BackupRepository {
           }
 
           progressEmitter?.onRecipient()
-          RecipientArchiveProcessor.export(dbSnapshot, signalStoreSnapshot, exportState, selfRecipientId) {
+          RecipientArchiveProcessor.export(dbSnapshot, signalStoreSnapshot, exportState, selfRecipientId, selfAci) {
             writer.write(it)
             eventTimer.emit("recipient")
             frameCount++
@@ -889,6 +900,8 @@ object BackupRepository {
     }
     AppDependencies.jobManager.addAll(groupJobs)
     stopwatch.split("group-jobs")
+
+    SignalStore.backup.firstAppVersion = header.firstAppVersion
 
     Log.d(TAG, "[import] Finished! ${eventTimer.stop().summary}")
     stopwatch.stop(TAG)

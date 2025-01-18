@@ -9,6 +9,8 @@ message BackupInfo {
   uint64 version = 1;
   uint64 backupTimeMs = 2;
   bytes mediaRootBackupKey = 3; // 32-byte random value generated when the backup is uploaded for the first time.
+  string currentAppVersion = 4;
+  string firstAppVersion = 5;
 }
 
 // Frames must follow in the following ordering rules:
@@ -134,7 +136,7 @@ message Contact {
     UNVERIFIED = 2;
   }
 
-  message Registered { }
+  message Registered {}
   message NotRegistered {
     uint64 unregisteredTimestamp = 1;
   }
@@ -143,6 +145,11 @@ message Contact {
     VISIBLE = 0;
     HIDDEN = 1;
     HIDDEN_MESSAGE_REQUEST = 2;
+  }
+
+  message Name {
+    string given = 1;
+    string family = 2;
   }
 
   optional bytes aci = 1; // should be 16 bytes
@@ -164,6 +171,8 @@ message Contact {
   bool hideStory = 13;
   optional bytes identityKey = 14;
   IdentityState identityState = 15;
+  Name nickname = 16; // absent iff both `given` and `family` are empty
+  string note = 17;
 }
 
 message Group {
@@ -203,7 +212,7 @@ message Group {
   message GroupAttributeBlob {
     oneof content {
       string title = 1;
-      bytes  avatar = 2;
+      bytes avatar = 2;
       uint32 disappearingMessagesDuration = 3;
       string descriptionText = 4;
     }
@@ -371,6 +380,7 @@ message ChatItem {
     PaymentNotification paymentNotification = 16;
     GiftBadge giftBadge = 17;
     ViewOnceMessage viewOnceMessage = 18;
+    DirectStoryReplyMessage directStoryReplyMessage = 19; // group story reply messages are not backed up
   }
 }
 
@@ -435,8 +445,23 @@ message StandardMessage {
 }
 
 message ContactMessage {
-  repeated ContactAttachment contact = 1;
+  ContactAttachment contact = 1;
   repeated Reaction reactions = 2;
+}
+
+message DirectStoryReplyMessage {
+  message TextReply {
+    Text text = 1;
+    FilePointer longText = 2;
+  }
+
+  oneof reply {
+    TextReply textReply = 1;
+    string emoji = 2;
+  }
+
+  repeated Reaction reactions = 3;
+  reserved /*storySentTimestamp*/ 4;
 }
 
 message PaymentNotification {
@@ -484,7 +509,6 @@ message PaymentNotification {
   optional string feeMob = 2; // stored as a decimal string, e.g. 1.00001
   optional string note = 3;
   TransactionDetails transactionDetails = 4;
-
 }
 
 message GiftBadge {
@@ -507,12 +531,12 @@ message ViewOnceMessage {
 
 message ContactAttachment {
   message Name {
-    optional string givenName = 1;
-    optional string familyName = 2;
-    optional string prefix = 3;
-    optional string suffix = 4;
-    optional string middleName = 5;
-    optional string nickname = 6;
+    string givenName = 1;
+    string familyName = 2;
+    string prefix = 3;
+    string suffix = 4;
+    string middleName = 5;
+    string nickname = 6;
   }
 
   message Phone {
@@ -524,9 +548,9 @@ message ContactAttachment {
       CUSTOM = 4;
     }
 
-    optional string value = 1;
-    optional Type type = 2;
-    optional string label = 3;
+    string value = 1;
+    Type type = 2;
+    string label = 3;
   }
 
   message Email {
@@ -538,9 +562,9 @@ message ContactAttachment {
       CUSTOM = 4;
     }
 
-    optional string value = 1;
-    optional Type type = 2;
-    optional string label = 3;
+    string value = 1;
+    Type type = 2;
+    string label = 3;
   }
 
   message PostalAddress {
@@ -551,15 +575,15 @@ message ContactAttachment {
       CUSTOM = 3;
     }
 
-    optional Type type = 1;
-    optional string label = 2;
-    optional string street = 3;
-    optional string pobox = 4;
-    optional string neighborhood = 5;
-    optional string city = 6;
-    optional string region = 7;
-    optional string postcode = 8;
-    optional string country = 9;
+    Type type = 1;
+    string label = 2;
+    string street = 3;
+    string pobox = 4;
+    string neighborhood = 5;
+    string city = 6;
+    string region = 7;
+    string postcode = 8;
+    string country = 9;
   }
 
   optional Name name = 1;
@@ -567,7 +591,7 @@ message ContactAttachment {
   repeated Email email = 4;
   repeated PostalAddress address = 5;
   optional FilePointer avatar = 6;
-  optional string organization = 7;
+  string organization = 7;
 }
 
 message StickerMessage {
@@ -658,7 +682,7 @@ message FilePointer {
 
   oneof locator {
     BackupLocator backupLocator = 1;
-    AttachmentLocator attachmentLocator= 2;
+    AttachmentLocator attachmentLocator = 2;
     InvalidAttachmentLocator invalidAttachmentLocator = 3;
   }
 
@@ -1069,7 +1093,7 @@ message GroupMemberJoinedByLinkUpdate {
 }
 
 // A gv1->gv2 migration occurred.
-message GroupV2MigrationUpdate  {}
+message GroupV2MigrationUpdate {}
 
 // Another user migrated gv1->gv2 but was unable to add
 // the local user and invited them instead.

@@ -84,7 +84,6 @@ class RegistrationActivity : PassphraseRequiredActivity() {
       if (!needsProfile && !needsPin) {
         sharedViewModel.completeRegistration()
       }
-      sharedViewModel.setInProgress(false)
 
       val startIntent = MainActivity.clearTop(this)
 

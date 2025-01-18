@@ -215,8 +215,6 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         }
       }
 
-      // TODO [backups] - handle other cases.
-
       return
     }
 
@@ -240,6 +238,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
             Log.d(TAG, "Subscription found. Updating UI state with subscription details.")
             _state.update {
               it.copy(
+                hasRedemptionError = lastPurchase?.data?.error?.data_ == "409",
                 backupState = when {
                   subscription.isActive -> RemoteBackupsSettingsState.BackupState.ActivePaid(
                     messageBackupsType = type,
