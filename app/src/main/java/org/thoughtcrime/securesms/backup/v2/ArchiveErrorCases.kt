@@ -51,6 +51,22 @@ object ExportSkips {
     return log(sentTimestamp, "Direct story reply has no body.")
   }
 
+  fun invalidChatItemStickerPackId(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Sticker message had an invalid packId.")
+  }
+
+  fun invalidChatItemStickerPackKey(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Sticker message had an invalid packKey.")
+  }
+
+  fun invalidStickerPackId(): String {
+    return log(0, "Sticker pack had an invalid packId.")
+  }
+
+  fun invalidStickerPackKey(): String {
+    return log(0, "Sticker pack  had an invalid packKey.")
+  }
+
   private fun log(sentTimestamp: Long, message: String): String {
     return "[SKIP][$sentTimestamp] $message"
   }
@@ -84,6 +100,10 @@ object ExportOddities {
 
   fun failedToParseLinkPreview(sentTimestamp: Long): String {
     return log(sentTimestamp, "Failed to parse link preview. Ignoring it.")
+  }
+
+  fun distributionListAllExceptWithNoMembers(): String {
+    return log(0, "Distribution list had a privacy mode of ALL_EXCEPT with no members. Exporting at ALL.")
   }
 
   private fun log(sentTimestamp: Long, message: String): String {
