@@ -51,6 +51,10 @@ object ExportSkips {
     return log(sentTimestamp, "Direct story reply has no body.")
   }
 
+  fun directStoryReplyInNoteToSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Direct story reply in Note to Self.")
+  }
+
   fun invalidChatItemStickerPackId(sentTimestamp: Long): String {
     return log(sentTimestamp, "Sticker message had an invalid packId.")
   }
@@ -77,6 +81,34 @@ object ExportSkips {
 
   fun identityVerifiedForSelf(sentTimestamp: Long): String {
     return log(sentTimestamp, "Identity verified update for ourselves.")
+  }
+
+  fun fromRecipientIsNotAnIndividual(sentTimestamp: Long): String {
+    return log(sentTimestamp, "The fromRecipient does not represent an individual person.")
+  }
+
+  fun oneOnOneMessageInTheWrongChat(sentTimestamp: Long): String {
+    return log(sentTimestamp, "A 1:1 message is located in the wrong chat.")
+  }
+
+  fun paymentNotificationInNoteToSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Payment notification is in Note to Self.")
+  }
+
+  fun profileChangeInNoteToSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Profile change in Note to Self.")
+  }
+
+  fun profileChangeFromSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Profile change from self.")
+  }
+
+  fun emptyProfileNameChange(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Profile name change was empty.")
+  }
+
+  fun emptyLearnedProfileChange(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Learned profile update was empty.")
   }
 
   private fun log(sentTimestamp: Long, message: String): String {
@@ -120,6 +152,10 @@ object ExportOddities {
 
   fun distributionListHadSelfAsMember(): String {
     return log(0, "Distribution list had self as a member. Removing it.")
+  }
+
+  fun emptyQuote(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Quote had no text or attachments. Removing it.")
   }
 
   private fun log(sentTimestamp: Long, message: String): String {
