@@ -67,6 +67,18 @@ object ExportSkips {
     return log(0, "Sticker pack  had an invalid packKey.")
   }
 
+  fun identityUpdateForSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Identity update for ourselves.")
+  }
+
+  fun identityDefaultForSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Identity default update for ourselves.")
+  }
+
+  fun identityVerifiedForSelf(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Identity verified update for ourselves.")
+  }
+
   private fun log(sentTimestamp: Long, message: String): String {
     return "[SKIP][$sentTimestamp] $message"
   }
@@ -106,7 +118,36 @@ object ExportOddities {
     return log(0, "Distribution list had a privacy mode of ALL_EXCEPT with no members. Exporting at ALL.")
   }
 
+  fun distributionListHadSelfAsMember(): String {
+    return log(0, "Distribution list had self as a member. Removing it.")
+  }
+
   private fun log(sentTimestamp: Long, message: String): String {
     return "[ODDITY][$sentTimestamp] $message"
+  }
+}
+
+/**
+ * These represent situations where we will skip importing a data frame due to the data being invalid.
+ */
+object ImportSkips {
+  fun fromRecipientNotFound(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Failed to find the fromRecipient for the message.")
+  }
+
+  fun chatIdLocalRecipientNotFound(sentTimestamp: Long, chatId: Long): String {
+    return log(sentTimestamp, "Failed to find a local recipientId for the provided chatId. ChatId in backup: $chatId")
+  }
+
+  fun chatIdRemoteRecipientNotFound(sentTimestamp: Long, chatId: Long): String {
+    return log(sentTimestamp, "Failed to find a remote recipientId for the provided chatId. ChatId in backup: $chatId")
+  }
+
+  fun chatIdThreadNotFound(sentTimestamp: Long, chatId: Long): String {
+    return log(sentTimestamp, "Failed to find a threadId for the provided chatId. ChatId in backup: $chatId")
+  }
+
+  private fun log(sentTimestamp: Long, message: String): String {
+    return "[SKIP][$sentTimestamp] $message"
   }
 }

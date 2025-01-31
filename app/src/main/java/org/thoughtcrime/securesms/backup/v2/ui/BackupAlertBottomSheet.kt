@@ -160,8 +160,7 @@ class BackupAlertBottomSheet : UpgradeToPaidTierBottomSheet() {
       is BackupAlert.DiskFull -> {
         displaySkipRestoreDialog()
       }
-      // TODO [backups] - Update support URL with backups page
-      BackupAlert.BackupFailed -> CommunicationActions.openBrowserLink(requireContext(), requireContext().getString(R.string.backup_support_url))
+      BackupAlert.BackupFailed -> CommunicationActions.openBrowserLink(requireContext(), requireContext().getString(R.string.backup_failed_support_url))
       BackupAlert.CouldNotRedeemBackup -> CommunicationActions.openBrowserLink(requireContext(), requireContext().getString(R.string.backup_support_url)) // TODO [backups] final url
     }
 
@@ -365,7 +364,7 @@ private fun CouldNotCompleteBackup(
   daysSinceLastBackup: Int
 ) {
   Text(
-    text = stringResource(id = R.string.BackupAlertBottomSheet__your_device_hasnt, daysSinceLastBackup),
+    text = pluralStringResource(id = R.plurals.BackupAlertBottomSheet__your_device_hasnt, daysSinceLastBackup, daysSinceLastBackup),
     textAlign = TextAlign.Center,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = Modifier.padding(bottom = 60.dp)

@@ -7,6 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -581,6 +582,12 @@
         <item quantity="one">Besig om aanhangsel na stoorruimte te stoor…</item>
         <item quantity="other">Besig om %1$d aanhangsels na stoorruimte te stoor…</item>
     </plurals>
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="ConversationFragment__save_to_phone">Stoor op foon?</string>
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <string name="ConversationFragment__this_media_will_be_saved">Hierdie media sal in jou foon se stoorruimte gestoor word. Ander toepassings kan moontlik toegang daartoe kry, na gelang van jou foon se toestemmings.</string>
+    <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
+    <string name="ConversationFragment_dont_show_again">Moenie weer wys nie</string>
     <string name="ConversationFragment_pending">Hangend…</string>
     <!-- Describes how the message was sent when looking at a message detail. Previously, messages could be through other means like SMS -->
     <string name="ConversationFragment_push">Data (Signal)</string>
@@ -1068,7 +1075,7 @@
     <!-- Option in bottom sheet to transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_transfer">Dra boodskapgeskiedenis oor</string>
     <!-- Description in bottom sheet of what transferring message history will do -->
-    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Dra jou teksboodskappe en onlangse media na jou gekoppelde toestel oor</string>
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Dra jou teksboodskappe en jou laaste 45 dae se media oor</string>
     <!-- Option in bottom sheet to not transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_dont_transfer">Moenie oordra nie</string>
     <!-- Description in bottom sheet of what not transferring history will do -->
@@ -1407,6 +1414,14 @@
     <string name="RemoteRestoreActivity__couldnt_transfer">Kon nie oordrag voltooi nie</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">\'n Fout het voorgekom en jou rekening kon nie oorgedra word nie. Probeer weer deur jou oordragmetode te kies.</string>
+    <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
+    <string name="RemoteRestoreActivity__couldnt_restore">Kon nie hierdie rugsteun herwin nie</string>
+    <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
+    <string name="RemoteRestoreActivity__update_latest">Hierdie weergawe van Molly kan nie jou rugsteun herwin nie. Doen \'n opdatering na die jongste weergawe en probeer weer.</string>
+    <!-- Text on button that when pressed will redirect them to update Signal -->
+    <string name="RemoteRestoreActivity__update_signal">Werk Molly by</string>
+    <!-- Text label button to dismiss the dialog -->
+    <string name="RemoteRestoreActivity__not_now">Nie nou nie</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Stel my in kennis van Vermeldings</string>
@@ -3026,10 +3041,7 @@
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">Verwerk tans…</string>
     <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
-    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
-    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
-    <string name="TransferControlView__filesize">%1$1.1f MB</string>
-
+    <string name="TransferControlView__download_progress_s_s">%1$s/%2$s</string>
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
@@ -5816,6 +5828,8 @@
     <string name="MySupportPreference__your_bank_transfer_of_s">Jou bankoorplasing van %1$s is hangende. Bankoorplasings neem gewoonlik 1 tot 14 werksdae om te voltooi.  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
     <string name="MySupportPreference__learn_more">Vind meer uit</string>
+    <!-- Displayed when a subscription refresh is being performed -->
+    <string name="MySupportPreference__checking_subscription">Gaan tans intekening na…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
     <string name="UpdateSignalExpiredDialog__title">Werk Molly by</string>
@@ -7529,7 +7543,10 @@
     <!-- Sheet title for generic backup error -->
     <string name="BackupAlertBottomSheet__couldnt_complete_backup">Kon nie rugsteun voltooi nie</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">Jou toestel het vir %1$d dae nog nie \'n rugsteun voltooi nie. Maak seker jou toestel is aan wi-fi gekoppel en tik \"Rugsteun nou.\" </string>
+    <plurals name="BackupAlertBottomSheet__your_device_hasnt">
+        <item quantity="one">Jou toestel het vir %1$d dag nog nie \'n rugsteun voltooi nie. Maak seker jou toestel is aan wi-fi gekoppel en tik \"Rugsteun nou.\" </item>
+        <item quantity="other">Jou toestel het vir %1$d dae nog nie \'n rugsteun voltooi nie. Maak seker jou toestel is aan wi-fi gekoppel en tik \"Rugsteun nou.\"</item>
+    </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Vind meer uit</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->

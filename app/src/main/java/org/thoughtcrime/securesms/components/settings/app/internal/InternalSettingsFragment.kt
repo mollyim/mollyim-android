@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.components.settings.app.internal
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,12 +24,14 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.app.privacy.advanced.AdvancedPrivacySettingsRepository
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.database.JobDatabase
 import org.thoughtcrime.securesms.database.LocalMetricsDatabase
 import org.thoughtcrime.securesms.database.LogDatabase
 import org.thoughtcrime.securesms.database.MegaphoneDatabase
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.JobTracker
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob
@@ -43,6 +46,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
 import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.Util
@@ -136,6 +140,14 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         summary = DSLSettingsText.from("This will unregister your account without deleting it."),
         onClick = {
           onUnregisterClicked()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Jump to message"),
+        summary = DSLSettingsText.from("Find and jump to a message via its sentTimestamp."),
+        onClick = {
+          promptUserForSentTimestamp()
         }
       )
       dividerPref()
@@ -850,5 +862,44 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
     }) {
       Toast.makeText(requireContext(), "Dumped to logs", Toast.LENGTH_SHORT).show()
     }
+  }
+
+  private fun promptUserForSentTimestamp() {
+    val input = EditText(requireContext()).apply {
+      inputType = android.text.InputType.TYPE_CLASS_NUMBER
+    }
+
+    MaterialAlertDialogBuilder(requireContext())
+      .setTitle("Enter sentTimestamp")
+      .setView(input)
+      .setPositiveButton(android.R.string.ok) { _, _ ->
+        val number = input.text.toString().toLongOrNull()
+        if (number == null) {
+          Toast.makeText(requireContext(), "Failed to parse timestamp!", Toast.LENGTH_SHORT).show()
+          return@setPositiveButton
+        }
+
+        val messages = SignalDatabase.messages.getMessagesBySentTimestamp(number)
+        if (messages.isEmpty()) {
+          Toast.makeText(requireContext(), "Could not find a message with that timestamp!", Toast.LENGTH_SHORT).show()
+          return@setPositiveButton
+        }
+
+        if (messages.size > 1) {
+          Toast.makeText(requireContext(), "There's ${messages.size} messages with that timestamp! Go run SQL or something.", Toast.LENGTH_SHORT).show()
+          return@setPositiveButton
+        }
+
+        val message: MessageRecord = messages[0]
+        val startingPosition = SignalDatabase.messages.getMessagePositionInConversation(message.threadId, message.dateReceived)
+        val intent = ConversationIntents
+          .createBuilderSync(requireContext(), RecipientId.UNKNOWN, message.threadId)
+          .withStartingPosition(startingPosition)
+          .build()
+
+        startActivity(intent)
+      }
+      .setNegativeButton("Cancel", null)
+      .show()
   }
 }

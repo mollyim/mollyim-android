@@ -14,6 +14,7 @@ import org.signal.core.util.EventTimer
 import org.signal.core.util.Hex
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
+import org.signal.core.util.nullIfBlank
 import org.signal.core.util.nullIfEmpty
 import org.signal.core.util.orNull
 import org.signal.core.util.requireBlob
@@ -161,17 +162,26 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isIdentityUpdate(record.type) -> {
-          if (record.fromRecipientId == selfRecipientId.toLong()) continue
+          if (record.fromRecipientId == selfRecipientId.toLong()) {
+            Log.w(TAG, ExportSkips.identityUpdateForSelf(record.dateSent))
+            continue
+          }
           builder.updateMessage = simpleUpdate(SimpleChatUpdate.Type.IDENTITY_UPDATE)
         }
 
         MessageTypes.isIdentityVerified(record.type) -> {
-          if (record.fromRecipientId == selfRecipientId.toLong()) continue
+          if (record.toRecipientId == selfRecipientId.toLong()) {
+            Log.w(TAG, ExportSkips.identityVerifiedForSelf(record.dateSent))
+            continue
+          }
           builder.updateMessage = simpleUpdate(SimpleChatUpdate.Type.IDENTITY_VERIFIED)
         }
 
         MessageTypes.isIdentityDefault(record.type) -> {
-          if (record.fromRecipientId == selfRecipientId.toLong()) continue
+          if (record.toRecipientId == selfRecipientId.toLong()) {
+            Log.w(TAG, ExportSkips.identityDefaultForSelf(record.dateSent))
+            continue
+          }
           builder.updateMessage = simpleUpdate(SimpleChatUpdate.Type.IDENTITY_DEFAULT)
         }
 
@@ -312,7 +322,7 @@ class ChatItemArchiveExporter(
               attachments = extraData.attachmentsById[record.id]
             )
 
-            if (standardMessage.text == null && standardMessage.attachments.isEmpty()) {
+            if (standardMessage.text.isNullOrBlank() && standardMessage.attachments.isEmpty()) {
               Log.w(TAG, ExportSkips.emptyStandardMessage(record.dateSent))
               continue
             }
@@ -427,10 +437,13 @@ private fun BackupMessageRecord.toBasicChatItemBuilder(selfRecipientId: Recipien
 
   // If a user restores a backup with a different number, then they'll have outgoing messages from a non-self contact.
   // We want to ensure all outgoing messages are from ourselves.
-  val fromRecipientId = if (direction == Direction.OUTGOING) {
-    selfRecipientId.toLong()
-  } else {
-    record.fromRecipientId
+  val fromRecipientId = when {
+    direction == Direction.OUTGOING -> selfRecipientId.toLong()
+    record.type.isIdentityVerifyType() -> record.toRecipientId
+    MessageTypes.isEndSessionType(record.type) && MessageTypes.isOutgoingMessageType(record.type) -> record.toRecipientId
+    MessageTypes.isExpirationTimerUpdate(record.type) && MessageTypes.isOutgoingMessageType(type) -> selfRecipientId.toLong()
+    MessageTypes.isOutgoingAudioCall(type) || MessageTypes.isOutgoingVideoCall(type) -> selfRecipientId.toLong()
+    else -> record.fromRecipientId
   }
 
   val builder = ChatItem.Builder().apply {
@@ -734,7 +747,7 @@ private fun LinkPreview.toRemoteLinkPreview(mediaArchiveEnabled: Boolean): org.t
 }
 
 private fun BackupMessageRecord.toRemoteViewOnceMessage(mediaArchiveEnabled: Boolean, reactionRecords: List<ReactionRecord>?, attachments: List<DatabaseAttachment>?): ViewOnceMessage {
-  val attachment: DatabaseAttachment? = attachments?.firstOrNull()
+  val attachment: DatabaseAttachment? = attachments?.firstOrNull()?.takeUnless { !it.hasData && it.size == 0L && it.archiveMediaId == null && it.width == 0 && it.height == 0 && it.blurHash == null }
 
   return ViewOnceMessage(
     attachment = attachment?.toRemoteMessageAttachment(mediaArchiveEnabled),
@@ -859,7 +872,7 @@ private fun BackupMessageRecord.toRemoteDirectStoryReplyMessage(mediaArchiveEnab
 }
 
 private fun BackupMessageRecord.toRemoteStandardMessage(db: SignalDatabase, mediaArchiveEnabled: Boolean, reactionRecords: List<ReactionRecord>?, mentions: List<Mention>?, attachments: List<DatabaseAttachment>?): StandardMessage {
-  val text = body?.let {
+  val text = body.nullIfBlank()?.let {
     Text(
       body = it,
       bodyRanges = (this.bodyRanges?.toRemoteBodyRanges(this.dateSent) ?: emptyList()) + (mentions?.toRemoteBodyRanges(db) ?: emptyList())
@@ -903,13 +916,15 @@ private fun BackupMessageRecord.toRemoteQuote(mediaArchiveEnabled: Boolean, atta
     QuoteModel.Type.GIFT_BADGE -> Quote.Type.GIFT_BADGE
   }
 
+  val bodyRanges = this.quoteBodyRanges?.toRemoteBodyRanges(dateSent) ?: emptyList()
+
   return Quote(
     targetSentTimestamp = this.quoteTargetSentTimestamp.takeIf { !this.quoteMissing && it != MessageTable.QUOTE_TARGET_MISSING_ID }?.clampToValidBackupRange(),
     authorId = this.quoteAuthor,
     text = this.quoteBody?.let { body ->
       Text(
         body = body,
-        bodyRanges = this.quoteBodyRanges?.toRemoteBodyRanges(this.dateSent) ?: emptyList()
+        bodyRanges = bodyRanges
       )
     },
     attachments = if (remoteType == Quote.Type.VIEW_ONCE) {
@@ -944,16 +959,16 @@ private fun DatabaseAttachment.toRemoteStickerMessage(sentTimestamp: Long, media
   val stickerLocator = this.stickerLocator!!
 
   val packId = try {
-    Hex.fromStringCondensed(stickerLocator.packId)
+    Hex.fromStringCondensed(stickerLocator.packId).takeIf { it.size == 16 } ?: throw IOException("Incorrect length!")
   } catch (e: IOException) {
-    Log.w(TAG, ExportSkips.invalidChatItemStickerPackId(sentTimestamp))
+    Log.w(TAG, ExportSkips.invalidChatItemStickerPackId(sentTimestamp), e)
     return null
   }
 
   val packKey = try {
-    Hex.fromStringCondensed(stickerLocator.packKey)
+    Hex.fromStringCondensed(stickerLocator.packKey).takeIf { it.size == 32 } ?: throw IOException("Incorrect length!")
   } catch (e: IOException) {
-    Log.w(TAG, ExportSkips.invalidChatItemStickerPackKey(sentTimestamp))
+    Log.w(TAG, ExportSkips.invalidChatItemStickerPackKey(sentTimestamp), e)
     return null
   }
 
@@ -1263,6 +1278,11 @@ private fun Long.isDirectionlessType(): Boolean {
     MessageTypes.isGroupQuit(this)
 }
 
+private fun Long.isIdentityVerifyType(): Boolean {
+  return MessageTypes.isIdentityVerified(this) ||
+    MessageTypes.isIdentityDefault(this)
+}
+
 private fun String.e164ToLong(): Long? {
   val fixed = if (this.startsWith("+")) {
     this.substring(1)
@@ -1311,6 +1331,10 @@ fun List<ChatItem>.repairRevisions(current: ChatItem.Builder): List<ChatItem> {
     Log.w(TAG, ExportOddities.revisionsOnUnexpectedMessageType(current.dateSent))
     emptyList()
   }
+}
+
+private fun Text?.isNullOrBlank(): Boolean {
+  return this == null || this.body.isBlank()
 }
 
 private fun Cursor.toBackupMessageRecord(pastIds: Set<Long>, backupStartTime: Long): BackupMessageRecord? {

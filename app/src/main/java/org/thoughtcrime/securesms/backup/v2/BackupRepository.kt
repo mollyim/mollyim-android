@@ -66,6 +66,8 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.jobmanager.Job
+import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
 import org.thoughtcrime.securesms.jobs.RestoreAttachmentJob
 import org.thoughtcrime.securesms.keyvalue.KeyValueStore
@@ -693,11 +695,14 @@ object BackupRepository {
     val header = frameReader.getHeader()
     if (header == null) {
       Log.e(TAG, "[import] Backup is missing header!")
+      SignalStore.backup.hasInvalidBackupVersion = false
       return ImportResult.Failure
     } else if (header.version > VERSION) {
       Log.e(TAG, "[import] Backup version is newer than we understand: ${header.version}")
+      SignalStore.backup.hasInvalidBackupVersion = true
       return ImportResult.Failure
     }
+    SignalStore.backup.hasInvalidBackupVersion = false
 
     try {
       // Removing all the data from the various tables is *very* expensive (i.e. can take *several* minutes) if we don't do some pre-work.
@@ -887,16 +892,18 @@ object BackupRepository {
     AppDependencies.recipientCache.warmUp()
 
     val groupJobs = SignalDatabase.groups.getGroups().use { groups ->
+      val jobs = mutableListOf<Job>()
       groups
         .asSequence()
-        .mapNotNull { group ->
-          if (group.id.isV2) {
-            RequestGroupV2InfoJob(group.id as GroupId.V2)
-          } else {
-            null
+        .filter { it.id.isV2 }
+        .forEach { group ->
+          jobs.add(RequestGroupV2InfoJob(group.id as GroupId.V2))
+          val avatarKey = group.requireV2GroupProperties().avatarKey
+          if (avatarKey.isNotEmpty()) {
+            jobs.add(AvatarGroupsV2DownloadJob(group.id.requireV2(), avatarKey))
           }
         }
-        .toList()
+      jobs
     }
     AppDependencies.jobManager.addAll(groupJobs)
     stopwatch.split("group-jobs")

@@ -49,19 +49,20 @@ import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResul
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCheckResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCreationResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionResult
+import org.thoughtcrime.securesms.registration.data.network.SessionMetadataResult
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.AlreadyVerified
-import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.AttemptsExhausted
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.ChallengeRequired
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.ExternalServiceFailure
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.ImpossibleNumber
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.InvalidTransportModeFailure
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.MalformedRequest
-import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.MustRetry
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.NoSuchSession
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.NonNormalizedNumber
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.RateLimited
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.RegistrationLocked
+import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.RequestVerificationCodeRateLimited
+import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.SubmitVerificationCodeRateLimited
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.Success
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.TokenNotAccepted
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.UnknownError
@@ -74,12 +75,11 @@ import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.kbs.MasterKey
 import org.whispersystems.signalservice.api.svr.Svr3Credentials
 import org.whispersystems.signalservice.internal.push.AuthCredentials
-import org.whispersystems.signalservice.internal.push.RegistrationSessionMetadataJson
-import org.whispersystems.signalservice.internal.push.RegistrationSessionMetadataResponse
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 import kotlin.jvm.optionals.getOrNull
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 
 /**
@@ -276,26 +276,25 @@ class RegistrationViewModel : ViewModel() {
 
       val validSession = getOrCreateValidSession(context) ?: return@launch bail { Log.i(TAG, "Could not create valid session for confirming the entered E164.") }
 
-      if (validSession.body.verified) {
+      if (validSession.verified) {
         Log.i(TAG, "Session is already verified, registering account.")
-        registerVerifiedSession(context, validSession.body.id)
+        registerVerifiedSession(context, validSession.sessionId)
         return@launch
       }
 
-      if (!validSession.body.allowedToRequestCode) {
-        if (System.currentTimeMillis() > (validSession.body.nextVerificationAttempt ?: Int.MAX_VALUE)) {
+      if (!validSession.allowedToRequestCode) {
+        if (System.currentTimeMillis().milliseconds > validSession.nextVerificationAttempt) {
           store.update {
             it.copy(registrationCheckpoint = RegistrationCheckpoint.VERIFICATION_CODE_REQUESTED)
           }
         } else {
-          val challenges = validSession.body.requestedInformation
-          Log.i(TAG, "Not allowed to request code! Remaining challenges: ${challenges.joinToString()}")
-          handleSessionStateResult(context, ChallengeRequired(Challenge.parse(validSession.body.requestedInformation)))
+          Log.i(TAG, "Not allowed to request code! Remaining challenges: ${validSession.challengesRequested.joinToString()}")
+          handleSessionStateResult(context, ChallengeRequired(validSession.challengesRequested))
         }
         return@launch
       }
 
-      requestSmsCodeInternal(context, validSession.body.id, e164)
+      requestSmsCodeInternal(context, validSession.sessionId, e164)
     }
   }
 
@@ -304,7 +303,7 @@ class RegistrationViewModel : ViewModel() {
 
     viewModelScope.launch {
       val validSession = getOrCreateValidSession(context) ?: return@launch bail { Log.i(TAG, "Could not create valid session for requesting an SMS code.") }
-      requestSmsCodeInternal(context, validSession.body.id, e164)
+      requestSmsCodeInternal(context, validSession.sessionId, e164)
     }
   }
 
@@ -322,7 +321,7 @@ class RegistrationViewModel : ViewModel() {
       Log.d(TAG, "Requesting voice call code…")
       val codeRequestResponse = RegistrationRepository.requestSmsCode(
         context = context,
-        sessionId = validSession.body.id,
+        sessionId = validSession.sessionId,
         e164 = e164,
         password = password,
         mode = RegistrationRepository.E164VerificationMode.PHONE_CALL
@@ -380,7 +379,7 @@ class RegistrationViewModel : ViewModel() {
     }
   }
 
-  private suspend fun getOrCreateValidSession(context: Context): RegistrationSessionMetadataResponse? {
+  private suspend fun getOrCreateValidSession(context: Context): SessionMetadataResult? {
     Log.v(TAG, "getOrCreateValidSession()")
     val e164 = getCurrentE164() ?: throw IllegalStateException("E164 required to create session!")
     val mccMncProducer = MccMncProducer(context)
@@ -393,16 +392,16 @@ class RegistrationViewModel : ViewModel() {
       password = password,
       mcc = mccMncProducer.mcc,
       mnc = mccMncProducer.mnc,
-      successListener = { networkResult ->
+      successListener = { sessionData ->
         store.update {
           it.copy(
-            sessionId = networkResult.body.id,
-            nextSmsTimestamp = RegistrationRepository.deriveTimestamp(networkResult.headers, networkResult.body.nextSms),
-            nextCallTimestamp = RegistrationRepository.deriveTimestamp(networkResult.headers, networkResult.body.nextCall),
-            nextVerificationAttempt = RegistrationRepository.deriveTimestamp(networkResult.headers, networkResult.body.nextVerificationAttempt),
-            allowedToRequestCode = networkResult.body.allowedToRequestCode,
-            challengesRequested = Challenge.parse(networkResult.body.requestedInformation),
-            verified = networkResult.body.verified
+            sessionId = sessionData.sessionId,
+            nextSmsTimestamp = sessionData.nextSmsTimestamp,
+            nextCallTimestamp = sessionData.nextCallTimestamp,
+            nextVerificationAttempt = sessionData.nextVerificationAttempt,
+            allowedToRequestCode = sessionData.allowedToRequestCode,
+            challengesRequested = sessionData.challengesRequested,
+            verified = sessionData.verified
           )
         }
       },
@@ -429,7 +428,7 @@ class RegistrationViewModel : ViewModel() {
     viewModelScope.launch {
       val session = getOrCreateValidSession(context) ?: return@launch bail { Log.i(TAG, "Could not create valid session for submitting a captcha token.") }
       Log.d(TAG, "Submitting captcha token…")
-      val captchaSubmissionResult = RegistrationRepository.submitCaptchaToken(context, e164, password, session.body.id, captchaToken)
+      val captchaSubmissionResult = RegistrationRepository.submitCaptchaToken(context, e164, password, session.sessionId, captchaToken)
       Log.d(TAG, "Captcha token submitted.")
 
       handleSessionStateResult(context, captchaSubmissionResult)
@@ -447,12 +446,12 @@ class RegistrationViewModel : ViewModel() {
       Log.d(TAG, "Getting session in order to perform push token verification…")
       val session = getOrCreateValidSession(context) ?: return@launch bail { Log.i(TAG, "Could not create valid session for submitting a push challenge token.") }
 
-      if (!Challenge.parse(session.body.requestedInformation).contains(Challenge.PUSH)) {
+      if (!session.challengesRequested.contains(Challenge.PUSH)) {
         return@launch bail { Log.i(TAG, "Push challenge token no longer needed, bailing.") }
       }
 
       Log.d(TAG, "Requesting push challenge token…")
-      val pushSubmissionResult = RegistrationRepository.requestAndVerifyPushToken(context, session.body.id, e164, password)
+      val pushSubmissionResult = RegistrationRepository.requestAndVerifyPushToken(context, session.sessionId, e164, password)
       Log.d(TAG, "Push challenge token submitted.")
       handleSessionStateResult(context, pushSubmissionResult)
     }
@@ -494,8 +493,6 @@ class RegistrationViewModel : ViewModel() {
         return false
       }
 
-      is AttemptsExhausted -> Log.i(TAG, "Received AttemptsExhausted.", sessionResult.getCause())
-
       is ImpossibleNumber -> Log.i(TAG, "Received ImpossibleNumber.", sessionResult.getCause())
 
       is NonNormalizedNumber -> Log.i(TAG, "Received NonNormalizedNumber.", sessionResult.getCause())
@@ -508,7 +505,24 @@ class RegistrationViewModel : ViewModel() {
 
       is MalformedRequest -> Log.i(TAG, "Received MalformedRequest.", sessionResult.getCause())
 
-      is MustRetry -> Log.i(TAG, "Received MustRetry.", sessionResult.getCause())
+      is RequestVerificationCodeRateLimited -> {
+        Log.i(TAG, "Received RequestVerificationCodeRateLimited.", sessionResult.getCause())
+
+        if (sessionResult.willBeAbleToRequestAgain) {
+          store.update {
+            it.copy(
+              nextSmsTimestamp = sessionResult.nextSmsTimestamp,
+              nextCallTimestamp = sessionResult.nextCallTimestamp
+            )
+          }
+        } else {
+          Log.w(TAG, "Request verification code rate limit is forever, need to start new session")
+          SignalStore.registration.sessionId = null
+          store.update { RegistrationState() }
+        }
+      }
+
+      is SubmitVerificationCodeRateLimited -> Log.i(TAG, "Received SubmitVerificationCodeRateLimited.", sessionResult.getCause())
 
       is TokenNotAccepted -> Log.i(TAG, "Received TokenNotAccepted.", sessionResult.getCause())
 
@@ -738,8 +752,8 @@ class RegistrationViewModel : ViewModel() {
 
     var reglock = registrationLocked
 
-    val session: RegistrationSessionMetadataJson? = getOrCreateValidSession(context)?.body
-    val sessionId: String = session?.id ?: return
+    val session: SessionMetadataResult? = getOrCreateValidSession(context)
+    val sessionId: String = session?.sessionId ?: return
     val registrationData: RegistrationData = getRegistrationData()
 
     if (session.verified) {
@@ -816,8 +830,22 @@ class RegistrationViewModel : ViewModel() {
   private suspend fun registerVerifiedSession(context: Context, sessionId: String) {
     Log.v(TAG, "registerVerifiedSession()")
     val registrationData = getRegistrationData()
-    val registrationResponse: RegisterAccountResult = RegistrationRepository.registerAccount(context = context, sessionId = sessionId, registrationData = registrationData, recoveryPassword = null)
-    handleRegistrationResult(context, registrationData, registrationResponse, false)
+    val registrationResult: RegisterAccountResult = RegistrationRepository.registerAccount(context = context, sessionId = sessionId, registrationData = registrationData, recoveryPassword = null)
+
+    val reglockEnabled = if (registrationResult is RegisterAccountResult.RegistrationLocked) {
+      Log.i(TAG, "Received a registration lock response when trying to register verified session. Retrying with master key.")
+      store.update {
+        it.copy(
+          svr2AuthCredentials = registrationResult.svr2Credentials,
+          svr3AuthCredentials = registrationResult.svr3Credentials
+        )
+      }
+      true
+    } else {
+      false
+    }
+
+    handleRegistrationResult(context, registrationData, registrationResult, reglockEnabled)
   }
 
   private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: AccountRegistrationResult, reglockEnabled: Boolean) {
@@ -1018,24 +1046,22 @@ class RegistrationViewModel : ViewModel() {
       password: String,
       mcc: String?,
       mnc: String?,
-      successListener: (RegistrationSessionMetadataResponse) -> Unit,
+      successListener: (SessionMetadataResult) -> Unit,
       errorHandler: (RegistrationSessionResult) -> Unit
-    ): RegistrationSessionMetadataResponse? {
+    ): SessionMetadataResult? {
       Log.d(TAG, "Validating/creating a registration session.")
       val sessionResult: RegistrationSessionResult = RegistrationRepository.createOrValidateSession(context, existingSessionId, e164, password, mcc, mnc)
       when (sessionResult) {
         is RegistrationSessionCheckResult.Success -> {
-          val metadata = sessionResult.getMetadata()
-          successListener(metadata)
+          successListener(sessionResult)
           Log.d(TAG, "Registration session validated.")
-          return metadata
+          return sessionResult
         }
 
         is RegistrationSessionCreationResult.Success -> {
-          val metadata = sessionResult.getMetadata()
-          successListener(metadata)
+          successListener(sessionResult)
           Log.d(TAG, "Registration session created.")
-          return metadata
+          return sessionResult
         }
 
         else -> {
