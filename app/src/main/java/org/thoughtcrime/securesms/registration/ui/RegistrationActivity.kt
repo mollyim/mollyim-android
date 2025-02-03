@@ -64,7 +64,7 @@ class RegistrationActivity : PassphraseRequiredActivity() {
   }
 
   private fun handleSuccessfulVerify() {
-    if (SignalStore.account.hasLinkedDevices) {
+    if (SignalStore.account.hasLinkedDevices && SignalStore.account.isPrimaryDevice) {
       SignalStore.misc.shouldShowLinkedDevicesReminder = sharedViewModel.isReregister
     }
 
