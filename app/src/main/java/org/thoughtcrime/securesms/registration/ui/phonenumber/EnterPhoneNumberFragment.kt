@@ -10,7 +10,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableStringBuilder
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuInflater
@@ -25,16 +24,19 @@ import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.i18n.phonenumbers.AsYouTypeFormatter
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
+import org.signal.core.util.ThreadUtil
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BuildConfig
@@ -56,6 +58,7 @@ import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegat
 import org.thoughtcrime.securesms.registration.ui.RegistrationCheckpoint
 import org.thoughtcrime.securesms.registration.ui.RegistrationState
 import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
+import org.thoughtcrime.securesms.registration.ui.countrycode.Country
 import org.thoughtcrime.securesms.registration.ui.toE164
 import org.thoughtcrime.securesms.registration.util.CountryPrefix
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -84,9 +87,10 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
 
   private lateinit var spinnerAdapter: ArrayAdapter<CountryPrefix>
   private lateinit var phoneNumberInputLayout: TextInputEditText
-  private lateinit var spinnerView: MaterialAutoCompleteTextView
+  private lateinit var spinnerView: TextInputEditText
+  private lateinit var countryPickerView: View
 
-  private var currentPhoneNumberFormatter: TextWatcher? = null
+  private var currentPhoneNumberFormatter: AsYouTypeFormatter? = null
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -100,7 +104,13 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       }
     )
     phoneNumberInputLayout = binding.number.editText as TextInputEditText
-    spinnerView = binding.countryCode.editText as MaterialAutoCompleteTextView
+    spinnerView = binding.countryCode.editText as TextInputEditText
+    countryPickerView = binding.countryPicker
+
+    countryPickerView.setOnClickListener {
+      moveToCountryPickerScreen()
+    }
+
     spinnerAdapter = ArrayAdapter<CountryPrefix>(
       requireContext(),
       R.layout.registration_country_code_dropdown_item,
@@ -123,7 +133,8 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
 
     sharedViewModel.uiState.observe(viewLifecycleOwner) { sharedState ->
       presentRegisterButton(sharedState)
-      presentProgressBar(sharedState.inProgress, sharedState.isReRegister)
+      updateEnabledControls(sharedState.inProgress, sharedState.isReRegister)
+      updateCountrySelection(sharedState.country)
 
       sharedState.networkError?.let {
         presentNetworkError(it)
@@ -156,18 +167,24 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       }
     }
 
-    fragmentViewModel.uiState.observe(viewLifecycleOwner) { fragmentState ->
-
-      fragmentState.phoneNumberFormatter?.let {
-        bindPhoneNumberFormatter(it)
+    fragmentViewModel
+      .uiState
+      .map { it.phoneNumberRegionCode }
+      .distinctUntilChanged()
+      .observe(viewLifecycleOwner) { regionCode ->
+        currentPhoneNumberFormatter = PhoneNumberUtil.getInstance().getAsYouTypeFormatter(regionCode)
+        reformatText(phoneNumberInputLayout.text)
         phoneNumberInputLayout.requestFocus()
       }
 
+    fragmentViewModel.uiState.observe(viewLifecycleOwner) { fragmentState ->
       if (fragmentViewModel.isEnteredNumberPossible(fragmentState)) {
         sharedViewModel.setPhoneNumber(fragmentViewModel.parsePhoneNumber(fragmentState))
       } else {
         sharedViewModel.setPhoneNumber(null)
       }
+
+      updateCountrySelection(fragmentState.country)
 
       if (fragmentState.error != EnterPhoneNumberState.Error.NONE) {
         presentLocalError(fragmentState)
@@ -180,9 +197,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     if (existingPhoneNumber != null) {
       fragmentViewModel.restoreState(existingPhoneNumber)
       spinnerView.setText(existingPhoneNumber.countryCode.toString())
-      fragmentViewModel.formatter?.let {
-        bindPhoneNumberFormatter(it)
-      }
       phoneNumberInputLayout.setText(existingPhoneNumber.nationalNumber.toString())
     } else {
       spinnerView.setText(fragmentViewModel.countryPrefix().toString())
@@ -191,15 +205,33 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     ViewUtil.focusAndShowKeyboard(phoneNumberInputLayout)
   }
 
-  private fun bindPhoneNumberFormatter(formatter: TextWatcher) {
-    if (formatter != currentPhoneNumberFormatter) {
-      currentPhoneNumberFormatter?.let { oldWatcher ->
-        Log.d(TAG, "Removing current phone number formatter in fragment")
-        phoneNumberInputLayout.removeTextChangedListener(oldWatcher)
+  private fun updateCountrySelection(country: Country?) {
+    if (country != null) {
+      binding.countryEmoji.text = country.emoji
+      binding.country.text = country.name
+      binding.countryCode.editText?.setText(country.countryCode)
+    }
+    sharedViewModel.clearCountry()
+  }
+
+  private fun reformatText(text: Editable?) {
+    if (text.isNullOrEmpty()) {
+      return
+    }
+
+    currentPhoneNumberFormatter?.let { formatter ->
+      formatter.clear()
+
+      var formattedNumber: String? = null
+      text.forEach {
+        if (it.isDigit()) {
+          formattedNumber = formatter.inputDigit(it)
+        }
       }
-      phoneNumberInputLayout.addTextChangedListener(formatter)
-      currentPhoneNumberFormatter = formatter
-      Log.d(TAG, "Updated phone number formatter in fragment")
+
+      if (formattedNumber != null && text.toString() != formattedNumber) {
+        text.replace(0, text.length, formattedNumber)
+      }
     }
   }
 
@@ -216,6 +248,12 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
 
   private fun initializeInputFields() {
     binding.countryCode.editText?.addTextChangedListener { s ->
+      if (s.isNotNullOrBlank()) {
+        val formatted = s.toString().replace("+", "").let { "+$it" }
+        if (formatted != s.toString()) {
+          s.replace(0, s.length, formatted)
+        }
+      }
       val sanitized = s.toString().filter { c -> c.isDigit() }
       if (sanitized.isNotNullOrBlank()) {
         val countryCode: Int = sanitized.toInt()
@@ -223,9 +261,12 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       }
     }
 
-    phoneNumberInputLayout.addTextChangedListener {
-      fragmentViewModel.setPhoneNumber(it?.toString())
-    }
+    phoneNumberInputLayout.addTextChangedListener(
+      afterTextChanged = {
+        reformatText(it)
+        fragmentViewModel.setPhoneNumber(it?.toString())
+      }
+    )
 
     val scrollView = binding.scrollView
     val registerButton = binding.registerButton
@@ -244,26 +285,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
         return@setOnEditorActionListener true
       }
       false
-    }
-
-    spinnerView.threshold = 100
-    spinnerView.setAdapter(spinnerAdapter)
-    spinnerView.addTextChangedListener(afterTextChanged = ::onCountryDropDownChanged)
-  }
-
-  private fun onCountryDropDownChanged(s: Editable?) {
-    if (s.isNullOrEmpty()) {
-      return
-    }
-
-    if (s[0] != '+') {
-      s.insert(0, "+")
-    }
-
-    fragmentViewModel.supportedCountryPrefixes.firstOrNull { it.toString() == s.toString() }?.let {
-      fragmentViewModel.setCountry(it.digits)
-      val numberLength: Int = phoneNumberInputLayout.text?.length ?: 0
-      phoneNumberInputLayout.setSelection(numberLength, numberLength)
     }
   }
 
@@ -333,12 +354,18 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     when (result) {
       is RegistrationSessionCheckResult.Success,
       is RegistrationSessionCreationResult.Success -> throw IllegalStateException("Session error handler called on successful response!")
+
       is RegistrationSessionCreationResult.AttemptsExhausted -> presentRemoteErrorDialog(getString(R.string.RegistrationActivity_rate_limited_to_service))
       is RegistrationSessionCreationResult.MalformedRequest -> presentRemoteErrorDialog(getString(R.string.RegistrationActivity_unable_to_connect_to_service), skipToNextScreen)
 
       is RegistrationSessionCreationResult.RateLimited -> {
-        Log.i(TAG, "Session creation rate limited! Next attempt: ${result.timeRemaining.milliseconds}")
-        presentRemoteErrorDialog(getString(R.string.RegistrationActivity_rate_limited_to_try_again, result.timeRemaining.milliseconds.toString()))
+        val timeRemaining = result.timeRemaining?.milliseconds
+        Log.i(TAG, "Session creation rate limited! Next attempt: $timeRemaining")
+        if (timeRemaining != null) {
+          presentRemoteErrorDialog(getString(R.string.RegistrationActivity_rate_limited_to_try_again, timeRemaining.toString()))
+        } else {
+          presentRemoteErrorDialog(getString(R.string.RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later))
+        }
       }
 
       is RegistrationSessionCreationResult.ServerUnableToParse -> presentGenericError(result)
@@ -354,7 +381,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     }
     when (result) {
       is VerificationCodeRequestResult.Success -> throw IllegalStateException("Session error handler called on successful response!")
-      is VerificationCodeRequestResult.AttemptsExhausted -> presentRateLimitedDialog()
       is VerificationCodeRequestResult.ChallengeRequired -> handleChallenges(result.challenges)
       is VerificationCodeRequestResult.ExternalServiceFailure -> presentRemoteErrorDialog(getString(R.string.RegistrationActivity_sms_provider_error))
       is VerificationCodeRequestResult.ImpossibleNumber -> {
@@ -377,12 +403,23 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       }
 
       is VerificationCodeRequestResult.MalformedRequest -> presentRemoteErrorDialog(getString(R.string.RegistrationActivity_unable_to_connect_to_service), skipToNextScreen)
-      is VerificationCodeRequestResult.MustRetry -> presentRemoteErrorDialog(getString(R.string.RegistrationActivity_unable_to_connect_to_service), skipToNextScreen)
+      is VerificationCodeRequestResult.RequestVerificationCodeRateLimited -> {
+        Log.i(TAG, result.log())
+        handleRequestVerificationCodeRateLimited(result)
+      }
+
+      is VerificationCodeRequestResult.SubmitVerificationCodeRateLimited -> presentGenericError(result)
       is VerificationCodeRequestResult.NonNormalizedNumber -> handleNonNormalizedNumberError(result.originalNumber, result.normalizedNumber, fragmentViewModel.mode)
       is VerificationCodeRequestResult.RateLimited -> {
-        Log.i(TAG, "Code request rate limited! Next attempt: ${result.timeRemaining.milliseconds}")
-        presentRemoteErrorDialog(getString(R.string.RegistrationActivity_rate_limited_to_try_again, result.timeRemaining.milliseconds.toString()))
+        val timeRemaining = result.timeRemaining?.milliseconds
+        Log.i(TAG, "Session patch rate limited! Next attempt: $timeRemaining")
+        if (timeRemaining != null) {
+          presentRemoteErrorDialog(getString(R.string.RegistrationActivity_rate_limited_to_try_again, timeRemaining.toString()))
+        } else {
+          presentRemoteErrorDialog(getString(R.string.RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later))
+        }
       }
+
       is VerificationCodeRequestResult.TokenNotAccepted -> presentRemoteErrorDialog(getString(R.string.RegistrationActivity_we_need_to_verify_that_youre_human)) { _, _ -> moveToCaptcha() }
       is VerificationCodeRequestResult.RegistrationLocked -> presentRegistrationLocked(result.timeRemaining)
       is VerificationCodeRequestResult.AlreadyVerified -> presentGenericError(result)
@@ -409,6 +446,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
 
   private fun presentRegistrationLocked(timeRemaining: Long) {
     findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionPhoneNumberRegistrationLock(timeRemaining))
+    sharedViewModel.setInProgress(false)
   }
 
   private fun presentRateLimitedDialog() {
@@ -417,10 +455,12 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
 
   private fun presentAccountLocked() {
     findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionPhoneNumberAccountLocked())
+    ThreadUtil.postToMain { sharedViewModel.setInProgress(false) }
   }
 
   private fun moveToCaptcha() {
     findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionRequestCaptcha())
+    ThreadUtil.postToMain { sharedViewModel.setInProgress(false) }
   }
 
   private fun presentRemoteErrorDialog(message: String, positiveButtonListener: DialogInterface.OnClickListener? = null) {
@@ -428,6 +468,23 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       setMessage(message)
       setPositiveButton(android.R.string.ok, positiveButtonListener)
       show()
+    }
+  }
+
+  private fun handleRequestVerificationCodeRateLimited(result: VerificationCodeRequestResult.RequestVerificationCodeRateLimited) {
+    if (result.willBeAbleToRequestAgain) {
+      Log.i(TAG, "New verification code cannot be requested yet but can soon, moving to enter code to show timers")
+      moveToVerificationEntryScreen()
+    } else {
+      Log.w(TAG, "Unable to request new verification code, prompting to start new session")
+      MaterialAlertDialogBuilder(requireContext()).apply {
+        setMessage(R.string.RegistrationActivity_unable_to_connect_to_service)
+        setPositiveButton(R.string.NetworkFailure__retry) { _, _ ->
+          onRegistrationButtonClicked()
+        }
+        setNegativeButton(android.R.string.cancel, null)
+        show()
+      }
     }
   }
 
@@ -452,6 +509,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
           when (mode) {
             RegistrationRepository.E164VerificationMode.SMS_WITH_LISTENER,
             RegistrationRepository.E164VerificationMode.SMS_WITHOUT_LISTENER -> sharedViewModel.requestSmsCode(requireContext())
+
             RegistrationRepository.E164VerificationMode.PHONE_CALL -> sharedViewModel.requestVerificationCall(requireContext())
           }
           dialogInterface.dismiss()
@@ -478,7 +536,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       sharedViewModel.fetchFcmToken(requireContext())
     } else {
       sharedViewModel.uiState.value?.let { value ->
-        val now = System.currentTimeMillis()
+        val now = System.currentTimeMillis().milliseconds
         if (value.phoneNumber == null) {
           fragmentViewModel.setError(EnterPhoneNumberState.Error.INVALID_PHONE_NUMBER)
           sharedViewModel.setInProgress(false)
@@ -505,12 +563,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
     }
   }
 
-  private fun presentProgressBar(showProgress: Boolean, isReRegister: Boolean) {
-    if (showProgress) {
-      binding.registerButton.setSpinning()
-    } else {
-      binding.registerButton.cancelSpinning()
-    }
+  private fun updateEnabledControls(showProgress: Boolean, isReRegister: Boolean) {
     binding.countryCode.isEnabled = !showProgress
     binding.number.isEnabled = !showProgress
     binding.linkButton.isEnabled = !showProgress
@@ -611,6 +664,10 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
   private fun moveToVerificationEntryScreen() {
     findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionEnterVerificationCode())
     sharedViewModel.setInProgress(false)
+  }
+
+  private fun moveToCountryPickerScreen() {
+    findNavController().safeNavigate(R.id.action_countryPicker)
   }
 
   private fun popBackStack() {

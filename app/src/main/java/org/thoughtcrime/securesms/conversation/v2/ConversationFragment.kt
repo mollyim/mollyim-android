@@ -2344,7 +2344,7 @@ class ConversationFragment :
 
     val attachments = SaveAttachmentUtil.getAttachmentsForRecord(record)
 
-    SaveAttachmentUtil.showWarningDialog(requireContext(), attachments.size) { _, _ ->
+    SaveAttachmentUtil.showWarningDialogIfNecessary(requireContext(), attachments.size) {
       if (StorageUtil.canWriteToMediaStore()) {
         performAttachmentSave(attachments)
       } else {
@@ -2433,13 +2433,14 @@ class ConversationFragment :
     override fun isSwipeAvailable(conversationMessage: ConversationMessage): Boolean {
       val recipient = viewModel.recipientSnapshot ?: return false
 
-      return actionMode == null && MenuState.canReplyToMessage(
-        recipient,
-        MenuState.isActionMessage(conversationMessage.messageRecord),
-        conversationMessage.messageRecord,
-        viewModel.hasMessageRequestState,
-        conversationGroupViewModel.isNonAdminInAnnouncementGroup()
-      )
+      return actionMode == null &&
+        MenuState.canReplyToMessage(
+          recipient,
+          MenuState.isActionMessage(conversationMessage.messageRecord),
+          conversationMessage.messageRecord,
+          viewModel.hasMessageRequestState,
+          conversationGroupViewModel.isNonAdminInAnnouncementGroup()
+        )
     }
   }
 
@@ -3149,7 +3150,7 @@ class ConversationFragment :
 
                 binding.conversationItemRecycler.suppressLayout(false)
                 if (selectedConversationModel.audioUri != null) {
-                  getVoiceNoteMediaController().resumePlayback(selectedConversationModel.audioUri, messageRecord.getId())
+                  getVoiceNoteMediaController().resumePlayback(selectedConversationModel.audioUri, messageRecord.id)
                 }
 
                 WindowUtil.setLightStatusBarFromTheme(requireActivity())
@@ -3219,12 +3220,12 @@ class ConversationFragment :
     }
 
     private fun MessageRecord.getAudioUriForLongClick(): Uri? {
-      val playbackState = getVoiceNoteMediaController().voiceNotePlaybackState.value
-      if (playbackState == null || !playbackState.isPlaying) {
+      if (!hasAudio()) {
         return null
       }
 
-      if (hasAudio() || !isMms) {
+      val playbackState = getVoiceNoteMediaController().voiceNotePlaybackState.value
+      if (playbackState == null || !playbackState.isPlaying) {
         return null
       }
 
@@ -3845,7 +3846,10 @@ class ConversationFragment :
 
   //region Compose + Send Callbacks
 
-  private inner class SendButtonListener : View.OnClickListener, OnEditorActionListener, SendButton.ScheduledSendListener {
+  private inner class SendButtonListener :
+    View.OnClickListener,
+    OnEditorActionListener,
+    SendButton.ScheduledSendListener {
     override fun onClick(v: View) {
       sendMessage()
     }
@@ -4172,7 +4176,10 @@ class ConversationFragment :
     override fun create(): Fragment = KeyboardPagerFragment()
   }
 
-  private inner class KeyboardEvents : OnBackPressedCallback(false), InputAwareConstraintLayout.Listener, InsetAwareConstraintLayout.KeyboardStateListener {
+  private inner class KeyboardEvents :
+    OnBackPressedCallback(false),
+    InputAwareConstraintLayout.Listener,
+    InsetAwareConstraintLayout.KeyboardStateListener {
     override fun handleOnBackPressed() {
       container.hideInput()
     }

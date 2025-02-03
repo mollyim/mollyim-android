@@ -13,12 +13,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.databinding.FragmentChangeNumberEnterPhoneNumberBinding
-import org.thoughtcrime.securesms.registration.fragments.CountryPickerFragment
 import org.thoughtcrime.securesms.registration.util.ChangeNumberInputController
 import org.thoughtcrime.securesms.util.Dialogs
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -110,11 +110,11 @@ class ChangeNumberEnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_c
     )
 
     parentFragmentManager.setFragmentResultListener(OLD_NUMBER_COUNTRY_SELECT, this) { _: String, bundle: Bundle ->
-      viewModel.setOldCountry(bundle.getInt(CountryPickerFragment.KEY_COUNTRY_CODE), bundle.getString(CountryPickerFragment.KEY_COUNTRY))
+      viewModel.setOldCountry(bundle.getInt(ChangeNumberCountryPickerFragment.KEY_COUNTRY_CODE), bundle.getString(ChangeNumberCountryPickerFragment.KEY_COUNTRY))
     }
 
     parentFragmentManager.setFragmentResultListener(NEW_NUMBER_COUNTRY_SELECT, this) { _: String, bundle: Bundle ->
-      viewModel.setNewCountry(bundle.getInt(CountryPickerFragment.KEY_COUNTRY_CODE), bundle.getString(CountryPickerFragment.KEY_COUNTRY))
+      viewModel.setNewCountry(bundle.getInt(ChangeNumberCountryPickerFragment.KEY_COUNTRY_CODE), bundle.getString(ChangeNumberCountryPickerFragment.KEY_COUNTRY))
     }
 
     viewModel.liveOldNumberState.observe(viewLifecycleOwner, oldController::updateNumber)
@@ -139,6 +139,11 @@ class ChangeNumberEnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_c
 
     if (TextUtils.isEmpty(binding.changeNumberEnterPhoneNumberNewNumberNumber.text)) {
       Toast.makeText(context, getString(R.string.ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number), Toast.LENGTH_LONG).show()
+      return
+    }
+
+    if (TextUtils.equals(binding.changeNumberEnterPhoneNumberOldNumberNumber.text, binding.changeNumberEnterPhoneNumberNewNumberNumber.text)) {
+      Snackbar.make(requireView(), getString(R.string.ChangeNumberEnterPhoneNumberFragment__your_new_phone_number_can_not_be_same_as_your_old_phone_number), Snackbar.LENGTH_LONG).show()
       return
     }
 

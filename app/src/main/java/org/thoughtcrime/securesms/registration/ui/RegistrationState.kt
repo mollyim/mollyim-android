@@ -14,8 +14,11 @@ import org.thoughtcrime.securesms.registration.data.network.Challenge
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionResult
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult
+import org.thoughtcrime.securesms.registration.ui.countrycode.Country
 import org.whispersystems.signalservice.api.svr.Svr3Credentials
 import org.whispersystems.signalservice.internal.push.AuthCredentials
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * State holder shared across all of registration.
@@ -43,16 +46,17 @@ data class RegistrationState(
   val challengesPresented: Set<Challenge> = emptySet(),
   val captchaToken: String? = null,
   val allowedToRequestCode: Boolean = false,
-  val nextSmsTimestamp: Long = 0L,
-  val nextCallTimestamp: Long = 0L,
-  val nextVerificationAttempt: Long = 0L,
+  val nextSmsTimestamp: Duration = 0.seconds,
+  val nextCallTimestamp: Duration = 0.seconds,
+  val nextVerificationAttempt: Duration = 0.seconds,
   val verified: Boolean = false,
   val smsListenerTimeout: Long = 0L,
   val registrationCheckpoint: RegistrationCheckpoint = RegistrationCheckpoint.INITIALIZATION,
   val networkError: Throwable? = null,
   val sessionCreationError: RegistrationSessionResult? = null,
   val sessionStateError: VerificationCodeRequestResult? = null,
-  val registerAccountError: RegisterAccountResult? = null
+  val registerAccountError: RegisterAccountResult? = null,
+  val country: Country? = null
 ) {
   val challengesRemaining: List<Challenge> = challengesRequested.filterNot { it in challengesPresented }
 

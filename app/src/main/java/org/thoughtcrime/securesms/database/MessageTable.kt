@@ -210,6 +210,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     const val QUOTE_TARGET_MISSING_ID = -1L
 
     const val ADDRESSABLE_MESSAGE_LIMIT = 5
+    const val PARENT_STORY_MISSING_ID = -1L
 
     const val CREATE_TABLE = """
       CREATE TABLE $TABLE_NAME (
@@ -624,6 +625,15 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   fun getExpirationStartedMessages(): Cursor {
     val where = "$EXPIRE_STARTED > 0"
     return rawQueryWithAttachments(where, null)
+  }
+
+  fun getMessagesBySentTimestamp(sentTimestamp: Long): List<MessageRecord> {
+    return readableDatabase
+      .select(*MMS_PROJECTION)
+      .from(TABLE_NAME)
+      .where("$DATE_SENT = $sentTimestamp")
+      .run()
+      .readToList { MmsReader(it).getCurrent() }
   }
 
   fun getMessageCursor(messageId: Long): Cursor {
@@ -3496,44 +3506,47 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun deleteMessagesInThread(threadIds: Collection<Long>, extraWhere: String = ""): Int {
-    var deletedCount = 0
+    var totalDeletedCount = 0
 
     writableDatabase.withinTransaction { db ->
       SignalDatabase.messageSearch.dropAfterMessageDeleteTrigger()
       SignalDatabase.messageLog.dropAfterMessageDeleteTrigger()
 
       for (threadId in threadIds) {
-        val subSelect = "SELECT ${TABLE_NAME}.$ID FROM $TABLE_NAME WHERE ${TABLE_NAME}.$THREAD_ID = $threadId $extraWhere"
+        val subSelect = "SELECT ${TABLE_NAME}.$ID FROM $TABLE_NAME WHERE ${TABLE_NAME}.$THREAD_ID = $threadId $extraWhere LIMIT 1000"
+        do {
+          // Bulk deleting FK tables for large message delete efficiency
+          db.delete(StorySendTable.TABLE_NAME)
+            .where("${StorySendTable.TABLE_NAME}.${StorySendTable.MESSAGE_ID} IN ($subSelect)")
+            .run()
 
-        // Bulk deleting FK tables for large message delete efficiency
-        db.delete(StorySendTable.TABLE_NAME)
-          .where("${StorySendTable.TABLE_NAME}.${StorySendTable.MESSAGE_ID} IN ($subSelect)")
-          .run()
+          db.delete(ReactionTable.TABLE_NAME)
+            .where("${ReactionTable.TABLE_NAME}.${ReactionTable.MESSAGE_ID} IN ($subSelect)")
+            .run()
 
-        db.delete(ReactionTable.TABLE_NAME)
-          .where("${ReactionTable.TABLE_NAME}.${ReactionTable.MESSAGE_ID} IN ($subSelect)")
-          .run()
+          db.delete(CallTable.TABLE_NAME)
+            .where("${CallTable.TABLE_NAME}.${CallTable.MESSAGE_ID} IN ($subSelect)")
+            .run()
 
-        db.delete(CallTable.TABLE_NAME)
-          .where("${CallTable.TABLE_NAME}.${CallTable.MESSAGE_ID} IN ($subSelect)")
-          .run()
+          // Must delete rows from FTS table before deleting from main table due to FTS requirement when deleting by rowid
+          db.delete(SearchTable.FTS_TABLE_NAME)
+            .where("${SearchTable.FTS_TABLE_NAME}.${SearchTable.ID} IN ($subSelect)")
+            .run()
 
-        // Must delete rows from FTS table before deleting from main table due to FTS requirement when deleting by rowid
-        db.delete(SearchTable.FTS_TABLE_NAME)
-          .where("${SearchTable.FTS_TABLE_NAME}.${SearchTable.ID} IN ($subSelect)")
-          .run()
+          // Actually delete messages
+          val deletedCount = db.delete(TABLE_NAME)
+            .where("$ID IN ($subSelect)")
+            .run()
 
-        // Actually delete messages
-        deletedCount += db.delete(TABLE_NAME)
-          .where("$THREAD_ID = ? $extraWhere", threadId)
-          .run()
+          totalDeletedCount += deletedCount
+        } while (deletedCount > 0)
       }
 
       SignalDatabase.messageSearch.restoreAfterMessageDeleteTrigger()
       SignalDatabase.messageLog.restoreAfterMessageDeleteTrigger()
     }
 
-    return deletedCount
+    return totalDeletedCount
   }
 
   fun deleteAbandonedMessages(threadId: Long? = null): Int {

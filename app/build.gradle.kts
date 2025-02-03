@@ -11,8 +11,8 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1501
-val canonicalVersionName = "7.29.4"
+val canonicalVersionCode = 1509
+val canonicalVersionName = "7.32.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -426,6 +426,7 @@ dependencies {
   implementation(project(":core-ui"))
 
   implementation(libs.androidx.fragment.ktx)
+  implementation(libs.androidx.fragment.compose)
   implementation(libs.androidx.appcompat) {
     version {
       strictly("1.6.1")
@@ -558,16 +559,18 @@ dependencies {
     }
   }
   testImplementation(testLibs.conscrypt.openjdk.uber)
-  testImplementation(testLibs.hamcrest.hamcrest)
   testImplementation(testLibs.mockk)
   testImplementation(testFixtures(project(":libsignal-service")))
   testImplementation(testLibs.espresso.core)
 
+  androidTestImplementation(platform(libs.androidx.compose.bom))
+  androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   androidTestImplementation(testLibs.androidx.test.ext.junit)
   androidTestImplementation(testLibs.espresso.core)
   androidTestImplementation(testLibs.androidx.test.core)
   androidTestImplementation(testLibs.androidx.test.core.ktx)
   androidTestImplementation(testLibs.androidx.test.ext.junit.ktx)
+  androidTestImplementation(testLibs.assertk)
   androidTestImplementation(testLibs.mockk.android)
   androidTestImplementation(testLibs.square.okhttp.mockserver)
   androidTestImplementation(testLibs.diff.utils)

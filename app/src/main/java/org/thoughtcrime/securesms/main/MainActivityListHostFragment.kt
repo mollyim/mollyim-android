@@ -168,7 +168,7 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
     super.onResume()
     SimpleTask.run(viewLifecycleOwner.lifecycle, { Recipient.self() }, ::initializeProfileIcon)
 
-    _backupsFailedDot.alpha = if (BackupRepository.shouldDisplayBackupFailedIndicator()) {
+    _backupsFailedDot.alpha = if (BackupRepository.shouldDisplayBackupFailedIndicator() || BackupRepository.shouldDisplayBackupAlreadyRedeemedIndicator()) {
       1f
     } else {
       0f
@@ -178,6 +178,10 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
       .findViewById<View>(R.id.fragment_container)
       .findNavController()
       .addOnDestinationChangedListener(destinationChangedListener)
+
+    if (conversationListTabsViewModel.isMultiSelectOpen()) {
+      presentToolbarForMultiselect()
+    }
   }
 
   override fun onPause() {

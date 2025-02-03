@@ -7,6 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -603,6 +604,17 @@
         <item quantity="many">Сохраняем %1$d вложений в хранилище…</item>
         <item quantity="other">Сохраняем %1$d вложения в хранилище…</item>
     </plurals>
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="ConversationFragment__save_to_phone">Сохранить на телефоне?</string>
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="ConversationFragment__this_media_will_be_saved">
+        <item quantity="one">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="few">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="many">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="other">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+    </plurals>
+    <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
+    <string name="ConversationFragment_dont_show_again">Больше не показывать</string>
     <string name="ConversationFragment_pending">Ожидание…</string>
     <!-- Describes how the message was sent when looking at a message detail. Previously, messages could be through other means like SMS -->
     <string name="ConversationFragment_push">Интернет (Signal)</string>
@@ -956,6 +968,20 @@
     <string name="DateUtils_tomorrow">Завтра</string>
     <!-- Used in the context: Tonight at 9:00pm for example. Specifically this is after 7pm -->
     <string name="DateUtils_tonight">Сегодня вечером</string>
+    <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
+    <plurals name="DateUtils_date_time_at">
+        <item quantity="one">on %1$s at %2$s</item>
+        <item quantity="few">on %1$s at %2$s</item>
+        <item quantity="many">on %1$s at %2$s</item>
+        <item quantity="other">on %1$s at %2$s</item>
+    </plurals>
+    <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
+    <plurals name="DateUtils_time_at">
+        <item quantity="one">at %1$s</item>
+        <item quantity="few">at %1$s</item>
+        <item quantity="many">at %1$s</item>
+        <item quantity="other">at %1$s</item>
+    </plurals>
 
     <!-- Scheduled Messages -->
     <!-- Title for dialog that shows all the users scheduled messages for a chat -->
@@ -1046,12 +1072,27 @@
     <string name="LinkDeviceFragment__sync_failure_title">Не удалось синхронизировать сообщения</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_body">Ваши сообщения не могут быть перенесены на связанное устройство. Вы можете попробовать повторно связать и перенести ещё раз или продолжить без переноса истории сообщений.</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed but the device was still able to be linked -->
+    <string name="LinkDeviceFragment__sync_failure_body_unretryable">Ваше устройство было успешно привязано, но сообщения перенести не удалось.</string>
+    <!-- Text button in a dialog that, when pressed, will redirect to the Signal support page -->
+    <string name="LinkDeviceFragment__learn_more">Узнать больше</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007320551</string> -->
     <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
-    <string name="LinkDeviceFragment__sync_failure_retry_button">Попробуйте связать ещё раз</string>
+    <string name="LinkDeviceFragment__sync_failure_retry_button">Повторить попытку</string>
     <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
     <string name="LinkDeviceFragment__sync_failure_dismiss_button">Продолжить без переноса</string>
     <!-- Option in context menu to edit the name of a linked device -->
     <string name="LinkDeviceFragment__edit_name">Изменить имя</string>
+    <!-- Toast shown when the process of linking a device has been cancelled -->
+    <string name="LinkDeviceFragment__linking_cancelled">Привязка отменена</string>
+    <!-- Message shown in progress dialog telling users to avoid closing the app while messages are being synced -->
+    <string name="LinkDeviceFragment__do_not_close">Не закрывайте приложение</string>
+    <!-- Dialog title shown when a device is unlinked -->
+    <string name="LinkDeviceFragment__device_unlinked">Устройство отвязано</string>
+    <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
+    <string name="LinkDeviceFragment__the_device_that_was">The device that was linked %1$s is no longer linked.</string>
+    <!-- Button to dismiss dialog -->
+    <string name="LinkDeviceFragment__ok">ОК</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1091,11 +1132,16 @@
     <!-- Option in bottom sheet to transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_transfer">Перенести историю сообщений</string>
     <!-- Description in bottom sheet of what transferring message history will do -->
-    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Перенос текстовых сообщений и недавних медиафайлов на ваше связанное устройство</string>
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Перенести все ваши текстовые сообщения + медиафайлы за последние 45 дней</string>
     <!-- Option in bottom sheet to not transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_dont_transfer">Не переносить</string>
     <!-- Description in bottom sheet of what not transferring history will do -->
     <string name="LinkDeviceSyncBottomSheet_no_old_messages">Старые сообщения или медиафайлы не будут перенесены на ваше связанное устройство</string>
+
+    <!-- Title of notification telling users that a device was linked to their account -->
+    <string name="NewLinkedDeviceNotification__you_linked_new_device">Вы привязали новое устройство</string>
+    <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">A new device was linked to your account %1$s. Tap to view.</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Отвязать «%1$s»?</string>
@@ -1461,6 +1507,14 @@
     <string name="RemoteRestoreActivity__couldnt_transfer">Не удалось завершить перенос</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">Произошла ошибка, поэтому ваша учётная запись не была перенесена. Повторите попытку, выбрав способ переноса.</string>
+    <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
+    <string name="RemoteRestoreActivity__couldnt_restore">Не удалось восстановить эту резервную копию</string>
+    <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
+    <string name="RemoteRestoreActivity__update_latest">Эта версия Molly не может восстановить резервную копию. Обновитесь до последней версии и повторите попытку.</string>
+    <!-- Text on button that when pressed will redirect them to update Signal -->
+    <string name="RemoteRestoreActivity__update_signal">Обновить Molly</string>
+    <!-- Text label button to dismiss the dialog -->
+    <string name="RemoteRestoreActivity__not_now">Не сейчас</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Уведомлять меня об упоминаниях</string>
@@ -1737,6 +1791,13 @@
     <string name="Megaphones_invite_friends">Позвать друзей</string>
     <string name="Megaphones_chat_colors">Цвета чата</string>
     <string name="Megaphones_add_a_profile_photo">Фото профиля</string>
+
+    <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">A new device was linked to your account %1$s.</string>
+    <!-- Button shown on megaphone that will redirect to the linked devices screen -->
+    <string name="NewLinkedDeviceMegaphone__view_device">Посмотреть устройство</string>
+    <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
+    <string name="NewLinkedDeviceMegaphone__ok">ОК</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Ответы</string>
@@ -2027,12 +2088,16 @@
     <string name="MessageRecord_s_is_in_the_call_s">%1$s участвует в звонке · %2$s</string>
     <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
     <string name="MessageRecord_you_are_in_the_call_s1">Вы участвуете в звонке · %1$s</string>
+    <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user and %2$s is the formatted time -->
+    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s and you are in the call · %2$s</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
     <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s и %2$s участвуют в звонке · %3$s</string>
     <!-- Chat log text for an ongoing group call that has one participant -->
     <string name="MessageRecord_s_is_in_the_call">%1$s участвует в звонке</string>
     <!-- Chat log text for an ongoing group call only the local user has joined -->
     <string name="MessageRecord_you_are_in_the_call">Вы участвуете в звонке</string>
+    <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user -->
+    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s and you are in the call</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
     <string name="MessageRecord_s_and_s_are_in_the_call">%1$s и %2$s участвуют в звонке</string>
     <!-- Chat log text for a group call that ended within the last 5 minutes -->
@@ -2173,7 +2238,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">К сожалению, у вас уже привязано слишком много устройств, попробуйте отвязать некоторые из них</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">К сожалению, это неправильный QR-код для привязки устройства.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Привязать устройство Signal?</string>
-    <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Похоже, вы пытаетесь привязать устройство Signal, используя сторонний сканер. Для вашей защиты, пожалуйста, просканируйте код через Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly требуется разрешение на доступ к камере для сканирования QR-кода, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Не удалось отсканировать QR-код из-за отсутствия доступа к камере</string>
@@ -2553,6 +2618,13 @@
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Развернуть вид поднявших руку</string>
 
+    <!-- Toolbar title of country picker selection page -->
+    <string name="CountryCodeFragment__your_country">Your country</string>
+    <!-- Hint text in search bar to either enter in a country name or number -->
+    <string name="CountryCodeFragment__search_by">Search by name or number</string>
+    <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
+    <string name="CountryCodeFragment__unknown_country">Unknown country</string>
+
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
     <string name="AboutSheet__signal_connection">Контакт Signal</string>
@@ -2645,6 +2717,12 @@
     <string name="RegistrationActivity_additional_verification_required">Требуется дополнительная проверка</string>
     <!-- Dialog message shown when we need to verify sms and carrier rates may apply. -->
     <string name="RegistrationActivity_a_verification_code_will_be_sent_to_this_number">На этот номер будет отправлен код подтверждения. Могут применяться тарифы оператора.</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">Вы получите код подтверждения. Вашим оператором может взиматься плата за входящее SMS.</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <!-- Hint text explaining that this is where the country code should go -->
+    <string name="RegistrationActivity_default_country_code">+0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Вы получите звонок, чтобы подтвердить этот номер.</string>
     <string name="RegistrationActivity_edit_number">Изменить номер</string>
     <string name="RegistrationActivity_missing_google_play_services">Отсутствуют Службы Google Play</string>
@@ -3107,6 +3185,8 @@
     <string name="NotificationChannel_critical_app_alerts">Критически важные оповещения от приложения</string>
     <!-- Notification channel name for other notifications related to messages. Will appear in the system notification settings as the title of this notification channel. -->
     <string name="NotificationChannel_additional_message_notifications">Дополнительные уведомления о сообщениях</string>
+    <!-- Notification channel name for notifications sent when a device has been linked -->
+    <string name="NotificationChannel_new_linked_device">Новое связанное устройство</string>
 
     <!-- ProfileEditNameFragment -->
 
@@ -3173,10 +3253,7 @@
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">Обработка…</string>
     <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
-    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
-    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
-    <string name="TransferControlView__filesize">%1$1.1f MB</string>
-
+    <string name="TransferControlView__download_progress_s_s">%1$s/%2$s</string>
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
@@ -5246,6 +5323,8 @@
     <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Продлите подписку на резервное копирование Signal Backups</string>
     <!-- String alerting user that backup failed -->
     <string name="AppSettingsFragment__couldnt_complete_backup">Не удалось выполнить резервное копирование</string>
+    <!-- String alerting user that backup redemption -->
+    <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Не удалось активировать подписку на резервное копирование</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Пригласить друзей</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -5323,6 +5402,7 @@
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Вы должны указать свой старый номер телефона</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Вы должны указать код страны вашего нового номера</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Вы должны указать свой новый номер телефона</string>
+    <string name="ChangeNumberEnterPhoneNumberFragment__your_new_phone_number_can_not_be_same_as_your_old_phone_number">Ваш новый номер телефона не должен совпадать со старым номером</string>
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">Изменить номер</string>
@@ -5943,7 +6023,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">Привязать устройство?</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_device_link_dialog_body">Похоже, вы пытаетесь привязать устройство Signal. Нажмите «Продолжить» и просканируйте код снова, чтобы привязать устройство.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">Продолжить</string>
 
@@ -6048,6 +6128,8 @@
     <string name="MySupportPreference__your_bank_transfer_of_s">Ваш банковский перевод на сумму %1$s находится на рассмотрении. Обработка банковских переводов может занимать от 1 до 14 рабочих дней.  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
     <string name="MySupportPreference__learn_more">Узнать больше</string>
+    <!-- Displayed when a subscription refresh is being performed -->
+    <string name="MySupportPreference__checking_subscription">Проверка подписки…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
     <string name="UpdateSignalExpiredDialog__title">Обновить Molly</string>
@@ -7817,7 +7899,12 @@
     <!-- Sheet title for generic backup error -->
     <string name="BackupAlertBottomSheet__couldnt_complete_backup">Не удалось выполнить резервное копирование</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">Ваше устройство не выполняло резервное копирование в течение %1$d дн. Убедитесь, что оно подключено к Wi-Fi, и нажмите «Создать резервную копию сейчас». </string>
+    <plurals name="BackupAlertBottomSheet__your_device_hasnt">
+        <item quantity="one">Ваше устройство не выполняло резервное копирование в течение %1$d дн. Убедитесь, что оно подключено к Wi-Fi, и нажмите «Создать резервную копию сейчас». </item>
+        <item quantity="few">Ваше устройство не выполняло резервное копирование в течение %1$d дн. Убедитесь, что оно подключено к Wi-Fi, и нажмите «Создать резервную копию сейчас».</item>
+        <item quantity="many">Ваше устройство не выполняло резервное копирование в течение %1$d дн. Убедитесь, что оно подключено к Wi-Fi, и нажмите «Создать резервную копию сейчас».</item>
+        <item quantity="other">Ваше устройство не выполняло резервное копирование в течение %1$d дн. Убедитесь, что оно подключено к Wi-Fi, и нажмите «Создать резервную копию сейчас».</item>
+    </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Узнать больше</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
@@ -7854,10 +7941,18 @@
     <string name="BackupAlertBottomSheet__if_you_skip_restore_the">Если вы пропустите восстановление, оставшиеся медиафайлы и вложения из резервной копии могут быть загружены позднее, когда освободится место для хранения.</string>
     <!-- Dialog title when a backup fails to be created -->
     <string name="BackupAlertBottomSheet__backup_failed">Резервное копирование не удалось</string>
+    <!-- Dialog title when a backup redemption fails -->
+    <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Не удалось активировать подписку на резервное копирование</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Произошла ошибка, резервное копирование не может быть завершено. Убедитесь, что на вашем устройстве установлена последняя версия Signal. Если проблема не решается, свяжитесь со службой поддержки.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Проверить наличие обновлений</string>
+    <!-- Backup redemption error sheet text line 1 -->
+    <string name="BackupAlertBottomSheet__too_many_devices_have_tried">В этом месяце слишком много устройств пытались активировать вашу подписку. Возможно, вы:</string>
+    <!-- Backup redemption error sheet bullet point 1 -->
+    <string name="BackupAlertBottomSheet__reregistered_your_signal_account">Слишком много раз перерегистрировали свою учётную запись Signal.</string>
+    <!-- Backup redemption error sheet bullet point 2 -->
+    <string name="BackupAlertBottomSheet__have_too_many_devices_using_the_same_subscription">Имеете слишком много устройств, использующих одну подписку.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -8149,6 +8244,8 @@
     <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Произошла ошибка сети. Пожалуйста, проверьте подключение к интернету и повторите попытку.</string>
     <!-- Progress message when backup file is being uploaded. First placeholder and second placeholder are formatted byte sizes (2 MB) and third is percent completion. -->
     <string name="RemoteBackupsSettingsFragment__uploading_s_of_s_d">Загрузка: %1$s из %2$s (%3$d%%)</string>
+    <!-- Button label to see more details about redemption error -->
+    <string name="RemoteBackupsSettingsFragment__details">Подробнее</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8323,6 +8420,20 @@
     <string name="EnterBackupKey_learn_more">Узнать больше</string>
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">Пропустить и не восстанавливать</string>
+    <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
+    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect backup key</string>
+    <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
+    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character backup key you saved when enabling Signal backups. Backups can not be recovered without this key.</string>
+    <!-- Dialog positive button text to try entering their backup key again -->
+    <string name="EnterBackupKey_try_again">Попробовать ещё раз</string>
+    <!-- Dialog negative button text to get help with backup key -->
+    <string name="EnterBackupKey_backup_key_help">Backup key help</string>
+    <!-- Text field error text when the backup key provided has been confirmed invalid -->
+    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect backup key</string>
+    <!-- Text field error text when the backup key is too long -->
+    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+    <!-- Text field error when the backup key is invalid -->
+    <string name="EnterBackupKey_invalid_backup_key_error">Invalid backup key</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Отсканируйте этот код с помощью старого телефона</string>

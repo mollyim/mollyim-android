@@ -70,6 +70,7 @@ import org.thoughtcrime.securesms.util.JsonUtils.SaneJSONObject
 import org.thoughtcrime.securesms.util.LRUCache
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.isScheduled
+import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.storage.SignalAccountRecord
 import org.whispersystems.signalservice.api.storage.SignalContactRecord
 import org.whispersystems.signalservice.api.storage.SignalGroupV1Record
@@ -1546,7 +1547,12 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
       for (pinned: AccountRecord.PinnedConversation in record.proto.pinnedConversations) {
         val pinnedRecipient: Recipient? = if (pinned.contact != null) {
-          Recipient.externalPush(pinned.contact!!.toSignalServiceAddress())
+          if (ServiceId.parseOrNull(pinned.contact!!.serviceId) != null) {
+            Recipient.externalPush(pinned.contact!!.toSignalServiceAddress())
+          } else {
+            Log.w(TAG, "Failed to parse serviceId!")
+            null
+          }
         } else if (pinned.legacyGroupId != null) {
           try {
             Recipient.externalGroupExact(GroupId.v1(pinned.legacyGroupId!!.toByteArray()))
@@ -1936,11 +1942,9 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
       SNIPPET_EXTRAS to null,
       SNIPPET_MESSAGE_EXTRAS to null,
       UNREAD_COUNT to 0,
-      ARCHIVED to 0,
       STATUS to 0,
       HAS_DELIVERY_RECEIPT to 0,
       HAS_READ_RECEIPT to 0,
-      EXPIRES_IN to 0,
       LAST_SEEN to 0,
       HAS_SENT to 0,
       LAST_SCROLLED to 0,

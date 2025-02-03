@@ -12,6 +12,7 @@ import androidx.annotation.Discouraged
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.Base64
@@ -66,6 +67,8 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.jobmanager.Job
+import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
 import org.thoughtcrime.securesms.jobs.RestoreAttachmentJob
 import org.thoughtcrime.securesms.keyvalue.KeyValueStore
@@ -202,6 +205,11 @@ object BackupRepository {
     return alertAfter <= now
   }
 
+  @JvmStatic
+  fun shouldDisplayBackupAlreadyRedeemedIndicator(): Boolean {
+    return !(shouldNotDisplayBackupFailedMessaging() || !SignalStore.backup.hasBackupAlreadyRedeemedError)
+  }
+
   /**
    * Whether the "Backup Failed" row should be displayed in settings.
    * Shown when the initial backup creation has failed
@@ -224,6 +232,10 @@ object BackupRepository {
     }
 
     return SignalStore.backup.hasBackupBeenUploaded && SignalStore.backup.hasBackupFailure
+  }
+
+  fun markBackupAlreadyRedeemedIndicatorClicked() {
+    SignalStore.backup.hasBackupAlreadyRedeemedError = false
   }
 
   /**
@@ -448,6 +460,7 @@ object BackupRepository {
     plaintext: Boolean = false,
     currentTime: Long = System.currentTimeMillis(),
     mediaBackupEnabled: Boolean = SignalStore.backup.backsUpMedia,
+    forTransfer: Boolean = false,
     progressEmitter: ExportProgressListener? = null,
     cancellationSignal: () -> Boolean = { false },
     exportExtras: ((SignalDatabase) -> Unit)? = null
@@ -469,6 +482,7 @@ object BackupRepository {
       writer = writer,
       progressEmitter = progressEmitter,
       mediaBackupEnabled = mediaBackupEnabled,
+      forTransfer = forTransfer,
       cancellationSignal = cancellationSignal,
       exportExtras = exportExtras
     )
@@ -488,6 +502,7 @@ object BackupRepository {
     isLocal: Boolean,
     writer: BackupExportWriter,
     mediaBackupEnabled: Boolean = SignalStore.backup.backsUpMedia,
+    forTransfer: Boolean = false,
     progressEmitter: ExportProgressListener? = null,
     cancellationSignal: () -> Boolean = { false },
     exportExtras: ((SignalDatabase) -> Unit)? = null
@@ -503,8 +518,9 @@ object BackupRepository {
       val signalStoreSnapshot: SignalStore = createSignalStoreSnapshot(keyValueDbName)
       eventTimer.emit("store-db-snapshot")
 
-      val exportState = ExportState(backupTime = currentTime, mediaBackupEnabled = mediaBackupEnabled)
-      val selfRecipientId = dbSnapshot.recipientTable.getByAci(signalStoreSnapshot.accountValues.aci!!).get().toLong().let { RecipientId.from(it) }
+      val exportState = ExportState(backupTime = currentTime, mediaBackupEnabled = mediaBackupEnabled, forTransfer = forTransfer)
+      val selfAci = signalStoreSnapshot.accountValues.aci!!
+      val selfRecipientId = dbSnapshot.recipientTable.getByAci(selfAci).get().toLong().let { RecipientId.from(it) }
 
       var frameCount = 0L
 
@@ -513,7 +529,8 @@ object BackupRepository {
           BackupInfo(
             version = VERSION,
             backupTimeMs = exportState.backupTime,
-            mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey.value.toByteString()
+            mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey.value.toByteString(),
+            firstAppVersion = SignalStore.backup.firstAppVersion
           )
         )
         frameCount++
@@ -532,7 +549,7 @@ object BackupRepository {
           }
 
           progressEmitter?.onRecipient()
-          RecipientArchiveProcessor.export(dbSnapshot, signalStoreSnapshot, exportState, selfRecipientId) {
+          RecipientArchiveProcessor.export(dbSnapshot, signalStoreSnapshot, exportState, selfRecipientId, selfAci) {
             writer.write(it)
             eventTimer.emit("recipient")
             frameCount++
@@ -682,11 +699,14 @@ object BackupRepository {
     val header = frameReader.getHeader()
     if (header == null) {
       Log.e(TAG, "[import] Backup is missing header!")
+      SignalStore.backup.hasInvalidBackupVersion = false
       return ImportResult.Failure
     } else if (header.version > VERSION) {
       Log.e(TAG, "[import] Backup version is newer than we understand: ${header.version}")
+      SignalStore.backup.hasInvalidBackupVersion = true
       return ImportResult.Failure
     }
+    SignalStore.backup.hasInvalidBackupVersion = false
 
     try {
       // Removing all the data from the various tables is *very* expensive (i.e. can take *several* minutes) if we don't do some pre-work.
@@ -876,19 +896,23 @@ object BackupRepository {
     AppDependencies.recipientCache.warmUp()
 
     val groupJobs = SignalDatabase.groups.getGroups().use { groups ->
+      val jobs = mutableListOf<Job>()
       groups
         .asSequence()
-        .mapNotNull { group ->
-          if (group.id.isV2) {
-            RequestGroupV2InfoJob(group.id as GroupId.V2)
-          } else {
-            null
+        .filter { it.id.isV2 }
+        .forEach { group ->
+          jobs.add(RequestGroupV2InfoJob(group.id as GroupId.V2))
+          val avatarKey = group.requireV2GroupProperties().avatarKey
+          if (avatarKey.isNotEmpty()) {
+            jobs.add(AvatarGroupsV2DownloadJob(group.id.requireV2(), avatarKey))
           }
         }
-        .toList()
+      jobs
     }
     AppDependencies.jobManager.addAll(groupJobs)
     stopwatch.split("group-jobs")
+
+    SignalStore.backup.firstAppVersion = header.firstAppVersion
 
     Log.d(TAG, "[import] Finished! ${eventTimer.stop().summary}")
     stopwatch.stop(TAG)
@@ -1500,10 +1524,18 @@ data class ResumableMessagesBackupUploadSpec(
 
 data class ArchivedMediaObject(val mediaId: String, val cdn: Int)
 
-class ExportState(val backupTime: Long, val mediaBackupEnabled: Boolean) {
+class ExportState(
+  val backupTime: Long,
+  val mediaBackupEnabled: Boolean,
+  val forTransfer: Boolean
+) {
   val recipientIds: MutableSet<Long> = hashSetOf()
   val threadIds: MutableSet<Long> = hashSetOf()
-  val localToRemoteCustomChatColors: MutableMap<Long, Int> = hashMapOf()
+  val contactRecipientIds: MutableSet<Long> = hashSetOf()
+  val groupRecipientIds: MutableSet<Long> = hashSetOf()
+  val threadIdToRecipientId: MutableMap<Long, Long> = hashMapOf()
+  val recipientIdToAci: MutableMap<Long, ByteString> = hashMapOf()
+  val aciToRecipientId: MutableMap<String, Long> = hashMapOf()
 }
 
 class ImportState(val mediaRootBackupKey: MediaRootBackupKey) {

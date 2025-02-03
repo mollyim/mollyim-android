@@ -215,7 +215,7 @@ class BackupMessagesJob private constructor(
 
     stopwatch.split("export")
 
-    when (val result = ArchiveValidator.validate(tempBackupFile, backupKey)) {
+    when (val result = ArchiveValidator.validate(tempBackupFile, backupKey, forTransfer = false)) {
       ArchiveValidator.ValidationResult.Success -> {
         Log.d(TAG, "Successfully passed validation.")
       }
@@ -226,7 +226,7 @@ class BackupMessagesJob private constructor(
       }
 
       is ArchiveValidator.ValidationResult.ValidationError -> {
-        Log.w(TAG, "The backup file fails validation! Message: " + result.exception.message)
+        Log.w(TAG, "The backup file fails validation! Message: ${result.exception.message}, Details: ${result.messageDetails}")
         ArchiveUploadProgress.onValidationFailure()
         return BackupFileResult.Failure
       }

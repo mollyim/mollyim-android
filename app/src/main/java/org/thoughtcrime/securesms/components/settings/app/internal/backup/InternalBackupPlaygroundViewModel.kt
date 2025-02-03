@@ -143,7 +143,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
           append = { bytes -> tempFile.appendBytes(bytes) }
         )
         _state.value = _state.value.copy(statusMessage = "Export complete! Validating...")
-        ArchiveValidator.validate(tempFile, SignalStore.backup.messageBackupKey)
+        ArchiveValidator.validate(tempFile, SignalStore.backup.messageBackupKey, forTransfer = false)
       }
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
@@ -152,7 +152,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
           is ArchiveValidator.ValidationResult.ReadError -> "Failed to read backup file!"
           ArchiveValidator.ValidationResult.Success -> "Validation passed!"
           is ArchiveValidator.ValidationResult.ValidationError -> {
-            Log.w(TAG, "Validation failed!", result.exception)
+            Log.w(TAG, "Validation failed! Details: ${result.messageDetails}", result.exception)
             "Validation failed :( Check the logs for details."
           }
         }

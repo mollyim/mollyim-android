@@ -7,6 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -581,6 +582,15 @@
         <item quantity="one">சேமிப்பகத்தில் இணைப்பைச் சேமிக்கிறது…</item>
         <item quantity="other">சேமிப்பகத்தில் %1$d இணைப்புகளை சேமிக்கிறது…</item>
     </plurals>
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="ConversationFragment__save_to_phone">தொலைபேசியில் சேமிக்கவா?</string>
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="ConversationFragment__this_media_will_be_saved">
+        <item quantity="one">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="other">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+    </plurals>
+    <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
+    <string name="ConversationFragment_dont_show_again">மீண்டும் காட்டாதே</string>
     <string name="ConversationFragment_pending">நிலுவையில் உள்ளது…</string>
     <!-- Describes how the message was sent when looking at a message detail. Previously, messages could be through other means like SMS -->
     <string name="ConversationFragment_push">தரவு (Signal)</string>
@@ -916,6 +926,16 @@
     <string name="DateUtils_tomorrow">நாளை</string>
     <!-- Used in the context: Tonight at 9:00pm for example. Specifically this is after 7pm -->
     <string name="DateUtils_tonight">இன்றிரவு</string>
+    <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
+    <plurals name="DateUtils_date_time_at">
+        <item quantity="one">on %1$s at %2$s</item>
+        <item quantity="other">on %1$s at %2$s</item>
+    </plurals>
+    <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
+    <plurals name="DateUtils_time_at">
+        <item quantity="one">at %1$s</item>
+        <item quantity="other">at %1$s</item>
+    </plurals>
 
     <!-- Scheduled Messages -->
     <!-- Title for dialog that shows all the users scheduled messages for a chat -->
@@ -1006,12 +1026,27 @@
     <string name="LinkDeviceFragment__sync_failure_title">மெசேஜ்களை ஒத்திசைக்க முடியவில்லை</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_body">இணைக்கப்பட்ட சாதனத்திற்கு உங்கள் மெசேஜ்களை இடமாற்ற முடியவில்லை. நீங்கள் மீண்டும் இணைத்து மீண்டும் இடமாற்ற முயற்சி செய்யலாம் அல்லது உங்கள் செய்தி வரலாற்றை மாற்றாமல் தொடரலாம்.</string>
+    <!-- Body of a dialog letting the user know that syncing messages to their linked device failed but the device was still able to be linked -->
+    <string name="LinkDeviceFragment__sync_failure_body_unretryable">உங்கள் சாதனம் இணைக்கப்பட்டது, ஆனால் உங்கள் மெசேஜ்களை இடமாற்ற முடியாது.</string>
+    <!-- Text button in a dialog that, when pressed, will redirect to the Signal support page -->
+    <string name="LinkDeviceFragment__learn_more">மேலும் அறிக</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007320551</string> -->
     <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
-    <string name="LinkDeviceFragment__sync_failure_retry_button">மீண்டும் இணைக்க முயற்சிக்கவும்</string>
+    <string name="LinkDeviceFragment__sync_failure_retry_button">மீண்டும் முயற்சி செய்</string>
     <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
     <string name="LinkDeviceFragment__sync_failure_dismiss_button">இடமாற்றாமல் தொடர்க</string>
     <!-- Option in context menu to edit the name of a linked device -->
     <string name="LinkDeviceFragment__edit_name">பெயரைத் திருத்தவும்</string>
+    <!-- Toast shown when the process of linking a device has been cancelled -->
+    <string name="LinkDeviceFragment__linking_cancelled">இணைப்பது ரத்து செய்யப்பட்டது</string>
+    <!-- Message shown in progress dialog telling users to avoid closing the app while messages are being synced -->
+    <string name="LinkDeviceFragment__do_not_close">பயன்பாட்டை மூடாதீர்கள்</string>
+    <!-- Dialog title shown when a device is unlinked -->
+    <string name="LinkDeviceFragment__device_unlinked">சாதனம் இணைப்பு நீக்கப்பட்டது</string>
+    <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
+    <string name="LinkDeviceFragment__the_device_that_was">The device that was linked %1$s is no longer linked.</string>
+    <!-- Button to dismiss dialog -->
+    <string name="LinkDeviceFragment__ok">சரி</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1051,11 +1086,16 @@
     <!-- Option in bottom sheet to transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_transfer">செய்தி வரலாற்றை இடமாற்றுக</string>
     <!-- Description in bottom sheet of what transferring message history will do -->
-    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">உங்கள் உரை மெசேஜ்களையும் அண்மைய ஊடகத்தையும் இணைக்கப்பட்ட சாதனத்திற்கு இடமாற்றுங்கள்</string>
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text">உங்களின் மெசேஜ்களையும், கடைசி 45 நாட்களின் ஊடகத்தையும் இடமாற்றவும்</string>
     <!-- Option in bottom sheet to not transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_dont_transfer">இடமாற்றம் செய்ய வேண்டாம்</string>
     <!-- Description in bottom sheet of what not transferring history will do -->
     <string name="LinkDeviceSyncBottomSheet_no_old_messages">இணைக்கப்பட்ட சாதனத்திற்கு பழைய மெசேஜ்கள் அல்லது ஊடகம் எதுவும் இடமாற்றப்படாது</string>
+
+    <!-- Title of notification telling users that a device was linked to their account -->
+    <string name="NewLinkedDeviceNotification__you_linked_new_device">நீங்கள் புதிய சாதனம் ஒன்றை இணைத்துள்ளீர்கள்</string>
+    <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">A new device was linked to your account %1$s. Tap to view.</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">\"%1$s\" ஐ இணைப்பு நீக்குவதா?</string>
@@ -1385,6 +1425,14 @@
     <string name="RemoteRestoreActivity__couldnt_transfer">இடமாற்றத்தை முடிக்க முடியவில்லை</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">பிழை ஏற்பட்டதால் உங்கள் கணக்கை இடமாற்ற முடியவில்லை. உங்கள் இடமாற்ற முறையைத் தேர்ந்தெடுத்து மீண்டும் முயலுங்கள்.</string>
+    <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
+    <string name="RemoteRestoreActivity__couldnt_restore">இந்தக் காப்புப்பிரதியை மீண்டும் மீட்டமைக்கவில்லை</string>
+    <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
+    <string name="RemoteRestoreActivity__update_latest">சிக்னலின் இந்தப் பதிப்பினால் உங்கள் காப்புப்பிரதியை மீட்டெடுக்க முடியாது. அண்மைய பதிப்புக்குப் புதுப்பித்து மீண்டும் முயலுங்கள்.</string>
+    <!-- Text on button that when pressed will redirect them to update Signal -->
+    <string name="RemoteRestoreActivity__update_signal">Molly லைப் புதுப்பிக்கவும்</string>
+    <!-- Text label button to dismiss the dialog -->
+    <string name="RemoteRestoreActivity__not_now">இப்போது வேண்டாம்</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">என் பெயர் குறிப்புகளை எனக்கு அறிவி</string>
@@ -1641,6 +1689,13 @@
     <string name="Megaphones_invite_friends">நண்பர்களை அழை</string>
     <string name="Megaphones_chat_colors">சாட்டுக்கான கலர்</string>
     <string name="Megaphones_add_a_profile_photo">படத்தைச் சேர்</string>
+
+    <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">A new device was linked to your account %1$s.</string>
+    <!-- Button shown on megaphone that will redirect to the linked devices screen -->
+    <string name="NewLinkedDeviceMegaphone__view_device">சாதனத்தைக் காண்க</string>
+    <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
+    <string name="NewLinkedDeviceMegaphone__ok">சரி</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">பதிலகள்</string>
@@ -1915,12 +1970,16 @@
     <string name="MessageRecord_s_is_in_the_call_s">%1$s என்பவர் %2$s நேரத்தில் அழைப்பில் உள்ளார்</string>
     <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
     <string name="MessageRecord_you_are_in_the_call_s1">நீங்கள் %1$s நேரத்தில் அழைப்பில் உள்ளீர்கள்</string>
+    <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user and %2$s is the formatted time -->
+    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s and you are in the call · %2$s</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
     <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s மற்றும் %2$s ஆகியோ %3$s நேரத்தில் அழைப்பில் உள்ளனர்</string>
     <!-- Chat log text for an ongoing group call that has one participant -->
     <string name="MessageRecord_s_is_in_the_call">%1$s அழைப்பில் உள்ளார்</string>
     <!-- Chat log text for an ongoing group call only the local user has joined -->
     <string name="MessageRecord_you_are_in_the_call">நீங்கள் அழைப்பில் உள்ளீர்கள்</string>
+    <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user -->
+    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s and you are in the call</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
     <string name="MessageRecord_s_and_s_are_in_the_call">%1$s மற்றும் %2$s ஆகியோர் அழைப்பில் உள்ளனர்</string>
     <!-- Chat log text for a group call that ended within the last 5 minutes -->
@@ -2049,7 +2108,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">மன்னிக்கவும், ஏற்கனவே பல சாதனங்கள் இணைக்கப்பட்டுள்ளது, சிலவற்றை வெளியேற்றவும் …</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">மன்னிக்கவும், இது சரியான சாதன இணைப்பு QR குறியீடு அல்ல.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal சாதனத்தை இணைக்கவா?</string>
-    <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">3 வது தரப்பு ஸ்கேனரைப் பயன்படுத்தி Signal சாதனத்தை இணைக்க முயற்சிக்கிறீர்கள் என்று தெரிகிறது. உங்கள் பாதுகாப்பிற்காக, Signal இருந்து குறியீட்டை மீண்டும் ஸ்கேன் செய்யுங்கள்.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR குறியீட்டை ஸ்கேன் செய்ய Molly கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\" ஐ இயக்கவும்.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">கேமரா அனுமதியின்றி QR குறியீட்டை ஸ்கேன் செய்ய முடியவில்லை</string>
@@ -2395,6 +2454,13 @@
     <!-- An accessibility label for screen readers on a view that can be expanded -->
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">உயர்த்தப்பட்ட கை காட்சியை விரிவுபடுத்தவும்</string>
 
+    <!-- Toolbar title of country picker selection page -->
+    <string name="CountryCodeFragment__your_country">Your country</string>
+    <!-- Hint text in search bar to either enter in a country name or number -->
+    <string name="CountryCodeFragment__search_by">Search by name or number</string>
+    <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
+    <string name="CountryCodeFragment__unknown_country">Unknown country</string>
+
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
     <string name="AboutSheet__signal_connection">சிக்னல் இணைப்பு</string>
@@ -2477,6 +2543,12 @@
     <string name="RegistrationActivity_additional_verification_required">கூடுதல் சரிபார்ப்பு தேவை</string>
     <!-- Dialog message shown when we need to verify sms and carrier rates may apply. -->
     <string name="RegistrationActivity_a_verification_code_will_be_sent_to_this_number">இந்த எண்ணுக்கு சரிபார்ப்புக் குறியீடு அனுப்பப்படும். கேரியர் கட்டணங்கள் விதிக்கப்படலாம்.</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">சரிபார்ப்புக் குறியீட்டைப் பெறுவீர்கள். கேரியர் கட்டணங்கள் பொருந்தக்கூடும்.</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <!-- Hint text explaining that this is where the country code should go -->
+    <string name="RegistrationActivity_default_country_code">+0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">இந்த எண்ணை சரிபார்க்க உங்களுக்கு அழைப்பு வரும்.</string>
     <string name="RegistrationActivity_edit_number">எண்ணை தொகுக்க</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play சேவைகளைக் காணவில்லை</string>
@@ -2931,6 +3003,8 @@
     <string name="NotificationChannel_critical_app_alerts">முக்கியமான ஆப் விழிப்பூட்டல்கள்</string>
     <!-- Notification channel name for other notifications related to messages. Will appear in the system notification settings as the title of this notification channel. -->
     <string name="NotificationChannel_additional_message_notifications">கூடுதல் மெசேஜ் அறிவிப்புகள்</string>
+    <!-- Notification channel name for notifications sent when a device has been linked -->
+    <string name="NotificationChannel_new_linked_device">புதிதாக இணைக்கப்பட்ட சாதனம்</string>
 
     <!-- ProfileEditNameFragment -->
 
@@ -2995,10 +3069,7 @@
     <!-- Status update label used while the device is transcoding video as a prerequisite to uploading -->
     <string name="TransferControlView__processing">செயலாக்கப்படுகிறது…</string>
     <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
-    <string name="TransferControlView__download_progress">%1$1.1f MB/%2$2.1f MB</string>
-    <!-- Attachment file size label for not-yet-downloaded images and video. Will take the form of "1.0 MB" -->
-    <string name="TransferControlView__filesize">%1$1.1f MB</string>
-
+    <string name="TransferControlView__download_progress_s_s">%1$s/%2$s</string>
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
@@ -5008,6 +5079,8 @@
     <string name="AppSettingsFragment__renew_your_signal_backups_subscription">உங்கள் சிக்னல் காப்புப் பிரதிகள் சந்தாவைப் புதுப்பிக்கவும்</string>
     <!-- String alerting user that backup failed -->
     <string name="AppSettingsFragment__couldnt_complete_backup">பேக்கப்பை நிறைவு செய்ய முடியவில்லை</string>
+    <!-- String alerting user that backup redemption -->
+    <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">உங்களின் காப்புப்பிரதிகளின் சந்தாவை மீட்டெடுக்க முடியவில்லை</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">நண்பர்களை அழைக்கவும்</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -5085,6 +5158,7 @@
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">உங்கள் பழைய தொலைபேசி எண்ணைக் குறிப்பிட வேண்டும்</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">உங்கள் புதிய எண்ணுடைய நாட்டின் குறியீட்டைக் குறிப்பிட வேண்டும்</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">உங்கள் புதிய தொலைபேசி எண்ணைக் குறிப்பிட வேண்டும்</string>
+    <string name="ChangeNumberEnterPhoneNumberFragment__your_new_phone_number_can_not_be_same_as_your_old_phone_number">உங்களின் புதிய பேசி எண்ணும், பழைய பேசி எண்ணும் ஒன்றாக இருக்கக்கூடாது</string>
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">எண்ணை மாற்றவும்</string>
@@ -5677,7 +5751,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">சாதனத்தை இணைக்க வேண்டுமா?</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_device_link_dialog_body">நீங்கள் சிக்னல் சாதனத்தை இணைக்க முயற்சிப்பது போல் தெரிகிறது. தொடர்க என்பதை அழுத்தி, குறியீட்டை இணைக்க மீண்டும் ஸ்கேன் செய்யவும்.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">தொடர்க</string>
 
@@ -5782,6 +5856,8 @@
     <string name="MySupportPreference__your_bank_transfer_of_s">உங்கள் %1$s வங்கிப் பரிமாற்றம் நிலுவையில் உள்ளது. வங்கி பரிமாற்றங்கள் முடிவதற்கு 1 முதல் 14 வணிக நாட்கள் ஆகலாம்.  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
     <string name="MySupportPreference__learn_more">மேலும் அறிக</string>
+    <!-- Displayed when a subscription refresh is being performed -->
+    <string name="MySupportPreference__checking_subscription">சந்தாவைச் சரிபார்க்கிறது…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
     <string name="UpdateSignalExpiredDialog__title">Molly லைப் புதுப்பிக்கவும்</string>
@@ -7258,7 +7334,7 @@
     <!-- Displayed whenever a name change, revocation, etc, fails. -->
     <string name="CallLinkDetailsFragment__couldnt_save_changes">மாற்றங்களைச் சேமிக்க முடியவில்லை. உங்கள் நெட்வொர்க் இணைப்பைச் சரிபார்த்து, மீண்டும் முயலவும்.</string>
     <!-- Displayed whenever an admin update fails with a 409. -->
-    <string name="CallLinkDetailsFragment__couldnt_update_admin_approval">Couldn\'t update admin approval settings. Check the call link is not currently in use.</string>
+    <string name="CallLinkDetailsFragment__couldnt_update_admin_approval">நிர்வாகி அனுமதி அமைப்புகளைப் புதுப்பிக்க முடியவில்லை. அழைப்பு இணைப்பு தற்போது பயன்பாட்டில் இல்லை என்பதை உறுதிப்படுத்திக் கொள்ளவும்.</string>
     <!-- Displayed when the call link is in use when the user tries to delete it -->
     <string name="CallLinkDetailsFragment__couldnt_delete_call_link">அழைப்பு இணைப்பு தற்போது பயன்பாட்டில் உள்ளதால் அதை அழிக்க முடியவில்லை.</string>
     <!-- Displayed as title in dialog when user attempts to delete the link -->
@@ -7495,7 +7571,10 @@
     <!-- Sheet title for generic backup error -->
     <string name="BackupAlertBottomSheet__couldnt_complete_backup">பேக்கப்பை நிறைவு செய்ய முடியவில்லை</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
-    <string name="BackupAlertBottomSheet__your_device_hasnt">%1$d நாட்களுக்கான பேக்கப்பை உங்கள் சாதனம் நிறைவு செய்யவில்லை. உங்கள் சாதனம் வை-ஃபை உடன் இணைக்கப்பட்டிருப்பதை உறுதி செய்து \"இப்போதே பேக்கப் எடு\" என்பதை அழுத்தவும். </string>
+    <plurals name="BackupAlertBottomSheet__your_device_hasnt">
+        <item quantity="one">%1$d நாளுக்கான காப்புப்பிரதியை உங்கள் சாதனம் நிறைவு செய்யவில்லை. உங்கள் சாதனம் வைஃபை உடன் இணைக்கப்பட்டிருப்பதை உறுதி செய்து \"இப்போதே காப்புப்பிரதி எடு\" என்பதை அழுத்தவும். </item>
+        <item quantity="other">%1$d நாட்களுக்கான காப்புப்பிரதியை உங்கள் சாதனம் நிறைவு செய்யவில்லை. உங்கள் சாதனம் வைஃபை உடன் இணைக்கப்பட்டிருப்பதை உறுதி செய்து \"இப்போதே காப்புப்பிரதி எடு\" என்பதை அழுத்தவும்.</item>
+    </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">மேலும் அறிக</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
@@ -7532,10 +7611,18 @@
     <string name="BackupAlertBottomSheet__if_you_skip_restore_the">மீட்டமைப்பதைத் தவிர்த்தால், உங்கள் காப்புப்பிரதியில் மீதமுள்ள ஊடகம் மற்றும் இணைப்புகள் சேமிப்பகத்தில் இடம் கிடைக்கும்போது பதிவிறக்கம் செய்யப்படும்.</string>
     <!-- Dialog title when a backup fails to be created -->
     <string name="BackupAlertBottomSheet__backup_failed">மறுபிரதி தோல்வியுற்றது</string>
+    <!-- Dialog title when a backup redemption fails -->
+    <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">உங்களின் காப்புப்பிரதிகளின் சந்தாவை மீட்டெடுக்க முடியவில்லை</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">பிழை ஏற்பட்டது மற்றும் உங்கள் காப்புப்பிரதியை முடிக்க முடியவில்லை. சிக்னலின் அண்மைய பதிப்பில் இருப்பதை உறுதிசெய்து, மீண்டும் முயலுங்கள். இந்தச் சிக்கல் தொடர்ந்தால், ஆதரவைத் தொடர்புகொள்ளுங்கள்.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">புதுப்பிப்பைச் சரிபார்த்திடுங்கள்</string>
+    <!-- Backup redemption error sheet text line 1 -->
+    <string name="BackupAlertBottomSheet__too_many_devices_have_tried">இந்த மாதம் உங்கள் சந்தாவை மீட்டெடுக்க பல சாதனங்கள் முயற்சித்துள்ளன. நீங்கள் இவ்வாறு செய்திருக்கலாம்:</string>
+    <!-- Backup redemption error sheet bullet point 1 -->
+    <string name="BackupAlertBottomSheet__reregistered_your_signal_account">உங்கள் சிக்னல் கணக்கை பல முறை மறு பதிவு செய்திருக்கலாம்.</string>
+    <!-- Backup redemption error sheet bullet point 2 -->
+    <string name="BackupAlertBottomSheet__have_too_many_devices_using_the_same_subscription">பல சாதனங்களில் ஒரே சந்தாவைப் பயன்படுத்தியிருக்கலாம்.</string>
 
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
@@ -7674,7 +7761,7 @@
     <!-- Displayed on the title bar -->
     <string name="RemoteBackupsSettingsFragment__signal_backups">சிக்னல் காப்புப்பிரதிகள்</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Authentication required</string>
+    <string name="RemoteBackupsSettingsFragment__authenticatino_required">அனுமதி தேவை</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">கட்டண வரலாறு</string>
     <!-- Section header for backup information -->
@@ -7817,6 +7904,8 @@
     <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">நெட்வொர்க் பிழை ஏற்பட்டது. உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
     <!-- Progress message when backup file is being uploaded. First placeholder and second placeholder are formatted byte sizes (2 MB) and third is percent completion. -->
     <string name="RemoteBackupsSettingsFragment__uploading_s_of_s_d">பதிவேற்றுகிறது: %2$s இல் %1$s(%3$d%%)</string>
+    <!-- Button label to see more details about redemption error -->
+    <string name="RemoteBackupsSettingsFragment__details">விவரங்கள்</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -7987,6 +8076,20 @@
     <string name="EnterBackupKey_learn_more">மேலும் அறிக</string>
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">தவிர்த்து, மீட்டெடுக்க வேண்டாம்</string>
+    <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
+    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect backup key</string>
+    <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
+    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character backup key you saved when enabling Signal backups. Backups can not be recovered without this key.</string>
+    <!-- Dialog positive button text to try entering their backup key again -->
+    <string name="EnterBackupKey_try_again">மீண்டும் முயற்சிக்கவும்</string>
+    <!-- Dialog negative button text to get help with backup key -->
+    <string name="EnterBackupKey_backup_key_help">Backup key help</string>
+    <!-- Text field error text when the backup key provided has been confirmed invalid -->
+    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect backup key</string>
+    <!-- Text field error text when the backup key is too long -->
+    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+    <!-- Text field error when the backup key is invalid -->
+    <string name="EnterBackupKey_invalid_backup_key_error">Invalid backup key</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">உங்களின் பழைய ஃபோன் கொண்டு இந்தக் குறியீட்டை ஸ்கேன் செய்யவும்</string>

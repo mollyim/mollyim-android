@@ -20,7 +20,13 @@ class InputReadyState(
   val isClientExpired: Boolean,
   val isUnauthorized: Boolean,
 ) {
-  private val selfMemberLevel: GroupTable.MemberLevel? = groupRecord?.memberLevel(Recipient.self())
+  private val selfMemberLevel: GroupTable.MemberLevel? = groupRecord?.let {
+    val level = it.memberLevel(Recipient.self())
+    if (!it.isActive && level == GroupTable.MemberLevel.FULL_MEMBER) {
+      GroupTable.MemberLevel.NOT_A_MEMBER
+    }
+    level
+  }
 
   val isAnnouncementGroup: Boolean? = groupRecord?.isAnnouncementGroup
   val isActiveGroup: Boolean? = if (selfMemberLevel == null) null else selfMemberLevel != GroupTable.MemberLevel.NOT_A_MEMBER
