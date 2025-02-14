@@ -1062,7 +1062,7 @@ object RemoteConfig {
   /** JSON object representing some details about how we might want to warn the user around connectivity issues. */
   val connectivityWarningConfig: String by remoteString(
     key = "android.connectivityWarningConfig",
-    defaultValue = "",
+    defaultValue = "{}",
     hotSwappable = true
   )
 

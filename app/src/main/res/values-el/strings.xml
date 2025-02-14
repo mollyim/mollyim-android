@@ -586,8 +586,8 @@
     <string name="ConversationFragment__save_to_phone">Αποθήκευση στο τηλέφωνο;</string>
     <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
     <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
-        <item quantity="other">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="one">Το πολυμέσο θα αποθηκευτεί στον αποθηκευτικό χώρο του τηλεφώνου σου. Άλλες εφαρμογές μπορεί να έχουν πρόσβαση σε αυτό, ανάλογα με τις άδειες του τηλεφώνου σου.</item>
+        <item quantity="other">Τα πολυμέσα θα αποθηκευτούν στον αποθηκευτικό χώρο του τηλεφώνου σου. Άλλες εφαρμογές μπορεί να έχουν πρόσβαση σε αυτά, ανάλογα με τις άδειες του τηλεφώνου σου.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">Να μην εμφανιστεί ξανά</string>
@@ -928,13 +928,13 @@
     <string name="DateUtils_tonight">Απόψε</string>
     <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
     <plurals name="DateUtils_date_time_at">
-        <item quantity="one">on %1$s at %2$s</item>
-        <item quantity="other">on %1$s at %2$s</item>
+        <item quantity="one">στις %1$s στη %2$s</item>
+        <item quantity="other">στις %1$s στις %2$s</item>
     </plurals>
     <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
     <plurals name="DateUtils_time_at">
-        <item quantity="one">at %1$s</item>
-        <item quantity="other">at %1$s</item>
+        <item quantity="one">στη %1$s</item>
+        <item quantity="other">στις %1$s</item>
     </plurals>
 
     <!-- Scheduled Messages -->
@@ -982,7 +982,7 @@
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
-    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Χρησιμοποίησε το Signal σε υπολογιστή ή iPad. Τα μηνύματά σου θα συγχρονιστούν στις συνδεδεμένες συσκευές σου.</string>
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Χρησιμοποίησε αυτόν τον λογαριασμό Signal σε υπολογιστή ή iPad.</string>
     <!-- Button prompting users to link a new device to their account -->
     <string name="LinkDeviceFragment__link_a_new_device">Σύνδεση νέας συσκευής</string>
     <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
@@ -1022,6 +1022,21 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Πάτα «συνέχεια» και γράψε τον κωδικό του κινητού σου για επιβεβαίωση. Μην γράψεις το PIN του Signal σου.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Συνέχεια</string>
+    <!-- Option on button to contact support -->
+    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
+    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <!-- Button option to dismiss dialog -->
+    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <!-- Email subject when contacting support on a linked device syncing issue -->
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Ο συγχρονισμός μηνυμάτων απέτυχε</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
@@ -1044,7 +1059,7 @@
     <!-- Dialog title shown when a device is unlinked -->
     <string name="LinkDeviceFragment__device_unlinked">Η συσκευή αποσυνδέθηκε</string>
     <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
-    <string name="LinkDeviceFragment__the_device_that_was">The device that was linked %1$s is no longer linked.</string>
+    <string name="LinkDeviceFragment__the_device_that_was">Η συσκευή που συνδέθηκε %1$s δεν είναι πλέον συνδεδεμένη.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
 
@@ -1095,7 +1110,7 @@
     <!-- Title of notification telling users that a device was linked to their account -->
     <string name="NewLinkedDeviceNotification__you_linked_new_device">Έχεις συνδέσει μια νέα συσκευή</string>
     <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">A new device was linked to your account %1$s. Tap to view.</string>
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">Μια νέα συσκευή συνδέθηκε με τον λογαριασμό σου %1$s. Πάτα για να τη δεις.</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Αποσύνδεση της \"%1$s\";</string>
@@ -1691,7 +1706,7 @@
     <string name="Megaphones_add_a_profile_photo">Βάλε φώτο προφίλ</string>
 
     <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">A new device was linked to your account %1$s.</string>
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">Μια νέα συσκευή συνδέθηκε με τον λογαριασμό σου %1$s.</string>
     <!-- Button shown on megaphone that will redirect to the linked devices screen -->
     <string name="NewLinkedDeviceMegaphone__view_device">Προβολή συσκευής</string>
     <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
@@ -1926,6 +1941,7 @@
 
     <!-- GV2 group link deny -->
     <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Το αίτημά σου να μπεις στην ομάδα απορρίφθηκε από κάποιον διαχειριστή.</string>
+    <string name="MessageRecord_you_denied_a_request_to_join_the_group_from_s">Απέρριψες το αίτημα του/της %1$s να μπει στην ομάδα.</string>
     <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">Ο/Η %1$s απέρριψε το αίτημα του/της %2$s να μπει στην ομάδα.</string>
     <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">Το αίτημα του/της %1$s να μπει στην ομάδα απορρίφθηκε.</string>
     <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Ακύρωσες το αίτημά σου για είσοδο στην ομάδα.</string>
@@ -1971,7 +1987,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
     <string name="MessageRecord_you_are_in_the_call_s1">Είσαι στην κλήση · %1$s</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user and %2$s is the formatted time -->
-    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s and you are in the call · %2$s</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call_s1">Ο χρήστης %1$s και εσύ είστε στην κλήση · %2$s</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
     <string name="MessageRecord_s_and_s_are_in_the_call_s1">Οι %1$s και %2$s είναι στην κλήση · %3$s</string>
     <!-- Chat log text for an ongoing group call that has one participant -->
@@ -1979,7 +1995,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined -->
     <string name="MessageRecord_you_are_in_the_call">Είσαι στην κλήση</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user -->
-    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s and you are in the call</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call">Ο χρήστης %1$s και εσύ είστε στην κλήση</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
     <string name="MessageRecord_s_and_s_are_in_the_call">Οι %1$s και %2$s είναι στην κλήση</string>
     <!-- Chat log text for a group call that ended within the last 5 minutes -->
@@ -2108,7 +2124,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Δυστυχώς έχεις πάρα πολλές συσκευές συνδεμένες, προσπάθησε να διαγράψεις κάποιες</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Συγγνώμη, αυτός δεν είναι ένας έγκυρος κωδικός QR για σύνδεση συσκευών.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Σύνδεση κάποιας συσκευής Signal;</string>
-    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Για να συνδέσεις έναν υπολογιστή ή ένα iPad σε αυτόν τον λογαριασμό Signal, πήγαινε στις Συνδεδεμένες συσκευές, πάτησε «Σύνδεση νέας συσκευής» και σάρωσε ξανά τον κωδικό QR. Βεβαιώσου ότι σαρώνεις μόνο κωδικούς QR που προέρχονται απευθείας από το Signal.</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Το Molly χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Δεν μπορούμε να σκανάρουμε QR κωδικούς χωρίς τα δικαιώματα Κάμερας</string>
@@ -2455,11 +2471,11 @@
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Ανάπτυξη της προβολής σηκωμένου χεριού</string>
 
     <!-- Toolbar title of country picker selection page -->
-    <string name="CountryCodeFragment__your_country">Your country</string>
+    <string name="CountryCodeFragment__your_country">Η χώρα σου</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Search by name or number</string>
+    <string name="CountryCodeFragment__search_by">Αναζήτηση με όνομα ή αριθμό</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
-    <string name="CountryCodeFragment__unknown_country">Unknown country</string>
+    <string name="CountryCodeFragment__unknown_country">Άγνωστη χώρα</string>
 
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
@@ -2546,9 +2562,9 @@
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
     <string name="RegistrationActivity_you_will_receive_a_verification_code">Θα λάβεις έναν κωδικό επαλήθευσης. Μπορεί να υπάρξουν χρεώσεις παρόχου.</string>
     <!-- Hint text to select a country -->
-    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <string name="RegistrationActivity_select_a_country">Επιλογή χώρας</string>
     <!-- Hint text explaining that this is where the country code should go -->
-    <string name="RegistrationActivity_default_country_code">+0</string>
+    <string name="RegistrationActivity_default_country_code">0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Θα λάβεις μια κλήση για την επαλήθευση αυτού του αριθμού.</string>
     <string name="RegistrationActivity_edit_number">Επεξεργασία αριθμού</string>
     <string name="RegistrationActivity_missing_google_play_services">Υπηρεσίες Google Play που λείπουν</string>
@@ -5751,7 +5767,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">Σύνδεση συσκευής;</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">Φαίνεται πως προσπαθείς να συνδέσεις μια συσκευή Signal. Πάτησε «Συνέχεια», μετά «Σύνδεση νέας συσκευής» και σάρωσε ξανά τον κωδικό QR.</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">Συνέχεια</string>
 
@@ -8077,19 +8093,25 @@
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">Παράλειψη, χωρίς επαναφορά</string>
     <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_title">Λανθασμένο εφεδρικό κλειδί</string>
     <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character backup key you saved when enabling Signal backups. Backups can not be recovered without this key.</string>
+    <string name="EnterBackupKey_incorrect_backup_key_message">Βεβαιώσου ότι εγγράφεσαι με τον ίδιο αριθμό τηλεφώνου και εφεδρικό κλειδί 64 χαρακτήρων που αποθήκευσες κατά την ενεργοποίηση των αντιγράφων ασφαλείας Signal. Τα αντίγραφα ασφαλείας δεν μπορούν να ανακτηθούν χωρίς αυτό το κλειδί.</string>
     <!-- Dialog positive button text to try entering their backup key again -->
-    <string name="EnterBackupKey_try_again">Ξαναπροσπάθησε</string>
+    <string name="EnterBackupKey_try_again">Δοκίμασε ξανά</string>
     <!-- Dialog negative button text to get help with backup key -->
-    <string name="EnterBackupKey_backup_key_help">Backup key help</string>
+    <string name="EnterBackupKey_backup_key_help">Βοήθεια για εφεδρικό κλειδί</string>
     <!-- Text field error text when the backup key provided has been confirmed invalid -->
-    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_error">Λανθασμένο εφεδρικό κλειδί</string>
     <!-- Text field error text when the backup key is too long -->
-    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+    <string name="EnterBackupKey_too_long_error">Πολύ μακροσκελές (%1$d/%2$d)</string>
     <!-- Text field error when the backup key is invalid -->
-    <string name="EnterBackupKey_invalid_backup_key_error">Invalid backup key</string>
+    <string name="EnterBackupKey_invalid_backup_key_error">Μη έγκυρο εφεδρικό κλειδί</string>
+    <!-- Dialog title shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_not_found">Το αντίγραφο ασφαλείας δεν βρέθηκε</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Το εφεδρικό κλειδί που εισήγαγες είναι σωστό, αλλά δεν υπάρχει αντίγραφο ασφαλείας που να σχετίζεται με αυτό. Εάν εξακολουθείς να έχεις το παλιό σου τηλέφωνο, βεβαιώσου ότι τα αντίγραφα ασφαλείας είναι ενεργοποιημένα και ότι έχει ολοκληρωθεί το αντίγραφο ασφαλείας και δοκίμασε ξανά.</string>
+    <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
+    <string name="EnterBackupKey_skip_restore">Παράλειψη επαναφοράς</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Σάρωσε αυτόν τον κωδικό με το παλιό σου τηλέφωνο</string>
