@@ -66,7 +66,7 @@
     <string name="MessageRetrievalService_ready_to_receive_messages">Redo att ta emot meddelanden</string>
     <string name="HelpSettingsFragment__molly_im_website">Vår hemsida: Molly.im</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Radera och inaktivera felsökningsloggar?</string>
-    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Till Molly att visa notiser även nör enheten inte används.</string>
+    <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Till Molly att visa notiser även när enheten inte används.</string>
     <string name="DozeReminder_disable_battery_restrictions">Inaktivera batteribegränsningar</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Ange dina biometrimarkörer i Android-inställningar först</string>
     <string name="BioTextPreference_no_linked_devices">Inga länkade enheter</string>
@@ -119,4 +119,8 @@
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Tyvärr kräver den här funktionen push-meddelanden som levereras via FCM eller UnifiedPush, som för närvarande inte är tillgängliga.</string>
     <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Kolla regelbundet efter uppdateringar och fråga om du vill installera.</string>
     <string name="RegistrationActivity_link_error">Ett fel har inträffat under enhetslänkningen. Kontrollera din nätverksanslutning och försök igen</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_air_gapped_pending">Väntar på bekräftelse från MollySocket-servern</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_bad_response">Felaktigt svar från servern</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_forbidden_uuid">Account-ID nekades av servern</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_linked_device_error">Kunde inte skapa länkade enheten</string>
 </resources>
