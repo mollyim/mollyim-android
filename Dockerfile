@@ -1,11 +1,11 @@
-FROM docker.io/eclipse-temurin:17.0.12_7-jdk-jammy@sha256:d41eff8f20494968aaa1f5bbea4547303076b915d38f7d642441bd16538b45e3 AS builder
+FROM docker.io/eclipse-temurin:17.0.14_7-jdk-alpine-3.21@sha256:b16e661d76d3af0d226d0585063dbcafe7fb8a4ef31cfcaaec71d39c41269420 AS builder
 
 ARG ANDROID_SDK_DIST=commandlinetools-linux-11076708_latest.zip
 ARG ANDROID_SDK_SHA256=2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
 
 ENV ANDROID_HOME=/opt/android-sdk-linux
 
-RUN apt-get update && apt-get install -y unzip git
+RUN apk add --no-cache curl git gcompat
 
 RUN mkdir -p "${ANDROID_HOME}"
 
