@@ -586,8 +586,8 @@
     <string name="ConversationFragment__save_to_phone">فون میں محفوظ کریں؟</string>
     <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
     <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
-        <item quantity="other">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="one">یہ میڈیا آپ کے فون کی اسٹوریج میں محفوظ کر دیا گیا ہے۔ آپ کی فون کی اجازتوں پر انحصار کرتے ہوئے دیگر ایپس اس تک رسائی حاصل کرنے کی اہل ہو سکتی ہیں۔</item>
+        <item quantity="other">یہ میڈیا آپ کے فون کی اسٹوریج میں محفوظ ہو جائے گا۔ آپ کی فون کی اجازتوں پر انحصار کرتے ہوئے دیگر ایپس اس تک رسائی حاصل کرنے کی اہل ہو سکتی ہیں۔</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">دوبارہ نہ دکھائیں</string>
@@ -928,13 +928,13 @@
     <string name="DateUtils_tonight">آج رات</string>
     <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
     <plurals name="DateUtils_date_time_at">
-        <item quantity="one">on %1$s at %2$s</item>
-        <item quantity="other">on %1$s at %2$s</item>
+        <item quantity="one">%1$s کو %2$s پر</item>
+        <item quantity="other">%1$s کو%2$s پر</item>
     </plurals>
     <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
     <plurals name="DateUtils_time_at">
-        <item quantity="one">at %1$s</item>
-        <item quantity="other">at %1$s</item>
+        <item quantity="one">%1$s پر</item>
+        <item quantity="other">%1$s پر</item>
     </plurals>
 
     <!-- Scheduled Messages -->
@@ -982,7 +982,7 @@
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
-    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">ڈیسک ٹاپ یا iPad پر Signal استعمال کریں۔ آپ کے میسجز آپ کی لنک کردہ ڈیوائسز کے ساتھ سنک ہوں گے۔</string>
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">اس Signal اکاؤنٹ کو ڈیسک ٹاپ یا iPad پر استعمال کریں۔</string>
     <!-- Button prompting users to link a new device to their account -->
     <string name="LinkDeviceFragment__link_a_new_device">ایک نئی ڈیوائس لنک کریں</string>
     <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
@@ -1022,6 +1022,21 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">جاری رکھیں پر ٹیپ کریں اور تصدیق کرنے کے لیے اپنے فون کا لاک درج کریں۔ اپنے Signal کا پِن درج نہ کریں۔</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">جاری رکھیں</string>
+    <!-- Option on button to contact support -->
+    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
+    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <!-- Button option to dismiss dialog -->
+    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <!-- Email subject when contacting support on a linked device syncing issue -->
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">میسج سنک ناکام ہو گئی</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
@@ -1044,7 +1059,7 @@
     <!-- Dialog title shown when a device is unlinked -->
     <string name="LinkDeviceFragment__device_unlinked">ڈیوائس غیر مربوط کر دی گئی</string>
     <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
-    <string name="LinkDeviceFragment__the_device_that_was">The device that was linked %1$s is no longer linked.</string>
+    <string name="LinkDeviceFragment__the_device_that_was">جو ڈیوائس %1$s کو منسلک کی گئی تھی اب مزید منسلک شدہ نہیں ہے۔</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">ٹھیک ہے</string>
 
@@ -1095,7 +1110,7 @@
     <!-- Title of notification telling users that a device was linked to their account -->
     <string name="NewLinkedDeviceNotification__you_linked_new_device">آپ نے ایک نئی ڈیوائس کو منسلک کیا</string>
     <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">A new device was linked to your account %1$s. Tap to view.</string>
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">آپ کے اکاؤنٹ %1$s پر ایک نئی ڈیوائس منسلک کی گئی تھی۔ دیکھنے کے لیے ٹیپ کریں۔</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">\"%1$s\" غیر مربوط کریں؟</string>
@@ -1338,7 +1353,7 @@
     <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
         <item quantity="one">\"%2$s\" میں \"%1$s\" کو شامل کریں؟</item>
-        <item quantity="other">\"%2$s\" میں %3$d ممبران شامل کریں؟</item>
+        <item quantity="other">\"%2$s\" میں %3$d ممبران کو شامل کریں؟</item>
     </plurals>
     <string name="AddMembersActivity__add">شامل کریں</string>
     <string name="AddMembersActivity__add_members">ممبران شامل کریں</string>
@@ -1691,7 +1706,7 @@
     <string name="Megaphones_add_a_profile_photo">فوٹو شامل کریں</string>
 
     <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">A new device was linked to your account %1$s.</string>
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">آپ کے اکاؤنٹ %1$s پر ایک نئی ڈیوائس منسلک کی گئی تھی۔</string>
     <!-- Button shown on megaphone that will redirect to the linked devices screen -->
     <string name="NewLinkedDeviceMegaphone__view_device">ڈیوائس دیکھیں</string>
     <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
@@ -1926,6 +1941,7 @@
 
     <!-- GV2 group link deny -->
     <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">گروپ میں شامل ہونے کی آپ کی درخواست کو منتظم نے مسترد کردیا ہے۔</string>
+    <string name="MessageRecord_you_denied_a_request_to_join_the_group_from_s">آپ نے %1$s سے گروپ میں شامل ہونے کی درخواست کی تردید کی۔</string>
     <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s نے %2$s کی اس گروپ میں شامل ہونے کی درخواست کی تردید کی۔</string>
     <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">%1$s کی گروپ میں شامل ہونے کی درخواست مسترد کردی گئی ہے۔</string>
     <string name="MessageRecord_you_canceled_your_request_to_join_the_group">آپ نے گروپ میں شامل ہونے کی اپنی درخواست منسوخ کردی۔</string>
@@ -1971,7 +1987,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
     <string name="MessageRecord_you_are_in_the_call_s1">آپ کال میں ہیں · %1$s</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user and %2$s is the formatted time -->
-    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s and you are in the call · %2$s</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s اور آپ کال میں شامل ہیں %2$s</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
     <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s اور %2$s کال میں ہیں · %3$s</string>
     <!-- Chat log text for an ongoing group call that has one participant -->
@@ -1979,7 +1995,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined -->
     <string name="MessageRecord_you_are_in_the_call">آپ کال میں ہیں</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user -->
-    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s and you are in the call</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s اور آپ کال میں شامل ہیں</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
     <string name="MessageRecord_s_and_s_are_in_the_call">%1$s اور%2$s کال میں ہیں</string>
     <!-- Chat log text for a group call that ended within the last 5 minutes -->
@@ -2108,7 +2124,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">معذرت سے، پہلے سے بہت زیادہ ڈیوائسز منسلک ہیں، کچھ ختم کرنے کی کوشش کریں</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">معذرت سے، ڈیوائس لنک QR کوڈ غلط ہے۔</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal ڈیوائس منسلک کریں؟</string>
-    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">ڈیسک ٹاپ یا iPad کو اس Signal اکاؤنٹ کے ساتھ لنک کرنے کے لیے، لنک کردہ ڈیوائسز پر جائیں اور \"نئی ڈیوائس لنک کریں\" پر ٹیپ کریں اور QR کوڈ کو دوبارہ اسکین کریں۔ یقینی بنائیں کہ آپ صرف وہ QR کوڈز اسکین کریں جو براہ راست Signal سے آتے ہیں۔</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly کو QR کوڈ سکین کرنے کیلئے کیمرہ کی اجازت کی ضرورت ہے، لیکن اس کو مستقل طور پر رد کر دیا گیا۔ براہ کرم ایپ کی ترتیبات میں جا کر\"اجازت نامہ\"کا انتخاب کریں اور \"کیمرہ\" کو فعال کریں۔</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">کیمرہ کی اجازت کے بغیر QR کوڈ سکین کرنا ممکن نہیں</string>
@@ -2455,11 +2471,11 @@
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">اٹھائے گئے ہاتھوں کا ویو پھیلائیں</string>
 
     <!-- Toolbar title of country picker selection page -->
-    <string name="CountryCodeFragment__your_country">Your country</string>
+    <string name="CountryCodeFragment__your_country">آپ کا ملک</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Search by name or number</string>
+    <string name="CountryCodeFragment__search_by">نام اور ایڈریس کے ذریعے تلاش کریں</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
-    <string name="CountryCodeFragment__unknown_country">Unknown country</string>
+    <string name="CountryCodeFragment__unknown_country">انجان ملک</string>
 
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
@@ -2546,9 +2562,9 @@
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
     <string name="RegistrationActivity_you_will_receive_a_verification_code">آپ کو تصدیقی کوڈ وصول ہوگا۔ کیریئر کی درجہ بندی لاگو ہو گی۔</string>
     <!-- Hint text to select a country -->
-    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <string name="RegistrationActivity_select_a_country">ملک منتخب کریں</string>
     <!-- Hint text explaining that this is where the country code should go -->
-    <string name="RegistrationActivity_default_country_code">+0</string>
+    <string name="RegistrationActivity_default_country_code">0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">اس نمبر کی تصدیق کے لیئے آپ کو کال موصول ہوگی۔</string>
     <string name="RegistrationActivity_edit_number">نمبر ترتیب کرے</string>
     <string name="RegistrationActivity_missing_google_play_services">غائب گوگل پلے سروسز</string>
@@ -5751,7 +5767,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">ڈیوائس مربوط کریں؟</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">ایسا لگتا ہے کہ آپ Signal ڈیوائس کو لنک کرنے کی کوشش کر رہے ہیں۔ جاری رکھیں پر ٹیپ کریں اور پھر \"نئی ڈیوائس لنک کریں\" پر ٹیپ کریں اور QR کوڈ کو دوبارہ اسکین کریں۔</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">جاری رکھیں</string>
 
@@ -8077,19 +8093,25 @@
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">اسکپ کریں اور ری اسٹور نہ کریں</string>
     <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_title">غلط بیک اپ کیی</string>
     <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character backup key you saved when enabling Signal backups. Backups can not be recovered without this key.</string>
+    <string name="EnterBackupKey_incorrect_backup_key_message">یقینی بنائیں کہ Signal بیک اپس کی فعالی کے وقت آپ اسی فون نمبر اور اپنی محفوظ کردہ 64 حروف کی بیک اپ کیی کے ساتھ رجسٹر کر رہے ہیں۔ اس کیی کے بغیر بیک اپس کو بحال نہیں کیا جا سکتا۔</string>
     <!-- Dialog positive button text to try entering their backup key again -->
     <string name="EnterBackupKey_try_again">دوبارہ کوشش کریں</string>
     <!-- Dialog negative button text to get help with backup key -->
-    <string name="EnterBackupKey_backup_key_help">Backup key help</string>
+    <string name="EnterBackupKey_backup_key_help">بیک اپ کیی میں مدد</string>
     <!-- Text field error text when the backup key provided has been confirmed invalid -->
-    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_error">غلط بیک اپ کیی</string>
     <!-- Text field error text when the backup key is too long -->
-    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+    <string name="EnterBackupKey_too_long_error">بہت طویل ہے (%1$d/%2$d)</string>
     <!-- Text field error when the backup key is invalid -->
-    <string name="EnterBackupKey_invalid_backup_key_error">Invalid backup key</string>
+    <string name="EnterBackupKey_invalid_backup_key_error">غیر درست بیک اپ کیی</string>
+    <!-- Dialog title shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_not_found">بیک اپ نہیں ملا</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">آپ نے جو بیک اپ کیی درج کی ہے وہ درست ہے، لیکن اس سے کوئی بیک اپ وابستہ نہیں ہے۔ اگر آپ کے پاس ابھی تک پرانا فون ہے، تو یقینی بنائیں کہ بیک اپس فعال ہیں اور بیک اپ مکمل ہو چکا ہے اور دوبارہ کوشش کریں۔</string>
+    <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
+    <string name="EnterBackupKey_skip_restore">بحال کرنا نظر انداز کریں</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">اپنے پرانے فون سے اس کوڈ کو اسکین کریں</string>

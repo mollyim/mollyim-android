@@ -34,7 +34,6 @@ import org.signal.ringrtc.NetworkRoute;
 import org.signal.ringrtc.PeekInfo;
 import org.signal.ringrtc.Remote;
 import org.signal.storageservice.protos.groups.GroupExternalCredential;
-import org.thoughtcrime.securesms.WebRtcCallActivity;
 import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.CallLinkTable;
@@ -540,7 +539,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       return false;
     }
 
-    context.startActivity(new Intent(context, WebRtcCallActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    context.startActivity(new Intent(context, CallIntent.getActivityClass()).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     return true;
   }
 
@@ -619,11 +618,9 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         case REMOTE_CONNECTED:
           return p.handleCallConnected(s, remotePeer);
         case REMOTE_AUDIO_ENABLE:
-          // TODO: Implement handling when the remote enables audio.
-          break;
+          return p.handleRemoteAudioEnable(s, true);
         case REMOTE_AUDIO_DISABLE:
-          // TODO: Implement handling when the remote disables audio.
-          break;
+          return p.handleRemoteAudioEnable(s, false);
         case REMOTE_VIDEO_ENABLE:
           return p.handleRemoteVideoEnable(s, true);
         case REMOTE_VIDEO_DISABLE:

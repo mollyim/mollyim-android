@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.linkdevice
 import android.net.Uri
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository.LinkDeviceResult
+import kotlin.time.Duration.Companion.days
 
 /**
  * Information about linked devices. Used in [LinkDeviceViewModel].
@@ -19,10 +20,11 @@ data class LinkDeviceSettingsState(
   val linkDeviceResult: LinkDeviceResult = LinkDeviceResult.None,
   val linkWithoutQrCode: Boolean = false,
   val seenBioAuthEducationSheet: Boolean = false,
-  val needsBioAuthEducationSheet: Boolean = !seenBioAuthEducationSheet && !SignalStore.uiHints.hasSeenLinkDeviceAuthSheet() && !SignalStore.account.hasLinkedDevices,
+  val needsBioAuthEducationSheet: Boolean = !seenBioAuthEducationSheet && SignalStore.uiHints.lastSeenLinkDeviceAuthSheetTime < System.currentTimeMillis() - 30.days.inWholeMilliseconds,
   val bottomSheetVisible: Boolean = false,
   val deviceToEdit: Device? = null,
-  val shouldCancelArchiveUpload: Boolean = false
+  val shouldCancelArchiveUpload: Boolean = false,
+  val debugLogUrl: String? = null
 ) {
   sealed interface DialogState {
     data object None : DialogState
@@ -32,6 +34,8 @@ data class LinkDeviceSettingsState(
     data object SyncingTimedOut : DialogState
     data class SyncingFailed(val deviceId: Int, val deviceCreatedAt: Long, val canRetry: Boolean) : DialogState
     data class DeviceUnlinked(val deviceCreatedAt: Long) : DialogState
+    data object LoadingDebugLog : DialogState
+    data object ContactSupport : DialogState
   }
 
   sealed interface OneTimeEvent {
@@ -45,6 +49,7 @@ data class LinkDeviceSettingsState(
     data object ShowFinishedSheet : OneTimeEvent
     data object HideFinishedSheet : OneTimeEvent
     data object LaunchQrCodeScanner : OneTimeEvent
+    data object LaunchEmail : OneTimeEvent
   }
 
   enum class QrCodeState {

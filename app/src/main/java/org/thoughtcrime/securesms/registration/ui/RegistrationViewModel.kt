@@ -66,7 +66,6 @@ import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequ
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.Success
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.TokenNotAccepted
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult.UnknownError
-import org.thoughtcrime.securesms.registration.ui.countrycode.Country
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.thoughtcrime.securesms.util.RemoteConfig
@@ -117,6 +116,14 @@ class RegistrationViewModel : ViewModel() {
 
   val phoneNumber: Phonenumber.PhoneNumber?
     get() = store.value.phoneNumber
+
+  var nationalNumber: String
+    get() = store.value.nationalNumber
+    set(value) {
+      store.update {
+        it.copy(nationalNumber = value)
+      }
+    }
 
   fun maybePrefillE164(context: Context) {
     Log.v(TAG, "maybePrefillE164()")
@@ -197,18 +204,6 @@ class RegistrationViewModel : ViewModel() {
   fun removePresentedChallenge(challenge: Challenge) {
     store.update {
       it.copy(challengesPresented = it.challengesPresented.minus(challenge))
-    }
-  }
-
-  fun setCurrentCountryPicked(country: Country) {
-    store.update {
-      it.copy(country = country)
-    }
-  }
-
-  fun clearCountry() {
-    store.update {
-      it.copy(country = null)
     }
   }
 

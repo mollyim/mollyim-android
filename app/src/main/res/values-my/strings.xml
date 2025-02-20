@@ -575,7 +575,7 @@
     <string name="ConversationFragment__save_to_phone">ဖုန်းထဲ သိမ်းမလား။</string>
     <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
     <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="other">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="other">ဤမီဒီယာကို သင့်ဖုန်း၏ သိုလှောင်မှုတွင် သိမ်းဆည်းမည်ဖြစ်သည်။ သင့်ဖုန်း၏ ခွင့်ပြုချက်များပေါ်မူတည်၍ အခြားအက်ပ်များက ၎င်းကိုဝင်ရောက် အသုံးပြုနိုင်ပါသည်။</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">ထပ်မပြပါနှင့်</string>
@@ -907,11 +907,11 @@
     <string name="DateUtils_tonight">ယနေ့ည</string>
     <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
     <plurals name="DateUtils_date_time_at">
-        <item quantity="other">on %1$s at %2$s</item>
+        <item quantity="other">%1$s ရက် %2$s တွင်</item>
     </plurals>
     <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
     <plurals name="DateUtils_time_at">
-        <item quantity="other">at %1$s</item>
+        <item quantity="other">%1$s တွင်</item>
     </plurals>
 
     <!-- Scheduled Messages -->
@@ -959,7 +959,7 @@
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
-    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Desktop သို့မဟုတ် iPad တွင် Signal ကိုသုံးပါ။ သင့်မက်ဆေ့ချ်များသည် သင်ချိတ်ထားသော စက်များနှင့် ချိန်ကိုက်ထားပါမည်။</string>
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Desktop သို့မဟုတ် iPad တွင် ဤ Signal အကောင့်ကိုသုံးပါ။</string>
     <!-- Button prompting users to link a new device to their account -->
     <string name="LinkDeviceFragment__link_a_new_device">စက်အသစ်တစ်ခုကို ချိတ်ဆက်ရန်</string>
     <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
@@ -999,6 +999,21 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">ဆက်လုပ်ရန် ကိုနှိပ်ပြီး သင့်ဖုန်းလော့ခ်ကို ရိုက်ထည့်၍ အတည်ပြုပါ။ သင်၏ Signal PIN ကို မထည့်ပါနှင့်။</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">ဆက်လုပ်ရန်</string>
+    <!-- Option on button to contact support -->
+    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
+    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <!-- Button option to dismiss dialog -->
+    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <!-- Email subject when contacting support on a linked device syncing issue -->
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">မက်ဆေ့ချ်တူအောင်ညှိခြင်း မအောင်မြင်ပါ</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
@@ -1021,7 +1036,7 @@
     <!-- Dialog title shown when a device is unlinked -->
     <string name="LinkDeviceFragment__device_unlinked">စက်ကို ချိတ်ဆက်မှု ဖြုတ်ပါပြီ</string>
     <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
-    <string name="LinkDeviceFragment__the_device_that_was">The device that was linked %1$s is no longer linked.</string>
+    <string name="LinkDeviceFragment__the_device_that_was">%1$s လင့်ခ်ချိတ်ထားသည့် စက်ကို လင့်ခ်မချိတ်တော့ပါ။</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">အိုကေ</string>
 
@@ -1072,7 +1087,7 @@
     <!-- Title of notification telling users that a device was linked to their account -->
     <string name="NewLinkedDeviceNotification__you_linked_new_device">သင် စက်အသစ်တစ်ခုကို လင့်ခ်ချိတ်ထားသည်</string>
     <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">A new device was linked to your account %1$s. Tap to view.</string>
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">စက်အသစ်တစ်ခုကို %1$s သင့်အကောင့်နှင့် ချိတ်ဆက်ထားသည်။ ကြည့်ရှုရန် နှိပ်ပါ။</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">\"%1$s\" ချိတ်ဆက်မှုကို ဖြုတ်မည်လား။</string>
@@ -1298,7 +1313,7 @@
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">ဤပုဂ္ဂိုလ်အားအမွေအုပ်စုများထဲသို့ထည့်မရပါ။</string>
     <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="other">\"%2$s\" ထဲသို့ အဖွဲ့ဝင် %3$d ဦးကို ပေါင်းထည့်မည်လား?</item>
+        <item quantity="other">\"%2$s\" ထဲသို့ အဖွဲ့ဝင် %3$d ဦးကို ပေါင်းထည့်မည်လား။</item>
     </plurals>
     <string name="AddMembersActivity__add">ပေါင်းထည့်မယ်</string>
     <string name="AddMembersActivity__add_members">အဖွဲ့ဝင်များ ထည့်ပါ</string>
@@ -1640,7 +1655,7 @@
     <string name="Megaphones_add_a_profile_photo">ပရိုဖိုင်ပုံထည့်</string>
 
     <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">A new device was linked to your account %1$s.</string>
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">စက်အသစ်တစ်ခုကို %1$s သင့်အကောင့်နှင့် ချိတ်ဆက်ထားသည်။</string>
     <!-- Button shown on megaphone that will redirect to the linked devices screen -->
     <string name="NewLinkedDeviceMegaphone__view_device">စက်ကိုကြည့်ရန်</string>
     <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
@@ -1867,6 +1882,7 @@
 
     <!-- GV2 group link deny -->
     <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">သင်၏ အဖွဲ့သို့ဝင်ရန် တောင်းဆိုချက်ကို စီမံသူမှ ငြင်းဆိုခဲ့ပါသည်။</string>
+    <string name="MessageRecord_you_denied_a_request_to_join_the_group_from_s">သင်သည် %1$s ထံမှ အဖွဲ့တွင် ပါဝင်ရန် တောင်းဆိုချက်ကို ငြင်းပယ်ခဲ့ပါသည်။</string>
     <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%2$s မှ အဖွဲ့သို့ဝင်ရန် တောင်းဆိုချက်ကို %1$s သည် ငြင်းဆိုခဲ့ပါသည်။</string>
     <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">%1$s မှ အဖွဲ့သို့ဝင်ရန် တောင်းဆိုချက်သည် ငြင်းဆိုခံခဲ့ရပါသည်။</string>
     <string name="MessageRecord_you_canceled_your_request_to_join_the_group">အဖွဲ့ထဲဝင်ရန် သင့်တောင်းဆိုချက်ကို သင်ကိုယ်တိုင် ပယ်ဖျက်ခဲ့သည်။</string>
@@ -1912,7 +1928,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
     <string name="MessageRecord_you_are_in_the_call_s1">သင်သည် ကောလ်ထဲတွင် ရှိနေသည် · %1$s</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user and %2$s is the formatted time -->
-    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s and you are in the call · %2$s</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s နှင့် သင်သည် ကောလ်ထဲတွင် ရှိနေသည် · %2$s</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
     <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s နှင့် %2$s သည် ကောလ်ထဲ တွင်ရှိနေသည် · %3$s</string>
     <!-- Chat log text for an ongoing group call that has one participant -->
@@ -1920,7 +1936,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined -->
     <string name="MessageRecord_you_are_in_the_call">သင်သည် ကောလ်ထဲတွင် ရှိနေသည်</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user -->
-    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s and you are in the call</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s နှင့် သင်သည် ကောလ်ထဲတွင် ရှိနေသည်</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
     <string name="MessageRecord_s_and_s_are_in_the_call">%1$s နှင့် %2$s သည် ကောလ်ထဲတွင် ရှိနေသည်</string>
     <!-- Chat log text for a group call that ended within the last 5 minutes -->
@@ -2043,7 +2059,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">သင့်ဖုန်းဖြင့် ချိတ်ဆက်ထားသော ဖုန်းများ များနေသည်။ အချို့ချိတ်ဆက်မှုများအား ဖယ်လိုက်ပါ။</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">ဝမ်းနည်းပါတယ်။ QR ကုဒ်မှားနေသည်။</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal အသုံးပြုသော ဖုန်းအားချိတ်မည်။</string>
-    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Desktop သို့မဟုတ် iPad ကို ဤ Signal အကောင့်သို့ လင့်ခ်ချိတ်ရန် ချိတ်ထားသောစက််များသို့ သွားကာ \"စက်အသစ်တစ်ခုကို ချိတ်ဆက်ပါ\" ကိုနှိပ်ပြီး QR ကုဒ်ကို ထပ်မံစကင်န်ဖတ်ပါ။ Signal မှ တိုက်ရိုက်လာသော QR ကုဒ်များကိုသာ စကင်န်ဖတ်ပါ။</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR Code အားစစ်ဆေးနိုင်ရန် မိမိ ကင်မရာကို Mollyမှ အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ကင်မရာကို ခွင့်ပြုချက် မပေးထားဘဲ QR ကုတ်ကို စကန်ဖတ်၍ မရပါ</string>
@@ -2373,11 +2389,11 @@
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">လက်မြှောက်ထားသူများကို ဖြန့်၍ ကြည့်ရှုရန်</string>
 
     <!-- Toolbar title of country picker selection page -->
-    <string name="CountryCodeFragment__your_country">Your country</string>
+    <string name="CountryCodeFragment__your_country">နိုင်ငံ</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Search by name or number</string>
+    <string name="CountryCodeFragment__search_by">အမည် သို့မဟုတ် နံပါတ်ဖြင့် ရှာရန်</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
-    <string name="CountryCodeFragment__unknown_country">Unknown country</string>
+    <string name="CountryCodeFragment__unknown_country">အမည်မသိ နိုင်ငံ</string>
 
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
@@ -2459,9 +2475,9 @@
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
     <string name="RegistrationActivity_you_will_receive_a_verification_code">အတည်ပြုချက်နံပါတ် သင်လက်ခံရရှိပါမည်၊ ဖုန်းခေါ်ဆိုခ သို့ SMS မက်ဆေ့ချ် ပို့ဆောင်ခ ကျသင့်မည်ဖြစ်သည်။</string>
     <!-- Hint text to select a country -->
-    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <string name="RegistrationActivity_select_a_country">နိုင်ငံတစ်ခုကို ရွေးပါ</string>
     <!-- Hint text explaining that this is where the country code should go -->
-    <string name="RegistrationActivity_default_country_code">+0</string>
+    <string name="RegistrationActivity_default_country_code">0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">၎င်းနံပတ်ကို အတည်ပြုရန်အတွက် အဝင်ဖုန်းတစ်ခု လက်ခံရရှိပါမည်</string>
     <string name="RegistrationActivity_edit_number">နံပါတ်ကို ပြင်မယ်</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play မရှိပါ</string>
@@ -5615,7 +5631,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">စက်ကို ချိတ်ဆက်မည်လား။</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">သင်သည် Signal စက်တစ်လုံးကို ချိတ်ဆက်ရန် ကြိုးစားနေပုံရပါသည်။ ဆက်လုပ်ရန်ကို နှိပ်ကာ \"စက်အသစ်တစ်ခုကို ချိတ်ဆက်ပါ\" ကိုနှိပ်ပြီး QR ကုဒ်ကို ထပ်မံစကင်န်ဖတ်ပါ။</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">ဆက်လုပ်ရန်</string>
 
@@ -7905,19 +7921,25 @@
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">ကျော်ပြီး ပြန်လည်ရယူခြင်းမပြုပါ</string>
     <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_title">ဘက်ခ်အပ်ကီး မမှန်ကန်ပါ</string>
     <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character backup key you saved when enabling Signal backups. Backups can not be recovered without this key.</string>
+    <string name="EnterBackupKey_incorrect_backup_key_message">Signal ဘက်ခ်အပ်ကို ဖွင့်စဥ်က သင်သိမ်းဆည်းထားသည့် တူညီသော ဖုန်းနံပါတ်နှင့် 64 လုံးပါ ဘက်ခ်အပ်ကီးဖြင့် စာရင်းသွင်းဝင်ရောက်ကြောင်း သေချာပါစေ။ ဤကီးမပါဘဲ ဘက်ခ်အပ်များကို ပြန်လည်ရယူ၍မရပါ။</string>
     <!-- Dialog positive button text to try entering their backup key again -->
     <string name="EnterBackupKey_try_again">ထပ်မံကြိုးစားမည်</string>
     <!-- Dialog negative button text to get help with backup key -->
-    <string name="EnterBackupKey_backup_key_help">Backup key help</string>
+    <string name="EnterBackupKey_backup_key_help">ဘက်ခ်အပ်ကီး အကူအညီ</string>
     <!-- Text field error text when the backup key provided has been confirmed invalid -->
-    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_error">ဘက်ခ်အပ်ကီး မမှန်ကန်ပါ</string>
     <!-- Text field error text when the backup key is too long -->
-    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+    <string name="EnterBackupKey_too_long_error">ရှည်လွန်းသည် (%1$d/%2$d)</string>
     <!-- Text field error when the backup key is invalid -->
-    <string name="EnterBackupKey_invalid_backup_key_error">Invalid backup key</string>
+    <string name="EnterBackupKey_invalid_backup_key_error">ဘက်ခ်အပ်ကီး အကျုံးမဝင်ပါ</string>
+    <!-- Dialog title shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_not_found">ဘက်ခ်အပ် ရှာမတွေ့ပါ</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">သင်ထည့်လိုက်သော ဘက်ခ်အပ်ကီးသည် မှန်ကန်သော်လည်း ၎င်းနှင့် ဆက်စပ်နေသည့် ဘက်ခ်အပ်မရှိပါ။ သင့်တွင် ဖုန်းအဟောင်းရှိနေသေးပါက ဘက်ခ်အပ်ကိုဖွင့်ထားပြီး ဘက်ခ်အပ်ကူးယူမှုပြီးသွားကြောင်း သေချာစေကာ ထပ်စမ်းကြည့်ပါ။</string>
+    <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
+    <string name="EnterBackupKey_skip_restore">ပြန်လည်ရယူခြင်းကို ကျော်မည်</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">သင့်ဖုန်းအဟောင်းဖြင့် ဤကုဒ်ကို စကင်ဖတ်ပါ</string>

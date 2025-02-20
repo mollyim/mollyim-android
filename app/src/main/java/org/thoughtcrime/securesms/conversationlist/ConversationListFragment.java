@@ -975,7 +975,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     lifecycleDisposable.add(viewModel.getMegaphoneState().subscribe(this::onMegaphoneChanged));
     lifecycleDisposable.add(viewModel.getConversationsState().subscribe(this::onConversationListChanged));
     lifecycleDisposable.add(viewModel.getHasNoConversations().subscribe(this::updateEmptyState));
-    lifecycleDisposable.add(viewModel.getNotificationProfiles().subscribe(profiles -> requireCallback().updateNotificationProfileStatus(profiles)));
     lifecycleDisposable.add(viewModel.getWebSocketState().subscribe(pipeState -> requireCallback().updateProxyStatus(pipeState)));
     lifecycleDisposable.add(viewModel.getChatFolderState().subscribe(this::onChatFoldersChanged));
 
@@ -1975,8 +1974,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     @NonNull View getUnreadPaymentsDot();
 
     @NonNull Stub<Toolbar> getBasicToolbar();
-
-    void updateNotificationProfileStatus(@NonNull List<NotificationProfile> notificationProfiles);
 
     void updateProxyStatus(@NonNull WebSocketConnectionState state);
 

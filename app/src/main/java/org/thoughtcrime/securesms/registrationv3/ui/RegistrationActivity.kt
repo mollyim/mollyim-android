@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.keyvalue.isDecisionPending
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
 import org.thoughtcrime.securesms.pin.PinRestoreActivity
 import org.thoughtcrime.securesms.profiles.AvatarHelper
@@ -89,7 +90,7 @@ class RegistrationActivity : PassphraseRequiredActivity() {
 
       val nextIntent: Intent? = when {
         needsPin -> CreateSvrPinActivity.getIntentForPinCreate(this@RegistrationActivity)
-        !SignalStore.registration.hasSkippedTransferOrRestore() && RemoteConfig.messageBackups -> RemoteRestoreActivity.getIntent(this@RegistrationActivity)
+        SignalStore.registration.restoreDecisionState.isDecisionPending && RemoteConfig.messageBackups -> RemoteRestoreActivity.getIntent(this@RegistrationActivity)
         needsProfile -> CreateProfileActivity.getIntentForUserProfile(this@RegistrationActivity)
         else -> null
       }

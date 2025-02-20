@@ -586,8 +586,8 @@
     <string name="ConversationFragment__save_to_phone">Stoor op foon?</string>
     <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
     <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
-        <item quantity="other">This media will be saved to your phone\'s storage. Other apps may be able to access it depending on your phone\'s permissions.</item>
+        <item quantity="one">Hierdie medium sal in jou foon se stoorruimte gestoor word. Ander toepassings kan moontlik toegang daartoe kry, na gelang van jou foon se toestemmings.</item>
+        <item quantity="other">Hierdie media sal in jou foon se stoorruimte gestoor word. Ander toepassings kan moontlik toegang daartoe kry, na gelang van jou foon se toestemmings.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">Moenie weer wys nie</string>
@@ -928,13 +928,13 @@
     <string name="DateUtils_tonight">Vanaand</string>
     <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
     <plurals name="DateUtils_date_time_at">
-        <item quantity="one">on %1$s at %2$s</item>
-        <item quantity="other">on %1$s at %2$s</item>
+        <item quantity="one">op %1$s om %2$s</item>
+        <item quantity="other">op %1$s om %2$s</item>
     </plurals>
     <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
     <plurals name="DateUtils_time_at">
-        <item quantity="one">at %1$s</item>
-        <item quantity="other">at %1$s</item>
+        <item quantity="one">om %1$s</item>
+        <item quantity="other">om %1$s</item>
     </plurals>
 
     <!-- Scheduled Messages -->
@@ -982,7 +982,7 @@
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
-    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Gebruik Signal op rekenaar of iPad. Jou boodskappe sal met jou gekoppelde toestelle gesinchroniseer word.</string>
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Gebruik hierdie Signal-rekening op \'n rekenaar of iPad.</string>
     <!-- Button prompting users to link a new device to their account -->
     <string name="LinkDeviceFragment__link_a_new_device">Koppel \'n nuwe toestel</string>
     <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
@@ -1022,6 +1022,21 @@
     <string name="LinkDeviceFragment__tap_continue_and_enter_phone">Tik op \"gaan voort\" en ontsluit jou foon om te bevestig. Moenie jou Signal-PIN invoer nie.</string>
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Gaan voort</string>
+    <!-- Option on button to contact support -->
+    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
+    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <!-- Button option to dismiss dialog -->
+    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <!-- Email subject when contacting support on a linked device syncing issue -->
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Boodskapsinchronisering het misluk</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
@@ -1044,7 +1059,7 @@
     <!-- Dialog title shown when a device is unlinked -->
     <string name="LinkDeviceFragment__device_unlinked">Toestel ontkoppel</string>
     <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
-    <string name="LinkDeviceFragment__the_device_that_was">The device that was linked %1$s is no longer linked.</string>
+    <string name="LinkDeviceFragment__the_device_that_was">Die toestel wat %1$s gekoppel is, is nie meer gekoppel nie.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">Goed</string>
 
@@ -1095,7 +1110,7 @@
     <!-- Title of notification telling users that a device was linked to their account -->
     <string name="NewLinkedDeviceNotification__you_linked_new_device">Jy het \'n nuwe toestel gekoppel</string>
     <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">A new device was linked to your account %1$s. Tap to view.</string>
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">\'n Nuwe toestel is %1$s aan jou rekening gekoppel. Tik om te bekyk.</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">Ontkoppel \"%1$s\"?</string>
@@ -1691,7 +1706,7 @@
     <string name="Megaphones_add_a_profile_photo">Profielfoto</string>
 
     <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">A new device was linked to your account %1$s.</string>
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">\'n Nuwe toestel is %1$s aan jou rekening gekoppel.</string>
     <!-- Button shown on megaphone that will redirect to the linked devices screen -->
     <string name="NewLinkedDeviceMegaphone__view_device">Bekyk toestel</string>
     <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
@@ -1926,6 +1941,7 @@
 
     <!-- GV2 group link deny -->
     <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Jou versoek om by die groep aan te sluit is deur ’n admin geweier.</string>
+    <string name="MessageRecord_you_denied_a_request_to_join_the_group_from_s">Jy het ’n versoek van %1$s om by die groep aan te sluit, geweier.</string>
     <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s het ’n versoek van %2$s om by die groep aan te sluit geweier.</string>
     <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">’n Versoek van %1$s om by die groep aan te sluit is geweier.</string>
     <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Jy het jou versoek om by die groep aan te sluit, gekanselleer.</string>
@@ -1971,7 +1987,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined with a placeholder for formatted time -->
     <string name="MessageRecord_you_are_in_the_call_s1">Jy is in die oproep · %1$s</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user and %2$s is the formatted time -->
-    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s and you are in the call · %2$s</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call_s1">%1$s en jy is in die oproep · %2$s</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders for the short display name of the users that joined and a placeholder for formatted time -->
     <string name="MessageRecord_s_and_s_are_in_the_call_s1">%1$s en %2$s is in die oproep · %3$s</string>
     <!-- Chat log text for an ongoing group call that has one participant -->
@@ -1979,7 +1995,7 @@
     <!-- Chat log text for an ongoing group call only the local user has joined -->
     <string name="MessageRecord_you_are_in_the_call">Jy is in die oproep</string>
     <!-- Chat log text for an ongoing group call with you and another participant where %1$s is the short display name of the other user -->
-    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s and you are in the call</string>
+    <string name="MessageRecord_s_and_you_are_in_the_call">%1$s en jy is in die oproep</string>
     <!-- Chat log text for an ongoing group call with two participants with two placeholders, each for the short display name of the users that joined -->
     <string name="MessageRecord_s_and_s_are_in_the_call">%1$s en %2$s is in die oproep</string>
     <!-- Chat log text for a group call that ended within the last 5 minutes -->
@@ -2108,7 +2124,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Jammer, jy het te veel toestelle reeds gekoppel. Probeer om sommige van die toestelle te verwyder</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Jammer, dit is nie \'n geldige QR-kode vir toestelkoppeling nie.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Koppel \'n Signal-toestel?</string>
-    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Om \'n rekenaar of iPad aan hierdie Signal-rekening te koppel, gaan na Gekoppelde toestelle, tik op \"Koppel \'n nuwe toestel\" en skandeer die QR-kode weer. Maak seker jy skandeer slegs QR-kodes wat direk van Signal af kom.</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly het die Kamera-toestemming nodig om \'n QR-kode te skandeer, maar dit is permanent geweier. Gaan asseblief na die toepassinginstellings, kies \"Toestemmings\" en aktiveer \"Kamera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kan nie \'n QR-kode sonder die Kameratoestemming skandeer nie</string>
@@ -2455,11 +2471,11 @@
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Meer inligting oor opgesteekte hand</string>
 
     <!-- Toolbar title of country picker selection page -->
-    <string name="CountryCodeFragment__your_country">Your country</string>
+    <string name="CountryCodeFragment__your_country">Jou land</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Search by name or number</string>
+    <string name="CountryCodeFragment__search_by">Soek volgens naam of nommer</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
-    <string name="CountryCodeFragment__unknown_country">Unknown country</string>
+    <string name="CountryCodeFragment__unknown_country">Onbekende land</string>
 
     <!-- AboutSheet -->
     <!-- Displayed in a sheet row and allows user to open signal connection explanation on tap -->
@@ -2546,9 +2562,9 @@
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
     <string name="RegistrationActivity_you_will_receive_a_verification_code">Jy sal ’n verifikasiekode ontvang. Jy sal dalk draer-/diensverskafferfooie moet betaal.</string>
     <!-- Hint text to select a country -->
-    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <string name="RegistrationActivity_select_a_country">Kies \'n land</string>
     <!-- Hint text explaining that this is where the country code should go -->
-    <string name="RegistrationActivity_default_country_code">+0</string>
+    <string name="RegistrationActivity_default_country_code">0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Jy sal ’n oproep kry om hierdie nommer te verifieer.</string>
     <string name="RegistrationActivity_edit_number">Wysig nommer</string>
     <string name="RegistrationActivity_missing_google_play_services">Geen Google Play Services nie</string>
@@ -5751,7 +5767,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">Koppel toestel?</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">Dit lyk of jy \'n Signal-toestel probeer koppel. Tik op Gaan voort en tik dan op \"Koppel \'n nuwe toestel\" en skandeer die QR-kode weer.</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">Gaan voort</string>
 
@@ -8077,19 +8093,25 @@
     <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">Slaan oor en moenie herwin nie</string>
     <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_title">Verkeerde rugsteunsleutel</string>
     <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character backup key you saved when enabling Signal backups. Backups can not be recovered without this key.</string>
+    <string name="EnterBackupKey_incorrect_backup_key_message">Maak seker jy registreer met dieselfde telefoonnommer en 64-karakter-rugsteunsleutel wat jy gestoor het toe jy Signal-rugsteun geaktiveer het. Rugsteun kan nie sonder hierdie sleutel herwin word nie.</string>
     <!-- Dialog positive button text to try entering their backup key again -->
     <string name="EnterBackupKey_try_again">Probeer weer</string>
     <!-- Dialog negative button text to get help with backup key -->
-    <string name="EnterBackupKey_backup_key_help">Backup key help</string>
+    <string name="EnterBackupKey_backup_key_help">Hulp met rugsteunsleutel</string>
     <!-- Text field error text when the backup key provided has been confirmed invalid -->
-    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect backup key</string>
+    <string name="EnterBackupKey_incorrect_backup_key_error">Verkeerde rugsteunsleutel</string>
     <!-- Text field error text when the backup key is too long -->
-    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+    <string name="EnterBackupKey_too_long_error">Te lank (%1$d/%2$d)</string>
     <!-- Text field error when the backup key is invalid -->
-    <string name="EnterBackupKey_invalid_backup_key_error">Invalid backup key</string>
+    <string name="EnterBackupKey_invalid_backup_key_error">Ongeldige rugsteunsleutel</string>
+    <!-- Dialog title shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_not_found">Rugsteun nie gevind nie</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Die rugsteunsleutel wat jy ingevoer het is korrek, maar daar is geen rugsteun daarmee geassosieer nie. As jy nog jou ou foon het, maak seker dat rugsteune geaktiveer is, dat \'n rugsteun voltooi is en probeer weer.</string>
+    <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
+    <string name="EnterBackupKey_skip_restore">Slaan herstel oor</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Skandeer hierdie kode met jou ou foon</string>

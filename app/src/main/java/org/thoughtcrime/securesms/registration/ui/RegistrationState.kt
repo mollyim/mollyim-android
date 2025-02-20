@@ -14,7 +14,6 @@ import org.thoughtcrime.securesms.registration.data.network.Challenge
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionResult
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult
-import org.thoughtcrime.securesms.registration.ui.countrycode.Country
 import org.whispersystems.signalservice.api.svr.Svr3Credentials
 import org.whispersystems.signalservice.internal.push.AuthCredentials
 import kotlin.time.Duration
@@ -27,6 +26,7 @@ data class RegistrationState(
   val sessionId: String? = null,
   val enteredCode: String = "",
   val phoneNumber: Phonenumber.PhoneNumber? = fetchExistingE164FromValues(),
+  val nationalNumber: String = "",
   val linkDeviceName: String? = null,
   val deviceLinkUrl: String? = null,
   val inProgress: Boolean = false,
@@ -55,8 +55,7 @@ data class RegistrationState(
   val networkError: Throwable? = null,
   val sessionCreationError: RegistrationSessionResult? = null,
   val sessionStateError: VerificationCodeRequestResult? = null,
-  val registerAccountError: RegisterAccountResult? = null,
-  val country: Country? = null
+  val registerAccountError: RegisterAccountResult? = null
 ) {
   val challengesRemaining: List<Challenge> = challengesRequested.filterNot { it in challengesPresented }
 
