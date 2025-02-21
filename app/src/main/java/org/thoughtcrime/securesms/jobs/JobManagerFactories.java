@@ -116,7 +116,6 @@ public final class JobManagerFactories {
       put(AttachmentCopyJob.KEY,                     new AttachmentCopyJob.Factory());
       put(AttachmentDownloadJob.KEY,                 new AttachmentDownloadJob.Factory());
       put(AttachmentHashBackfillJob.KEY,             new AttachmentHashBackfillJob.Factory());
-      put(MarkNoteToSelfAttachmentUploadedJob.KEY,   new MarkNoteToSelfAttachmentUploadedJob.Factory());
       put(AttachmentUploadJob.KEY,                   new AttachmentUploadJob.Factory());
       put(AutomaticSessionResetJob.KEY,              new AutomaticSessionResetJob.Factory());
       put(AvatarGroupsV1DownloadJob.KEY,             new AvatarGroupsV1DownloadJob.Factory());
@@ -373,6 +372,7 @@ public final class JobManagerFactories {
       put("DonationReceiptRedemptionJob",                new FailingJob.Factory());
       put("SendGiftJob",                                 new FailingJob.Factory());
       put("InactiveGroupCheckMigrationJob",              new PassingMigrationJob.Factory());
+      put("AttachmentMarkUploadedJob",                   new FailingJob.Factory());
     }};
   }
 

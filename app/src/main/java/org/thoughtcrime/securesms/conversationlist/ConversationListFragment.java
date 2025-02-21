@@ -1108,7 +1108,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
       stopwatch.split("task-start");
 
-      List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(ids, false);
+      List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(ids);
       stopwatch.split("db");
 
       AppDependencies.getMessageNotifier().updateNotification(context);
@@ -1844,7 +1844,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
             canvas.translate(itemView.getLeft() + gutter + extra,
                              itemView.getTop() + (itemView.getBottom() - itemView.getTop() - archiveDrawable.getIntrinsicHeight()) / 2f);
           } else {
-            canvas.translate(itemView.getRight() - gutter - extra,
+            canvas.translate(itemView.getRight() - gutter - extra - archiveDrawable.getIntrinsicWidth(),
                              itemView.getTop() + (itemView.getBottom() - itemView.getTop() - archiveDrawable.getIntrinsicHeight()) / 2f);
           }
 

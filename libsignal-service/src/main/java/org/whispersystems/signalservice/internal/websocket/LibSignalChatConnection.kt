@@ -12,7 +12,6 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.SingleSubject
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
-import okio.withLock
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.internal.CompletableFuture
 import org.signal.libsignal.net.AuthenticatedChatConnection
@@ -167,10 +166,15 @@ class LibSignalChatConnection(
       chatConnectionFuture.whenComplete(
         onSuccess = { connection ->
           CHAT_SERVICE_LOCK.withLock {
-            chatConnection = connection
-            connection?.start()
-            Log.i(TAG, "$name Connected")
-            state.onNext(WebSocketConnectionState.CONNECTED)
+            if (state.value == WebSocketConnectionState.CONNECTING) {
+              chatConnection = connection
+              connection?.start()
+              Log.i(TAG, "$name Connected")
+              state.onNext(WebSocketConnectionState.CONNECTED)
+            } else {
+              Log.i(TAG, "$name Dropped successful connection because we are now ${state.value}")
+              disconnect()
+            }
           }
         },
         onFailure = { throwable ->
@@ -216,6 +220,18 @@ class LibSignalChatConnection(
         return
       }
 
+      // This avoids a crash when we get a connection lost event during a connection attempt and try
+      //  to cancel a connection that has not yet been fully established.
+      // TODO [andrew]: Figure out if this is the right long term behavior.
+      if (state.value == WebSocketConnectionState.CONNECTING) {
+        // The right way to do this is to cancel the CompletableFuture returned by connectChat()
+        // Unfortunately, libsignal's CompletableFuture does not yet support cancellation.
+        // Instead, we set a flag to disconnect() as soon as the connection completes.
+        // TODO [andrew]: Add cancellation support to CompletableFuture and use it here
+        state.onNext(WebSocketConnectionState.DISCONNECTING)
+        return
+      }
+
       Log.i(TAG, "$name Disconnecting...")
       state.onNext(WebSocketConnectionState.DISCONNECTING)
       chatConnection!!.disconnect()
@@ -238,6 +254,14 @@ class LibSignalChatConnection(
       if (isDead()) {
         return Single.error(IOException("$name is closed!"))
       }
+
+      // This avoids a crash loop when we try to send queued messages on app open before the connection
+      //  is fully established.
+      // TODO [andrew]: Figure out if this is the right long term behavior.
+      if (state.value == WebSocketConnectionState.CONNECTING) {
+        return Single.error(IOException("$name is still connecting!"))
+      }
+
       val single = SingleSubject.create<WebsocketResponse>()
       val internalRequest = request.toLibSignalRequest()
       chatConnection!!.send(internalRequest)
@@ -358,7 +382,7 @@ class LibSignalChatConnection(
       incomingRequestQueue.put(incomingWebSocketRequest)
     }
 
-    override fun onConnectionInterrupted(chat: ChatConnection, disconnectReason: ChatServiceException) {
+    override fun onConnectionInterrupted(chat: ChatConnection, disconnectReason: ChatServiceException?) {
       CHAT_SERVICE_LOCK.withLock {
         Log.i(TAG, "$name connection interrupted", disconnectReason)
         chatConnection = null

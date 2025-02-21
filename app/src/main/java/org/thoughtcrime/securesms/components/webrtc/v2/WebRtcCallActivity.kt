@@ -18,6 +18,7 @@ import android.os.Bundle
 import android.util.Rational
 import android.view.Surface
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -25,15 +26,20 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.util.Consumer
-import androidx.lifecycle.toLiveData
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.window.java.layout.WindowInfoTrackerCallbackAdapter
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
 import androidx.window.layout.WindowLayoutInfo
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -45,27 +51,17 @@ import org.signal.ringrtc.GroupCall
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.TooltipPopup
 import org.thoughtcrime.securesms.components.sensors.Orientation
 import org.thoughtcrime.securesms.components.webrtc.CallLinkProfileKeySender
-import org.thoughtcrime.securesms.components.webrtc.CallOverflowPopupWindow
-import org.thoughtcrime.securesms.components.webrtc.CallParticipantsListUpdatePopupWindow
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsState
 import org.thoughtcrime.securesms.components.webrtc.CallReactionScrubber
-import org.thoughtcrime.securesms.components.webrtc.CallStateUpdatePopupWindow
 import org.thoughtcrime.securesms.components.webrtc.CallToastPopupWindow
 import org.thoughtcrime.securesms.components.webrtc.GroupCallSafetyNumberChangeNotificationUtil
 import org.thoughtcrime.securesms.components.webrtc.InCallStatus
 import org.thoughtcrime.securesms.components.webrtc.PendingParticipantsBottomSheet
-import org.thoughtcrime.securesms.components.webrtc.PendingParticipantsView
 import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioDevice
 import org.thoughtcrime.securesms.components.webrtc.WebRtcAudioOutput
-import org.thoughtcrime.securesms.components.webrtc.WebRtcCallView
 import org.thoughtcrime.securesms.components.webrtc.WebRtcControls
-import org.thoughtcrime.securesms.components.webrtc.WifiToCellularPopupWindow
-import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoController
-import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoViewModel
-import org.thoughtcrime.securesms.components.webrtc.participantslist.CallParticipantsListDialog
 import org.thoughtcrime.securesms.components.webrtc.requests.CallLinkIncomingRequestSheet
 import org.thoughtcrime.securesms.conversation.ui.error.SafetyNumberChangeDialog
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -90,7 +86,6 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ThrottledDebouncer
 import org.thoughtcrime.securesms.util.VibrateUtil
 import org.thoughtcrime.securesms.util.WindowUtil
-import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.webrtc.CallParticipantsViewState
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager
@@ -108,17 +103,11 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     private const val VIBRATE_DURATION = 50
   }
 
-  private lateinit var participantUpdateWindow: CallParticipantsListUpdatePopupWindow
-  private lateinit var callStateUpdatePopupWindow: CallStateUpdatePopupWindow
-  private lateinit var callOverflowPopupWindow: CallOverflowPopupWindow
-  private lateinit var wifiToCellularPopupWindow: WifiToCellularPopupWindow
-
   private lateinit var fullscreenHelper: FullscreenHelper
-  private lateinit var callScreen: WebRtcCallView
-  private var videoTooltip: TooltipPopup? = null
-  private var switchCameraTooltip: TooltipPopup? = null
+  private lateinit var callScreen: CallScreenMediator
+  private var videoTooltip: Dismissible? = null
+  private var switchCameraTooltip: Dismissible? = null
   private val viewModel: WebRtcCallViewModel by viewModels()
-  private val controlsAndInfoViewModel: ControlsAndInfoViewModel by viewModels()
   private var enableVideoIfAvailable: Boolean = false
   private var hasWarnedAboutBluetooth: Boolean = false
   private lateinit var windowLayoutInfoConsumer: WindowLayoutInfoConsumer
@@ -127,7 +116,6 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private lateinit var pipBuilderParams: PictureInPictureParams.Builder
   private val lifecycleDisposable = LifecycleDisposable()
   private var lastCallLinkDisconnectDialogShowTime: Long = 0L
-  private lateinit var controlsAndInfo: ControlsAndInfoController
   private var enterPipOnResume: Boolean = false
   private var lastProcessedIntentTimestamp = 0L
   private var previousEvent: WebRtcViewModel? = null
@@ -147,11 +135,9 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     lifecycleDisposable.bindTo(this)
 
     if (Build.VERSION.SDK_INT >= 27) {
-      setTurnScreenOn(true)
       setShowWhenLocked(true)
     } else {
       window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-      window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
     }
 
     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -159,7 +145,6 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     super.onCreate(savedInstanceState, ready)
 
     requestWindowFeature(Window.FEATURE_NO_TITLE)
-    setContentView(R.layout.webrtc_call_activity)
 
     fullscreenHelper = FullscreenHelper(this)
 
@@ -169,8 +154,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     initializeViewModel()
     initializePictureInPictureParams()
 
-    controlsAndInfo = ControlsAndInfoController(this, callScreen, callOverflowPopupWindow, viewModel, controlsAndInfoViewModel)
-    controlsAndInfo.addVisibilityListener(FadeCallback())
+    callScreen.setControlsAndInfoVisibilityListener(FadeCallback())
 
     fullscreenHelper.showAndHideWithSystemUI(
       window,
@@ -178,8 +162,6 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       findViewById(R.id.webrtc_call_view_toolbar_text),
       findViewById(R.id.webrtc_call_view_toolbar_no_text)
     )
-
-    lifecycleDisposable.add(controlsAndInfo)
 
     if (savedInstanceState == null) {
       logIntent(callIntent)
@@ -213,19 +195,19 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     if (!hasCameraPermission() && !hasAudioPermission()) {
       askCameraAudioPermissions {
-        callScreen.setMicEnabled(viewModel.microphoneEnabled.value ?: false)
+        callScreen.setMicEnabled(viewModel.microphoneEnabled.value)
         handleSetMuteVideo(false)
       }
     } else if (!hasAudioPermission()) {
       askAudioPermissions {
-        callScreen.setMicEnabled(viewModel.microphoneEnabled.value ?: false)
+        callScreen.setMicEnabled(viewModel.microphoneEnabled.value)
       }
     }
   }
 
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
     super.onRestoreInstanceState(savedInstanceState)
-    controlsAndInfo.onStateRestored()
+    callScreen.onStateRestored()
   }
 
   override fun onStart() {
@@ -289,7 +271,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     if (!callPermissionsDialogController.isAskingForPermission && !viewModel.isCallStarting && !isChangingConfigurations) {
       val state = viewModel.callParticipantsStateSnapshot
-      if (state != null && (state.callState.isPreJoinOrNetworkUnavailable || state.callState.isIncomingOrHandledElsewhere)) {
+      if (state.callState.isPreJoinOrNetworkUnavailable || state.callState.isIncomingOrHandledElsewhere) {
         if (getCallIntent().isStartedFromFullScreen && state.callState == WebRtcViewModel.State.CALL_INCOMING) {
           Log.w(TAG, "Pausing during full-screen incoming call view. Refusing to finish.")
         } else {
@@ -314,12 +296,10 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     if (!viewModel.isCallStarting && !isChangingConfigurations) {
       val state = viewModel.callParticipantsStateSnapshot
-      if (state != null) {
-        if (state.callState.isPreJoinOrNetworkUnavailable || state.callState.isIncomingOrHandledElsewhere) {
-          AppDependencies.signalCallManager.cancelPreJoin()
-        } else if (state.callState.inOngoingCall && isInPipMode()) {
-          AppDependencies.signalCallManager.relaunchPipOnForeground()
-        }
+      if (state.callState.isPreJoinOrNetworkUnavailable || state.callState.isIncomingOrHandledElsewhere) {
+        AppDependencies.signalCallManager.cancelPreJoin()
+      } else if (state.callState.inOngoingCall && isInPipMode()) {
+        AppDependencies.signalCallManager.relaunchPipOnForeground()
       }
     }
   }
@@ -340,13 +320,13 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   override fun onUserLeaveHint() {
     Log.d(TAG, "onUserLeaveHint", Exception())
     super.onUserLeaveHint()
-    if (viewModel.callParticipantsStateSnapshot?.callState != WebRtcViewModel.State.CALL_INCOMING) {
+    if (viewModel.callParticipantsStateSnapshot.callState != WebRtcViewModel.State.CALL_INCOMING) {
       enterPipModeIfPossible()
     }
   }
 
   override fun onBackPressed() {
-    if (viewModel.callParticipantsStateSnapshot?.callState == WebRtcViewModel.State.CALL_INCOMING || !enterPipModeIfPossible()) {
+    if (viewModel.callParticipantsStateSnapshot.callState == WebRtcViewModel.State.CALL_INCOMING || !enterPipModeIfPossible()) {
       super.onBackPressed()
     }
   }
@@ -368,8 +348,8 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   override fun onMessageResentAfterSafetyNumberChange() = Unit
 
   override fun onCanceled() {
-    val state: CallParticipantsState? = viewModel.callParticipantsStateSnapshot
-    if (state != null && state.groupCallState.isNotIdle) {
+    val state: CallParticipantsState = viewModel.callParticipantsStateSnapshot
+    if (state.groupCallState.isNotIdle) {
       if (state.callState.isPreJoinOrNetworkUnavailable) {
         AppDependencies.signalCallManager.cancelPreJoin()
         finish()
@@ -385,7 +365,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
   override fun onReactWithAnyEmojiSelected(emoji: String) {
     AppDependencies.signalCallManager.react(emoji)
-    callOverflowPopupWindow.dismiss()
+    callScreen.dismissCallOverflowPopup()
   }
 
   override fun onProofCompleted() {
@@ -406,7 +386,8 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     previousEvent = event
 
     viewModel.setRecipient(event.recipient)
-    controlsAndInfoViewModel.setRecipient(event.recipient)
+    callScreen.setRecipient(event.recipient)
+    callScreen.setWebRtcCallState(event.state)
 
     when (event.state) {
       WebRtcViewModel.State.IDLE -> Unit
@@ -475,18 +456,10 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   }
 
   private fun initializeResources() {
-    callScreen = findViewById(R.id.callScreen)
+    callScreen = CallScreenMediator.create(this, viewModel)
     callScreen.setControlsListener(ControlsListener())
 
-    participantUpdateWindow = CallParticipantsListUpdatePopupWindow(callScreen)
-    callStateUpdatePopupWindow = CallStateUpdatePopupWindow(callScreen)
-    wifiToCellularPopupWindow = WifiToCellularPopupWindow(callScreen)
-    callOverflowPopupWindow = CallOverflowPopupWindow(this, callScreen) {
-      val state: CallParticipantsState? = viewModel.callParticipantsStateSnapshot
-      state?.localParticipant?.isHandRaised ?: false
-    }
-
-    lifecycle.addObserver(participantUpdateWindow)
+    val viewRoot = rootView()
   }
 
   private fun initializeViewModel() {
@@ -500,43 +473,80 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     viewModel.setIsLandscapeEnabled(true)
     viewModel.setIsInPipMode(isInPipMode())
-    viewModel.microphoneEnabled.observe(this, callScreen::setMicEnabled)
-    viewModel.getWebRtcControls().observe(this) { controls ->
-      callScreen.setWebRtcControls(controls)
-      controlsAndInfo.updateControls(controls)
-    }
-    viewModel.getEvents().observe(this, this::handleViewModelEvent)
 
-    lifecycleDisposable.add(viewModel.getInCallStatus().subscribe(this::handleInCallStatus))
-    lifecycleDisposable.add(viewModel.getRecipientFlowable().subscribe(callScreen::setRecipient))
-
-    val isStartedFromCallLink = getCallIntent().isStartedFromCallLink
-    LiveDataUtil.combineLatest(
-      viewModel.callParticipantsState.toFlowable(BackpressureStrategy.LATEST).toLiveData(),
-      viewModel.getEphemeralState()
-    ) { state, ephemeralState ->
-      CallParticipantsViewState(state, ephemeralState, orientation == Orientation.PORTRAIT_BOTTOM_EDGE, true, isStartedFromCallLink)
-    }.observe(this, callScreen::updateCallParticipants)
-
-    viewModel.getCallParticipantListUpdate().observe(this, participantUpdateWindow::addCallParticipantListUpdate)
-    viewModel.getSafetyNumberChangeEvent().observe(this, this::handleSafetyNumberChangeEvent)
-    viewModel.getGroupMembersChanged().observe(this) { updateGroupMembersForGroupCall() }
-    viewModel.getGroupMemberCount().observe(this, this::handleGroupMemberCountChange)
-    lifecycleDisposable.add(viewModel.shouldShowSpeakerHint().subscribe(this::updateSpeakerHint))
-
-    callScreen.viewTreeObserver.addOnGlobalLayoutListener {
-      val state = viewModel.callParticipantsStateSnapshot
-      if (state != null) {
-        if (state.needsNewRequestSizes()) {
-          requestNewSizesThrottle.publish { AppDependencies.signalCallManager.updateRenderedResolutions() }
+    lifecycleScope.launch {
+      lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        launch {
+          viewModel.microphoneEnabled.collectLatest {
+            callScreen.setMicEnabled(it)
+          }
         }
+
+        launch {
+          viewModel.getWebRtcControls().collectLatest {
+            callScreen.setWebRtcControls(it)
+          }
+        }
+
+        launch {
+          viewModel.getEvents().collect { handleViewModelEvent(it) }
+        }
+
+        launch {
+          viewModel.getInCallStatus().collectLatest {
+            handleInCallStatus(it)
+          }
+        }
+
+        launch {
+          viewModel.getRecipientFlow().collectLatest {
+            callScreen.setRecipient(it)
+          }
+        }
+
+        launch {
+          val isStartedFromCallLink = getCallIntent().isStartedFromCallLink
+          combine(
+            viewModel.callParticipantsState,
+            viewModel.getEphemeralState().filterNotNull()
+          ) { state, ephemeralState ->
+            CallParticipantsViewState(state, ephemeralState, orientation == Orientation.PORTRAIT_BOTTOM_EDGE, true)
+          }.collectLatest(callScreen::updateCallParticipants)
+        }
+
+        launch {
+          viewModel.getCallParticipantListUpdate().collectLatest(callScreen::onParticipantListUpdate)
+        }
+
+        launch {
+          viewModel.getSafetyNumberChangeEvent().collect { handleSafetyNumberChangeEvent(it) }
+        }
+
+        launch {
+          viewModel.getGroupMembersChanged().collectLatest { updateGroupMembersForGroupCall() }
+        }
+
+        launch {
+          viewModel.getGroupMemberCount().collectLatest { handleGroupMemberCountChange(it) }
+        }
+
+        launch {
+          viewModel.shouldShowSpeakerHint().collectLatest { updateSpeakerHint(it) }
+        }
+      }
+    }
+
+    rootView().viewTreeObserver.addOnGlobalLayoutListener {
+      val state = viewModel.callParticipantsStateSnapshot
+      if (state.needsNewRequestSizes()) {
+        requestNewSizesThrottle.publish { AppDependencies.signalCallManager.updateRenderedResolutions() }
       }
     }
 
     addOnPictureInPictureModeChangedListener { info ->
       viewModel.setIsInPipMode(info.isInPictureInPictureMode)
-      participantUpdateWindow.setEnabled(!info.isInPictureInPictureMode)
-      callStateUpdatePopupWindow.setEnabled(!info.isInPictureInPictureMode)
+      callScreen.enableParticipantUpdatePopup(!info.isInPictureInPictureMode)
+      callScreen.enableCallStateUpdatePopup(!info.isInPictureInPictureMode)
       if (info.isInPictureInPictureMode) {
         callScreen.maybeDismissAudioPicker()
       }
@@ -544,7 +554,14 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     }
 
     callScreen.setPendingParticipantsViewListener(PendingParticipantsViewListener())
-    lifecycleDisposable += viewModel.getPendingParticipants().subscribe(callScreen::updatePendingParticipantsList)
+
+    lifecycleScope.launch {
+      lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        launch {
+          viewModel.getPendingParticipants().collect(callScreen::updatePendingParticipantsList)
+        }
+      }
+    }
   }
 
   private fun initializePictureInPictureParams() {
@@ -560,9 +577,15 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       pipBuilderParams.setAspectRatio(aspectRatio)
 
       if (Build.VERSION.SDK_INT >= 31) {
-        viewModel.canEnterPipMode().observe(this) {
-          pipBuilderParams.setAutoEnterEnabled(it)
-          tryToSetPictureInPictureParams()
+        lifecycleScope.launch {
+          lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            launch {
+              viewModel.canEnterPipMode().collectLatest {
+                pipBuilderParams.setAutoEnterEnabled(it)
+                tryToSetPictureInPictureParams()
+              }
+            }
+          }
         }
       } else {
         tryToSetPictureInPictureParams()
@@ -592,7 +615,6 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
   private fun registerSystemPipChangeListeners() {
     addOnPictureInPictureModeChangedListener {
-      CallParticipantsListDialog.dismiss(supportFragmentManager)
       CallReactionScrubber.dismissCustomEmojiBottomSheet(supportFragmentManager)
     }
   }
@@ -743,7 +765,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
   private fun handleOutgoingCall(event: WebRtcViewModel) {
     if (event.groupState.isNotIdle) {
-      callScreen.setStatusFromGroupCallState(event.groupState)
+      callScreen.setStatusFromGroupCallState(this, event.groupState)
     } else {
       callScreen.setStatus(getString(R.string.WebRtcCallActivity__calling))
     }
@@ -759,7 +781,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private fun handleTerminate(recipient: Recipient, hangupType: HangupMessage.Type) {
     Log.i(TAG, "handleTerminate called: $hangupType")
 
-    callScreen.setStatusFromHangupType(hangupType)
+    callScreen.setStatusFromHangupType(this, hangupType)
 
     EventBus.getDefault().removeStickyEvent(WebRtcViewModel::class.java)
 
@@ -798,7 +820,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private fun handleCallConnected(event: WebRtcViewModel) {
     window.addFlags(WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES)
     if (event.groupState.isNotIdleOrConnected) {
-      callScreen.setStatusFromGroupCallState(event.groupState)
+      callScreen.setStatusFromGroupCallState(this, event.groupState)
     }
   }
 
@@ -841,22 +863,19 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     SafetyNumberBottomSheet.forCall(recipient.id).show(supportFragmentManager)
   }
 
+  private fun rootView(): ViewGroup = findViewById(android.R.id.content)
+
   private fun handleViewModelEvent(event: CallEvent) {
     when (event) {
       is CallEvent.StartCall -> startCall(event.isVideoCall)
       is CallEvent.ShowGroupCallSafetyNumberChange -> SafetyNumberBottomSheet.forGroupCall(event.identityRecords).show(supportFragmentManager)
       is CallEvent.SwitchToSpeaker -> callScreen.switchToSpeakerView()
-      is CallEvent.ShowSwipeToSpeakerHint -> CallToastPopupWindow.show(callScreen)
+      is CallEvent.ShowSwipeToSpeakerHint -> CallToastPopupWindow.show(rootView())
       is CallEvent.ShowVideoTooltip -> {
         if (isInPipMode()) return
 
         if (videoTooltip == null) {
-          videoTooltip = TooltipPopup.forTarget(callScreen.videoTooltipTarget)
-            .setBackgroundTint(ContextCompat.getColor(this, R.color.core_ultramarine))
-            .setTextColor(ContextCompat.getColor(this, R.color.core_white))
-            .setText(R.string.WebRtcCallActivity__tap_here_to_turn_on_your_video)
-            .setOnDismissListener { viewModel.onDismissedVideoTooltip() }
-            .show(TooltipPopup.POSITION_ABOVE)
+          videoTooltip = callScreen.showVideoTooltip()
         }
       }
 
@@ -869,19 +888,14 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
       is CallEvent.ShowWifiToCellularPopup -> {
         if (isInPipMode()) return
-        wifiToCellularPopupWindow.show()
+        callScreen.showWifiToCellularPopupWindow()
       }
 
       is CallEvent.ShowSwitchCameraTooltip -> {
         if (isInPipMode()) return
 
         if (switchCameraTooltip == null) {
-          switchCameraTooltip = TooltipPopup.forTarget(callScreen.switchCameraTooltipTarget)
-            .setBackgroundTint(ContextCompat.getColor(this, R.color.core_ultramarine))
-            .setTextColor(ContextCompat.getColor(this, R.color.core_white))
-            .setText(R.string.WebRtcCallActivity__flip_camera_tooltip)
-            .setOnDismissListener { viewModel.onDismissedSwitchCameraTooltip() }
-            .show(TooltipPopup.POSITION_ABOVE)
+          switchCameraTooltip = callScreen.showCameraTooltip()
         }
       }
 
@@ -1027,7 +1041,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   }
 
   private fun delayedFinish(delayMillis: Long = STANDARD_DELAY_FINISH) {
-    callScreen.postDelayed(this::finish, delayMillis)
+    rootView().postDelayed(this::finish, delayMillis)
   }
 
   private fun displayRemovedFromCallLinkDialog() {
@@ -1049,9 +1063,9 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private fun maybeDisplaySpeakerphonePopup(nextOutput: WebRtcAudioOutput) {
     val currentOutput = viewModel.getCurrentAudioOutput()
     if (currentOutput == WebRtcAudioOutput.SPEAKER && nextOutput != WebRtcAudioOutput.SPEAKER) {
-      callStateUpdatePopupWindow.onCallStateUpdate(CallControlsChange.SPEAKER_OFF)
+      callScreen.onCallStateUpdate(CallControlsChange.SPEAKER_OFF)
     } else if (currentOutput != WebRtcAudioOutput.SPEAKER && nextOutput == WebRtcAudioOutput.SPEAKER) {
-      callStateUpdatePopupWindow.onCallStateUpdate(CallControlsChange.SPEAKER_ON)
+      callScreen.onCallStateUpdate(CallControlsChange.SPEAKER_ON)
     }
   }
 
@@ -1073,21 +1087,21 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     }
   }
 
-  private inner class FadeCallback : ControlsAndInfoController.BottomSheetVisibilityListener {
+  private inner class FadeCallback : CallControlsVisibilityListener {
     override fun onShown() {
       fullscreenHelper.showSystemUI()
     }
 
     override fun onHidden() {
       val controlState = viewModel.getWebRtcControls().value
-      if (controlState == null || !controlState.displayErrorControls()) {
+      if (!controlState.displayErrorControls()) {
         fullscreenHelper.hideSystemUI()
         videoTooltip?.dismiss()
       }
     }
   }
 
-  private inner class ControlsListener : WebRtcCallView.ControlsListener {
+  private inner class ControlsListener : CallScreenControlsListener {
     override fun onStartCall(isVideoCall: Boolean) {
       viewModel.startCall(isVideoCall)
     }
@@ -1118,13 +1132,13 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     override fun onMicChanged(isMicEnabled: Boolean) {
       askAudioPermissions {
-        callStateUpdatePopupWindow.onCallStateUpdate(if (isMicEnabled) CallControlsChange.MIC_ON else CallControlsChange.MIC_OFF)
+        callScreen.onCallStateUpdate(if (isMicEnabled) CallControlsChange.MIC_ON else CallControlsChange.MIC_OFF)
         handleSetMuteAudio(!isMicEnabled)
       }
     }
 
     override fun onOverflowClicked() {
-      controlsAndInfo.toggleOverflowPopup()
+      callScreen.toggleOverflowPopup()
     }
 
     override fun onCameraDirectionChanged() {
@@ -1157,21 +1171,21 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     override fun onLocalPictureInPictureClicked() {
       viewModel.onLocalPictureInPictureClicked()
-      controlsAndInfo.restartHideControlsTimer()
+      callScreen.restartHideControlsTimer()
     }
 
     override fun onRingGroupChanged(ringGroup: Boolean, ringingAllowed: Boolean) {
       if (ringingAllowed) {
         AppDependencies.signalCallManager.setRingGroup(ringGroup)
-        callStateUpdatePopupWindow.onCallStateUpdate(if (ringGroup) CallControlsChange.RINGING_ON else CallControlsChange.RINGING_OFF)
+        callScreen.onCallStateUpdate(if (ringGroup) CallControlsChange.RINGING_ON else CallControlsChange.RINGING_OFF)
       } else {
         AppDependencies.signalCallManager.setRingGroup(false)
-        callStateUpdatePopupWindow.onCallStateUpdate(CallControlsChange.RINGING_DISABLED)
+        callScreen.onCallStateUpdate(CallControlsChange.RINGING_DISABLED)
       }
     }
 
     override fun onCallInfoClicked() {
-      controlsAndInfo.showCallInfo()
+      callScreen.showCallInfo()
     }
 
     override fun onNavigateUpClicked() {
@@ -1180,8 +1194,8 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     override fun toggleControls() {
       val controlState = viewModel.getWebRtcControls().value
-      if (controlState != null && !controlState.displayIncomingCallButtons() && !controlState.displayErrorControls()) {
-        controlsAndInfo.toggleControls()
+      if (!controlState.displayIncomingCallButtons() && !controlState.displayErrorControls()) {
+        callScreen.toggleControls()
       }
     }
 
@@ -1190,7 +1204,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     }
   }
 
-  private inner class PendingParticipantsViewListener : PendingParticipantsView.Listener {
+  private inner class PendingParticipantsViewListener : PendingParticipantsListener {
     override fun onLaunchRecipientSheet(pendingRecipient: Recipient) {
       CallLinkIncomingRequestSheet.show(supportFragmentManager, pendingRecipient.id)
     }

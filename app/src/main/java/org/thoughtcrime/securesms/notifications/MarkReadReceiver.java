@@ -59,7 +59,7 @@ public class MarkReadReceiver extends ExportedBroadcastReceiver {
 
         for (ConversationId thread : threads) {
           Log.i(TAG, "Marking as read: " + thread);
-          List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(thread, true);
+          List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(thread);
           messageIdsCollection.addAll(messageIds);
         }
 

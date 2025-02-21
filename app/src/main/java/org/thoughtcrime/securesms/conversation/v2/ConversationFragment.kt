@@ -54,6 +54,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
@@ -519,7 +520,9 @@ class ConversationFragment :
 
   private val motionEventRelay: MotionEventRelay by viewModels(ownerProducer = { requireActivity() })
 
-  private val actionModeCallback = ActionModeCallback()
+  private val actionModeCallback by lazy {
+    ActionModeCallback()
+  }
 
   private val container: InputAwareConstraintLayout
     get() = requireView() as InputAwareConstraintLayout
@@ -685,8 +688,6 @@ class ConversationFragment :
     }
 
     inputPanel.onPause()
-
-    viewModel.markLastSeen()
 
     EventBus.getDefault().unregister(this)
   }
@@ -882,6 +883,7 @@ class ConversationFragment :
       .subscribeOn(Schedulers.io())
       .doOnSuccess { state ->
         SignalLocalMetrics.ConversationOpen.onDataLoaded()
+        conversationItemDecorations.selfRecipientId = Recipient.self().id
         conversationItemDecorations.setFirstUnreadCount(state.meta.unreadCount)
         colorizer.onGroupMembershipChanged(state.meta.groupMemberAcis)
       }
@@ -3554,7 +3556,7 @@ class ConversationFragment :
       mode.title = calculateSelectedItemCount()
 
       searchMenuItem?.collapseActionView()
-      binding.toolbar.visible = false
+      binding.toolbar.isInvisible = true
       if (scheduledMessagesStub.isVisible) {
         reShowScheduleMessagesBar = true
         scheduledMessagesStub.visibility = View.GONE
@@ -3572,7 +3574,7 @@ class ConversationFragment :
       adapter.clearSelection()
       setBottomActionBarVisibility(false)
 
-      binding.toolbar.visible = true
+      binding.toolbar.isInvisible = false
       if (reShowScheduleMessagesBar) {
         scheduledMessagesStub.visibility = View.VISIBLE
         reShowScheduleMessagesBar = false

@@ -1023,19 +1023,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">కొనసాగండి</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">మద్దతును సంప్రదించండి</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">డీబగ్ లాగ్‌ను సమర్పించేదా?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">మీ సమస్యను వేగంగా పరిష్కరించడానికి మీ డీబగ్ లాగ్స్ మాకు సహాయపడతాయి. మీ లాగ్స్‌ను సమర్పించడం అనేది ఐచ్ఛికం.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">డీబగ్ లాగ్‌తో సమర్పించండి</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">డీబగ్ లాగ్ లేకుండా సమర్పించండి</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">రద్దు చేయండి</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android లింక్&amp;సింక్ ఎగుమతి విఫలమైంది</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">సందేశ సమకాలీకరణ విఫలమైంది</string>
@@ -3758,6 +3758,8 @@
     <string name="preferences__language">భాష</string>
     <string name="preferences__signal_messages_and_calls">Signal సందేశాలు మరియు కాల్స్</string>
     <string name="preferences__advanced_pin_settings">అధునాతన పిన్ సెట్టింగ్‌లు</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">అధునాతన పిన్ సెట్టింగ్‌లు</string>
     <string name="preferences__free_private_messages_and_calls">Signal వినుయోగదారులకు ఉచిత వ్యక్తిగత సందేశాలు మరియు కాల్స్</string>
     <string name="preferences__submit_debug_log">డీబగ్ లాగ్ను సమర్పించండి</string>
     <string name="preferences__delete_account">ఖాతాను తొలగించండి</string>
@@ -3862,6 +3864,7 @@
     <string name="preferences_connection_failed">సంధానము విఫలమైనది</string>
     <string name="preferences_couldnt_connect_to_the_proxy">ప్రాక్సీకి కనెక్ట్ కాలేదు. ప్రాక్సీ చిరునామాను తనిఖీ చేసి, మళ్లీ ప్రయత్నించండి.</string>
     <string name="preferences_you_are_connected_to_the_proxy">మీరు ప్రాక్సీకి కనెక్ట్ అయ్యారు. మీరు సెట్టింగ్‌ల నుండి ఎప్పుడైనా ప్రాక్సీని ఆపివేయవచ్చు.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">విజయం</string>
     <string name="preferences_failed_to_connect">కలవడం కుదరట్లేదు</string>
     <string name="preferences_enter_proxy_address">ప్రాక్సీ చిరునామాను నమోదు చేయండి</string>
@@ -4465,6 +4468,7 @@
     <string name="BackupDialog_copied_to_clipboard">క్లిప్బోర్డ్కు కాపీ చేయబడింది</string>
     <string name="BackupDialog_no_file_picker_available">పంక్తి ఎన్నుకొనేడి అందుబాటులో లేదు.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">ధృవీకరించడానికి మీ ప్రత్యామ్నాయపాస్‌ఫ్రేజ్‌ని నమోదు చేయండి</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">నిర్ధారించబడిన</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">మీరు మీ ప్రత్యామ్నాయములు పాస్‌ఫ్రేజ్‌ని విజయవంతంగా నమోదు చేశారు</string>
     <string name="BackupDialog_passphrase_was_not_correct">పాస్‌ఫ్రేజ్ సరైనది కాదు</string>
@@ -4489,6 +4493,7 @@
     <string name="RegistrationActivity_code_support_subject">Molly రిజిస్ట్రేషన్ - Android కోసం ధృవీకరణ కోడ్</string>
     <string name="RegistrationActivity_incorrect_code">తప్పు కోడ్</string>
     <string name="BackupUtil_never">ఎప్పుడూ</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">తెలియని</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ఫోన్ నంబర్</string>
@@ -4673,6 +4678,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">రెండు పరికరాలపై Wi-Fiని ఆన్ చేసి, ఆఫ్ చేయడం ద్వారా ప్రయత్నించండి.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">రెండు పరికరాలు కూడా ట్రాన్స్‌ఫర్ మోడ్‌లో ఉన్నట్లుగా ధృవీకరించుకోండి.</string>
     <string name="DeviceTransferSetup__go_to_support_page">మద్దతు పేజీకి వెళ్లండి</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">మళ్ళీ ప్రయత్నించండి</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">మరో పరికరం కొరకు వేచి ఉంది</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">బదిలీని ప్రారంభించడానికి మీ మరో పరికరంపై కొనసాగండి మీద తట్టండి.</string>
@@ -5178,6 +5184,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">నెంబరు మార్చండి</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">%1$s ధృవీకరిస్తోంది</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">కపాచే అవసరం</string>
 
@@ -5553,6 +5560,7 @@
     <string name="ConversationSettingsFragment__permissions">అనుమతులు</string>
     <string name="ConversationSettingsFragment__requests_and_invites">అభ్యర్థనలు &amp; ఆహ్వానాలు</string>
     <string name="ConversationSettingsFragment__group_link">సమూహ లింక్</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">కాంటాక్ట్ వలే జోడించండి</string>
     <string name="ConversationSettingsFragment__unmute">అన్‌మ్యూట్ చేయండి</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5674,7 @@
     <string name="ShareInterstitialActivity__share">పంచుకోండి</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">పైకి నావిగేట్ చేయండి</string>
     <string name="MultiselectForwardFragment__forward_to">వీరికి ఫార్వర్డ్ చేయి</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5685,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">వీడియోలు 30 సెకండ్ల క్లిప్‌లకు ట్రిమ్ చేయబడి, అనేక స్టోరీల వలే పంపబడతాయి.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">స్టోరీలకు పంపిన వీడియోలు 30 సెకండ్లు మించి ఉండరాదు.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">ఫార్వర్డ్ చేయబడ్డ సందేశాలు ఇప్పుడు వెంటనే పంపబడతాయి.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">%1$d సందేశం పంపండి</item>
@@ -5862,6 +5872,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/నెల</string>
     <string name="MySupportPreference__renews_s">%1$s ను పునరుద్ధరిస్తుంది</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">లావాదేవీని ప్రాసెస్ చేస్తోంది…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">బ్యాడ్జిని జోడించలేక పోయాను. %1$s</string>
@@ -6274,7 +6285,7 @@
     <string name="StoriesLandingItem__info">సమాచారం</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">పంపుతోంది …</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">%1$d పంపుతోంది…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">పంపడం విఫలమైంది</string>

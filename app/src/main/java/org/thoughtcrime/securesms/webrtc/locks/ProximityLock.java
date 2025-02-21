@@ -2,9 +2,9 @@ package org.thoughtcrime.securesms.webrtc.locks;
 
 import android.os.PowerManager;
 
-import org.signal.core.util.logging.Log;
+import androidx.annotation.Nullable;
 
-import java.util.Optional;
+import org.signal.core.util.logging.Log;
 
 /**
  * Controls access to the proximity lock.
@@ -16,35 +16,35 @@ class ProximityLock {
 
   private static final String TAG = Log.tag(ProximityLock.class);
 
-  private final Optional<PowerManager.WakeLock> proximityLock;
+  private final PowerManager.WakeLock proximityLock;
 
   ProximityLock(PowerManager pm) {
     proximityLock = getProximityLock(pm);
   }
 
-  private Optional<PowerManager.WakeLock> getProximityLock(PowerManager pm) {
+  private @Nullable PowerManager.WakeLock getProximityLock(PowerManager pm) {
     if (pm.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
-      return Optional.ofNullable(pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "signal:proximity"));
+      return pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "signal:proximity");
     } else {
-      return Optional.empty();
+      return null;
     }
   }
 
   public void acquire() {
-    if (!proximityLock.isPresent() || proximityLock.get().isHeld()) {
+    if (proximityLock == null || proximityLock.isHeld()) {
       return;
     }
 
-    proximityLock.get().acquire();
+    proximityLock.acquire();
   }
 
   public void release() {
-    if (!proximityLock.isPresent() || !proximityLock.get().isHeld()) {
+    if (proximityLock == null || !proximityLock.isHeld()) {
       return;
     }
 
-    proximityLock.get().release(PowerManager.RELEASE_FLAG_WAIT_FOR_NO_PROXIMITY);
+    proximityLock.release(PowerManager.RELEASE_FLAG_WAIT_FOR_NO_PROXIMITY);
 
-    Log.d(TAG, "Released proximity lock:" + proximityLock.get().isHeld());
+    Log.d(TAG, "Released proximity lock:" + proximityLock.isHeld());
   }
 }
