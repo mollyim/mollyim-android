@@ -123,7 +123,7 @@
                 android:theme="@style/Widget.Material3.FloatingActionButton.Secondary"
                 android:transitionName="camera_fab"
                 android:visibility="gone"
-                app:backgroundTint="@color/signal_colorSurfaceVariant"
+                app:backgroundTint="@color/signal_colorSurface3"
                 app:elevation="3dp"
                 app:srcCompat="@drawable/symbol_camera_24"
                 app:tint="@color/signal_colorOnSurface"
@@ -141,10 +141,10 @@
                 android:theme="@style/Widget.Material3.FloatingActionButton.Secondary"
                 android:transitionName="new_convo_fab"
                 android:visibility="gone"
-                app:backgroundTint="@color/signal_colorPrimaryContainer"
+                app:backgroundTint="@color/signal_colorTertiaryContainer"
                 app:elevation="3dp"
                 app:srcCompat="@drawable/symbol_edit_24"
-                app:tint="@color/signal_colorOnSurface"
+                app:tint="@color/signal_colorOnTertiaryContainer"
                 app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 tools:visibility="visible" />
 

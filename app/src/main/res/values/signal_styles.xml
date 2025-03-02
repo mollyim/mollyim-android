@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Signal.Widget.ImageView.ActionButton" parent="ThemeOverlay.Material3">
-        <item name="tint">@color/signal_colorOnSecondaryContainer</item>
+        <item name="tint">@color/signal_colorOnTertiaryContainer</item>
         <item name="android:background">@drawable/selectable_icon_button</item>
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
@@ -98,13 +98,13 @@
     </style>
 
     <style name="ThemeOverlay.Signal.Button.Tonal" parent="ThemeOverlay.Material3.Button">
-        <item name="colorOnContainer">@color/signal_colorOnPrimaryContainer</item>
-        <item name="colorContainer">@color/signal_colorPrimaryContainer</item>
+        <item name="colorOnContainer">@color/signal_colorOnTertiaryContainer</item>
+        <item name="colorContainer">@color/signal_colorTertiaryContainer</item>
     </style>
 
     <style name="ThemeOverlay.Signal.Button.Small" parent="ThemeOverlay.Material3.Button">
-        <item name="colorOnContainer">@color/signal_colorOnSurfaceVariant</item>
-        <item name="colorContainer">@color/signal_colorSurface1</item>
+        <item name="colorOnContainer">@color/signal_colorOnTertiaryContainer</item>
+        <item name="colorContainer">@color/signal_colorTertiaryContainer</item>
     </style>
     
     <style name="ThemeOverlay.Signal.Button.Surface2" parent="ThemeOverlay.Material3.Button">
