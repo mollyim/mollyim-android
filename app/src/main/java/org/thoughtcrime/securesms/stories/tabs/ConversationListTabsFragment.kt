@@ -48,20 +48,9 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
     largeConstraintSet.clone(binding.root)
     smallConstraintSet.clone(requireContext(), R.layout.conversation_list_tabs_small)
 
-    binding.chatsTabIcon.addValueCallback(
-      KeyPath("**"),
-      LottieProperty.COLOR
-    ) { iconTint }
-
-    binding.callsTabIcon.addValueCallback(
-      KeyPath("**"),
-      LottieProperty.COLOR
-    ) { iconTint }
-
-    binding.storiesTabIcon.addValueCallback(
-      KeyPath("**"),
-      LottieProperty.COLOR
-    ) { iconTint }
+    binding.chatsTabIcon.setTintColor(iconTint)
+    binding.callsTabIcon.setTintColor(iconTint)
+    binding.storiesTabIcon.setTintColor(iconTint)
 
     view.findViewById<View>(R.id.chats_tab_touch_point).setOnClickListener {
       viewModel.onChatsSelected()
@@ -81,6 +70,21 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
       update(it, shouldBeImmediate)
       shouldBeImmediate = false
     }
+  }
+
+  private fun LottieAnimationView.setTintColor(color: Int) {
+    if (composition == null) {
+      addLottieOnCompositionLoadedListener { applyTint(color) }
+    } else {
+      applyTint(color)
+    }
+  }
+
+  private fun LottieAnimationView.applyTint(color: Int) {
+    addValueCallback(
+      KeyPath("**"),
+      LottieProperty.COLOR
+    ) { color }
   }
 
   override fun onResume() {
