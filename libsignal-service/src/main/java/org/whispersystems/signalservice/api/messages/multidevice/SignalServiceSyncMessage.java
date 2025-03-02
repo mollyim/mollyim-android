@@ -6,11 +6,12 @@
 
 package org.whispersystems.signalservice.api.messages.multidevice;
 
+import org.whispersystems.signalservice.internal.push.SyncMessage;
+import org.whispersystems.signalservice.internal.push.SyncMessage.AttachmentBackfillResponse;
 import org.whispersystems.signalservice.internal.push.SyncMessage.DeviceNameChange;
 import org.whispersystems.signalservice.internal.push.SyncMessage.CallEvent;
 import org.whispersystems.signalservice.internal.push.SyncMessage.CallLinkUpdate;
 import org.whispersystems.signalservice.internal.push.SyncMessage.CallLogEvent;
-import org.whispersystems.signalservice.internal.push.SyncMessage.PniChangeNumber;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,11 +35,11 @@ public class SignalServiceSyncMessage {
   private final Optional<MessageRequestResponseMessage>     messageRequestResponse;
   private final Optional<OutgoingPaymentMessage>            outgoingPaymentMessage;
   private final Optional<List<ViewedMessage>>               views;
-  private final Optional<PniChangeNumber>                   pniChangeNumber;
   private final Optional<CallEvent>                         callEvent;
   private final Optional<CallLinkUpdate>                    callLinkUpdate;
   private final Optional<CallLogEvent>                      callLogEvent;
   private final Optional<DeviceNameChange>                  deviceNameChange;
+  private final Optional<AttachmentBackfillResponse>        attachmentBackfillResponse;
 
   private SignalServiceSyncMessage(Optional<SentTranscriptMessage> sent,
                                    Optional<ContactsMessage> contacts,
@@ -54,31 +55,31 @@ public class SignalServiceSyncMessage {
                                    Optional<MessageRequestResponseMessage> messageRequestResponse,
                                    Optional<OutgoingPaymentMessage> outgoingPaymentMessage,
                                    Optional<List<ViewedMessage>> views,
-                                   Optional<PniChangeNumber> pniChangeNumber,
                                    Optional<CallEvent> callEvent,
                                    Optional<CallLinkUpdate> callLinkUpdate,
                                    Optional<CallLogEvent> callLogEvent,
-                                   Optional<DeviceNameChange> deviceNameChange)
+                                   Optional<DeviceNameChange> deviceNameChange,
+                                   Optional<AttachmentBackfillResponse> attachmentBackfillResponse)
   {
-    this.sent                   = sent;
-    this.contacts               = contacts;
-    this.blockedList            = blockedList;
-    this.request                = request;
-    this.reads                  = reads;
-    this.viewOnceOpen           = viewOnceOpen;
-    this.verified               = verified;
-    this.configuration          = configuration;
-    this.stickerPackOperations  = stickerPackOperations;
-    this.fetchType              = fetchType;
-    this.keys                   = keys;
-    this.messageRequestResponse = messageRequestResponse;
-    this.outgoingPaymentMessage = outgoingPaymentMessage;
-    this.views                  = views;
-    this.pniChangeNumber        = pniChangeNumber;
-    this.callEvent              = callEvent;
-    this.callLinkUpdate         = callLinkUpdate;
-    this.callLogEvent           = callLogEvent;
-    this.deviceNameChange       = deviceNameChange;
+    this.sent                       = sent;
+    this.contacts                   = contacts;
+    this.blockedList                = blockedList;
+    this.request                    = request;
+    this.reads                      = reads;
+    this.viewOnceOpen               = viewOnceOpen;
+    this.verified                   = verified;
+    this.configuration              = configuration;
+    this.stickerPackOperations      = stickerPackOperations;
+    this.fetchType                  = fetchType;
+    this.keys                       = keys;
+    this.messageRequestResponse     = messageRequestResponse;
+    this.outgoingPaymentMessage     = outgoingPaymentMessage;
+    this.views                      = views;
+    this.callEvent                  = callEvent;
+    this.callLinkUpdate             = callLinkUpdate;
+    this.callLogEvent               = callLogEvent;
+    this.deviceNameChange           = deviceNameChange;
+    this.attachmentBackfillResponse = attachmentBackfillResponse;
   }
 
   public static SignalServiceSyncMessage forSentTranscript(SentTranscriptMessage sent) {
@@ -414,28 +415,6 @@ public class SignalServiceSyncMessage {
                                         Optional.empty());
   }
 
-  public static SignalServiceSyncMessage forPniChangeNumber(PniChangeNumber pniChangeNumber) {
-    return new SignalServiceSyncMessage(Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.of(pniChangeNumber),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty(),
-                                        Optional.empty());
-  }
-
   public static SignalServiceSyncMessage forCallEvent(@Nonnull CallEvent callEvent) {
     return new SignalServiceSyncMessage(Optional.empty(),
                                         Optional.empty(),
@@ -451,8 +430,8 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
-                                        Optional.empty(),
                                         Optional.of(callEvent),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty());
@@ -474,8 +453,8 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
-                                        Optional.empty(),
                                         Optional.of(callLinkUpdate),
+                                        Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty());
   }
@@ -497,8 +476,8 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
-                                        Optional.empty(),
                                         Optional.of(callLogEvent),
+                                        Optional.empty(),
                                         Optional.empty());
   }
 
@@ -520,8 +499,30 @@ public class SignalServiceSyncMessage {
                                         Optional.empty(),
                                         Optional.empty(),
                                         Optional.empty(),
+                                        Optional.of(deviceNameChange),
+                                        Optional.empty());
+  }
+
+  public static SignalServiceSyncMessage forAttachmentBackfillResponse(@Nonnull AttachmentBackfillResponse backfillResponse) {
+    return new SignalServiceSyncMessage(Optional.empty(),
                                         Optional.empty(),
-                                        Optional.of(deviceNameChange));
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.empty(),
+                                        Optional.of(backfillResponse));
   }
 
   public static SignalServiceSyncMessage empty() {
@@ -602,10 +603,6 @@ public class SignalServiceSyncMessage {
     return views;
   }
 
-  public Optional<PniChangeNumber> getPniChangeNumber() {
-    return pniChangeNumber;
-  }
-
   public Optional<CallEvent> getCallEvent() {
     return callEvent;
   }
@@ -620,6 +617,10 @@ public class SignalServiceSyncMessage {
 
   public Optional<DeviceNameChange> getDeviceNameChange() {
     return deviceNameChange;
+  }
+
+  public Optional<AttachmentBackfillResponse> getAttachmentBackfillResponse() {
+    return attachmentBackfillResponse;
   }
 
   public enum FetchType {

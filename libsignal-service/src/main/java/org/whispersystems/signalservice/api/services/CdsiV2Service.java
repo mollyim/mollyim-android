@@ -55,13 +55,13 @@ public final class CdsiV2Service {
 
   private final CdsiRequestHandler cdsiRequestHandler;
 
-  public CdsiV2Service(SignalServiceConfiguration configuration, String mrEnclave, @Nullable Network network) {
+  public CdsiV2Service(SignalServiceConfiguration configuration, String mrEnclave, @Nullable Network network, boolean useLibsignalRouteBasedCDSIConnectionLogic) {
 
     if (network != null) {
       this.cdsiRequestHandler = (username, password, request, tokenSaver) -> {
         try {
           Log.i(TAG, "Starting CDSI lookup via libsignal-net");
-          Future<CdsiLookupResponse> cdsiRequest = network.cdsiLookup(username, password, buildLibsignalRequest(request), tokenSaver);
+          Future<CdsiLookupResponse> cdsiRequest = network.cdsiLookup(username, password, buildLibsignalRequest(request), tokenSaver, useLibsignalRouteBasedCDSIConnectionLogic);
           return Single.fromFuture(cdsiRequest)
               .onErrorResumeNext((Throwable err) -> {
                 if (err instanceof ExecutionException && err.getCause() != null) {

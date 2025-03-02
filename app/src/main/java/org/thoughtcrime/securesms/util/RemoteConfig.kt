@@ -1098,9 +1098,20 @@ object RemoteConfig {
     hotSwappable = false
   )
 
-  /** Whether or not this device supports syncing data to newly-linked device. */
-  @JvmStatic
-  val linkAndSync: Boolean = false
+  /** Whether or not this device respect attachment backfill requests.  */
+  // val attachmentBackfillSync: Boolean by remoteBoolean(
+  //   key = "android.attachmentBackfillSync",
+  //   defaultValue = false,
+  //   hotSwappable = true
+  // )
+  val attachmentBackfillSync: Boolean = false
+
+  /** Whether or not libsignal-net's CDSI lookups use the new route-based internals or the old ones */
+  val libsignalRouteBasedCDSILookup: Boolean by remoteBoolean(
+    key = "android.libsignal.libsignalRouteBasedCDSILookup",
+    defaultValue = true,
+    hotSwappable = true
+  )
 
   // endregion
 }

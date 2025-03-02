@@ -124,7 +124,11 @@ class FcmFetchForegroundService : Service() {
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Log.d(TAG, "onStartCommand()")
-    postForegroundNotification()
+    try {
+      postForegroundNotification()
+    } catch (e: RuntimeException) {
+      Log.w(TAG, "Failed to start foreground service! StopSelf: ${intent?.getBooleanExtra(KEY_STOP_SELF, false)}", e)
+    }
 
     val appLocked = KeyCachingService.isLocked()
     return if (appLocked || (intent != null && intent.getBooleanExtra(KEY_STOP_SELF, false))) {

@@ -17,7 +17,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Rational
 import android.view.Surface
-import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
@@ -86,7 +85,6 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ThrottledDebouncer
 import org.thoughtcrime.securesms.util.VibrateUtil
 import org.thoughtcrime.securesms.util.WindowUtil
-import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.webrtc.CallParticipantsViewState
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager.ChosenAudioDeviceIdentifier
@@ -387,6 +385,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     viewModel.setRecipient(event.recipient)
     callScreen.setRecipient(event.recipient)
+    event.isRemoteVideoOffer
     callScreen.setWebRtcCallState(event.state)
 
     when (event.state) {
@@ -670,7 +669,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     callPermissionsDialogController.requestCameraAndAudioPermission(
       activity = this,
       onAllGranted = onGranted,
-      onCameraGranted = { findViewById<View>(R.id.missing_permissions_container).visible = false },
+      onCameraGranted = { callScreen.hideMissingPermissionsNotice() },
       onAudioDenied = this::handleDenyCall
     )
   }
@@ -678,7 +677,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private fun askCameraPermissions(onGranted: () -> Unit) {
     callPermissionsDialogController.requestCameraPermission(this) {
       onGranted()
-      findViewById<View>(R.id.missing_permissions_container).visible = false
+      callScreen.hideMissingPermissionsNotice()
     }
   }
 
@@ -1139,6 +1138,10 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     override fun onOverflowClicked() {
       callScreen.toggleOverflowPopup()
+    }
+
+    override fun onDismissOverflow() {
+      callScreen.dismissCallOverflowPopup()
     }
 
     override fun onCameraDirectionChanged() {

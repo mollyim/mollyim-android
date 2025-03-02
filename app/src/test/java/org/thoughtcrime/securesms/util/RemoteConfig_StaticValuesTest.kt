@@ -51,7 +51,7 @@ class RemoteConfig_StaticValuesTest {
       "messageBackups",
       "libSignalWebSocketEnabled",
       "libSignalWebSocketShadowingPercentage",
-      "linkAndSync",
+      "attachmentBackfillSync",
       "CRASH_PROMPT_CONFIG",
       "PROMPT_BATTERY_SAVER",
       "PROMPT_FOR_NOTIFICATION_LOGS",
