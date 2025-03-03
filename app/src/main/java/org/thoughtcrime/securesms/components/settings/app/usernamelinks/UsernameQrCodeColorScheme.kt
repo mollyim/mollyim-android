@@ -13,12 +13,11 @@ enum class UsernameQrCodeColorScheme(
   val outlineColor: Color = Color.Transparent,
   private val key: String
 ) {
-  Blue(
-    borderColor = Color(0xFF506ECD),
-    foregroundColor = Color(0xFF2449C0),
-    backgroundColor = Color(0xFFEDF0FA),
-    // MOLLY: blue is the new purple
-    key = "purple"
+  Blue( // MOLLY: blue is the new purple
+    borderColor = Color(0xFF7152FF),
+    foregroundColor = Color(0xFF5335DD),
+    backgroundColor = Color(0xFFEAE5FF),
+    key = "blue"
   ),
   White(
     borderColor = Color(0xFFFFFFFF),
@@ -58,12 +57,11 @@ enum class UsernameQrCodeColorScheme(
     backgroundColor = Color(0xFFFCF1F5),
     key = "pink"
   ),
-  Purple(
-    borderColor = Color(0xFF9E7BE9),
-    foregroundColor = Color(0xFF7651C5),
-    backgroundColor = Color(0xFFF5F3FA),
-    // MOLLY: purple is upstream blue
-    key = "blue"
+  Purple( // MOLLY: purple is upstream blue
+    borderColor = Color(0xFF506ECD),
+    foregroundColor = Color(0xFF2449C0),
+    backgroundColor = Color(0xFFEDF0FA),
+    key = "purple"
   );
 
   fun serialize(): String {
