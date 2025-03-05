@@ -16,7 +16,7 @@ enum class UsernameQrCodeColorScheme(
   Blue( // MOLLY: blue is the new purple
     borderColor = Color(0xFF7152FF),
     foregroundColor = Color(0xFF5335DD),
-    backgroundColor = Color(0xFFEAE5FF),
+    backgroundColor = Color(0xFFE5DFFF),
     key = "blue"
   ),
   White(
