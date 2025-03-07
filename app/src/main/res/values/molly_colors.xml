@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- material3_colors_light.xml -->
+
+    <color name="molly_inverse_primary_light">#AA98FF</color>
+    <color name="stock_inverse_primary_light">#B6C5FA</color>
+
+    <color name="molly_primary_light">#5335DD</color>
+    <color name="stock_primary_light">#2C58C3</color>
+
+    <color name="molly_on_primary_light">#FFFFFF</color>
+    <color name="stock_on_primary_light">#FFFFFF</color>
+
+    <color name="molly_primary_container_light">#C1B4FB</color>
+    <color name="stock_primary_container_light">#D2DFFB</color>
+
+    <color name="molly_on_primary_container_light">#180D49</color>
+    <color name="stock_on_primary_container_light">#051845</color>
+
+    <color name="molly_primary_fixed">#C1B4FB</color>
+    <color name="stock_primary_fixed">#D2DFFB</color>
+
+    <color name="molly_primary_fixed_dim">#AA98FF</color>
+    <color name="stock_primary_fixed_dim">#B6C5FA</color>
+
+    <color name="molly_on_primary_fixed">#180D49</color>
+    <color name="stock_on_primary_fixed">#051845</color>
+
+    <color name="molly_on_primary_fixed_variant">#483B6A</color>
+    <color name="stock_on_primary_fixed_variant">#464B5C</color>
+
+    <color name="molly_secondary_light">#C5C1DD</color>
+    <color name="stock_secondary_light">#586071</color>
+
+    <color name="molly_on_secondary_light">#FFFFFF</color>
+    <color name="stock_on_secondary_light">#FFFFFF</color>
+
+    <color name="molly_secondary_container_light">#E3DBF9</color>    <!-- Variant of #E3DCF9 -->
+    <color name="stock_secondary_container_light">#DCE5F9</color>    <!-- Variant of #DCE1F9 -->
+
+    <color name="molly_on_secondary_container_light">#1E1835</color>
+    <color name="stock_on_secondary_container_light">#151D2C</color>
+
+    <color name="molly_secondary_fixed">#E3DCF9</color>
+    <color name="stock_secondary_fixed">#DCE1F9</color>
+
+    <color name="molly_secondary_fixed_dim">#C5C1DD</color>
+    <!-- <color name="stock_secondary_fixed_dim">#C1C6DD</color> -->    <!-- Conflicts with stock_secondary_dark -->
+
+    <color name="molly_on_secondary_fixed">#1E1835</color>
+    <color name="stock_on_secondary_fixed">#151D2C</color>
+
+    <color name="molly_on_secondary_fixed_variant">#434159</color>
+    <color name="stock_on_secondary_fixed_variant">#414659</color>
+
+    <color name="molly_surface_dim_light">#DED6FF</color>
+    <color name="stock_surface_dim_light">#E3E7F1</color>    <!-- Previously signal_light_colorSurface5 -->
+
+    <color name="molly_inverse_surface_light">#33276A</color>
+    <color name="stock_inverse_surface_light">#31343E</color>
+
+    <color name="molly_surface_variant_light">#E7E6F2</color>
+    <color name="stock_surface_variant_light">#E7EBF3</color>
+
+    <color name="molly_surface_light">#F6F6FF</color>
+    <color name="stock_surface_light">#FBFCFF</color>
+
+    <color name="molly_background_light">#F6F6FF</color>
+    <color name="stock_background_light">#FBFCFF</color>
+
+    <color name="molly_surface_bright_light">#F6F6FF</color>
+    <color name="stock_surface_bright_light">#FBFCFF</color>
+
+    <color name="molly_surface_container_highest_light">#E5DFFF</color>
+    <color name="stock_surface_container_highest_light">#E6EAF3</color>     <!-- Previously signal_light_colorSurface4 -->
+
+    <color name="molly_surface_container_high_light">#EAE5FF</color>
+    <color name="stock_surface_container_high_light">#E8ECF4</color>        <!-- Previously signal_light_colorSurface3 -->
+
+    <color name="molly_surface_container_light">#EEEAFF</color>
+    <color name="stock_surface_container_light">#EDF0F6</color>             <!-- Previously signal_light_colorSurface2 -->
+
+    <color name="molly_surface_container_low_light">#F3F0FF</color>
+    <color name="stock_surface_container_low_light">#F2F5F9</color>         <!-- Previously signal_light_colorSurface1 -->
+
+    <color name="molly_surface_container_lowest_light">#F9F8FF</color>
+
+    <color name="molly_inverse_on_surface_light">#F1EDF6</color>
+    <!-- <color name="stock_inverse_on_surface_light">#EDF0F6</color> -->   <!-- Conflicts with stock_surface_container_light -->
+
+    <color name="molly_on_surface_light">#181719</color>     <!-- Variant of #171719 -->
+    <color name="stock_on_surface_light">#1B1B1D</color>     <!-- Different from stock_on_background_light #1B1D1D but it should be the same -->
+
+    <color name="molly_on_background_light">#171719</color>
+    <color name="stock_on_background_light">#1B1D1D</color>
+
+    <color name="molly_on_surface_variant_light">#585563</color>
+    <color name="stock_on_surface_variant_light">#545863</color>
+
+    <color name="molly_outline_light">#82808A</color>
+    <color name="stock_outline_light">#808389</color>
+
+    <color name="molly_outline_variant_light">#9384E2</color>
+    <color name="stock_outline_variant_light">#BBBFC8</color>    <!-- Previously signal_light_colorOnSurfaceVariant1 -->
+
+    <color name="molly_error_light">#E00052</color>
+    <color name="stock_error_light">#BA1B1B</color>
+
+    <color name="molly_on_error_light">#FFFFFF</color>
+
+    <color name="molly_error_container_light">#FDC7DB</color>
+    <color name="stock_error_container_light">#FFDAD4</color>
+
+    <color name="molly_on_error_container_light">#6D0028</color>
+
+    <color name="molly_tertiary_light">#5A5379</color>
+
+    <color name="molly_on_tertiary_light">#FFFFFF</color>
+
+    <color name="molly_tertiary_container_light">#D1C6FB</color>
+
+    <color name="molly_on_tertiary_container_light">#180D49</color>
+
+    <color name="molly_tertiary_fixed">#EAE5FF</color>
+
+    <color name="molly_tertiary_fixed_dim">#5A5379</color>
+
+    <color name="molly_on_tertiary_fixed">#180D49</color>
+
+    <color name="molly_on_tertiary_fixed_variant">#423290</color>
+
+    <!-- material3_colors_dark.xml -->
+
+    <color name="molly_inverse_primary_dark">#5335DD</color>
+    <color name="stock_inverse_primary_dark">#2C58C3</color>
+
+    <color name="molly_primary_dark">#AA98FF</color>
+    <color name="stock_primary_dark">#B6C5FA</color>
+
+    <color name="molly_on_primary_dark">#1E1B38</color>
+    <color name="stock_on_primary_dark">#1E2438</color>
+
+    <color name="molly_primary_container_dark">#483B6A</color>
+    <color name="stock_primary_container_dark">#464B5C</color>
+
+    <color name="molly_on_primary_container_dark">#DDDCFC</color>
+    <color name="stock_on_primary_container_dark">#DBE1FC</color>
+
+    <color name="molly_secondary_dark">#CBC4DE</color>
+    <color name="stock_secondary_dark">#C1C6DD</color>
+
+    <color name="molly_on_secondary_dark">#2E2A42</color>
+    <color name="stock_on_secondary_dark">#2A3042</color>
+
+    <color name="molly_secondary_container_dark">#434159</color>
+    <color name="stock_secondary_container_dark">#414659</color>
+
+    <color name="molly_on_secondary_container_dark">#E3DCF9</color>
+    <color name="stock_on_secondary_container_dark">#DCE1F9</color>
+
+    <color name="molly_surface_bright_dark">#33276A</color>
+    <color name="stock_surface_bright_dark">#31343E</color>      <!-- Previously signal_dark_colorSurface5 -->
+
+    <color name="molly_inverse_surface_dark">#E5DFFF</color>
+    <color name="stock_inverse_surface_dark">#E6EAF3</color>
+
+    <color name="molly_surface_variant_dark">#302F33</color>
+    <color name="stock_surface_variant_dark">#303133</color>
+
+    <color name="molly_surface_dark">#0E0B1D</color>
+    <color name="stock_surface_dark">#1B1C1F</color>
+
+    <color name="molly_background_dark">#0E0B1D</color>
+    <color name="stock_background_dark">#1B1C1F</color>
+
+    <color name="molly_surface_dim_dark">#0E0B1D</color>
+    <color name="stock_surface_dim_dark">#1B1C1F</color>
+
+    <color name="molly_surface_container_highest_dark">#281E57</color>
+    <color name="stock_surface_container_highest_dark">#2E3039</color>      <!-- Previously signal_dark_colorSurface4 -->
+
+    <color name="molly_surface_container_high_dark">#231A4E</color>
+    <color name="stock_surface_container_high_dark">#2C2F37</color>         <!-- Previously signal_dark_colorSurface3 -->
+
+    <color name="molly_surface_container_dark">#1E1645</color>
+    <color name="stock_surface_container_dark">#272A31</color>              <!-- Previously signal_dark_colorSurface2 -->
+
+    <color name="molly_surface_container_low_dark">#181137</color>
+    <color name="stock_surface_container_low_dark">#23242A</color>          <!-- Previously signal_dark_colorSurface1 -->
+
+    <color name="molly_surface_container_lowest_dark">#0C0919</color>
+
+    <color name="molly_inverse_on_surface_dark">#31303D</color>
+    <!-- <color name="stock_inverse_on_surface_dark">#31343E</color> -->    <!-- Conflicts with stock_surface_bright_dark -->
+
+    <color name="molly_on_surface_dark">#E3E1E6</color>
+    <color name="stock_on_surface_dark">#E2E1E5</color>
+
+    <color name="molly_on_background_dark">#E3E1E6</color>
+    <color name="stock_on_background_dark">#E2E1E5</color>
+
+    <color name="molly_on_surface_variant_dark">#BEBCC4</color>
+    <color name="stock_on_surface_variant_dark">#BEBFC5</color>
+
+    <color name="molly_outline_dark">#5D5D66</color>
+    <color name="stock_outline_dark">#5C5E65</color>
+
+    <color name="molly_outline_variant_dark">#6E5DB9</color>
+    <color name="stock_outline_variant_dark">#4D5059</color>    <!-- Previously signal_dark_colorOnSurfaceVariant1 -->
+
+    <color name="molly_error_dark">#FE006E</color>
+    <color name="stock_error_dark">#FFB4A9</color>
+
+    <color name="molly_on_error_dark">#63012C</color>
+
+    <color name="molly_error_container_dark">#A40449</color>
+    <color name="stock_error_container_dark">#930006</color>
+
+    <color name="molly_on_error_container_dark">#FFDAD6</color>
+
+    <color name="molly_tertiary_dark">#B3ABDA</color>
+
+    <color name="molly_on_tertiary_dark">#36304F</color>
+
+    <color name="molly_tertiary_container_dark">#423290</color>
+
+    <color name="molly_on_tertiary_container_dark">#EAE5FF</color>
+
+    <!-- material3_colors.xml -->
+
+    <color name="molly_surface_variant_16_no_alpha_light">#D0CFDB</color>
+    <color name="stock_surface_variant_16_no_alpha_light">#D5D8DE</color>
+
+    <color name="molly_surface_variant_32_no_alpha_light">#B9B8C4</color>
+    <color name="stock_surface_variant_32_no_alpha_light">#B8BCC5</color>
+
+    <!-- core_colors.xml -->
+
+    <color name="molly_core_ultramarine">#7152FF</color>
+    <color name="stock_core_ultramarine">#2C6BED</color>
+
+    <color name="molly_core_ultramarine_dark">#4924F1</color>
+    <color name="stock_core_ultramarine_dark">#1851B4</color>
+
+    <color name="molly_core_ultramarine_icon">#7051FF</color>   <!-- Variant of #7152FF -->
+    <color name="stock_core_ultramarine_icon">#3A76F0</color>
+
+    <color name="molly_core_ultramarine_light">#8F77FF</color>
+    <color name="stock_core_ultramarine_light">#6191F3</color>
+
+    <color name="molly_core_ultramarine_medium">#C4B7FF</color>
+    <color name="stock_core_ultramarine_medium">#B0C8F9</color>
+
+    <color name="molly_core_green">#4CAF50</color>
+    <color name="stock_core_green">#4CAF50</color>
+
+    <color name="molly_core_yellow">#FFD624</color>
+    <color name="stock_core_yellow">#FFD624</color>
+
+    <color name="molly_core_red_highlight">#EF5350</color>
+    <color name="stock_core_red_highlight">#EF5350</color>
+
+    <color name="molly_core_red">#F44336</color>
+    <color name="stock_core_red">#F44336</color>
+
+    <color name="molly_core_red_shade">#E51D0E</color>
+    <color name="stock_core_red_shade">#E51D0E</color>
+
+    <!-- ChatColorsPalette.kt -->
+
+    <color name="molly_chat_colors_ultramarine">#6F50FE</color> <!-- Variant of #7152FF -->
+    <color name="stock_chat_colors_ultramarine">#6058CA</color>
+
+    <!-- UsernameQrCodeColorScheme.kt -->
+
+    <color name="molly_username_qr_code_blue_border">#506ECD</color>
+    <color name="stock_username_qr_code_blue_border">#506ECD</color>
+
+    <color name="molly_username_qr_code_blue_foreground">#2449C0</color>
+    <color name="stock_username_qr_code_blue_foreground">#2449C0</color>
+
+    <color name="molly_username_qr_code_blue_background">#EDF0FA</color>
+    <color name="stock_username_qr_code_blue_background">#EDF0FA</color>
+
+    <!-- drawables/* -->
+
+    <color name="molly_gradient_A_1">#DAD2FF</color>
+    <color name="stock_gradient_A_1">#D2D8FE</color>
+
+    <color name="molly_gradient_A_2">#BFB2FA</color>
+    <color name="stock_gradient_A_2">#B0BCFC</color>
+
+    <color name="molly_gradient_B_1">#EBE7FF</color>
+    <color name="stock_gradient_B_1">#EDF3FF</color>
+
+    <color name="molly_gradient_B_2">#DED7FF</color>
+    <color name="stock_gradient_B_2">#E2E8FF</color>
+
+    <color name="molly_gradient_C_1">#6341FF</color>
+    <color name="stock_gradient_C_1">#3B45FD</color>
+
+    <color name="molly_gradient_C_2">#613FFF</color>
+    <color name="stock_gradient_C_2">#1F2AFD</color>
+
+    <color name="molly_gradient_D_1">#DAD2FF</color>
+    <color name="stock_gradient_D_1">#D2D8FE</color>
+
+    <color name="molly_gradient_D_2">#CABEFF</color>
+    <color name="stock_gradient_D_2">#C1C7FE</color>
+
+    <color name="molly_other_1">#E7E1FF</color>
+    <color name="stock_other_1">#E0E5FF</color>
+
+    <color name="molly_other_2">#C1BBDF</color>
+    <color name="stock_other_2">#ABBDE1</color>
+
+    <color name="molly_other_3">#8881A8</color>
+    <color name="stock_other_3">#858FA8</color>
+
+    <color name="molly_other_4">#BAABFF</color>
+    <color name="stock_other_4">#A0A7FE</color>
+
+    <color name="molly_other_5">#DAD2FF</color>
+    <color name="stock_other_5">#D2D8FE</color>
+
+    <color name="molly_other_6">#5E3CFD</color>
+    <color name="stock_other_6">#3C46FE</color>
+
+    <color name="molly_other_7">#6341FF</color>
+    <color name="stock_other_7">#3B45FD</color>
+
+    <color name="molly_other_8">#E2DCFF</color>
+    <color name="stock_other_8">#E3E8FE</color>
+
+    <color name="molly_other_9">#8069E8</color>
+    <color name="stock_other_9">#666EE5</color>
+
+    <color name="molly_other_10">#290F9F</color>
+    <color name="stock_other_10">#020BAC</color>
+
+    <color name="molly_other_11">#B2A4F1</color>
+    <color name="stock_other_11">#9CA4EF</color>
+
+    <color name="molly_other_12">#7354FF</color>
+    <color name="stock_other_12">#505AF2</color>
+
+    <color name="molly_other_13">#F6F5FF</color>    <!-- Variant of #F6F6FF -->
+    <color name="stock_other_13">#FBFCFE</color>    <!-- Variant of #FBFCFF -->
+
+    <color name="molly_other_14">#5D509E</color>
+    <color name="stock_other_14">#50679F</color>
+
+    <color name="molly_other_15">#ADB4F1</color>
+    <color name="stock_other_15">#ADB4F1</color>
+
+    <color name="molly_other_16">#6A77DD</color>
+    <color name="stock_other_16">#6A77DD</color>
+
+    <color name="molly_other_17">#D5D9FD</color>
+    <color name="stock_other_17">#D5D9FD</color>
+
+    <color name="molly_other_18">#373D52</color>
+    <color name="stock_other_18">#373D52</color>
+
+    <color name="molly_other_19">#617092</color>
+    <color name="stock_other_19">#617092</color>
+
+    <color name="molly_other_20">#B4BCFF</color>
+    <color name="stock_other_20">#B4BCFF</color>
+
+    <color name="molly_other_21">#E4E7FF</color>
+    <color name="stock_other_21">#E4E7FF</color>
+
+    <color name="molly_other_22">#C1C5E1</color>
+    <color name="stock_other_22">#C1C5E1</color>
+
+    <color name="molly_other_23">#C2D5F0</color>
+    <color name="stock_other_23">#C2D5F0</color>
+
+    <color name="molly_other_24">#AEC8E8</color>
+    <color name="stock_other_24">#AEC8E8</color>
+
+    <color name="molly_other_25">#6C7B9D</color>
+    <color name="stock_other_25">#6C7B9D</color>
+
+    <color name="molly_other_26">#DDE7FF</color>
+    <color name="stock_other_26">#DDE7FF</color>
+
+    <color name="molly_other_27">#C0CBE2</color>
+    <color name="stock_other_27">#C0CBE2</color>
+
+    <color name="molly_other_28">#7253FB</color>    <!-- Variant of #7354FF -->
+    <color name="stock_other_28">#505AF5</color>    <!-- Variant of #505AF2 -->
+
+</resources>

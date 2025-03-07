@@ -36,7 +36,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -64,6 +63,7 @@ import org.signal.registration.proto.RegistrationProvisionMessage
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCode
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeData
+import org.thoughtcrime.securesms.components.settings.app.usernamelinks.UsernameQrCodeColorScheme
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registrationv3.ui.RegistrationViewModel
@@ -174,7 +174,7 @@ private fun RestoreViaQrScreen(
           .widthIn(160.dp, 320.dp)
           .aspectRatio(1f)
           .clip(RoundedCornerShape(24.dp))
-          .background(SignalTheme.colors.colorSurface5)
+          .background(UsernameQrCodeColorScheme.Blue.borderColor)
           .padding(40.dp)
       ) {
         SignalTheme(isDarkMode = false) {
@@ -200,7 +200,7 @@ private fun RestoreViaQrScreen(
                 is RestoreViaQrViewModel.QrState.Loaded -> {
                   QrCode(
                     data = qrState.qrData,
-                    foregroundColor = Color(0xFF2449C0),
+                    foregroundColor = UsernameQrCodeColorScheme.Blue.foregroundColor,
                     modifier = Modifier
                       .fillMaxWidth()
                       .fillMaxHeight()
