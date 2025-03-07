@@ -761,6 +761,8 @@ public class SignalServiceMessageSender {
       content = createCallLogEventContent(message.getCallLogEvent().get());
     } else if (message.getDeviceNameChange().isPresent()) {
       content = createDeviceNameChangeContent(message.getDeviceNameChange().get());
+    } else if (message.getAttachmentBackfillResponse().isPresent()) {
+      content = createAttachmentBackfillResponseContent(message.getAttachmentBackfillResponse().get());
     } else {
       throw new IOException("Unsupported sync message!");
     }
@@ -1391,7 +1393,7 @@ public class SignalServiceMessageSender {
         unidentifiedDeliveryStatuses.add(new SyncMessage.Sent.UnidentifiedDeliveryStatus.Builder()
                                                                                         .destinationServiceId(result.getAddress().getServiceId().toString())
                                                                                         .unidentified(false)
-                                                                                        .destinationIdentityKey(identity)
+                                                                                        .destinationPniIdentityKey(identity)
                                                                                         .build());
       }
     }
@@ -1665,10 +1667,6 @@ public class SignalServiceMessageSender {
     SyncMessage.Builder      syncMessage = createSyncMessageBuilder();
     SyncMessage.Keys.Builder builder     = new SyncMessage.Keys.Builder();
 
-    if (keysMessage.getStorageService() != null) {
-      builder.storageService(ByteString.of(keysMessage.getStorageService().serialize()));
-    }
-
     if (keysMessage.getMaster() != null) {
       builder.master(ByteString.of(keysMessage.getMaster().serialize()));
     }
@@ -1740,6 +1738,13 @@ public class SignalServiceMessageSender {
   private Content createDeviceNameChangeContent(SyncMessage.DeviceNameChange proto) {
     Content.Builder     container = new Content.Builder();
     SyncMessage.Builder builder   = createSyncMessageBuilder().deviceNameChange(proto);
+
+    return container.syncMessage(builder.build()).build();
+  }
+
+  private Content createAttachmentBackfillResponseContent(SyncMessage.AttachmentBackfillResponse proto) {
+    Content.Builder     container = new Content.Builder();
+    SyncMessage.Builder builder   = createSyncMessageBuilder().attachmentBackfillResponse(proto);
 
     return container.syncMessage(builder.build()).build();
   }

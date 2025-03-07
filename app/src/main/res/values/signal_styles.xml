@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Signal.Widget.ImageView.ActionButton" parent="ThemeOverlay.Material3">
-        <item name="tint">@color/signal_colorOnSecondaryContainer</item>
+        <item name="tint">@color/signal_colorOnTertiaryContainer</item>
         <item name="android:background">@drawable/selectable_icon_button</item>
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
@@ -98,13 +98,13 @@
     </style>
 
     <style name="ThemeOverlay.Signal.Button.Tonal" parent="ThemeOverlay.Material3.Button">
-        <item name="colorOnContainer">@color/signal_colorOnPrimaryContainer</item>
-        <item name="colorContainer">@color/signal_colorPrimaryContainer</item>
+        <item name="colorOnContainer">@color/signal_colorOnTertiaryContainer</item>
+        <item name="colorContainer">@color/signal_colorTertiaryContainer</item>
     </style>
 
     <style name="ThemeOverlay.Signal.Button.Small" parent="ThemeOverlay.Material3.Button">
-        <item name="colorOnContainer">@color/signal_colorOnSurfaceVariant</item>
-        <item name="colorContainer">@color/signal_colorSurface1</item>
+        <item name="colorOnContainer">@color/signal_colorOnTertiaryContainer</item>
+        <item name="colorContainer">@color/signal_colorTertiaryContainer</item>
     </style>
     
     <style name="ThemeOverlay.Signal.Button.Surface2" parent="ThemeOverlay.Material3.Button">
@@ -250,7 +250,7 @@
 
     <style name="Widget.Signal.CheckedTextView" parent="Widget.Material3.CheckedTextView">
         <item name="android:textAppearance">@style/Signal.Text.BodyLarge</item>
-        <item name="android:textColor">@color/signal_colorOnSurfaceVariant</item>
+        <item name="android:textColor">@color/signal_colorOnSurface</item>
         <item name="drawableTint">@color/signal_selection_control_button_tint</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/signal_selection_control_button_tint</item>
     </style>
@@ -357,18 +357,14 @@
     <style name="ThemeOverlay.Signal.MaterialSwitch" parent="ThemeOverlay.Material3">
         <item name="colorPrimary">@color/signal_colorPrimary</item>
         <item name="colorPrimaryContainer">@color/signal_colorPrimaryContainer</item>
-        <item name="colorSecondary">@color/signal_colorSecondary</item>
-        <item name="colorSecondaryContainer">@color/signal_colorSecondaryContainer</item>
         <item name="colorSurface">@color/signal_colorSurface</item>
-        <item name="colorSurfaceVariant">@color/signal_colorSurfaceVariant</item>
         <item name="colorOnPrimary">@color/signal_colorOnPrimary</item>
         <item name="colorOnPrimaryContainer">@color/signal_colorOnPrimaryContainer</item>
-        <item name="colorOnSecondary">@color/signal_colorOnSecondary</item>
-        <item name="colorOnSecondaryContainer">@color/signal_colorOnSecondaryContainer</item>
         <item name="colorOnSurface">@color/signal_colorOnSurface</item>
-        <item name="colorOnSurfaceVariant">@color/signal_colorOnSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/signal_colorPrimary</item>
         <item name="colorOnBackground">@color/signal_colorOnBackground</item>
-        <item name="colorOutline">@color/signal_colorOutline</item>
+        <item name="colorOutline">@color/signal_colorOutlineVariant</item>
+        <item name="colorSurfaceContainerHighest">@color/signal_colorSurface4</item>
     </style>
 
 </resources>

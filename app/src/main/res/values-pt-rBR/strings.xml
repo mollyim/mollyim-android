@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">Denunciado como spam e bloqueado</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">Você aceitou a solicitação de contato de %1$s. Caso tenha sido um erro, escolha uma ação abaixo.</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">Analise com atenção</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s não são verificados</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s não são verificados</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">Nomes de perfis</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">Nomes de grupos</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Dicas de segurança</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">Dica anterior</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">Próxima dica</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">Contas e nomes falsos</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">O Molly nunca solicitará seu código ou PIN de registro.  Fique atento a quem tenta se passar por outra pessoa. Os nomes de perfil são definidos pelo próprio usuário e não são verificados. </string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Golpes de cripto ou dinheiro</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">Empresas e instituições falsas</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">Tenha cuidado com as empresas ou órgãos governamentais que entram em contato com você. Mensagens envolvendo questões tributárias ou de transportadoras podem ser spam.</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Os %1$s no Signal são escolhidos pelo titular da conta.</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">Os nomes dos perfis não são verificados</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">Tenha cuidado com contas que se façam passar por outras pessoas</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">Não compartilhe informações pessoais com pessoas que você não conhece</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">Os %1$s são escolhidos pelos membros do grupo.</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">Tenha cuidado com grupos que se façam passar por outras pessoas ou empresas</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">Os nomes dos perfis nos grupos não são verificados</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">Limpar filtro</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">Escolha uma pasta</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Adicionado a \"%1$s\"</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">Esta conversa já está na pasta \"%1$s\"</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">Esta conversa já está na pasta \"%1$s\"</item>
+        <item quantity="other">Estas conversas já estão na pasta \"%1$s\"</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Perfil de notificações</string>
@@ -982,7 +1014,7 @@
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
-    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Use this Signal account on desktop or iPad.</string>
+    <string name="LinkDeviceFragment__use_signal_on_desktop_ipad">Use essa conta do Signal no desktop ou iPad.</string>
     <!-- Button prompting users to link a new device to their account -->
     <string name="LinkDeviceFragment__link_a_new_device">Vincular um novo dispositivo</string>
     <!-- Text explaining that on linked devices, messages will be encrypted where %s will be replaced with an image-->
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Continuar</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">Entrar em contato com o suporte</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">Enviar registro de depuração?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">Seus registros de depuração nos ajudarão a resolver o problema mais rápido. O envio é opcional.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">Enviar com registro de depuração</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">Enviar sem registro de depuração</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">Cancelar</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Falha na exportação (Link&amp;Sync) do Android</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Falha na sincronização de mensagens</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Denunciar…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">Aceitar solicitação?</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">Analise os pedidos com atenção. Os nomes de perfil são escolhidos pelo titular da conta e não são verificados.</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">Participar do grupo?</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">Analise os pedidos com atenção. Os nomes dos grupos são escolhidos pelos membros e não são verificados.</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">Entrar</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">As frases de recuperação não coincidem!</string>
@@ -2124,7 +2166,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Desculpe, você já possui muitos dispositivos vinculados. Tente remover alguns.</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Desculpe, este não é um código QR de dispositivo válido.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Vincular um dispositivo Signal?</string>
-    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Para vincular um desktop ou iPad a essa conta do Signal, acesse Dispositivos vinculados e toque em \" Vincular um novo dispositivo \" e escaneie o código QR novamente. Escaneie somente os QR codes fornecidos diretamente no app do Signal</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">O Molly precisa da permissão Câmera para escanear um código QR, mas ela foi permanentemente negada. Favor ir no menu de configurações de aplicativos, selecionar \"Permissões\", e habilitar \"Câmera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Não é possível escanear um código QR sem a permissão Câmera</string>
@@ -2471,9 +2513,9 @@
     <string name="CallOverflowPopupWindow__expand_snackbar_accessibility_label">Expandir visualização da mão levantada</string>
 
     <!-- Toolbar title of country picker selection page -->
-    <string name="CountryCodeFragment__your_country">Your country</string>
+    <string name="CountryCodeFragment__your_country">País</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Buscar por nome ou número</string>
+    <string name="CountryCodeFragment__search_by">Buscar por nome ou código do país</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">País desconhecido</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">Contatos do Signal</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">Verificado</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">Os nomes dos perfis não são verificados</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">Solicitação de contato pendente</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">Nenhuma mensagem direta com %1$s</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s está nos contatos do seu telefone</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">Você não tem grupos em comum</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">Nenhum grupo em comum</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Analise os pedidos com atenção</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -2562,7 +2608,7 @@
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
     <string name="RegistrationActivity_you_will_receive_a_verification_code">Você vai receber um código de verificação. Taxas da operadora podem ser aplicadas.</string>
     <!-- Hint text to select a country -->
-    <string name="RegistrationActivity_select_a_country">Select a country</string>
+    <string name="RegistrationActivity_select_a_country">Selecione um país</string>
     <!-- Hint text explaining that this is where the country code should go -->
     <string name="RegistrationActivity_default_country_code">0</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Você receberá uma chamada para verificar esse número.</string>
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">Atualizar contato</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">Bloquear pedido</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Nenhum grupo em comum. Analise o pedido com atenção.</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Nenhum grupo em comum</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Nenhum contato neste grupo. Analise solicitações com atenção.</string>
     <string name="ConversationUpdateItem_view">Exibir</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">O tempo de desaparecimento das mensagens que você enviar será definido como %1$s.</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">Idioma</string>
     <string name="preferences__signal_messages_and_calls">Mensagens e chamadas do Signal</string>
     <string name="preferences__advanced_pin_settings">Configurações avançadas do PIN</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">Configurações avançadas do PIN</string>
     <string name="preferences__free_private_messages_and_calls">Chamadas e mensagens privadas gratuitas para usuários do Signal</string>
     <string name="preferences__submit_debug_log">Enviar registro de depuração</string>
     <string name="preferences__delete_account">Excluir a conta</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">Falha na conexão</string>
     <string name="preferences_couldnt_connect_to_the_proxy">Não foi possível se conectar ao proxy. Verifique o endereço do proxy e tente novamente.</string>
     <string name="preferences_you_are_connected_to_the_proxy">Você está conectado ao proxy. Você pode desligar o proxy a qualquer momento em Configurações.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">Deu certo</string>
     <string name="preferences_failed_to_connect">Falha de conexão</string>
     <string name="preferences_enter_proxy_address">Digite o endereço de proxy</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="BackupDialog_no_file_picker_available">Nenhum seletor de arquivos disponível.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Digite sua frase de recuperação de backup para verificação</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">Verificar</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Você digitou com sucesso sua frase de recuperação de backup</string>
     <string name="BackupDialog_passphrase_was_not_correct">A frase de recuperação está incorreta</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">Registro Molly - Código de verificação para Android</string>
     <string name="RegistrationActivity_incorrect_code">Código incorreto</string>
     <string name="BackupUtil_never">Nunca</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">Desconhecida</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Número de telefone</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Tente desativar o Wi-Fi e ativá-lo novamente em ambos os aparelhos.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Certifique-se de que ambos os aparelhos estejam no modo de transferência.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Ir para a página de suporte</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">Tentar novamente</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">Aguardando o outro aparelho</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Toque em Continuar no seu outro aparelho para começar a transferência.</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">Mudar número</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">Verificando %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">Captcha necessário</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">Permissões</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Pedidos e convites</string>
     <string name="ConversationSettingsFragment__group_link">Link do grupo</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">Adicionar como contato</string>
     <string name="ConversationSettingsFragment__unmute">Reativar notificações</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">Compartilhar</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">Ir para cima</string>
     <string name="MultiselectForwardFragment__forward_to">Encaminhar para</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">Os vídeos serão reduzidos para clipes de 30 segundos e enviados como vários stories.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Os vídeos enviados para o Stories não podem ter mais do que 30 segundos.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">Mensagens encaminhadas agora são enviadas imediatamente.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">Enviar %1$d mensagem</item>
@@ -5767,7 +5824,7 @@
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_device_link_dialog_title">Vincular dispositivo?</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+    <string name="MediaCaptureFragment_it_looks_like_youre_trying">Parece que você está tentando vincular um dispositivo Signal. Toque em continuar, depois em \"Vincular um novo dispositivo\" e escaneie o QR code novamente.</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
     <string name="MediaCaptureFragment_device_link_dialog_continue">Continuar</string>
 
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/mês</string>
     <string name="MySupportPreference__renews_s">Renova em %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">Efetuando a transação…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">Não foi possível adicionar o selo. %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">Sua doação ainda está sendo processada. Isso pode demorar alguns minutos, dependendo da sua conexão.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Ocorreu um erro ao cancelar a doação mensal</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">O cancelamento da doação mensal requer uma conexão com a internet.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Seu aparelho não é compatível com o Google Pay, portanto você não pode doar para ganhar um selo. Você ainda pode apoiar o Signal ao fazer uma doação em nosso site.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">Seu aparelho não é compatível com doações no aplicativo, portanto você não pode doar para ganhar um selo. Você ainda pode apoiar o Signal ao fazer uma doação em nosso site.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Erro na rede. Verifique a sua conexão e tente novamente.</string>
     <string name="NetworkFailure__retry">Tentar novamente</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Notas de lançamento e notícias do Signal</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">Este é o único chat oficial do Signal.</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">Fique por dentro das notícias e notas de atualização.</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">Este é o único chat oficial do Signal</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">Fique por dentro das notícias e notas de atualização</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">Chat oficial e único do Signal</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">Todas as atividades</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">Info</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">Enviando…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">Enviando %1$d…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">Falha no envio</string>
@@ -8107,9 +8175,9 @@
     <!-- Text field error when the backup key is invalid -->
     <string name="EnterBackupKey_invalid_backup_key_error">Chave de backup inválida</string>
     <!-- Dialog title shown during registration and trying to restore a remote backup -->
-    <string name="EnterBackupKey_backup_not_found">Backup not found</string>
+    <string name="EnterBackupKey_backup_not_found">Backup não encontrado</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
-    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">The backup key you entered is correct, but there is no backup associated with it. If you still have your old phone, make sure backups are enabled and that a backup has been completed and try again.</string>
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">A chave de backup que você inseriu está correta, mas não há backup associado a ela. Se você ainda tiver seu telefone antigo, verifique se os backups estão habilitados e se um backup foi concluído e tente novamente.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Pular restauração</string>
 

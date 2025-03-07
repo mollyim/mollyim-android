@@ -9,6 +9,7 @@
     <color name="story_caption_gradient_start">#CC000000</color>
 
     <color name="webrtc_hangup_background">#F07168</color>
+    <color name="webrtc_answer_background">#34C759</color>
 
     <color name="transparent_black_05">#0D000000</color>
     <color name="transparent_black_08">#14000000</color>
@@ -59,8 +60,8 @@
     <color name="conversation_list_archive_background_start">@color/signal_colorPrimary</color>
     <color name="conversation_list_archive_background_end">@color/signal_colorPrimary</color>
 
-    <color name="safety_number_card_grey">#ffEBEAE8</color>
-    <color name="safety_number_card_blue">#ff506ECD</color>
+    <color name="safety_number_card_grey">@color/molly_tertiary_fixed</color>
+    <color name="safety_number_card_blue">@color/molly_core_ultramarine</color>
 
-    <color name="notification_background_ultramarine">@color/core_ultramarine</color>
+    <color name="notification_background_ultramarine">#6341FF</color>
 </resources>

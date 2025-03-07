@@ -98,7 +98,8 @@ object ContactDiscoveryRefreshV2 {
         Optional.empty(),
         BuildConfig.CDSI_MRENCLAVE,
         10_000,
-        null  // MOLLY: FIXME
+        null, // MOLLY: FIXME
+        RemoteConfig.libsignalRouteBasedCDSILookup
       ) {
         Log.i(TAG, "Ignoring token for one-off lookup.")
       }
@@ -163,7 +164,8 @@ object ContactDiscoveryRefreshV2 {
         Optional.ofNullable(token),
         BuildConfig.CDSI_MRENCLAVE,
         timeoutMs,
-        null  // MOLLY: FIXME
+        null, // MOLLY: FIXME
+        RemoteConfig.libsignalRouteBasedCDSILookup
       ) { tokenToSave ->
         stopwatch.split("network-pre-token")
         if (!isPartialRefresh) {

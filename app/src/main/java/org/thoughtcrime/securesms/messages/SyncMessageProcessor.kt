@@ -44,6 +44,9 @@ import org.thoughtcrime.securesms.groups.BadGroupIdException
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob
+import org.thoughtcrime.securesms.jobs.AttachmentUploadJob
+import org.thoughtcrime.securesms.jobs.MultiDeviceAttachmentBackfillMissingJob
+import org.thoughtcrime.securesms.jobs.MultiDeviceAttachmentBackfillUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceConfigurationUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactSyncJob
@@ -90,6 +93,7 @@ import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.IdentityUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.AccountEntropyPool
@@ -103,7 +107,9 @@ import org.whispersystems.signalservice.api.push.ServiceId.ACI
 import org.whispersystems.signalservice.api.push.ServiceId.PNI
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.util.UuidUtil
+import org.whispersystems.signalservice.internal.push.AddressableMessage
 import org.whispersystems.signalservice.internal.push.Content
+import org.whispersystems.signalservice.internal.push.ConversationIdentifier
 import org.whispersystems.signalservice.internal.push.DataMessage
 import org.whispersystems.signalservice.internal.push.EditMessage
 import org.whispersystems.signalservice.internal.push.Envelope
@@ -125,6 +131,7 @@ import java.io.IOException
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 
 object SyncMessageProcessor {
@@ -153,12 +160,14 @@ object SyncMessageProcessor {
       syncMessage.fetchLatest?.type != null -> handleSynchronizeFetchMessage(syncMessage.fetchLatest!!.type!!, envelope.timestamp!!)
       syncMessage.messageRequestResponse != null -> handleSynchronizeMessageRequestResponse(syncMessage.messageRequestResponse!!, envelope.timestamp!!)
       syncMessage.outgoingPayment != null -> handleSynchronizeOutgoingPayment(syncMessage.outgoingPayment!!, envelope.timestamp!!)
-      syncMessage.keys?.storageService != null -> handleSynchronizeKeys(syncMessage.keys!!, envelope.timestamp!!)
+      syncMessage.keys != null -> handleSynchronizeKeys(syncMessage.keys!!, envelope.timestamp!!)
       syncMessage.contacts != null -> handleSynchronizeContacts(syncMessage.contacts!!, envelope.timestamp!!)
       syncMessage.callEvent != null -> handleSynchronizeCallEvent(syncMessage.callEvent!!, envelope.timestamp!!)
       syncMessage.callLinkUpdate != null -> handleSynchronizeCallLink(syncMessage.callLinkUpdate!!, envelope.timestamp!!)
       syncMessage.callLogEvent != null -> handleSynchronizeCallLogEvent(syncMessage.callLogEvent!!, envelope.timestamp!!)
       syncMessage.deleteForMe != null -> handleSynchronizeDeleteForMe(context, syncMessage.deleteForMe!!, envelope.timestamp!!, earlyMessageCacheEntry)
+      syncMessage.attachmentBackfillRequest != null -> handleSynchronizeAttachmentBackfillRequest(syncMessage.attachmentBackfillRequest!!, envelope.timestamp!!)
+      syncMessage.attachmentBackfillResponse != null -> warn(envelope.timestamp!!, "Contains a backfill response, but we don't handle these!")
       else -> warn(envelope.timestamp!!, "Contains no known sync types...")
     }
   }
@@ -241,7 +250,7 @@ object SyncMessageProcessor {
       }
 
       if (threadId != -1L) {
-        SignalDatabase.threads.setRead(threadId, true)
+        SignalDatabase.threads.setRead(threadId)
         AppDependencies.messageNotifier.updateNotification(context)
       }
 
@@ -258,7 +267,7 @@ object SyncMessageProcessor {
 
   private fun handlePniIdentityKeys(envelope: Envelope, sent: Sent) {
     for (status in sent.unidentifiedStatus) {
-      if (status.destinationIdentityKey == null) {
+      if (status.destinationPniIdentityKey == null) {
         continue
       }
 
@@ -276,7 +285,7 @@ object SyncMessageProcessor {
 
       try {
         log(envelope.timestamp!!, "Saving identity from sent transcript for $pni")
-        val identityKey = IdentityKey(status.destinationIdentityKey!!.toByteArray())
+        val identityKey = IdentityKey(status.destinationPniIdentityKey!!.toByteArray())
         AppDependencies.protocolStore.aci().identities().saveIdentity(address, identityKey)
       } catch (e: InvalidKeyException) {
         warn(envelope.timestamp!!, "Failed to deserialize identity key for $pni")
@@ -955,7 +964,7 @@ object SyncMessageProcessor {
 
     val threadToLatestRead: MutableMap<Long, Long> = HashMap()
     val unhandled: Collection<MessageTable.SyncMessageId> = SignalDatabase.messages.setTimestampReadFromSyncMessage(readMessages, envelopeTimestamp, threadToLatestRead)
-    val markedMessages: List<MarkedMessageInfo> = SignalDatabase.threads.setReadSince(threadToLatestRead, false)
+    val markedMessages: List<MarkedMessageInfo> = SignalDatabase.threads.setReadSince(threadToLatestRead)
 
     if (Util.hasItems(markedMessages)) {
       log("Updating past SignalDatabase.messages: " + markedMessages.size)
@@ -1213,7 +1222,7 @@ object SyncMessageProcessor {
   }
 
   private fun handleSynchronizeCallEvent(callEvent: SyncMessage.CallEvent, envelopeTimestamp: Long) {
-    if (callEvent.id == null) {
+    if (callEvent.callId == null) {
       log(envelopeTimestamp, "Synchronize call event missing call id, ignoring. type: ${callEvent.type}")
       return
     }
@@ -1297,7 +1306,7 @@ object SyncMessageProcessor {
         roomId,
         CallLinkCredentials(
           callLinkUpdate.rootKey!!.toByteArray(),
-          callLinkUpdate.adminPassKey?.toByteArray()
+          callLinkUpdate.adminPasskey?.toByteArray()
         )
       )
     } else {
@@ -1308,7 +1317,7 @@ object SyncMessageProcessor {
           roomId = roomId,
           credentials = CallLinkCredentials(
             linkKeyBytes = callLinkRootKey.keyBytes,
-            adminPassBytes = callLinkUpdate.adminPassKey?.toByteArray()
+            adminPassBytes = callLinkUpdate.adminPasskey?.toByteArray()
           ),
           state = SignalCallLinkState(),
           deletionTimestamp = 0L
@@ -1322,7 +1331,7 @@ object SyncMessageProcessor {
   }
 
   private fun handleSynchronizeOneToOneCallEvent(callEvent: SyncMessage.CallEvent, envelopeTimestamp: Long) {
-    val callId: Long = callEvent.id!!
+    val callId: Long = callEvent.callId!!
     val timestamp: Long = callEvent.timestamp ?: 0L
     val type: CallTable.Type? = CallTable.Type.from(callEvent.type)
     val direction: CallTable.Direction? = CallTable.Direction.from(callEvent.direction)
@@ -1361,7 +1370,7 @@ object SyncMessageProcessor {
 
   @Throws(BadGroupIdException::class)
   private fun handleSynchronizeGroupOrAdHocCallEvent(callEvent: SyncMessage.CallEvent, envelopeTimestamp: Long) {
-    val callId: Long = callEvent.id!!
+    val callId: Long = callEvent.callId!!
     val timestamp: Long = callEvent.timestamp ?: 0L
     val type: CallTable.Type? = CallTable.Type.from(callEvent.type)
     val direction: CallTable.Direction? = CallTable.Direction.from(callEvent.direction)
@@ -1442,11 +1451,11 @@ object SyncMessageProcessor {
       }
     } else {
       when (event) {
-        CallTable.Event.DELETE -> SignalDatabase.calls.insertDeletedCallFromSyncEvent(callEvent.id!!, recipient.id, type, direction, timestamp)
-        CallTable.Event.ACCEPTED -> SignalDatabase.calls.insertAcceptedGroupCall(callEvent.id!!, recipient.id, direction, timestamp)
+        CallTable.Event.DELETE -> SignalDatabase.calls.insertDeletedCallFromSyncEvent(callEvent.callId!!, recipient.id, type, direction, timestamp)
+        CallTable.Event.ACCEPTED -> SignalDatabase.calls.insertAcceptedGroupCall(callEvent.callId!!, recipient.id, direction, timestamp)
         CallTable.Event.NOT_ACCEPTED -> {
           if (callEvent.direction == SyncMessage.CallEvent.Direction.INCOMING) {
-            SignalDatabase.calls.insertDeclinedGroupCall(callEvent.id!!, recipient.id, timestamp)
+            SignalDatabase.calls.insertDeclinedGroupCall(callEvent.callId!!, recipient.id, timestamp)
           } else {
             warn(envelopeTimestamp, "Invalid direction OUTGOING for event NOT_ACCEPTED for non-existing call")
           }
@@ -1586,7 +1595,70 @@ object SyncMessageProcessor {
     }
   }
 
-  private fun SyncMessage.DeleteForMe.ConversationIdentifier.toRecipientId(): RecipientId? {
+  private fun handleSynchronizeAttachmentBackfillRequest(request: SyncMessage.AttachmentBackfillRequest, timestamp: Long) {
+    if (!RemoteConfig.attachmentBackfillSync) {
+      warn(timestamp, "[AttachmentBackfillRequest] Remote config not enabled! Skipping.")
+      return
+    }
+
+    if (request.targetMessage == null || request.targetConversation == null) {
+      warn(timestamp, "[AttachmentBackfillRequest] Target message or target conversation was unset! Can't formulate a response, ignoring.")
+      return
+    }
+
+    val syncMessageId = request.targetMessage!!.toSyncMessageId(timestamp)
+    if (syncMessageId == null) {
+      warn(timestamp, "[AttachmentBackfillRequest] Invalid targetMessageId! Can't formulate a response, ignoring.")
+      MultiDeviceAttachmentBackfillMissingJob.enqueue(request.targetMessage!!, request.targetConversation!!)
+      return
+    }
+
+    val conversationRecipientId: RecipientId? = request.targetConversation!!.toRecipientId()
+    if (conversationRecipientId == null) {
+      warn(timestamp, "[AttachmentBackfillRequest] Failed to find the target conversation! Enqueuing a 'missing' response.")
+      MultiDeviceAttachmentBackfillMissingJob.enqueue(request.targetMessage!!, request.targetConversation!!)
+      return
+    }
+
+    val threadId = SignalDatabase.threads.getThreadIdFor(conversationRecipientId)
+    if (threadId == null) {
+      warn(timestamp, "[AttachmentBackfillRequest] No thread exists for the conversation! Enqueuing a 'missing' response.")
+      MultiDeviceAttachmentBackfillMissingJob.enqueue(request.targetMessage!!, request.targetConversation!!)
+      return
+    }
+
+    val messageId: Long? = SignalDatabase.messages.getMessageIdOrNull(syncMessageId, threadId)
+    if (messageId == null) {
+      warn(timestamp, "[AttachmentBackfillRequest] Unable to find message! Enqueuing a 'missing' response.")
+      MultiDeviceAttachmentBackfillMissingJob.enqueue(request.targetMessage!!, request.targetConversation!!)
+      return
+    }
+
+    val attachments: List<DatabaseAttachment> = SignalDatabase.attachments.getAttachmentsForMessage(messageId).filterNot { it.quote }.sortedBy { it.displayOrder }
+    if (attachments.isEmpty()) {
+      warn(timestamp, "[AttachmentBackfillRequest] There were no attachments found for the message! Enqueuing a 'missing' response.")
+      MultiDeviceAttachmentBackfillMissingJob.enqueue(request.targetMessage!!, request.targetConversation!!)
+      return
+    }
+
+    val now = System.currentTimeMillis()
+    val needsUpload = attachments.filter { now - it.uploadTimestamp > 3.days.inWholeMilliseconds }
+    log(timestamp, "[AttachmentBackfillRequest] ${needsUpload.size}/${attachments.size} attachments need to be re-uploaded.")
+
+    for (attachment in needsUpload) {
+      AppDependencies.jobManager
+        .startChain(AttachmentUploadJob(attachment.attachmentId))
+        .then(MultiDeviceAttachmentBackfillUpdateJob(request.targetMessage!!, request.targetConversation!!, messageId))
+        .enqueue()
+    }
+
+    if (needsUpload.size != attachments.size) {
+      log(timestamp, "[AttachmentBackfillRequest] At least one attachment didn't need to be uploaded. Enqueuing update job immediately.")
+      MultiDeviceAttachmentBackfillUpdateJob.enqueue(request.targetMessage!!, request.targetConversation!!, messageId)
+    }
+  }
+
+  private fun ConversationIdentifier.toRecipientId(): RecipientId? {
     return when {
       threadGroupId != null -> {
         try {
@@ -1611,7 +1683,7 @@ object SyncMessageProcessor {
     }
   }
 
-  private fun SyncMessage.DeleteForMe.AddressableMessage.toSyncMessageId(envelopeTimestamp: Long): MessageTable.SyncMessageId? {
+  private fun AddressableMessage.toSyncMessageId(envelopeTimestamp: Long): MessageTable.SyncMessageId? {
     return if (this.sentTimestamp != null && (this.authorServiceId != null || this.authorE164 != null)) {
       val serviceId = ServiceId.parseOrNull(this.authorServiceId)
       val id = if (serviceId != null) {
@@ -1628,7 +1700,7 @@ object SyncMessageProcessor {
   }
 
   private fun SyncMessage.DeleteForMe.AttachmentDelete.toSyncAttachmentId(syncMessageId: MessageTable.SyncMessageId?, envelopeTimestamp: Long): AttachmentTable.SyncAttachmentId? {
-    val uuid = UuidUtil.fromByteStringOrNull(uuid)
+    val uuid = UuidUtil.fromByteStringOrNull(clientUuid)
     val digest = fallbackDigest?.toByteArray()
     val plaintextHash = fallbackPlaintextHash?.let { Base64.encodeWithPadding(it.toByteArray()) }
 

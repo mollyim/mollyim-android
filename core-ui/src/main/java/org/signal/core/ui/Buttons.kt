@@ -24,6 +24,7 @@ import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
@@ -90,7 +91,10 @@ object Buttons {
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = ButtonDefaults.filledTonalShape,
-    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(
+      containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+      contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+    ),
     elevation: ButtonElevation? = ButtonDefaults.filledTonalButtonElevation(),
     border: BorderStroke? = null,
     contentPadding: PaddingValues = largeButtonContentPadding,
@@ -117,7 +121,10 @@ object Buttons {
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = ButtonDefaults.filledTonalShape,
-    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(
+      containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+      contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+    ),
     elevation: ButtonElevation? = ButtonDefaults.filledTonalButtonElevation(),
     border: BorderStroke? = null,
     contentPadding: PaddingValues = mediumButtonContentPadding,
@@ -144,10 +151,11 @@ object Buttons {
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = ButtonDefaults.shape,
-    colors: ButtonColors = ButtonDefaults.buttonColors(
-      containerColor = SignalTheme.colors.colorSurface2,
-      contentColor = MaterialTheme.colorScheme.onSurface
-    ),
+    tonal: Boolean = false,
+    colors: ButtonColors = if (tonal) ButtonDefaults.filledTonalButtonColors(
+      containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+      contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+    ) else ButtonDefaults.buttonColors(),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? = null,
     contentPadding: PaddingValues = smallButtonContentPadding,
@@ -190,7 +198,7 @@ object Buttons {
         painter = painterResource(iconResId),
         contentDescription = null,
         modifier = Modifier.padding(16.dp),
-        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSecondaryContainer)
+        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onTertiaryContainer)
       )
     }
   }
@@ -211,6 +219,10 @@ object Buttons {
         onClick = onClick,
         shape = RoundedCornerShape(18.dp),
         modifier = Modifier.size(56.dp),
+        colors = IconButtonDefaults.filledTonalIconButtonColors(
+          containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+          contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
         enabled = enabled,
         content = imageContent
       )
@@ -349,14 +361,32 @@ private fun SmallButtonPreview() {
 @Composable
 private fun SmallButtonSample(
   darkMode: Boolean,
+  tonal: Boolean = false,
   enabled: Boolean
 ) {
   SampleBox(darkMode) {
     Buttons.Small(
+      tonal = tonal,
       onClick = {},
       enabled = enabled
     ) {
       Text("Button")
+    }
+  }
+}
+
+@Preview(name = "Buttons.SmallButton(tonal = true)")
+@Composable
+private fun SmallTonalButtonPreview() {
+  Column {
+    Row {
+      SmallButtonSample(darkMode = false, enabled = true, tonal = true)
+      SmallButtonSample(darkMode = true, enabled = true, tonal = true)
+    }
+
+    Row {
+      SmallButtonSample(darkMode = false, enabled = false, tonal = true)
+      SmallButtonSample(darkMode = true, enabled = false, tonal = true)
     }
   }
 }
@@ -390,7 +420,6 @@ private fun ActionButtonSample(
     ) {
       Icon(
         imageVector = Icons.Default.Share,
-        tint = MaterialTheme.colorScheme.onSecondaryContainer,
         contentDescription = null
       )
     }

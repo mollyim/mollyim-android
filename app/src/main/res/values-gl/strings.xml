@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">Denunciada como correo lixo e bloqueada</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">Aceptaches a solicitude de mensaxe de %1$s. Se foi un erro, podes escoller unha destas accións.</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">Revisa a información con atención</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">Os %1$s non se verifican</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">Os %1$s non se verifican</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">Nomes de perfil</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">Nomes de grupo</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Consellos de seguridade</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">Consello anterior</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">Seguinte consello</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">Contas e nomes falsos</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly nunca che pedirá o teu código de rexistro nin o teu PIN. Ten coidado coas contas que se fan pasar por outras persoas. Os titulares das contas escollen os nomes de perfil e non se verifican.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Estafas de criptodivisa ou de diñeiro</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">Empresas ou organizacións falsas</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">Ten coidado coas empresas ou axencias gobernamentais que se poñan en contacto contigo. As mensaxes que inclúan axencias tributarias, empresas de mensaxería e máis, poden ser correo lixo.</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Os titulares das contas escollen os %1$s de Signal.</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">Os nomes de perfil non se verifican</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">Ten coidado coas contas que se fan pasar por outras persoas</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">Non compartas a túa información persoal con persoas que non coñeces</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">Os membros do grupo escollen os %1$s.</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">Ten coidado cos grupos que se fan pasar por organizacións ou empresas</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">Os nomes de perfil dos membros dos grupos non se verifican</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">Limpar filtro</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">Elixe un cartafol</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Engadida a «%1$s»</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">Esta conversa xa está no cartafol «%1$s»</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">Esta conversa xa está en «%1$s»</item>
+        <item quantity="other">Estas conversas xa están en «%1$s»</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Perfil de notificacións</string>
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Continuar</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">Contactar co centro de axuda</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">Enviar rexistro de depuración?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">Os teus rexistros de depuración axúdannos a solucionar os problemas de forma máis rápida. Non é obrigatorio que envíes o rexistro.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">Enviar con rexistro de depuración</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">Enviar sen rexistro de depuración</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">Cancelar</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Erro na exportación de Android (Link&amp;Sync)</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Erro ao sincronizar as mensaxes</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Denunciar…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">Aceptas a solicitude?</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">Revisa as solicitudes con atención. Os titulares das contas escollen os nomes de perfil e non se verifican.</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">Queres unirte ao grupo?</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">Revisa as solicitudes con atención. Os membros dos grupos escollen os nomes dos grupos e non se verifican.</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">Unirse</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">As frases de acceso non coinciden!</string>
@@ -2473,7 +2515,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">O teu país</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Buscar por nome ou número</string>
+    <string name="CountryCodeFragment__search_by">Buscar por nome ou por código do país</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">País descoñecido</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">Conexións de Signal</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">Verificado</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">Os nomes de perfil non se verifican</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">Solicitude de mensaxe pendente</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">Sen mensaxes directas con %1$s</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s está na túa listaxe de contactos do teléfono</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">Non tedes grupos en común</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">Ningún grupo en común</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Revisa as solicitudes con atención</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">Actualizar contacto</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">Bloquear solicitude</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Non tes grupos en común. Revisa as solicitudes con atención.</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Ningún grupo en común</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Non tes contactos neste grupo. Revisa as solicitudes con atención.</string>
     <string name="ConversationUpdateItem_view">Ver</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">O tempo da mensaxe temporal fixarase en %1$s cando se envíe.</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">Idioma</string>
     <string name="preferences__signal_messages_and_calls">Mensaxes e chamadas Signal</string>
     <string name="preferences__advanced_pin_settings">Axustes avanzados do PIN</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">Axustes avanzados do PIN</string>
     <string name="preferences__free_private_messages_and_calls">Mensaxes e chamadas privadas e de balde para usuarios de Signal</string>
     <string name="preferences__submit_debug_log">Enviar rexistro de depuración</string>
     <string name="preferences__delete_account">Eliminar conta</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">Fallou a conexión</string>
     <string name="preferences_couldnt_connect_to_the_proxy">Non se puido conectar co proxy. Comproba o enderezo e inténtao outra vez.</string>
     <string name="preferences_you_are_connected_to_the_proxy">Estás conectado ao proxy. Podes apagar o proxy en calquera momento desde os Axustes.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">Conectado</string>
     <string name="preferences_failed_to_connect">Fallou a conexión</string>
     <string name="preferences_enter_proxy_address">Escribe o enderezo do proxy</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">Copiado ao portapapeis</string>
     <string name="BackupDialog_no_file_picker_available">Non se dispón dun selector de ficheiros.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Escribe a frase de paso da copia para verificala</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">Comprobar</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Inseriches satisfactoriamente a túa frase de acceso</string>
     <string name="BackupDialog_passphrase_was_not_correct">Frase de acceso incorrecta</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">Rexistrarse en Molly - Código de verificación para Android</string>
     <string name="RegistrationActivity_incorrect_code">Código incorrecto</string>
     <string name="BackupUtil_never">Nunca</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">Descoñecido</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Número de teléfono</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Intenta apagar e reconectar a Wi-Fi, en ambos dispositivos.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Asegúrate de que os dous dispositivos están en modo transferencia.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Ir á páxina de axuda</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">Volver tentar</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">Agardando polo outro dispositivo</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Toca en Continuar no outro dispositivo para iniciar a transferencia.</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">Cambiar número</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">Verificando %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">Captcha obrigatorio</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">Permisos</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Solicitudes e convites</string>
     <string name="ConversationSettingsFragment__group_link">Ligazón do grupo</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">Engadir como contacto</string>
     <string name="ConversationSettingsFragment__unmute">Desactivar silencio</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">Compartir</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">Navegar ata</string>
     <string name="MultiselectForwardFragment__forward_to">Reenviar a</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">Os vídeos recortaranse en fragmentos de 30 segundos e enviaranse como varias historias.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Os vídeos enviados a Historias non poden ter unha duración de máis de 30 segundos.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">As mensaxes reenviadas agora envíanse de inmediato.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">Enviar %1$d mensaxe</item>
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/mes</string>
     <string name="MySupportPreference__renews_s">Renóvase o %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">Procesando transacción…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">Erro ao engadir a insignia. %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">A túa doazón segue procesándose. Dependendo da túa conexión, pode tardar uns minutos.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Erro ao cancelar a subscrición</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">Para cancelar a subscrición é necesaria unha conexión á Internet.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">O teu dispositivo non admite Google Pay, polo que non te podes subscribir para gañar unha insignia. Podes apoiar a Signal doando na nosa páxina web.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">O teu dispositivo non che permite facer doazóns na aplicación, polo que non te podes subscribir para gañar unha insignia. Podes apoiar a Signal doando na nosa páxina web.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Erro de rede. Comproba a túa conexión e inténtao de novo.</string>
     <string name="NetworkFailure__retry">Tentar de novo</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Novas &amp; notas de lanzamento de Signal</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">Esta é a única conversa oficial de Signal.</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">Segue as últimas novidades e actualizacións.</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">Esta é a única conversa oficial de Signal</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">Segue as últimas novidades e actualizacións</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">Conversa oficial e única de Signal</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">Toda a actividade</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">Información</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">A enviar…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">Enviando %1$d…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">Fallou o envío</string>

@@ -54,6 +54,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
@@ -321,6 +322,7 @@ import org.thoughtcrime.securesms.util.atUTC
 import org.thoughtcrime.securesms.util.createActivityViewModel
 import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.fragments.requireListener
+import org.thoughtcrime.securesms.util.getQuote
 import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
 import org.thoughtcrime.securesms.util.hasGiftBadge
@@ -519,7 +521,9 @@ class ConversationFragment :
 
   private val motionEventRelay: MotionEventRelay by viewModels(ownerProducer = { requireActivity() })
 
-  private val actionModeCallback = ActionModeCallback()
+  private val actionModeCallback by lazy {
+    ActionModeCallback()
+  }
 
   private val container: InputAwareConstraintLayout
     get() = requireView() as InputAwareConstraintLayout
@@ -685,8 +689,6 @@ class ConversationFragment :
     }
 
     inputPanel.onPause()
-
-    viewModel.markLastSeen()
 
     EventBus.getDefault().unregister(this)
   }
@@ -882,6 +884,7 @@ class ConversationFragment :
       .subscribeOn(Schedulers.io())
       .doOnSuccess { state ->
         SignalLocalMetrics.ConversationOpen.onDataLoaded()
+        conversationItemDecorations.selfRecipientId = Recipient.self().id
         conversationItemDecorations.setFirstUnreadCount(state.meta.unreadCount)
         colorizer.onGroupMembershipChanged(state.meta.groupMemberAcis)
       }
@@ -1223,9 +1226,7 @@ class ConversationFragment :
   }
 
   private fun presentIdentityRecordsState(identityRecordsState: IdentityRecordsState) {
-    if (!identityRecordsState.isGroup) {
-      binding.conversationTitleView.root.setVerified(identityRecordsState.isVerified)
-    }
+    binding.conversationTitleView.root.setVerified(identityRecordsState.isVerified)
 
     if (identityRecordsState.isUnverified) {
       binding.conversationBanner.showUnverifiedBanner(identityRecordsState.identityRecords)
@@ -1578,6 +1579,15 @@ class ConversationFragment :
       Log.i(TAG, "Edit message no longer valid")
       val editDurationHours = getEditMessageThresholdHours()
       Dialogs.showAlertDialog(requireContext(), null, resources.getQuantityString(R.plurals.ConversationActivity_edit_message_too_old, editDurationHours, editDurationHours))
+      return
+    }
+
+    if (editMessage.body == composeText.editableText.toString() &&
+      editMessage.getQuote()?.displayText?.toString() == inputPanel.quote.map { it.text }.orNull() &&
+      editMessage.messageRanges == composeText.styling
+    ) {
+      Log.d(TAG, "Updated message matches original, exiting edit mode")
+      inputPanel.exitEditMessageMode()
       return
     }
 
@@ -2897,6 +2907,10 @@ class ConversationFragment :
       ConversationDialogs.displaySafetyNumberLearnMoreDialog(this@ConversationFragment, recipient)
     }
 
+    override fun onShowUnverifiedProfileSheet(forGroup: Boolean) {
+      UnverifiedProfileNameBottomSheet.show(parentFragmentManager, forGroup)
+    }
+
     override fun onJoinGroupCallClicked() {
       val activity = activity ?: return
       val recipient = viewModel.recipientSnapshot ?: return
@@ -3554,7 +3568,7 @@ class ConversationFragment :
       mode.title = calculateSelectedItemCount()
 
       searchMenuItem?.collapseActionView()
-      binding.toolbar.visible = false
+      binding.toolbar.isInvisible = true
       if (scheduledMessagesStub.isVisible) {
         reShowScheduleMessagesBar = true
         scheduledMessagesStub.visibility = View.GONE
@@ -3572,7 +3586,7 @@ class ConversationFragment :
       adapter.clearSelection()
       setBottomActionBarVisibility(false)
 
-      binding.toolbar.visible = true
+      binding.toolbar.isInvisible = false
       if (reShowScheduleMessagesBar) {
         scheduledMessagesStub.visibility = View.VISIBLE
         reShowScheduleMessagesBar = false

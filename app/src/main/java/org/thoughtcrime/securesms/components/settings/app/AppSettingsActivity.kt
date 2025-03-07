@@ -73,7 +73,7 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
         StartLocation.CHAT_FOLDERS -> AppSettingsFragmentDirections.actionDirectToChatFoldersFragment()
         StartLocation.CREATE_CHAT_FOLDER -> AppSettingsFragmentDirections.actionDirectToCreateFoldersFragment(
           CreateFoldersFragmentArgs.fromBundle(intent.getBundleExtra(START_ARGUMENTS)!!).folderId,
-          CreateFoldersFragmentArgs.fromBundle(intent.getBundleExtra(START_ARGUMENTS)!!).threadId
+          CreateFoldersFragmentArgs.fromBundle(intent.getBundleExtra(START_ARGUMENTS)!!).threadIds
         )
         StartLocation.BACKUPS_SETTINGS -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment()
       }
@@ -217,8 +217,8 @@ class AppSettingsActivity : DSLSettingsActivity(), InAppPaymentComponent {
     fun chatFolders(context: Context): Intent = getIntentForStartLocation(context, StartLocation.CHAT_FOLDERS)
 
     @JvmStatic
-    fun createChatFolder(context: Context, id: Long = -1, threadId: Long?): Intent {
-      val arguments = CreateFoldersFragmentArgs.Builder(id, threadId ?: -1)
+    fun createChatFolder(context: Context, id: Long = -1, threadIds: LongArray?): Intent {
+      val arguments = CreateFoldersFragmentArgs.Builder(id, threadIds ?: longArrayOf())
         .build()
         .toBundle()
 

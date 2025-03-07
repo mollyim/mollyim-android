@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">స్పామ్‌గా నివేదించబడింది మరియు బ్లాక్ చేయబడింది</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">%1$s నుండి సందేశం అభ్యర్థనను మీరు అంగీకరించారు. ఒకవేళ ఇది పొరపాటు అయితే, మీరు కింది చర్యను ఎంచుకోవచ్చు.</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">జాగ్రత్తగా సమీక్షించండి</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s ధృవీకరించబడలేదు</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s ధృవీకరించబడలేదు</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">ప్రొఫైల్ పేర్లు</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">గ్రూపు పేర్లు</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">భద్రతా చిట్కాలు</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">మునుపటి చిట్కా</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">తర్వాతి చిట్కా</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">నకిలీ పేర్లు మరియు ఖాతాలు</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">మీ రిజిస్ట్రేషన్ కోడ్ లేదా PIN కోసం Molly మిమ్మల్ని ఎప్పటికీ సంప్రదించదు. ఇతరులను అనుకరించే అభ్యర్థనల పట్ల జాగ్రత్తగా ఉండండి. ప్రొఫైల్ పేర్లు వాటి ఖాతాదారునిచే ఎంచుకోబడతాయి మరియు అవి ధృవీకరించబడలేదు.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">క్రిప్టో లేదా నగదు స్కామ్‌లు</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">నకిలీ వ్యాపారాలు మరియు సంస్థలు</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">మిమ్మల్ని సంప్రదించే వ్యాపారాలు లేదా ప్రభుత్వ ఏజెన్సీల విషయంలో జాగ్రత్తగా ఉండండి. పన్ను ఏజెన్సీలు, కొరియర్‌లు మరియు మరిన్నింటికి సంబంధించిన సందేశాలు స్పామ్ కావచ్చు.</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Signal లోని %1$s వారి ఖాతాదారుడిచే ఎంపిక చేయబడతారు.</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">ప్రొఫైల్ పేర్లు ధృవీకరించబడలేదు</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">ఇతరులను అనుకరించే ఖాతాల పట్ల జాగ్రత్తగా ఉండండి</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">మీకు పరిచయం లేని వ్యక్తులతో వ్యక్తిగత సమాచారాన్ని పంచుకోవద్దు</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s గ్రూపు సభ్యులచే ఎంపిక చేయబడతారు.</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">సంస్థలు మరియు వ్యాపారాలను అనుకరించే గ్రూపుల పట్ల జాగ్రత్తగా ఉండండి</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">గ్రూపుల్లోని సభ్యుల ప్రొఫైల్ పేర్లు ధృవీకరించబడలేదు</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">ఫిల్టర్‌ను ఖాళీ చేయండి</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">ఒక ఫోల్డర్‌ను ఎంచుకోండి</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">\"%1$s\" కు జోడించబడింది</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">ఈ చాట్ ఇప్పటికే \"%1$s\" ఫోల్డర్లో ఉంది</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">ఈ చాట్ ఇప్పటికే \"%1$s\" లో ఉంది</item>
+        <item quantity="other">ఈ చాట్‌లు ఇప్పటికే \"%1$s\" లో ఉన్నాయి</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">నోటిఫికేషన్ ప్రొఫైల్</string>
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">కొనసాగండి</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">మద్దతును సంప్రదించండి</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">డీబగ్ లాగ్‌ను సమర్పించేదా?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">మీ సమస్యను వేగంగా పరిష్కరించడానికి మీ డీబగ్ లాగ్స్ మాకు సహాయపడతాయి. మీ లాగ్స్‌ను సమర్పించడం అనేది ఐచ్ఛికం.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">డీబగ్ లాగ్‌తో సమర్పించండి</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">డీబగ్ లాగ్ లేకుండా సమర్పించండి</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">రద్దు చేయండి</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android లింక్&amp;సింక్ ఎగుమతి విఫలమైంది</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">సందేశ సమకాలీకరణ విఫలమైంది</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">నివేదించండి…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">అభ్యర్థనను అంగీకరిస్తారా?</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి. ప్రొఫైల్ పేర్లు వాటి ఖాతా యజమానిచే ఎంచుకోబడతాయి మరియు అవి ధృవీకరించబడలేదు.</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">గ్రూప్‌లో చేరుతారా?</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి. గ్రూపు పేర్లు గ్రూపు సభ్యులచే ఎంచుకోబడతాయి మరియు అవి ధృవీకరించబడలేదు.</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">చేరండి</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">సంకేతపదములను సరిపోలడం లేదు!</string>
@@ -2473,7 +2515,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">మీ దేశం</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">పేరు లేదా నంబర్ ద్వారా శోధించండి</string>
+    <string name="CountryCodeFragment__search_by">దేశం పేరు లేదా దేశం కోడ్ నంబర్ ద్వారా శోధించండి</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">తెలియని దేశం</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">Signal కనెక్షన్</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">ధృవీకరించబడింది</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">ప్రొఫైల్ పేర్లు ధృవీకరించబడలేదు</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">పెండింగులో ఉన్న సందేశం అభ్యర్థన</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">%1$sతో ప్రత్యక్ష సందేశాలు లేవు</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s మీ ఫోన్ కాంటాక్ట్‌లలో ఉంది</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">మీకు ఉమ్మడిగా ఎలాంటి గ్రూపులు లేవు</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">సాధారణమైన సమూహాలు లేవు</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">పరిచయాన్ని నవీకరించండి</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">అభ్యర్ధనను బ్లాక్ చేయండి</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">సాధారణంగా సమూహాలు లేవు. అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి.</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">సాధారణమైన సమూహాలు లేవు</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">సాధారణంగా సమూహాలు లేవు. అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి.</string>
     <string name="ConversationUpdateItem_view">వీక్షణ</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">మీరు వారికి సందేశాన్ని పంపేటప్పుడు సందేశం అదృశ్యం అయ్యే సమయాన్ని మీరు %1$sకు సెట్ చేశారు.</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">భాష</string>
     <string name="preferences__signal_messages_and_calls">Signal సందేశాలు మరియు కాల్స్</string>
     <string name="preferences__advanced_pin_settings">అధునాతన పిన్ సెట్టింగ్‌లు</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">అధునాతన పిన్ సెట్టింగ్‌లు</string>
     <string name="preferences__free_private_messages_and_calls">Signal వినుయోగదారులకు ఉచిత వ్యక్తిగత సందేశాలు మరియు కాల్స్</string>
     <string name="preferences__submit_debug_log">డీబగ్ లాగ్ను సమర్పించండి</string>
     <string name="preferences__delete_account">ఖాతాను తొలగించండి</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">సంధానము విఫలమైనది</string>
     <string name="preferences_couldnt_connect_to_the_proxy">ప్రాక్సీకి కనెక్ట్ కాలేదు. ప్రాక్సీ చిరునామాను తనిఖీ చేసి, మళ్లీ ప్రయత్నించండి.</string>
     <string name="preferences_you_are_connected_to_the_proxy">మీరు ప్రాక్సీకి కనెక్ట్ అయ్యారు. మీరు సెట్టింగ్‌ల నుండి ఎప్పుడైనా ప్రాక్సీని ఆపివేయవచ్చు.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">విజయం</string>
     <string name="preferences_failed_to_connect">కలవడం కుదరట్లేదు</string>
     <string name="preferences_enter_proxy_address">ప్రాక్సీ చిరునామాను నమోదు చేయండి</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">క్లిప్బోర్డ్కు కాపీ చేయబడింది</string>
     <string name="BackupDialog_no_file_picker_available">పంక్తి ఎన్నుకొనేడి అందుబాటులో లేదు.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">ధృవీకరించడానికి మీ ప్రత్యామ్నాయపాస్‌ఫ్రేజ్‌ని నమోదు చేయండి</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">నిర్ధారించబడిన</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">మీరు మీ ప్రత్యామ్నాయములు పాస్‌ఫ్రేజ్‌ని విజయవంతంగా నమోదు చేశారు</string>
     <string name="BackupDialog_passphrase_was_not_correct">పాస్‌ఫ్రేజ్ సరైనది కాదు</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">Molly రిజిస్ట్రేషన్ - Android కోసం ధృవీకరణ కోడ్</string>
     <string name="RegistrationActivity_incorrect_code">తప్పు కోడ్</string>
     <string name="BackupUtil_never">ఎప్పుడూ</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">తెలియని</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ఫోన్ నంబర్</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">రెండు పరికరాలపై Wi-Fiని ఆన్ చేసి, ఆఫ్ చేయడం ద్వారా ప్రయత్నించండి.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">రెండు పరికరాలు కూడా ట్రాన్స్‌ఫర్ మోడ్‌లో ఉన్నట్లుగా ధృవీకరించుకోండి.</string>
     <string name="DeviceTransferSetup__go_to_support_page">మద్దతు పేజీకి వెళ్లండి</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">మళ్ళీ ప్రయత్నించండి</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">మరో పరికరం కొరకు వేచి ఉంది</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">బదిలీని ప్రారంభించడానికి మీ మరో పరికరంపై కొనసాగండి మీద తట్టండి.</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">నెంబరు మార్చండి</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">%1$s ధృవీకరిస్తోంది</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">కపాచే అవసరం</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">అనుమతులు</string>
     <string name="ConversationSettingsFragment__requests_and_invites">అభ్యర్థనలు &amp; ఆహ్వానాలు</string>
     <string name="ConversationSettingsFragment__group_link">సమూహ లింక్</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">కాంటాక్ట్ వలే జోడించండి</string>
     <string name="ConversationSettingsFragment__unmute">అన్‌మ్యూట్ చేయండి</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">పంచుకోండి</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">పైకి నావిగేట్ చేయండి</string>
     <string name="MultiselectForwardFragment__forward_to">వీరికి ఫార్వర్డ్ చేయి</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">వీడియోలు 30 సెకండ్ల క్లిప్‌లకు ట్రిమ్ చేయబడి, అనేక స్టోరీల వలే పంపబడతాయి.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">స్టోరీలకు పంపిన వీడియోలు 30 సెకండ్లు మించి ఉండరాదు.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">ఫార్వర్డ్ చేయబడ్డ సందేశాలు ఇప్పుడు వెంటనే పంపబడతాయి.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">%1$d సందేశం పంపండి</item>
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/నెల</string>
     <string name="MySupportPreference__renews_s">%1$s ను పునరుద్ధరిస్తుంది</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">లావాదేవీని ప్రాసెస్ చేస్తోంది…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">బ్యాడ్జిని జోడించలేక పోయాను. %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">మీ విరాళం ఇంకా ప్రక్రియ చేయబడుతోంది. మీ కనెక్షన్ ఆధారంగా దీనికి కొన్ని నిమిషాలు పట్టవచ్చు.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">సబ్‌స్క్రిప్షన్ రద్దు చేయడంలో విఫలమైంది</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">సబ్‌స్క్రిప్షన్ రద్దుకు ఇంటర్నెట్ కనెక్షన్ అవసరం.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">మీ పరికరం Google Pay కు మద్దతు ఇవ్వదు, అందువల్ల బ్యాడ్జిని సంపాదించడానికి మీరు సబ్‌స్క్రైబ్ చేసుకోలేరు. అయితే మా వెబ్‌సైట్‌లో విరాళం ఇవ్వడం ద్వారా మీరు ఇంకా Signal కు మద్దతను ఇవ్వచ్చు.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">మీ పరికరం యాప్‌లో విరాళాలకు మద్దతు ఇవ్వదు, అందువల్ల బ్యాడ్జ్‌ను సంపాదించడానికి మీరు సబ్‌స్క్రైబ్ చేసుకోలేరు. మా వెబ్‌సైట్‌లో విరాళం ఇవ్వడం ద్వారా మీరు ఇంకా Signal కు మద్దతు ఇవ్వచ్చు.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">నెట్‌వర్క్ దోషం. మీ కనెక్షన్ చెక్ చేసి, మళ్లీ ప్రయత్నించండి.</string>
     <string name="NetworkFailure__retry">మళ్ళీ ప్రయత్నించు</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signal రిలీజ్ నోట్‌లు &amp; న్యూస్</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">ఇది Signal నుండి అధికారిక మరియు ఏకైక చాట్.</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">వార్తలు మరియు విడుదల గమనికలతో అప్ టూ డేట్‌గా ఉండండి.</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">ఇది Signal నుండి అధికారిక మరియు ఏకైక చాట్</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">వార్తలు మరియు విడుదల గమనికలతో అప్ టూ డేట్‌గా ఉండండి</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">అధికారిక మరియు ఏకైక Signal చాట్</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">మొత్తం యాక్టివిటీ</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">సమాచారం</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">పంపుతోంది …</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">%1$d పంపుతోంది…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">పంపడం విఫలమైంది</string>

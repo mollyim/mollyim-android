@@ -50,7 +50,7 @@ class SpoilerRendererDelegate @JvmOverloads constructor(
       spoilerDrawable = spoilerDrawable,
       renderForComposing = renderForComposing,
       padding = 2.dp,
-      composeBackgroundColor = ContextCompat.getColor(view.context, R.color.signal_colorOnSurfaceVariant1)
+      composeBackgroundColor = ContextCompat.getColor(view.context, R.color.signal_colorOutlineVariant)
     )
 
     view.addOnAttachStateChangeListener(object : OnAttachStateChangeListener {

@@ -12,16 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.signal.core.util.logging.Log
 
 /**
  * View model to support [CountryCodeFragment] and track the countries
  */
 class CountryCodeViewModel : ViewModel() {
-
-  companion object {
-    private val TAG = Log.tag(CountryCodeViewModel::class.java)
-  }
 
   private val internalState = MutableStateFlow(CountryCodeState())
   val state = internalState.asStateFlow()
@@ -40,7 +35,7 @@ class CountryCodeViewModel : ViewModel() {
           query = filterBy,
           filteredList = state.value.countryList.filter { country: Country ->
             country.name.contains(filterBy, ignoreCase = true) ||
-              country.countryCode.toString().contains(filterBy) ||
+              country.countryCode.toString().contains(filterBy.removePrefix("+")) ||
               (filterBy.equals("usa", ignoreCase = true) && country.name.equals("United States", ignoreCase = true))
           }
         )

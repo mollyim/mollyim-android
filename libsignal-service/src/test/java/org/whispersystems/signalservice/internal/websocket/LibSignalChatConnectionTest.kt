@@ -8,6 +8,7 @@ import io.mockk.verify
 import io.reactivex.rxjava3.observers.TestObserver
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -19,6 +20,7 @@ import org.signal.libsignal.net.Network
 import org.signal.libsignal.net.UnauthenticatedChatConnection
 import org.whispersystems.signalservice.api.websocket.HealthMonitor
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+import java.io.IOException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -69,6 +71,12 @@ class LibSignalChatConnectionTest {
       delay {
         it.complete(null)
         disconnectLatch?.countDown()
+
+        // The disconnectReason is null when the disconnect is due to the local client requesting the disconnect.
+        // This is a regression test because we previously forgot to update the Kotlin type definitions to
+        //   match this when the behavior changed in libsignal-client, causing NullPointerExceptions
+        //   missed connection interrupted events.
+        chatListener!!.onConnectionInterrupted(chatConnection, null)
       }
     }
 
@@ -301,6 +309,34 @@ class LibSignalChatConnectionTest {
     }
   }
 
+  // If readRequest() does not throw when the underlying connection disconnects, this
+  //   causes the app to get stuck in a "fetching new messages" state.
+  @Test
+  fun regressionTestReadRequestThrowsOnDisconnect() {
+    setupConnectedConnection()
+
+    executor.submit {
+      Thread.sleep(100)
+      chatConnection.disconnect()
+    }
+
+    assertThrows(IOException::class.java) {
+      connection.readRequest(1000)
+    }
+  }
+
+  @Test(timeout = 20)
+  fun readRequestDoesTimeOut() {
+    setupConnectedConnection()
+
+    val observer = TestObserver<WebSocketConnectionState>()
+    connection.state.subscribe(observer)
+
+    assertThrows(TimeoutException::class.java) {
+      connection.readRequest(10)
+    }
+  }
+
   // Test reading incoming requests from the queue.
   // We'll simulate onIncomingMessage() from the ChatConnectionListener, then read them from the LibSignalChatConnection.
   @Test
@@ -309,15 +345,6 @@ class LibSignalChatConnectionTest {
 
     val observer = TestObserver<WebSocketConnectionState>()
     connection.state.subscribe(observer)
-
-    // Confirm that readRequest times out if there's no message.
-    var timedOut = false
-    try {
-      connection.readRequest(10)
-    } catch (e: TimeoutException) {
-      timedOut = true
-    }
-    assertTrue(timedOut)
 
     // We'll now simulate incoming messages
     val envelopeA = "msgA".toByteArray()
@@ -373,6 +400,32 @@ class LibSignalChatConnectionTest {
     assertRequestWithEnvelope(connection.readRequestIfAvailable().get(), envelopeC)
 
     assertTrue(connection.readRequestIfAvailable().isEmpty)
+  }
+
+  @Test
+  fun regressionTestDisconnectWhileConnecting() {
+    every { network.connectUnauthChat(any()) } answers {
+      chatListener = firstArg()
+      delay {
+        // We do not complete the future, so we stay in the CONNECTING state forever.
+      }
+    }
+
+    connection.connect()
+    connection.disconnect()
+  }
+
+  @Test
+  fun regressionTestSendWhileConnecting() {
+    every { network.connectUnauthChat(any()) } answers {
+      chatListener = firstArg()
+      delay {
+        // We do not complete the future, so we stay in the CONNECTING state forever.
+      }
+    }
+
+    connection.connect()
+    connection.sendRequest(WebSocketRequestMessage("GET", "/fake-path"))
   }
 
   private fun <T> delay(action: ((CompletableFuture<T>) -> Unit)): CompletableFuture<T> {

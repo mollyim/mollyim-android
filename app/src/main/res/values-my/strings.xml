@@ -654,6 +654,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">လိမ်လည်မှုအဖြစ် ရီပို့(တ်)လုပ်ပြီး ဘလော့ခ်ပြီးပါပြီ</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">%1$s ထံမှ မက်ဆေ့ချ်တောင်းဆိုချက်တစ်ခုကို သင် လက်ခံခဲ့ပါသည်။ ၎င်းသည် မှားယွင်းခဲ့ခြင်းဖြစ်ပါက အောက်ပါလုပ်ဆောင်ချက်တစ်ခုကို ရွေးချယ်နိုင်ပါသည်။</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">သေချာပြန်လည်စစ်ဆေးပါ</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s ကို အတည်မပြုထားပါ</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s ကို အတည်မပြုထားပါ</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">ပရိုဖိုင်း အမည်များ</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">အဖွဲ့အမည်များ</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">ဘေးကင်းရေး အကြံပြုချက်များ</string>
@@ -665,6 +675,10 @@
     <string name="SafetyTips_previous_tip">ယခင်အကြံပြုချက်</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">နောက်ထပ်အကြံပြုချက်</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">အမည်အတုနှင့် အကောင့်များ</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly သည် သင်၏ကုဒ် သို့မဟုတ် ပင်နံပါတ်ကို မည်သည့်အခါမျှ ဆက်သွယ်မေးမြန်းမည်မဟုတ်ပါ။ အခြားသူများအယောင်ဆောင်၍ တောင်းဆိုမှုများကို သတိထားပါ။ ပရိုဖိုင်း အမည်များကို ၎င်းတို့၏အကောင့်ပိုင်ရှင်က ရွေးချယ်ထားပြီး အတည်မပြုထားပါ။</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">ခရစ်ပ်တို သို့မဟုတ် ငွေကြေး လိမ်လည်မှုများ</string>
     <!-- Message of tip 1 -->
@@ -681,6 +695,21 @@
     <string name="SafetyTips_tip4_title">စီးပွားရေးလုပ်ငန်းနှင့် အဖွဲ့အစည်း အတုများ</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">သင့်ထံဆက်သွယ်လာသော စီးပွားရေးလုပ်ငန်း သို့မဟုတ် အစိုးရအေဂျင်စီများကို သတိပြုပါ။ အခွန်အေဂျင်စီများ၊ စာပို့သူများနှင့် အခြားအရာများ ပါဝင်သော မက်ဆေ့ချ်များသည် လိမ်လည်မှုဖြစ်နိုင်ပါသည်။</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Signal တွင် %1$s ကို ၎င်းတို့၏ အကောင့်ပိုင်ရှင်က ရွေးချယ်ထားသည်။</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">ပရိုဖိုင်း အမည်များကို မစစ်ဆေးထားပါ</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">အခြားသူများအယောင်ဆောင်ထားသော အကောင့်များကိုသတိထားပါ</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">ကိုယ်ရေးကိုယ်တာ အချက်အလက်ကို သင်မသိသူများအား မမျှဝေပါနှင့်</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s ကို အဖွဲ့ဝင်များက ရွေးချယ်သည်။</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">အဖွဲ့အစည်းများနှင့် လုပ်ငန်းများ အယောင်ဆောင်ထားသည့် အုပ်စုများကို သတိထားပါ</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">အဖွဲ့များရှိ အဖွဲ့ဝင်များ၏ ပရိုဖိုင်း အမည်များကို အတည်မပြုထားပါ</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">စစ်ထုတ်မှုကို ရှင်းရန်</string>
@@ -735,8 +764,10 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">ဖိုင်တွဲတစ်ခုရွေးချယ်ပါ</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">\"%1$s\" သို့ ထည့်ခဲ့သည်</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">ဤချက်(တ်)သည် \"%1$s\" ဖိုင်တွဲတွင် ရှိနှင့်ပြီးဖြစ်သည်</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="other">ဤချက်(တ်)များသည် \"%1$s\" တွင် ရှိနှင့်ပြီးဖြစ်သည်</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">အသိပေးချက် ပရိုဖိုင်</string>
@@ -1000,19 +1031,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">ဆက်လုပ်ရန်</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">ပံ့ပိုးမှုစင်တာသို့ ဆက်သွယ်ရန်</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">ပြစ်ချက်မှတ်တမ်း ပေးပို့မည်လား။</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">ပြစ်ချက်မှတ်တမ်းများသည် သင့်ပြဿနာကို ပိုမိုမြန်ဆန်စွာ ဖြေရှင်းရန် အထောက်အကူပေးမည်။ သင်၏မှတ်တမ်းများကို ဆန္ဒရှိမှတင်သွင်းနိုင်သည်။</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">ပြစ်ချက်မှတ်တမ်းဖြင့် တင်ပြရန်</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">ပြစ်ချက်မှတ်တမ်းမပါဘဲ တင်ပြရန်</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">မလုပ်တော့ပါ</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync ထုတ်ယူခြင်း မအောင်မြင်ပါ။</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">မက်ဆေ့ချ်တူအောင်ညှိခြင်း မအောင်မြင်ပါ</string>
@@ -2035,6 +2066,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">ရီပို့(တ်)လုပ်ရန်…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">တောင်းဆိုမှုကို လက်ခံပါသလား။</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">တောင်းဆိုမှုများကို သေချာ ပြန်သုံးသပ်ပါ။ ပရိုဖိုင်း အမည်များကို ၎င်းတို့၏အကောင့်ပိုင်ရှင်က ရွေးချယ်ထားပြီး အတည်မပြုထားပါ။</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">အဖွဲ့တွင် ပါဝင်မလား။</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">တောင်းဆိုမှုများကို သေချာ ပြန်သုံးသပ်ပါ။ အဖွဲ့အမည်များကို အဖွဲ့ဝင်များက ရွေးချယ်ထားပြီး အတည်မပြုထားပါ။</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">ပါဝင်ရန်</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">စကားဝှက်များ မတူညီပါ။</string>
@@ -2391,7 +2432,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">နိုင်ငံ</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">အမည် သို့မဟုတ် နံပါတ်ဖြင့် ရှာရန်</string>
+    <string name="CountryCodeFragment__search_by">အမည် သို့မဟုတ် နိုင်ငံကုဒ်နံပါတ်ဖြင့် ရှာရန်</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">အမည်မသိ နိုင်ငံ</string>
 
@@ -2400,12 +2441,16 @@
     <string name="AboutSheet__signal_connection">Signal အဆက်အသွယ်</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">အတည်ပြုပြီး</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">ပရိုဖိုင်း အမည်များကို မစစ်ဆေးထားပါ</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">ဆိုင်းငံ့ထားသော မက်ဆေ့ချ်တောင်းဆိုချက်</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">%1$s နှင့် တိုက်ရိုက်မက်ဆေ့ချ် မရှိပါ</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s သည် သင့်ဖုန်းအဆက်အသွယ်များထဲတွင် ရှိနေသည်</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">သင်တို့နှစ်ဦးစလုံး ပါဝင်သောအဖွဲ့ မရှိပါ</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">တူညီသော အဖွဲ့များ မရှိပါ</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">တောင်းဆိုမှုများကိုအသေအချာပြန်လည်စစ်ဆေးပါ</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3171,7 +3216,8 @@
     <string name="ConversationUpdateItem_update_contact">အဆက်အသွယ် အပ်ဒိတ်မယ်</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">တောင်းဆိုချက်ကို ဘလော့ခ်ရန်</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">တူညီသော အဖွဲ့များ မရှိပါ။ တောင်းခံမှုများကို သေချာစွာ သုံးသပ်ပါ။</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">တူညီသော အဖွဲ့များ မရှိပါ</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">၎င်းအဖွဲ့ထဲတွင် အဆက်အသွယ်များ မရှိပါ။ တောင်းခံမှုများကို သေချာစွာ သုံးသပ်ပါ။</string>
     <string name="ConversationUpdateItem_view">ကြည့်မယ်</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">၎င်းတို့ထံ မက်ဆေ့ချ် ပို့ချိန်တွင် ပျောက်သွားမည့် မက်ဆေ့ချ် အချိန်ကို %1$s အဖြစ် သတ်မှတ်သွားပါမည်။</string>
@@ -3655,6 +3701,8 @@
     <string name="preferences__language">ဘာသာစကား</string>
     <string name="preferences__signal_messages_and_calls">Signal စာများနှင့် ဖုန်းခေါ်ဆိုမှုများ</string>
     <string name="preferences__advanced_pin_settings">အဆင့်မြင့် ပင်နံပါတ် အပြင်အဆင်များ</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">အဆင့်မြင့် ပင်နံပါတ် အပြင်အဆင်များ</string>
     <string name="preferences__free_private_messages_and_calls">Signal အသုံးပြုသူများအတွက် အခမဲ့စာများနှင့် ဖုန်းခေါ်ဆိုမှုများ</string>
     <string name="preferences__submit_debug_log">Debug log ကို တင်ပြပါ</string>
     <string name="preferences__delete_account">အကောင့်ကို ဖျက်ရန်</string>
@@ -3757,6 +3805,7 @@
     <string name="preferences_connection_failed">ချိတ်ဆက်မှုမအောင်မြင်ပါ</string>
     <string name="preferences_couldnt_connect_to_the_proxy">ကြားခံနှင့် ချိတ်ဆက်၍မရပါ။ ကြားခံလိပ်စာကို စစ်ဆေးပြီး ထပ်မံကြိုးစားပါ။</string>
     <string name="preferences_you_are_connected_to_the_proxy">သင်သည် ကြားခံ နှင့် ချိတ်ဆက်ထားပါသည်။ အပြင်အဆင်များထဲတွင် အချိန်မရွေး ကြားခံကို ပိတ်နိုင်ပါသည်။</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">အောင်မြင်မှု</string>
     <string name="preferences_failed_to_connect">ချိတ်ဆက်ရန်မအောင်မြင်ပါ</string>
     <string name="preferences_enter_proxy_address">ကြားခံလိပ်စာကို ထည့်ပါ</string>
@@ -4351,6 +4400,7 @@
     <string name="BackupDialog_copied_to_clipboard">ကလစ်ဘုတ် သို့ ကူးယူပြီး</string>
     <string name="BackupDialog_no_file_picker_available">ဖိုင်ရွေးသူမရှိပါ</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">အတည်ပြုရန် သင့်အရန်ကူးထားသောစကားဝှက်ကို ရိုက်ထည့်ပါ</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">စစ်ဆေးအတည်ပြုသည်</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">သင်၏အရန်ကူးထားသောစကားဝှက်ကို အောင်မြင်စွာထည့်ပြီးပါပြီ</string>
     <string name="BackupDialog_passphrase_was_not_correct">စကားဝှက်သည်မမှန်ပါ</string>
@@ -4375,6 +4425,7 @@
     <string name="RegistrationActivity_code_support_subject">Molly မှတ်ပုံတင်ခြင်း Android အတွက် အတည်ပြုကုဒ်</string>
     <string name="RegistrationActivity_incorrect_code">ကုဒ် မှားနေပါသည်</string>
     <string name="BackupUtil_never">ဘယ်တော့မှ</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">မသိ</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ဖုန်းနံပါတ်</string>
@@ -4559,6 +4610,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">စက် ၂ ခုလုံးပေါ်၌ ဝိုင်ဖိုင်အား အပိတ်အဖွင့် ပြုလုပ်ပေးပါ။</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">စက် ၂ ခုလုံးပေါ်တွင် လွှဲပြောင်းခြင်းအတွက် ပြင်ဆင်ထားရန် စစ်ပါ</string>
     <string name="DeviceTransferSetup__go_to_support_page">ပံ့ပိုးမှုစာမျက်နှာ သို့သွားမယ်</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">ထပ်မံကြိုးစားမည်</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">အခြားစက်အား စောင့်နေပါသည်</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">သင့် တခြားစက်ပေါ်တွင် \"ဆက်လုပ်ရန်\" ခလုတ်အားနှိပ်၍ လွှဲပြောင်းမှု စတင်လိုက်ပါ။</string>
@@ -5056,6 +5108,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">နံပါတ် ပြောင်းရန်</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">%1$s အတည်ပြုနေဆဲ</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">Captcha လိုအပ်ပါသည်</string>
 
@@ -5424,6 +5477,7 @@
     <string name="ConversationSettingsFragment__permissions">ခွင့်ပြုချက်များ</string>
     <string name="ConversationSettingsFragment__requests_and_invites">တောင်းဆိုချက်များနှင့် ဖိတ်ခေါ်မှုများ</string>
     <string name="ConversationSettingsFragment__group_link">Group link</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">အဆက်အသွယ်အဖြစ် ပေါင်းထည့်ရန်</string>
     <string name="ConversationSettingsFragment__unmute">အသံပြန်ဖွင့်ရန်</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5536,6 +5590,7 @@
     <string name="ShareInterstitialActivity__share">ဝေမျှမယ်</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">အပေါ်သို့ သွားရန်</string>
     <string name="MultiselectForwardFragment__forward_to">ထပ်ဆင့်ပို့ရန်</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5546,6 +5601,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">ဗီဒီယိုများကို စက္ကန့် 30 စာ ကလစ်များအဖြစ် ဖြတ်ပြီး စတိုရီများစွာအနေဖြင့် ပို့သွားပါမည်။</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">စတိုရီများသို့ ပို့ထားသည့် ဗီဒီယိုများသည် စက္ကန့် 30 ထက် ပို၍ မရပါ။</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">ထပ်ဆင့်ပို့ မက်ဆေ့ချ်များအား ယခုအခါ ချက်ချင်းပို့ပါသည်။</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="other">မက်ဆေ့ချ် %1$d စောင် ပို့ရန်</item>
@@ -5726,6 +5782,7 @@
 
     <string name="MySupportPreference__s_per_month">တစ်လလျှင် %1$s</string>
     <string name="MySupportPreference__renews_s">%1$s တွင် သက်တမ်းတိုးသည်</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">ငွေအလွှဲအပြောင်း စီမံလုပ်ဆောင်နေဆဲ…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">ဘဲ့ဂျ်ကို ပေါင်းထည့်၍မရပါ။ %1$s</string>
@@ -5836,7 +5893,7 @@
     <string name="DonationsErrors__your_payment_is_still">သင့်လှူဒါန်းမှုကို လုပ်ဆောင်နေဆဲ ဖြစ်ပါသည်။ သင့်ချိတ်ဆက်မှုအပေါ် မူတည်၍ မိနစ်အနည်းငယ် ကြာနိုင်ပါသည်။</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">ပုံမှန်လှူဒါန်းငွေကို ပယ်ဖျက်ရန် မအောင်မြင်ပါ</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">ပုံမှန်လှူဒါန်းငွေ ပယ်ဖျက်မှုသည် အင်တာနက် ချိတ်ဆက်မှု လိုအပ်ပါသည်။</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">သင့်စက်သည် Google Pay နှင့် တွဲဖက်လုပ်ဆောင်နိုင်ခြင်း မရှိသောကြောင့် ဘဲ့ဂျ်ရရှိရန် လှူဒါန်း၍ မရနိုင်ပါ။ ကျွန်ုပ်တို့၏ ဝက်ဘ်ဆိုက်တွင် လှူဒါန်းမှု ပြုလုပ်ခြင်းဖြင့် Signal ကို ဆက်လက် ပံ့ပိုးကူညီနိုင်ပါသည်။</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">သင့်စက်သည် အက်ပ်အတွင်း လှူဒါန်းမှုများကို မပံ့ပိုးသောကြောင့် ဘဲ့ဂျ်ရရှိရန် လှူဒါန်း၍ မရနိုင်ပါ။ ကျွန်ုပ်တို့၏ ဝက်ဘ်ဆိုက်တွင် လှူဒါန်းမှု ပြုလုပ်ခြင်းဖြင့် Signal ကို ဆက်လက် ပံ့ပိုးကူညီနိုင်ပါသည်။</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">ကွန်ရက် ချို့ယွင်းချက်။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။</string>
     <string name="NetworkFailure__retry">ထပ်ကြိုးစားပါ</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6076,6 +6133,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signal ပြန်ကြားရေး မှတ်စုများနှင့် သတင်းများ</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">Signal မှ တစ်ခုတည်းသော တရားဝင်ချက်(တ်)ဖြစ်သည်။</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">သတင်းများနှင့် ထုတ်ဝေမှုမှတ်ချက်များကို အပ်ဒိတ်ရယူလိုက်ပါ။</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">Signal မှ တစ်ခုတည်းသော တရားဝင်ချက်(တ်)ဖြစ်သည်</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">သတင်းများနှင့် ထုတ်ဝေမှုမှတ်ချက်များကို အပ်ဒိတ်ရယူလိုက်ပါ</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">Signal ၏ တစ်ခုတည်းသော တရားဝင်ချက်(တ်)</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">လှုပ်ရှားမှုများအားလုံး</string>
@@ -6138,7 +6205,7 @@
     <string name="StoriesLandingItem__info">အချက်အလက်</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">ပို့နေသည်…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">%1$d ကို ပို့နေဆဲ…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">ပို့ဆောင်မှု မအောင်မြင်ပါ</string>

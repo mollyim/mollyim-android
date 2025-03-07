@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">স্প্যাম হিসেবে রিপোর্ট এবং ব্লক করা হয়েছে</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">আপনি %1$s-এর কাছ থেকে একটি মেসেজের অনুরোধ গ্রহণ করেছেন। যদি এটি একটি ভুল হয়ে থাকে, তাহলে আপনি নিচের একটি পদক্ষেপ বেছে নিতে পারেন।</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">সাবধানে পর্যালোচনা করুন</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s যাচাইকৃত নয়</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s যাচাইকৃত নয়</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">প্রোফাইলের নাম</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">গ্রুপের নাম</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">নিরাপত্তা সংক্রান্ত পরামর্শ</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">পূর্ববর্তী পরামর্শ</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">পরবর্তী পরামর্শ</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">নকল নাম ও অ্যাকাউন্ট</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly কখনোই আপনার রেজিস্ট্রেশন কোড বা পিনের জন্য আপনার সাথে যোগাযোগ করবে না। অন্যদের ছদ্মবেশ ধারণ করে আছে এমন কারো অনুরোধ থেকে সাবধান থাকুন। প্রোফাইলের নামগুলো তাদের অ্যাকাউন্টধারী নির্বাচন করে থাকেন এবং সেগুলো যাচাইকৃত নয়।</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">ক্রিপ্টো বা অর্থ সংক্রান্ত স্ক্যাম</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">ভুয়া ব্যবসা ও প্রতিষ্ঠান</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">কোনো ব্যবসা প্রতিষ্ঠান বা সরকারি সংস্থা যদি আপনার সাথে যোগাযোগ করে তবে সে সম্পর্কে সতর্ক থাকুন। ট্যাক্স এজেন্সি, কুরিয়ার এবং আরো অনেক কিছুর সাথে সম্পর্কিত মেসেজ স্প্যাম হতে পারে।</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Signal-এ %1$s তাদের অ্যাকাউন্টধারী বেছে নিয়েছেন।</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">প্রোফাইলের নাম যাচাই করা হয়নি</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">অন্যদের ছদ্মবেশ ধারণ করে আছে এমন কারো অ্যাকাউন্ট থেকে সাবধান থাকুন</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">আপনার পরিচিত নন এমন কোনো ব্যক্তির সাথে ব্যক্তিগত তথ্য শেয়ার করবেন না</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">গ্রুপের সদস্যরা %1$s বেছে নেন।</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">প্রতিষ্ঠান ও ব্যবসার ছদ্মবেশ ধারণকারী গ্ৰুপের ব্যাপারে সতর্ক থাকুন</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">গ্রুপের সদস্যদের প্রোফাইলের নাম যাচাই করা হয় না</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">ফিল্টার খালি করুন</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">একটি ফোল্ডার বেছে নিন</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">\"%1$s\"-এ যোগ করা হয়েছে</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">এই চ্যাটটি ইতোমধ্যেই \"%1$s\" ফোল্ডারে আছে</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">এই চ্যাটটি ইতোমধ্যেই \"%1$s\" তে আছে</item>
+        <item quantity="other">এই চ্যাটগুলো ইতোমধ্যেই \"%1$s\" তে আছে</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">নোটিফিকেশন প্রোফাইল</string>
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">চালিয়ে যান</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">সহায়তা কেন্দ্রে যোগাযোগ করুন</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">ডিবাগ লগ জমা দেবেন?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">আপনার ডিবাগ লগগুলি আমাদেরকে সমস্যা দ্রুত সমাধানে সহায়তা করবে। আপনার লগ জমা দেওয়া বাধ্যতামূলক নয়।</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">ডিবাগ লগ সহ জমা দিন</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">ডিবাগ লগ ছাড়াই জমা দিন</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">বাতিল করুন</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync এক্সপোর্ট ব্যর্থ হয়েছে</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">মেসেজ সিঙ্ক সফল হয়নি</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">রিপোর্ট…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">অনুরোধ গ্রহণ করবেন?</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">সতর্কতার সাথে অনুরোধ পর্যালোচনা করুন। প্রোফাইলের নামগুলো তাদের অ্যাকাউন্টধারী নির্বাচন করে থাকেন এবং সেগুলো যাচাইকৃত নয়।</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">গ্রুপে যোগ দেবেন?</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">সতর্কতার সাথে অনুরোধ পর্যালোচনা করুন। গ্রুপের নাম গ্রুপের সদস্যরা বেছে নেন এবং সেগুলো যাচাইকৃত নয়।</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">যোগ দিন</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">পাসফ্রেজ মিলছে না!</string>
@@ -2473,7 +2515,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">আপনার দেশ</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">নাম বা নাম্বার দ্বারা অনুসন্ধান করুন</string>
+    <string name="CountryCodeFragment__search_by">নাম বা কান্ট্রি কোড দ্বারা অনুসন্ধান করুন</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">অচেনা দেশ</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">Signal কানেকশন</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">যাচাই করা হয়েছে</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">প্রোফাইলের নাম যাচাই করা হয়নি</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">অপেক্ষারত মেসেজের অনুরোধ</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">%1$s-এর সাথে কোনো সরাসরি মেসেজ নেই</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s  আপনার ফোন কন্টাক্টে আছেন</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">আপনারা দুজনই আছেন এমন কোনো গ্রুপ নেই</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">একই রকমের কোন গ্রুপ নেই</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">তোমার অনুরোধ ভালোভাবে দেখো</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -2564,7 +2610,7 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">এটি দেশ নির্বাচন করুন</string>
     <!-- Hint text explaining that this is where the country code should go -->
-    <string name="RegistrationActivity_default_country_code">0</string>
+    <string name="RegistrationActivity_default_country_code">০</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">এই নম্বরটি যাচাই করার জন্য আপনি একটি কল পাবেন।</string>
     <string name="RegistrationActivity_edit_number">নম্বর সম্পাদনা</string>
     <string name="RegistrationActivity_missing_google_play_services">গুগল প্লে সার্ভিস নিখোজ</string>
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">কন্ট্যাক্ট আপডেট করুন</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">ব্লক করার জন্য অনুরোধ</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">একইরকম কোনও গ্রুপ নেই। সতর্কতার সাথে অনুরোধগুলি পর্যালোচনা করুন।</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">একই রকমের কোন গ্রুপ নেই</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">এই গ্রুপে কোনও কন্ট্যাক্ট নেই। অনুরোধগুলি সতর্কতার সাথে পর্যালোচনা করুন।</string>
     <string name="ConversationUpdateItem_view">দেখান</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">আপনি তাদের মেসেজ পাঠালে মেসেজ অদৃশ্য হওয়ার সময় %1$s-এ সেট করা হবে।</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">ভাষা</string>
     <string name="preferences__signal_messages_and_calls">Signal বার্তাসমূহ এবং কল সমূহ</string>
     <string name="preferences__advanced_pin_settings">অ্যাডভান্সড পিন সেটিংস</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">অ্যাডভান্সড পিন সেটিংস</string>
     <string name="preferences__free_private_messages_and_calls">Signal ব্যবহারকারীদের জন্য বিনামূল্যে ব্যক্তিগত বার্তা এবং কল সমূহ</string>
     <string name="preferences__submit_debug_log">ডিবাগ লগ সাবমিট করুন</string>
     <string name="preferences__delete_account">অ্যাকাউন্ট মুছে ফেলুন</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">সংযোগ ব্যর্থ হয়েছে</string>
     <string name="preferences_couldnt_connect_to_the_proxy">প্রক্সিতে সংযুক্ত করা যায়নি। প্রক্সি ঠিকানাটি যাচাই করুন এবং আবার চেষ্টা করুন।</string>
     <string name="preferences_you_are_connected_to_the_proxy">আপনি প্রক্সিতে সংযুক্ত আছেন। আপনি সেটিংস থেকে যে কোনও সময় প্রক্সিটি বন্ধ করতে পারেন।</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">সফল</string>
     <string name="preferences_failed_to_connect">সংযোগ স্থাপন করতে ব্যর্থ হয়েছে</string>
     <string name="preferences_enter_proxy_address">প্রক্সি ঠিকানা লিখুন</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">ক্লিপবোর্ডে অনুলিপি করা হয়েছে</string>
     <string name="BackupDialog_no_file_picker_available">কোনও ফাইল বাছাইকারী উপলভ্য নয়।</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">যাচাই করতে আপনার ব্যাকআপ পাসফ্রেজটি প্রবেশ করান</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">যাচাই করুন</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">আপনি সফলভাবে আপনার ব্যাকআপ পাসফ্রেজটি প্রবেশ করিয়েছেন</string>
     <string name="BackupDialog_passphrase_was_not_correct">পাসফ্রেজ সঠিক ছিলোনা।</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">Molly নিবন্ধন - অ্যানড্রয়েড এর জন্য যাচাইকরণ কোড</string>
     <string name="RegistrationActivity_incorrect_code">ভুল কোড</string>
     <string name="BackupUtil_never">কখনোই না</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">অজানা</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">ফোন নম্বর</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">উভয় ডিভাইসে ওয়াই-ফাই বন্ধ এবং চালু করার চেষ্টা করুন।</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">নিশ্চিত করুন যে দুটি ডিভাইসই ট্রান্সফার মোড-এ রয়েছে।</string>
     <string name="DeviceTransferSetup__go_to_support_page">সাপোর্ট পৃষ্ঠায় যান</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">আবারো চেষ্টা করুন</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">অন্যান্য ডিভাইসের জন্য অপেক্ষা করা হচ্ছে</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">ট্রান্সফার করা শুরু করতে আপনার অন্য ডিভাইসে চালিয়ে যান অপশনে ট্যাপ করুন।</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">নাম্বার পরিবর্তন করুন</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">%1$s যাচাই করা হচ্ছে</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">ক্যাপচা প্রয়োজন</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">অনুমতিসমূহ</string>
     <string name="ConversationSettingsFragment__requests_and_invites">অনুরোধ &amp; আমন্ত্রণ</string>
     <string name="ConversationSettingsFragment__group_link">গ্রুপের লিংক</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">কন্ট্যাক্ট হিসেবে যোগ করুন</string>
     <string name="ConversationSettingsFragment__unmute">আনমিউট করুন</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">শেয়ার করুন</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">উপরে যাও</string>
     <string name="MultiselectForwardFragment__forward_to">সামনে</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">ভিডিওগুলোকে 30 সেকেন্ড ক্লিপে কাটা হবে এবং একাধিক স্টোরি হিসেবে পাঠানো হবে।</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">স্টোরি-তে পাঠানো ভিডিও 30 সেকেন্ডের বেশি হতে পারবে না।</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">ফরোয়ার্ড করা বার্তা এখন অবিলম্বে পাঠানো হয়।</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">%1$d টি বার্তা পাঠান</item>
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/মাস</string>
     <string name="MySupportPreference__renews_s">%1$s নবায়ন করছে</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">লেনদেন প্রক্রিয়া করা হচ্ছে…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">ব্যাজ যোগ করা যায়নি। %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">আপনার ডোনেশন এখনো প্রক্রিয়া করা হচ্ছে। আপনার সংযোগের উপর ভিত্তি করে এতে কয়েক মিনিট সময় লাগতে পারে।</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">সাবস্ক্রিপশন বাতিল করতে ব্যর্থ হয়েছে</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">সাবস্ক্রিপশন বাতিল করার জন্য ইন্টারনেট সংযোগ প্রয়োজন।</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">আপনার ডিভাইস Google Pay সমর্থন করে না, তাই আপনি ব্যাজ অর্জন করতে সাবস্ক্রাইব করতে পারবেন না। আপনি এখনও আমাদের ওয়েবসাইটে ডোনেশন দিয়ে Signal-কে সমর্থন করতে পারেন।</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">আপনার ডিভাইস ইন-অ্যাপ ডোনেশন সমর্থন করে না, তাই আপনি ব্যাজ অর্জনের জন্য সাবস্ক্রাইব করতে পারবেন না। আপনি এখনো আমাদের ওয়েবসাইটে ডোনেট করে Signal-কে সহায়তা করতে পারেন।</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
     <string name="NetworkFailure__retry">পুনরায় চেষ্টা করুন</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signal রিলিজ নোট &amp; নিউজ</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">এটি Signal-এর অফিসিয়াল ও একমাত্র চ্যাট।</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">খবর ও রিলিজ নোট পেয়ে আপডেট থাকুন।</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">এটি Signal-এর অফিসিয়াল ও একমাত্র চ্যাট</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">খবর ও রিলিজ নোট পেয়ে আপডেট থাকুন</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">অফিসিয়াল ও একমাত্র Signal চ্যাট</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">সমস্ত ক্রিয়াকলাপ</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">তথ্য</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">পাঠানো হচ্ছে…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">%1$d পাঠানো হচ্ছে…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">পাঠাতে ব্যর্থ হয়েছে</string>

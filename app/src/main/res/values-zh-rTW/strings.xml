@@ -654,6 +654,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">已舉報垃圾訊息並封鎖</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">你已接受來自 %1$s 的訊息請求。如果這是個錯誤，你可以選擇以下操作。</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">仔細檢查</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s 未經驗證</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s 未經驗證</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">個人檔案名稱</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">群組名稱</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">安全提示</string>
@@ -665,6 +675,10 @@
     <string name="SafetyTips_previous_tip">上一個提示</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">下一個提示</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">假名稱和帳戶</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly 永遠不會聯絡你來索取你的註冊碼或 PIN 碼。請小心那些冒充他人的請求。個人檔案名稱由其帳戶持有人選擇，並未經過驗證。</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">加密貨幣或金錢詐騙</string>
     <!-- Message of tip 1 -->
@@ -681,6 +695,21 @@
     <string name="SafetyTips_tip4_title">虛假企業和機構</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">請小心與你聯絡的企業或政府機構。涉及稅務機關、快遞公司等訊息可能是垃圾訊息。</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Signal 上的 %1$s 由其帳戶持有人選擇。</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">個人檔案名稱未經驗證</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">請小心那些冒充他人的帳戶</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">不要與不認識的人分享個人資料</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s 由群組成員選擇。</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">請小心那些冒充其他組織和企業的群組</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">群組中成員的個人檔案名稱未經驗證</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">清除篩選器</string>
@@ -735,8 +764,10 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">選擇資料夾</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">已新增至「%1$s 」</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">此聊天已經在「 %1$s 」資料夾中</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="other">這些聊天已經在「 %1$s」</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">通知描述</string>
@@ -1000,19 +1031,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">繼續</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">聯絡支援</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">要提交除錯日誌嗎？</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">你的錯誤偵測紀錄將幫助我們盡快的解決你的問題。上傳你的紀錄是選擇性的。</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">上傳錯誤偵測紀錄</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">上傳不含錯誤偵測紀錄</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">取消</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android 匯出 (Link&amp;Sync) 失敗</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">訊息同步失敗</string>
@@ -2035,6 +2066,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">舉報…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">要接受請求嗎？</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">請仔細檢視請求。個人檔案名稱由其帳戶持有人選擇，並未經過驗證。</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">要加入群組嗎？</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">請仔細檢視請求。群組名稱由群組成員選擇，並未經過驗證。</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">加入</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">輸入的自訂密碼不相符！</string>
@@ -2391,7 +2432,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">你的國家或地區</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">依名字或號碼搜尋</string>
+    <string name="CountryCodeFragment__search_by">依名字或國碼搜尋</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">未知的國家</string>
 
@@ -2400,12 +2441,16 @@
     <string name="AboutSheet__signal_connection">Signal 人脈</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">已驗證</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">個人檔案名稱未經驗證</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">待處理的訊息請求</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">沒有與 %1$s 的直接訊息</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s 在你的手機通訊錄中</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">你沒有共同的群組</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">沒有共同的群組</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">仔細審核請求</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3171,7 +3216,8 @@
     <string name="ConversationUpdateItem_update_contact">更新聯絡人</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">封鎖請求</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">沒有共同的群組。 請仔細檢查請求。</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">沒有共同的群組</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">這個群組中沒有聯絡人。請仔細檢查請求。</string>
     <string name="ConversationUpdateItem_view">檢視</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">銷毀的訊息時間將設定為%1$s 當你要傳送訊息給他人。</string>
@@ -3655,6 +3701,8 @@
     <string name="preferences__language">語言選項</string>
     <string name="preferences__signal_messages_and_calls">Signal 訊息與通話</string>
     <string name="preferences__advanced_pin_settings">進階 PIN 碼設定</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">進階 PIN 碼設定</string>
     <string name="preferences__free_private_messages_and_calls">免費加密訊息與通話至 Signal 使用者</string>
     <string name="preferences__submit_debug_log">送出偵錯日誌</string>
     <string name="preferences__delete_account">刪除帳號</string>
@@ -3757,6 +3805,7 @@
     <string name="preferences_connection_failed">連接失敗</string>
     <string name="preferences_couldnt_connect_to_the_proxy">無法連接到代理伺服器。請檢查代理伺服器位址，然後重試。</string>
     <string name="preferences_you_are_connected_to_the_proxy">你已連接到代理伺服器。你可以隨時透過“設定”關閉代理伺服器。</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">成功</string>
     <string name="preferences_failed_to_connect">連接失敗</string>
     <string name="preferences_enter_proxy_address">輸入代理伺服器位址</string>
@@ -4351,6 +4400,7 @@
     <string name="BackupDialog_copied_to_clipboard">已複製到剪貼簿</string>
     <string name="BackupDialog_no_file_picker_available">無可用的檔案選擇器。</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">輸入你的備份碼以確認</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">驗證</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">你已成功的輸入你的備份碼</string>
     <string name="BackupDialog_passphrase_was_not_correct">備份碼錯誤</string>
@@ -4375,6 +4425,7 @@
     <string name="RegistrationActivity_code_support_subject">Molly 註冊 - Android驗證碼</string>
     <string name="RegistrationActivity_incorrect_code">錯誤編號</string>
     <string name="BackupUtil_never">永不</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">未知</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">電話號碼</string>
@@ -4559,6 +4610,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">嘗試在兩個裝置上都關閉和開啟Wi-Fi。</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">確保兩個裝置都處於移轉模式。</string>
     <string name="DeviceTransferSetup__go_to_support_page">轉到支援網頁</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">再試一次</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">等待其他裝置</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">在其他裝置上點擊繼續以開始傳輸。</string>
@@ -5056,6 +5108,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">更改號碼</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">驗證 %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">需要驗證圖</string>
 
@@ -5424,6 +5477,7 @@
     <string name="ConversationSettingsFragment__permissions">權限</string>
     <string name="ConversationSettingsFragment__requests_and_invites">要求 &amp; 邀請</string>
     <string name="ConversationSettingsFragment__group_link">群組連結</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">新增為聯絡人</string>
     <string name="ConversationSettingsFragment__unmute">取消靜音</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5536,6 +5590,7 @@
     <string name="ShareInterstitialActivity__share">分享</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">向上導覽</string>
     <string name="MultiselectForwardFragment__forward_to">轉寄給</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5546,6 +5601,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">影片將剪輯成 30 秒短片，並以多則限動發送。</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">發送至限動的影片不得超過 30 秒。</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">轉寄的訊息現在會立即傳送。</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="other">傳訊息給 %1$d</item>
@@ -5726,6 +5782,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/月</string>
     <string name="MySupportPreference__renews_s">續約 %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">處理交易中…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">無法新增徽章。%1$s</string>
@@ -5836,7 +5893,7 @@
     <string name="DonationsErrors__your_payment_is_still">你的捐款仍在處理中。 可能需時幾分鐘，視乎你的連線而定。</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">取消定期訂閱失敗</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">取消定期贊助需要連接網路。</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">你的裝置不支援 Google Pay，因此你無法訂閱以獲得徽章。 你仍然可以透過在我們的網站上捐款來支持 Signal。</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">你的裝置不支援應用程式內捐款，因此未能進行定期贊助並贈予徽章。你仍可在我們的網站上捐款以支持 Signal。</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">網路錯誤。 檢查你的網路連接並重試。</string>
     <string name="NetworkFailure__retry">重試</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6076,6 +6133,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signal 發行說明 &amp; 消息</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">這是 Signal 官方及唯一版本的聊天。</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">隨時了解最新消息和發行版本備註。</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">這是 Signal 官方及唯一版本的聊天</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">隨時了解最新消息和發行版本備註</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">官方及唯一版本的 Signal 聊天</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">所有活動</string>
@@ -6138,7 +6205,7 @@
     <string name="StoriesLandingItem__info">資訊</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">傳送中…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">傳送 %1$d …</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">傳送失敗</string>

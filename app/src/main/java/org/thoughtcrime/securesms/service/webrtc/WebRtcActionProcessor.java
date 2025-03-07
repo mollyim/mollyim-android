@@ -230,7 +230,6 @@ public abstract class WebRtcActionProcessor {
                                                       messageAgeSec,
                                                       WebRtcUtil.getCallMediaTypeFromOfferType(offerMetadata.getOfferType()),
                                                       SignalStore.account().getDeviceId(),
-                                                      SignalStore.account().isPrimaryDevice(),
                                                       remoteIdentityKey,
                                                       localIdentityKey);
     } catch (CallException | InvalidKeyException e) {
@@ -618,6 +617,10 @@ public abstract class WebRtcActionProcessor {
     for (CallParticipant callParticipant : currentState.getCallInfoState().getRemoteCallParticipants()) {
       callParticipant.getVideoSink().setDeviceOrientationDegrees(sinkRotationDegrees);
     }
+
+    AppDependencies.getSignalCallManager()
+                   .getLockManager()
+                   .updateOrientation(Orientation.fromDegrees(orientationDegrees));
 
     return currentState.builder()
                        .changeLocalDeviceState()

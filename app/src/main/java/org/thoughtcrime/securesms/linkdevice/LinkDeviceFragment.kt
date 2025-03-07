@@ -212,10 +212,7 @@ class LinkDeviceFragment : ComposeFragment() {
         onDeviceRemovalConfirmed = { device -> viewModel.removeDevice(device) },
         onSyncFailureRetryRequested = { viewModel.onSyncErrorRetryRequested() },
         onSyncFailureIgnored = { viewModel.onSyncErrorIgnored() },
-        onSyncFailureLearnMore = {
-          viewModel.onSyncErrorIgnored()
-          CommunicationActions.openBrowserLink(requireContext(), requireContext().getString(R.string.LinkDeviceFragment__learn_more_url))
-        },
+        onSyncFailureLearnMore = { CommunicationActions.openBrowserLink(requireContext(), requireContext().getString(R.string.LinkDeviceFragment__learn_more_url)) },
         onSyncFailureContactSupport = { viewModel.onSyncErrorContactSupport() },
         onSyncCancelled = { viewModel.onSyncCancelled() },
         onEditDevice = { device ->
@@ -260,7 +257,11 @@ class LinkDeviceFragment : ComposeFragment() {
   private inner class BiometricAuthenticationListener : BiometricPrompt.AuthenticationCallback() {
     override fun onAuthenticationError(errorCode: Int, errorString: CharSequence) {
       Log.w(TAG, "Authentication error: $errorCode")
-      onAuthenticationFailed()
+      if (errorCode == BiometricPrompt.ERROR_CANCELED) {
+        findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+      } else {
+        onAuthenticationFailed()
+      }
     }
 
     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {

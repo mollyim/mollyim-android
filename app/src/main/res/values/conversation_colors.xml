@@ -28,10 +28,10 @@
     <color name="conversation_blue_tint">#adc8e1</color>
     <color name="conversation_blue_shade">#285480</color>
 
-    <!-- MOLLY: Signal's ultramarine values moved here -->
-    <color name="conversation_indigo">#2c6bed</color>
-    <color name="conversation_indigo_tint">#b0c8f9</color>
-    <color name="conversation_indigo_shade">#1851b4</color>
+    <!-- MOLLY: Moved Signal's original ultramarine colors here -->
+    <color name="conversation_indigo">@color/stock_core_ultramarine</color>
+    <color name="conversation_indigo_tint">@color/stock_core_ultramarine_medium</color>
+    <color name="conversation_indigo_shade">@color/stock_core_ultramarine_dark</color>
 
     <color name="conversation_violet">#862caf</color>
     <color name="conversation_violet_tint">#cdaddc</color>
@@ -49,12 +49,12 @@
     <color name="conversation_steel_tint">#bebec6</color>
     <color name="conversation_steel_shade">#5a5a63</color>
 
-    <color name="conversation_ultramarine">@color/core_ultramarine</color>
-    <color name="conversation_ultramarine_tint">@color/core_ultramarine_light_50</color>
-    <color name="conversation_ultramarine_shade">@color/core_ultramarine_dark</color>
+    <color name="conversation_ultramarine">#7152FF</color>
+    <color name="conversation_ultramarine_tint">#C4B7FF</color>
+    <color name="conversation_ultramarine_shade">#4924F1</color>
 
-    <color name="conversation_group">@color/core_ultramarine</color>
-    <color name="conversation_group_tint">@color/core_ultramarine_light_50</color>
-    <color name="conversation_group_shade">@color/core_ultramarine_dark</color>
+    <color name="conversation_group">#7152FF</color>
+    <color name="conversation_group_tint">#C4B7FF</color>
+    <color name="conversation_group_shade">#4924F1</color>
 
 </resources>

@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">Raportuar si mesazh i padëshiruar dhe është bllokuar</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">Kërkesë për mesazh nga %1$s u pranua. Nëse e pranove gabimisht, mund të zgjedhësh një nga veprimet më poshtë.</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">Rishqyrto me kujdes</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s nuk janë verifikuar</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s nuk janë verifikuar</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">Emrat e profilit</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">Emrat e grupit</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Këshilla sigurie</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">Këshilla e mëparshme</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">Këshilla e radhës</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">Emra dhe llogari të rreme</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly nuk do të kontaktojë kurrë për kodin e regjistrimit ose PIN. Ji i kujdesshëm ndaj kërkesave që personifikohen si dikush tjetër. Emrat e profilit zgjidhen nga mbajtësi i llogarisë dhe nuk verifikohen.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Mashtrime me para apo kripto</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">Biznese dhe institucione të rreme</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">Ki kujdes nga bizneset ose agjencitë qeveritare që të kontaktojnë. Mesazhet, si ato të agjencive tatimore, të korrierëve dhe të tjera mund të jenë të padëshiruara.</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">%1$s në Signal zgjidhen nga mbajtësi i llogarisë.</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">Emrat e profilit nuk janë verifikuar</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">Ji i kujdesshëm ndaj llogarive që personifikohen si dikush tjetër</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">Mos ndaj informacione personale me njerëz që nuk i njeh</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s zgjidhen nga anëtarët e grupit.</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">Ji i kujdesshëm ndaj grupeve që personifikohen si organizata dhe biznese</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">Emrat e profilit të anëtarëve në grupe nuk janë verifikuar</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">Pastro filtrin</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">Zgjidh një dosje</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Shtuar te \"%1$s\"</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">Kjo bisedë është tashmë në dosjen \"%1$s\"</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">Biseda është tashmë në \"%1$s\"</item>
+        <item quantity="other">Bisedat janë tashmë në \"%1$s\"</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Profil njoftimesh</string>
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Vazhdo</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">Kontakto ndihmën</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">Të paraqitet regjistri i diagnostikimeve?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">Regjistri i diagnostikimeve do të na ndihmojë ta zgjidhim problemin më shpejt. Dërgimi i regjistrit është opsional.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">Dërgo me regjistër diagnostikimesh</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">Dërgo pa regjistër diagnostikimesh</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">Anulo</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Eksportimi i Link&amp;Sync të Android dështoi</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Sinkronizimi i mesazheve dështoi</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Raporto…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">Të pranohet kërkesa?</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">Shqyrto me kujdes kërkesat. Emrat e profilit zgjidhen nga mbajtësi i llogarisë dhe nuk verifikohen.</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">Bashkohu me grupin?</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">Shqyrto me kujdes kërkesat. Emrat e grupit zgjidhen nga anëtarët e grupit dhe nuk verifikohen.</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">Bashkohu</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Frazëkalimet nuk përputhen!</string>
@@ -2473,7 +2515,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">Shteti</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Kërko sipas emrit ose numrit</string>
+    <string name="CountryCodeFragment__search_by">Kërko sipas emrit ose prefiksit të shtetit</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">Shtet i panjohur</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">Kontaktet e Signal</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">Verifiikuar</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">Emrat e profilit nuk janë verifikuar</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">Kërkesë për mesazh në pritje</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">Nuk ka mesazhe të drejtpërdrejta me %1$s</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s është në kontaktet e telefonit</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">Nuk keni grupe të përbashkëta</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">S\\’ka grupe të përbashkët</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Shqyrtoni me kujdes kërkesat</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">Përditësoni kontaktin</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">Blloko kërkesën</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Pa grupe të përbashkët. Shqyrtojini me kujdes kërkesat.</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">S\\’ka grupe të përbashkët</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Pa kontakte në këtë grup. Shqyrtojini me kujdes kërkesat.</string>
     <string name="ConversationUpdateItem_view">Shihni</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Koha për mesazhe që treten do të caktohet si %1$s, kur u dërgoni mesazhe.</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">Gjuhë</string>
     <string name="preferences__signal_messages_and_calls">Mesazhe dhe thirrje Signal</string>
     <string name="preferences__advanced_pin_settings">Parametrat e mëtejshme të PIN</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">Parametrat e mëtejshme të PIN</string>
     <string name="preferences__free_private_messages_and_calls">Mesazhe dhe thirrje falas drejt përdoruesish të Signal-it</string>
     <string name="preferences__submit_debug_log">Parashtro regjistër diagnostikimi</string>
     <string name="preferences__delete_account">Fshije llogarinë</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">Lidhja dështoi</string>
     <string name="preferences_couldnt_connect_to_the_proxy">S\\’u lidh dot te ndërmjetësi. Kontrolloni adresën e ndërmjetësit dhe riprovoni.</string>
     <string name="preferences_you_are_connected_to_the_proxy">Jeni i lidhur te ndërmjetësi. Ndërmjetësin mund ta çaktivizoni në çfarëdo kohe, që nga parametrat.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">Sukses</string>
     <string name="preferences_failed_to_connect">S\\’u arrit të lidhej</string>
     <string name="preferences_enter_proxy_address">Jepni adresë ndërmjetësi</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">U kopjua në të papastër</string>
     <string name="BackupDialog_no_file_picker_available">S\\’ka zgjedhës kartelash.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Jepni frazëkalimin tuaj të kopjeruajtjes që duhet verifikuar</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">Verifikoje</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">E dhatë me sukses frazëkalimin tuaj të kopjeruajtjes</string>
     <string name="BackupDialog_passphrase_was_not_correct">Frazëkalimi s\\’qe i saktë</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">Regjistrim Molly-i - Kod Verifikimi për Android</string>
     <string name="RegistrationActivity_incorrect_code">Kod i gabuar</string>
     <string name="BackupUtil_never">Kurrë</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">E panjohur</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Numër telefoni</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Provoni të mbyllni dhe hapni Wi-Fi-n, në të dyja pajisjet.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Sigurohuni se që të dyja pajisjet janë nën mënyrën shpërngulje.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Kaloni te faqja e asistencës</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">Riprovo</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">Po pritet për pajisjen tjetër</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Prekni Vazhdo, te pajisja tjetër e juaj, që të nisë shpërngulja.</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">Ndrysho Numrin</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">Po verifikohet %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">Zgjidhja e captcha-s është e domosdoshme</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">Leje</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Kërkesa &amp; ftesa</string>
     <string name="ConversationSettingsFragment__group_link">Lidhje grupi</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">Shtojeni si kontakt</string>
     <string name="ConversationSettingsFragment__unmute">Ktheja zërin</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">Ndajeni Me të Tjerë</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">Ngjituni</string>
     <string name="MultiselectForwardFragment__forward_to">Përcillja</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">Videot do të shkurtohen në klipe 30 sekondëshe dhe do të dërgohen si postime të shumëfishta të përkohshme.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Videot e dërguara te postimet e përkohshme nuk mund të jenë më të gjata se 30 sekonda.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">Mesazhet e përcjellë tanimë dërgohen menjëherë.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">Dërgo %1$d mesazh</item>
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/muaj</string>
     <string name="MySupportPreference__renews_s">Rinovohet më %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">Po përpunohet transaksioni…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">Distinktivi nuk mundi të shtohej. %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">Dhurimi është ende duke u përpunuar. Kjo mund të zgjasë disa minuta në varësi të lidhjes.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Anulimi i abonimit dështoi</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">Anulimi i abonimit kërkon lidhje interneti.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Pajisja jote nuk e mbështet Google Pay, kështu që nuk mund të abonohesh për të fituar një distinktiv. Ende mund ta mbështesësh Signal duke bërë një dhurim në faqen tonë të internetit.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">Pajisja nuk i mbështet dhurimet brenda aplikacionit, ndaj nuk mund të abonohesh për të fituar distinktivin. Ende mund ta mbështesësh Signal duke bërë një dhurim në faqen e internetit.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Gabim rrjeti. Ju lutemi, kontrolloni lidhjen tuaj me rrjetin dhe riprovoni.</string>
     <string name="NetworkFailure__retry">Riprovo</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Shënime Hedhjeje Në Qarkullim &amp; Lajme Signal</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">Kjo është biseda zyrtare dhe e vetme nga Signal.</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">Qëndro i përditësuar me lajmet dhe shënimet e publikimit.</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">Kjo është biseda zyrtare dhe e vetme nga Signal</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">Qëndro i përditësuar me lajmet dhe shënimet e publikimit</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">Biseda e vetme dhe zyrtare në Signal</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">Krejt veprimtaria</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">Info</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">Po dërgohet…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">Po dërgohen %1$d…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">Dërgimi dështoi</string>

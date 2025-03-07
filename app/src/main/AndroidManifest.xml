@@ -265,7 +265,7 @@
             android:name=".RoutingActivityAltYellow"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_yellow"
+            android:icon="@mipmap/ic_launcher_alt_heart"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -277,10 +277,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_yellow" />
+                android:resource="@mipmap/ic_launcher_alt_heart" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_yellow" />
+                android:resource="@mipmap/ic_launcher_alt_heart" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -292,7 +292,7 @@
             android:name=".RoutingActivityAltBubbles"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_bubbles"
+            android:icon="@mipmap/ic_launcher_alt_xmas"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -304,10 +304,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_bubbles" />
+                android:resource="@mipmap/ic_launcher_alt_xmas" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_bubbles" />
+                android:resource="@mipmap/ic_launcher_alt_xmas" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -319,7 +319,7 @@
             android:name=".RoutingActivityAltChat"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_chat"
+            android:icon="@mipmap/ic_launcher_alt_neon"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -331,10 +331,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_chat" />
+                android:resource="@mipmap/ic_launcher_alt_neon" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_chat" />
+                android:resource="@mipmap/ic_launcher_alt_neon" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -346,8 +346,8 @@
             android:name=".RoutingActivityAltNews"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_news"
-            android:label="@string/app_icon_label_news"
+            android:icon="@mipmap/ic_launcher_alt_zen"
+            android:label="@string/app_icon_label_zen"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -359,10 +359,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_news" />
+                android:resource="@mipmap/ic_launcher_alt_zen" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_news" />
+                android:resource="@mipmap/ic_launcher_alt_zen" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -402,7 +402,7 @@
             android:name=".RoutingActivityAltColor"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_signal_color"
+            android:icon="@mipmap/ic_launcher_alt_signal"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -414,10 +414,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_color" />
+                android:resource="@mipmap/ic_launcher_alt_signal" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_color" />
+                android:resource="@mipmap/ic_launcher_alt_signal" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -429,7 +429,7 @@
             android:name=".RoutingActivityAltDark"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_signal_dark"
+            android:icon="@mipmap/ic_launcher_alt_colorful"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -441,10 +441,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_dark" />
+                android:resource="@mipmap/ic_launcher_alt_colorful" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_dark" />
+                android:resource="@mipmap/ic_launcher_alt_colorful" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -456,7 +456,7 @@
             android:name=".RoutingActivityAltDarkVariant"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_signal_dark_variant"
+            android:icon="@mipmap/ic_launcher_alt_gold"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -468,10 +468,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_dark_variant" />
+                android:resource="@mipmap/ic_launcher_alt_gold" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_dark_variant" />
+                android:resource="@mipmap/ic_launcher_alt_gold" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -483,7 +483,7 @@
             android:name=".RoutingActivityAltWhite"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_signal_white"
+            android:icon="@mipmap/ic_launcher_alt_light"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -495,10 +495,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_white" />
+                android:resource="@mipmap/ic_launcher_alt_light" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal_white" />
+                android:resource="@mipmap/ic_launcher_alt_light" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -510,8 +510,8 @@
             android:name=".RoutingActivityAltWaves"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_waves"
-            android:label="@string/app_icon_label_waves"
+            android:icon="@mipmap/ic_launcher_alt_music"
+            android:label="@string/app_icon_label_music"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -523,10 +523,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_waves" />
+                android:resource="@mipmap/ic_launcher_alt_music" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_waves" />
+                android:resource="@mipmap/ic_launcher_alt_music" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -538,8 +538,8 @@
             android:name=".RoutingActivityAltWeather"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_weather"
-            android:label="@string/app_icon_label_weather"
+            android:icon="@mipmap/ic_launcher_alt_moon"
+            android:label="@string/app_icon_label_moon"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -551,10 +551,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_weather" />
+                android:resource="@mipmap/ic_launcher_alt_moon" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_weather" />
+                android:resource="@mipmap/ic_launcher_alt_moon" />
 
             <meta-data
                 android:name="android.app.shortcuts"
@@ -1235,6 +1235,7 @@
     <receiver android:name=".service.BootReceiver" android:exported="false">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
         </intent-filter>
     </receiver>
 

@@ -654,6 +654,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">បានរាយការណ៍ជាសារឥតបានការ និងបានទប់ស្កាត់</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">អ្នកបានទទួលយកសំណើសារពី %1$s។ ប្រសិនបើនេះជាកំហុស អ្នកអាចជ្រើសរើសសកម្មភាពណាមួយខាងក្រោម។</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">ពិនិត្យមើលដោយយកចិត្តទុកដាក់</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s មិនត្រូវបានផ្ទៀងផ្ទាត់ទេ</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s មិនត្រូវបានផ្ទៀងផ្ទាត់ទេ</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">ឈ្មោះប្រូហ្វាល់</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">ឈ្មោះក្រុម</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">គន្លឹះសុវត្ថិភាព</string>
@@ -665,6 +675,10 @@
     <string name="SafetyTips_previous_tip">គន្លឹះមុន</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">គន្លឹះបន្ទាប់</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">ឈ្មោះ និងគណនីក្លែងក្លាយ</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly នឹងមិនទាក់ទងអ្នកដើម្បីសួររកលេខកូដចុះឈ្មោះ ឬលេខកូដសម្ងាត់របស់អ្នកជាដាច់ខាត។ សូមប្រុងប្រយ័ត្នចំពោះសំណើទាំងឡាយណាដែលក្លែងបន្លំជាអ្នកផ្សេង។ ឈ្មោះប្រូហ្វាល់ត្រូវបានជ្រើសរើសដោយម្ចាស់គណនី ហើយមិនត្រូវបានផ្ទៀងផ្ទាត់ទេ។</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">ការបោកប្រាស់លុយកាក់ ឬលុយគ្រីបតូ</string>
     <!-- Message of tip 1 -->
@@ -681,6 +695,21 @@
     <string name="SafetyTips_tip4_title">អាជីវកម្ម និងស្ថាប័នក្លែងក្លាយ</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">សូមប្រុងប្រយ័ត្នចំពោះអាជីវកម្ម ឬទីភ្នាក់ងាររដ្ឋាភិបាលដែលទាក់ទងអ្នក។ សារដែលពាក់ព័ន្ធនឹងទីភ្នាក់ងារពន្ធ អ្នកដឹកជញ្ជូន និងអ្វីៗជាច្រើនទៀតអាចជាសារឥតបានការ។</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">%1$s នៅលើ Signal ត្រូវបានជ្រើសរើសដោយម្ចាស់គណនី។</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">ឈ្មោះប្រូហ្វាល់មិនត្រូវបានផ្ទៀងផ្ទាត់ទេ</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">សូមប្រុងប្រយ័ត្នចំពោះគណនីដែលក្លែងបន្លំជាអ្នកផ្សេង</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">កុំចែករំលែកព័ត៌មានផ្ទាល់ខ្លួនជាមួយមនុស្សដែលអ្នកមិនស្គាល់</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s ត្រូវបានជ្រើសរើសដោយសមាជិកក្រុម។</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">សូមប្រុងប្រយ័ត្នចំពោះក្រុមដែលក្លែងបន្លំជាអង្គការ និងអាជីវកម្មផ្សេងៗ</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">ឈ្មោះប្រូហ្វាល់របស់សមាជិកក្នុងក្រុមមិនត្រូវបានផ្ទៀងផ្ទាត់ទេ</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">សម្អាតតម្រង</string>
@@ -735,8 +764,10 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">ជ្រើសរើសថតឯកសារ</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">បានបញ្ចូលទៅ \"%1$s\"</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">ការជជែកនេះមាននៅក្នុងថតឯកសារ \"%1$s\" រួចហើយ</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="other">ការជជែកទាំងនេះមាននៅក្នុង \"%1$s\" រួចហើយ</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">ទម្រង់សារជូនដំណឹង</string>
@@ -1000,19 +1031,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">បន្ត</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">ទាក់ទងផ្នែកជំនួយ</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">ដាក់បញ្ជូនកំណត់ត្រាបញ្ហា?</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">កំណត់ត្រាបញ្ហារបស់អ្នកនឹងជួយយើងដោះស្រាយបញ្ហារបស់អ្នកឱ្យបានកាន់តែលឿន។ អ្នកមានជម្រើសដាក់ឬមិនដាក់បញ្ជូនកំណត់ត្រារបស់អ្នក។</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">ដាក់បញ្ជូនជាមួយកំណត់ត្រាបញ្ហា</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">ដាក់បញ្ជូនដោយគ្មានកំណត់ត្រាបញ្ហា</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">បោះបង់</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">ការនាំចេញ Android (Link&amp;Sync) មិនបានជោគជ័យ</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">ការធ្វើសមកាលកម្មសារមិនបានជោគជ័យ</string>
@@ -2035,6 +2066,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">រាយការណ៍…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">ទទួលយកសំណើឬទេ?</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">ពិនិត្យមើលសំណើដោយយកចិត្តទុកដាក់។ ឈ្មោះប្រូហ្វាល់ត្រូវបានជ្រើសរើសដោយម្ចាស់គណនី ហើយមិនត្រូវបានផ្ទៀងផ្ទាត់ទេ។</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">ចូលរួមក្រុមឬទេ?</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">ពិនិត្យមើលសំណើដោយយកចិត្តទុកដាក់។ ឈ្មោះក្រុមត្រូវបានជ្រើសរើសដោយសមាជិកក្រុម ហើយមិនត្រូវបានផ្ទៀងផ្ទាត់ទេ។</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">ចូលរួម</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">ឃ្លាសម្ងាត់មិនត្រូវគ្នា!</string>
@@ -2391,7 +2432,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">ប្រទេសរបស់អ្នក</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">ស្វែងរកតាមឈ្មោះ ឬលេខ</string>
+    <string name="CountryCodeFragment__search_by">ស្វែងរកតាមឈ្មោះ ឬលេខកូដប្រទេស</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">ប្រទេសមិនស្គាល់</string>
 
@@ -2400,12 +2441,16 @@
     <string name="AboutSheet__signal_connection">អ្នកភ្ជាប់ទំនាក់ទំនងក្នុង Signal</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">បានផ្ទៀងផ្ទាត់</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">ឈ្មោះប្រូហ្វាល់មិនត្រូវបានផ្ទៀងផ្ទាត់ទេ</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">សំណើសារដែលកំពុងរង់ចាំ</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">មិនមានសារផ្ទាល់ជាមួយ %1$s</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s គឺមាននៅក្នុងបញ្ជីទំនាក់ទំនងក្នុងទូរសព្ទរបស់អ្នក</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">អ្នកមិនមានក្រុមរួមទេ</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">គ្មានក្រុមរួម</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">ពិនិត្យការស្នើសុំដោយប្រុងប្រយ័ត្ន</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3171,7 +3216,8 @@
     <string name="ConversationUpdateItem_update_contact">ធ្វើបច្ចុប្បន្នភាពលេខទំនាក់ទំនង</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">ទប់ស្កាត់ការស្នើសុំ</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">មិនមានក្រុមដូចគ្នា។ ត្រួតពិនិត្យការស្នើសុំដោយប្រុងប្រយ័ត្ន។</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">គ្មានក្រុមរួម</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">មិនមានលេខទំនាក់ទំនងក្នុងក្រុមនេះ។ ត្រួតពិនិត្យការស្នើសុំដោយប្រុងប្រយ័ត្ន។</string>
     <string name="ConversationUpdateItem_view">បង្ហាញ</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">រយៈពេលសារបាត់ទៅវិញ នឹងត្រូវកំណត់ទៅ %1$s នៅពេលអ្នកផ្ញើសារពួកគេ។</string>
@@ -3655,6 +3701,8 @@
     <string name="preferences__language">ភាសា</string>
     <string name="preferences__signal_messages_and_calls">ការផ្ញើសារ និងការហៅSignal</string>
     <string name="preferences__advanced_pin_settings">ការកំណត់លេខកូដ PIN ជាន់ខ្ពស់</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">ការកំណត់លេខកូដ PIN ជាន់ខ្ពស់</string>
     <string name="preferences__free_private_messages_and_calls">ការផ្ញើសារ និងការហៅចេញជាឯកជនភាព​ ដោយមិនគិតថ្លៃ​ ទៅកាន់អ្នកប្រើប្រាស់Signal</string>
     <string name="preferences__submit_debug_log">បញ្ជូនកំណត់ហេតុបញ្ហា</string>
     <string name="preferences__delete_account">លុបគណនី</string>
@@ -3757,6 +3805,7 @@
     <string name="preferences_connection_failed">ការតភ្ជាប់បរាជ័យ</string>
     <string name="preferences_couldnt_connect_to_the_proxy">មិនអាចតភ្ជាប់ទៅប្រូកស៊ី។ ពិនិត្យអាសយដ្ឋានប្រូកស៊ី និងសាកល្បងម្តងទៀត។</string>
     <string name="preferences_you_are_connected_to_the_proxy">អ្នកបានតភ្ជាប់ទៅប្រូកស៊ី។ អ្នកអាចបិទប្រូកស៊ីពេលណាក៏បាន នៅក្នុង ការកំណត់។</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">ជោគជ័យ</string>
     <string name="preferences_failed_to_connect">បរាជ័យក្នុងការតភ្ជាប់</string>
     <string name="preferences_enter_proxy_address">បញ្ចូលអាសយដ្ឋានប្រូកស៊ី</string>
@@ -4351,6 +4400,7 @@
     <string name="BackupDialog_copied_to_clipboard">បានចម្លងទៅ clipboard</string>
     <string name="BackupDialog_no_file_picker_available">មិនមានអ្នករើសឯកសារទេ។</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">បញ្ចូលឃ្លាសម្ងាត់បម្រុងទុករបស់អ្នកដើម្បីផ្ទៀងផ្ទាត់</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">ផ្ទៀងផ្ទាត់</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">អ្នកបានបញ្ចូលឃ្លាសម្ងាត់បម្រុងទុករបស់អ្នកដោយជោគជ័យ</string>
     <string name="BackupDialog_passphrase_was_not_correct">ឃ្លាសម្ងាត់មិនត្រឹមត្រូវ</string>
@@ -4375,6 +4425,7 @@
     <string name="RegistrationActivity_code_support_subject">ការចុះឈ្មោះ Molly - ការផ្ទៀងផ្ទាត់កូដសម្រាប់ Android</string>
     <string name="RegistrationActivity_incorrect_code">លេខកូដមិនត្រឹមត្រូវ</string>
     <string name="BackupUtil_never">មិនធ្លាប់</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">មិនស្គាល់</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">លេខទូរសព្ទ</string>
@@ -4559,6 +4610,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">សូមព្យាយាមបិទ បើកវ៉ាយហ្វាយនៅលើឧបករណ៍ទាំងពីរ</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">អ្នកត្រូវប្រាកដថាឧបករណ៍ទាំងពីរស្ថិតនៅក្នុងការផ្ទេរ</string>
     <string name="DeviceTransferSetup__go_to_support_page">ចូលទៅកាន់ទំព័រសេវាជំនួយ</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">ព្យាយាមម្តងទៀត</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">កំពុងរង់ចាំឧបករណ៍ផ្សេងទៀត</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">ចុចពាក្យ បន្ត លើឧបករណ៍មួយទៀតរបស់អ្នកដើម្បីចាប់ផ្ដើមការផ្ទេរ</string>
@@ -5056,6 +5108,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">ប្ដូរលេខទូរស័ព្ទ</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">កំពុងបញ្ជាក់ %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">តម្រូវអោយផ្ទៀងផ្ទាត់តាម Captcha</string>
 
@@ -5424,6 +5477,7 @@
     <string name="ConversationSettingsFragment__permissions">ការអនុញ្ញាត</string>
     <string name="ConversationSettingsFragment__requests_and_invites">ស្នើរ &amp; អញ្ជើញ</string>
     <string name="ConversationSettingsFragment__group_link">តំណភ្ជាប់របស់ក្រុម</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">បញ្ចូលជាលេខទំនាក់ទំនង</string>
     <string name="ConversationSettingsFragment__unmute">បើកសំឡេង</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5536,6 +5590,7 @@
     <string name="ShareInterstitialActivity__share">ចែករំលែក</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">រុករក</string>
     <string name="MultiselectForwardFragment__forward_to">បញ្ជូនបន្តទៅកាន់</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5546,6 +5601,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">វីដេអូនឹងត្រូវបានតម្រឹមជាឃ្លីបដែលមានរយៈពេល 30 វិនាទី ហើយផ្ញើជារឿងរ៉ាវជាច្រើន។</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">វីដេអូដែលបានផ្ញើទៅរឿងរ៉ាវមិនអាចវែងជាង 30 វិនាទីទេ។</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">ការបញ្ជូនសារបន្តនឹងផ្ញើចេញទៅភ្លាមៗ</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="other">ផ្ញើ %1$d សារ</item>
@@ -5726,6 +5782,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/ខែ</string>
     <string name="MySupportPreference__renews_s">បន្ត %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">កំពុងដំណើការទូទាត់ប្រាក់</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">មិនអាចដាក់ស្លាកបានទេ។ %1$s</string>
@@ -5836,7 +5893,7 @@
     <string name="DonationsErrors__your_payment_is_still">ការបរិច្ចាគរបស់អ្នកកំពុងត្រូវបានដំណើរការនៅឡើយ។ វាអាចចំណាយពេលពីរបីនាទីអាស្រ័យលើសេវាអុីនធឺណិតរបស់អ្នក។</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">មិនអាចបោះបង់ការជាវបាន</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">ការបោះបង់ការជាវតម្រូវឲ្យមានការភ្ជាប់អ៊ីនធឺណិត។</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">ឧបករណ៍របស់អ្នកមិនអាចប្រើបានជាមួយ Google Pay ទេ ដូច្នេះអ្នកមិនអាចធ្វើការជាវដើម្បីទទួលបានស្លាកទេ។ អ្នកនៅតែអាចគាំទ្រដល់ Signal បានដោយធ្វើការបរិច្ចាគនៅលើគេហទំព័ររបស់យើង។</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">ឧបករណ៍របស់អ្នកមិនអាចប្រើបានសម្រាប់ការបរិច្ចាគក្នុងកម្មវិធីទេ ដូច្នេះអ្នកមិនអាចជាវដើម្បីទទួលបានស្លាកទេ។ អ្នកនៅតែអាចគាំទ្រដល់ Signal បានដោយធ្វើការបរិច្ចាគនៅលើគេហទំព័ររបស់យើង។</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">បណ្ដាញមានបញ្ហា។ សូមពិនិត្យការភ្ជាប់របស់អ្នក ហើយសាកល្បងម្ដងទៀត</string>
     <string name="NetworkFailure__retry">ព្យាយាមម្តងទៀត</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6076,6 +6133,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">កំណត់សម្គាល់ការចេញផ្សាយ &amp; និងព័ត៌មានរបស់ Signal</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">នេះជាការជជែកជាផ្លូវការ និងតែមួយគត់ពី Signal។</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">ទទួលបានព័ត៌មាន និងកំណត់ចំណាំនៃការចេញផ្សាយថ្មីៗ។</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">នេះជាការជជែកជាផ្លូវការ និងតែមួយគត់ពី Signal</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">ទទួលបានព័ត៌មាន និងកំណត់ចំណាំនៃការចេញផ្សាយថ្មីៗ</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">ការជជែកជាផ្លូវការ និងតែមួយគត់ពី Signal</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">សកម្មភាពទាំងអស់</string>
@@ -6138,7 +6205,7 @@
     <string name="StoriesLandingItem__info">ព័ត៌មាន</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">កំពុងផ្ញើ…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">កំពុងផ្ញើ %1$d …</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">ផ្ញើបរាជ័យ</string>

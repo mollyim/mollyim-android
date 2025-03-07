@@ -8,6 +8,7 @@ package org.thoughtcrime.securesms.components.webrtc.v2
 import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import org.signal.core.ui.DarkPreview
 import org.signal.core.ui.Previews
+import org.signal.core.ui.TriggerAlignedPopupState.Companion.popupTrigger
+import org.signal.core.ui.TriggerAlignedPopupState.Companion.rememberTriggerAlignedPopupState
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsState
 import org.thoughtcrime.securesms.components.webrtc.ToggleButtonOutputState
@@ -47,7 +50,9 @@ import org.thoughtcrime.securesms.util.RemoteConfig
 fun CallControls(
   displayVideoTooltip: Boolean,
   callControlsState: CallControlsState,
-  callControlsCallback: CallControlsCallback,
+  callScreenControlsListener: CallScreenControlsListener,
+  callScreenSheetDisplayListener: CallScreenSheetDisplayListener,
+  additionalActionsState: AdditionalActionsState,
   modifier: Modifier = Modifier
 ) {
   val isPortrait = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
@@ -87,11 +92,21 @@ fun CallControls(
           }
         }
 
+        val onSelectedAudioDeviceChanged: (WebRtcAudioDevice) -> Unit = remember {
+          {
+            if (Build.VERSION.SDK_INT >= 31) {
+              callScreenControlsListener.onAudioOutputChanged31(it)
+            } else {
+              callScreenControlsListener.onAudioOutputChanged(it.webRtcAudioOutput)
+            }
+          }
+        }
+
         CallAudioToggleButton(
           outputState = outputState,
           contentDescription = stringResource(id = R.string.WebRtcAudioOutputToggle__audio_output),
-          onSelectedDeviceChanged = callControlsCallback::onSelectedAudioDeviceChanged,
-          onSheetDisplayChanged = callControlsCallback::onAudioDeviceSheetDisplayChanged
+          onSelectedDeviceChanged = onSelectedAudioDeviceChanged,
+          onSheetDisplayChanged = callScreenSheetDisplayListener::onAudioDeviceSheetDisplayChanged
         )
       }
 
@@ -100,11 +115,11 @@ fun CallControls(
         CallScreenTooltipBox(
           text = stringResource(R.string.WebRtcCallActivity__tap_here_to_turn_on_your_video),
           displayTooltip = displayVideoTooltip,
-          onTooltipDismissed = callControlsCallback::onVideoTooltipDismissed
+          onTooltipDismissed = callScreenSheetDisplayListener::onVideoTooltipDismissed
         ) {
           ToggleVideoButton(
             isVideoEnabled = callControlsState.isVideoEnabled && hasCameraPermission,
-            onChange = callControlsCallback::onVideoToggleClick
+            onChange = callScreenControlsListener::onVideoChanged
           )
         }
       }
@@ -113,7 +128,7 @@ fun CallControls(
       if (callControlsState.displayMicToggle) {
         ToggleMicButton(
           isMicEnabled = callControlsState.isMicEnabled && hasRecordAudioPermission,
-          onChange = callControlsCallback::onMicToggleClick
+          onChange = callScreenControlsListener::onMicChanged
         )
       }
 
@@ -121,22 +136,27 @@ fun CallControls(
         ToggleRingButton(
           isRingEnabled = callControlsState.isGroupRingingEnabled,
           isRingAllowed = callControlsState.isGroupRingingAllowed,
-          onChange = callControlsCallback::onGroupRingingToggleClick
+          onChange = callScreenControlsListener::onRingGroupChanged
         )
       }
 
       if (callControlsState.displayAdditionalActions) {
-        AdditionalActionsButton(onClick = callControlsCallback::onAdditionalActionsClick)
+        AdditionalActionsButton(
+          onClick = callScreenControlsListener::onOverflowClicked,
+          modifier = Modifier.popupTrigger(additionalActionsState.triggerAlignedPopupState)
+        )
       }
 
       if (callControlsState.displayEndCallButton) {
-        HangupButton(onClick = callControlsCallback::onEndCallClick)
+        HangupButton(onClick = callScreenControlsListener::onEndCallPressed)
       }
 
       if (callControlsState.displayStartCallButton && !isPortrait) {
         StartCallButton(
           text = stringResource(callControlsState.startCallButtonText),
-          onClick = { callControlsCallback.onStartCallClick(callControlsState.isVideoEnabled) }
+          onClick = {
+            callScreenControlsListener.onStartCall(callControlsState.isVideoEnabled)
+          }
         )
       }
     }
@@ -144,7 +164,9 @@ fun CallControls(
     if (callControlsState.displayStartCallButton && isPortrait) {
       StartCallButton(
         text = stringResource(callControlsState.startCallButtonText),
-        onClick = { callControlsCallback.onStartCallClick(callControlsState.isVideoEnabled) }
+        onClick = {
+          callScreenControlsListener.onStartCall(callControlsState.isVideoEnabled)
+        }
       )
     }
   }
@@ -170,7 +192,11 @@ fun CallControlsPreview() {
         displayEndCallButton = true
       ),
       displayVideoTooltip = false,
-      callControlsCallback = CallControlsCallback.Empty
+      callScreenControlsListener = CallScreenControlsListener.Empty,
+      callScreenSheetDisplayListener = CallScreenSheetDisplayListener.Empty,
+      additionalActionsState = AdditionalActionsState(
+        triggerAlignedPopupState = rememberTriggerAlignedPopupState()
+      )
     )
   }
 }
@@ -178,26 +204,14 @@ fun CallControlsPreview() {
 /**
  * Callbacks for call controls actions.
  */
-interface CallControlsCallback {
+interface CallScreenSheetDisplayListener {
   fun onAudioDeviceSheetDisplayChanged(displayed: Boolean)
-  fun onSelectedAudioDeviceChanged(audioDevice: WebRtcAudioDevice)
-  fun onVideoToggleClick(enabled: Boolean)
-  fun onMicToggleClick(enabled: Boolean)
-  fun onGroupRingingToggleClick(enabled: Boolean, allowed: Boolean)
-  fun onAdditionalActionsClick()
-  fun onStartCallClick(isVideoCall: Boolean)
-  fun onEndCallClick()
+  fun onOverflowDisplayChanged(displayed: Boolean)
   fun onVideoTooltipDismissed()
 
-  object Empty : CallControlsCallback {
+  object Empty : CallScreenSheetDisplayListener {
     override fun onAudioDeviceSheetDisplayChanged(displayed: Boolean) = Unit
-    override fun onSelectedAudioDeviceChanged(audioDevice: WebRtcAudioDevice) = Unit
-    override fun onVideoToggleClick(enabled: Boolean) = Unit
-    override fun onMicToggleClick(enabled: Boolean) = Unit
-    override fun onGroupRingingToggleClick(enabled: Boolean, allowed: Boolean) = Unit
-    override fun onAdditionalActionsClick() = Unit
-    override fun onStartCallClick(isVideoCall: Boolean) = Unit
-    override fun onEndCallClick() = Unit
+    override fun onOverflowDisplayChanged(displayed: Boolean) = Unit
     override fun onVideoTooltipDismissed() = Unit
   }
 }

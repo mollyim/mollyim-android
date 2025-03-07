@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">به‌عنوان هرزنامه گزارش و مسدود شد</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">درخواست پیامی از %1$s را پذیرفتید. اگر این به‌اشتباه رخ داده است، می‌توانید اقدامی را در زیر انتخاب کنید.</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">با دقت بازنگری کنید</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$s نیاز به تأیید ندارد</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$s نیاز به تأیید ندارد</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">نام نمایه</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">نام گروه</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">نکات ایمنی</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">نکتۀ قبلی</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">نکتۀ بعدی</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">نام‌ها و حساب‌های جعلی</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">سیگنال هرگز برای دریافت کد ثبت‌نام یا پین با شما تماس نمی‌گیرد. مراقب درخواست‌هایی باشید که خود را به جای دیگران جا می‌زنند. نام نمایه توسط دارنده حساب انتخاب می‌شود و نیاز به تأیید ندارد.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">کلاه‌برداری‌های پولی یا رمزارز</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">کسب‌وکارها و سازمان‌های جعلی</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">در مورد کسب‌وکارها و سازمان‌های دولتی که با شما تماس می‌گیرند احتیاط کنید. پیام‌های مربوط به نهادهای مالیاتی، شرکت مخابراتی و نظایر آن ممکن است هرزنامه باشند.</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">‏%1$s در سیگنال توسط دارنده حساب انتخاب می‌شود.</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">نام‌های نمایه نیاز به تأیید ندارند</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">مراقب حساب‌هایی باشید که خود را به جای دیگران جا می‌زنند</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">اطلاعات شخصی خود را با افرادی که نمی‌شناسید به اشتراک نگذارید</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s توسط اعضای گروه انتخاب می‌شود.</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">مراقب گروه‌هایی باشید که خود را به جای سازمان‌ها و کسب‌وکارها جا می‌زنند</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">نام‌های نمایه اعضای گروه‌ها نیاز به تأیید ندارد</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">برداشتن فیلتر</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">انتخاب پوشه</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">به «%1$s» افزوده شد</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">این گفتگو در پوشه \"%1$s\" است</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">این گفتگو از قبل در \"%1$s\" موجود است</item>
+        <item quantity="other">این گفتگوها از قبل در \"%1$s\" موجود هستند</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">پروفایل اعلان‌ها</string>
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">ادامه</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">ارتباط با پشتیبانی</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">گزارش اشکال‌زدایی ارسال شود؟</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">گزارش‌های اشکال‌زدایی شما به ما کمک خواهد کرد تا مشکل‌تان را سریع‌تر حل کنیم. ارسال این گزارش‌ها اختیاری است.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">ارسال با گزارش اشکال‌زدایی</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">ارسال بدون گزارش اشکال‌زدایی</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">لغو</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">خروجی (Link&amp;Sync) در اندروید ناموفق بود</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">همگام‌سازی پیام انجام نشد</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">گزارش شود…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">درخواست پذیرفته شود؟</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">درخواست‌ها را با دقت بازنگری کنید. نام نمایه توسط دارنده حساب انتخاب می‌شود و نیاز به تأیید ندارد.</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">به گروه می‌پیوندید؟</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">درخواست‌ها را با دقت بازنگری کنید. نام گروه توسط اعضای گروه انتخاب می‌شود و نیاز به تأیید ندارد.</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">پیوستن</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">گذرواژه‌ها یکی نیستند!</string>
@@ -2473,7 +2515,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">کشور شما</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">جستجو با نام یا شماره</string>
+    <string name="CountryCodeFragment__search_by">جستجو با نام یا پیش‌شماره کشور</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">کشور ناشناخته</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">آشنا در سیگنال</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">تأیید شده</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">نام‌های نمایه نیاز به تأیید ندارند</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">درخواست پیام در حال انتظار</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">پیام مستقیمی با %1$s وجود ندارد</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">‏%1$s در مخاطبان تلفن شما است</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">گروه مشترکی ندارید</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">هیچ گروه مشترکی وجود ندارد</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">درخواست‌ها را با دقت بازنگری کنید</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -2564,7 +2610,7 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">یک کشور را انتخاب کنید</string>
     <!-- Hint text explaining that this is where the country code should go -->
-    <string name="RegistrationActivity_default_country_code">0</string>
+    <string name="RegistrationActivity_default_country_code">۰</string>
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">شما تماسی برای وارسی این شماره دریافت خواهید کرد.</string>
     <string name="RegistrationActivity_edit_number">ویرایش شماره</string>
     <string name="RegistrationActivity_missing_google_play_services">فاقد خدمات Google Play</string>
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">به‌روزرسانی مخاطب</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">مسدود کردن درخواست</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">هیچ گروه مشترکی وجود ندارد. درخواست‌ها را با دقت بازبینی کنید.</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">هیچ گروه مشترکی وجود ندارد</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">هیچ مخاطبی در این گروه وجود ندارد. درخواست‌ها را با دقت بازبینی کنید.</string>
     <string name="ConversationUpdateItem_view">مشاهده</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">زمان پیام ناپدید شونده هنگامی که به آن‌ها پیام دهید روی %1$s تنظیم خواهد شد.</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">زبان</string>
     <string name="preferences__signal_messages_and_calls">تماس‌ها و پیام‌های سیگنال</string>
     <string name="preferences__advanced_pin_settings">تنظیمات پیشرفتهٔ پین</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">تنظیمات پیشرفتهٔ پین</string>
     <string name="preferences__free_private_messages_and_calls">تماس‌ها و پیام‌های خصوصی رایگان برای کاربران سیگنال</string>
     <string name="preferences__submit_debug_log">ارسال گزارش عیب‌یابی</string>
     <string name="preferences__delete_account">پاک کردن حساب</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">اتصال موفق نبود</string>
     <string name="preferences_couldnt_connect_to_the_proxy">اتصال به پروکسی ممکن نبود. نشانی پروکسی را بررسی کرده و دوباره امتحان کنید.</string>
     <string name="preferences_you_are_connected_to_the_proxy">شما به پروکسی متصل شدید. می‌توانید پروکسی را در هر زمانی از تنظیمات غیرفعال کنید.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">موفقیت</string>
     <string name="preferences_failed_to_connect">اتصال موفق نبود</string>
     <string name="preferences_enter_proxy_address">نشانی پروکسی را وارد کنید</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">روی کلیپ‌بورد کپی شد</string>
     <string name="BackupDialog_no_file_picker_available">انتخاب کنندهٔ فایل در دسترس نیست.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">گذرواژهٔ پشتیبان را برای وارسی وارد کنید</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">وارسی</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">گذرواژهٔ پشتیبان با موفقیت وارد شد</string>
     <string name="BackupDialog_passphrase_was_not_correct">گذرواژه نادرست بود</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">ثبت‌نام سیگنال - کد وارسی برای اندروید</string>
     <string name="RegistrationActivity_incorrect_code">کد نادرست</string>
     <string name="BackupUtil_never">هرگز</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">ناشناخته</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">شماره تلفن</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">خاموش و روشن کردن Wi-Fi را، روی هر دو دستگاه امتحان کنید.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">مطمئن شوید هر دو دستگاه در حالت انتقال قرار دارند.</string>
     <string name="DeviceTransferSetup__go_to_support_page">برو به صفحهٔ پشتیبانی</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">دوباره امتحان کنید</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">در حال انتظار برای دستگاه دیگر</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">برای آغاز انتقال در دستگاه دیگرتان روی ادامه ضربه بزنید.</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">تغییر شماره</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">در حال وارسی %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">Captcha لازم است</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">مجوزها</string>
     <string name="ConversationSettingsFragment__requests_and_invites">درخواست‌ها و دعوت‌ها</string>
     <string name="ConversationSettingsFragment__group_link">پیوند گروه</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">افزودن به صورت یک مخاطب</string>
     <string name="ConversationSettingsFragment__unmute">صدادار کردن</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">اشتراک‌گذاری</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">حرکت به سمت بالا</string>
     <string name="MultiselectForwardFragment__forward_to">بازارسال به</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">ویدیوها به کلیپ‌های 30 ثانیه‌ای بریده می‌شوند و به صورت استوری‌های متعدد ارسال می‌شوند.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">ویدیوهای ارسالی به استوری‌ها نمی‌توانند بیشتر از 30 ثانیه باشند.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">پیام‌های بازارسال شده حالا بلافاصله ارسال می‌شوند.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">ارسال %1$d پیام</item>
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/ماه</string>
     <string name="MySupportPreference__renews_s">در %1$s تمدید می‌شود</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">در حال پردازش تراکنش…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">افزودن نشان ممکن نبود. %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">اهدای مالی شما هنوز در حال پردازش است. بسته به اتصال اینترنت شما، این پردازش ممکن است چند دقیقه طول بکشد.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">لغو اشتراک انجام نشد</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">لغو اشتراک به اتصال اینترنت نیاز دارد.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">دستگاه شما از Google Pay پشتیبانی نمی‌کند، پس نمی‌توانید برای کسب نشان اشتراک بگیرید. همچنان می‌توانید از طریق کمک‌های اهدایی در وب‌سایت ما از سیگنال پشتیبانی کنید.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">دستگاه شما از کمک‌های اهدایی درون برنامه پشتیبانی نمی‌کند، پس نمی‌توانید برای کسب نشان اشتراک بگیرید. همچنان می‌توانید از طریق کمک‌های اهدایی در وب‌سایت ما از سیگنال پشتیبانی کنید.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">خطای شبکه. اتصال خود را بررسی و دوباره امتحان کنید.</string>
     <string name="NetworkFailure__retry">تلاش مجدد</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">تازه‌ها و اخبار سیگنال</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">این گفتگوی رسمی و انحصاری سیگنال است.</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">از اخبار و تغییرات جدید با خبر شوید.</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">این گفتگوی رسمی و انحصاری سیگنال است</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">از اخبار و تغییرات نسخۀ جدید باخبر شوید</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">گفتگوی رسمی و انحصاری سیگنال</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">همهٔ فعالیت‌ها</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">اطلاعات</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">در حال ارسال…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">در حال ارسال %1$d…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">ارسال ناموفق بود</string>

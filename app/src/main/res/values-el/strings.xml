@@ -666,6 +666,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">Έγινε αναφορά ως ανεπιθύμητο και αποκλείστηκε</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">Αποδέχτηκες ένα αίτημα μηνύματος από τον χρήστη %1$s. Αν ήταν λάθος, μπορείς να επιλέξεις μια ενέργεια παρακάτω.</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">Προσεκτικός έλεγχος</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">Τα %1$s δεν είναι επαληθευμένα</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">Τα %1$s δεν είναι επαληθευμένα</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">Ονόματα προφίλ</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">Ονόματα ομάδας</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Συμβουλές ασφαλείας</string>
@@ -677,6 +687,10 @@
     <string name="SafetyTips_previous_tip">Προηγούμενη συμβουλή</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">Επόμενη συμβουλή</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">Ψεύτικα ονόματα και λογαριασμοί</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Η Molly δεν θα επικοινωνήσει ποτέ μαζί σου για τον κωδικό εγγραφής ή το PIN σου. Να προσέχεις για αιτήματα που υποδύονται άλλους. Τα ονόματα προφίλ επιλέγονται από τον κάτοχο του λογαριασμού και δεν είναι επαληθευμένα.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Απάτες κρυπτονομισμάτων ή χρημάτων</string>
     <!-- Message of tip 1 -->
@@ -693,6 +707,21 @@
     <string name="SafetyTips_tip4_title">Ψεύτικες επιχειρήσεις και ιδρύματα</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">Να προσέχεις με τις επιχειρήσεις ή τις κυβερνητικές υπηρεσίες που επικοινωνούν μαζί σου. Τα μηνύματα που αφορούν φορολογικές υπηρεσίες, ταχυμεταφορείς και πολλά άλλα μπορεί να είναι spam.</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Τα %1$s στο Signal επιλέγονται από τον κάτοχο του λογαριασμού.</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">Τα ονόματα προφίλ δεν είναι επαληθευμένα</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">Να προσέχεις για λογαριασμούς που υποδύνται άλλους</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">Μην μοιράζεσαι προσωπικές πληροφορίες με άτομα που δεν γνωρίζεις</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">Τα %1$s επιλέγονται από μέλη αυτής της ομάδας.</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">Να προσέχεις για ομάδες που υποδύονται οργανισμούς και επιχειρήσεις</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">Τα ονόματα προφίλ των μελών σε ομάδες δεν είναι επαληθευμένα</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">Διαγραφή φίλτρου</string>
@@ -756,8 +785,11 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">Επιλογή φακέλου</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">Προστέθηκε στον \"%1$s\"</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">Αυτή η συνομιλία βρίσκεται ήδη στον φάκελο \"%1$s\"</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="one">Αυτή η συνομιλία είναι ήδη στο \"%1$s\"</item>
+        <item quantity="other">Αυτές οι συνομιλίες είναι ήδη στο \"%1$s\"</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">Προφίλ ειδοποιήσεων</string>
@@ -1023,19 +1055,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">Συνέχεια</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">Επικοινωνία με την υποστήριξη</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">Αποστολή αρχείου καταγραφής αποσφαλμάτωσης;</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">Τα αρχεία καταγραφής θα μας βοηθήσουν στην γρηγορότερη επίλυση του προβλήματος. Η υποβολή των αρχείων είναι προαιρετική.</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">Υποβολή με αρχείο καταγραφής</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">Υποβολή χωρίς αρχείο καταγραφής</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">Ακύρωση</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">Αποτυχία εξαγωγής (Link&amp;Sync) Android</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Ο συγχρονισμός μηνυμάτων απέτυχε</string>
@@ -2100,6 +2132,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Αναφορά…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">Αποδοχή αιτήματος;</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">Έλεγξε τα αιτήματα προσεκτικά. Τα ονόματα προφίλ επιλέγονται από τον κάτοχο του λογαριασμού και δεν είναι επαληθευμένα.</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">Θες να μπεις στην ομάδα;</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">Έλεγξε τα αιτήματα προσεκτικά. Τα ονόματα των ομάδων επιλέγονται από τα μέλη της ομάδας και δεν είναι επαληθευμένα.</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">Σύνδεση</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Τα συνθηματικά δεν ταιριάζουν!</string>
@@ -2473,7 +2515,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">Η χώρα σου</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">Αναζήτηση με όνομα ή αριθμό</string>
+    <string name="CountryCodeFragment__search_by">Αναζήτηση με όνομα ή κωδικό χώρας</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">Άγνωστη χώρα</string>
 
@@ -2482,12 +2524,16 @@
     <string name="AboutSheet__signal_connection">Επαφές Signal</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">Επιβεβαιωμένος</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">Τα ονόματα προφίλ δεν είναι επαληθευμένα</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">Αίτημα μηνύματος σε εκκρεμότητα</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">Δεν υπάρχουν άμεσα μηνύματα με τον χρήστη %1$s</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">Ο χρήστης %1$s βρίσκεται στις επαφές του τηλεφώνου σου</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">Δεν έχετε κοινές ομάδες</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">Καμία κοινή ομάδα</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">Επιθεώρησε τα αιτήματα προσεκτικά</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3266,7 +3312,8 @@
     <string name="ConversationUpdateItem_update_contact">Ανανέωση επαφής</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">Αποκλεισμός αιτήματος</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Χωρίς κοινές ομάδες. Εξέτασε τα αιτήματα προσεκτικά.</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Καμία κοινή ομάδα</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ομάδα με καμία γνωστή επαφή. Εξέτασε τα αιτήματα προσεκτικά.</string>
     <string name="ConversationUpdateItem_view">Εμφάνιση</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Ο χρόνος εξαφάνισης μηνυμάτων θα οριστεί σε %1$s όταν του/της στείλεις μήνύμα.</string>
@@ -3758,6 +3805,8 @@
     <string name="preferences__language">Γλώσσα</string>
     <string name="preferences__signal_messages_and_calls">Μηνύματα και κλήσεις του Signal</string>
     <string name="preferences__advanced_pin_settings">Ρυθμίσεις PIN για προχωρημένους</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">Ρυθμίσεις PIN για προχωρημένους</string>
     <string name="preferences__free_private_messages_and_calls">Δωρεάν προσωπικά μηνύματα και κλήσεις προς τους χρήστες και τις χρήστριες του Signal</string>
     <string name="preferences__submit_debug_log">Αποστολή αρχείου συμβάντων αποσφαλμάτωσης</string>
     <string name="preferences__delete_account">Διαγραφή λογαριασμού</string>
@@ -3862,6 +3911,7 @@
     <string name="preferences_connection_failed">Αποτυχία σύνδεσης</string>
     <string name="preferences_couldnt_connect_to_the_proxy">Αποτυχία σύνδεσης το proxy. Έλεγξε τη διεύθυνση proxy και ξαναπροσπάθησε.</string>
     <string name="preferences_you_are_connected_to_the_proxy">Έχεις συνδεθεί στο proxy. Μπορείς να το απενεργοποιήσεις οποιαδήποτε στιγμή στις Ρυθμίσεις.</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">Επιτυχία</string>
     <string name="preferences_failed_to_connect">Αποτυχία σύνδεσης</string>
     <string name="preferences_enter_proxy_address">Εισαγωγή διεύθυνσης proxy</string>
@@ -4465,6 +4515,7 @@
     <string name="BackupDialog_copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="BackupDialog_no_file_picker_available">Δεν υπάρχει διαθέσιμη εφαρμογή επιλογής αρχείων.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Εισάγετε το συνθηματικό αντιγράφου ασφαλείας για επιβεβαίωση</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">Επιβεβαίωση</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Εισάγατε το συνθηματικό αντιγράφου ασφαλείας με επιτυχία</string>
     <string name="BackupDialog_passphrase_was_not_correct">Το συνθηματικό δεν ήταν σωστό</string>
@@ -4489,6 +4540,7 @@
     <string name="RegistrationActivity_code_support_subject">Εγγραφή Molly - Κωδικός επαλήθευσης για Android</string>
     <string name="RegistrationActivity_incorrect_code">Λάθος κωδικός</string>
     <string name="BackupUtil_never">Ποτέ</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">Άγνωστο</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Αριθμός τηλεφώνου</string>
@@ -4673,6 +4725,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Δοκίμασε να κλείσεις και να ξανανοίξεις το Wi-Fi και στις δύο συσκευές.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Επιβεβαίωσε πως και οι δύο συσκευές είναι στη κατάσταση μεταφοράς.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Πήγαινε στη σελίδα υποστήριξης</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">Ξαναπροσπάθησε</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">Αναμονή για την άλλη συσκευή</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Πάτα Συνέχεια στην άλλη σου συσκευή για να ξεκινήσεις τη μεταφορά.</string>
@@ -5178,6 +5231,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">Αλλαγή αριθμού</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">Επιβεβαίωση του %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">Απαιτείται Captcha</string>
 
@@ -5553,6 +5607,7 @@
     <string name="ConversationSettingsFragment__permissions">Άδειες</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Αιτήματα &amp; προσκλήσεις</string>
     <string name="ConversationSettingsFragment__group_link">Σύνδεσμος ομάδας</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">Προσθήκη ως επαφή</string>
     <string name="ConversationSettingsFragment__unmute">Αναίρεση σίγασης</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5666,6 +5721,7 @@
     <string name="ShareInterstitialActivity__share">Μοιράσου</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">Μετάβαση προς τα πάνω</string>
     <string name="MultiselectForwardFragment__forward_to">Προώθηση σε</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5676,6 +5732,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">Τα βίντεο θα κόβονται σε κλιπ των 30 δευτερολέπτων και θα στέλνονται ως πολλές Ιστορίες.</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">Τα βίντεο που στέλνονται σε Ιστορίες δεν πρέπει να έχουν διάρκεια μεγαλύτερη των 30 δευτερολέπτων.</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">Πλέον τα προωθημένα μηνύματα στέλνονται αμέσως.</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="one">Αποστολή %1$d μηνύματος</item>
@@ -5862,6 +5919,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/μήνα</string>
     <string name="MySupportPreference__renews_s">Ανανεώνεται %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">Επεξεργασία συναλλαγής…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">Αδυναμία προσθήκης σήματος. %1$s</string>
@@ -5972,7 +6030,7 @@
     <string name="DonationsErrors__your_payment_is_still">Η δωρεά σου είναι ακόμη σε επεξεργασία. Μπορεί να διαρκέσει μερικά λεπτά, ανάλογα με τη σύνδεσή σου.</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">Αποτυχία ακύρωσης συνδρομής</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">Πρέπει να υπάρχει σύνδεση στο διαδίκτυο για την ακύρωση της συνδρομής.</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Η συσκευή σου δεν υποστηρίζει το Google Pay, οπότε δεν μπορείς να γίνεις συνδρομητής για να λάβεις σήμα. Μπορείς όμως να υποστηρίξεις το Signal κάνοντας μια δωρεά στην ιστοσελίδα μας.</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">Η συσκευή σου δεν υποστηρίζει δωρεές μέσω εφαρμογής, οπότε δεν μπορείς να γίνεις συνδρομητής για να λάβεις σήμα. Μπορείς όμως να υποστηρίξεις το Signal κάνοντας μια δωρεά στην ιστοσελίδα μας.</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Σφάλμα δικτύου. Έλεγξε τη σύνδεσή σου και ξαναπροσπάθησε.</string>
     <string name="NetworkFailure__retry">Επανάληψη</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6212,6 +6270,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Σημειώσεις έκδοσης &amp; Νέα του Signal</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">Αυτή είναι η επίσημη και μοναδική συνομιλία από το Signal.</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">Μην χάσεις ξανά τα νέα και τις σημειώσεις έκδοσης.</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">Αυτή είναι η επίσημη και μοναδική συνομιλία από το Signal</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">Μην χάσεις ξανά τα νέα και τις σημειώσεις έκδοσης</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">Επίσημη και μοναδική συνομιλία από το Signal</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">Όλη η δραστηριότητα</string>
@@ -6274,7 +6342,7 @@
     <string name="StoriesLandingItem__info">Πληροφορίες</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">Στέλνεται…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">Αποστολή %1$d…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">Αποτυχία αποστολής</string>

@@ -13,10 +13,10 @@ enum class UsernameQrCodeColorScheme(
   val outlineColor: Color = Color.Transparent,
   private val key: String
 ) {
-  Blue(
-    borderColor = Color(0xFF506ECD),
-    foregroundColor = Color(0xFF2449C0),
-    backgroundColor = Color(0xFFEDF0FA),
+  Blue( // MOLLY: blue is the new purple
+    borderColor = Color(0xFF7152FF),
+    foregroundColor = Color(0xFF5335DD),
+    backgroundColor = Color(0xFFE5DFFF),
     key = "blue"
   ),
   White(
@@ -57,10 +57,10 @@ enum class UsernameQrCodeColorScheme(
     backgroundColor = Color(0xFFFCF1F5),
     key = "pink"
   ),
-  Purple(
-    borderColor = Color(0xFF9E7BE9),
-    foregroundColor = Color(0xFF7651C5),
-    backgroundColor = Color(0xFFF5F3FA),
+  Purple( // MOLLY: purple is upstream blue
+    borderColor = Color(0xFF506ECD),
+    foregroundColor = Color(0xFF2449C0),
+    backgroundColor = Color(0xFFEDF0FA),
     key = "purple"
   );
 

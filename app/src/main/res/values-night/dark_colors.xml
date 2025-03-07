@@ -88,7 +88,7 @@
     <color name="conversation_item_update_text_color">@color/signal_colorOnSurfaceVariant</color>
     <color name="conversation_item_recv_icon_color">@color/core_grey_25</color>
     <color name="conversation_item_quote_text_color">@color/core_grey_05</color>
-    <color name="conversation_item_recv_bubble_color_normal">@color/signal_colorSurfaceVariant</color>
+    <color name="conversation_item_recv_bubble_color_normal">@color/signal_colorSurface3</color>
     <color name="conversation_item_recv_bubble_color_wallpaper">#242424</color>
     <color name="conversation_item_outgoing_audio_foreground_tint">@color/signal_colorNeutralInverse</color>
     <color name="conversation_item_incoming_audio_foreground_tint_normal">@color/signal_colorOnSurface</color>
@@ -158,6 +158,7 @@
     <color name="payment_currency_code_foreground_color">@color/core_grey_55</color>
 
     <color name="settings_ripple_color">@color/transparent_white_10</color>
+    <color name="settings_chat_wallpaper_preview_background">@color/core_black</color>
 
     <color name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparent2</color>
     <color name="quote_view_bar_incoming_wallpaper">@color/signal_colorNeutralInverse</color>
@@ -180,9 +181,9 @@
     <color name="recv_gift_button_tint">@color/transparent_white_20</color>
 
     <color name="message_request_bar_container_background_normal">@color/signal_colorBackground</color>
-    <color name="message_request_bar_background_normal">@color/signal_colorSurface2</color>
+    <color name="message_request_bar_background_normal">@color/signal_colorSurface3</color>
     <color name="message_request_bar_denyForeground_normal">@color/signal_colorError</color>
-    <color name="message_request_bar_acceptForeground_normal">@color/signal_colorOnSecondaryContainer</color>
+    <color name="message_request_bar_acceptForeground_normal">@color/signal_colorInverseSurface</color>
     <color name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</color>
     <color name="message_request_bar_background_wallpaper">@color/signal_light_colorTransparent2</color>
     <color name="message_request_bar_denyForeground_wallpaper">@color/signal_colorError</color>

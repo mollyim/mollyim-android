@@ -654,6 +654,16 @@
     <string name="ConversationFragment_reported_as_spam_and_blocked">รายงานว่าเป็นสแปมและบล็อกแล้ว</string>
     <!-- Dialog message shown after accepting a message request and tapping on options from the conversation event -->
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">คุณตอบรับคำขอส่งข้อความจาก %1$s แล้ว หากนี่เป็นข้อผิดพลาด คุณสามารถดูตัวเลือกด้านล่างเพื่อดำเนินการ</string>
+    <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
+    <string name="ConversationFragment_review_carefully">โปรดตรวจสอบอย่างถี่ถ้วน</string>
+    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
+    <string name="ConversationFragment_profile_names_not_verified">%1$sไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
+    <string name="ConversationFragment_group_names_not_verified">%1$sไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
+    <string name="ConversationFragment_profile_names">ชื่อโปรไฟล์</string>
+    <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
+    <string name="ConversationFragment_group_names">ชื่อกลุ่ม</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">คำแนะนำเพื่อความปลอดภัย</string>
@@ -665,6 +675,10 @@
     <string name="SafetyTips_previous_tip">คำแนะนำก่อนหน้า</string>
     <!-- Button text to move to the next tip -->
     <string name="SafetyTips_next_tip">คำแนะนำถัดไป</string>
+    <!-- Title of tip 0 -->
+    <string name="SafetyTips_tip0_title">ชื่อและบัญชีปลอม</string>
+    <!-- Message of tip 0 -->
+    <string name="SafetyTips_tip0_message">Molly ไม่มีนโยบายในการติดต่อคุณเพื่อขอรหัสสำหรับลงทะเบียนหรือ PIN โปรดระวังคำขอที่แอบอ้างเป็นบุคคลอื่น และโปรดทราบว่าชื่อโปรไฟล์ที่แสดงเป็นชื่อที่เจ้าของบัญชีนั้นตั้งเองและไม่ได้ผ่านการตรวจยืนยัน</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">การหลอกลวงทางการเงินหรือคริปโต</string>
     <!-- Message of tip 1 -->
@@ -681,6 +695,21 @@
     <string name="SafetyTips_tip4_title">ธุรกิจและหน่วยงานปลอม</string>
     <!-- Message of tip 4 -->
     <string name="SafetyTips_tip4_message">ระวังให้มากเมื่อได้รับการติดต่อจากหน่วยงานรัฐหรือธุรกิจห้างร้าน ข้อความที่เกี่ยวกับสำนักงานภาษี บริษัทขนส่ง หรือหน่วยงานใกล้เคียงกันนี้อาจเป็นสแปม</string>
+
+    <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">%1$sบน Signal เป็นชื่อที่เจ้าของบัญชีนั้นตั้งเอง</string>
+    <!-- Bottom sheet text explaining that profile names are not verified. -->
+    <string name="ProfileNameBottomSheet__profile_names_arent_verified">ชื่อโปรไฟล์ไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_accounts">โปรดระวังบัญชีที่แอบอ้างเป็นบุคคลอื่น</string>
+    <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
+    <string name="ProfileNameBottomSheet__dont_share_personal">อย่าให้ข้อมูลส่วนตัวกับบุคคลที่คุณไม่รู้จัก</string>
+    <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
+    <string name="ProfileNameBottomSheet__group_names_on_signal">%1$sเป็นชื่อที่สมาชิกกลุ่มนั้นตั้งเอง</string>
+    <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
+    <string name="ProfileNameBottomSheet__be_cautious_of_groups">โปรดระวังกลุ่มที่แอบอ้างเป็นองค์กรหรือหน่วยงานอื่น</string>
+    <!-- Bottom sheet text explaining that profile names of group members are not verified -->
+    <string name="ProfileNameBottomSheet__profile_names_in_groups">ชื่อโปรไฟล์ของสมาชิกในกลุ่มไม่ได้ผ่านการตรวจยืนยัน</string>
 
     <!-- Label for a button displayed in conversation list to clear the chat filter -->
     <string name="ConversationListFragment__clear_filter">ล้างตัวกรอง</string>
@@ -735,8 +764,10 @@
     <string name="AddToFolderBottomSheet_choose_a_folder">เลือกโฟลเดอร์</string>
     <!-- Toast shown when a chat has been added to a folder, where %s is the name of the folder -->
     <string name="AddToFolderBottomSheet_added_to_s">เพิ่มลงใน \"%1$s\" แล้ว</string>
-    <!-- Toast shown when a user tries to add a chat to a folder, but the folder already has that chat. %s is the name of the folder -->
-    <string name="AddToFolderBottomSheet_this_chat_is_already">แชทนี้อยู่ในโฟลเดอร์ \"%1$s\" แล้ว</string>
+    <!-- Toast shown when a user tries to add chats to a folder, but the folder already has those chats. %s is the name of the folder -->
+    <plurals name="AddToFolderBottomSheet_these_chat_are_already_in_s">
+        <item quantity="other">แชทนี้อยู่ใน \"%1$s\" แล้ว</item>
+    </plurals>
 
     <!-- Show in conversation list overflow menu to open selection bottom sheet -->
     <string name="ConversationListFragment__notification_profile">โปรไฟล์การแจ้งเตือน</string>
@@ -1000,19 +1031,19 @@
     <!-- Button that dismisses the bottom sheet -->
     <string name="LinkDeviceFragment__continue">ดำเนินการต่อ</string>
     <!-- Option on button to contact support -->
-    <string name="LinkDeviceFragment__contact_support">Contact support</string>
+    <string name="LinkDeviceFragment__contact_support">ติดต่อฝ่ายสนับสนุน</string>
     <!-- Title of dialog asking users if they want to submit debug logs when contacting support -->
-    <string name="LinkDeviceFragment__submit_debug_log">Submit debug log?</string>
+    <string name="LinkDeviceFragment__submit_debug_log">คุณต้องการส่งบันทึกดีบักหรือไม่</string>
     <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
-    <string name="LinkDeviceFragment__your_debug_logs">Your debug logs will help us troubleshoot your issue faster. Submitting your logs is optional.</string>
+    <string name="LinkDeviceFragment__your_debug_logs">บันทึกดีบักของคุณจะช่วยให้เราแก้ไขปัญหาของคุณได้เร็วขึ้น คุณจะส่งบันทึกของคุณหรือไม่ก็ได้</string>
     <!-- Button option to submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_with_debug">Submit with debug log</string>
+    <string name="LinkDeviceFragment__submit_with_debug">ส่งพร้อมกับบันทึกดีบัก</string>
     <!-- Button option to not submit debug log when contacting support -->
-    <string name="LinkDeviceFragment__submit_without_debug">Submit without debug log</string>
+    <string name="LinkDeviceFragment__submit_without_debug">ส่งโดยไม่มีบันทึกดีบัก</string>
     <!-- Button option to dismiss dialog -->
-    <string name="LinkDeviceFragment__cancel">Cancel</string>
+    <string name="LinkDeviceFragment__cancel">ยกเลิก</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
-    <string name="LinkDeviceFragment__link_sync_failure_support_email">Android Link&amp;Sync Export Failed</string>
+    <string name="LinkDeviceFragment__link_sync_failure_support_email">การส่งออกของ Android (Link&amp;Sync) ไม่สำเร็จ</string>
   <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">ซิงค์ข้อความไม่สำเร็จ</string>
@@ -2035,6 +2066,16 @@
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">รายงาน…</string>
+    <!-- Alert dialog title to accept a message request -->
+    <string name="MessageRequestBottomView_accept_request">ตอบรับคำขอใช่หรือไม่</string>
+    <!-- Alert dialog body to review the message request carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully">โปรดตรวจสอบคำขออย่างถี่ถ้วน และโปรดทราบว่าชื่อโปรไฟล์ที่แสดงเป็นชื่อที่เจ้าของบัญชีนั้นตั้งเองและไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Alert dialog title to accept a message request to join a group -->
+    <string name="MessageRequestBottomView_join_group">เข้าร่วมกลุ่มใช่หรือไม่</string>
+    <!-- Alert dialog body to review the message request for a group carefully -->
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">โปรดตรวจสอบคำขออย่างถี่ถ้วน และโปรดทราบว่าชื่อกลุ่มที่แสดงเป็นชื่อที่สมาชิกกลุ่มนั้นตั้งเองและไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Button text to join a group -->
+    <string name="MessageRequestBottomView_join">เข้าร่วม</string>
 
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">วลีรหัสผ่านไม่ถูกต้อง!</string>
@@ -2391,7 +2432,7 @@
     <!-- Toolbar title of country picker selection page -->
     <string name="CountryCodeFragment__your_country">ประเทศของคุณ</string>
     <!-- Hint text in search bar to either enter in a country name or number -->
-    <string name="CountryCodeFragment__search_by">ค้นหาโดยชื่อหรือหมายเลข</string>
+    <string name="CountryCodeFragment__search_by">ค้นหาโดยชื่อหรือรหัสประเทศ</string>
     <!-- Text shown when displaying a list of countries that indicates an unknown country    -->
     <string name="CountryCodeFragment__unknown_country">ประเทศที่ไม่รู้จัก</string>
 
@@ -2400,12 +2441,16 @@
     <string name="AboutSheet__signal_connection">เครือข่าย Signal</string>
     <!-- Displayed in a sheet row describing that the user has marked this contact as \'verified\' from within the app -->
     <string name="AboutSheet__verified">ตรวจยืนยันแล้ว</string>
+    <!-- Displayed in a sheet row that tells users that profile names are not verified -->
+    <string name="AboutSheet__profile_names_are_not_verified">ชื่อโปรไฟล์ไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Displayed in a sheet row describing that the user is in a message request state with the person -->
+    <string name="AboutSheet__pending_message_request">มีคำขอส่งข้อความที่รอตอบกลับ</string>
     <!-- Displayed in bottom sheet describing that the user has no direct messages with this person. The placeholder is a person\'s name. -->
     <string name="AboutSheet__no_direct_message">ไม่มีข้อความส่วนตัวกับ %1$s</string>
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s อยู่ในรายชื่อผู้ติดต่อบนโทรศัพท์คุณ</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">คุณไม่มีกลุ่มร่วมกัน</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">ไม่มีกลุ่มร่วมกัน</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">พิจารณาคำขออย่างระวัง</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -3171,7 +3216,8 @@
     <string name="ConversationUpdateItem_update_contact">ปรับปรุงผู้ติดต่อ</string>
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">บล็อกคำขอ</string>
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">ไม่มีกลุ่มที่เหมือนกันเลย โปรดพิจารณาคำขออย่างระวัง</string>
+    <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">ไม่มีกลุ่มร่วมกัน</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">ไม่มีผู้ติดต่อในกลุ่มนี้ โปรดพิจารณาคำขออย่างระวัง</string>
     <string name="ConversationUpdateItem_view">ดู</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">เวลาข้อความหายไปจะตั้งค่าเป็น %1$s เมื่อคุณส่งข้อความให้พวกเขา</string>
@@ -3655,6 +3701,8 @@
     <string name="preferences__language">ภาษา</string>
     <string name="preferences__signal_messages_and_calls">ข้อความและการโทร Signal</string>
     <string name="preferences__advanced_pin_settings">การตั้งค่า PIN ขั้นสูง</string>
+    <!-- Title of toolbar for the advanced pin settings screen -->
+    <string name="preferences__advanced_pin_settings_title">การตั้งค่า PIN ขั้นสูง</string>
     <string name="preferences__free_private_messages_and_calls">โทรและส่งข้อความส่วนตัวถึงผู้ใช้ Signal ฟรี</string>
     <string name="preferences__submit_debug_log">ส่งปูมดีบัก</string>
     <string name="preferences__delete_account">ลบบัญชี</string>
@@ -3757,6 +3805,7 @@
     <string name="preferences_connection_failed">การเชื่อมต่อล้มเหลว</string>
     <string name="preferences_couldnt_connect_to_the_proxy">ไม่สามารถเชื่อมต่อไปยังพร็อกซีได้ โปรดตรวจสอบที่อยู่พร็อกซีและลองใหม่อีกครั้ง</string>
     <string name="preferences_you_are_connected_to_the_proxy">คุณได้เชื่อมต่อพร็อกซีแล้ว คุณสามารถปิดพร็อกซีเมื่อใดก็ได้จากเมนูการตั้งค่า</string>
+    <!-- Title of alert dialog after a successful connection to the proxy -->
     <string name="preferences_success">สำเร็จ</string>
     <string name="preferences_failed_to_connect">เชื่อมต่อล้มเหลว</string>
     <string name="preferences_enter_proxy_address">ป้อนที่อยู่พร็อกซี</string>
@@ -4351,6 +4400,7 @@
     <string name="BackupDialog_copied_to_clipboard">คัดลอกไปคลิปบอร์ดแล้ว</string>
     <string name="BackupDialog_no_file_picker_available">ไม่พบตัวเลือกแฟ้มให้ใช้งาน</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">ป้อนวลีรหัสผ่านสำหรับข้อมูลสำรองของคุณเพื่อตรวจยืนยัน</string>
+    <!-- Confirmation button text on an alert dialog to verify whether the entered backup phrase was correct -->
     <string name="BackupDialog_verify">ตรวจยืนยัน</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">คุณได้ป้อนวลีรหัสผ่านสำหรับข้อมูลสำรองของคุณเสร็จแล้ว</string>
     <string name="BackupDialog_passphrase_was_not_correct">วลีรหัสผ่านไม่ถูกต้อง</string>
@@ -4375,6 +4425,7 @@
     <string name="RegistrationActivity_code_support_subject">การลงทะเบียน Molly - รหัสตรวจยืนยันสำหรับ Android</string>
     <string name="RegistrationActivity_incorrect_code">รหัสไม่ถูกต้อง</string>
     <string name="BackupUtil_never">ไม่เลย</string>
+    <!-- Subtext below last backup time when we do not know when the last backup was -->
     <string name="BackupUtil_unknown">ไม่ทราบ</string>
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">หมายเลขโทรศัพท์</string>
@@ -4559,6 +4610,7 @@
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">กรุณาลองปิดการใช้งาน Wi-Fi แล้วเปิดใหม่บนอุปกรณ์ทั้งสองเครื่อง</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">ตรวจสอบให้แน่ใจว่าอุปกรณ์ทั้งสองเครื่องอยู่ในโหมดถ่ายโอน</string>
     <string name="DeviceTransferSetup__go_to_support_page">ไปที่หน้าการสนับสนุน</string>
+    <!-- Button text when a device transfer could not occur and to try again -->
     <string name="DeviceTransferSetup__try_again">ลองอีกครั้ง</string>
     <string name="DeviceTransferSetup__waiting_for_other_device">กำลังรออุปกรณ์อีกเครื่อง</string>
     <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">แตะปุ่มดำเนินการต่อบนอุปกรณ์อีกเครื่องของคุณเพื่อเริ่มการถ่ายโอน</string>
@@ -5056,6 +5108,7 @@
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">เปลี่ยนหมายเลขโทรศัพท์</string>
+    <!-- Text shown when verifying a new phone number where %1$s is the number being changed -->
     <string name="ChangeNumberVerifyFragment__verifying_s">กำลังตรวจยืนยัน %1$s</string>
     <string name="ChangeNumberVerifyFragment__captcha_required">ต้องใช้แคปช่า</string>
 
@@ -5424,6 +5477,7 @@
     <string name="ConversationSettingsFragment__permissions">สิทธิ์</string>
     <string name="ConversationSettingsFragment__requests_and_invites">คำขอและคำเชิญ</string>
     <string name="ConversationSettingsFragment__group_link">ลิงก์กลุ่ม</string>
+    <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">เพิ่มเป็นผู้ติดต่อ</string>
     <string name="ConversationSettingsFragment__unmute">เปิดเสียง</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
@@ -5536,6 +5590,7 @@
     <string name="ShareInterstitialActivity__share">แบ่งปัน</string>
 
     <!-- DSLSettingsToolbar -->
+    <!-- Content description describing the back arrow on toolbars -->
     <string name="DSLSettingsToolbar__navigate_up">เลื่อนขึ้น</string>
     <string name="MultiselectForwardFragment__forward_to">ส่งต่อไปยัง</string>
     <!-- Displayed when sharing content to people via the fragment -->
@@ -5546,6 +5601,7 @@
     <string name="MultiselectForwardFragment__videos_will_be_trimmed">วิดีโอจะถูกตัดเป็นคลิปยาว 30 วินาที และส่งเป็นสตอรี่หลายสตอรี่</string>
     <!-- Displayed when user selects a video that cannot be sent as a story -->
     <string name="MultiselectForwardFragment__videos_sent_to_stories_cant">วิดีโอที่ส่งเป็นสตอรี่ต้องมีความยาวไม่เกิน 30 วินาที</string>
+    <!-- Body in alert dialog telling users that messages are now sent immediately -->
     <string name="MultiselectForwardFragment__forwarded_messages_are_now">ข้อความที่ถูกส่งต่อจะถูกส่งทันที</string>
     <plurals name="MultiselectForwardFragment_send_d_messages">
         <item quantity="other">ส่ง %1$d ข้อความ</item>
@@ -5726,6 +5782,7 @@
 
     <string name="MySupportPreference__s_per_month">%1$s/เดือน</string>
     <string name="MySupportPreference__renews_s">ต่ออายุ %1$s</string>
+    <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">กำลังดำเนินการธุรกรรม…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
     <string name="MySupportPreference__couldnt_add_badge_s">เพิ่มโล่ไม่ได้ %1$s</string>
@@ -5836,7 +5893,7 @@
     <string name="DonationsErrors__your_payment_is_still">การบริจาคของคุณยังอยู่ระหว่างดำเนินการ ขั้นตอนนี้อาจใช้เวลาสักครู่ โดยขึ้นอยู่กับสัญญาณอินเทอร์เน็ตของคุณ</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">ยกเลิกการเป็นสมาชิกไม่สำเร็จ</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">คุณต้องเชื่อมต่ออินเทอร์เน็ตจึงจะยกเลิกการเป็นสมาชิกได้</string>
-    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">อุปกรณ์ของคุณไม่รองรับ Google Pay คุณจึงไม่สามารถสมัครเพื่อรับโล่ได้ แต่คุณสามารถสนับสนุน Signal ได้ด้วยการบริจาคบนเว็บไซต์ของเรา</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">อุปกรณ์ของคุณไม่รองรับการบริจาคผ่านแอป คุณจึงไม่สามารถสมัครเพื่อรับโล่ได้ แต่คุณสามารถสนับสนุน Signal ได้ด้วยการบริจาคบนเว็บไซต์ของเรา</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">เครือข่ายมีข้อผิดพลาด ตรวจสอบการเชื่อมต่อแล้วลองใหม่อีกครั้ง</string>
     <string name="NetworkFailure__retry">ลองใหม่</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
@@ -6076,6 +6133,16 @@
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">บันทึกการเปลี่ยนแปลง Signal &amp; ข่าว</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat_period">นี่คือแชทอย่างเป็นทางการและแชทเดียวจาก Signal</string>
+    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date_period">ติดตามข่าวสารและบันทึกรุ่นอัปเดตล่าสุด</string>
+    <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__this_is_official_chat">นี่คือแชทอย่างเป็นทางการและแชทเดียวจาก Signal</string>
+    <!-- Text description in Signal Release channel details explaining what the channel is for -->
+    <string name="ReleaseNotes__keep_up_to_date">ติดตามข่าวสารและบันทึกรุ่นอัปเดตล่าสุด</string>
+    <!-- Subtitle for the Signal Release channel explaining that it is the only chat from Signal -->
+    <string name="ReleaseNotes__official_only_chat">แชทอย่างเป็นทางการเดียวของ Signal</string>
 
     <!-- Donation receipts activity title -->
     <string name="DonationReceiptListFragment__all_activity">กิจกรรมทั้งหมด</string>
@@ -6138,7 +6205,7 @@
     <string name="StoriesLandingItem__info">ข้อมูล</string>
     <!-- Label when a story is pending sending -->
     <string name="StoriesLandingItem__sending">กำลังส่ง…</string>
-    <!-- Label when multiple stories are pending sending -->
+    <!-- Label when multiple stories are pending sending where %1$d is the number of stories being sent -->
     <string name="StoriesLandingItem__sending_d">กำลังส่ง %1$d…</string>
     <!-- Label when a story fails to send due to networking -->
     <string name="StoriesLandingItem__send_failed">การส่งล้มเหลว</string>
