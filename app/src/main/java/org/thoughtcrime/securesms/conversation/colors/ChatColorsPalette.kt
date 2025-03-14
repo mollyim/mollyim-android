@@ -65,14 +65,7 @@ object ChatColorsPalette {
     // region Gradients
 
     @JvmField
-    val EMBER = ChatColors.forGradient(
-      ChatColors.Id.BuiltIn,
-      ChatColors.LinearGradient(
-        168f,
-        intArrayOf(0xFFE57C00.toInt(), 0xFF5E0000.toInt()),
-        floatArrayOf(0f, 1f)
-      )
-    )
+    val EMBER = ULTRAMARINE
 
     @JvmField
     val MIDNIGHT = ChatColors.forGradient(
