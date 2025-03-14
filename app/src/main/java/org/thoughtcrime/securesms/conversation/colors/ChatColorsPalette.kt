@@ -40,7 +40,7 @@ object ChatColorsPalette {
     val BLUE = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF336BA3.toInt())
 
     @JvmField
-    val ULTRAMARINE = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF6F50FE.toInt())
+    val ULTRAMARINE = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF6448E5.toInt())
 
     @JvmField
     val VIOLET = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF9932CB.toInt())
