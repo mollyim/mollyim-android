@@ -6,18 +6,18 @@
     </style>
 
     <style name="TextSecure.DarkTheme" parent="@style/TextSecure.BaseDarkTheme">
-        <item name="android:statusBarColor">@color/signal_colorBackground</item>
-        <item name="android:navigationBarColor">@color/signal_colorBackground</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
     <style name="TextSecure.DarkNoActionBar" parent="@style/TextSecure.BaseDarkNoActionBar">
-        <item name="android:statusBarColor">@color/signal_colorBackground</item>
-        <item name="android:navigationBarColor">@color/signal_colorBackground</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:colorControlActivated">@color/core_ultramarine_light</item>
     </style>
 
     <style name="TextSecure.DarkNoActionBar.StoryViewer">
-        <item name="android:windowBackground">@color/signal_colorSurface</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowSharedElementEnterTransition">@transition/change_transform</item>
         <item name="android:windowSharedElementExitTransition">@transition/change_transform</item>
@@ -32,13 +32,13 @@
     </style>
 
     <style name="TextSecure.LightRegistrationTheme" parent="TextSecure.LightNoActionBar">
-        <item name="android:statusBarColor">@color/signal_colorBackground</item>
-        <item name="android:navigationBarColor">@color/signal_colorBackground</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
     <style name="TextSecure.DarkRegistrationTheme" parent="TextSecure.DarkNoActionBar">
-        <item name="android:statusBarColor">@color/signal_colorBackground</item>
-        <item name="android:navigationBarColor">@color/signal_colorBackground</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
     <style name="TextSecure.MediaPreview" parent="@style/TextSecure.BaseMediaPreview">
@@ -47,16 +47,16 @@
     </style>
 
     <style name="Theme.Signal.Light.BottomSheetDialog" parent="Theme.Material3.Light.BottomSheetDialog">
-        <item name="android:navigationBarColor">@color/signal_colorSurface1</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainerLow</item>
     </style>
 
     <style name="Theme.Signal.BottomSheetDialog" parent="Theme.Material3.Dark.BottomSheetDialog">
-        <item name="android:navigationBarColor">@color/signal_colorSurface1</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainerLow</item>
     </style>
 
     <style name="Theme.Signal.BottomSheetDialog.Fixed">
         <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@color/signal_colorBackground</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">@color/transparent</item>
     </style>
 

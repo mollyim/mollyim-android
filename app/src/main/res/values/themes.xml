@@ -132,35 +132,114 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="Theme.Molly.Material3.Light" parent="@style/Theme.Material3.Light">
+        <item name="colorPrimaryInverse">@color/molly_primary_inverse_light</item>
+        <item name="colorPrimary">@color/molly_primary_light</item>
+        <item name="colorPrimaryDark">@color/molly_primary_light</item>
+        <item name="colorOnPrimary">@color/molly_on_primary_light</item>
+        <item name="colorPrimaryContainer">@color/molly_primary_container_light</item>
+        <item name="colorOnPrimaryContainer">@color/molly_on_primary_container_light</item>
+        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
+        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
+        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
+        <item name="colorSecondary">@color/molly_secondary_light</item>
+        <item name="colorOnSecondary">@color/molly_on_secondary_light</item>
+        <item name="colorSecondaryContainer">@color/molly_secondary_container_light</item>
+        <item name="colorOnSecondaryContainer">@color/molly_on_secondary_container_light</item>
+        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
+        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
+        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
+        <item name="colorSurfaceInverse">@color/molly_surface_inverse_light</item>
+        <item name="colorSurfaceVariant">@color/molly_surface_variant_light</item>
+        <item name="colorSurface">@color/molly_surface_light</item>
+        <item name="colorSurfaceDim">@color/molly_surface_dim_light</item>
+        <item name="colorSurfaceContainerHighest">@color/molly_surface_container_highest_light</item>
+        <item name="colorSurfaceContainerHigh">@color/molly_surface_container_high_light</item>
+        <item name="colorSurfaceContainer">@color/molly_surface_container_light</item>
+        <item name="colorSurfaceContainerLow">@color/molly_surface_container_low_light</item>
+        <item name="colorSurfaceBright">@color/molly_surface_bright_light</item>
+        <item name="colorSurfaceContainerLowest">@color/molly_surface_container_lowest_light</item>
+        <item name="colorOnSurfaceInverse">@color/molly_on_surface_inverse_light</item>
+        <item name="colorOnSurface">@color/molly_on_surface_light</item>
+        <item name="colorOnBackground">@color/molly_on_background_light</item>
+        <item name="colorOnSurfaceVariant">@color/molly_on_surface_variant_light</item>
+        <item name="colorOutline">@color/molly_outline_light</item>
+        <item name="colorOutlineVariant">@color/molly_outline_variant_light</item>
+        <item name="colorError">@color/molly_error_light</item>
+        <item name="colorOnError">@color/molly_on_error_light</item>
+        <item name="colorErrorContainer">@color/molly_error_container_light</item>
+        <item name="colorOnErrorContainer">@color/molly_on_error_container_light</item>
+        <item name="colorTertiary">@color/molly_tertiary_light</item>
+        <item name="colorOnTertiary">@color/molly_on_tertiary_light</item>
+        <item name="colorTertiaryContainer">@color/molly_tertiary_container_light</item>
+        <item name="colorOnTertiaryContainer">@color/molly_on_tertiary_container_light</item>
+        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
+        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
+        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
+        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
+        <item name="colorAccent">@color/molly_primary_light</item>
+        <item name="colorControlActivated">@color/molly_primary_light</item>
+    </style>
+
+    <style name="Theme.Molly.Material3.Dark" parent="@style/Theme.Material3.Dark">
+        <item name="colorPrimaryInverse">@color/molly_primary_inverse_dark</item>
+        <item name="colorPrimary">@color/molly_primary_dark</item>
+        <item name="colorPrimaryDark">@color/molly_primary_dark</item>
+        <item name="colorOnPrimary">@color/molly_on_primary_dark</item>
+        <item name="colorPrimaryContainer">@color/molly_primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/molly_on_primary_container_dark</item>
+        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
+        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
+        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
+        <item name="colorSecondary">@color/molly_secondary_dark</item>
+        <item name="colorOnSecondary">@color/molly_on_secondary_dark</item>
+        <item name="colorSecondaryContainer">@color/molly_secondary_container_dark</item>
+        <item name="colorOnSecondaryContainer">@color/molly_on_secondary_container_dark</item>
+        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
+        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
+        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
+        <item name="colorSurfaceInverse">@color/molly_surface_inverse_dark</item>
+        <item name="colorSurfaceVariant">@color/molly_surface_variant_dark</item>
+        <item name="colorSurface">@color/molly_surface_dark</item>
+        <item name="colorSurfaceBright">@color/molly_surface_bright_dark</item>
+        <item name="colorSurfaceContainerHighest">@color/molly_surface_container_highest_dark</item>
+        <item name="colorSurfaceContainerHigh">@color/molly_surface_container_high_dark</item>
+        <item name="colorSurfaceContainer">@color/molly_surface_container_dark</item>
+        <item name="colorSurfaceContainerLow">@color/molly_surface_container_low_dark</item>
+        <item name="colorSurfaceDim">@color/molly_surface_dim_dark</item>
+        <item name="colorSurfaceContainerLowest">@color/molly_surface_container_lowest_dark</item>
+        <item name="colorOnSurfaceInverse">@color/molly_on_surface_inverse_dark</item>
+        <item name="colorOnSurface">@color/molly_on_surface_dark</item>
+        <item name="colorOnBackground">@color/molly_on_background_dark</item>
+        <item name="colorOnSurfaceVariant">@color/molly_on_surface_variant_dark</item>
+        <item name="colorOutline">@color/molly_outline_dark</item>
+        <item name="colorOutlineVariant">@color/molly_outline_variant_dark</item>
+        <item name="colorError">@color/molly_error_dark</item>
+        <item name="colorOnError">@color/molly_on_error_dark</item>
+        <item name="colorErrorContainer">@color/molly_error_container_dark</item>
+        <item name="colorOnErrorContainer">@color/molly_on_error_container_dark</item>
+        <item name="colorTertiary">@color/molly_tertiary_dark</item>
+        <item name="colorOnTertiary">@color/molly_on_tertiary_dark</item>
+        <item name="colorTertiaryContainer">@color/molly_tertiary_container_dark</item>
+        <item name="colorOnTertiaryContainer">@color/molly_on_tertiary_container_dark</item>
+        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
+        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
+        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
+        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
+        <item name="colorAccent">@color/molly_primary_dark</item>
+        <item name="colorControlActivated">@color/molly_primary_dark</item>
+    </style>
+
     <style name="TextSecure.LightTheme" parent="TextSecure.BaseLightTheme">
         <!-- Allows for Overrides -->
     </style>
 
-    <style name="TextSecure.BaseLightTheme" parent="@style/Theme.Material3.Light">
+    <style name="TextSecure.BaseLightTheme" parent="@style/Theme.Molly.Material3.Light">
         <item name="theme_type">light</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
-        <!-- Material 3 -->
-        <item name="colorPrimary">@color/signal_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/signal_colorPrimary</item>
-        <item name="colorPrimaryContainer">@color/signal_colorPrimaryContainer</item>
-        <item name="colorSecondary">@color/signal_colorSecondary</item>
-        <item name="colorSecondaryContainer">@color/signal_colorSecondaryContainer</item>
-        <item name="colorSurface">@color/signal_colorSurface</item>
-        <item name="colorSurfaceVariant">@color/signal_colorSurfaceVariant</item>
-        <item name="colorSurfaceContainer">@color/signal_colorSurface</item>
-        <item name="colorOnPrimary">@color/signal_colorOnPrimary</item>
-        <item name="colorOnPrimaryContainer">@color/signal_colorOnPrimaryContainer</item>
-        <item name="colorOnSecondary">@color/signal_colorOnSecondary</item>
-        <item name="colorOnSecondaryContainer">@color/signal_colorOnSecondaryContainer</item>
-        <item name="colorOnSurface">@color/signal_colorOnSurface</item>
-        <item name="colorOnSurfaceVariant">@color/signal_colorOnSurfaceVariant</item>
-        <item name="colorOnBackground">@color/signal_colorOnBackground</item>
-        <item name="colorOutline">@color/signal_colorOutline</item>
-        <item name="colorAccent">@color/signal_colorPrimary</item>
-        <item name="colorControlActivated">@color/signal_colorPrimary</item>
         <item name="colorControlHighlight">@color/transparent_black_10</item>
-        <item name="android:textColorHighlight">@color/signal_colorPrimaryContainer</item>
+        <item name="android:textColorHighlight">?attr/colorPrimaryContainer</item>
 
         <item name="textAppearanceBodyMedium">@style/Signal.Text.BodyMedium</item>
         <item name="textAppearanceBodyLarge">@style/Signal.Text.BodyLarge</item>
@@ -178,8 +257,8 @@
         <item name="bottomSheetDialogTheme">@style/Theme.Signal.Light.BottomSheetDialog</item>
 
         <item name="contactCheckboxBackground">@drawable/contact_selection_checkbox</item>
-        <item name="mediaKeyboardBackgroundColor">@color/signal_colorSurface2</item>
-        <item name="mediaKeyboardBottomBarBackgroundColor">@color/signal_colorSurface5</item>
+        <item name="mediaKeyboardBackgroundColor">?attr/colorSurfaceContainer</item>
+        <item name="mediaKeyboardBottomBarBackgroundColor">?attr/colorSurfaceDim</item>
 
         <item name="actionBarStyle">@style/TextSecure.LightActionBar</item>
         <item name="actionBarTabBarStyle">@style/TextSecure.LightActionBar.TabBar</item>
@@ -188,7 +267,7 @@
         <item name="actionModeStyle">@style/TextSecure.ActionModeStyle</item>
         <item name="android:textColor">@color/text_color_light_theme</item>
         <item name="android:textColorSecondary">@color/text_color_secondary_light_theme</item>
-        <item name="android:windowBackground">@color/signal_colorBackground</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyleLight</item>
         <item name="android:alertDialogTheme">@style/AppCompatDialogStyleLight</item>
@@ -223,37 +302,79 @@
         <item name="materialCalendarTheme">@style/Signal.ThemeOverlay.Calendar</item>
         <item name="materialCardViewOutlinedStyle">@style/Widget.Material3.CardView.Filled</item>
         <item name="collapsingToolbarLayoutStyle">@style/Signal.Widget.CollapsingToolbar</item>
+
+        <!-- light_colors.xml -->
+        <item name="conversation_toolbar_color">?attr/colorSurface</item>
+        <item name="signal_background_primary">?attr/colorSurface</item>
+        <item name="signal_background_secondary">?attr/colorSurfaceContainerLow</item>
+        <item name="signal_background_dialog">?attr/colorSurfaceContainer</item>
+        <item name="signal_background_dialog_secondary">?attr/colorSurfaceContainerLow</item>
+        <item name="signal_text_primary">?attr/colorOnSurface</item>
+        <item name="signal_text_secondary">?attr/colorOnSurfaceVariant</item>
+        <item name="signal_text_toolbar_title">?attr/colorSurface</item>
+        <item name="signal_icon_tint_primary">?attr/colorOnSurface</item>
+        <item name="signal_icon_tint_secondary">?attr/colorOnSurfaceVariant</item>
+        <item name="signal_icon_tint_action">@color/core_black</item>
+        <item name="signal_icon_tint_tab_selected">?attr/colorOnSurface</item>
+        <item name="signal_icon_tint_tab_unselected">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_compose_background">?attr/colorSurfaceContainerHigh</item>
+        <item name="contact_filter_edit_background">?attr/colorSurfaceContainerHighest</item>
+        <item name="reactions_pill_selected_color">?attr/colorSurfaceContainer</item>
+        <item name="qr_card_color">?attr/colorSurfaceContainerLow</item>
+        <item name="qr_card_text_color">?attr/colorOnSurface</item>
+        <item name="conversation_item_update_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_item_quote_text_color">?attr/colorOnSurface</item>
+        <item name="conversation_item_quote_text_color_sent">?attr/colorOnSurface</item>
+        <item name="conversation_item_recv_bubble_color_normal">?attr/colorSurfaceContainerHigh</item>
+        <item name="conversation_item_incoming_audio_foreground_tint_normal">?attr/colorOnSurface</item>
+        <item name="conversation_typing_indicator_foreground_tint_normal">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_scroll_to_bottom_foreground_color">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_list_selected_color">?attr/colorSurfaceContainer</item>
+        <item name="reactions_pill_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="reactions_overlay_any_emoji_background">?attr/colorTertiaryContainer</item>
+        <item name="reactions_overlay_any_emoji_foreground">?attr/colorOnTertiaryContainer</item>
+        <item name="recipient_bottom_sheet_button_strip_background_color">?attr/colorSecondaryContainer</item>
+        <item name="megaphone_body_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="tooltip_default_color">?attr/colorSecondaryContainer</item>
+        <item name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparentInverse2</item>
+        <item name="quote_view_bar_incoming_wallpaper">@color/signal_colorTransparentInverse2</item>
+        <item name="quote_view_foreground_incoming_wallpaper">@color/signal_colorNeutralInverse</item>
+        <item name="quote_view_background_outgoing_wallpaper">@color/signal_neutralSurface</item>
+        <item name="quote_view_bar_outgoing_wallpaper">@color/signal_colorOnCustom</item>
+        <item name="quote_view_foreground_outgoing_wallpaper">?attr/colorOnSurface</item>
+        <item name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</item>
+        <item name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</item>
+        <item name="quote_view_foreground_incoming_normal">?attr/colorOnSurface</item>
+        <item name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</item>
+        <item name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</item>
+        <item name="quote_view_foreground_outgoing_normal">?attr/colorOnSurface</item>
+        <item name="react_with_any_background">?attr/colorSurfaceContainerLow</item>
+        <item name="react_with_any_search_background">?attr/conversation_compose_background</item>
+        <item name="react_with_any_search_hint">?attr/colorOnSurfaceVariant</item>
+        <item name="react_with_any_customize_background">?attr/colorSurfaceVariant</item>
+        <item name="voice_note_player_view_background">?attr/colorSurfaceContainerLow</item>
+        <item name="message_request_bar_container_background_normal">?attr/colorSurface</item>
+        <item name="message_request_bar_background_normal">?attr/colorSurfaceContainerHigh</item>
+        <item name="message_request_bar_denyForeground_normal">?attr/colorError</item>
+        <item name="message_request_bar_acceptForeground_normal">?attr/colorSurfaceInverse</item>
+        <item name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</item> -->
+        <item name="message_request_bar_background_wallpaper">@color/signal_colorNeutralVariant</item> -->
+        <item name="message_request_bar_denyForeground_wallpaper">?attr/colorError</item>
+        <item name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</item> -->
+        <item name="safety_tip_background">@color/core_white</item>
+        <item name="safety_tip_image_background">#99F3F0FF</item>
     </style>
 
     <style name="TextSecure.DarkTheme" parent="@style/TextSecure.BaseDarkTheme">
         <!-- leave empty to allow overriding -->
     </style>
 
-    <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.Material3.Dark">
+    <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.Molly.Material3.Dark">
         <item name="theme_type">dark</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
-        <!-- Material 3 -->
-        <item name="colorPrimary">@color/signal_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/signal_colorPrimary</item>
-        <item name="colorPrimaryContainer">@color/signal_colorPrimaryContainer</item>
-        <item name="colorSecondary">@color/signal_colorSecondary</item>
-        <item name="colorSecondaryContainer">@color/signal_colorSecondaryContainer</item>
-        <item name="colorSurface">@color/signal_colorSurface</item>
-        <item name="colorSurfaceVariant">@color/signal_colorSurfaceVariant</item>
-        <item name="colorSurfaceContainer">@color/signal_colorSurface</item>
-        <item name="colorOnPrimary">@color/signal_colorOnPrimary</item>
-        <item name="colorOnPrimaryContainer">@color/signal_colorOnPrimaryContainer</item>
-        <item name="colorOnSecondary">@color/signal_colorOnSecondary</item>
-        <item name="colorOnSecondaryContainer">@color/signal_colorOnSecondaryContainer</item>
-        <item name="colorOnSurface">@color/signal_colorOnSurface</item>
-        <item name="colorOnSurfaceVariant">@color/signal_colorOnSurfaceVariant</item>
-        <item name="colorOnBackground">@color/signal_colorOnBackground</item>
-        <item name="colorOutline">@color/signal_colorOutline</item>
-        <item name="colorAccent">@color/signal_colorPrimary</item>
-        <item name="colorControlActivated">@color/signal_colorPrimary</item>
         <item name="colorControlHighlight">@color/transparent_white_10</item>
-        <item name="android:textColorHighlight">@color/signal_colorPrimaryContainer</item>
+        <item name="android:textColorHighlight">@attr/colorPrimaryContainer</item>
 
         <item name="textAppearanceBodyMedium">@style/Signal.Text.BodyMedium</item>
         <item name="textAppearanceBodyLarge">@style/Signal.Text.BodyLarge</item>
@@ -279,7 +400,7 @@
         <item name="android:textColor">@color/text_color_dark_theme</item>
         <item name="android:textColorSecondary">@color/text_color_secondary_dark_theme</item>
         <item name="android:colorControlHighlight" tools:ignore="NewApi">@color/transparent_white_10</item>
-        <item name="android:windowBackground">@color/signal_colorBackground</item>
+        <item name="android:windowBackground">@attr/colorSurface</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyleDark</item>
         <item name="android:alertDialogTheme">@style/AppCompatDialogStyleDark</item>
@@ -289,8 +410,8 @@
         <item name="settingsToolbarStyle">@style/TextSecure.DarkActionBar.Settings</item>
 
         <item name="contactCheckboxBackground">@drawable/contact_selection_checkbox</item>
-        <item name="mediaKeyboardBackgroundColor">@color/signal_colorSurface2</item>
-        <item name="mediaKeyboardBottomBarBackgroundColor">@color/signal_colorSurface5</item>
+        <item name="mediaKeyboardBackgroundColor">?attr/colorSurfaceContainer</item>
+        <item name="mediaKeyboardBottomBarBackgroundColor">?attr/colorSurfaceBright</item>
 
         <item name="contact_filter_toolbar_icon_tint">@color/signal_icon_tint_primary</item>
 
@@ -318,6 +439,67 @@
         <item name="materialCalendarTheme">@style/Signal.ThemeOverlay.Calendar</item>
         <item name="materialCardViewOutlinedStyle">@style/Widget.Material3.CardView.Filled</item>
         <item name="collapsingToolbarLayoutStyle">@style/Signal.Widget.CollapsingToolbar</item>
+
+        <!-- dark_colors.xml -->
+        <item name="conversation_toolbar_color">?attr/colorSurface</item>
+        <item name="signal_background_primary">?attr/colorSurface</item>
+        <item name="signal_background_secondary">?attr/colorSurfaceContainerLow</item>
+        <item name="signal_background_dialog">@color/core_grey_75</item>
+        <item name="signal_background_dialog_secondary">@color/core_grey_65</item>
+        <item name="signal_text_primary">?attr/colorOnSurface</item>
+        <item name="signal_text_secondary">?attr/colorOnSurfaceVariant</item>
+        <item name="signal_text_toolbar_title">@color/transparent_white_90</item>
+        <item name="signal_icon_tint_primary">@color/core_grey_15</item>
+        <item name="signal_icon_tint_secondary">@color/core_grey_25</item>
+        <item name="signal_icon_tint_action">?attr/signal_icon_tint_primary</item>
+        <item name="signal_icon_tint_tab_selected">?attr/colorOnSurface</item>
+        <item name="signal_icon_tint_tab_unselected">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_compose_background">?attr/colorSurfaceContainerHigh</item>
+        <item name="contact_filter_edit_background">?attr/colorSurfaceContainerHighest</item>
+        <item name="reactions_pill_selected_color">?attr/colorSurfaceContainer</item>
+        <item name="qr_card_color">@color/molly_on_primary_light</item>
+        <item name="qr_card_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_item_update_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_item_quote_text_color">@color/core_grey_05</item>
+        <item name="conversation_item_quote_text_color_sent">?attr/colorOnSurface</item>
+        <item name="conversation_item_recv_bubble_color_normal">?attr/colorSurfaceContainerHigh</item>
+        <item name="conversation_item_incoming_audio_foreground_tint_normal">?attr/colorOnSurface</item>
+        <item name="conversation_typing_indicator_foreground_tint_normal">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_scroll_to_bottom_foreground_color">?attr/colorOnSurfaceVariant</item>
+        <item name="conversation_list_selected_color">?attr/colorSurfaceContainer</item>
+        <item name="reactions_pill_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="reactions_overlay_any_emoji_background">?attr/colorTertiaryContainer</item>
+        <item name="reactions_overlay_any_emoji_foreground">?attr/colorOnTertiaryContainer</item>
+        <item name="recipient_bottom_sheet_button_strip_background_color">?attr/colorSecondaryContainer</item>
+        <item name="megaphone_body_text_color">?attr/colorOnSurfaceVariant</item>
+        <item name="tooltip_default_color">?attr/colorSecondaryContainer</item>
+        <item name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparent2</item>
+        <item name="quote_view_bar_incoming_wallpaper">@color/signal_colorNeutralInverse</item>
+        <item name="quote_view_foreground_incoming_wallpaper">@color/signal_colorNeutralInverse</item>
+        <item name="quote_view_background_outgoing_wallpaper">@color/signal_colorTransparent4</item>
+        <item name="quote_view_bar_outgoing_wallpaper">@color/signal_colorNeutralInverse</item>
+        <item name="quote_view_foreground_outgoing_wallpaper">?attr/colorOnSurface</item>
+        <item name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</item>
+        <item name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</item>
+        <item name="quote_view_foreground_incoming_normal">?attr/colorOnSurface</item>
+        <item name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</item>
+        <item name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</item>
+        <item name="quote_view_foreground_outgoing_normal">?attr/colorOnSurface</item>
+        <item name="react_with_any_background">?attr/colorSurfaceContainerLow</item>
+        <item name="react_with_any_search_background">?attr/conversation_compose_background</item>
+        <item name="react_with_any_search_hint">?attr/colorOnSurfaceVariant</item>
+        <item name="react_with_any_customize_background">?attr/colorSurfaceVariant</item>
+        <item name="voice_note_player_view_background">?attr/colorSurfaceContainerLow</item>
+        <item name="message_request_bar_container_background_normal">?attr/colorSurface</item>
+        <item name="message_request_bar_background_normal">?attr/colorSurfaceContainerHigh</item>
+        <item name="message_request_bar_denyForeground_normal">?attr/colorError</item>
+        <item name="message_request_bar_acceptForeground_normal">?attr/colorSurfaceInverse</item>
+        <item name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</item>
+        <item name="message_request_bar_background_wallpaper">@color/signal_light_colorTransparent2</item>
+        <item name="message_request_bar_denyForeground_wallpaper">?attr/colorError</item>
+        <item name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</item>
+        <item name="safety_tip_background">?attr/colorSecondaryContainer</item>
+        <item name="safety_tip_image_background">?attr/colorSecondary</item>
     </style>
 
     <style name="Theme.Signal.AlertDialog.Light.Cornered" parent="MaterialAlertDialog.Material3">

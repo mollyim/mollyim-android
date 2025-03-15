@@ -741,10 +741,6 @@ public class TextSecurePreferences {
     }
   }
 
-  /**
-   * @deprecated Use {@link SettingsValues#getTheme()} via {@link org.thoughtcrime.securesms.keyvalue.SignalStore} instead.
-   */
-  @Deprecated
   public static String getTheme(Context context) {
     return getStringPreference(context, THEME_PREF, DynamicTheme.systemThemeAvailable() ? "system" : "light");
   }

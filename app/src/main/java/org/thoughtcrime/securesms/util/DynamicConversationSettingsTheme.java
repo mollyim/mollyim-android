@@ -9,4 +9,8 @@ public class DynamicConversationSettingsTheme extends DynamicTheme {
   protected @StyleRes int getTheme() {
     return R.style.Signal_DayNight_ConversationSettings;
   }
+
+  protected @StyleRes int getDynamicTheme() {
+    return R.style.Theme_Molly_Dynamic_ConversationSettings;
+  }
 }
