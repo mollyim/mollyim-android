@@ -28,7 +28,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/signal_background_primary"
+        android:background="?attr/signal_background_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/status_bar_guideline"
         app:navigationIcon="@drawable/ic_arrow_left_24"
@@ -46,7 +46,7 @@
         android:paddingBottom="4dp"
         android:text="@string/DateUtils_today"
         android:textAppearance="@style/TextAppearance.Signal.Subtitle"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -75,14 +75,14 @@
             android:layout_height="wrap_content"
             android:text="@string/ChatWallpaperPreviewActivity__swipe_to_preview_more_wallpapers"
             android:textAppearance="@style/Signal.Text.Body"
-            android:textColor="@color/signal_text_primary" />
+            android:textColor="?attr/signal_text_primary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/DateUtils_just_now"
             android:textAppearance="@style/Signal.Text.Caption"
-            android:textColor="@color/signal_text_secondary" />
+            android:textColor="?attr/signal_text_secondary" />
 
     </LinearLayout>
 
@@ -129,7 +129,7 @@
         android:id="@+id/preview_guideline"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/signal_background_primary"
+        android:background="?attr/signal_background_primary"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@id/navigation_bar_guideline" />
 

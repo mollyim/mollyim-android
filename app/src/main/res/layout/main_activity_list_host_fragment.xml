@@ -10,7 +10,7 @@
         android:id="@+id/toolbar_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/signal_m3_toolbar_height"
-        android:background="@color/signal_colorBackground"
+        android:background="?attr/colorSurface"
         app:layout_constraintTop_toTopOf="parent" />
 
     <org.thoughtcrime.securesms.util.views.DarkOverflowToolbar
@@ -132,7 +132,7 @@
                 android:background="?actionBarItemBackground"
                 android:contentDescription="@string/conversation_list_search_description"
                 android:padding="12dp"
-                android:tint="@color/signal_icon_tint_primary"
+                android:tint="?attr/signal_icon_tint_primary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

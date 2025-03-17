@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
                     android:layout_weight="1"
-                    app:labeledEditText_background="@color/signal_background_primary"
+                    app:labeledEditText_background="?attr/signal_background_primary"
                     app:labeledEditText_textLayout="@layout/country_code_text" />
 
                 <org.thoughtcrime.securesms.components.LabeledEditText
@@ -79,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    app:labeledEditText_background="@color/signal_background_primary"
+                    app:labeledEditText_background="?attr/signal_background_primary"
                     app:labeledEditText_label="@string/ChangeNumberEnterPhoneNumberFragment__old_phone_number"
                     app:labeledEditText_textLayout="@layout/phone_text" />
             </LinearLayout>
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
                     android:layout_weight="1"
-                    app:labeledEditText_background="@color/signal_background_primary"
+                    app:labeledEditText_background="?attr/signal_background_primary"
                     app:labeledEditText_textLayout="@layout/country_code_text" />
 
                 <org.thoughtcrime.securesms.components.LabeledEditText
@@ -140,7 +140,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    app:labeledEditText_background="@color/signal_background_primary"
+                    app:labeledEditText_background="?attr/signal_background_primary"
                     app:labeledEditText_label="@string/ChangeNumberEnterPhoneNumberFragment__new_phone_number"
                     app:labeledEditText_textLayout="@layout/phone_text" />
             </LinearLayout>

@@ -95,8 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Signal.Widget.Button.Large.Primary"
-            app:backgroundTint="@color/signal_colorPrimaryContainer"
-            android:textColor="@color/signal_colorOnPrimaryContainer"
+            app:backgroundTint="?attr/colorPrimaryContainer"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:layout_marginTop="20dp"
             android:text="@string/AttachmentKeyboard_allow_access" />
 
@@ -106,7 +106,7 @@
         android:id="@+id/bottom_bar_shade"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/signal_colorSurface"
+        android:background="?attr/colorSurfaceContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/media_gallery_bottom_bar_barrier" />
 

@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.Signal.Body1"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         tools:text="Balance: 520 MOB" />
 
 </LinearLayout>

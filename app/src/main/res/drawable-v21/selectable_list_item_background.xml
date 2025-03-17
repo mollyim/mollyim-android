@@ -2,13 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="100" android:exitFadeDuration="100">
     <item android:state_selected="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/conversation_list_selected_color" />
+            <solid android:color="?attr/conversation_list_selected_color" />
             <corners android:radius="18dp" />
         </shape>
     </item>
 
     <item>
-        <ripple android:color="@color/conversation_list_selected_color">
+        <ripple android:color="?attr/conversation_list_selected_color">
             <item android:id="@android:id/mask">
                 <shape android:shape="rectangle">
                     <solid android:color="@color/transparent_black_60" />

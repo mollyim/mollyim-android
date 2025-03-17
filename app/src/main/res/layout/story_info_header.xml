@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/StoryInfoHeader__sent"
         android:textAppearance="@style/Signal.Text.LabelLarge"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textAppearance="@style/Signal.Text.BodySmall"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintBottom_toBottomOf="@id/story_info_view_sent_heading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="@string/StoryInfoHeader__received"
         android:textAppearance="@style/Signal.Text.LabelLarge"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/story_info_view_sent_heading" />
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textAppearance="@style/Signal.Text.BodySmall"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintBottom_toBottomOf="@id/story_info_view_received_heading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="@string/StoryInfoHeader__file_size"
         android:textAppearance="@style/Signal.Text.LabelLarge"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/story_info_view_received_heading" />
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textAppearance="@style/Signal.Text.BodySmall"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintBottom_toBottomOf="@id/story_info_view_file_size_heading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"

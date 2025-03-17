@@ -65,7 +65,7 @@
                 android:lineSpacingExtra="6sp"
                 android:text="@string/PaymentsSecuritySetupFragment__help_prevent"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 app:layout_constraintBottom_toTopOf="@id/payments_security_setup_enable_lock"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

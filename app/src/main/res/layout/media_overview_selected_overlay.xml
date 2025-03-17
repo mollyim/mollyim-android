@@ -22,7 +22,7 @@
         android:contentDescription="@string/MediaOverviewActivity_Selected_description"
         android:padding="1dp"
         android:scaleType="centerInside"
-        app:backgroundTint="@color/signal_background_primary"
+        app:backgroundTint="?attr/signal_background_primary"
         app:srcCompat="@drawable/ic_check_circle_solid_20" />
 
 </FrameLayout>

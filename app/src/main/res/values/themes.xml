@@ -35,11 +35,11 @@
     </style>
 
     <style name="TextSecure.DarkNoActionBar.StoryViewer">
-        <item name="android:windowBackground">@color/signal_colorSurface</item>
+        <item name="android:windowBackground">?attr/colorSurfaceContainer</item>
     </style>
 
     <style name="TextSecure.BaseMediaPreview" parent="@style/TextSecure.BaseDarkNoActionBar">
-        <item name="android:windowBackground">@color/signal_colorSurface</item>
+        <item name="android:windowBackground">?attr/colorSurfaceContainer</item>
         <item name="colorPrimaryDark">@color/media_preview_bar_background</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
@@ -106,8 +106,8 @@
     <style name="TextSecure.DarkIntroTheme" parent="@style/Theme.AppCompat">
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">default</item>
-        <item name="android:statusBarColor" tools:ignore="NewApi">@color/signal_colorSurface</item>
-        <item name="android:navigationBarColor">@color/signal_colorSurface</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainer</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
@@ -276,7 +276,7 @@
 
         <item name="settingsToolbarStyle">@style/TextSecure.LightActionBar.Settings</item>
 
-        <item name="contact_filter_toolbar_icon_tint">@color/signal_icon_tint_primary</item>
+        <item name="contact_filter_toolbar_icon_tint">?attr/signal_icon_tint_primary</item>
 
         <item name="emoji_category_recent">@drawable/ic_recent_20</item>
         <item name="emoji_category_people">@drawable/ic_emoji_people_20</item>
@@ -413,7 +413,7 @@
         <item name="mediaKeyboardBackgroundColor">?attr/colorSurfaceContainer</item>
         <item name="mediaKeyboardBottomBarBackgroundColor">?attr/colorSurfaceBright</item>
 
-        <item name="contact_filter_toolbar_icon_tint">@color/signal_icon_tint_primary</item>
+        <item name="contact_filter_toolbar_icon_tint">?attr/signal_icon_tint_primary</item>
 
         <item name="emoji_category_recent">@drawable/ic_recent_20</item>
         <item name="emoji_category_people">@drawable/ic_emoji_people_20</item>
@@ -562,7 +562,7 @@
     </style>
 
     <style name="Widget.Signal.BottomSheet.ReactWithAny" parent="Widget.Material3.BottomSheet">
-        <item name="backgroundTint">@color/signal_colorSurface1</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerLow</item>
         <item name="behavior_peekHeight">@dimen/react_with_any_emoji_bottom_sheet_dialog_fragment_min_height</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.BottomSheet.Rounded</item>
     </style>
@@ -573,7 +573,7 @@
 
     <style name="Widget.Signal.ReactWithAny.BottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.BottomSheet.Rounded</item>
-        <item name="backgroundTint">@color/react_with_any_background</item>
+        <item name="backgroundTint">?attr/react_with_any_background</item>
     </style>
 
     <style name="Widget.Signal.FixedRoundedCorners" parent="ThemeOverlay.Material3.BottomSheetDialog">
@@ -583,33 +583,33 @@
         <item name="contactCheckboxBackground">@drawable/contact_selection_checkbox_dialog</item>
         <item name="android:windowEnterAnimation">@anim/slide_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_to_bottom</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/signal_colorSurface1</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorSurfaceContainerLow</item>
     </style>
 
     <style name="Widget.Signal.FixedRoundedCorners.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.BottomSheet.Rounded</item>
-        <item name="backgroundTint">@color/signal_colorSurface1</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerLow</item>
         <item name="android:elevation" tools:ignore="NewApi">0dp</item>
     </style>
 
     <style name="Widget.Signal.FixedRoundedCorners.Messages" parent="Widget.Signal.FixedRoundedCorners">
         <item name="bottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners.Messages.BottomSheet</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/signal_colorSurface</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorSurfaceContainer</item>
     </style>
 
     <style name="Widget.Signal.FixedRoundedCorners.Messages.BottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.BottomSheet.Rounded</item>
-        <item name="backgroundTint">@color/signal_colorSurface</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainer</item>
         <item name="android:elevation" tools:ignore="NewApi">0dp</item>
     </style>
 
     <style name="Widget.Signal.FixedRoundedCorners.Stories">
         <item name="bottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners.BottomSheet.Stories</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/signal_colorSurface</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorSurfaceContainer</item>
     </style>
 
     <style name="Widget.Signal.FixedRoundedCorners.BottomSheet.Stories">
-        <item name="backgroundTint">@color/signal_colorSurface</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainer</item>
         <item name="android:elevation" tools:ignore="NewApi">0dp</item>
     </style>
 
@@ -691,7 +691,7 @@
 
     <style name="Widget.Signal.BottomSheet.Rounded" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.BottomSheet.Rounded</item>
-        <item name="backgroundTint">@color/signal_colorSurface1</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerLow</item>
     </style>
 
     <style name="Widget.Signal.BottomSheet.MaterialButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog.Flush">
@@ -702,11 +702,11 @@
     <style name="Theme.Signal.RoundedBottomSheet.Light">
         <item name="bottomSheetStyle">@style/Widget.Signal.BottomSheet.Rounded</item>
 
-        <item name="android:textColorPrimary">@color/signal_colorOnSurface</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
 
         <item name="colorAccent">@color/core_ultramarine</item>
 
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/signal_colorSurface1</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainerLow</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
 
         <item name="android:colorForeground">@color/black</item>
@@ -717,11 +717,11 @@
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/Widget.Signal.BottomSheet.Rounded</item>
 
-        <item name="android:textColorPrimary">@color/signal_colorOnSurface</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
 
         <item name="colorAccent">@color/core_ultramarine_light</item>
 
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/signal_colorSurface1</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainerLow</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@color/transparent</item>
         <item name="materialButtonStyle">@style/Widget.Signal.BottomSheet.MaterialButtonStyle</item>
@@ -730,14 +730,14 @@
     <style name="Theme.Signal.RoundedBottomSheet.Stories">
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners.BottomSheet.Stories</item>
-        <item name="mediaKeyboardBackgroundColor">@color/signal_colorSurface2</item>
-        <item name="mediaKeyboardBottomBarBackgroundColor">@color/signal_colorSurface5</item>
+        <item name="mediaKeyboardBackgroundColor">?attr/colorSurfaceContainer</item>
+        <item name="mediaKeyboardBottomBarBackgroundColor">?attr/colorSurfaceContainerHighest</item>
 
-        <item name="android:textColorPrimary">@color/signal_colorOnSurface</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
 
-        <item name="colorAccent">@color/signal_colorPrimary</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
 
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/signal_colorSurface</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainer</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@color/transparent</item>
     </style>
@@ -753,9 +753,9 @@
         <item name="iconEndPadding">0dp</item>
         <item name="iconStartPadding">4dp</item>
         <item name="textStartPadding">8dp</item>
-        <item name="android:textColor">@color/signal_colorOnSurface</item>
-        <item name="chipBackgroundColor">@color/signal_colorSurfaceVariant</item>
-        <item name="closeIconTint">@color/signal_colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="chipBackgroundColor">?attr/colorSurfaceVariant</item>
+        <item name="closeIconTint">?attr/colorOnSurface</item>
         <item name="chipCornerRadius">8dp</item>
         <item name="android:textAppearance">@style/Signal.Text.LabelLarge</item>
     </style>

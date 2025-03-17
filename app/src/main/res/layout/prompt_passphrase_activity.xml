@@ -64,7 +64,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:tint="@color/signal_colorPrimary"
+            android:tint="?attr/colorPrimary"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_check_outline_22" />
 

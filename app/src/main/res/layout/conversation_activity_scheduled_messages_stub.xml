@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:background="@color/signal_colorSurface1">
+    android:background="?attr/colorSurfaceContainerLow">
 
         <TextView
             android:id="@+id/scheduled_messages_text"

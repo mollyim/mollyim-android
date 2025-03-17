@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:src="@drawable/symbol_archive_24"/>
 
     <TextView

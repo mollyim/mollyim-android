@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         tools:text="This device is no longer registered. Re-register to continue using Signal on this device." />
 
     <com.google.android.material.button.MaterialButton

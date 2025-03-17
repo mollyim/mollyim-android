@@ -11,7 +11,7 @@
         android:id="@+id/duration_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/signal_colorSurfaceVariant"
+        android:background="?attr/colorSurfaceVariant"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:paddingVertical="8dp"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textAppearance="@style/Signal.Text.HeadlineLarge"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             tools:text="01" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:gravity="center_horizontal"
             android:text="@string/TimeDurationPickerDialog_single_letter_hour_abbreviation"
             android:textAppearance="@style/Signal.Text.BodySmall"
-            android:textColor="@color/signal_colorOnSurfaceVariant" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:id="@+id/duration_minute"
@@ -43,7 +43,7 @@
             android:layout_marginStart="16dp"
             android:gravity="center_horizontal"
             android:textAppearance="@style/Signal.Text.HeadlineLarge"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             tools:text="01" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:gravity="center_horizontal"
             android:text="@string/TimeDurationPickerDialog_single_letter_minute_abbreviation"
             android:textAppearance="@style/Signal.Text.BodySmall"
-            android:textColor="@color/signal_colorOnSurfaceVariant" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:id="@+id/duration_second"
@@ -61,7 +61,7 @@
             android:layout_marginStart="16dp"
             android:gravity="center_horizontal"
             android:textAppearance="@style/Signal.Text.HeadlineLarge"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             tools:text="01" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:gravity="center_horizontal"
             android:text="@string/TimeDurationPickerDialog_single_letter_second_abbreviation"
             android:textAppearance="@style/Signal.Text.BodySmall"
-            android:textColor="@color/signal_colorOnSurfaceVariant" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
     </LinearLayout>
 

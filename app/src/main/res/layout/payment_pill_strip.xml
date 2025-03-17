@@ -30,7 +30,7 @@
             android:drawablePadding="8dp"
             android:text="@string/PaymentsHomeFragment__add_funds"
             android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
-            android:textColor="@color/signal_text_secondary"
+            android:textColor="?attr/signal_text_secondary"
             app:drawableStartCompat="@drawable/ic_add_money_20"
             app:drawableTint="@color/signal_accent_primary" />
     </FrameLayout>
@@ -78,7 +78,7 @@
             android:maxWidth="132dp"
             android:text="@string/PaymentsHomeFragment__send"
             android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
-            android:textColor="@color/signal_text_secondary"
+            android:textColor="?attr/signal_text_secondary"
             app:drawableStartCompat="@drawable/ic_send_money_20"
             app:drawableTint="@color/signal_accent_primary" />
 

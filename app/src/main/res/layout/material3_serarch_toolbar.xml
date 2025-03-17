@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="@id/background"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_left_24"
-        app:tint="@color/signal_colorInverseSurface" />
+        app:tint="?attr/colorSurfaceInverse" />
 
     <EditText
         android:id="@+id/search_input"
@@ -42,7 +42,7 @@
         android:hint="@string/SearchToolbar_search"
         android:inputType="text"
         android:maxLines="1"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         android:textColorHint="@color/signal_colorOnSurfaceVariant_60"
         app:layout_constraintBottom_toBottomOf="@id/background"
         app:layout_constraintEnd_toStartOf="@id/search_clear"

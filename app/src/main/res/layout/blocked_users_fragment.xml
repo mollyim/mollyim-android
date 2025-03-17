@@ -29,7 +29,7 @@
         android:paddingBottom="8dp"
         android:text="@string/BlockedUsersActivity__blocked_users_will"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_blocked_user" />

@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:text="@string/CdsPermanentErrorBottomSheet_body" />
 
         <com.google.android.material.button.MaterialButton

@@ -18,7 +18,7 @@
         <shape
             android:layout_width="wrap_content"
             android:shape="rectangle">
-            <solid android:color="@color/signal_background_primary" />
+            <solid android:color="?attr/signal_background_primary" />
             <corners
                 android:bottomLeftRadius="@dimen/material_button_full_round_corner_radius"
                 android:topLeftRadius="@dimen/material_button_full_round_corner_radius" />

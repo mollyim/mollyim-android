@@ -14,7 +14,7 @@
         android:id="@+id/invite_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@color/signal_colorSurface2"
+        android:background="?attr/colorSurfaceContainer"
         android:importantForAccessibility="no"
         app:srcCompat="@drawable/symbol_at_24"
         app:contentPadding="8dp"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
-        app:tint="@color/signal_colorOnSecondaryContainer" />
+        app:tint="?attr/colorOnSecondaryContainer" />
 
     <TextView
         android:id="@+id/invite_text"

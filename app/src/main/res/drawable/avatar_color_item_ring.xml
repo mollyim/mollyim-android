@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
         <shape android:shape="oval">
-            <stroke android:width="3dp" android:color="@color/signal_background_primary" />
+            <stroke android:width="3dp" android:color="?attr/signal_background_primary" />
         </shape>
     </item>
 </selector>

@@ -30,7 +30,7 @@
         android:gravity="center"
         android:includeFontPadding="true"
         android:textAppearance="@style/Signal.Text.LabelLarge"
-        android:textColor="@color/signal_text_primary"
+        android:textColor="?attr/signal_text_primary"
         tools:ignore="SpUsage"
         tools:text="24" />
 </LinearLayout>

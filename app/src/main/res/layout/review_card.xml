@@ -55,7 +55,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toTopOf="@id/card_subtext_line2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_subtext_icon1"
@@ -71,7 +71,7 @@
         android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/card_avatar"
         app:layout_constraintTop_toTopOf="@id/card_subtext_line1"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:srcCompat="@drawable/symbol_person_compact_16" />
 
     <TextView
@@ -82,7 +82,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/card_subtext_line3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_subtext_icon2"
@@ -98,7 +98,7 @@
         android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/card_avatar"
         app:layout_constraintTop_toTopOf="@id/card_subtext_line2"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:srcCompat="@drawable/symbol_group_compact_16" />
 
     <TextView
@@ -109,7 +109,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/card_subtext_line4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_subtext_icon3"
@@ -125,7 +125,7 @@
         android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/card_avatar"
         app:layout_constraintTop_toTopOf="@id/card_subtext_line3"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:srcCompat="@drawable/symbol_group_24" />
 
     <TextView
@@ -136,7 +136,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/card_action_button_barrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_subtext_icon4"
@@ -152,7 +152,7 @@
         android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/card_avatar"
         app:layout_constraintTop_toTopOf="@id/card_subtext_line4"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:srcCompat="@drawable/symbol_group_24" />
 
     <androidx.constraintlayout.widget.Barrier

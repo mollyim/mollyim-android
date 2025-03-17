@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
-        <ripple android:color="@color/signal_colorPrimary">
+        <ripple android:color="?attr/colorPrimary">
             <item android:id="@android:id/mask">
                 <shape android:shape="rectangle">
                     <solid android:color="#000000" />
@@ -10,7 +10,7 @@
             </item>
             <item>
                 <shape android:shape="rectangle">
-                    <stroke android:width="1.5dp" android:color="@color/signal_colorPrimary" />
+                    <stroke android:width="1.5dp" android:color="?attr/colorPrimary" />
                     <corners android:radius="18dp" />
                 </shape>
             </item>

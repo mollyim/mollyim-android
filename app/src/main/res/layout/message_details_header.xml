@@ -70,7 +70,7 @@
                 android:text="@string/message_recipients_list_item__resend"
                 android:visibility="gone"
                 app:icon="@drawable/symbol_refresh_24"
-                app:iconTint="@color/signal_colorOnPrimaryContainer"
+                app:iconTint="?attr/colorOnPrimaryContainer"
                 tools:visibility="visible" />
 
         </LinearLayout>
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/message_details_header_sent" />
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/message_details_header_sent_time"
                 tools:text="@string/message_details_header_received" />
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/message_details_header_received_time"
                 tools:text="@string/message_details_header_disappears" />
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/message_details_header_expires_in"
                 tools:text="@string/message_details_header_via" />

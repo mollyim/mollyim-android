@@ -9,7 +9,7 @@
         android:id="@+id/background_holder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/signal_colorSurface1"
+        android:background="?attr/colorSurfaceContainerLow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/input_barrier" />
 
@@ -44,7 +44,7 @@
         android:paddingEnd="6dp"
         app:layout_constraintBottom_toTopOf="@id/emoji_drawer_stub"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/signal_colorOnSurface" />
+        app:tint="?attr/colorOnSurface" />
 
     <org.thoughtcrime.securesms.components.ComposeText
         android:id="@+id/add_a_message_input"
@@ -61,7 +61,7 @@
         android:minHeight="@dimen/conversation_compose_height"
         android:paddingEnd="10dp"
         android:textAppearance="@style/Signal.Text.Body"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/emoji_drawer_stub"
         app:layout_constraintEnd_toStartOf="@id/view_once_toggle"
         app:layout_constraintStart_toEndOf="@id/emoji_toggle"
@@ -85,7 +85,7 @@
             android:layout_gravity="center"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/symbol_view_once_infinite_24"
-            app:tint="@color/signal_colorOnSurface" />
+            app:tint="?attr/colorOnSurface" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="40dp"
@@ -93,7 +93,7 @@
             android:layout_gravity="center"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/symbol_view_once_24"
-            app:tint="@color/signal_colorOnSurface" />
+            app:tint="?attr/colorOnSurface" />
 
     </ViewSwitcher>
 
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:translationX="-6dp"
         android:textAppearance="@style/Signal.Text.BodySmall"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/add_a_message_input"
         app:layout_constraintStart_toStartOf="@id/view_once_toggle"

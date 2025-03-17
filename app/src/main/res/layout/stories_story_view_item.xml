@@ -40,7 +40,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

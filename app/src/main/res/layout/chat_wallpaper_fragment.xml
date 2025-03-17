@@ -34,7 +34,7 @@
                 android:layout_height="288dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@color/signal_background_primary"
+                android:background="?attr/signal_background_primary"
                 android:contentDescription="@string/ChatWallpaperFragment__wallpaper_preview_description"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +104,7 @@
                 android:layout_marginBottom="4dp"
                 android:text="@string/ChatWallpaperFragment__contact_name"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
                 app:layout_constraintEnd_toStartOf="@id/chat_wallpaper_preview_top_bar_video"
@@ -120,7 +120,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
                 app:layout_constraintEnd_toStartOf="@id/chat_wallpaper_preview_top_bar_voice"
                 app:srcCompat="@drawable/ic_video_call_24"
-                app:tint="@color/signal_icon_tint_primary" />
+                app:tint="?attr/signal_icon_tint_primary" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/chat_wallpaper_preview_top_bar_voice"
@@ -131,7 +131,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
                 app:layout_constraintEnd_toEndOf="@id/chat_wallpaper_preview_top_bar"
                 app:srcCompat="@drawable/ic_phone_right_24"
-                app:tint="@color/signal_icon_tint_primary" />
+                app:tint="?attr/signal_icon_tint_primary" />
 
             <View
                 android:id="@+id/chat_wallpaper_preview_bottom_bar"
@@ -227,7 +227,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__chat_color"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_preview_lightbox" />
@@ -243,7 +243,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__reset_chat_colors"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_set_chat_color" />
@@ -271,7 +271,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__set_wallpaper"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_divider" />
@@ -287,7 +287,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__dark_mode_dims_wallpaper"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_set_wallpaper" />
@@ -303,7 +303,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__reset_wallpapers"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_dark_theme_dims_wallpaper" />

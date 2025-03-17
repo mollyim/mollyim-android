@@ -40,7 +40,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/signal_background_primary"
+            android:background="?attr/signal_background_primary"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -73,8 +73,8 @@
                 android:gravity="center"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
-                android:textColorLink="@color/signal_colorPrimary" />
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColorLink="?attr/colorPrimary" />
         </LinearLayout>
     </ScrollView>
 

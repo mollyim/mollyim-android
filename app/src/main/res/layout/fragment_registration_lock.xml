@@ -32,7 +32,7 @@
             android:minHeight="66dp"
             android:text="@string/RegistrationLockFragment__enter_the_pin_you_created"
             android:textAppearance="@style/Signal.Text.BodyLarge"
-            android:textColor="@color/signal_text_secondary"
+            android:textColor="?attr/signal_text_secondary"
             app:layout_constraintTop_toBottomOf="@id/kbs_lock_pin_title" />
 
         <EditText
@@ -44,7 +44,7 @@
             android:gravity="center_horizontal"
             android:inputType="numberPassword"
             android:minWidth="210dp"
-            android:textColor="@color/signal_colorOnSurface"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/kbs_lock_pin_description" />

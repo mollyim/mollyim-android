@@ -32,7 +32,7 @@
         android:text="@string/DeleteAccountFragment__depending_on_the_number_of_groups"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

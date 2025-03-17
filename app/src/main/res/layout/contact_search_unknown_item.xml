@@ -23,7 +23,7 @@
         android:layout_height="40dp"
         android:layout_marginVertical="12dp"
         android:layout_marginStart="@dimen/gutter"
-        android:background="@color/signal_colorSurfaceVariant"
+        android:background="?attr/colorSurfaceVariant"
         android:importantForAccessibility="no"
         app:contentPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/contact_header"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
         app:srcCompat="@drawable/symbol_search_24"
-        app:tint="@color/signal_colorOnSecondaryContainer"
+        app:tint="?attr/colorOnSecondaryContainer"
         tools:ignore="UnusedAttribute" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
@@ -58,7 +58,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Signal.Body1"
-        android:textColor="@color/signal_text_primary"
+        android:textColor="?attr/signal_text_primary"
         app:layout_constraintBottom_toTopOf="@id/number"
         app:layout_constraintEnd_toStartOf="@id/check_box"
         app:layout_constraintStart_toEndOf="@id/contact_photo_image"
@@ -66,7 +66,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_goneMarginEnd="@dimen/gutter"
         tools:drawableStart="@drawable/ic_bell_24"
-        tools:drawableTint="@color/signal_icon_tint_secondary"
+        tools:drawableTint="?attr/signal_icon_tint_secondary"
         tools:text="@sample/contacts.json/data/name" />
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
@@ -77,7 +77,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         android:textDirection="ltr"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"

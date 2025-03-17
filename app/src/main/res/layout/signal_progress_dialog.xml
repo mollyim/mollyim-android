@@ -15,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:indicatorColor="@color/signal_colorPrimary"
-        app:trackColor="@color/signal_colorPrimaryContainer" />
+        app:indicatorColor="?attr/colorPrimary"
+        app:trackColor="?attr/colorPrimaryContainer" />
 
     <TextView
         android:id="@+id/progress_dialog_title"

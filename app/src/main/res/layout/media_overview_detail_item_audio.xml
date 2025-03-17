@@ -50,7 +50,7 @@
             app:audioView_mode="small"
             app:autoRewind="true"
             app:foregroundTintColor="@color/signal_inverse_primary"
-            app:progressAndPlayTint="@color/signal_background_secondary" />
+            app:progressAndPlayTint="?attr/signal_background_secondary" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

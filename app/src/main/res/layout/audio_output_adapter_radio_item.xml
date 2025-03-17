@@ -14,9 +14,9 @@
         android:drawablePadding="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:textColor="@color/signal_text_primary"
+        android:textColor="?attr/signal_text_primary"
         android:textSize="16sp"
-        app:drawableTint="@color/signal_text_primary"
+        app:drawableTint="?attr/signal_text_primary"
         tools:drawableStart="@drawable/ic_photo_24"
         tools:text="@string/WebRtcAudioOutputToggle__phone_earpiece" />
 </FrameLayout>

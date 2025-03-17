@@ -50,7 +50,7 @@
                 android:layout_marginEnd="@dimen/dsl_settings_gutter"
                 android:gravity="center"
                 android:textAppearance="@style/Signal.Text.BodyLarge"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_heading"
@@ -126,7 +126,7 @@
                 android:layout_marginEnd="40dp"
                 android:text="@string/ThanksForYourSupportBottomSheetFragment__when_you_have_more"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_control_outline"
                 tools:visibility="visible" />

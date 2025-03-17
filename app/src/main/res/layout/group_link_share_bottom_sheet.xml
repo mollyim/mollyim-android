@@ -26,7 +26,7 @@
             android:layout_marginBottom="8dp"
             android:textAlignment="center"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="@color/signal_text_secondary"
+            android:textColor="?attr/signal_text_secondary"
             android:visibility="gone"
             tools:text="@string/GroupLinkBottomSheet_share_hint_requiring_approval"
             tools:visibility="visible" />
@@ -43,7 +43,7 @@
             android:text="@string/GroupLinkBottomSheet_share_via_signal"
             android:textAppearance="@style/Signal.Text.BodyLarge"
             app:drawableStartCompat="@drawable/symbol_chat_24"
-            app:drawableTint="@color/signal_colorOnSurface" />
+            app:drawableTint="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/group_link_bottom_sheet_copy_button"
@@ -57,7 +57,7 @@
             android:text="@string/GroupLinkBottomSheet_copy"
             android:textAppearance="@style/Signal.Text.BodyLarge"
             app:drawableStartCompat="@drawable/symbol_copy_android_24"
-            app:drawableTint="@color/signal_colorOnSurface" />
+            app:drawableTint="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/group_link_bottom_sheet_qr_code_button"
@@ -71,7 +71,7 @@
             android:text="@string/GroupLinkBottomSheet_qr_code"
             android:textAppearance="@style/Signal.Text.BodyLarge"
             app:drawableStartCompat="@drawable/symbol_qrcode_24"
-            app:drawableTint="@color/signal_colorOnSurface" />
+            app:drawableTint="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/group_link_bottom_sheet_share_via_system_button"
@@ -85,7 +85,7 @@
             android:text="@string/GroupLinkBottomSheet_share"
             android:textAppearance="@style/Signal.Text.BodyLarge"
             app:drawableStartCompat="@drawable/symbol_share_android_24"
-            app:drawableTint="@color/signal_colorOnSurface" />
+            app:drawableTint="?attr/colorOnSurface" />
 
     </LinearLayout>
 

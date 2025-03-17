@@ -15,13 +15,13 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/signal_background_primary">
+            android:background="?attr/signal_background_primary">
 
             <FrameLayout
                 android:id="@+id/giphy_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/signal_background_primary"
+                android:background="?attr/signal_background_primary"
                 android:minHeight="?attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways">
 
@@ -30,9 +30,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:search_bar_tint="@color/signal_background_secondary"
+                    app:search_bar_tint="?attr/signal_background_secondary"
                     app:search_hint="@string/KeyboardPagerFragment_search_giphy"
-                    app:search_icon_tint="@color/signal_icon_tint_secondary"
+                    app:search_icon_tint="?attr/signal_icon_tint_secondary"
                     app:show_always="true" />
 
             </FrameLayout>

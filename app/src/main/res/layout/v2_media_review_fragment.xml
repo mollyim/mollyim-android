@@ -114,7 +114,7 @@
             android:paddingEnd="48dp"
             android:text="@string/MediaReviewFragment__add_a_message"
             android:textAppearance="@style/Signal.Text.Body"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/send"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/symbol_view_once_infinite_24"
-                app:tint="@color/signal_colorOnSurface" />
+                app:tint="?attr/colorOnSurface" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="40dp"
@@ -149,7 +149,7 @@
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/symbol_view_once_24"
-                app:tint="@color/signal_colorOnSurface" />
+                app:tint="?attr/colorOnSurface" />
 
         </ViewSwitcher>
 
@@ -165,7 +165,7 @@
             app:layout_constraintBottom_toBottomOf="@id/add_a_message"
             app:layout_constraintStart_toStartOf="@id/add_a_message"
             app:layout_constraintTop_toTopOf="@id/add_a_message"
-            app:tint="@color/signal_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:visibility="visible" />
 
         <org.thoughtcrime.securesms.video.videoconverter.VideoThumbnailsRangeSelectorView
@@ -197,7 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textAppearance="@style/Signal.Text.BodySmall"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintEnd_toEndOf="@id/video_timeline"
             app:layout_constraintTop_toBottomOf="@id/video_timeline"
             tools:text="0:04 · 399 KB" />
@@ -304,7 +304,7 @@
             app:layout_goneMarginStart="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
             app:srcCompat="@drawable/symbol_send_fill_24"
-            app:tint="@color/signal_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

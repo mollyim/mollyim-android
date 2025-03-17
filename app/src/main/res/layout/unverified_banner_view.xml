@@ -18,12 +18,12 @@
                android:layout_marginStart="16dp"
                android:layout_gravity="center_vertical"
                android:src="@drawable/ic_warning_40"
-               app:tint="@color/signal_icon_tint_primary"/>
+               app:tint="?attr/signal_icon_tint_primary"/>
 
     <TextView android:id="@+id/unverified_text"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:textColor="@color/signal_text_primary"
+              android:textColor="?attr/signal_text_primary"
               android:textSize="16sp"
               android:layout_weight="1"
               android:layout_margin="16dp"
@@ -39,7 +39,7 @@
             android:nextFocusLeft="@+id/container"
             android:nextFocusRight="@+id/container"
             android:src="@drawable/ic_x_24"
-            app:tint="@color/signal_icon_tint_primary"
+            app:tint="?attr/signal_icon_tint_primary"
             android:contentDescription="@string/InviteActivity_cancel"/>
 
 </LinearLayout>
