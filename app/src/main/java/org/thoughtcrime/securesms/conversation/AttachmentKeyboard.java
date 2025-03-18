@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.util.StorageUtil;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -160,7 +161,7 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
     if (wallpaperEnabled) {
       container.setBackgroundColor(getContext().getResources().getColor(R.color.wallpaper_compose_background));
     } else {
-      container.setBackgroundColor(getContext().getResources().getColor(R.color.signal_background_primary));
+      container.setBackgroundColor(ThemeUtil.getThemedColor(getContext(), R.attr.signal_background_primary));
     }
     buttonAdapter.setWallpaperEnabled(wallpaperEnabled);
   }

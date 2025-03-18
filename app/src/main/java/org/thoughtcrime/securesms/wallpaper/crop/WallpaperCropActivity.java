@@ -35,6 +35,7 @@ import org.thoughtcrime.securesms.scribbles.UriGlideRenderer;
 import org.thoughtcrime.securesms.util.AsynchronousCallback;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.Projection;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperPreviewActivity;
@@ -188,7 +189,7 @@ public final class WallpaperCropActivity extends PassphraseRequiredActivity {
     int   width  = displayMetrics.widthPixels;
     float ratio  = width / (float) height;
 
-    EditorModel editorModel = EditorModel.createForWallpaperEditing(ratio, ContextCompat.getColor(this, R.color.signal_colorBackground));
+    EditorModel editorModel = EditorModel.createForWallpaperEditing(ratio, ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSurface));
 
     EditorElement image = new EditorElement(new UriGlideRenderer(imageUri, true, width, height, UriGlideRenderer.WEAK_BLUR));
     image.getFlags()

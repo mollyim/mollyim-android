@@ -8,13 +8,12 @@ import android.text.Spanned
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import org.signal.core.util.dp
-import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.spoiler.SpoilerAnnotation.SpoilerClickableSpan
 import org.thoughtcrime.securesms.util.AccessibilityUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.getLifecycle
 
 /**
@@ -50,7 +49,7 @@ class SpoilerRendererDelegate @JvmOverloads constructor(
       spoilerDrawable = spoilerDrawable,
       renderForComposing = renderForComposing,
       padding = 2.dp,
-      composeBackgroundColor = ContextCompat.getColor(view.context, R.color.signal_colorOutlineVariant)
+      composeBackgroundColor = ThemeUtil.getThemedColor(view.context, com.google.android.material.R.attr.colorOutlineVariant)
     )
 
     view.addOnAttachStateChangeListener(object : OnAttachStateChangeListener {

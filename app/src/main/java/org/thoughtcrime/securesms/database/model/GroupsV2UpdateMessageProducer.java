@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 
 import org.signal.core.util.StringUtil;
 import org.signal.storageservice.protos.groups.AccessControl;
@@ -68,6 +67,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.SpanUtil;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.whispersystems.signalservice.api.push.ServiceId;
@@ -1617,7 +1617,7 @@ final class GroupsV2UpdateMessageProducer {
         String beforeChunk = template.substring(startIndex, nearestPosition);
 
         builder.append(beforeChunk);
-        builder.append(SpanUtil.clickable(Recipient.resolved(recipientId).getDisplayName(context), ContextCompat.getColor(context, R.color.conversation_item_update_text_color), v -> {
+        builder.append(SpanUtil.clickable(Recipient.resolved(recipientId).getDisplayName(context), ThemeUtil.getThemedColor(context, R.attr.conversation_item_update_text_color), v -> {
           if (!recipientId.isUnknown() && clickHandler != null) {
             clickHandler.accept(recipientId);
           }

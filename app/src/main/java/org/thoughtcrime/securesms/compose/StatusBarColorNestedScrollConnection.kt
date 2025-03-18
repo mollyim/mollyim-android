@@ -6,9 +6,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
-import androidx.core.content.ContextCompat
+import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import kotlin.math.abs
 
@@ -20,8 +20,8 @@ class StatusBarColorNestedScrollConnection(
 ) : NestedScrollConnection {
   private var animator: ValueAnimator? = null
 
-  private val normalColor = ContextCompat.getColor(activity, R.color.signal_colorBackground)
-  private val scrollColor = ContextCompat.getColor(activity, R.color.signal_colorSurface2)
+  private val normalColor = ThemeUtil.getThemedColor(activity, MaterialR.attr.colorSurface)
+  private val scrollColor = ThemeUtil.getThemedColor(activity, MaterialR.attr.colorSurfaceContainer)
 
   private var contentOffset = 0f
 

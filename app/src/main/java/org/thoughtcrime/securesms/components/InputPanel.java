@@ -72,6 +72,7 @@ import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
 
@@ -379,21 +380,17 @@ public class InputPanel extends ConstraintLayout
     final int textColor;
     final int textHintColor;
 
-    if (enabled) {
-      iconTint = getContext().getResources().getColor(R.color.signal_colorOnSurface);
-      textColor = getContext().getResources().getColor(R.color.signal_colorOnSurface);
-      textHintColor = getContext().getResources().getColor(R.color.signal_colorOnSurfaceVariant);
+    iconTint = ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface);
+    textColor = iconTint;
+    textHintColor = ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurfaceVariant);
 
+    if (enabled) {
       setBackground(null);
       composeContainer.setBackground(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.compose_background_wallpaper)));
       quickAudioToggle.setColorFilter(iconTint);
       quickCameraToggle.setColorFilter(iconTint);
     } else {
-      iconTint = getContext().getResources().getColor(R.color.signal_colorOnSurface);
-      textColor = getContext().getResources().getColor(R.color.signal_colorOnSurface);
-      textHintColor = getContext().getResources().getColor(R.color.signal_colorOnSurfaceVariant);
-
-      setBackground(new ColorDrawable(getContext().getResources().getColor(R.color.signal_colorBackground)));
+      setBackground(new ColorDrawable(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorSurface)));
       composeContainer.setBackground(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.compose_background)));
     }
 

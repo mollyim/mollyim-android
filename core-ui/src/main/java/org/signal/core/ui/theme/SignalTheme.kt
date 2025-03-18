@@ -1,6 +1,8 @@
 package org.signal.core.ui.theme
 
 import android.content.res.Configuration
+import android.util.TypedValue
+import androidx.annotation.AttrRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -11,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -232,6 +235,17 @@ fun SignalTheme(
       typography = typography,
       content = content
     )
+  }
+}
+
+@Composable
+fun attributeColor(@AttrRes id: Int): Color {
+  val theme = LocalContext.current.theme
+  val typedValue = TypedValue()
+  return if (theme.resolveAttribute(id, typedValue, true) && typedValue.resourceId != 0) {
+    colorResource(typedValue.resourceId)
+  } else {
+    Color.Unspecified
   }
 }
 

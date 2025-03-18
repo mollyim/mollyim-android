@@ -6,7 +6,6 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.fonts.SignalSymbols
@@ -14,6 +13,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
@@ -79,7 +79,7 @@ object BioTextPreference {
           ).let {
             SpanUtil.ofSize(it, 24)
           }.let {
-            SpanUtil.color(ContextCompat.getColor(context, R.color.signal_colorOutline), it)
+            SpanUtil.color(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOutline), it)
           }
 
           append(" ")

@@ -29,6 +29,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.imageview.ShapeableImageView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -62,6 +63,7 @@ import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MemoryUnitFormat
 import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.views.TouchInterceptingFrameLayout
@@ -532,7 +534,7 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
     val sendButtonBackgroundTint = when {
       !enabled -> ContextCompat.getColor(requireContext(), R.color.core_grey_50)
       recipient != null -> recipient.chatColors.asSingleColor()
-      sendType.usesSignalTransport -> ContextCompat.getColor(requireContext(), R.color.signal_colorOnSecondaryContainer)
+      sendType.usesSignalTransport -> ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSecondaryContainer)
       else -> ContextCompat.getColor(requireContext(), R.color.core_grey_50)
     }
 
@@ -542,9 +544,9 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
     }
 
     val sendButtonForegroundTint = when {
-      !enabled -> ContextCompat.getColor(requireContext(), R.color.signal_colorSecondaryContainer)
+      !enabled -> ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorSecondaryContainer)
       recipient != null -> ContextCompat.getColor(requireContext(), R.color.signal_colorOnCustom)
-      else -> ContextCompat.getColor(requireContext(), R.color.signal_colorSecondaryContainer)
+      else -> ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorSecondaryContainer)
     }
 
     sendButton.setImageDrawable(sendButtonForegroundDrawable)

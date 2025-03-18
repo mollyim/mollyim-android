@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
 import androidx.core.view.animation.PathInterpolatorCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,6 +23,7 @@ import org.thoughtcrime.securesms.databinding.ConversationListTabsBinding
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.visible
 
 /**
@@ -43,7 +43,7 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     disposables.bindTo(viewLifecycleOwner)
 
-    val iconTint = ContextCompat.getColor(requireContext(), R.color.signal_colorOnSecondaryContainer)
+    val iconTint = ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSecondaryContainer)
 
     largeConstraintSet.clone(binding.root)
     smallConstraintSet.clone(requireContext(), R.layout.conversation_list_tabs_small)

@@ -36,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -48,6 +47,7 @@ import kotlinx.coroutines.launch
 import org.signal.core.ui.BottomSheets
 import org.signal.core.ui.Buttons
 import org.signal.core.ui.theme.SignalTheme
+import org.signal.core.ui.theme.attributeColor
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 
@@ -234,7 +234,7 @@ private fun SafetyTipPreview() {
 private fun SafetyTip(safetyTip: SafetyTipData) {
   Surface(
     shape = RoundedCornerShape(18.dp),
-    color = colorResource(id = R.color.safety_tip_background),
+    color = attributeColor(id = R.attr.safety_tip_background),
     contentColor = MaterialTheme.colorScheme.onSurface,
     modifier = Modifier
       .fillMaxWidth()
@@ -247,7 +247,7 @@ private fun SafetyTip(safetyTip: SafetyTipData) {
     ) {
       Surface(
         shape = RoundedCornerShape(12.dp),
-        color = colorResource(id = R.color.safety_tip_image_background),
+        color = attributeColor(id = R.attr.safety_tip_image_background),
         modifier = Modifier
           .padding(12.dp)
           .fillMaxWidth()

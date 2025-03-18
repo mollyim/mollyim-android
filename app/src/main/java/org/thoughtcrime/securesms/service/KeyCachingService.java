@@ -28,7 +28,6 @@ import android.os.IBinder;
 import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -45,6 +44,7 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -241,7 +241,7 @@ public class KeyCachingService extends Service {
     builder.setContentTitle(getString(R.string.KeyCachingService_passphrase_cached));
     builder.setContentText(getString(R.string.KeyCachingService_signal_passphrase_cached));
     builder.setSmallIcon(R.drawable.ic_notification_unlocked);
-    builder.setColor(ContextCompat.getColor(this, R.color.signal_light_colorSecondary));
+    builder.setColor(ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSecondary));
     builder.setWhen(0);
     builder.setPriority(NotificationCompat.PRIORITY_LOW);
     builder.setCategory(NotificationCompat.CATEGORY_STATUS);

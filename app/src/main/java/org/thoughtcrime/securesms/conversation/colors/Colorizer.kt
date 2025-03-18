@@ -3,9 +3,11 @@ package org.thoughtcrime.securesms.conversation.colors
 import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import com.google.android.material.R as MaterialR
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.whispersystems.signalservice.api.push.ServiceId
 
 /**
@@ -44,7 +46,7 @@ class Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, R.color.signal_colorNeutralInverse)
     } else {
-      ContextCompat.getColor(context, R.color.signal_colorOnSurface)
+      ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurface)
     }
   }
 
@@ -53,7 +55,7 @@ class Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, R.color.signal_colorNeutralVariantInverse)
     } else {
-      ContextCompat.getColor(context, R.color.signal_colorOnSurfaceVariant)
+      ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant)
     }
   }
 
@@ -62,7 +64,7 @@ class Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, R.color.signal_colorNeutralVariantInverse)
     } else {
-      ContextCompat.getColor(context, R.color.signal_colorOnSurfaceVariant)
+      ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant)
     }
   }
 

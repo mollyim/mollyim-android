@@ -2,9 +2,9 @@ package org.thoughtcrime.securesms.compose
 
 import android.animation.ValueAnimator
 import android.app.Activity
-import androidx.core.content.ContextCompat
+import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 
 /**
@@ -16,8 +16,8 @@ class StatusBarColorAnimator(
   private var animator: ValueAnimator? = null
   private var previousCanScrollUp: Boolean = false
 
-  private val normalColor = ContextCompat.getColor(activity, R.color.signal_colorBackground)
-  private val scrollColor = ContextCompat.getColor(activity, R.color.signal_colorSurface2)
+  private val normalColor = ThemeUtil.getThemedColor(activity, MaterialR.attr.colorSurface)
+  private val scrollColor = ThemeUtil.getThemedColor(activity, MaterialR.attr.colorSurfaceContainer)
 
   fun setCanScrollUp(canScrollUp: Boolean) {
     if (previousCanScrollUp == canScrollUp) {

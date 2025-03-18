@@ -224,7 +224,7 @@ public final class SpanUtil {
       public void updateDrawState(@NonNull TextPaint ds) {
         super.updateDrawState(ds);
         ds.setUnderlineText(shouldUnderline);
-        ds.setColor(context.getResources().getColor(linkColor));
+        ds.setColor(ThemeUtil.getThemedColor(context, linkColor));
       }
     }, start, start + clickable.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 

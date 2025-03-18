@@ -116,7 +116,7 @@ public class LongMessageFragment extends FullScreenDialogFragment {
         bubbleLayoutListener.onLayoutChange(bubble, 0, 0, 0, 0, 0, 0, 0, 0);
       } else {
         bubble = receivedBubble.get();
-        bubble.getBackground().setColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
+        bubble.getBackground().setColorFilter(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
       }
 
       EmojiTextView          text   = bubble.findViewById(R.id.longmessage_text);

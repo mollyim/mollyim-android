@@ -16,6 +16,7 @@ import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
 import androidx.core.view.GestureDetectorCompat
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import kotlin.math.abs
 import kotlin.math.atan
@@ -80,7 +81,7 @@ class CustomChatColorGradientToolView @JvmOverloads constructor(
   }
 
   private val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-    color = ContextCompat.getColor(context, R.color.signal_background_primary)
+    color = ThemeUtil.getThemedColor(context, R.attr.signal_background_primary)
   }
 
   private val thumbBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -94,7 +95,7 @@ class CustomChatColorGradientToolView @JvmOverloads constructor(
   private val pipePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
     strokeWidth = pipeWidth - pipeBorder * 2
     style = Paint.Style.STROKE
-    color = ContextCompat.getColor(context, R.color.signal_background_primary)
+    color = ThemeUtil.getThemedColor(context, R.attr.signal_background_primary)
   }
 
   private val pipeBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

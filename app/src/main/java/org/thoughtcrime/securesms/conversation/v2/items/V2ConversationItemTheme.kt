@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.conversation.v2.items.V2ConversationItemUtils.isThumbnailAtBottomOfBubble
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.hasNoBubble
 
 /**
@@ -25,7 +26,7 @@ class V2ConversationItemTheme(
   @ColorInt
   fun getReplyIconBackgroundColor(): Int {
     return if (conversationContext.hasWallpaper()) {
-      ContextCompat.getColor(context, R.color.signal_colorSurface1)
+      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorSurfaceContainerLow)
     } else {
       Color.TRANSPARENT
     }
@@ -82,7 +83,7 @@ class V2ConversationItemTheme(
       if (conversationContext.hasWallpaper()) {
         ContextCompat.getColor(context, R.color.conversation_item_recv_bubble_color_wallpaper)
       } else {
-        ContextCompat.getColor(context, R.color.conversation_item_recv_bubble_color_normal)
+        ThemeUtil.getThemedColor(context, R.attr.conversation_item_recv_bubble_color_normal)
       }
     }
   }

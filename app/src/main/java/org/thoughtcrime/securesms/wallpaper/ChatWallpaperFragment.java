@@ -85,7 +85,7 @@ public class ChatWallpaperFragment extends Fragment {
         ImageViewCompat.setImageTintList(recvBubble, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.conversation_item_recv_bubble_color_wallpaper)));
       } else {
         chatWallpaperPreview.setImageDrawable(null);
-        ImageViewCompat.setImageTintList(recvBubble, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_background_secondary)));
+        ImageViewCompat.setImageTintList(recvBubble, ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_background_secondary)));
       }
     });
 

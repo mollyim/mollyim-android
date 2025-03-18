@@ -26,10 +26,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Guideline
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
+import com.google.android.material.R as MaterialR
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetBehaviorHack
@@ -57,6 +57,7 @@ import org.thoughtcrime.securesms.components.webrtc.v2.CallControlsVisibilityLis
 import org.thoughtcrime.securesms.components.webrtc.v2.CallInfoCallbacks
 import org.thoughtcrime.securesms.components.webrtc.v2.WebRtcCallViewModel
 import org.thoughtcrime.securesms.service.webrtc.links.UpdateCallLinkResult
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.padding
 import org.thoughtcrime.securesms.util.visible
 import kotlin.math.max
@@ -117,7 +118,7 @@ class ControlsAndInfoController private constructor(
       indicatorInset = 0.dp
       trackThickness = 2.dp
       trackCornerRadius = 1.dp
-      indicatorColors = intArrayOf(ContextCompat.getColor(activity, R.color.signal_colorOnBackground))
+      indicatorColors = intArrayOf(ThemeUtil.getThemedColor(activity, MaterialR.attr.colorOnBackground))
       trackColor = Color.TRANSPARENT
     }
   )
@@ -194,7 +195,7 @@ class ControlsAndInfoController private constructor(
         .setTopRightCorner(CornerFamily.ROUNDED, 18.dp.toFloat())
         .build()
     ).apply {
-      fillColor = ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.signal_colorSurface))
+      fillColor = ColorStateList.valueOf(ThemeUtil.getThemedColor(activity, MaterialR.attr.colorSurface))
     }
 
     behavior.isHideable = true

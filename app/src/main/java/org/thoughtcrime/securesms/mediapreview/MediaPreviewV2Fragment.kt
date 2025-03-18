@@ -19,7 +19,6 @@ import android.view.animation.PathInterpolator
 import android.widget.Toast
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.app.ShareCompat
-import androidx.core.content.ContextCompat
 import androidx.core.text.getSpans
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -72,6 +71,7 @@ import org.thoughtcrime.securesms.util.MessageConstraintsUtil
 import org.thoughtcrime.securesms.util.SaveAttachmentTask
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.StorageUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import java.util.Locale
@@ -458,7 +458,7 @@ class MediaPreviewV2Fragment :
     }
     val builder = SpannableStringBuilder(text)
 
-    val onSurfaceColor = ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurface)
+    val onSurfaceColor = ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurface)
     val chevron = ContextUtil.requireDrawable(requireContext(), R.drawable.ic_chevron_end_24)
     chevron.colorFilter = PorterDuffColorFilter(onSurfaceColor, PorterDuff.Mode.SRC_IN)
 
