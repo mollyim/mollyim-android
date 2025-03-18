@@ -13,7 +13,7 @@
         <item name="contactCheckboxBackground">@drawable/contact_selection_checkbox</item>
     </style>
 
-    <style name="Theme.Signal.DayNight.NoActionBar" parent="TextSecure.LightNoActionBar"></style>
+    <!-- MOLLY: Theme.Signal.DayNight.NoActionBar now in light_themes.xml -->
 
     <style name="TextSecure.LightNoActionBar" parent="@style/TextSecure.BaseLightNoActionBar">
         <!-- leave empty to allow overriding -->
@@ -348,41 +348,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="TextSecure.LightNoActionBar.DarkToolbar" parent="TextSecure.LightNoActionBar">
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
-        <item name="homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="collapseIcon">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:collapseIcon" tools:ignore="NewApi">@drawable/ic_arrow_left_conversation_24</item>
-    </style>
-
-    <style name="TextSecure.DarkNoActionBar.DarkToolbar" parent="TextSecure.DarkNoActionBar">
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
-        <item name="homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="collapseIcon">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:collapseIcon" tools:ignore="NewApi">@drawable/ic_arrow_left_conversation_24</item>
-    </style>
-
-    <style name="TextSecure.LightTheme.Conversation">
-        <item name="android:actionBarStyle">@style/TextSecure.DarkActionBar.Conversation</item>
-        <item name="actionBarStyle">@style/TextSecure.DarkActionBar.Conversation</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
-        <item name="homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="collapseIcon">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:collapseIcon" tools:ignore="NewApi">@drawable/ic_arrow_left_conversation_24</item>
-    </style>
-
-    <style name="TextSecure.DarkTheme.Conversation">
-        <item name="android:actionBarStyle">@style/TextSecure.DarkActionBar.Conversation</item>
-        <item name="actionBarStyle">@style/TextSecure.DarkActionBar.Conversation</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
-        <item name="homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="collapseIcon">@drawable/ic_arrow_left_conversation_24</item>
-        <item name="android:collapseIcon" tools:ignore="NewApi">@drawable/ic_arrow_left_conversation_24</item>
-    </style>
+    <!-- MOLLY: Deprecated themes -->
 
     <style name="TextSecure.DarkTheme.WebRTCCall">
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>

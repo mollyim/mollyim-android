@@ -7,6 +7,6 @@ import org.thoughtcrime.securesms.R;
 public class DynamicNoActionBarTheme extends DynamicTheme {
 
   protected @StyleRes int getTheme() {
-    return R.style.Signal_DayNight_NoActionBar;
+    return R.style.Theme_Signal_DayNight_NoActionBar;
   }
 }
