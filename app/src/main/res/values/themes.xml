@@ -73,7 +73,7 @@
         <item name="windowActionModeOverlay">true</item>
 
         <item name="theme_type">dark</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="colorAccent">@color/core_ultramarine_light</item>
     </style>
 
@@ -239,7 +239,6 @@
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
         <item name="colorControlHighlight">@color/transparent_black_10</item>
-        <item name="android:textColorHighlight">?attr/colorPrimaryContainer</item>
 
         <item name="textAppearanceBodyMedium">@style/Signal.Text.BodyMedium</item>
         <item name="textAppearanceBodyLarge">@style/Signal.Text.BodyLarge</item>
@@ -374,7 +373,6 @@
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
         <item name="colorControlHighlight">@color/transparent_white_10</item>
-        <item name="android:textColorHighlight">@attr/colorPrimaryContainer</item>
 
         <item name="textAppearanceBodyMedium">@style/Signal.Text.BodyMedium</item>
         <item name="textAppearanceBodyLarge">@style/Signal.Text.BodyLarge</item>
@@ -393,15 +391,13 @@
 
         <item name="actionBarStyle">@style/TextSecure.DarkActionBar</item>
         <item name="actionBarTabBarStyle">@style/TextSecure.DarkActionBar.TabBar</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="actionModeBackground">@color/transparent</item>
         <item name="actionModeCloseDrawable">@drawable/ic_x_tinted</item>
         <item name="actionModeStyle">@style/TextSecure.ActionModeStyle</item>
         <item name="android:textColor">@color/text_color_dark_theme</item>
         <item name="android:textColorSecondary">@color/text_color_secondary_dark_theme</item>
         <item name="android:colorControlHighlight" tools:ignore="NewApi">@color/transparent_white_10</item>
-        <item name="android:windowBackground">@attr/colorSurface</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyleDark</item>
         <item name="android:alertDialogTheme">@style/AppCompatDialogStyleDark</item>
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>

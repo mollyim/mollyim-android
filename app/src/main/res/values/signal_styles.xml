@@ -205,7 +205,7 @@
         <item name="backgroundInsetEnd">0dp</item>
     </style>
 
-    <style name="Signal.DayNight.Popup" parent="@style/ThemeOverlay.AppCompat.Light" />
+    <style name="Signal.DayNight.Popup" parent="@style/ThemeOverlay.Material3.Light" />
 
     <style name="Signal.DayNight.Toolbar.Overflow" parent="@style/Signal.Toolbar.Overflow.Light" />
 
@@ -278,11 +278,7 @@
     <style name="Signal.ThemeOverlay.Calendar" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
         <item name="colorSurface">?attr/signal_background_dialog</item>
         <item name="borderlessButtonStyle">@style/Signal.Widget.Button.Dialog</item>
-        <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="colorOnPrimary">?attr/colorOnPrimary</item>
         <item name="colorAccent">@color/signal_accent_primary</item>
-        <item name="colorSurfaceContainer">?attr/colorSurfaceContainer</item>
-        <item name="colorSurfaceContainerHigh">?attr/colorSurfaceContainer</item>
         <item name="materialCalendarHeaderTitle">@style/MaterialCalendar.Signal.HeaderTitle</item>
         <item name="materialCalendarHeaderSelection">@style/MaterialCalendar.Signal.HeaderSelection</item>
         <item name="buttonBarPositiveButtonStyle">@style/Signal.Widget.Button.Dialog</item>
@@ -319,8 +315,6 @@
     </style>
 
     <style name="ThemeOverlay.Signal.CircularProgressIndicator.Tonal" parent="ThemeOverlay.Material3">
-        <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="colorSurfaceVariant">?attr/colorSurfaceVariant</item>
         <item name="circularProgressMaterialButtonStyle">@style/Signal.Widget.Button.Large.Tonal</item>
         <item name="circularProgressIndicatorStyle">@style/Widget.Signal.CircularProgressIndicator.Medium.Indeterminate</item>
     </style>
@@ -346,25 +340,12 @@
     </style>
 
     <style name="Signal.ThemeOverlay.TextInputLayout" parent="ThemeOverlay.Material3">
-        <item name="colorSurfaceVariant">?attr/colorSurfaceVariant</item>
-        <item name="colorOnSurfaceVariant">?attr/colorOnSurfaceVariant</item>
-        <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="colorOnPrimary">?attr/colorOnPrimary</item>
-        <item name="colorOnSurface">?attr/colorOnSurface</item>
-        <item name="colorError">?attr/colorError</item>
     </style>
 
     <style name="ThemeOverlay.Signal.MaterialSwitch" parent="ThemeOverlay.Material3">
-        <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="colorPrimaryContainer">?attr/colorPrimaryContainer</item>
         <item name="colorSurface">?attr/colorSurfaceContainer</item>
-        <item name="colorOnPrimary">?attr/colorOnPrimary</item>
-        <item name="colorOnPrimaryContainer">?attr/colorOnPrimaryContainer</item>
-        <item name="colorOnSurface">?attr/colorOnSurface</item>
         <item name="colorOnSurfaceVariant">?attr/colorPrimary</item>
-        <item name="colorOnBackground">?attr/colorOnBackground</item>
         <item name="colorOutline">?attr/colorOutlineVariant</item>
-        <item name="colorSurfaceContainerHighest">?attr/colorSurfaceContainerHighest</item>
     </style>
 
 </resources>

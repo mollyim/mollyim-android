@@ -81,27 +81,20 @@
     </style>
 
     <!-- ActionBar styles -->
-    <style name="TextSecure.DarkActionBar" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="background">?android:attr/windowBackground</item>
-        <item name="android:popupTheme" tools:ignore="NewApi">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+    <style name="TextSecure.DarkActionBar" parent="@style/ThemeOverlay.Material3">
+        <item name="android:popupTheme">@style/ThemeOverlay.Material3.Dark</item>
+        <item name="actionOverflowMenuStyle">@style/Signal.DayNight.Popup.OverflowMenu</item>
         <item name="titleTextStyle">@style/Signal.Text.TitleLarge</item>
         <item name="subtitleTextStyle">@style/TextSecure.SubtitleTextStyle.Dark</item>
-        <item name="elevation">0dp</item>
-        <item name="actionOverflowButtonStyle">@style/Signal.Toolbar.Overflow</item>
         <item name="android:actionOverflowButtonStyle">@style/Signal.Toolbar.Overflow</item>
-        <item name="actionOverflowMenuStyle">@style/Signal.DayNight.Popup.OverflowMenu</item>
         <item name="android:itemTextAppearance">@style/Signal.Text.BodyLarge</item>
     </style>
 
-    <style name="TextSecure.LightActionBar"
-           parent="@style/Widget.AppCompat.ActionBar">
-        <item name="background">?attr/colorSurface</item>
+    <style name="TextSecure.LightActionBar" parent="@style/ThemeOverlay.Material3">
+        <item name="android:popupTheme">@style/ThemeOverlay.Material3.Light</item>
         <item name="actionOverflowMenuStyle">@style/Signal.DayNight.Popup.OverflowMenu</item>
         <item name="titleTextStyle">@style/Signal.Text.TitleLarge</item>
         <item name="subtitleTextStyle">@style/TextSecure.SubtitleTextStyle</item>
-        <item name="elevation">0dp</item>
-        <item name="actionOverflowButtonStyle">@style/Signal.Toolbar.Overflow.Light</item>
         <item name="android:actionOverflowButtonStyle">@style/Signal.Toolbar.Overflow.Light</item>
         <item name="android:itemTextAppearance">@style/Signal.Text.BodyLarge</item>
     </style>
@@ -295,7 +288,7 @@
         <item name="height">@dimen/signal_m3_toolbar_height</item>
     </style>
 
-    <style name="Signal.ActionModeTheme" parent="ThemeOverlay.AppCompat">
+    <style name="Signal.ActionModeTheme" parent="ThemeOverlay.Material3">
         <item name="actionOverflowButtonStyle">@style/Signal.DayNight.Toolbar.Overflow</item>
         <item name="android:actionOverflowButtonStyle">@style/Signal.DayNight.Toolbar.Overflow</item>
     </style>
