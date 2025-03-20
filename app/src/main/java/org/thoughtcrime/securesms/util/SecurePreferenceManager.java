@@ -27,6 +27,7 @@ public class SecurePreferenceManager {
     prefs.setEncryptionFilter((key) -> {
       switch (key) {
         case TextSecurePreferences.THEME_PREF:
+        case TextSecurePreferences.DYNAMIC_COLORS_ENABLED:
         case TextSecurePreferences.LANGUAGE_PREF:
         case TextSecurePreferences.PASSPHRASE_LOCK:
         case TextSecurePreferences.PASSPHRASE_LOCK_NOTIFICATIONS:

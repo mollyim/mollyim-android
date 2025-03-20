@@ -1,13 +1,18 @@
 package org.signal.core.ui.theme
 
+import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -18,6 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import org.signal.core.ui.R
 
 private val typography = Typography().run {
   copy(
@@ -205,37 +211,69 @@ private val darkColorScheme = darkColorScheme(
   outline = Color(0xFF5D5D66)
 )
 
-private val lightSnackbarColors = SnackbarColors(
-  color = darkColorScheme.surface,
-  contentColor = darkColorScheme.onSurface,
-  actionColor = darkColorScheme.primary,
-  actionContentColor = darkColorScheme.primary,
-  dismissActionContentColor = darkColorScheme.onSurface
-)
-
-private val darkSnackbarColors = SnackbarColors(
-  color = darkColorScheme.surfaceVariant,
-  contentColor = darkColorScheme.onSurfaceVariant,
-  actionColor = darkColorScheme.primary,
-  actionContentColor = darkColorScheme.primary,
-  dismissActionContentColor = darkColorScheme.onSurfaceVariant
-)
+// MOLLY: Replaced by snackbarColors()
 
 @Composable
 fun SignalTheme(
   isDarkMode: Boolean = LocalContext.current.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES,
+  useDynamicColors: Boolean? = null,
   content: @Composable () -> Unit
 ) {
-  val extendedColors = if (isDarkMode) darkExtendedColors else lightExtendedColors
-  val snackbarColors = if (isDarkMode) darkSnackbarColors else lightSnackbarColors
+  val context = LocalContext.current
+  val maySupportDynamicColor = Build.VERSION.SDK_INT >= 31
+  val dynamicColors = maySupportDynamicColor && (useDynamicColors ?: isThemeUsingDynamicColors(context))
+  val colorScheme = when {
+    dynamicColors && isDarkMode -> dynamicDarkColorScheme(context)
+    dynamicColors && !isDarkMode -> dynamicLightColorScheme(context)
+    isDarkMode -> darkColorScheme
+    else -> lightColorScheme
+  }
+
+  val extendedColors = extendedColors(colorScheme, isDarkMode = isDarkMode, isDynamic = dynamicColors)
+  val snackbarColors = snackbarColors(colorScheme, isDarkMode = isDarkMode, isDynamic = dynamicColors)
 
   CompositionLocalProvider(LocalExtendedColors provides extendedColors, LocalSnackbarColors provides snackbarColors) {
     MaterialTheme(
-      colorScheme = if (isDarkMode) darkColorScheme else lightColorScheme,
+      colorScheme = colorScheme,
       typography = typography,
       content = content
     )
   }
+}
+
+private fun isThemeUsingDynamicColors(context: Context): Boolean {
+  val theme = context.theme
+  val typedValue = TypedValue()
+  return theme.resolveAttribute(R.attr.dynamic_colors, typedValue, false)
+    && typedValue.data != 0
+}
+
+private fun extendedColors(colorScheme: ColorScheme, isDarkMode: Boolean, isDynamic: Boolean): ExtendedColors {
+  return when {
+    isDynamic -> lightExtendedColors.copy(
+      colorSurface1 = colorScheme.surfaceContainerLow,
+      colorSurface2 = colorScheme.surfaceContainer,
+      colorSurface3 = colorScheme.surfaceContainerHigh,
+      colorSurface4 = colorScheme.surfaceContainerHighest,
+      colorSurface5 = if (isDarkMode) colorScheme.surfaceBright else colorScheme.surfaceDim
+    )
+
+    isDarkMode -> darkExtendedColors
+    else -> lightExtendedColors
+  }
+}
+
+private fun snackbarColors(colorScheme: ColorScheme, isDarkMode: Boolean, isDynamic: Boolean): SnackbarColors {
+  // val surface = if (!isDynamic) colorScheme.surfaceVariant else colorScheme.surface
+  // val onSurface = if (!isDynamic) colorScheme.onSurfaceVariant else colorScheme.onSurface
+
+  return SnackbarColors(
+    color = colorScheme.inverseSurface,
+    contentColor = colorScheme.inverseOnSurface,
+    actionColor = colorScheme.primary,
+    actionContentColor = colorScheme.primary,
+    dismissActionContentColor = colorScheme.inverseOnSurface
+  )
 }
 
 @Composable

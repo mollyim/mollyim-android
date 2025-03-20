@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Molly.Dynamic.Dark" parent="TextSecure.BaseDarkTheme">
-        <!-- Material You colors (override Theme.Molly.Material3.Dark) -->
+        <!-- Material You colors (overrides Theme.Molly.Material3.Dark) -->
         <item name="colorPrimaryInverse">@color/dynamic_primary_inverse_dark</item>
         <item name="colorPrimary">@color/dynamic_primary_dark</item>
         <item name="colorPrimaryDark">@color/dynamic_primary_dark</item>
@@ -49,6 +49,9 @@
         <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
         <item name="colorAccent">@color/dynamic_primary_dark</item>
         <item name="colorControlActivated">@color/dynamic_primary_dark</item>
+
+        <!-- Enable Material You dynamic colors in Compose -->
+        <item name="dynamic_colors">true</item>
 
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLightStatusBar">true</item>

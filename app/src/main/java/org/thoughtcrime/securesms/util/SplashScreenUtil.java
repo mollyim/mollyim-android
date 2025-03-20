@@ -16,7 +16,7 @@ public final class SplashScreenUtil {
   /**
    * Sets the splash screen for Android 12+ devices based on the passed-in theme.
    */
-  public static void setSplashScreenThemeIfNecessary(@Nullable Activity activity, @NonNull SettingsValues.Theme theme) {
+  public static void setSplashScreenThemeIfNecessary(@Nullable Activity activity, @NonNull SettingsValues.Theme theme, boolean useDynamicColors) {
     if (Build.VERSION.SDK_INT < 31 || activity == null) {
       return;
     }

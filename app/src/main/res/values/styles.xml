@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Widget.Signal.Snackbar" parent="Widget.Material3.Snackbar">
-        <item name="backgroundTint">?attr/colorSurfaceContainerHighest</item>
+        <!-- <item name="backgroundTint">?attr/colorSurfaceInverse</item> -->
         <item name="android:layout_margin">16dp</item>
     </style>
 
     <style name="Widget.Signal.Snackbar.TextView" parent="Widget.Material3.Snackbar.TextView">
-        <item name="android:textColor">@color/signal_dark_colorOnSurface</item>
+        <!-- <item name="android:textColor">?attr/colorOnSurfaceInverse</item> -->
         <item name="android:textAppearance">@style/Signal.Text.BodyLarge</item>
     </style>
 
     <style name="Widget.Signal.Button.TextButton.Snackbar" parent="Widget.Material3.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/signal_dark_colorOnPrimaryContainer</item>
+        <!-- <item name="android:textColor">?attr/colorOnSurfaceInverse</item> -->
         <item name="android:textAllCaps">false</item>
         <item name="android:textAppearance">@style/Signal.Text.BodyLarge</item>
-        <item name="backgroundTint">?attr/colorSurfaceContainerHighest</item>
+        <!-- <item name="backgroundTint">?attr/colorSurfaceInverse</item> -->
     </style>
 
     <style name="Widget.Signal.Button.TextButton" parent="Widget.Material3.Button.TextButton">

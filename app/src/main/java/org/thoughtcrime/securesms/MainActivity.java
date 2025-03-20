@@ -218,7 +218,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   @Override
   protected void onStop() {
     super.onStop();
-    SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings().getTheme());
+    SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings().getTheme(), SignalStore.settings().isDynamicColorsEnabled());
   }
 
   @Override

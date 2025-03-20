@@ -229,8 +229,12 @@ public final class WallpaperCropActivity extends PassphraseRequiredActivity {
   }
 
   private static final class DynamicWallpaperTheme extends DynamicTheme {
-    protected @StyleRes int getTheme() {
+    protected @StyleRes int getRegularTheme() {
       return R.style.Signal_DayNight_WallpaperCropper;
+    }
+
+    protected @StyleRes int getDynamicTheme() {
+      return getRegularTheme();
     }
   }
 }

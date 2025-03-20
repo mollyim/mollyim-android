@@ -236,6 +236,7 @@
 
     <style name="TextSecure.BaseLightTheme" parent="@style/Theme.Molly.Material3.Light">
         <item name="theme_type">light</item>
+        <item name="dynamic_colors">false</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
         <item name="colorControlHighlight">@color/transparent_black_10</item>
@@ -370,6 +371,7 @@
 
     <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.Molly.Material3.Dark">
         <item name="theme_type">dark</item>
+        <item name="dynamic_colors">false</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
         <item name="colorControlHighlight">@color/transparent_white_10</item>

@@ -42,6 +42,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
@@ -241,7 +242,7 @@ public class KeyCachingService extends Service {
     builder.setContentTitle(getString(R.string.KeyCachingService_passphrase_cached));
     builder.setContentText(getString(R.string.KeyCachingService_signal_passphrase_cached));
     builder.setSmallIcon(R.drawable.ic_notification_unlocked);
-    builder.setColor(ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSecondary));
+    builder.setColor(DynamicTheme.resolveColor(this, com.google.android.material.R.attr.colorTertiary));
     builder.setWhen(0);
     builder.setPriority(NotificationCompat.PRIORITY_LOW);
     builder.setCategory(NotificationCompat.CATEGORY_STATUS);

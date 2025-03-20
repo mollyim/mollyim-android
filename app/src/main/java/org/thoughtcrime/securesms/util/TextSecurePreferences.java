@@ -48,6 +48,7 @@ public class TextSecurePreferences {
   private static final String TAG = Log.tag(TextSecurePreferences.class);
 
   public  static final String THEME_PREF                       = "pref_theme";
+  public  static final String DYNAMIC_COLORS_ENABLED           = "pref_dynamic_colors";
   public  static final String LANGUAGE_PREF                    = "pref_language";
 
   private static final String LAST_VERSION_CODE_PREF           = "last_version_code";
@@ -208,6 +209,7 @@ public class TextSecurePreferences {
       BLOCK_UNKNOWN,
       BIOMETRIC_SCREEN_LOCK,
       PASSPHRASE_LOCK_NOTIFICATIONS,
+      DYNAMIC_COLORS_ENABLED,
   };
 
   private static final String[] stringSetPreferencesToBackupMolly = {PASSPHRASE_LOCK_TRIGGER};
@@ -747,6 +749,14 @@ public class TextSecurePreferences {
 
   public static void setTheme(Context context, String theme) {
     setStringPreference(context, THEME_PREF, theme);
+  }
+
+  public static boolean isDynamicColorsEnabled(Context context) {
+    return getBooleanPreference(context, DYNAMIC_COLORS_ENABLED, false);
+  }
+
+  public static void setDynamicColorsEnabled(Context context, boolean enabled) {
+    setBooleanPreference(context, DYNAMIC_COLORS_ENABLED, enabled);
   }
 
   public static String getLanguage(Context context) {
