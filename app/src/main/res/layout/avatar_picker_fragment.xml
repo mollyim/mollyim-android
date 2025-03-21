@@ -117,11 +117,12 @@
                 android:layout_marginEnd="4dp"
                 android:contentDescription="@string/AvatarPickerFragment__clear_avatar"
                 android:visibility="gone"
-                app:backgroundTint="?attr/signal_background_primary"
+                app:backgroundTint="?attr/colorSecondaryContainer"
                 app:fabSize="mini"
                 app:layout_constraintEnd_toEndOf="@id/avatar_picker_item_image"
                 app:layout_constraintTop_toTopOf="@id/avatar_picker_item_image"
                 app:srcCompat="@drawable/ic_x_20"
+                app:tint="?attr/colorOnSecondaryContainer"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

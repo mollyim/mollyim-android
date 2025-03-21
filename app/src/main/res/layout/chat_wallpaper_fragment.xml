@@ -167,7 +167,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_tintable"
                 android:padding="2dp"
-                app:backgroundTint="@color/signal_accent_primary"
+                app:backgroundTint="?attr/signal_accent_primary"
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_bottom_bar"
                 app:layout_constraintEnd_toEndOf="@id/chat_wallpaper_preview_bottom_bar"
                 app:layout_constraintStart_toEndOf="@id/chat_wallpaper_preview_bottom_bar_input"

@@ -50,25 +50,134 @@
         <item name="colorAccent">@color/dynamic_primary_light</item>
         <item name="colorControlActivated">@color/dynamic_primary_light</item>
 
-        <!-- Enable Material You dynamic colors in Compose -->
+        <!-- Material You specs (overrides TextSecure.BaseLightTheme) -->
         <item name="dynamic_colors">true</item>
+        <item name="signal_accent_primary">@color/dynamic_primary_light</item>
+        <item name="signal_button_primary">@color/dynamic_primary_light</item>
+        <item name="signal_button_secondary_text">@color/dynamic_primary_light</item>
+        <item name="reactions_overlay_any_emoji_background">@color/dynamic_outline_variant_light</item>
+        <item name="reactions_overlay_any_emoji_foreground">@color/dynamic_on_surface_light</item>
+        <item name="message_request_bar_background_normal">@color/dynamic_surface_container_light</item>
+        <item name="message_request_bar_acceptForeground_normal">@color/dynamic_on_secondary_container_light</item>
+        <item name="switchThemeOverlay">@style/ThemeOverlay.MaterialSwitch.Dynamic</item>
+        <item name="extended_action_button_container_color">@color/dynamic_secondary_container_light</item>
+        <item name="extended_action_button_icon_color">@color/dynamic_on_secondary_container_light</item>
+        <item name="filled_tonal_icon_button_container_color">@color/dynamic_surface_container_highest_light</item>
+        <item name="filled_tonal_icon_button_icon_color">@color/dynamic_on_surface_variant_light</item>
+        <item name="context_menu_container_color">@color/dynamic_surface_container_light</item>
+        <item name="navbar_active_indicator_color">@color/dynamic_secondary_container_light</item>
+        <item name="navbar_container_color">@color/dynamic_surface_container_high_light</item>
 
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <!-- System Bars -->
         <item name="android:navigationBarColor">@color/dynamic_surface_light</item>
         <item name="android:statusBarColor">@color/dynamic_surface_light</item>
     </style>
 
-    <style name="Theme.Molly.Dynamic.NoActionBar.Light" parent="Theme.Molly.Dynamic.Light">
+    <style name="Theme.Molly.Dynamic.Dark" parent="TextSecure.BaseDarkTheme">
+        <!-- Material You colors (overrides Theme.Molly.Material3.Dark) -->
+        <item name="colorPrimaryInverse">@color/dynamic_primary_inverse_dark</item>
+        <item name="colorPrimary">@color/dynamic_primary_dark</item>
+        <item name="colorPrimaryDark">@color/dynamic_primary_dark</item>
+        <item name="colorOnPrimary">@color/dynamic_on_primary_dark</item>
+        <item name="colorPrimaryContainer">@color/dynamic_primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/dynamic_on_primary_container_dark</item>
+        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
+        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
+        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
+        <item name="colorSecondary">@color/dynamic_secondary_dark</item>
+        <item name="colorOnSecondary">@color/dynamic_on_secondary_dark</item>
+        <item name="colorSecondaryContainer">@color/dynamic_secondary_container_dark</item>
+        <item name="colorOnSecondaryContainer">@color/dynamic_on_secondary_container_dark</item>
+        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
+        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
+        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
+        <item name="colorSurfaceInverse">@color/dynamic_surface_inverse_dark</item>
+        <item name="colorSurfaceVariant">@color/dynamic_surface_variant_dark</item>
+        <item name="colorSurface">@color/dynamic_surface_dark</item>
+        <item name="colorSurfaceDim">@color/dynamic_surface_dim_dark</item>
+        <item name="colorSurfaceContainerHighest">@color/dynamic_surface_container_highest_dark</item>
+        <item name="colorSurfaceContainerHigh">@color/dynamic_surface_container_high_dark</item>
+        <item name="colorSurfaceContainer">@color/dynamic_surface_container_dark</item>
+        <item name="colorSurfaceContainerLow">@color/dynamic_surface_container_low_dark</item>
+        <item name="colorSurfaceBright">@color/dynamic_surface_bright_dark</item>
+        <item name="colorSurfaceContainerLowest">@color/dynamic_surface_container_lowest_dark</item>
+        <item name="colorOnSurfaceInverse">@color/dynamic_on_surface_inverse_dark</item>
+        <item name="colorOnSurface">@color/dynamic_on_surface_dark</item>
+        <item name="colorOnBackground">@color/dynamic_on_background_dark</item>
+        <item name="colorOnSurfaceVariant">@color/dynamic_on_surface_variant_dark</item>
+        <item name="colorOutline">@color/dynamic_outline_dark</item>
+        <item name="colorOutlineVariant">@color/dynamic_outline_variant_dark</item>
+        <item name="colorError">@color/dynamic_error_dark</item>
+        <item name="colorOnError">@color/dynamic_on_error_dark</item>
+        <item name="colorErrorContainer">@color/dynamic_error_container_dark</item>
+        <item name="colorOnErrorContainer">@color/dynamic_on_error_container_dark</item>
+        <item name="colorTertiary">@color/dynamic_tertiary_dark</item>
+        <item name="colorOnTertiary">@color/dynamic_on_tertiary_dark</item>
+        <item name="colorTertiaryContainer">@color/dynamic_tertiary_container_dark</item>
+        <item name="colorOnTertiaryContainer">@color/dynamic_on_tertiary_container_dark</item>
+        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
+        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
+        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
+        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
+        <item name="colorAccent">@color/dynamic_primary_dark</item>
+        <item name="colorControlActivated">@color/dynamic_primary_dark</item>
+
+        <!-- Material You specs (overrides TextSecure.BaseDarkTheme) -->
+        <item name="dynamic_colors">true</item>
+        <item name="signal_accent_primary">@color/dynamic_primary_dark</item>
+        <item name="signal_button_primary">@color/dynamic_primary_dark</item>
+        <item name="signal_button_secondary_text">@color/dynamic_primary_dark</item>
+        <item name="reactions_overlay_any_emoji_background">@color/dynamic_outline_variant_dark</item>
+        <item name="reactions_overlay_any_emoji_foreground">@color/dynamic_on_surface_dark</item>
+        <item name="message_request_bar_background_normal">@color/dynamic_surface_container_dark</item>
+        <item name="message_request_bar_acceptForeground_normal">@color/dynamic_on_secondary_container_dark</item>
+        <item name="switchThemeOverlay">@style/ThemeOverlay.MaterialSwitch.Dynamic</item>
+        <item name="extended_action_button_container_color">@color/dynamic_secondary_container_dark</item>
+        <item name="extended_action_button_icon_color">@color/dynamic_on_secondary_container_dark</item>
+        <item name="filled_tonal_icon_button_container_color">@color/dynamic_surface_container_highest_dark</item>
+        <item name="filled_tonal_icon_button_icon_color">@color/dynamic_on_surface_variant_dark</item>
+        <item name="context_menu_container_color">@color/dynamic_surface_container_high_dark</item>
+        <item name="navbar_active_indicator_color">@color/dynamic_secondary_container_dark</item>
+        <item name="navbar_container_color">@color/dynamic_surface_container_high_dark</item>
+
+        <!-- System Bars -->
+        <item name="android:navigationBarColor">@color/dynamic_surface_dark</item>
+        <item name="android:statusBarColor">@color/dynamic_surface_dark</item>
+    </style>
+
+    <style name="Theme.Molly.Dynamic.BaseNoActionBar.Light" parent="Theme.Molly.Dynamic.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
+    </style>
 
+    <style name="Theme.Molly.Dynamic.BaseNoActionBar.Dark" parent="Theme.Molly.Dynamic.Dark">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
+    </style>
+
+    <style name="Theme.Molly.Dynamic.NoActionBar.Light" parent="Theme.Molly.Dynamic.BaseNoActionBar.Light">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.Molly.Dynamic.NoActionBar.Dark" parent="Theme.Molly.Dynamic.BaseNoActionBar.Dark">
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <style name="Theme.Molly.Dynamic.ConversationSettings.Light" parent="Theme.Molly.Dynamic.NoActionBar.Light">
+    <style name="Theme.Molly.Dynamic.ConversationSettings.Light" parent="Theme.Molly.Dynamic.BaseNoActionBar.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transparent_black_20</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/transparent_window_wipe_transition</item>
+    </style>
+
+    <style name="Theme.Molly.Dynamic.ConversationSettings.Dark" parent="Theme.Molly.Dynamic.BaseNoActionBar.Dark">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/transparent_black_20</item>
         <item name="android:windowContentOverlay">@null</item>

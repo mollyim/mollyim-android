@@ -1322,7 +1322,7 @@ class ConversationFragment :
   private fun presentNavigationIconForBubble() {
     binding.toolbar.navigationIcon = DrawableUtil.tint(
       ContextUtil.requireDrawable(requireContext(), R.drawable.ic_notification),
-      ContextCompat.getColor(requireContext(), R.color.signal_accent_primary)
+      ThemeUtil.getThemedColor(requireContext(), R.attr.signal_accent_primary)
     )
 
     binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_launch_signal_button)

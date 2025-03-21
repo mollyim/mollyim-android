@@ -148,7 +148,8 @@ fun DefaultBanner(
               ) {
                 Icon(
                   painter = painterResource(id = R.drawable.symbol_x_24),
-                  contentDescription = stringResource(id = R.string.InviteActivity_cancel)
+                  contentDescription = stringResource(id = R.string.InviteActivity_cancel),
+                  tint = colorResource(id = R.color.signal_light_colorOnSurface),
                 )
               }
             }

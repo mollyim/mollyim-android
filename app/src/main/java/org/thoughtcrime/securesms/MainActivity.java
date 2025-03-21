@@ -241,7 +241,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     final boolean showCalls   = TextSecurePreferences.getNavbarShowCalls(this);
     if (showCalls || showStories) {
       findViewById(R.id.conversation_list_tabs).setVisibility(View.VISIBLE);
-      WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this,com.google.android.material.R.attr.colorSurfaceContainer));
+      WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this, R.attr.navbar_container_color));
     } else {
       findViewById(R.id.conversation_list_tabs).setVisibility(View.GONE);
       WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSurface));

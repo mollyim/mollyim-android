@@ -1521,7 +1521,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
         int     end   = messageBody.getSpanEnd(placeholder);
         URLSpan span  = new InterceptableLongClickCopyLinkSpan(placeholder.getValue(),
                                                                urlClickListener,
-                                                               ContextCompat.getColor(getContext(), R.color.signal_accent_primary),
+                                                               ThemeUtil.getThemedColor(context, R.attr.signal_accent_primary),
                                                                false);
 
         messageBody.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

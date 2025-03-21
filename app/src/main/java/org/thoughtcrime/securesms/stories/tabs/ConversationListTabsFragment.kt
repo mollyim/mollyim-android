@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.stories.tabs
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -40,17 +41,17 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
   private val largeConstraintSet: ConstraintSet = ConstraintSet()
   private val smallConstraintSet: ConstraintSet = ConstraintSet()
 
+  private var activeIconTint: Int = Color.RED
+  private var inactiveIconTint: Int = Color.RED
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     disposables.bindTo(viewLifecycleOwner)
-
-    val iconTint = ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSecondaryContainer)
 
     largeConstraintSet.clone(binding.root)
     smallConstraintSet.clone(requireContext(), R.layout.conversation_list_tabs_small)
 
-    binding.chatsTabIcon.setTintColor(iconTint)
-    binding.callsTabIcon.setTintColor(iconTint)
-    binding.storiesTabIcon.setTintColor(iconTint)
+    activeIconTint = ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSecondaryContainer)
+    inactiveIconTint = ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurface)
 
     view.findViewById<View>(R.id.chats_tab_touch_point).setOnClickListener {
       viewModel.onChatsSelected()
@@ -152,6 +153,10 @@ class ConversationListTabsFragment : Fragment(R.layout.conversation_list_tabs) {
       binding.callsTabIcon.isSelected = state.tab == ConversationListTab.CALLS
       binding.callsPill.isSelected = state.tab == ConversationListTab.CALLS
     }
+
+    with(binding.chatsTabIcon) { setTintColor(if (isSelected) activeIconTint else inactiveIconTint) }
+    with(binding.callsTabIcon) { setTintColor(if (isSelected) activeIconTint else inactiveIconTint) }
+    with(binding.storiesTabIcon) { setTintColor(if (isSelected) activeIconTint else inactiveIconTint) }
 
     val hasStateChange = state.tab != state.prevTab
     if (immediate) {

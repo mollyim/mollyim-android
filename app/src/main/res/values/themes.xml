@@ -15,29 +15,18 @@
 
     <!-- MOLLY: Theme.Signal.DayNight.NoActionBar now in light_themes.xml -->
 
-    <style name="TextSecure.LightNoActionBar" parent="TextSecure.BaseLightNoActionBar">
-        <item name="android:statusBarColor">@color/molly_surface_light</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@color/molly_surface_light</item>
-        <item name="android:windowLightNavigationBar">true</item>
+    <style name="TextSecure.LightNoActionBar" parent="@style/TextSecure.BaseLightNoActionBar">
+        <!-- leave empty to allow overriding -->
     </style>
 
-    <style name="TextSecure.BaseLightNoActionBar" parent="@style/TextSecure.LightTheme">
+    <style name="TextSecure.BaseLightNoActionBar" parent="@style/TextSecure.BaseLightTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
-
-        <item name="theme_type">light</item>
-        <item name="colorPrimary">@color/core_ultramarine</item>
-        <item name="colorPrimaryDark">@color/core_ultramarine</item>
-        <item name="colorAccent">@color/core_ultramarine</item>
     </style>
 
-    <style name="TextSecure.DarkNoActionBar" parent="TextSecure.BaseDarkNoActionBar">
-        <item name="android:statusBarColor">@color/molly_surface_dark</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/molly_surface_dark</item>
-        <item name="android:windowLightNavigationBar">false</item>
+    <style name="TextSecure.DarkNoActionBar" parent="@style/TextSecure.BaseDarkNoActionBar">
+        <!-- leave empty to allow overriding -->
     </style>
 
     <style name="TextSecure.DarkNoActionBar.StoryViewer">
@@ -48,7 +37,7 @@
     </style>
 
     <style name="TextSecure.BaseMediaPreview" parent="@style/TextSecure.BaseDarkNoActionBar">
-        <item name="android:windowBackground">?attr/colorSurfaceContainer</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
         <item name="colorPrimaryDark">@color/media_preview_bar_background</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
@@ -80,10 +69,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
-
-        <item name="theme_type">dark</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
-        <item name="colorAccent">@color/core_ultramarine_light</item>
     </style>
 
     <style name="Signal.Light.NoActionBar.Invite" parent="Base.Signal.Light.NoActionBar.Invite">
@@ -240,15 +225,16 @@
     </style>
 
     <style name="TextSecure.LightTheme" parent="TextSecure.BaseLightTheme">
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/molly_surface_light</item>
-        <item name="android:navigationBarColor">@color/molly_surface_light</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <!-- Allows for Overrides -->
     </style>
 
     <style name="TextSecure.BaseLightTheme" parent="@style/Theme.Molly.Material3.Light">
         <item name="theme_type">light</item>
         <item name="dynamic_colors">false</item>
+        <item name="android:navigationBarColor">@color/molly_surface_light</item>
+        <item name="android:statusBarColor">@color/molly_surface_light</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
         <item name="colorControlHighlight">@color/transparent_black_10</item>
@@ -281,8 +267,8 @@
         <item name="android:textColorSecondary">@color/text_color_secondary_light_theme</item>
         <item name="android:windowBackground">?attr/colorSurface</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyleLight</item>
-        <item name="android:alertDialogTheme">@style/AppCompatDialogStyleLight</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Signal.MaterialAlertDialog</item>
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.Signal.MaterialAlertDialog</item>
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
 
@@ -317,6 +303,7 @@
 
         <!-- light_colors.xml -->
         <item name="conversation_toolbar_color">?attr/colorSurface</item>
+        <item name="signal_accent_primary">@color/core_ultramarine</item>
         <item name="signal_background_primary">?attr/colorSurface</item>
         <item name="signal_background_secondary">?attr/colorSurfaceContainerLow</item>
         <item name="signal_background_dialog">?attr/colorSurfaceContainer</item>
@@ -329,6 +316,15 @@
         <item name="signal_icon_tint_action">@color/core_black</item>
         <item name="signal_icon_tint_tab_selected">?attr/colorOnSurface</item>
         <item name="signal_icon_tint_tab_unselected">?attr/colorOnSurfaceVariant</item>
+        <item name="signal_button_primary">@color/core_ultramarine</item>
+        <item name="signal_button_primary_ripple">@color/transparent_black_15</item>
+        <item name="signal_button_primary_text">@color/core_white</item>
+        <item name="signal_button_primary_text_disabled">@color/transparent_white_20</item>
+        <item name="signal_button_secondary">@color/core_grey_05</item>
+        <item name="signal_button_secondary_ripple">@color/core_grey_02</item>
+        <item name="signal_button_secondary_text">@color/core_ultramarine</item>
+        <item name="signal_button_secondary_text_disabled">@color/core_grey_25</item>
+        <item name="signal_button_secondary_stroke">@color/core_grey_15</item>
         <item name="conversation_compose_background">?attr/colorSurfaceContainerHigh</item>
         <item name="contact_filter_edit_background">?attr/colorSurfaceContainerHighest</item>
         <item name="reactions_pill_selected_color">?attr/colorSurfaceContainer</item>
@@ -345,7 +341,6 @@
         <item name="reactions_pill_text_color">?attr/colorOnSurfaceVariant</item>
         <item name="reactions_overlay_any_emoji_background">?attr/colorTertiaryContainer</item>
         <item name="reactions_overlay_any_emoji_foreground">?attr/colorOnTertiaryContainer</item>
-        <item name="recipient_bottom_sheet_button_strip_background_color">?attr/colorSecondaryContainer</item>
         <item name="megaphone_body_text_color">?attr/colorOnSurfaceVariant</item>
         <item name="tooltip_default_color">?attr/colorSecondaryContainer</item>
         <item name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparentInverse2</item>
@@ -375,18 +370,35 @@
         <item name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</item> -->
         <item name="safety_tip_background">@color/core_white</item>
         <item name="safety_tip_image_background">#99F3F0FF</item>
+
+        <!-- signal_styles.xml -->
+        <item name="switchThemeOverlay">@style/ThemeOverlay.MaterialSwitch.DayNight</item>
+        <item name="extended_action_button_container_color">@color/molly_tertiary_container_light</item>
+        <item name="extended_action_button_icon_color">@color/molly_on_tertiary_container_light</item>
+
+        <!-- contact_selection_*_item.xml -->
+        <item name="filled_tonal_icon_button_container_color">@color/molly_surface_container_highest_light</item>
+        <item name="filled_tonal_icon_button_icon_color">@color/molly_on_surface_light</item>
+
+        <!-- signal_context_menu_background.xml -->
+        <item name="context_menu_container_color">@color/molly_surface_container_high_light</item>
+
+        <!-- conversation_tab_icon_background.xml, conversation_list_tabs*.xml -->
+        <item name="navbar_active_indicator_color">@color/molly_secondary_container_light</item>
+        <item name="navbar_container_color">@color/molly_surface_container_light</item>
     </style>
 
-    <style name="TextSecure.DarkTheme" parent="TextSecure.BaseDarkTheme">
-        <item name="android:statusBarColor">@color/molly_surface_dark</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/molly_surface_dark</item>
-        <item name="android:windowLightNavigationBar">false</item>
+    <style name="TextSecure.DarkTheme" parent="@style/TextSecure.BaseDarkTheme">
+        <!-- leave empty to allow overriding -->
     </style>
 
     <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.Molly.Material3.Dark">
         <item name="theme_type">dark</item>
         <item name="dynamic_colors">false</item>
+        <item name="android:navigationBarColor">@color/molly_surface_dark</item>
+        <item name="android:statusBarColor">@color/molly_surface_dark</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
 
         <item name="colorControlHighlight">@color/transparent_white_10</item>
@@ -415,8 +427,10 @@
         <item name="android:textColor">@color/text_color_dark_theme</item>
         <item name="android:textColorSecondary">@color/text_color_secondary_dark_theme</item>
         <item name="android:colorControlHighlight" tools:ignore="NewApi">@color/transparent_white_10</item>
-        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyleDark</item>
-        <item name="android:alertDialogTheme">@style/AppCompatDialogStyleDark</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Signal.MaterialAlertDialog</item>
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.Signal.MaterialAlertDialog</item>
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
 
@@ -455,6 +469,7 @@
 
         <!-- dark_colors.xml -->
         <item name="conversation_toolbar_color">?attr/colorSurface</item>
+        <item name="signal_accent_primary">@color/core_ultramarine_light</item>
         <item name="signal_background_primary">?attr/colorSurface</item>
         <item name="signal_background_secondary">?attr/colorSurfaceContainerLow</item>
         <item name="signal_background_dialog">@color/core_grey_75</item>
@@ -462,11 +477,20 @@
         <item name="signal_text_primary">?attr/colorOnSurface</item>
         <item name="signal_text_secondary">?attr/colorOnSurfaceVariant</item>
         <item name="signal_text_toolbar_title">@color/transparent_white_90</item>
-        <item name="signal_icon_tint_primary">@color/core_grey_15</item>
+        <item name="signal_icon_tint_primary">?attr/colorOnSurface</item>
         <item name="signal_icon_tint_secondary">@color/core_grey_25</item>
         <item name="signal_icon_tint_action">?attr/signal_icon_tint_primary</item>
         <item name="signal_icon_tint_tab_selected">?attr/colorOnSurface</item>
         <item name="signal_icon_tint_tab_unselected">?attr/colorOnSurfaceVariant</item>
+        <item name="signal_button_primary">@color/core_ultramarine_light</item>
+        <item name="signal_button_primary_ripple">@color/transparent_black_15</item>
+        <item name="signal_button_primary_text">@color/core_white</item>
+        <item name="signal_button_primary_text_disabled">@color/transparent_white_20</item>
+        <item name="signal_button_secondary">@color/core_grey_75</item>
+        <item name="signal_button_secondary_ripple">@color/core_grey_80</item>
+        <item name="signal_button_secondary_text">@color/core_ultramarine_light</item>
+        <item name="signal_button_secondary_text_disabled">@color/core_grey_45</item>
+        <item name="signal_button_secondary_stroke">@color/core_grey_45</item>
         <item name="conversation_compose_background">?attr/colorSurfaceContainerHigh</item>
         <item name="contact_filter_edit_background">?attr/colorSurfaceContainerHighest</item>
         <item name="reactions_pill_selected_color">?attr/colorSurfaceContainer</item>
@@ -483,7 +507,6 @@
         <item name="reactions_pill_text_color">?attr/colorOnSurfaceVariant</item>
         <item name="reactions_overlay_any_emoji_background">?attr/colorTertiaryContainer</item>
         <item name="reactions_overlay_any_emoji_foreground">?attr/colorOnTertiaryContainer</item>
-        <item name="recipient_bottom_sheet_button_strip_background_color">?attr/colorSecondaryContainer</item>
         <item name="megaphone_body_text_color">?attr/colorOnSurfaceVariant</item>
         <item name="tooltip_default_color">?attr/colorSecondaryContainer</item>
         <item name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparent2</item>
@@ -491,13 +514,13 @@
         <item name="quote_view_foreground_incoming_wallpaper">@color/signal_colorNeutralInverse</item>
         <item name="quote_view_background_outgoing_wallpaper">@color/signal_colorTransparent4</item>
         <item name="quote_view_bar_outgoing_wallpaper">@color/signal_colorNeutralInverse</item>
-        <item name="quote_view_foreground_outgoing_wallpaper">?attr/colorOnSurface</item>
+        <item name="quote_view_foreground_outgoing_wallpaper">@color/signal_colorNeutral</item>
         <item name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</item>
         <item name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</item>
         <item name="quote_view_foreground_incoming_normal">?attr/colorOnSurface</item>
         <item name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</item>
         <item name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</item>
-        <item name="quote_view_foreground_outgoing_normal">?attr/colorOnSurface</item>
+        <item name="quote_view_foreground_outgoing_normal">?attr/colorOnSurfaceInverse</item>
         <item name="react_with_any_background">?attr/colorSurfaceContainerLow</item>
         <item name="react_with_any_search_background">?attr/conversation_compose_background</item>
         <item name="react_with_any_search_hint">?attr/colorOnSurfaceVariant</item>
@@ -513,6 +536,22 @@
         <item name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</item>
         <item name="safety_tip_background">?attr/colorSecondaryContainer</item>
         <item name="safety_tip_image_background">?attr/colorSecondary</item>
+
+        <!-- signal_styles.xml -->
+        <item name="switchThemeOverlay">@style/ThemeOverlay.MaterialSwitch.DayNight</item>
+        <item name="extended_action_button_container_color">@color/molly_tertiary_container_dark</item>
+        <item name="extended_action_button_icon_color">@color/molly_on_tertiary_container_dark</item>
+
+        <!-- contact_selection_*_item.xml -->
+        <item name="filled_tonal_icon_button_container_color">@color/molly_surface_container_highest_dark</item>
+        <item name="filled_tonal_icon_button_icon_color">@color/molly_on_surface_dark</item>
+
+        <!-- signal_context_menu_background.xml -->
+        <item name="context_menu_container_color">@color/molly_surface_container_high_dark</item>
+
+        <!-- conversation_tab_icon_background.xml, conversation_list_tabs*.xml -->
+        <item name="navbar_active_indicator_color">@color/molly_surface_bright_dark</item>
+        <item name="navbar_container_color">@color/molly_surface_container_dark</item>
     </style>
 
     <style name="Theme.Signal.AlertDialog.Light.Cornered" parent="MaterialAlertDialog.Material3">
@@ -524,17 +563,13 @@
     </style>
 
     <style name="TextSecure.LightRegistrationTheme" parent="TextSecure.LightNoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/molly_surface_light</item>
-        <item name="android:navigationBarColor">@color/molly_surface_light</item>
         <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="TextSecure.DarkRegistrationTheme" parent="TextSecure.DarkNoActionBar">
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/molly_surface_dark</item>
-        <item name="android:navigationBarColor">@color/molly_surface_dark</item>
         <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="TextSecure.LightNoActionBar.ConversationSettings" parent="TextSecure.LightNoActionBar">
@@ -582,8 +617,8 @@
     <style name="Theme.Signal.BottomSheetDialog.Fixed" parent="Theme.Design.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
@@ -796,9 +831,9 @@
     </style>
 
     <style name="ThemeOverlay.Signal.EditProfileInput" parent="ThemeOverlay.MaterialComponents">
-        <item name="colorAccent">@color/signal_accent_primary</item>
-        <item name="colorControlNormal">@color/signal_accent_primary</item>
-        <item name="colorControlHighlight">@color/signal_accent_primary</item>
-        <item name="colorControlActivated">@color/signal_accent_primary</item>
+        <item name="colorAccent">?attr/signal_accent_primary</item>
+        <item name="colorControlNormal">?attr/signal_accent_primary</item>
+        <item name="colorControlHighlight">?attr/signal_accent_primary</item>
+        <item name="colorControlActivated">?attr/signal_accent_primary</item>
     </style>
 </resources>

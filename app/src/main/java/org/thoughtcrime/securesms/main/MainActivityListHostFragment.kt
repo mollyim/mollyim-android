@@ -8,7 +8,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ActionMenuView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -44,6 +43,7 @@ import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel
 import org.thoughtcrime.securesms.util.AvatarUtil
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.TopToastPopup
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.runHideAnimation
@@ -361,8 +361,8 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
       if (target != null) {
         TooltipPopup.forTarget(target)
           .setText(R.string.ConversationListFragment__turn_your_notification_profile_on_or_off_here)
-          .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.signal_button_primary))
-          .setTextColor(ContextCompat.getColor(requireContext(), R.color.signal_button_primary_text))
+          .setBackgroundTint(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_button_primary))
+          .setTextColor(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_button_primary_text))
           .setOnDismissListener { SignalStore.notificationProfile.hasSeenTooltip = true }
           .show(TooltipPopup.POSITION_BELOW)
       } else {

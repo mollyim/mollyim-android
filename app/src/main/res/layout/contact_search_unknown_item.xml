@@ -23,7 +23,7 @@
         android:layout_height="40dp"
         android:layout_marginVertical="12dp"
         android:layout_marginStart="@dimen/gutter"
-        android:background="?attr/colorSurfaceVariant"
+        android:background="?attr/filled_tonal_icon_button_container_color"
         android:importantForAccessibility="no"
         app:contentPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/contact_header"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
         app:srcCompat="@drawable/symbol_search_24"
-        app:tint="?attr/colorOnSecondaryContainer"
+        app:tint="?attr/filled_tonal_icon_button_icon_color"
         tools:ignore="UnusedAttribute" />
 
     <androidx.appcompat.widget.AppCompatCheckBox

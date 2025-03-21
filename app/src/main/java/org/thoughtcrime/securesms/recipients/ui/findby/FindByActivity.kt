@@ -402,7 +402,6 @@ private fun Content(
           Text(
             text = stringResource(id = R.string.FindByActivity__qr_scan_button),
             style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurface
           )
         }
       }

@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.core.view.animation.PathInterpolatorCompat
 import androidx.core.view.children
 import androidx.core.view.forEach
@@ -63,8 +64,8 @@ class MultiselectItemDecoration(
   private val transparentBlack20 = ContextCompat.getColor(context, R.color.transparent_black_20)
   private val transparentWhite20 = ContextCompat.getColor(context, R.color.transparent_white_20)
   private val transparentWhite60 = ContextCompat.getColor(context, R.color.transparent_white_60)
-  private val ultramarine30 = ContextCompat.getColor(context, R.color.core_ultramarine_33)
-  private val ultramarine = ContextCompat.getColor(context, R.color.signal_accent_primary)
+  private val ultramarine = ThemeUtil.getThemedColor(context, R.attr.signal_accent_primary)
+  private val ultramarine30 = ColorUtils.setAlphaComponent(ultramarine, 0x55)
 
   private val selectedParts: MutableSet<MultiselectPart> = mutableSetOf()
   private var enterExitAnimation: ValueAnimator? = null

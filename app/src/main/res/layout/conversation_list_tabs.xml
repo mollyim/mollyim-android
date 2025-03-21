@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurfaceContainer"
+    android:background="?attr/navbar_container_color"
+    android:elevation="3dp"
     android:minHeight="80dp">
 
     <View
@@ -115,7 +116,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/ConversationListTabs__chats"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="?attr/colorOnSecondaryContainer"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/chats_tab_icon"
         app:layout_constraintStart_toStartOf="@id/chats_tab_icon"
@@ -141,7 +142,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/ConversationListTabs__calls"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="?attr/colorOnSecondaryContainer"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/calls_tab_icon"
         app:layout_constraintStart_toStartOf="@id/calls_tab_icon"
@@ -167,7 +168,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/ConversationListTabs__stories"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="?attr/colorOnSecondaryContainer"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/stories_tab_icon"
         app:layout_constraintStart_toStartOf="@id/stories_tab_icon"

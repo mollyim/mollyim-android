@@ -40,6 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.theme.SignalTheme
+import org.signal.core.ui.theme.attributeColor
 
 object Buttons {
 
@@ -92,8 +93,8 @@ object Buttons {
     enabled: Boolean = true,
     shape: Shape = ButtonDefaults.filledTonalShape,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(
-      containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-      contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+      containerColor = attributeColor(R.attr.extended_action_button_container_color),
+      contentColor = attributeColor(R.attr.extended_action_button_icon_color)
     ),
     elevation: ButtonElevation? = ButtonDefaults.filledTonalButtonElevation(),
     border: BorderStroke? = null,
@@ -122,8 +123,8 @@ object Buttons {
     enabled: Boolean = true,
     shape: Shape = ButtonDefaults.filledTonalShape,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(
-      containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-      contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+      containerColor = attributeColor(R.attr.extended_action_button_container_color),
+      contentColor = attributeColor(R.attr.extended_action_button_icon_color)
     ),
     elevation: ButtonElevation? = ButtonDefaults.filledTonalButtonElevation(),
     border: BorderStroke? = null,
@@ -153,8 +154,8 @@ object Buttons {
     shape: Shape = ButtonDefaults.shape,
     tonal: Boolean = false,
     colors: ButtonColors = if (tonal) ButtonDefaults.filledTonalButtonColors(
-      containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-      contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+      containerColor = attributeColor(R.attr.extended_action_button_container_color),
+      contentColor = attributeColor(R.attr.extended_action_button_icon_color)
     ) else ButtonDefaults.buttonColors(),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? = null,
@@ -198,7 +199,7 @@ object Buttons {
         painter = painterResource(iconResId),
         contentDescription = null,
         modifier = Modifier.padding(16.dp),
-        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onTertiaryContainer)
+        colorFilter = ColorFilter.tint(attributeColor(R.attr.extended_action_button_icon_color))
       )
     }
   }
@@ -220,8 +221,8 @@ object Buttons {
         shape = RoundedCornerShape(18.dp),
         modifier = Modifier.size(56.dp),
         colors = IconButtonDefaults.filledTonalIconButtonColors(
-          containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-          contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+          containerColor = attributeColor(R.attr.extended_action_button_container_color),
+          contentColor = attributeColor(R.attr.extended_action_button_icon_color)
         ),
         enabled = enabled,
         content = imageContent

@@ -235,19 +235,16 @@
                 android:textColor="?attr/signal_text_secondary" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/fragment_backup_toggle"
+            style="@style/Signal.Widget.Button.Medium.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/primary_action_button_background_36dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             android:text="@string/BackupsPreferenceFragment__turn_on"
-            android:textColor="@color/core_white"
-            app:backgroundTint="?colorAccent" />
+            android:textAllCaps="true" />
 
         <View
             android:layout_width="match_parent"

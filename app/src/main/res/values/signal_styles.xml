@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Signal.Widget.ImageView.ActionButton" parent="ThemeOverlay.Material3">
-        <item name="tint">?attr/colorOnTertiaryContainer</item>
+        <item name="tint">?attr/extended_action_button_icon_color</item>
         <item name="android:background">@drawable/selectable_icon_button</item>
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
@@ -59,9 +59,9 @@
         <item name="strokeWidth">1.5dp</item>
         <item name="cornerRadius">18dp</item>
         <item name="android:textColor">@color/signal_button_secondary_text_selector</item>
-        <item name="strokeColor">@color/signal_button_secondary_stroke</item>
+        <item name="strokeColor">?attr/signal_button_secondary_stroke</item>
         <item name="backgroundTint">@color/transparent</item>
-        <item name="rippleColor">@color/signal_button_secondary</item>
+        <item name="rippleColor">?attr/signal_button_secondary</item>
     </style>
 
     <style name="Signal.Widget.Button.Small.Secondary" parent="Widget.Material3.Button.UnelevatedButton">
@@ -98,13 +98,13 @@
     </style>
 
     <style name="ThemeOverlay.Signal.Button.Tonal" parent="ThemeOverlay.Material3.Button">
-        <item name="colorOnContainer">?attr/colorOnTertiaryContainer</item>
-        <item name="colorContainer">?attr/colorTertiaryContainer</item>
+        <item name="colorOnContainer">?attr/extended_action_button_icon_color</item>
+        <item name="colorContainer">?attr/extended_action_button_container_color</item>
     </style>
 
     <style name="ThemeOverlay.Signal.Button.Small" parent="ThemeOverlay.Material3.Button">
-        <item name="colorOnContainer">?attr/colorOnTertiaryContainer</item>
-        <item name="colorContainer">?attr/colorTertiaryContainer</item>
+        <item name="colorOnContainer">?attr/extended_action_button_icon_color</item>
+        <item name="colorContainer">?attr/extended_action_button_container_color</item>
     </style>
     
     <style name="ThemeOverlay.Signal.Button.Surface2" parent="ThemeOverlay.Material3.Button">
@@ -119,7 +119,7 @@
         <item name="android:textColor">@color/signal_button_secondary_text_selector</item>
         <item name="iconGravity">textEnd</item>
         <item name="iconTint">@color/signal_button_secondary_text_selector</item>
-        <item name="rippleColor">@color/signal_button_secondary_ripple</item>
+        <item name="rippleColor">?attr/signal_button_secondary_ripple</item>
     </style>
 
     <style name="Signal.Widget.Button.Large.Secondary" parent="@style/Signal.Widget.Button.Base.Secondary">
@@ -211,7 +211,7 @@
 
     <style name="Signal.DayNight.TitleTextStyle" parent="@style/TextSecure.TitleTextStyle" />
 
-    <style name="Signal.DayNight.Dialog.FullScreen" parent="Signal.DayNight">
+    <style name="Signal.DayNight.Dialog.FullScreen" parent="@style/ThemeOverlay.Material3">
         <item name="android:windowAnimationStyle">@style/TextSecure.Animation.FullScreenDialog</item>
     </style>
 
@@ -278,7 +278,7 @@
     <style name="Signal.ThemeOverlay.Calendar" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
         <item name="colorSurface">?attr/signal_background_dialog</item>
         <item name="borderlessButtonStyle">@style/Signal.Widget.Button.Dialog</item>
-        <item name="colorAccent">@color/signal_accent_primary</item>
+        <item name="colorAccent">?attr/signal_accent_primary</item>
         <item name="materialCalendarHeaderTitle">@style/MaterialCalendar.Signal.HeaderTitle</item>
         <item name="materialCalendarHeaderSelection">@style/MaterialCalendar.Signal.HeaderSelection</item>
         <item name="buttonBarPositiveButtonStyle">@style/Signal.Widget.Button.Dialog</item>
@@ -298,15 +298,9 @@
         <item name="shapeAppearance">@style/Signal.ShapeOverlay.Rounded</item>
     </style>
 
-    <style name="Signal.Widget.TimePicker.ImageButton" parent="Widget.MaterialComponents.TimePicker.ImageButton">
-        <item name="iconTint">?attr/signal_icon_tint_primary</item>
-    </style>
-
     <style name="Signal.ThemeOverlay.TimePicker" parent="@style/ThemeOverlay.MaterialComponents.TimePicker">
         <item name="textAppearanceOverline">@style/TextAppearance.Signal.Body2</item>
-        <item name="colorSurface">?attr/signal_background_dialog</item>
         <item name="borderlessButtonStyle">@style/Signal.Widget.Button.Dialog</item>
-        <item name="colorPrimary">@color/signal_accent_primary</item>
     </style>
 
     <style name="ThemeOverlay.Signal.CircularProgressIndicator.Primary" parent="ThemeOverlay.Material3">
@@ -336,16 +330,18 @@
     </style>
 
     <style name="Widget.Signal.CompoundButton.MaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.Signal.MaterialSwitch</item>
+        <item name="materialThemeOverlay">?attr/switchThemeOverlay</item>
     </style>
 
     <style name="Signal.ThemeOverlay.TextInputLayout" parent="ThemeOverlay.Material3">
     </style>
 
-    <style name="ThemeOverlay.Signal.MaterialSwitch" parent="ThemeOverlay.Material3">
+    <style name="ThemeOverlay.MaterialSwitch.DayNight" parent="ThemeOverlay.Material3">
         <item name="colorSurface">?attr/colorSurfaceContainer</item>
         <item name="colorOnSurfaceVariant">?attr/colorPrimary</item>
         <item name="colorOutline">?attr/colorOutlineVariant</item>
     </style>
+
+    <style name="ThemeOverlay.MaterialSwitch.Dynamic" parent="ThemeOverlay.Material3.DynamicColors.DayNight" />
 
 </resources>

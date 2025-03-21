@@ -2,9 +2,7 @@ package org.thoughtcrime.securesms.mediasend.v2.review
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
@@ -71,13 +69,6 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
   private var recipient: Recipient? = null
 
   private val disposables = CompositeDisposable()
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-    val themeWrapper = ContextThemeWrapper(inflater.context, R.style.TextSecure_DarkTheme)
-    val themedInflater = LayoutInflater.from(themeWrapper)
-
-    return super.onCreateView(themedInflater, container, savedInstanceState)
-  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     emojiDrawerStub = Stub(binding.content.emojiDrawerStub)

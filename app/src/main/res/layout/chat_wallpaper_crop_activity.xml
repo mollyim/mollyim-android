@@ -155,7 +155,7 @@
         android:paddingEnd="6dp"
         android:paddingBottom="6dp"
         android:text="@string/WallpaperCropActivity__blur_photo"
-        android:textColor="@color/signal_button_primary"
+        android:textColor="?attr/signal_button_primary"
         app:layout_constraintBottom_toTopOf="@+id/preview_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,6 +2,9 @@
 <resources>
     <!-- Core colors for Material3 -->
     <!-- MOLLY: Colors moved to themes.xml as theme attributes -->
+    <color name="signal_neutralSurface">@color/signal_dark_neutralSurface</color>
+    <color name="signal_colorOnCustom">@color/signal_dark_colorOnCustom</color>
+    <color name="signal_colorOnCustomVariant">@color/signal_dark_colorOnCustomVariant</color>
 
     <color name="signal_colorTransparent1">@color/signal_dark_colorTransparent1</color>
     <color name="signal_colorTransparent2">@color/signal_dark_colorTransparent2</color>

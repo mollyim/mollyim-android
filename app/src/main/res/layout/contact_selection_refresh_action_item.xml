@@ -14,7 +14,7 @@
         android:id="@+id/image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="?attr/colorSurfaceContainer"
+        android:background="?attr/filled_tonal_icon_button_container_color"
         android:importantForAccessibility="no"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
         app:srcCompat="@drawable/symbol_refresh_24"
-        app:tint="?attr/colorOnSurface" />
+        app:tint="?attr/filled_tonal_icon_button_icon_color" />
 
     <TextView
         android:id="@+id/title"

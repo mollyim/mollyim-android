@@ -32,7 +32,7 @@
             android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
             android:textColor="?attr/signal_text_secondary"
             app:drawableStartCompat="@drawable/ic_add_money_20"
-            app:drawableTint="@color/signal_accent_primary" />
+            app:drawableTint="?attr/signal_accent_primary" />
     </FrameLayout>
 
     <FrameLayout
@@ -80,7 +80,7 @@
             android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
             android:textColor="?attr/signal_text_secondary"
             app:drawableStartCompat="@drawable/ic_send_money_20"
-            app:drawableTint="@color/signal_accent_primary" />
+            app:drawableTint="?attr/signal_accent_primary" />
 
     </FrameLayout>
 
