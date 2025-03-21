@@ -100,9 +100,13 @@ class TransferAccountActivity : PassphraseRequiredActivity() {
   private lateinit var biometricAuth: BiometricDeviceAuthentication
   private lateinit var biometricDeviceLockLauncher: ActivityResultLauncher<String>
 
+  override fun onPreCreate() {
+    super.onPreCreate()
+    theme.onCreate(this)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     super.onCreate(savedInstanceState, ready)
-    theme.onCreate(this)
 
     if (!SignalStore.account.isRegistered) {
       finish()

@@ -108,7 +108,6 @@ public class SharedContactDetailsActivity extends PassphraseRequiredActivity {
   @Override
   protected void onResume() {
     super.onResume();
-    dynamicTheme.onCreate(this);
     dynamicTheme.onResume(this);
   }
 

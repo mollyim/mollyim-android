@@ -107,7 +107,6 @@ public class ContactShareEditActivity extends PassphraseRequiredActivity impleme
   protected void onResume() {
     super.onResume();
     dynamicTheme.onResume(this);
-    dynamicTheme.onResume(this);
   }
 
   private void presentEvent(@Nullable Event event) {

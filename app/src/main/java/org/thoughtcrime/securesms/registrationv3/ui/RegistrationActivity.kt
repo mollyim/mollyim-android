@@ -37,9 +37,12 @@ class RegistrationActivity : PassphraseRequiredActivity() {
     lifecycle.addObserver(SmsRetrieverObserver())
   }
 
-  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+  override fun onPreCreate() {
+    super.onPreCreate()
     dynamicTheme.onCreate(this)
+  }
 
+  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     super.onCreate(savedInstanceState, ready)
     setContentView(R.layout.activity_registration_navigation_v3)
 

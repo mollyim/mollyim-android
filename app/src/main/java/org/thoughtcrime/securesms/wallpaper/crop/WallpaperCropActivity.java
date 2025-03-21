@@ -74,9 +74,14 @@ public final class WallpaperCropActivity extends PassphraseRequiredActivity {
   }
 
   @Override
+  protected void onPreCreate() {
+    super.onPreCreate();
+    dynamicTheme.onCreate(this);
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
-    dynamicTheme.onCreate(this);
     setContentView(R.layout.chat_wallpaper_crop_activity);
 
     RecipientId recipientId = getIntent().getParcelableExtra(EXTRA_RECIPIENT_ID);
