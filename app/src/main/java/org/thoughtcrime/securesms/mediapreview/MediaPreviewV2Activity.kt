@@ -7,7 +7,6 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.core.transition.addListener
 import androidx.core.view.animation.PathInterpolatorCompat
 import androidx.core.view.updateLayoutParams
@@ -20,7 +19,8 @@ import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
-import org.thoughtcrime.securesms.util.WindowUtil
+import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme
+import org.thoughtcrime.securesms.util.DynamicTheme
 
 class MediaPreviewV2Activity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner {
 
@@ -33,6 +33,18 @@ class MediaPreviewV2Activity : PassphraseRequiredActivity(), VoiceNoteMediaContr
   }
 
   private lateinit var transitionImageView: ImageView
+
+  private val theme: DynamicTheme = DynamicMediaPreviewTheme()
+
+  override fun onPreCreate() {
+    super.onPreCreate()
+    theme.onCreate(this)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    theme.onResume(this)
+  }
 
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
@@ -85,7 +97,6 @@ class MediaPreviewV2Activity : PassphraseRequiredActivity(), VoiceNoteMediaContr
     }
 
     super.onCreate(savedInstanceState, ready)
-    setTheme(R.style.TextSecure_MediaPreview)
     setContentView(R.layout.activity_mediapreview_v2)
 
     transitionImageView = findViewById(R.id.transition_image_view)
@@ -123,12 +134,6 @@ class MediaPreviewV2Activity : PassphraseRequiredActivity(), VoiceNoteMediaContr
     }
 
     voiceNoteMediaController = VoiceNoteMediaController(this, false)
-
-    val systemBarColor = ContextCompat.getColor(this, R.color.signal_dark_colorSurface)
-    window.statusBarColor = systemBarColor
-    window.navigationBarColor = systemBarColor
-    WindowUtil.clearLightStatusBar(window)
-    WindowUtil.clearLightNavigationBar(window)
 
     if (savedInstanceState == null) {
       val bundle = Bundle()

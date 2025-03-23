@@ -2,8 +2,6 @@
 <resources>
     <style name="Signal.DayNight" parent="TextSecure.DarkTheme" />
 
-    <style name="Signal.DayNight.Invite" parent="Signal.NoActionBar.Invite" />
-
     <style name="Signal.DayNight.Registration" parent="TextSecure.DarkRegistrationTheme" />
 
     <style name="Signal.DayNight.WallpaperCropper" parent="Theme.Signal.WallpaperCropper" />
@@ -16,5 +14,6 @@
 
     <style name="Theme.Molly.Dynamic" parent="Theme.Molly.Dynamic.Dark" />
     <style name="Theme.Molly.Dynamic.NoActionBar" parent="Theme.Molly.Dynamic.NoActionBar.Dark" />
+    <style name="Theme.Molly.Dynamic.Registration" parent="Theme.Molly.Dynamic.Registration.Dark" />
     <style name="Theme.Molly.Dynamic.ConversationSettings" parent="Theme.Molly.Dynamic.ConversationSettings.Dark" />
 </resources>

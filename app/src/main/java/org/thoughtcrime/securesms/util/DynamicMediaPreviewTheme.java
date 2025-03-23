@@ -4,13 +4,13 @@ import androidx.annotation.StyleRes;
 
 import org.thoughtcrime.securesms.R;
 
-public class DynamicNoActionBarInviteTheme extends DynamicTheme {
+public class DynamicMediaPreviewTheme extends DynamicTheme {
 
   protected @StyleRes int getRegularTheme() {
-    return R.style.Signal_DayNight_Invite;
+    return R.style.TextSecure_MediaPreview;
   }
 
   protected @StyleRes int getDynamicTheme() {
-    return getRegularTheme();
+    return R.style.Theme_Molly_Dynamic_MediaPreview;
   }
 }

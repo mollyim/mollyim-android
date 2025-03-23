@@ -22,13 +22,22 @@ import org.thoughtcrime.securesms.scribbles.stickers.FeatureSticker;
 import org.thoughtcrime.securesms.scribbles.stickers.ScribbleStickersFragment;
 import org.thoughtcrime.securesms.stickers.StickerEventListener;
 import org.thoughtcrime.securesms.stickers.StickerManagementActivity;
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 public final class ImageEditorStickerSelectActivity extends AppCompatActivity implements StickerEventListener, MediaKeyboard.MediaKeyboardListener, StickerKeyboardPageFragment.Callback, ScribbleStickersFragment.Callback {
 
   public static final String EXTRA_FEATURE_STICKER = "imageEditor.featureSticker";
 
+  private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
+
   @Override
+  protected void onResume() {
+    super.onResume();
+    dynamicTheme.onResume(this);
+  }
+
   protected void attachBaseContext(@NonNull Context newBase) {
     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     super.attachBaseContext(newBase);
@@ -37,6 +46,7 @@ public final class ImageEditorStickerSelectActivity extends AppCompatActivity im
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    dynamicTheme.onCreate(this);
     setContentView(R.layout.scribble_select_new_sticker_activity);
   }
 

@@ -11,6 +11,6 @@ public class DynamicRegistrationTheme extends DynamicTheme {
   }
 
   protected @StyleRes int getDynamicTheme() {
-    return getRegularTheme();
+    return R.style.Theme_Molly_Dynamic_Registration;
   }
 }

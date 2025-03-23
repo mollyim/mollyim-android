@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/signal_dark_colorSurface">
+    android:layout_height="match_parent">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/media_pager"
@@ -21,7 +20,7 @@
         android:layout_gravity="bottom"
         android:alpha="0"
         android:animateLayoutChanges="false"
-        android:background="@color/signal_dark_colorSurface_87"
+        android:background="@color/media_preview_bar_background"
         android:gravity="bottom"
         android:orientation="vertical"
         android:visibility="invisible"
@@ -54,7 +53,7 @@
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/signal_dark_colorSurface_87"
+        android:background="@color/media_preview_bar_background"
         app:elevation="0dp">
 
         <View

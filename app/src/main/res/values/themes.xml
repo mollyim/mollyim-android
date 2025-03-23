@@ -37,9 +37,9 @@
     </style>
 
     <style name="TextSecure.BaseMediaPreview" parent="@style/TextSecure.BaseDarkNoActionBar">
-        <item name="android:windowBackground">?attr/colorSurface</item>
-        <item name="colorPrimaryDark">@color/media_preview_bar_background</item>
-        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/signal_dark_colorNeutral</item>
+        <item name="android:statusBarColor">@color/signal_dark_colorNeutral</item>
+        <item name="android:navigationBarColor">@color/signal_dark_colorNeutral</item>
     </style>
 
     <style name="TextSecure.MediaPreview" parent="@style/TextSecure.BaseMediaPreview">
@@ -69,22 +69,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
-    </style>
-
-    <style name="Signal.Light.NoActionBar.Invite" parent="Base.Signal.Light.NoActionBar.Invite">
-        <!-- Empty for override -->
-    </style>
-
-    <style name="Base.Signal.Light.NoActionBar.Invite" parent="@style/TextSecure.LightNoActionBar">
-        <item name="contact_filter_toolbar_icon_tint">@color/signal_text_toolbar_subtitle</item>
-    </style>
-
-    <style name="Signal.NoActionBar.Invite" parent="Base.Signal.NoActionBar.Invite">
-        <!-- Empty for override -->
-    </style>
-
-    <style name="Base.Signal.NoActionBar.Invite" parent="@style/TextSecure.DarkNoActionBar">
-        <item name="contact_filter_toolbar_icon_tint">@color/signal_text_toolbar_subtitle</item>
     </style>
 
     <style name="TextSecure.LightIntroTheme" parent="@style/Signal.DayNight.Registration">

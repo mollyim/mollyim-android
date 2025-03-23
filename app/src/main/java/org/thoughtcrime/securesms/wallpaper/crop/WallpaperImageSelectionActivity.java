@@ -14,6 +14,8 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mediasend.v2.gallery.MediaGalleryFragment;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 
 public final class WallpaperImageSelectionActivity extends AppCompatActivity
         implements MediaGalleryFragment.Callbacks
@@ -21,12 +23,20 @@ public final class WallpaperImageSelectionActivity extends AppCompatActivity
   private static final String EXTRA_RECIPIENT_ID = "RECIPIENT_ID";
   private static final int    CROP               = 901;
 
+  private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
+
   public static Intent getIntent(@NonNull Context context,
                                  @Nullable RecipientId recipientId)
   {
     Intent intent = new Intent(context, WallpaperImageSelectionActivity.class);
     intent.putExtra(EXTRA_RECIPIENT_ID, recipientId);
     return intent;
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    dynamicTheme.onResume(this);
   }
 
   @Override
@@ -38,6 +48,7 @@ public final class WallpaperImageSelectionActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    dynamicTheme.onCreate(this);
 
     getWindow().addFlags(
         WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
