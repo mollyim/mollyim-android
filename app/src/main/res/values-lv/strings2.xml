@@ -5,7 +5,7 @@
     <string name="arrays__tor_via_orbot">Tor ar Orbot</string>
     <string name="preferences__enable_debug_log">Iespējot atkļūdošanas žurnālu</string>
     <string name="preferences__autoupdate_molly">Automātiski atjaunināt Molly</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">Aizsargāt Molly datubāzi ar frāzveida paroli</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Aizsargāt Molly datubāzi ar paroles vārdkopu</string>
     <string name="preferences_network__connection">Savienojums</string>
     <string name="preferences_network__proxy">Starpniekserveris</string>
     <string name="preferences_network__host">Saimniekdators</string>
@@ -14,14 +14,14 @@
     <string name="preferences_network__connecting">Savienojas…</string>
     <string name="preferences_network__online">Tiešsaistē</string>
     <string name="preferences__passphrase_lock">Datubāzes šifrēšana</string>
-    <string name="preferences__passphrase_changed">Frāzveida parole nomainīta</string>
+    <string name="preferences__passphrase_changed">Paroles vārdkopa nomainīta</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Laiku pa laikam pārbaudīt jaunu laidienu pieejamību un vaicāt uzstādīt tos</string>
     <string name="preferences_appearance__navigation_bar">Navigācijas josla</string>
     <string name="preferences_appearance__show_calls">Rādīt zvanus</string>
     <string name="prompt_passphrase_activity__molly_is_locked">Molly ir aizslēgta</string>
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta versijas ir paredzētas pārbaudīšanai, un tajās var būt kļūdas</string>
     <string name="preferences__map_normal">Parasta</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Pieprasīt frāzveida paroli, lai atslēgtu Molly?</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Pieprasīt paroles vārdkopu, lai atslēgtu Molly?</string>
     <string name="preferences__automatic_lockdown">Automātiska noslēgšana</string>
     <string name="arrays__on_inactivity_timeout">Ja paiet noteikts laiks bez ierīces atslēgšanas</string>
     <string name="arrays__none">Neviens</string>
@@ -58,11 +58,11 @@
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Pēc sasaistīšanas jaunie ziņojumi tiek sinhronizēti starp ierīcēm, taču iepriekšējā ziņojumu vēsture netiks pārsūtīta.</string>
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">Ziņapmaiņa ir privāta visās sasaistītajās ierīcēs.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Android ierīcēm: jāapmeklē vietne %s, lai uzstādītu Molly.</string>
-    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Pārslēgt, lai parādītu vai paslēptu ikonu navigācijas joslā</string>
+    <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Pārslēgt, lai parādītu vai paslēptu ikonu pāriešanas joslā</string>
     <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">Iztīra nešifrētus datus no RAM</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Ieslēgt datubāzes šifrēšanu</string>
-    <string name="ChangePassphraseDialogFragment_weak_passphrase">Vāja frāzveida parole!</string>
-    <string name="ChangePassphraseDialogFragment_passphrase">Frāzveida parole</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Vāja paroles vārdkopa.</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Paroles vārdkopa</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Izveido atslēgas. Tas var aizņemt kādu laiku…</string>
     <string name="BlockUnblockDialog_delete_this_contact">Izdzēst šo kontaktpersonu?</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Sarakste ar %1$s tiks izdzēsta.</string>
@@ -81,7 +81,7 @@
     <string name="WipeMemoryService_secure_wipe_in_progress">Notiek drošā tīrīšana</string>
     <string name="PrivacySettingsFragment_data_at_rest">Dati miera stāvoklī</string>
     <string name="AppProtectionPreferenceFragment_instant">Tūlītēji</string>
-    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Lūgums izvēlēties frāzveida paroli, kas tiks izmantota datu vietējai šifrēšanai.\n\nFrāzveida parolei ir jābūt spēcīgai.</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Lūgums izvēlēties paroles vārdkopu, kas tiks izmantota datu vietējai šifrēšanai.\n\nParoles vārdkopai ir jābūt spēcīgai.</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot palaists</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Trūkst lietotnes Orbot</string>
     <string name="NetworkPreferenceFragment_get_orbot">Iegūt Orbot</string>
@@ -163,4 +163,7 @@
     <string name="MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code">Jāmēģina nolasīt cits MollySocket kvadrātkodu saturošs attēls.</string>
     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Nošķirts</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_endpoint">MollySocket serveris atteica Tavam pašpiegādes serverim. Lūgums servera konfigurācijā pārbaudīt atļautos galamērķus.</string>
+    <string name="app_icon_label_zen">Zen</string>
+    <string name="app_icon_label_moon">Mēness</string>
+    <string name="app_icon_label_music">Mūzika</string>
 </resources>
