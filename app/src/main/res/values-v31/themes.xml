@@ -13,7 +13,7 @@
 
     <!-- Exists for manual override of Splash theme when setting app theme-->
     <style name="Theme.Signal.DayNight.NoActionBar.DarkSplash" parent="Theme.Signal.DayNight.NoActionBar">
-        <item name="android:windowSplashScreenBackground">@color/core_ultramarine_icon</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+        <item name="android:windowSplashScreenBackground">@color/core_ultramarine_icon_dark</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated_dark</item>
     </style>
 </resources>

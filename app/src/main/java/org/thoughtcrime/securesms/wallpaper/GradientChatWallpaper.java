@@ -18,8 +18,8 @@ import java.util.Objects;
 public final class GradientChatWallpaper implements ChatWallpaper, Parcelable {
 
   public static final GradientChatWallpaper SUNSET     = new GradientChatWallpaper(168f,
-                                                                                   new int[] { 0xFFF3DC47, 0xFFF3DA47, 0xFFF2D546, 0xFFF2CC46, 0xFFF1C146, 0xFFEFB445, 0xFFEEA544, 0xFFEC9644, 0xFFEB8743, 0xFFE97743, 0xFFE86942, 0xFFE65C41, 0xFFE55041, 0xFFE54841, 0xFFE44240, 0xFFE44040 },
-                                                                                   new float[] { 0.0f, 0.0807f, 0.1554f, 0.225f, 0.2904f, 0.3526f, 0.4125f, 0.471f, 0.529f, 0.5875f, 0.6474f, 0.7096f, 0.775f, 0.8446f, 0.9193f, 1f },
+                                                                                   new int[] { 0xFF000000, 0xFF000000 },
+                                                                                   new float[] { 0.0f, 0.0f },
                                                                                    0f);
   public static final GradientChatWallpaper NOIR       = new GradientChatWallpaper(180f,
                                                                                    new int[] { 0xFF16161D, 0xFF17171E, 0xFF1A1A22, 0xFF1F1F28, 0xFF26262F, 0xFF2D2D38, 0xFF353542, 0xFF3E3E4C, 0xFF474757, 0xFF4F4F61, 0xFF57576B, 0xFF5F5F74, 0xFF65657C, 0xFF6A6A82, 0xFF6D6D85, 0xFF6E6E87 },
