@@ -29,8 +29,8 @@
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="16dp"
         android:text="@string/DonationReceiptDetailsFragment__share_receipt"
-        android:textColor="@color/signal_text_secondary"
-        app:backgroundTint="@color/signal_background_secondary"
+        android:textColor="?attr/signal_text_secondary"
+        app:backgroundTint="?attr/signal_background_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

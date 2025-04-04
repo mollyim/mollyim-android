@@ -12,7 +12,7 @@
     android:text="@string/NotificationProfileSelection__new_profile"
     android:textAlignment="viewStart"
     android:textAppearance="@style/Signal.Text.BodyLarge"
-    android:textColor="@color/signal_colorOnSurface"
+    android:textColor="?attr/colorOnSurface"
     app:cornerRadius="18dp"
     app:icon="@drawable/new_notification_profile_pref_icon"
     app:iconGravity="start"

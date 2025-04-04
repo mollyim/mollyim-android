@@ -17,7 +17,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -200,7 +199,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
                                                                    SignalSymbols.Glyph.CHEVRON_RIGHT);
 
         nameBuilder.append(" ");
-        nameBuilder.append(SpanUtil.color(ContextCompat.getColor(requireContext(), R.color.signal_colorOutline),
+        nameBuilder.append(SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOutline),
                                           SpanUtil.ofSize(chevronGlyph, 24)));
 
         fullName.setText(nameBuilder);

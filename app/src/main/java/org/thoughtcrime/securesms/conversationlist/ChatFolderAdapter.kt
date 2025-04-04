@@ -5,17 +5,19 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.google.android.material.R as MaterialR
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderContextMenu
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderRecord
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.visible
 
 /**
-* RecyclerView adapter for the chat folders displayed on conversation list
-*/
+ * RecyclerView adapter for the chat folders displayed on conversation list
+ */
 class ChatFolderAdapter(val callbacks: Callbacks) : MappingAdapter() {
 
   init {
@@ -54,14 +56,14 @@ class ChatFolderAdapter(val callbacks: Callbacks) : MappingAdapter() {
       }
       if (model.isSelected) {
         itemView.backgroundTintList = if (callbacks.isScrolled()) {
-          ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.signal_colorBackground))
+          ColorStateList.valueOf(ThemeUtil.getThemedColor(itemView.context, MaterialR.attr.colorSurface))
         } else {
-          ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.signal_colorSurface2))
+          ColorStateList.valueOf(ThemeUtil.getThemedColor(itemView.context, MaterialR.attr.colorSurfaceContainer))
         }
-        name.setTextColor(ContextCompat.getColor(itemView.context, R.color.signal_colorOnSurface))
+        name.setTextColor(ThemeUtil.getThemedColor(itemView.context, MaterialR.attr.colorOnSurface))
       } else {
         itemView.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.transparent))
-        name.setTextColor(ContextCompat.getColor(itemView.context, R.color.signal_colorOnSurfaceVariant))
+        name.setTextColor(ThemeUtil.getThemedColor(itemView.context, MaterialR.attr.colorOnSurfaceVariant))
       }
     }
 

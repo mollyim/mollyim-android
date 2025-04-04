@@ -23,7 +23,7 @@
         android:layout_width="@dimen/conversation_item_reply_size"
         android:layout_height="@dimen/conversation_item_reply_size"
         android:alpha="0"
-        android:tint="@color/signal_icon_tint_secondary"
+        android:tint="?attr/signal_icon_tint_secondary"
         app:contentPadding="9dp"
         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
         app:layout_constraintStart_toStartOf="@id/conversation_item_body_wrapper"
@@ -117,7 +117,7 @@
         android:linksClickable="false"
         android:maxLines="1"
         android:paddingBottom="@dimen/message_bubble_bottom_padding"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
         app:layout_constraintEnd_toStartOf="@id/conversation_item_expiration_timer"
         tools:text="13:14pm" />

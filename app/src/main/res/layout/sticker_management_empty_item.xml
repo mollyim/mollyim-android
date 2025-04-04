@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:src="@drawable/sticker_management_empty_background"
-        android:tint="@color/signal_background_secondary"
+        android:tint="?attr/signal_background_secondary"
         app:layout_constraintTop_toTopOf="@id/sticker_management_empty_text"
         app:layout_constraintBottom_toBottomOf="@id/sticker_management_empty_text"/>
     

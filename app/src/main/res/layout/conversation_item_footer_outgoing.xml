@@ -70,7 +70,7 @@
         android:ellipsize="end"
         android:linksClickable="false"
         android:maxLines="1"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/footer_expiration_timer"
         app:layout_constraintTop_toTopOf="parent"

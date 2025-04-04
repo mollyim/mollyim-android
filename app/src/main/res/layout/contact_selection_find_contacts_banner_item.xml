@@ -40,7 +40,7 @@
         android:gravity="center"
         android:text="@string/ContactSelectionListFragment__allow_access_to_your_contacts_encrypted"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

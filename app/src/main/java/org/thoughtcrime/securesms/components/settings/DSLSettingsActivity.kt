@@ -21,6 +21,11 @@ open class DSLSettingsActivity : PassphraseRequiredActivity() {
   protected lateinit var navController: NavController
     private set
 
+  override fun onPreCreate() {
+    super.onPreCreate()
+    dynamicTheme.onCreate(this)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     setContentView(R.layout.dsl_settings_activity)
 
@@ -41,8 +46,6 @@ open class DSLSettingsActivity : PassphraseRequiredActivity() {
       val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
       navController = fragment.navController
     }
-
-    dynamicTheme.onCreate(this)
 
     onBackPressedDispatcher.addCallback(this, OnBackPressed())
   }

@@ -59,7 +59,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 android:textAlignment="center"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="32dp"
-                android:background="@color/signal_background_secondary"
+                android:background="?attr/signal_background_secondary"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_note" />
 
             <TextView
@@ -126,7 +126,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/PaymentsDetailsFragment__block_number"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_block"
@@ -170,7 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_to_header"
                 tools:money="MOB:150000000000000" />
@@ -185,7 +185,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/PaymentsDetailsFragment__network_fee"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_to_amount" />
@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_fee_header"
                 tools:money="MOB:12000000000" />
@@ -210,7 +210,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/PaymentsDetailsFragment__status"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_fee_amount" />
 
@@ -222,7 +222,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_status_header"
@@ -236,7 +236,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/PaymentsDetailsFragment__sent_by"
-                android:textColor="@color/signal_text_primary"
+                android:textColor="?attr/signal_text_primary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_status" />
 
@@ -248,7 +248,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_by_header"
@@ -265,7 +265,7 @@
                 android:lineSpacingExtra="5sp"
                 android:text="@string/PaymentsDetailsFragment__information"
                 android:textAlignment="viewStart"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_by" />

@@ -22,6 +22,8 @@ import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment;
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.MediaUtil;
 
 import java.io.FileDescriptor;
@@ -54,6 +56,14 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
     return intent;
   }
 
+  private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    dynamicTheme.onResume(this);
+  }
+
   @Override
   protected void attachBaseContext(@NonNull Context newBase) {
     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -63,6 +73,7 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    dynamicTheme.onCreate(this);
 
     getWindow().addFlags(
         WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN

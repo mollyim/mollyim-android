@@ -15,7 +15,7 @@
         android:contentDescription="@string/conversation_activity__quick_attachment_drawer_record_and_send_audio_description"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_mic_24"
-        app:tint="@color/signal_colorOnSurfaceVariant" />
+        app:tint="?attr/colorOnSurfaceVariant" />
 
     <LinearLayout
         android:id="@+id/lock_drop_target"
@@ -36,7 +36,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:contentDescription="@string/conversation_activity__quick_attachment_drawer_lock_record_description"
-            android:tint="@color/signal_icon_tint_secondary"
+            android:tint="?attr/signal_icon_tint_secondary"
             app:srcCompat="@drawable/ic_lock" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -45,7 +45,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="6dp"
             android:contentDescription="@string/conversation_activity__quick_attachment_drawer_lock_record_description"
-            android:tint="@color/signal_icon_tint_secondary"
+            android:tint="?attr/signal_icon_tint_secondary"
             app:srcCompat="@drawable/ic_chevron_up" />
     </LinearLayout>
 

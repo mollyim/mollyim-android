@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.RecyclerView
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 
 /**
@@ -29,7 +29,7 @@ class OriginalMessageSeparatorDecoration(
   private val dividerRect = Rect()
   private val dividerPaint: Paint = Paint().apply {
     style = Paint.Style.FILL
-    color = ContextCompat.getColor(context, R.color.signal_colorSurfaceVariant)
+    color = ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorSurfaceVariant)
   }
 
   private var cachedHeader: View? = null

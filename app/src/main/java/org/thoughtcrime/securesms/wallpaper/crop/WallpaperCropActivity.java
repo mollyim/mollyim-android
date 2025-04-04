@@ -35,6 +35,7 @@ import org.thoughtcrime.securesms.scribbles.UriGlideRenderer;
 import org.thoughtcrime.securesms.util.AsynchronousCallback;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.Projection;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperPreviewActivity;
@@ -73,9 +74,14 @@ public final class WallpaperCropActivity extends PassphraseRequiredActivity {
   }
 
   @Override
+  protected void onPreCreate() {
+    super.onPreCreate();
+    dynamicTheme.onCreate(this);
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
-    dynamicTheme.onCreate(this);
     setContentView(R.layout.chat_wallpaper_crop_activity);
 
     RecipientId recipientId = getIntent().getParcelableExtra(EXTRA_RECIPIENT_ID);
@@ -188,7 +194,7 @@ public final class WallpaperCropActivity extends PassphraseRequiredActivity {
     int   width  = displayMetrics.widthPixels;
     float ratio  = width / (float) height;
 
-    EditorModel editorModel = EditorModel.createForWallpaperEditing(ratio, ContextCompat.getColor(this, R.color.signal_colorBackground));
+    EditorModel editorModel = EditorModel.createForWallpaperEditing(ratio, ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSurface));
 
     EditorElement image = new EditorElement(new UriGlideRenderer(imageUri, true, width, height, UriGlideRenderer.WEAK_BLUR));
     image.getFlags()
@@ -228,8 +234,12 @@ public final class WallpaperCropActivity extends PassphraseRequiredActivity {
   }
 
   private static final class DynamicWallpaperTheme extends DynamicTheme {
-    protected @StyleRes int getTheme() {
+    protected @StyleRes int getRegularTheme() {
       return R.style.Signal_DayNight_WallpaperCropper;
+    }
+
+    protected @StyleRes int getDynamicTheme() {
+      return getRegularTheme();
     }
   }
 }

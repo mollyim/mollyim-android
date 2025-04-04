@@ -39,9 +39,9 @@
             android:layout_height="24dp"
             android:background="@drawable/circle_tintable_padded_2"
             android:visibility="gone"
-            app:backgroundTint="@color/signal_colorOnPrimary"
+            app:backgroundTint="?attr/colorOnPrimary"
             app:srcCompat="@drawable/ic_check_circle_solid_24"
-            app:tint="@color/signal_colorPrimary"
+            app:tint="?attr/colorPrimary"
             tools:visibility="visible" />
 
     </FrameLayout>
@@ -70,7 +70,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAlignment="viewStart"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/conversation_list_item_summary"
         app:layout_constraintEnd_toStartOf="@id/conversation_list_item_date"
         app:layout_constraintStart_toEndOf="@id/conversation_list_item_avatar"
@@ -98,7 +98,7 @@
         android:ellipsize="end"
         android:lines="2"
         android:maxLines="2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:emoji_renderSpoilers="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/conversation_list_item_status_container"
@@ -114,7 +114,7 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/conversation_list_item_summary"
         app:layout_constraintTop_toTopOf="@id/conversation_list_item_summary"
-        app:typingIndicator_tint="@color/signal_icon_tint_secondary"
+        app:typingIndicator_tint="?attr/signal_icon_tint_secondary"
         tools:visibility="visible" />
 
     <TextView
@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:singleLine="true"
-        android:textColor="@color/signal_icon_tint_secondary"
+        android:textColor="?attr/signal_icon_tint_secondary"
         app:layout_constraintBottom_toBottomOf="@id/conversation_list_item_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/conversation_list_item_name"
@@ -146,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            app:iconColor="@color/signal_colorOnSurfaceVariant" />
+            app:iconColor="?attr/colorOnSurfaceVariant" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/conversation_list_item_unread_mentions_indicator"
@@ -160,7 +160,7 @@
             android:padding="3dp"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_at_12"
-            app:tint="@color/signal_colorOnPrimary"
+            app:tint="?attr/colorOnPrimary"
             tools:visibility="visible" />
 
         <TextView
@@ -176,7 +176,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="6dp"
             android:paddingBottom="2dp"
-            android:textColor="@color/signal_colorBackground"
+            android:textColor="?attr/colorSurface"
             tools:text="99+" />
 
         <TextView
@@ -191,7 +191,7 @@
             android:paddingEnd="8dp"
             android:paddingBottom="1dp"
             android:text="@string/conversation_list_item_view__archived"
-            android:textColor="@color/signal_colorSurface"
+            android:textColor="?attr/colorSurfaceContainer"
             tools:visibility="gone" />
 
     </LinearLayout>

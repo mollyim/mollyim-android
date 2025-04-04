@@ -60,7 +60,7 @@
                     android:layout_marginEnd="@dimen/dsl_settings_gutter"
                     android:layout_marginBottom="16dp"
                     android:text="@string/ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message"
-                    android:textColor="@color/signal_colorOnSurfaceVariant"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintTop_toBottomOf="@id/title" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -164,7 +164,7 @@
                         android:layout_marginEnd="@dimen/dsl_settings_gutter"
                         android:text="@string/CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you"
                         android:textAppearance="@style/Signal.Text.Caption"
-                        android:textColor="@color/signal_text_secondary"
+                        android:textColor="?attr/signal_text_secondary"
                         android:visibility="gone"
                         tools:visibility="visible" />
 
@@ -230,7 +230,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_group_24"
-                        app:tint="@color/signal_icon_tint_primary" />
+                        app:tint="?attr/signal_icon_tint_primary" />
 
                     <TextView
                         android:id="@+id/who_can_find_me_title"
@@ -240,7 +240,7 @@
                         android:layout_marginEnd="@dimen/dsl_settings_gutter"
                         android:text="@string/ProfileCreateFragment__who_can_find_me"
                         android:textAppearance="@style/Signal.Text.BodyLarge"
-                        android:textColor="@color/signal_colorOnSurface"
+                        android:textColor="?attr/colorOnSurface"
                         app:layout_constraintBottom_toTopOf="@id/who_can_find_me_description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/who_can_find_me_icon"
@@ -254,7 +254,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="@dimen/dsl_settings_gutter"
                         android:textAppearance="@style/Signal.Text.BodyMedium"
-                        android:textColor="@color/signal_colorOnSurfaceVariant"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/who_can_find_me_icon"

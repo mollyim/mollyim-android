@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.core.content.ContextCompat;
 
 import org.thoughtcrime.securesms.R;
 
@@ -50,14 +51,29 @@ public class ThemeUtil {
     return false;
   }
 
-  public static @ColorInt int getThemedColor(@NonNull Context context, @AttrRes int attr) {
-    TypedValue typedValue = new TypedValue();
-    Resources.Theme theme = context.getTheme();
+  // MOLLY: Resolves a color reference (R.color or R.attr) to its final color value
+  public static @ColorInt int getThemedColor(@NonNull Context context, int colorRef) {
+    return getThemedColor(context, colorRef, context.getTheme());
+  }
 
-    if (theme.resolveAttribute(attr, typedValue, true)) {
-      return typedValue.data;
+  public static @ColorInt int getThemedColor(@NonNull Context context, int colorRef, @NonNull Resources.Theme theme) {
+    TypedValue typedValue = new TypedValue();
+
+    int resId = colorRef;
+
+    if (theme.resolveAttribute(resId, typedValue, true)) {
+      if (typedValue.resourceId != 0) {
+        resId = typedValue.resourceId;
+      } else {
+        return typedValue.data;
+      }
     }
-    return Color.RED;
+
+    try {
+      return ContextCompat.getColor(context, resId);
+    } catch (Resources.NotFoundException e) {
+      return Color.RED;
+    }
   }
 
   public static @Nullable Drawable getThemedDrawable(@NonNull Context context, @AttrRes int attr) {

@@ -34,7 +34,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            app:labeledEditText_background="@color/signal_background_primary"
+            app:labeledEditText_background="?attr/signal_background_primary"
             app:labeledEditText_label="@string/RegistrationActivity_device_name_description"
             app:labeledEditText_textLayout="@layout/device_name" />
 

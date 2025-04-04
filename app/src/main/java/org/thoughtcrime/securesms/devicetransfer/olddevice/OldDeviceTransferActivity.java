@@ -20,9 +20,13 @@ public final class OldDeviceTransferActivity extends PassphraseRequiredActivity 
   private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
 
   @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState, boolean ready) {
+  protected void onPreCreate() {
+    super.onPreCreate();
     dynamicTheme.onCreate(this);
+  }
 
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState, boolean ready) {
     setContentView(R.layout.old_device_transfer_activity);
 
     NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);

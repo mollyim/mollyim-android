@@ -94,7 +94,7 @@ public final class SettingsValues extends SignalStoreValues {
     }
     // MOLLY: These settings are saved in shared prefs too. Sync with the stored values.
     if (getStore().containsKey(THEME)) {
-      setTheme(Theme.deserialize(getStore().getString(THEME, null)));
+      setTheme(Theme.deserialize(getStore().getString(THEME, null)), isDynamicColorsEnabled());
     }
     if (getStore().containsKey(PREFER_SYSTEM_EMOJI)) {
       setPreferSystemEmoji(getStore().getBoolean(PREFER_SYSTEM_EMOJI, false));
@@ -222,11 +222,18 @@ public final class SettingsValues extends SignalStoreValues {
     return Theme.deserialize(TextSecurePreferences.getTheme(AppDependencies.getApplication()));
   }
 
-  public void setTheme(@NonNull Theme theme) {
-    putString(THEME, theme.serialize());
+  public void setTheme(@NonNull Theme theme, boolean useDynamicColors) {
+    final Context context = AppDependencies.getApplication();
+    String serializedTheme = theme.serialize();
+    putString(THEME,serializedTheme);
     // MOLLY: Store the value unencrypted to be able to read it back when app is locked
-    TextSecurePreferences.setTheme(AppDependencies.getApplication(), theme.serialize());
+    TextSecurePreferences.setTheme(context, serializedTheme);
+    TextSecurePreferences.setDynamicColorsEnabled(context, useDynamicColors);
     onConfigurationSettingChanged.postValue(THEME);
+  }
+
+  public boolean isDynamicColorsEnabled() {
+    return TextSecurePreferences.isDynamicColorsEnabled(AppDependencies.getApplication());
   }
 
   public int getMessageFontSize() {

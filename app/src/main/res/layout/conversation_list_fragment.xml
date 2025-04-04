@@ -68,7 +68,7 @@
                     android:id="@+id/pull_view"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:background="@color/signal_colorBackground"
+                    android:background="?attr/colorSurface"
                     app:layout_scrollInterpolator="@android:anim/linear_interpolator" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -79,7 +79,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/signal_colorBackground"
+            android:background="?attr/colorSurface"
             android:clipToPadding="false"
             android:nextFocusDown="@+id/fab"
             android:nextFocusForward="@+id/fab"
@@ -123,10 +123,10 @@
                 android:theme="@style/Widget.Material3.FloatingActionButton.Secondary"
                 android:transitionName="camera_fab"
                 android:visibility="gone"
-                app:backgroundTint="@color/signal_colorSurface3"
+                app:backgroundTint="?attr/colorSurfaceContainer"
                 app:elevation="3dp"
                 app:srcCompat="@drawable/symbol_camera_24"
-                app:tint="@color/signal_colorOnSurface"
+                app:tint="?attr/colorOnSurface"
                 app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 tools:visibility="visible" />
 
@@ -141,10 +141,10 @@
                 android:theme="@style/Widget.Material3.FloatingActionButton.Secondary"
                 android:transitionName="new_convo_fab"
                 android:visibility="gone"
-                app:backgroundTint="@color/signal_colorTertiaryContainer"
+                app:backgroundTint="?attr/colorTertiaryContainer"
                 app:elevation="3dp"
                 app:srcCompat="@drawable/symbol_edit_24"
-                app:tint="@color/signal_colorOnTertiaryContainer"
+                app:tint="?attr/colorOnTertiaryContainer"
                 app:shapeAppearanceOverlay="@style/Signal.ShapeOverlay.Rounded.Fab"
                 tools:visibility="visible" />
 

@@ -35,7 +35,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintStart_toEndOf="@+id/image_container"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="2.7 MB, 11.06.19 at 5:25 AM" />

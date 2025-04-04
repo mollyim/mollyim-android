@@ -31,14 +31,14 @@
             android:gravity="center"
             android:text="@string/TransferOrRestoreFragment__if_you_have_previously_registered_a_signal_account"
             android:textAppearance="@style/Signal.Text.BodyLarge"
-            android:textColor="@color/signal_colorOnSurfaceVariant" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <org.thoughtcrime.securesms.components.ClippedCardView
             android:id="@+id/transfer_or_restore_fragment_transfer_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/signal_colorSurface2"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:strokeColor="@color/transfer_option_stroke_color_selector"
@@ -59,7 +59,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_transfer_phone_48"
-                    app:tint="@color/signal_colorPrimary" />
+                    app:tint="?attr/colorPrimary" />
 
                 <TextView
                     android:id="@+id/transfer_or_restore_fragment_transfer_header"
@@ -81,7 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:textColor="@color/signal_colorOnSurfaceVariant"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/signal_colorSurface2"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:strokeColor="@color/transfer_option_stroke_color_selector"
@@ -119,7 +119,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_transfer_local_48"
-                    app:tint="@color/signal_colorPrimary" />
+                    app:tint="?attr/colorPrimary" />
 
                 <TextView
                     android:id="@+id/transfer_or_restore_fragment_restore_header"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="@string/TransferOrRestoreFragment__restore_your_messages_from_a_local_backup"
-                    android:textColor="@color/signal_colorOnSurfaceVariant"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"

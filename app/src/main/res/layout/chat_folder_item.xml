@@ -9,7 +9,7 @@
     android:paddingHorizontal="16dp"
     android:layout_marginVertical="8dp"
     android:layout_marginEnd="16dp"
-    android:backgroundTint="@color/signal_colorSurfaceVariant"
+    android:backgroundTint="?attr/colorSurfaceVariant"
     android:background="@drawable/rounded_rectangle_surface_variant" >
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
@@ -31,7 +31,7 @@
         android:gravity="center"
         android:paddingHorizontal="4dp"
         android:paddingVertical="2dp"
-        android:textColor="@color/signal_colorBackground"
+        android:textColor="?attr/colorSurface"
         tools:text="4" />
 
 </LinearLayout>

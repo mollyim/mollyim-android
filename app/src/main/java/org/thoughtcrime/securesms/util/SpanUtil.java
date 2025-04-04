@@ -33,7 +33,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-import androidx.core.content.ContextCompat;
 
 import org.signal.core.util.DimensionUnit;
 import org.thoughtcrime.securesms.R;
@@ -187,7 +186,7 @@ public final class SpanUtil {
   }
 
   public static Spannable clickSubstring(@NonNull Context context, @StringRes int mainString, @StringRes int clickableString, @NonNull View.OnClickListener clickListener) {
-    return clickSubstring(context, mainString, clickableString, clickListener, false, R.color.signal_accent_primary);
+    return clickSubstring(context, mainString, clickableString, clickListener, false, R.attr.signal_accent_primary);
   }
 
   /**
@@ -205,7 +204,7 @@ public final class SpanUtil {
    *
    * Can optionally configure the color & if it's underlined. Default is blue with no underline.
    */
-  public static Spannable clickSubstring(@NonNull Context context, @StringRes int mainString, @StringRes int clickableString, @NonNull View.OnClickListener clickListener, boolean shouldUnderline, int linkColor) {
+  public static Spannable clickSubstring(@NonNull Context context, @StringRes int mainString, @StringRes int clickableString, @NonNull View.OnClickListener clickListener, boolean shouldUnderline, int linkColorAttr) {
     String main      = context.getString(mainString, SPAN_PLACE_HOLDER);
     String clickable = context.getString(clickableString);
 
@@ -224,7 +223,7 @@ public final class SpanUtil {
       public void updateDrawState(@NonNull TextPaint ds) {
         super.updateDrawState(ds);
         ds.setUnderlineText(shouldUnderline);
-        ds.setColor(context.getResources().getColor(linkColor));
+        ds.setColor(ThemeUtil.getThemedColor(context, linkColorAttr));
       }
     }, start, start + clickable.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
@@ -238,7 +237,7 @@ public final class SpanUtil {
     return clickSubstring(fullString,
                           substring,
                           clickListener,
-                          ContextCompat.getColor(context, R.color.signal_accent_primary));
+                          ThemeUtil.getThemedColor(context, R.attr.signal_accent_primary));
   }
 
   public static CharSequence clickSubstring(@NonNull CharSequence fullString,

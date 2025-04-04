@@ -24,10 +24,10 @@
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
         app:audioView_mode="draft"
-        app:foregroundTintColor="@color/signal_icon_tint_secondary"
+        app:foregroundTintColor="?attr/signal_icon_tint_secondary"
         app:progressAndPlayTint="@android:color/transparent"
-        app:waveformPlayedBarsColor="@color/signal_icon_tint_secondary"
-        app:waveformThumbTint="@color/signal_icon_tint_secondary"
+        app:waveformPlayedBarsColor="?attr/signal_icon_tint_secondary"
+        app:waveformThumbTint="?attr/signal_icon_tint_secondary"
         app:waveformUnplayedBarsColor="@color/signal_inverse_transparent_40" />
 
 </merge>

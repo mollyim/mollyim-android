@@ -10,8 +10,17 @@ import androidx.fragment.app.Fragment
 import org.thoughtcrime.securesms.avatar.Avatar
 import org.thoughtcrime.securesms.avatar.AvatarBundler
 import org.thoughtcrime.securesms.components.FragmentWrapperActivity
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+import org.thoughtcrime.securesms.util.DynamicTheme
 
 class PhotoEditorActivity : FragmentWrapperActivity() {
+
+  private val theme: DynamicTheme = DynamicNoActionBarTheme()
+
+  override fun onResume() {
+    super.onResume()
+    theme.onResume(this)
+  }
 
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
@@ -20,6 +29,7 @@ class PhotoEditorActivity : FragmentWrapperActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     super.onCreate(savedInstanceState, ready)
+    theme.onCreate(this)
 
     supportFragmentManager.setFragmentResultListener(PhotoEditorFragment.REQUEST_KEY_EDIT, this) { _, bundle ->
       setResult(Activity.RESULT_OK, Intent().putExtras(bundle))

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         tools:text="SMS is disabled, export sms now yes" />
 
     <com.google.android.material.button.MaterialButton

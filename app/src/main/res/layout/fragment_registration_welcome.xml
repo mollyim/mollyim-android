@@ -36,7 +36,7 @@
         android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/RegistrationActivity_terms_and_privacy"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintBottom_toTopOf="@+id/welcome_continue_button"
         app:layout_constraintEnd_toEndOf="@+id/welcome_continue_button"
         app:layout_constraintStart_toStartOf="@+id/welcome_continue_button" />

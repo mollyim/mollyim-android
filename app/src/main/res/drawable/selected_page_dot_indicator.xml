@@ -10,7 +10,7 @@
         android:shape="ring"
         android:thickness="5dp"
         android:useLevel="false">
-        <solid android:color="@color/signal_colorOnSurfaceVariant"/>
+        <solid android:color="?attr/colorOnSurfaceVariant"/>
     </shape>
 </item>
 </layer-list>

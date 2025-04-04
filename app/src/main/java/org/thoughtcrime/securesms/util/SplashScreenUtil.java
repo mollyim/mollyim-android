@@ -16,17 +16,17 @@ public final class SplashScreenUtil {
   /**
    * Sets the splash screen for Android 12+ devices based on the passed-in theme.
    */
-  public static void setSplashScreenThemeIfNecessary(@Nullable Activity activity, @NonNull SettingsValues.Theme theme) {
+  public static void setSplashScreenThemeIfNecessary(@Nullable Activity activity, @NonNull SettingsValues.Theme theme, boolean useDynamicColors) {
     if (Build.VERSION.SDK_INT < 31 || activity == null) {
       return;
     }
 
     switch (theme) {
       case LIGHT:
-        activity.getSplashScreen().setSplashScreenTheme(R.style.Theme_Signal_DayNight_NoActionBar_LightSplash);
+        activity.getSplashScreen().setSplashScreenTheme(R.style.Theme_Molly_Starting_Light);
         break;
       case DARK:
-        activity.getSplashScreen().setSplashScreenTheme(R.style.Theme_Signal_DayNight_NoActionBar_DarkSplash);
+        activity.getSplashScreen().setSplashScreenTheme(R.style.Theme_Molly_Starting_Dark);
         break;
       case SYSTEM:
         activity.getSplashScreen().setSplashScreenTheme(Resources.ID_NULL);

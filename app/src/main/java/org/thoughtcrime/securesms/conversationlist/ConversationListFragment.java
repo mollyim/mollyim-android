@@ -57,7 +57,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
@@ -174,6 +173,7 @@ import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.WindowUtil;
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter;
@@ -385,7 +385,9 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     fab.show();
     cameraFab.show();
 
-    archiveDecoration = new ConversationListArchiveItemDecoration(new ColorDrawable(getResources().getColor(R.color.conversation_list_archive_background_end)));
+    int colorPrimary = ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorPrimary);
+
+    archiveDecoration = new ConversationListArchiveItemDecoration(new ColorDrawable(colorPrimary));
     itemAnimator      = new ConversationListItemAnimator();
 
     chatFolderAdapter = new ChatFolderAdapter(this);
@@ -403,8 +405,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
     snapToTopDataObserver = new SnapToTopDataObserver(list);
 
-    new ItemTouchHelper(new ArchiveListenerCallback(getResources().getColor(R.color.conversation_list_archive_background_start),
-                                                    getResources().getColor(R.color.conversation_list_archive_background_end))).attachToRecyclerView(list);
+    new ItemTouchHelper(new ArchiveListenerCallback(colorPrimary,
+                                                    colorPrimary)).attachToRecyclerView(list);
 
     fab.setOnClickListener(v -> startActivity(new Intent(getActivity(), NewConversationActivity.class)));
     cameraFab.setOnClickListener(v -> {
@@ -1881,7 +1883,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         if (absoluteDx > 0) {
           if (archiveDrawable == null) {
             archiveDrawable = Objects.requireNonNull(AppCompatResources.getDrawable(requireContext(), getArchiveIconRes()));
-            archiveDrawable.setColorFilter(new SimpleColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_colorOnPrimary)));
+            archiveDrawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnPrimary)));
             archiveDrawable.setBounds(0, 0, archiveDrawable.getIntrinsicWidth(), archiveDrawable.getIntrinsicHeight());
           }
 

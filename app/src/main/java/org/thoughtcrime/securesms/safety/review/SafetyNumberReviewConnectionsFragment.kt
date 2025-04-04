@@ -1,10 +1,10 @@
 package org.thoughtcrime.securesms.safety.review
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import com.google.android.material.R as MaterialR
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.WrapperDialogFragment
@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheetViewModel
 import org.thoughtcrime.securesms.safety.SafetyNumberBucket
 import org.thoughtcrime.securesms.safety.SafetyNumberBucketRowItem
 import org.thoughtcrime.securesms.safety.SafetyNumberRecipientRowItem
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.verify.VerifyIdentityFragment
 
@@ -60,7 +61,7 @@ class SafetyNumberReviewConnectionsFragment : DSLSettingsFragment(
         title = DSLSettingsText.from(
           resources.getQuantityString(R.plurals.SafetyNumberReviewConnectionsFragment__d_recipients_may_have, recipientCount, recipientCount),
           DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
-          DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
         )
       )
 
@@ -110,7 +111,7 @@ class SafetyNumberReviewConnectionsFragment : DSLSettingsFragment(
                     ActionItem(
                       iconRes = R.drawable.ic_circle_x_24,
                       title = getString(R.string.SafetyNumberReviewConnectionsFragment__remove),
-                      tintRes = R.color.signal_colorOnSurface,
+                      tintRes = MaterialR.attr.colorOnSurface,
                       action = {
                         viewModel.removeDestination(model.recipient.id)
                       }
@@ -134,7 +135,7 @@ class SafetyNumberReviewConnectionsFragment : DSLSettingsFragment(
           ActionItem(
             iconRes = R.drawable.ic_circle_x_24,
             title = getString(R.string.SafetyNumberReviewConnectionsFragment__remove_all),
-            tintRes = R.color.signal_colorOnSurface,
+            tintRes = MaterialR.attr.colorOnSurface,
             action = {
               viewModel.removeAll(bucket)
             }

@@ -103,7 +103,7 @@
                  android:fullBackupOnly="false"
                  android:allowBackup="true"
                  android:backupAgent=".absbackup.SignalBackupAgent"
-                 android:theme="@style/TextSecure.LightTheme"
+                 android:theme="@style/Theme.Molly.Starting"
                  android:largeHeap="true"
                  android:networkSecurityConfig="@xml/network_security_config">
 
@@ -149,7 +149,7 @@
               android:exported="false" />
 
     <activity android:name=".InviteActivity"
-              android:theme="@style/Signal.Light.NoActionBar.Invite"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateHidden"
               android:parentActivityName=".MainActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
@@ -639,7 +639,7 @@
 
     <activity android:name=".recipients.ui.disappearingmessages.RecipientDisappearingMessagesActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="adjustResize"
               android:exported="false"/>
 
@@ -708,26 +708,26 @@
               android:exported="false"/>
 
     <activity android:name=".conversation.mutiselect.forward.MultiselectForwardActivity"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
     <activity android:name=".mediasend.v2.stories.StoriesMultiselectForwardActivity"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
     <activity android:name=".verify.VerifyIdentityActivity"
               android:exported="false"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".components.settings.app.AppSettingsActivity"
               android:exported="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -738,14 +738,14 @@
     <activity
         android:name=".stories.my.MyStoriesActivity"
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:windowSoftInputMode="stateAlwaysHidden"
         android:exported="false"/>
 
     <activity
         android:name=".stories.settings.StorySettingsActivity"
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
         android:exported="false"/>
 
@@ -766,7 +766,7 @@
 
     <activity
         android:name=".components.settings.app.changenumber.ChangeNumberLockActivity"
-        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:exported="false"/>
 
@@ -780,7 +780,7 @@
     <activity
         android:name=".components.settings.conversation.CallInfoActivity"
         android:configChanges="touchscreen|keyboard|keyboardHidden|screenLayout|screenSize"
-        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:windowSoftInputMode="stateAlwaysHidden"
         android:exported="false"/>
 
@@ -937,7 +937,7 @@
               android:exported="false"/>
 
     <activity android:name=".scribbles.ImageEditorStickerSelectActivity"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
@@ -947,7 +947,7 @@
               android:exported="false"/>
 
     <activity android:name=".registrationv3.ui.restore.RemoteRestoreActivity"
-              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="false"/>
 
     <activity android:name=".profiles.manage.EditProfileActivity"
@@ -1005,7 +1005,7 @@
               android:exported="false"/>
 
     <activity android:name=".MainActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+              android:theme="@style/Theme.Molly.Starting"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:resizeableActivity="true"
               android:exported="false"/>
@@ -1317,26 +1317,14 @@
     <service
         android:name=".gcm.FcmJobService"
         android:permission="android.permission.BIND_JOB_SERVICE"
-        android:enabled="@bool/enable_job_service"
         android:exported="false"
         tools:targetApi="26" />
 
     <service
         android:name=".jobmanager.JobSchedulerScheduler$SystemService"
         android:permission="android.permission.BIND_JOB_SERVICE"
-        android:enabled="@bool/enable_job_service"
         android:exported="false"
         tools:targetApi="26" />
-
-    <service
-        android:name=".jobmanager.KeepAliveService"
-        android:enabled="@bool/enable_alarm_manager"
-        android:exported="false"/>
-
-    <receiver
-        android:name=".jobmanager.AlarmManagerScheduler$RetryReceiver"
-        android:enabled="@bool/enable_alarm_manager"
-        android:exported="false"/>
 
     <service
         android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"

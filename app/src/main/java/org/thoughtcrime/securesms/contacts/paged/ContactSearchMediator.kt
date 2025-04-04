@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.contacts.paged
 
 import android.content.Context
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +19,7 @@ import org.thoughtcrime.securesms.stories.settings.my.MyStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.privacy.ChooseInitialMyStoryMembershipBottomSheetDialogFragment
 import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 import java.util.concurrent.TimeUnit
@@ -227,7 +227,7 @@ class ContactSearchMediator(
       MaterialAlertDialogBuilder(fragment.requireContext())
         .setTitle(R.string.ContactSearchMediator__delete_story)
         .setMessage(fragment.getString(R.string.ContactSearchMediator__delete_the_custom, story.recipient.getDisplayName(fragment.requireContext())))
-        .setPositiveButton(SpanUtil.color(ContextCompat.getColor(fragment.requireContext(), R.color.signal_colorError), fragment.getString(R.string.ContactSearchMediator__delete))) { _, _ -> viewModel.deletePrivateStory(story) }
+        .setPositiveButton(SpanUtil.color(ThemeUtil.getThemedColor(fragment.requireContext(), com.google.android.material.R.attr.colorError), fragment.getString(R.string.ContactSearchMediator__delete))) { _, _ -> viewModel.deletePrivateStory(story) }
         .setNegativeButton(android.R.string.cancel) { _, _ -> }
         .show()
     }

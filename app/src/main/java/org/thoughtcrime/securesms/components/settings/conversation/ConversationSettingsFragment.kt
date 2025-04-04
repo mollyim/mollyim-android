@@ -101,6 +101,7 @@ import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -221,9 +222,9 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 
   override fun getMaterial3OnScrollHelper(toolbar: Toolbar?): Material3OnScrollHelper {
     return object : Material3OnScrollHelper(requireActivity(), toolbar!!, viewLifecycleOwner) {
-      override val inactiveColorSet = ColorSet(
+      override val inactiveColorSet = ColorSet.from(requireContext(),
         toolbarColorRes = R.color.signal_colorBackground_0,
-        statusBarColorRes = R.color.signal_colorBackground
+        statusBarColorRes = com.google.android.material.R.attr.colorSurface
       )
     }
   }
@@ -879,7 +880,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         if (!state.recipient.isReleaseNotes) {
           val reportSpamTint = if (state.isDeprecatedOrUnregistered) R.color.signal_alert_primary_50 else R.color.signal_alert_primary
           clickPref(
-            title = DSLSettingsText.from(R.string.ConversationFragment_report_spam, ContextCompat.getColor(requireContext(), reportSpamTint)),
+            title = DSLSettingsText.from(R.string.ConversationFragment_report_spam, ThemeUtil.getThemedColor(requireContext(), reportSpamTint)),
             icon = DSLSettingsIcon.from(R.drawable.symbol_spam_24, reportSpamTint),
             isEnabled = !state.isDeprecatedOrUnregistered,
             onClick = {

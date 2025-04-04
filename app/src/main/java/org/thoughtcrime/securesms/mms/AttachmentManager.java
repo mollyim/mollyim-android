@@ -30,7 +30,6 @@ import android.widget.Toast;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -67,6 +66,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
 import org.thoughtcrime.securesms.util.views.Stub;
@@ -116,7 +116,7 @@ public class AttachmentManager {
 
       removableMediaView.setRemoveClickListener(new RemoveButtonListener());
       thumbnail.setOnClickListener(new ThumbnailClickListener());
-      documentView.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
+      documentView.getBackground().setColorFilter(ThemeUtil.getThemedColor(context, R.attr.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
     }
 
   }

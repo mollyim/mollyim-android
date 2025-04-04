@@ -14,13 +14,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
+import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import org.signal.core.util.BreakIteratorCompat
 import org.signal.core.util.getParcelableArrayListExtraCompat
@@ -44,7 +44,10 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.Debouncer
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.FullscreenHelper
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.visible
@@ -82,6 +85,18 @@ class MediaSelectionActivity :
     get() = intent.getCharSequenceExtra(MESSAGE)
 
   private val debouncer = Debouncer(200)
+
+  private val theme: DynamicTheme = DynamicNoActionBarTheme()
+
+  override fun onPreCreate() {
+    super.onPreCreate()
+    theme.onCreate(this)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    theme.onResume(this)
+  }
 
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
@@ -179,8 +194,8 @@ class MediaSelectionActivity :
   }
 
   private fun animateTextStyling(selectedSwitch: TextView, unselectedSwitch: TextView, duration: Long) {
-    val offTextColor = ContextCompat.getColor(this, R.color.signal_colorOnSurface)
-    val onTextColor = ContextCompat.getColor(this, R.color.signal_colorSecondaryContainer)
+    val offTextColor = ThemeUtil.getThemedColor(this, MaterialR.attr.colorOnSurface)
+    val onTextColor = ThemeUtil.getThemedColor(this, MaterialR.attr.colorSecondaryContainer)
 
     animateInShadowLayerValueAnimator?.cancel()
     animateInTextColorValueAnimator?.cancel()

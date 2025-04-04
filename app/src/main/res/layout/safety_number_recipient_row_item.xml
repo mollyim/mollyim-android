@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_more_vert_24"
-        app:tint="@color/signal_colorOnSurfaceVariant" />
+        app:tint="?attr/colorOnSurfaceVariant" />
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
         android:id="@+id/safety_number_recipient_name"
@@ -40,7 +40,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textAppearance="@style/Signal.Text.BodyLarge"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/safety_number_recipient_identifier"
         app:layout_constraintEnd_toStartOf="@id/safety_number_recipient_menu"
         app:layout_constraintStart_toEndOf="@id/safety_number_recipient_avatar"
@@ -56,7 +56,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/safety_number_recipient_menu"
         app:layout_constraintStart_toEndOf="@id/safety_number_recipient_avatar"

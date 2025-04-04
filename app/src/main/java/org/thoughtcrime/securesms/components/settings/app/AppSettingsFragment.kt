@@ -272,19 +272,8 @@ private fun AppSettingsContent(
           val donateUrl = stringResource(R.string.donate_url)
 
           Rows.TextRow(
-            text = {
-              Text(
-                text = stringResource(R.string.preferences__donate_to_signal),
-                modifier = Modifier.weight(1f)
-              )
-            },
-            icon = {
-              Icon(
-                painter = painterResource(R.drawable.symbol_heart_24),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface
-              )
-            },
+            text = stringResource(R.string.preferences__donate_to_signal),
+            icon = painterResource(R.drawable.symbol_heart_24),
             onClick = {
               CommunicationActions.openBrowserLink(context, donateUrl)
             },

@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_tooltip_arrow_left"
-        app:tint="@color/signal_colorPrimaryContainer"
+        app:tint="?attr/colorPrimaryContainer"
         tools:visibility="visible" />
 
     <ImageView
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="@id/tooltip_bubble"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_tooltip_arrow_up_left"
-        app:tint="@color/signal_colorPrimaryContainer"
+        app:tint="?attr/colorPrimaryContainer"
         tools:visibility="visible" />
 
     <LinearLayout
@@ -52,7 +52,7 @@
         app:layout_constraintWidth_max="320dp"
         app:layout_goneMarginEnd="8dp"
         app:layout_goneMarginStart="8dp"
-        tools:backgroundTint="@color/signal_colorPrimaryContainer">
+        tools:backgroundTint="?attr/colorPrimaryContainer">
 
         <ImageView
             android:id="@+id/tooltip_icon"
@@ -60,7 +60,7 @@
             android:layout_height="20dp"
             android:layout_marginEnd="2dp"
             android:visibility="gone"
-            app:tint="@color/signal_colorPrimaryContainer"
+            app:tint="?attr/colorPrimaryContainer"
             tools:src="@drawable/symbol_person_24"
             tools:visibility="visible" />
 
@@ -83,7 +83,7 @@
         app:layout_constraintStart_toStartOf="@id/tooltip_bubble"
         app:layout_constraintTop_toBottomOf="@id/tooltip_bubble"
         app:srcCompat="@drawable/ic_tooltip_arrow_down"
-        app:tint="@color/signal_colorPrimaryContainer"
+        app:tint="?attr/colorPrimaryContainer"
         tools:visibility="visible" />
 
     <ImageView
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_tooltip_arrow_right"
-        app:tint="@color/signal_colorPrimaryContainer"
+        app:tint="?attr/colorPrimaryContainer"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

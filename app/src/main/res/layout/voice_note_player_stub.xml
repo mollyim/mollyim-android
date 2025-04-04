@@ -4,7 +4,7 @@
     tools:viewBindingIgnore="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/voice_note_player_view_background">
+    android:background="?attr/voice_note_player_view_background">
 
     <org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView
         android:id="@+id/voice_note_player_view"

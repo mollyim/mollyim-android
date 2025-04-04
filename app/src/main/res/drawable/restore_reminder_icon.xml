@@ -11,10 +11,10 @@
 
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/signal_colorPrimaryContainer" />
+            <solid android:color="?attr/colorPrimaryContainer" />
         </shape>
     </item>
-    <item android:tint="@color/signal_colorPrimary">
+    <item android:tint="?attr/colorPrimary">
         <vector android:drawable="@drawable/symbol_backup_display_bold_24" />
     </item>
 </layer-list>

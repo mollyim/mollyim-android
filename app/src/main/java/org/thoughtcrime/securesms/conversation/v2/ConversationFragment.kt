@@ -72,6 +72,7 @@ import androidx.recyclerview.widget.ConversationLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.R as MaterialR
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -315,6 +316,7 @@ import org.thoughtcrime.securesms.util.SaveAttachmentUtil
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.StorageUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.atMidnight
@@ -1320,7 +1322,7 @@ class ConversationFragment :
   private fun presentNavigationIconForBubble() {
     binding.toolbar.navigationIcon = DrawableUtil.tint(
       ContextUtil.requireDrawable(requireContext(), R.drawable.ic_notification),
-      ContextCompat.getColor(requireContext(), R.color.signal_accent_primary)
+      ThemeUtil.getThemedColor(requireContext(), R.attr.signal_accent_primary)
     )
 
     binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_launch_signal_button)
@@ -1378,12 +1380,12 @@ class ConversationFragment :
       binding.conversationWallpaperDim.visible = false
     }
 
-    val toolbarTint = ContextCompat.getColor(
+    val toolbarTint = ThemeUtil.getThemedColor(
       requireContext(),
       if (chatWallpaper != null) {
         R.color.signal_colorNeutralInverse
       } else {
-        R.color.signal_colorOnSurface
+        MaterialR.attr.colorOnSurface
       }
     )
 
@@ -1406,7 +1408,7 @@ class ConversationFragment :
     val navColor = if (wallpaperEnabled) {
       R.color.conversation_navigation_wallpaper
     } else {
-      R.color.signal_colorBackground
+      MaterialR.attr.colorSurface
     }
 
     binding.scrollDateHeader.setBackgroundResource(
@@ -1414,13 +1416,13 @@ class ConversationFragment :
     )
 
     binding.scrollDateHeader.setTextColor(
-      ContextCompat.getColor(
+      ThemeUtil.getThemedColor(
         requireContext(),
-        if (wallpaperEnabled) R.color.sticky_header_foreground_wallpaper else R.color.signal_colorOnSurfaceVariant
+        if (wallpaperEnabled) R.color.sticky_header_foreground_wallpaper else MaterialR.attr.colorOnSurfaceVariant
       )
     )
 
-    WindowUtil.setNavigationBarColor(requireActivity(), ContextCompat.getColor(requireContext(), navColor))
+    WindowUtil.setNavigationBarColor(requireActivity(), ThemeUtil.getThemedColor(requireContext(), navColor))
   }
 
   private fun presentChatColors(chatColors: ChatColors) {
@@ -3327,12 +3329,12 @@ class ConversationFragment :
         }
       }
 
-      val toolbarTextAndIconColor = ContextCompat.getColor(
+      val toolbarTextAndIconColor = ThemeUtil.getThemedColor(
         requireContext(),
         if (viewModel.wallpaperSnapshot != null) {
           R.color.signal_colorNeutralInverse
         } else {
-          R.color.signal_colorOnSurface
+          MaterialR.attr.colorOnSurface
         }
       )
 

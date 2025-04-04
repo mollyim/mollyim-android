@@ -18,7 +18,7 @@
             android:layout_height="2dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:background="@color/signal_icon_tint_tab_unselected" />
+            android:background="?attr/signal_icon_tint_tab_unselected" />
 
         <TextView
             android:id="@+id/choose_initial_my_story_title"
@@ -39,7 +39,7 @@
             android:layout_marginTop="24dp"
             android:gravity="center_horizontal"
             android:text="@string/ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings"
-            android:textColor="@color/signal_colorOnSurfaceVariant" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/choose_initial_my_story_all_signal_connnections_row"
@@ -80,7 +80,7 @@
                 style="@style/Signal.Text.BodyMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/choose_initial_my_story_all_signal_connnections_message"
@@ -139,7 +139,7 @@
                 style="@style/Signal.Text.BodyMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/choose_initial_my_story_all_signal_connnections_except_message"
@@ -188,7 +188,7 @@
                 style="@style/Signal.Text.BodyMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/choose_initial_my_story_only_share_with_message"

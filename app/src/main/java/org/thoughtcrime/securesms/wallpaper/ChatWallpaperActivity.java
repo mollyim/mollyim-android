@@ -33,11 +33,16 @@ public final class ChatWallpaperActivity extends PassphraseRequiredActivity {
   }
 
   @Override
+  protected void onPreCreate() {
+    super.onPreCreate();
+    dynamicTheme.onCreate(this);
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     ChatWallpaperViewModel.Factory factory = new ChatWallpaperViewModel.Factory(getIntent().getParcelableExtra(EXTRA_RECIPIENT_ID));
     new ViewModelProvider(this, factory).get(ChatWallpaperViewModel.class);
 
-    dynamicTheme.onCreate(this);
     setContentView(R.layout.chat_wallpaper_activity);
 
     if (savedInstanceState == null) {

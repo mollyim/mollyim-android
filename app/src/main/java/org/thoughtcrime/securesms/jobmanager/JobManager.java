@@ -1,8 +1,6 @@
 package org.thoughtcrime.securesms.jobmanager;
 
 import android.app.Application;
-import android.content.Intent;
-import android.os.Build;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
@@ -74,8 +72,7 @@ public class JobManager implements ConstraintObserver.Notifier {
                                            configuration.getJobInstantiator(),
                                            configuration.getConstraintFactories(),
                                            configuration.getJobTracker(),
-                                           Build.VERSION.SDK_INT < 26 ? new AlarmManagerScheduler(application)
-                                                                      : new CompositeScheduler(new InAppScheduler(this), new JobSchedulerScheduler(application)),
+                                           new CompositeScheduler(new InAppScheduler(this), new JobSchedulerScheduler(application)),
                                            new Debouncer(500),
                                            this::onEmptyQueue);
 
@@ -92,10 +89,6 @@ public class JobManager implements ConstraintObserver.Notifier {
 
         for (ConstraintObserver constraintObserver : configuration.getConstraintObservers()) {
           constraintObserver.register(this);
-        }
-
-        if (Build.VERSION.SDK_INT < 26) {
-          application.startService(new Intent(application, KeepAliveService.class));
         }
 
         initialized = true;
@@ -135,10 +128,6 @@ public class JobManager implements ConstraintObserver.Notifier {
       }
     } catch (InterruptedException ie) {
       Log.w(TAG, ie);
-    }
-
-    if (Build.VERSION.SDK_INT < 26) {
-      application.stopService(new Intent(application, KeepAliveService.class));
     }
   }
 

@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.ContextUtil;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.thoughtcrime.securesms.util.SpanUtil;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.whispersystems.signalservice.api.util.Preconditions;
 
 public class ConversationHeaderView extends ConstraintLayout {
@@ -119,7 +120,7 @@ public class ConversationHeaderView extends ConstraintLayout {
           subtitle,
           subtitle,
           listener -> onClick.run(),
-          ContextCompat.getColor(getContext(), R.color.signal_colorOnSurface),
+          ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface),
           true
       );
       binding.messageRequestSubtitle.setText(prependIcon(builder, iconRes));
@@ -167,7 +168,7 @@ public class ConversationHeaderView extends ConstraintLayout {
         clickableRes,
         listener -> onClick.run(),
         true,
-        R.color.signal_colorOnSurface
+        com.google.android.material.R.attr.colorOnSurface
     );
     binding.messageRequestProfileNameUnverified.setText(prependIcon(builder, iconRes, forGroup));
   }
@@ -237,7 +238,7 @@ public class ConversationHeaderView extends ConstraintLayout {
     Preconditions.checkNotNull(drawable);
     int width = useIntrinsicWidth ? drawable.getIntrinsicWidth() : (int) DimensionUnit.SP.toPixels(20);
     drawable.setBounds(0, 0, width, (int) DimensionUnit.SP.toPixels(20));
-    drawable.setColorFilter(ContextCompat.getColor(getContext(), R.color.signal_colorOnSurface), PorterDuff.Mode.SRC_ATOP);
+    drawable.setColorFilter(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface), PorterDuff.Mode.SRC_ATOP);
 
     return new SpannableStringBuilder()
         .append(SpanUtil.buildCenteredImageSpan(drawable))

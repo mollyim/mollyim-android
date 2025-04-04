@@ -16,7 +16,7 @@
         android:cropToPadding="true"
         android:padding="16dp"
         android:contentDescription="@string/ChatColorSelectionFragment__use_custom_colors"
-        app:backgroundTint="@color/signal_background_secondary"
+        app:backgroundTint="?attr/signal_background_secondary"
         app:srcCompat="@drawable/ic_plus_24"
-        app:tint="@color/signal_icon_tint_primary" />
+        app:tint="?attr/signal_icon_tint_primary" />
 </FrameLayout>

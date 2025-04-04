@@ -11,7 +11,6 @@ import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -42,6 +41,7 @@ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.SplashScreenUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.WindowUtil;
 
 import im.molly.unifiedpush.UnifiedPushDistributor;
@@ -218,7 +218,7 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   @Override
   protected void onStop() {
     super.onStop();
-    SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings().getTheme());
+    SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings().getTheme(), SignalStore.settings().isDynamicColorsEnabled());
   }
 
   @Override
@@ -241,10 +241,10 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     final boolean showCalls   = TextSecurePreferences.getNavbarShowCalls(this);
     if (showCalls || showStories) {
       findViewById(R.id.conversation_list_tabs).setVisibility(View.VISIBLE);
-      WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_colorSurface2));
+      WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this, R.attr.navbar_container_color));
     } else {
       findViewById(R.id.conversation_list_tabs).setVisibility(View.GONE);
-      WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_colorBackground));
+      WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSurface));
     }
     ConversationListTab selectedTab = conversationListTabsViewModel.getStateSnapshot().getTab();
     if ((selectedTab == ConversationListTab.CALLS && !showCalls) ||

@@ -27,7 +27,7 @@
         android:paddingHorizontal="@dimen/gutter"
         android:text="@string/CreditCardFragment__enter_your_card_details"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <com.google.android.material.textfield.TextInputLayout

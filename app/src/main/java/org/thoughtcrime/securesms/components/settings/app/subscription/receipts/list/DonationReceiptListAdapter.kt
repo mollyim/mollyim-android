@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.receipts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.SectionHeaderPreference
@@ -10,6 +9,7 @@ import org.thoughtcrime.securesms.components.settings.SectionHeaderPreferenceVie
 import org.thoughtcrime.securesms.components.settings.TextPreference
 import org.thoughtcrime.securesms.components.settings.TextPreferenceViewHolder
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.toLocalDateTime
@@ -34,7 +34,7 @@ class DonationReceiptListAdapter(onModelClick: (DonationReceiptListItem.Model) -
 
   override fun onBindHeaderViewHolder(viewHolder: SectionHeaderPreferenceViewHolder?, position: Int, type: Int) {
     viewHolder?.itemView?.run {
-      val color = ContextCompat.getColor(context, R.color.signal_colorBackground)
+      val color = ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorSurface)
       setBackgroundColor(color)
     }
 

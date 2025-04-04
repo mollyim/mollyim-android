@@ -41,9 +41,12 @@ class ChangeNumberLockActivity : PassphraseRequiredActivity() {
   private val viewModel: ChangeNumberViewModel by viewModels()
   private val dynamicTheme: DynamicTheme = DynamicNoActionBarTheme()
 
-  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+  override fun onPreCreate() {
+    super.onPreCreate()
     dynamicTheme.onCreate(this)
+  }
 
+  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     onBackPressedDispatcher.addCallback(
       this,
       object : OnBackPressedCallback(true) {

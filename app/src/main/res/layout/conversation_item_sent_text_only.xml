@@ -28,7 +28,7 @@
             android:layout_width="@dimen/conversation_item_reply_size"
             android:layout_height="@dimen/conversation_item_reply_size"
             android:padding="9dp"
-            android:tint="@color/signal_icon_tint_secondary"
+            android:tint="?attr/signal_icon_tint_secondary"
             android:layout_gravity="center"
             app:srcCompat="@drawable/symbol_reply_24" />
 
@@ -93,10 +93,10 @@
             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
             android:paddingBottom="3dp"
             android:visibility="gone"
-            app:footer_icon_color="@color/signal_icon_tint_secondary"
+            app:footer_icon_color="?attr/signal_icon_tint_secondary"
             app:footer_mode="outgoing"
-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
-            app:footer_text_color="@color/signal_text_secondary" />
+            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
+            app:footer_text_color="?attr/signal_text_secondary" />
 
     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
 
@@ -122,9 +122,9 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="@color/signal_colorSurfaceVariant"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:padding="6dp"
-            android:tint="@color/signal_colorOnSurfaceVariant"
+            android:tint="?attr/colorOnSurfaceVariant"
             app:srcCompat="@drawable/symbol_calendar_24" />
 
     </FrameLayout>

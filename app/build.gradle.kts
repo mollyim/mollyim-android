@@ -467,6 +467,7 @@ dependencies {
   implementation(libs.androidx.asynclayoutinflater)
   implementation(libs.androidx.asynclayoutinflater.appcompat)
   implementation(libs.androidx.emoji2)
+  implementation(libs.androidx.splashscreen)
   implementation(libs.androidx.webkit)
   "gmsImplementation"(libs.firebase.messaging) {
     exclude(group = "com.google.firebase", module = "firebase-core")

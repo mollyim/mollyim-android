@@ -35,6 +35,8 @@ import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
 
 /**
@@ -58,6 +60,19 @@ public final class AvatarPreviewActivity extends PassphraseRequiredActivity {
     return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, from, "avatar").toBundle();
   }
 
+  private final DynamicTheme dynamicTheme = new DynamicMediaPreviewTheme();
+
+  @Override
+  protected void onPreCreate() {
+    super.onPreCreate();
+    dynamicTheme.onCreate(this);
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    dynamicTheme.onResume(this);
+  }
+
   @Override
   protected void attachBaseContext(@NonNull Context newBase) {
     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -68,7 +83,6 @@ public final class AvatarPreviewActivity extends PassphraseRequiredActivity {
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
 
-    setTheme(R.style.TextSecure_MediaPreview);
     setContentView(R.layout.contact_photo_preview_activity);
 
     postponeEnterTransition();

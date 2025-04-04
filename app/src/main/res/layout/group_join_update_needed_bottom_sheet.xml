@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links"
         android:textAppearance="@style/TextAppearance.Signal.Title2.Bold"
-        android:textColor="@color/signal_text_primary"
+        android:textColor="?attr/signal_text_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
         android:layout_marginEnd="24dp"
         android:text="@string/GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message"
         android:textAppearance="@style/TextAppearance.Signal.Body1"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/group_join_update_title" />

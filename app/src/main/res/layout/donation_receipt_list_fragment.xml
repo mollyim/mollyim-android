@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/signal_background_primary">
+        android:background="?attr/signal_background_primary">
 
         <org.thoughtcrime.securesms.util.views.DarkOverflowToolbar
             android:id="@+id/toolbar"
@@ -25,9 +25,9 @@
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/signal_inverse_primary"
             app:tabIndicatorFullWidth="false"
-            app:tabSelectedTextColor="@color/signal_text_primary"
+            app:tabSelectedTextColor="?attr/signal_text_primary"
             app:tabTextAppearance="@style/TextAppearance.Signal.Body2"
-            app:tabTextColor="@color/signal_text_secondary" />
+            app:tabTextColor="?attr/signal_text_secondary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2

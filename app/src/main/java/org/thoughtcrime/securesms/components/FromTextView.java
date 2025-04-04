@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.SimpleEmojiTextView;
@@ -16,6 +15,7 @@ import org.thoughtcrime.securesms.util.ContextUtil;
 import org.thoughtcrime.securesms.util.DrawableUtil;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.SpanUtil;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 public class FromTextView extends SimpleEmojiTextView {
@@ -84,21 +84,21 @@ public class FromTextView extends SimpleEmojiTextView {
   }
 
   private Drawable getBlocked() {
-    return getDrawable(R.drawable.symbol_block_16, R.color.signal_icon_tint_secondary);
+    return getDrawable(R.drawable.symbol_block_16, R.attr.signal_icon_tint_secondary);
   }
 
   private Drawable getMuted() {
-    return getDrawable(R.drawable.ic_bell_disabled_16, R.color.signal_icon_tint_secondary);
+    return getDrawable(R.drawable.ic_bell_disabled_16, R.attr.signal_icon_tint_secondary);
   }
 
   private Drawable getPinned() {
-    return getDrawable(R.drawable.symbol_pin_16, R.color.signal_colorOnSurface);
+    return getDrawable(R.drawable.symbol_pin_16, com.google.android.material.R.attr.colorOnSurface);
   }
 
   private Drawable getDrawable(@DrawableRes int drawable, int colorRes) {
     Drawable mutedDrawable = ContextUtil.requireDrawable(getContext(), drawable);
     mutedDrawable.setBounds(0, 0, ViewUtil.dpToPx(16), ViewUtil.dpToPx(16));
-    DrawableUtil.tint(mutedDrawable, ContextCompat.getColor(getContext(), colorRes));
+    DrawableUtil.tint(mutedDrawable, ThemeUtil.getThemedColor(getContext(), colorRes));
     return mutedDrawable;
   }
 }

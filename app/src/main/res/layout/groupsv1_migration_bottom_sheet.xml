@@ -19,7 +19,7 @@
         android:layout_marginEnd="20dp"
         android:text="@string/GroupsV1MigrationInitiation_upgrade_to_new_group"
         android:textAppearance="@style/Signal.Text.HeadlineMedium"
-        android:textColor="@color/signal_text_primary"
+        android:textColor="?attr/signal_text_primary"
         android:gravity="center" />
 
     <androidx.core.widget.NestedScrollView
@@ -50,7 +50,7 @@
                     android:layout_marginEnd="14dp"
                     android:text="@string/GroupsV1MigrationInitiation_new_groups_have_features_like_mentions"
                     android:textAppearance="@style/Signal.Text.BodyLarge"
-                    android:textColor="@color/signal_text_primary" />
+                    android:textColor="?attr/signal_text_primary" />
 
             </LinearLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_marginEnd="14dp"
                     android:text="@string/GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept"
                     android:textAppearance="@style/Signal.Text.BodyLarge"
-                    android:textColor="@color/signal_text_primary" />
+                    android:textColor="?attr/signal_text_primary" />
 
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textAppearance="@style/Signal.Text.BodyLarge"
-                        android:textColor="@color/signal_text_primary"
+                        android:textColor="?attr/signal_text_primary"
                         tools:text="Plurized string for invited members." />
 
                     <org.thoughtcrime.securesms.groups.ui.GroupMemberListView
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textAppearance="@style/Signal.Text.BodyLarge"
-                        android:textColor="@color/signal_text_primary"
+                        android:textColor="?attr/signal_text_primary"
                         tools:text="Plurized string for ineligible members." />
 
                     <org.thoughtcrime.securesms.groups.ui.GroupMemberListView

@@ -33,7 +33,7 @@
         android:background="@drawable/circle_tintable"
         android:contentDescription="@string/conversation_activity__send"
         android:scaleType="centerInside"
-        app:backgroundTint="@color/signal_colorPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_send_lock_24"

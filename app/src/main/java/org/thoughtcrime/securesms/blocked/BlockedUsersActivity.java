@@ -42,11 +42,16 @@ public class BlockedUsersActivity extends PassphraseRequiredActivity implements 
   private final LifecycleDisposable lifecycleDisposable = new LifecycleDisposable();
 
   @Override
+  protected void onPreCreate() {
+    super.onPreCreate();
+    dynamicTheme.onCreate(this);
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
 
     lifecycleDisposable.bindTo(this);
-    dynamicTheme.onCreate(this);
 
     setContentView(R.layout.blocked_users_activity);
 

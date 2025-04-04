@@ -18,7 +18,7 @@
         android:contentDescription="@string/conversation_fragment__scroll_to_the_bottom_content_description"
         android:elevation="1dp"
         android:scaleType="center"
-        app:tint="@color/conversation_scroll_to_bottom_foreground_color"
+        app:tint="?attr/conversation_scroll_to_bottom_foreground_color"
         tools:src="@drawable/ic_chevron_down_20" />
 
     <TextView
