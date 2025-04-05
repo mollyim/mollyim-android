@@ -161,7 +161,7 @@ class ChangeNumberRepository(
       pniMetadataStore.activeSignedPreKeyId = signedPreKey.id
       Log.i(TAG, "Submitting prekeys with PNI identity key: ${pniIdentityKeyPair.publicKey.fingerprint}")
 
-      accountManager.setPreKeys(
+      SignalNetwork.keys.setPreKeys(
         PreKeyUpload(
           serviceIdType = ServiceIdType.PNI,
           signedPreKey = signedPreKey,
@@ -169,7 +169,7 @@ class ChangeNumberRepository(
           lastResortKyberPreKey = lastResortKyberPreKey,
           oneTimeKyberPreKeys = oneTimeKyberPreKeys
         )
-      )
+      ).successOrThrow()
       pniMetadataStore.isSignedPreKeyRegistered = true
       pniMetadataStore.lastResortKyberPreKeyId = pniLastResortKyberPreKeyId
 
@@ -204,8 +204,8 @@ class ChangeNumberRepository(
 
     for (certificateType in certificateTypes) {
       val certificate: ByteArray? = when (certificateType) {
-        CertificateType.ACI_AND_E164 -> accountManager.senderCertificate
-        CertificateType.ACI_ONLY -> accountManager.senderCertificateForPhoneNumberPrivacy
+        CertificateType.ACI_AND_E164 -> SignalNetwork.certificate.getSenderCertificate().successOrThrow()
+        CertificateType.ACI_ONLY -> SignalNetwork.certificate.getSenderCertificateForPhoneNumberPrivacy().successOrThrow()
         else -> throw AssertionError()
       }
 

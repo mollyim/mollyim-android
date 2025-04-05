@@ -134,6 +134,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       enableNetwork()
       findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionLinkDevice())
     }
+    binding.cancelButton.setOnClickListener { popBackStack() }
 
     binding.toolbar.title = ""
     val activity = requireActivity() as AppCompatActivity

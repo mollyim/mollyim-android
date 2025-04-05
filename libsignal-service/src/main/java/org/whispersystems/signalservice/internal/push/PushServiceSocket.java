@@ -11,22 +11,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.wire.Message;
 
 import org.signal.core.util.Base64;
-import org.signal.core.util.concurrent.FutureTransformers;
-import org.signal.core.util.concurrent.ListenableFuture;
-import org.signal.core.util.concurrent.SettableFuture;
 import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
-import org.signal.libsignal.protocol.kem.KEMPublicKey;
 import org.signal.libsignal.protocol.logging.Log;
-import org.signal.libsignal.protocol.state.PreKeyBundle;
 import org.signal.libsignal.protocol.util.Pair;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations;
-import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
-import org.signal.libsignal.zkgroup.profiles.ProfileKey;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredentialRequest;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredentialRequestContext;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyVersion;
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation;
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequest;
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialResponse;
@@ -39,21 +27,14 @@ import org.signal.storageservice.protos.groups.GroupExternalCredential;
 import org.signal.storageservice.protos.groups.GroupJoinInfo;
 import org.signal.storageservice.protos.groups.GroupResponse;
 import org.signal.storageservice.protos.groups.Member;
+import org.whispersystems.signalservice.api.NetworkResult;
 import org.whispersystems.signalservice.api.account.AccountAttributes;
 import org.whispersystems.signalservice.api.account.PreKeyCollection;
-import org.whispersystems.signalservice.api.account.PreKeyUpload;
 import org.whispersystems.signalservice.api.crypto.SealedSenderAccess;
-import org.whispersystems.signalservice.api.groupsv2.CredentialResponse;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2AuthorizationString;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.calls.CallingResponse;
-import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
-import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
-import org.whispersystems.signalservice.api.profiles.SignalServiceProfileWrite;
-import org.whispersystems.signalservice.api.push.ServiceId;
-import org.whispersystems.signalservice.api.push.ServiceId.ACI;
-import org.whispersystems.signalservice.api.push.ServiceIdType;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.SignedPreKeyEntity;
 import org.whispersystems.signalservice.api.push.exceptions.AlreadyVerifiedException;
@@ -95,7 +76,6 @@ import org.whispersystems.signalservice.api.subscriptions.StripeClientSecret;
 import org.whispersystems.signalservice.api.svr.Svr3Credentials;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
-import org.whispersystems.signalservice.internal.ServiceResponse;
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.configuration.SignalUrl;
@@ -113,9 +93,7 @@ import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevic
 import org.whispersystems.signalservice.internal.push.exceptions.MissingCapabilitiesException;
 import org.whispersystems.signalservice.internal.push.exceptions.MissingCapabilitiesException;
 import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
-import org.whispersystems.signalservice.internal.push.exceptions.PaymentsRegionException;
 import org.whispersystems.signalservice.internal.push.exceptions.StaleDevicesException;
-import org.whispersystems.signalservice.internal.push.http.AcceptLanguagesUtil;
 import org.whispersystems.signalservice.internal.push.http.CancelationSignal;
 import org.whispersystems.signalservice.internal.push.http.DigestingRequestBody;
 import org.whispersystems.signalservice.internal.push.http.NoCipherOutputStreamFactory;
@@ -129,7 +107,6 @@ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager;
 import org.whispersystems.signalservice.internal.util.Hex;
 import org.whispersystems.signalservice.internal.util.JsonUtil;
 import org.whispersystems.signalservice.internal.util.Util;
-import org.whispersystems.signalservice.internal.websocket.ResponseMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -159,7 +136,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -168,10 +144,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.ConnectionPool;
 import okhttp3.ConnectionSpec;
 import okhttp3.Dns;
@@ -195,25 +168,9 @@ public class PushServiceSocket {
 
   private static final String DELETE_ACCOUNT_PATH        = "/v1/accounts/me";
 
-  private static final String PREKEY_METADATA_PATH      = "/v2/keys?identity=%s";
-  private static final String PREKEY_PATH               = "/v2/keys?identity=%s";
-  private static final String PREKEY_DEVICE_PATH        = "/v2/keys/%s/%s";
-  private static final String PREKEY_CHECK_PATH        = "/v2/keys/check";
-
-  private static final String PROVISIONING_MESSAGE_PATH = "/v1/provisioning/%s";
-  private static final String DEVICE_LINK_PATH          = "/v1/devices/link";
   private static final String SET_RESTORE_METHOD_PATH   = "/v1/devices/restore_account/%s";
-  private static final String WAIT_RESTORE_METHOD_PATH  = "/v1/devices/restore_account/%s?timeout=%s";
 
-  private static final String MESSAGE_PATH              = "/v1/messages/%s";
   private static final String GROUP_MESSAGE_PATH        = "/v1/messages/multi_recipient?ts=%s&online=%s&urgent=%s&story=%s";
-  private static final String ATTACHMENT_V4_PATH        = "/v4/attachments/form/upload";
-
-  private static final String PROFILE_PATH              = "/v1/profile/%s";
-  private static final String PROFILE_BATCH_CHECK_PATH  = "/v1/profile/identity_check/batch";
-
-  private static final String SENDER_CERTIFICATE_PATH         = "/v1/certificate/delivery";
-  private static final String SENDER_CERTIFICATE_NO_E164_PATH = "/v1/certificate/delivery?includeE164=false";
 
   private static final String ATTACHMENT_KEY_DOWNLOAD_PATH   = "attachments/%s";
   private static final String ATTACHMENT_ID_DOWNLOAD_PATH    = "attachments/%d";
@@ -222,7 +179,6 @@ public class PushServiceSocket {
   private static final String STICKER_MANIFEST_PATH          = "stickers/%s/manifest.proto";
   private static final String STICKER_PATH                   = "stickers/%s/full/%d";
 
-  private static final String GROUPSV2_CREDENTIAL       = "/v1/certificate/auth/group?redemptionStartSeconds=%d&redemptionEndSeconds=%d";
   private static final String GROUPSV2_GROUP            = "/v2/groups/";
   private static final String GROUPSV2_GROUP_PASSWORD   = "/v2/groups/?inviteLinkPassword=%s";
   private static final String GROUPSV2_GROUP_CHANGES    = "/v2/groups/logs/%s?maxSupportedChangeEpoch=%d&includeFirstState=%s&includeLastState=false";
@@ -255,19 +211,15 @@ public class PushServiceSocket {
 
   private static final String REGISTRATION_PATH    = "/v1/registration";
 
-  private static final String SVR2_AUTH = "/v2/backup/auth";
-  private static final String SVR3_AUTH = "/v3/backup/auth";
-
   private static final String BACKUP_AUTH_CHECK_V2 = "/v2/backup/auth/check";
   private static final String BACKUP_AUTH_CHECK_V3 = "/v3/backup/auth/check";
 
   private static final String ARCHIVE_MEDIA_DOWNLOAD_PATH = "backups/%s/%s";
 
-  private static final String SERVER_DELIVERED_TIMESTAMP_HEADER = "X-Signal-Timestamp";
+  private static final String DEVICE_LINK_PATH = "/v1/devices/link";
 
   private static final Map<String, String> NO_HEADERS                         = Collections.emptyMap();
   private static final ResponseCodeHandler NO_HANDLER                         = new EmptyResponseCodeHandler();
-  private static final ResponseCodeHandler LONG_POLL_HANDLER                  = new LongPollingResponseCodeHandler();
   private static final ResponseCodeHandler UNOPINIONATED_HANDLER              = new UnopinionatedResponseCodeHandler();
   private static final ResponseCodeHandler UNOPINIONATED_BINARY_ERROR_HANDLER = new UnopinionatedBinaryErrorResponseCodeHandler();
 
@@ -420,18 +372,6 @@ public class PushServiceSocket {
     return JsonUtil.fromJson(response, VerifyAccountResponse.class);
   }
 
-  public AuthCredentials getSvr2Authorization() throws IOException {
-    String          body        = makeServiceRequest(SVR2_AUTH, "GET", null);
-    AuthCredentials credentials = JsonUtil.fromJsonResponse(body, AuthCredentials.class);
-
-    return credentials;
-  }
-
-  public Svr3Credentials getSvr3Authorization() throws IOException {
-    String body = makeServiceRequest(SVR3_AUTH, "GET", null);
-    return JsonUtil.fromJsonResponse(body, Svr3Credentials.class);
-  }
-
   public int finishNewDeviceRegistration(String provisioningCode,
                                          AccountAttributes attributes,
                                          PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
@@ -478,31 +418,8 @@ public class PushServiceSocket {
     makeServiceRequest(String.format(Locale.US, SET_RESTORE_METHOD_PATH, urlEncode(token)), "PUT", body, NO_HEADERS, UNOPINIONATED_HANDLER, SealedSenderAccess.NONE);
   }
 
-  /**
-   * This is a long-polling endpoint that relies on the fact that our normal connection timeout is already 30s.
-   */
-  public @Nonnull RestoreMethodBody waitForRestoreMethodChosen(@Nonnull String token, int timeoutSeconds) throws IOException {
-    String response = makeServiceRequest(String.format(Locale.US, WAIT_RESTORE_METHOD_PATH, urlEncode(token), timeoutSeconds), "GET", null, NO_HEADERS, LONG_POLL_HANDLER, SealedSenderAccess.NONE);
-    return JsonUtil.fromJsonResponse(response, RestoreMethodBody.class);
-  }
-
-  public void sendProvisioningMessage(String destination, byte[] body) throws IOException {
-    makeServiceRequest(String.format(PROVISIONING_MESSAGE_PATH, urlEncode(destination)), "PUT",
-                       JsonUtil.toJson(new ProvisioningMessage(Base64.encodeWithPadding(body))));
-  }
-
   public void requestPushChallenge(String sessionId, String gcmRegistrationId) throws IOException {
     patchVerificationSession(sessionId, gcmRegistrationId, null, null, null, null);
-  }
-
-  public byte[] getSenderCertificate() throws IOException {
-    String responseText = makeServiceRequest(SENDER_CERTIFICATE_PATH, "GET", null);
-    return JsonUtil.fromJson(responseText, SenderCertificate.class).getCertificate();
-  }
-
-  public byte[] getUuidOnlySenderCertificate() throws IOException {
-    String responseText = makeServiceRequest(SENDER_CERTIFICATE_NO_E164_PATH, "GET", null);
-    return JsonUtil.fromJson(responseText, SenderCertificate.class).getCertificate();
   }
 
   public SendGroupMessageResponse sendGroupMessage(byte[] body, @Nonnull SealedSenderAccess sealedSenderAccess, long timestamp, boolean online, boolean urgent, boolean story)
@@ -576,196 +493,6 @@ public class PushServiceSocket {
     }
   }
 
-  public SignalServiceMessagesResult getMessages(boolean allowStories) throws IOException {
-    Map<String, String> headers = Collections.singletonMap("X-Signal-Receive-Stories", allowStories ? "true" : "false");
-
-    try (Response response = makeServiceRequest(String.format(MESSAGE_PATH, ""), "GET", (RequestBody) null, headers, NO_HANDLER, SealedSenderAccess.NONE, false)) {
-      validateServiceResponse(response);
-
-      List<SignalServiceEnvelopeEntity> envelopes = readBodyJson(response.body(), SignalServiceEnvelopeEntityList.class).getMessages();
-
-      long serverDeliveredTimestamp = 0;
-      try {
-        String stringValue = response.header(SERVER_DELIVERED_TIMESTAMP_HEADER);
-        stringValue = stringValue != null ? stringValue : "0";
-
-        serverDeliveredTimestamp = Long.parseLong(stringValue);
-      } catch (NumberFormatException e) {
-        Log.w(TAG, e);
-      }
-
-      return new SignalServiceMessagesResult(envelopes, serverDeliveredTimestamp);
-    }
-  }
-
-  public void registerPreKeys(PreKeyUpload preKeyUpload)
-      throws IOException
-  {
-    SignedPreKeyEntity      signedPreKey          = null;
-    List<PreKeyEntity>      oneTimeEcPreKeys      = null;
-    KyberPreKeyEntity       lastResortKyberPreKey = null;
-    List<KyberPreKeyEntity> oneTimeKyberPreKeys   = null;
-
-    try {
-      if (preKeyUpload.getSignedPreKey() != null) {
-        signedPreKey = new SignedPreKeyEntity(preKeyUpload.getSignedPreKey().getId(),
-                                              preKeyUpload.getSignedPreKey().getKeyPair().getPublicKey(),
-                                              preKeyUpload.getSignedPreKey().getSignature());
-      }
-    } catch (InvalidKeyException e) {
-      throw new AssertionError("unexpected invalid key", e);
-    }
-
-    if (preKeyUpload.getOneTimeEcPreKeys() != null) {
-      oneTimeEcPreKeys = preKeyUpload
-          .getOneTimeEcPreKeys()
-          .stream()
-          .map(it -> {
-            try {
-              return new PreKeyEntity(it.getId(), it.getKeyPair().getPublicKey());
-            } catch (InvalidKeyException e) {
-              throw new AssertionError("unexpected invalid key", e);
-            }
-          })
-          .collect(Collectors.toList());
-    }
-
-    if (preKeyUpload.getLastResortKyberPreKey() != null) {
-      try {
-        lastResortKyberPreKey = new KyberPreKeyEntity(preKeyUpload.getLastResortKyberPreKey().getId(),
-                                                      preKeyUpload.getLastResortKyberPreKey().getKeyPair().getPublicKey(),
-                                                      preKeyUpload.getLastResortKyberPreKey().getSignature());
-      } catch (InvalidKeyException e) {
-        throw new AssertionError("unexpected invalid key", e);
-      }
-    }
-
-    if (preKeyUpload.getOneTimeKyberPreKeys() != null) {
-      oneTimeKyberPreKeys = preKeyUpload
-          .getOneTimeKyberPreKeys()
-          .stream()
-          .map(it -> {
-            try {
-              return new KyberPreKeyEntity(it.getId(), it.getKeyPair().getPublicKey(), it.getSignature());
-            } catch (InvalidKeyException e) {
-              throw new AssertionError("unexpected invalid key", e);
-            }
-          })
-          .collect(Collectors.toList());
-    }
-
-    makeServiceRequest(String.format(Locale.US, PREKEY_PATH, preKeyUpload.getServiceIdType().queryParam()),
-                       "PUT",
-                       JsonUtil.toJson(new PreKeyState(signedPreKey,
-                                                       oneTimeEcPreKeys,
-                                                       lastResortKyberPreKey,
-                                                       oneTimeKyberPreKeys)));
-  }
-
-  public OneTimePreKeyCounts getAvailablePreKeys(ServiceIdType serviceIdType) throws IOException {
-    String              path         = String.format(PREKEY_METADATA_PATH, serviceIdType.queryParam());
-    String              responseText = makeServiceRequest(path, "GET", null);
-    OneTimePreKeyCounts preKeyStatus = JsonUtil.fromJson(responseText, OneTimePreKeyCounts.class);
-
-    return preKeyStatus;
-  }
-
-  /**
-   * Retrieves prekeys. If the specified device is the primary (i.e. deviceId 1), it will retrieve prekeys
-   * for all devices. If it is not a primary, it will only contain the prekeys for that specific device.
-   */
-  public List<PreKeyBundle> getPreKeys(SignalServiceAddress destination,
-                                       @Nullable SealedSenderAccess sealedSenderAccess,
-                                       int deviceId)
-      throws IOException
-  {
-    return getPreKeysBySpecifier(destination, sealedSenderAccess, deviceId == 1 ? "*" : String.valueOf(deviceId));
-  }
-
-  /**
-   * Retrieves a prekey for a specific device.
-   */
-  public PreKeyBundle getPreKey(SignalServiceAddress destination, int deviceId) throws IOException {
-    List<PreKeyBundle> bundles = getPreKeysBySpecifier(destination, null, String.valueOf(deviceId));
-
-    if (bundles.size() > 0) {
-      return bundles.get(0);
-    } else {
-      throw new IOException("No prekeys available!");
-    }
-  }
-
-  private List<PreKeyBundle> getPreKeysBySpecifier(SignalServiceAddress destination,
-                                                   @Nullable SealedSenderAccess sealedSenderAccess,
-                                                   String deviceSpecifier)
-      throws IOException
-  {
-    try {
-      String path = String.format(PREKEY_DEVICE_PATH, destination.getIdentifier(), deviceSpecifier);
-
-      Log.d(TAG, "Fetching prekeys for " + destination.getIdentifier() + "." + deviceSpecifier + ", i.e. GET " + path);
-
-      String             responseText = makeServiceRequest(path, "GET", null, NO_HEADERS, NO_HANDLER, sealedSenderAccess);
-      PreKeyResponse     response     = JsonUtil.fromJson(responseText, PreKeyResponse.class);
-      List<PreKeyBundle> bundles      = new LinkedList<>();
-
-      for (PreKeyResponseItem device : response.getDevices()) {
-        ECPublicKey  preKey                = null;
-        ECPublicKey  signedPreKey          = null;
-        byte[]       signedPreKeySignature = null;
-        int          preKeyId              = PreKeyBundle.NULL_PRE_KEY_ID;
-        int          signedPreKeyId        = PreKeyBundle.NULL_PRE_KEY_ID;
-        int          kyberPreKeyId         = PreKeyBundle.NULL_PRE_KEY_ID;
-        KEMPublicKey kyberPreKey           = null;
-        byte[]       kyberPreKeySignature  = null;
-
-        if (device.getSignedPreKey() != null) {
-          signedPreKey          = device.getSignedPreKey().getPublicKey();
-          signedPreKeyId        = device.getSignedPreKey().getKeyId();
-          signedPreKeySignature = device.getSignedPreKey().getSignature();
-        }
-
-        if (device.getPreKey() != null) {
-          preKeyId = device.getPreKey().getKeyId();
-          preKey   = device.getPreKey().getPublicKey();
-        }
-
-        if (device.getKyberPreKey() != null) {
-          kyberPreKey          = device.getKyberPreKey().getPublicKey();
-          kyberPreKeyId        = device.getKyberPreKey().getKeyId();
-          kyberPreKeySignature = device.getKyberPreKey().getSignature();
-        }
-
-        bundles.add(new PreKeyBundle(device.getRegistrationId(),
-                                     device.getDeviceId(),
-                                     preKeyId,
-                                     preKey,
-                                     signedPreKeyId,
-                                     signedPreKey,
-                                     signedPreKeySignature,
-                                     response.getIdentityKey(),
-                                     kyberPreKeyId,
-                                     kyberPreKey,
-                                     kyberPreKeySignature));
-      }
-
-      return bundles;
-    } catch (NotFoundException nfe) {
-      throw new UnregisteredUserException(destination.getIdentifier(), nfe);
-    }
-  }
-
-  public void checkRepeatedUsePreKeys(ServiceIdType serviceIdType, byte[] digest) throws IOException {
-    String body = JsonUtil.toJson(new CheckRepeatedUsedPreKeysRequest(serviceIdType.toString(), digest));
-
-    makeServiceRequest(PREKEY_CHECK_PATH, "POST", body, NO_HEADERS, (responseCode, errorBody, getHeader) -> {
-      // Must override this handling because otherwise code assumes a device mismatch error
-      if  (responseCode == 409) {
-        throw new NonSuccessfulResponseCodeException(409);
-      }
-    }, null);
-  }
-
   public void retrieveBackup(int cdnNumber, Map<String, String> headers, String cdnPath, File destination, long maxSizeBytes, ProgressListener listener)
       throws MissingConfigurationException, IOException
   {
@@ -819,72 +546,6 @@ public class PushServiceSocket {
     return output.toByteArray();
   }
 
-  public ListenableFuture<SignalServiceProfile> retrieveProfile(SignalServiceAddress target, @Nullable SealedSenderAccess sealedSenderAccess, Locale locale) {
-    ListenableFuture<String> response = submitServiceRequest(String.format(PROFILE_PATH, target.getIdentifier()), "GET", null, AcceptLanguagesUtil.getHeadersWithAcceptLanguage(locale), sealedSenderAccess);
-
-    return FutureTransformers.map(response, body -> {
-      try {
-        return JsonUtil.fromJson(body, SignalServiceProfile.class);
-      } catch (IOException e) {
-        Log.w(TAG, e);
-        throw new MalformedResponseException("Unable to parse entity", e);
-      }
-    });
-  }
-
-  public ListenableFuture<ProfileAndCredential> retrieveVersionedProfileAndCredential(ACI target, ProfileKey profileKey, @Nullable SealedSenderAccess sealedSenderAccess, Locale locale) {
-    ProfileKeyVersion                  profileKeyIdentifier = profileKey.getProfileKeyVersion(target.getLibSignalAci());
-    ProfileKeyCredentialRequestContext requestContext       = clientZkProfileOperations.createProfileKeyCredentialRequestContext(random, target.getLibSignalAci(), profileKey);
-    ProfileKeyCredentialRequest        request              = requestContext.getRequest();
-
-    String version           = profileKeyIdentifier.serialize();
-    String credentialRequest = Hex.toStringCondensed(request.serialize());
-    String subPath           = String.format("%s/%s/%s?credentialType=expiringProfileKey", target, version, credentialRequest);
-
-
-    ListenableFuture<String> response = submitServiceRequest(String.format(PROFILE_PATH, subPath), "GET", null, AcceptLanguagesUtil.getHeadersWithAcceptLanguage(locale), sealedSenderAccess);
-
-    return FutureTransformers.map(response, body -> formatProfileAndCredentialBody(requestContext, body));
-  }
-
-  private ProfileAndCredential formatProfileAndCredentialBody(ProfileKeyCredentialRequestContext requestContext, String body)
-      throws MalformedResponseException
-  {
-    try {
-      SignalServiceProfile signalServiceProfile = JsonUtil.fromJson(body, SignalServiceProfile.class);
-
-      try {
-        ExpiringProfileKeyCredential expiringProfileKeyCredential = signalServiceProfile.getExpiringProfileKeyCredentialResponse() != null
-                                                                    ? clientZkProfileOperations.receiveExpiringProfileKeyCredential(requestContext, signalServiceProfile.getExpiringProfileKeyCredentialResponse())
-                                                                    : null;
-        return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.ofNullable(expiringProfileKeyCredential));
-      } catch (VerificationFailedException e) {
-        Log.w(TAG, "Failed to verify credential.", e);
-        return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.empty());
-      }
-    } catch (IOException e) {
-      Log.w(TAG, e);
-      throw new MalformedResponseException("Unable to parse entity", e);
-    }
-  }
-
-  public ListenableFuture<SignalServiceProfile> retrieveVersionedProfile(ACI target, ProfileKey profileKey, @Nullable SealedSenderAccess sealedSenderAccess, Locale locale) {
-    ProfileKeyVersion profileKeyIdentifier = profileKey.getProfileKeyVersion(target.getLibSignalAci());
-
-    String                   version  = profileKeyIdentifier.serialize();
-    String                   subPath  = String.format("%s/%s", target, version);
-    ListenableFuture<String> response = submitServiceRequest(String.format(PROFILE_PATH, subPath), "GET", null, AcceptLanguagesUtil.getHeadersWithAcceptLanguage(locale), sealedSenderAccess);
-
-    return FutureTransformers.map(response, body -> {
-      try {
-        return JsonUtil.fromJson(body, SignalServiceProfile.class);
-      } catch (IOException e) {
-        Log.w(TAG, e);
-        throw new MalformedResponseException("Unable to parse entity", e);
-      }
-    });
-  }
-
   public void retrieveProfileAvatar(String path, File destination, long maxSizeBytes)
       throws IOException
   {
@@ -896,56 +557,21 @@ public class PushServiceSocket {
   }
 
   /**
-   * @return The avatar URL path, if one was written.
+   * Only used to upload self profile avatar as part of writing the profile to the service.
+   *
+   * @return Profile avatar key
    */
-  public Optional<String> writeProfile(SignalServiceProfileWrite signalServiceProfileWrite, ProfileAvatarData profileAvatar)
-      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
-  {
-    String                        requestBody    = JsonUtil.toJson(signalServiceProfileWrite);
-    ProfileAvatarUploadAttributes formAttributes;
-
-    String response = makeServiceRequest(String.format(PROFILE_PATH, ""),
-                                         "PUT",
-                                         requestBody,
-                                         NO_HEADERS,
-                                         PaymentsRegionException::responseCodeHandler,
-                                         SealedSenderAccess.NONE);
-
-    if (signalServiceProfileWrite.hasAvatar() && profileAvatar != null) {
-      try {
-        formAttributes = JsonUtil.fromJson(response, ProfileAvatarUploadAttributes.class);
-      } catch (IOException e) {
-        Log.w(TAG, e);
-        throw new MalformedResponseException("Unable to parse entity", e);
-      }
-
+  public NetworkResult<String> uploadProfileAvatar(ProfileAvatarUploadAttributes formAttributes, ProfileAvatarData profileAvatar) {
+    return NetworkResult.fromFetch(() -> {
       uploadToCdn0(AVATAR_UPLOAD_PATH, formAttributes.getAcl(), formAttributes.getKey(),
-                  formAttributes.getPolicy(), formAttributes.getAlgorithm(),
-                  formAttributes.getCredential(), formAttributes.getDate(),
-                  formAttributes.getSignature(), profileAvatar.getData(),
-                  profileAvatar.getContentType(), profileAvatar.getDataLength(), false,
-                  profileAvatar.getOutputStreamFactory(), null, null);
+                   formAttributes.getPolicy(), formAttributes.getAlgorithm(),
+                   formAttributes.getCredential(), formAttributes.getDate(),
+                   formAttributes.getSignature(), profileAvatar.getData(),
+                   profileAvatar.getContentType(), profileAvatar.getDataLength(), false,
+                   profileAvatar.getOutputStreamFactory(), null, null);
 
-       return Optional.of(formAttributes.getKey());
-    }
-
-    return Optional.empty();
-  }
-
-  public Single<ServiceResponse<IdentityCheckResponse>> performIdentityCheck(@Nonnull IdentityCheckRequest request,
-                                                                             @Nonnull ResponseMapper<IdentityCheckResponse> responseMapper)
-  {
-    Single<ServiceResponse<IdentityCheckResponse>> requestSingle = Single.fromCallable(() -> {
-      try (Response response = getServiceConnection(PROFILE_BATCH_CHECK_PATH, "POST", jsonRequestBody(JsonUtil.toJson(request)), Collections.emptyMap(), SealedSenderAccess.NONE, false)) {
-        String body = response.body() != null ? readBodyString(response.body()): "";
-        return responseMapper.map(response.code(), body, response::header, false);
-      }
+      return formAttributes.getKey();
     });
-
-    return requestSingle
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.io())
-        .onErrorReturn(ServiceResponse::forUnknownError);
   }
 
   public BackupV2AuthCheckResponse checkSvr2AuthCredentials(@Nullable String number, @Nonnull List<String> passwords) throws IOException {
@@ -1137,11 +763,6 @@ public class PushServiceSocket {
     }
   }
 
-  public RemoteConfigResponse getRemoteConfig() throws IOException {
-    String response = makeServiceRequest("/v1/config", "GET", null);
-    return JsonUtil.fromJson(response, RemoteConfigResponse.class);
-  }
-
   public void cancelInFlightRequests() {
     synchronized (connections) {
       Log.w(TAG, "Canceling: " + connections.size());
@@ -1149,18 +770,6 @@ public class PushServiceSocket {
         Log.w(TAG, "Canceling: " + connection);
         connection.cancel();
       }
-    }
-  }
-
-  public AttachmentUploadForm getAttachmentV4UploadAttributes()
-      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
-  {
-    String response = makeServiceRequest(ATTACHMENT_V4_PATH, "GET", null);
-    try {
-      return JsonUtil.fromJson(response, AttachmentUploadForm.class);
-    } catch (IOException e) {
-      Log.w(TAG, e);
-      throw new MalformedResponseException("Unable to parse entity", e);
     }
   }
 
@@ -1516,9 +1125,9 @@ public class PushServiceSocket {
 
   public void uploadBackupFile(AttachmentUploadForm uploadForm, String resumableUploadUrl, InputStream data, long dataLength, ProgressListener progressListener) throws IOException {
     if (uploadForm.cdn == 2) {
-      uploadToCdn2(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null);
+      uploadToCdn2(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), progressListener, null);
     } else {
-      uploadToCdn3(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), null, null, uploadForm.headers);
+      uploadToCdn3(resumableUploadUrl, data, "application/octet-stream", dataLength, false, new NoCipherOutputStreamFactory(), progressListener, null, uploadForm.headers);
     }
   }
 
@@ -1752,41 +1361,6 @@ public class PushServiceSocket {
   private static RequestBody protobufRequestBody(Message<?, ?> protobufBody) {
     return protobufBody != null ? RequestBody.create(MediaType.parse("application/x-protobuf"), protobufBody.encode())
                                 : null;
-  }
-
-  private ListenableFuture<String> submitServiceRequest(String urlFragment,
-                                                        String method,
-                                                        String jsonBody,
-                                                        Map<String, String> headers,
-                                                        @Nullable SealedSenderAccess sealedSenderAccess)
-  {
-    OkHttpClient okHttpClient = buildOkHttpClient(sealedSenderAccess != null);
-    Call         call         = okHttpClient.newCall(buildServiceRequest(urlFragment, method, jsonRequestBody(jsonBody), headers, sealedSenderAccess, false));
-
-    synchronized (connections) {
-      connections.add(call);
-    }
-
-    SettableFuture<String> bodyFuture = new SettableFuture<>();
-
-    call.enqueue(new Callback() {
-      @Override
-      public void onResponse(Call call, Response response) {
-        try (ResponseBody body = response.body()) {
-          validateServiceResponse(response);
-          bodyFuture.set(readBodyString(body));
-        } catch (IOException e) {
-          bodyFuture.setException(e);
-        }
-      }
-
-      @Override
-      public void onFailure(Call call, IOException e) {
-        bodyFuture.setException(e);
-      }
-    });
-
-    return bodyFuture;
   }
 
   private Response makeServiceRequest(String urlFragment,
@@ -2379,20 +1953,6 @@ public class PushServiceSocket {
         throw new NonSuccessfulResponseCodeException(responseCode, "Response: " + responseCode, bodyBytes);
       }
     }
-  }
-
-  public CredentialResponse retrieveGroupsV2Credentials(long todaySeconds)
-      throws IOException
-  {
-    long todayPlus7 = todaySeconds + TimeUnit.DAYS.toSeconds(7);
-    String response = makeServiceRequest(String.format(Locale.US, GROUPSV2_CREDENTIAL, todaySeconds, todayPlus7),
-                                         "GET",
-                                         null,
-                                         NO_HEADERS,
-                                         NO_HANDLER,
-                                         SealedSenderAccess.NONE);
-
-    return JsonUtil.fromJson(response, CredentialResponse.class);
   }
 
   private static final ResponseCodeHandler GROUPS_V2_PUT_RESPONSE_HANDLER   = (responseCode, body, getHeader) -> {

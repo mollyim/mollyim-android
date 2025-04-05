@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.util.SleepTimer
 import org.whispersystems.signalservice.api.websocket.HealthMonitor
@@ -17,7 +18,6 @@ import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.whispersystems.signalservice.internal.websocket.OkHttpWebSocketConnection
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-import kotlin.concurrent.Volatile
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -80,6 +80,12 @@ class SignalWebSocketHealthMonitor(
             TextSecurePreferences.setUnauthorizedReceived(AppDependencies.application, true)
           }
         }
+        WebSocketConnectionState.REMOTE_DEPRECATED -> {
+          if (!SignalStore.misc.isClientDeprecated) {
+            Log.w(TAG, "Received remote deprecation. Client version is deprecated.", true)
+            SignalStore.misc.isClientDeprecated = true
+          }
+        }
         else -> Unit
       }
 
@@ -89,7 +95,7 @@ class SignalWebSocketHealthMonitor(
     }
   }
 
-  override fun onKeepAliveResponse(sentTimestamp: Long, isIdentifiedWebSocket: Boolean) {
+  override fun onKeepAliveResponse(sentTimestamp: Long, isIdentifiedWebSocket: Boolean, keepMonitoring: Boolean) {
     val keepAliveTime = System.currentTimeMillis().milliseconds
     executor.execute {
       lastKeepAliveReceived = keepAliveTime

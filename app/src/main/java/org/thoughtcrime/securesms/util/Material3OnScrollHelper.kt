@@ -1,11 +1,11 @@
 package org.thoughtcrime.securesms.util
 
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -20,47 +20,32 @@ import org.thoughtcrime.securesms.util.views.Stub
  * for other purposes.
  */
 open class Material3OnScrollHelper(
-  private val context: Context,
-  private val setStatusBarColor: (Int) -> Unit,
-  private val getStatusBarColor: () -> Int,
+  private val activity: FragmentActivity,
+  private val setStatusBarColor: (Int) -> Unit = { WindowUtil.setStatusBarColor(activity.window, it) },
+  getStatusBarColor: () -> Int = { WindowUtil.getStatusBarColor(activity.window) },
   private val setChatFolderColor: (Int) -> Unit = {},
-  private val views: List<View>,
+  private val onSetToolbarColor: (Int) -> Unit = {},
+  private val views: List<View> = emptyList(),
   private val viewStubs: List<Stub<out View>> = emptyList(),
   lifecycleOwner: LifecycleOwner
 ) {
 
-  constructor(activity: Activity, view: View, lifecycleOwner: LifecycleOwner) : this(activity = activity, views = listOf(view), lifecycleOwner = lifecycleOwner)
+  companion object {
+    /**
+     * Override for our single java usage.
+     */
+    @JvmStatic
+    fun create(activity: FragmentActivity, toolbar: View): Material3OnScrollHelper {
+      return Material3OnScrollHelper(activity = activity, views = listOf(toolbar), lifecycleOwner = activity)
+    }
+  }
 
-  constructor(activity: Activity, views: List<View>, viewStubs: List<Stub<out View>> = emptyList(), lifecycleOwner: LifecycleOwner) : this(
-    activity = activity,
-    views = views,
-    viewStubs = viewStubs,
-    lifecycleOwner = lifecycleOwner,
-    setChatFolderColor = {}
-  )
-
-  constructor(
-    activity: Activity,
-    views: List<View>,
-    viewStubs: List<Stub<out View>> = emptyList(),
-    lifecycleOwner: LifecycleOwner,
-    setChatFolderColor: (Int) -> Unit = {}
-  ) : this(
-    context = activity,
-    setStatusBarColor = { WindowUtil.setStatusBarColor(activity.window, it) },
-    getStatusBarColor = { WindowUtil.getStatusBarColor(activity.window) },
-    setChatFolderColor = setChatFolderColor,
-    views = views,
-    viewStubs = viewStubs,
-    lifecycleOwner = lifecycleOwner
-  )
-
-  open val activeColorSet: ColorSet = ColorSet.from(context,
+  open val activeColorSet: ColorSet = ColorSet.from(activity,
     toolbarColorRes = MaterialR.attr.colorSurfaceContainer,
     statusBarColorRes = MaterialR.attr.colorSurfaceContainer,
     chatFolderColorRes = MaterialR.attr.colorSurface
   )
-  open val inactiveColorSet: ColorSet = ColorSet.from(context,
+  open val inactiveColorSet: ColorSet = ColorSet.from(activity,
     toolbarColorRes = MaterialR.attr.colorSurface,
     statusBarColorRes = MaterialR.attr.colorSurface,
     chatFolderColorRes = MaterialR.attr.colorSurfaceContainer
@@ -73,6 +58,10 @@ open class Material3OnScrollHelper(
 
   init {
     lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+      override fun onResume(owner: LifecycleOwner) {
+        setColorImmediate()
+      }
+
       override fun onDestroy(owner: LifecycleOwner) {
         animator?.cancel()
         setStatusBarColor(previousStatusBarColor)
@@ -162,6 +151,7 @@ open class Material3OnScrollHelper(
   private fun setToolbarColor(@ColorInt color: Int) {
     views.forEach { it.setBackgroundColor(color) }
     viewStubs.filter { it.resolved() }.forEach { it.get().setBackgroundColor(color) }
+    onSetToolbarColor(color)
   }
 
   private inner class OnScrollListener : RecyclerView.OnScrollListener(), AppBarLayout.OnOffsetChangedListener, NestedScrollView.OnScrollChangeListener {

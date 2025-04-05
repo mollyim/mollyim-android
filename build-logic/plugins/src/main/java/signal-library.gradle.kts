@@ -38,6 +38,7 @@ android {
 
   kotlinOptions {
     jvmTarget = signalKotlinJvmTarget
+    suppressWarnings = true
   }
 
   lint {

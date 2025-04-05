@@ -90,7 +90,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.rx3.rxSingle
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -111,6 +110,7 @@ import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.attachments.AttachmentSaver
 import org.thoughtcrime.securesms.audio.AudioRecorder
 import org.thoughtcrime.securesms.billing.upgrade.UpgradeToStartMediaBackupSheet
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
@@ -122,8 +122,6 @@ import org.thoughtcrime.securesms.components.HidingLinearLayout
 import org.thoughtcrime.securesms.components.InputAwareConstraintLayout
 import org.thoughtcrime.securesms.components.InputPanel
 import org.thoughtcrime.securesms.components.InsetAwareConstraintLayout
-import org.thoughtcrime.securesms.components.ProgressCardDialogFragment
-import org.thoughtcrime.securesms.components.ProgressCardDialogFragmentArgs
 import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
 import org.thoughtcrime.securesms.components.SendButton
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -250,6 +248,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModelV2
 import org.thoughtcrime.securesms.longmessage.LongMessageFragment
+import org.thoughtcrime.securesms.main.MainNavigationDestination
 import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity
 import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Activity
@@ -295,7 +294,6 @@ import org.thoughtcrime.securesms.stickers.StickerManagementActivity
 import org.thoughtcrime.securesms.stickers.StickerPackInstallEvent
 import org.thoughtcrime.securesms.stickers.StickerPackPreviewActivity
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
-import org.thoughtcrime.securesms.stories.tabs.ConversationListTab
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerActivity
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.BubbleUtil
@@ -315,9 +313,7 @@ import org.thoughtcrime.securesms.util.MessageConstraintsUtil.getEditMessageThre
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil.isValidEditMessageSend
 import org.thoughtcrime.securesms.util.PlayStoreUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.SaveAttachmentUtil
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
-import org.thoughtcrime.securesms.util.StorageUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
@@ -343,7 +339,9 @@ import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Locale
 import java.util.Optional
 import java.util.concurrent.ExecutionException
@@ -1059,6 +1057,7 @@ class ConversationFragment :
               AvatarDownloadStateCache.DownloadState.FINISHED -> {
                 viewModel.updateThreadHeader()
               }
+
               AvatarDownloadStateCache.DownloadState.FAILED -> {
                 Snackbar.make(requireView(), R.string.ConversationFragment_photo_failed, Snackbar.LENGTH_LONG).show()
                 presentConversationTitle(recipient)
@@ -2224,6 +2223,7 @@ class ConversationFragment :
                   Log.d(TAG, "report spam complete")
                   toast(R.string.ConversationFragment_reported_as_spam_and_blocked)
                 }
+
                 is Result.Failure -> {
                   Log.d(TAG, "report spam failed ${result.failure}")
                   toast(GroupErrors.getUserDisplayMessage(result.failure))
@@ -2386,36 +2386,9 @@ class ConversationFragment :
       error("Cannot save a view-once message")
     }
 
-    val attachments = SaveAttachmentUtil.getAttachmentsForRecord(record)
-
-    SaveAttachmentUtil.showWarningDialogIfNecessary(requireContext(), attachments.size) {
-      if (StorageUtil.canWriteToMediaStore()) {
-        performAttachmentSave(attachments)
-      } else {
-        Permissions.with(this)
-          .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-          .ifNecessary()
-          .withPermanentDenialDialog(getString(R.string.MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied))
-          .onAnyDenied { toast(R.string.MediaPreviewActivity_unable_to_write_to_external_storage_without_permission, toastDuration = Toast.LENGTH_LONG) }
-          .onAllGranted { performAttachmentSave(attachments) }
-          .execute()
-      }
+    lifecycleScope.launch {
+      AttachmentSaver(this@ConversationFragment).saveAttachments(record)
     }
-  }
-
-  private fun performAttachmentSave(attachments: Set<SaveAttachmentUtil.SaveAttachment>) {
-    val progressDialog = ProgressCardDialogFragment.create()
-    progressDialog.arguments = ProgressCardDialogFragmentArgs.Builder(
-      resources.getQuantityString(R.plurals.ConversationFragment_saving_n_attachments_to_sd_card, attachments.size, attachments.size)
-    ).build().toBundle()
-
-    rxSingle { SaveAttachmentUtil.saveAttachments(attachments) }
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnSubscribe { progressDialog.show(parentFragmentManager, null) }
-      .doOnTerminate { progressDialog.dismissAllowingStateLoss() }
-      .subscribeBy { result -> Toast.makeText(context, result.getMessage(requireContext()), Toast.LENGTH_LONG).show() }
-      .addTo(disposables)
   }
 
   private fun handleCopyMessage(messageParts: Set<MultiselectPart>) {
@@ -3007,7 +2980,7 @@ class ConversationFragment :
       } else if ("username_edit" == action) {
         startActivity(EditProfileActivity.getIntentForUsernameEdit(requireContext()))
       } else if ("calls_tab" == action) {
-        startActivity(MainActivity.clearTopAndOpenTab(requireContext(), ConversationListTab.CALLS))
+        startActivity(MainActivity.clearTopAndOpenTab(requireContext(), MainNavigationDestination.CALLS))
       } else if ("chat_folder" == action) {
         startActivity(AppSettingsActivity.chatFolders(requireContext()))
       }
@@ -3668,7 +3641,10 @@ class ConversationFragment :
           MediaUtil.isVideoType(it.contentType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption.orNull(), it.transformProperties.orNull())
           MediaUtil.isGif(it.contentType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption.orNull())
           MediaUtil.isImageType(it.contentType) -> ImageSlide(requireContext(), it.uri, it.contentType, it.size, it.width, it.height, it.isBorderless, it.caption.orNull(), null, it.transformProperties.orNull())
-          MediaUtil.isDocumentType(it.contentType) -> { DocumentSlide(requireContext(), it.uri, it.contentType, it.size, it.fileName.orNull()) }
+          MediaUtil.isDocumentType(it.contentType) -> {
+            DocumentSlide(requireContext(), it.uri, it.contentType, it.size, it.fileName.orNull())
+          }
+
           else -> {
             Log.w(TAG, "Asked to send an unexpected mimeType: '${it.contentType}'. Skipping.")
             null
@@ -3792,6 +3768,8 @@ class ConversationFragment :
           .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
           .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+      } else {
+        binding.conversationBanner.clearBanner()
       }
     }
 
@@ -4086,7 +4064,13 @@ class ConversationFragment :
         .request(Manifest.permission.RECORD_AUDIO)
         .ifNecessary()
         .withRationaleDialog(getString(R.string.ConversationActivity_allow_access_microphone), getString(R.string.ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone), R.drawable.ic_mic_24)
-        .withPermanentDenialDialog(getString(R.string.ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages), null, R.string.ConversationActivity_allow_access_microphone, R.string.ConversationActivity_signal_to_send_audio_messages, this@ConversationFragment.parentFragmentManager)
+        .withPermanentDenialDialog(
+          getString(R.string.ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages),
+          null,
+          R.string.ConversationActivity_allow_access_microphone,
+          R.string.ConversationActivity_signal_to_send_audio_messages,
+          this@ConversationFragment.parentFragmentManager
+        )
         .onAnyDenied { Toast.makeText(this@ConversationFragment.requireContext(), R.string.ConversationActivity_signal_needs_microphone_access_voice_message, Toast.LENGTH_LONG).show() }
         .execute()
     }
@@ -4330,8 +4314,15 @@ class ConversationFragment :
 
         datePicker.addOnPositiveButtonClickListener { selectedDate ->
           if (selectedDate != null) {
+            val localMidnightTimestamp = Instant.ofEpochMilli(selectedDate)
+              .atZone(ZoneId.systemDefault())
+              .toLocalDate()
+              .atStartOfDay(ZoneId.systemDefault())
+              .toInstant()
+              .toEpochMilli()
+
             disposables += viewModel
-              .moveToDate(selectedDate)
+              .moveToDate(localMidnightTimestamp)
               .observeOn(AndroidSchedulers.mainThread())
               .subscribeBy { position ->
                 moveToPosition(position - 1)

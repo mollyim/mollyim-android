@@ -1,4 +1,4 @@
-val signalBuildToolsVersion by extra("34.0.0")      // MOLLY: Dockerfile must match this version
+val signalBuildToolsVersion by extra("35.0.0")      // MOLLY: Dockerfile must match this version
 val signalCompileSdkVersion by extra("android-35")  // MOLLY: Dockerfile must match this version
 val signalTargetSdkVersion by extra(34)
 val signalMinSdkVersion by extra(27)

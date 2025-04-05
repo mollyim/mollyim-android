@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.mediasend.v2
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
@@ -16,16 +15,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import org.signal.core.util.BreakIteratorCompat
+import org.signal.core.util.OVERRIDE_TRANSITION_CLOSE_COMPAT
 import org.signal.core.util.getParcelableArrayListExtraCompat
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
+import org.signal.core.util.overrideActivityTransitionCompat
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.emoji.EmojiEventListener
@@ -105,10 +106,6 @@ class MediaSelectionActivity :
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     setContentView(R.layout.media_selection_activity)
-
-    if (false) {
-      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-    }
 
     FullscreenHelper.showSystemUI(window)
     WindowUtil.setNavigationBarColor(this, 0x01000000)
@@ -267,7 +264,7 @@ class MediaSelectionActivity :
     )
 
     finish()
-    overridePendingTransition(R.anim.stationary, R.anim.camera_slide_to_bottom)
+    overrideActivityTransitionCompat(OVERRIDE_TRANSITION_CLOSE_COMPAT, R.anim.stationary, R.anim.camera_slide_to_bottom)
   }
 
   override fun onSentWithoutResult() {
@@ -275,7 +272,7 @@ class MediaSelectionActivity :
     setResult(RESULT_OK, intent)
 
     finish()
-    overridePendingTransition(R.anim.stationary, R.anim.camera_slide_to_bottom)
+    overrideActivityTransitionCompat(OVERRIDE_TRANSITION_CLOSE_COMPAT, R.anim.stationary, R.anim.camera_slide_to_bottom)
   }
 
   override fun onSendError(error: Throwable) {
@@ -291,7 +288,7 @@ class MediaSelectionActivity :
       Log.w(TAG, "Failed to send message.", error)
 
       finish()
-      overridePendingTransition(R.anim.stationary, R.anim.camera_slide_to_bottom)
+      overrideActivityTransitionCompat(OVERRIDE_TRANSITION_CLOSE_COMPAT, R.anim.stationary, R.anim.camera_slide_to_bottom)
     }
   }
 
@@ -300,7 +297,7 @@ class MediaSelectionActivity :
 
     setResult(RESULT_CANCELED)
     finish()
-    overridePendingTransition(R.anim.stationary, R.anim.camera_slide_to_bottom)
+    overrideActivityTransitionCompat(OVERRIDE_TRANSITION_CLOSE_COMPAT, R.anim.stationary, R.anim.camera_slide_to_bottom)
   }
 
   override fun onPopFromReview() {
@@ -351,7 +348,7 @@ class MediaSelectionActivity :
 
   private inner class OnBackPressed : OnBackPressedCallback(true) {
     override fun handleOnBackPressed() {
-      val navController = Navigation.findNavController(this@MediaSelectionActivity, R.id.fragment_container)
+      val navController = this@MediaSelectionActivity.findNavController(R.id.fragment_container)
 
       if (shareToTextStory && navController.currentDestination?.id == R.id.textStoryPostCreationFragment) {
         finish()

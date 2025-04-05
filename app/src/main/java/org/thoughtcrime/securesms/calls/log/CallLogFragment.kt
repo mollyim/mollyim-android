@@ -3,9 +3,6 @@ package org.thoughtcrime.securesms.calls.log
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -14,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.SharedElementCallback
-import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -33,18 +29,15 @@ import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.addTo
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.MainActivity
+import org.thoughtcrime.securesms.MainNavigator
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
 import org.thoughtcrime.securesms.calls.links.details.CallLinkDetailsActivity
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
-import org.thoughtcrime.securesms.components.Material3SearchToolbar
 import org.thoughtcrime.securesms.components.ProgressCardDialogFragment
 import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.menu.ActionItem
-import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
-import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsActivity
 import org.thoughtcrime.securesms.conversation.ConversationUpdateTick
 import org.thoughtcrime.securesms.conversation.SignalBottomActionBarController
@@ -57,10 +50,11 @@ import org.thoughtcrime.securesms.conversationlist.chatfilter.FilterLerp
 import org.thoughtcrime.securesms.conversationlist.chatfilter.FilterPullState
 import org.thoughtcrime.securesms.databinding.CallLogFragmentBinding
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.main.MainNavigationDestination
+import org.thoughtcrime.securesms.main.MainToolbarMode
+import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
-import org.thoughtcrime.securesms.main.SearchBinder
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.stories.tabs.ConversationListTab
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ViewUtil
@@ -82,7 +76,6 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   private var filterViewOffsetChangeListener: AppBarLayout.OnOffsetChangedListener? = null
 
-  private val viewModel: CallLogViewModel by activityViewModels()
   private val binding: CallLogFragmentBinding by ViewBinderDelegate(CallLogFragmentBinding::bind) {
     binding.recyclerCoordinatorAppBar.removeOnOffsetChangedListener(filterViewOffsetChangeListener)
   }
@@ -95,35 +88,11 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   private lateinit var signalBottomActionBarController: SignalBottomActionBarController
 
+  private val viewModel: CallLogViewModel by activityViewModels()
   private val tabsViewModel: ConversationListTabsViewModel by viewModels(ownerProducer = { requireActivity() })
-
-  private val menuProvider = object : MenuProvider {
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-      menuInflater.inflate(R.menu.calls_tab_menu, menu)
-    }
-
-    override fun onPrepareMenu(menu: Menu) {
-      val isFiltered = viewModel.filterSnapshot == CallLogFilter.MISSED
-      menu.findItem(R.id.action_clear_missed_call_filter).isVisible = isFiltered
-      menu.findItem(R.id.action_filter_missed_calls).isVisible = !isFiltered
-      menu.findItem(R.id.action_clear_call_history).isVisible = !viewModel.isEmpty
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-      when (menuItem.itemId) {
-        R.id.action_clear_call_history -> clearCallHistory()
-        R.id.action_settings -> startActivity(AppSettingsActivity.home(requireContext()))
-        R.id.action_notification_profile -> NotificationProfileSelectionFragment.show(parentFragmentManager)
-        R.id.action_filter_missed_calls -> filterMissedCalls()
-        R.id.action_clear_missed_call_filter -> onClearFilterClicked()
-      }
-
-      return true
-    }
-  }
+  private val mainToolbarViewModel: MainToolbarViewModel by activityViewModels()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner)
     initializeSharedElementTransition()
 
     viewLifecycleOwner.lifecycle.addObserver(conversationUpdateTick)
@@ -131,10 +100,19 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
     val callLogAdapter = CallLogAdapter(this)
     disposables.bindTo(viewLifecycleOwner)
+
+    disposables += mainToolbarViewModel.getCallLogEventsFlowable().subscribeBy {
+      when (it) {
+        MainToolbarViewModel.Event.CallLog.ApplyFilter -> filterMissedCalls()
+        MainToolbarViewModel.Event.CallLog.ClearFilter -> onClearFilterClicked()
+        MainToolbarViewModel.Event.CallLog.ClearHistory -> clearCallHistory()
+      }
+    }
+
     callLogAdapter.setPagingController(viewModel.controller)
     callLogAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
       override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-        (requireActivity() as? MainActivity)?.onFirstRender()
+        (requireActivity() as? MainNavigator.NavigatorProvider)?.onFirstRender()
         callLogAdapter.unregisterAdapterDataObserver(this)
       }
     })
@@ -163,7 +141,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       .subscribe { (selected, totalCount) ->
         if (selected.isNotEmpty(totalCount)) {
           callLogActionMode.setCount(selected.count(totalCount))
-        } else {
+        } else if (callLogActionMode.isInActionMode()) {
           callLogActionMode.end()
         }
       }
@@ -171,7 +149,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
     binding.recycler.adapter = callLogAdapter
     this.callLogAdapter = callLogAdapter
 
-    requireListener<Material3OnScrollHelperBinder>().bindScrollHelper(binding.recycler)
+    requireListener<Material3OnScrollHelperBinder>().bindScrollHelper(binding.recycler, viewLifecycleOwner)
     binding.fab.setOnClickListener {
       startActivity(NewCallActivity.createIntent(requireContext()))
     }
@@ -248,7 +226,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   private fun initializeTapToScrollToTop(scrollToPositionDelegate: ScrollToPositionDelegate) {
     disposables += tabsViewModel.tabClickEvents
-      .filter { it == ConversationListTab.CALLS }
+      .filter { it == MainNavigationDestination.CALLS }
       .subscribeBy(onNext = {
         scrollToPositionDelegate.resetScrollPosition()
       })
@@ -268,19 +246,16 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   }
 
   private fun initializeSearchAction() {
-    val searchBinder = requireListener<SearchBinder>()
-    searchBinder.getSearchAction().setOnClickListener {
-      searchBinder.onSearchOpened()
-      searchBinder.getSearchToolbar().get().setSearchInputHint(R.string.SearchToolbar_search)
-
-      searchBinder.getSearchToolbar().get().listener = object : Material3SearchToolbar.Listener {
-        override fun onSearchTextChange(text: String) {
-          viewModel.setSearchQuery(text.trim())
-        }
-
-        override fun onSearchClosed() {
+    disposables += mainToolbarViewModel.getSearchEventsFlowable().subscribeBy {
+      when (it) {
+        MainToolbarViewModel.Event.Search.Close -> {
           viewModel.setSearchQuery("")
-          searchBinder.onSearchClosed()
+        }
+        MainToolbarViewModel.Event.Search.Open -> {
+          mainToolbarViewModel.setSearchHint(R.string.SearchToolbar_search)
+        }
+        is MainToolbarViewModel.Event.Search.Query -> {
+          viewModel.setSearchQuery(it.query.trim())
         }
       }
     }
@@ -294,6 +269,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       when (state) {
         FilterPullState.CLOSING -> {
           viewModel.setFilter(CallLogFilter.ALL)
+          mainToolbarViewModel.setCallLogFilter(CallLogFilter.ALL)
           binding.recycler.doAfterNextLayout {
             scrollToPositionDelegate.resetScrollPosition()
           }
@@ -302,6 +278,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
         FilterPullState.OPENING -> {
           ViewUtil.setMinimumHeight(collapsingToolbarLayout, openHeight)
           viewModel.setFilter(CallLogFilter.MISSED)
+          mainToolbarViewModel.setCallLogFilter(CallLogFilter.MISSED)
         }
 
         FilterPullState.OPEN_APEX -> if (source === ConversationFilterSource.DRAG) {
@@ -328,8 +305,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       }
     }
 
-    filterViewOffsetChangeListener = AppBarLayout.OnOffsetChangedListener {
-        layout: AppBarLayout, verticalOffset: Int ->
+    filterViewOffsetChangeListener = AppBarLayout.OnOffsetChangedListener { layout: AppBarLayout, verticalOffset: Int ->
       val progress = 1 - verticalOffset.toFloat() / -layout.height
       binding.pullView.onUserDrag(progress)
     }
@@ -439,16 +415,15 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   private fun closeSearchIfOpen(): Boolean {
     if (isSearchOpen()) {
-      requireListener<SearchBinder>().getSearchToolbar().get().collapse()
-      requireListener<SearchBinder>().onSearchClosed()
+      mainToolbarViewModel.setToolbarMode(MainToolbarMode.FULL)
+      tabsViewModel.onSearchClosed()
       return true
     }
     return false
   }
 
   private fun isSearchVisible(): Boolean {
-    return requireListener<SearchBinder>().getSearchToolbar().resolved() &&
-      requireListener<SearchBinder>().getSearchToolbar().get().visibility == View.VISIBLE
+    return mainToolbarViewModel.state.value.mode == MainToolbarMode.SEARCH
   }
 
   private fun performDeletion(count: Int, callLogStagedDeletion: CallLogStagedDeletion) {
@@ -485,6 +460,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
               .setPositiveButton(android.R.string.ok, null)
               .show()
           }
+
           CallLogDeletionResult.Success -> {
             Snackbar
               .make(
@@ -494,6 +470,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
               )
               .show()
           }
+
           is CallLogDeletionResult.UnknownFailure -> {
             Log.w(TAG, "Deletion failed.", it.reason)
             Toast.makeText(requireContext(), R.string.CallLogFragment__deletion_failed, Toast.LENGTH_SHORT).show()

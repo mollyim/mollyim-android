@@ -14,6 +14,7 @@ import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.internal.CompletableFuture
+import org.signal.libsignal.net.AppExpiredException
 import org.signal.libsignal.net.AuthenticatedChatConnection
 import org.signal.libsignal.net.ChatConnection
 import org.signal.libsignal.net.ChatConnectionListener
@@ -129,15 +130,17 @@ class LibSignalChatConnection(
 
   val state = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED)
 
-  val stateMonitor = state.subscribe { nextState ->
-    if (nextState == WebSocketConnectionState.DISCONNECTED) {
-      cleanup()
-    }
+  val stateMonitor = state
+    .skip(1) // Skip the transition to the initial DISCONNECTED state
+    .subscribe { nextState ->
+      if (nextState == WebSocketConnectionState.DISCONNECTED) {
+        cleanup()
+      }
 
-    CHAT_SERVICE_LOCK.withLock {
-      stateChangedOrMessageReceivedCondition.signalAll()
+      CHAT_SERVICE_LOCK.withLock {
+        stateChangedOrMessageReceivedCondition.signalAll()
+      }
     }
-  }
 
   private fun cleanup() {
     Log.i(TAG, "$name [cleanup]")
@@ -192,10 +195,17 @@ class LibSignalChatConnection(
             // request returns HTTP 403.
             // The chat service currently does not return HTTP 401 on /v1/websocket.
             // Thus, this currently matches the implementation in OkHttpWebSocketConnection.
-            if (throwable is DeviceDeregisteredException) {
-              state.onNext(WebSocketConnectionState.AUTHENTICATION_FAILED)
-            } else {
-              state.onNext(WebSocketConnectionState.FAILED)
+            when (throwable) {
+              is DeviceDeregisteredException -> {
+                state.onNext(WebSocketConnectionState.AUTHENTICATION_FAILED)
+              }
+              is AppExpiredException -> {
+                state.onNext(WebSocketConnectionState.REMOTE_DEPRECATED)
+              }
+              else -> {
+                Log.w(TAG, "Unknown connection failure reason", throwable)
+                state.onNext(WebSocketConnectionState.FAILED)
+              }
             }
           }
         }
@@ -210,7 +220,8 @@ class LibSignalChatConnection(
         WebSocketConnectionState.DISCONNECTED,
         WebSocketConnectionState.DISCONNECTING,
         WebSocketConnectionState.FAILED,
-        WebSocketConnectionState.AUTHENTICATION_FAILED -> true
+        WebSocketConnectionState.AUTHENTICATION_FAILED,
+        WebSocketConnectionState.REMOTE_DEPRECATED -> true
 
         WebSocketConnectionState.CONNECTING,
         WebSocketConnectionState.CONNECTED,
@@ -245,10 +256,14 @@ class LibSignalChatConnection(
       chatConnection!!.disconnect()
         .whenComplete(
           onSuccess = {
-            Log.i(TAG, "$name Disconnected")
-            state.onNext(WebSocketConnectionState.DISCONNECTED)
+            // This future completion means the WebSocket close frame has been sent off, but we
+            //   have not yet received a close frame back from the server.
+            // To match the behavior of OkHttpWebSocketConnection, we should transition to DISCONNECTED
+            //   only when we get the close frame back from the server, which happens when
+            //   onConnectionInterrupted is called.
           },
           onFailure = { throwable ->
+            // We failed to write the close frame to the server? Something is very wrong, give up and tear down.
             Log.w(TAG, "$name Disconnect failed", throwable)
             state.onNext(WebSocketConnectionState.DISCONNECTED)
           }
@@ -513,7 +528,13 @@ class LibSignalChatConnection(
 
     override fun onConnectionInterrupted(chat: ChatConnection, disconnectReason: ChatServiceException?) {
       CHAT_SERVICE_LOCK.withLock {
-        Log.i(TAG, "$name connection interrupted", disconnectReason)
+        if (disconnectReason == null) {
+          // disconnectReason = null means we requested this disconnect earlier, and this is confirmation
+          //   that disconnection is complete.
+          Log.i(TAG, "$name disconnected")
+        } else {
+          Log.i(TAG, "$name connection unexpectedly closed", disconnectReason)
+        }
         chatConnection = null
         state.onNext(WebSocketConnectionState.DISCONNECTED)
       }

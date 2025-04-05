@@ -38,6 +38,7 @@ import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 import java.util.Locale;
@@ -106,7 +107,7 @@ public class ConversationItemFooter extends ConstraintLayout {
         playbackSpeedToggleTextView.setTextColor(getResources().getColor(R.color.core_white));
         playbackSpeedToggleTextView.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.transparent_white_20));
       } else {
-        playbackSpeedToggleTextView.setTextColor(getResources().getColor(R.color.signal_text_secondary));
+        playbackSpeedToggleTextView.setTextColor(ThemeUtil.getThemedColor(getContext(), R.attr.signal_text_secondary));
         playbackSpeedToggleTextView.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.transparent_black_08));
       }
 

@@ -176,7 +176,7 @@ public class ApplicationMigrations {
    */
   public static void onApplicationCreate(@NonNull Context context, @NonNull JobManager jobManager) {
     if (isLegacyUpdate(context)) {
-      Log.i(TAG, "Detected the need for a legacy update. Last seen canonical version: " + VersionTracker.getLastSeenVersion(context));
+      Log.i(TAG, "Detected the need for a legacy update. Last seen canonical version: " + VersionTracker.getLastSeenVersionForMolly(context));
       TextSecurePreferences.setAppMigrationVersion(context, 0);
     }
 

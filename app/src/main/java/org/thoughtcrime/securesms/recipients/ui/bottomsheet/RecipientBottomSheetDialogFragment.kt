@@ -15,13 +15,13 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.R as MaterialR
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -29,8 +29,6 @@ import kotlinx.coroutines.launch
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.view.AvatarView
-import org.thoughtcrime.securesms.badges.BadgeImageView
-import org.thoughtcrime.securesms.badges.view.ViewBadgeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.conversation.preferences.ButtonStripPreference
@@ -47,6 +45,7 @@ import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.ThemeUtil
+import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.visible
 
@@ -131,7 +130,6 @@ class RecipientBottomSheetDialogFragment : BottomSheetDialogFragment() {
     val noteToSelfDescription: View = view.findViewById(R.id.rbs_note_to_self_description)
     val buttonStrip: View = view.findViewById(R.id.button_strip)
     val interactionsContainer: View = view.findViewById(R.id.interactions_container)
-    val badgeImageView: BadgeImageView = view.findViewById(R.id.rbs_badge)
     val tapToView: View = view.findViewById(R.id.rbs_tap_to_view)
     val progressBar: ProgressBar = view.findViewById(R.id.rbs_progress_bar)
 
@@ -193,10 +191,6 @@ class RecipientBottomSheetDialogFragment : BottomSheetDialogFragment() {
         avatar.displayChatAvatar(recipient)
       }
 
-      if (!recipient.isSelf) {
-        badgeImageView.setBadgeFromRecipient(recipient)
-      }
-
       if (recipient.isSelf) {
         avatar.setOnClickListener {
           dismiss()
@@ -234,16 +228,20 @@ class RecipientBottomSheetDialogFragment : BottomSheetDialogFragment() {
       }
 
       if (!recipient.isSelf && recipient.isIndividual) {
+        val isLtr = ViewUtil.isLtr(view)
         val chevronGlyph = SignalSymbols.getSpannedString(
           requireContext(),
           SignalSymbols.Weight.BOLD,
-          SignalSymbols.Glyph.CHEVRON_RIGHT
+          if (isLtr) SignalSymbols.Glyph.CHEVRON_RIGHT else SignalSymbols.Glyph.CHEVRON_LEFT
         )
 
-        nameBuilder.append(" ")
-        nameBuilder.append(
-          SpanUtil.color(ContextCompat.getColor(requireContext(), R.color.signal_colorOutline), SpanUtil.ofSize(chevronGlyph, 24))
-        )
+        if (isLtr) {
+          nameBuilder.append(" ")
+          nameBuilder.append(SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOutline), SpanUtil.ofSize(chevronGlyph, 24)))
+        } else {
+          nameBuilder.insert(0, " ")
+          nameBuilder.insert(0, SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOutline), SpanUtil.ofSize(chevronGlyph, 24)))
+        }
 
         fullName.text = nameBuilder
         fullName.setOnClickListener {
@@ -369,11 +367,6 @@ class RecipientBottomSheetDialogFragment : BottomSheetDialogFragment() {
     avatar.setOnClickListener {
       dismiss()
       viewModel.onAvatarClicked(requireActivity())
-    }
-
-    badgeImageView.setOnClickListener {
-      dismiss()
-      ViewBadgeBottomSheetDialogFragment.show(getParentFragmentManager(), recipientId, null)
     }
 
     blockButton.setOnClickListener { viewModel.onBlockClicked(requireActivity()) }

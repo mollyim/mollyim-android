@@ -300,7 +300,9 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       requestNewSizesThrottle.clear()
     }
 
-    AppDependencies.signalCallManager.setEnableVideo(false)
+    if (!isChangingConfigurations) {
+      AppDependencies.signalCallManager.setEnableVideo(false)
+    }
 
     if (!viewModel.isCallStarting && !isChangingConfigurations) {
       val state = viewModel.callParticipantsStateSnapshot

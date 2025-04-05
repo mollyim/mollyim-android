@@ -285,7 +285,7 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isThreadMergeType(record.type) -> {
-          builder.updateMessage = record.toRemoteThreadMergeUpdate() ?: continue
+          builder.updateMessage = record.toRemoteThreadMergeUpdate()?.takeIf { exportState.recipientIdToAci.contains(builder.authorId) } ?: continue
           transformTimer.emit("thread-merge")
         }
 
@@ -552,10 +552,11 @@ private fun BackupMessageRecord.toBasicChatItemBuilder(selfRecipientId: Recipien
   }
 
   if (!MessageTypes.isExpirationTimerUpdate(record.type) && builder.expiresInMs != null && builder.expireStartDate != null) {
+    val cutoffDuration = 1.days.inWholeMilliseconds
     val expiresAt = builder.expireStartDate!! + builder.expiresInMs!!
-    val threshold = if (exportState.forTransfer) backupStartTime else backupStartTime + 1.days.inWholeMilliseconds
+    val threshold = if (exportState.forTransfer) backupStartTime else backupStartTime + cutoffDuration
 
-    if (expiresAt < threshold) {
+    if (expiresAt < threshold || builder.expiresInMs!! <= cutoffDuration) {
       Log.w(TAG, ExportSkips.messageExpiresTooSoon(record.dateSent))
       return null
     }
@@ -827,7 +828,7 @@ private fun LinkPreview.toRemoteLinkPreview(mediaArchiveEnabled: Boolean): org.t
 }
 
 private fun BackupMessageRecord.toRemoteViewOnceMessage(mediaArchiveEnabled: Boolean, reactionRecords: List<ReactionRecord>?, attachments: List<DatabaseAttachment>?): ViewOnceMessage {
-  val attachment: DatabaseAttachment? = attachments?.firstOrNull()?.takeUnless { !it.hasData && it.size == 0L && it.archiveMediaId == null && it.width == 0 && it.height == 0 && it.blurHash == null }
+  val attachment: DatabaseAttachment? = attachments?.firstOrNull()?.takeUnless { !it.hasData && it.size == 0L && it.remoteDigest == null && it.width == 0 && it.height == 0 && it.blurHash == null }
 
   return ViewOnceMessage(
     attachment = attachment?.toRemoteMessageAttachment(mediaArchiveEnabled),
@@ -843,21 +844,21 @@ private fun BackupMessageRecord.toRemoteContactMessage(mediaArchiveEnabled: Bool
       name = sharedContact.name.toRemote(),
       avatar = (sharedContact.avatar?.attachment as? DatabaseAttachment)?.toRemoteMessageAttachment(mediaArchiveEnabled)?.pointer,
       organization = sharedContact.organization ?: "",
-      number = sharedContact.phoneNumbers.map { phone ->
+      number = sharedContact.phoneNumbers.mapNotNull { phone ->
         ContactAttachment.Phone(
           value_ = phone.number,
           type = phone.type.toRemote(),
           label = phone.label ?: ""
-        )
+        ).takeUnless { it.value_.isBlank() }
       },
-      email = sharedContact.emails.map { email ->
+      email = sharedContact.emails.mapNotNull { email ->
         ContactAttachment.Email(
           value_ = email.email,
           label = email.label ?: "",
           type = email.type.toRemote()
-        )
+        ).takeUnless { it.value_.isBlank() }
       },
-      address = sharedContact.postalAddresses.map { address ->
+      address = sharedContact.postalAddresses.mapNotNull { address ->
         ContactAttachment.PostalAddress(
           type = address.type.toRemote(),
           label = address.label ?: "",
@@ -868,7 +869,7 @@ private fun BackupMessageRecord.toRemoteContactMessage(mediaArchiveEnabled: Bool
           region = address.region ?: "",
           postcode = address.postalCode ?: "",
           country = address.country ?: ""
-        )
+        ).takeUnless { it.street.isBlank() && it.pobox.isBlank() && it.neighborhood.isBlank() && it.city.isBlank() && it.region.isBlank() && it.postcode.isBlank() && it.country.isBlank() }
       }
     ),
     reactions = reactionRecords.toRemote()
@@ -970,7 +971,7 @@ private fun BackupMessageRecord.toRemoteStandardMessage(exportState: ExportState
     ?: emptyList()
   val hasVoiceNote = messageAttachments.any { it.voiceNote }
   return StandardMessage(
-    quote = this.toRemoteQuote(mediaArchiveEnabled, quotedAttachments),
+    quote = this.toRemoteQuote(exportState, mediaArchiveEnabled, quotedAttachments),
     text = text.takeUnless { hasVoiceNote },
     attachments = messageAttachments.toRemoteAttachments(mediaArchiveEnabled).withFixedVoiceNotes(textPresent = text != null || longTextAttachment != null),
     linkPreview = linkPreviews.map { it.toRemoteLinkPreview(mediaArchiveEnabled) },
@@ -979,8 +980,8 @@ private fun BackupMessageRecord.toRemoteStandardMessage(exportState: ExportState
   )
 }
 
-private fun BackupMessageRecord.toRemoteQuote(mediaArchiveEnabled: Boolean, attachments: List<DatabaseAttachment>? = null): Quote? {
-  if (this.quoteTargetSentTimestamp == MessageTable.QUOTE_NOT_PRESENT_ID || this.quoteAuthor <= 0) {
+private fun BackupMessageRecord.toRemoteQuote(exportState: ExportState, mediaArchiveEnabled: Boolean, attachments: List<DatabaseAttachment>? = null): Quote? {
+  if (this.quoteTargetSentTimestamp == MessageTable.QUOTE_NOT_PRESENT_ID || this.quoteAuthor <= 0 || exportState.groupRecipientIds.contains(this.quoteAuthor)) {
     return null
   }
 

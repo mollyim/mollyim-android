@@ -103,7 +103,7 @@ class SignalServiceNetworkAccess(context: Context) {
       HTTPS_ANDROID_CLIENTS_GOOGLE_COM.stripProtocol(),
       HTTPS_CLIENTS_3_GOOGLE_COM.stripProtocol(),
       HTTPS_CLIENTS_4_GOOGLE_COM.stripProtocol(),
-      HTTPS_INBOX_GOOGLE_COM.stripProtocol(),
+      HTTPS_GOOGLEMAIL_COM.stripProtocol(),
       HTTPS_GITHUB_GITHUBASSETS_COM.stripProtocol(),
       HTTPS_PINTEREST_COM.stripProtocol(),
       HTTPS_WWW_REDDITSTATIC_COM.stripProtocol(),

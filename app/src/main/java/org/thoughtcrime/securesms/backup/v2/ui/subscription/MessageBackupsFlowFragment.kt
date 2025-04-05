@@ -21,7 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.rx3.asFlowable
-import org.signal.core.ui.Dialogs
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.util.getSerializableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
@@ -111,12 +111,20 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
         val context = LocalContext.current
 
         MessageBackupsKeyRecordScreen(
-          backupKey = state.accountEntropyPool.value,
+          backupKey = state.accountEntropyPool.displayValue,
           onNavigationClick = viewModel::goToPreviousStage,
           onNextClick = viewModel::goToNextStage,
           onCopyToClipboardClick = {
             Util.copyToClipboard(context, it)
           }
+        )
+      }
+
+      composable(route = MessageBackupsStage.Route.BACKUP_KEY_VERIFY.name) {
+        MessageBackupsKeyVerifyScreen(
+          backupKey = state.accountEntropyPool.displayValue,
+          onNavigationClick = viewModel::goToPreviousStage,
+          onNextClick = viewModel::goToNextStage
         )
       }
 
@@ -140,19 +148,20 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
       val currentRoute = navController.currentDestination?.route
       if (currentRoute != newRoute) {
         if (currentRoute != null && MessageBackupsStage.Route.valueOf(currentRoute).isAfter(state.stage.route)) {
-          navController.popBackStack()
+          navController.popBackStack(newRoute, inclusive = false)
         } else {
           navController.navigate(newRoute)
         }
       }
 
-      if (state.stage == MessageBackupsStage.CHECKOUT_SHEET) {
-        AppDependencies.billingApi.launchBillingFlow(requireActivity())
-      }
-
-      if (state.stage == MessageBackupsStage.COMPLETED) {
-        requireActivity().setResult(Activity.RESULT_OK, MessageBackupsCheckoutActivity.createResultData())
-        requireActivity().finishAfterTransition()
+      when (state.stage) {
+        MessageBackupsStage.CANCEL -> requireActivity().finishAfterTransition()
+        MessageBackupsStage.CHECKOUT_SHEET -> AppDependencies.billingApi.launchBillingFlow(requireActivity())
+        MessageBackupsStage.COMPLETED -> {
+          requireActivity().setResult(Activity.RESULT_OK, MessageBackupsCheckoutActivity.createResultData())
+          requireActivity().finishAfterTransition()
+        }
+        else -> Unit
       }
     }
 

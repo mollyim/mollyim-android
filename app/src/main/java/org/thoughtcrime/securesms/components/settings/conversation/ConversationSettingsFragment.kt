@@ -221,7 +221,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
   }
 
   override fun getMaterial3OnScrollHelper(toolbar: Toolbar?): Material3OnScrollHelper {
-    return object : Material3OnScrollHelper(requireActivity(), toolbar!!, viewLifecycleOwner) {
+    return object : Material3OnScrollHelper(activity = requireActivity(), views = listOf(toolbar!!), lifecycleOwner = viewLifecycleOwner) {
       override val inactiveColorSet = ColorSet.from(requireContext(),
         toolbarColorRes = R.color.signal_colorBackground_0,
         statusBarColorRes = com.google.android.material.R.attr.colorSurface
@@ -763,6 +763,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
             RecipientPreference.Model(
               recipient = member.member,
               isAdmin = member.isAdmin,
+              lifecycleOwner = viewLifecycleOwner,
               onClick = {
                 RecipientBottomSheetDialogFragment.show(parentFragmentManager, member.member.id, groupState.groupId)
               }

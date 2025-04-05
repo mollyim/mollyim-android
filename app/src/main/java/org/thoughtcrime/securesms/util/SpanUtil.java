@@ -110,7 +110,7 @@ public final class SpanUtil {
     return spannable;
   }
 
-  public static CharSequence color(int color, CharSequence sequence) {
+  public static CharSequence color(@ColorInt int color, CharSequence sequence) {
     SpannableString spannable = new SpannableString(sequence);
     spannable.setSpan(new ForegroundColorSpan(color), 0, sequence.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     return spannable;

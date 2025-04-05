@@ -84,16 +84,20 @@ import org.whispersystems.signalservice.api.archive.ArchiveApi;
 import org.whispersystems.signalservice.api.attachment.AttachmentApi;
 import org.whispersystems.signalservice.api.calling.CallingApi;
 import org.whispersystems.signalservice.api.cds.CdsApi;
+import org.whispersystems.signalservice.api.certificate.CertificateApi;
 import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
 import org.whispersystems.signalservice.api.keys.KeysApi;
 import org.whispersystems.signalservice.api.link.LinkDeviceApi;
 import org.whispersystems.signalservice.api.message.MessageApi;
 import org.whispersystems.signalservice.api.payments.PaymentsApi;
+import org.whispersystems.signalservice.api.profiles.ProfileApi;
+import org.whispersystems.signalservice.api.provisioning.ProvisioningApi;
 import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId.PNI;
 import org.whispersystems.signalservice.api.ratelimit.RateLimitChallengeApi;
 import org.whispersystems.signalservice.api.registration.RegistrationApi;
+import org.whispersystems.signalservice.api.remoteconfig.RemoteConfigApi;
 import org.whispersystems.signalservice.api.services.DonationsService;
 import org.whispersystems.signalservice.api.services.ProfileService;
 import org.whispersystems.signalservice.api.storage.StorageServiceApi;
@@ -144,17 +148,22 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull SignalServiceAccountManager provideSignalServiceAccountManager(@NonNull AccountApi accountApi, @NonNull PushServiceSocket pushServiceSocket, @NonNull GroupsV2Operations groupsV2Operations) {
-    return new SignalServiceAccountManager(accountApi, pushServiceSocket, groupsV2Operations);
+  public @NonNull SignalServiceAccountManager provideSignalServiceAccountManager(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull AccountApi accountApi, @NonNull PushServiceSocket pushServiceSocket, @NonNull GroupsV2Operations groupsV2Operations) {
+    return new SignalServiceAccountManager(authWebSocket, accountApi, pushServiceSocket, null, groupsV2Operations);
   }
 
   @Override
-  public @NonNull SignalServiceMessageSender provideSignalServiceMessageSender(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket, @NonNull SignalServiceDataStore protocolStore, @NonNull PushServiceSocket pushServiceSocket) {
+  public @NonNull SignalServiceMessageSender provideSignalServiceMessageSender(@NonNull SignalServiceDataStore protocolStore,
+                                                                               @NonNull PushServiceSocket pushServiceSocket,
+                                                                               @NonNull AttachmentApi attachmentApi,
+                                                                               @NonNull MessageApi messageApi,
+                                                                               @NonNull KeysApi keysApi) {
       return new SignalServiceMessageSender(pushServiceSocket,
                                             protocolStore,
                                             ReentrantSessionLock.INSTANCE,
-                                            authWebSocket,
-                                            unauthWebSocket,
+                                            attachmentApi,
+                                            messageApi,
+                                            keysApi,
                                             Optional.of(new SecurityEventListener(context)),
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", ThreadUtil.PRIORITY_IMPORTANT_BACKGROUND_THREAD, 1, 16, 30),
                                             ByteUnit.KILOBYTES.toBytes(256));
@@ -427,11 +436,10 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull ProfileService provideProfileService(@NonNull ClientZkProfileOperations clientZkProfileOperations,
-                                                       @NonNull SignalServiceMessageReceiver receiver,
                                                        @NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket,
                                                        @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket)
   {
-    return new ProfileService(clientZkProfileOperations, receiver, authWebSocket, unauthWebSocket);
+    return new ProfileService(clientZkProfileOperations, authWebSocket, unauthWebSocket);
   }
 
   @Override
@@ -457,8 +465,8 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull KeysApi provideKeysApi(@NonNull PushServiceSocket pushServiceSocket) {
-    return new KeysApi(pushServiceSocket);
+  public @NonNull KeysApi provideKeysApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket) {
+    return new KeysApi(authWebSocket, unauthWebSocket);
   }
 
   @Override
@@ -514,6 +522,26 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   @Override
   public @NonNull MessageApi provideMessageApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket) {
     return new MessageApi(authWebSocket, unauthWebSocket);
+  }
+
+  @Override
+  public @NonNull ProvisioningApi provideProvisioningApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket) {
+    return new ProvisioningApi(authWebSocket);
+  }
+
+  @Override
+  public @NonNull CertificateApi provideCertificateApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket) {
+    return new CertificateApi(authWebSocket);
+  }
+
+  @Override
+  public @NonNull ProfileApi provideProfileApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull PushServiceSocket pushServiceSocket) {
+    return new ProfileApi(authWebSocket, pushServiceSocket);
+  }
+
+  @Override
+  public @NonNull RemoteConfigApi provideRemoteConfigApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket) {
+    return new RemoteConfigApi(authWebSocket);
   }
 
   @VisibleForTesting

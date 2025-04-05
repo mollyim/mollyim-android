@@ -90,7 +90,7 @@ public class FcmRefreshJob extends BaseJob {
     if (!SignalStore.account().isFcmEnabled()) {
       if (oldToken != null) {
         Log.i(TAG, "FCM is disabled: clearing existing token...");
-        AppDependencies.getSignalServiceAccountManager().setGcmId(Optional.empty());
+        NetworkResultUtil.toBasicLegacy(SignalNetwork.account().clearFcmToken());
         SignalStore.account().setFcmToken(null);
       }
       return;

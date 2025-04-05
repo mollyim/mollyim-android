@@ -5,10 +5,8 @@
 
 package org.thoughtcrime.securesms.backup.v2.ui.subscription
 
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import org.signal.core.util.billing.BillingPurchaseResult
+import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
 import org.signal.donations.PaymentSourceType
@@ -70,7 +69,7 @@ class MessageBackupsFlowViewModel(
     check(SignalStore.backup.backupTier != MessageBackupTier.PAID) { "This screen does not support cancellation or downgrades." }
 
     viewModelScope.launch {
-      val result = withContext(Dispatchers.IO) {
+      val result = withContext(SignalDispatchers.IO) {
         BackupRepository.triggerBackupIdReservation()
       }
 
@@ -79,19 +78,21 @@ class MessageBackupsFlowViewModel(
         internalStateFlow.update { it.copy(paymentReadyState = MessageBackupsFlowState.PaymentReadyState.READY) }
       }
 
-      result.runOnStatusCodeError {
-        Log.d(TAG, "Failed to trigger backup id reservation. ($it)")
+      result.runOnStatusCodeError { code ->
+        Log.d(TAG, "Failed to trigger backup id reservation. ($code)")
         internalStateFlow.update { it.copy(paymentReadyState = MessageBackupsFlowState.PaymentReadyState.FAILED) }
       }
     }
 
     viewModelScope.launch {
-      internalStateFlow.update {
-        it.copy(
-          availableBackupTypes = BackupRepository.getAvailableBackupsTypes(
-            if (!RemoteConfig.messageBackups) emptyList() else listOf(MessageBackupTier.FREE, MessageBackupTier.PAID)
-          )
+      val availableBackupTypes = withContext(SignalDispatchers.IO) {
+        BackupRepository.getAvailableBackupsTypes(
+          if (!RemoteConfig.messageBackups) emptyList() else listOf(MessageBackupTier.FREE, MessageBackupTier.PAID)
         )
+      }
+
+      internalStateFlow.update {
+        it.copy(availableBackupTypes = availableBackupTypes)
       }
     }
 
@@ -160,9 +161,11 @@ class MessageBackupsFlowViewModel(
   fun goToNextStage() {
     internalStateFlow.update {
       when (it.stage) {
+        MessageBackupsStage.CANCEL -> error("Unsupported state transition from terminal state CANCEL")
         MessageBackupsStage.EDUCATION -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_EDUCATION)
         MessageBackupsStage.BACKUP_KEY_EDUCATION -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_RECORD)
-        MessageBackupsStage.BACKUP_KEY_RECORD -> it.copy(stage = MessageBackupsStage.TYPE_SELECTION)
+        MessageBackupsStage.BACKUP_KEY_RECORD -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_VERIFY)
+        MessageBackupsStage.BACKUP_KEY_VERIFY -> it.copy(stage = MessageBackupsStage.TYPE_SELECTION)
         MessageBackupsStage.TYPE_SELECTION -> validateTypeAndUpdateState(it)
         MessageBackupsStage.CHECKOUT_SHEET -> it.copy(stage = MessageBackupsStage.PROCESS_PAYMENT)
         MessageBackupsStage.CREATING_IN_APP_PAYMENT -> error("This is driven by an async coroutine.")
@@ -177,12 +180,14 @@ class MessageBackupsFlowViewModel(
   fun goToPreviousStage() {
     internalStateFlow.update {
       if (it.stage == it.startScreen) {
-        it.copy(stage = MessageBackupsStage.COMPLETED)
+        it.copy(stage = MessageBackupsStage.CANCEL)
       } else {
         val previousScreen = when (it.stage) {
-          MessageBackupsStage.EDUCATION -> MessageBackupsStage.COMPLETED
+          MessageBackupsStage.CANCEL -> error("Unsupported state transition from terminal state CANCEL")
+          MessageBackupsStage.EDUCATION -> MessageBackupsStage.CANCEL
           MessageBackupsStage.BACKUP_KEY_EDUCATION -> MessageBackupsStage.EDUCATION
           MessageBackupsStage.BACKUP_KEY_RECORD -> MessageBackupsStage.BACKUP_KEY_EDUCATION
+          MessageBackupsStage.BACKUP_KEY_VERIFY -> MessageBackupsStage.BACKUP_KEY_RECORD
           MessageBackupsStage.TYPE_SELECTION -> MessageBackupsStage.BACKUP_KEY_RECORD
           MessageBackupsStage.CHECKOUT_SHEET -> MessageBackupsStage.TYPE_SELECTION
           MessageBackupsStage.CREATING_IN_APP_PAYMENT -> MessageBackupsStage.CREATING_IN_APP_PAYMENT
@@ -218,7 +223,7 @@ class MessageBackupsFlowViewModel(
         check(state.selectedMessageBackupTier == MessageBackupTier.PAID)
         check(state.availableBackupTypes.any { it.tier == state.selectedMessageBackupTier })
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(SignalDispatchers.IO) {
           internalStateFlow.update { it.copy(inAppPayment = null) }
 
           val paidFiat = AppDependencies.billingApi.queryProduct()!!.price
@@ -250,24 +255,18 @@ class MessageBackupsFlowViewModel(
   }
 
   /**
-   * Ensures we have a SubscriberId created and available for use. This is considered safe because
-   * the screen this is called in is assumed to only be accessible if the user does not currently have
-   * a subscription.
-   */
-  @WorkerThread
-  private fun ensureSubscriberIdForBackups(purchaseToken: IAPSubscriptionId.GooglePlayBillingPurchaseToken) {
-    RecurringInAppPaymentRepository.ensureSubscriberId(InAppPaymentSubscriberRecord.Type.BACKUP, iapSubscriptionId = purchaseToken).blockingAwait()
-  }
-
-  /**
    * Handles a successful BillingPurchaseResult. Updates the in app payment, enqueues the appropriate job chain,
    * and handles any resulting error. Like donations, we will wait up to 10s for the completion of the job chain.
+   *
+   * This will always rotate the subscriber-id.
    */
   @OptIn(FlowPreview::class)
   private suspend fun handleSuccess(result: BillingPurchaseResult.Success, inAppPaymentId: InAppPaymentTable.InAppPaymentId) {
-    withContext(Dispatchers.IO) {
+    withContext(SignalDispatchers.IO) {
       Log.d(TAG, "Setting purchase token data on InAppPayment and InAppPaymentSubscriber.")
-      ensureSubscriberIdForBackups(IAPSubscriptionId.GooglePlayBillingPurchaseToken(result.purchaseToken))
+
+      val iapSubscriptionId = IAPSubscriptionId.GooglePlayBillingPurchaseToken(result.purchaseToken)
+      RecurringInAppPaymentRepository.ensureSubscriberIdSync(InAppPaymentSubscriberRecord.Type.BACKUP, iapSubscriptionId = iapSubscriptionId, isRotation = true)
 
       val inAppPayment = SignalDatabase.inAppPayments.getById(inAppPaymentId)!!
       SignalDatabase.inAppPayments.update(
@@ -287,7 +286,7 @@ class MessageBackupsFlowViewModel(
       InAppPaymentPurchaseTokenJob.createJobChain(inAppPayment).enqueue()
     }
 
-    val terminalInAppPayment = withContext(Dispatchers.IO) {
+    val terminalInAppPayment = withContext(SignalDispatchers.IO) {
       Log.d(TAG, "Awaiting completion of job chain for up to 10 seconds.")
       InAppPaymentsRepository.observeUpdates(inAppPaymentId).asFlow()
         .filter { it.state == InAppPaymentTable.State.END }
