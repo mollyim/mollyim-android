@@ -11,8 +11,8 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1519
-val canonicalVersionName = "7.36.2"
+val canonicalVersionCode = 1530
+val canonicalVersionName = "7.38.7"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -502,6 +502,7 @@ dependencies {
   implementation(libs.lottie.compose)
   implementation(libs.signal.android.database.sqlcipher)
   implementation(libs.androidx.sqlite)
+  testImplementation(libs.androidx.sqlite.framework)
   implementation(libs.google.ez.vcard) {
     exclude(group = "com.fasterxml.jackson.core")
     exclude(group = "org.freemarker")

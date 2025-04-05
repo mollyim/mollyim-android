@@ -70,6 +70,22 @@ class MessageBackupsFlowViewModel(
     check(SignalStore.backup.backupTier != MessageBackupTier.PAID) { "This screen does not support cancellation or downgrades." }
 
     viewModelScope.launch {
+      val result = withContext(Dispatchers.IO) {
+        BackupRepository.triggerBackupIdReservation()
+      }
+
+      result.runIfSuccessful {
+        Log.d(TAG, "Successfully triggered backup id reservation.")
+        internalStateFlow.update { it.copy(paymentReadyState = MessageBackupsFlowState.PaymentReadyState.READY) }
+      }
+
+      result.runOnStatusCodeError {
+        Log.d(TAG, "Failed to trigger backup id reservation. ($it)")
+        internalStateFlow.update { it.copy(paymentReadyState = MessageBackupsFlowState.PaymentReadyState.FAILED) }
+      }
+    }
+
+    viewModelScope.launch {
       internalStateFlow.update {
         it.copy(
           availableBackupTypes = BackupRepository.getAvailableBackupsTypes(
@@ -218,10 +234,7 @@ class MessageBackupsFlowViewModel(
               amount = paidFiat.toFiatValue(),
               level = SubscriptionsConfiguration.BACKUPS_LEVEL.toLong(),
               recipientId = Recipient.self().id.serialize(),
-              paymentMethodType = InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING,
-              redemption = InAppPaymentData.RedemptionState(
-                stage = InAppPaymentData.RedemptionState.Stage.INIT
-              )
+              paymentMethodType = InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING
             )
           )
 
@@ -259,12 +272,13 @@ class MessageBackupsFlowViewModel(
       val inAppPayment = SignalDatabase.inAppPayments.getById(inAppPaymentId)!!
       SignalDatabase.inAppPayments.update(
         inAppPayment.copy(
+          state = InAppPaymentTable.State.PENDING,
           subscriberId = InAppPaymentsRepository.requireSubscriber(InAppPaymentSubscriberRecord.Type.BACKUP).subscriberId,
-          data = inAppPayment.data.copy(
-            redemption = inAppPayment.data.redemption!!.copy(
-              googlePlayBillingPurchaseToken = result.purchaseToken
+          data = inAppPayment.data.newBuilder().redemption(
+            redemption = InAppPaymentData.RedemptionState(
+              stage = InAppPaymentData.RedemptionState.Stage.INIT
             )
-          )
+          ).build()
         )
       )
 

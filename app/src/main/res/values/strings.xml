@@ -571,11 +571,6 @@
         <item quantity="one">Saving this media to storage will allow any other apps on your device to access it.\n\nContinue?</item>
         <item quantity="other">Saving all %1$d media to storage will allow any other apps on your device to access them.\n\nContinue?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="one">Error while saving attachment to storage!</item>
-        <item quantity="other">Error while saving attachments to storage!</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Unable to write to storage!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="one">Saving attachment</item>
         <item quantity="other">Saving %1$d attachments</item>
@@ -678,6 +673,8 @@
     <string name="ConversationFragment_profile_names">Profile names</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Group names</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">Photo failed to download. Try again.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Safety Tips</string>
@@ -2082,6 +2079,14 @@
     <string name="MessageRecord_reported_as_spam">Reported as spam</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">You accepted the message request</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">You blocked this person</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">You unblocked this person</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">You blocked this group</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">You unblocked this group</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Accept</string>
@@ -2168,7 +2173,7 @@
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">Sorry, you have too many devices linked already, try removing some</string>
     <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Sorry, this is not a valid device link QR code.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Link a Signal device?</string>
-    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\"and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+    <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\" and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
 
     <string mollyify="true" name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly needs the Camera permission in order to scan a QR code, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Unable to scan a QR code without the Camera permission</string>
@@ -2849,6 +2854,8 @@
     <string name="ThreadRecord_message_history_has_been_merged">Your message history has been merged</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">%1$s belongs to %2$s</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">Blocked</string>
 
     <!-- ApkUpdateNotifications -->
     <string mollyify="true" name="ApkUpdateNotifications_prompt_install_title">Molly update</string>
@@ -3078,8 +3085,27 @@
     <string mollyify="true" name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Quick response unavailable when Molly is locked!</string>
     <string name="QuickResponseService_problem_sending_message">Problem sending message!</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">Media saved</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Unable to write to storage!</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="one">Media saved</item>
+        <item quantity="other">Media saved</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="one">Media saved (%1$s of %2$s failed)</item>
+        <item quantity="other">Media saved (%1$s of %2$s failed)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="one">Error while saving attachment to storage!</item>
+        <item quantity="other">Error while saving attachments to storage!</item>
+    </plurals>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Search</string>
@@ -4457,6 +4483,13 @@
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PINs keep information that’s stored with Signal encrypted.</string>
     <string name="KbsMegaphone__create_pin">Create PIN</string>
 
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">Update Signal PIN</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">Update your Signal PIN to complete account registration.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">Update PIN</string>
+
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
     <string mollyify="true" name="CallNotificationBuilder__incoming_signal_voice_call">Incoming Molly voice call</string>
@@ -5784,6 +5817,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">Photo set to high quality</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Photo set to standard quality</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">Add a Media</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">Brush and Pen</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">Crop and Rotate</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">Change Media Quality</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">Save Media</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">Toggle emoji keyboard</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">Toggle View Once</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">Send Media</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">Finish adding a Message</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="one">%1$d item set to high quality</item>
@@ -7315,6 +7366,8 @@
     <string name="CameraControls_capture_button_accessibility_label">Capture Button</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">Continue Button</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">Toggle Flash Mode</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -8014,6 +8067,10 @@
     <string name="SubscriptionNotFoundBottomSheet__got_it">Got it</string>
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">Contact support</string>
+
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">A network failure occurred. Please try again later.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->

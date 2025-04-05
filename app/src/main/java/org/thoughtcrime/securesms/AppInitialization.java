@@ -14,7 +14,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.Util;
 
 /**
  * Rule of thumb: if there's something you want to do on the first app launch that involves
@@ -32,7 +31,7 @@ public final class AppInitialization {
 
     TextSecurePreferences.setAppMigrationVersion(context, ApplicationMigrations.CURRENT_VERSION);
     TextSecurePreferences.setJobManagerVersion(context, JobManager.CURRENT_VERSION);
-    TextSecurePreferences.setSignalLastVersionCode(context, Util.getSignalCanonicalVersionCode());
+    TextSecurePreferences.setLastVersionCodeForMolly(context, BuildConfig.VERSION_CODE);
     AppDependencies.getMegaphoneRepository().onFirstEverAppLaunch();
     SignalStore.onFirstEverAppLaunch();
     AppDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.ZOZO.getPackId(), BlessedPacks.ZOZO.getPackKey(), false));

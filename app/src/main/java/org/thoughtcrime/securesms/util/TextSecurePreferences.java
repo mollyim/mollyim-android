@@ -544,13 +544,11 @@ public class TextSecurePreferences {
 
     if (previous != value) {
       Recipient.self().live().refresh();
+
       if (value) {
         notifyUnregisteredReceived(context);
+        clearLocalCredentials(context);
       }
-    }
-
-    if (value) {
-      clearLocalCredentials(context);
     }
   }
 
@@ -733,11 +731,11 @@ public class TextSecurePreferences {
     return getBooleanPreference(context, SCREEN_SECURITY_PREF, true);
   }
 
-  public static int getSignalLastVersionCode(Context context) {
-    return getIntegerPreference(context, LAST_VERSION_CODE_PREF, Util.getSignalCanonicalVersionCode());
+  public static int getLastVersionCodeForMolly(Context context) {
+    return getIntegerPreference(context, LAST_VERSION_CODE_PREF, BuildConfig.VERSION_CODE);
   }
 
-  public static void setSignalLastVersionCode(Context context, int versionCode) {
+  public static void setLastVersionCodeForMolly(Context context, int versionCode) {
     if (!setIntegerPrefrenceBlocking(context, LAST_VERSION_CODE_PREF, versionCode)) {
       throw new AssertionError("couldn't write version code to sharedpreferences");
     }
@@ -1054,7 +1052,6 @@ public class TextSecurePreferences {
   }
 
   private static void clearLocalCredentials(Context context) {
-
     ProfileKey newProfileKey = ProfileKeyUtil.createNew();
     Recipient  self          = Recipient.self();
     SignalDatabase.recipients().setProfileKey(self.getId(), newProfileKey);

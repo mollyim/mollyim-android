@@ -28,10 +28,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.Previews
 import org.signal.core.ui.SignalPreview
@@ -147,9 +148,12 @@ fun DefaultBanner(
                 modifier = Modifier.size(48.dp)
               ) {
                 Icon(
-                  painter = painterResource(id = R.drawable.symbol_x_24),
+                  imageVector = ImageVector.vectorResource(id = R.drawable.symbol_x_24),
                   contentDescription = stringResource(id = R.string.InviteActivity_cancel),
-                  tint = colorResource(id = R.color.signal_light_colorOnSurface),
+                  tint = when (importance) {
+                    Importance.NORMAL -> MaterialTheme.colorScheme.onSurfaceVariant
+                    Importance.ERROR -> colorResource(id = R.color.signal_light_colorOnSurface)
+                  }
                 )
               }
             }
@@ -201,6 +205,7 @@ private fun BubblesOptOutPreview() {
         Action(R.string.BubbleOptOutTooltip__turn_off) {},
         Action(R.string.BubbleOptOutTooltip__not_now) {}
       ),
+      onDismissListener = { },
       paddingValues = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
     )
   }

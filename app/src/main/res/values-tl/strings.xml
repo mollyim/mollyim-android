@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -43,12 +46,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Nag-u-update ang Molly…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Nag-u-update ang Signal…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Hindi ka pa nagset ng passphrase!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">I-disable ang passphrase?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Permanente nitong i-u-unlock ang Molly at ang message notifications.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Permanente nitong i-u-unlock ang Signal at ang message notifications.</string>
     <string name="ApplicationPreferencesActivity_disable">I-disable</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Nagka-error sa pagkonekta sa server!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Required ang PIN para sa registration lock. Para mag-disable ng PIN, paki disable muna ang registration lock.</string>
@@ -85,7 +88,7 @@
     <string name="AttachmentKeyboard_file">File</string>
     <string name="AttachmentKeyboard_contact">Kontakin</string>
     <string name="AttachmentKeyboard_location">Lokasyon</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Kailangan ng Molly ng pahintulot para maipakita ang photos at videos mo</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Kailangan ng Signal ng pahintulot para maipakita ang photos at videos mo</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Allow Access</string>
     <string name="AttachmentKeyboard_payment">Payment</string>
@@ -96,34 +99,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Pumunta sa settings</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Ang Molly ay may limited access sa photos o videos</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Ang Signal ay may limited access sa photos o videos</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Walang nakitang photos. Pumili ng photos at videos para makita rito o palitan ang permissions</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Walang nahanap na photos o videos. Ang Molly ay may access lamang sa photos at videos na pinili mo.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Walang nahanap na photos o videos. Ang Signal ay may access lamang sa photos at videos na pinili mo.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Walang mahanap na app para makapili ng media.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Kailangan ng Molly ng access sa Storage para makapag-attach ng photos, videos, o audio, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Permissions\", at i-enable ang \"Storage\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Kailangan ng Molly ng access sa Contacts upang makapag-attach ng contact information, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Permissions\", at i-enable ang \"Contacts\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Kailangan ng Molly ng access sa Lokasyon upang makapag-attach ng lokasyon, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Permissions\", at i-enable ang \"Location\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Kailangan ng Signal ng access sa Storage para makapag-attach ng photos, videos, o audio, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Permissions\", at i-enable ang \"Storage\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Kailangan ng Signal ng access sa Contacts upang makapag-attach ng contact information, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Permissions\", at i-enable ang \"Contacts\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Kailangan ng Signal ng access sa Lokasyon upang makapag-attach ng lokasyon, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Permissions\", at i-enable ang \"Location\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Payagang ma-access ang lokasyon mo</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Para i-send ang lokasyon mo:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Payagan ang Molly na i-send ang lokasyon mo.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Payagan ang Signal na i-send ang lokasyon mo.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Kailangan ng Molly ng location access para ma-send ang iyong lokasyon.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Kailangan ng Signal ng location access para ma-send ang iyong lokasyon.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Bigyan ng access sa storage</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Para ipakita ang photos at videos:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Kailangan ng access ng Molly para mapakita ang photos at videos mo.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Kailangan ng access ng Signal para mapakita ang photos at videos mo.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">Hindi pa na-activate ni %1$s ang Payments </string>
@@ -274,25 +277,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Payagang ma-access ang microphone mo</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Para kumuha ng photos, bigyan ng access sa camera ang Molly.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Para kumuha ng photos, bigyan ng access sa camera ang Signal.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Upang makakuha ng larawan at video, payagan ang Molly na gamitin ang camera.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Upang makakuha ng larawan at video, payagan ang Signal na gamitin ang camera.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Para kumuha ng photos at video, bigyan ng access sa camera at microphone ang Molly.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Para kumuha ng photos at video, bigyan ng access sa camera at microphone ang Signal.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Para kumuha ng videos na may sound, bigyan ng access sa microphone ang Molly.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Para kumuha ng videos na may sound, bigyan ng access sa microphone ang Signal.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Para mag-scan ng QR code, bigyan ng access sa camera ang Molly.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Para mag-scan ng QR code, bigyan ng access sa camera ang Signal.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Kailangan ng Molly ng access sa camera para kumuha ang photos</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Kailangan ng Signal ng access sa camera para kumuha ang photos</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Kailangan ng Molly ng access sa camera para mag-scan ng QR codes</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Kailangan ng Signal ng access sa camera para mag-scan ng QR codes</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Kailangan ng Molly ng access sa microphone para kumuha ng video</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Kailangan ng Signal ng access sa microphone para kumuha ng video</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Para kumuha ng photos sa Molly:</string>
+    <string name="CameraXFragment_to_capture_photos">Para kumuha ng photos sa Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Para kumuha ng photos at videos sa Molly:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Para kumuha ng photos at videos sa Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Para kumuha ng videos na may tunog:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -311,7 +314,7 @@
     <string name="CameraContacts_no_signal_contacts">Walang kontak sa Signal</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Maaari mo lang gamitin ang camera button para magpadala ng mga larawan sa mga kontak sa Signal. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Hindi makita ang taong hinahanap mo?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Anyayahan ang isang kontak na sumali sa Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Anyayahan ang isang kontak na sumali sa Signal</string>
     <string name="CameraContacts__menu_search">Maghanap</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -325,12 +328,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Ayaw ko, salamat na lang</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">I-update ang Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">I-update ang Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Hindi na suportado ang version ng app na ito. Para magpatuloy sa pag-send at pag-receive ng messages, mag-update sa latest version.</string>
     <string name="ClientDeprecatedActivity_update">I-update</string>
     <string name="ClientDeprecatedActivity_dont_update">Huwag I-update</string>
     <string name="ClientDeprecatedActivity_warning">Babala</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Expired na ang iyong version ng Molly. Pwede mong makita ang iyong message history pero hindi ka na maaaring makapag-send o maka-receive ng messages hangga\'t hindi mo ito ina-update.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Expired na ang iyong version ng Signal. Pwede mong makita ang iyong message history pero hindi ka na maaaring makapag-send o maka-receive ng messages hangga\'t hindi mo ito ina-update.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Walang mahanap na web browser.</string>
@@ -371,8 +374,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Mensahe %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Molly Voice Call %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Molly Video Call %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal Voice Call %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal Video Call %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -469,7 +472,7 @@
     <string name="ConversationActivity_transport_signal">Signal message</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Mag-send ng message</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Lumipat tayo sa Molly %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Lumipat tayo sa Signal %1$s</string>
     <string name="ConversationActivity_specify_recipient">Pumili ng kontak</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Ang kalakip ay lampas sa limitasyon ng laki para sa uri ng mensahe na ipinapadala mo.</string>
     <string name="ConversationActivity_unable_to_record_audio">Hindi makapag-record ng audio!</string>
@@ -488,18 +491,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Para mag-send ng voice message:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Para makapag-send ng voice messages, bigyan ang Molly ng access sa microphone mo.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Para makapag-send ng voice messages, bigyan ang Signal ng access sa microphone mo.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Kailangan ng Molly ng access sa microphone para makapag-record ng voice message.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Kailangan ng Molly ang pahintulot sa Mikropono upang makapagpadala ng mensaheng audio, ngunit permanente itong ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mikropono\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Kailangan ng Signal ng access sa microphone para makapag-record ng voice message.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Kailangan ng Signal ang pahintulot sa Mikropono upang makapagpadala ng mensaheng audio, ngunit permanente itong ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mikropono\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Kailangan ng Molly ang pahintulot sa Mikropono at Camera upang matawagan si %1$s, ngunit ito ay permaneteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Mikropono\" at \"Camera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Upang makakuha ng larawan at video, payagan ang Molly na gamitin ang camera.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Kailangan ng Molly ang pahintulot sa Camera upang makakuha ng mga larawan at video, ngunit ito ay permaneteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Camera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Kailangan ng Molly ang pahintulot sa Camera upang makakuha ng mga larawan o video</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Kailangan ng Signal ang pahintulot sa Mikropono at Camera upang matawagan si %1$s, ngunit ito ay permaneteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Mikropono\" at \"Camera\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Upang makakuha ng larawan at video, payagan ang Signal na gamitin ang camera.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Kailangan ng Signal ang pahintulot sa Camera upang makakuha ng mga larawan at video, ngunit ito ay permaneteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Camera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Kailangan ng Signal ang pahintulot sa Camera upang makakuha ng mga larawan o video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">I-enable ang pahintulot sa mikropono upang makakuha ng mga video na may tunog.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Kailangan ng Molly ang pahintulot sa Mikropono para makapag-record ng mga video, ngunit tinanggihan ang mga ito. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Mikropono\" at \"Camera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Kailangan ng Molly ng mga pahintulot sa mikropono upang makapag-record ng mga video.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Kailangan ng Signal ang pahintulot sa Mikropono para makapag-record ng mga video, ngunit tinanggihan ang mga ito. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Mikropono\" at \"Camera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Kailangan ng Signal ng mga pahintulot sa mikropono upang makapag-record ng mga video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Hindi</string>
@@ -520,9 +523,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Para magsimula ng call:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Para magsimula ng call, bigyan ang Molly ng access sa microphone mo.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Para magsimula ng call, bigyan ang Signal ng access sa microphone mo.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Kailangan ng Molly ng microphone access para magsimula ng call.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Kailangan ng Signal ng microphone access para magsimula ng call.</string>
 
 
     <string name="ConversationActivity_join">Mag-join</string>
@@ -536,9 +539,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Hindi na suportado sa Signal ang SMS messaging. I-invite si %1$s sa Signal para mapanatili ang convo niyo dito.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Hindi na gumagamit ng Molly ang taong ito. I-invite siya sa Molly para mapanatili ang convo niyo rito.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Hindi na gumagamit ng Signal ang taong ito. I-invite siya sa Signal para mapanatili ang convo niyo rito.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Imbitahan sa Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Imbitahan sa Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">I-re-remind ka ulit sa susunod tungkol dito.</string>
 
@@ -569,11 +572,6 @@
         <item quantity="one">Ma-access ng iba pang apps sa device mo ang media na ito sa storage kapag sinave mo ito.\n\nGusto mo bang magpatuloy?</item>
         <item quantity="other">Ma-access ng iba pang apps sa device mo ang %1$d media sa storage kapag sinave mo ito.\n\nGusto mo bang magpatuloy?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="one">Nagkaproblema habang isine-save ang kalakip sa storage!</item>
-        <item quantity="other">Nagka-error habang isine-save ang mga kalakip sa storage!</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Hindi makapagsulat sa storage!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="one">Sine-save ang attachment</item>
         <item quantity="other">Sine-save ang %1$d attachments</item>
@@ -635,13 +633,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Naka-block</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">I-update ang Molly</string>
+    <string name="ConversationFragment__update_build">I-update ang Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Mag-register ulit sa Molly</string>
+    <string name="ConversationFragment__reregister_signal">Mag-register ulit sa Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Bumalik.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Buksan ang Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Buksan ang Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Hindi na verified</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -676,6 +674,8 @@
     <string name="ConversationFragment_profile_names">Profile names</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Group names</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">Failed ang pag-download ng photo. Subukan ulit.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Tips Para Sa Kaligtasan</string>
@@ -690,7 +690,7 @@
     <!-- Title of tip 0 -->
     <string name="SafetyTips_tip0_title">Pekeng pangalan at accounts</string>
     <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Hindi kailanman makikipag-ugnayan sa \'yo ang Molly para hingin ang registration code o PIN mo. Mag-ingat sa requests na nagpapanggap bilang ibang tao. Ang profile names ay pinili ng may-ari ng account at hindi verified.</string>
+    <string name="SafetyTips_tip0_message">Hindi kailanman makikipag-ugnayan sa \'yo ang Signal para hingin ang registration code o PIN mo. Mag-ingat sa requests na nagpapanggap bilang ibang tao. Ang profile names ay pinili ng may-ari ng account at hindi verified.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Mga scam kaugnay ng crypto o pera</string>
     <!-- Message of tip 1 -->
@@ -843,9 +843,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Sinong makakahanap sa \'kin gamit ang number ko?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Makikita ka sa Molly at pwede kang i-chat ng sinumang mayroong phone number mo.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Makikita ka sa Signal at pwede kang i-chat ng sinumang mayroong phone number mo.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Walang makakakita na nasa Molly ka maliban sa mga taong minessage o naka-chat mo.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Walang makakakita na nasa Signal ka maliban sa mga taong minessage o naka-chat mo.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">I-restore mula sa backup?</string>
@@ -924,7 +924,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Subukan ang iyong passphrase ng backup at iberipika na magkatulad ito</string>
     <string name="BackupsPreferenceFragment__turn_on">Buksan</string>
     <string name="BackupsPreferenceFragment__turn_off">Patayin</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Para mag-restore ng backup, mag-install ng bagong copy ng Molly. I-open ang app at i-tap ang \"Restore backup\", pagkatapos ay hanapin ang backup file. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Para mag-restore ng backup, mag-install ng bagong copy ng Signal. I-open ang app at i-tap ang \"Restore backup\", pagkatapos ay hanapin ang backup file. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Matuto pa</string>
     <string name="BackupsPreferenceFragment__in_progress">In progress…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -933,7 +933,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d so far…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% so far…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Kailangan ng Molly ng pahintulot sa paggamit ng panlabas na storage upang makalikha ng mga backup, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Storage\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Kailangan ng Signal ng pahintulot sa paggamit ng panlabas na storage upang makalikha ng mga backup, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Pahintulot\", at i-enable ang \"Storage\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Mag-set ng oras ng pag-backup</string>
 
@@ -1010,7 +1010,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Chat session refreshed</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Ang Molly ay gumagamit ng end-to-end encryption at maaaring kailanganin mong i-refresh ang iyong chat session paminsan-minsan. Hindi ito nakakaapekto sa security ng iyong chat, pero maaaring may hindi ka ma-receive na message mula sa contact na ito, kaya sabihan siyang i-resend ito.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Ang Signal ay gumagamit ng end-to-end encryption at maaaring kailanganin mong i-refresh ang iyong chat session paminsan-minsan. Hindi ito nakakaapekto sa security ng iyong chat, pero maaaring may hindi ka ma-receive na message mula sa contact na ito, kaya sabihan siyang i-resend ito.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1121,7 +1121,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Tapusin ang pag-link sa iba mong device</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Tapusin ang pag-link ng Molly sa iba mong device.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Tapusin ang pag-link ng Signal sa iba mong device.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Failed ang pag-link ng device</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1165,10 +1165,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">I-optimize para sa nawawalang Play Services</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ang device na ito ay walang suporta para sa Play Services. Pindutin upang i-disable ang mga pang-sistemang optimisasyon ng baterya na pumipigil sa Molly na kuhanin ang mga mensahe habang hindi ito aktibo.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ang device na ito ay walang suporta para sa Play Services. Pindutin upang i-disable ang mga pang-sistemang optimisasyon ng baterya na pumipigil sa Signal na kuhanin ang mga mensahe habang hindi ito aktibo.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Itong version ng Molly ay expired na. Mag-update ngayon para makapag-send at makapag-receive ng messages</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Itong version ng Signal ay expired na. Mag-update ngayon para makapag-send at makapag-receive ng messages</string>
     <string name="ExpiredBuildReminder_update_now">I-update na</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1319,7 +1319,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Ang debug logs ay makatutulong sa amin para ma-diagnose at maayos ang issue, at wala itong laman na identifying information.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Nagkaroon ng problema ang Molly. Gusto mo bang mag-submit ng debug log?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Nagkaroon ng problema ang Signal. Gusto mo bang mag-submit ng debug log?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Maaaring hindi ka nakatatanggap ng messages. Gusto mo bang mag-submit ng debug log?</string>
 
@@ -1327,12 +1327,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Maaaring delayed ang notifications dahil sa battery optimizations</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Pwede mong i-disable ang battery optimizations sa Molly para masiguradong hindi delayed ang message notifications.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Pwede mong i-disable ang battery optimizations sa Signal para masiguradong hindi delayed ang message notifications.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Maaaring delayed ang notifications dahil sa battery optimizations</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">I-disable ang battery optimizations sa Molly para masiguradong hindi delayed ang message notifications. I-tap ang \"Continue\" para makita ang device-specific instructions.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">I-disable ang battery optimizations sa Signal para masiguradong hindi delayed ang message notifications. I-tap ang \"Continue\" para makita ang device-specific instructions.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Ayaw ko, salamat na lang</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1341,7 +1341,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Maaaring hindi ka nakatatanggap ng messages</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Ang pag-restart ng iyong device ay maaring makatulong na ayusin ang message delivery issue. Kapag nagpatuloy ang problemang ito, kontakin ang Molly support.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Ang pag-restart ng iyong device ay maaring makatulong na ayusin ang message delivery issue. Kapag nagpatuloy ang problemang ito, kontakin ang Signal support.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">OK</string>
 
@@ -1475,9 +1475,9 @@
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
     <string name="RemoteRestoreActivity__couldnt_restore">Hindi ma-restore ang backup na ito</string>
     <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
-    <string name="RemoteRestoreActivity__update_latest">Hindi ma-restore ng Molly version na ito ang backup mo. Mag-update sa latest version at subukan ulit.</string>
+    <string name="RemoteRestoreActivity__update_latest">Hindi ma-restore ng Signal version na ito ang backup mo. Mag-update sa latest version at subukan ulit.</string>
     <!-- Text on button that when pressed will redirect them to update Signal -->
-    <string name="RemoteRestoreActivity__update_signal">I-update ang Molly</string>
+    <string name="RemoteRestoreActivity__update_signal">I-update ang Signal</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Hindi na muna</string>
 
@@ -1650,13 +1650,13 @@
     <string name="InviteActivity_cancel">Kanselahin</string>
     <string name="InviteActivity_sending">Ipinapadala…</string>
     <string name="InviteActivity_invitations_sent">Naipadala na ang mga imbitasyon!</string>
-    <string name="InviteActivity_invite_to_signal">Imbitahan sa Molly</string>
+    <string name="InviteActivity_invite_to_signal">Imbitahan sa Signal</string>
     <string name="InviteActivity_send_sms">Mag-send ng SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Mapadala ng %1$d SMS na imbitasyon?</item>
         <item quantity="other">Mapadala ng %1$d SMS na imbitasyon?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Lumipat tayo sa Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Lumipat tayo sa Signal: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Mukhang wala kang anumang app na maaaring bahaginan.</string>
 
@@ -1671,7 +1671,7 @@
     <string name="LongMessageActivity_your_message">Mensahe mo</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Naka-enable ang koneksyon sa background</string>
 
     <!-- MediaOverviewActivity -->
@@ -1748,10 +1748,10 @@
     <string name="MessageQuotesBottomSheet_replies">Replies</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Nagsisimula ng tawag sa Molly</string>
+    <string name="NotificationBarManager__establishing_signal_call">Nagsisimula ng tawag sa Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Starting Molly call service</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Stopping Molly call service</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Starting Signal call service</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Stopping Signal call service</string>
     <string name="NotificationBarManager__cancel_call">Kanselahin ang tawag</string>
 
     <!-- NotificationsMegaphone -->
@@ -2072,7 +2072,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Malapit ka nang hindi makapag-send ng SMS messages mula sa Signal. I-invite si %1$s sa Signal para mapanatili ang convo niyo dito.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Hindi ka na pwedeng mag-send ng SMS messages sa Molly. I-invite si %1$s sa Molly para mapanatili ang convo niyo dito.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Hindi ka na pwedeng mag-send ng SMS messages sa Signal. I-invite si %1$s sa Signal para mapanatili ang convo niyo dito.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Payment: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2081,6 +2081,14 @@
     <string name="MessageRecord_reported_as_spam">Iniulat bilang spam</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">Tinanggap mo ang message request</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">Binlock mo ang taong ito</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">Inunblock mo ang taong ito</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">Binlock mo ang group na ito</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">In-unblock mo ang group na ito</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Tanggapin</string>
@@ -2168,25 +2176,25 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Mag-link ng Signal na device?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Para mag-link ng desktop o iPad sa Signal account na ito, pumunta sa Linked Devices at i-tap ang \"Mag-link ng Bagong Device\" at i-scan ulit ang QR code. Siguraduhing i-scan lang ang QR codes na direktang nanggaling sa Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Kailangan ng Molly ang pahintulot sa Camera upang makapag-scan ng QR code, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Camera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Kailangan ng Signal ang pahintulot sa Camera upang makapag-scan ng QR code, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Camera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Hindi makapag-scan ng QR code nang walang pahintulot sa Camera.</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">I-update na</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Itong version ng Molly ay mage-expire ngayon. Mag-update sa most recent version.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Itong version ng Signal ay mage-expire ngayon. Mag-update sa most recent version.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Mag-e-expire na bukas ang version na ito ng Molly. Mag-update sa pinakabagong version.</item>
-        <item quantity="other">Mag-e-expire na ang version na ito ng Molly pagkatapos ng %1$d araw. Mag-update sa pinakabagong version.</item>
+        <item quantity="one">Mag-e-expire na bukas ang version na ito ng Signal. Mag-update sa pinakabagong version.</item>
+        <item quantity="other">Mag-e-expire na ang version na ito ng Signal pagkatapos ng %1$d araw. Mag-update sa pinakabagong version.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Ilagay ang passphrase</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Icon ng Molly</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Icon ng Signal</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Isumite ang passphrase</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Hindi valid ang passphrase!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">I-unlock ang Molly</string>
+    <string name="PassphrasePromptActivity_unlock_signal">I-unlock ang Signal</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Andoid - Lock Screen</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Andoid - Lock Screen</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Mapa</string>
@@ -2254,7 +2262,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">I-verify to continue messaging</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Para makaiwas sa spam dito sa Molly, kumpletuhin ang verification.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Para makaiwas sa spam dito sa Signal, kumpletuhin ang verification.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Pagkatapos mag-verify, pwede ka nang magpatuloy sa messaging. Ang paused messages ay automatic na mase-send.</string>
 
     <!-- Recipient -->
@@ -2262,7 +2270,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Story Ko</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Molly call</string>
+    <string name="Recipient_signal_call">Signal call</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">I-block</string>
@@ -2298,9 +2306,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">I-tap dito upang buksan ang iyong video</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Para matawagan si %1$s, kailangan ng Molly ng access sa iyong camera</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Para matawagan si %1$s, kailangan ng Signal ng access sa iyong camera</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Calling…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Kumukonektang muli…</string>
@@ -2361,23 +2369,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Magbigay ng access sa camera mo</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Para makapagsimula ng o sumali sa call, bigyan ang Molly ng access sa camera at microphone mo.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Para makapagsimula ng o sumali sa call, bigyan ang Signal ng access sa camera at microphone mo.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Para makapagsimula ng o sumali sa call, bigyan ang Molly ng access sa camera mo.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Para makapagsimula ng o sumali sa call, bigyan ang Signal ng access sa camera mo.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Para i-enable ang video, bigyan ang Molly ng access sa camera mo.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Para i-enable ang video, bigyan ang Signal ng access sa camera mo.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Kailangan ng Molly ng microphone access para magsimula ng o sumali sa call.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Kailangan ng Signal ng microphone access para magsimula ng o sumali sa call.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Kailangan ng Molly ng access sa camera para ma-enable ang video mo</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Kailangan ng Signal ng access sa camera para ma-enable ang video mo</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Para magsimula ng o sumali sa call:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Para i-enable ang video mo:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Tawag sa Molly</string>
-    <string name="WebRtcCallView__signal_video_call">Molly Video Call</string>
+    <string name="WebRtcCallView__signal_call">Tawag sa Signal</string>
+    <string name="WebRtcCallView__signal_video_call">Signal Video Call</string>
     <string name="WebRtcCallView__start_call">Simulan ang Call</string>
     <string name="WebRtcCallView__join_call">Mag-join sa Call</string>
     <string name="WebRtcCallView__call_is_full">Puno na ang call</string>
@@ -2614,7 +2622,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Makakatanggap ka ng tawag upang beripikahin ang numerong ito.</string>
     <string name="RegistrationActivity_edit_number">I-edit ang numero</string>
     <string name="RegistrationActivity_missing_google_play_services">Nawawala ang Google Play Services</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nawawala sa device na ito ang Google Play Services. Maaari mo pa ring gamitin ang Molly, ngunit ang configuration na ito ay maaaring magresulta sa kabawasan sa pagiging maaasahan o paggana.\n\nKung ikaw ay advanced na user, hindi gumagamit ng aftermarket na Android ROM, o kaya\'y naniniwala kang hindi mo dapat ito nakikita, makipag-ugnayan sa support@molly.im para makatulong kami sa pag-troubleshoot.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nawawala sa device na ito ang Google Play Services. Maaari mo pa ring gamitin ang Signal, ngunit ang configuration na ito ay maaaring magresulta sa kabawasan sa pagiging maaasahan o paggana.\n\nKung ikaw ay advanced na user, hindi gumagamit ng aftermarket na Android ROM, o kaya\'y naniniwala kang hindi mo dapat ito nakikita, makipag-ugnayan sa support@signal.org para makatulong kami sa pag-troubleshoot.</string>
     <string name="RegistrationActivity_i_understand">Nauunawaan ko</string>
     <string name="RegistrationActivity_play_services_error">Nagka-error sa Play Services</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Ang Google Play Services ay nag-u-update o kaya\'y pansamantalang hindi available. Pakisubukang muli.</string>
@@ -2634,7 +2642,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Non-standard number format</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Ang number na nilagay mo (%1$s) ay mukhang isang non-standard format.\n\nDid you mean %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Phone Number Format</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - Phone Number Format</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Call requested</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2707,13 +2715,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Idagdag sa Mga Kontak</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Imbitahan sa Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Imbitahan sa Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Mensahe sa Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Tawag sa Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Idagdag sa Mga Kontak</string>
-    <string name="SharedContactView_invite_to_signal">Imbitahan sa Molly</string>
+    <string name="SharedContactView_invite_to_signal">Imbitahan sa Signal</string>
     <string name="SharedContactView_message">Mensahe sa Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2845,13 +2853,15 @@
     <string name="ThreadRecord_message_history_has_been_merged">Na-merge na ang iyong message history</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">Kay %2$s ang %1$s</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">Naka-block</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Update sa Molly</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Available na ang bagong version ng Molly. I-tap para mag-update.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Failed ang pag-update ng Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Update sa Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Available na ang bagong version ng Signal. I-tap para mag-update.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Failed ang pag-update ng Signal</string>
     <string name="ApkUpdateNotifications_failed_general_body">Susubukan ulit namin ito mamaya.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Successful na na-update ang Molly</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Successful na na-update ang Signal</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Automatic na na-update ang iyong device sa version %1$s.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">Nag-update ka sa version %1$s.</string>
 
@@ -2923,7 +2933,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Aming numerong pangkaligtasan sa Signal:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Mukhang wala kang anumang app na maaaring bahaginan.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Walang tumutugmang numerong pangkaligtasan na nahanap sa clipboard</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Kailangan ng Molly ang pahintulot sa Camera upang makapag-scan ng QR code, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Camera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Kailangan ng Signal ang pahintulot sa Camera upang makapag-scan ng QR code, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Camera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Hindi makapag-scan ng QR code nang walang pahintulot sa Camera.</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Kailangan mo munang mag-exchange ng messages para makita ang safety number ni %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2953,14 +2963,14 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Pindutin upang buksan</string>
-    <string name="KeyCachingService_passphrase_cached">Naka-unlock ang Molly</string>
-    <string name="KeyCachingService_lock">I-lock ang Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Naka-unlock ang Signal</string>
+    <string name="KeyCachingService_lock">I-lock ang Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Ikaw</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Hindi suportadong uri ng media</string>
     <string name="MediaPreviewActivity_draft">Draft</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Kailangan ng Molly ng pahintulot sa Storage upang makapag-save sa panlabas na storage, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Storage\".</string>
+    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Kailangan ng Signal ng pahintulot sa Storage upang makapag-save sa panlabas na storage, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Storage\".</string>
     <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Hindi makapag-save sa panlabas na storage nang walang pahintulot</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Burahin ang message?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Permanente nitong buburahin ang message na ito.</string>
@@ -3006,7 +3016,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Nabigong ihatid ang mensahe.</string>
     <string name="MessageNotifier_error_delivering_message">Nagka-error sa paghahatid ng mensahe.</string>
     <string name="MessageNotifier_message_delivery_paused">Message delivery paused.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">I-verify to continue messaging on Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">I-verify to continue messaging on Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Markahan ang lahat na nabasa na</string>
     <string name="MessageNotifier_mark_read">Markahang nabasa na</string>
     <string name="MessageNotifier_turn_off_these_notifications">I-turn off ang notifications</string>
@@ -3028,7 +3038,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Nag-react ng %1$s sa iyong sticker.</string>
     <string name="MessageNotifier_this_message_was_deleted">Nabura na ang message na ito.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Gusto mo bang i-turn off ang contact joined Molly notifications? Pwede mong i-enable ito ulit sa Molly &gt; Settings &gt; Notifications.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Gusto mo bang i-turn off ang contact joined Signal notifications? Pwede mong i-enable ito ulit sa Signal &gt; Settings &gt; Notifications.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3071,11 +3081,30 @@
     <!-- ProfileEditNameFragment -->
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Ang mabilisang tugon ay hindi gagana kapag naka-lock ang Molly!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Ang mabilisang tugon ay hindi gagana kapag naka-lock ang Signal!</string>
     <string name="QuickResponseService_problem_sending_message">May problema sa pagpapadala ng mensahe!</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">Media saved</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Hindi makapagsulat sa storage!</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="one">Na-save ang media</item>
+        <item quantity="other">Na-save ang media</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="one">Na-save ang media (%1$s ng %2$s ang failed)</item>
+        <item quantity="other">Na-save ang media (%1$s ng %2$s ang failed)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="one">Nagkaproblema habang isine-save ang kalakip sa storage!</item>
+        <item quantity="other">Nagka-error habang isine-save ang mga kalakip sa storage!</item>
+    </plurals>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Maghanap</string>
@@ -3091,7 +3120,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Hindi valid na shortcut</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Bagong mensahe</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Message request</string>
     <string name="SingleRecipientNotificationBuilder_you">Ikaw</string>
@@ -3135,7 +3164,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Hindi na registered ang device na ito. Maaaring ito ay dahil na-register mo ang iyong phone number sa Molly sa ibang device.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Hindi na registered ang device na ito. Maaaring ito ay dahil na-register mo ang iyong phone number sa Signal sa ibang device.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Mag-register ulit ng device</string>
 
@@ -3148,10 +3177,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">To answer the call, bigyan ng access ang Molly sa iyong microphone.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">To answer the call, bigyan ng access ang Signal sa iyong microphone.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Para sagutin ang video call, bigyan ng access ang Molly sa microphone at camera mo.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Kailangan ng Molly ang pahintulot sa Mikropono at Camera upang tumawag at sumagot ng tawag, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mikropono\" at \"Camera\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Para sagutin ang video call, bigyan ng access ang Signal sa microphone at camera mo.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Kailangan ng Signal ang pahintulot sa Mikropono at Camera upang tumawag at sumagot ng tawag, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mikropono\" at \"Camera\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Answered on a linked device.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Declined on a linked device.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Busy on a linked device.</string>
@@ -3196,7 +3225,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Ulitin ang bagong passphrase</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Imbitahan sa Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Imbitahan sa Signal</string>
     <string name="contact_selection_activity__new_group">Bagong grupo</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">I-refresh ang contacts</string>
@@ -3222,7 +3251,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Larawan ng Kontak</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Kailangan ng Molly ng pahintulot sa Mga Kontak upang maipakita ang iyong mga kontak, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mga Kontak\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Kailangan ng Signal ng pahintulot sa Mga Kontak upang maipakita ang iyong mga kontak, ngunit permanente itong ipinagbabawal. Pumunta sa app settings menu, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mga Kontak\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Nagka-error sa pakuha ng mga kontak, suriin ang koneksyon ng iyong network.</string>
     <string name="ContactSelectionListFragment_username_not_found">Hindi nahanap ang username</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"Hindi gumagamit ng Signal si \"%1$s\" . Pakisuri ang username at subukang muli."</string>
@@ -3251,7 +3280,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Magbigay ng access sa contacts mo. Encrypted ang contacts mo at hindi ito makikita ng Signal service.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Kailangan ng Molly ng access sa iyong mga kontak upang maipakita ang mga ito.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Kailangan ng Signal ng access sa iyong mga kontak upang maipakita ang mga ito.</string>
     <string name="contact_selection_list_fragment__show_contacts">Ipakita ang mga kontak</string>
 
     <!-- contact_selection_list_item -->
@@ -3357,7 +3386,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Ang bubbles ay isang Android feature na pwede mong i-off sa Molly chats.</string>
+    <string name="BubbleOptOutTooltip__description">Ang bubbles ay isang Android feature na pwede mong i-off sa Signal chats.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Hindi ngayon</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3526,9 +3555,9 @@
     <string name="EditProfileFragment__group_description">Group description</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">I-update ang Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">I-update ang Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Expired na itong version ng Molly. Mag-update na para patuloy na magamit ang Molly.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Expired na itong version ng Signal. Mag-update na para patuloy na magamit ang Signal.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">I-update</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3749,7 +3778,7 @@
     <string name="preferences__slow">Mabagal</string>
     <string name="preferences__help">Tulong</string>
     <string name="preferences__advanced">Advanced</string>
-    <string name="preferences__donate_to_signal">Mag-donate sa Molly</string>
+    <string name="preferences__donate_to_signal">Mag-donate sa Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Pagkapribado</string>
     <!-- Preference label for stories -->
@@ -3786,13 +3815,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Baguhin ang app icon at gawin ang pangalang \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Kailangang isara ang Molly para mapalitan ang app icon at pangalan. Palaging ipapakita ng notifications ang default na icon at pangalan ng Molly.</string>
+    <string name="preferences__app_icon_dialog_description">Kailangang isara ang Signal para mapalitan ang app icon at pangalan. Palaging ipapakita ng notifications ang default na icon at pangalan ng Signal.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Pumili ng app icon at pangalan na makikita sa home screen at app drawer ng phone mo. Palaging ipapakita ng notifications ang default na icon at pangalan ng Molly. Matuto pa</string>
+    <string name="preferences__app_icon_warning_learn_more">Pumili ng app icon at pangalan na makikita sa home screen at app drawer ng phone mo. Palaging ipapakita ng notifications ang default na icon at pangalan ng Signal. Matuto pa</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Ang app icons at names ay makikita sa home screen at app drawer.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Palaging ipapakita ng notifications ang default na icon at pangalan ng Molly.</string>
+    <string name="preferences__app_icon_notification_warning">Palaging ipapakita ng notifications ang default na icon at pangalan ng Signal.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Matuto pa</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3886,7 +3915,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Censorship circumvention</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Censorship circumvention</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Kung gumagana, susubukin ng Molly na ikutan ang censorship. Huwag paganahin ang feature na ito maliban na lang kung ika\'y nasa lugar na naka-censor ang Molly.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Kung gumagana, susubukin ng Signal na ikutan ang censorship. Huwag paganahin ang feature na ito maliban na lang kung ika\'y nasa lugar na naka-censor ang Signal.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Ang censorship circumvention ay activated base sa phone number ng account mo.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3939,7 +3968,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Ipinakikilala ang payments</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Gamitin ang Molly para mag-send at mag-receive ng MobileCoin, isang privacy-focused digital currency. I-activate para magsimula.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Gamitin ang Signal para mag-send at mag-receive ng MobileCoin, isang privacy-focused digital currency. I-activate para magsimula.</string>
     <string name="PaymentsHomeFragment__activate_payments">I-activate ang Payments</string>
     <string name="PaymentsHomeFragment__activating_payments">Activating payments…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">I-restore ang payments account</string>
@@ -3965,7 +3994,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Ang Payments ay hindi available sa iyong region.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Hindi ma-enable ang payments. Subukan ulit mamaya.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Gusto mo bang i-deactivate ang Payments?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Hindi ka pwedeng maka-send o maka-receive ng MobileCoin sa Molly kung ide-deactivate mo ang payments.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Hindi ka pwedeng maka-send o maka-receive ng MobileCoin sa Signal kung ide-deactivate mo ang payments.</string>
     <string name="PaymentsHomeFragment__deactivate">I-deactivate</string>
     <string name="PaymentsHomeFragment__continue">Magpatuloy</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Ang Balance ay hindi available sa ngayon.</string>
@@ -3974,10 +4003,10 @@
     <string name="PaymentsHomeFragment__details">Mga Detalye</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pwede mong gamitin ang Molly para mag-send at mag-receive ng MobileCoin. Ang lahat ng payments ay napapailalim sa Terms of Use para sa MobileCoins at sa MobileCoin Wallet. Maaari kang maka-encounter ng ilang issues at ang payments o balances na nawala sa\'yo ay maaaring hindi na ma-recover. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Pwede mong gamitin ang Signal para mag-send at mag-receive ng MobileCoin. Ang lahat ng payments ay napapailalim sa Terms of Use para sa MobileCoins at sa MobileCoin Wallet. Maaari kang maka-encounter ng ilang issues at ang payments o balances na nawala sa\'yo ay maaaring hindi na ma-recover. </string>
     <string name="PaymentsHomeFragment__activate">I-activate</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">View MobileCoin terms</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Ang Payments sa Molly ay hindi na available. Pwede ka pa ring mag-transfer ng funds sa isang exchange pero hindi ka na pwedeng mag-send o mag-receive ng payments. Hindi ka na rin pwedeng mag-add ng funds.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Ang Payments sa Signal ay hindi na available. Pwede ka pa ring mag-transfer ng funds sa isang exchange pero hindi ka na pwedeng mag-send o mag-receive ng payments. Hindi ka na rin pwedeng mag-add ng funds.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4005,7 +4034,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Magbigay ng pahintulot</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Para matulungan kang i-message ang mga taong kilala mo, hihingi ng pahinuntulot ang Molly. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Para matulungan kang i-message ang mga taong kilala mo, hihingi ng pahinuntulot ang Signal. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Notifications</string>
     <!-- Notifications permission row description -->
@@ -4097,10 +4126,10 @@
     <string name="PaymentsTransferFragment__next">Susunod</string>
     <string name="PaymentsTransferFragment__invalid_address">Invalid address</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">I-check ang wallet address kung saan mo sinusubukang mag-transfer and try again.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Hindi ka pwedeng mag-transfer sa sarili mong Molly wallet address. I-enter sa isang supported exchange ang wallet address mula sa account mo.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Para mag-scan ng isang QR code, kailangan ng Molly ng access sa iyong camera.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Kailangan ng Molly ang Camera permission para ma-capture ang QR code. Pumunta sa settings, i-select ang \"Permissions\", at i-enable ang \"Camera\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Para mag-scan ng isang QR code, kailangan ng Molly ng access sa iyong camera.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Hindi ka pwedeng mag-transfer sa sarili mong Signal wallet address. I-enter sa isang supported exchange ang wallet address mula sa account mo.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Para mag-scan ng isang QR code, kailangan ng Signal ng access sa iyong camera.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Kailangan ng Signal ang Camera permission para ma-capture ang QR code. Pumunta sa settings, i-select ang \"Permissions\", at i-enable ang \"Camera\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Para mag-scan ng isang QR code, kailangan ng Signal ng access sa iyong camera.</string>
     <string name="PaymentsTransferFragment__settings">Settings</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4453,19 +4482,26 @@
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PINs keep information that\'s stored with Signal encrypted.</string>
     <string name="KbsMegaphone__create_pin">Lumikha ng PIN</string>
 
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">I-update ang Signal PIN</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">I-update ang iyong Signal PIN para makumpleto ang account registration.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">I-update ang PIN</string>
+
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Incoming Molly voice call</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Incoming Signal voice call</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Incoming Molly video call</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Incoming Signal video call</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Incoming Molly group call</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Incoming Signal group call</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Ongoing Molly voice call</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Ongoing Signal voice call</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Ongoing Molly video call</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Ongoing Signal video call</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Ongoing Molly group call</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Ongoing Signal group call</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Naglo-load…</string>
@@ -4519,9 +4555,9 @@
     <string name="BackupDialog_verify">Iberipika</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Matagumpay mong nailagay ang passphrase ng backup</string>
     <string name="BackupDialog_passphrase_was_not_correct">Ang passphrase ay hindi tama</string>
-    <string name="LocalBackupJob_creating_signal_backup">Creating Molly backup…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Creating Signal backup…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Vine-verify ang Molly backup…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Vine-verify ang Signal backup…</string>
     <string name="LocalBackupJobApi29_backup_failed">Backup failed</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Binura o nilipat ang iyong backup directory.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Ang iyong backup file ay masyadong malaki to store on this volume.</string>
@@ -4536,8 +4572,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Tawagan ako (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">I-resend ang Code (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Makipag-ugnayan sa Suporta ng Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Pagpaparehistro sa Molly - Verification Code para sa Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Makipag-ugnayan sa Suporta ng Signal</string>
+    <string name="RegistrationActivity_code_support_subject">Pagpaparehistro sa Signal - Verification Code para sa Android</string>
     <string name="RegistrationActivity_incorrect_code">Maling kodigo</string>
     <string name="BackupUtil_never">Hindi kailanman</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4545,7 +4581,7 @@
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Phone number</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Piliin kung sinong pwedeng makakita ng phone number mo at kung sinong pwedeng kumontak sa \'yo sa Molly gamit ito.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Piliin kung sinong pwedeng makakita ng phone number mo at kung sinong pwedeng kumontak sa \'yo sa Signal gamit ito.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Sinong makakakita ng number ko</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4596,11 +4632,11 @@
     <string name="RegistrationActivity_error_connecting_to_service">Nagka-error sa pagkonekta sa serbisyo</string>
     <string name="preferences_chats__backups">Mga backup</string>
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">I-unlock ang Molly</string>
+    <string name="prompt_passphrase_activity__unlock_signal">I-unlock ang Signal</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Gamitin ang iyong Android device lock settings para i-unlock ang Molly.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Gamitin ang iyong Android device lock settings para i-unlock ang Signal.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Naka-on ang screen lock at safely secured ang Molly gamit ang iyong device lock settings. I-unlock ang Molly gaya nang kung paano mo ina-unlock ang iyong phone, maaaring sa pamamagitan ng Face Unlock, Fingerprint Unlock, PIN, password o pattern.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Naka-on ang screen lock at safely secured ang Signal gamit ang iyong device lock settings. I-unlock ang Signal gaya nang kung paano mo ina-unlock ang iyong phone, maaaring sa pamamagitan ng Face Unlock, Fingerprint Unlock, PIN, password o pattern.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Kontakin ang Support</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4612,7 +4648,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Gamitin ang screen lock</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Kakailanganin ang Android device lock settings mo para ma-unlock ang Molly kapag umalis o lumipat ka sa ibang app. Kapag naka-lock ang Molly, hindi ipapakita ng notification previews ang message content.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Kakailanganin ang Android device lock settings mo para ma-unlock ang Signal kapag umalis o lumipat ka sa ibang app. Kapag naka-lock ang Signal, hindi ipapakita ng notification previews ang message content.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Simulan ang screen lock</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4626,9 +4662,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Custom time</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Gamitin ang Molly screen lock</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Gamitin ang Signal screen lock</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">I-off ang Molly screen lock</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">I-off ang Signal screen lock</string>
 
     <string name="Recipient_unknown">Hindi alam</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4683,19 +4719,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Preparing to connect to old Andoid device…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Taking a moment, should be ready soon</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Waiting for old Android device to connect…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Kailangan ng Molly ang location permission para ma-discover at maka-connect sa old Android device mo.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Kailangan ng Molly ang enabled location services para ma-discover at maka-connect sa old Android device mo.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Kailangan ng Molly ang naka-turn on na Wi-Fi access para ma-discover at maka-connect sa old Android device mo. Dapat naka-turn on ang WiFi pero hindi naman kailangan na connected ito sa isang Wi-Fi network.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, hindi supported ng iyong device ang Wi-Fi Direct. Gumagamit ang Molly ng Wi-Fi Direct para ma-discover at maka-connect sa old Android device mo. Pwede kang mag-restore ng backup para ma-restore ang iyong account mula sa old Android device mo.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Kailangan ng Signal ang location permission para ma-discover at maka-connect sa old Android device mo.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Kailangan ng Signal ang enabled location services para ma-discover at maka-connect sa old Android device mo.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Kailangan ng Signal ang naka-turn on na Wi-Fi access para ma-discover at maka-connect sa old Android device mo. Dapat naka-turn on ang WiFi pero hindi naman kailangan na connected ito sa isang Wi-Fi network.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, hindi supported ng iyong device ang Wi-Fi Direct. Gumagamit ang Signal ng Wi-Fi Direct para ma-discover at maka-connect sa old Android device mo. Pwede kang mag-restore ng backup para ma-restore ang iyong account mula sa old Android device mo.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Mag-restore ng backup</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">An unexpected error occurred while attempting to connect to your old Android device.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Searching for new Android device…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Kailangan ng Molly ang location permission para ma-discover at maka-connect sa new Android device mo.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Kailangan ng Molly ang enabled location services para ma-discover at maka-connect sa new Android device mo.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Kailangan ng Molly ang naka-turn on na Wi-Fi access para ma-discover at maka-connect sa new Android device mo. Dapat naka-turn on ang WiFi pero hindi naman kailangan na connected ito sa isang Wi-Fi network.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, hindi supported ng iyong device ang Wi-Fi Direct. Gumagamit ang Molly ng Wi-Fi Direct para ma-discover at maka-connect sa new Android device mo. Pwede kang mag-restore ng backup para ma-restore ang iyong account mula sa new Android device mo.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Kailangan ng Signal ang location permission para ma-discover at maka-connect sa new Android device mo.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Kailangan ng Signal ang enabled location services para ma-discover at maka-connect sa new Android device mo.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Kailangan ng Signal ang naka-turn on na Wi-Fi access para ma-discover at maka-connect sa new Android device mo. Dapat naka-turn on ang WiFi pero hindi naman kailangan na connected ito sa isang Wi-Fi network.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, hindi supported ng iyong device ang Wi-Fi Direct. Gumagamit ang Signal ng Wi-Fi Direct para ma-discover at maka-connect sa new Android device mo. Pwede kang mag-restore ng backup para ma-restore ang iyong account mula sa new Android device mo.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Mag-create ng backup</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">An unexpected error occurred while attempting to connect to your new Android device.</string>
 
@@ -4738,7 +4774,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Transferring data</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Panatilihing malapit ang devices sa isa\'t isa. \'Wag i-turn off ang devices and keep Molly open. Ang transfers ay end-to-end encrypted.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Panatilihing malapit ang devices sa isa\'t isa. \'Wag i-turn off ang devices and keep Signal open. Ang transfers ay end-to-end encrypted.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d messages so far…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% of messages so far…</string>
@@ -4752,7 +4788,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Ilipat ang Account</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">I-download ang Molly sa new Android device mo</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">I-download ang Signal sa new Android device mo</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"I-tap ang \"Transfer or restore account\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4826,7 +4862,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Anyone with this link can view the group\'s name, photo, and request to join. I-share ito sa mga taong pinagkakatiwalaan mo.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Anyone with this link can view the group\'s name, photo, and request to join. I-share ito sa mga taong pinagkakatiwalaan mo.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Share via Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Share via Signal</string>
     <string name="GroupLinkBottomSheet_copy">Kopyahin</string>
     <string name="GroupLinkBottomSheet_qr_code">QR Code</string>
     <string name="GroupLinkBottomSheet_share">Ibahagi</string>
@@ -5014,7 +5050,7 @@
     <string name="payment_info_card_about_mobilecoin">About MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">Ang MobileCoin ay isang bagong privacy-focused digital currency.</string>
     <string name="payment_info_card_adding_funds">Adding funds</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Pwede kang mag-add ng funds na magagamit mo sa Molly sa pamamagitan ng pag-send ng MobileCoin sa wallet address mo.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Pwede kang mag-add ng funds na magagamit mo sa Signal sa pamamagitan ng pag-send ng MobileCoin sa wallet address mo.</string>
     <string name="payment_info_card_cashing_out">Cashing out</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Pwede kang mag-cash out ng MobileCoin anytime on an exchange that supports MobileCoin. Just make a transfer at that exchange sa account mo.</string>
     <string name="payment_info_card_hide_this_card">Gusto mo bang i-hide ang card na ito?</string>
@@ -5035,12 +5071,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">I-deactivate ang Wallet</string>
     <string name="DeactivateWalletFragment__your_balance">Your balance</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Inirerekomenda naming i-transfer mo muna ang iyong funds sa iba pang wallet address bago mo i-deactivate ang payments. Kapag pinili mong hindi i-transfer ang iyong funds ngayon, mananatili ito sa iyong wallet na naka-link sa Molly kapag ni-reactivate mo ang payments.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Inirerekomenda naming i-transfer mo muna ang iyong funds sa iba pang wallet address bago mo i-deactivate ang payments. Kapag pinili mong hindi i-transfer ang iyong funds ngayon, mananatili ito sa iyong wallet na naka-link sa Signal kapag ni-reactivate mo ang payments.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">I-transfer ang remaining balance</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deactivate without transferring</string>
     <string name="DeactivateWalletFragment__deactivate">I-deactivate</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Gusto mo bang mag-deactivate without transferring?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Mananatili ang balance mo sa iyong wallet na naka-link sa Molly kapag nag-reactivate ka ng payments.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Mananatili ang balance mo sa iyong wallet na naka-link sa Signal kapag nag-reactivate ka ng payments.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Error deactivating wallet.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5473,7 +5509,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licenses</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Mga Tuntunin at Patakaran sa Privacy</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licensed under the GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5780,6 +5816,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">Ang photo ay naka-set sa high quality</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Ang photo ay naka-set sa standard quality</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">Maglagay ng Media</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">Brush at Pen</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">Crop and rotate</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">Palitan ang Media Quality</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">I-save ang Media</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">I-toggle ang keyboard ng emoji</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">Mag-switch sa View Once</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">I-send ang Media</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">Tapusin ang pagdagdag ng Message</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="one">Ang %1$d item ay naka-set sa high quality</item>
@@ -5934,9 +5988,9 @@
     <string name="MySupportPreference__checking_subscription">Chine-check ang subscription…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">I-update ang Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">I-update ang Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Expired na itong version ng Molly. Mag-update na para patuloy na magamit ang Molly.</string>
+    <string name="UpdateSignalExpiredDialog__message">Expired na itong version ng Signal. Mag-update na para patuloy na magamit ang Signal.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">I-update</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5945,7 +5999,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Hindi registered ang device</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Hindi na registered ang device na ito. Mag-register ulit para patuloy na magamit ang Molly sa device na ito.</string>
+    <string name="ReregisterSignalDialog__message">Hindi na registered ang device na ito. Mag-register ulit para patuloy na magamit ang Signal sa device na ito.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Mag-register ulit</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6264,7 +6318,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Failed to open picker.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Para i-enable ang notifications, kailangan ng Molly ang iyong pahintulot para i-display ito.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Para i-enable ang notifications, kailangan ng Signal ang iyong pahintulot para i-display ito.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">I-on</string>
 
@@ -7311,6 +7365,8 @@
     <string name="CameraControls_capture_button_accessibility_label">Button sa Pagkuha ng Photo</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">Button Para Magpatuloy</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">Mag-switch sa Flash Mode</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -7897,7 +7953,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Nag-expire noong %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">I-back up ang message history mo para hindi mawala ang data mo kapag nagpalit ka ng phone o ni-reinstall mo ang Molly.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">I-back up ang message history mo para hindi mawala ang data mo kapag nagpalit ka ng phone o ni-reinstall mo ang Signal.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Iba pang paraan ng pag-backup</string>
     <!-- Row title for performing on-device backup -->
@@ -8011,6 +8067,10 @@
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">Kontakin ang Support</string>
 
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Nagkaroon ng network failure. Subukan ulit mamaya.</string>
+
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
     <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">I-back up ang messages at media mo gamit ang secure, end-to-end encrypted storage service ng Signal. Hindi ka mawawalan ng anumang message kapag may bago kang bagong phone o nagre-install ng Signal.</string>
@@ -8029,9 +8089,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Ang backup key mo</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ang backup key mo ay isang 64-digit code na magagamit mo sa pag-restore ng iyong backup kapag nag-install ka ulit ng Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ang backup key mo ay isang 64-digit code na magagamit mo sa pag-restore ng iyong backup kapag nag-install ka ulit ng Signal.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Kapag nakalimutan mo ang iyong PIN, hindi mo maaaring ma-restore ang backup mo. Hindi ka matutulungan ng Molly sa pag-recover ng backup mo.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Kapag nakalimutan mo ang iyong PIN, hindi mo maaaring ma-restore ang backup mo. Hindi ka matutulungan ng Signal sa pag-recover ng backup mo.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Susunod</string>
 
@@ -8047,7 +8107,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Panatilihing ligtas ang iyong key</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Hindi ka matutulungan ng Molly na i-restore ang backup mo kapag nawala mo ang iyong key. Ilagay ito sa ligtas na lugar, at huwag itong i-share sa iba.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Hindi ka matutulungan ng Signal na i-restore ang backup mo kapag nawala mo ang iyong key. Ilagay ito sa ligtas na lugar, at huwag itong i-share sa iba.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Na-record ko na ang aking key</string>
     <!-- Sheet action button label -->
@@ -8118,7 +8178,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Wala sa akin ang lumang phone ko</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">O nag-iinstall ka ulit ng Molly sa parehong device</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">O nag-iinstall ka ulit ng Signal sa parehong device</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">I-restore o ilipat ang account</string>

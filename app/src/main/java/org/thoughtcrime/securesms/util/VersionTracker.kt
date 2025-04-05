@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.util
 import android.content.Context
 import android.content.pm.PackageManager
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
@@ -14,14 +15,14 @@ object VersionTracker {
   private val TAG = Log.tag(VersionTracker::class.java)
 
   @JvmStatic
-  fun getLastSeenVersion(context: Context): Int {
-    return TextSecurePreferences.getSignalLastVersionCode(context)
+  fun getLastSeenVersionForMolly(context: Context): Int {
+    return TextSecurePreferences.getLastVersionCodeForMolly(context)
   }
 
   @JvmStatic
   fun updateLastSeenVersion(context: Context) {
-    val currentVersionCode = Util.getSignalCanonicalVersionCode()
-    val lastVersionCode = TextSecurePreferences.getSignalLastVersionCode(context)
+    val currentVersionCode = BuildConfig.VERSION_CODE
+    val lastVersionCode = TextSecurePreferences.getLastVersionCodeForMolly(context)
 
     if (currentVersionCode != lastVersionCode) {
       Log.i(TAG, "Upgraded from $lastVersionCode to $currentVersionCode. Clearing client deprecation.", true)
@@ -32,7 +33,7 @@ object VersionTracker {
       LocalMetrics.getInstance().clear()
     }
 
-    TextSecurePreferences.setSignalLastVersionCode(context, currentVersionCode)
+    TextSecurePreferences.setLastVersionCodeForMolly(context, currentVersionCode)
   }
 
   @JvmStatic

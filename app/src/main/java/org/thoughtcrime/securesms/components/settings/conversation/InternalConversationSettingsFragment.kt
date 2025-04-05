@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.OutgoingMessage
+import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientForeverObserver
 import org.thoughtcrime.securesms.recipients.RecipientId
@@ -76,11 +77,11 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
           onLongClick = { copyToClipboard(e164) }
         )
 
-        val serviceId: String = recipient.serviceId.map { it.toString() }.orElse("null")
+        val aci: String = recipient.aci.map { it.toString() }.orElse("null")
         longClickPref(
-          title = DSLSettingsText.from("ServiceId"),
-          summary = DSLSettingsText.from(serviceId),
-          onLongClick = { copyToClipboard(serviceId) }
+          title = DSLSettingsText.from("ACI"),
+          summary = DSLSettingsText.from(aci),
+          onLongClick = { copyToClipboard(aci) }
         )
 
         val pni: String = recipient.pni.map { it.toString() }.orElse("null")
@@ -182,8 +183,8 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
         )
 
         clickPref(
-          title = DSLSettingsText.from("Delete Session"),
-          summary = DSLSettingsText.from("Deletes the session, essentially guaranteeing an encryption error if they send you a message."),
+          title = DSLSettingsText.from("Delete Sessions"),
+          summary = DSLSettingsText.from("Deletes all sessions with this recipient, essentially guaranteeing an encryption error if they send you a message."),
           onClick = {
             MaterialAlertDialogBuilder(requireContext())
               .setTitle("Are you sure?")
@@ -199,7 +200,36 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
               .show()
           }
         )
+
+        clickPref(
+          title = DSLSettingsText.from("Archive Sessions"),
+          summary = DSLSettingsText.from("Archives all sessions associated with this recipient, causing you to create a new session the next time you send a message (while not causing decryption errors)."),
+          onClick = {
+            MaterialAlertDialogBuilder(requireContext())
+              .setTitle("Are you sure?")
+              .setNegativeButton(android.R.string.cancel) { d, _ -> d.dismiss() }
+              .setPositiveButton(android.R.string.ok) { _, _ ->
+                AppDependencies.protocolStore.aci().sessions().archiveSessions(recipient.id)
+              }
+              .show()
+          }
+        )
       }
+
+      clickPref(
+        title = DSLSettingsText.from("Delete Avatar"),
+        summary = DSLSettingsText.from("Deletes the avatar file and clears manually showing the avatar, resulting in a blurred gradient (assuming no profile sharing, no group in common, etc.)"),
+        onClick = {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Are you sure?")
+            .setNegativeButton(android.R.string.cancel) { d, _ -> d.dismiss() }
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+              SignalDatabase.recipients.manuallyUpdateShowAvatar(recipient.id, false)
+              AvatarHelper.delete(requireContext(), recipient.id)
+            }
+            .show()
+        }
+      )
 
       clickPref(
         title = DSLSettingsText.from("Clear recipient data"),

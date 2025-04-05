@@ -1014,21 +1014,6 @@ object RemoteConfig {
     value.asBoolean(false)
   }
 
-  /**
-   * Percentage [0, 100] of web socket requests that will be "shadowed" by sending
-   * an unauthenticated keep-alive via libsignal-net. Default: 0
-   */
-  @JvmStatic
-  @get:JvmName("libSignalWebSocketShadowingPercentage")
-  // val libSignalWebSocketShadowingPercentage: Int by remoteValue(
-  //   key = "android.libsignalWebSocketShadowingPercentage",
-  //   hotSwappable = false
-  // ) { value ->
-  //   val remote = value.asInteger(0)
-  //   remote.coerceIn(0, 100)
-  // }
-  val libSignalWebSocketShadowingPercentage: Int = 0
-
   @JvmStatic
   val backgroundMessageProcessInterval: Long by remoteValue(
     key = "android.messageProcessor.alarmIntervalMins",

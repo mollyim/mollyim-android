@@ -143,6 +143,16 @@ object BackupRepository {
   }
 
   /**
+   * Triggers backup id reservation. As documented, this is safe to perform multiple times.
+   */
+  @WorkerThread
+  fun triggerBackupIdReservation(): NetworkResult<Unit> {
+    val messageBackupKey = SignalStore.backup.messageBackupKey
+    val mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey
+    return SignalNetwork.archive.triggerBackupIdReservation(messageBackupKey, mediaRootBackupKey, SignalStore.account.requireAci())
+  }
+
+  /**
    * Refreshes backup via server
    */
   fun refreshBackup(): NetworkResult<Unit> {
@@ -1456,7 +1466,7 @@ object BackupRepository {
    */
   private fun initBackupAndFetchAuth(): NetworkResult<ArchiveServiceAccessPair> {
     return if (!RemoteConfig.messageBackups) {
-      NetworkResult.StatusCodeError(555, null, null, NonSuccessfulResponseCodeException(555, "Backups disabled!"))
+      NetworkResult.StatusCodeError(555, null, null, emptyMap(), NonSuccessfulResponseCodeException(555, "Backups disabled!"))
     } else if (SignalStore.backup.backupsInitialized) {
       getArchiveServiceAccessPair().runOnStatusCodeError(resetInitializedStateErrorAction)
     } else if (isPreRestoreDuringRegistration()) {

@@ -601,7 +601,7 @@ private fun BackupMessageRecord.toRemoteSessionSwitchoverUpdate(): ChatUpdateMes
   return ChatUpdateMessage(
     sessionSwitchover = try {
       val event = SessionSwitchoverEvent.ADAPTER.decode(Base64.decodeOrThrow(this.body))
-      SessionSwitchoverChatUpdate(event.e164.e164ToLong()!!)
+      SessionSwitchoverChatUpdate(event.e164.e164ToLong() ?: 0)
     } catch (e: IOException) {
       SessionSwitchoverChatUpdate()
     }
@@ -1403,10 +1403,14 @@ fun ChatItem.validateChatItem(): ChatItem? {
 
 fun List<ChatItem>.repairRevisions(current: ChatItem.Builder): List<ChatItem> {
   return if (current.standardMessage != null) {
-    val filtered = this.filter { it.standardMessage != null }
+    val filtered = this
+      .filter { it.standardMessage != null }
+      .map { it.withDowngradeVoiceNotes() }
+
     if (this.size != filtered.size) {
       Log.w(TAG, ExportOddities.mismatchedRevisionHistory(current.dateSent))
     }
+
     filtered
   } else if (current.directStoryReplyMessage != null) {
     val filtered = this.filter { it.directStoryReplyMessage != null }
@@ -1432,6 +1436,28 @@ private fun List<MessageAttachment>.withFixedVoiceNotes(textPresent: Boolean): L
       it
     }
   }
+}
+
+private fun ChatItem.withDowngradeVoiceNotes(): ChatItem {
+  if (this.standardMessage == null) {
+    return this
+  }
+
+  if (this.standardMessage.attachments.none { it.flag == MessageAttachment.Flag.VOICE_MESSAGE }) {
+    return this
+  }
+
+  return this.copy(
+    standardMessage = this.standardMessage.copy(
+      attachments = this.standardMessage.attachments.map {
+        if (it.flag == MessageAttachment.Flag.VOICE_MESSAGE) {
+          it.copy(flag = MessageAttachment.Flag.NONE)
+        } else {
+          it
+        }
+      }
+    )
+  )
 }
 
 private fun Cursor.toBackupMessageRecord(pastIds: Set<Long>, backupStartTime: Long): BackupMessageRecord? {
