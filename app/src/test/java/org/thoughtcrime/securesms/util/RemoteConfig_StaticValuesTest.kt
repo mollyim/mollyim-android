@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.util
 
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import kotlin.reflect.KProperty1
 import kotlin.reflect.KVisibility
@@ -21,6 +22,7 @@ class RemoteConfig_StaticValuesTest {
    * values when the inputs change. If they don't, then it's likely that the getter is returning a static value, which was likely introduced during testing
    * and not something we actually want to commit.
    */
+  @Ignore("MOLLY: some remote config values are hardcoded to avoid untested paths between releases.")
   @Test
   fun `Ensure there's no static values`() {
     // A list of inputs we'll cycle the remote config values to in order to see if it changes the outputs of the getters
@@ -46,12 +48,6 @@ class RemoteConfig_StaticValuesTest {
       "debugMemoryValues",
       "debugDiskValues",
       "debugPendingDiskValues",
-      "internalUser",
-      "useLibsignalNetForCdsiLookup",
-      "messageBackups",
-      "libSignalWebSocketEnabled",
-      "libSignalWebSocketShadowingPercentage",
-      "attachmentBackfillSync",
       "CRASH_PROMPT_CONFIG",
       "PROMPT_BATTERY_SAVER",
       "PROMPT_FOR_NOTIFICATION_LOGS",
