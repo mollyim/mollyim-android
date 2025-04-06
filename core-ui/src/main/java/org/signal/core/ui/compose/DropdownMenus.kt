@@ -60,12 +60,14 @@ object DropdownMenus {
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp),
     text: @Composable () -> Unit,
     onClick: () -> Unit,
+    enabled: Boolean = true,
     modifier: Modifier = Modifier
   ) {
     DropdownMenuItem(
       contentPadding = contentPadding,
       text = text,
       onClick = onClick,
+      enabled = enabled,
       modifier = modifier
     )
   }

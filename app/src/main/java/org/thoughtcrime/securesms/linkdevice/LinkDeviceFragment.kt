@@ -578,6 +578,7 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
               )
             }
           },
+          enabled = device.canRename,
           onClick = {
             onEditDevice(device)
             controller.hide()
