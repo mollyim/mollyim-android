@@ -17,6 +17,9 @@ import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.whispersystems.signalservice.api.push.ServiceId
 import java.io.IOException
 
+/**
+ * Fix V188_FixMessageRecipientsAndEditMessageMigration invalid migration.
+ */
 @Suppress("ClassName")
 object V190_UpdatePendingSelfDataMigration : SignalDatabaseMigration {
 
