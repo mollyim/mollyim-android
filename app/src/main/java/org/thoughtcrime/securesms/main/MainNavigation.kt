@@ -23,8 +23,10 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,7 +60,7 @@ import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalPreview
-import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.compose.theme.colorAttribute
 import org.thoughtcrime.securesms.R
 
 private val LOTTIE_SIZE = 28.dp
@@ -101,7 +103,7 @@ fun MainNavigationBar(
   onDestinationSelected: (MainNavigationDestination) -> Unit
 ) {
   NavigationBar(
-    containerColor = SignalTheme.colors.colorSurface2,
+    containerColor = colorAttribute(R.attr.navbar_container_color),
     contentColor = MaterialTheme.colorScheme.onSurface,
     modifier = Modifier.height(if (state.compact) 48.dp else 80.dp)
   ) {
@@ -123,6 +125,9 @@ fun MainNavigationBar(
 
       val selected = state.selectedDestination == destination
       NavigationBarItem(
+        colors = NavigationBarItemDefaults.colors(
+          indicatorColor = colorAttribute(R.attr.navbar_active_indicator_color),
+        ),
         selected = selected,
         icon = {
           NavigationDestinationIcon(
@@ -209,7 +214,7 @@ fun MainNavigationRail(
   onDestinationSelected: (MainNavigationDestination) -> Unit
 ) {
   NavigationRail(
-    containerColor = SignalTheme.colors.colorSurface1,
+    containerColor = colorAttribute(R.attr.navbar_container_color),
     header = {
       FilledTonalIconButton(
         onClick = { },
@@ -263,6 +268,9 @@ fun MainNavigationRail(
 
       Box {
         NavigationRailItem(
+          colors = NavigationRailItemDefaults.colors(
+            indicatorColor = colorAttribute(R.attr.navbar_active_indicator_color)
+          ),
           modifier = Modifier.padding(bottom = if (MainNavigationDestination.entries.lastIndex == idx) 0.dp else 16.dp),
           icon = {
             NavigationDestinationIcon(

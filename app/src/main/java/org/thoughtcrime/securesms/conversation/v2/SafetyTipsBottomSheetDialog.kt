@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.theme.SignalTheme
-import org.signal.core.ui.compose.theme.attributeColor
+import org.signal.core.ui.compose.theme.colorAttribute
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 
@@ -234,7 +234,7 @@ private fun SafetyTipPreview() {
 private fun SafetyTip(safetyTip: SafetyTipData) {
   Surface(
     shape = RoundedCornerShape(18.dp),
-    color = attributeColor(id = R.attr.safety_tip_background),
+    color = colorAttribute(id = R.attr.safety_tip_background),
     contentColor = MaterialTheme.colorScheme.onSurface,
     modifier = Modifier
       .fillMaxWidth()
@@ -247,7 +247,7 @@ private fun SafetyTip(safetyTip: SafetyTipData) {
     ) {
       Surface(
         shape = RoundedCornerShape(12.dp),
-        color = attributeColor(id = R.attr.safety_tip_image_background),
+        color = colorAttribute(id = R.attr.safety_tip_image_background),
         modifier = Modifier
           .padding(12.dp)
           .fillMaxWidth()

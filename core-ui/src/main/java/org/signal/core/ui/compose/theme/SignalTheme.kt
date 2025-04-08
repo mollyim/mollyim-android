@@ -277,7 +277,7 @@ private fun snackbarColors(colorScheme: ColorScheme, isDarkMode: Boolean, isDyna
 }
 
 @Composable
-fun attributeColor(@AttrRes id: Int): Color {
+fun colorAttribute(@AttrRes id: Int): Color {
   val theme = LocalContext.current.theme
   val typedValue = TypedValue()
   return if (theme.resolveAttribute(id, typedValue, true) && typedValue.resourceId != 0) {
