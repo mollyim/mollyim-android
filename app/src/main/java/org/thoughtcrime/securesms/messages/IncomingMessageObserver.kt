@@ -19,7 +19,6 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupsV2ProcessingLock
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
-import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobs.PushProcessMessageErrorJob
 import org.thoughtcrime.securesms.jobs.PushProcessMessageJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -46,8 +45,6 @@ import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.locks.ReentrantLock
-import kotlin.concurrent.withLock
 import kotlin.math.round
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -81,23 +78,29 @@ class IncomingMessageObserver(private val context: Application, private val auth
 
   private val decryptionDrainedListeners: MutableList<Runnable> = CopyOnWriteArrayList()
 
-  private val lock: ReentrantLock = ReentrantLock()
-  private val connectionNecessarySemaphore = Semaphore(0)
+  @Volatile
+  private var networkIsActive = true
+
+  private val connectionDecisionSemaphore = Semaphore(0)
   private val networkConnectionListener = NetworkConnectionListener(context) { isNetworkUnavailable ->
-    lock.withLock {
-      AppDependencies.libsignalNetwork.onNetworkChange()
-      if (isNetworkUnavailable()) {
-        Log.w(TAG, "Lost network connection. Resetting the drained state.")
-        decryptionDrained = false
-      }
-      connectionNecessarySemaphore.release()
+    AppDependencies.libsignalNetwork.onNetworkChange()
+    if (isNetworkUnavailable()) {
+      Log.w(TAG, "Lost network connection. Resetting the drained state.")
+      decryptionDrained = false
+      networkIsActive = false
+    } else {
+      networkIsActive = true
     }
+    releaseConnectionDecisionSemaphore()
   }
 
   private val messageContentProcessor = MessageContentProcessor(context)
 
-  private var appVisible = false
-  private var lastInteractionTime: Long = System.currentTimeMillis()
+  data class AppState(
+    val isForeground: Boolean,
+    val lastInteractionTime: Long
+  )
+  private var appState = AppState(isForeground = false, lastInteractionTime = System.currentTimeMillis())
   private var webSocketStateDisposable = Disposable.disposed()
 
   @Volatile
@@ -135,15 +138,13 @@ class IncomingMessageObserver(private val context: Application, private val auth
       .observeOn(Schedulers.computation())
       .subscribeBy {
         if (it == WebSocketConnectionState.CONNECTED) {
-          lock.withLock {
-            connectionNecessarySemaphore.release()
-          }
+          releaseConnectionDecisionSemaphore()
         }
       }
   }
 
   fun notifyRegistrationStateChanged() {
-    connectionNecessarySemaphore.release()
+    releaseConnectionDecisionSemaphore()
   }
 
   fun addDecryptionDrainedListener(listener: Runnable) {
@@ -158,47 +159,40 @@ class IncomingMessageObserver(private val context: Application, private val auth
   }
 
   private fun onAppForegrounded() {
-    lock.withLock {
-      appVisible = true
-      BackgroundService.start(context)
-      connectionNecessarySemaphore.release()
-    }
+    BackgroundService.start(context)
+    appState = appState.copy(isForeground = true)
+    releaseConnectionDecisionSemaphore()
   }
 
   private fun onAppBackgrounded() {
-    lock.withLock {
-      appVisible = false
-      lastInteractionTime = System.currentTimeMillis()
-      connectionNecessarySemaphore.release()
-    }
+    val now = System.currentTimeMillis()
+    appState = appState.copy(isForeground = false, lastInteractionTime = now)
+    releaseConnectionDecisionSemaphore()
   }
 
   private fun isConnectionNecessary(): Boolean {
-    val timeIdle: Long
-    val appVisibleSnapshot: Boolean
-
-    lock.withLock {
-      appVisibleSnapshot = appVisible
-      timeIdle = if (appVisibleSnapshot) 0 else System.currentTimeMillis() - lastInteractionTime
-    }
+    val appStateSnapshot = appState
+    val isForeground = appStateSnapshot.isForeground
+    val lastInteractionTime = appStateSnapshot.lastInteractionTime
+    val timeIdle = if (isForeground) 0 else System.currentTimeMillis() - lastInteractionTime
 
     val registered = SignalStore.account.isRegistered
     val pushAvailable = SignalStore.account.pushAvailable
-    val hasNetwork = NetworkConstraint.isMet(context)
+    val hasNetwork = networkIsActive
     val hasProxy = AppDependencies.networkManager.isProxyEnabled
     val forceWebsocket = SignalStore.internal.isWebsocketModeForced
     val websocketAlreadyOpen = isConnectionAvailable()
     val canProcessIncomingMessages = canProcessIncomingMessages()
 
-    val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
+    val lastInteractionString = if (isForeground) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
     val conclusion = registered &&
-      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !pushAvailable) &&
+      (isForeground || timeIdle < maxBackgroundTime || !pushAvailable) &&
       hasNetwork &&
       canProcessIncomingMessages
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
 
-    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, PushAvailable: $pushAvailable, WS Connected: $websocketAlreadyOpen, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket, Can process messages: $canProcessIncomingMessages")
+    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $isForeground, Time Since Last Interaction: $lastInteractionString, PushAvailable: $pushAvailable, WS Connected: $websocketAlreadyOpen, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket, Can process messages: $canProcessIncomingMessages")
     return conclusion
   }
 
@@ -210,17 +204,16 @@ class IncomingMessageObserver(private val context: Application, private val auth
     return !(RemoteConfig.restoreAfterRegistration && SignalStore.registration.restoreDecisionState.isDecisionPending)
   }
 
+  private fun releaseConnectionDecisionSemaphore() {
+    connectionDecisionSemaphore.drainPermits()
+    connectionDecisionSemaphore.release()
+  }
+
   private fun waitForConnectionNecessary() {
-    try {
-      connectionNecessarySemaphore.drainPermits()
-      while (!isConnectionNecessary() && !(isConnectionAvailable() && canProcessIncomingMessages())) {
-        val numberDrained = connectionNecessarySemaphore.drainPermits()
-        if (numberDrained == 0) {
-          connectionNecessarySemaphore.acquire()
-        }
+    while (!isConnectionNecessary() && !(isConnectionAvailable() && canProcessIncomingMessages())) {
+      if (connectionDecisionSemaphore.drainPermits() == 0) {
+        connectionDecisionSemaphore.acquireUninterruptibly()
       }
-    } catch (e: InterruptedException) {
-      throw AssertionError(e)
     }
   }
 
@@ -422,7 +415,7 @@ class IncomingMessageObserver(private val context: Application, private val auth
             }
           }
 
-          if (!appVisible) {
+          if (!appState.isForeground) {
             BackgroundService.stop(context)
           }
         } catch (e: Throwable) {
