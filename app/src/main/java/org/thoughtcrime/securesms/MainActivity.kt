@@ -366,9 +366,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     }
 
     override fun onSearchClick() {
-      conversationListTabsViewModel.onSearchOpened()
       toolbarViewModel.setToolbarMode(MainToolbarMode.SEARCH)
-      toolbarViewModel.emitEvent(MainToolbarViewModel.Event.Search.Open)
     }
 
     override fun onClearCallHistoryClick() {
@@ -388,9 +386,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     }
 
     override fun onCloseSearchClick() {
-      conversationListTabsViewModel.onSearchClosed()
       toolbarViewModel.setToolbarMode(MainToolbarMode.FULL)
-      toolbarViewModel.emitEvent(MainToolbarViewModel.Event.Search.Close)
     }
 
     override fun onCloseArchiveClick() {
