@@ -1,8 +1,3 @@
-/*
- * Copyright 2023 Signal Messenger, LLC
- * SPDX-License-Identifier: AGPL-3.0-only
- */
-
 package org.thoughtcrime.securesms.components.settings.app.updates
 
 import androidx.fragment.app.viewModels
@@ -32,7 +27,7 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
   private val viewModel: HelpSettingsViewModel by viewModels()
 
   override fun bindAdapter(adapter: MappingAdapter) {
-    viewModel.state.observe(viewLifecycleOwner) { state ->
+    viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
     }
 

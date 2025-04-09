@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -18,8 +19,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Rows.TextAndLabel
@@ -33,8 +36,11 @@ import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 class HelpSettingsFragment : ComposeFragment() {
 
+  private val viewModel: HelpSettingsViewModel by viewModels()
+
   @Composable
   override fun FragmentContent() {
+    val state: HelpSettingsState by viewModel.state
     val navController: NavController = remember { findNavController() }
 
     val context = LocalContext.current
@@ -48,6 +54,16 @@ class HelpSettingsFragment : ComposeFragment() {
       LazyColumn(
         modifier = Modifier.padding(contentPadding)
       ) {
+        item {
+          Rows.LinkRow(
+            text = stringResource(R.string.HelpSettingsFragment__molly_im_website),
+            icon = ImageVector.vectorResource(R.drawable.symbol_open_20),
+            onClick = {
+              CommunicationActions.openBrowserLink(context, getString(R.string.website_url))
+            }
+          )
+        }
+
         item {
           Rows.LinkRow(
             text = stringResource(R.string.HelpSettingsFragment__support_center),
@@ -74,12 +90,37 @@ class HelpSettingsFragment : ComposeFragment() {
         item {
           Rows.TextRow(
             text = stringResource(R.string.HelpSettingsFragment__version),
+            onClick = {
+              navController.safeNavigate(R.id.action_helpSettingsFragment_to_appUpdatesFragment)
+            },
             label = BuildConfig.VERSION_NAME
           )
         }
 
         item {
+          Rows.ToggleRow(
+            checked = state.logEnabled,
+            text = stringResource(id = R.string.preferences__enable_debug_log),
+            onCheckChanged = { checked ->
+              if (!checked) {
+                MaterialAlertDialogBuilder(requireContext())
+                  .setMessage(R.string.HelpSettingsFragment_disable_and_delete_debug_log)
+                  .setPositiveButton(android.R.string.ok) { dialog, _ ->
+                    viewModel.setLogEnabled(false)
+                    dialog.dismiss()
+                  }
+                  .setNegativeButton(android.R.string.cancel, null)
+                  .show()
+              } else {
+                viewModel.setLogEnabled(true)
+              }
+            }
+          )
+        }
+
+        item {
           Rows.TextRow(
+            enabled = state.logEnabled,
             text = stringResource(id = R.string.HelpSettingsFragment__debug_log),
             onClick = {
               navController.safeNavigate(R.id.action_helpSettingsFragment_to_submitDebugLogActivity)
