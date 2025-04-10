@@ -126,8 +126,6 @@ class LibSignalChatConnection(
 
   override val name = "[$name:${System.identityHashCode(this)}]"
 
-  override var keepAlive = true
-
   val state = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED)
 
   val stateMonitor = state
@@ -386,9 +384,8 @@ class LibSignalChatConnection(
               in 200..299 -> {
                 healthMonitor.onKeepAliveResponse(
                   sentTimestamp = Instant.now().toEpochMilli(), // ignored. can be any value
-                  isIdentifiedWebSocket = chatConnection is AuthenticatedChatConnection,
-                  keepMonitoring = keepAlive,
-                  )
+                  isIdentifiedWebSocket = chatConnection is AuthenticatedChatConnection
+                )
               }
 
               in 400..599 -> {

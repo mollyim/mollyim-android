@@ -32,7 +32,7 @@ public class ProvisioningSocket {
         userAgent,
         new HealthMonitor() {
           @Override
-          public void onKeepAliveResponse(long sentTimestamp, boolean isIdentifiedWebSocket, boolean keepMonitoring) {
+          public void onKeepAliveResponse(long sentTimestamp, boolean isIdentifiedWebSocket) {
           }
 
           @Override

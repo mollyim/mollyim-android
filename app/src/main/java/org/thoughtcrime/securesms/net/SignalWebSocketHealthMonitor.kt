@@ -95,7 +95,7 @@ class SignalWebSocketHealthMonitor(
     }
   }
 
-  override fun onKeepAliveResponse(sentTimestamp: Long, isIdentifiedWebSocket: Boolean, keepMonitoring: Boolean) {
+  override fun onKeepAliveResponse(sentTimestamp: Long, isIdentifiedWebSocket: Boolean) {
     val keepAliveTime = System.currentTimeMillis().milliseconds
     executor.execute {
       lastKeepAliveReceived = keepAliveTime

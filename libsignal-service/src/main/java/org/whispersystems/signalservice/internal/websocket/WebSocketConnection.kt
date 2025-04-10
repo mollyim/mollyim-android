@@ -22,8 +22,6 @@ interface WebSocketConnection {
 
   val name: String
 
-  var keepAlive: Boolean
-
   fun connect(): Observable<WebSocketConnectionState>
 
   fun isDead(): Boolean

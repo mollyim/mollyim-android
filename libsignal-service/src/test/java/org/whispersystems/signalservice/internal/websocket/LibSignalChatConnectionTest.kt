@@ -53,7 +53,7 @@ class LibSignalChatConnectionTest {
   fun before() {
     clearAllMocks()
     every { healthMonitor.onMessageError(any(), any()) }
-    every { healthMonitor.onKeepAliveResponse(any(), any(), any()) }
+    every { healthMonitor.onKeepAliveResponse(any(), any()) }
 
     // NB: We provide default success behavior mocks here to cut down on boilerplate later, but it is
     //  expected that some tests will override some of these to test failures.
@@ -222,7 +222,7 @@ class LibSignalChatConnectionTest {
     sendLatch!!.await(100, TimeUnit.MILLISECONDS)
 
     verify(exactly = 1) {
-      healthMonitor.onKeepAliveResponse(any(), false, any())
+      healthMonitor.onKeepAliveResponse(any(), false)
     }
     verify(exactly = 0) {
       healthMonitor.onMessageError(any(), any())
@@ -253,7 +253,7 @@ class LibSignalChatConnectionTest {
         healthMonitor.onMessageError(response.status, false)
       }
       verify(exactly = 0) {
-        healthMonitor.onKeepAliveResponse(any(), any(), any())
+        healthMonitor.onKeepAliveResponse(any(), any())
       }
     }
   }
@@ -291,7 +291,7 @@ class LibSignalChatConnectionTest {
     )
     observer.assertNoConsecutiveDuplicates()
     verify(exactly = 0) {
-      healthMonitor.onKeepAliveResponse(any(), any(), any())
+      healthMonitor.onKeepAliveResponse(any(), any())
       healthMonitor.onMessageError(any(), any())
     }
   }
@@ -317,7 +317,7 @@ class LibSignalChatConnectionTest {
     )
     observer.assertNoConsecutiveDuplicates()
     verify(exactly = 0) {
-      healthMonitor.onKeepAliveResponse(any(), any(), any())
+      healthMonitor.onKeepAliveResponse(any(), any())
       healthMonitor.onMessageError(any(), any())
     }
   }
