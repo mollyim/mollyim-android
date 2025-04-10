@@ -56,8 +56,8 @@ open class DSLSettingsActivity : PassphraseRequiredActivity() {
   }
 
   override fun onNavigateUp(): Boolean {
+    onWillFinish()
     return if (!Navigation.findNavController(this, R.id.nav_host_fragment).popBackStack()) {
-      onWillFinish()
       finish()
       true
     } else {

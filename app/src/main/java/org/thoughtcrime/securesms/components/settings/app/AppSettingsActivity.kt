@@ -82,7 +82,7 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
       }
     }
 
-    intent = intent.putExtra(START_LOCATION, StartLocation.HOME)
+    intent = intent.putExtra(START_LOCATION, StartLocation.HOME.code)
 
     if (startingAction == null && savedInstanceState != null) {
       wasConfigurationUpdated = savedInstanceState.getBoolean(STATE_WAS_CONFIGURATION_UPDATED)
@@ -95,6 +95,7 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
     SignalStore.settings.onConfigurationSettingChanged.observe(this) { key ->
       if (key == SettingsValues.THEME) {
         DynamicTheme.setDefaultDayNightMode(this)
+        wasConfigurationUpdated = true
         recreate()
       } else if (key == SettingsValues.LANGUAGE) {
         CachedInflater.from(this).clear()

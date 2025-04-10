@@ -50,10 +50,6 @@ public class DynamicTheme {
       Log.d(TAG, "Create configuration different from current previous: " + onCreateNightModeConfiguration + " now: " + ConfigurationUtil.getNightModeConfiguration(activity));
       CachedInflater.from(activity).clear();
     }
-    if (onCreateUseDynamicColors != useDynamicColors(activity)) {
-      Log.d(TAG, "Dynamic theme setting changed. Recreating activity...");
-      activity.recreate();
-    }
   }
 
   protected @StyleRes int getRegularTheme() {
