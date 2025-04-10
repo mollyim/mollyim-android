@@ -136,6 +136,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
           startActivity((detailLocation as MainNavigationDetailLocation.Conversation).intent)
           overridePendingTransition(R.anim.slide_from_end, R.anim.fade_scale_out)
         }
+        navigator.viewModel.goTo(MainNavigationDetailLocation.Empty)
       }
 
       AppScaffold(
