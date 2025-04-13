@@ -27,7 +27,7 @@
         android:background="@drawable/stories_my_story_add_background"
         app:layout_constraintStart_toStartOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
-        app:tint="@color/signal_colorBackground"
+        app:tint="?attr/colorSurface"
         app:srcCompat="@drawable/symbol_plus_compact_16" />
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
@@ -38,7 +38,7 @@
         android:layout_marginEnd="@dimen/stories_landing_item_text_horizontal_margin"
         android:text="@string/StoriesLandingFragment__my_stories"
         android:textAppearance="@style/Signal.Text.BodyLarge"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"
@@ -53,7 +53,7 @@
         android:layout_marginEnd="@dimen/stories_landing_item_text_horizontal_margin"
         android:text="@string/StoriesLandingFragment__tap_to_add"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"

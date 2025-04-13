@@ -34,6 +34,6 @@
         android:contentDescription="@string/conversation_activity__emoji_toggle_description"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/ic_emoji"
-        app:tint="@color/signal_icon_tint_primary" />
+        app:tint="?attr/signal_icon_tint_primary" />
 
 </FrameLayout>

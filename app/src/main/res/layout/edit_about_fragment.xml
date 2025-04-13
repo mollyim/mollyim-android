@@ -27,7 +27,7 @@
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="fitCenter"
       app:srcCompat="@drawable/symbol_emoji_plus_24"
-      app:tint="@color/signal_text_secondary"
+      app:tint="?attr/signal_text_secondary"
       app:layout_constraintTop_toTopOf="@id/edit_about_body"
       app:layout_constraintBottom_toBottomOf="@id/edit_about_body"
       app:layout_constraintStart_toStartOf="parent"/>
@@ -54,7 +54,7 @@
       android:layout_marginEnd="20dp"
       app:srcCompat="@drawable/symbol_x_24"
       android:background="?selectableItemBackgroundBorderless"
-      app:tint="@color/signal_text_secondary"
+      app:tint="?attr/signal_text_secondary"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="@id/edit_about_body"
       app:layout_constraintBottom_toBottomOf="@id/edit_about_body"/>

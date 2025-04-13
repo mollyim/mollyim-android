@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
-    <solid android:color="@color/signal_background_primary"/>
+    <solid android:color="?attr/signal_background_primary"/>
     <corners
         android:topLeftRadius="8dp"
         android:bottomLeftRadius="8dp"/>

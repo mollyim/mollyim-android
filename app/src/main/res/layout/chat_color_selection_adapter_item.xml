@@ -16,7 +16,7 @@
         android:cropToPadding="true"
         android:padding="6dp"
         android:src="@drawable/circle_tintable"
-        tools:tint="@color/signal_accent_primary" />
+        tools:tint="?attr/signal_accent_primary" />
 
     <TextView
         android:id="@+id/auto"

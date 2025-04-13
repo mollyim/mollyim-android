@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:translationY="68sp"
-        android:background="@color/signal_colorSurface1">
+        android:background="?attr/colorSurfaceContainerLow">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/selected_list"
@@ -47,12 +47,12 @@
             android:contentDescription="@string/ShareActivity__share"
             android:background="@drawable/circle_tintable"
             android:padding="6dp"
-            app:backgroundTint="@color/signal_colorPrimary"
+            app:backgroundTint="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_check_24"
-            app:tint="@color/signal_colorOnPrimary"
+            app:tint="?attr/colorOnPrimary"
             tools:alpha="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

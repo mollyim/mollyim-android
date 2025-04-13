@@ -1,8 +1,6 @@
 package org.thoughtcrime.securesms.jobs;
 
 
-import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
@@ -229,12 +227,6 @@ public class SendReadReceiptJob extends BaseJob {
 
   public static final class Factory implements Job.Factory<SendReadReceiptJob> {
 
-    private final Application application;
-
-    public Factory(@NonNull Application application) {
-      this.application = application;
-    }
-
     @Override
     public @NonNull SendReadReceiptJob create(@NonNull Parameters parameters, @Nullable byte[] serializedData) {
       JsonJobData data = JsonJobData.deserialize(serializedData);
@@ -245,8 +237,7 @@ public class SendReadReceiptJob extends BaseJob {
       List<String>    rawMessageIds  = data.hasStringArray(KEY_MESSAGE_IDS) ? data.getStringArrayAsList(KEY_MESSAGE_IDS) : Collections.emptyList();
       List<MessageId> messageIds     = rawMessageIds.stream().map(MessageId::deserialize).collect(Collectors.toList());
       long            threadId       = data.getLong(KEY_THREAD);
-      RecipientId     recipientId    = data.hasString(KEY_RECIPIENT) ? RecipientId.from(data.getString(KEY_RECIPIENT))
-                                                                               : Recipient.external(application, data.getString(KEY_ADDRESS)).getId();
+      RecipientId     recipientId    = RecipientId.from(data.getString(KEY_RECIPIENT));
 
       for (long id : ids) {
         sentTimestamps.add(id);

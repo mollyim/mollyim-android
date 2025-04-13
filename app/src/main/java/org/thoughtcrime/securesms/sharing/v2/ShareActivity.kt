@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import com.google.android.material.appbar.MaterialToolbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -42,6 +41,7 @@ import org.thoughtcrime.securesms.sharing.MultiShareSender.MultiShareSendResultC
 import org.thoughtcrime.securesms.sharing.interstitial.ShareInterstitialActivity
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.visible
 import java.util.Optional
 import java.util.concurrent.TimeUnit
@@ -191,7 +191,7 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
 
   override fun getContainer(): ViewGroup = findViewById(R.id.container)
 
-  override fun getDialogBackgroundColor(): Int = ContextCompat.getColor(this, R.color.signal_background_primary)
+  override fun getDialogBackgroundColor(): Int = ThemeUtil.getThemedColor(this, R.attr.signal_background_primary)
 
   private fun getUnresolvedShareData(): Result<UnresolvedShareData, IntentError> {
     return when {

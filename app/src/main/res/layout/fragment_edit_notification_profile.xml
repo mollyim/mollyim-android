@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/edit_notification_profile_name_wrapper"
         app:srcCompat="@drawable/symbol_emoji_plus_24"
-        app:tint="@color/signal_text_secondary" />
+        app:tint="?attr/signal_text_secondary" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_notification_profile_name_wrapper"
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/edit_notification_profile_name_wrapper"
         app:srcCompat="@drawable/symbol_x_24"
-        app:tint="@color/signal_text_secondary" />
+        app:tint="?attr/signal_text_secondary" />
 
     <TextView
         android:id="@+id/edit_notification_profile_count"

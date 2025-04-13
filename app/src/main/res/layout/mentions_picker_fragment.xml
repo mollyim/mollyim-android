@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:background="@color/signal_colorSurface1" />
+            android:background="?attr/colorSurfaceContainerLow" />
 
     </FrameLayout>
 

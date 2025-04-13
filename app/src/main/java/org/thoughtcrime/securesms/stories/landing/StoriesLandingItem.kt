@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.stories.dialogs.StoryContextMenu
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
@@ -190,7 +191,7 @@ object StoriesLandingItem {
       if (model.data.secondaryStory != null) {
         val secondaryRecord = model.data.secondaryStory.messageRecord as MmsMessageRecord
         val secondaryThumb = secondaryRecord.slideDeck.thumbnailSlide?.uri
-        storyOutline.setBackgroundColor(ContextCompat.getColor(context, R.color.signal_background_primary))
+        storyOutline.setBackgroundColor(ThemeUtil.getThemedColor(context, R.attr.signal_background_primary))
 
         @Suppress("CascadeIf")
         if (secondaryRecord.storyType.isTextStory) {

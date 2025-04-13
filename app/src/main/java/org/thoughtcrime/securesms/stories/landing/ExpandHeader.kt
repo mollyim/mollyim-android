@@ -3,10 +3,10 @@ package org.thoughtcrime.securesms.stories.landing
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
@@ -41,7 +41,7 @@ object ExpandHeader {
     override fun bind(model: Model) {
       sectionHeader.text = model.title.resolve(context)
       icon.setImageResource(if (model.isExpanded) R.drawable.ic_chevron_up_24 else R.drawable.ic_chevron_down_24)
-      icon.setColorFilter(ContextCompat.getColor(context, R.color.signal_icon_tint_primary))
+      icon.setColorFilter(ThemeUtil.getThemedColor(context, R.attr.signal_icon_tint_primary))
       itemView.setOnClickListener { model.onClick(!model.isExpanded) }
     }
   }

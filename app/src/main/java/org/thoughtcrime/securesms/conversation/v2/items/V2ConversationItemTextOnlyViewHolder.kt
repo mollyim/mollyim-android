@@ -435,7 +435,7 @@ open class V2ConversationItemTextOnlyViewHolder<Model : MappingModel<Model>>(
         val span: URLSpan = InterceptableLongClickCopyLinkSpan(
           placeholder.value,
           conversationContext.clickListener::onUrlClicked,
-          ContextCompat.getColor(getContext(), R.color.signal_accent_primary),
+          ThemeUtil.getThemedColor(context, R.attr.signal_accent_primary),
           false
         )
 

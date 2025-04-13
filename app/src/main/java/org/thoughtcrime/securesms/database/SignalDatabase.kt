@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.database
 import android.app.Application
 import android.content.Context
 import androidx.annotation.VisibleForTesting
+import androidx.sqlite.db.SupportSQLiteDatabase
 import net.zetetic.database.sqlcipher.SQLiteOpenHelper
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
@@ -12,7 +13,7 @@ import org.thoughtcrime.securesms.crypto.DatabaseSecret
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations
 import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase
 import java.io.File
-import java.lang.AssertionError
+import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSQLiteDatabase
 
 open class SignalDatabase(private val context: Application, databaseSecret: DatabaseSecret, attachmentSecret: AttachmentSecret, name: String = DATABASE_NAME) :
   SQLiteOpenHelper(
@@ -74,6 +75,21 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   }
 
   override fun onCreate(db: net.zetetic.database.sqlcipher.SQLiteDatabase) {
+    val signalDb = SignalSQLiteDatabase(db)
+    onCreateTablesIndexesAndTriggers(signalDb)
+
+    // Requires FTS5
+    executeStatements(signalDb, SearchTable.CREATE_TABLE)
+    executeStatements(signalDb, SearchTable.CREATE_TRIGGERS)
+
+    val legacyDbPath = context.getDatabasePath("messages.db")
+    check(!legacyDbPath.exists()) {
+      "Unsupported Signal database: version is too old"
+    }
+  }
+
+  @VisibleForTesting
+  fun onCreateTablesIndexesAndTriggers(db: SignalSQLiteDatabase) {
     db.execSQL(MessageTable.CREATE_TABLE)
     db.execSQL(AttachmentTable.CREATE_TABLE)
     db.execSQL(ThreadTable.CREATE_TABLE)
@@ -91,6 +107,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.execSQL(StickerTable.CREATE_TABLE)
     db.execSQL(UnknownStorageIdTable.CREATE_TABLE)
     db.execSQL(MentionTable.CREATE_TABLE)
+    db.execSQL(PaymentTable.CREATE_TABLE)
     db.execSQL(ChatColorsTable.CREATE_TABLE)
     db.execSQL(EmojiSearchTable.CREATE_TABLE)
     db.execSQL(AvatarPickerDatabase.CREATE_TABLE)
@@ -106,7 +123,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, NameCollisionTables.CREATE_TABLE)
     db.execSQL(InAppPaymentTable.CREATE_TABLE)
     db.execSQL(InAppPaymentSubscriberTable.CREATE_TABLE)
-    executeStatements(db, SearchTable.CREATE_TABLE)
     executeStatements(db, RemappedRecordTables.CREATE_TABLE)
     executeStatements(db, MessageSendLogTables.CREATE_TABLE)
     executeStatements(db, NotificationProfileTables.CREATE_TABLE)
@@ -124,6 +140,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, StickerTable.CREATE_INDEXES)
     executeStatements(db, UnknownStorageIdTable.CREATE_INDEXES)
     executeStatements(db, MentionTable.CREATE_INDEXES)
+    executeStatements(db, PaymentTable.CREATE_INDEXES)
     executeStatements(db, MessageSendLogTables.CREATE_INDEXES)
     executeStatements(db, NotificationProfileTables.CREATE_INDEXES)
     executeStatements(db, DonationReceiptTable.CREATE_INDEXS)
@@ -136,15 +153,10 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, ChatFolderTables.CREATE_INDEXES)
     executeStatements(db, NameCollisionTables.CREATE_INDEXES)
 
-    executeStatements(db, SearchTable.CREATE_TRIGGERS)
     executeStatements(db, MessageSendLogTables.CREATE_TRIGGERS)
 
     DistributionListTables.insertInitialDistributionListAtCreationTime(db)
     ChatFolderTables.insertInitialChatFoldersAtCreationTime(db)
-
-    if (context.getDatabasePath("messages.db").exists()) {
-      throw AssertionError("Unsupported Signal database: version is too old")
-    }
   }
 
   override fun onUpgrade(db: net.zetetic.database.sqlcipher.SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -157,7 +169,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.setForeignKeyConstraintsEnabled(false)
     try {
       // Transactions and version bumps are handled in the migrate method
-      SignalDatabaseMigrations.migrate(context, db, oldVersion, newVersion)
+      SignalDatabaseMigrations.migrate(context, SignalSQLiteDatabase(db), oldVersion, newVersion)
     } finally {
       db.setForeignKeyConstraintsEnabled(true)
 
@@ -181,11 +193,11 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   open val rawWritableDatabase: net.zetetic.database.sqlcipher.SQLiteDatabase
     get() = super.writableDatabase
 
-  open val signalReadableDatabase: SQLiteDatabase
-    get() = SQLiteDatabase(super.readableDatabase)
+  open val signalReadableDatabase: SignalSQLiteDatabase
+    get() = SignalSQLiteDatabase(super.readableDatabase)
 
-  open val signalWritableDatabase: SQLiteDatabase
-    get() = SQLiteDatabase(super.writableDatabase)
+  open val signalWritableDatabase: SignalSQLiteDatabase
+    get() = SignalSQLiteDatabase(super.writableDatabase)
 
   override fun getSqlCipherDatabase(): net.zetetic.database.sqlcipher.SQLiteDatabase {
     return super.writableDatabase
@@ -195,7 +207,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.version = SignalDatabaseMigrations.DATABASE_VERSION
   }
 
-  private fun executeStatements(db: net.zetetic.database.sqlcipher.SQLiteDatabase, statements: Array<String>) {
+  private fun executeStatements(db: SupportSQLiteDatabase, statements: Array<String>) {
     for (statement in statements) db.execSQL(statement)
   }
 
@@ -230,11 +242,11 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
       get() = instance!!.rawWritableDatabase
 
     @JvmStatic
-    val readableDatabase: SQLiteDatabase
+    val readableDatabase: SignalSQLiteDatabase
       get() = instance!!.signalReadableDatabase
 
     @JvmStatic
-    val writableDatabase: SQLiteDatabase
+    val writableDatabase: SignalSQLiteDatabase
       get() = instance!!.signalWritableDatabase
 
     @JvmStatic
@@ -310,7 +322,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     }
 
     @JvmStatic
-    fun <T> runInTransaction(block: (SQLiteDatabase) -> T): T {
+    fun <T> runInTransaction(block: (SignalSQLiteDatabase) -> T): T {
       return instance!!.signalWritableDatabase.withinTransaction {
         block(it)
       }

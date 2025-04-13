@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
@@ -45,7 +47,6 @@ import org.thoughtcrime.securesms.components.transfercontrols.TransferControlVie
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
 import org.thoughtcrime.securesms.mms.ImageSlide;
-import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideClickListener;
 import org.thoughtcrime.securesms.mms.SlidesClickedListener;
@@ -329,13 +330,13 @@ public class ThumbnailView extends FrameLayout {
   public ListenableFuture<Boolean> setImageResource(@NonNull RequestManager requestManager, @NonNull Slide slide,
                                                     boolean showControls, boolean isPreview)
   {
-    return setImageResource(requestManager, slide, showControls, isPreview, 0, 0);
+    return setImageResource(requestManager, slide, showControls, isPreview, 0, 0, Color.TRANSPARENT);
   }
 
   @UiThread
   public ListenableFuture<Boolean> setImageResource(@NonNull RequestManager requestManager, @NonNull Slide slide,
                                                     boolean showControls, boolean isPreview,
-                                                    int naturalWidth, int naturalHeight)
+                                                    int naturalWidth, int naturalHeight, @ColorInt int missingBackgroundColor)
   {
     if (slide.asAttachment().isPermanentlyFailed()) {
       this.slide = slide;
@@ -348,6 +349,7 @@ public class ThumbnailView extends FrameLayout {
 
       requestManager.clear(image);
       image.setImageDrawable(null);
+      image.setBackgroundColor(Color.TRANSPARENT);
 
       int errorImageResource;
       if (slide instanceof ImageSlide) {
@@ -359,6 +361,8 @@ public class ThumbnailView extends FrameLayout {
       }
       errorImage.setImageResource(errorImageResource);
       errorImage.setVisibility(View.VISIBLE);
+
+      image.setBackgroundColor(missingBackgroundColor);
 
       return new SettableFuture<>(true);
     } else {
@@ -484,12 +488,7 @@ public class ThumbnailView extends FrameLayout {
 
     transferControlViewStub.setVisibility(View.GONE);
 
-    Object glideModel = uri;
-    if (PartAuthority.isLocalUri(uri)) {
-      glideModel = new DecryptableUri(uri);
-    }
-
-    RequestBuilder<Drawable> request = requestManager.load(glideModel)
+    RequestBuilder<Drawable> request = requestManager.load(new DecryptableUri(uri))
                                                   .diskCacheStrategy(DiskCacheStrategy.NONE)
                                                   .downsample(SignalDownsampleStrategy.CENTER_OUTSIDE_NO_UPSCALE)
                                                   .listener(listener);

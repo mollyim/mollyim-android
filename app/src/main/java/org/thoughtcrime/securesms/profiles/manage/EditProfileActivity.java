@@ -46,10 +46,13 @@ public class EditProfileActivity extends PassphraseRequiredActivity implements R
     return intent;
   }
 
+  @Override protected void onPreCreate() {
+    super.onPreCreate();
+    dynamicTheme.onCreate(this);
+  }
+
   @Override
   public void onCreate(Bundle bundle, boolean ready) {
-    dynamicTheme.onCreate(this);
-
     setContentView(R.layout.edit_profile_activity);
 
     if (bundle == null) {

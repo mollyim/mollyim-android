@@ -41,9 +41,11 @@ import org.thoughtcrime.securesms.gcm.FcmUtil;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.net.SignalNetwork;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
+import org.whispersystems.signalservice.api.NetworkResultUtil;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 
 import java.io.IOException;
@@ -88,7 +90,7 @@ public class FcmRefreshJob extends BaseJob {
     if (!SignalStore.account().isFcmEnabled()) {
       if (oldToken != null) {
         Log.i(TAG, "FCM is disabled: clearing existing token...");
-        AppDependencies.getSignalServiceAccountManager().setGcmId(Optional.empty());
+        NetworkResultUtil.toBasicLegacy(SignalNetwork.account().clearFcmToken());
         SignalStore.account().setFcmToken(null);
       }
       return;
@@ -113,7 +115,7 @@ public class FcmRefreshJob extends BaseJob {
           Log.i(TAG, "Token didn't change.");
         }
 
-        AppDependencies.getSignalServiceAccountManager().setGcmId(token);
+        NetworkResultUtil.toBasicLegacy(SignalNetwork.account().setFcmToken(token.get()));
         SignalStore.account().setFcmToken(token.get());
         if (oldToken == null) {
           AppDependencies.resetNetwork(true);

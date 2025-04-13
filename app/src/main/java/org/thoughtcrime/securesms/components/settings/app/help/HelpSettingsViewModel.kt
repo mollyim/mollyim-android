@@ -1,6 +1,8 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
 import android.app.Application
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.signal.core.util.logging.Log
@@ -18,7 +20,11 @@ class HelpSettingsViewModel : ViewModel() {
 
   private val store: Store<HelpSettingsState> = Store(getCurrentState())
 
-  val state: LiveData<HelpSettingsState> = store.stateLiveData
+  val stateLiveData: LiveData<HelpSettingsState> = store.stateLiveData
+
+  private val _state = mutableStateOf(getCurrentState())
+
+  val state: State<HelpSettingsState> = _state
 
   fun setUpdateApkEnabled(enabled: Boolean) {
     TextSecurePreferences.setUpdateApkEnabled(application, enabled)
@@ -51,6 +57,7 @@ class HelpSettingsViewModel : ViewModel() {
 
   fun refreshState() {
     store.update { getCurrentState() }
+    _state.value =  store.state
   }
 
   private fun getCurrentState(): HelpSettingsState {

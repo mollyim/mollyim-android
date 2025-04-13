@@ -35,7 +35,7 @@
             android:minHeight="66dp"
             android:text="@string/RegistrationLockFragment__enter_the_pin_you_created"
             android:textAppearance="@style/Signal.Text.BodyLarge"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pin_restore_pin_title" />
@@ -126,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/PinRestoreEntryFragment_skip"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />

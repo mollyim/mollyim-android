@@ -52,6 +52,8 @@ import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -78,9 +80,12 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   private CircularProgressMaterialButton okButton;
   private View                           successView;
 
+  private final DynamicTheme dynamicTheme = new DynamicTheme();
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, "onCreate()");
+    dynamicTheme.onCreate(this);
     super.onCreate(savedInstanceState);
 
     requireSupportActionBar().setTitle("");
@@ -94,6 +99,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   @Override
   public void onResume() {
     super.onResume();
+    dynamicTheme.onResume(this);
     setInputEnabled(true);
 
     // Manually lock the screen since the app lifecycle observer is not running yet

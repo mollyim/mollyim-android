@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.thoughtcrime.securesms.R
@@ -21,6 +20,7 @@ import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.messagerequests.MessageRequestsBottomView
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.visible
 
 /**
@@ -182,7 +182,7 @@ class DisabledInputView @JvmOverloads constructor(
   }
 
   fun setWallpaperEnabled(wallpaperEnabled: Boolean) {
-    color = ContextCompat.getColor(context, if (wallpaperEnabled) R.color.wallpaper_bubble_color else R.color.signal_colorBackground)
+    color = ThemeUtil.getThemedColor(context, if (wallpaperEnabled) R.color.wallpaper_bubble_color else com.google.android.material.R.attr.colorSurface)
     setBackgroundColor(color)
   }
 

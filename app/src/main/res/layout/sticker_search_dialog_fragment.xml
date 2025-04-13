@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/signal_background_primary">
+    android:background="?attr/signal_background_primary">
 
     <FrameLayout
         android:id="@+id/sticker_search_text_frame"
@@ -21,9 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:search_bar_tint="@color/signal_background_secondary"
+            app:search_bar_tint="?attr/signal_background_secondary"
             app:search_hint="@string/StickerSearchDialogFragment_search_stickers"
-            app:search_icon_tint="@color/signal_icon_tint_secondary"
+            app:search_icon_tint="?attr/signal_icon_tint_secondary"
             app:show_always="true" />
     </FrameLayout>
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="@string/StickerSearchDialogFragment_no_results_found"
         android:textAppearance="@style/TextAppearance.Signal.Body1"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
             android:indeterminate="true"
-            app:indicatorColor="@color/signal_colorPrimary" />
+            app:indicatorColor="?attr/colorPrimary" />
 
         <TextView
             android:id="@+id/progress_card_status"
@@ -30,6 +30,6 @@
             android:layout_marginHorizontal="16dp"
             android:gravity="center"
             android:textAppearance="@style/Signal.Text.BodyLarge"
-            android:textColor="@color/signal_colorOnSurfaceVariant" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -79,6 +79,7 @@ import org.whispersystems.signalservice.api.AccountEntropyPool
 import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.kbs.MasterKey
 import org.whispersystems.signalservice.api.svr.Svr3Credentials
+import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableException
 import org.whispersystems.signalservice.internal.push.AuthCredentials
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -86,6 +87,7 @@ import kotlin.jvm.optionals.getOrNull
 import kotlin.math.max
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * ViewModel shared across all of registration.
@@ -875,6 +877,12 @@ class RegistrationViewModel : ViewModel() {
     SignalStore.registration.localRegistrationMetadata = metadata
     RegistrationRepository.registerAccountLocally(context, metadata)
 
+    try {
+      AppDependencies.authWebSocket.connect()
+    } catch (e: WebSocketUnavailableException) {
+      Log.w(TAG, "Unable to start auth websocket", e)
+    }
+
     if (!remoteResult.storageCapable && SignalStore.registration.restoreDecisionState.isDecisionPending) {
       Log.v(TAG, "Not storage capable and still pending restore decision, likely an account with no data to restore, skipping post register restore")
       SignalStore.registration.restoreDecisionState = RestoreDecisionState.NewAccount
@@ -891,7 +899,14 @@ class RegistrationViewModel : ViewModel() {
 
     if (SignalStore.account.restoredAccountEntropyPool) {
       Log.d(TAG, "Restoring backup tier")
-      BackupRepository.restoreBackupTier(SignalStore.account.requireAci())
+      var tries = 0
+      while (tries < 3 && !SignalStore.backup.isBackupTierRestored) {
+        if (tries > 0) {
+          delay(1.seconds)
+        }
+        BackupRepository.restoreBackupTier(SignalStore.account.requireAci())
+        tries++
+      }
     }
 
     refreshRemoteConfig()

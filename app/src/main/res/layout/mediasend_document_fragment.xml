@@ -39,7 +39,7 @@
         android:layout_marginHorizontal="16dp"
         android:singleLine="true"
         android:ellipsize="middle"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         android:gravity="center"
         style="@style/Signal.Text.BodyLarge"
         android:letterSpacing="0"
@@ -49,7 +49,7 @@
         android:id="@+id/size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/signal_colorOnSurfaceVariant"
+        android:textColor="?attr/colorOnSurfaceVariant"
         style="@style/Signal.Text.BodyLarge"
         tools:text="12 KB" />
 

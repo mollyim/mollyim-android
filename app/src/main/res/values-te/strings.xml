@@ -569,11 +569,6 @@
         <item quantity="one">ఈ మీడియాను నిల్వకు సేవ్ చేయడం వల్ల, మీ పరికరంలో ఉండే ఏవైనా ఇతర యాప్‌లు యాక్సెస్ చేసుకోవడానికి అనుమతిస్తుంది. \n\nకొనసాగేదా?</item>
         <item quantity="other">మొత్తం %1$d మీడియాను నిల్వకు సేవ్ చేయడం వల్ల, మీ పరికరంలో ఉండే ఏవైనా ఇతర యాప్‌లు వాటిని యాక్సెస్ చేసుకోవడానికి అనుమతిస్తుంది. \n\nకొనసాగేదా?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="one">సంగ్రహించిన జోడింపును నిల్వచేయుటలో లోపం!</item>
-        <item quantity="other">సంగ్రహించిన జోడింపులను నిల్వచేయుటలో లోపం!</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">నిల్వకు వ్రాయలేకపోయింది!!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="one">అటాచ్‌మెంట్‌ను సేవ్ చేస్తోంది</item>
         <item quantity="other">%1$d అటాచ్‌మెంట్‌లను సేవ్ చేస్తోంది</item>
@@ -581,13 +576,6 @@
     <plurals name="ConversationFragment_saving_n_attachments_to_sd_card">
         <item quantity="one">అటాచ్‌మెంట్‌ను నిల్వకు సేవ్ చేస్తోంది…</item>
         <item quantity="other">%1$d అటాచ్‌మెంట్‌లను స్టోరేజీకి సేవ్ చేస్తోంది…</item>
-    </plurals>
-    <!-- Dialog title asking to save media to your phone\'s storage -->
-    <string name="ConversationFragment__save_to_phone">ఫోన్‌లో సేవ్ చేసేదా?</string>
-    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
-    <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">ఈ మీడియా మీ ఫోన్ నిల్వలో సేవ్ చేయబడుతుంది. మీ ఫోన్ అనుమతుల ఆధారంగా ఇతర యాప్స్ దీన్ని యాక్సెస్ చేయగలవు.</item>
-        <item quantity="other">ఈ మీడియా మీ ఫోన్ నిల్వలో సేవ్ చేయబడుతుంది. మీ ఫోన్ అనుమతుల ఆధారంగా ఇతర యాప్స్ దీన్ని యాక్సెస్ చేయగలవు.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">మళ్ళీ చూపించవద్దు</string>
@@ -676,6 +664,8 @@
     <string name="ConversationFragment_profile_names">ప్రొఫైల్ పేర్లు</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">గ్రూపు పేర్లు</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">ఫోటో డౌన్‌లోడ్ కావడంలో విఫలమైంది. మళ్ళీ ప్రయత్నించండి.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">భద్రతా చిట్కాలు</string>
@@ -1162,6 +1152,7 @@
 
     <!-- DocumentView -->
     <string name="DocumentView_unnamed_file">పేరులేని పంక్తి</string>
+    <string name="DocumentView_document_file">డాక్యుమెంట్ ఫైల్</string>
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">తప్పిపోయిన ప్లే సర్వీసులు కోసం ఆప్టిమైజ్</string>
@@ -1689,7 +1680,6 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">తొలగిపోతున్నాయ్</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">సందేశాలను తొలగిస్తోంది …</string>
-    <string name="MediaOverviewActivity_collecting_attachments">జోడింపులను సేకరిస్తోంది …</string>
     <string name="MediaOverviewActivity_Sort_by">ఆమరిక</string>
     <string name="MediaOverviewActivity_Newest">సరికొత్త</string>
     <string name="MediaOverviewActivity_Oldest">పాతది</string>
@@ -2081,6 +2071,14 @@
     <string name="MessageRecord_reported_as_spam">స్పామ్‌గా నివేదించబడింది</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">సందేశం అభ్యర్థనను మీరు అంగీకరించారు</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">మీరు ఈ వ్యక్తిని బ్లాక్ చేశారు</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">మీరు ఈ వ్యక్తిని అన్‌బ్లాక్ చేశారు</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">మీరు ఈ గ్రూప్‌ను బ్లాక్ చేశారు</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">మీరు ఈ గ్రూప్‌ను అన్‌బ్లాక్ చేశారు</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">అంగీకరించండి</string>
@@ -2129,6 +2127,27 @@
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
         <item quantity="one">%1$d అదనపు సమూహం</item>
         <item quantity="other">%1$d అదనపు సమూహాలు</item>
+    </plurals>
+    <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
+    <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>
+    <!-- Text for an empty group or when you are the only member -->
+    <string name="MessageRequestProfileView_group_members_zero">ఇంకా ఇతర గ్రూప్ సభ్యులు ఎవరూ లేరు</string>
+    <!-- Text for a group with one member (not you). %1$s is their name -->
+    <string name="MessageRequestProfileView_group_members_one">%1$s</string>
+    <!-- Text for a 2 member group you are in. %1$s is the name of the other member -->
+    <string name="MessageRequestProfileView_group_members_one_and_you">%1$s మరియు మీరు</string>
+    <!-- Text for a 2 member group you are not in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two">%1$s మరియు %2$s</string>
+    <!-- Text for a 3 member group you are in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two_and_you">%1$s, %2$s మరియు మీరు</string>
+    <!-- Text for a 3 member group you are not in. %1$s, %2$s, %3$s are the names of the other members. -->
+    <string name="MessageRequestProfileView_group_members_three">%1$s, %2$s మరియు %3$s</string>
+    <!-- Text for a 3+ member group. %1$s, %2$s, %3$s are member names. %4$s is the string key MessageRequestProfileView_other_members-->
+    <string name="MessageRequestProfileView_group_members_other">%1$s, %2$s, %3$s మరియు %4$s</string>
+    <!-- Nested in MessageRequestProfileView_group_members_other that shows how many members (besides three) are in the group -->
+    <plurals name="MessageRequestProfileView_other_members">
+        <item quantity="one">%1$dఇతరులు</item>
+        <item quantity="other">%1$dఇతరులు</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">నివేదించండి…</string>
@@ -2245,6 +2264,7 @@
 
     <!-- ReactionsBottomSheetDialogFragment -->
     <string name="ReactionsBottomSheetDialogFragment_all">అన్నీ · %1$d</string>
+    <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">తొలగించడానికి తట్టండి</string>
 
     <!-- ReactionsConversationView -->
     <string name="ReactionsConversationView_plus">+%1$d</string>
@@ -2477,6 +2497,8 @@
     <string name="CallOverflowPopupWindow__view">వీక్షణ</string>
 
 
+    <!-- A notification to the user that their hand is raised but they are currently speaking -->
+    <string name="CallRaiseHandSnackbar__lower_your_hand">మీ చేతిని దించేదా?</string>
     <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
     <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s చేయి పైకెత్తారు</string>
     <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
@@ -2845,6 +2867,8 @@
     <string name="ThreadRecord_message_history_has_been_merged">మీ సందేశ చరిత్ర విలీనం చేయబడింది</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">%1$s %2$s కు చెందినది</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">బ్లాక్ చేయబడింది</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Molly నవీకరణ</string>
@@ -2960,8 +2984,6 @@
     <string name="MediaPreviewActivity_you">మీరు</string>
     <string name="MediaPreviewActivity_unssuported_media_type">మద్ధతు లేనటువంటి ప్రసార మాధ్యమం</string>
     <string name="MediaPreviewActivity_draft">చిత్తు పత్రం</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">బాహ్య నిల్వకు భద్రపరచడానికి Molly కు నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి, ఆపై \"నిల్వ\" ను ప్రారంభించండి.</string>
-    <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">అనుమతులు లేకుండా బాహ్య నిల్వకి భద్రపరచడం సాధ్యపడలేదు</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">సందేశాన్ని తొలగించేదా?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">ఈ సందేశాన్ని ఇది శాశ్వతంగా తొలగిస్తుంది.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$sకు%2$s</string>
@@ -3068,14 +3090,46 @@
     <!-- Notification channel name for notifications sent when a device has been linked -->
     <string name="NotificationChannel_new_linked_device">కొత్తగా లింక్ చేయబడిన పరికరం</string>
 
-    <!-- ProfileEditNameFragment -->
-
     <!-- QuickResponseService -->
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly బంధించినపుడు తక్షణ స్పందన అందుబాటులొ లేదు!</string>
     <string name="QuickResponseService_problem_sending_message">సందేశాన్ని పంపడంలొ సమస్య!</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">మీడియా భద్రపరచబడింది</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">నిల్వకు వ్రాయలేకపోయింది!!</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="one">మీడియా సేవ్ చేయబడింది</item>
+        <item quantity="other">మీడియా సేవ్ చేయబడ్డాయి</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="one">మీడియా సేవ్ చేయబడింది (%2$sలో %1$s విఫలమైంది)</item>
+        <item quantity="other">మీడియా సేవ్ చేయబడింది (%2$sలో %1$s విఫలమయ్యాయి)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="one">సంగ్రహించిన జోడింపును నిల్వచేయుటలో లోపం!</item>
+        <item quantity="other">సంగ్రహించిన జోడింపులను నిల్వచేయుటలో లోపం!</item>
+    </plurals>
+
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="AttachmentSaver__save_to_phone">ఫోన్‌లో సేవ్ చేసేదా?</string>
+
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="AttachmentSaver__this_media_will_be_saved">
+        <item quantity="one">ఈ మీడియా మీ ఫోన్ నిల్వలో సేవ్ చేయబడుతుంది. మీ ఫోన్ అనుమతుల ఆధారంగా ఇతర యాప్స్ దీన్ని యాక్సెస్ చేయగలవు.</item>
+        <item quantity="other">ఈ మీడియా మీ ఫోన్ నిల్వలో సేవ్ చేయబడుతుంది. మీ ఫోన్ అనుమతుల ఆధారంగా ఇతర యాప్స్ దీన్ని యాక్సెస్ చేయగలవు.</item>
+    </plurals>
+
+    <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">బాహ్య నిల్వకు భద్రపరచడానికి Molly కు నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి, ఆపై \"నిల్వ\" ను ప్రారంభించండి.</string>
+
+    <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
+    <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">అనుమతులు లేకుండా బాహ్య నిల్వకి భద్రపరచడం సాధ్యపడలేదు</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">వెతకండి</string>
@@ -3333,6 +3387,11 @@
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">నడుపు … నిలుపు</string>
     <string name="audio_view__download_accessibility_description">దిగుమతి</string>
+
+    <!-- document_view -->
+    <string name="document_view__download_accessibility_description">దిగుమతి</string>
+    <string name="document_view__upload_accessibility_description">అప్‌లోడ్ చేయండి</string>
+    <string name="document_view__cancel_accessibility_description">రద్దు చేయండి</string>
 
     <!-- QuoteView -->
     <string name="QuoteView_audio">ఆడియో</string>
@@ -4452,6 +4511,13 @@
     <string name="KbsMegaphone__create_a_pin">పిన్ సృష్టించండి</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">పిన్‌లు Signal గుప్తీకరించిన సమాచారాన్ని నిల్వ చేస్తాయి.</string>
     <string name="KbsMegaphone__create_pin">పిన్ సృష్టించండి</string>
+
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">Signal PIN ను అప్‌డేట్ చేయండి</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">ఖాతా రిజిస్ట్రేషన్‌ను పూర్తి చేయడానికి మీ Signal PIN ను అప్‌డేట్ చేయండి.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">పిన్‌ను నవీకరించండి</string>
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
@@ -5780,6 +5846,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">అధిక నాణ్యతకు ఫోటో సెట్ చేయబడింది</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">ప్రామాణిక నాణ్యతకు ఫోటో సెట్ చేయబడింది</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">మీడియాను జోడించండి</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">బ్రష్ మరియు పెన్</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">క్రాప్ చేయండి, రొటేట్ చేయండి</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">మీడియా నాణ్యతను మార్చండి</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">మీడియాను సేవ్ చేయండి</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">టోగుల్ ఎమోజి కీబోర్డు</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">ఒకసారి వీక్షణను టోగుల్ చేయండి</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">మీడియాను పంపండి</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">సందేశాన్ని జోడించడం పూర్తి చేయండి</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="one">%1$d అంశం అధిక నాణ్యతకు సెట్ చేయబడింది</item>
@@ -6405,6 +6489,8 @@
     <string name="StoryViewerPageFragment__send_failed">పంపడం విఫలమైంది. మళ్ళీ ప్రయత్నించడానికి తట్టండి</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">గ్రూపుకు ప్రత్యుత్తరము ఇవ్వండి</string>
+    <!-- Content description for the any reaction button in reply to story composer, which will launch the emojis bottom sheet. -->
+    <string name="StoryViewerPageFragment_any_reaction_content_description">మరిన్ని ప్రతిస్పందనలు</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">ఇంకా ఎలాంటి వీక్షణలు లేవు</string>
     <!-- Displayed when user has disabled receipts -->
@@ -7311,6 +7397,8 @@
     <string name="CameraControls_capture_button_accessibility_label">క్యాప్చర్ బటన్</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">కొనసాగింపు బటన్</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">ఫ్లాష్ మోడ్‌ను టోగుల్ చేయండి</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -7962,9 +8050,9 @@
     <!-- Linear progress dialog text shown when preparing a backup -->
     <string name="RemoteBackupsSettingsFragment__preparing_backup">బ్యాకప్‌ను సిద్ధం చేస్తోంది…</string>
     <!-- Linear progress dialog text shown when processing messages for backup. First placeholder is completed count, second is approximate total count, third is percent completed. -->
-    <plurals name="RemoteBackupsSettingsFragment__processing_d_of_d_d_messages">
-        <item quantity="one">%2$d లో %1$d (%3$d%%) సందేశాన్ని ప్రాసెస్ చేస్తోంది</item>
-        <item quantity="other">%2$d లో %1$d (%3$d%%) సందేశాలను ప్రాసెస్ చేస్తోంది</item>
+    <plurals name="RemoteBackupsSettingsFragment__processing_messages_progress_text">
+        <item quantity="one">%2$s లో %1$s సందేశాన్ని ప్రాసెస్ చేస్తోంది (%3$d%%)</item>
+        <item quantity="other">~%2$s లో %1$s సందేశాలను ప్రాసెస్ చేస్తోంది (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
@@ -8011,6 +8099,10 @@
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">మద్దతును సంప్రదించండి</string>
 
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">నెట్‌వర్క్ వైఫల్యం సంభవించింది. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
     <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">మీ సందేశాలు అలాగే మీడియాను Signal యొక్క సురక్షితమైన ఎండ్-టు-ఎండ్ గుప్తీకరణ ఉన్న నిల్వ సేవను ఉపయోగించి బ్యాకప్ చేయండి. మీరు కొత్త ఫోన్ కొనుక్కునప్పుడు లేదా Signal రీ-ఇన్‌స్టాల్ చేసినప్పుడు ఎప్పుడూ ఒక్క సందేశాన్ని కూడా కోల్పోవద్దు.</string>
@@ -8054,6 +8146,19 @@
     <string name="MessageBackupsKeyRecordScreen__continue">కొనసాగండి</string>
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">కీని మళ్ళీ చూడండి</string>
+
+    <!-- Confirm key title -->
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">మీ బ్యాకప్ కీని నిర్ధారించండి</string>
+    <!-- Confirm your key subtitle -->
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">మీరు ఇప్పుడే రికార్డ్ చేసిన బ్యాకప్ కీని ఎంటర్ చేయండి</string>
+    <!-- Confirm your key text entry hint text -->
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">బ్యాకప్ కీ</string>
+    <!-- Confirm your key text entry error text -->
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">తప్పు బ్యాకప్ కీ</string>
+    <!-- Confirm your key button text to return to record key screen. -->
+    <string name="MessageBackupsKeyVerifyScreen__see_key_again">కీని మళ్ళీ చూడండి</string>
+    <!-- Confirm your key button text to move onto next screen in flow -->
+    <string name="MessageBackupsKeyVerifyScreen__next">తరువాత</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->
@@ -8180,6 +8285,25 @@
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">మీరు ఎంటర్ చేసిన బ్యాకప్ కీ సరైనది, కానీ దానితో అనుబంధించబడిన బ్యాకప్ ఏదీ లేదు. ఒకవేళ మీ పాత ఫోన్ ఇంకా మీ దగ్గర ఉంటే, బ్యాకప్‌లు ఎనేబుల్ చేయబడ్డాయని మరియు బ్యాకప్ పూర్తయిందని నిర్ధారించుకుని, మళ్లీ ప్రయత్నించండి.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">పునరుద్ధరించడాన్ని దాటవేయండి</string>
+    <!-- Dialog title text when encountering backup restore network error -->
+    <string name="EnterBackupKey_cant_restore_backup">బ్యాకప్‌ను పునరుద్ధరించలేరు</string>
+    <!-- Dialog body text when encountering backup restore network error -->
+    <string name="EnterBackupKey_your_backup_cant_be_restored_right_now">మీ బ్యాకప్ ప్రస్తుతం పునరుద్ధరించబడదు. మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి, మళ్ళీ ప్రయత్నించండి. </string>
+    <!-- Dialog button text to contact support on network error -->
+    <string name="EnterBackupKey_contact_support">మద్దతును సంప్రదించండి</string>
+
+    <!-- Email subject when contacting support on a restore backup network issue -->
+    <string name="EnterBackupKey_network_failure_support_email">Signal Android బ్యాకప్ పునరుద్ధరణ నెట్‌వర్క్ లోపం</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+
+    <!-- Title of dialog asking to submit debuglogs -->
+    <string name="ContactSupportDialog_submit_debug_log">డీబగ్ లాగ్‌ను సమర్పించేదా?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="ContactSupportDialog_your_debug_logs">మీ సమస్యను వేగంగా పరిష్కరించడానికి మీ డీబగ్ లాగ్స్ మాకు సహాయపడతాయి. మీ లాగ్స్‌ను సమర్పించడం అనేది ఐచ్ఛికం.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_with_debug">డీబగ్ లాగ్‌తో సమర్పించండి</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_without_debug">డీబగ్ లాగ్ లేకుండా సమర్పించండి</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">మీ పాత ఫోన్‌తో ఈ కోడ్‌ను స్కాన్ చేయండి</string>

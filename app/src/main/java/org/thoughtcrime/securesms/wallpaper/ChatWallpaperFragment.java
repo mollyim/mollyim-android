@@ -85,7 +85,7 @@ public class ChatWallpaperFragment extends Fragment {
         ImageViewCompat.setImageTintList(recvBubble, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.conversation_item_recv_bubble_color_wallpaper)));
       } else {
         chatWallpaperPreview.setImageDrawable(null);
-        ImageViewCompat.setImageTintList(recvBubble, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_background_secondary)));
+        ImageViewCompat.setImageTintList(recvBubble, ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_background_secondary)));
       }
     });
 
@@ -100,10 +100,7 @@ public class ChatWallpaperFragment extends Fragment {
       chatWallpaperDim.setVisibility(shouldDimInNightMode && ThemeUtil.isDarkTheme(requireContext()) ? View.VISIBLE : View.GONE);
     });
 
-    viewModel.getEnableWallpaperControls().observe(getViewLifecycleOwner(), enableWallpaperControls -> {
-      dimInNightMode.setEnabled(enableWallpaperControls);
-      dimInNightMode.setAlpha(enableWallpaperControls ? 1 : 0.5f);
-    });
+    viewModel.getEnableWallpaperControls().observe(getViewLifecycleOwner(), this::setDimInNightModeEnabled);
 
     chatWallpaperPreview.setOnClickListener(unused -> setWallpaper.performClick());
     setWallpaper.setOnClickListener(unused -> SafeNavigation.safeNavigate(Navigation.findNavController(view),
@@ -119,12 +116,14 @@ public class ChatWallpaperFragment extends Fragment {
             .setPositiveButton(R.string.ChatWallpaperFragment__reset_default_wallpaper, (dialog, which) -> {
               viewModel.setWallpaper(null);
               viewModel.setDimInDarkTheme(true);
+              setDimInNightModeEnabled(false);
               viewModel.saveWallpaperSelection();
               dialog.dismiss();
             })
             .setNegativeButton(R.string.ChatWallpaperFragment__reset_all_wallpapers, (dialog, which) -> {
               viewModel.setWallpaper(null);
               viewModel.setDimInDarkTheme(true);
+              setDimInNightModeEnabled(false);
               viewModel.resetAllWallpaper();
               dialog.dismiss();
             })
@@ -209,6 +208,11 @@ public class ChatWallpaperFragment extends Fragment {
   public void onResume() {
     super.onResume();
     viewModel.refreshChatColors();
+  }
+
+  private void setDimInNightModeEnabled(boolean enabled) {
+    dimInNightMode.setEnabled(enabled);
+    dimInNightMode.setAlpha(enabled ? 1 : 0.5f);
   }
 
   private void forceAspectRatioToScreenByAdjustingHeight(@NonNull View view) {

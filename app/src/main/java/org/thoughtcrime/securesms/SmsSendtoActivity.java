@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -30,15 +31,21 @@ public class SmsSendtoActivity extends PassphraseRequiredActivity {
     final Intent nextIntent;
 
     if (uri != null && "content".equals(uri.getScheme())) {
-      Recipient recipient = Recipient.external(this, getDestinationForSyncAdapter(uri));
-      long      threadId  = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
+      Recipient recipient = Recipient.external(getDestinationForSyncAdapter(uri));
 
-      nextIntent = ConversationIntents.createBuilderSync(this, recipient.getId(), threadId)
-                                      .withDraftText("")
-                                      .build();
-    } else {
-      nextIntent = new Intent(this, NewConversationActivity.class);
+      if (recipient != null) {
+        long threadId = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
+
+        nextIntent = ConversationIntents.createBuilderSync(this, recipient.getId(), threadId)
+                                        .withDraftText("")
+                                        .build();
+        return nextIntent;
+      }
     }
+
+    nextIntent = new Intent(this, NewConversationActivity.class);
+    nextIntent.putExtra(Intent.EXTRA_TEXT, "");
+    Toast.makeText(this, R.string.ConversationActivity_specify_recipient, Toast.LENGTH_LONG).show();
     return nextIntent;
   }
 

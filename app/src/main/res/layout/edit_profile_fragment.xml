@@ -95,8 +95,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="@dimen/dsl_settings_gutter"
                 android:text="@string/ManageProfileFragment__edit_photo"
-                android:textColor="@color/signal_colorOnSurface"
-                app:backgroundTint="@color/signal_colorSurface4"
+                android:textColor="?attr/colorOnSurface"
+                app:backgroundTint="?attr/colorSurfaceContainerHighest"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/manage_profile_avatar_background" />
@@ -121,7 +121,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/symbol_person_24"
-                    app:tint="@color/signal_text_primary" />
+                    app:tint="?attr/signal_text_primary" />
 
                 <org.thoughtcrime.securesms.components.emoji.EmojiTextView
                     android:id="@+id/manage_profile_name"
@@ -158,7 +158,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/symbol_at_24"
-                    app:tint="@color/signal_text_primary" />
+                    app:tint="?attr/signal_text_primary" />
 
                 <org.thoughtcrime.securesms.components.emoji.EmojiTextView
                     android:id="@+id/manage_profile_username"
@@ -206,7 +206,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/symbol_qrcode_24"
-                    app:tint="@color/signal_text_primary" />
+                    app:tint="?attr/signal_text_primary" />
 
                 <org.thoughtcrime.securesms.components.emoji.EmojiTextView
                     android:id="@+id/username_link_text"
@@ -256,7 +256,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/symbol_edit_24"
-                    app:tint="@color/signal_text_primary" />
+                    app:tint="?attr/signal_text_primary" />
 
                 <org.thoughtcrime.securesms.components.emoji.EmojiTextView
                     android:id="@+id/manage_profile_about"
@@ -293,7 +293,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/manage_profile_badges"
                     app:srcCompat="@drawable/symbol_badge_multi_24"
-                    app:tint="@color/signal_text_primary" />
+                    app:tint="?attr/signal_text_primary" />
 
                 <org.thoughtcrime.securesms.components.emoji.EmojiTextView
                     android:id="@+id/manage_profile_badges"
@@ -330,7 +330,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/CreateProfileActivity_signal_profiles_are_end_to_end_encrypted"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/manage_profile_badges_container"
@@ -346,7 +346,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/ManageProfileFragment__your_username"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/username_link_container"
@@ -374,7 +374,7 @@
                     android:layout_width="19dp"
                     android:layout_height="14dp"
                     android:background="@drawable/ic_tooltip_arrow_up"
-                    android:backgroundTint="@color/signal_colorPrimaryContainer"
+                    android:backgroundTint="?attr/colorPrimaryContainer"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -386,7 +386,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="9dp"
                     android:background="@drawable/tooltip_background"
-                    android:backgroundTint="@color/signal_colorPrimaryContainer"
+                    android:backgroundTint="?attr/colorPrimaryContainer"
                     app:layout_constraintBottom_toBottomOf="@id/tooltip_description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -399,7 +399,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="30dp"
                     android:src="@drawable/symbol_share_android_24"
-                    app:tint="@color/signal_colorOnPrimaryContainer"
+                    app:tint="?attr/colorOnPrimaryContainer"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -413,7 +413,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/ManageProfileFragment__link_tooltip_title"
                     android:textAppearance="@style/Signal.Text.Body"
-                    android:textColor="@color/signal_colorOnPrimaryContainer"
+                    android:textColor="?attr/colorOnPrimaryContainer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tooltip_share_icon"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -426,7 +426,7 @@
                     android:paddingBottom="14dp"
                     android:text="@string/ManageProfileFragment__link_tooltip_body"
                     android:textAppearance="@style/Signal.Text.Preview"
-                    android:textColor="@color/signal_colorOnSurfaceVariant"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@id/tooltip_title"
                     app:layout_constraintStart_toStartOf="@id/tooltip_title"
                     app:layout_constraintTop_toBottomOf="@id/tooltip_title" />
@@ -441,7 +441,7 @@
                     android:src="@drawable/symbol_x_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/signal_colorOnSurfaceVariant" />
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

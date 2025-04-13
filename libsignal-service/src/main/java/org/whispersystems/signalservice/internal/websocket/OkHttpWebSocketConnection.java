@@ -1,8 +1,10 @@
 package org.whispersystems.signalservice.internal.websocket;
 
+import org.jetbrains.annotations.NotNull;
 import org.signal.libsignal.protocol.logging.Log;
 import org.signal.libsignal.protocol.util.Pair;
 import org.whispersystems.signalservice.api.push.TrustStore;
+import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
 import org.whispersystems.signalservice.api.websocket.HealthMonitor;
@@ -77,8 +79,6 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
 
   private WebSocket client;
 
-  private boolean keepAlive;
-
   public OkHttpWebSocketConnection(String name,
                                    SignalServiceConfiguration serviceConfiguration,
                                    Optional<CredentialsProvider> credentialsProvider,
@@ -105,7 +105,6 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
     this.socketFactory       = serviceConfiguration.getSocketFactory();
     this.proxySelector       = serviceConfiguration.getProxySelector();
     this.healthMonitor       = healthMonitor;
-    this.keepAlive           = true;
     this.webSocketState      = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED);
     this.allowStories        = allowStories;
     this.serviceUrls         = serviceConfiguration.getSignalServiceUrls();
@@ -116,16 +115,6 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
   @Override
   public String getName() {
     return name;
-  }
-
-  @Override
-  public boolean getKeepAlive() {
-    return keepAlive;
-  }
-
-  @Override
-  public void setKeepAlive(boolean keepAlive) {
-    this.keepAlive = keepAlive;
   }
 
   private Pair<SignalServiceUrl, String> getConnectionInfo() {
@@ -240,7 +229,7 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
   }
 
   @Override
-  public synchronized Single<WebsocketResponse> sendRequest(WebSocketRequestMessage request) throws IOException {
+  public synchronized Single<WebsocketResponse> sendRequest(@NotNull WebSocketRequestMessage request, long timeoutSeconds) throws IOException {
     if (client == null) {
       throw new IOException("No connection!");
     }
@@ -260,7 +249,7 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
 
     return single.subscribeOn(Schedulers.io())
                  .observeOn(Schedulers.io())
-                 .timeout(10, TimeUnit.SECONDS, Schedulers.io());
+                 .timeout(timeoutSeconds, TimeUnit.SECONDS, Schedulers.io());
   }
 
   @Override
@@ -281,7 +270,7 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
 
   @Override
   public synchronized void sendKeepAlive() throws IOException {
-    if (client != null && keepAlive) {
+    if (client != null) {
       log("Sending keep alive...");
       long id = System.currentTimeMillis();
       byte[] message = new WebSocketMessage.Builder()
@@ -326,7 +315,7 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
             healthMonitor.onMessageError(message.response.status, credentialsProvider.isPresent());
           }
         } else if (keepAlives.remove(message.response.id)) {
-          healthMonitor.onKeepAliveResponse(message.response.id, credentialsProvider.isPresent(), keepAlive);
+          healthMonitor.onKeepAliveResponse(message.response.id, credentialsProvider.isPresent());
         }
       }
 
@@ -341,16 +330,14 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
     log("onClose()");
     webSocketState.onNext(WebSocketConnectionState.DISCONNECTED);
 
-    cleanupAfterShutdown();
+    cleanupAfterShutdown(code);
 
     notifyAll();
   }
 
   @Override
   public synchronized void onFailure(WebSocket webSocket, Throwable t, Response response) {
-    if (keepAlive || response != null) {
-      warn("onFailure()", t);
-    }
+    warn("onFailure()", t);
 
     if (response != null && (response.code() == 401 || response.code() == 403)) {
       webSocketState.onNext(WebSocketConnectionState.AUTHENTICATION_FAILED);
@@ -358,17 +345,24 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
       webSocketState.onNext(WebSocketConnectionState.FAILED);
     }
 
-    cleanupAfterShutdown();
+    cleanupAfterShutdown(response != null ? response.code() : 1000);
 
     notifyAll();
   }
 
-  private void cleanupAfterShutdown() {
+  private void cleanupAfterShutdown(int code) {
     Iterator<Map.Entry<Long, OutgoingRequest>> iterator = outgoingRequests.entrySet().iterator();
+
+    IOException exception;
+    if (code == 403) {
+      exception = new NonSuccessfulResponseCodeException(code);
+    } else {
+      exception = new SocketException("Closed unexpectedly");
+    }
 
     while (iterator.hasNext()) {
       Map.Entry<Long, OutgoingRequest> entry = iterator.next();
-      entry.getValue().onError(new SocketException("Closed unexpectedly"));
+      entry.getValue().onError(exception);
       iterator.remove();
     }
 

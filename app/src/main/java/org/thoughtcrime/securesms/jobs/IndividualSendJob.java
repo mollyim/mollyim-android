@@ -27,7 +27,6 @@ import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.ratelimit.ProofRequiredExceptionHandler;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
@@ -69,11 +68,11 @@ public class IndividualSendJob extends PushSendJob {
 
   public IndividualSendJob(long messageId, @NonNull Recipient recipient, boolean hasMedia, boolean isScheduledSend) {
     this(new Parameters.Builder()
-                       .setQueue(isScheduledSend ? recipient.getId().toScheduledSendQueueKey() : recipient.getId().toQueueKey(hasMedia))
-                       .addConstraint(NetworkConstraint.KEY)
-                       .setLifespan(TimeUnit.DAYS.toMillis(1))
-                       .setMaxAttempts(Parameters.UNLIMITED)
-                       .build(),
+             .setQueue(isScheduledSend ? recipient.getId().toScheduledSendQueueKey() : recipient.getId().toQueueKey(hasMedia))
+             .addConstraint(NetworkConstraint.KEY)
+             .setLifespan(TimeUnit.DAYS.toMillis(1))
+             .setMaxAttempts(Parameters.UNLIMITED)
+             .build(),
          messageId);
   }
 
@@ -138,11 +137,11 @@ public class IndividualSendJob extends PushSendJob {
   {
     SignalLocalMetrics.IndividualMessageSend.onJobStarted(messageId);
 
-    ExpiringMessageManager expirationManager = AppDependencies.getExpiringMessageManager();
-    MessageTable    database              = SignalDatabase.messages();
-    OutgoingMessage message               = database.getOutgoingMessage(messageId);
-    long            threadId              = database.getMessageRecord(messageId).getThreadId();
-    MessageRecord   originalEditedMessage = message.getMessageToEdit() > 0 ? SignalDatabase.messages().getMessageRecordOrNull(message.getMessageToEdit()) : null;
+    ExpiringMessageManager expirationManager     = AppDependencies.getExpiringMessageManager();
+    MessageTable           database              = SignalDatabase.messages();
+    OutgoingMessage        message               = database.getOutgoingMessage(messageId);
+    long                   threadId              = database.getMessageRecord(messageId).getThreadId();
+    MessageRecord          originalEditedMessage = message.getMessageToEdit() > 0 ? SignalDatabase.messages().getMessageRecordOrNull(message.getMessageToEdit()) : null;
 
     if (database.isSent(messageId)) {
       warn(TAG, String.valueOf(message.getSentTimeMillis()), "Message " + messageId + " was already sent. Ignoring.");
@@ -150,7 +149,8 @@ public class IndividualSendJob extends PushSendJob {
     }
 
     try {
-      log(TAG, String.valueOf(message.getSentTimeMillis()), "Sending message: " + messageId + ", Recipient: " + message.getThreadRecipient().getId() + ", Thread: " + threadId + ", Attachments: " + buildAttachmentString(message.getAttachments()) + ", Editing: " + (originalEditedMessage != null ? originalEditedMessage.getDateSent() : "N/A"));
+      log(TAG, String.valueOf(message.getSentTimeMillis()), "Sending message: " + messageId + ", Recipient: " + message.getThreadRecipient()
+                                                                                                                       .getId() + ", Thread: " + threadId + ", Attachments: " + buildAttachmentString(message.getAttachments()) + ", Editing: " + (originalEditedMessage != null ? originalEditedMessage.getDateSent() : "N/A"));
 
       RecipientUtil.shareProfileIfFirstSecureMessage(message.getThreadRecipient());
 
@@ -207,10 +207,14 @@ public class IndividualSendJob extends PushSendJob {
       AppDependencies.getJobManager().add(new DirectoryRefreshJob(false));
     } catch (UntrustedIdentityException uie) {
       warn(TAG, "Failure", uie);
-      RecipientId recipientId = Recipient.external(context, uie.getIdentifier()).getId();
-      database.addMismatchedIdentity(messageId, recipientId, uie.getIdentityKey());
+      Recipient recipient = Recipient.external(uie.getIdentifier());
+      if (recipient == null) {
+        Log.w(TAG, "Failed to create a Recipient for the identifier!");
+        return;
+      }
+      database.addMismatchedIdentity(messageId, recipient.getId(), uie.getIdentityKey());
       database.markAsSentFailed(messageId);
-      RetrieveProfileJob.enqueue(recipientId);
+      RetrieveProfileJob.enqueue(recipient.getId());
     } catch (ProofRequiredException e) {
       ProofRequiredExceptionHandler.Result result = ProofRequiredExceptionHandler.handle(context, e, SignalDatabase.threads().getRecipientForThreadId(threadId), threadId, messageId);
       if (result.isRetry()) {
@@ -252,33 +256,33 @@ public class IndividualSendJob extends PushSendJob {
         throw new UndeliverableMessageException(messageRecipient.getId() + " not registered!");
       }
 
-      SignalServiceMessageSender                 messageSender       = AppDependencies.getSignalServiceMessageSender();
-      SignalServiceAddress                       address             = RecipientUtil.toSignalServiceAddress(context, messageRecipient);
-      List<Attachment>                           attachments         = Stream.of(message.getAttachments()).filterNot(Attachment::isSticker).toList();
-      List<SignalServiceAttachment>              serviceAttachments  = getAttachmentPointersFor(attachments);
-      Optional<byte[]>                           profileKey          = getProfileKey(messageRecipient);
-      Optional<SignalServiceDataMessage.Sticker> sticker             = getStickerFor(message);
-      List<SharedContact>                        sharedContacts      = getSharedContactsFor(message);
-      List<SignalServicePreview>                 previews            = getPreviewsFor(message);
-      SignalServiceDataMessage.GiftBadge         giftBadge           = getGiftBadgeFor(message);
-      SignalServiceDataMessage.Payment           payment             = null;
-      List<BodyRange>                            bodyRanges          = getBodyRanges(message);
-      SignalServiceDataMessage.Builder           mediaMessageBuilder = SignalServiceDataMessage.newBuilder()
-                                                                                               .withBody(message.getBody())
-                                                                                               .withAttachments(serviceAttachments)
-                                                                                               .withTimestamp(message.getSentTimeMillis())
-                                                                                               .withExpiration((int)(message.getExpiresIn() / 1000))
-                                                                                               .withExpireTimerVersion(message.getExpireTimerVersion())
-                                                                                               .withViewOnce(message.isViewOnce())
-                                                                                               .withProfileKey(profileKey.orElse(null))
-                                                                                               .withSticker(sticker.orElse(null))
-                                                                                               .withSharedContacts(sharedContacts)
-                                                                                               .withPreviews(previews)
-                                                                                               .withGiftBadge(giftBadge)
-                                                                                               .asExpirationUpdate(message.isExpirationUpdate())
-                                                                                               .asEndSessionMessage(message.isEndSession())
-                                                                                               .withPayment(payment)
-                                                                                               .withBodyRanges(bodyRanges);
+      SignalServiceMessageSender                 messageSender      = AppDependencies.getSignalServiceMessageSender();
+      SignalServiceAddress                       address            = RecipientUtil.toSignalServiceAddress(context, messageRecipient);
+      List<Attachment>                           attachments        = Stream.of(message.getAttachments()).filterNot(Attachment::isSticker).toList();
+      List<SignalServiceAttachment>              serviceAttachments = getAttachmentPointersFor(attachments);
+      Optional<byte[]>                           profileKey         = getProfileKey(messageRecipient);
+      Optional<SignalServiceDataMessage.Sticker> sticker            = getStickerFor(message);
+      List<SharedContact>                        sharedContacts     = getSharedContactsFor(message);
+      List<SignalServicePreview>                 previews           = getPreviewsFor(message);
+      SignalServiceDataMessage.GiftBadge         giftBadge          = getGiftBadgeFor(message);
+      SignalServiceDataMessage.Payment           payment            = null;
+      List<BodyRange>                            bodyRanges         = getBodyRanges(message);
+      SignalServiceDataMessage.Builder mediaMessageBuilder = SignalServiceDataMessage.newBuilder()
+                                                                                     .withBody(message.getBody())
+                                                                                     .withAttachments(serviceAttachments)
+                                                                                     .withTimestamp(message.getSentTimeMillis())
+                                                                                     .withExpiration((int) (message.getExpiresIn() / 1000))
+                                                                                     .withExpireTimerVersion(message.getExpireTimerVersion())
+                                                                                     .withViewOnce(message.isViewOnce())
+                                                                                     .withProfileKey(profileKey.orElse(null))
+                                                                                     .withSticker(sticker.orElse(null))
+                                                                                     .withSharedContacts(sharedContacts)
+                                                                                     .withPreviews(previews)
+                                                                                     .withGiftBadge(giftBadge)
+                                                                                     .asExpirationUpdate(message.isExpirationUpdate())
+                                                                                     .asEndSessionMessage(message.isEndSession())
+                                                                                     .withPayment(payment)
+                                                                                     .withBodyRanges(bodyRanges);
 
       if (message.getParentStoryId() != null) {
         try {
@@ -308,7 +312,7 @@ public class IndividualSendJob extends PushSendJob {
 
       if (originalEditedMessage != null) {
         if (Util.equals(SignalStore.account().getAci(), address.getServiceId())) {
-          SendMessageResult                result     = messageSender.sendSelfSyncEditMessage(new SignalServiceEditMessage(originalEditedMessage.getDateSent(), mediaMessage));
+          SendMessageResult result = messageSender.sendSelfSyncEditMessage(new SignalServiceEditMessage(originalEditedMessage.getDateSent(), mediaMessage));
           SignalDatabase.messageLog().insertIfPossible(messageRecipient.getId(), message.getSentTimeMillis(), result, ContentHint.RESENDABLE, new MessageId(messageId), false);
 
           return SealedSenderAccessUtil.getSealedSenderCertificate() != null;
@@ -325,7 +329,7 @@ public class IndividualSendJob extends PushSendJob {
           return result.getSuccess().isUnidentified();
         }
       } else if (Util.equals(SignalStore.account().getAci(), address.getServiceId())) {
-        SendMessageResult                result     = messageSender.sendSyncMessage(mediaMessage);
+        SendMessageResult result = messageSender.sendSyncMessage(mediaMessage);
         SignalDatabase.messageLog().insertIfPossible(messageRecipient.getId(), message.getSentTimeMillis(), result, ContentHint.RESENDABLE, new MessageId(messageId), false);
         return SealedSenderAccessUtil.getSealedSenderCertificate() != null;
       } else {
@@ -358,6 +362,7 @@ public class IndividualSendJob extends PushSendJob {
     JsonJobData data = JsonJobData.deserialize(serializedData);
     return data.getLong(KEY_MESSAGE_ID);
   }
+
   private static class MetricEventListener implements SignalServiceMessageSender.IndividualSendEvents {
     private final long messageId;
 

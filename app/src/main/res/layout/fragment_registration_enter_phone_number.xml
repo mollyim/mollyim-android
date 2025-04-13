@@ -55,7 +55,7 @@
                     android:drawablePadding="4dp"
                     app:drawableTint="@color/signal_colorOnSurfaceVariant_60"
                     android:gravity="start|center_vertical"
-                    android:textColor="@color/signal_colorOnSurfaceVariant" />
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +104,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/RegistrationActivity_you_will_receive_a_verification_code"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintTop_toBottomOf="@+id/verify_header"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -141,7 +141,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 style="@style/Signal.Text.BodyLarge"
-                android:textColor="@color/signal_colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:text="@string/RegistrationActivity_select_a_country" />
 
             <ImageView
@@ -152,7 +152,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="12dp"
-                app:tint="@color/signal_colorOnSurfaceVariant"
+                app:tint="?attr/colorOnSurfaceVariant"
                 android:src="@drawable/symbol_dropdown_triangle_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -163,11 +163,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginBottom="16dp"
             android:text="@android:string/cancel"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
@@ -175,12 +175,11 @@
             android:id="@+id/registerButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             app:circularProgressMaterialButton__label="@string/RegistrationActivity_next"
-            app:layout_constraintBottom_toTopOf="@+id/cancel_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:materialThemeOverlay="@style/ThemeOverlay.Signal.CircularProgressIndicator.Tonal" />
 

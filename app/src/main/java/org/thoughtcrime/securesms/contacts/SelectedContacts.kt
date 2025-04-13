@@ -3,11 +3,11 @@ package org.thoughtcrime.securesms.contacts
 import android.content.res.ColorStateList
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.paged.ChatType
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
@@ -65,12 +65,11 @@ object SelectedContacts {
       if (model.selectedContact.chatType == ChatType.INDIVIDUAL) {
         chip.text = context.getString(R.string.ChatFoldersFragment__one_on_one_chats)
         chip.chipIcon = AppCompatResources.getDrawable(context, R.drawable.symbol_person_light_24)
-        chip.chipIconTint = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.signal_colorOnSurface))
       } else {
         chip.text = context.getString(R.string.ChatFoldersFragment__groups)
         chip.chipIcon = AppCompatResources.getDrawable(context, R.drawable.symbol_group_light_20)
-        chip.chipIconTint = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.signal_colorOnSurface))
       }
+      chip.chipIconTint = ColorStateList.valueOf(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface))
       chip.setContact(model.selectedContact)
       chip.isCloseIconVisible = true
       chip.setOnCloseIconClickListener {

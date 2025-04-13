@@ -48,6 +48,7 @@ public class TextSecurePreferences {
   private static final String TAG = Log.tag(TextSecurePreferences.class);
 
   public  static final String THEME_PREF                       = "pref_theme";
+  public  static final String DYNAMIC_COLORS_ENABLED           = "pref_dynamic_colors";
   public  static final String LANGUAGE_PREF                    = "pref_language";
 
   private static final String LAST_VERSION_CODE_PREF           = "last_version_code";
@@ -208,6 +209,7 @@ public class TextSecurePreferences {
       BLOCK_UNKNOWN,
       BIOMETRIC_SCREEN_LOCK,
       PASSPHRASE_LOCK_NOTIFICATIONS,
+      DYNAMIC_COLORS_ENABLED,
   };
 
   private static final String[] stringSetPreferencesToBackupMolly = {PASSPHRASE_LOCK_TRIGGER};
@@ -542,13 +544,11 @@ public class TextSecurePreferences {
 
     if (previous != value) {
       Recipient.self().live().refresh();
+
       if (value) {
         notifyUnregisteredReceived(context);
+        clearLocalCredentials(context);
       }
-    }
-
-    if (value) {
-      clearLocalCredentials(context);
     }
   }
 
@@ -731,26 +731,30 @@ public class TextSecurePreferences {
     return getBooleanPreference(context, SCREEN_SECURITY_PREF, true);
   }
 
-  public static int getSignalLastVersionCode(Context context) {
-    return getIntegerPreference(context, LAST_VERSION_CODE_PREF, Util.getSignalCanonicalVersionCode());
+  public static int getLastVersionCodeForMolly(Context context) {
+    return getIntegerPreference(context, LAST_VERSION_CODE_PREF, BuildConfig.VERSION_CODE);
   }
 
-  public static void setSignalLastVersionCode(Context context, int versionCode) {
+  public static void setLastVersionCodeForMolly(Context context, int versionCode) {
     if (!setIntegerPrefrenceBlocking(context, LAST_VERSION_CODE_PREF, versionCode)) {
       throw new AssertionError("couldn't write version code to sharedpreferences");
     }
   }
 
-  /**
-   * @deprecated Use {@link SettingsValues#getTheme()} via {@link org.thoughtcrime.securesms.keyvalue.SignalStore} instead.
-   */
-  @Deprecated
   public static String getTheme(Context context) {
     return getStringPreference(context, THEME_PREF, DynamicTheme.systemThemeAvailable() ? "system" : "light");
   }
 
   public static void setTheme(Context context, String theme) {
     setStringPreference(context, THEME_PREF, theme);
+  }
+
+  public static boolean isDynamicColorsEnabled(Context context) {
+    return getBooleanPreference(context, DYNAMIC_COLORS_ENABLED, false);
+  }
+
+  public static void setDynamicColorsEnabled(Context context, boolean enabled) {
+    setBooleanPreference(context, DYNAMIC_COLORS_ENABLED, enabled);
   }
 
   public static String getLanguage(Context context) {
@@ -1048,7 +1052,6 @@ public class TextSecurePreferences {
   }
 
   private static void clearLocalCredentials(Context context) {
-
     ProfileKey newProfileKey = ProfileKeyUtil.createNew();
     Recipient  self          = Recipient.self();
     SignalDatabase.recipients().setProfileKey(self.getId(), newProfileKey);

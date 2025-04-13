@@ -89,10 +89,10 @@
         android:background="?selectableItemBackground"
         android:gravity="center"
         android:textAppearance="@style/Signal.Text.Body"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         app:iconGravity="textStart"
         app:iconSize="20dp"
-        app:iconTint="@color/signal_colorOnSurface"
+        app:iconTint="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +105,7 @@
         android:id="@+id/sending_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/signal_colorSurface"
+        android:background="?attr/colorSurfaceContainer"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/views_and_replies_bar"
         app:layout_constraintTop_toTopOf="@id/views_and_replies_bar">
@@ -118,7 +118,7 @@
             android:drawablePadding="10dp"
             android:text="@string/StoriesLandingItem__sending"
             android:textAppearance="@style/Signal.Text.Body"
-            app:drawableTint="@color/signal_colorOnSurface" />
+            app:drawableTint="?attr/colorOnSurface" />
 
     </FrameLayout>
 
@@ -158,6 +158,7 @@
             android:gravity="bottom"
             android:textAppearance="@style/Signal.Text.BodyLarge"
             android:textColor="@color/core_white"
+            app:emoji_renderSpoilers="true"
             tools:text="Ugh." />
     </FrameLayout>
 

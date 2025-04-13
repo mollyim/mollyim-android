@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/signal_colorPrimary" />
+        tools:background="?attr/colorPrimary" />
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
         android:id="@+id/quote_author"

@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="14dp"
-        android:background="@color/signal_colorSurface1"
+        android:background="?attr/colorSurfaceContainerLow"
         android:paddingHorizontal="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicator="@null"

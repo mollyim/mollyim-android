@@ -3,8 +3,8 @@ package org.thoughtcrime.securesms.safety
 import android.content.DialogInterface
 import android.view.View
 import androidx.annotation.MainThread
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.google.android.material.R as MaterialR
 import com.google.android.material.button.MaterialButton
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.conversation.ui.error.TrustAndVerifyResult
 import org.thoughtcrime.securesms.crypto.IdentityKeyParcelable
 import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.safety.review.SafetyNumberReviewConnectionsFragment
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.fragments.findListener
 import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.verify.VerifyIdentityFragment
@@ -108,7 +109,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
       customPref(
         SplashImage.Model(
           R.drawable.ic_safety_number_24,
-          R.color.signal_colorOnSurface
+          MaterialR.attr.colorOnSurface
         )
       )
 
@@ -144,7 +145,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
             R.string.SafetyNumberBottomSheetFragment__no_more_recipients_to_show,
             DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyLarge),
             DSLSettingsText.CenterModifier,
-            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+            DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
           )
         )
 
@@ -166,7 +167,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
                   ActionItem(
                     iconRes = R.drawable.ic_safety_number_24,
                     title = getString(R.string.SafetyNumberBottomSheetFragment__verify_safety_number),
-                    tintRes = R.color.signal_colorOnSurface,
+                    tintRes = MaterialR.attr.colorOnSurface,
                     action = {
                       lifecycleDisposable += viewModel.getIdentityRecord(model.recipient.id).subscribe { record ->
                         VerifyIdentityFragment.createDialog(
@@ -184,7 +185,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
                     ActionItem(
                       iconRes = R.drawable.ic_circle_x_24,
                       title = getString(R.string.SafetyNumberBottomSheetFragment__remove_from_story),
-                      tintRes = R.color.signal_colorOnSurface,
+                      tintRes = MaterialR.attr.colorOnSurface,
                       action = {
                         viewModel.removeRecipientFromSelectedStories(model.recipient.id)
                       }
@@ -197,7 +198,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
                     ActionItem(
                       iconRes = R.drawable.ic_circle_x_24,
                       title = getString(R.string.SafetyNumberReviewConnectionsFragment__remove),
-                      tintRes = R.color.signal_colorOnSurface,
+                      tintRes = MaterialR.attr.colorOnSurface,
                       action = {
                         viewModel.removeDestination(model.recipient.id)
                       }

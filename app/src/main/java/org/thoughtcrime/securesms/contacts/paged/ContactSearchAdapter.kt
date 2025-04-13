@@ -8,7 +8,6 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -31,6 +30,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
@@ -302,7 +302,7 @@ open class ContactSearchAdapter(
         ActionItem(R.drawable.symbol_settings_android_24, context.getString(R.string.ContactSearchItems__story_settings)) {
           callbacks.onOpenStorySettings(model.story)
         },
-        ActionItem(R.drawable.symbol_trash_24, context.getString(R.string.ContactSearchItems__delete_story), R.color.signal_colorError) {
+        ActionItem(R.drawable.symbol_trash_24, context.getString(R.string.ContactSearchItems__delete_story), com.google.android.material.R.attr.colorError) {
           callbacks.onDeletePrivateStory(model.story, model.isSelected)
         }
       )
@@ -541,7 +541,7 @@ open class ContactSearchAdapter(
       val suffix: CharSequence? = if (recipient.isSystemContact && !recipient.showVerified) {
         SpannableStringBuilder().apply {
           val drawable = ContextUtil.requireDrawable(context, R.drawable.symbol_person_circle_24).apply {
-            setTint(ContextCompat.getColor(context, R.color.signal_colorOnSurface))
+            setTint(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface))
           }
           SpanUtil.appendCenteredImageSpan(this, drawable, 16, 16)
         }

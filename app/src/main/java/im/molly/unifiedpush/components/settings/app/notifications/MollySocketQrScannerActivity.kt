@@ -34,8 +34,8 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.rememberPermissionState
 import im.molly.unifiedpush.model.MollySocket
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import org.signal.core.ui.Dialogs
-import org.signal.core.ui.theme.SignalTheme
+import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.QrImageSelectionActivity

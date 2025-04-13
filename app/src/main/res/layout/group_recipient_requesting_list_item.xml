@@ -89,7 +89,7 @@
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
             android:visibility="gone"
-            app:background_tint="@color/signal_text_primary"
+            app:background_tint="?attr/signal_text_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

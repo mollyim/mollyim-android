@@ -52,7 +52,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/SafetyNumberBottomSheetFragment__review_connections"
-        android:textColor="@color/signal_colorPrimary"
+        android:textColor="?attr/colorPrimary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

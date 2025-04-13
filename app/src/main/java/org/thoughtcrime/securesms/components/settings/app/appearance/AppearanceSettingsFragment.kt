@@ -11,6 +11,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.app.appearance.navbar.ChooseNavigationBarStyleFragment
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
+import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -57,7 +58,7 @@ class AppearanceSettingsFragment : DSLSettingsFragment(R.string.preferences__app
         listItems = themeLabels,
         selected = themeValues.indexOf(state.theme.serialize()),
         onSelected = {
-          viewModel.setTheme(activity, SettingsValues.Theme.deserialize(themeValues[it]))
+          viewModel.setTheme(activity, SettingsValues.Theme.deserialize(themeValues[it]), state.dynamicColors)
         }
       )
 
@@ -67,6 +68,17 @@ class AppearanceSettingsFragment : DSLSettingsFragment(R.string.preferences__app
           Navigation.findNavController(requireView()).safeNavigate(R.id.action_appearanceSettings_to_wallpaperActivity)
         }
       )
+
+      if (DynamicTheme.isDynamicColorsAvailable()) {
+        switchPref(
+          title = DSLSettingsText.from(R.string.preferences_appearance__dynamic_colors),
+          summary = DSLSettingsText.from(R.string.preferences_appearance__use_system_colors_for_the_app_theme),
+          isChecked = state.dynamicColors,
+          onClick = {
+            viewModel.setTheme(activity, state.theme, !state.dynamicColors)
+          }
+        )
+      }
 
       if (Build.VERSION.SDK_INT >= 26) {
         clickPref(

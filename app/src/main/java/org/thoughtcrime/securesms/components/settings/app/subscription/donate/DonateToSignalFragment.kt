@@ -4,7 +4,6 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -14,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -47,6 +47,7 @@ import org.thoughtcrime.securesms.subscription.Subscription
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
 import org.thoughtcrime.securesms.util.Projection
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
@@ -97,10 +98,10 @@ class DonateToSignalFragment :
   private val binding by ViewBinderDelegate(DonateToSignalFragmentBinding::bind)
 
   private val supportTechSummary: CharSequence by lazy {
-    SpannableStringBuilder(SpanUtil.color(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant), requireContext().getString(R.string.DonateToSignalFragment__private_messaging)))
+    SpannableStringBuilder(SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant), requireContext().getString(R.string.DonateToSignalFragment__private_messaging)))
       .append(" ")
       .append(
-        SpanUtil.readMore(requireContext(), ContextCompat.getColor(requireContext(), R.color.signal_colorPrimary)) {
+        SpanUtil.readMore(requireContext(), ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorPrimary)) {
           findNavController().safeNavigate(DonateToSignalFragmentDirections.actionDonateToSignalFragmentToSubscribeLearnMoreBottomSheetDialog())
         }
       )
@@ -111,9 +112,9 @@ class DonateToSignalFragment :
   }
 
   override fun getMaterial3OnScrollHelper(toolbar: Toolbar?): Material3OnScrollHelper {
-    return object : Material3OnScrollHelper(requireActivity(), toolbar!!, viewLifecycleOwner) {
-      override val activeColorSet: ColorSet = ColorSet(R.color.transparent, R.color.signal_colorBackground)
-      override val inactiveColorSet: ColorSet = ColorSet(R.color.transparent, R.color.signal_colorBackground)
+    return object : Material3OnScrollHelper(activity = requireActivity(), views = listOf(toolbar!!), lifecycleOwner = viewLifecycleOwner) {
+      override val activeColorSet: ColorSet = ColorSet.from(requireContext(), R.color.transparent, MaterialR.attr.colorSurface)
+      override val inactiveColorSet = activeColorSet
     }
   }
 

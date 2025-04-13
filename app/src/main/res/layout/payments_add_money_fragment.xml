@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/PaymentsAddMoneyFragment__your_wallet_address"
                 android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
-                android:textColor="@color/signal_text_primary" />
+                android:textColor="?attr/signal_text_primary" />
 
             <TextView
                 android:id="@+id/payments_add_money_abbreviated_wallet_address"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/TextAppearance.Signal.Mono"
-                android:textColor="@color/signal_text_secondary"
+                android:textColor="?attr/signal_text_secondary"
                 tools:text="2sZNt8dF...AxD345i2" />
 
             <com.google.android.material.button.MaterialButton
@@ -84,7 +84,7 @@
             android:text="@string/PaymentsAddMoneyFragment__to_add_funds"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Signal.Body2"
-            android:textColor="@color/signal_text_secondary"
+            android:textColor="?attr/signal_text_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

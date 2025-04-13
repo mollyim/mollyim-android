@@ -101,12 +101,12 @@
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/typing_avatar_2"
         app:layout_constraintTop_toTopOf="parent"
-        tools:backgroundTint="@color/signal_background_secondary"
+        tools:backgroundTint="?attr/signal_background_secondary"
         tools:text="+1000000"
         tools:visibility="visible" />
 

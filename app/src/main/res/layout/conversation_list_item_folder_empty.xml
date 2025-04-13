@@ -11,7 +11,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/conversation_list_fragment__no_chats_to_display"
         android:textAppearance="@style/Signal.Text.BodyLarge"
-        android:textColor="@color/signal_colorOnSurfaceVariant" />
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/folder_settings"
@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/conversation_list_fragment__folder_settings"
-        android:textColor="@color/signal_colorOnSurfaceVariant" />
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
 </LinearLayout>

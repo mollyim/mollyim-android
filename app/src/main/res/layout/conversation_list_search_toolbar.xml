@@ -6,6 +6,6 @@
     android:id="@+id/search_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/signal_m3_toolbar_height"
-    android:background="@color/signal_colorBackground"
+    android:background="?attr/colorSurface"
     android:visibility="invisible"
     app:layout_constraintTop_toTopOf="parent" />

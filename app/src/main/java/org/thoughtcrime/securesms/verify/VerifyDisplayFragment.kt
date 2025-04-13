@@ -37,6 +37,7 @@ import org.thoughtcrime.securesms.databinding.VerifyDisplayFragmentBinding
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
@@ -313,7 +314,7 @@ class VerifyDisplayFragment : Fragment(), OnScrollChangedListener {
   private fun setRecipientText(recipient: Recipient) {
     binding.description.text = getString(R.string.verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s, recipient.getDisplayName(requireContext()))
     binding.description.setLink("https://signal.org/redirect/safety-numbers")
-    binding.description.setLinkColor(ContextCompat.getColor(requireContext(), R.color.signal_colorPrimary))
+    binding.description.setLinkColor(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorPrimary))
   }
 
   private fun updateVerifyButton(verified: Boolean, update: Boolean) {

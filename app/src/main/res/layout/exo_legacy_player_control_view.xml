@@ -21,31 +21,31 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@id/exo_position"
+            android:id="@+id/exo_position_label"
             style="@style/Signal.Text.BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:textColor="@color/signal_colorOnSurface" />
+            android:textColor="?attr/colorOnSurface" />
 
         <androidx.media3.ui.DefaultTimeBar
-            android:id="@id/exo_progress"
+            android:id="@+id/exo_progress"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
             app:touch_target_height="55dp" />
 
         <TextView
-            android:id="@+id/exo_duration"
+            android:id="@+id/exo_duration_label"
             style="@style/Signal.Text.BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:textColor="@color/signal_colorOnSurface" />
+            android:textColor="?attr/colorOnSurface" />
 
     </LinearLayout>
 
@@ -115,7 +115,7 @@
                 android:background="@drawable/circle_touch_highlight_background_material3"
                 android:contentDescription="@string/exo_controls_rewind_description"
                 app:lottie_rawRes="@raw/lottie_15s_skip_back"
-                app:tint="@color/signal_colorOnSurface"
+                app:tint="?attr/colorOnSurface"
                 tools:visibility="visible" />
 
             <ImageButton
@@ -138,7 +138,7 @@
                     android:id="@id/exo_play"
                     style="@style/MediaPreviewButton"
                     android:background="@drawable/circle_touch_highlight_background_material3"
-                    android:backgroundTint="@color/signal_colorOnSurface"
+                    android:backgroundTint="?attr/colorOnSurface"
                     app:rotationWhenHidden="90"
                     app:srcCompat="@drawable/play_button_solid_24" />
 
@@ -146,7 +146,7 @@
                     android:id="@id/exo_pause"
                     style="@style/MediaPreviewButton"
                     android:background="@drawable/circle_touch_highlight_background_material3"
-                    android:backgroundTint="@color/signal_colorOnSurface"
+                    android:backgroundTint="?attr/colorOnSurface"
                     app:rotationWhenHidden="-90"
                     app:srcCompat="@drawable/pause_solid_24" />
             </FrameLayout>
@@ -159,10 +159,10 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/circle_touch_highlight_background_material3"
-                android:backgroundTint="@color/signal_colorOnSurface"
+                android:backgroundTint="?attr/colorOnSurface"
                 android:contentDescription="@string/exo_controls_fastforward_description"
                 app:lottie_rawRes="@raw/lottie_15s_skip_forward"
-                app:tint="@color/signal_colorOnSurface"
+                app:tint="?attr/colorOnSurface"
                 tools:visibility="visible" />
 
             <ImageButton

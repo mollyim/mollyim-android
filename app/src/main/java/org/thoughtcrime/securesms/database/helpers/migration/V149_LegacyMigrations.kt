@@ -8,7 +8,6 @@ import android.content.Context
 import android.database.Cursor
 import android.text.TextUtils
 import androidx.core.content.contentValuesOf
-import net.zetetic.database.sqlcipher.SQLiteDatabase
 import org.signal.core.util.Base64
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.Hex
@@ -22,6 +21,7 @@ import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsMapper
 import org.thoughtcrime.securesms.database.KeyValueDatabase
+import org.thoughtcrime.securesms.database.SQLiteDatabase
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations
 import org.thoughtcrime.securesms.database.model.databaseprotos.ReactionList
 import org.thoughtcrime.securesms.groups.GroupId

@@ -41,6 +41,9 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
         .apply()
     }
 
+  fun isMollySocketDevice(deviceId: Int): Boolean =
+    deviceId != 0 && getInteger(MOLLYSOCKET_DEVICE_ID, 0) == deviceId
+
   var registrationStatus: RegistrationStatus
     get() = RegistrationStatus.fromValue(getInteger(MOLLYSOCKET_STATUS, -1)) ?: RegistrationStatus.UNKNOWN
     set(status) {

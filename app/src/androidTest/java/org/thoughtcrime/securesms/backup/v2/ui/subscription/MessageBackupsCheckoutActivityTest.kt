@@ -4,7 +4,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -12,6 +11,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performTextInput
 import androidx.core.content.ContextCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -21,9 +21,12 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
 import io.mockk.coEvery
 import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -39,9 +42,12 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.SignalNetwork
+import org.thoughtcrime.securesms.testing.CoroutineDispatcherRule
 import org.thoughtcrime.securesms.testing.InAppPaymentsRule
 import org.thoughtcrime.securesms.testing.SignalActivityRule
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.whispersystems.signalservice.api.NetworkResult
 import java.math.BigDecimal
 import java.util.Currency
 
@@ -54,6 +60,10 @@ class MessageBackupsCheckoutActivityTest {
 
   @get:Rule val composeTestRule = createEmptyComposeRule()
 
+  private val testDispatcher = StandardTestDispatcher()
+
+  @get:Rule val coroutineDispatcherRule = CoroutineDispatcherRule(testDispatcher)
+
   private val purchaseResults = MutableSharedFlow<BillingPurchaseResult>()
 
   @Before
@@ -61,6 +71,11 @@ class MessageBackupsCheckoutActivityTest {
     every { AppDependencies.billingApi.getBillingPurchaseResults() } returns purchaseResults
     coEvery { AppDependencies.billingApi.queryProduct() } returns BillingProduct(price = FiatMoney(BigDecimal.ONE, Currency.getInstance("USD")))
     coEvery { AppDependencies.billingApi.launchBillingFlow(any()) } returns Unit
+
+    mockkObject(SignalNetwork)
+    every { SignalNetwork.archive } returns mockk {
+      every { triggerBackupIdReservation(any(), any(), any()) } returns NetworkResult.Success(Unit)
+    }
 
     mockkStatic(RemoteConfig::class)
     every { RemoteConfig.messageBackups } returns true
@@ -80,6 +95,8 @@ class MessageBackupsCheckoutActivityTest {
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsTypeSelectionScreen__next)).performClick()
     composeTestRule.waitForIdle()
 
+    testDispatcher.scheduler.advanceUntilIdle()
+
     runBlocking {
       purchaseResults.emit(
         BillingPurchaseResult.Success(
@@ -95,6 +112,8 @@ class MessageBackupsCheckoutActivityTest {
     composeTestRule.waitForIdle()
     composeTestRule.onNodeWithTag("dialog-circular-progress-indicator").assertIsDisplayed()
 
+    testDispatcher.scheduler.advanceUntilIdle()
+
     val iap = SignalDatabase.inAppPayments.getLatestInAppPaymentByType(InAppPaymentType.RECURRING_BACKUP)
     assertThat(iap?.state).isEqualTo(InAppPaymentTable.State.PENDING)
 
@@ -103,9 +122,6 @@ class MessageBackupsCheckoutActivityTest {
         state = InAppPaymentTable.State.END
       )
     )
-
-    composeTestRule.waitForIdle()
-    composeTestRule.onNodeWithTag("dialog-circular-progress-indicator").assertIsNotDisplayed()
   }
 
   @Test
@@ -143,7 +159,7 @@ class MessageBackupsCheckoutActivityTest {
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__copy_to_clipboard)).performClick()
 
     scenario.onActivity {
-      val backupKeyString = SignalStore.account.accountEntropyPool.value.chunked(4).joinToString("  ")
+      val backupKeyString = SignalStore.account.accountEntropyPool.displayValue.chunked(4).joinToString("  ")
       val clipboardManager = ContextCompat.getSystemService(context, ClipboardManager::class.java)
       assertThat(clipboardManager?.primaryClip?.getItemAt(0)?.coerceToText(context)).isEqualTo(backupKeyString)
     }
@@ -151,12 +167,18 @@ class MessageBackupsCheckoutActivityTest {
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__next)).assertIsDisplayed()
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__next)).performClick()
 
+    // Key verification page
+    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded)).assertIsDisplayed()
+    composeTestRule.onNodeWithTag("message-backups-key-verify-screen-backup-key-input-field").performTextInput(
+      SignalStore.account.accountEntropyPool.displayValue
+    )
+    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__next)).assertIsEnabled()
+    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__next)).performClick()
+
     // Key record bottom sheet
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__keep_your_key_safe)).assertIsDisplayed()
     composeTestRule.onNodeWithTag("message-backups-key-record-screen-sheet-content")
       .performScrollToNode(hasText(context.getString(R.string.MessageBackupsKeyRecordScreen__continue)))
-    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__continue)).assertIsNotEnabled()
-    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__ive_recorded_my_key)).performClick()
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__continue)).assertIsEnabled()
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__continue)).performClick()
 
@@ -166,8 +188,11 @@ class MessageBackupsCheckoutActivityTest {
   }
 
   private fun launchCheckoutFlow(tier: MessageBackupTier? = null): ActivityScenario<MessageBackupsCheckoutActivity> {
-    return ActivityScenario.launch(
+    val scenario = ActivityScenario.launch<MessageBackupsCheckoutActivity>(
       MessageBackupsCheckoutActivity.Contract().createIntent(InstrumentationRegistry.getInstrumentation().targetContext, tier)
     )
+
+    testDispatcher.scheduler.advanceUntilIdle()
+    return scenario
   }
 }

@@ -93,7 +93,7 @@ import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.IdentityUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
-import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.AccountEntropyPool
@@ -1137,14 +1137,20 @@ object SyncMessageProcessor {
 
     when (response.type) {
       MessageRequestResponse.Type.ACCEPT -> {
+        val wasBlocked = recipient.isBlocked
         SignalDatabase.recipients.setProfileSharing(recipient.id, true)
         SignalDatabase.recipients.setBlocked(recipient.id, false)
-        SignalDatabase.messages.insertMessageOutbox(
-          OutgoingMessage.messageRequestAcceptMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
-          threadId,
-          false,
-          null
-        )
+        if (wasBlocked) {
+          SignalDatabase.messages.insertMessageOutbox(
+            message = OutgoingMessage.unblockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
+            threadId = threadId
+          )
+        } else {
+          SignalDatabase.messages.insertMessageOutbox(
+            message = OutgoingMessage.messageRequestAcceptMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
+            threadId = threadId
+          )
+        }
       }
       MessageRequestResponse.Type.DELETE -> {
         SignalDatabase.recipients.setProfileSharing(recipient.id, false)
@@ -1155,6 +1161,10 @@ object SyncMessageProcessor {
       MessageRequestResponse.Type.BLOCK -> {
         SignalDatabase.recipients.setBlocked(recipient.id, true)
         SignalDatabase.recipients.setProfileSharing(recipient.id, false)
+        SignalDatabase.messages.insertMessageOutbox(
+          message = OutgoingMessage.blockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
+          threadId = threadId
+        )
       }
       MessageRequestResponse.Type.BLOCK_AND_DELETE -> {
         SignalDatabase.recipients.setBlocked(recipient.id, true)
@@ -1165,20 +1175,20 @@ object SyncMessageProcessor {
       }
       MessageRequestResponse.Type.SPAM -> {
         SignalDatabase.messages.insertMessageOutbox(
-          OutgoingMessage.reportSpamMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
-          threadId,
-          false,
-          null
+          message = OutgoingMessage.reportSpamMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
+          threadId = threadId
         )
       }
       MessageRequestResponse.Type.BLOCK_AND_SPAM -> {
         SignalDatabase.recipients.setBlocked(recipient.id, true)
         SignalDatabase.recipients.setProfileSharing(recipient.id, false)
         SignalDatabase.messages.insertMessageOutbox(
-          OutgoingMessage.reportSpamMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
-          threadId,
-          false,
-          null
+          message = OutgoingMessage.reportSpamMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
+          threadId = threadId
+        )
+        SignalDatabase.messages.insertMessageOutbox(
+          message = OutgoingMessage.blockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
+          threadId = threadId
         )
       }
       else -> warn("Got an unknown response type! Skipping")
@@ -1596,11 +1606,6 @@ object SyncMessageProcessor {
   }
 
   private fun handleSynchronizeAttachmentBackfillRequest(request: SyncMessage.AttachmentBackfillRequest, timestamp: Long) {
-    if (!RemoteConfig.attachmentBackfillSync) {
-      warn(timestamp, "[AttachmentBackfillRequest] Remote config not enabled! Skipping.")
-      return
-    }
-
     if (request.targetMessage == null || request.targetConversation == null) {
       warn(timestamp, "[AttachmentBackfillRequest] Target message or target conversation was unset! Can't formulate a response, ignoring.")
       return
@@ -1652,10 +1657,8 @@ object SyncMessageProcessor {
         .enqueue()
     }
 
-    if (needsUpload.size != attachments.size) {
-      log(timestamp, "[AttachmentBackfillRequest] At least one attachment didn't need to be uploaded. Enqueuing update job immediately.")
-      MultiDeviceAttachmentBackfillUpdateJob.enqueue(request.targetMessage!!, request.targetConversation!!, messageId)
-    }
+    // Enqueueing an update immediately to tell the requesting device that the primary is online.
+    MultiDeviceAttachmentBackfillUpdateJob.enqueue(request.targetMessage!!, request.targetConversation!!, messageId)
   }
 
   private fun ConversationIdentifier.toRecipientId(): RecipientId? {
@@ -1676,7 +1679,9 @@ object SyncMessageProcessor {
       }
 
       threadE164 != null -> {
-        SignalDatabase.recipients.getOrInsertFromE164(threadE164!!)
+        SignalE164Util.formatAsE164(threadE164!!)?.let {
+          SignalDatabase.recipients.getOrInsertFromE164(threadE164!!)
+        }
       }
 
       else -> null

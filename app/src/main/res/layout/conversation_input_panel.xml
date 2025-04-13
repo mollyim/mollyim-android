@@ -5,7 +5,7 @@
     android:id="@+id/bottom_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/signal_background_primary"
+    android:background="?attr/signal_background_primary"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -13,7 +13,7 @@
         android:id="@+id/input_panel_sticker_suggestion"
         android:layout_width="0dp"
         android:layout_height="90dp"
-        android:background="@color/signal_background_secondary"
+        android:background="?attr/signal_background_secondary"
         android:orientation="horizontal"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -30,14 +30,14 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="2dp"
         android:background="@drawable/circle_tintable"
-        android:backgroundTint="@color/signal_colorOnSurfaceVariant"
+        android:backgroundTint="?attr/colorOnSurfaceVariant"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/symbol_x_24"
-        app:tint="@color/signal_colorOnPrimary"
+        app:tint="?attr/colorOnPrimary"
         tools:visibility="gone" />
 
     <View
@@ -64,10 +64,10 @@
         android:drawablePadding="6dp"
         android:text="@string/InputPanel_edit_message"
         android:textAppearance="@style/Signal.Text.LabelLarge"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         android:visibility="gone"
         app:drawableStartCompat="@drawable/symbol_edit_compact_16"
-        app:drawableTint="@color/signal_colorOnSurface"
+        app:drawableTint="?attr/colorOnSurface"
         app:layout_constraintEnd_toStartOf="@+id/edit_message_thumbnail"
         app:layout_constraintStart_toStartOf="@id/compose_bubble"
         app:layout_constraintTop_toTopOf="@id/compose_bubble"
@@ -98,8 +98,8 @@
         app:layout_constraintStart_toStartOf="@+id/compose_bubble"
         app:layout_constraintTop_toBottomOf="@+id/edit_message_title"
         app:message_type="preview"
-        app:quote_colorPrimary="@color/signal_text_primary"
-        app:quote_colorSecondary="@color/signal_text_primary"
+        app:quote_colorPrimary="?attr/signal_text_primary"
+        app:quote_colorSecondary="?attr/signal_text_primary"
         tools:visibility="visible" />
 
     <org.thoughtcrime.securesms.components.LinkPreviewView
@@ -135,7 +135,7 @@
         app:layout_constraintStart_toStartOf="@id/compose_bubble"
         app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements"
         app:layout_constraintVertical_bias="1.0"
-        app:tint="@color/signal_colorOnSurfaceVariant" />
+        app:tint="?attr/colorOnSurfaceVariant" />
 
     <FrameLayout
         android:id="@+id/embedded_text_editor_container"
@@ -193,7 +193,7 @@
             android:foreground="?selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_camera_24"
-            app:tint="@color/signal_colorOnSurfaceVariant" />
+            app:tint="?attr/colorOnSurfaceVariant" />
 
         <org.thoughtcrime.securesms.components.MicrophoneRecorderView
             android:id="@+id/recorder_view"
@@ -231,7 +231,7 @@
             android:contentDescription="@string/ConversationActivity_add_attachment"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_plus_24"
-            app:tint="@color/signal_colorOnSurface" />
+            app:tint="?attr/colorOnSurface" />
 
     </org.thoughtcrime.securesms.components.HidingLinearLayout>
 

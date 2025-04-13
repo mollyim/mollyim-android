@@ -59,7 +59,7 @@
             android:minHeight="48dp"
             android:text="@string/StoryGroupReplyFragment__you_cant_reply"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="@color/signal_colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:visibility="gone" />
 
         <org.thoughtcrime.securesms.stories.viewer.reply.composer.StoryReplyComposer

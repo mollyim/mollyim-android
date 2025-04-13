@@ -577,12 +577,6 @@
         <item quantity="one">Saglabājot šo multivides failu ierīces krātuvē, jebkura cita ierīces lietotne varēs tam piekļūt. \n\nTurpināt?</item>
         <item quantity="other">Saglabājot visus %1$d multivides failus ierīces krātuvē, jebkura cita ierīces lietotne varēs tiem piekļūt. \n\nTurpināt?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="zero">Neizdevās saglabāt pielikumus krātuvē.</item>
-        <item quantity="one">Neizdevās saglabāt pielikumu krātuvē.</item>
-        <item quantity="other">Neizdevās saglabāt pielikumus krātuvē!</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Neizdevās ierakstīt krātuvē!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="zero">Saglabā %1$d pielikumus</item>
         <item quantity="one">Saglabā pielikumu</item>
@@ -592,14 +586,6 @@
         <item quantity="zero">Saglabā %1$d pielikumus krātuvē…</item>
         <item quantity="one">Saglabā pielikumu krātuvē…</item>
         <item quantity="other">Saglabā %1$d pielikumus krātuvē…</item>
-    </plurals>
-    <!-- Dialog title asking to save media to your phone\'s storage -->
-    <string name="ConversationFragment__save_to_phone">Vai saglabāt tālrunī?</string>
-    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
-    <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="zero">Šī multivide tiks saglabāta jūsu tālruņa krātuvē. Atkarībā no tālrunī iestatītajām atļaujām šai multividei varēs piekļūt citas lietotnes.</item>
-        <item quantity="one">Šī multivide tiks saglabāta jūsu tālruņa krātuvē. Atkarībā no tālrunī iestatītajām atļaujām šai multividei varēs piekļūt citas lietotnes.</item>
-        <item quantity="other">Šī multivide tiks saglabāta jūsu tālruņa krātuvē. Atkarībā no tālrunī iestatītajām atļaujām šai multividei varēs piekļūt citas lietotnes.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">Vairs nerādīt</string>
@@ -688,6 +674,8 @@
     <string name="ConversationFragment_profile_names">Profilu nosaukumus</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Grupu nosaukumus</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">Neizdevās lejupielādēt fotoattēlu. Mēģiniet vēlreiz.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Padomi par drošību</string>
@@ -1186,6 +1174,7 @@
 
     <!-- DocumentView -->
     <string name="DocumentView_unnamed_file">Bezvārda fails</string>
+    <string name="DocumentView_document_file">Dokumenta fails</string>
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimizē situācijai, kurā iztrūkst proprietārie Google Play pakalpojumi</string>
@@ -1738,7 +1727,6 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Dzēš</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Dzēš ziņas…</string>
-    <string name="MediaOverviewActivity_collecting_attachments">Apkopo pielikumus…</string>
     <string name="MediaOverviewActivity_Sort_by">Kārtot pēc</string>
     <string name="MediaOverviewActivity_Newest">jaunākais</string>
     <string name="MediaOverviewActivity_Oldest">vecākais</string>
@@ -2143,6 +2131,14 @@
     <string name="MessageRecord_reported_as_spam">Atzīmēts kā surogātpasts</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">Jūs apstiprinājāt sazināšanās pieprasījumu</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">Jūs bloķējāt šo personu</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">Jūs atbloķējāt šo personu</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">Jūs bloķējāt šo grupu</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">Jūs atbloķējāt šo grupu</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Apstiprināt</string>
@@ -2195,6 +2191,28 @@
         <item quantity="zero">%1$d cita grupa</item>
         <item quantity="one">%1$d cita grupa</item>
         <item quantity="other">%1$d citas grupas</item>
+    </plurals>
+    <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
+    <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>
+    <!-- Text for an empty group or when you are the only member -->
+    <string name="MessageRequestProfileView_group_members_zero">Citu grupas dalībnieku vēl nav</string>
+    <!-- Text for a group with one member (not you). %1$s is their name -->
+    <string name="MessageRequestProfileView_group_members_one">%1$s</string>
+    <!-- Text for a 2 member group you are in. %1$s is the name of the other member -->
+    <string name="MessageRequestProfileView_group_members_one_and_you">%1$s un jūs</string>
+    <!-- Text for a 2 member group you are not in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two">%1$s un %2$s</string>
+    <!-- Text for a 3 member group you are in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two_and_you">%1$s, %2$s un jūs</string>
+    <!-- Text for a 3 member group you are not in. %1$s, %2$s, %3$s are the names of the other members. -->
+    <string name="MessageRequestProfileView_group_members_three">%1$s, %2$s un %3$s</string>
+    <!-- Text for a 3+ member group. %1$s, %2$s, %3$s are member names. %4$s is the string key MessageRequestProfileView_other_members-->
+    <string name="MessageRequestProfileView_group_members_other">%1$s, %2$s, %3$s un %4$s</string>
+    <!-- Nested in MessageRequestProfileView_group_members_other that shows how many members (besides three) are in the group -->
+    <plurals name="MessageRequestProfileView_other_members">
+        <item quantity="zero">%1$d citi</item>
+        <item quantity="one">%1$d cits</item>
+        <item quantity="other">%1$d citi</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Ziņot…</string>
@@ -2313,6 +2331,7 @@
 
     <!-- ReactionsBottomSheetDialogFragment -->
     <string name="ReactionsBottomSheetDialogFragment_all">Visi · %1$d</string>
+    <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">Pieskarieties, lai noņemtu</string>
 
     <!-- ReactionsConversationView -->
     <string name="ReactionsConversationView_plus">+%1$d</string>
@@ -2556,6 +2575,8 @@
     <string name="CallOverflowPopupWindow__view">Skatīt</string>
 
 
+    <!-- A notification to the user that their hand is raised but they are currently speaking -->
+    <string name="CallRaiseHandSnackbar__lower_your_hand">Nolaist roku?</string>
     <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
     <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s pacēla roku</string>
     <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
@@ -2934,6 +2955,8 @@
     <string name="ThreadRecord_message_history_has_been_merged">Jūsu ziņu vēsture ir apvienota</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">%1$s ir kontakta %2$s tālruņa numurs</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">Bloķēti</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Molly atjauninājums</string>
@@ -3050,8 +3073,6 @@
     <string name="MediaPreviewActivity_you">Jūs</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Neatbalstīts faila tips</string>
     <string name="MediaPreviewActivity_draft">Melnraksts</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly ir nepieciešama pieejas atļauja krātuvei, lai varētu saglabāt datus ārējā krātuvē, bet tā tiek pastāvīgi liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Krātuve\".</string>
-    <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nav iespējams saglabāt ārējā krātuvē bez atļaujas.</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Izdzēst ziņu?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Šis neatgriezeniski izdzēsīs ziņu.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s %2$s</string>
@@ -3160,14 +3181,50 @@
     <!-- Notification channel name for notifications sent when a device has been linked -->
     <string name="NotificationChannel_new_linked_device">Jauna saistītā ierīce</string>
 
-    <!-- ProfileEditNameFragment -->
-
     <!-- QuickResponseService -->
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Ātrās atbildes nav pieejamas, kad Molly ir bloķēts!</string>
     <string name="QuickResponseService_problem_sending_message">Problēma sūtot ziņu!</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">Multivide saglabāta</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Neizdevās ierakstīt krātuvē!</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="zero">Multivide saglabāta</item>
+        <item quantity="one">Multivide saglabāta</item>
+        <item quantity="other">Multivide saglabāta</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="zero">Multivide saglabāta (%1$s no %2$s neizdevās)</item>
+        <item quantity="one">Multivide saglabāta (%1$s no %2$s neizdevās)</item>
+        <item quantity="other">Multivide saglabāta (%1$s no %2$s neizdevās)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="zero">Neizdevās saglabāt pielikumus krātuvē.</item>
+        <item quantity="one">Neizdevās saglabāt pielikumu krātuvē.</item>
+        <item quantity="other">Neizdevās saglabāt pielikumus krātuvē!</item>
+    </plurals>
+
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="AttachmentSaver__save_to_phone">Vai saglabāt tālrunī?</string>
+
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="AttachmentSaver__this_media_will_be_saved">
+        <item quantity="zero">Šī multivide tiks saglabāta jūsu tālruņa krātuvē. Atkarībā no tālrunī iestatītajām atļaujām šai multividei varēs piekļūt citas lietotnes.</item>
+        <item quantity="one">Šī multivide tiks saglabāta jūsu tālruņa krātuvē. Atkarībā no tālrunī iestatītajām atļaujām šai multividei varēs piekļūt citas lietotnes.</item>
+        <item quantity="other">Šī multivide tiks saglabāta jūsu tālruņa krātuvē. Atkarībā no tālrunī iestatītajām atļaujām šai multividei varēs piekļūt citas lietotnes.</item>
+    </plurals>
+
+    <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly ir nepieciešama pieejas atļauja krātuvei, lai varētu saglabāt datus ārējā krātuvē, bet tā tiek pastāvīgi liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Krātuve\".</string>
+
+    <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
+    <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">Nav iespējams saglabāt ārējā krātuvē bez atļaujas.</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Meklēt</string>
@@ -3429,6 +3486,11 @@
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Atskaņot … Pauzēt</string>
     <string name="audio_view__download_accessibility_description">Lejupielādēt</string>
+
+    <!-- document_view -->
+    <string name="document_view__download_accessibility_description">Lejupielādēt</string>
+    <string name="document_view__upload_accessibility_description">Augšupielādēt</string>
+    <string name="document_view__cancel_accessibility_description">Atcelt</string>
 
     <!-- QuoteView -->
     <string name="QuoteView_audio">Audio</string>
@@ -4567,6 +4629,13 @@
     <string name="KbsMegaphone__create_a_pin">Izveidot PINu</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN noglabā Signal informāciju šifrētā veidā.</string>
     <string name="KbsMegaphone__create_pin">Izveidot PINu</string>
+
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">Atjauniniet Signal PIN kodu</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">Atjauniniet savu Signal PIN kodu, lai pabeigtu konta reģistrāciju.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">Aktualizēt PIN</string>
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
@@ -5915,6 +5984,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">Fotoattēlam ir iestatīta augsta kvalitāte</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Fotoattēlam ir iestatīta standarta kvalitāte</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">Pievienot multividi</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">Ota un pildspalva</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">Apgriezt un pagriezt</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">Mainīt multivides kvalitāti</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">Saglabāt multividi</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">Pārslēgt uz emoji tastatūru</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">Pārslēgt režīmu \"Skatīt vienreiz\"</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">Sūtīt multividi</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">Pabeigt ziņas pievienošanu</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="zero">%1$d vienumiem ir iestatīta augsta kvalitāte</item>
@@ -6545,6 +6632,8 @@
     <string name="StoryViewerPageFragment__send_failed">Sūtīšana neizdevās. Pieskarieties, lai mēģinātu vēlreiz</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">Atbildēt grupai</string>
+    <!-- Content description for the any reaction button in reply to story composer, which will launch the emojis bottom sheet. -->
+    <string name="StoryViewerPageFragment_any_reaction_content_description">Vairāk reakciju</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">Vēl nav skatījumu</string>
     <!-- Displayed when user has disabled receipts -->
@@ -7472,6 +7561,8 @@
     <string name="CameraControls_capture_button_accessibility_label">Poga Uzņemt</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">Poga Turpināt</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">Pārslēgt zibspuldzes režīmu</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -8130,10 +8221,10 @@
     <!-- Linear progress dialog text shown when preparing a backup -->
     <string name="RemoteBackupsSettingsFragment__preparing_backup">Notiek rezerves kopijas sagatavošana…</string>
     <!-- Linear progress dialog text shown when processing messages for backup. First placeholder is completed count, second is approximate total count, third is percent completed. -->
-    <plurals name="RemoteBackupsSettingsFragment__processing_d_of_d_d_messages">
-        <item quantity="zero">Notiek ziņu apstrāde: %1$d no %2$d (%3$d%%)</item>
-        <item quantity="one">Notiek ziņu apstrāde: %1$d no %2$d (%3$d%%)</item>
-        <item quantity="other">Notiek ziņu apstrāde: %1$d no %2$d (%3$d%%)</item>
+    <plurals name="RemoteBackupsSettingsFragment__processing_messages_progress_text">
+        <item quantity="zero">Notiek %1$s no ~%2$s ziņu apstrāde (%3$d%%)</item>
+        <item quantity="one">Notiek %1$s no ~%2$s ziņu apstrāde (%3$d%%)</item>
+        <item quantity="other">Notiek %1$s no ~%2$s ziņu apstrāde (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
@@ -8182,6 +8273,10 @@
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">Sazināties ar atbalstu</string>
 
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Radās tīkla kļūda. Lūdzu, vēlāk mēģiniet vēlreiz.</string>
+
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
     <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Dublējiet savas ziņas un multividi un izmantojiet Signal drošo, pilnībā šifrēto krātuves pakalpojumu. Nezaudējiet nevienu ziņu, pat ja iegādāsieties jaunu tālruni vai atkārtoti instalēsiet Signal.</string>
@@ -8225,6 +8320,19 @@
     <string name="MessageBackupsKeyRecordScreen__continue">Turpināt</string>
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Skatīt atslēgu vēlreiz</string>
+
+    <!-- Confirm key title -->
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Apstipriniet rezerves kopijas atslēgu</string>
+    <!-- Confirm your key subtitle -->
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Ievadiet tikko ierakstīto rezerves kopijas atslēgu</string>
+    <!-- Confirm your key text entry hint text -->
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">Rezerves kopijas atslēga</string>
+    <!-- Confirm your key text entry error text -->
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Nepareiza rezerves kopijas atslēga</string>
+    <!-- Confirm your key button text to return to record key screen. -->
+    <string name="MessageBackupsKeyVerifyScreen__see_key_again">Skatīt atslēgu vēlreiz</string>
+    <!-- Confirm your key button text to move onto next screen in flow -->
+    <string name="MessageBackupsKeyVerifyScreen__next">Tālāk</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->
@@ -8353,6 +8461,25 @@
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Ievadītā rezerves kopijas atslēga ir pareiza, taču ar to nav saistīta neviena rezerves kopija. Ja jums ir piekļuve iepriekšējam tālrunim, pārliecinieties, ka rezerves kopijas ir ieslēgtas un ka rezerves kopijas izveide ir pabeigta. Pēc tam mēģiniet vēlreiz.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Izlaist atjaunošanu</string>
+    <!-- Dialog title text when encountering backup restore network error -->
+    <string name="EnterBackupKey_cant_restore_backup">Nevar atjaunot rezerves kopiju</string>
+    <!-- Dialog body text when encountering backup restore network error -->
+    <string name="EnterBackupKey_your_backup_cant_be_restored_right_now">Rezerves kopiju šobrīd nevar atjaunot. Pārbaudiet interneta savienojumu un mēģiniet vēlreiz. </string>
+    <!-- Dialog button text to contact support on network error -->
+    <string name="EnterBackupKey_contact_support">Sazināties ar atbalstu</string>
+
+    <!-- Email subject when contacting support on a restore backup network issue -->
+    <string name="EnterBackupKey_network_failure_support_email">Signal Android rezerves kopijas atjaunošanas tīkla kļūda</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+
+    <!-- Title of dialog asking to submit debuglogs -->
+    <string name="ContactSupportDialog_submit_debug_log">Vai iesniegt atkļūdošanas žurnālu?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="ContactSupportDialog_your_debug_logs">Jūsu atkļūdošanas žurnāli mums palīdzēs ātrāk novērst jūsu problēmu. Žurnālu iesniegšana nav obligāta.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_with_debug">Iesniegt ar atkļūdošanas žurnālu</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_without_debug">Iesniegt bez atkļūdošanas žurnāla</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Noskenējiet šo kodu ar savu iepriekšējo tālruni</string>

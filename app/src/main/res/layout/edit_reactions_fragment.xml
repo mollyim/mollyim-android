@@ -45,7 +45,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/EditReactionsFragment__tap_to_replace_an_emoji"
         android:textAppearance="@style/Signal.Text.Caption"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_reactions_fragment_scrubber" />

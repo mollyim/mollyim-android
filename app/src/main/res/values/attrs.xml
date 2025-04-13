@@ -27,6 +27,82 @@
 
     <attr name="contact_filter_toolbar_icon_tint" format="color" />
 
+    <!-- From light_colors.xml, dark_colors.xml -->
+    <attr name="conversation_toolbar_color" format="color" />
+    <attr name="signal_accent_primary" format="color" />
+    <attr name="signal_background_primary" format="color" />
+    <attr name="signal_background_secondary" format="color" />
+    <attr name="signal_background_dialog" format="color" />
+    <attr name="signal_background_dialog_secondary" format="color" />
+    <attr name="signal_text_primary" format="color" />
+    <attr name="signal_text_secondary" format="color" />
+    <attr name="signal_text_toolbar_title" format="color" />
+    <attr name="signal_icon_tint_primary" format="color" />
+    <attr name="signal_icon_tint_secondary" format="color" />
+    <attr name="signal_icon_tint_action" format="color" />
+    <attr name="signal_icon_tint_tab_selected" format="color" />
+    <attr name="signal_icon_tint_tab_unselected" format="color" />
+    <attr name="signal_button_primary" format="color" />
+    <attr name="signal_button_primary_ripple" format="color" />
+    <attr name="signal_button_primary_text" format="color" />
+    <attr name="signal_button_primary_text_disabled" format="color" />
+    <attr name="signal_button_secondary" format="color" />
+    <attr name="signal_button_secondary_ripple" format="color" />
+    <attr name="signal_button_secondary_text" format="color" />
+    <attr name="signal_button_secondary_text_disabled" format="color" />
+    <attr name="signal_button_secondary_stroke" format="color" />
+    <attr name="conversation_compose_background" format="color" />
+    <attr name="contact_filter_edit_background" format="color" />
+    <attr name="reactions_pill_selected_color" format="color" />
+    <attr name="qr_card_color" format="color" />
+    <attr name="qr_card_text_color" format="color" />
+    <attr name="conversation_item_update_text_color" format="color" />
+    <attr name="conversation_item_quote_text_color" format="color" />
+    <attr name="conversation_item_quote_text_color_sent" format="color" />
+    <attr name="conversation_item_recv_bubble_color_normal" format="color" />
+    <attr name="conversation_item_incoming_audio_foreground_tint_normal" format="color" />
+    <attr name="conversation_typing_indicator_foreground_tint_normal" format="color" />
+    <attr name="conversation_scroll_to_bottom_foreground_color" format="color" />
+    <attr name="conversation_list_selected_color" format="color" />
+    <attr name="reactions_pill_text_color" format="color" />
+    <attr name="reactions_overlay_any_emoji_background" format="color" />
+    <attr name="reactions_overlay_any_emoji_foreground" format="color" />
+    <attr name="megaphone_body_text_color" format="color" />
+    <attr name="tooltip_default_color" format="color" />
+    <attr name="quote_view_background_incoming_wallpaper" format="color" />
+    <attr name="quote_view_bar_incoming_wallpaper" format="color" />
+    <attr name="quote_view_foreground_incoming_wallpaper" format="color" />
+    <attr name="quote_view_background_outgoing_wallpaper" format="color" />
+    <attr name="quote_view_bar_outgoing_wallpaper" format="color" />
+    <attr name="quote_view_foreground_outgoing_wallpaper" format="color" />
+    <attr name="quote_view_background_incoming_normal" format="color" />
+    <attr name="quote_view_bar_incoming_normal" format="color" />
+    <attr name="quote_view_foreground_incoming_normal" format="color" />
+    <attr name="quote_view_background_outgoing_normal" format="color" />
+    <attr name="quote_view_bar_outgoing_normal" format="color" />
+    <attr name="quote_view_foreground_outgoing_normal" format="color" />
+    <attr name="react_with_any_background" format="color" />
+    <attr name="react_with_any_search_background" format="color" />
+    <attr name="react_with_any_search_hint" format="color" />
+    <attr name="react_with_any_customize_background" format="color" />
+    <attr name="voice_note_player_view_background" format="color" />
+    <attr name="message_request_bar_container_background_normal" format="color" />
+    <attr name="message_request_bar_background_normal" format="color" />
+    <attr name="message_request_bar_denyForeground_normal" format="color" />
+    <attr name="message_request_bar_acceptForeground_normal" format="color" />
+    <attr name="message_request_bar_container_background_wallpaper" format="color" />
+    <attr name="message_request_bar_background_wallpaper" format="color" />
+    <attr name="message_request_bar_denyForeground_wallpaper" format="color" />
+    <attr name="message_request_bar_acceptForeground_wallpaper" format="color" />
+    <attr name="safety_tip_background" format="color" />
+    <attr name="safety_tip_image_background" format="color" />
+
+    <!-- Apply different colors based on DayNight and Dynamic themes -->
+    <attr name="switchThemeOverlay" format="reference"/>
+    <attr name="context_menu_container_color" format="color"/>
+    <attr name="navbar_active_indicator_color" format="color"/>
+    <attr name="navbar_container_color" format="color"/>
+
     <declare-styleable name="SegmentedProgressBar">
         <attr name="totalSegments" format="integer" />
         <attr name="timePerSegment" format="integer" />

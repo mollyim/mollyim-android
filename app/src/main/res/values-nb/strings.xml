@@ -459,7 +459,7 @@
 
     <string name="ConversationActivity_invalid_recipient">Ugyldig mottaker.</string>
     <string name="ConversationActivity_added_to_home_screen">Lagt til startskjermen</string>
-    <string name="ConversationActivity_calls_not_supported">Samtaler støttes ikke</string>
+    <string name="ConversationActivity_calls_not_supported">Anrop støttes ikke</string>
     <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">Denne enheten ser ikke ut til å støtte oppringing.</string>
     <string name="ConversationActivity_transport_insecure_sms">Usikker SMS</string>
     <!-- A title for the option to send an SMS with a placeholder to put the name of their SIM card -->
@@ -569,11 +569,6 @@
         <item quantity="one">Hvis du lagrer disse mediene på enheten din, kan andre programmer få tilgang til dem.\n\nVil du fortsette?</item>
         <item quantity="other">Hvis du lagrer disse %1$d mediene på enheten din, kan andre programmer få tilgang til dem.\n\nVil du fortsette?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="one">Det oppstod en feil under lagring av vedlegg som vanlig fil.</item>
-        <item quantity="other">Det oppstod en feil under lagring av vedlegg som vanlige filer.</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Klarte ikke å skrive til enhetslager.</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="one">Lagrer vedlegget</item>
         <item quantity="other">Lagrer %1$d vedlegg</item>
@@ -581,13 +576,6 @@
     <plurals name="ConversationFragment_saving_n_attachments_to_sd_card">
         <item quantity="one">Lagrer vedlegget på enheten …</item>
         <item quantity="other">Lagrer %1$d vedlegg på enheten …</item>
-    </plurals>
-    <!-- Dialog title asking to save media to your phone\'s storage -->
-    <string name="ConversationFragment__save_to_phone">Vil du lagre på telefonen?</string>
-    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
-    <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">Mediefilen lagres lokalt på telefonen. Det kan hende at andre apper får tilgang til den. Dette avhenger av innstillingene på telefonen.</item>
-        <item quantity="other">Mediefilene lagres lokalt på telefonen. Det kan hende at andre apper får tilgang til dem. Dette avhenger av innstillingene på telefonen.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">Ikke vis igjen</string>
@@ -676,6 +664,8 @@
     <string name="ConversationFragment_profile_names">Profilnavn</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Gruppenavn</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">Bildet kunne ikke lastes ned. Prøv på nytt.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Sikkerhetstips</string>
@@ -1162,6 +1152,7 @@
 
     <!-- DocumentView -->
     <string name="DocumentView_unnamed_file">Uten navn</string>
+    <string name="DocumentView_document_file">Dokumentfil</string>
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimaliser for manglende Play Tjenester</string>
@@ -1180,7 +1171,7 @@
 
     <!-- GcmRefreshJob -->
     <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Permanent Signal kommunikasjonssvikt!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal klarte ikke å registrere seg i Google Play-tjenesten. Signal-meldinger og -samtaler er derfor slått av. Prøv å registrere programmet på nytt under Innstillinger &gt; Avansert.</string>
+    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal kunne ikke registreres i Google Play-tjenesten. Signal-meldinger og Signal-anrop er derfor slått av. Prøv å registrere programmet på nytt under Innstillinger &gt; Avansert.</string>
 
 
     <!-- GiphyActivity -->
@@ -1689,7 +1680,6 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Sletter</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Sletter meldinger…</string>
-    <string name="MediaOverviewActivity_collecting_attachments">Henter vedlegg…</string>
     <string name="MediaOverviewActivity_Sort_by">Sorter etter</string>
     <string name="MediaOverviewActivity_Newest">Nyeste</string>
     <string name="MediaOverviewActivity_Oldest">Eldste</string>
@@ -2081,6 +2071,14 @@
     <string name="MessageRecord_reported_as_spam">Rapportert som søppelpost</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">Du godtok meldingsforespørselen</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">Du blokkerte denne personen</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">Du fjernet blokkeringen av denne personen</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">Du blokkerte denne gruppen</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">Du fjernet blokkeringen av denne gruppen</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Godta</string>
@@ -2129,6 +2127,27 @@
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
         <item quantity="one">%1$d ytterlig gruppe</item>
         <item quantity="other">%1$d ytterligere grupper</item>
+    </plurals>
+    <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
+    <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>
+    <!-- Text for an empty group or when you are the only member -->
+    <string name="MessageRequestProfileView_group_members_zero">Ingen andre medlemmer ennå</string>
+    <!-- Text for a group with one member (not you). %1$s is their name -->
+    <string name="MessageRequestProfileView_group_members_one">%1$s</string>
+    <!-- Text for a 2 member group you are in. %1$s is the name of the other member -->
+    <string name="MessageRequestProfileView_group_members_one_and_you">%1$s og deg</string>
+    <!-- Text for a 2 member group you are not in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two">%1$s og %2$s</string>
+    <!-- Text for a 3 member group you are in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two_and_you">%1$s, %2$s og deg</string>
+    <!-- Text for a 3 member group you are not in. %1$s, %2$s, %3$s are the names of the other members. -->
+    <string name="MessageRequestProfileView_group_members_three">%1$s, %2$s og %3$s</string>
+    <!-- Text for a 3+ member group. %1$s, %2$s, %3$s are member names. %4$s is the string key MessageRequestProfileView_other_members-->
+    <string name="MessageRequestProfileView_group_members_other">%1$s, %2$s, %3$s og %4$s</string>
+    <!-- Nested in MessageRequestProfileView_group_members_other that shows how many members (besides three) are in the group -->
+    <plurals name="MessageRequestProfileView_other_members">
+        <item quantity="one">%1$d annen</item>
+        <item quantity="other">%1$d andre</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Rapporter</string>
@@ -2245,6 +2264,7 @@
 
     <!-- ReactionsBottomSheetDialogFragment -->
     <string name="ReactionsBottomSheetDialogFragment_all">Alle · %1$d</string>
+    <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">Trykk for å fjerne</string>
 
     <!-- ReactionsConversationView -->
     <string name="ReactionsConversationView_plus">+%1$d</string>
@@ -2477,6 +2497,8 @@
     <string name="CallOverflowPopupWindow__view">Vis</string>
 
 
+    <!-- A notification to the user that their hand is raised but they are currently speaking -->
+    <string name="CallRaiseHandSnackbar__lower_your_hand">Vil du ta ned hånden?</string>
     <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
     <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s rakk opp hånden</string>
     <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
@@ -2845,6 +2867,8 @@
     <string name="ThreadRecord_message_history_has_been_merged">Meldingsloggene har blitt slått sammen</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">%1$s tilhører %2$s</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">Blokkert</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Molly oppdatering</string>
@@ -2960,8 +2984,6 @@
     <string name="MediaPreviewActivity_you">Deg</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Ustøttet medietype</string>
     <string name="MediaPreviewActivity_draft">Utkast</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly krever tillatelse fra systemet for å kunne skrive til ekstern lagringsenhet, men du har valgt å avslå dette permanent. Gå til «Apper»-menyen på systemet og slå på tillatelsen «Lagring».</string>
-    <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Du kan ikke lagre på ekstern lagringsenhet uten å slå på tillatelse i systemet først</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Vil du slette denne meldingen?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Meldingen blir slettet for godt.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s til %2$s</string>
@@ -3044,7 +3066,7 @@
 
     <!-- Notification Channels -->
     <string name="NotificationChannel_channel_messages">Meldinger</string>
-    <string name="NotificationChannel_calls">Samtaler</string>
+    <string name="NotificationChannel_calls">Anrop</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Feil</string>
     <string name="NotificationChannel_backups">Sikkerhetskopiering</string>
@@ -3068,14 +3090,46 @@
     <!-- Notification channel name for notifications sent when a device has been linked -->
     <string name="NotificationChannel_new_linked_device">Ny tilkoblet enhet</string>
 
-    <!-- ProfileEditNameFragment -->
-
     <!-- QuickResponseService -->
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtigsvar er utilgjengelig når Molly er låst.</string>
     <string name="QuickResponseService_problem_sending_message">Det oppstod et problem under sending av melding.</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">Mediet er lagret</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Klarte ikke å skrive til enhetslager.</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="one">Mediefilen ble lagret</item>
+        <item quantity="other">Mediefilene ble lagret</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="one">Mediefilen ble lagret (%1$s av %2$s kunne ikke lagres)</item>
+        <item quantity="other">Mediefilene ble lagret (%1$s av %2$s kunne ikke lagres)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="one">Det oppstod en feil under lagring av vedlegg som vanlig fil.</item>
+        <item quantity="other">Det oppstod en feil under lagring av vedlegg som vanlige filer.</item>
+    </plurals>
+
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="AttachmentSaver__save_to_phone">Vil du lagre på telefonen?</string>
+
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="AttachmentSaver__this_media_will_be_saved">
+        <item quantity="one">Mediefilen lagres lokalt på telefonen. Det kan hende at andre apper får tilgang til den. Dette avhenger av innstillingene på telefonen.</item>
+        <item quantity="other">Mediefilene lagres lokalt på telefonen. Det kan hende at andre apper får tilgang til dem. Dette avhenger av innstillingene på telefonen.</item>
+    </plurals>
+
+    <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly krever tillatelse fra systemet for å kunne lagre på ekstern lagringsenhet, men du har valgt å avslå dette permanent. Gå til «Apper»-menyen, velg «Tillatelser», og slå på «Lagring».</string>
+
+    <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
+    <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">Du kan ikke lagre på ekstern lagringsenhet uten å slå på tillatelse i systemet først</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Søk</string>
@@ -3151,7 +3205,7 @@
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Gi Molly tilgang til mikrofonen for å svare på anropet.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Gi Molly tilgang til mikrofonen og kameraet for å svare på videoanropet.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly krever tillatelser fra systemet for å kunne ringe eller motta samtaler, men du har valgt å avslå minst én av disse permanent. Gå til «Apper»-menyen på systemet og slå på tillatelser for «Mikrofon» og «Kamera».</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly krever tillatelser fra systemet for å kunne ringe og motta telefonsamtaler, men du har valgt å avslå minst én av disse permanent. Gå til «Apper»-menyen på systemet og slå på tillatelser for «Mikrofon» og «Kamera».</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Besvart på en koblet enhet.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Avslått på en koblet enhet.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Opptatt på en koblet enhet.</string>
@@ -3333,6 +3387,11 @@
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Spill av … Pause</string>
     <string name="audio_view__download_accessibility_description">Last ned</string>
+
+    <!-- document_view -->
+    <string name="document_view__download_accessibility_description">Last ned</string>
+    <string name="document_view__upload_accessibility_description">Last opp</string>
+    <string name="document_view__cancel_accessibility_description">Avbryt</string>
 
     <!-- QuoteView -->
     <string name="QuoteView_audio">Lyd</string>
@@ -3803,11 +3862,11 @@
     <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PIN-koder holder informasjon lagret i Signal kryptert slik at bare du kan få tilgang til den. Profilen, innstillingene og kontaktene dine vil gjenopprettes når du installerer Signal på nytt. Du vil ikke trenge PIN-koden for å åpne appen.</string>
     <string name="preferences__system_default">System standard</string>
     <string name="preferences__language">Språk</string>
-    <string name="preferences__signal_messages_and_calls">Signal-meldinger og -samtaler</string>
+    <string name="preferences__signal_messages_and_calls">Meldinger og anrop i Signal</string>
     <string name="preferences__advanced_pin_settings">Avanserte PIN-kode instillinger</string>
     <!-- Title of toolbar for the advanced pin settings screen -->
     <string name="preferences__advanced_pin_settings_title">Avanserte innstillinger for PIN-kode</string>
-    <string name="preferences__free_private_messages_and_calls">Gratis private meldinger og samtaler til Signal-brukere</string>
+    <string name="preferences__free_private_messages_and_calls">Gratis private meldinger og anrop til Signal-brukere</string>
     <string name="preferences__submit_debug_log">Send inn feilsøkingslogg</string>
     <string name="preferences__delete_account">Slett kontoen</string>
     <string name="preferences__support_wifi_calling">«Wi-Fi-anrop»-tilbakefallsmodus</string>
@@ -3862,8 +3921,8 @@
 
     <string name="preferences_storage__custom">Selvvalgt</string>
     <string name="preferences_advanced__use_system_emoji">Bruk systemets emoji</string>
-    <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Omdiriger alle samtaler gjennom Signal-tjenesten for å unngå å avsløre IP-adressen din til kontakten din. Aktivering vil redusere samtalekvaliteten.</string>
-    <string name="preferences_advanced__always_relay_calls">Omdiriger alle samtaler</string>
+    <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Omdiriger alle anrop gjennom Signal-tjenesten for å unngå å avsløre IP-adressen din til kontakten din. Aktivering vil redusere samtalekvaliteten.</string>
+    <string name="preferences_advanced__always_relay_calls">Omdiriger alle telefonsamtaler</string>
     <!-- Privacy settings payments section title -->
     <string name="preferences_app_protection__payments">Betalinger</string>
     <string name="preferences_chats__chats">Samtaler</string>
@@ -3873,7 +3932,7 @@
     <string name="preferences_data_and_storage__never">Aldri</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi og mobildata</string>
     <string name="preferences_data_and_storage__mobile_data_only">Kun mobildata</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Lavere dataforbruk kan forbedre samtaler på dårlige nettverk</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Lavere dataforbruk kan forbedre telefonsamtaler på dårlige nettverk</string>
     <string name="preferences_notifications__in_chat_sounds">Samtalelyder</string>
     <string name="preferences_notifications__show">Vis</string>
     <string name="preferences_notifications__ringtone">Ringetone</string>
@@ -4452,6 +4511,13 @@
     <string name="KbsMegaphone__create_a_pin">Lag en PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-koden holder informasjonen som er lagret i Signal kryptert.</string>
     <string name="KbsMegaphone__create_pin">Lag PIN</string>
+
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">Velg Signal-PIN</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">Velg en PIN-kode for å fullføre kontoregistreringen.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">Velg PIN-kode</string>
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
@@ -5780,6 +5846,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">Bildet vises i høy oppløsning</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Bildet vises i standard oppløsning</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">Legg til en mediefil</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">Pensel og blyant</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">Beskjær og roter</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">Endre kvaliteten på mediefilen</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">Lagre mediefilen</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">Slå av/på emoji-tastatur</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">Slå av/på flyktig mediefil</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">Send mediefilen</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">Lagre meldingen</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="one">%1$d element vises i høy oppløsning</item>
@@ -6405,6 +6489,8 @@
     <string name="StoryViewerPageFragment__send_failed">Sending mislyktes. Trykk for å prøve igjen.</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">Svar til gruppen</string>
+    <!-- Content description for the any reaction button in reply to story composer, which will launch the emojis bottom sheet. -->
+    <string name="StoryViewerPageFragment_any_reaction_content_description">Flere reaksjoner</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">Ingen visninger ennå</string>
     <!-- Displayed when user has disabled receipts -->
@@ -7311,6 +7397,8 @@
     <string name="CameraControls_capture_button_accessibility_label">Ta bilde-knapp</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">Fortsett-knapp</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">Slå av/på blits</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -7962,9 +8050,9 @@
     <!-- Linear progress dialog text shown when preparing a backup -->
     <string name="RemoteBackupsSettingsFragment__preparing_backup">Forbereder sikkerhetskopi …</string>
     <!-- Linear progress dialog text shown when processing messages for backup. First placeholder is completed count, second is approximate total count, third is percent completed. -->
-    <plurals name="RemoteBackupsSettingsFragment__processing_d_of_d_d_messages">
-        <item quantity="one">Behandler %1$d av %2$d melding (%3$d %%)</item>
-        <item quantity="other">Behandler %1$d av %2$d meldinger (%3$d %%)</item>
+    <plurals name="RemoteBackupsSettingsFragment__processing_messages_progress_text">
+        <item quantity="one">Behandler %1$s av %2$s melding (%3$d %%)</item>
+        <item quantity="other">Behandler %1$s av ~%2$s meldinger (%3$d %%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
@@ -8011,6 +8099,10 @@
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">Kontakt brukerstøtte</string>
 
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Det oppsto en nettverksfeil. Prøv igjen senere.</string>
+
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
     <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Sikkerhetskopier meldingene og mediefilene dine med Signals sikre ende-til-ende-krypterte lagringstjeneste. Behold alt innholdet ditt når du må bytte mobil eller installere Signal på nytt.</string>
@@ -8054,6 +8146,19 @@
     <string name="MessageBackupsKeyRecordScreen__continue">Fortsett</string>
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Se koden igjen</string>
+
+    <!-- Confirm key title -->
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Angi sikkerhetskoden din</string>
+    <!-- Confirm your key subtitle -->
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Skriv inn den registrerte sikkerhetskoden din</string>
+    <!-- Confirm your key text entry hint text -->
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">Sikkerhetskode</string>
+    <!-- Confirm your key text entry error text -->
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Feil sikkerhetskode</string>
+    <!-- Confirm your key button text to return to record key screen. -->
+    <string name="MessageBackupsKeyVerifyScreen__see_key_again">Se koden igjen</string>
+    <!-- Confirm your key button text to move onto next screen in flow -->
+    <string name="MessageBackupsKeyVerifyScreen__next">Neste</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->
@@ -8180,6 +8285,25 @@
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Sikkerhetskoden er riktig, men vi fant ingen sikkerhetskopier som er knyttet til den. Hvis du fremdeles har den gamle telefonen din, må du sørge for at sikkerhetskopiering er aktivert og at du har fullført en sikkerhetskopi før du prøver på nytt.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Hopp over gjenoppretting</string>
+    <!-- Dialog title text when encountering backup restore network error -->
+    <string name="EnterBackupKey_cant_restore_backup">Gjenoppretting er ikke mulig</string>
+    <!-- Dialog body text when encountering backup restore network error -->
+    <string name="EnterBackupKey_your_backup_cant_be_restored_right_now">Sikkerhetskopien din kan ikke gjenopprettes for øyeblikket. Sjekk internettilkoblingen og prøv igjen. </string>
+    <!-- Dialog button text to contact support on network error -->
+    <string name="EnterBackupKey_contact_support">Kontakt brukerstøtten</string>
+
+    <!-- Email subject when contacting support on a restore backup network issue -->
+    <string name="EnterBackupKey_network_failure_support_email">Sikkerhetskopi fra Signal kunne ikke gjenopprettes pga. nettverksfeil</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+
+    <!-- Title of dialog asking to submit debuglogs -->
+    <string name="ContactSupportDialog_submit_debug_log">Vil du sende inn en feilsøkingslogg?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="ContactSupportDialog_your_debug_logs">Feilsøkingsloggene hjelper oss med å feilsøke problemet ditt raskere. Det er valgfritt å sende inn disse loggene.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_with_debug">Send inn med feilsøkingslogg</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_without_debug">Send inn uten feilsøkingslogg</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Skann denne QR-koden med den gamle enheten</string>

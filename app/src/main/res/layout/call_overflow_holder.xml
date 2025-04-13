@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/signal_colorOnSurface" />
+            app:tint="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/raise_hand_label"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/CallOverflowPopupWindow__raise_hand"
-            android:textColor="@color/signal_colorOnSurface"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/raise_hand_icon"
             app:layout_constraintTop_toTopOf="parent" />

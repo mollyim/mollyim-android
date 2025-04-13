@@ -3,14 +3,20 @@ package org.thoughtcrime.securesms;
 import android.app.Activity;
 import android.content.Intent;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.viewmodel.internal.ViewModelProviders;
 
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.conversation.ConversationIntents;
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity;
+import org.thoughtcrime.securesms.main.MainNavigationDetailLocation;
+import org.thoughtcrime.securesms.main.MainNavigationViewModel;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -19,14 +25,25 @@ public class MainNavigator {
 
   public static final int REQUEST_CONFIG_CHANGES = 901;
 
-  private final MainActivity        activity;
-  private final LifecycleDisposable lifecycleDisposable;
+  private final AppCompatActivity       activity;
+  private final LifecycleDisposable     lifecycleDisposable;
 
-  public MainNavigator(@NonNull MainActivity activity) {
+  private MainNavigationViewModel viewModel;
+
+  public MainNavigator(@NonNull AppCompatActivity activity) {
     this.activity            = activity;
     this.lifecycleDisposable = new LifecycleDisposable();
 
     lifecycleDisposable.bindTo(activity);
+  }
+
+  @MainThread
+  public @NonNull MainNavigationViewModel getViewModel() {
+    if (viewModel == null) {
+      viewModel = new ViewModelProvider(activity).get(MainNavigationViewModel.class);
+    }
+    
+    return viewModel;
   }
 
   public static MainNavigator get(@NonNull Activity activity) {
@@ -34,7 +51,7 @@ public class MainNavigator {
       throw new IllegalArgumentException("Activity must be an instance of MainActivity!");
     }
 
-    return ((MainActivity) activity).getNavigator();
+    return ((NavigatorProvider) activity).getNavigator();
   }
 
   /**
@@ -56,10 +73,7 @@ public class MainNavigator {
                                                .map(builder -> builder.withDistributionType(distributionType)
                                                                       .withStartingPosition(startingPosition)
                                                                       .build())
-                                               .subscribe(intent -> {
-                                                 activity.startActivity(intent);
-                                                 activity.overridePendingTransition(R.anim.slide_from_end, R.anim.fade_scale_out);
-                                               });
+                                               .subscribe(intent -> viewModel.goTo(new MainNavigationDetailLocation.Conversation(intent)));
 
     lifecycleDisposable.add(disposable);
   }
@@ -82,5 +96,10 @@ public class MainNavigator {
      * to the system to do the default behavior.
      */
     boolean onBackPressed();
+  }
+
+  public interface NavigatorProvider {
+    @NonNull MainNavigator getNavigator();
+    void onFirstRender();
   }
 }

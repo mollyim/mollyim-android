@@ -59,14 +59,14 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Signal.Body1"
-        android:textColor="@color/signal_text_primary"
+        android:textColor="?attr/signal_text_primary"
         app:layout_constraintBottom_toTopOf="@id/number"
         app:layout_constraintEnd_toStartOf="@id/button_barrier"
         app:layout_constraintStart_toEndOf="@id/contact_photo_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:drawableStart="@drawable/ic_bell_24"
-        tools:drawableTint="@color/signal_icon_tint_secondary"
+        tools:drawableTint="?attr/signal_icon_tint_secondary"
         tools:text="@sample/contacts.json/data/name" />
 
     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
@@ -77,7 +77,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         android:textDirection="ltr"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +96,7 @@
         android:paddingStart="4dp"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_text_secondary"
+        android:textColor="?attr/signal_text_secondary"
         app:layout_constraintEnd_toEndOf="@id/name"
         app:layout_constraintStart_toEndOf="@id/number"
         app:layout_constraintTop_toTopOf="@id/number"
@@ -123,7 +123,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:visibility="visible" />
 
     <ImageView
@@ -137,7 +137,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/start_video"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/signal_colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

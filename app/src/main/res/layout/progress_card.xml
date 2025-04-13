@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:indeterminate="true"
-            app:indicatorColor="@color/signal_colorPrimary"
+            app:indicatorColor="?attr/colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/progress_card_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -64,7 +64,7 @@
             android:paddingTop="7dp"
             android:paddingEnd="12dp"
             android:paddingBottom="7dp"
-            tools:backgroundTint="@color/signal_background_primary">
+            tools:backgroundTint="?attr/signal_background_primary">
 
             <TextView
                 android:id="@+id/bubble_1_text"
@@ -100,7 +100,7 @@
             android:paddingTop="7dp"
             android:paddingEnd="12dp"
             android:paddingBottom="7dp"
-            tools:backgroundTint="@color/signal_accent_primary">
+            tools:backgroundTint="?attr/signal_accent_primary">
 
             <TextView
                 android:id="@+id/bubble_2_text"
@@ -146,7 +146,7 @@
             android:paddingTop="7dp"
             android:paddingEnd="12dp"
             android:paddingBottom="7dp"
-            tools:backgroundTint="@color/signal_background_primary">
+            tools:backgroundTint="?attr/signal_background_primary">
 
             <TextView
                 android:id="@+id/bubble_3_text"
@@ -182,7 +182,7 @@
             android:paddingEnd="12dp"
             android:paddingBottom="7dp"
             android:textColor="@color/core_white"
-            tools:backgroundTint="@color/signal_accent_primary">
+            tools:backgroundTint="?attr/signal_accent_primary">
 
             <TextView
                 android:id="@+id/bubble_4_text"

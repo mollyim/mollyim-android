@@ -58,13 +58,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import org.signal.core.ui.Buttons
-import org.signal.core.ui.Dialogs
-import org.signal.core.ui.Dividers
-import org.signal.core.ui.DropdownMenus
-import org.signal.core.ui.Previews
-import org.signal.core.ui.Scaffolds
-import org.signal.core.ui.SignalPreview
+import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.Dividers
+import org.signal.core.ui.compose.DropdownMenus
+import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
+import org.signal.core.ui.compose.SignalPreview
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BiometricDeviceAuthentication
 import org.thoughtcrime.securesms.BiometricDeviceLockContract
@@ -258,7 +258,7 @@ class LinkDeviceFragment : ComposeFragment() {
     override fun onAuthenticationError(errorCode: Int, errorString: CharSequence) {
       Log.w(TAG, "Authentication error: $errorCode")
       if (errorCode == BiometricPrompt.ERROR_CANCELED) {
-        findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+        biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link))
       } else {
         onAuthenticationFailed()
       }
@@ -578,6 +578,7 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
               )
             }
           },
+          enabled = device.canRename,
           onClick = {
             onEditDevice(device)
             controller.hide()

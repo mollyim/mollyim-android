@@ -569,11 +569,6 @@
         <item quantity="one">Чување овог медија на меморијском простору омогућиће свим другим апликацијама на вашем уређају да му приступе.\n\nЖелите ли да наставите?</item>
         <item quantity="other">Чување свих медија (%1$d) на меморијском простору омогућиће свим другим апликацијама на вашем уређају да му приступе.\n\nЖелите ли да наставите?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="one">Догодила се грешка приликом чувања прилога на меморијском простору!</item>
-        <item quantity="other">Догодила се грешка приликом чувања прилога на меморијском простору!</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Уписивање у меморијски простор није успело!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="one">Прилог се чува</item>
         <item quantity="other">Прилози се чувају (%1$d)</item>
@@ -581,13 +576,6 @@
     <plurals name="ConversationFragment_saving_n_attachments_to_sd_card">
         <item quantity="one">Прилог се чува на меморијском простору…</item>
         <item quantity="other">Прилози се чувају на меморијском простору (%1$d)…</item>
-    </plurals>
-    <!-- Dialog title asking to save media to your phone\'s storage -->
-    <string name="ConversationFragment__save_to_phone">Желите ли да сачувате на телефон?</string>
-    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
-    <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">Овај медиј ће бити сачуван на меморијском простору вашег телефона. Друге апликације ће можда моћи да му приступе у зависности од дозвола на вашем телефону.</item>
-        <item quantity="other">Ови медији ће бити сачувани на меморијском простору вашег телефона. Друге апликације ће можда моћи да им приступе у зависности од дозвола на вашем телефону.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">Не приказуј поново</string>
@@ -676,6 +664,8 @@
     <string name="ConversationFragment_profile_names">Имена на профилу</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Имена група</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">Преузимање фотографије није успело. Пробајте поново.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Савети за безбедност</string>
@@ -1162,6 +1152,7 @@
 
     <!-- DocumentView -->
     <string name="DocumentView_unnamed_file">Фајл без назива</string>
+    <string name="DocumentView_document_file">Фајл документа</string>
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Оптимизујте за недостајуће Play сервисе</string>
@@ -1689,7 +1680,6 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Брисање</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Брисање порука…</string>
-    <string name="MediaOverviewActivity_collecting_attachments">Прикупљање прилога…</string>
     <string name="MediaOverviewActivity_Sort_by">Поређај по</string>
     <string name="MediaOverviewActivity_Newest">Најновије</string>
     <string name="MediaOverviewActivity_Oldest">Најстарије</string>
@@ -2081,6 +2071,14 @@
     <string name="MessageRecord_reported_as_spam">Пријављено је као спам</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">Прихватили сте захтев за дописивање</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">Блокирали сте ову особу</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">Деблокирали сте ову особу</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">Блокирали сте ову групу</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">Одблокирали сте ову групу</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Прихватам</string>
@@ -2129,6 +2127,27 @@
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
         <item quantity="one">Додатних група: %1$d</item>
         <item quantity="other">Додатних група: %1$d</item>
+    </plurals>
+    <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
+    <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>
+    <!-- Text for an empty group or when you are the only member -->
+    <string name="MessageRequestProfileView_group_members_zero">Још увек нема других чланова групе</string>
+    <!-- Text for a group with one member (not you). %1$s is their name -->
+    <string name="MessageRequestProfileView_group_members_one">%1$s</string>
+    <!-- Text for a 2 member group you are in. %1$s is the name of the other member -->
+    <string name="MessageRequestProfileView_group_members_one_and_you">%1$s и ви</string>
+    <!-- Text for a 2 member group you are not in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two">%1$s и %2$s</string>
+    <!-- Text for a 3 member group you are in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two_and_you">%1$s, %2$s и ви</string>
+    <!-- Text for a 3 member group you are not in. %1$s, %2$s, %3$s are the names of the other members. -->
+    <string name="MessageRequestProfileView_group_members_three">%1$s, %2$s и %3$s</string>
+    <!-- Text for a 3+ member group. %1$s, %2$s, %3$s are member names. %4$s is the string key MessageRequestProfileView_other_members-->
+    <string name="MessageRequestProfileView_group_members_other">%1$s, %2$s, %3$s и %4$s</string>
+    <!-- Nested in MessageRequestProfileView_group_members_other that shows how many members (besides three) are in the group -->
+    <plurals name="MessageRequestProfileView_other_members">
+        <item quantity="one">још %1$d члан</item>
+        <item quantity="other">још њих %1$d</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Пријави…</string>
@@ -2245,6 +2264,7 @@
 
     <!-- ReactionsBottomSheetDialogFragment -->
     <string name="ReactionsBottomSheetDialogFragment_all">Сви · %1$d</string>
+    <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">Додирните да уклоните</string>
 
     <!-- ReactionsConversationView -->
     <string name="ReactionsConversationView_plus">+%1$d</string>
@@ -2477,6 +2497,8 @@
     <string name="CallOverflowPopupWindow__view">Више</string>
 
 
+    <!-- A notification to the user that their hand is raised but they are currently speaking -->
+    <string name="CallRaiseHandSnackbar__lower_your_hand">Желите ли да спустите руку?</string>
     <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
     <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s си подигао/ла руку</string>
     <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
@@ -2845,6 +2867,8 @@
     <string name="ThreadRecord_message_history_has_been_merged">Историја порука је спојена</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">%2$s је власник броја %1$s</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">Корисник је блокиран</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Надоградња Molly-a</string>
@@ -2960,8 +2984,6 @@
     <string name="MediaPreviewActivity_you">Ви</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Неподржан тип медија</string>
     <string name="MediaPreviewActivity_draft">Нацрт</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly-у је потребна дозвола за приступ меморијском простору да би могао да чува фајлове у спољном меморијском простору, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Меморијски простор“.</string>
-    <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Није могуће чувати у спољној меморији без дозвола</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Желите ли да избришете поруку?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Овим ћете трајно избрисати ову поруку.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s за: %2$s</string>
@@ -3068,14 +3090,46 @@
     <!-- Notification channel name for notifications sent when a device has been linked -->
     <string name="NotificationChannel_new_linked_device">Нови повезани уређај</string>
 
-    <!-- ProfileEditNameFragment -->
-
     <!-- QuickResponseService -->
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брзи одговор није доступан када је Molly закључан!</string>
     <string name="QuickResponseService_problem_sending_message">Десио се проблем са слањем поруке!</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">Медиј је сачуван</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Уписивање у меморијски простор није успело!</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="one">Медиј је сачуван</item>
+        <item quantity="other">Медији су сачувани</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="one">Медиј је сачуван (%1$s од %2$s није успело)</item>
+        <item quantity="other">Медији су сачувани (%1$s од %2$s није успело)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="one">Догодила се грешка приликом чувања прилога на меморијском простору!</item>
+        <item quantity="other">Догодила се грешка приликом чувања прилога на меморијском простору!</item>
+    </plurals>
+
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="AttachmentSaver__save_to_phone">Желите ли да сачувате на телефон?</string>
+
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="AttachmentSaver__this_media_will_be_saved">
+        <item quantity="one">Овај медиј ће бити сачуван на меморијском простору вашег телефона. Друге апликације ће можда моћи да му приступе у зависности од дозвола на вашем телефону.</item>
+        <item quantity="other">Ови медији ће бити сачувани на меморијском простору вашег телефона. Друге апликације ће можда моћи да им приступе у зависности од дозвола на вашем телефону.</item>
+    </plurals>
+
+    <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly-у је потребна дозвола за приступ меморијском простору да би могао да чува фајлове у спољном меморијском простору, али му је она трајно одбијена. Идите у мени за подешавања апликације, изаберите „Дозволе“ и укључите опцију „Меморијски простор“.</string>
+
+    <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
+    <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">Није могуће чувати у спољној меморији без дозвола</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Претрага</string>
@@ -3333,6 +3387,11 @@
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Пусти … Паузирај</string>
     <string name="audio_view__download_accessibility_description">Преузми</string>
+
+    <!-- document_view -->
+    <string name="document_view__download_accessibility_description">Преузми</string>
+    <string name="document_view__upload_accessibility_description">Отпреми</string>
+    <string name="document_view__cancel_accessibility_description">Откажи</string>
 
     <!-- QuoteView -->
     <string name="QuoteView_audio">Аудио</string>
@@ -4452,6 +4511,13 @@
     <string name="KbsMegaphone__create_a_pin">Креирајте PIN</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Подаци које Signal складишти се шифрују помоћу PIN-а.</string>
     <string name="KbsMegaphone__create_pin">Креирајте PIN</string>
+
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">Ажурирајте Signal PIN</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">Ажурирајте Signal PIN да бисте могли да региструјете налог.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">Ажурирај PIN</string>
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
@@ -5780,6 +5846,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">Слика је подешена на висок квалитет</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Слика је подешена на стандардни квалитет</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">Додај медиј</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">Четкица и оловка</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">Исеци и ротирај</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">Промени квалитет медија</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">Сачувај медиј</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">Активирајте емоџи тастатуру</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">Прекидач за једнократни медиј</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">Пошаљи медије</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">Крај уношења поруке</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="one">Ставки подешених на висок квалитет: %1$d</item>
@@ -6405,6 +6489,8 @@
     <string name="StoryViewerPageFragment__send_failed">Слање није успело. Додирните да поновите</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">Одговорите у групи</string>
+    <!-- Content description for the any reaction button in reply to story composer, which will launch the emojis bottom sheet. -->
+    <string name="StoryViewerPageFragment_any_reaction_content_description">Још реакција</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">Још увек нема прегледа</string>
     <!-- Displayed when user has disabled receipts -->
@@ -7311,6 +7397,8 @@
     <string name="CameraControls_capture_button_accessibility_label">Дугме за фотографисање</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">Дугме за наставак</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">Прекидач за блиц</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -7962,9 +8050,9 @@
     <!-- Linear progress dialog text shown when preparing a backup -->
     <string name="RemoteBackupsSettingsFragment__preparing_backup">Припрема резервне копије…</string>
     <!-- Linear progress dialog text shown when processing messages for backup. First placeholder is completed count, second is approximate total count, third is percent completed. -->
-    <plurals name="RemoteBackupsSettingsFragment__processing_d_of_d_d_messages">
-        <item quantity="one">Обрађивање порука – %1$d од %2$d (%3$d%%)</item>
-        <item quantity="other">Обрађивање порука – %1$d од %2$d (%3$d%%)</item>
+    <plurals name="RemoteBackupsSettingsFragment__processing_messages_progress_text">
+        <item quantity="one">Обрађују се поруке, %1$s од %2$s (%3$d%%)</item>
+        <item quantity="other">Обрађују се поруке, %1$s од %2$s (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
@@ -8011,6 +8099,10 @@
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">Обратите се подршци</string>
 
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Дошло је до грешке у мрежи. Пробајте поново касније.</string>
+
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
     <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Направите резервне копије ваших порука и медија и користите Signal-ову безбедну, потпуно шифровану услугу складиштења. Нека вам се сачувају поруке када набављате нови телефон или поново инсталирате Signal.</string>
@@ -8054,6 +8146,19 @@
     <string name="MessageBackupsKeyRecordScreen__continue">Настави</string>
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Види кључ поново</string>
+
+    <!-- Confirm key title -->
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Потврдите кључ за резервне копије</string>
+    <!-- Confirm your key subtitle -->
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Унесите кључ за резервне копије који сте управо забележили</string>
+    <!-- Confirm your key text entry hint text -->
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">Кључ за резервне копије</string>
+    <!-- Confirm your key text entry error text -->
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Нетачан кључ за резервне копије</string>
+    <!-- Confirm your key button text to return to record key screen. -->
+    <string name="MessageBackupsKeyVerifyScreen__see_key_again">Види кључ поново</string>
+    <!-- Confirm your key button text to move onto next screen in flow -->
+    <string name="MessageBackupsKeyVerifyScreen__next">Следеће</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->
@@ -8180,6 +8285,25 @@
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Кључ за резервне копије који сте унели је исправан, али нема резервне копије. Ако и даље имате свој стари телефон, проверите да ли је креирање резервне копије омогућено, потом да ли је довршено, и покушајте поново.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Прескочи враћање</string>
+    <!-- Dialog title text when encountering backup restore network error -->
+    <string name="EnterBackupKey_cant_restore_backup">Враћање резервне копије није успело</string>
+    <!-- Dialog body text when encountering backup restore network error -->
+    <string name="EnterBackupKey_your_backup_cant_be_restored_right_now">Резервна копија се тренутно не може вратити. Проверите да ли сте повезани на интернет и пробајте поново. </string>
+    <!-- Dialog button text to contact support on network error -->
+    <string name="EnterBackupKey_contact_support">Обратите се подршци</string>
+
+    <!-- Email subject when contacting support on a restore backup network issue -->
+    <string name="EnterBackupKey_network_failure_support_email">Грешка у мрежи приликом враћања резервне копије за Signal Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+
+    <!-- Title of dialog asking to submit debuglogs -->
+    <string name="ContactSupportDialog_submit_debug_log">Желите ли да пошаљете извештај о грешкама?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="ContactSupportDialog_your_debug_logs">Извештаји о грешкама нам помажу да лакше отклонимо проблем. Слање извештаја није обавезно.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_with_debug">Пошаљи са извештајем о грешкама</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_without_debug">Пошаљи без извештаја о грешкама</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Скенирајте овај код старим телефоном</string>

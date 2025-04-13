@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Signal.DayNight.NoActionBar" parent="TextSecure.LightNoActionBar">
-        <item name="android:windowSplashScreenBackground">@color/core_ultramarine_icon</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+    <style name="Theme.Molly.Starting.Light" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
     </style>
 
-    <!-- Exists for manual override of Splash theme when setting app theme-->
-    <style name="Theme.Signal.DayNight.NoActionBar.LightSplash" parent="Theme.Signal.DayNight.NoActionBar">
-        <item name="android:windowSplashScreenBackground">@color/core_ultramarine_icon</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
-    </style>
-
-    <!-- Exists for manual override of Splash theme when setting app theme-->
-    <style name="Theme.Signal.DayNight.NoActionBar.DarkSplash" parent="Theme.Signal.DayNight.NoActionBar">
-        <item name="android:windowSplashScreenBackground">@color/core_ultramarine_icon</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+    <style name="Theme.Molly.Starting.Dark" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated_dark</item>
     </style>
 </resources>

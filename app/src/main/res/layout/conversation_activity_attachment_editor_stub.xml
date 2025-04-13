@@ -43,8 +43,8 @@
             android:paddingStart="12dp"
             android:visibility="gone"
             android:background="@drawable/rounded_rectangle_secondary_18"
-            app:backgroundTintColor="@color/signal_colorSurface2"
-            app:foregroundTintColor="@color/signal_colorOnSurfaceVariant"
+            app:backgroundTintColor="?attr/colorSurfaceContainer"
+            app:foregroundTintColor="?attr/colorOnSurfaceVariant"
             app:progressAndPlayTint="@color/audio_play_pause_sent_background_tint"
             app:waveformPlayedBarsColor="@color/audio_seek_bar_sent_played_color"
             app:waveformThumbTint="@color/audio_seek_bar_sent_played_color"
@@ -60,8 +60,8 @@
             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
             android:paddingBottom="8dp"
             android:visibility="gone"
-            app:doc_captionColor="@color/signal_text_secondary"
-            app:doc_titleColor="@color/signal_text_primary" />
+            app:doc_captionColor="?attr/signal_text_secondary"
+            app:doc_titleColor="?attr/signal_text_primary" />
 
     </org.thoughtcrime.securesms.components.RemovableEditableMediaView>
 

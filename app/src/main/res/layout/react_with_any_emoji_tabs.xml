@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_gravity="bottom"
-        android:background="@color/react_with_any_background"
+        android:background="?attr/react_with_any_background"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
@@ -33,7 +33,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="@color/react_with_any_customize_background"
+            android:backgroundTint="?attr/react_with_any_customize_background"
             android:clipChildren="false"
             android:elevation="1dp"
             android:visibility="gone"
@@ -51,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_settings_24"
-                app:tint="@color/signal_icon_tint_tab_unselected"
+                app:tint="?attr/signal_icon_tint_tab_unselected"
                 tools:ignore="UnusedAttribute" />
 
         </FrameLayout>

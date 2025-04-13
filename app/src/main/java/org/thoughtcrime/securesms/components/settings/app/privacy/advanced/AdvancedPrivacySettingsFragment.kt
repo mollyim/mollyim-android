@@ -18,10 +18,10 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 
@@ -34,7 +34,7 @@ class AdvancedPrivacySettingsFragment : DSLSettingsFragment(R.string.preferences
   private val sealedSenderSummary: CharSequence by lazy {
     SpanUtil.learnMore(
       requireContext(),
-      ContextCompat.getColor(requireContext(), R.color.signal_text_primary)
+      ThemeUtil.getThemedColor(requireContext(), R.attr.signal_text_primary)
     ) {
       CommunicationActions.openBrowserLink(
         requireContext(),
@@ -161,14 +161,6 @@ class AdvancedPrivacySettingsFragment : DSLSettingsFragment(R.string.preferences
       textPref(
         summary = DSLSettingsText.from(sealedSenderSummary)
       )
-    }
-  }
-
-  private fun getPushToggleSummary(isPushEnabled: Boolean): String {
-    return if (isPushEnabled) {
-      PhoneNumberFormatter.prettyPrint(SignalStore.account.e164!!)
-    } else {
-      getString(R.string.preferences__free_private_messages_and_calls)
     }
   }
 

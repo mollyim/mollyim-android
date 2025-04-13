@@ -15,9 +15,11 @@ import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
 import org.thoughtcrime.securesms.jobs.Svr3MirrorJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver
+import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.util.RemoteConfig.Config
 import org.thoughtcrime.securesms.util.RemoteConfig.remoteBoolean
 import org.thoughtcrime.securesms.util.RemoteConfig.remoteValue
+import org.whispersystems.signalservice.api.NetworkResultUtil
 import java.io.IOException
 import java.util.TreeMap
 import java.util.concurrent.locks.ReentrantLock
@@ -90,7 +92,7 @@ object RemoteConfig {
   @WorkerThread
   @Throws(IOException::class)
   fun refreshSync() {
-    val result = AppDependencies.signalServiceAccountManager.getRemoteConfig()
+    val result = NetworkResultUtil.toBasicLegacy(SignalNetwork.remoteConfig.getRemoteConfig())
     update(result.config)
   }
 
@@ -987,7 +989,7 @@ object RemoteConfig {
   // val messageBackups: Boolean by remoteValue(
   //   key = "android.messageBackups",
   //   hotSwappable = false,
-  //   active = false
+  //   active = true
   // ) { value ->
   //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
   // }
@@ -1006,28 +1008,14 @@ object RemoteConfig {
   /** Whether or not to launch the restore activity after registration is complete, rather than before.  */
   @JvmStatic
   @get:JvmName("restoreAfterRegistration")
-  val restoreAfterRegistration: Boolean by remoteValue(
-    key = "android.registration.restorePostRegistration",
-    hotSwappable = false,
-    active = false  // MOLLY: Test before enabling it
-  ) { value ->
-    value.asBoolean(false)
-  }
-
-  /**
-   * Percentage [0, 100] of web socket requests that will be "shadowed" by sending
-   * an unauthenticated keep-alive via libsignal-net. Default: 0
-   */
-  @JvmStatic
-  @get:JvmName("libSignalWebSocketShadowingPercentage")
-  // val libSignalWebSocketShadowingPercentage: Int by remoteValue(
-  //   key = "android.libsignalWebSocketShadowingPercentage",
-  //   hotSwappable = false
+  // val restoreAfterRegistration: Boolean by remoteValue(
+  //   key = "android.registration.restorePostRegistration",
+  //   hotSwappable = false,
+  //   active = false
   // ) { value ->
-  //   val remote = value.asInteger(0)
-  //   remote.coerceIn(0, 100)
+  //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
   // }
-  val libSignalWebSocketShadowingPercentage: Int = 0
+  val restoreAfterRegistration: Boolean = false
 
   @JvmStatic
   val backgroundMessageProcessInterval: Long by remoteValue(
@@ -1098,19 +1086,18 @@ object RemoteConfig {
     hotSwappable = false
   )
 
-  /** Whether or not this device respect attachment backfill requests.  */
-  // val attachmentBackfillSync: Boolean by remoteBoolean(
-  //   key = "android.attachmentBackfillSync",
-  //   defaultValue = false,
-  //   hotSwappable = true
-  // )
-  val attachmentBackfillSync: Boolean = false
-
   /** Whether or not libsignal-net's CDSI lookups use the new route-based internals or the old ones */
   val libsignalRouteBasedCDSILookup: Boolean by remoteBoolean(
     key = "android.libsignal.libsignalRouteBasedCDSILookup",
     defaultValue = true,
     hotSwappable = true
+  )
+
+  /** Whether to allow different WindowSizeClasses to be used to determine screen layout */
+  val largeScreenUi: Boolean by remoteBoolean(
+    key = "android.largeScreenUI",
+    defaultValue = false,
+    hotSwappable = false
   )
 
   // endregion

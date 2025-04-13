@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -25,19 +24,22 @@ import org.thoughtcrime.securesms.components.emoji.EmojiImageView;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.signal.core.util.concurrent.LifecycleDisposable;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.WindowUtil;
 
 import java.util.Objects;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
   private static final String ARGS_MESSAGE_ID = "reactions.args.message.id";
   private static final String ARGS_IS_MMS     = "reactions.args.is.mms";
 
-  private ViewPager2                recipientPagerView;
-  private ReactionViewPagerAdapter  recipientsAdapter;
-  private ReactionsViewModel        viewModel;
-  private Callback                  callback;
+  private ViewPager2               recipientPagerView;
+  private ReactionViewPagerAdapter recipientsAdapter;
+  private ReactionsViewModel       viewModel;
+  private Callback                 callback;
 
   private final LifecycleDisposable disposables = new LifecycleDisposable();
 
@@ -78,7 +80,7 @@ public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogF
     Dialog dialog = super.onCreateDialog(savedInstanceState);
 
     FullscreenHelper.showSystemUI(dialog.getWindow());
-    WindowUtil.setNavigationBarColor(requireContext(), dialog.getWindow(), ContextCompat.getColor(requireContext(), R.color.signal_colorSurface1));
+    WindowUtil.setNavigationBarColor(requireContext(), dialog.getWindow(), ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLow));
 
     return dialog;
   }
@@ -97,11 +99,11 @@ public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogF
 
     disposables.bindTo(getViewLifecycleOwner());
 
-    setUpRecipientsRecyclerView();
-    setUpTabMediator(view, savedInstanceState);
-
     MessageId messageId = new MessageId(requireArguments().getLong(ARGS_MESSAGE_ID));
     setUpViewModel(messageId);
+
+    setUpRecipientsRecyclerView();
+    setUpTabMediator(view, savedInstanceState);
   }
 
   @Override
@@ -142,14 +144,12 @@ public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogF
   }
 
   private void setUpRecipientsRecyclerView() {
-    recipientsAdapter = new ReactionViewPagerAdapter();
+    recipientsAdapter = new ReactionViewPagerAdapter(() -> viewModel.removeReactionEmoji());
 
     recipientPagerView.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
-        recipientPagerView.post(() -> {
-          recipientsAdapter.enableNestedScrollingForPosition(position);
-        });
+        recipientPagerView.post(() -> recipientsAdapter.enableNestedScrollingForPosition(position));
       }
 
       @Override
@@ -164,7 +164,7 @@ public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogF
   }
 
   private void setUpViewModel(@NonNull MessageId messageId) {
-    ReactionsViewModel.Factory factory = new ReactionsViewModel.Factory(messageId);
+    ReactionsViewModel.Factory factory = new ReactionsViewModel.Factory(new ReactionsRepository(), messageId);
 
     viewModel = new ViewModelProvider(this, factory).get(ReactionsViewModel.class);
 

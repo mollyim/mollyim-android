@@ -34,17 +34,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/handle" />
 
-        <org.thoughtcrime.securesms.badges.BadgeImageView
-            android:id="@+id/rbs_badge"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="52dp"
-            android:contentDescription="@string/ImageView__badge"
-            app:badge_size="large"
-            app:layout_constraintStart_toStartOf="@id/rbs_recipient_avatar"
-            app:layout_constraintTop_toTopOf="@id/rbs_recipient_avatar" />
-
         <ProgressBar
             android:id="@+id/rbs_admin_action_busy"
             android:layout_width="0dp"
@@ -56,6 +45,49 @@
             app:layout_constraintTop_toTopOf="@+id/rbs_recipient_avatar"
             tools:visibility="visible" />
 
+        <ProgressBar
+            android:id="@+id/rbs_progress_bar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminate="true"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateTint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintTop_toTopOf="@id/rbs_recipient_avatar"
+            app:layout_constraintBottom_toBottomOf="@id/rbs_recipient_avatar"
+            app:layout_constraintStart_toStartOf="@id/rbs_recipient_avatar"
+            app:layout_constraintEnd_toEndOf="@id/rbs_recipient_avatar"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/rbs_tap_to_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rbs_recipient_avatar"
+            app:layout_constraintEnd_toEndOf="@+id/rbs_recipient_avatar"
+            app:layout_constraintStart_toStartOf="@+id/rbs_recipient_avatar"
+            app:layout_constraintTop_toTopOf="@+id/rbs_recipient_avatar">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:srcCompat="@drawable/ic_tap_outline_24"
+                app:tint="@color/core_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/MessageRequestProfileView_view"
+                android:textAppearance="@style/TextAppearance.Signal.Subtitle"
+                android:textColor="@color/core_white" />
+
+        </LinearLayout>
+
         <org.thoughtcrime.securesms.components.emoji.EmojiTextView
             android:id="@+id/rbs_full_name"
             android:layout_width="0dp"
@@ -65,7 +97,7 @@
             android:layout_marginEnd="@dimen/dsl_settings_gutter"
             android:gravity="center_horizontal"
             android:textAppearance="@style/Signal.Text.HeadlineMedium"
-            android:textColor="@color/signal_text_primary"
+            android:textColor="?attr/signal_text_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +113,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/dsl_settings_gutter"
             android:gravity="center"
-            android:textColor="@color/signal_text_secondary"
+            android:textColor="?attr/signal_text_secondary"
             app:layout_constraintTop_toBottomOf="@id/rbs_full_name"
             tools:text="🕷🕷🕷 Hangin' on the web 🕷🕷🕷" />
 
@@ -96,7 +128,7 @@
             android:text="@string/ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation"
             android:textAlignment="center"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="@color/signal_text_primary"
+            android:textColor="?attr/signal_text_primary"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

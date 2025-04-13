@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/symbol_quality_high_24"
-        app:tint="@color/signal_colorOnSurface" />
+        app:tint="?attr/colorOnSurface" />
 
     <TextView
         android:id="@+id/media_review_toast_popup_description"
@@ -34,7 +34,7 @@
         android:gravity="center_vertical"
         android:paddingBottom="2dp"
         android:textAppearance="@style/TextAppearance.Signal.Body2"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

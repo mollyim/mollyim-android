@@ -569,11 +569,6 @@
         <item quantity="one">Bu medyayı depolama alanına kaydetmek, telefonunuzdaki diğer uygulamaların erişimine izin verecektir.\n\nDevam edilsin mi?</item>
         <item quantity="other">%1$d içeriğin tümünü depolama alanına kaydetmek, telefonunuzdaki diğer uygulamaların erişimine izin verecektir.\n\nDevam edilsin mi?</item>
     </plurals>
-    <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
-        <item quantity="one">Eklenti hafızaya kaydedilirken hata oluştu!</item>
-        <item quantity="other">Eklentiler hafızaya kaydedilirken hata oluştu!</item>
-    </plurals>
-    <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Depolama alanına yazılamıyor!</string>
     <plurals name="ConversationFragment_saving_n_attachments">
         <item quantity="one">Eklenti kaydediliyor</item>
         <item quantity="other">%1$d eklenti kaydediliyor</item>
@@ -581,13 +576,6 @@
     <plurals name="ConversationFragment_saving_n_attachments_to_sd_card">
         <item quantity="one">Eklenti depolamaya kaydediliyor…</item>
         <item quantity="other">%1$d eklenti depolamaya kaydediliyor…</item>
-    </plurals>
-    <!-- Dialog title asking to save media to your phone\'s storage -->
-    <string name="ConversationFragment__save_to_phone">Telefona kaydedilsin mi?</string>
-    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
-    <plurals name="ConversationFragment__this_media_will_be_saved">
-        <item quantity="one">Bu medya telefonunun depolama alanına kaydedilecektir. Diğer uygulamalar bu alana telefonunun izinlerine göre erişebilir.</item>
-        <item quantity="other">Bu medya telefonunun depolama alanına kaydedilecektir. Diğer uygulamalar bu alana telefonunun izinlerine göre erişebilir.</item>
     </plurals>
     <!-- Checkbox shown in dialog to not show the dialog again in future cases -->
     <string name="ConversationFragment_dont_show_again">Tekrar gösterme</string>
@@ -676,6 +664,8 @@
     <string name="ConversationFragment_profile_names">Profil adları</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Grup adları</string>
+    <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
+    <string name="ConversationFragment_photo_failed">Fotoğraf indirilemedi. Tekrar dene.</string>
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Güvenlik İpuçları</string>
@@ -1162,6 +1152,7 @@
 
     <!-- DocumentView -->
     <string name="DocumentView_unnamed_file">İsimsiz dosya</string>
+    <string name="DocumentView_document_file">Belge dosyası</string>
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Eksik Google Play Hizmetleri için optimize et</string>
@@ -1689,7 +1680,6 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Siliniyor</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">İletiler siliniyor…</string>
-    <string name="MediaOverviewActivity_collecting_attachments">Eklentiler toplanıyor…</string>
     <string name="MediaOverviewActivity_Sort_by">Sıralama</string>
     <string name="MediaOverviewActivity_Newest">En yeni</string>
     <string name="MediaOverviewActivity_Oldest">En eski</string>
@@ -2081,6 +2071,14 @@
     <string name="MessageRecord_reported_as_spam">Spam olarak bildirildi</string>
     <!-- Update message shown in chat after accept a message request -->
     <string name="MessageRecord_you_accepted_the_message_request">Mesaj isteğini kabul ettin</string>
+    <!-- Update message shown in chat after you block a person -->
+    <string name="MessageRecord_you_blocked_this_person">Bu kişiyi engelledin</string>
+    <!-- Update message shown in chat after you unblock a person -->
+    <string name="MessageRecord_you_unblocked_this_person">Bu kişinin engelini kaldırdın</string>
+    <!-- Update message shown in chat after you block a group -->
+    <string name="MessageRecord_you_blocked_this_group">Bu grubu engelledin</string>
+    <!-- Update message shown in chat after you unblock a group -->
+    <string name="MessageRecord_you_unblocked_this_group">Bu grubun engelini kaldırdın</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Kabul et</string>
@@ -2129,6 +2127,27 @@
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
         <item quantity="one">%1$d diğer grup</item>
         <item quantity="other">%1$d diğer grup</item>
+    </plurals>
+    <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
+    <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>
+    <!-- Text for an empty group or when you are the only member -->
+    <string name="MessageRequestProfileView_group_members_zero">Henüz başka grup üyesi yok</string>
+    <!-- Text for a group with one member (not you). %1$s is their name -->
+    <string name="MessageRequestProfileView_group_members_one">%1$s</string>
+    <!-- Text for a 2 member group you are in. %1$s is the name of the other member -->
+    <string name="MessageRequestProfileView_group_members_one_and_you">%1$s ve sen</string>
+    <!-- Text for a 2 member group you are not in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two">%1$s ve %2$s</string>
+    <!-- Text for a 3 member group you are in. %1$s and %2$s are the members\' names -->
+    <string name="MessageRequestProfileView_group_members_two_and_you">%1$s, %2$s ve sen</string>
+    <!-- Text for a 3 member group you are not in. %1$s, %2$s, %3$s are the names of the other members. -->
+    <string name="MessageRequestProfileView_group_members_three">%1$s, %2$s ve %3$s</string>
+    <!-- Text for a 3+ member group. %1$s, %2$s, %3$s are member names. %4$s is the string key MessageRequestProfileView_other_members-->
+    <string name="MessageRequestProfileView_group_members_other">%1$s, %2$s, %3$s ve %4$s</string>
+    <!-- Nested in MessageRequestProfileView_group_members_other that shows how many members (besides three) are in the group -->
+    <plurals name="MessageRequestProfileView_other_members">
+        <item quantity="one">%1$d diğer</item>
+        <item quantity="other">%1$d diğer</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
     <string name="MessageRequestBottomView_report">Bildir…</string>
@@ -2245,6 +2264,7 @@
 
     <!-- ReactionsBottomSheetDialogFragment -->
     <string name="ReactionsBottomSheetDialogFragment_all">Tümü · %1$d</string>
+    <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">Kaldırmak için dokun</string>
 
     <!-- ReactionsConversationView -->
     <string name="ReactionsConversationView_plus">+%1$d</string>
@@ -2477,6 +2497,8 @@
     <string name="CallOverflowPopupWindow__view">Görüntüle</string>
 
 
+    <!-- A notification to the user that their hand is raised but they are currently speaking -->
+    <string name="CallRaiseHandSnackbar__lower_your_hand">Elin insin mi?</string>
     <!-- A notification to the user that they successfully raised their hand. The placeholder string is CallParticipant__you, or CallParticipant__you_on_another_device -->
     <string name="CallRaiseHandSnackbar__expanded_second_person_raised_a_hand_single">%1$s el kaldırdın</string>
     <!-- A notification to the user that they and at least one more participants in the call successfully raised their hand. The placeholder is a number quantifying how many other hands are also raised, besides the user. -->
@@ -2845,6 +2867,8 @@
     <string name="ThreadRecord_message_history_has_been_merged">Mesaj geçmişin birleştirildi</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
     <string name="ThreadRecord_s_belongs_to_s">%1$s numarası %2$s adlı kişiye aittir</string>
+    <!-- Displayed in the conversation list when a person has been blocked -->
+    <string name="ThreadRecord_blocked">Engellendi</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Molly güncellemesi</string>
@@ -2960,8 +2984,6 @@
     <string name="MediaPreviewActivity_you">Siz</string>
     <string name="MediaPreviewActivity_unssuported_media_type">Desteklenmeyen içerik türü</string>
     <string name="MediaPreviewActivity_draft">Taslak</string>
-    <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly, harici depolamaya kaydedebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
-    <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">İzinler olmadan harici depolamaya kaydedilemiyor</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">İletiyi sil?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">Bu eylem bu iletiyi kalıcı olarak silecektir.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s --&gt; %2$s</string>
@@ -3068,14 +3090,46 @@
     <!-- Notification channel name for notifications sent when a device has been linked -->
     <string name="NotificationChannel_new_linked_device">Yeni bağlı cihaz</string>
 
-    <!-- ProfileEditNameFragment -->
-
     <!-- QuickResponseService -->
     <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly kilitliyken hızlı cevap kullanılamaz!</string>
     <string name="QuickResponseService_problem_sending_message">İleti gönderilirken hata!</string>
 
-    <!-- A small toast notification to let the user know their image/video/audio was downloaded and saved to their device, accessible in other apps. -->
-    <string name="SaveAttachmentTask_saved">Medya kaydedildi</string>
+    <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+    <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Depolama alanına yazılamıyor!</string>
+
+    <!-- A toast notification that is shown after image/video/audio media was successfully downloaded and saved to the device storage, accessible in other apps. -->
+    <plurals name="SaveAttachment_saved_success">
+        <item quantity="one">Medya kaydedildi</item>
+        <item quantity="other">Medya kaydedildi</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after some image/video/audio media was successfully downloaded and saved to the device storage, but some failed to save
+         %1$s is the number of items that failed to save and %2$s is the total number of items that the user requested to save. -->
+    <plurals name="SaveAttachment_saved_success_n_failures">
+        <item quantity="one">Medya kaydedildi (%2$s ögeden %1$s adedi başarısız oldu)</item>
+        <item quantity="other">Medya kaydedildi (%2$s ögeden %1$s adedi başarısız oldu)</item>
+    </plurals>
+
+    <!-- A toast notification that is shown after all of the requested image/video/audio media failed to save to the device storage. -->
+    <plurals name="SaveAttachment_error_while_saving_attachments_to_sd_card">
+        <item quantity="one">Eklenti hafızaya kaydedilirken hata oluştu!</item>
+        <item quantity="other">Eklentiler hafızaya kaydedilirken hata oluştu!</item>
+    </plurals>
+
+    <!-- Dialog title asking to save media to your phone\'s storage -->
+    <string name="AttachmentSaver__save_to_phone">Telefona kaydedilsin mi?</string>
+
+    <!-- Dialog message explaining that media will be saved to your phone and can potentially be accessed by other phones. -->
+    <plurals name="AttachmentSaver__this_media_will_be_saved">
+        <item quantity="one">Bu medya telefonunun depolama alanına kaydedilecektir. Diğer uygulamalar bu alana telefonunun izinlerine göre erişebilir.</item>
+        <item quantity="other">Bu medya telefonunun depolama alanına kaydedilecektir. Diğer uygulamalar bu alana telefonunun izinlerine göre erişebilir.</item>
+    </plurals>
+
+    <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly, harici depolamaya kaydedebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+
+    <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
+    <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">İzinler olmadan harici depolamaya kaydedilemiyor</string>
 
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Ara</string>
@@ -3333,6 +3387,11 @@
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Oynat … Durdur</string>
     <string name="audio_view__download_accessibility_description">İndir</string>
+
+    <!-- document_view -->
+    <string name="document_view__download_accessibility_description">İndir</string>
+    <string name="document_view__upload_accessibility_description">Yükle</string>
+    <string name="document_view__cancel_accessibility_description">İptal</string>
 
     <!-- QuoteView -->
     <string name="QuoteView_audio">Ses</string>
@@ -4452,6 +4511,13 @@
     <string name="KbsMegaphone__create_a_pin">PIN oluştur</string>
     <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN\'ler Signal\'de depolanan verileri şifreli olarak tutar.</string>
     <string name="KbsMegaphone__create_pin">PIN oluştur</string>
+
+    <!-- Title for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_signal_pin">Signal PIN\'ini güncelle</string>
+    <!-- Message for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__message">Hesap kaydını tamamlamak için Signal PIN\'ini güncelle.</string>
+    <!-- Button text for megaphone shown after registration without a pin but with aep to prompt the user to enter their pin -->
+    <string name="UpdatePinMegaphone__update_pin">PIN\'i güncelle</string>
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
@@ -5780,6 +5846,24 @@
     <string name="MediaReviewFragment__photo_set_to_high_quality">Fotoğraf yüksek kaliteye ayarlandı</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Fotoğraf standart kaliteye ayarlandı</string>
+    <!-- Accessibility label describing the add media button on the Media review screen -->
+    <string name="MediaReviewFragment__add_media_accessibility_label">Medya Ekle</string>
+    <!-- Accessibility label describing the brush and pen button on the Media review screen -->
+    <string name="MediaReviewFragment__brush_pen_accessibility_label">Fırça ve Kalem</string>
+    <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
+    <string name="MediaReviewFragment__crop_rotate_accessibility_label">Kırp ve döndür</string>
+    <!-- Accessibility label describing the change media quality button on the Media review screen -->
+    <string name="MediaReviewFragment__change_media_quality_accessibility_label">Medya Kalitesini Değiştir</string>
+    <!-- Accessibility label describing the save media button on the Media review screen -->
+    <string name="MediaReviewFragment__save_media_accessibility_label">Medyayı Kaydet</string>
+    <!-- Accessibility label describing the toggle emoji keyboard button on the Media review screen -->
+    <string name="MediaReviewFragment__emoji_toggle_accessibility_label">Emoji klavyesini göster/gizle</string>
+    <!-- Accessibility label describing the toggle view once button on the Media review screen -->
+    <string name="MediaReviewFragment__view_once_toggle_accessibility_label">Görünümü Bir Kez Değiştir</string>
+    <!-- Accessibility label describing the send media button on the Media review screen -->
+    <string name="MediaReviewFragment__send_media_accessibility_label">Medya Gönder</string>
+    <!-- Accessibility label describing the finish adding a message button on the Media review screen dialog -->
+    <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">Mesaj eklemeyi bitir</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
         <item quantity="one">%1$d öge yüksek kaliteye ayarlandı</item>
@@ -6405,6 +6489,8 @@
     <string name="StoryViewerPageFragment__send_failed">Gönderme başarısız. Tekrar dene</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">Gruba yanıtla</string>
+    <!-- Content description for the any reaction button in reply to story composer, which will launch the emojis bottom sheet. -->
+    <string name="StoryViewerPageFragment_any_reaction_content_description">Daha fazla tepki</string>
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">Henüz görülme yok</string>
     <!-- Displayed when user has disabled receipts -->
@@ -7311,6 +7397,8 @@
     <string name="CameraControls_capture_button_accessibility_label">Yakala Düğmesi</string>
     <!-- Accessibility label describing the continue button on the camera screen -->
     <string name="CameraControls_continue_button_accessibility_label">Devam Düğmesi</string>
+    <!-- Accessibility label describing the flash Mode toggle button on the camera screen -->
+    <string name="CameraControls_toggle_flash_mode_accessibility_label">Flaş Modunu Değiştir</string>
 
     <!-- CallPreference -->
     <!-- Generic group call in call info -->
@@ -7962,9 +8050,9 @@
     <!-- Linear progress dialog text shown when preparing a backup -->
     <string name="RemoteBackupsSettingsFragment__preparing_backup">Yedekleme hazırlanıyor…</string>
     <!-- Linear progress dialog text shown when processing messages for backup. First placeholder is completed count, second is approximate total count, third is percent completed. -->
-    <plurals name="RemoteBackupsSettingsFragment__processing_d_of_d_d_messages">
-        <item quantity="one">%1$d / %2$d (%%%3$d) mesaj işleniyor</item>
-        <item quantity="other">%1$d / %2$d (%%%3$d) mesaj işleniyor</item>
+    <plurals name="RemoteBackupsSettingsFragment__processing_messages_progress_text">
+        <item quantity="one">%1$s / %2$s mesaj işleniyor (%%%3$d)</item>
+        <item quantity="other">%1$s / ~%2$s mesaj işleniyor (%%%3$d)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
@@ -8011,6 +8099,10 @@
     <!-- Action button label to contact support -->
     <string name="SubscriptionNotFoundBottomSheet__contact_support">Destekle iletişime geç</string>
 
+    <!-- MessageBackupsFlowFragment -->
+    <!-- Body for network failure dialog in message backups checkout flow -->
+    <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Bir ağ hatası oluştu. Lütfen daha sonra tekrar dene.</string>
+
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
     <string name="MessageBackupsEducationScreen__backup_your_messages_and_media">Signal\'in güvenli, uçtan uca şifreli depolama hizmetini kullanarak mesajlarını ve medyanı yedekle. Yeni bir telefon aldığında veya Signal\'i yeniden yüklediğinde asla mesaj kaybetme.</string>
@@ -8054,6 +8146,19 @@
     <string name="MessageBackupsKeyRecordScreen__continue">Devam et</string>
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Anahtarı tekrar gör</string>
+
+    <!-- Confirm key title -->
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Yedekleme anahtarını onayla</string>
+    <!-- Confirm your key subtitle -->
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Az önce kaydettiğin yedekleme anahtarını gir</string>
+    <!-- Confirm your key text entry hint text -->
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">Yedekleme anahtarı</string>
+    <!-- Confirm your key text entry error text -->
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Hatalı yedekleme anahtarı</string>
+    <!-- Confirm your key button text to return to record key screen. -->
+    <string name="MessageBackupsKeyVerifyScreen__see_key_again">Anahtarı tekrar gör</string>
+    <!-- Confirm your key button text to move onto next screen in flow -->
+    <string name="MessageBackupsKeyVerifyScreen__next">İleri</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->
@@ -8180,6 +8285,25 @@
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Girdiğin yedekleme anahtarı doğru ancak bununla ilişkili bir yedekleme yok. Hala eski telefonun varsa, yedeklemelerin etkinleştirildiğinden ve bir yedeklemenin tamamlandığından emin ol ve tekrar dene.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Geri yüklemeyi atla</string>
+    <!-- Dialog title text when encountering backup restore network error -->
+    <string name="EnterBackupKey_cant_restore_backup">Yedekleme geri yüklenemiyor</string>
+    <!-- Dialog body text when encountering backup restore network error -->
+    <string name="EnterBackupKey_your_backup_cant_be_restored_right_now">Yedeklemen şu anda geri yüklenemez. İnternet bağlantını kontrol et ve tekrar dene. </string>
+    <!-- Dialog button text to contact support on network error -->
+    <string name="EnterBackupKey_contact_support">Destekle iletişime geç</string>
+
+    <!-- Email subject when contacting support on a restore backup network issue -->
+    <string name="EnterBackupKey_network_failure_support_email">Signal Android Yedeklemesi geri yükleme ağ hatası</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+
+    <!-- Title of dialog asking to submit debuglogs -->
+    <string name="ContactSupportDialog_submit_debug_log">Hata ayıklama günlüğü gönderilsin mi?</string>
+    <!-- Body of dialog explaining what debug logs are and that they are optional to submit -->
+    <string name="ContactSupportDialog_your_debug_logs">Hata ayıklama günlükleriniz sorununuzu çözmemizi hızlandıracaktır. Günlüklerinizi göndermeniz isteğe bağlıdır.</string>
+    <!-- Button option to submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_with_debug">Hata Ayıklama Günlüğü ile gönder</string>
+    <!-- Button option to not submit debug log when contacting support -->
+    <string name="ContactSupportDialog_submit_without_debug">Hata Ayıklama Günlüğü olmadan gönder</string>
 
     <!-- Title for restore via qr screen -->
     <string name="RestoreViaQr_title">Bu kodu eski telefonunla tara</string>

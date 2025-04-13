@@ -29,7 +29,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/signal_colorBackground"
+                android:background="?attr/colorSurface"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <FrameLayout
@@ -58,7 +58,7 @@
                         android:padding="1.5dp"
                         android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.WallpaperPreview"
-                        app:strokeColor="@color/signal_colorBackground"
+                        app:strokeColor="?attr/colorSurface"
                         app:strokeWidth="3dp"
                         tools:background="@color/green_500" />
 

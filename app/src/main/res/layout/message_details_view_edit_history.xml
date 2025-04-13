@@ -16,7 +16,7 @@
         android:minHeight="56dp"
         android:paddingHorizontal="24dp"
         android:text="@string/MessageDetails__view_edit_history"
-        app:drawableTint="@color/signal_colorOnSurface"
+        app:drawableTint="?attr/colorOnSurface"
         app:drawableStartCompat="@drawable/symbol_edit_24" />
 
     <include

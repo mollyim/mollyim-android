@@ -23,7 +23,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/section_header_action"
         style="@style/Signal.Widget.Button.Small.Secondary"
-        android:textColor="@color/signal_colorOnSurface"
+        android:textColor="?attr/colorOnSurface"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

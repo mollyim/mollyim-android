@@ -11,7 +11,6 @@ import android.media.AudioManager
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.method.LinkMovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
@@ -32,7 +31,9 @@ import androidx.core.view.animation.PathInterpolatorCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.google.android.material.R as MaterialR
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.CircularProgressIndicatorSpec
@@ -41,6 +42,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import kotlinx.coroutines.launch
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
@@ -64,6 +66,7 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewFragment
 import org.thoughtcrime.securesms.mediapreview.VideoControlsDelegate
+import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment
@@ -86,8 +89,10 @@ import org.thoughtcrime.securesms.util.AvatarUtil
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Debouncer
+import org.thoughtcrime.securesms.util.LongClickMovementMethod
 import org.thoughtcrime.securesms.util.Projection
 import org.thoughtcrime.securesms.util.ServiceUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.views.TouchInterceptingFrameLayout
@@ -476,9 +481,11 @@ class StoryViewerPageFragment :
         state.hideChromeImmediate -> {
           hideChromeImmediate()
         }
+
         state.hideChrome -> {
           hideChrome()
         }
+
         else -> {
           showChrome()
         }
@@ -493,6 +500,7 @@ class StoryViewerPageFragment :
           is StoryViewerDialog.GroupDirectReply -> {
             onStartDirectReply(sheet.storyId, sheet.recipientId)
           }
+
           StoryViewerDialog.Delete,
           StoryViewerDialog.Forward -> Unit
         }
@@ -537,6 +545,11 @@ class StoryViewerPageFragment :
 
   override fun onDismissForwardSheet() {
     viewModel.setIsDisplayingForwardDialog(false)
+  }
+
+  @Suppress("OVERRIDE_DEPRECATION")
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    Permissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults)
   }
 
   private fun checkEventIntersectsClickableSpan(cardWrapper: ViewGroup, event: MotionEvent): Boolean {
@@ -712,12 +725,14 @@ class StoryViewerPageFragment :
         constraintSet.connect(viewsAndReplies.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
         card.radius = DimensionUnit.DP.toPixels(18f)
       }
+
       StoryDisplay.MEDIUM -> {
         constraintSet.setDimensionRatio(cardWrapper.id, "9:16")
         constraintSet.clear(viewsAndReplies.id, ConstraintSet.TOP)
         constraintSet.connect(viewsAndReplies.id, ConstraintSet.BOTTOM, cardWrapper.id, ConstraintSet.BOTTOM)
         card.radius = DimensionUnit.DP.toPixels(18f)
       }
+
       StoryDisplay.SMALL -> {
         constraintSet.setDimensionRatio(cardWrapper.id, null)
         constraintSet.clear(viewsAndReplies.id, ConstraintSet.TOP)
@@ -757,6 +772,7 @@ class StoryViewerPageFragment :
         isFromNotification,
         groupReplyStartPosition
       )
+
       StoryViewerPageState.ReplyState.PRIVATE -> StoryDirectReplyDialogFragment.create(storyPostId)
       StoryViewerPageState.ReplyState.GROUP_SELF -> StoryViewsAndRepliesDialogFragment.create(
         storyPostId,
@@ -765,14 +781,17 @@ class StoryViewerPageFragment :
         isFromNotification,
         groupReplyStartPosition
       )
+
       StoryViewerPageState.ReplyState.PARTIAL_SEND -> {
         handleResend(storyPost)
         return
       }
+
       StoryViewerPageState.ReplyState.SEND_FAILURE -> {
         handleResend(storyPost)
         return
       }
+
       StoryViewerPageState.ReplyState.SENDING -> return
     }
 
@@ -854,24 +873,28 @@ class StoryViewerPageFragment :
         viewModel.setIsDisplayingSlate(false)
         markViewedIfAble()
       }
+
       AttachmentTable.TRANSFER_PROGRESS_PENDING -> {
         Log.d(TAG, "Story content download is pending.")
         storySlate.moveToState(StorySlateView.State.LOADING, post.id)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)
       }
+
       AttachmentTable.TRANSFER_PROGRESS_STARTED -> {
         Log.d(TAG, "Story content download is in progress.")
         storySlate.moveToState(StorySlateView.State.LOADING, post.id)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)
       }
+
       AttachmentTable.TRANSFER_PROGRESS_FAILED -> {
         Log.d(TAG, "Story content download has failed temporarily.")
         storySlate.moveToState(StorySlateView.State.ERROR, post.id)
         sharedViewModel.setContentIsReady()
         viewModel.setIsDisplayingSlate(true)
       }
+
       AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE -> {
         Log.d(TAG, "Story content download has failed permanently.")
         storySlate.moveToState(StorySlateView.State.FAILED, post.id, post.sender)
@@ -924,7 +947,7 @@ class StoryViewerPageFragment :
     largeCaption.text = displayBody
     caption.visible = displayBody.isNotEmpty()
     caption.requestLayout()
-    caption.movementMethod = LinkMovementMethod.getInstance()
+    caption.movementMethod = LongClickMovementMethod.getInstance(requireContext())
     val overflow = SpannableString(getString(R.string.StoryViewerPageFragment__read_more))
     overflow.setSpan(StyleSpan(Typeface.BOLD), 0, overflow.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     caption.setOverflowText(overflow)
@@ -1028,7 +1051,7 @@ class StoryViewerPageFragment :
 
     sendingBar.visible = false
     viewsAndReplies.isEnabled = true
-    viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurface))
+    viewsAndReplies.iconTint = ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurface))
 
     when (replyState) {
       StoryViewerPageState.ReplyState.SENDING -> presentSendingBottomBar()
@@ -1067,14 +1090,14 @@ class StoryViewerPageFragment :
 
   private fun presentPartialSendBottomBar() {
     viewsAndReplies.setIconResource(R.drawable.symbol_error_circle_24)
-    viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_light_colorError))
+    viewsAndReplies.iconTint = ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorError))
     viewsAndReplies.iconSize = 20.dp
     viewsAndReplies.setText(R.string.StoryViewerPageFragment__partially_sent)
   }
 
   private fun presentSendFailureBottomBar() {
     viewsAndReplies.setIconResource(R.drawable.symbol_error_circle_24)
-    viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_light_colorError))
+    viewsAndReplies.iconTint = ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorError))
     viewsAndReplies.iconSize = 20.dp
     viewsAndReplies.setText(R.string.StoryViewerPageFragment__send_failed)
   }
@@ -1175,7 +1198,14 @@ class StoryViewerPageFragment :
         StoryContextMenu.share(this, it.conversationMessage.messageRecord as MmsMessageRecord)
       },
       onSave = {
-        StoryContextMenu.save(requireContext(), it.conversationMessage.messageRecord)
+        lifecycleScope.launch {
+          viewModel.setIsSavingMedia(true)
+          StoryContextMenu.save(
+            fragment = this@StoryViewerPageFragment,
+            messageRecord = it.conversationMessage.messageRecord
+          )
+          viewModel.setIsSavingMedia(false)
+        }
       },
       onDelete = {
         viewModel.setIsDisplayingDeleteDialog(true)

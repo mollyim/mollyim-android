@@ -48,15 +48,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import org.signal.core.ui.Buttons
-import org.signal.core.ui.Scaffolds
-import org.signal.core.ui.Texts
-import org.signal.core.ui.theme.SignalTheme
+import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Scaffolds
+import org.signal.core.ui.compose.Texts
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.getParcelableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.TemporaryScreenshotSecurity
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
-import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentComponent
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentCheckoutDelegate
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentProcessorAction
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentProcessorActionResult
@@ -68,7 +67,6 @@ import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 /**
@@ -80,10 +78,7 @@ class BankTransferDetailsFragment : ComposeFragment(), InAppPaymentCheckoutDeleg
   private val viewModel: BankTransferDetailsViewModel by viewModels()
 
   private val stripePaymentViewModel: StripePaymentInProgressViewModel by navGraphViewModels(
-    R.id.checkout_flow,
-    factoryProducer = {
-      StripePaymentInProgressViewModel.Factory(requireListener<InAppPaymentComponent>().stripeRepository)
-    }
+    R.id.checkout_flow
   )
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

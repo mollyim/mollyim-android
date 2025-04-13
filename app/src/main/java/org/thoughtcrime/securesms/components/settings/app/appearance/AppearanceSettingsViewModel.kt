@@ -22,10 +22,10 @@ class AppearanceSettingsViewModel : ViewModel() {
     store.update { getState() }
   }
 
-  fun setTheme(activity: Activity?, theme: Theme) {
-    store.update { it.copy(theme = theme) }
-    SignalStore.settings.theme = theme
-    SplashScreenUtil.setSplashScreenThemeIfNecessary(activity, theme)
+  fun setTheme(activity: Activity?, theme: Theme, useDynamicColors: Boolean) {
+    store.update { it.copy(theme = theme, dynamicColors = useDynamicColors) }
+    SignalStore.settings.setTheme(theme, useDynamicColors)
+    SplashScreenUtil.setSplashScreenThemeIfNecessary(activity, theme, useDynamicColors)
   }
 
   fun setLanguage(language: String) {
@@ -42,6 +42,7 @@ class AppearanceSettingsViewModel : ViewModel() {
   private fun getState(): AppearanceSettingsState {
     return AppearanceSettingsState(
       SignalStore.settings.theme,
+      dynamicColors = SignalStore.settings.isDynamicColorsEnabled,
       SignalStore.settings.messageFontSize,
       SignalStore.settings.language,
       SignalStore.settings.useCompactNavigationBar

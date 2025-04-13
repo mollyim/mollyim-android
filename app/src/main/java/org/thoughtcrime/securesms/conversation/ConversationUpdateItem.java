@@ -174,7 +174,7 @@ public final class ConversationUpdateItem extends FrameLayout
       groupObserver.observe(lifecycleOwner, null);
     }
 
-    int textColor = ContextCompat.getColor(getContext(), R.color.conversation_item_update_text_color);
+    int textColor = ThemeUtil.getThemedColor(getContext(), R.attr.conversation_item_update_text_color);
     if (ThemeUtil.isDarkTheme(getContext()) && hasWallpaper) {
       textColor = ContextCompat.getColor(getContext(), R.color.core_grey_15);
     }
@@ -670,8 +670,8 @@ public final class ConversationUpdateItem extends FrameLayout
 
   private void presentActionButton(boolean hasWallpaper, boolean isBoostRequest) {
     if (isBoostRequest) {
-      actionButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.signal_colorSecondaryContainer)));
-      actionButton.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.signal_colorOnSecondaryContainer)));
+      actionButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorSecondaryContainer)));
+      actionButton.setTextColor(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSecondaryContainer)));
     } else if (hasWallpaper) {
       actionButton.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_background_wallpaper));
       actionButton.setTextColor(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_text_color_wallpaper));

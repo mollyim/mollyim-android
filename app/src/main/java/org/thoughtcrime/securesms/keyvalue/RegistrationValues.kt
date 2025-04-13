@@ -23,7 +23,7 @@ class RegistrationValues internal constructor(store: KeyValueStore) : SignalStor
     private const val RESTORING_ON_NEW_DEVICE = "registration.restoring_on_new_device"
 
     @VisibleForTesting
-    const val RESTORE_DECISION_STATE = "registration.restore_decision_state"
+    const val RESTORE_DECISION_STATE = "registration.restore_decision_state.2"
   }
 
   @Synchronized
@@ -33,7 +33,7 @@ class RegistrationValues internal constructor(store: KeyValueStore) : SignalStor
       .putBoolean(HAS_UPLOADED_PROFILE, false)
       .putBoolean(REGISTRATION_COMPLETE, false)
       .putBoolean(PIN_REQUIRED, true)
-      .putBlob(RESTORE_DECISION_STATE, RestoreDecisionState.Start.encode())
+      .apply { /*if (BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED) putBlob(RESTORE_DECISION_STATE, RestoreDecisionState.Start.encode())*/ }
       .commit()
   }
 

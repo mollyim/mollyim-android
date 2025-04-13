@@ -6,6 +6,7 @@ import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import java.io.IOException
 import java.util.Optional
 import java.util.concurrent.TimeoutException
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Common interface for the web socket connection API
@@ -15,9 +16,11 @@ import java.util.concurrent.TimeoutException
  *  - LibSignalChatConnection - the wrapper around libsignal's [org.signal.libsignal.net.ChatService]
  */
 interface WebSocketConnection {
-  val name: String
+  companion object {
+    val DEFAULT_SEND_TIMEOUT = 10.seconds
+  }
 
-  var keepAlive: Boolean
+  val name: String
 
   fun connect(): Observable<WebSocketConnectionState>
 
@@ -26,7 +29,12 @@ interface WebSocketConnection {
   fun disconnect()
 
   @Throws(IOException::class)
-  fun sendRequest(request: WebSocketRequestMessage): Single<WebsocketResponse>
+  fun sendRequest(request: WebSocketRequestMessage): Single<WebsocketResponse> {
+    return sendRequest(request, DEFAULT_SEND_TIMEOUT.inWholeSeconds)
+  }
+
+  @Throws(IOException::class)
+  fun sendRequest(request: WebSocketRequestMessage, timeoutSeconds: Long): Single<WebsocketResponse>
 
   @Throws(IOException::class)
   fun sendKeepAlive()

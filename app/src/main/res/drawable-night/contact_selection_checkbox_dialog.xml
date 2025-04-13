@@ -5,7 +5,7 @@
             <item>
                 <shape android:shape="oval">
                     <solid android:color="@color/core_grey_60" />
-                    <stroke android:width="2dp" android:color="@color/signal_background_dialog" />
+                    <stroke android:width="2dp" android:color="?attr/signal_background_dialog" />
                 </shape>
             </item>
             <item android:drawable="@drawable/ic_check_outline_22" />
@@ -15,7 +15,7 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="@color/signal_colorPrimary" />
+                    <solid android:color="?attr/colorPrimary" />
                 </shape>
             </item>
             <item android:drawable="@drawable/ic_check_outline_22" />
@@ -23,7 +23,7 @@
     </item>
     <item android:state_checked="false">
         <shape android:shape="oval">
-            <stroke android:width="2dp" android:color="@color/signal_background_dialog_secondary" />
+            <stroke android:width="2dp" android:color="?attr/signal_background_dialog_secondary" />
         </shape>
     </item>
 </selector>

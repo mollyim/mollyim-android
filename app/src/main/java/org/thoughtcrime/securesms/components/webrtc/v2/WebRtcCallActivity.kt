@@ -78,6 +78,8 @@ import org.thoughtcrime.securesms.service.webrtc.CallLinkDisconnectReason
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.RemoteConfig
@@ -119,6 +121,13 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private var previousEvent: WebRtcViewModel? = null
   private var ephemeralStateDisposable = Disposable.empty()
   private val callPermissionsDialogController = CallPermissionsDialogController()
+
+  private val theme: DynamicTheme = DynamicNoActionBarTheme()
+
+  override fun onPreCreate() {
+    super.onPreCreate()
+    theme.onCreate(this)
+  }
 
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
@@ -220,6 +229,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   override fun onResume() {
     Log.i(TAG, "onResume()")
     super.onResume()
+    theme.onResume(this)
 
     initializeScreenshotSecurity()
 
@@ -269,7 +279,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     if (!callPermissionsDialogController.isAskingForPermission && !viewModel.isCallStarting && !isChangingConfigurations) {
       val state = viewModel.callParticipantsStateSnapshot
-      if (state.callState.isPreJoinOrNetworkUnavailable || state.callState.isIncomingOrHandledElsewhere) {
+      if (state.callState.isPreJoinOrNetworkUnavailable || (Build.VERSION.SDK_INT >= 27 && state.callState.isIncomingOrHandledElsewhere)) {
         if (getCallIntent().isStartedFromFullScreen && state.callState == WebRtcViewModel.State.CALL_INCOMING) {
           Log.w(TAG, "Pausing during full-screen incoming call view. Refusing to finish.")
         } else {
@@ -290,7 +300,9 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       requestNewSizesThrottle.clear()
     }
 
-    AppDependencies.signalCallManager.setEnableVideo(false)
+    if (!isChangingConfigurations) {
+      AppDependencies.signalCallManager.setEnableVideo(false)
+    }
 
     if (!viewModel.isCallStarting && !isChangingConfigurations) {
       val state = viewModel.callParticipantsStateSnapshot

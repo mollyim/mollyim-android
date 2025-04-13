@@ -1,9 +1,9 @@
 package org.thoughtcrime.securesms.stories.settings.story
 
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
+import com.google.android.material.R as MaterialR
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
 import org.thoughtcrime.securesms.R
@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
 import org.thoughtcrime.securesms.stories.settings.create.CreateStoryFlowDialogFragment
 import org.thoughtcrime.securesms.stories.settings.create.CreateStoryWithViewersFragment
 import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -112,7 +113,7 @@ class StoriesPrivacySettingsFragment :
           title = DSLSettingsText.from(
             R.string.StoriesPrivacySettingsFragment__story_updates_automatically_disappear,
             DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
-            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+            DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
           )
         )
 
@@ -174,7 +175,7 @@ class StoriesPrivacySettingsFragment :
           summary = DSLSettingsText.from(
             R.string.StoriesPrivacySettingsFragment__if_you_opt_out,
             DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
-            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+            DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
           ),
           onClick = {
             StoryDialogs.disableStories(requireContext(), viewModel.userHasActiveStories) {

@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord
 import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord.ActionId
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.megaphone.RemoteMegaphoneRepository.Action
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -121,7 +122,8 @@ object RemoteMegaphoneRepository {
   }
 
   private fun shouldShowDonateMegaphone(): Boolean {
-    return VersionTracker.getDaysSinceFirstInstalled(context) >= 7
+    return VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
+      SignalStore.account.isRegistered
   }
 
   fun interface Action {

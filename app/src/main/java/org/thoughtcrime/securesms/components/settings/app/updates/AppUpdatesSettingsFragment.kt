@@ -1,11 +1,5 @@
-/*
- * Copyright 2023 Signal Messenger, LLC
- * SPDX-License-Identifier: AGPL-3.0-only
- */
-
 package org.thoughtcrime.securesms.components.settings.app.updates
 
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -21,6 +15,7 @@ import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.events.ApkUpdateEvent
 import org.thoughtcrime.securesms.util.DateUtils
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import java.util.Locale
 
@@ -32,7 +27,7 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
   private val viewModel: HelpSettingsViewModel by viewModels()
 
   override fun bindAdapter(adapter: MappingAdapter) {
-    viewModel.state.observe(viewLifecycleOwner) { state ->
+    viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
     }
 
@@ -51,7 +46,7 @@ class AppUpdatesSettingsFragment : DSLSettingsFragment(R.string.preferences_app_
           title = DSLSettingsText.from(
             R.string.HelpSettingsFragment_for_updates_please_check_your_app_store,
             DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
-            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant))
+            DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant))
           )
         )
       }

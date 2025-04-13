@@ -1,12 +1,12 @@
 package org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.R as MaterialR
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
@@ -21,7 +21,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.NO_TINT
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
-import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentComponent
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
 import org.thoughtcrime.securesms.components.settings.app.subscription.models.GooglePayButton
 import org.thoughtcrime.securesms.components.settings.app.subscription.models.PayPalButton
 import org.thoughtcrime.securesms.components.settings.configure
@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.payments.currency.CurrencyUtil
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.fragments.requireListener
 
 /**
@@ -42,7 +43,7 @@ class GatewaySelectorBottomSheet : DSLSettingsBottomSheetFragment() {
   private val args: GatewaySelectorBottomSheetArgs by navArgs()
 
   private val viewModel: GatewaySelectorViewModel by viewModels(factoryProducer = {
-    GatewaySelectorViewModel.Factory(args, requireListener<InAppPaymentComponent>().stripeRepository)
+    GatewaySelectorViewModel.Factory(args, requireListener<GooglePayComponent>().googlePayRepository)
   })
 
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
@@ -229,7 +230,7 @@ class GatewaySelectorBottomSheet : DSLSettingsBottomSheetFragment() {
           context.getString(R.string.GatewaySelectorBottomSheet__get_a_s_badge, inAppPayment.data.badge!!.name),
           DSLSettingsText.CenterModifier,
           DSLSettingsText.BodyLargeModifier,
-          DSLSettingsText.ColorModifier(ContextCompat.getColor(context, R.color.signal_colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
         )
       )
     }
@@ -248,7 +249,7 @@ class GatewaySelectorBottomSheet : DSLSettingsBottomSheetFragment() {
           context.resources.getQuantityString(R.plurals.GatewaySelectorBottomSheet__get_a_s_badge_for_d_days, 30, inAppPayment.data.badge!!.name, 30),
           DSLSettingsText.CenterModifier,
           DSLSettingsText.BodyLargeModifier,
-          DSLSettingsText.ColorModifier(ContextCompat.getColor(context, R.color.signal_colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
         )
       )
     }
@@ -267,7 +268,7 @@ class GatewaySelectorBottomSheet : DSLSettingsBottomSheetFragment() {
           R.string.GatewaySelectorBottomSheet__donate_for_a_friend,
           DSLSettingsText.CenterModifier,
           DSLSettingsText.BodyLargeModifier,
-          DSLSettingsText.ColorModifier(ContextCompat.getColor(context, R.color.signal_colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
         )
       )
     }

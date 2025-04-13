@@ -112,7 +112,7 @@
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/body"
         tools:text="15m"
-        tools:textColor="@color/signal_text_secondary"
+        tools:textColor="?attr/signal_text_secondary"
         tools:visibility="visible" />
 
     <TextView
@@ -131,7 +131,7 @@
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="@+id/bubble"
         tools:text="Not sent, tap for details"
-        tools:textColor="@color/signal_text_secondary" />
+        tools:textColor="?attr/signal_text_secondary" />
 
     <org.thoughtcrime.securesms.components.DeliveryStatusView
         android:id="@+id/delivery_status"

@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.database.helpers
 import android.app.Application
 import android.content.Context
 import android.database.sqlite.SQLiteException
-import net.zetetic.database.sqlcipher.SQLiteDatabase
 import org.signal.core.util.areForeignKeyConstraintsEnabled
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.SignalDatabase
@@ -97,6 +96,7 @@ import org.thoughtcrime.securesms.database.helpers.migration.V235_AttachmentUuid
 import org.thoughtcrime.securesms.database.helpers.migration.V236_FixInAppSubscriberCurrencyIfAble
 import org.thoughtcrime.securesms.database.helpers.migration.V237_ResetGroupForceUpdateTimestamps
 import org.thoughtcrime.securesms.database.helpers.migration.V238_AddGroupSendEndorsementsColumns
+import org.thoughtcrime.securesms.database.helpers.migration.V238_FixAttachmentIdJsonSerialization
 import org.thoughtcrime.securesms.database.helpers.migration.V239_MessageFullTextSearchEmojiSupport
 import org.thoughtcrime.securesms.database.helpers.migration.V240_MessageFullTextSearchSecureDelete
 import org.thoughtcrime.securesms.database.helpers.migration.V241_ExpireTimerVersion
@@ -123,6 +123,10 @@ import org.thoughtcrime.securesms.database.helpers.migration.V264_FixGroupAddMem
 import org.thoughtcrime.securesms.database.helpers.migration.V265_FixFtsTriggers
 import org.thoughtcrime.securesms.database.helpers.migration.V266_UniqueThreadPinOrder
 import org.thoughtcrime.securesms.database.helpers.migration.V267_FixGroupInvitationDeclinedUpdate
+import org.thoughtcrime.securesms.database.helpers.migration.V268_FixInAppPaymentsErrorStateConsistency
+import org.thoughtcrime.securesms.database.helpers.migration.V268_RestorePaymentTable
+import org.thoughtcrime.securesms.database.helpers.migration.V269_BackupMediaSnapshotChanges
+import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
  * Contains all of the database migrations for [SignalDatabase]. Broken into a separate file for cleanliness.
@@ -173,8 +177,6 @@ object SignalDatabaseMigrations {
     187 to V187_MoreForeignKeyIndexesMigration,
     188 to V188_FixMessageRecipientsAndEditMessageMigration,
     189 to V189_CreateCallLinkTableColumnsAndRebuildFKReference,
-    // MOLLY: Fix V188_FixMessageRecipientsAndEditMessageMigration invalid migration
-    190 to V190_UpdatePendingSelfDataMigration,
     191 to V191_UniqueMessageMigrationV2,
     192 to V192_CallLinkTableNullableRootKeys,
     193 to V193_BackCallLinksWithRecipient,
@@ -222,7 +224,6 @@ object SignalDatabaseMigrations {
     235 to V235_AttachmentUuidColumn,
     236 to V236_FixInAppSubscriberCurrencyIfAble,
     237 to V237_ResetGroupForceUpdateTimestamps,
-    // MOLLY: Use 238 to fix the incorrect JSON serialization of AttachmentId
     238 to V238_AddGroupSendEndorsementsColumns,
     239 to V239_MessageFullTextSearchEmojiSupport,
     240 to V240_MessageFullTextSearchSecureDelete,
@@ -251,28 +252,55 @@ object SignalDatabaseMigrations {
     264 to V264_FixGroupAddMemberUpdate,
     265 to V265_FixFtsTriggers,
     266 to V266_UniqueThreadPinOrder,
-    267 to V267_FixGroupInvitationDeclinedUpdate
+    267 to V267_FixGroupInvitationDeclinedUpdate,
+    268 to V268_FixInAppPaymentsErrorStateConsistency,
+    269 to V269_BackupMediaSnapshotChanges
   )
 
-  const val DATABASE_VERSION = 267
+  const val DATABASE_VERSION = 269
+
+  // MOLLY: Optional additional migrations specific to Molly
+  private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
+    190 to V190_UpdatePendingSelfDataMigration,
+    238 to V238_FixAttachmentIdJsonSerialization,
+    268 to V268_RestorePaymentTable,
+  )
 
   @JvmStatic
-  fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+  fun migrate(context: Application, db: SignalSqliteDatabase, oldVersion: Int, newVersion: Int) {
     val initialForeignKeyState = db.areForeignKeyConstraintsEnabled()
 
-    for (migrationData in migrations) {
-      val (version, migration) = migrationData
+    // Combines migrations and extraMigrations, ensuring migrations come first for each version
+    val combined = mutableMapOf<Int, MutableList<SignalDatabaseMigration>>()
+    for ((version, migration) in migrations) {
+      require(combined.putIfAbsent(version, mutableListOf(migration)) == null) {
+        "Duplicated migration for version $version"
+      }
+    }
+    for ((version, migration) in extraMigrations) {
+      combined.getOrPut(version) { mutableListOf() }.add(migration)
+    }
+    val migrationsByVersion = combined.toSortedMap()
+    for ((version, migrationList) in migrationsByVersion) {
+      val enableForeignKeys = migrationList.first().enableForeignKeys
+      val migrationNames = migrationList.joinToString(", ") { it.javaClass.simpleName }
+
+      check(migrationList.all { it.enableForeignKeys == enableForeignKeys }) {
+        "Inconsistent foreign key constraints for version $version"
+      }
 
       if (oldVersion < version) {
-        Log.i(TAG, "Running migration for version $version: ${migration.javaClass.simpleName}. Foreign keys: ${migration.enableForeignKeys}")
+        Log.i(TAG, "Running migration for version $version: $migrationNames. Foreign keys: $enableForeignKeys")
         val startTime = System.currentTimeMillis()
 
         var ftsException: SQLiteException? = null
 
-        db.setForeignKeyConstraintsEnabled(migration.enableForeignKeys)
+        db.setForeignKeyConstraintsEnabled(enableForeignKeys)
         db.beginTransaction()
         try {
-          migration.migrate(context, db, oldVersion, newVersion)
+          migrationList.forEach { migration ->
+            migration.migrate(context, db, oldVersion, newVersion)
+          }
           db.version = version
           db.setTransactionSuccessful()
         } catch (e: SQLiteException) {

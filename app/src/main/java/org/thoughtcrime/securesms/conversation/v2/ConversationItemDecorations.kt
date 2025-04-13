@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.database.MessageTypes
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.DateUtils
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
 import org.thoughtcrime.securesms.util.drawAsTopItemDecoration
 import org.thoughtcrime.securesms.util.layoutIn
@@ -292,7 +293,7 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
         date.setTextColor(ContextCompat.getColor(itemView.context, R.color.signal_colorNeutralInverse))
       } else {
         date.background = null
-        date.setTextColor(ContextCompat.getColor(itemView.context, R.color.signal_colorOnSurfaceVariant))
+        date.setTextColor(ThemeUtil.getThemedColor(itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant))
       }
     }
   }

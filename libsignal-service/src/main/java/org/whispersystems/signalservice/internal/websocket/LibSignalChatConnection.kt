@@ -14,6 +14,7 @@ import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.internal.CompletableFuture
+import org.signal.libsignal.net.AppExpiredException
 import org.signal.libsignal.net.AuthenticatedChatConnection
 import org.signal.libsignal.net.ChatConnection
 import org.signal.libsignal.net.ChatConnectionListener
@@ -21,11 +22,13 @@ import org.signal.libsignal.net.ChatServiceException
 import org.signal.libsignal.net.DeviceDeregisteredException
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.net.UnauthenticatedChatConnection
+import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.api.util.CredentialsProvider
 import org.whispersystems.signalservice.api.websocket.HealthMonitor
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.whispersystems.signalservice.internal.util.whenComplete
 import java.io.IOException
+import java.net.SocketException
 import java.time.Instant
 import java.util.Optional
 import java.util.concurrent.ConcurrentHashMap
@@ -36,9 +39,9 @@ import java.util.concurrent.TimeoutException
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import org.signal.libsignal.net.ChatConnection.Request as LibSignalRequest
-import org.signal.libsignal.net.ChatConnection.Response as LibSignalResponse
 
 /**
  * Implements the WebSocketConnection interface via libsignal-net
@@ -95,17 +98,16 @@ class LibSignalChatConnection(
     const val SIGNAL_SERVICE_ENVELOPE_TIMESTAMP_HEADER_KEY = "X-Signal-Timestamp"
 
     private val TAG = Log.tag(LibSignalChatConnection::class.java)
-    private val SEND_TIMEOUT: Long = 10.seconds.inWholeMilliseconds
 
     private val KEEP_ALIVE_REQUEST = LibSignalRequest(
       "GET",
       "/v1/keepalive",
       emptyMap(),
       ByteArray(0),
-      SEND_TIMEOUT.toInt()
+      WebSocketConnection.DEFAULT_SEND_TIMEOUT.inWholeMilliseconds.toInt()
     )
 
-    private fun WebSocketRequestMessage.toLibSignalRequest(timeout: Long = SEND_TIMEOUT): LibSignalRequest {
+    private fun WebSocketRequestMessage.toLibSignalRequest(timeout: Duration = WebSocketConnection.DEFAULT_SEND_TIMEOUT): LibSignalRequest {
       return LibSignalRequest(
         this.verb?.uppercase() ?: "GET",
         this.path ?: "",
@@ -117,35 +119,26 @@ class LibSignalChatConnection(
           parts[0] to parts[1]
         },
         this.body?.toByteArray() ?: byteArrayOf(),
-        timeout.toInt()
-      )
-    }
-
-    private fun LibSignalResponse.toWebsocketResponse(isUnidentified: Boolean): WebsocketResponse {
-      return WebsocketResponse(
-        this.status,
-        this.body.decodeToString(),
-        this.headers,
-        isUnidentified
+        timeout.inWholeMilliseconds.toInt()
       )
     }
   }
 
   override val name = "[$name:${System.identityHashCode(this)}]"
 
-  override var keepAlive = true
-
   val state = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED)
 
-  val stateMonitor = state.subscribe { nextState ->
-    if (nextState == WebSocketConnectionState.DISCONNECTED) {
-      cleanup()
-    }
+  val stateMonitor = state
+    .skip(1) // Skip the transition to the initial DISCONNECTED state
+    .subscribe { nextState ->
+      if (nextState == WebSocketConnectionState.DISCONNECTED) {
+        cleanup()
+      }
 
-    CHAT_SERVICE_LOCK.withLock {
-      stateChangedOrMessageReceivedCondition.signalAll()
+      CHAT_SERVICE_LOCK.withLock {
+        stateChangedOrMessageReceivedCondition.signalAll()
+      }
     }
-  }
 
   private fun cleanup() {
     Log.i(TAG, "$name [cleanup]")
@@ -200,10 +193,17 @@ class LibSignalChatConnection(
             // request returns HTTP 403.
             // The chat service currently does not return HTTP 401 on /v1/websocket.
             // Thus, this currently matches the implementation in OkHttpWebSocketConnection.
-            if (throwable is DeviceDeregisteredException) {
-              state.onNext(WebSocketConnectionState.AUTHENTICATION_FAILED)
-            } else {
-              state.onNext(WebSocketConnectionState.FAILED)
+            when (throwable) {
+              is DeviceDeregisteredException -> {
+                state.onNext(WebSocketConnectionState.AUTHENTICATION_FAILED)
+              }
+              is AppExpiredException -> {
+                state.onNext(WebSocketConnectionState.REMOTE_DEPRECATED)
+              }
+              else -> {
+                Log.w(TAG, "Unknown connection failure reason", throwable)
+                state.onNext(WebSocketConnectionState.FAILED)
+              }
             }
           }
         }
@@ -218,7 +218,8 @@ class LibSignalChatConnection(
         WebSocketConnectionState.DISCONNECTED,
         WebSocketConnectionState.DISCONNECTING,
         WebSocketConnectionState.FAILED,
-        WebSocketConnectionState.AUTHENTICATION_FAILED -> true
+        WebSocketConnectionState.AUTHENTICATION_FAILED,
+        WebSocketConnectionState.REMOTE_DEPRECATED -> true
 
         WebSocketConnectionState.CONNECTING,
         WebSocketConnectionState.CONNECTED,
@@ -253,10 +254,14 @@ class LibSignalChatConnection(
       chatConnection!!.disconnect()
         .whenComplete(
           onSuccess = {
-            Log.i(TAG, "$name Disconnected")
-            state.onNext(WebSocketConnectionState.DISCONNECTED)
+            // This future completion means the WebSocket close frame has been sent off, but we
+            //   have not yet received a close frame back from the server.
+            // To match the behavior of OkHttpWebSocketConnection, we should transition to DISCONNECTED
+            //   only when we get the close frame back from the server, which happens when
+            //   onConnectionInterrupted is called.
           },
           onFailure = { throwable ->
+            // We failed to write the close frame to the server? Something is very wrong, give up and tear down.
             Log.w(TAG, "$name Disconnect failed", throwable)
             state.onNext(WebSocketConnectionState.DISCONNECTED)
           }
@@ -265,21 +270,51 @@ class LibSignalChatConnection(
     }
   }
 
-  override fun sendRequest(request: WebSocketRequestMessage): Single<WebsocketResponse> {
+  override fun sendRequest(request: WebSocketRequestMessage, timeoutSeconds: Long): Single<WebsocketResponse> {
     CHAT_SERVICE_LOCK.withLock {
       if (isDead()) {
         return Single.error(IOException("$name is closed!"))
       }
 
-      // This avoids a crash loop when we try to send queued messages on app open before the connection
-      //  is fully established.
-      // TODO [andrew]: Figure out if this is the right long term behavior.
+      val single = SingleSubject.create<WebsocketResponse>()
+
       if (state.value == WebSocketConnectionState.CONNECTING) {
-        return Single.error(IOException("$name is still connecting!"))
+        // In OkHttpWebSocketConnection, if a client calls sendRequest while we are still
+        //   connecting to the Chat service, we queue the request to be sent after the
+        //   the connection is established.
+        // We carry forward that behavior here, except we have to use future chaining
+        //   rather than directly writing to the connection for it to buffer for us,
+        //   because libsignal-net does not expose a connection handle until the connection
+        //   is established.
+        Log.i(TAG, "[sendRequest] Enqueuing request send for after connection")
+        // We are in the CONNECTING state, so our invariant says that chatConnectionFuture should
+        //   be set, so we should not have to worry about nullability here.
+        chatConnectionFuture!!.whenComplete(
+          onSuccess = {
+            // We depend on the libsignal's CompletableFuture's synchronization guarantee to
+            //   keep this implementation simple. If another CompletableFuture implementation is
+            //   used, we'll need to add some logic here to be ensure this completion handler
+            //   fires after the one enqueued in connect().
+            sendRequest(request)
+              .subscribe(
+                { response -> single.onSuccess(response) },
+                { error -> single.onError(error) }
+              )
+          },
+          onFailure = { throwable ->
+            // This matches the behavior of OkHttpWebSocketConnection when the connection fails
+            //   before the buffered request can be sent.
+            val downstreamThrowable = when (throwable) {
+              is DeviceDeregisteredException -> NonSuccessfulResponseCodeException(403)
+              else -> SocketException("Closed unexpectedly")
+            }
+            single.onError(downstreamThrowable)
+          }
+        )
+        return single.subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
       }
 
-      val single = SingleSubject.create<WebsocketResponse>()
-      val internalRequest = request.toLibSignalRequest()
+      val internalRequest = request.toLibSignalRequest(timeout = timeoutSeconds.seconds)
       chatConnection!!.send(internalRequest)
         .whenComplete(
           onSuccess = { response ->
@@ -298,7 +333,10 @@ class LibSignalChatConnection(
           },
           onFailure = { throwable ->
             Log.w(TAG, "$name [sendRequest] Failure:", throwable)
-            single.onError(throwable)
+            // The clients of WebSocketConnection are often sensitive to the exact type of exception returned.
+            // This is the exception that OkHttpWebSocketConnection throws in the closest scenario to this, when
+            //   the connection fails before the request completes.
+            single.onError(SocketException("Failed to get response for request"))
           }
         )
       return single.subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
@@ -346,9 +384,8 @@ class LibSignalChatConnection(
               in 200..299 -> {
                 healthMonitor.onKeepAliveResponse(
                   sentTimestamp = Instant.now().toEpochMilli(), // ignored. can be any value
-                  isIdentifiedWebSocket = chatConnection is AuthenticatedChatConnection,
-                  keepMonitoring = keepAlive,
-                  )
+                  isIdentifiedWebSocket = chatConnection is AuthenticatedChatConnection
+                )
               }
 
               in 400..599 -> {
@@ -488,7 +525,13 @@ class LibSignalChatConnection(
 
     override fun onConnectionInterrupted(chat: ChatConnection, disconnectReason: ChatServiceException?) {
       CHAT_SERVICE_LOCK.withLock {
-        Log.i(TAG, "$name connection interrupted", disconnectReason)
+        if (disconnectReason == null) {
+          // disconnectReason = null means we requested this disconnect earlier, and this is confirmation
+          //   that disconnection is complete.
+          Log.i(TAG, "$name disconnected")
+        } else {
+          Log.i(TAG, "$name connection unexpectedly closed", disconnectReason)
+        }
         chatConnection = null
         state.onNext(WebSocketConnectionState.DISCONNECTED)
       }
@@ -510,6 +553,12 @@ class LibSignalChatConnection(
         CHAT_SERVICE_LOCK.withLock {
           stateChangedOrMessageReceivedCondition.signalAll()
         }
+      }
+    }
+
+    override fun onReceivedAlerts(chat: ChatConnection, alerts: Array<out String>) {
+      if (alerts.isNotEmpty()) {
+        Log.i(TAG, "$name Received ${alerts.size} alerts from the server")
       }
     }
   }

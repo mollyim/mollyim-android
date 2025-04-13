@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -47,6 +46,7 @@ import org.thoughtcrime.securesms.recipients.ui.disappearingmessages.RecipientDi
 import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.RemoteConfig;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
 import org.thoughtcrime.securesms.util.text.AfterTextChanged;
@@ -106,7 +106,7 @@ public class AddGroupDetailsFragment extends LoggingFragment {
 
     members.initializeAdapter(getViewLifecycleOwner());
     avatarPlaceholder = Objects.requireNonNull(VectorDrawableCompat.create(getResources(), R.drawable.ic_camera_outline_24, requireActivity().getTheme()));
-    avatarPlaceholder.setColorFilter(new SimpleColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_icon_tint_primary)));
+    avatarPlaceholder.setColorFilter(new SimpleColorFilter(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_icon_tint_primary)));
 
     if (savedInstanceState == null) {
       avatar.setImageDrawable(new InsetDrawable(avatarPlaceholder, ViewUtil.dpToPx(AVATAR_PLACEHOLDER_INSET_DP)));
@@ -252,6 +252,8 @@ public class AddGroupDetailsFragment extends LoggingFragment {
       default:
         throw new IllegalStateException("Unexpected error: " + error.getErrorType().name());
     }
+
+    create.cancelSpinning();
   }
 
   private void toast(@StringRes int toastStringId) {

@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/handle"
-        app:tint="@color/signal_icon_tint_primary"
+        app:tint="?attr/signal_icon_tint_primary"
         app:srcCompat="@drawable/ic_tap_outline_24" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:gravity="center"
         android:text="@string/DoubleTapEditEducationSheet__quickly_tap_twice"
         android:textAppearance="@style/Signal.Text.BodyLarge"
-        android:textColor="@color/signal_colorSecondary"
+        android:textColor="?attr/colorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
@@ -59,8 +59,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/got_it"
         style="@style/Signal.Widget.Button.Medium.Primary"
-        android:backgroundTint="@color/signal_colorPrimaryContainer"
-        android:textColor="@color/signal_colorOnPrimaryContainer"
+        android:backgroundTint="?attr/colorPrimaryContainer"
+        android:textColor="?attr/colorOnPrimaryContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"

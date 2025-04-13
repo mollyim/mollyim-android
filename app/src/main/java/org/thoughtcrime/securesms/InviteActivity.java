@@ -33,7 +33,7 @@ import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.MessageSender;
-import org.thoughtcrime.securesms.util.DynamicNoActionBarInviteTheme;
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
@@ -51,7 +51,7 @@ public class InviteActivity extends PassphraseRequiredActivity implements Contac
   private       Button                       smsSendButton;
   private       Animation                    slideInAnimation;
   private       Animation                    slideOutAnimation;
-  private final DynamicTheme                 dynamicTheme = new DynamicNoActionBarInviteTheme();
+  private final DynamicTheme                 dynamicTheme = new DynamicNoActionBarTheme();
 
   @Override
   protected void onPreCreate() {
@@ -237,7 +237,7 @@ public class InviteActivity extends PassphraseRequiredActivity implements Contac
       if (context == null) return null;
 
       for (SelectedContact contact : contacts) {
-        RecipientId recipientId    = contact.getOrCreateRecipientId(context);
+        RecipientId recipientId    = contact.getOrCreateRecipientId();
         Recipient   recipient      = Recipient.resolved(recipientId);
 
         MessageSender.send(context, OutgoingMessage.sms(recipient, message), -1L, MessageSender.SendType.SMS, null, null);

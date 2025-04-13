@@ -17,9 +17,9 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.util.SignalE164Util;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.io.IOException;
@@ -64,7 +64,8 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
 
     Set<String> allSystemE164s     = SystemContactsRepository.getAllDisplayNumbers(context)
                                                              .stream()
-                                                             .map(number -> PhoneNumberFormatter.get(context).format(number))
+                                                             .map(number -> SignalE164Util.formatAsE164(number))
+                                                             .filter(it -> it != null)
                                                              .collect(Collectors.toSet());
     Set<String> knownSystemE164s   = SignalDatabase.recipients().getAllE164s();
     Set<String> unknownSystemE164s = SetUtil.difference(allSystemE164s, knownSystemE164s);
@@ -79,7 +80,8 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
     } else if (unknownSystemE164s.size() > 0) {
       List<Recipient> recipients = Stream.of(unknownSystemE164s)
                                          .filter(s -> s.startsWith("+"))
-                                         .map(s -> Recipient.external(getContext(), s))
+                                         .map(s -> Recipient.external(s))
+                                         .filter(it -> it != null)
                                          .toList();
 
       Log.i(TAG, "There are " + unknownSystemE164s.size() + " unknown E164s, which are now " + recipients.size() + " recipients. Only syncing these specific contacts.");

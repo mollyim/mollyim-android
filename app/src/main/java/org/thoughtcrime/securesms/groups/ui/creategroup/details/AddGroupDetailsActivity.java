@@ -36,10 +36,13 @@ public class AddGroupDetailsActivity extends PassphraseRequiredActivity implemen
     return intent;
   }
 
+  @Override protected void onPreCreate() {
+    super.onPreCreate();
+    theme.onCreate(this);
+  }
+
   @Override
   protected void onCreate(@Nullable Bundle bundle, boolean ready) {
-    theme.onCreate(this);
-
     setContentView(R.layout.add_group_details_activity);
 
     if (bundle == null) {

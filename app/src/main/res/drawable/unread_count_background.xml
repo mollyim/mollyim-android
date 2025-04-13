@@ -5,10 +5,10 @@
 
     <corners android:radius="@dimen/unread_count_bubble_radius" />
 
-    <solid android:color="@color/signal_colorPrimary" />
+    <solid android:color="?attr/colorPrimary" />
 
     <stroke
-        android:color="@color/signal_colorOnPrimary"
+        android:color="?attr/colorOnPrimary"
         android:width="1dp"/>
 
 </shape>
