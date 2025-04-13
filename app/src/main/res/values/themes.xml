@@ -15,7 +15,15 @@
 
     <!-- MOLLY: Theme.Signal.DayNight.NoActionBar now in light_themes.xml -->
 
-    <style name="Theme.Molly.Starting" parent="Theme.SplashScreen" />
+    <style name="Theme.Molly.Starting.Light" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+
+    <style name="Theme.Molly.Starting.Dark" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
 
     <style name="TextSecure.LightNoActionBar" parent="@style/TextSecure.BaseLightNoActionBar">
         <!-- leave empty to allow overriding -->
