@@ -18,6 +18,7 @@ class UpdatePinAfterAepRegistrationSchedule : MegaphoneSchedule {
   override fun shouldDisplay(seenCount: Int, lastSeen: Long, firstVisible: Long, currentTime: Long): Boolean {
     return !SignalStore.svr.hasPin() &&
       !SignalStore.svr.hasOptedOut() &&
+      !SignalStore.account.isLinkedDevice &&
       SignalStore.registration.isRegistrationComplete &&
       (!SignalStore.backup.isMediaRestoreInProgress || hasBeenLongEnough())
   }
