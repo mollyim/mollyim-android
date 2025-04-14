@@ -138,6 +138,7 @@ class AccountRecordProcessor(
       hasCompletedUsernameOnboarding = remote.proto.hasCompletedUsernameOnboarding || local.proto.hasCompletedUsernameOnboarding
       username = remote.proto.username
       usernameLink = remote.proto.usernameLink
+      avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())
       safeSetSubscriber(donationSubscriberId, donationSubscriberCurrencyCode)
