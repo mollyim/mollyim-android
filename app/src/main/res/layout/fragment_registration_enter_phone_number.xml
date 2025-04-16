@@ -163,11 +163,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="24dp"
             android:layout_marginBottom="16dp"
             android:text="@android:string/cancel"
+            android:textAlignment="viewStart"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/link_button"
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
@@ -188,8 +189,10 @@
             style="@style/Signal.Widget.Button.Large.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/RegistrationActivity_link_device"
+            android:textAlignment="viewStart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/registerButton"
             app:layout_constraintVertical_bias="0.0" />
