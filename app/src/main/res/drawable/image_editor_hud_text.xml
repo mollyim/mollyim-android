@@ -5,7 +5,7 @@
             <item>
                 <shape android:shape="oval">
                     <size android:width="@dimen/image_editor_hud_tool_filled_circle_padding" android:height="@dimen/image_editor_hud_tool_filled_circle_padding" />
-                    <solid android:color="@color/signal_dark_colorOnPrimaryContainer" />
+                    <solid android:color="?attr/colorOnPrimaryContainer" />
                     <padding android:bottom="@dimen/image_editor_hud_tool_filled_circle_padding" android:left="@dimen/image_editor_hud_tool_filled_circle_padding" android:right="@dimen/image_editor_hud_tool_filled_circle_padding" android:top="@dimen/image_editor_hud_tool_filled_circle_padding" />
                 </shape>
             </item>

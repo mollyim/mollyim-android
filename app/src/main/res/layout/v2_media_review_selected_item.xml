@@ -6,7 +6,7 @@
     android:layout_width="48dp"
     android:layout_height="48dp"
     android:layout_marginStart="12dp"
-    tools:background="@color/signal_dark_colorSurface">
+    tools:background="?attr/colorSurface">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/media_review_selected_image"

@@ -39,7 +39,7 @@
             android:paddingBottom="7dp"
             android:text="@string/ImageEditorHud__clear_all"
             android:textAppearance="@style/Signal.Text.Body"
-            android:textColor="@color/signal_dark_colorOnSecondaryContainer"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +66,7 @@
             android:layout_marginBottom="10dp"
             android:alpha="0"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="@color/signal_dark_colorSurfaceVariant"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:contentDescription="@string/ImageEditorHud__cancel"
             android:padding="6dp"
             android:translationY="56dp"
@@ -75,7 +75,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_goneMarginEnd="10dp"
             app:srcCompat="@drawable/symbol_x_24"
-            app:tint="@color/signal_dark_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:alpha="1"
             tools:translationY="0dp"
             tools:visibility="visible" />
@@ -164,7 +164,7 @@
             android:layout_marginBottom="10dp"
             android:alpha="0"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="@color/signal_dark_colorSurfaceVariant"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:contentDescription="@string/ImageEditorHud__done_editing"
             android:padding="6dp"
             android:translationY="56dp"
@@ -173,7 +173,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_goneMarginStart="10dp"
             app:srcCompat="@drawable/symbol_check_24"
-            app:tint="@color/signal_dark_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:alpha="1"
             tools:translationY="0dp"
             tools:visibility="visible" />
@@ -228,7 +228,7 @@
             app:layout_constraintBottom_toBottomOf="@id/image_editor_hud_draw_color_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/image_editor_hud_draw_color_bar"
-            app:tint="@color/signal_dark_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:alpha="1"
             tools:visibility="visible" />
 
@@ -247,7 +247,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/image_editor_hud_draw_color_bar"
             app:srcCompat="@drawable/symbol_text_square_24"
-            app:tint="@color/signal_dark_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:alpha="1"
             tools:visibility="visible" />
 
@@ -324,7 +324,7 @@
             app:layout_goneMarginEnd="10dp"
             app:layout_goneMarginStart="10dp"
             app:srcCompat="@drawable/symbol_crop_unlock_24"
-            app:tint="@color/signal_dark_colorOnSurface"
+            app:tint="?attr/colorOnSurface"
             tools:alpha="1"
             tools:translationY="0dp"
             tools:visibility="visible" />

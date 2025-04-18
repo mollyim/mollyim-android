@@ -32,6 +32,7 @@ import androidx.window.java.layout.WindowInfoTrackerCallbackAdapter
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
 import androidx.window.layout.WindowLayoutInfo
+import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -84,6 +85,7 @@ import org.thoughtcrime.securesms.util.EllapsedTimeFormatter
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ThrottledDebouncer
 import org.thoughtcrime.securesms.util.VibrateUtil
 import org.thoughtcrime.securesms.util.WindowUtil
@@ -198,7 +200,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     initializePendingParticipantFragmentListener()
 
-    WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_dark_colorSurface))
+    WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this, MaterialR.attr.colorSurface))
 
     if (!hasCameraPermission() && !hasAudioPermission()) {
       askCameraAudioPermissions {
@@ -476,7 +478,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private fun initializeViewModel() {
     val orientation: Orientation = resolveOrientationFromContext()
     if (orientation == Orientation.PORTRAIT_BOTTOM_EDGE) {
-      WindowUtil.setNavigationBarColor(this, ContextCompat.getColor(this, R.color.signal_dark_colorSurface2))
+      WindowUtil.setNavigationBarColor(this, ThemeUtil.getThemedColor(this, MaterialR.attr.colorSurfaceContainer))
       WindowUtil.clearTranslucentNavigationBar(window)
     }
 
