@@ -25,8 +25,6 @@ public class DynamicTheme {
 
   private int onCreateNightModeConfiguration;
 
-  private boolean onCreateUseDynamicColors;
-
   private static final int regularTheme = R.style.Signal_DayNight;
   private static final int dynamicTheme = R.style.Theme_Molly_Dynamic;
 
@@ -35,7 +33,6 @@ public class DynamicTheme {
 
     onCreateNightModeConfiguration = ConfigurationUtil.getNightModeConfiguration(activity);
     globalNightModeConfiguration   = onCreateNightModeConfiguration;
-    onCreateUseDynamicColors       = useDynamicColors(activity);
 
     activity.setTheme(getTheme(activity));
 

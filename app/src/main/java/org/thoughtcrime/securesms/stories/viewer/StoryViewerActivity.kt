@@ -44,11 +44,6 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
 
   private val theme: DynamicTheme = DynamicMediaPreviewTheme()
 
-  override fun onPreCreate() {
-    super.onPreCreate()
-    theme.onCreate(this)
-  }
-
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
     super.attachBaseContext(newBase)
@@ -87,6 +82,7 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
       padBottom.toInt()
     )
 
+    theme.onCreate(this)
     super.onCreate(savedInstanceState, ready)
     setContentView(R.layout.fragment_container)
 
