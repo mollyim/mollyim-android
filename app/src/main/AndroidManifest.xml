@@ -1308,6 +1308,7 @@
 
     <receiver android:name=".notifications.LocaleChangedReceiver" android:exported="false">
         <intent-filter>
+            <action android:name="android.intent.action.TIME_SET"/> <!-- MOLLY: Triggered by 12/24h format change -->
             <action android:name="android.intent.action.LOCALE_CHANGED"/>
         </intent-filter>
     </receiver>
