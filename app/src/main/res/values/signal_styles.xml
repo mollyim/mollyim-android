@@ -215,7 +215,11 @@
         <item name="android:windowAnimationStyle">@style/TextSecure.Animation.FullScreenDialog</item>
     </style>
 
-    <style name="Signal.DayNight.BiometricDialog.FullScreen" parent="">
+    <style name="Signal.DayNight.Dialog.Animated.Bottom" parent="@style/ThemeOverlay.Material3">
+        <item name="android:windowAnimationStyle">@style/FakeBottomSheet</item>
+    </style>
+
+    <style name="Signal.DayNight.BiometricDialog.FullScreen" parent="@style/ThemeOverlay.Material3">
         <item name="android:windowAnimationStyle">@style/BiometricDialogAnimation</item>
         <item name="android:windowBackground">?attr/signal_background_primary</item>
         <item name="android:colorBackgroundCacheHint">?attr/signal_background_primary</item>

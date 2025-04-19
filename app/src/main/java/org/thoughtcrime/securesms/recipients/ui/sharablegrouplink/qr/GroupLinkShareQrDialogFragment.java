@@ -25,7 +25,6 @@ import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.qr.QrCodeUtil;
 import org.thoughtcrime.securesms.util.BottomSheetUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,8 +54,7 @@ public class GroupLinkShareQrDialogFragment extends DialogFragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setStyle(STYLE_NO_FRAME, ThemeUtil.isDarkTheme(requireActivity()) ? R.style.TextSecure_DarkTheme
-                                                                      : R.style.TextSecure_LightTheme);
+    setStyle(STYLE_NO_FRAME, R.style.Signal_DayNight_Dialog_FullScreen);
   }
 
   @Override

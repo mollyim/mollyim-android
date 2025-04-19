@@ -621,9 +621,7 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="Signal.DayNight.Dialog.Animated.Bottom" parent="Signal.DayNight">
-        <item name="android:windowAnimationStyle">@style/FakeBottomSheet</item>
-    </style>
+    <!-- MOLLY: Signal.DayNight.Dialog.Animated.Bottom moved to signal_styles.xml -->
 
     <style name="Widget.Signal.BottomSheet.ReactWithAny" parent="Widget.Material3.BottomSheet">
         <item name="backgroundTint">?attr/colorSurfaceContainerLow</item>
