@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Wallet Activity -->
+    <string name="bitcoin_ecash_wallet">Bitcoin e-cash Wallet</string>
     <string name="balance">Balance</string>
     <string name="add_mint">Add Mint</string>
     <string name="send">Send</string>
@@ -8,5 +10,14 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="transactions">Transactions</string>
+    <string name="transaction_history">Transaction History</string>
     <string name="no_transactions">No transactions yet</string>
+
+    <!-- Send Dialog -->
+    <string name="send_bitcoin_ecash">Send Bitcoin e-cash</string>
+    <string name="amount">Amount (sats)</string>
+
+    <!-- Receive Dialog -->
+    <string name="receive_bitcoin_ecash">Receive Bitcoin e-cash</string>
+    <string name="redeem">Redeem</string>
 </resources>

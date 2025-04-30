@@ -6,6 +6,7 @@ plugins {
   id("kotlin-parcelize")
   id("com.squareup.wire")
   id("molly")
+  id("kotlin-kapt")
 }
 
 val canonicalVersionCode = 1535
@@ -577,6 +578,25 @@ dependencies {
   androidTestImplementation(testLibs.diff.utils)
 
   androidTestUtil(testLibs.androidx.test.orchestrator)
+
+  // Room
+  implementation("androidx.room:room-runtime:2.6.1")
+  implementation("androidx.room:room-ktx:2.6.1")
+  kapt("androidx.room:room-compiler:2.6.1")
+
+  // OkHttp
+  implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+  // Material Design
+  implementation("com.google.android.material:material:1.11.0")
+
+  // Coroutines
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+  // ViewModel
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 }
 
 fun assertIsGitRepo() {
