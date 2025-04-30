@@ -580,23 +580,23 @@ dependencies {
   androidTestUtil(testLibs.androidx.test.orchestrator)
 
   // Room
-  implementation("androidx.room:room-runtime:2.6.1")
-  implementation("androidx.room:room-ktx:2.6.1")
-  kapt("androidx.room:room-compiler:2.6.1")
+  implementation(libs.androidx.room.runtime)
+  implementation(libs.androidx.room.ktx)
+  kapt(libs.androidx.room.compiler)
 
   // OkHttp
-  implementation("com.squareup.okhttp3:okhttp:4.12.0")
+  implementation(libs.square.okhttp3)
 
   // Material Design
-  implementation("com.google.android.material:material:1.11.0")
+  implementation(libs.material.material)
 
   // Coroutines
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+  implementation(libs.kotlinx.coroutines.android)
+  implementation(libs.kotlinx.coroutines.core)
 
   // ViewModel
-  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+  implementation(libs.androidx.lifecycle.viewmodel.ktx)
+  implementation(libs.androidx.lifecycle.runtime.ktx)
 }
 
 fun assertIsGitRepo() {

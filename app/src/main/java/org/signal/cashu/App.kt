@@ -19,8 +19,8 @@ class App : Application() {
         // Initialize default mint URL
         CoroutineScope(Dispatchers.IO).launch {
             cashuService.addMintUrl(
-                url = "https://your-cashu-mint-url.com",
-                name = "Default Mint",
+                url = "https://mint.minibits.cash/Bitcoin",
+                name = "Default: Minibits mint",
                 isDefault = true
             )
         }

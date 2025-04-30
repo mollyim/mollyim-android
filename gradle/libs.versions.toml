@@ -10,6 +10,7 @@ androidx-lifecycle = "2.8.7"
 androidx-media3 = "1.5.1"
 androidx-navigation = "2.8.5"
 androidx-window = "1.3.0"
+androidx-room = "2.6.1"
 glide = "4.15.1"
 gradle = "8.9.0"
 kotlin = "2.1.0"
@@ -35,6 +36,11 @@ gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 android-library = { module = "com.android.library:com.android.library.gradle.plugin", version.ref = "android-gradle-plugin" }
 android-application = { module = "com.android.application:com.android.application.gradle.plugin", version.ref = "android-gradle-plugin" }
 androidx-benchmark-gradle-plugin = "androidx.benchmark:benchmark-gradle-plugin:1.3.3"
+
+# Room
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 
 # Compose
 androidx-compose-bom = "androidx.compose:compose-bom:2024.12.01"
