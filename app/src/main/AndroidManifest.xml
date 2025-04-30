@@ -1367,5 +1367,10 @@
         </intent-filter>
     </receiver>
 
+    <activity
+        android:name=".cashu.CashuWalletActivity"
+        android:exported="false"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+
 </application>
 </manifest>

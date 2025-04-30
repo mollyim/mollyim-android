@@ -105,6 +105,7 @@ include(":core-ui")
 include(":video")
 //include(":video-app")
 include(":billing")
+include(":cashu")
 
 project(":paging").projectDir = file("paging/lib")
 //project(":paging-app").projectDir = file("paging/app")
