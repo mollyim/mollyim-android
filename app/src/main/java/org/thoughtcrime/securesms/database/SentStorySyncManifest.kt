@@ -42,7 +42,7 @@ data class SentStorySyncManifest(
 
   fun toRecipientsSet(): Set<SignalServiceStoryMessageRecipient> {
     val recipients = Recipient.resolvedList(entries.map { it.recipientId })
-    return recipients.map { recipient ->
+    return recipients.filter { it.hasAci || it.hasPni }.map { recipient ->
       val serviceId = recipient.requireServiceId()
       val entry = entries.first { it.recipientId == recipient.id }
 
