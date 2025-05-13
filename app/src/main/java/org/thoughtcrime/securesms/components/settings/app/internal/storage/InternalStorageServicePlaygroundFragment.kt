@@ -110,7 +110,7 @@ fun Screen(
           navigationIcon = {
             IconButton(onClick = onBackPressed) {
               Icon(
-                painter = painterResource(R.drawable.symbol_arrow_left_24),
+                painter = painterResource(R.drawable.symbol_arrow_start_24),
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = null
               )
@@ -282,6 +282,12 @@ private fun StorageRecordRow(record: SignalStorageRecord) {
       record.proto.storyDistributionList != null -> {
         Column {
           Text("Distribution List", fontWeight = FontWeight.Bold)
+          ManifestItemRow("ID", Hex.toStringCondensed(record.id.raw))
+        }
+      }
+      record.proto.chatFolder != null -> {
+        Column {
+          Text("Chat Folder", fontWeight = FontWeight.Bold)
           ManifestItemRow("ID", Hex.toStringCondensed(record.id.raw))
         }
       }

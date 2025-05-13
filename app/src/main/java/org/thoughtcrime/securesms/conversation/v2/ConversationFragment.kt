@@ -87,6 +87,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -326,7 +327,6 @@ import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.getQuote
 import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
-import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.hasNonTextSlide
 import org.thoughtcrime.securesms.util.isValidReactionTarget
 import org.thoughtcrime.securesms.util.padding
@@ -339,6 +339,7 @@ import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil
+import org.thoughtcrime.securesms.window.WindowSizeClass.Companion.getWindowSizeClass
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -500,13 +501,18 @@ class ConversationFragment :
   private lateinit var threadHeaderMarginDecoration: ThreadHeaderMarginDecoration
   private lateinit var conversationItemDecorations: ConversationItemDecorations
   private lateinit var optionsMenuCallback: ConversationOptionsMenuCallback
-  private lateinit var backPressedCallback: BackPressedDelegate
 
   private var animationsAllowed = false
   private var actionMode: ActionMode? = null
   private var pinnedShortcutReceiver: BroadcastReceiver? = null
   private var searchMenuItem: MenuItem? = null
+
   private var isSearchRequested: Boolean = false
+    set(value) {
+      field = value
+      viewModel.setIsSearchRequested(value)
+    }
+
   private var previousPage: KeyboardPage? = null
   private var previousPages: Set<KeyboardPage>? = null
   private var reShowScheduleMessagesBar: Boolean = false
@@ -572,7 +578,10 @@ class ConversationFragment :
     binding.toolbar.isBackInvokedCallbackEnabled = false
 
     disposables.bindTo(viewLifecycleOwner)
-    FullscreenHelper(requireActivity()).showSystemUI()
+
+    if (requireActivity() is ConversationActivity) {
+      FullscreenHelper(requireActivity()).showSystemUI()
+    }
 
     markReadHelper = MarkReadHelper(ConversationId.forConversation(args.threadId), requireContext(), viewLifecycleOwner)
     markReadHelper.ignoreViewReveals()
@@ -928,8 +937,16 @@ class ConversationFragment :
 
     activity?.supportStartPostponedEnterTransition()
 
-    backPressedCallback = BackPressedDelegate()
-    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
+    val backPressedDelegate = BackPressedDelegate()
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedDelegate)
+
+    lifecycleScope.launch {
+      repeatOnLifecycle(Lifecycle.State.RESUMED) {
+        viewModel.backPressedState.collectLatest {
+          backPressedDelegate.isEnabled = it.shouldHandleBackPressed()
+        }
+      }
+    }
 
     menuProvider?.afterFirstRenderMode = true
 
@@ -1243,7 +1260,7 @@ class ConversationFragment :
     inputPanel.setHideForMessageRequestState(inputDisabled)
 
     if (inputDisabled) {
-      WindowUtil.setNavigationBarColor(requireActivity(), disabledInputView.color)
+      binding.navBar.setBackgroundColor(disabledInputView.color)
     } else {
       disabledInputView.clear()
     }
@@ -1336,10 +1353,17 @@ class ConversationFragment :
   }
 
   private fun presentNavigationIconForNormal() {
-    binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_left_24)
-    binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button)
-    binding.toolbar.setNavigationOnClickListener {
-      requireActivity().finishAfterTransition()
+    val windowSizeClass = resources.getWindowSizeClass()
+
+    if (windowSizeClass.isCompact()) {
+      binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_left_24)
+      binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button)
+      binding.toolbar.setNavigationOnClickListener {
+        requireActivity().onBackPressedDispatcher.onBackPressed()
+      }
+    } else {
+      binding.toolbar.navigationIcon = null
+      binding.toolbar.contentInsetStartWithNavigation = 0
     }
   }
 
@@ -1446,7 +1470,9 @@ class ConversationFragment :
       )
     )
 
-    WindowUtil.setNavigationBarColor(requireActivity(), ThemeUtil.getThemedColor(requireContext(), navColor))
+    if (!inputPanel.isHidden) {
+      binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), navColor))
+    }
   }
 
   private fun presentChatColors(chatColors: ChatColors) {
@@ -2182,6 +2208,7 @@ class ConversationFragment :
     reactionDelegate.setOnActionSelectedListener(onActionSelectedListener)
     reactionDelegate.setOnHideListener(onHideListener)
     reactionDelegate.show(requireActivity(), viewModel.recipientSnapshot!!, conversationMessage, conversationGroupViewModel.isNonAdminInAnnouncementGroup(), selectedConversationModel)
+    viewModel.setIsReactionDelegateShowing(true)
     composeText.clearFocus()
   }
 
@@ -2309,18 +2336,15 @@ class ConversationFragment :
       }
   }
 
-  private inner class BackPressedDelegate : OnBackPressedCallback(true) {
+  private inner class BackPressedDelegate : OnBackPressedCallback(false) {
     override fun handleOnBackPressed() {
       Log.d(TAG, "onBackPressed()")
-      if (reactionDelegate.isShowing) {
+      val state = viewModel.backPressedState.value
+
+      if (state.isReactionDelegateShowing) {
         reactionDelegate.hide()
-      } else if (isSearchRequested) {
+      } else if (state.isSearchRequested) {
         searchMenuItem?.collapseActionView()
-      } else if (args.conversationScreenType.isInBubble) {
-        isEnabled = false
-        requireActivity().onBackPressed()
-      } else {
-        requireActivity().finish()
       }
     }
   }
@@ -3169,6 +3193,8 @@ class ConversationFragment :
               }
 
               override fun onHide() {
+                viewModel.setIsReactionDelegateShowing(false)
+
                 if (!lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) || activity == null || activity?.isFinishing == true) {
                   return
                 }

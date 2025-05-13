@@ -20,7 +20,8 @@ class ConversationToolbarOnScrollHelper(
 ) : Material3OnScrollHelper(
   activity = activity,
   views = listOf(toolbarBackground),
-  lifecycleOwner = lifecycleOwner
+  lifecycleOwner = lifecycleOwner,
+  setStatusBarColor = {}
 ) {
   override val activeColorSet: ColorSet
     = ColorSet.from(activity, getActiveToolbarColor(wallpaperProvider() != null))

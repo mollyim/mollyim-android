@@ -3,8 +3,6 @@ package org.thoughtcrime.securesms.main
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -12,7 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -72,23 +69,6 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
     if (state.tab == MainNavigationDestination.CHATS) {
       return
     } else {
-      val cameraFab = requireView().findViewById<View?>(R.id.camera_fab)
-      val newConvoFab = requireView().findViewById<View?>(R.id.fab)
-
-      val extras = when {
-        cameraFab != null && newConvoFab != null -> {
-          ViewCompat.setTransitionName(cameraFab, "camera_fab")
-          ViewCompat.setTransitionName(newConvoFab, "new_convo_fab")
-
-          FragmentNavigatorExtras(
-            cameraFab to "camera_fab",
-            newConvoFab to "new_convo_fab"
-          )
-        }
-
-        else -> null
-      }
-
       val destination = if (state.tab == MainNavigationDestination.STORIES) {
         R.id.action_conversationListFragment_to_storiesLandingFragment
       } else {
@@ -98,8 +78,7 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
       navController.navigate(
         destination,
         null,
-        null,
-        extras
+        null
       )
     }
   }
@@ -280,11 +259,11 @@ class MainActivityListHostFragment : Fragment(R.layout.main_activity_list_host_f
       activity = requireActivity(),
       views = listOf(chatFolders),
       viewStubs = listOf(),
+      setStatusBarColor = {},
       onSetToolbarColor = {
         toolbarViewModel.setToolbarColor(it)
       },
       lifecycleOwner = lifecycleOwner,
-      setStatusBarColor = {},
       setChatFolderColor = setChatFolder
     ).attach(recyclerView)
   }

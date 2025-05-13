@@ -101,6 +101,7 @@
                  android:supportsRtl="true"
                  android:resizeableActivity="true"
                  android:fullBackupOnly="false"
+                 android:enableOnBackInvokedCallback="false"
                  android:allowBackup="true"
                  android:backupAgent=".absbackup.SignalBackupAgent"
                  android:theme="@style/Theme.Molly.Starting"
@@ -1031,6 +1032,7 @@
               android:exported="false"/>
 
     <activity android:name=".MainActivity"
+              android:enableOnBackInvokedCallback="true"
               android:theme="@style/Theme.Molly.Starting"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:resizeableActivity="true"
@@ -1103,6 +1105,10 @@
             android:windowSoftInputMode="adjustResize"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"/>
+
+    <activity android:name=".groups.ui.incommon.GroupsInCommonActivity"
+              android:exported="false"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <service
         android:enabled="true"

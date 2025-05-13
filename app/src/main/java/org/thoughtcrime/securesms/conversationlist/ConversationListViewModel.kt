@@ -26,19 +26,16 @@ import org.thoughtcrime.securesms.database.RxDatabaseObserver
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.megaphone.Megaphone
-import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
-import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import java.util.concurrent.TimeUnit
 
 class ConversationListViewModel(
-  private val isArchived: Boolean,
-  private val megaphoneRepository: MegaphoneRepository = AppDependencies.megaphoneRepository
+  private val isArchived: Boolean
 ) : ViewModel() {
 
   companion object {
@@ -55,7 +52,6 @@ class ConversationListViewModel(
     .build()
 
   val conversationsState: Flowable<List<Conversation>> = store.mapDistinctForUi { it.conversations }
-  val megaphoneState: Flowable<Megaphone> = store.mapDistinctForUi { it.megaphone }
   val selectedState: Flowable<ConversationSet> = store.mapDistinctForUi { it.selectedConversations }
   val filterRequestState: Flowable<ConversationFilterRequest> = store.mapDistinctForUi { it.filterRequest }
   val chatFolderState: Flowable<List<ChatFolderMappingModel>> = store.mapDistinctForUi { it.chatFolders }
@@ -69,8 +65,6 @@ class ConversationListViewModel(
     get() = store.state.currentFolder
   val conversationFilterRequest: ConversationFilterRequest
     get() = store.state.filterRequest
-  val megaphone: Megaphone
-    get() = store.state.megaphone
   val pinnedCount: Int
     get() = store.state.pinnedCount
   val webSocketState: Observable<WebSocketConnectionState>
@@ -154,10 +148,6 @@ class ConversationListViewModel(
   }
 
   fun onVisible() {
-    megaphoneRepository.getNextMegaphone { next ->
-      store.update { it.copy(megaphone = next ?: Megaphone.NONE) }
-    }
-
     if (!coldStart) {
       AppDependencies.databaseObserver.notifyConversationListListeners()
     }
@@ -200,20 +190,6 @@ class ConversationListViewModel(
     store.update {
       it.copy(filterRequest = ConversationFilterRequest(if (isFiltered) ConversationFilter.UNREAD else ConversationFilter.OFF, conversationFilterSource))
     }
-  }
-
-  fun onMegaphoneCompleted(event: Megaphones.Event) {
-    store.update { it.copy(megaphone = Megaphone.NONE) }
-    megaphoneRepository.markFinished(event)
-  }
-
-  fun onMegaphoneSnoozed(event: Megaphones.Event) {
-    megaphoneRepository.markSeen(event)
-    store.update { it.copy(megaphone = Megaphone.NONE) }
-  }
-
-  fun onMegaphoneVisible(visible: Megaphone) {
-    megaphoneRepository.markVisible(visible.event)
   }
 
   private fun loadCurrentFolders() {
@@ -286,6 +262,7 @@ class ConversationListViewModel(
   fun removeChatFromFolder(threadId: Long) {
     viewModelScope.launch(Dispatchers.IO) {
       SignalDatabase.chatFolders.removeFromFolder(currentFolder.id, threadId)
+      scheduleChatFolderSync(currentFolder.id)
     }
   }
 
@@ -296,14 +273,19 @@ class ConversationListViewModel(
         includedChats?.contains(threadId) ?: false
       }
       SignalDatabase.chatFolders.addToFolder(folderId, threadIdsNotIncluded)
+      scheduleChatFolderSync(folderId)
     }
+  }
+
+  private fun scheduleChatFolderSync(id: Long) {
+    SignalDatabase.chatFolders.markNeedsSync(id)
+    StorageSyncHelper.scheduleSyncForDataChange()
   }
 
   private data class ConversationListState(
     val chatFolders: List<ChatFolderMappingModel> = emptyList(),
     val currentFolder: ChatFolderRecord = ChatFolderRecord(),
     val conversations: List<Conversation> = emptyList(),
-    val megaphone: Megaphone = Megaphone.NONE,
     val selectedConversations: ConversationSet = ConversationSet(),
     val internalSelection: Set<Conversation> = emptySet(),
     val filterRequest: ConversationFilterRequest = ConversationFilterRequest(ConversationFilter.OFF, ConversationFilterSource.DRAG),

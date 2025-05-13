@@ -22,5 +22,6 @@ data class InternalSettingsState(
   val canClearOnboardingState: Boolean,
   val useConversationItemV2ForMedia: Boolean,
   val hevcEncoding: Boolean,
-  val newCallingUi: Boolean
+  val newCallingUi: Boolean,
+  val largeScreenUi: Boolean
 )

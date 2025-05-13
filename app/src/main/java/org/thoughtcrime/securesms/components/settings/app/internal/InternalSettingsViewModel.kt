@@ -131,7 +131,8 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     canClearOnboardingState = SignalStore.story.hasDownloadedOnboardingStory && Stories.isFeatureEnabled(),
     useConversationItemV2ForMedia = SignalStore.internal.useConversationItemV2Media,
     hevcEncoding = SignalStore.internal.hevcEncoding,
-    newCallingUi = SignalStore.internal.newCallingUi
+    newCallingUi = SignalStore.internal.newCallingUi,
+    largeScreenUi = SignalStore.internal.largeScreenUi
   )
 
   fun onClearOnboardingState() {
@@ -144,6 +145,11 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
 
   fun setUseNewCallingUi(newCallingUi: Boolean) {
     SignalStore.internal.newCallingUi = newCallingUi
+    refresh()
+  }
+
+  fun setUseLargeScreenUi(largeScreenUi: Boolean) {
+    SignalStore.internal.largeScreenUi = largeScreenUi
     refresh()
   }
 

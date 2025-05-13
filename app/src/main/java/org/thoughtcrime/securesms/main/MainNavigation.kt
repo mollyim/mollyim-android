@@ -12,6 +12,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -102,30 +104,32 @@ fun MainNavigationBar(
   state: MainNavigationState,
   onDestinationSelected: (MainNavigationDestination) -> Unit
 ) {
-  NavigationBar(
-    containerColor = colorAttribute(R.attr.navbar_container_color),
-    contentColor = MaterialTheme.colorScheme.onSurface,
-    modifier = Modifier.height(if (state.compact) 48.dp else 80.dp)
-  ) {
-    val entries = remember(state.isStoriesFeatureEnabled) {
-      if (state.isStoriesFeatureEnabled) {
-        MainNavigationDestination.entries
-      } else {
-        MainNavigationDestination.entries.filterNot { it == MainNavigationDestination.STORIES }
-      }
-    }
-
-    entries.forEach { destination ->
-
-      val badgeCount = when (destination) {
-        MainNavigationDestination.CHATS -> state.chatsCount
-        MainNavigationDestination.CALLS -> state.callsCount
-        MainNavigationDestination.STORIES -> state.storiesCount
+  Column(modifier = Modifier.background(color = colorAttribute(R.attr.navbar_container_color))) {
+    NavigationBar(
+      containerColor = colorAttribute(R.attr.navbar_container_color),
+      contentColor = MaterialTheme.colorScheme.onSurface,
+      modifier = Modifier.height(if (state.compact) 48.dp else 80.dp),
+      windowInsets = WindowInsets(0, 0, 0, 0)
+    ) {
+      val entries = remember(state.isStoriesFeatureEnabled) {
+        if (state.isStoriesFeatureEnabled) {
+          MainNavigationDestination.entries
+        } else {
+          MainNavigationDestination.entries.filterNot { it == MainNavigationDestination.STORIES }
+        }
       }
 
-      val selected = state.selectedDestination == destination
-      NavigationBarItem(
-        colors = NavigationBarItemDefaults.colors(
+      entries.forEach { destination ->
+
+        val badgeCount = when (destination) {
+          MainNavigationDestination.CHATS -> state.chatsCount
+          MainNavigationDestination.CALLS -> state.callsCount
+          MainNavigationDestination.STORIES -> state.storiesCount
+        }
+
+        val selected = state.selectedDestination == destination
+        NavigationBarItem(
+          colors = NavigationBarItemDefaults.colors(
           indicatorColor = colorAttribute(R.attr.navbar_active_indicator_color),
         ),
         selected = selected,
@@ -142,8 +146,10 @@ fun MainNavigationBar(
           onDestinationSelected(destination)
         },
         modifier = Modifier.drawNavigationBarBadge(count = badgeCount, compact = state.compact)
-      )
+      )}
     }
+
+    NavigationBarSpacerCompat()
   }
 }
 
@@ -186,13 +192,14 @@ private fun Modifier.drawNavigationBarBadge(count: Int, compact: Boolean): Modif
         drawContent()
 
         val xOffset = size.width.toFloat() / 2f + xOffsetExtra
+        val yRadius = size.height.toFloat() / 2f
 
         if (size != IntSize.Zero) {
           drawRoundRect(
             color = color,
             topLeft = Offset(xOffset, yOffset),
             size = Size(textLayoutResult.size.width.toFloat() + padding * 2, textLayoutResult.size.height.toFloat()),
-            cornerRadius = CornerRadius(20f, 20f)
+            cornerRadius = CornerRadius(yRadius, yRadius)
           )
 
           drawText(
