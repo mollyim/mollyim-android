@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Bloklanmış istifadəçilər</string>
     <string name="BlockedUsersActivity__add_blocked_user">Bloklanmış istifadəçini əlavə et</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Özünüzü bloklaya bilməzsiniz</string>
     <string name="BlockedUsersActivity__blocked_users_will">Bloklanmış istifadəçilər, sizə mesaj göndərə və ya zəng edə bilməz.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Bloklanmış istifadəçi yoxdur</string>
     <string name="BlockedUsersActivity__block_user">İstifadəçi bloklansın?</string>
@@ -1714,6 +1715,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Siz göndərdiniz</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s, %2$s əlaqəsinə göndərdi</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">%1$s əlaqəsinə göndərdiniz</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Bu media faylı hələ göndərilməyib.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Daha sonra xatırlat</string>
@@ -2759,6 +2762,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN uğurla təsdiqləndi. Bir həftə sonra yenidən xatırladacağıq.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN uğurla təsdiqləndi. Bir neçə həftə sonra yenidən xatırladacağıq.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN uğurla təsdiqləndi. Bir ay sonra yenidən xatırladacağıq.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Daha sonra təkrar xatırladacağıq.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Sabah təkrar xatırladacağıq.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Bir neçə gündən sonra təkrar xatırladacağıq.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Bir həftə sonra təkrar xatırladacağıq.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Bir neçə həftədən sonra təkrar xatırladacağıq.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Bir ay sonra təkrar xatırladacağıq.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Təsvir</string>
@@ -2774,15 +2783,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Stikerlər</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Aktivdir</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Quraşdırılıb</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Stiker paketləri mövcud deyil</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Stiker paketləri quraşdırılmayıb</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Bilinmir</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Quraşdırılan stikerlər</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Aldığınız stikerlər</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Signal Rəssam Seriyaları</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">%1$s stiker paketini endirin</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Yoxlama işarəsini endirildi</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Yenidən sıralamaq üçün dartın və buraxın</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Endir</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Quraşdırılan stikerlər</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Aldığınız stikerlər</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Signal Rəssam Seriyaları</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Heç bir stiker quraşdırılmadı</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Gələn mesajlardan aldığınız stikerlər burada görünəcək</string>
     <string name="StickerManagementAdapter_untitled">Başlıqsız</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Bilinmir</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Başlıqsız</string>
@@ -2809,6 +2838,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Bu URL-ni kopyalayın və problem hesabatına və ya dəstək e-poçtuna əlavə edin: <b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Paylaş</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Bu jurnal, töhfə verənlərin görməsi üçün ictimai olaraq paylaşılacaq. Yükləməzdən əvvəl yoxlaya bilərsiniz.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">\"Göndər\"ə kliklədiyinizdə, jurnalınızın unikal və dərc edilməmiş URL-də 30 gün ərzində onlayn paylaşılacaq. Əvvəlcə yerli yaddaşda saxlaya bilərsiniz.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3713,6 +3744,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Xeyr, təşəkkürlər</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Sonuncular</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Bu mesaj</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Son istifadə edilən</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Təbəssüm və insanlar</string>
@@ -3725,6 +3757,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Bayraqlar</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">İfadələr</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Heç nə tapılmadı</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Sonuncular</string>
+    <string name="GifQuickSearchOption__trending">Trend</string>
+    <string name="GifQuickSearchOption__celebrate">Şənlik</string>
+    <string name="GifQuickSearchOption__love">Sevgi</string>
+    <string name="GifQuickSearchOption__thumbs_up">Əla işarəsi</string>
+    <string name="GifQuickSearchOption__surprised">Təəccüblü</string>
+    <string name="GifQuickSearchOption__excited">Həyəcanlı</string>
+    <string name="GifQuickSearchOption__sad">Kədərli</string>
+    <string name="GifQuickSearchOption__angry">Qəzəbli</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">İlkin tənzimləmə istifadə et</string>
@@ -4320,6 +4363,8 @@
     <string name="conversation_list_fragment__fab_content_description">Yeni çat</string>
     <string name="conversation_list_fragment__open_camera_description">Kameranı aç</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Hələ ki, heç bir çat yoxdur.\nBir dostunuza mesaj göndərərək başlayın.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Arxivləşdirilmiş çatlar burada görünəcək.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Göstəriləcək çat yoxdur</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4943,8 +4988,8 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Başqa ortaq qrup yoxdur.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Heç bir ortaq qrup yoxdur.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d other group in common</item>
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="one">%1$d digər qrup ortaqdır</item>
+        <item quantity="other">%1$d digər qrup ortaqdır</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d ortaq qrupunuz var</item>
@@ -5694,6 +5739,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Telefon nömrəsi lövhəyə kopyalandı.</string>
     <string name="ConversationSettingsFragment__phone_number">Telefon nömrəsi</string>
     <string name="ConversationSettingsFragment__get_badges">Signal-ı dəstəkləyərək profiliniz üçün nişanlar qazanın. Daha ətraflı məlumat üçün bir nişana toxunun.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Bu media faylı hələ göndərilməyib.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Üzv əlavə edə bilmə</string>
@@ -8374,6 +8421,17 @@
     <string name="NoBackupToRestore_step3">Ehtiyat nüsxələri aktivləşdirin və ehtiyat nüsxələr tamamlanana qədər gözləyin</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Bərpanı ötür</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Axtarışı bağla</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Axtarışı təmizlə</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Daha çox seçim</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Bildiriş profili</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Proksi</string>
 
     <!-- EOF -->
 </resources>

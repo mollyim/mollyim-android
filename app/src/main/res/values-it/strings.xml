@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Utenti bloccati</string>
     <string name="BlockedUsersActivity__add_blocked_user">Aggiungi utente bloccato</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Non puoi bloccare il tuo numero</string>
     <string name="BlockedUsersActivity__blocked_users_will">Gli utenti bloccati non potranno chiamarti né inviarti messaggi.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Nessun utente bloccato</string>
     <string name="BlockedUsersActivity__block_user">Vuoi bloccare l\'utente?</string>
@@ -1714,6 +1715,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Inviato da te</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">Inviato da %1$s a %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Inviato da te a %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Questo media non è stato ancora inviato.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Ricordamelo più tardi</string>
@@ -2759,6 +2762,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN verificato con successo. Te lo ricorderemo di nuovo tra una settimana.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN verificato con successo. Te lo ricorderemo di nuovo tra un paio di settimane.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN verificato con successo. Te lo ricorderemo di nuovo tra un mese.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Te lo ricorderemo di nuovo più tardi.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Te lo ricorderemo di nuovo domani.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Te lo ricorderemo di nuovo tra qualche giorno.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Te lo ricorderemo di nuovo tra una settimana.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Te lo ricorderemo di nuovo tra un paio di settimane.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Te lo ricorderemo di nuovo tra un mese.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Immagini</string>
@@ -2774,15 +2783,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Adesivi</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Disponibili</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Installati</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Nessun pacchetto di sticker disponibile</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Nessun pacchetto di sticker installato</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Sconosciuto</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Sticker installati</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Sticker ricevuti</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Serie artisti di Signal</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Scarica il pacchetto di sticker \"%1$s\"</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Segno di spunta che segnala il download effettuato</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Tasto da tenere premuto per spostare l\'elemento</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Download</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Adesivi installati</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Adesivi che hai ricevuto</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Serie artisti di Signal</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Nessun pacchetto di adesivi installato</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Gli adesivi dei messaggi in arrivo appariranno qui</string>
     <string name="StickerManagementAdapter_untitled">Senza titolo</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Sconosciuto</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Senza titolo</string>
@@ -2809,6 +2838,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copia questo URL e aggiungilo alla tua segnalazione o all\'email di supporto:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Condividi</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Questo log verrà postato pubblicamente online per essere visualizzato dai contributori. Puoi esaminarlo prima di caricarlo.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Quando fai clic su Invia, il tuo log sarà pubblicato online per 30 giorni su un URL unico e non pubblicato. Puoi prima salvarlo localmente.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3713,6 +3744,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">No grazie</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Recenti</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Questo messaggio</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Usate di recente</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Faccine &amp; Persone</string>
@@ -3725,6 +3757,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Bandiere</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Emoticon</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Nessun risultato trovato</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Recenti</string>
+    <string name="GifQuickSearchOption__trending">Di tendenza</string>
+    <string name="GifQuickSearchOption__celebrate">Festeggiamenti</string>
+    <string name="GifQuickSearchOption__love">Amore</string>
+    <string name="GifQuickSearchOption__thumbs_up">Pollice in su</string>
+    <string name="GifQuickSearchOption__surprised">Sorpresa</string>
+    <string name="GifQuickSearchOption__excited">Felicità</string>
+    <string name="GifQuickSearchOption__sad">Tristezza</string>
+    <string name="GifQuickSearchOption__angry">Rabbia</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Usa predefinito</string>
@@ -4320,6 +4363,8 @@
     <string name="conversation_list_fragment__fab_content_description">Nuova chat</string>
     <string name="conversation_list_fragment__open_camera_description">Apri Fotocamera</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Ancora nessuna chat.\nInizia inviando un messaggio a un amico.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Le chat archiviate appariranno qui.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Nessuna chat da mostrare</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4943,8 +4988,8 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Nessun altro gruppo in comune.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Nessun gruppo in comune.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d other group in common</item>
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="one">%1$d altro gruppo in comune</item>
+        <item quantity="other">altri %1$d gruppi in comune</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d gruppo in comune</item>
@@ -5694,6 +5739,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Numero di telefono copiato negli appunti.</string>
     <string name="ConversationSettingsFragment__phone_number">Numero di telefono</string>
     <string name="ConversationSettingsFragment__get_badges">Ottieni i badge per il tuo profilo supportando Signal. Tocca un badge per saperne di più.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Questo media non è stato ancora inviato.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Aggiungi membri</string>
@@ -8374,6 +8421,17 @@
     <string name="NoBackupToRestore_step3">Abilita i backup e attendi finché il tuo backup viene completato</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Salta il ripristino</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Chiudi ed esci dalla ricerca</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Cancella ricerca</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Più opzioni</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Profilo di notifica</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Proxy</string>
 
     <!-- EOF -->
 </resources>

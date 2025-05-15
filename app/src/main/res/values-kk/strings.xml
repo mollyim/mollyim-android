@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Блокталған пайдаланушылар</string>
     <string name="BlockedUsersActivity__add_blocked_user">Блокталған пайдаланушыны қосу</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Өзіңізді блоктау мүмкін емес</string>
     <string name="BlockedUsersActivity__blocked_users_will">Блокталған пайдаланушылар сізге қоңырау соғып, хат жібере алмайтын болады.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Блокталған пайдаланушылар жоқ</string>
     <string name="BlockedUsersActivity__block_user">Пайдаланушыны блоктау керек пе?</string>
@@ -1714,6 +1715,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Сіз жіберген</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s %2$s контактісіне жіберді</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">%1$s контактісіне сіз жібердіңіз</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Бұл мультимедиа әлі жіберілмеді.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Кейінірек есіме салсын</string>
@@ -2759,6 +2762,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN-код верификацияланды. Бір аптадан кейін тағы есіңізге саламыз.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN-код верификацияланды. Екі аптадан кейін тағы есіңізге саламыз.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN-код верификацияланды. Бір айдан кейін тағы есіңізге саламыз.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Кейінірек тағы есіңізге саламыз.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Ертең тағы есіңізге саламыз.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Бірнеше күннен кейін тағы есіңізге саламыз.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Бір аптадан кейін тағы есіңізге саламыз.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Бірнеше аптадан кейін тағы есіңізге саламыз.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Бір айдан кейін тағы есіңізге саламыз.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Кескін</string>
@@ -2774,15 +2783,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Жапсырмалар</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Қолжетімді</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Орнатылды</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Стикерлер жинағы қолжетімді емес</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Стикерлер жинағы орнатылмаған</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Белгісіз</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Орнатылған жапсырмалар</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Алынған жапсырмалар</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Signal Artist топтамасы</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">%1$s стикерлер жинағын жүктеп алу</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Жүктеп алынғандығы туралы құсбелгі</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Сүйреп апаратын тетік</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Жүктеп алу</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Орнатылған жапсырмалар</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Алынған жапсырмалар</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Signal Artist топтамасы</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Орнатылған жапсырма жоқ</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Келетін хабарламалардың жапсырмалары осы жерде пайда болады</string>
     <string name="StickerManagementAdapter_untitled">Атауы жоқ</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Белгісіз</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Атауы жоқ</string>
@@ -2809,6 +2838,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Осы URL сілтемесін көшіріп, оны ақаулар есебіне немесе қолдау көрсету электрондық поштасына қосыңыз:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Бөлісу</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Қатысушылардың көруі үшін, бұл журнал жалпыға ортақ жарияланады. Оны жүктеп салмас бұрын тексеруіңізге болады.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">\"Жіберу\" түймесін басқанда, сіздің журналыңыз 30 күнге бірегей жарияланбаған URL мекенжайына жарияланады. Оны алдымен жергілікті сақтап қоюыңызға болады.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3713,6 +3744,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Жоқ, рақмет</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Соңғылар</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Осы хат</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Жақында қолданылғандар</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Смайлдар және Адамдар</string>
@@ -3725,6 +3757,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Жалаушалар</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Эмотикондар</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Бірде-бір нәтиже табылмады</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Соңғылар</string>
+    <string name="GifQuickSearchOption__trending">Танымал</string>
+    <string name="GifQuickSearchOption__celebrate">Тойлау</string>
+    <string name="GifQuickSearchOption__love">Махаббат</string>
+    <string name="GifQuickSearchOption__thumbs_up">Керемет</string>
+    <string name="GifQuickSearchOption__surprised">Таңғалған</string>
+    <string name="GifQuickSearchOption__excited">Көңілді</string>
+    <string name="GifQuickSearchOption__sad">Мұңды</string>
+    <string name="GifQuickSearchOption__angry">Ашулы</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Әдепкі мәнді пайдалану</string>
@@ -4320,6 +4363,8 @@
     <string name="conversation_list_fragment__fab_content_description">Жаңа чат</string>
     <string name="conversation_list_fragment__open_camera_description">Камераны ашу</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Әлі бірде-бір чат жоқ.\nДосыңызға хат жазып бастаңыз.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Мұрағатталған чаттар осы жерде көрсетіледі.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Көрсетілетін чат жоқ</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4943,8 +4988,8 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Басқа ортақ топтар жоқ.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Ортақ топтар жоқ.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d other group in common</item>
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="one">Басқа ортақ %1$d топ бар</item>
+        <item quantity="other">Басқа ортақ %1$d топ бар</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d ортақ топ бар</item>
@@ -5694,6 +5739,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Телефон нөмірі буферге көшірілді.</string>
     <string name="ConversationSettingsFragment__phone_number">Телефон нөмірі</string>
     <string name="ConversationSettingsFragment__get_badges">Signal-ға қолдау көрсетіп, профиліңізге таңбашалар алыңыз. Таңбашаны басып, толық мәлімет алыңыз.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Бұл мультимедиа әлі жіберілмеді.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Мүшелерді қосу</string>
@@ -8374,6 +8421,17 @@
     <string name="NoBackupToRestore_step3">Сақтық көшірмелерді қосып, сақтық көшірмелердің жасалғанын күтіңіз.</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Қалпына келтіру функциясын өткізіп жіберу</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Іздеуді жабу</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Ізделген сөзді өшіру</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Қосымша опциялар</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Хабарландыру профилі</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Прокси</string>
 
     <!-- EOF -->
 </resources>

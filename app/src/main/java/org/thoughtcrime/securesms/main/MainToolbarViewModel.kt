@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.asFlowable
+import kotlinx.coroutines.withContext
+import org.signal.core.util.concurrent.SignalDispatchers
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
@@ -33,9 +35,18 @@ class MainToolbarViewModel : ViewModel() {
   val state: StateFlow<MainToolbarState> = internalStateFlow
 
   fun refresh() {
+    viewModelScope.launch {
+      val self = withContext(SignalDispatchers.IO) {
+        Recipient.self().resolve()
+      }
+
+      internalStateFlow.update {
+        it.copy(self = self)
+      }
+    }
+
     internalStateFlow.update {
       it.copy(
-        self = Recipient.self(),
         hasFailedBackups = BackupRepository.shouldDisplayBackupFailedIndicator() || BackupRepository.shouldDisplayBackupAlreadyRedeemedIndicator(),
         hasPassphrase = TextSecurePreferences.isPassphraseLockEnabled(AppDependencies.application)
       )
@@ -65,14 +76,29 @@ class MainToolbarViewModel : ViewModel() {
   }
 
   @JvmOverloads
-  fun setToolbarMode(mode: MainToolbarMode, destination: MainNavigationDestination? = null) {
+  fun setToolbarMode(
+    mode: MainToolbarMode,
+    destination: MainNavigationListLocation? = null,
+    overwriteSearchMode: Boolean = true
+  ) {
     val previousMode = internalStateFlow.value.mode
-
-    internalStateFlow.update {
-      it.copy(mode = mode, destination = destination ?: it.destination, searchQuery = "")
+    val newMode = if (previousMode == MainToolbarMode.SEARCH && !overwriteSearchMode) {
+      previousMode
+    } else {
+      mode
     }
 
-    emitPossibleSearchStateChangeEvent(previousMode, mode)
+    val newSearchQuery = if (previousMode == MainToolbarMode.SEARCH && !overwriteSearchMode) {
+      internalStateFlow.value.searchQuery
+    } else {
+      ""
+    }
+
+    internalStateFlow.update {
+      it.copy(mode = newMode, destination = destination ?: it.destination, searchQuery = newSearchQuery)
+    }
+
+    emitPossibleSearchStateChangeEvent(previousMode, newMode)
   }
 
   fun setProxyState(proxyState: MainToolbarState.ProxyState) {

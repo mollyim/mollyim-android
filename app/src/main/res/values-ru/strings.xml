@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Заблокированные пользователи</string>
     <string name="BlockedUsersActivity__add_blocked_user">Добавить заблокированного пользователя</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Невозможно заблокировать себя</string>
     <string name="BlockedUsersActivity__blocked_users_will">Заблокированные пользователи не смогут звонить вам или отправлять вам сообщения.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Нет заблокированных пользователей</string>
     <string name="BlockedUsersActivity__block_user">Заблокировать пользователя?</string>
@@ -1814,6 +1815,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Отправили вы</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s отправил(-а) %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Вы отправили %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Этот медиафайл ещё не отправлен.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Напомните мне позже</string>
@@ -2937,6 +2940,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN-код успешно проверен. Мы напомним вам снова через неделю.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN-код успешно проверен. Мы напомним вам снова через пару недель.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN-код успешно проверен. Мы напомним вам снова через месяц.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Мы напомним вам позже.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Мы напомним вам завтра.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Мы напомним вам через несколько дней.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Мы напомним вам через неделю.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Мы напомним вам через пару недель.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Мы напомним вам через месяц.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Изображение</string>
@@ -2952,15 +2961,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Стикеры</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Доступные</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Установлено</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Нет доступных наборов стикеров</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Не установленных наборов стикеров</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Неизвестно</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Установленные стикеры</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Полученные вами стикеры</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Стикеры от художников Signal</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Скачать набор стикеров %1$s</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Галочка загрузки</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Хэндл для перетаскивания</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Скачать</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Установленные стикеры</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Полученные вами стикеры</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Стикеры от художников Signal</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Нет установленных стикеров</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Стикеры из входящих сообщений появятся здесь</string>
     <string name="StickerManagementAdapter_untitled">Безымянный</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Неизвестно</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Безымянный</string>
@@ -2987,6 +3016,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Скопируйте этот URL-адрес и добавьте его в отчет о проблеме или в письмо в службу поддержки:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Поделиться</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Этот журнал будет опубликован в интернете, чтобы разработчики смогли его просмотреть. Вы можете изучить его перед отправкой.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Когда вы нажмёте «Отправить», ваш журнал будет размещён в интернете на 30 дней по уникальному неопубликованному URL-адресу. Вы можете сначала сохранить его локально.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3058,7 +3089,7 @@
     <!-- Displayed in the conversation list when a person has been blocked -->
     <string name="ThreadRecord_blocked">Заблокирован</string>
     <!-- Displayed in the conversation list when a group has been blocked -->
-    <string name="ThreadRecord_blocked_group">Заблокирован</string>
+    <string name="ThreadRecord_blocked_group">Заблокирована</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Обновление Molly</string>
@@ -3927,6 +3958,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Нет, спасибо</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Недавние</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Это сообщение</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Недавно использованные</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Смайлики и люди</string>
@@ -3939,6 +3971,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Флаги</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Смайлики</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Поиск не дал результатов</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Недавние</string>
+    <string name="GifQuickSearchOption__trending">Тренды</string>
+    <string name="GifQuickSearchOption__celebrate">Праздники</string>
+    <string name="GifQuickSearchOption__love">Любовь</string>
+    <string name="GifQuickSearchOption__thumbs_up">Отлично</string>
+    <string name="GifQuickSearchOption__surprised">Удивлён</string>
+    <string name="GifQuickSearchOption__excited">Взволнован</string>
+    <string name="GifQuickSearchOption__sad">Грустен</string>
+    <string name="GifQuickSearchOption__angry">Сердит</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Использовать настройку по умолчанию</string>
@@ -4542,6 +4585,8 @@
     <string name="conversation_list_fragment__fab_content_description">Новый чат</string>
     <string name="conversation_list_fragment__open_camera_description">Открыть камеру</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Ещё нет чатов.\nОтправьте другу своё первое сообщение.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Архивированные чаты появятся здесь.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Нет чатов для отображения</string>
     <!-- Button text that will open up chat folder settings -->
@@ -5185,10 +5230,10 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Нет других общих групп.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Нет общих групп.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d other group in common</item>
-        <item quantity="few">%1$d other groups in common</item>
-        <item quantity="many">%1$d other groups in common</item>
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="one">%1$d другая общая группа</item>
+        <item quantity="few">%1$d другие общие группы</item>
+        <item quantity="many">%1$d других общих групп</item>
+        <item quantity="other">%1$d другой общей группы</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d общая группа</item>
@@ -5962,6 +6007,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Номер телефона был скопирован в буфер обмена.</string>
     <string name="ConversationSettingsFragment__phone_number">Номер телефона</string>
     <string name="ConversationSettingsFragment__get_badges">Получайте значки для своего профиля, поддерживая Signal. Нажмите на значок, чтобы узнать больше.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Этот медиафайл ещё не отправлен.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Добавлять участников</string>
@@ -8728,6 +8775,17 @@
     <string name="NoBackupToRestore_step3">Включите резервное копирование и дождитесь его завершения</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Пропустить восстановление</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Закрыть поиск</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Очистить поиск</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Больше опций</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Профиль уведомлений</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Прокси</string>
 
     <!-- EOF -->
 </resources>

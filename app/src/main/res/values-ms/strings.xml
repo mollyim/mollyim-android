@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Pengguna yang disekat</string>
     <string name="BlockedUsersActivity__add_blocked_user">Tambah pengguna yang disekat</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Tidak boleh sekat diri sendiri</string>
     <string name="BlockedUsersActivity__blocked_users_will">Pengguna yang disekat tidak akan dapat memanggil atau menghantar mesej kepada anda.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Tiada pengguna yang disekat</string>
     <string name="BlockedUsersActivity__block_user">Sekat pengguna?</string>
@@ -1664,6 +1665,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Dihantar oleh anda</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">Dihantar oleh %1$s kepada %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Dihantar oleh anda kepada %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Media ini belum dihantar.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Ingatkan saya kemudian</string>
@@ -2670,6 +2673,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN berjaya disahkan. Kami akan mengingatkan anda lagi dalam masa seminggu.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN berjaya disahkan. Kami akan mengingatkan anda lagi dalam beberapa minggu.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN berjaya disahkan. Kami akan mengingatkan anda lagi dalam masa sebulan.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Kami akan mengingatkan anda nanti.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Kami akan mengingatkan anda esok.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Kami akan mengingatkan anda dalam beberapa hari.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Kami akan mengingatkan anda dalam seminggu.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Kami akan mengingatkan anda dalam beberapa minggu.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Kami akan mengingatkan anda dalam sebulan.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Imej</string>
@@ -2685,15 +2694,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Pelekat</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Tersedia</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Dipasang</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Tiada pek pelekat tersedia</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Tiada pek pelekat dipasang</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Tidak diketahui</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Pelekat dipasang</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Pelekat Yang Anda Terima</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Siri Artis Signal</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Muat turun pek pelekat %1$s</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Tanda semak telah dimuat turun</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Seret dan lepas untuk susun semula</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Muat turun</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Pelekat dipasang</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Pelekat Yang Anda Terima</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Siri Artis Signal</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Tiada pelekat dipasang</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Pelekat daripada mesej masuk akan muncul di sini</string>
     <string name="StickerManagementAdapter_untitled">Tiada tajuk</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Tidak diketahui</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Tiada tajuk</string>
@@ -2720,6 +2749,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Salin URL ini dan tambahkannya kepada laporan isu atau e-mel sokongan anda:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Kongsi</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Log ini akan disiarkan secara terbuka dalam talian untuk dilihat oleh penyumbang. Anda boleh memeriksanya sebelum memuat naik.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Apabila anda klik Hantar, log anda akan disiarkan selama 30 hari pada URL unik, tidak diterbitkan. Anda boleh Simpan ia secara tempatan dahulu.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3606,6 +3637,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Tidak, terima kasih</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Terkini</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Mesej Ini</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Digunakan Baru-baru Ini</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Smiley &amp; Orang</string>
@@ -3618,6 +3650,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Bendera</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Emotikon</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Tidak ada keputusan dijumpai</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Terkini</string>
+    <string name="GifQuickSearchOption__trending">Popular</string>
+    <string name="GifQuickSearchOption__celebrate">Rai</string>
+    <string name="GifQuickSearchOption__love">Cinta</string>
+    <string name="GifQuickSearchOption__thumbs_up">Tanda Bagus</string>
+    <string name="GifQuickSearchOption__surprised">Terkejut</string>
+    <string name="GifQuickSearchOption__excited">Teruja</string>
+    <string name="GifQuickSearchOption__sad">Sedih</string>
+    <string name="GifQuickSearchOption__angry">Marah</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Gunakan lalai</string>
@@ -4209,6 +4252,8 @@
     <string name="conversation_list_fragment__fab_content_description">Sembang baharu</string>
     <string name="conversation_list_fragment__open_camera_description">Buka Kamera</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Belum ada sembang.\nMulakan dengan menghantar mesej kepada rakan.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Sembang yang diarkibkan akan dipaparkan di sini.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Tiada sembang untuk dipaparkan</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4822,7 +4867,7 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Tidak ada kumpulan lain yang sama.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Tidak ada kumpulan yang sama.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="other">%1$d kumpulan lain yang sama</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="other">%1$d kumpulan yang sama</item>
@@ -5560,6 +5605,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Nombor telefon telah disalin ke papan keratan.</string>
     <string name="ConversationSettingsFragment__phone_number">Nombor telefon</string>
     <string name="ConversationSettingsFragment__get_badges">Dapatkan lencana untuk profil anda dengan menyokong Signal. Tekan pada lencana untuk mengetahui lebih lanjut.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Media ini belum dihantar.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Tambah ahli</string>
@@ -8197,6 +8244,17 @@
     <string name="NoBackupToRestore_step3">Dayakan sandaran dan tunggu sehingga sandaran anda selesai</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Langkau pemulihan</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Tutup carian</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Kosongkan Hasil</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Lebih pilihan</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Profil pemberitahuan</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Proksi</string>
 
     <!-- EOF -->
 </resources>

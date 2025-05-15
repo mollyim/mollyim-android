@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Bloķētie lietotāji</string>
     <string name="BlockedUsersActivity__add_blocked_user">Pievienot bloķētu lietotāju</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Nevar nobloķēt sevi</string>
     <string name="BlockedUsersActivity__blocked_users_will">Bloķētie lietotāji nevarēs jums piezvanīt vai sūtīt ziņas.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Nav bloķēto lietotāju</string>
     <string name="BlockedUsersActivity__block_user">Vai bloķēt lietotāju?</string>
@@ -1764,6 +1765,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Jūs nosūtījāt</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s nosūtīja %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Jūs nosūtījāt %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Šī multivide vēl nav nosūtīta.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Atgādināt vēlāk</string>
@@ -2848,6 +2851,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN pārbaudīts veiksmīgi. Mēs atgādināsim jums vēlreiz pēc nedēļas.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN pārbaudīts veiksmīgi. Mēs atgādināsim jums vēlreiz pēc pāris nedēļām.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN pārbaudīts veiksmīgi. Mēs atgādināsim jums vēlreiz pēc mēneša.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Atgādināsim vēlreiz vēlāk.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Atgādināsim vēlreiz rīt.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Atgādināsim vēlreiz pēc dažām dienām.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Atgādināsim vēlreiz pēc nedēļas.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Mēs jums atgādināsim vēlreiz pēc pāris nedēļām.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Atgādināsim vēlreiz pēc mēneša.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Attēls</string>
@@ -2863,15 +2872,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Uzlīmes</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Pieejams(-i)</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Instalēts(-i)</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Uzlīmju komplekti nav pieejami</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Uzlīmju komplekti nav instalēti</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Nezināms</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Instalētās uzlīmes</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Jūsu saņemtās uzlīmes</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Signal mākslinieku sērijas uzlīmes</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Lejupielādēt uzlīmju komplektu \"%1$s\"</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Atzīme \"Lejupielādēts\"</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Vilkšanas un nomešanas rokturis</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Lejupielādēt</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Instalētās uzlīmes</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Jūsu saņemtās uzlīmes</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Signal mākslinieku sērijas uzlīmes</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Nav instalētu uzlīmju</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Šeit parādīsies uzlīmes no ienākošajām ziņām</string>
     <string name="StickerManagementAdapter_untitled">Nenosaukts</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Nezināms</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Nenosaukts</string>
@@ -2898,6 +2927,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Nokopējiet šo URL un pievienojiet to problēmas ziņojumam vai atbalsta e-pastam:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Kopīgot</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Šis žurnāls tiks publiski izlikts tiešsaistē apskatei līdzstrādniekiem. Pirms augšupielādes varat to pārbaudīt.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Kad noklikšķināsiet uz \"Iesniegt\", jūsu žurnāls tiks publicēts un 30 dienas būs pieejams tiešsaistē ar unikālu, nepublisku URL. Varat to vispirms saglabāt lokāli.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3820,6 +3851,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Nē, paldies</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Pēdējās</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Šī ziņa</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Nesen lietotie</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Smaidiņi; Cilvēki</string>
@@ -3832,6 +3864,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Karogi</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Emocijikonas</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Nekas netika atrasts</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Pēdējās</string>
+    <string name="GifQuickSearchOption__trending">Populāri</string>
+    <string name="GifQuickSearchOption__celebrate">Svinēšana</string>
+    <string name="GifQuickSearchOption__love">Mīlestība</string>
+    <string name="GifQuickSearchOption__thumbs_up">Patīk</string>
+    <string name="GifQuickSearchOption__surprised">Pārsteigums</string>
+    <string name="GifQuickSearchOption__excited">Sajūsma</string>
+    <string name="GifQuickSearchOption__sad">Skumjas</string>
+    <string name="GifQuickSearchOption__angry">Dusmas</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Izmantot noklusējumu</string>
@@ -4431,6 +4474,8 @@
     <string name="conversation_list_fragment__fab_content_description">Jauna saruna</string>
     <string name="conversation_list_fragment__open_camera_description">Atvērt kameru</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Vēl nav sarunu.\nSāciet, nosūtot ziņu draugam.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Šeit būs redzamas arhivētās sarunas.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Nav sarunu, ko parādīt</string>
     <!-- Button text that will open up chat folder settings -->
@@ -5064,9 +5109,9 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Nav citu kopīgu grupu.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Nav kopīgu grupu.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="zero">%1$d other groups in common</item>
-        <item quantity="one">%1$d other group in common</item>
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="zero">%1$d citas kopīgas grupas</item>
+        <item quantity="one">%1$d cita kopīga grupa</item>
+        <item quantity="other">%1$d citas kopīgas grupas</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="zero">%1$d kopīga grupa</item>
@@ -5828,6 +5873,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Tālruņa numurs ir nokopēts starpliktuvē.</string>
     <string name="ConversationSettingsFragment__phone_number">Tālruņa numurs</string>
     <string name="ConversationSettingsFragment__get_badges">Iegūstiet nozīmītes savam profilam, atbalstot Signal. Pieskarieties nozīmītei, lai uzzinātu vairāk.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Šī multivide vēl nav nosūtīta.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Pievienot dalībniekus</string>
@@ -8551,6 +8598,17 @@
     <string name="NoBackupToRestore_step3">Iespējojiet rezerves kopijas izveidi un uzgaidiet, līdz tā ir pabeigta.</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Izlaist atjaunošanu</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Aizvērt meklēšanu</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Notīrīt meklēšanu</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Papildu iespējas</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Paziņojumu profils</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Starpniekserveris</string>
 
     <!-- EOF -->
 </resources>

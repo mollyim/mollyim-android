@@ -878,6 +878,10 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
+    <activity android:name=".stickers.StickerManagementActivityV2"
+              android:exported="false"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+
     <activity android:name=".logsubmit.SubmitDebugLogActivity"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
@@ -1034,7 +1038,8 @@
     <activity android:name=".MainActivity"
               android:enableOnBackInvokedCallback="true"
               android:theme="@style/Theme.Molly.Starting"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout"
+              android:windowSoftInputMode="stateUnchanged"
               android:resizeableActivity="true"
               android:exported="false"/>
 

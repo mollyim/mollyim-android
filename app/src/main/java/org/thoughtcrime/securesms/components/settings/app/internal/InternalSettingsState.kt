@@ -23,5 +23,6 @@ data class InternalSettingsState(
   val useConversationItemV2ForMedia: Boolean,
   val hevcEncoding: Boolean,
   val newCallingUi: Boolean,
-  val largeScreenUi: Boolean
+  val largeScreenUi: Boolean,
+  val forceSplitPaneOnCompactLandscape: Boolean
 )

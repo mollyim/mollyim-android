@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Užblokuoti naudotojai</string>
     <string name="BlockedUsersActivity__add_blocked_user">Pridėti užblokuotą naudotoją</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Negalite užblokuoti savęs</string>
     <string name="BlockedUsersActivity__blocked_users_will">Užblokuoti naudotojai negalės tau skambinti ar siųsti žinučių.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Nėra užblokuotų naudotojų</string>
     <string name="BlockedUsersActivity__block_user">Užblokuoti naudotoją?</string>
@@ -1814,6 +1815,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Išsiuntėte jūs</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s išsiuntė naudotojui ar grupei %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Jūs išsiuntėte naudotojui %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Šis įrašas dar neišsiųstas.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Priminti vėliau</string>
@@ -2937,6 +2940,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN kodas sėkmingai patvirtintas. Po savaitės priminsime jums dar kartą.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN kodas sėkmingai patvirtintas. Po kelių savaičių priminsime jums dar kartą.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN kodas sėkmingai patvirtintas. Po mėnesio priminsime jums dar kartą.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Vėliau dar kartą priminsime.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Rytoj priminsime dar kartą.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Po kelių dienų vėl priminsime.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Priminsime dar kartą po savaitės.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Priminsime dar kartą po poros savaičių.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Po mėnesio dar kartą priminsime.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Paveikslas</string>
@@ -2952,15 +2961,35 @@
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Lipdukai</string>
 
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Galimas</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Įdiegtas</string>
+    <!-- Shown when there are no sticker packs available for installation -->
+    <string name="StickerManagement_available_tab_empty_text">Jokių lipdukų paketų nėra</string>
+    <!-- Shown when there are no sticker packs currently installed -->
+    <string name="StickerManagement_installed_tab_empty_text">Jokių lipdukų paketų neįdiegta</string>
+    <!-- Message shown when the author of the sticker pack is unknown -->
+    <string name="StickerManagement_author_unknown">Nežinoma</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Įdiegti lipdukai</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Jūsų gauti lipdukai</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Signal menininkų serija</string>
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Atsisiųsti %1$s lipdukų paketą</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Varnelė, kad atsisiųsta</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Nutempimo rankenėlė</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Atsisiųsti</string>
+
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Įdiegti lipdukai</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Jūsų gauti lipdukai</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Signal menininkų serija</string>
     <string name="StickerManagementAdapter_no_stickers_installed">Nėra jokių įdiegtų lipdukų</string>
     <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Čia bus rodomi lipdukai iš gaunamų žinučių</string>
     <string name="StickerManagementAdapter_untitled">Be pavadinimo</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Nežinoma</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Be pavadinimo</string>
@@ -2987,6 +3016,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Nukopijuokite šį URL ir pridėkite jį į savo pranešimą apie klaidą ar palaikymo el. laišką:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Bendrinti</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Šis žurnalas bus viešai paskelbtas internete talkininkams peržiūrėti. Prieš išsiųsdami, galite jį panagrinėti.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Kai spustelėsite „Pateikti“, jūsų žurnalas bus 30-čiai dienų paskelbtas internete unikaliu neskelbiamu URL adresu. Galite, iš pradžių, įsirašyti jį savo įrenginyje.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3927,6 +3958,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Ne, ačiū</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Paskiausi</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Ši žinutė</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Paskiausi</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Šypsenėlės ir žmonės</string>
@@ -3939,6 +3971,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Vėliavos</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Jaustukai</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Nerasta jokių rezultatų</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Paskiausi</string>
+    <string name="GifQuickSearchOption__trending">Populiaru</string>
+    <string name="GifQuickSearchOption__celebrate">Šventė</string>
+    <string name="GifQuickSearchOption__love">Meilė</string>
+    <string name="GifQuickSearchOption__thumbs_up">Patinka</string>
+    <string name="GifQuickSearchOption__surprised">Nustebęs</string>
+    <string name="GifQuickSearchOption__excited">Linksmas</string>
+    <string name="GifQuickSearchOption__sad">Liūdnas</string>
+    <string name="GifQuickSearchOption__angry">Piktas</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Naudoti numatytąjį</string>
@@ -4542,6 +4585,8 @@
     <string name="conversation_list_fragment__fab_content_description">Naujas pokalbis</string>
     <string name="conversation_list_fragment__open_camera_description">Atverti kamerą</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Kol kas pokalbių nėra.\nPradėkite, bendraudami su draugais.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Čia bus rodomi suarchyvuoti pokalbiai.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Nėra pokalbių, kuriuos galima parodyti</string>
     <!-- Button text that will open up chat folder settings -->
@@ -5185,10 +5230,10 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Nėra kitų bendrų grupių.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Nėra bendrų grupių.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d other group in common</item>
-        <item quantity="few">%1$d other groups in common</item>
-        <item quantity="many">%1$d other groups in common</item>
-        <item quantity="other">%1$d other groups in common</item>
+        <item quantity="one">%1$d kita bendra grupė</item>
+        <item quantity="few">%1$d kitos bendros grupės</item>
+        <item quantity="many">%1$d kitos bendros grupės</item>
+        <item quantity="other">%1$d kitų bendrų grupių</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d bendra grupė</item>
@@ -5962,6 +6007,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Telefono numeris nukopijuotas į iškarpinę.</string>
     <string name="ConversationSettingsFragment__phone_number">Telefono numeris</string>
     <string name="ConversationSettingsFragment__get_badges">Gauk ženklelių savo profiliui už paramą „Signal“. Bakstelėk ženklelį ir sužinok daugiau.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Šis įrašas dar neišsiųstas.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Pridėti narius</string>
@@ -8728,6 +8775,17 @@
     <string name="NoBackupToRestore_step3">Įjunkite atsargines kopijas ir palaukite, kol bus sukurta atsarginė kopija</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Praleisti atkūrimą</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Uždaryti paiešką</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Išvalyti paiešką</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Daugiau parinkčių</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Pranešimų profilis</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Įgaliotasis serveris</string>
 
     <!-- EOF -->
 </resources>

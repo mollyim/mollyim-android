@@ -53,6 +53,12 @@ dependencyResolutionManagement {
         includeModule("org.signal", "sqlcipher-android")
       }
     }
+    maven {
+      url = uri("https://raw.githubusercontent.com/signalapp/maven/master/aesgcmprovider/release/")
+      content {
+        includeModule("org.signal", "aesgcmprovider")
+      }
+    }
   }
   versionCatalogs {
     // libs.versions.toml is automatically registered.
