@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -46,12 +43,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signalをアップデートしています…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Mollyをアップデートしています…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">パスフレーズが設定されていません！</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">パスフレーズを無効にしますか？</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">これにより、Signalとメッセージ通知のロックが完全に解除されます。</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">これにより、Mollyとメッセージ通知のロックが完全に解除されます。</string>
     <string name="ApplicationPreferencesActivity_disable">無効</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">サーバ接続中にエラーが発生しました！</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">登録ロックを使うにはPINが必要です。PINを無効にするには、まず登録ロックを無効にしてください。</string>
@@ -88,7 +85,7 @@
     <string name="AttachmentKeyboard_file">ファイル</string>
     <string name="AttachmentKeyboard_contact">連絡先</string>
     <string name="AttachmentKeyboard_location">場所</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signalで写真や動画を表示するためには、許可が必要です</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Mollyで写真や動画を表示するためには、許可が必要です</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">アクセスを許可する</string>
     <string name="AttachmentKeyboard_payment">決済</string>
@@ -99,34 +96,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">設定へ</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Signalの、写真や動画へのアクセスが制限されています</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Mollyの、写真や動画へのアクセスが制限されています</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">写真が見つかりませんでした。ここに表示する写真や動画を選択するか、権限を変更してください</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">写真や動画が見つかりませんでした。Signalはユーザーが選択した写真と動画にのみアクセスできます。</string>
+    <string name="MediaGalleryFragment__no_photos_found">写真や動画が見つかりませんでした。Mollyはユーザーが選択した写真と動画にのみアクセスできます。</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">メディアを選択するアプリが見つかりません。</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">写真や動画、音声データを添付するには、Signalにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">連絡先情報を添付するには、Signalに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">位置情報を添付するには、Signalに位置情報へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「位置情報」を有効にしてください。</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">写真や動画、音声データを添付するには、Mollyにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">連絡先情報を添付するには、Mollyに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">位置情報を添付するには、Mollyに位置情報へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「位置情報」を有効にしてください。</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">現在地へのアクセスを許可する</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">現在地の送信に必要です：</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">現在地を送信するために、Signalにアクセスを許可する。</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">現在地を送信するために、Mollyにアクセスを許可する。</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Signalは、現在地を送信するために位置情報へのアクセスが必要です。</string>
+    <string name="AttachmentManager_signal_needs_location_access">Mollyは、現在地を送信するために位置情報へのアクセスが必要です。</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">ストレージへのアクセスを許可する</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">写真や動画を表示するには：</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">写真や動画を表示するには、Signalにアクセス権が必要です。</string>
+    <string name="AttachmentManager_signal_needs_storage_access">写真や動画を表示するには、Mollyにアクセス権が必要です。</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s さんは決済機能を有効にしていません </string>
@@ -276,25 +273,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">マイクへのアクセスの許可</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">写真を撮るために、Signalにカメラへのアクセスを許可してください。</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">写真を撮るために、Mollyにカメラへのアクセスを許可してください。</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">写真や動画を撮るには、Signalにカメラへのアクセスを許可してください。</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">写真や動画を撮るには、Mollyにカメラへのアクセスを許可してください。</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">写真や動画を撮るには、Signalにカメラとマイクへのアクセスを許可してください。</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">写真や動画を撮るには、Mollyにカメラとマイクへのアクセスを許可してください。</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">音声付きの動画を撮るには、Signalにマイクへのアクセスを許可してください。</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">音声付きの動画を撮るには、Mollyにマイクへのアクセスを許可してください。</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QRコードをスキャンするには、Signalにカメラへのアクセスを許可してください。</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QRコードをスキャンするには、Mollyにカメラへのアクセスを許可してください。</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signalは、写真を撮るためにカメラへのアクセスが必要です</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Mollyは、写真を撮るためにカメラへのアクセスが必要です</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signalは、QRコードをスキャンするためにカメラへのアクセスが必要です</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Mollyは、QRコードをスキャンするためにカメラへのアクセスが必要です</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signalは、動画を撮るためにマイクへのアクセスが必要です</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Mollyは、動画を撮るためにマイクへのアクセスが必要です</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Signalで写真を撮るには：</string>
+    <string name="CameraXFragment_to_capture_photos">Mollyで写真を撮るには：</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Signalで写真や動画を撮るには：</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Mollyで写真や動画を撮るには：</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">音声付きの動画を撮るには：</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -312,7 +309,7 @@
     <string name="CameraContacts_no_signal_contacts">Signalの連絡先はありません</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">カメラボタンだけでSignalの連絡先へ写真を送信できます。 </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">探している人が見つかりませんか？</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">連絡先をSignalへ招待する</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">連絡先をMollyへ招待する</string>
     <string name="CameraContacts__menu_search">検索</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -326,12 +323,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">今はしない</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Signalをアップデートしてください</string>
+    <string name="ClientDeprecatedActivity_update_signal">Mollyをアップデートしてください</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">このバージョンはサポートされていません。メッセージの送受信を続けるには、最新バージョンにアップデートしてください。</string>
     <string name="ClientDeprecatedActivity_update">アップデートする</string>
     <string name="ClientDeprecatedActivity_dont_update">アップデートしない</string>
     <string name="ClientDeprecatedActivity_warning">ご注意ください</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">このバージョンのSignalは期限が切れています。メッセージの履歴は閲覧できますが、アップデートするまで送受信はできません。</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">このバージョンのMollyは期限が切れています。メッセージの履歴は閲覧できますが、アップデートするまで送受信はできません。</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">ウェブブラウザが見つかりません。</string>
@@ -372,8 +369,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">%1$s にメッセージを送る</string>
-    <string name="ContactsDatabase_signal_call_s">Signal音声通話 %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Signalビデオ通話 %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Molly音声通話 %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Mollyビデオ通話 %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -468,7 +465,7 @@
     <string name="ConversationActivity_transport_signal">Signalメッセージ</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">メッセージを送信</string>
-    <string name="ConversationActivity_lets_switch_to_signal">メッセージアプリをSignalにしましょう %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">メッセージアプリをMollyにしましょう %1$s</string>
     <string name="ConversationActivity_specify_recipient">連絡先を選択してください</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">添付ファイルのサイズが、送信するメッセージタイプに応じた制限を超えています。</string>
     <string name="ConversationActivity_unable_to_record_audio">録音できません！</string>
@@ -487,18 +484,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">ボイスメッセージを送信するには：</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">音声メッセージを送信するには、Signalのマイクへのアクセスを許可してください。</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">音声メッセージを送信するには、Mollyのマイクへのアクセスを許可してください。</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signalは、音声メッセージを録音するためにマイクへのアクセスが必要です。</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを添付するには、Signalにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」を有効にしてください。</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Mollyは、音声メッセージを録音するためにマイクへのアクセスが必要です。</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを添付するには、Mollyにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」を有効にしてください。</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s と通話するには、Signalにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">写真や動画を撮るには、Signalにカメラへのアクセスを許可してください。</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">写真や動画を撮るには、Signalにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">写真や動画を撮るにはSignalにカメラへのアクセス許可が必要です</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%1$s と通話するには、Mollyにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">写真や動画を撮るには、Mollyにカメラへのアクセスを許可してください。</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">写真や動画を撮るには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">写真や動画を撮るにはMollyにカメラへのアクセス許可が必要です</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">音声付きで動画を撮影するためにマイクへのアクセスを許可します。</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">動画を撮るには、Signalにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">動画を撮るには、Signalにマイクへのアクセス許可が必要です。</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">動画を撮るには、Mollyにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">動画を撮るには、Mollyにマイクへのアクセス許可が必要です。</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">いいえ</string>
@@ -519,9 +516,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">通話開始に必要です：</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">通話を開始するには、Signalにマイクへのアクセスを許可してください。</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">通話を開始するには、Mollyにマイクへのアクセスを許可してください。</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signalは、通話を開始するためにマイクへのアクセスが必要です。</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Mollyは、通話を開始するためにマイクへのアクセスが必要です。</string>
 
 
     <string name="ConversationActivity_join">参加する</string>
@@ -535,9 +532,9 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">SMSメッセージはSignalでサポートされなくなりました。%1$sをSignalへ招待して会話を続けてください。</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">この方は、もうSignalを使っていません。Signalへ招待して会話を続けてください。</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">この方は、もうMollyを使っていません。Mollyへ招待して会話を続けてください。</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Signalへの招待</string>
+    <string name="ConversationActivity__invite_to_signal">Mollyへの招待</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">まもなくリマインドされます。</string>
     <!-- Toast message shown when trying to record a voice message during an ongoing call -->
@@ -619,13 +616,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">ブロック済</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Signalをアップデートしてください</string>
+    <string name="ConversationFragment__update_build">Mollyをアップデートしてください</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Signal を再登録する</string>
+    <string name="ConversationFragment__reregister_signal">Molly を再登録する</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">戻る</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Signalを開きます</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Mollyを開きます</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">連絡先の相手を確認できません</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -676,7 +673,7 @@
     <!-- Title of tip 0 -->
     <string name="SafetyTips_tip0_title">偽名と偽アカウント</string>
     <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Signalが登録コードやPINについてお客様に連絡することは一切ありません。なりすましによる不正アクセスにはご注意ください。プロフィールネームはアカウント所有者によって選択され、検証はされません。</string>
+    <string name="SafetyTips_tip0_message">Mollyが登録コードやPINについてお客様に連絡することは一切ありません。なりすましによる不正アクセスにはご注意ください。プロフィールネームはアカウント所有者によって選択され、検証はされません。</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">暗号通貨または金銭詐欺</string>
     <!-- Message of tip 1 -->
@@ -819,9 +816,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">私を電話番号から検索できる人は？</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">あなたの電話番号を知っている人は誰でも、あなたがSignal利用者であることがわかり、チャットを始めることができます。</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">あなたの電話番号を知っている人は誰でも、あなたがMolly利用者であることがわかり、チャットを始めることができます。</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">あなたからメッセージを送るか、以前からチャットをやりとりしていない限り、あなたがSignalを利用していることは誰にもわかりません。</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">あなたからメッセージを送るか、以前からチャットをやりとりしていない限り、あなたがMollyを利用していることは誰にもわかりません。</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">バックアップから復元しますか？</string>
@@ -900,7 +897,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">バックアップ用パスフレーズが合っているか確認してください</string>
     <string name="BackupsPreferenceFragment__turn_on">有効にする</string>
     <string name="BackupsPreferenceFragment__turn_off">無効にする</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"バックアップを復元するには、新しいSignalをインストールしてください。その後アプリを開き、「バックアップを復元する」をタップしてバックアップファイルの場所を指定します。 %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"バックアップを復元するには、新しいMollyをインストールしてください。その後アプリを開き、「バックアップを復元する」をタップしてバックアップファイルの場所を指定します。 %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">詳しく見る</string>
     <string name="BackupsPreferenceFragment__in_progress">実行しています…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -909,7 +906,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">これまで %1$d…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%%完了</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Signalに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Mollyに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">バックアップする時間を設定する</string>
 
@@ -984,7 +981,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">セッションが更新されました</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signalはエンドツーエンドの暗号化を使用しており、時々セッションの更新が必要な場合があります。これはチャットのセキュリティには影響しませんが、この連絡先からのメッセージを失った可能性があるため、再送を依頼することができます。</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Mollyはエンドツーエンドの暗号化を使用しており、時々セッションの更新が必要な場合があります。これはチャットのセキュリティには影響しませんが、この連絡先からのメッセージを失った可能性があるため、再送を依頼することができます。</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1095,7 +1092,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">他の端末でのリンクを終了します</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">他の端末でのSignalのリンクを終了します。</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">他の端末でのMollyのリンクを終了します。</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">端末のリンクに失敗しました</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1140,10 +1137,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Google Play開発者サービスの不在に対応する</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">この端末はGoogle Play開発者サービスをサポートしていません。Signalがいつでもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">この端末はGoogle Play開発者サービスをサポートしていません。Mollyがいつでもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">このバージョンのSignalは期限が切れています。メッセージを送受信するには、アップデートしてください。</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">このバージョンのMollyは期限が切れています。メッセージを送受信するには、アップデートしてください。</string>
     <string name="ExpiredBuildReminder_update_now">アップデートする</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1280,7 +1277,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">デバッグログは、問題の診断と修正に役立てられます。個人を特定する情報は含まれません。</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signalに問題が発生しました。 デバッグログを送信しますか？</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Mollyに問題が発生しました。 デバッグログを送信しますか？</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">メッセージを受信できない可能性があります。デバッグログを送信しますか？</string>
 
@@ -1288,12 +1285,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">バッテリーの最適化のために通知が遅れることがあります</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Signal のアプリ情報でバッテリーの最適化を無効にすると、メッセージ通知がすみやかに表示されます。</string>
+    <string name="PromptBatterySaverBottomSheet__message">Molly のアプリ情報でバッテリーの最適化を無効にすると、メッセージ通知がすみやかに表示されます。</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">バッテリーの最適化のために通知が遅れることがあります</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Signalのアプリ情報でバッテリーの最適化を無効にすると、メッセージ通知がすみやかに表示されます。「続ける」をタップすると、端末ごとの手順が表示されます。</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Mollyのアプリ情報でバッテリーの最適化を無効にすると、メッセージ通知がすみやかに表示されます。「続ける」をタップすると、端末ごとの手順が表示されます。</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">今はしない</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1302,7 +1299,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">メッセージを受信できない可能性があります</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">端末を再起動すると、メッセージ配信の問題が解決する場合があります。この問題が解決しない場合は、Signalサポートにお問い合わせください。</string>
+    <string name="ConnectivityWarningBottomSheet_body">端末を再起動すると、メッセージ配信の問題が解決する場合があります。この問題が解決しない場合は、Mollyサポートにお問い合わせください。</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">わかりました</string>
 
@@ -1432,9 +1429,9 @@
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
     <string name="RemoteRestoreActivity__couldnt_restore">このバックアップを復元できませんでした</string>
     <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
-    <string name="RemoteRestoreActivity__update_latest">このバージョンの Signal ではバックアップを復元できません。最新バージョンにアップデートして、もう一度お試しください。</string>
+    <string name="RemoteRestoreActivity__update_latest">このバージョンの Molly ではバックアップを復元できません。最新バージョンにアップデートして、もう一度お試しください。</string>
     <!-- Text on button that when pressed will redirect them to update Signal -->
-    <string name="RemoteRestoreActivity__update_signal">Signalをアップデートしてください</string>
+    <string name="RemoteRestoreActivity__update_signal">Mollyをアップデートしてください</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">今はしない</string>
 
@@ -1603,12 +1600,12 @@
     <string name="InviteActivity_cancel">キャンセル</string>
     <string name="InviteActivity_sending">送信しています…</string>
     <string name="InviteActivity_invitations_sent">招待状を送信しました！</string>
-    <string name="InviteActivity_invite_to_signal">Signalへの招待</string>
+    <string name="InviteActivity_invite_to_signal">Mollyへの招待</string>
     <string name="InviteActivity_send_sms">SMSを送信する (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">%1$d件のSMS招待状を送信しますか？</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">メッセージアプリをSignalにしましょう: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">メッセージアプリをMollyにしましょう: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">共有先として使えるアプリがないようです。</string>
 
@@ -1623,7 +1620,7 @@
     <string name="LongMessageActivity_your_message">あなたのメッセージ</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">バックグラウンド通信は有効です</string>
 
     <!-- MediaOverviewActivity -->
@@ -1696,10 +1693,10 @@
     <string name="MessageQuotesBottomSheet_replies">返信</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Signal通話を接続しています</string>
+    <string name="NotificationBarManager__establishing_signal_call">Molly通話を接続しています</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Signalコールサービスを開始する</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Signal通話サービスを停止しています</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Mollyコールサービスを開始する</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Molly通話サービスを停止しています</string>
     <string name="NotificationBarManager__cancel_call">通話をキャンセル</string>
 
     <!-- NotificationsMegaphone -->
@@ -2014,7 +2011,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Signalでは、まもなくSMSメッセージを送信できなくなります。%1$sをSignalへ招待して会話を続けてください。</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">SignalでSMSメッセージを送信できなくなりました。%1$sをSignalへ招待して会話を続けてください。</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">MollyでSMSメッセージを送信できなくなりました。%1$sをMollyへ招待して会話を続けてください。</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">支払い： %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2134,24 +2131,24 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal端末をリンクしますか？</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">デスクトップまたはiPadをこのSignalアカウントにリンクするには、［リンク済み端末］→［新しい端末をリンクする］をタップし、もう一度QRコードをスキャンしてください。Signalに直接表示されたQRコードのみをスキャンしてください。</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QRコードをスキャンするには、Signalにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">カメラへのアクセス許可がないとQRコードをスキャンできません</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">アップデートする</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">このバージョンのSignalは、本日期限が切れます。最新バージョンにアップデートしてください。</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">このバージョンのMollyは、本日期限が切れます。最新バージョンにアップデートしてください。</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="other">このバージョンのSignalは、%1$d日後に期限が切れます。最新バージョンにアップデートしてください。</item>
+        <item quantity="other">このバージョンのMollyは、%1$d日後に期限が切れます。最新バージョンにアップデートしてください。</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">パスフレーズを入力してください</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signalアイコン</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Mollyアイコン</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">パスフレーズを設定する</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">不正なパスフレーズです！</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Signalのロックを解除する</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Mollyのロックを解除する</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - ロック画面</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - ロック画面</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">地図</string>
@@ -2219,7 +2216,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">メッセージ送受信のため認証してください</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signalがスパムを回避するために、認証を完了していください。</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Mollyがスパムを回避するために、認証を完了していください。</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">認証後は、メッセージの送受信を再開できます。保留中のメッセージは、自動で送信されます。</string>
 
     <!-- Recipient -->
@@ -2227,7 +2224,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">マイストーリー</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal 通話</string>
+    <string name="Recipient_signal_call">Molly 通話</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">ブロックする</string>
@@ -2263,9 +2260,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">タップして動画を有効にする</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s と通話するには、Signalにカメラへのアクセスを許可してください。</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s と通話するには、Mollyにカメラへのアクセスを許可してください。</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">呼び出しています…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">再接続しています…</string>
@@ -2320,23 +2317,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">カメラへのアクセスを許可する</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">通話を開始したり参加したりするには、Signalにカメラとマイクへのアクセスを許可してください。</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">通話を開始したり参加したりするには、Mollyにカメラとマイクへのアクセスを許可してください。</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">通話を開始するには、Signalにマイクへのアクセスを許可してください。</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">通話を開始するには、Mollyにマイクへのアクセスを許可してください。</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">動画を有効にするには、Signalにカメラへのアクセスを許可してください。</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">動画を有効にするには、Mollyにカメラへのアクセスを許可してください。</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signalが通話を開始したり参加したりするには、マイクへのアクセス許可が必要です。</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Mollyが通話を開始したり参加したりするには、マイクへのアクセス許可が必要です。</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signalは、動画を有効にするためにカメラへのアクセスが必要です</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Mollyは、動画を有効にするためにカメラへのアクセスが必要です</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">通話を開始、または参加するには：</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">動画を有効にする：</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal通話</string>
-    <string name="WebRtcCallView__signal_video_call">Signalビデオ通話</string>
+    <string name="WebRtcCallView__signal_call">Molly通話</string>
+    <string name="WebRtcCallView__signal_video_call">Mollyビデオ通話</string>
     <string name="WebRtcCallView__start_call">通話を開始する</string>
     <string name="WebRtcCallView__join_call">通話に参加する</string>
     <string name="WebRtcCallView__call_is_full">満席です</string>
@@ -2575,7 +2572,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">この番号を認証するため、通話が着信します。</string>
     <string name="RegistrationActivity_edit_number">番号を編集する</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play開発者サービスがありません</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">この端末にはGoogle Play開発者サービスがありません。Signalは使用できますが、信頼性や性能は下がる可能性があります。\n\n上級者でない方や、メーカー公式のAndroidをご利用の方、何かの間違いだと思う方などは support@signal.org まで連絡してください。</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">この端末にはGoogle Play開発者サービスがありません。Mollyは使用できますが、信頼性や性能は下がる可能性があります。\n\n上級者でない方や、メーカー公式のAndroidをご利用の方、何かの間違いだと思う方などは support@molly.im まで連絡してください。</string>
     <string name="RegistrationActivity_i_understand">分かりました</string>
     <string name="RegistrationActivity_play_services_error">Google Play開発者サービスのエラー</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play開発者サービスは更新中か一時的に使用不能です。再度試してください。</string>
@@ -2595,7 +2592,7 @@
     <string name="RegistrationActivity_non_standard_number_format">非標準の数字フォーマット</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">あなたが入力した数字 (%1$s) は、非標準のフォーマットのようです。\n\n%2$s を意図していすか？</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - 電話番号フォーマット</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - 電話番号フォーマット</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">通話を要求されました</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2667,13 +2664,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">連絡先に追加</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Signalに招待する</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Mollyに招待する</string>
     <string name="SharedContactDetailsActivity_signal_message">Signalメッセージ</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal通話</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">連絡先に追加</string>
-    <string name="SharedContactView_invite_to_signal">Signalに招待する</string>
+    <string name="SharedContactView_invite_to_signal">Mollyに招待する</string>
     <string name="SharedContactView_message">Signalメッセージ</string>
 
     <!-- SignalBottomActionBar -->
@@ -2706,10 +2703,10 @@
     <string name="SmsMessageRecord_duplicate_message">重複メッセージ。</string>
 
     <!-- Sticker management screen default title. -->
-    <string name="StickerManagement_title_stickers">Stickers</string>
+    <string name="StickerManagement_title_stickers">ステッカー</string>
     <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
     <plurals name="StickerManagement_title_n_selected">
-        <item quantity="other">%1$s selected</item>
+        <item quantity="other">%1$s件選択済み</item>
     </plurals>
     <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
     <string name="StickerManagement_available_tab_label">利用できます</string>
@@ -2728,13 +2725,13 @@
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Signalアーティストシリーズ</string>
     <!-- Title shown when sharing a sticker pack with another user. -->
-    <string name="StickerManagement_share_sheet_title">Forward to</string>
+    <string name="StickerManagement_share_sheet_title">転送先</string>
     <!-- Bottom action bar option to select all sticker packs in the list. -->
-    <string name="StickerManagement_action_select_all">Select all</string>
+    <string name="StickerManagement_action_select_all">すべて選択する</string>
     <!-- Bottom action bar option to deselect all sticker packs in the list. -->
     <string name="StickerManagement_action_deselect_all">Deselect all</string>
     <!-- Bottom action bar option to uninstall all selected sticker packs. -->
-    <string name="StickerManagement_action_delete_selected">Delete</string>
+    <string name="StickerManagement_action_delete_selected">消去する</string>
     <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
     <plurals name="StickerManagement_delete_n_packs_confirmation">
         <item quantity="other">Remove %1$s sticker packs</item>
@@ -2749,13 +2746,13 @@
     </plurals>
 
     <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
-    <string name="StickerManagement_menu_forward_pack">Forward</string>
+    <string name="StickerManagement_menu_forward_pack">転送</string>
     <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
-    <string name="StickerManagement_menu_select_pack">Select</string>
+    <string name="StickerManagement_menu_select_pack">選択する</string>
     <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
-    <string name="StickerManagement_menu_install_pack">Install</string>
+    <string name="StickerManagement_menu_install_pack">インストール</string>
     <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
-    <string name="StickerManagement_menu_remove_pack">Remove</string>
+    <string name="StickerManagement_menu_remove_pack">削除する</string>
     <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
     <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
 
@@ -2770,7 +2767,7 @@
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
     <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
-    <string name="StickerManagement_accessibility_open_context_menu">Open context menu</string>
+    <string name="StickerManagement_accessibility_open_context_menu">コンテキストメニューを開く</string>
     <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
     <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
@@ -2878,11 +2875,11 @@
     <string name="ThreadRecord_blocked_group">ブロック済</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signalアップデート</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">新バージョンのSignalが利用可能です。タップして更新します。</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signalの更新に失敗しました</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Mollyアップデート</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">新バージョンのMollyが利用可能です。タップして更新します。</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Mollyの更新に失敗しました</string>
     <string name="ApkUpdateNotifications_failed_general_body">後で再度試してみます。</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signalが正常に更新されました</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Mollyが正常に更新されました</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">バージョン%1$sに自動的に更新されました。</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">バージョン%1$sにアップデートされました。</string>
 
@@ -2953,7 +2950,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">私たちのSignal安全番号:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">共有先として使えるアプリがないようです。</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">クリップボードで安全番号が見つかりませんでした</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QRコードをスキャンするには、Signalにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">カメラへのアクセス許可がないとQRコードをスキャンできません</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s の安全番号を表示するには、初めにメッセージの交換が必要です。</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2979,8 +2976,8 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">タッチして開く</string>
-    <string name="KeyCachingService_passphrase_cached">Signalのロックが解除されています</string>
-    <string name="KeyCachingService_lock">Signalをロック</string>
+    <string name="KeyCachingService_passphrase_cached">Mollyのロックが解除されています</string>
+    <string name="KeyCachingService_lock">Mollyをロック</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">あなた</string>
@@ -3028,7 +3025,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">メッセージを配送できませんでした。</string>
     <string name="MessageNotifier_error_delivering_message">メッセージの配送中にエラーが発生しました。</string>
     <string name="MessageNotifier_message_delivery_paused">メッセージの配送が保留されました。</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signalでのメッセージ送受信を続けるため、認証してください。</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Mollyでのメッセージ送受信を続けるため、認証してください。</string>
     <string name="MessageNotifier_mark_all_as_read">すべて既読にする</string>
     <string name="MessageNotifier_mark_read">既読にする</string>
     <string name="MessageNotifier_turn_off_these_notifications">これらの通知を無効にする</string>
@@ -3050,7 +3047,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">あなたのステッカーに %1$sのリアクションがありました。</string>
     <string name="MessageNotifier_this_message_was_deleted">このメッセージは消去されました。</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">連絡先のSignal参加時の通知を受け取らないようにしますか？この設定はあとでSignal &gt; 設定 &gt; 通知から元に戻せます。</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">連絡先のMolly参加時の通知を受け取らないようにしますか？この設定はあとでMolly &gt; 設定 &gt; 通知から元に戻せます。</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3091,7 +3088,7 @@
     <string name="NotificationChannel_new_linked_device">新しいリンク済み端末</string>
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signalのロック中はクイックレスポンスを使えません！</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Mollyのロック中はクイックレスポンスを使えません！</string>
     <string name="QuickResponseService_problem_sending_message">メッセージ送信中に問題が発生しました！</string>
 
     <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
@@ -3122,7 +3119,7 @@
     </plurals>
 
     <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
-    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">外部ストレージにデータを保存するには、Signalにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">外部ストレージにデータを保存するには、Mollyにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
 
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">ストレージへのアクセス許可がないと外部ストレージに保存できません</string>
@@ -3141,7 +3138,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">無効なショートカット</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">新着メッセージ</string>
     <string name="SingleRecipientNotificationBuilder_message_request">メッセージ申請</string>
     <string name="SingleRecipientNotificationBuilder_you">あなた</string>
@@ -3184,7 +3181,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">この端末は登録されていません。以前、おそらく別の端末で Signal に電話番号を登録したことが原因です。</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">この端末は登録されていません。以前、おそらく別の端末で Molly に電話番号を登録したことが原因です。</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">端末を再登録する</string>
 
@@ -3197,10 +3194,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">着信に出るには、Signalにマイクへのアクセスを許可してください。</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">着信に出るには、Mollyにマイクへのアクセスを許可してください。</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ビデオ通話に出るには、Signal にマイクとカメラへのアクセスを許可してください。</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話するには、Signalにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">ビデオ通話に出るには、Molly にマイクとカメラへのアクセスを許可してください。</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話するには、Mollyにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">リンクした端末で応答しました。</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">リンクした端末で拒否しました。</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">リンクした端末で通話中です。</string>
@@ -3245,7 +3242,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">新しいパスフレーズを再入力</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Signalに招待する</string>
+    <string name="contact_selection_activity__invite_to_signal">Mollyに招待する</string>
     <string name="contact_selection_activity__new_group">新規グループ</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">連絡先を更新</string>
@@ -3271,7 +3268,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">連絡先の写真</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">連絡先を表示するには、Signalに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">連絡先を表示するには、Mollyに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">連絡先の取得中にエラーが発生しました。ネットワーク接続を確認してください。</string>
     <string name="ContactSelectionListFragment_username_not_found">ユーザーネームが見つかりませんでした</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"「%1$s」はSignalユーザーではありません。ユーザーネームを確認してもう一度試してください。"</string>
@@ -3299,7 +3296,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">連絡先へのアクセスを許可しましょう。連絡先は暗号化され、私たちSignalからは見えません。</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">連絡先を表示するには、Signalに連絡先へのアクセスを許可してください。</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">連絡先を表示するには、Mollyに連絡先へのアクセスを許可してください。</string>
     <string name="contact_selection_list_fragment__show_contacts">連絡先を表示</string>
 
     <!-- contact_selection_list_item -->
@@ -3408,7 +3405,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">バブルはAndroidの機能で、Signalのチャットでは無効にできます。</string>
+    <string name="BubbleOptOutTooltip__description">バブルはAndroidの機能で、Mollyのチャットでは無効にできます。</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">今はしない</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3570,9 +3567,9 @@
     <string name="EditProfileFragment__group_description">グループの説明</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Signalをアップデートしてください</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Mollyをアップデートしてください</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">このバージョンの Signal は期限が切れています。引き続きご利用いただくために、Signal をアップデートしてください。</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">このバージョンの Molly は期限が切れています。引き続きご利用いただくために、Molly をアップデートしてください。</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">アップデートする</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3804,7 +3801,7 @@
     <string name="preferences__slow">遅い</string>
     <string name="preferences__help">ヘルプ</string>
     <string name="preferences__advanced">詳細設定</string>
-    <string name="preferences__donate_to_signal">Signalへの寄付</string>
+    <string name="preferences__donate_to_signal">Mollyへの寄付</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">プライバシー</string>
     <!-- Preference label for stories -->
@@ -3841,13 +3838,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">アプリのアイコンと名前を「%1$s」に変更します</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">アプリのアイコンと名前を変更するためには、Signalを閉じる必要があります。通知には常にデフォルトのSignalのアイコンと名前が表示されます。</string>
+    <string name="preferences__app_icon_dialog_description">アプリのアイコンと名前を変更するためには、Mollyを閉じる必要があります。通知には常にデフォルトのMollyのアイコンと名前が表示されます。</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">アプリのアイコンと名前を選択すると、お使いの携帯電話のホーム画面とアプリ一覧に反映されます。通知には常にデフォルトのSignalのアイコンと名前が表示されます。詳しく見る</string>
+    <string name="preferences__app_icon_warning_learn_more">アプリのアイコンと名前を選択すると、お使いの携帯電話のホーム画面とアプリ一覧に反映されます。通知には常にデフォルトのMollyのアイコンと名前が表示されます。詳しく見る</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">アプリのアイコンと名前は、ホーム画面とアプリ一覧に表示されます。</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">通知には常にデフォルトのSignalのアイコンと名前が表示されます。</string>
+    <string name="preferences__app_icon_notification_warning">通知には常にデフォルトのMollyのアイコンと名前が表示されます。</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">詳しく見る</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3939,7 +3936,7 @@
     <string name="preferences_communication__category_censorship_circumvention">閲覧回避</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">閲覧回避</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">有効にすると、Signalは検閲回避を試行します。Signalが検閲される場所にいない場合は、有効にしないでください。</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">有効にすると、Mollyは検閲回避を試行します。Mollyが検閲される場所にいない場合は、有効にしないでください。</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">アカウントの電話番号に基づいた、検閲回避が有効になりました。</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3992,7 +3989,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">決済機能のご紹介</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Signalを使って、プライバシーを重視した新しいデジタル通貨であるMobileCoinを送受信できます。利用するには機能を有効化してください。</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Mollyを使って、プライバシーを重視した新しいデジタル通貨であるMobileCoinを送受信できます。利用するには機能を有効化してください。</string>
     <string name="PaymentsHomeFragment__activate_payments">決済機能を有効化</string>
     <string name="PaymentsHomeFragment__activating_payments">決済機能を有効化しています…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">決済口座を復元</string>
@@ -4018,7 +4015,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">あなたの地域では決済機能は利用できません。</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">決済機能を有効にできませんでした。あとで再度試してください。</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">決済機能を停止しますか？</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">決済機能を停止すると、SignalでMobileCoinを利用できなくなります。</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">決済機能を停止すると、MollyでMobileCoinを利用できなくなります。</string>
     <string name="PaymentsHomeFragment__deactivate">停止する</string>
     <string name="PaymentsHomeFragment__continue">続ける</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">残高は現在利用できません。</string>
@@ -4027,10 +4024,10 @@
     <string name="PaymentsHomeFragment__details">詳細</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoinの送受信にはSignalをご利用ください。すべての決済は、MobileCoinsとMobileCoin Walletの利用規約に準じます。おこなった決済が取り消されたり、残高の回復ができないといった問題などが発生する可能性があります。 </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoinの送受信にはMollyをご利用ください。すべての決済は、MobileCoinsとMobileCoin Walletの利用規約に準じます。おこなった決済が取り消されたり、残高の回復ができないといった問題などが発生する可能性があります。 </string>
     <string name="PaymentsHomeFragment__activate">有効にする</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoinの利用規約</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Signalの決済機能は、利用できなくなりました。取引所への振替は可能ですが、送金や受け取り、入金はできません。</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Mollyの決済機能は、利用できなくなりました。取引所への振替は可能ですが、送金や受け取り、入金はできません。</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4058,7 +4055,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">権限を許可する</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">友人にメッセージを送信するには、Signalに権限を与える必要があります。 </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">友人にメッセージを送信するには、Mollyに権限を与える必要があります。 </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">通知</string>
     <!-- Notifications permission row description -->
@@ -4150,10 +4147,10 @@
     <string name="PaymentsTransferFragment__next">次へ</string>
     <string name="PaymentsTransferFragment__invalid_address">無効なアドレスです</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">振替先のウォレットアドレスを確認して、再度試してください。</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">あなた自身のSignalのウォレットアドレスには振替できません。取引所のあなたの口座のウォレットアドレスを入力してください。</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QRコードをスキャンするには、Signalにカメラへのアクセス許可が必要です。</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QRコードをスキャンするには、Signalにカメラへのアクセス許可が必要です。設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QRコードをスキャンするには、Signalにカメラへのアクセス許可が必要です。</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">あなた自身のMollyのウォレットアドレスには振替できません。取引所のあなたの口座のウォレットアドレスを入力してください。</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要です。</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要です。設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要です。</string>
     <string name="PaymentsTransferFragment__settings">設定</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4508,17 +4505,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal音声通話の着信</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly音声通話の着信</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Signalビデオ通話の着信</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Mollyビデオ通話の着信</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Signalグループ着信</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Mollyグループ着信</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Signal音声通話中</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly音声通話中</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Signalビデオ通話中</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Mollyビデオ通話中</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Signalグループ通話中</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Mollyグループ通話中</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">読み込んでいます…</string>
@@ -4572,9 +4569,9 @@
     <string name="BackupDialog_verify">確認する</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">正しいバックアップ用パスフレーズが入力されました</string>
     <string name="BackupDialog_passphrase_was_not_correct">パスフレーズが違います</string>
-    <string name="LocalBackupJob_creating_signal_backup">Signalのバックアップを作成しています…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Mollyのバックアップを作成しています…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Signalのバックアップを検証しています…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Mollyのバックアップを検証しています…</string>
     <string name="LocalBackupJobApi29_backup_failed">バックアップに失敗しました</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">バックアップディレクトリは消去または移動されています。</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">あなたのバックアップファイルは、このボリュームに保存するには大きすぎます。</string>
@@ -4589,8 +4586,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">電話で確認 (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">コードの再送信まで (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Signalサポートに問い合わせ</string>
-    <string name="RegistrationActivity_code_support_subject">Signal登録 - Android用認証コード</string>
+    <string name="RegistrationActivity_contact_signal_support">Mollyサポートに問い合わせ</string>
+    <string name="RegistrationActivity_code_support_subject">Molly登録 - Android用認証コード</string>
     <string name="RegistrationActivity_incorrect_code">コードが違います</string>
     <string name="BackupUtil_never">なし</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4598,7 +4595,7 @@
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">電話番号</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">あなたの電話番号を見ることができる人と、Signalであなたに連絡できる人を選択してください。</string>
+    <string name="preferences_app_protection__choose_who_can_see">あなたの電話番号を見ることができる人と、Mollyであなたに連絡できる人を選択してください。</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">電話番号を見ることができる人</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4650,18 +4647,18 @@
     <string name="preferences_chats__backups">バックアップ</string>
 
     <!-- Button label to indicate that a feature is in beta mode -->
-    <string name="Beta__beta_title">Beta</string>
+    <string name="Beta__beta_title">ベータ</string>
     <!-- Content description for info icon -->
-    <string name="Beta__info">Info</string>
+    <string name="Beta__info">詳細</string>
     <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
     <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
 
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Signalのロックを解除する</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Mollyのロックを解除する</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Android端末のロック設定を使用して、Signalのロックを解除します。</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Android端末のロック設定を使用して、Mollyのロックを解除します。</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">画面ロックはオンになっており、Signalは端末のロック設定で安全に保護されています。顔認証、指紋、PIN、パスワード、パターンなど、通常のスマートフォンのロック解除と同じ方法でSignalのロック解除ができます。</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">画面ロックはオンになっており、Mollyは端末のロック設定で安全に保護されています。顔認証、指紋、PIN、パスワード、パターンなど、通常のスマートフォンのロック解除と同じ方法でMollyのロック解除ができます。</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">サポートに問い合わせる</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4673,7 +4670,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">画面ロックを使用する</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Android端末のロック設定は、アプリを終了したり切り替えたりする際に、Signalのロックを解除する必要があります。ロックされている場合、通知プレビューにはメッセージの内容が表示されません。</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Android端末のロック設定は、アプリを終了したり切り替えたりする際に、Mollyのロックを解除する必要があります。ロックされている場合、通知プレビューにはメッセージの内容が表示されません。</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">ロックされるまでの時間</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4687,9 +4684,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">カスタム時間</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Signalの画面ロックを使用する</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Mollyの画面ロックを使用する</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Signalの画面ロックをオフにする</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Mollyの画面ロックをオフにする</string>
 
     <string name="Recipient_unknown">不明</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4744,19 +4741,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">古いAndroid端末への接続を準備しています…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">しばらくお待ちください</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">古いAndroid端末との接続を待っています…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">古いAndroid端末を検出し接続するには、Signalに位置情報へのアクセス許可が必要です。</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">古いAndroid端末を検出し接続するには、Mollyに位置情報へのアクセス許可が必要です。</string>
     <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">古いAndroid端末を検出し接続するには、位置情報サービスを有効にする必要があります。</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signalが古いAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">この端末はWi-Fi Directに対応していないようです。Signalは、Wi-Fi Directを使って古いAndroid端末を検出し、接続します。古いAndroid端末からアカウントを復元するために、バックアップを復元することは可能です。</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Mollyが古いAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">この端末はWi-Fi Directに対応していないようです。Mollyは、Wi-Fi Directを使って古いAndroid端末を検出し、接続します。古いAndroid端末からアカウントを復元するために、バックアップを復元することは可能です。</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">バックアップを復元</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">古いAndroid端末への接続時に、予期しないエラーが発生しました。</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">新しいAndroid端末を探しています…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">新しいAndroid端末を検出し接続するには、Signalに位置情報へのアクセス許可が必要です。</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">新しいAndroid端末を検出し接続するには、Mollyに位置情報へのアクセス許可が必要です。</string>
     <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">新しいAndroid端末を検出し接続するには、位置情報サービスを有効にする必要があります。</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signalが新しいAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">申し訳ありませんが、この端末はWi-Fi Directに対応していないようです。Signalは、Wi-Fi Directを使って新しいAndroid端末を検出し、接続します。新しいAndroid端末でアカウントを復元するために、バックアップを作成することは可能です。</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Mollyが新しいAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">申し訳ありませんが、この端末はWi-Fi Directに対応していないようです。Mollyは、Wi-Fi Directを使って新しいAndroid端末を検出し、接続します。新しいAndroid端末でアカウントを復元するために、バックアップを作成することは可能です。</string>
     <string name="OldDeviceTransferSetup__create_a_backup">バックアップを作成</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">新しいAndroid端末への接続時に、予期しないエラーが発生しました。</string>
 
@@ -4799,7 +4796,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">データを移行しています</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">端末同士を近づけてください。どちらの端末も電源を切らず、Signalを開いたままにしてください。転送はエンドツーエンドで暗号化されます。</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">端末同士を近づけてください。どちらの端末も電源を切らず、Mollyを開いたままにしてください。転送はエンドツーエンドで暗号化されます。</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d件のメッセージ…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%%転送完了</string>
@@ -4813,7 +4810,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">アカウントの移行</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">新しいAndroid端末でSignalをダウンロードしてください</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">新しいAndroid端末でMollyをダウンロードしてください</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"「アカウントの移行または復元」をタップしてください"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -4887,7 +4884,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">誰でもこのリンクから、グループの名前やアイコンを見たり、参加を申請できます。信頼できる人と共有してください。</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">誰でもこのリンクから、グループの名前やアイコンを見たり、グループに参加できます。信頼できる人と共有してください。</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Signal経由で共有</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Molly経由で共有</string>
     <string name="GroupLinkBottomSheet_copy">コピー</string>
     <string name="GroupLinkBottomSheet_qr_code">QRコード</string>
     <string name="GroupLinkBottomSheet_share">共有</string>
@@ -5068,7 +5065,7 @@
     <string name="payment_info_card_about_mobilecoin">MobileCoinについて</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoinは、プライバシーを重視した新しいデジタル通貨です。</string>
     <string name="payment_info_card_adding_funds">入金</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">ウォレットアドレスにMobileCoinを送信することで、Signalで使う口座に入金できます。</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">ウォレットアドレスにMobileCoinを送信することで、Mollyで使う口座に入金できます。</string>
     <string name="payment_info_card_cashing_out">出金</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoinを扱っている取引所では、その取引所のあなたの口座に振り込むだけで、いつでもMobileCoinを現金化することができます。</string>
     <string name="payment_info_card_hide_this_card">このカードを隠しますか？</string>
@@ -5089,12 +5086,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">ウォレットの停止</string>
     <string name="DeactivateWalletFragment__your_balance">あなたの残高</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">決済機能を停止する前に、別のウォレットアドレスに残高を振り替えることをお勧めします。振り替えない残高は、決済機能を再開する場合、Signalにリンクされたウォレットに残ります。</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">決済機能を停止する前に、別のウォレットアドレスに残高を振り替えることをお勧めします。振り替えない残高は、決済機能を再開する場合、Mollyにリンクされたウォレットに残ります。</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">残高を振り替える</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">振り替えずに停止する</string>
     <string name="DeactivateWalletFragment__deactivate">停止する</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">振り替えずに停止しますか？</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">残高は、決済機能を再開する場合、Signalにリンクされたウォレットに残ります。</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">残高は、決済機能を再開する場合、Mollyにリンクされたウォレットに残ります。</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">ウォレットの停止でエラーが発生しました。</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5521,7 +5518,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">ライセンス</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">使用条件とプライバシーポリシー</string>
-    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licensed under the GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5995,9 +5992,9 @@
     <string name="MySupportPreference__checking_subscription">サブスクリプションを確認中…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Signalをアップデートしてください</string>
+    <string name="UpdateSignalExpiredDialog__title">Mollyをアップデートしてください</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">このバージョンの Signal は期限が切れています。引き続きご利用いただくために、Signal をアップデートしてください。</string>
+    <string name="UpdateSignalExpiredDialog__message">このバージョンの Molly は期限が切れています。引き続きご利用いただくために、Molly をアップデートしてください。</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">アップデートする</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -6006,7 +6003,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">端末が登録されていません</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">この端末は登録されていません。この端末で Signal を引き続きご利用になるには、再登録が必要です。</string>
+    <string name="ReregisterSignalDialog__message">この端末は登録されていません。この端末で Molly を引き続きご利用になるには、再登録が必要です。</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">再登録する</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6325,7 +6322,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">ファイルピッカーを開けませんでした</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">通知を有効にするには、Signalに通知を表示する権限を与える必要があります。</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">通知を有効にするには、Mollyに通知を表示する権限を与える必要があります。</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">有効にする</string>
 
@@ -7911,7 +7908,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">有効期限：%1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">メッセージ履歴をバックアップしておくと、電話を買い替えたり、Signalを再インストールしたりしてもデータが失われることはありません。</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">メッセージ履歴をバックアップしておくと、電話を買い替えたり、Mollyを再インストールしたりしてもデータが失われることはありません。</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">その他のバックアップ方法</string>
     <!-- Row title for performing on-device backup -->
@@ -7993,7 +7990,7 @@
         <item quantity="other">バックアップ内の残りのメディアと添付ファイルのダウンロードをスキップすると、%1$d 日後にそれらは消去されます。</item>
     </plurals>
     <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
-    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Skip restore?</string>
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">復元をスキップしますか？</string>
     <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
     <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
@@ -8049,9 +8046,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">あなたのバックアップキー</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">バックアップキーは64文字のコードで、Signalを再インストールした際には、このコードを使ってバックアップを復元することができます。</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">バックアップキーは64文字のコードで、Mollyを再インストールした際には、このコードを使ってバックアップを復元することができます。</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">キーを忘れた場合、バックアップの復元はできません。Signalはバックアップの復元をサポートできません。</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">キーを忘れた場合、バックアップの復元はできません。Mollyはバックアップの復元をサポートできません。</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">次へ</string>
 
@@ -8067,7 +8064,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">キーの取り扱いは厳重にしてください</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">キーを紛失した場合、Signalはバックアップの復元をサポートできません。保管は安全な場所でおこない、第三者と共有しないでください。</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">キーを紛失した場合、Mollyはバックアップの復元をサポートできません。保管は安全な場所でおこない、第三者と共有しないでください。</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">キーを保管しました</string>
     <!-- Sheet action button label -->
@@ -8149,7 +8146,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">以前利用していた端末がない場合</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">または、Signalを同じ端末に再インストールする場合</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">または、Mollyを同じ端末に再インストールする場合</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">アカウントの復元または移行</string>
@@ -8301,10 +8298,10 @@
     <string name="MainToolbar__proxy_content_description">プロキシ</string>
 
     <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
-    <string name="DefaultTopAppBar__navigate_up_content_description">Navigate up</string>
+    <string name="DefaultTopAppBar__navigate_up_content_description">上へ</string>
 
     <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
-    <string name="SignalCheckbox_accessibility_on_click_label">Toggle</string>
+    <string name="SignalCheckbox_accessibility_on_click_label">切り替え</string>
     <!-- Accessibility label describing a checked checkbox. -->
     <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
     <!-- Accessibility label describing an unchecked checkbox. -->

@@ -1066,5 +1066,13 @@ object RemoteConfig {
     hotSwappable = false
   )
 
+  @JvmStatic
+  @get:JvmName("useMessageSendRestFallback")
+  val useMessageSendRestFallback: Boolean by remoteBoolean(
+    key = "android.useMessageSendRestFallback",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
   // endregion
 }

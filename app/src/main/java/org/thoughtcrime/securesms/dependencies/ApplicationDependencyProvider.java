@@ -168,7 +168,8 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             keysApi,
                                             Optional.of(new SecurityEventListener(context)),
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", ThreadUtil.PRIORITY_IMPORTANT_BACKGROUND_THREAD, 1, 16, 30),
-                                            ByteUnit.KILOBYTES.toBytes(256));
+                                            ByteUnit.KILOBYTES.toBytes(256),
+                                            RemoteConfig::useMessageSendRestFallback);
   }
 
   @Override
@@ -226,8 +227,8 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull IncomingMessageObserver provideIncomingMessageObserver(@NonNull SignalWebSocket.AuthenticatedWebSocket webSocket) {
-    return new IncomingMessageObserver(context, webSocket);
+  public @NonNull IncomingMessageObserver provideIncomingMessageObserver(@NonNull SignalWebSocket.AuthenticatedWebSocket webSocket, @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket) {
+    return new IncomingMessageObserver(context, webSocket, unauthWebSocket);
   }
 
   @Override

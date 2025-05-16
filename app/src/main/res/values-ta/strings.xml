@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  -->
-<!-- smartling.instruction_comments_enabled = on -->
-<resources>
+  --><!-- smartling.instruction_comments_enabled = on --><resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -46,12 +43,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Signal புதுப்பிக்கிறது …</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Molly புதுப்பிக்கிறது …</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">நீங்கள் இன்னும் ஒரு கடவுச்சொல்லை அமைக்கவில்லை!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">கடவுச்சொல்லை முடக்கு?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">இது நிரந்தரமாக Signal செய்தி அறிவிப்புகளைத் திறக்கும்.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">இது நிரந்தரமாக Molly செய்தி அறிவிப்புகளைத் திறக்கும்.</string>
     <string name="ApplicationPreferencesActivity_disable">முடக்கு</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">சர்வருடன் இணைவதில் பிழை!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">பதிவு பூட்டுக்கு PIN தேவை. PIN-ஐ முடக்க, முதலில் பதிவு பூட்டை முடக்கவும்.</string>
@@ -109,9 +106,9 @@
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">மீடியாவை தேர்வுசெய்யும் ஒரு பயன்பாட்டை கண்டுபிடிக்க முடியவில்லை.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">புகைப்படங்கள், காணொளிகள் அல்லது ஆடியோவை இணைக்கவும் Signal க்கு சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">தொடர்பு தகவலை இணைக்கவும் Signal க்கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">இருப்பிடத்தை இணைக்கவும், Signal க்கு இருப்பிட அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"இருப்பிடம்\" ஐ இயக்கவும்.</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">புகைப்படங்கள், காணொளிகள் அல்லது ஆடியோவை இணைக்கவும் Molly க்கு சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">தொடர்பு தகவலை இணைக்கவும் Molly க்கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">இருப்பிடத்தை இணைக்கவும், Molly க்கு இருப்பிட அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"இருப்பிடம்\" ஐ இயக்கவும்.</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">உங்கள் இருப்பிடத்திற்கான அணுகலை அனுமதிக்கவும்</string>
@@ -280,7 +277,7 @@
     <!-- Text explaining why Signal needs camera access in order to take photos -->
     <string name="CameraXFragment_to_capture_photos_allow_camera">புகைப்படங்களை படமெடுக்க, கேமராவிற்கான சிக்னல் அணுகலை அனுமதிக்கவும்.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Signal-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Molly-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
     <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">புகைப்படங்கள் மற்றும் வீடியோ படமெடுக்க, கேமரா மற்றும் மைக்ரோஃபோனை அணுக சிக்னலை அனுமதிக்கவும்.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
@@ -315,7 +312,7 @@
     <string name="CameraContacts_no_signal_contacts">Signal தொடர்புகள் இல்லை</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Signal தொடர்புகளுக்கு புகைப்படங்களை அனுப்ப கேமரா பொத்தானை மட்டுமே நீங்கள் பயன்படுத்த முடியும். </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">நீங்கள் யாரைத் தேடுகிறீர்கள் என்று கண்டுபிடிக்க முடியவில்லையா?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Signal லில் சேர ஒரு தொடர்பை அழைக்கவும்</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Molly லில் சேர ஒரு தொடர்பை அழைக்கவும்</string>
     <string name="CameraContacts__menu_search">தேடல்</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -329,7 +326,7 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">தேவையில்லை,நன்றி</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Signal லைப் புதுப்பிக்கவும்</string>
+    <string name="ClientDeprecatedActivity_update_signal">Molly லைப் புதுப்பிக்கவும்</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">பயன்பாட்டின் இந்த பதிப்பு இனி ஆதரிக்கப்படாது. செய்திகளை அனுப்புவதையும் பெறுவதையும் தொடர, சமீபத்திய பதிப்பிற்கு புதுப்பிக்கவும்.</string>
     <string name="ClientDeprecatedActivity_update">புதுப்பிக்கப்பட்டது</string>
     <string name="ClientDeprecatedActivity_dont_update">புதுப்பிக்க வேண்டாம்</string>
@@ -473,7 +470,7 @@
     <string name="ConversationActivity_transport_signal">Signal செய்தி</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">அனுப்பு செய்தி</string>
-    <string name="ConversationActivity_lets_switch_to_signal">%1$s நாம் Signalக்கு மாறுவோம்</string>
+    <string name="ConversationActivity_lets_switch_to_signal">%1$s நாம் Mollyக்கு மாறுவோம்</string>
     <string name="ConversationActivity_specify_recipient">தயவு செய்து ஒரு தொடர்பை தேர்ந்தெடு</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">நீங்கள் அனுப்பும் இணைப்பு செய்தி அளவு வரம்பை மீறுகிறது .</string>
     <string name="ConversationActivity_unable_to_record_audio">ஒலி பதிவுச் செய்ய இயலவில்லை!</string>
@@ -495,15 +492,15 @@
     <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">வாய்ஸ் மெசேஜ்களை அனுப்ப, உங்கள் மைக்ரோஃபோனை அணுக சிக்னலை அனுமதிக்கவும்.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
     <string name="ConversationActivity_signal_needs_microphone_access_voice_message">வாய்ஸ் மெசேஜைப் பதிவு செய்ய சிக்னலுக்கு மைக்ரோஃபோன் அணுகல் தேவை.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ஆடியோ செய்திகளை அனுப்ப Signal க்கு மைக்ரோஃபோன் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோனை\" இயக்கவும்.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ஆடியோ செய்திகளை அனுப்ப Molly க்கு மைக்ரோஃபோன் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோனை\" இயக்கவும்.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal லை அழைக்க மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை%1$s, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதி\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Signal-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">புகைப்படங்கள் அல்லது வீடியோ எடுக்க Signal-க்கு கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\"-ஐ இயலச் செய்யவும்.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">புகைப்படங்கள் அல்லது காணொளி எடுக்க Signal-க்கு கேமரா அனுமதி தேவை</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly லை அழைக்க மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை%1$s, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதி\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Molly-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">புகைப்படங்கள் அல்லது வீடியோ எடுக்க Molly-க்கு கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\"-ஐ இயலச் செய்யவும்.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">புகைப்படங்கள் அல்லது காணொளி எடுக்க Molly-க்கு கேமரா அனுமதி தேவை</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ஒலியுடன் காணொளிகளைப் பிடிக்க மைக்ரோஃபோன் அனுமதியை இயலச் செய்யவும்.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal-க்கு மைக்ரோஃபோன் அனுமதி தேவை.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Molly மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Molly-க்கு மைக்ரோஃபோன் அனுமதி தேவை.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">இல்லை</string>
@@ -542,7 +539,7 @@
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
     <string name="ConversationActivity__this_person_is_no_longer_using_signal">இந்த நபர் சிக்னலைப் பயன்படுத்துவதில்லை. உரையாடலை இங்கே மேற்கொள்ள அவர்களை சிக்னலுக்கு அழைக்கவும்.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Signalக்கு அழை</string>
+    <string name="ConversationActivity__invite_to_signal">Mollyக்கு அழை</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">நீங்கள் விரைவில் மீண்டும் நினைவூட்டப்படுவீர்கள்.</string>
     <!-- Toast message shown when trying to record a voice message during an ongoing call -->
@@ -629,9 +626,9 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">தடைசெய்யப்பட்டார்</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Signal லைப் புதுப்பிக்கவும்</string>
+    <string name="ConversationFragment__update_build">Molly லைப் புதுப்பிக்கவும்</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Signalஐ மீண்டும் பதிவு செய்க</string>
+    <string name="ConversationFragment__reregister_signal">Mollyஐ மீண்டும் பதிவு செய்க</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">முந்தைய திரைக்குச் செல்லவும்.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -929,7 +926,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$dஇதுவரை…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">இதுவரை %1$s%%…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">காப்புப்பிரதிகளை உருவாக்க Signal கு வெளிப்புற சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">காப்புப்பிரதிகளை உருவாக்க Molly கு வெளிப்புற சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">பேக்கப் நேரத்தை அமைக்கவும்</string>
 
@@ -1006,7 +1003,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">சாட் அமர்வு புதுப்பிக்கப்பட்டது</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal எண்ட்-டு-எண்ட் குறியாக்கத்தைப் பயன்படுத்துகிறது, மேலும் இது சில நேரங்களில் உங்கள் சாட் அமர்வை புதுப்பிக்க வேண்டியிருக்கும். இது உங்கள் சாட்டின் பாதுகாப்பைப் பாதிக்காது, ஆனால் இந்த தொடர்பிலிருந்து நீங்கள் ஒரு மெசேஜைத் தவறவிட்டிருக்கலாம், மேலும் அதை மீண்டும் அனுப்புமாறு அவர்களிடம் கேட்கலாம்.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly எண்ட்-டு-எண்ட் குறியாக்கத்தைப் பயன்படுத்துகிறது, மேலும் இது சில நேரங்களில் உங்கள் சாட் அமர்வை புதுப்பிக்க வேண்டியிருக்கும். இது உங்கள் சாட்டின் பாதுகாப்பைப் பாதிக்காது, ஆனால் இந்த தொடர்பிலிருந்து நீங்கள் ஒரு மெசேஜைத் தவறவிட்டிருக்கலாம், மேலும் அதை மீண்டும் அனுப்புமாறு அவர்களிடம் கேட்கலாம்.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1162,10 +1159,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">காணாமல் போன விளையாட்டு சேவைகளை மேம்படுத்தவும்</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">இந்த சாதனம் Play சேவைகளை ஆதரிக்காது. செயலற்ற நிலையில் செய்திகளை மீட்டெடுப்பதில் இருந்து Signal லைத் தடுக்கும் கணினி பேட்டரி மேம்படுத்தல்களை முடக்க தட்டவும்.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">இந்த சாதனம் Play சேவைகளை ஆதரிக்காது. செயலற்ற நிலையில் செய்திகளை மீட்டெடுப்பதில் இருந்து Molly லைத் தடுக்கும் கணினி பேட்டரி மேம்படுத்தல்களை முடக்க தட்டவும்.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal லின் இந்த பதிப்பு காலாவதியானது. செய்திகளை அனுப்ப மற்றும் பெற பயன்பாட்டைப் புதுப்பிக்கவும்.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly லின் இந்த பதிப்பு காலாவதியானது. செய்திகளை அனுப்ப மற்றும் பெற பயன்பாட்டைப் புதுப்பிக்கவும்.</string>
     <string name="ExpiredBuildReminder_update_now">இப்பொழுது மேம்படுத்து</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1316,7 +1313,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">பிழைத்திருத்தப் பதிவுகள் சிக்கலைக் கண்டறிந்து சரிசெய்ய உதவுகின்றன, மேலும் அடையாளம் காணும் தகவலைக் கொண்டிருக்கவில்லை.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal இல் சிக்கல் ஏற்பட்டது. பிழைத்திருத்தப் பதிவு சமர்ப்பிப்பா?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly இல் சிக்கல் ஏற்பட்டது. பிழைத்திருத்தப் பதிவு சமர்ப்பிப்பா?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">நீங்கள் செய்திகளைப் பெறாமல் இருக்கலாம். பிழைத்திருத்தப் பதிவு சமர்ப்பிப்பதா?</string>
 
@@ -1324,7 +1321,7 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">பேட்டரி மேம்படுத்தல்கள் காரணமாக அறிவிப்புகள் தாமதமாகலாம்</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">மெசேஜ் அறிவிப்புகள் தாமதமாகாமல் இருக்க, Signalக்கான பேட்டரி மேம்படுத்தல்களை நீங்கள் முடக்கலாம்.</string>
+    <string name="PromptBatterySaverBottomSheet__message">மெசேஜ் அறிவிப்புகள் தாமதமாகாமல் இருக்க, Mollyக்கான பேட்டரி மேம்படுத்தல்களை நீங்கள் முடக்கலாம்.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">பேட்டரி மேம்படுத்தல்கள் காரணமாக அறிவிப்புகள் தாமதமாகலாம்</string>
@@ -1474,7 +1471,7 @@
     <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
     <string name="RemoteRestoreActivity__update_latest">சிக்னலின் இந்தப் பதிப்பினால் உங்கள் காப்புப்பிரதியை மீட்டெடுக்க முடியாது. அண்மைய பதிப்புக்குப் புதுப்பித்து மீண்டும் முயலுங்கள்.</string>
     <!-- Text on button that when pressed will redirect them to update Signal -->
-    <string name="RemoteRestoreActivity__update_signal">Signal லைப் புதுப்பிக்கவும்</string>
+    <string name="RemoteRestoreActivity__update_signal">Molly லைப் புதுப்பிக்கவும்</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">இப்போது வேண்டாம்</string>
 
@@ -1647,13 +1644,13 @@
     <string name="InviteActivity_cancel">ரத்து செய் </string>
     <string name="InviteActivity_sending">அனுப்புகிறது …</string>
     <string name="InviteActivity_invitations_sent">அழைப்புகள் அனுப்பட்டது!</string>
-    <string name="InviteActivity_invite_to_signal">Signalக்கு அழை</string>
+    <string name="InviteActivity_invite_to_signal">Mollyக்கு அழை</string>
     <string name="InviteActivity_send_sms">குறுஞ்செய்தியை அனுப்பு (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">%1$d எஸ்எம்எஸ் அழைப்பை அனுப்பவா?</item>
         <item quantity="other">%1$d SMS அழைப்புகளை அனுப்பவா?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Signalக்கு மாறுவோம்</string>
+    <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Mollyக்கு மாறுவோம்</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">உங்களிடம் பகிர எந்த பயன்பாடுகளும் இல்லை என்று தெரிகிறது.</string>
 
@@ -1668,7 +1665,7 @@
     <string name="LongMessageActivity_your_message">உங்கள் தகவல்</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Signal</string>
+    <string name="MessageRetrievalService_signal">Molly</string>
     <string name="MessageRetrievalService_background_connection_enabled">பின்னணி இணைப்பு இயக்கப்பட்டது</string>
 
     <!-- MediaOverviewActivity -->
@@ -1746,10 +1743,10 @@
     <string name="MessageQuotesBottomSheet_replies">பதிலகள்</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Signal அழைப்பு நிறுவுப்படுகிறது</string>
+    <string name="NotificationBarManager__establishing_signal_call">Molly அழைப்பு நிறுவுப்படுகிறது</string>
     <!-- Temporary notification shown when starting the calling service -->
     <string name="NotificationBarManager__starting_signal_call_service">சிக்னல் அழைப்பு சேவை தொடங்குகிறது</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Signal அழைப்பு சேவையை நிறுத்துதல்</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Molly அழைப்பு சேவையை நிறுத்துதல்</string>
     <string name="NotificationBarManager__cancel_call">அழைப்பு ரத்து</string>
 
     <!-- NotificationsMegaphone -->
@@ -2199,7 +2196,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal சாதனத்தை இணைக்கவா?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">இந்த சிக்னல் கணக்கில் டெஸ்க்டாப் அல்லது iPad ஐ இணைக்க, இணைக்கப்பட்ட சாதனங்கள் என்பதற்குச் சென்று \"புதிய சாதனத்தை இணை\" என்பதைத் தட்டி, QR குறியீட்டை மீண்டும் ஸ்கேன் செய்யுங்கள். சிக்னலில் இருந்து நேரடியாக வழங்கப்படும் QR குறியீடுகளை மட்டுமே ஸ்கேன் செய்வதை உறுதிப்படுத்திக்கொள்ளுங்கள்.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR குறியீட்டை ஸ்கேன் செய்ய Signal கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\" ஐ இயக்கவும்.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR குறியீட்டை ஸ்கேன் செய்ய Molly கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\" ஐ இயக்கவும்.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">கேமரா அனுமதியின்றி QR குறியீட்டை ஸ்கேன் செய்ய முடியவில்லை</string>
 
     <!-- OutdatedBuildReminder -->
@@ -2212,12 +2209,12 @@
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">கடவுச்சொல்லை உள்ளிடவும்.</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Signal ஐகான்</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Molly ஐகான்</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">கடவுச்சொல்லை சமர்ப்பிக்க</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">தவறான கடவுச்சொல்!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Signal லைத் திற</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Molly லைத் திற</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal ஆண்ட்ராய்டு - திரைப் பூட்டு</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly ஆண்ட்ராய்டு - திரைப் பூட்டு</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">வரைபடம்</string>
@@ -2294,7 +2291,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">எனது ஸ்டோரி</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Signal அழைப்பு</string>
+    <string name="Recipient_signal_call">Molly அழைப்பு</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">தடைசெய்</string>
@@ -2330,9 +2327,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">உங்கள் வீடியோவை இயக்க இங்கே தட்டவும்</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ஐ அழைக்க, சிக்னலுக்கு உங்கள் கேமரா அனுமதி தேவை Signal Camera permission</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ஐ அழைக்க, சிக்னலுக்கு உங்கள் கேமரா அனுமதி தேவை Molly Camera permission</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">சிக்னல் Signal %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">சிக்னல் Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">அழைக்கிறது…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">மீண்டும் இணைக்கிறது …</string>
@@ -2408,8 +2405,8 @@
     <string name="WebRtcCallActivity__to_enable_video">உங்கள் வீடியோவைச் செயல்படுத்த:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Signal அழைப்பு</string>
-    <string name="WebRtcCallView__signal_video_call">Signal காணொளி அழைப்பு</string>
+    <string name="WebRtcCallView__signal_call">Molly அழைப்பு</string>
+    <string name="WebRtcCallView__signal_video_call">Molly காணொளி அழைப்பு</string>
     <string name="WebRtcCallView__start_call">அழைப்பைத் தொடங்கு</string>
     <string name="WebRtcCallView__join_call">அழைப்பில் சேர்</string>
     <string name="WebRtcCallView__call_is_full">அழைப்பு நிரம்பியுள்ளது</string>
@@ -2663,7 +2660,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">இந்த எண்ணை சரிபார்க்க உங்களுக்கு அழைப்பு வரும்.</string>
     <string name="RegistrationActivity_edit_number">எண்ணை தொகுக்க</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play சேவைகளைக் காணவில்லை</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">இந்த சாதனத்தில் Google Play சேவைகள் இல்லை . இருந்தும் நீங்கள் Signal ஐ பயன்படுத்தலாம் , ஆனால் இந்த உள்ளமைவு நம்பகத்தன்மை அல்லது செயல்திறனைக் குறைக்கலாம். \n\n நீங்கள் ஒரு மேம்பட்ட பயனராக இல்லாவிட்டால், சந்தைக்குப்பிறகான அண்ட்ராய்டு ROM ஐ இயக்கவில்லை அல்லது இதை பிழையாகப் பார்க்கிறீர்கள் என்று நம்பினால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும் @ சிக்கல் support@signal.org.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">இந்த சாதனத்தில் Google Play சேவைகள் இல்லை . இருந்தும் நீங்கள் Molly ஐ பயன்படுத்தலாம் , ஆனால் இந்த உள்ளமைவு நம்பகத்தன்மை அல்லது செயல்திறனைக் குறைக்கலாம். \n\n நீங்கள் ஒரு மேம்பட்ட பயனராக இல்லாவிட்டால், சந்தைக்குப்பிறகான அண்ட்ராய்டு ROM ஐ இயக்கவில்லை அல்லது இதை பிழையாகப் பார்க்கிறீர்கள் என்று நம்பினால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும் @ சிக்கல் support@molly.im.</string>
     <string name="RegistrationActivity_i_understand">எனக்கு புரிகிறது</string>
     <string name="RegistrationActivity_play_services_error">சேவைகளில் பிழை</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play சேவைகள் புதுப்பித்தல் அல்லது தற்காலிகமாக கிடைக்கவில்லை. தயவு செய்து மீண்டும் முயற்சிக்கவும்.</string>
@@ -2756,13 +2753,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">தொடர்பு பட்டியலில் சேர்க்க</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Signalக்கு அழை</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Mollyக்கு அழை</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal செய்தி</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal அழைப்பு</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">தொடர்பு பட்டியலில் சேர்க்க</string>
-    <string name="SharedContactView_invite_to_signal">Signalக்கு அழை</string>
+    <string name="SharedContactView_invite_to_signal">Mollyக்கு அழை</string>
     <string name="SharedContactView_message">Signal செய்தி</string>
 
     <!-- SignalBottomActionBar -->
@@ -2795,11 +2792,11 @@
     <string name="SmsMessageRecord_duplicate_message">நகல் செய்தி.</string>
 
     <!-- Sticker management screen default title. -->
-    <string name="StickerManagement_title_stickers">Stickers</string>
+    <string name="StickerManagement_title_stickers">ஒட்டிப்படங்கள்</string>
     <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
     <plurals name="StickerManagement_title_n_selected">
-        <item quantity="one">%1$s selected</item>
-        <item quantity="other">%1$s selected</item>
+        <item quantity="one">%1$s தேர்ந்தெடுக்கப்பட்டது</item>
+        <item quantity="other">%1$s தேர்ந்தெடுக்கப்பட்டது</item>
     </plurals>
     <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
     <string name="StickerManagement_available_tab_label">கிடைப்பவை</string>
@@ -2818,13 +2815,13 @@
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Signal கலைஞர் தொடர்</string>
     <!-- Title shown when sharing a sticker pack with another user. -->
-    <string name="StickerManagement_share_sheet_title">Forward to</string>
+    <string name="StickerManagement_share_sheet_title">முன்னோக்கி</string>
     <!-- Bottom action bar option to select all sticker packs in the list. -->
-    <string name="StickerManagement_action_select_all">Select all</string>
+    <string name="StickerManagement_action_select_all">எல்லாம்</string>
     <!-- Bottom action bar option to deselect all sticker packs in the list. -->
     <string name="StickerManagement_action_deselect_all">Deselect all</string>
     <!-- Bottom action bar option to uninstall all selected sticker packs. -->
-    <string name="StickerManagement_action_delete_selected">Delete</string>
+    <string name="StickerManagement_action_delete_selected">நீக்கு</string>
     <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
     <plurals name="StickerManagement_delete_n_packs_confirmation">
         <item quantity="one">Remove %1$s sticker pack</item>
@@ -2841,13 +2838,13 @@
     </plurals>
 
     <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
-    <string name="StickerManagement_menu_forward_pack">Forward</string>
+    <string name="StickerManagement_menu_forward_pack">முன்னனுப்புக</string>
     <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
-    <string name="StickerManagement_menu_select_pack">Select</string>
+    <string name="StickerManagement_menu_select_pack">தேர்ந்தெடு</string>
     <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
-    <string name="StickerManagement_menu_install_pack">Install</string>
+    <string name="StickerManagement_menu_install_pack">நிறுவு</string>
     <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
-    <string name="StickerManagement_menu_remove_pack">Remove</string>
+    <string name="StickerManagement_menu_remove_pack">அகற்று</string>
     <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
     <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
 
@@ -2862,7 +2859,7 @@
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
     <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
-    <string name="StickerManagement_accessibility_open_context_menu">Open context menu</string>
+    <string name="StickerManagement_accessibility_open_context_menu">சூழல் மெனுவைத் திறக்கவும்</string>
     <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
     <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
@@ -2970,11 +2967,11 @@
     <string name="ThreadRecord_blocked_group">தடைசெய்யப்பட்டார்</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Signal புதுப்பிப்பு</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Signal இன் புதிய பதிப்பு கிடைக்கப்பெறுகிறது. புதுப்பிக்க அழுத்தவும்.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Signalஐப் புதுப்பிக்க முடியவில்லை</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Molly புதுப்பிப்பு</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Molly இன் புதிய பதிப்பு கிடைக்கப்பெறுகிறது. புதுப்பிக்க அழுத்தவும்.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Mollyஐப் புதுப்பிக்க முடியவில்லை</string>
     <string name="ApkUpdateNotifications_failed_general_body">பின்னர் மீண்டும் முயல்வோம்.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Signal வெற்றிகரமாக புதுப்பிக்கப்பட்டது</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Molly வெற்றிகரமாக புதுப்பிக்கப்பட்டது</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">நீங்கள் தானாகவே பதிப்பு %1$sக்குப் புதுப்பிக்கப்பட்டீர்கள்.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">நீங்கள் பதிப்பு %1$s-க்குப் புதுப்பிக்கப்பட்டுள்ளீர்கள்.</string>
 
@@ -3072,8 +3069,8 @@
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">திறக்க தொடு.</string>
-    <string name="KeyCachingService_passphrase_cached">Signal திறக்கப்பட்டது</string>
-    <string name="KeyCachingService_lock">Signal ஐ பூட்டு</string>
+    <string name="KeyCachingService_passphrase_cached">Molly திறக்கப்பட்டது</string>
+    <string name="KeyCachingService_lock">Molly ஐ பூட்டு</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">நீங்கள்</string>
@@ -3123,7 +3120,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">செய்தி விநியோகிப்பது தோல்வியடைந்தது.</string>
     <string name="MessageNotifier_error_delivering_message">செய்தி விநியோகிப்பதில் பிழை.</string>
     <string name="MessageNotifier_message_delivery_paused">செய்தி டெலிவரி இடைநிறுத்தப்பட்டது.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">செய்தியைத் தொடர சரிபார்க்கவும் Signal.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">செய்தியைத் தொடர சரிபார்க்கவும் Molly.</string>
     <string name="MessageNotifier_mark_all_as_read">அனைத்தையும் படித்ததாக குறியீடு</string>
     <string name="MessageNotifier_mark_read">படித்தாக குறியிடு</string>
     <string name="MessageNotifier_turn_off_these_notifications">இந்த அறிவிப்புகளை முடக்கு</string>
@@ -3145,7 +3142,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">உங்கள் ஸ்டிக்கருக்கு %1$s என்று எதிர்வினையாற்றினார்.</string>
     <string name="MessageNotifier_this_message_was_deleted">இந்த மெசேஜ் நீக்கப்பட்டது.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">இணைந்த சிக்னல் Signal அறிவிப்புகளை முடக்குவதா? அமைப்புகள் மற்றும் அறிவிப்புகளுக்குச் சென்று அவற்றை Signal settings சிக்னலில் மீண்டும் இயக்கலாம்.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">இணைந்த சிக்னல் Molly அறிவிப்புகளை முடக்குவதா? அமைப்புகள் மற்றும் அறிவிப்புகளுக்குச் சென்று அவற்றை Molly settings சிக்னலில் மீண்டும் இயக்கலாம்.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3186,7 +3183,7 @@
     <string name="NotificationChannel_new_linked_device">புதிதாக இணைக்கப்பட்ட சாதனம்</string>
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal பூட்டப்பட்டிருக்கும் போது விரைவான பதில் கிடைக்காது!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly பூட்டப்பட்டிருக்கும் போது விரைவான பதில் கிடைக்காது!</string>
     <string name="QuickResponseService_problem_sending_message">செய்தி அனுப்புவதில் பிரச்சணை!</string>
 
     <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
@@ -3221,7 +3218,7 @@
     </plurals>
 
     <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
-    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">வெளிப்புற சேமிப்பகத்தில் சேமிக்க Signal சேமிப்பக அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"சேமிப்பகத்தை\" இயக்கவும்.</string>
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">வெளிப்புற சேமிப்பகத்தில் சேமிக்க Molly சேமிப்பக அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"சேமிப்பகத்தை\" இயக்கவும்.</string>
 
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">அனுமதியின்றி வெளிப்புற சேமிப்பகத்தில் சேமிக்க முடியவில்லை</string>
@@ -3240,7 +3237,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">தவறான குறுக்குவழி</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
     <string name="SingleRecipientNotificationBuilder_new_message">புதிய செய்தி</string>
     <string name="SingleRecipientNotificationBuilder_message_request">செய்தி கோரிக்கை</string>
     <string name="SingleRecipientNotificationBuilder_you">நீங்கள்</string>
@@ -3299,8 +3296,8 @@
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">அழைப்பிற்கு பதிலளிக்க, உங்கள் மைக்ரோஃபோன் அணுகலை சிக்னலுக்கு வழங்கவும்.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">வீடியோ அழைப்பிற்கு பதிலளிக்க, உங்கள் மைக்ரோஃபோன் மற்றும் கேமரா அணுகலை Signalக்கு வழங்கவும்.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">அழைப்புகளைச் செய்ய அல்லது பெற Signal கு மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">வீடியோ அழைப்பிற்கு பதிலளிக்க, உங்கள் மைக்ரோஃபோன் மற்றும் கேமரா அணுகலை Mollyக்கு வழங்கவும்.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">அழைப்புகளைச் செய்ய அல்லது பெற Molly கு மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">இணைக்கப்பட்ட சாதனத்தில் பதிலளிக்கப்பட்டது.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">இணைக்கப்பட்ட சாதனத்தில் மறுக்கப்பட்டது.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">இணைக்கப்பட்ட சாதனத்தில் பயனர் அழைப்பில் இருக்கிறார்.</string>
@@ -3345,7 +3342,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">புதிய கடவுச்சொல்</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Signalக்கு அழை</string>
+    <string name="contact_selection_activity__invite_to_signal">Mollyக்கு அழை</string>
     <string name="contact_selection_activity__new_group">புதிய குழு</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">தொடர்பு பட்டியலை புதுப்பி</string>
@@ -3371,7 +3368,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">தொடர்பின் புகைப்படம்</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">உங்கள் தொடர்புகளைக் காண்பிக்க Signal கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">உங்கள் தொடர்புகளைக் காண்பிக்க Molly கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">தொடர்புகளை மீட்டெடுப்பதில் பிழை, உங்கள் பிணைய இணைப்பைச் சரிபார்க்கவும்</string>
     <string name="ContactSelectionListFragment_username_not_found">பயனர் பெயர் கிடைக்கவில்லை</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s சிக்னல் பயனர் அல்ல. தயவுசெய்து பயனர் பெயரைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்."</string>
@@ -3511,7 +3508,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">பபிள்ஸ் என்பது Android அம்சமாகும், இதை நீங்கள் Signal சாட்களுக்கு முடக்கப் பயன்படுத்தலாம்.</string>
+    <string name="BubbleOptOutTooltip__description">பபிள்ஸ் என்பது Android அம்சமாகும், இதை நீங்கள் Molly சாட்களுக்கு முடக்கப் பயன்படுத்தலாம்.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">இப்போது இல்லை</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3680,9 +3677,9 @@
     <string name="EditProfileFragment__group_description">குழு விளக்கம்</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Signal லைப் புதுப்பிக்கவும்</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Molly லைப் புதுப்பிக்கவும்</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Signal இன் இந்தப் பதிப்பு காலாவதியானது. தொடர்ந்து Signalஐப் பயன்படுத்த, இப்போதே புதுப்பிக்கவும்.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Molly இன் இந்தப் பதிப்பு காலாவதியானது. தொடர்ந்து Mollyஐப் பயன்படுத்த, இப்போதே புதுப்பிக்கவும்.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">புதுப்பிக்கப்பட்டது</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3915,7 +3912,7 @@
     <string name="preferences__slow">மெதுவாக</string>
     <string name="preferences__help">உதவி</string>
     <string name="preferences__advanced">மேம்பட்ட</string>
-    <string name="preferences__donate_to_signal">Signalக்கு நன்கொடை அளிக்கவும்</string>
+    <string name="preferences__donate_to_signal">Mollyக்கு நன்கொடை அளிக்கவும்</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">தனியுரிமை</string>
     <!-- Preference label for stories -->
@@ -3952,13 +3949,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">செயலி ஐகானையும் பெயரையும் \"%1$s\" என மாற்றவும்</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">செயலியின் ஐகானையும் பெயரையும் மாற்ற Signal மூடப்பட வேண்டும். அறிவிப்புகள் எப்போதும் இயல்புநிலை Signal ஐகானையும் பெயரையும் காண்பிக்கும்.</string>
+    <string name="preferences__app_icon_dialog_description">செயலியின் ஐகானையும் பெயரையும் மாற்ற Molly மூடப்பட வேண்டும். அறிவிப்புகள் எப்போதும் இயல்புநிலை Molly ஐகானையும் பெயரையும் காண்பிக்கும்.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">செயலி ஐகானையும் பெயரையும் தேர்ந்தெடுக்கவும், இது உங்கள் மொபைலின் முகப்புத் திரை மற்றும் ஆப் டிராயரில் தெரியும். அறிவிப்புகள் எப்போதும் இயல்புநிலை Signal ஐகானையும் பெயரையும் காண்பிக்கும். மேலும் அறிக</string>
+    <string name="preferences__app_icon_warning_learn_more">செயலி ஐகானையும் பெயரையும் தேர்ந்தெடுக்கவும், இது உங்கள் மொபைலின் முகப்புத் திரை மற்றும் ஆப் டிராயரில் தெரியும். அறிவிப்புகள் எப்போதும் இயல்புநிலை Molly ஐகானையும் பெயரையும் காண்பிக்கும். மேலும் அறிக</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">செயலி ஐகான்கள் மற்றும் பெயர்கள் முகப்புத் திரை மற்றும் செயலி டிராயரில் தெரிகிறது.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">அறிவிப்புகள் எப்போதும் இயல்புநிலை Signal ஐகானையும் பெயரையும் காண்பிக்கும்.</string>
+    <string name="preferences__app_icon_notification_warning">அறிவிப்புகள் எப்போதும் இயல்புநிலை Molly ஐகானையும் பெயரையும் காண்பிக்கும்.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">மேலும் அறிக</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -4052,7 +4049,7 @@
     <string name="preferences_communication__category_censorship_circumvention">தணிக்கையை மீறி செயலாற்றுதல்</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">தணிக்கையை மீறி செயலாற்றுதல்</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">இயக்கப்பட்டால், தணிக்கை தவிர்க்க Signal முயற்சிக்கும். நீங்கள் Signal தணிக்கை செய்யப்பட்ட இடத்தில் இல்லாவிட்டால் இந்த அம்சத்தை இயக்க வேண்டாம்.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">இயக்கப்பட்டால், தணிக்கை தவிர்க்க Molly முயற்சிக்கும். நீங்கள் Molly தணிக்கை செய்யப்பட்ட இடத்தில் இல்லாவிட்டால் இந்த அம்சத்தை இயக்க வேண்டாம்.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">உங்கள் கணக்கு தொலைபேசி எண்ணின் அடிப்படையில் தணிக்கை சுற்றளவு செயல்படுத்தப்பட்டுள்ளது.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -4105,7 +4102,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">பேமெண்ட்கள் வசதியை அறிமுகப்படுத்துகிறோம்</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Signal ஐ பயன்படுத்தி MobileCoin அனுப்பலாம் மற்றும் பெறலாம். இது ஒரு புதிய தனியுரிமை சார்ந்த டிஜிட்டல் நாணயம். தொடங்குவதற்கு செயல்படுத்தவும்.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Molly ஐ பயன்படுத்தி MobileCoin அனுப்பலாம் மற்றும் பெறலாம். இது ஒரு புதிய தனியுரிமை சார்ந்த டிஜிட்டல் நாணயம். தொடங்குவதற்கு செயல்படுத்தவும்.</string>
     <string name="PaymentsHomeFragment__activate_payments">கொடுப்பனவுகளைச் செயல்படுத்தவும்</string>
     <string name="PaymentsHomeFragment__activating_payments">கொடுப்பனவுகளை செயல்படுத்துகிறது…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">பணம் செலுத்தல் கணக்கை மீட்டமை</string>
@@ -4140,10 +4137,10 @@
     <string name="PaymentsHomeFragment__details">விவரங்கள்</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoinஐ அனுப்பவும் பெறவும் நீங்கள் Signalஐப் பயன்படுத்தலாம். அனைத்து பேமெண்ட்களும் MobileCoins மற்றும் MobileCoin Wallet செயலியின் விதிமுறைகளுக்கு உட்பட்டது. நீங்கள் சில சிக்கல்களைச் சந்திக்க நேரிடலாம் மற்றும் நீங்கள் இழக்கக்கூடிய கட்டணங்களை அல்லது நிலுவைகளை மீட்டெடுக்க முடியாது. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">MobileCoinஐ அனுப்பவும் பெறவும் நீங்கள் Mollyஐப் பயன்படுத்தலாம். அனைத்து பேமெண்ட்களும் MobileCoins மற்றும் MobileCoin Wallet செயலியின் விதிமுறைகளுக்கு உட்பட்டது. நீங்கள் சில சிக்கல்களைச் சந்திக்க நேரிடலாம் மற்றும் நீங்கள் இழக்கக்கூடிய கட்டணங்களை அல்லது நிலுவைகளை மீட்டெடுக்க முடியாது. </string>
     <string name="PaymentsHomeFragment__activate">செயல்படுத்த</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin விதிமுறைகளைக் காண்க</string>
-    <string name="PaymentsHomeFragment__payments_not_available">கொடுப்பனவுகள் Signal இருக்கிறது இல்லைநீண்ட நேரம் கிடைக்கும். நீங்கள் இன்னும் முடியும்பரிமாற்றம் நிதி ஒரு பரிமாற்றம் ஆனால் உன்னால் முடியும் இல்லை நீண்டது அனுப்பு மற்றும் பணம் பெறுதல் அல்லது கூட்டு நிதி.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">கொடுப்பனவுகள் Molly இருக்கிறது இல்லைநீண்ட நேரம் கிடைக்கும். நீங்கள் இன்னும் முடியும்பரிமாற்றம் நிதி ஒரு பரிமாற்றம் ஆனால் உன்னால் முடியும் இல்லை நீண்டது அனுப்பு மற்றும் பணம் பெறுதல் அல்லது கூட்டு நிதி.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4171,7 +4168,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">பெர்மீஷன்களை அனுமதித்தல்</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">உங்களுக்குத் தெரிந்தவர்களுக்கு மெசேஜ் அனுப்ப உதவ, Signal இந்த அனுமதிகளைக் கோரும். </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">உங்களுக்குத் தெரிந்தவர்களுக்கு மெசேஜ் அனுப்ப உதவ, Molly இந்த அனுமதிகளைக் கோரும். </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">அறிவிப்புகள்</string>
     <!-- Notifications permission row description -->
@@ -4263,9 +4260,9 @@
     <string name="PaymentsTransferFragment__next">அடுத்தது</string>
     <string name="PaymentsTransferFragment__invalid_address">தவறானது முகவரி</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">சரிபார்க்கவும் பணப்பை முகவரி நீங்கள் முயற்சிக்கிறீர்கள் பரிமாற்றம் மீண்டும் முயற்சிக்கவும்.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">உங்களால் முடியாது பரிமாற்றம் உங்கள் சொந்த Signal பணப்பை முகவரி. உள்ளிடவும் தி பணப்பை முகவரி உன்னிடத்திலிருந்து கணக்கு ஆதரிக்கப்படும் இடத்தில் பரிமாற்றம்.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">க்கு ஊடுகதிர் a க்யு ஆர் குறியீடு, Signal அணுகல் தேவை புகைப்பட கருவி.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal தேவை புகைப்பட கருவி அனுமதி க்கு பிடிப்பு a க்யு ஆர் குறியீடு. செல்லுங்கள்அமைப்புகள், தேர்ந்தெடுக்கவும் \"அனுமதிகள்\", மற்றும் இயக்கு\"புகைப்பட கருவி\".</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">உங்களால் முடியாது பரிமாற்றம் உங்கள் சொந்த Molly பணப்பை முகவரி. உள்ளிடவும் தி பணப்பை முகவரி உன்னிடத்திலிருந்து கணக்கு ஆதரிக்கப்படும் இடத்தில் பரிமாற்றம்.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">க்கு ஊடுகதிர் a க்யு ஆர் குறியீடு, Molly அணுகல் தேவை புகைப்பட கருவி.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly தேவை புகைப்பட கருவி அனுமதி க்கு பிடிப்பு a க்யு ஆர் குறியீடு. செல்லுங்கள்அமைப்புகள், தேர்ந்தெடுக்கவும் \"அனுமதிகள்\", மற்றும் இயக்கு\"புகைப்பட கருவி\".</string>
     <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">க்கு ஊடுகதிர் a க்யு ஆர் குறியீடு, சிக்னல் அணுகல் தேவை புகைப்பட கருவி.</string>
     <string name="PaymentsTransferFragment__settings">அமைப்புகள்</string>
 
@@ -4630,17 +4627,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">உள்வரும் Signal குரல் அழைப்பு</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">உள்வரும் Molly குரல் அழைப்பு</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">உள்வரும் Signal வீடியோ அழைப்பு</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">உள்வரும் Molly வீடியோ அழைப்பு</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">உள்வரும் Signal குழு அழைப்பு</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">உள்வரும் Molly குழு அழைப்பு</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">தற்போதைய Signal குரல் அழைப்பு</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">தற்போதைய Molly குரல் அழைப்பு</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">தற்போதைய Signal வீடியோ அழைப்பு</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">தற்போதைய Molly வீடியோ அழைப்பு</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">தற்போதைய Signal குழு அழைப்பு</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">தற்போதைய Molly குழு அழைப்பு</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">ஏற்றுதல் …</string>
@@ -4711,8 +4708,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">என்னை அழைக்கவும் (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">குறியீட்டை மீண்டும் அனுப்புக (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Signal ஆதரவைத் தொடர்பு கொள்ளுங்கள்</string>
-    <string name="RegistrationActivity_code_support_subject">Signal பதிவு - அண்ட்ராய்டு க்கான சரிபார்ப்புக் குறியீடு</string>
+    <string name="RegistrationActivity_contact_signal_support">Molly ஆதரவைத் தொடர்பு கொள்ளுங்கள்</string>
+    <string name="RegistrationActivity_code_support_subject">Molly பதிவு - அண்ட்ராய்டு க்கான சரிபார்ப்புக் குறியீடு</string>
     <string name="RegistrationActivity_incorrect_code">தவறான குறியீடு</string>
     <string name="BackupUtil_never">ஒருபோதுமில்லை</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4772,9 +4769,9 @@
     <string name="preferences_chats__backups">காப்புப் பிரதிகள்</string>
 
     <!-- Button label to indicate that a feature is in beta mode -->
-    <string name="Beta__beta_title">Beta</string>
+    <string name="Beta__beta_title">பீட்டா</string>
     <!-- Content description for info icon -->
-    <string name="Beta__info">Info</string>
+    <string name="Beta__info">தகவல்</string>
     <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
     <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
 
@@ -4866,19 +4863,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">பழைய Android சாதனத்துடன் இணைக்கத் தயாராகிறது…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">ஒரு கணம் எடுத்து, விரைவில் தயாராக இருக்க வேண்டும்</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">பழைய Android சாதனம் இணைக்க காத்திருக்கிறது…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal இடம் தேவை அனுமதி உங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal உங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க இருப்பிட சேவைகள் தேவை.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal உங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க Wi-Fi தேவை. வைஃபை இயக்கத்தில் இருக்க வேண்டும், ஆனால் அதை வைஃபை நெட்வொர்க்குடன் இணைக்க வேண்டியதில்லை.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">மன்னிக்கவும், இந்த சாதனம் இல்லை என்று தோன்றுகிறது ஆதரவு வைஃபை நேரடி. Signal வைஃபை பயன்படுத்துகிறது நேரடிஉங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க. நீங்கள் இன்னும் முடியும்மீட்டமை a காப்புப்பிரதி க்கு மீட்டமை உங்கள் கணக்கு உங்கள் பழைய Android சாதனத்திலிருந்து.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly இடம் தேவை அனுமதி உங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly உங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க இருப்பிட சேவைகள் தேவை.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly உங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க Wi-Fi தேவை. வைஃபை இயக்கத்தில் இருக்க வேண்டும், ஆனால் அதை வைஃபை நெட்வொர்க்குடன் இணைக்க வேண்டியதில்லை.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">மன்னிக்கவும், இந்த சாதனம் இல்லை என்று தோன்றுகிறது ஆதரவு வைஃபை நேரடி. Molly வைஃபை பயன்படுத்துகிறது நேரடிஉங்கள் பழைய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க. நீங்கள் இன்னும் முடியும்மீட்டமை a காப்புப்பிரதி க்கு மீட்டமை உங்கள் கணக்கு உங்கள் பழைய Android சாதனத்திலிருந்து.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">மீட்டமை a காப்புப்பிரதி</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">உங்கள் பழைய Android சாதனத்துடன் இணைக்க முயற்சிக்கும்போது எதிர்பாராத பிழை ஏற்பட்டது.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">புதிய Android சாதனத்தைத் தேடுகிறது…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal இடம் தேவை அனுமதி உங்கள் புதிய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal உங்கள் புதிய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க Wi-Fi தேவை. வைஃபை இயக்கத்தில் இருக்க வேண்டும், ஆனால் அதை வைஃபை நெட்வொர்க்குடன் இணைக்க வேண்டியதில்லை.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">மன்னிக்கவும், இந்த சாதனம் இல்லை என்று தோன்றுகிறது ஆதரவு வைஃபை நேரடி. Signal வைஃபை பயன்படுத்துகிறது நேரடிஉங்கள் புதிய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க. நீங்கள் இன்னும் முடியும்உருவாக்கு a காப்புப்பிரதி க்கு மீட்டமை உங்கள் கணக்கு உங்கள் புதிய Android சாதனத்தில்.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly இடம் தேவை அனுமதி உங்கள் புதிய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly உங்கள் புதிய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க Wi-Fi தேவை. வைஃபை இயக்கத்தில் இருக்க வேண்டும், ஆனால் அதை வைஃபை நெட்வொர்க்குடன் இணைக்க வேண்டியதில்லை.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">மன்னிக்கவும், இந்த சாதனம் இல்லை என்று தோன்றுகிறது ஆதரவு வைஃபை நேரடி. Molly வைஃபை பயன்படுத்துகிறது நேரடிஉங்கள் புதிய Android சாதனத்தைக் கண்டுபிடித்து இணைக்க. நீங்கள் இன்னும் முடியும்உருவாக்கு a காப்புப்பிரதி க்கு மீட்டமை உங்கள் கணக்கு உங்கள் புதிய Android சாதனத்தில்.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">உருவாக்கு a காப்புப்பிரதி</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">உங்கள் புதிய Android சாதனத்துடன் இணைக்க முயற்சிக்கும்போது எதிர்பாராத பிழை ஏற்பட்டது.</string>
 
@@ -4921,7 +4918,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">இடமாற்றம் தகவல்கள்</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">இரண்டு சாதனங்களையும் ஒவ்வொன்றின் அருகே வைத்திருங்கள் மற்றவை. சாதனங்களை அணைத்து வைக்க வேண்டாம் Signal திறந்த. இடமாற்றங்கள் முடிவிலிருந்து-முடிவுவரை மறையாக்கப்பட்ட.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">இரண்டு சாதனங்களையும் ஒவ்வொன்றின் அருகே வைத்திருங்கள் மற்றவை. சாதனங்களை அணைத்து வைக்க வேண்டாம் Molly திறந்த. இடமாற்றங்கள் முடிவிலிருந்து-முடிவுவரை மறையாக்கப்பட்ட.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d இதுவரை செய்திகள்…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">இதுவரை வந்த செய்திகளில் %1$s%%…</string>
@@ -4935,7 +4932,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">இடமாற்றம் கணக்கு</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">பதிவிறக்க Signal உங்கள் புதிய Android சாதனத்தில்</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">பதிவிறக்க Molly உங்கள் புதிய Android சாதனத்தில்</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"தட்டவும் on \"இடமாற்றம் அல்லது மீட்டமை கணக்கு\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -5009,7 +5006,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">இதைக் கொண்ட எவரும் இணைப்பு பார்க்க முடியும் குழுபெயர் மற்றும் புகைப்படம் மற்றும் கோரிக்கை சேர. பகிர் அது மக்கள் நீங்கள் நம்புகிறீர்கள்.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">இதைக் கொண்ட எவரும் இணைப்பு பார்க்க முடியும் குழுபெயர் மற்றும் புகைப்படம் மற்றும் சேர தி குழு. பகிர் அது மக்கள் நீங்கள் நம்புகிறீர்கள்.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">சிக்னல் Signal வழியாக பகிரவும்</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">சிக்னல் Molly வழியாக பகிரவும்</string>
     <string name="GroupLinkBottomSheet_copy">நகல்</string>
     <string name="GroupLinkBottomSheet_qr_code">QR குறியீடு</string>
     <string name="GroupLinkBottomSheet_share">பகிர்</string>
@@ -5223,7 +5220,7 @@
     <string name="DeactivateWalletFragment__deactivate_without_transferring">செயலிழக்க இல்லாமல் இடமாற்றம்</string>
     <string name="DeactivateWalletFragment__deactivate">செயலிழக்க</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">செயலிழக்க இல்லாமல் இடமாற்றம்?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">கட்டணங்களை மீண்டும் செயல்படுத்த நீங்கள் தேர்வுசெய்தால், Signal உடன் இணைக்கப்பட்ட உங்கள் வாலட்டில் உங்கள் இருப்பு இருக்கும்.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">கட்டணங்களை மீண்டும் செயல்படுத்த நீங்கள் தேர்வுசெய்தால், Molly உடன் இணைக்கப்பட்ட உங்கள் வாலட்டில் உங்கள் இருப்பு இருக்கும்.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">செயலிழக்க பிழை பணப்பை.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5656,7 +5653,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">உரிமங்கள்</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">விதிமுறைகள் &amp; ஆம்ப்; தனியுரிமைக் கொள்கை</string>
-    <string name="HelpFragment__copyright_signal_messenger">பதிப்புரிமை Signal தூதர்</string>
+    <string name="HelpFragment__copyright_signal_messenger">பதிப்புரிமை Molly தூதர்</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3 இன் கீழ் உரிமம் பெற்றது</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -6139,9 +6136,9 @@
     <string name="MySupportPreference__checking_subscription">சந்தாவைச் சரிபார்க்கிறது…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Signal லைப் புதுப்பிக்கவும்</string>
+    <string name="UpdateSignalExpiredDialog__title">Molly லைப் புதுப்பிக்கவும்</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Signal இன் இந்தப் பதிப்பு காலாவதியானது. தொடர்ந்து Signalஐப் பயன்படுத்த, இப்போதே புதுப்பிக்கவும்.</string>
+    <string name="UpdateSignalExpiredDialog__message">Molly இன் இந்தப் பதிப்பு காலாவதியானது. தொடர்ந்து Mollyஐப் பயன்படுத்த, இப்போதே புதுப்பிக்கவும்.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">புதுப்பிக்கப்பட்டது</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -6150,7 +6147,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">டிவைஸ் பதிவு செய்யப்படவில்லை</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">இந்த டிவைஸ் இனி பதிவுசெய்யப்பட்டிருக்காது. இந்த டிவைஸில் Signalஐத் தொடர்ந்து பயன்படுத்த, மீண்டும் பதிவு செய்யவும்.</string>
+    <string name="ReregisterSignalDialog__message">இந்த டிவைஸ் இனி பதிவுசெய்யப்பட்டிருக்காது. இந்த டிவைஸில் Mollyஐத் தொடர்ந்து பயன்படுத்த, மீண்டும் பதிவு செய்யவும்.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">மறு பதிவு</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6469,7 +6466,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">பிக்கரைத் திறக்க முடியவில்லை.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">அறிவிப்புகளை இயக்க, Signalக்கு அவற்றைக் காண்பிக்க அனுமதி தேவை.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">அறிவிப்புகளை இயக்க, Mollyக்கு அவற்றைக் காண்பிக்க அனுமதி தேவை.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">இயக்கு</string>
 
@@ -8171,7 +8168,7 @@
         <item quantity="other">நீங்கள் பதிவிறக்குவதைத் தவிர்த்தால், உங்கள் காப்புப்பிரதியில் மீதமுள்ள ஊடகம் மற்றும் இணைப்புகள் %1$d நாட்களில் அழிக்கப்படும்.</item>
     </plurals>
     <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
-    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Skip restore?</string>
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">மீட்டமைப்பதைத் தவிர்ப்பதா?</string>
     <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
     <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
@@ -8481,10 +8478,10 @@
     <string name="MainToolbar__proxy_content_description">பதிலி</string>
 
     <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
-    <string name="DefaultTopAppBar__navigate_up_content_description">Navigate up</string>
+    <string name="DefaultTopAppBar__navigate_up_content_description">மேலே செல்லவும்</string>
 
     <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
-    <string name="SignalCheckbox_accessibility_on_click_label">Toggle</string>
+    <string name="SignalCheckbox_accessibility_on_click_label">நிலைமாற்று</string>
     <!-- Accessibility label describing a checked checkbox. -->
     <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
     <!-- Accessibility label describing an unchecked checkbox. -->

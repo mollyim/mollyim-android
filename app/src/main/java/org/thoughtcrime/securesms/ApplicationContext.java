@@ -452,7 +452,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
   }
 
   private void initializeMessageRetrieval() {
-    AppDependencies.startNetwork();
+    SignalExecutors.UNBOUNDED.execute(AppDependencies::startNetwork);
   }
 
   private void finalizeMessageRetrieval() {
