@@ -114,7 +114,6 @@ import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
-import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FileUtils;
@@ -219,7 +218,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addBlocking("glide", () -> SignalGlideModule.setRegisterGlideComponents(new SignalGlideComponents()))
                             .addNonBlocking(() -> RegistrationUtil.maybeMarkRegistrationComplete())
                             .addNonBlocking(() -> Glide.get(this))
-                            .addNonBlocking(ConversationUtil::refreshRecipientShortcuts)
                             .addNonBlocking(this::cleanAvatarStorage)
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializePendingRetryReceiptManager)

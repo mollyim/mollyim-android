@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -43,12 +46,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Триває оновлення Molly…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Триває оновлення Signal…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Ви ще не встановили пароль!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Деактивувати пароль?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly і сповіщення про повідомлення буде безстроково розблоковано.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal і сповіщення про повідомлення буде безстроково розблоковано.</string>
     <string name="ApplicationPreferencesActivity_disable">Деактивувати</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Помилка під час з\'єднання із сервером!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN-коди необхідні для блокування реєстрації. Для вимкнення PIN-кодів спершу необхідно вимкнути блокування реєстрації.</string>
@@ -85,7 +88,7 @@
     <string name="AttachmentKeyboard_file">Файл</string>
     <string name="AttachmentKeyboard_contact">Контакт</string>
     <string name="AttachmentKeyboard_location">Локація</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly потребує дозволу, щоб показувати ваші фото і відео</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal потребує дозволу, щоб показувати ваші фото і відео</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Надати доступ</string>
     <string name="AttachmentKeyboard_payment">Платіж</string>
@@ -96,34 +99,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Відкрити налаштування</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Molly має обмежений доступ до фото і відео</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Signal має обмежений доступ до фото і відео</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Фото не знайдено. Виберіть фото чи відео, які бажаєте долучити, або надайте необхідні дозволи.</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Фото чи відео не знайдено. Molly має доступ лише до вибраних вами фото і відео.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Фото чи відео не знайдено. Signal має доступ лише до вибраних вами фото і відео.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Не знайдено застосунок для вибору медіафайлів.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly потребує доступу до пам\'яті, щоб прикріплювати фото, відео та аудіо, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть «Пам\'ять».</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly потребує доступу до «Контактів», щоб прикріплювати контактну інформацію, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Контакти».</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly потребує доступу до місцеположення, щоб його прикріпити, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Геодані».</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal потребує доступу до пам\'яті, щоб прикріплювати фото, відео та аудіо, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть «Пам\'ять».</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal потребує доступу до «Контактів», щоб прикріплювати контактну інформацію, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Контакти».</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal потребує доступу до місцеположення, щоб його прикріпити, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Геодані».</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Як надати доступ до геоданих</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Щоб поділитися своїм місцеположенням:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Щоб поділитися місцеположенням, надайте Molly доступ до геоданих.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Щоб поділитися місцеположенням, надайте Signal доступ до геоданих.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly потребує доступу до геоданих, щоб поділитися місцеположенням.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Signal потребує доступу до геоданих, щоб поділитися місцеположенням.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Як надати доступ до пам\'яті</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Для показу фото і відео:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Molly потребує доступу, щоб показувати ваші фото і відео.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Signal потребує доступу, щоб показувати ваші фото і відео.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">Користувач %1$s не активував платежі </string>
@@ -279,25 +282,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Надайте доступ до мікрофона</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Щоб знімати фото, надайте Molly доступ до камери.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Щоб знімати фото, надайте Signal доступ до камери.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Щоб знімати фото і відео, надайте Molly доступ до камери.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Щоб знімати фото і відео, надайте Signal доступ до камери.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Щоб знімати фото і відео, надайте Molly доступ до камери й мікрофона.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Щоб знімати фото і відео, надайте Signal доступ до камери й мікрофона.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Щоб знімати відео зі звуком, надайте Molly доступ до мікрофона.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Щоб знімати відео зі звуком, надайте Signal доступ до мікрофона.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Щоб сканувати QR-коди, надайте Molly доступ до камери.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Щоб сканувати QR-коди, надайте Signal доступ до камери.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly потребує доступу до камери, щоб знімати фото</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal потребує доступу до камери, щоб знімати фото</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly потребує доступу до камери, щоб сканувати QR-коди</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal потребує доступу до камери, щоб сканувати QR-коди</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Molly потребує доступу до мікрофона, щоб знімати відео</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal потребує доступу до мікрофона, щоб знімати відео</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Щоб знімати фото через Molly:</string>
+    <string name="CameraXFragment_to_capture_photos">Щоб знімати фото через Signal:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Щоб знімати фото і відео через Molly:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Щоб знімати фото і відео через Signal:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Щоб знімати відео зі звуком:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -318,7 +321,7 @@
     <string name="CameraContacts_no_signal_contacts">Контактів Signal немає</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Ви можете використовувати кнопку камери лише для надсилання фото контактам Signal. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Не знайшли тих, кого шукали?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Запросити контакт приєднатися до Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Запросити контакт приєднатися до Signal</string>
     <string name="CameraContacts__menu_search">Пошук</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -332,12 +335,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Не хочу</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Оновити Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Оновити Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Ця версія застосунку вже не підтримується. Щоб і надалі надсилати та отримувати повідомлення, оновіться до останньої версії.</string>
     <string name="ClientDeprecatedActivity_update">Оновити</string>
     <string name="ClientDeprecatedActivity_dont_update">Не оновлювати</string>
     <string name="ClientDeprecatedActivity_warning">Увага</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Ваша версія Molly застаріла. Ви можете переглядати історію повідомлень, але не зможете надсилати й отримувати повідомлення, поки не оновите застосунок.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Ваша версія Signal застаріла. Ви можете переглядати історію повідомлень, але не зможете надсилати й отримувати повідомлення, поки не оновите застосунок.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Браузер не знайдено.</string>
@@ -378,8 +381,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Написати користувачу %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Аудіовиклик у Molly %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Відеовиклик у Molly %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Аудіовиклик у Signal %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Відеовиклик у Signal %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -480,7 +483,7 @@
     <string name="ConversationActivity_transport_signal">Повідомлення через Signal</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Надіслати повідомлення</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Пора переходити в Molly %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Пора переходити в Signal %1$s</string>
     <string name="ConversationActivity_specify_recipient">Оберіть контакт</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Розмір вкладення перевищує максимальний для повідомлення того типу, який ви надсилаєте.</string>
     <string name="ConversationActivity_unable_to_record_audio">Неможливо записати аудіо!</string>
@@ -499,18 +502,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Для надсилання голосових повідомлень:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Щоб надсилати голосові повідомлення, надайте Molly доступ до мікрофона.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Щоб надсилати голосові повідомлення, надайте Signal доступ до мікрофона.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly потребує доступу до мікрофона для запису голосового повідомлення.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Для надсилання голосових повідомлень Molly потребує доступу до мікрофона, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть мікрофон.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal потребує доступу до мікрофона для запису голосового повідомлення.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Для надсилання голосових повідомлень Signal потребує доступу до мікрофона, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть мікрофон.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Для виклику користувача %1$s Molly потребує доступу до мікрофона й камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть мікрофон і камеру.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Щоб знімати фото і відео, надайте Molly доступ до камери.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly потребує доступу до камери, щоб знімати фото або відео, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть камеру.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly потребує доступу до камери, щоб знімати фото або відео</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Для виклику користувача %1$s Signal потребує доступу до мікрофона й камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть мікрофон і камеру.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Щоб знімати фото і відео, надайте Signal доступ до камери.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal потребує доступу до камери, щоб знімати фото або відео, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть камеру.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal потребує доступу до камери, щоб знімати фото або відео</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Надайте доступ до мікрофона, щоб у відео був звук.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly потребує доступу до мікрофона, щоб записувати відео, але ви вирішили не надавати його. Перейдіть у налаштування застосунку, відкрийте «Дозволи» і виберіть мікрофон і камеру.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly потребує доступу до мікрофона, щоб записувати відео.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal потребує доступу до мікрофона, щоб записувати відео, але ви вирішили не надавати його. Перейдіть у налаштування застосунку, відкрийте «Дозволи» і виберіть мікрофон і камеру.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal потребує доступу до мікрофона, щоб записувати відео.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Ні</string>
@@ -531,9 +534,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Щоб почати виклик:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Щоб почати виклик, надайте Molly доступ до мікрофона.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Щоб почати виклик, надайте Signal доступ до мікрофона.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly потребує доступу до мікрофона, щоб почати виклик.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal потребує доступу до мікрофона, щоб почати виклик.</string>
 
 
     <string name="ConversationActivity_join">Приєднатися</string>
@@ -547,11 +550,13 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal більше не підтримує SMS-повідомлення. Запросіть користувача %1$s в Signal, щоб продовжити спілкуватися тут.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ця людина більше не використовує Molly. Запросіть її в Molly, щоб спілкуватися тут і надалі.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ця людина більше не використовує Signal. Запросіть її в Signal, щоб спілкуватися тут і надалі.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Запросити в Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Запросити в Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Незабаром ви отримаєте ще одне нагадування.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">Надсилання форматованого тексту</string>
@@ -644,13 +649,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Заблоковано</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Оновити Molly</string>
+    <string name="ConversationFragment__update_build">Оновити Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Перереєструватись у Molly</string>
+    <string name="ConversationFragment__reregister_signal">Перереєструватись у Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Повернутися.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Відкрити Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Відкрити Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Уже не позначено як перевірений</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -701,7 +706,7 @@
     <!-- Title of tip 0 -->
     <string name="SafetyTips_tip0_title">Фейкові акаунти під чужими назвами</string>
     <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Представники Molly ніколи не питатимуть у вас ні коду для реєстрації, ні PIN-коду. Зважайте на те, що вам можуть надходити запити від фейкових користувачів. Власники акаунтів самі обирають назви своїх профілів, і ми їх не перевіряємо.</string>
+    <string name="SafetyTips_tip0_message">Представники Signal ніколи не питатимуть у вас ні коду для реєстрації, ні PIN-коду. Зважайте на те, що вам можуть надходити запити від фейкових користувачів. Власники акаунтів самі обирають назви своїх профілів, і ми їх не перевіряємо.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Шахрайство з криптовалютою або грошима</string>
     <!-- Message of tip 1 -->
@@ -874,9 +879,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Хто може знайти мене за номером?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Будь-яка людина, що має ваш номер телефону, бачитиме вас у Molly і зможе почати з вами чат.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Будь-яка людина, що має ваш номер телефону, бачитиме вас у Signal і зможе почати з вами чат.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Крім людей, яким ви напишете самі й з якими ви вже маєте спільний чат, ніхто не побачить, що ви зареєстровані в Molly.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Крім людей, яким ви напишете самі й з якими ви вже маєте спільний чат, ніхто не побачить, що ви зареєстровані в Signal.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Відновити з резервної копії?</string>
@@ -955,7 +960,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Введіть пароль від своєї резервної копії, щоб перевірити його правильність</string>
     <string name="BackupsPreferenceFragment__turn_on">Увімкнути</string>
     <string name="BackupsPreferenceFragment__turn_off">Вимкнути</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Щоб відновити інформацію з резервної копії, встановіть застосунок Molly ще раз. Відкрийте його й натисніть «Відновити з резервної копії», потім виберіть збережений файл резервної копії. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Щоб відновити інформацію з резервної копії, встановіть застосунок Signal ще раз. Відкрийте його й натисніть «Відновити з резервної копії», потім виберіть збережений файл резервної копії. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Докладніше</string>
     <string name="BackupsPreferenceFragment__in_progress">Триває створення…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -964,7 +969,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">Уже %1$d…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">Уже %1$s%%…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly потребує доступу до зовнішньої пам\'яті, щоб створювати резервні копії, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Пам\'ять».</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal потребує доступу до зовнішньої пам\'яті, щоб створювати резервні копії, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Пам\'ять».</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Установіть час створення резервної копії</string>
 
@@ -1045,7 +1050,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Сесію чату оновлено</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly використовує наскрізне шифрування, через що час від часу може оновлювати сесію чату. Це не впливає на безпеку чату, але ви могли пропустити повідомлення від цього контакту, тому попросіть надіслати його знов.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal використовує наскрізне шифрування, через що час від часу може оновлювати сесію чату. Це не впливає на безпеку чату, але ви могли пропустити повідомлення від цього контакту, тому попросіть надіслати його знов.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1156,7 +1161,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Завершіть зв\'язування на іншому пристрої</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Для завершення використайте пристрій, який ви зв\'язуєте з акаунтом Molly.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Для завершення використайте пристрій, який ви зв\'язуєте з акаунтом Signal.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Не вдалося зв’язати пристрій</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1201,10 +1206,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Оптимізувати у зв\'язку з відсутністю сервісів Google Play</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Цей пристрій не підтримує сервіси Google Play. Торкніться, щоб вимкнути режим економії заряду акумулятора, у якому Molly не може завантажувати повідомлення, коли застосунок неактивний.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Цей пристрій не підтримує сервіси Google Play. Торкніться, щоб вимкнути режим економії заряду акумулятора, у якому Signal не може завантажувати повідомлення, коли застосунок неактивний.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ваша версія Molly застаріла. Оновіть застосунок, щоб надсилати та отримувати повідомлення.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ваша версія Signal застаріла. Оновіть застосунок, щоб надсилати та отримувати повідомлення.</string>
     <string name="ExpiredBuildReminder_update_now">Оновити зараз</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1383,7 +1388,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Журнали налагодження допомагають нам визначати й усувати проблеми. Вони не містять особистої інформації.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">У Molly виникла проблема. Надіслати журнал налагодження?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">У Signal виникла проблема. Надіслати журнал налагодження?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Можливо, вам не надходять повідомлення. Надіслати журнал налагодження?</string>
 
@@ -1391,12 +1396,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Сповіщення можуть надходити із затримкою через оптимізацію акумулятора</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Ви можете вимкнути оптимізацію акумулятора для Molly, щоб сповіщення про повідомлення надходили без затримки.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Ви можете вимкнути оптимізацію акумулятора для Signal, щоб сповіщення про повідомлення надходили без затримки.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Сповіщення можуть надходити із затримкою через оптимізацію акумулятора</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Вимкніть оптимізацію акумулятора для Molly, щоб сповіщення про повідомлення не затримувалися. Натисніть «Продовжити», щоб переглянути інструкції для конкретних пристроїв.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Вимкніть оптимізацію акумулятора для Signal, щоб сповіщення про повідомлення не затримувалися. Натисніть «Продовжити», щоб переглянути інструкції для конкретних пристроїв.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Не хочу</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1405,7 +1410,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Можливо, вам не надходять повідомлення</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Спробуйте розв\'язати проблему з отриманням повідомлень, перезавантаживши пристрій. Якщо це не допоможе, зв\'яжіться зі службою підтримки Molly.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Спробуйте розв\'язати проблему з отриманням повідомлень, перезавантаживши пристрій. Якщо це не допоможе, зв\'яжіться зі службою підтримки Signal.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Зрозуміло</string>
 
@@ -1547,9 +1552,9 @@
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
     <string name="RemoteRestoreActivity__couldnt_restore">Не вдалося відновити дані</string>
     <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
-    <string name="RemoteRestoreActivity__update_latest">Ця версія Molly не може відновити дані з вашої резервної копії. Оновіть застосунок до останньої версії та спробуйте ще раз.</string>
+    <string name="RemoteRestoreActivity__update_latest">Ця версія Signal не може відновити дані з вашої резервної копії. Оновіть застосунок до останньої версії та спробуйте ще раз.</string>
     <!-- Text on button that when pressed will redirect them to update Signal -->
-    <string name="RemoteRestoreActivity__update_signal">Оновити Molly</string>
+    <string name="RemoteRestoreActivity__update_signal">Оновити Signal</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Не зараз</string>
 
@@ -1730,7 +1735,7 @@
     <string name="InviteActivity_cancel">Закрити</string>
     <string name="InviteActivity_sending">Надсилання…</string>
     <string name="InviteActivity_invitations_sent">Запрошення надіслано!</string>
-    <string name="InviteActivity_invite_to_signal">Запросити в Molly</string>
+    <string name="InviteActivity_invite_to_signal">Запросити в Signal</string>
     <string name="InviteActivity_send_sms">Надіслати SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Надіслати %1$d SMS-запрошення?</item>
@@ -1738,7 +1743,7 @@
         <item quantity="many">Надіслати %1$d SMS-запрошень?</item>
         <item quantity="other">Надіслати %1$d SMS-запрошення?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Пора переходити в Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Пора переходити в Signal: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">У вас немає застосунків, через які можна надіслати запрошення.</string>
 
@@ -1753,7 +1758,7 @@
     <string name="LongMessageActivity_your_message">Ваше повідомлення</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Фонове з\'єднання активовано</string>
 
     <!-- MediaOverviewActivity -->
@@ -1841,10 +1846,10 @@
     <string name="MessageQuotesBottomSheet_replies">Відповіді</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Підготовка до виклику в Molly</string>
+    <string name="NotificationBarManager__establishing_signal_call">Підготовка до виклику в Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Починаємо виклик у Molly</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Зупиняємо виклик у Molly</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Починаємо виклик у Signal</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Зупиняємо виклик у Signal</string>
     <string name="NotificationBarManager__cancel_call">Скасувати виклик</string>
 
     <!-- NotificationsMegaphone -->
@@ -2189,7 +2194,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Скоро ви не зможете надсилати SMS-повідомлення з Signal. Запросіть користувача %1$s в Signal, щоб продовжити спілкуватися тут.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ви більше не можете надсилати SMS-повідомлення в Molly. Запросіть користувача %1$s в Molly, щоб продовжити спілкуватися тут.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Ви більше не можете надсилати SMS-повідомлення в Signal. Запросіть користувача %1$s в Signal, щоб продовжити спілкуватися тут.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Платіж: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2324,27 +2329,27 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Зв\'язати пристрій Signal?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Щоб зв\'язати комп’ютер або iPad з цим акаунтом Signal, перейдіть у «Зв’язані пристрої», натисніть «Зв\'язати новий пристрій» і ще раз зіскануйте QR-код. Переконайтеся, що скануєте QR-коди, згенеровані безпосередньо Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Для сканування QR-кодів Molly потребує доступу до камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть камеру.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Для сканування QR-кодів Signal потребує доступу до камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть камеру.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Для сканування QR-коду необхідний доступ до камери</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Оновити зараз</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Сьогодні ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Сьогодні ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Завтра ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
-        <item quantity="few">Через %1$d дні ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
-        <item quantity="many">Через %1$d днів ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
-        <item quantity="other">Через %1$d дня ця версія Molly перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="one">Завтра ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="few">Через %1$d дні ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="many">Через %1$d днів ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
+        <item quantity="other">Через %1$d дня ця версія Signal перестане функціонувати. Оновіть застосунок до останньої версії.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Введіть пароль</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Значок Molly</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Значок Signal</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Завершити введення</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Неправильний пароль!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Розблокувати Molly</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Розблокувати Signal</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly для Android: Блокування екрана</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal для Android: Блокування екрана</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Мапа</string>
@@ -2415,7 +2420,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Пройдіть перевірку, щоб продовжити спілкування</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Просимо вас пройти перевірку. Це необхідно для запобігання поширенню спаму в Molly.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Просимо вас пройти перевірку. Це необхідно для запобігання поширенню спаму в Signal.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Ви зможете продовжити спілкування після перевірки. Усі зупинені повідомлення буде надіслано автоматично.</string>
 
     <!-- Recipient -->
@@ -2423,7 +2428,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Моя історія</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Виклик у Molly</string>
+    <string name="Recipient_signal_call">Виклик у Signal</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Заблокувати</string>
@@ -2459,9 +2464,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Торкніться, щоб увімкнути відео</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Для виклику користувача %1$s Molly потребує доступу до камери</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Для виклику користувача %1$s Signal потребує доступу до камери</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Виклик у Molly: %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Виклик у Signal: %1$s</string>
     <string name="WebRtcCallActivity__calling">Здійснюємо виклик…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Триває відновлення з\'єднання…</string>
@@ -2534,23 +2539,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Надайте доступ до камери</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Щоб почати виклик / приєднатися до виклику, надайте Molly доступ до камери й мікрофона.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Щоб почати виклик / приєднатися до виклику, надайте Signal доступ до камери й мікрофона.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Щоб почати виклик / приєднатися до виклику, надайте Molly доступ до мікрофона.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Щоб почати виклик / приєднатися до виклику, надайте Signal доступ до мікрофона.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Щоб увімкнути відео, надайте Molly доступ до камери.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Щоб увімкнути відео, надайте Signal доступ до камери.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly потребує доступу до мікрофона, щоб ви могли почати виклик / приєднатися до виклику.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal потребує доступу до мікрофона, щоб ви могли почати виклик / приєднатися до виклику.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly потребує доступу до камери, щоб увімкнути відео</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal потребує доступу до камери, щоб увімкнути відео</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Щоб почати виклик / приєднатися до виклику:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Щоб увімкнути відео:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Виклик у Molly</string>
-    <string name="WebRtcCallView__signal_video_call">Відеовиклик у Molly</string>
+    <string name="WebRtcCallView__signal_call">Виклик у Signal</string>
+    <string name="WebRtcCallView__signal_video_call">Відеовиклик у Signal</string>
     <string name="WebRtcCallView__start_call">Почати виклик</string>
     <string name="WebRtcCallView__join_call">Приєднатися</string>
     <string name="WebRtcCallView__call_is_full">Немає місць</string>
@@ -2632,6 +2637,15 @@
     <string name="WebRtcCallView__end_call">Завершити виклик</string>
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">Увімкнути дзвінок для групового виклику</string>
+
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Виникла помилка інтерфейсу. Будь ласка, повідомте розробників про цю помилку.</string>
@@ -2825,7 +2839,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">На цей номер буде здійснено виклик для його перевірки.</string>
     <string name="RegistrationActivity_edit_number">Змінити номер</string>
     <string name="RegistrationActivity_missing_google_play_services">Відсутні сервіси Google Play</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">На цьому пристрої не встановлено сервіси Google Play. Ви все одно можете використовувати Molly, проте з такою конфігурацією надійність і ефективність роботи застосунку може знизитися.\n\nЯкщо ви недосвідчений користувач, не використовуєте додатково придбаний ПЗП для Android чи вважаєте, що це повідомлення — помилка, просимо вас написати в службу підтримки за адресою support@molly.im для з\'ясування причин цієї проблеми.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">На цьому пристрої не встановлено сервіси Google Play. Ви все одно можете використовувати Signal, проте з такою конфігурацією надійність і ефективність роботи застосунку може знизитися.\n\nЯкщо ви недосвідчений користувач, не використовуєте додатково придбаний ПЗП для Android чи вважаєте, що це повідомлення — помилка, просимо вас написати в службу підтримки за адресою support@signal.org для з\'ясування причин цієї проблеми.</string>
     <string name="RegistrationActivity_i_understand">Я розумію</string>
     <string name="RegistrationActivity_play_services_error">Помилка із сервісами Google Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Триває оновлення сервісів Google Play або вони тимчасово недоступні. Спробуйте пізніше.</string>
@@ -2845,7 +2859,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Нестандартний формат номеру</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Здається, ви ввели номер у нестандартному форматі: %1$s.\n\nВи мали на увазі %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly для Android — Формат телефонних номерів</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal для Android — Формат телефонних номерів</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Запит на виклик надіслано</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2920,13 +2934,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Додати до контактів</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Запросити в Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Запросити в Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Повідомлення Signal</string>
     <string name="SharedContactDetailsActivity_signal_call">Виклик у Signal</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Додати до контактів</string>
-    <string name="SharedContactView_invite_to_signal">Запросити в Molly</string>
+    <string name="SharedContactView_invite_to_signal">Запросити в Signal</string>
     <string name="SharedContactView_message">Повідомлення Signal</string>
 
     <!-- SignalBottomActionBar -->
@@ -2958,18 +2972,24 @@
     <string name="SmsMessageRecord_secure_session_reset_s">Користувач %1$s скинув безпечний сеанс.</string>
     <string name="SmsMessageRecord_duplicate_message">Продубльоване повідомлення.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">Стікери</string>
-
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">Stickers</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="one">%1$s selected</item>
+        <item quantity="few">%1$s selected</item>
+        <item quantity="many">%1$s selected</item>
+        <item quantity="other">%1$s selected</item>
+    </plurals>
     <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
     <string name="StickerManagement_available_tab_label">Доступні</string>
     <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
     <string name="StickerManagement_installed_tab_label">Завантажені</string>
-    <!-- Shown when there are no sticker packs available for installation -->
+    <!-- Shown when there are no sticker packs available for installation. -->
     <string name="StickerManagement_available_tab_empty_text">Наборів стікерів немає</string>
-    <!-- Shown when there are no sticker packs currently installed -->
+    <!-- Shown when there are no sticker packs currently installed. -->
     <string name="StickerManagement_installed_tab_empty_text">Набори стікерів не завантажено</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
+    <!-- Message shown when the author of the sticker pack is unknown. -->
     <string name="StickerManagement_author_unknown">Невідомий користувач</string>
     <!-- Sticker pack list section header for packs that are already installed. -->
     <string name="StickerManagement_installed_stickers_header">Завантажені стікери</string>
@@ -2977,6 +2997,44 @@
     <string name="StickerManagement_stickers_you_received_header">Отримані cтікери</string>
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Серія «Художники Signal»</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">Forward to</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">Select all</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">Delete</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="one">Remove %1$s sticker pack</item>
+        <item quantity="few">Remove %1$s sticker packs</item>
+        <item quantity="many">Remove %1$s sticker packs</item>
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="one">%1$s sticker pack removed.</item>
+        <item quantity="few">%1$s sticker packs removed.</item>
+        <item quantity="many">%1$s sticker packs removed.</item>
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">Forward</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">Select</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">Install</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">Remove</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
     <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
     <string name="StickerManagement_accessibility_download_pack">Завантажити набір стікерів «%1$s»</string>
     <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
@@ -2985,10 +3043,14 @@
     <string name="StickerManagement_accessibility_drag_handle">Значок перетягування</string>
     <!-- Accessibility label for the button to download a sticker pack. -->
     <string name="StickerManagement_accessibility_download">Завантажити</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">Open context menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_no_stickers_installed">Немає встановлених стікерів</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Тут будуть стікери зі вхідних повідомлень</string>
     <string name="StickerManagementAdapter_untitled">Без назви</string>
 
     <!-- StickerPackPreviewActivity -->
@@ -3092,11 +3154,11 @@
     <string name="ThreadRecord_blocked_group">Заблоковано</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Оновлення Molly</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Доступна нова версія Molly. Торкніться, щоб оновити.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Не вдалось оновити Molly</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Оновлення Signal</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Доступна нова версія Signal. Торкніться, щоб оновити.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Не вдалось оновити Signal</string>
     <string name="ApkUpdateNotifications_failed_general_body">Ми спробуємо оновити його пізніше.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly успішно оновлено</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal успішно оновлено</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Ваш застосунок автоматично оновлено до версії %1$s.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">Версію оновлено до %1$s.</string>
 
@@ -3170,7 +3232,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Наш код безпеки в Signal:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">У вас немає застосунків, через які можна надіслати код безпеки.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">У буфері обміну не знайдено коду безпеки для порівняння</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Для сканування QR-кодів Molly потребує доступу до камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть камеру.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Для сканування QR-кодів Signal потребує доступу до камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть камеру.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Для сканування QR-коду необхідний доступ до камери</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Щоб побачити код безпеки користувача %1$s, вам потрібно спочатку обмінятися повідомленнями.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -3191,17 +3253,13 @@
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Повідомлення зашифровано для неіснуючої сесії</string>
 
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">Погано зашифроване MMS повідомлення</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">MMS повідомлення зашифровано для неіснуючої сесії</string>
-
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">Вимкнути сповіщення</string>
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Торкніться, щоб відкрити.</string>
-    <string name="KeyCachingService_passphrase_cached">Molly розблоковано</string>
-    <string name="KeyCachingService_lock">Заблокувати Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Signal розблоковано</string>
+    <string name="KeyCachingService_lock">Заблокувати Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Ви</string>
@@ -3255,7 +3313,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Не вдалося доставити повідомлення.</string>
     <string name="MessageNotifier_error_delivering_message">Під час доставлення повідомлення сталася помилка.</string>
     <string name="MessageNotifier_message_delivery_paused">Доставлення повідомлення зупинено.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Пройдіть перевірку, щоб продовжувати спілкуватись у Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Пройдіть перевірку, щоб продовжувати спілкуватись у Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Позначити всі як прочитані</string>
     <string name="MessageNotifier_mark_read">Прочитати</string>
     <string name="MessageNotifier_turn_off_these_notifications">Вимкнути ці сповіщення</string>
@@ -3277,7 +3335,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Реакція на ваш стікер: %1$s.</string>
     <string name="MessageNotifier_this_message_was_deleted">Це повідомлення видалено.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Вимкнути сповіщення про приєднання контактів до Molly? Їх можна знов увімкнути в налаштуваннях («Сповіщення»).</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Вимкнути сповіщення про приєднання контактів до Signal? Їх можна знов увімкнути в налаштуваннях («Сповіщення»).</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3318,7 +3376,7 @@
     <string name="NotificationChannel_new_linked_device">Зв\'язано новий пристрій</string>
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Швидка відповідь недоступна, коли Molly заблоковано!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Швидка відповідь недоступна, коли Signal заблоковано!</string>
     <string name="QuickResponseService_problem_sending_message">Проблема під час надсилання повідомлення!</string>
 
     <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
@@ -3361,7 +3419,7 @@
     </plurals>
 
     <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
-    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly потребує доступу до пам\'яті, щоб зберігати файли, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть «Пам\'ять».</string>
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal потребує доступу до пам\'яті, щоб зберігати файли, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть «Пам\'ять».</string>
 
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">Не надано відповідні дозволи, тому неможливо зберегти файли в зовнішній пам\'яті</string>
@@ -3380,7 +3438,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Неправильний ярлик</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Нове повідомлення</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Запит на повідомлення</string>
     <string name="SingleRecipientNotificationBuilder_you">Ви</string>
@@ -3426,7 +3484,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Цей пристрій більше не зареєстровано. Імовірно, ви зареєстрували акаунт Molly на цей номер телефону на іншому пристрої.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Цей пристрій більше не зареєстровано. Імовірно, ви зареєстрували акаунт Signal на цей номер телефону на іншому пристрої.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Перереєструвати пристрій</string>
 
@@ -3439,10 +3497,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Для відповіді на виклик надайте Molly доступ до мікрофона.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Для відповіді на виклик надайте Signal доступ до мікрофона.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Щоб прийняти відеовиклик, надайте Molly доступ до мікрофона і камери.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Для здійснення та приймання викликів Molly потребує доступу до мікрофона й камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть мікрофон і камеру.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Щоб прийняти відеовиклик, надайте Signal доступ до мікрофона і камери.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Для здійснення та приймання викликів Signal потребує доступу до мікрофона й камери, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи» та виберіть мікрофон і камеру.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Ви відповіли на зв\'язаному пристрої.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Ви відхилили виклик на зв\'язаному пристрої.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Зайнято на зв\'язаному пристрої.</string>
@@ -3487,7 +3545,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Введіть новий пароль ще раз</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Запросити в Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Запросити в Signal</string>
     <string name="contact_selection_activity__new_group">Нова група</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Оновити контакти</string>
@@ -3513,7 +3571,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Фото контакту</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly потребує доступу до «Контактів», щоб показувати ваші контакти, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Контакти».</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal потребує доступу до «Контактів», щоб показувати ваші контакти, але його не надано. Перейдіть у налаштування застосунку, відкрийте «Дозволи», та виберіть «Контакти».</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Не вдалось отримати список контактів, перевірте з\'єднання з мережею</string>
     <string name="ContactSelectionListFragment_username_not_found">Ім\'я користувача не знайдено</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s — не користувач Signal. Перевірте правильність імені користувача й повторіть пошук."</string>
@@ -3544,7 +3602,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Надайте доступ до контактів. Ваші контакти зашифровано й приховано від служби Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly потребує доступу до «Контактів», щоб їх показувати.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal потребує доступу до «Контактів», щоб їх показувати.</string>
     <string name="contact_selection_list_fragment__show_contacts">Показати контакти</string>
 
     <!-- contact_selection_list_item -->
@@ -3659,7 +3717,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Бульбашки — функціональна можливість Android, яку можна вимкнути для чатів Molly.</string>
+    <string name="BubbleOptOutTooltip__description">Бульбашки — функціональна можливість Android, яку можна вимкнути для чатів Signal.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Не зараз</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3842,9 +3900,9 @@
     <string name="EditProfileFragment__group_description">Опис групи</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Оновити Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Оновити Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Ця версія Molly застаріла. Оновіть застосунок, щоб і надалі ним користуватися.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Ця версія Signal застаріла. Оновіть застосунок, щоб і надалі ним користуватися.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Оновити</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -4079,7 +4137,7 @@
     <string name="preferences__slow">Повільна</string>
     <string name="preferences__help">Допомога</string>
     <string name="preferences__advanced">Розширені</string>
-    <string name="preferences__donate_to_signal">Підтримати Molly</string>
+    <string name="preferences__donate_to_signal">Підтримати Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Конфіденційність</string>
     <!-- Preference label for stories -->
@@ -4116,13 +4174,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Змінити значок і назву застосунку на «%1$s»</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Для зміни значка й назви застосунку Molly закриється. У сповіщеннях значок і назва Molly завжди будуть стандартні.</string>
+    <string name="preferences__app_icon_dialog_description">Для зміни значка й назви застосунку Signal закриється. У сповіщеннях значок і назва Signal завжди будуть стандартні.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Оберіть значок і назву застосунку, які буде видно на головному екрані та в панелі застосунків телефона. У сповіщеннях значок і назва Molly завжди будуть стандартні. Докладніше</string>
+    <string name="preferences__app_icon_warning_learn_more">Оберіть значок і назву застосунку, які буде видно на головному екрані та в панелі застосунків телефона. У сповіщеннях значок і назва Signal завжди будуть стандартні. Докладніше</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Значки й назви застосунків видно на головному екрані й у панелі застосунків телефона.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">У сповіщеннях значок і назва Molly завжди будуть стандартні.</string>
+    <string name="preferences__app_icon_notification_warning">У сповіщеннях значок і назва Signal завжди будуть стандартні.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Докладніше</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -4220,7 +4278,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Обхід цензури</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Обхід цензури</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Якщо ввімкнути, то Molly намагатиметься обійти цензуру. Вмикайте цю функцію, тільки якщо ви в місці, де Molly заблоковано.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Якщо ввімкнути, то Signal намагатиметься обійти цензуру. Вмикайте цю функцію, тільки якщо ви в місці, де Signal заблоковано.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Обхід цензури активовано на підставі номера телефону, на який зареєстровано цей акаунт.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -4273,7 +4331,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Новинка: платежі</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Використовуйте Molly, щоб надсилати й отримувати MobileCoin — нову цифрову валюту підвищеної конфіденційності. Активуйте, щоб почати.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Використовуйте Signal, щоб надсилати й отримувати MobileCoin — нову цифрову валюту підвищеної конфіденційності. Активуйте, щоб почати.</string>
     <string name="PaymentsHomeFragment__activate_payments">Увімкнути платежі</string>
     <string name="PaymentsHomeFragment__activating_payments">Вмикаємо платежі…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Відновити платіжний профіль</string>
@@ -4299,7 +4357,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">У вашому регіоні платежі недоступні.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Не вдалось увімкнути платежі. Спробуйте пізніше.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Вимкнути платежі?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ви не зможете ні надсилати, ні отримувати MobileCoin у Molly, якщо деактивуєте платежі.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ви не зможете ні надсилати, ні отримувати MobileCoin у Signal, якщо деактивуєте платежі.</string>
     <string name="PaymentsHomeFragment__deactivate">Деактивувати</string>
     <string name="PaymentsHomeFragment__continue">Продовжити</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Поки що баланс недоступний.</string>
@@ -4308,10 +4366,10 @@
     <string name="PaymentsHomeFragment__details">Докладніше</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Molly можна використовувати, щоб надсилати й отримувати валюту MobileCoin. Усі платежі здійснюються відповідно до Умов використання MobileCoin і гаманця MobileCoin. Можуть виникнути певні проблеми, і в разі втрати платежів чи залишку на рахунку кошти буде неможливо відновити. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Signal можна використовувати, щоб надсилати й отримувати валюту MobileCoin. Усі платежі здійснюються відповідно до Умов використання MobileCoin і гаманця MobileCoin. Можуть виникнути певні проблеми, і в разі втрати платежів чи залишку на рахунку кошти буде неможливо відновити. </string>
     <string name="PaymentsHomeFragment__activate">Активувати</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Ознайомитися з умовами використання MobileCoin</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Платежі у Molly більше не доступні. Ви й досі можете переказувати кошти для обміну, але більше не можете надсилати та отримувати платежі та поповнювати рахунок.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Платежі у Signal більше не доступні. Ви й досі можете переказувати кошти для обміну, але більше не можете надсилати та отримувати платежі та поповнювати рахунок.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4339,7 +4397,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Надайте дозволи</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Щоб вам було легше обмінюватися повідомленнями зі знайомими, Molly потребує таких дозволів. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Щоб вам було легше обмінюватися повідомленнями зі знайомими, Signal потребує таких дозволів. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Сповіщення</string>
     <!-- Notifications permission row description -->
@@ -4431,10 +4489,10 @@
     <string name="PaymentsTransferFragment__next">Далі</string>
     <string name="PaymentsTransferFragment__invalid_address">Неправильна адреса</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Перевірте адресу гаманця, на який ви переказуєте кошти, і повторіть переказ.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ви не можете здійснювати перекази на власний гаманець Molly. Введіть адресу гаманця зі свого облікового запису на підтримуваній біржі.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Щоб зісканувати QR-код, надайте Molly доступ до камери.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Для сканування QR-кодів Molly потребує доступу до камери. Перейдіть у налаштування, відкрийте «Дозволи» та виберіть камеру.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Щоб зісканувати QR-код, надайте Molly доступ до камери.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ви не можете здійснювати перекази на власний гаманець Signal. Введіть адресу гаманця зі свого облікового запису на підтримуваній біржі.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Щоб зісканувати QR-код, надайте Signal доступ до камери.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Для сканування QR-кодів Signal потребує доступу до камери. Перейдіть у налаштування, відкрийте «Дозволи» та виберіть камеру.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Щоб зісканувати QR-код, надайте Signal доступ до камери.</string>
     <string name="PaymentsTransferFragment__settings">Налаштування</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4816,17 +4874,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Вхідний аудіовиклик у Molly</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Вхідний аудіовиклик у Signal</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Вхідний відеовиклик у Molly</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Вхідний відеовиклик у Signal</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Вхідний груповий виклик у Molly</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Вхідний груповий виклик у Signal</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Триває аудіовиклик у Molly</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Триває аудіовиклик у Signal</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Триває відеовиклик у Molly</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Триває відеовиклик у Signal</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Триває груповий виклик Molly</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Триває груповий виклик Signal</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Завантаження…</string>
@@ -4880,9 +4938,9 @@
     <string name="BackupDialog_verify">Перевірити</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Ваш пароль від резервної копії правильний</string>
     <string name="BackupDialog_passphrase_was_not_correct">Пароль неправильний</string>
-    <string name="LocalBackupJob_creating_signal_backup">Створення резервної копії Molly…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Створення резервної копії Signal…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Перевірка резервної копії Molly…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Перевірка резервної копії Signal…</string>
     <string name="LocalBackupJobApi29_backup_failed">Не вдалося створити резервну копію</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Вашу папку для резервних копій видалено або переміщено.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Файл резервної копії завеликий, для його збереження бракує пам\'яті.</string>
@@ -4897,8 +4955,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Подзвоніть мені (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Надішліть код ще раз (%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Звернутися в службу підтримки Molly</string>
-    <string name="RegistrationActivity_code_support_subject">Реєстрація в Molly: Код підтвердження для Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Звернутися в службу підтримки Signal</string>
+    <string name="RegistrationActivity_code_support_subject">Реєстрація в Signal: Код підтвердження для Android</string>
     <string name="RegistrationActivity_incorrect_code">Неправильний код</string>
     <string name="BackupUtil_never">Ніколи</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4906,7 +4964,7 @@
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Номер телефону</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Оберіть, хто зможе бачити ваш номер і зв\'язуватися з вами в Molly за номером.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Оберіть, хто зможе бачити ваш номер і зв\'язуватися з вами в Signal за номером.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Хто може бачити мій номер</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4956,12 +5014,20 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Ви зробили забагато спроб. Будь ласка, спробуйте ще раз пізніше</string>
     <string name="RegistrationActivity_error_connecting_to_service">Помилка з\'єднання із сервісом</string>
     <string name="preferences_chats__backups">Резервні копії</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">Beta</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">Info</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Розблокуйте Molly</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Розблокуйте Signal</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Molly розблоковується так само, як ви розблоковуєте цей пристрій.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Signal розблоковується так само, як ви розблоковуєте цей пристрій.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Увімкнено блокування екрана, тому Molly надійно захищено відповідно до налаштувань блокування вашого пристрою. Розблокуйте Molly так, як ви зазвичай розблоковуєте телефон (розпізнаванням обличчя, відбитком пальця, PIN-кодом, паролем або графічним ключем).</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Увімкнено блокування екрана, тому Signal надійно захищено відповідно до налаштувань блокування вашого пристрою. Розблокуйте Signal так, як ви зазвичай розблоковуєте телефон (розпізнаванням обличчя, відбитком пальця, PIN-кодом, паролем або графічним ключем).</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Звернутися в службу підтримки</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4973,7 +5039,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Використовувати блокування екрана</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Якщо ви вийдете із застосунку чи перейдете в інший, то повинні будете розблокувати Molly — так само, як розблоковуєте свій пристрій. Під час блокування екрана застосунку в сповіщеннях не буде показано вміст повідомлень.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Якщо ви вийдете із застосунку чи перейдете в інший, то повинні будете розблокувати Signal — так само, як розблоковуєте свій пристрій. Під час блокування екрана застосунку в сповіщеннях не буде показано вміст повідомлень.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Активувати блокування екрана</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4987,9 +5053,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Свій час</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Використовувати блокування екрана в Molly?</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Використовувати блокування екрана в Signal?</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Вимкнути блокування екрана в Molly?</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Вимкнути блокування екрана в Signal?</string>
 
     <string name="Recipient_unknown">Невідомо</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -5044,19 +5110,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Підготовка до з\'єднання з вашим старим пристроєм з ОС Android…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Ще трохи, скоро все буде готово</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Очікуйте з\'єднання зі старим пристроєм з ОС Android…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly потребує доступу до місцеположення, щоб виявити ваш старий пристрій з ОС Android і з\'єднатися з ним.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Необхідно ввімкнути геодані, щоб Molly зміг виявити ваш старий пристрій з ОС Android і з\'єднатися з ним.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Необхідно ввімкнути Wi-Fi, щоб Molly зміг виявити ваш старий пристрій з ОС Android і з\'єднатися з ним. Wi-Fi має бути ввімкнутий, але підключатися до мережі Wi-Fi не обов\'язково.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">На жаль, імовірно, цей пристрій не підтримує Wi-Fi Direct. Molly використовує Wi-Fi Direct, щоб виявити ваш старий пристрій з ОС Android і з\'єднатися з ним. Ви в будь-якому разі можете відновити свій акаунт з резервної копії.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal потребує доступу до місцеположення, щоб виявити ваш старий пристрій з ОС Android і з\'єднатися з ним.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Необхідно ввімкнути геодані, щоб Signal зміг виявити ваш старий пристрій з ОС Android і з\'єднатися з ним.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Необхідно ввімкнути Wi-Fi, щоб Signal зміг виявити ваш старий пристрій з ОС Android і з\'єднатися з ним. Wi-Fi має бути ввімкнутий, але підключатися до мережі Wi-Fi не обов\'язково.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">На жаль, імовірно, цей пристрій не підтримує Wi-Fi Direct. Signal використовує Wi-Fi Direct, щоб виявити ваш старий пристрій з ОС Android і з\'єднатися з ним. Ви в будь-якому разі можете відновити свій акаунт з резервної копії.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Відновити з резервної копії</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Під час з\'єднання з вашим старим пристроєм з ОС Android сталася несподівана помилка.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Пошук нового пристрою Android…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly потребує доступу до місцеположення, щоб виявити ваш новий пристрій з ОС Android і з\'єднатися з ним.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Необхідно ввімкнути геодані, щоб Molly зміг виявити ваш новий пристрій з ОС Android і з\'єднатися з ним.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Необхідно ввімкнути Wi-Fi, щоб Molly зміг виявити ваш новий пристрій з ОС Android і з\'єднатися з ним. Wi-Fi має бути ввімкнутий, але підключатися до мережі Wi-Fi не обов\'язково.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">На жаль, імовірно, цей пристрій не підтримує Wi-Fi Direct. Molly використовує Wi-Fi Direct, щоб виявити ваш новий пристрій з ОС Android і з\'єднатися з ним. Ви в будь-якому разі можете створити резервну копію, щоб відновити з неї акаунт на новому пристрої з ОС Android.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal потребує доступу до місцеположення, щоб виявити ваш новий пристрій з ОС Android і з\'єднатися з ним.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Необхідно ввімкнути геодані, щоб Signal зміг виявити ваш новий пристрій з ОС Android і з\'єднатися з ним.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Необхідно ввімкнути Wi-Fi, щоб Signal зміг виявити ваш новий пристрій з ОС Android і з\'єднатися з ним. Wi-Fi має бути ввімкнутий, але підключатися до мережі Wi-Fi не обов\'язково.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">На жаль, імовірно, цей пристрій не підтримує Wi-Fi Direct. Signal використовує Wi-Fi Direct, щоб виявити ваш новий пристрій з ОС Android і з\'єднатися з ним. Ви в будь-якому разі можете створити резервну копію, щоб відновити з неї акаунт на новому пристрої з ОС Android.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Створити резервну копію</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Під час з\'єднання з вашим новим пристроєм з ОС Android сталася несподівана помилка.</string>
 
@@ -5099,7 +5165,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Триває передача даних</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Пристрої повинні бути поряд один з одним. Не вимикайте жодного з пристроїв і не закривайте на них Molly. Перенесення даних захищено наскрізним шифруванням.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Пристрої повинні бути поряд один з одним. Не вимикайте жодного з пристроїв і не закривайте на них Signal. Перенесення даних захищено наскрізним шифруванням.</string>
     <string name="DeviceTransfer__d_messages_so_far">Кількість повідомлень на цю мить: %1$d…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">Уже %1$s%% повідомлень…</string>
@@ -5113,7 +5179,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Перенесення акаунту</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Завантажте Molly на новому пристрої з ОС Android</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Завантажте Signal на новому пристрої з ОС Android</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Натисніть «Перенести або відновити акаунт»"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -5187,7 +5253,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">За цим посиланням усі можуть побачити назву й зображення групи й подати запит на приєднання. Діліться ним тільки з тими, кому довіряєте.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">За цим посиланням усі можуть побачити назву й зображення групи й подати запит на приєднання. Діліться ним тільки з тими, кому довіряєте.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Надіслати в Molly</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Надіслати в Signal</string>
     <string name="GroupLinkBottomSheet_copy">Копіювати</string>
     <string name="GroupLinkBottomSheet_qr_code">QR-код</string>
     <string name="GroupLinkBottomSheet_share">Поділитися</string>
@@ -5389,7 +5455,7 @@
     <string name="payment_info_card_about_mobilecoin">Про MobileCoin</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin — нова цифрова валюта підвищеної конфіденційності.</string>
     <string name="payment_info_card_adding_funds">Як додавати кошти</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Ви можете додавати кошти для використання в Molly, надсилаючи MobileCoin на адресу свого гаманця.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Ви можете додавати кошти для використання в Signal, надсилаючи MobileCoin на адресу свого гаманця.</string>
     <string name="payment_info_card_cashing_out">Як виводити кошти</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">Вивести MobileCoin можна на біржі, яка підтримує MobileCoin. Просто здійсніть переказ на свій рахунок на такій біржі.</string>
     <string name="payment_info_card_hide_this_card">Сховати цю картку?</string>
@@ -5410,12 +5476,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Деактивувати гаманець</string>
     <string name="DeactivateWalletFragment__your_balance">Ваш баланс</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Перед вимкненням платежів рекомендуємо вивести кошти в інший гаманець. Якщо ви цього не зробите, то в разі повторної активації платежів кошти залишаться у вашому гаманці, зв\'язаному із Molly.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Перед вимкненням платежів рекомендуємо вивести кошти в інший гаманець. Якщо ви цього не зробите, то в разі повторної активації платежів кошти залишаться у вашому гаманці, зв\'язаному із Signal.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Перевести залишок коштів</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Деактивувати без переведення</string>
     <string name="DeactivateWalletFragment__deactivate">Деактивувати</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Деактивувати без переведення коштів?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Якщо ви знов активуєте платежі, залишок буде в гаманці, зв\'язаному з Molly.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Якщо ви знов активуєте платежі, залишок буде в гаманці, зв\'язаному з Signal.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Під час деактивації гаманця сталася помилка.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5860,7 +5926,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Ліцензії</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Умови надання послуг і Політика конфіденційності</string>
-    <string name="HelpFragment__copyright_signal_messenger">Авторські права належать Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Авторські права належать Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Ліцензія: GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -6061,6 +6127,8 @@
     <string name="NewConversationActivity__s_has_been_removed">Користувача %1$s вилучено</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">Користувача %1$s заблоковано</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">Не вдалося вилучити користувача %1$s</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -6359,9 +6427,9 @@
     <string name="MySupportPreference__checking_subscription">Перевірка передплати…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Оновити Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Оновити Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Ця версія Molly застаріла. Оновіть застосунок, щоб і надалі ним користуватися.</string>
+    <string name="UpdateSignalExpiredDialog__message">Ця версія Signal застаріла. Оновіть застосунок, щоб і надалі ним користуватися.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Оновити</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -6370,7 +6438,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Пристрій не зареєстровано</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Цей пристрій більше не зареєстровано. Перереєструйтеся, щоб і надалі використовувати Molly на цьому пристрої.</string>
+    <string name="ReregisterSignalDialog__message">Цей пристрій більше не зареєстровано. Перереєструйтеся, щоб і надалі використовувати Signal на цьому пристрої.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Перереєструватися</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6689,7 +6757,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Не вдалося відкрити список.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Щоб увімкнути сповіщення, необхідно дозволити Molly їх показувати.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Щоб увімкнути сповіщення, необхідно дозволити Signal їх показувати.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Увімкнути</string>
 
@@ -7421,34 +7489,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">Покинути Signal для підтвердження донату?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">Після підтвердження поверніться в Signal, щоб опрацювання вашого донату було завершено.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">Банківський переказ</string>
@@ -7509,7 +7549,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Оберіть свій банк</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Підтвердьте свій донат через %1$s</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Щоб оформити регулярний благодійний платіж, виберіть «Продовжити» й підтвердьте списання 0,01€ у своєму банку. Цю суму буде автоматично повернуто. Ця операція потрібна, щоб активувати списання %1$s/місяць з вашого рахунку.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -8201,11 +8241,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Відновлення медіафайлів</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">Відновлення припинено</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Відновлення завершено</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">Докладніше</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Очікування Wi-Fi…</string>
@@ -8237,6 +8279,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">Останню резервну копію не вдалося створити. За потреби оновіть Signal до актуальної версії та спробуйте ще раз.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Докладніше</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8339,8 +8386,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">Історія платежів</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">Докладніше про резервну копію</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">Відновити через мобільний інтернет</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Розмір резервної копії</string>
     <!-- Row label for backup frequency -->
@@ -8386,7 +8433,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Закінчилася %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Зберігайте історію повідомлень і не втрачайте дані в разі зміни телефона або перевстановлення Molly.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Зберігайте історію повідомлень і не втрачайте дані в разі зміни телефона або перевстановлення Signal.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Інші способи резервного копіювання</string>
     <!-- Row title for performing on-device backup -->
@@ -8466,6 +8513,8 @@
         <item quantity="many">%1$s даних вашої резервної копії зберігається не на цьому пристрої. Резервну копію буде видалено через %2$d днів, коли скінчиться ваша передплата.</item>
         <item quantity="other">%1$s даних вашої резервної копії зберігається не на цьому пристрої. Резервну копію буде видалено через %2$d дня, коли скінчиться ваша передплата.</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">Завантажити</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -8477,6 +8526,10 @@
         <item quantity="many">Якщо пропустити завантаження, медіафайли та вкладення, що залишились у резервній копії, буде видалено через %1$d днів.</item>
         <item quantity="other">Якщо пропустити завантаження, медіафайли та вкладення, що залишились у резервній копії, буде видалено через %1$d дня.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Skip restore?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Пропустити</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8530,9 +8583,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Ключ від резервної копії</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ключ від резервної копії — це код із 64 символів, який дає змогу відновити дані з резервної копії в разі перевстановлення Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ключ від резервної копії — це код із 64 символів, який дає змогу відновити дані з резервної копії в разі перевстановлення Signal.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Якщо ви забудете цей ключ, то не зможете відновити дані з резервної копії. Molly не зможе допомогти вам з відновленням даних.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Якщо ви забудете цей ключ, то не зможете відновити дані з резервної копії. Signal не зможе допомогти вам з відновленням даних.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Далі</string>
 
@@ -8548,7 +8601,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Бережіть цей ключ</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Molly не зможе допомогти відновити дані з резервної копії, якщо ви втратите ключ від неї. Зберігайте ключ у надійному місці й нікому його не повідомляйте.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Signal не зможе допомогти відновити дані з резервної копії, якщо ви втратите ключ від неї. Зберігайте ключ у надійному місці й нікому його не повідомляйте.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Я підтверджую, що ключ записано</string>
     <!-- Sheet action button label -->
@@ -8636,7 +8689,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">У мене не лишилося старого телефона</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">Або ви перевстановлюєте Molly на цьому ж пристрої</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">Або ви перевстановлюєте Signal на цьому ж пристрої</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Відновлення або перенесення акаунту</string>
@@ -8786,6 +8839,16 @@
     <string name="MainToolbar__notification_profile_content_description">Профіль сповіщень</string>
     <!-- Accessibility label for more options button in MainToolbar -->
     <string name="MainToolbar__proxy_content_description">Проксі-сервер</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">Navigate up</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">Toggle</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -43,12 +46,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly se ažurira …</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal se ažurira …</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Još niste zadali lozinku!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Isključiti lozinku?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ovo će trajno otključati Molly i obavještenja o porukama.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ovo će trajno otključati Signal i obavještenja o porukama.</string>
     <string name="ApplicationPreferencesActivity_disable">Onemogući</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Greška pri povezivanju sa serverom!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN je neophodan za zaključavanje registracije. Da biste isključili PIN, prvo isključite zaključavanje registracije.</string>
@@ -85,7 +88,7 @@
     <string name="AttachmentKeyboard_file">Datoteka</string>
     <string name="AttachmentKeyboard_contact">Kontakt</string>
     <string name="AttachmentKeyboard_location">Lokacija</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Mollyu je potrebno dopuštenje da prikaže vaše slike i videozapise</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signalu je potrebno dopuštenje da prikaže vaše slike i videozapise</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Dozvoli pristup</string>
     <string name="AttachmentKeyboard_payment">Plaćanje</string>
@@ -96,34 +99,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">Go to Settings</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Molly ima ograničen pristup fotografijama ili videozapisima</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Signal ima ograničen pristup fotografijama ili videozapisima</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">Fotografije nisu pronađene, odaberite fotografije i videozapise koji će se pojaviti ovdje ili promijenite dozvole</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">Nisu pronađene fotografije ili videozapisi. Molly ima pristup samo fotografijama i videozapisima koje ste odabrali.</string>
+    <string name="MediaGalleryFragment__no_photos_found">Nisu pronađene fotografije ili videozapisi. Signal ima pristup samo fotografijama i videozapisima koje ste odabrali.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Nije pronađena aplikacija za biranje priloga.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Mollyu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao priložiti slike, video i audiozapise, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Mollyu je potrebno dopuštenje da pristupi kontaktima kako bi mogao priložiti informacije o njima, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Mollyu je potrebno dopuštenje da sazna lokaciju uređaja, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Lokacija\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signalu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao priložiti slike, video i audiozapise, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signalu je potrebno dopuštenje da pristupi kontaktima kako bi mogao priložiti informacije o njima, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signalu je potrebno dopuštenje da sazna lokaciju uređaja, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Lokacija\".</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Dozvolite pristup vašoj lokaciji</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">Da pošaljete lokaciju:</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">Dozvolite pristup Mollyu za slanje vaše lokacije.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">Dozvolite pristup Signalu za slanje vaše lokacije.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">Molly treba pristup lokaciji da pošalje vašu lokaciju.</string>
+    <string name="AttachmentManager_signal_needs_location_access">Signal treba pristup lokaciji da pošalje vašu lokaciju.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">Dozvolite pristup pohrani</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">Za prikaz fotografija i video zapisa:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">Molly treba pristup za prikazivanje vaših fotografija i videozapisa.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">Signal treba pristup za prikazivanje vaših fotografija i videozapisa.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s nije aktivirao/la Plaćanja </string>
@@ -279,25 +282,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">Dozvolite pristup vašem mikrofonu</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Da snimite fotografije, dozvolite Mollyu pristup kameri.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">Da snimite fotografije, dozvolite Signalu pristup kameri.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Da biste slikali i snimali, dozvolite Mollyu da pristupi kameri.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Da biste slikali i snimali, dozvolite Signalu da pristupi kameri.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Za snimanje fotografija i videozapisa, dozvolite Mollyu pristup kameri i mikrofonu.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Za snimanje fotografija i videozapisa, dozvolite Signalu pristup kameri i mikrofonu.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Za snimanje videozapisa sa zvukom, dozvolite Mollyu pristup mikrofonu.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">Za snimanje videozapisa sa zvukom, dozvolite Signalu pristup mikrofonu.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Da skenirate QR kod, dozvolite Mollyu pristup kameri.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Da skenirate QR kod, dozvolite Signalu pristup kameri.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly treba pristup kameri za snimanje fotografija</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal treba pristup kameri za snimanje fotografija</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Mollyu treba pristup kameri za skeniranje QR kodova</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signalu treba pristup kameri za skeniranje QR kodova</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Mollyu treba pristup mikrofonu za snimanje videa</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">Signalu treba pristup mikrofonu za snimanje videa</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Za snimanje fotografija u Mollyu:</string>
+    <string name="CameraXFragment_to_capture_photos">Za snimanje fotografija u Signalu:</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Za snimanje fotografija i videozapisa u Mollyu:</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Za snimanje fotografija i videozapisa u Signalu:</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">Za snimanje videozapisa sa zvukom:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -318,7 +321,7 @@
     <string name="CameraContacts_no_signal_contacts">Nema Signal kontakata</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">Okidač kamere možete koristiti samo za slanje fotografija Signal kontaktima. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">Ne možete pronaći koga tražite?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Pozovite osobu da koristi Molly</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Pozovite osobu da koristi Signal</string>
     <string name="CameraContacts__menu_search">Traži</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -332,12 +335,12 @@
     <string name="CensorshipCircumventionMegaphone_no_thanks">Ne, hvala</string>
 
     <!-- ClientDeprecatedActivity -->
-    <string name="ClientDeprecatedActivity_update_signal">Ažurirajte Molly</string>
+    <string name="ClientDeprecatedActivity_update_signal">Ažurirajte Signal</string>
     <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Ova verzija aplikacije više nije podržana. Da biste mogli slati i primati poruke, instalirajte zadnju verziju.</string>
     <string name="ClientDeprecatedActivity_update">Ažuriraj</string>
     <string name="ClientDeprecatedActivity_dont_update">Ne ažuriraj</string>
     <string name="ClientDeprecatedActivity_warning">Upozorenje</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Vaša verzija Mollya je istekla. Možete pristupiti ranijim porukama, ali nećete moći slati ni primati nove poruke dok ne ažurirate aplikaciju.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Vaša verzija Signala je istekla. Možete pristupiti ranijim porukama, ali nećete moći slati ni primati nove poruke dok ne ažurirate aplikaciju.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">Nije pronađen internet-preglednik.</string>
@@ -378,8 +381,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">Poruka %1$s</string>
-    <string name="ContactsDatabase_signal_call_s">Molly glasovni poziv %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Molly video poziv %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal glasovni poziv %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal video poziv %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -480,7 +483,7 @@
     <string name="ConversationActivity_transport_signal">Signal poruka</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">Pošalji poruku</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Pređimo na Molly %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Pređimo na Signal %1$s</string>
     <string name="ConversationActivity_specify_recipient">Molimo odaberite kontakt</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Veličina priloga veća je od dopuštene za vrstu poruke koju šaljete.</string>
     <string name="ConversationActivity_unable_to_record_audio">Nije moguće snimiti zvuk!</string>
@@ -499,18 +502,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">Za slanje glasovnih poruka:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Za slanje glasovnih poruka, dozvolite da Molly pristupi vašem mikrofonu.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Za slanje glasovnih poruka, dozvolite da Signal pristupi vašem mikrofonu.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly treba pristup mikrofonu za snimanje glasovne poruke.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mollyu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao slati zvučne poruke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Mikrofon\".</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal treba pristup mikrofonu za snimanje glasovne poruke.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao slati zvučne poruke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Mikrofon\".</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Mollyu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao nazvati %1$s, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Da biste slikali i snimali, dozvolite Mollyu da pristupi kameri.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati.</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signalu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao nazvati %1$s, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Da biste slikali i snimali, dozvolite Signalu da pristupi kameri.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Omogućite pristup mikrofonu da biste snimali video sa zvukom.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Mollyu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati video, ali je ono uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Mollyu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati videozapise.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati video, ali je ono uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati videozapise.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">Ne</string>
@@ -531,9 +534,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">Da započnete poziv:</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Da započnete poziv, dozvolite da Molly pristupi vašem mikrofonu.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">Da započnete poziv, dozvolite da Signal pristupi vašem mikrofonu.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Molly treba pristup mikrofonu da započne poziv.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">Signal treba pristup mikrofonu da započne poziv.</string>
 
 
     <string name="ConversationActivity_join">Pristupi</string>
@@ -547,11 +550,13 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Razmjena SMS poruka više nije podržana u Signalu. Pozovite korisnika %1$s u Signal da zadržite razgovor ovdje.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ova osoba više ne koristi Molly. Pozovite korisnika u Molly da zadržite razgovor ovdje.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">Ova osoba više ne koristi Signal. Pozovite korisnika u Signal da zadržite razgovor ovdje.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Pozovite na Molly</string>
+    <string name="ConversationActivity__invite_to_signal">Pozovite na Signal</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Ponovno ćemo vas ponovo podsjetiti.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">Slanje formatiranog teksta</string>
@@ -644,13 +649,13 @@
     <!-- Message shown after successfully blocking join requests for a user -->
     <string name="ConversationFragment__blocked">Blokirano</string>
     <!-- Action shown to allow a user to update their application because it has expired -->
-    <string name="ConversationFragment__update_build">Ažurirajte Molly</string>
+    <string name="ConversationFragment__update_build">Ažurirajte Signal</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Ponovo registrirajte Molly</string>
+    <string name="ConversationFragment__reregister_signal">Ponovo registrirajte Signal</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Navigiraj nazad.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Otvori Molly</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Otvori Signal</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">Više nije potvrđeno</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -701,7 +706,7 @@
     <!-- Title of tip 0 -->
     <string name="SafetyTips_tip0_title">Lažna imena i računi</string>
     <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Molly vas nikada neće kontaktirati za vaš registracioni kod ili PIN. Budite oprezni sa zahtjevima koji se lažno predstavljaju. Imena profila bira vlasnik računa i nisu potvrđena.</string>
+    <string name="SafetyTips_tip0_message">Signal vas nikada neće kontaktirati za vaš registracioni kod ili PIN. Budite oprezni sa zahtjevima koji se lažno predstavljaju. Imena profila bira vlasnik računa i nisu potvrđena.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">Prevare koje uključuju kriptovalute ili novac</string>
     <!-- Message of tip 1 -->
@@ -874,9 +879,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Ko me može pronaći po broju?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Svako ko ima vaš broj telefona vidjet će da ste na Mollyu i može započeti razgovor s vama.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Svako ko ima vaš broj telefona vidjet će da ste na Signalu i može započeti razgovor s vama.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Niko neće moći vidjeti da ste na Mollyu osim ako toj osobi ne pošaljete poruku ili ne razgovarate s njom.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Niko neće moći vidjeti da ste na Signalu osim ako toj osobi ne pošaljete poruku ili ne razgovarate s njom.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">Vratiti podatke iz rezervne kopije?</string>
@@ -955,7 +960,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Provjerite svoju lozinku za rezervne kopije i potvrdite da je tačna</string>
     <string name="BackupsPreferenceFragment__turn_on">Uključi</string>
     <string name="BackupsPreferenceFragment__turn_off">Isključi</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Da biste vratili podatke, instalirajte Molly iznova. Otvorite aplikaciju i odaberite \"Vrati podatke\", a potom pronađite rezervnu kopiju. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Da biste vratili podatke, instalirajte Signal iznova. Otvorite aplikaciju i odaberite \"Vrati podatke\", a potom pronađite rezervnu kopiju. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Saznajte više</string>
     <string name="BackupsPreferenceFragment__in_progress">U toku…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -964,7 +969,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">%1$d do sada…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% do sada…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mollyu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao kreirati rezervne kopije, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signalu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao kreirati rezervne kopije, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">Podesite vrijeme rezervne kopije</string>
 
@@ -1045,7 +1050,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Sesija chata je osvježena</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly koristi enkripciju s kraja na kraj (end-to-end) i možda će ponekad biti potrebno konverzaciju/sesiju chata osvježiti. Ovo ne utječe na sigurnost chata, ali se može dogoditi da propustite poruku koju vam je kontakt poslao. Možete ga zamoliti da vam poruku pošalje ponovo.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal koristi enkripciju s kraja na kraj (end-to-end) i možda će ponekad biti potrebno konverzaciju/sesiju chata osvježiti. Ovo ne utječe na sigurnost chata, ali se može dogoditi da propustite poruku koju vam je kontakt poslao. Možete ga zamoliti da vam poruku pošalje ponovo.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1156,7 +1161,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">Završite povezivanje na drugom uređaju</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">Završite povezivanje Mollya na svom drugom uređaju.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">Završite povezivanje Signala na svom drugom uređaju.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">Uvezivanje uređaja nije uspjelo</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1201,10 +1206,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">Optimizuj za nepostojanje Play Services</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ovaj uređaj ne podržava Play Services. Pritisnite ovdje kako biste onemogućili sistemske optimizacije korištenja baterije koje sprečavaju Molly da prima poruke dok je aplikacija zatvorena.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ovaj uređaj ne podržava Play Services. Pritisnite ovdje kako biste onemogućili sistemske optimizacije korištenja baterije koje sprečavaju Signal da prima poruke dok je aplikacija zatvorena.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ova verzija Mollya je istekla. Ažurirajte aplikaciju sada da biste mogli slati i primati poruke.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ova verzija Signala je istekla. Ažurirajte aplikaciju sada da biste mogli slati i primati poruke.</string>
     <string name="ExpiredBuildReminder_update_now">Ažuriraj sada</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1383,7 +1388,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">Evidencije o otklanjanju grešaka nam pomažu da utvrdimo i riješimo problem, te ne sadrže informacije za identifikaciju.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly je naišao na problem. Poslati evidenciju o otklanjanju grešaka?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal je naišao na problem. Poslati evidenciju o otklanjanju grešaka?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">Možda ne primate poruke. Pošalji zapisnik o otklanjanju grešaka?</string>
 
@@ -1391,12 +1396,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">Obavijesti mogu kasniti zbog optimizacije baterije</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Možete onemogućiti optimizaciju baterije kako bi Molly osigurao da obavijesti o porukama neće kasniti.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Možete onemogućiti optimizaciju baterije kako bi Signal osigurao da obavijesti o porukama neće kasniti.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">Obavijesti mogu kasniti zbog optimizacije baterije</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Možete onemogućiti optimizaciju baterije kako bi Molly osigurao da obavijesti o porukama neće kasniti. Dodirnite \"Nastavi\" da vidite uputstva za određeni uređaj.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Možete onemogućiti optimizaciju baterije kako bi Signal osigurao da obavijesti o porukama neće kasniti. Dodirnite \"Nastavi\" da vidite uputstva za određeni uređaj.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">Ne, hvala</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1405,7 +1410,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">Možda ne primate poruke</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">Ponovno pokretanje uređaja može pomoći u rješavanju problema s isporukom poruka. Ako se ovaj problem nastavi, kontaktirajte podršku Mollya.</string>
+    <string name="ConnectivityWarningBottomSheet_body">Ponovno pokretanje uređaja može pomoći u rješavanju problema s isporukom poruka. Ako se ovaj problem nastavi, kontaktirajte podršku Signala.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">Razumijem</string>
 
@@ -1547,9 +1552,9 @@
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
     <string name="RemoteRestoreActivity__couldnt_restore">Nije moguće vratiti ovu sigurnosnu kopiju</string>
     <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
-    <string name="RemoteRestoreActivity__update_latest">Ova verzija Mollya ne može vratiti vašu sigurnosnu kopiju. Ažurirajte na najnoviju verziju i pokušajte ponovo.</string>
+    <string name="RemoteRestoreActivity__update_latest">Ova verzija Signala ne može vratiti vašu sigurnosnu kopiju. Ažurirajte na najnoviju verziju i pokušajte ponovo.</string>
     <!-- Text on button that when pressed will redirect them to update Signal -->
-    <string name="RemoteRestoreActivity__update_signal">Ažurirajte Molly</string>
+    <string name="RemoteRestoreActivity__update_signal">Ažurirajte Signal</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Ne sada</string>
 
@@ -1730,7 +1735,7 @@
     <string name="InviteActivity_cancel">Otkaži</string>
     <string name="InviteActivity_sending">Šaljem…</string>
     <string name="InviteActivity_invitations_sent">Pozivnica poslana!</string>
-    <string name="InviteActivity_invite_to_signal">Pozovite na Molly</string>
+    <string name="InviteActivity_invite_to_signal">Pozovite na Signal</string>
     <string name="InviteActivity_send_sms">Pošalji SMS (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="one">Poslati %1$d SMS pozivnicu?</item>
@@ -1738,7 +1743,7 @@
         <item quantity="many">Poslati %1$d SMS pozivnica?</item>
         <item quantity="other">Poslati %1$d SMS pozivnica?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Pređimo na Molly: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Pređimo na Signal: %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">Izgleda da nemate nijednu aplikaciju s kojom je moguće dijeljenje.</string>
 
@@ -1753,7 +1758,7 @@
     <string name="LongMessageActivity_your_message">Vaša poruka</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">Aktivirana konekcija u pozadini</string>
 
     <!-- MediaOverviewActivity -->
@@ -1841,10 +1846,10 @@
     <string name="MessageQuotesBottomSheet_replies">Odgovori</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Uspostavljam Molly poziv</string>
+    <string name="NotificationBarManager__establishing_signal_call">Uspostavljam Signal poziv</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Pokretanje usluge poziva Mollya</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Zaustavljam servis za Molly pozive</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Pokretanje usluge poziva Signala</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Zaustavljam servis za Signal pozive</string>
     <string name="NotificationBarManager__cancel_call">Prekini poziv</string>
 
     <!-- NotificationsMegaphone -->
@@ -2189,7 +2194,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">Uskoro više nećete moći slati SMS poruke pomoću Signala. Pozovite korisnika %1$s u Signal da zadržite razgovor ovdje.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Više ne možete slati SMS poruke pomoću Mollya. Pozovite korisnika %1$s u Molly da zadržite razgovor ovdje.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Više ne možete slati SMS poruke pomoću Signala. Pozovite korisnika %1$s u Signal da zadržite razgovor ovdje.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">Plaćanje: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2324,27 +2329,27 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Povezati Signal uređaj?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Da povežete desktop ili iPad sa ovim Signal računom, idite na Povezani uređaji i dodirnite \"Poveži novi uređaj\" i ponovo skenirajte QR kod. Vodite računa da skenirate samo QR kodove koji dolaze direktno iz Signala.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nije moguće skenirati QR kōd bez dopuštenja za pristup kameri.</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Ažuriraj sada</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Ova verzija Mollya ističe danas. Ažurirajte aplikaciju na posljednju verziju.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Ova verzija Signala ističe danas. Ažurirajte aplikaciju na posljednju verziju.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Ova verzija Mollya ističe sutra. Ažurirajte aplikaciju na posljednju verziju.</item>
-        <item quantity="few">Ova verzija Mollya ističe za %1$d dana. Ažurirajte aplikaciju na posljednju verziju.</item>
-        <item quantity="many">Ova verzija Mollya ističe za %1$d dana. Ažurirajte aplikaciju na posljednju verziju.</item>
-        <item quantity="other">Ova verzija Mollya ističe za %1$d dana. Ažurirajte aplikaciju na posljednju verziju.</item>
+        <item quantity="one">Ova verzija Signala ističe sutra. Ažurirajte aplikaciju na posljednju verziju.</item>
+        <item quantity="few">Ova verzija Signala ističe za %1$d dana. Ažurirajte aplikaciju na posljednju verziju.</item>
+        <item quantity="many">Ova verzija Signala ističe za %1$d dana. Ažurirajte aplikaciju na posljednju verziju.</item>
+        <item quantity="other">Ova verzija Signala ističe za %1$d dana. Ažurirajte aplikaciju na posljednju verziju.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">Unesite lozinku</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Molly sličica</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Signal sličica</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">Unesite lozinku</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Pogrešna lozinka!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Otključajte Molly</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Otključajte Signal</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android – Zaključan ekran</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android – Zaključan ekran</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">Karta</string>
@@ -2415,7 +2420,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Potvrdite da biste nastavili slanje poruka</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Radi sprečavanja neželjenih poruka na Mollyu, molimo dovršite proces verifikacije.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Radi sprečavanja neželjenih poruka na Signalu, molimo dovršite proces verifikacije.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Nakon verifikacije, možete nastaviti sa slanjem poruka. Pauzirane poruke automatski će se poslati.</string>
 
     <!-- Recipient -->
@@ -2423,7 +2428,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">Moja priča</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Molly poziv</string>
+    <string name="Recipient_signal_call">Signal poziv</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">Blokiraj</string>
@@ -2459,9 +2464,9 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Pritisnite ovdje da uključite video</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Da biste nazvali %1$s, Mollyu je potreban pristup Vašoj kameri</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Da biste nazvali %1$s, Signalu je potreban pristup Vašoj kameri</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Pozivam…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">Povezujem iznova…</string>
@@ -2534,23 +2539,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">Dozvolite pristup kameri</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Da započnete poziv ili mu se pridružite, dozvolite da Molly pristupi vašoj kameri i mikrofonu.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">Da započnete poziv ili mu se pridružite, dozvolite da Signal pristupi vašoj kameri i mikrofonu.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">Da započnete poziv ili mu se pridružite, dozvolite Mollyu da pristupi vašem mikrofonu.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">Da započnete poziv ili mu se pridružite, dozvolite Signalu da pristupi vašem mikrofonu.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Da omogućite svoj video, dozvolite da Molly pristupi vašoj kameri.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">Da omogućite svoj video, dozvolite da Signal pristupi vašoj kameri.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Molly treba odobrenje mikrofona da započne poziv ili da se pridruži pozivu.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">Signal treba odobrenje mikrofona da započne poziv ili da se pridruži pozivu.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Molly treba pristup kameri da omogući vaš video</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">Signal treba pristup kameri da omogući vaš video</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">Da započnete ili se pridružite pozivu:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Da omogućite video:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Molly poziv</string>
-    <string name="WebRtcCallView__signal_video_call">Molly videopoziv</string>
+    <string name="WebRtcCallView__signal_call">Signal poziv</string>
+    <string name="WebRtcCallView__signal_video_call">Signal videopoziv</string>
     <string name="WebRtcCallView__start_call">Nazovi</string>
     <string name="WebRtcCallView__join_call">Pridruži se pozivu</string>
     <string name="WebRtcCallView__call_is_full">Poziv je popunjen</string>
@@ -2632,6 +2637,15 @@
     <string name="WebRtcCallView__end_call">Završi razgovor</string>
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">Uključi zvono grupe</string>
+
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Došlo je do greške korisničkog sučelja. Prijavite ovu grešku programerima.</string>
@@ -2825,7 +2839,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Primit ćete poziv da potvrdite ovaj broj.</string>
     <string name="RegistrationActivity_edit_number">Ispravite broj</string>
     <string name="RegistrationActivity_missing_google_play_services">Nedostaju Google Play Services</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Na ovom uređaju nisu instalirani Google Play Services. I dalje ćete moći koristiti Molly, ali ova konfiguracija može dovesti do manje pouzdanosti i lošijih performansi.\n\nAko niste napredni korisnik, ako nemate ručno instaliranu verziju Android ROM-a ili smatrate da je ova poruka greška, molimo kontaktirajte support@molly.im za pomoć.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Na ovom uređaju nisu instalirani Google Play Services. I dalje ćete moći koristiti Signal, ali ova konfiguracija može dovesti do manje pouzdanosti i lošijih performansi.\n\nAko niste napredni korisnik, ako nemate ručno instaliranu verziju Android ROM-a ili smatrate da je ova poruka greška, molimo kontaktirajte support@signal.org za pomoć.</string>
     <string name="RegistrationActivity_i_understand">Razumijem</string>
     <string name="RegistrationActivity_play_services_error">Play Services greška</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se ažuriraju ili su privremeno nedostupni. Pokušajte ponovo.</string>
@@ -2845,7 +2859,7 @@
     <string name="RegistrationActivity_non_standard_number_format">Nestandardni oblik broja</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">Broj koji ste unijeli (%1$s) izgleda nije standardnog oblika.\n\nJeste li mislili na %2$s?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android – oblik broja telefona</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android – oblik broja telefona</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">Zahtijevan poziv</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2920,13 +2934,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Dodaj među kontakte</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Pozovite na Molly</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Pozovite na Signal</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal poruke</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal poziv</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">Dodaj među kontakte</string>
-    <string name="SharedContactView_invite_to_signal">Pozovite na Molly</string>
+    <string name="SharedContactView_invite_to_signal">Pozovite na Signal</string>
     <string name="SharedContactView_message">Signal poruka</string>
 
     <!-- SignalBottomActionBar -->
@@ -2958,18 +2972,24 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%1$s je iznova pokrenuo/la zaštićenu sesiju.</string>
     <string name="SmsMessageRecord_duplicate_message">Dvostruka poruka.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">Naljepnice</string>
-
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">Stickers</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="one">%1$s selected</item>
+        <item quantity="few">%1$s selected</item>
+        <item quantity="many">%1$s selected</item>
+        <item quantity="other">%1$s selected</item>
+    </plurals>
     <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
     <string name="StickerManagement_available_tab_label">Dostupno</string>
     <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
     <string name="StickerManagement_installed_tab_label">Instalirano</string>
-    <!-- Shown when there are no sticker packs available for installation -->
+    <!-- Shown when there are no sticker packs available for installation. -->
     <string name="StickerManagement_available_tab_empty_text">Nema dostupnih paketa naljepnica</string>
-    <!-- Shown when there are no sticker packs currently installed -->
+    <!-- Shown when there are no sticker packs currently installed. -->
     <string name="StickerManagement_installed_tab_empty_text">Nisu instalirani paketi naljepnica</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
+    <!-- Message shown when the author of the sticker pack is unknown. -->
     <string name="StickerManagement_author_unknown">Nepoznato</string>
     <!-- Sticker pack list section header for packs that are already installed. -->
     <string name="StickerManagement_installed_stickers_header">Instalirane naljepnice</string>
@@ -2977,6 +2997,44 @@
     <string name="StickerManagement_stickers_you_received_header">Primljene naljepnice</string>
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Signal umjetnički serijal</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">Forward to</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">Select all</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">Delete</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="one">Remove %1$s sticker pack</item>
+        <item quantity="few">Remove %1$s sticker packs</item>
+        <item quantity="many">Remove %1$s sticker packs</item>
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="one">%1$s sticker pack removed.</item>
+        <item quantity="few">%1$s sticker packs removed.</item>
+        <item quantity="many">%1$s sticker packs removed.</item>
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">Forward</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">Select</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">Install</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">Remove</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
     <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
     <string name="StickerManagement_accessibility_download_pack">Preuzmite %1$s paket naljepnica</string>
     <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
@@ -2985,10 +3043,14 @@
     <string name="StickerManagement_accessibility_drag_handle">Ručica za prevlačenje i ispuštanje</string>
     <!-- Accessibility label for the button to download a sticker pack. -->
     <string name="StickerManagement_accessibility_download">Preuzmi</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">Open context menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_no_stickers_installed">Nema instaliranih naljepnica</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Naljepnice iz primljenih poruka bit će prikazane ovdje</string>
     <string name="StickerManagementAdapter_untitled">Bez naziva</string>
 
     <!-- StickerPackPreviewActivity -->
@@ -3092,11 +3154,11 @@
     <string name="ThreadRecord_blocked_group">Blokirano</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Nova verzija Mollya</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">Dostupna je nova verzija Mollya. Dodirnite za ažuriranje.</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Nova verzija Signala</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">Dostupna je nova verzija Signala. Dodirnite za ažuriranje.</string>
     <string name="ApkUpdateNotifications_failed_general_title">Ažuriranje signala nije uspjelo</string>
     <string name="ApkUpdateNotifications_failed_general_body">Pokušat ćemo ponovo kasnije.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly je uspješno ažuriran</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal je uspješno ažuriran</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">Automatski ste ažurirani na verziju %1$s.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">Ažurirali ste na verziju %1$s.</string>
 
@@ -3170,7 +3232,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">Naš Signal sigurnosni broj:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Izgleda da nemate nijednu aplikaciju s kojom je moguće dijeljenje.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">U spremniku nije pronađen sigurnosni broj za upoređivanje</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nije moguće skenirati QR kōd bez dopuštenja za pristup kameri.</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Morate prvo razmijeniti poruke sa %1$s da biste vidjeli njegov ili njen sigurnosni broj.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -3191,17 +3253,13 @@
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Poruka je šifrirana za nepostojeću sesiju</string>
 
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">Oštećena šifrirana MMS poruka</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">MMS poruka šifrirana je za nepostojeću sesiju</string>
-
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">Isključi zvuk obavještenja</string>
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">Dotaknite da otvorite.</string>
-    <string name="KeyCachingService_passphrase_cached">Molly je otključan</string>
-    <string name="KeyCachingService_lock">Zaključaj Molly</string>
+    <string name="KeyCachingService_passphrase_cached">Signal je otključan</string>
+    <string name="KeyCachingService_lock">Zaključaj Signal</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">Vi</string>
@@ -3255,7 +3313,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">Neuspjelo isporučenje poruke.</string>
     <string name="MessageNotifier_error_delivering_message">Greška u isporučenju poruke.</string>
     <string name="MessageNotifier_message_delivery_paused">Pauzirana isporuka poruke.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Potvrdite da biste nastavili slanje poruka kroz Molly.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Potvrdite da biste nastavili slanje poruka kroz Signal.</string>
     <string name="MessageNotifier_mark_all_as_read">Sve označi kao pročitano</string>
     <string name="MessageNotifier_mark_read">Označi kao pročitano</string>
     <string name="MessageNotifier_turn_off_these_notifications">Isključi ova obavještenja</string>
@@ -3277,7 +3335,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reagirao/la je sa %1$s na vašu naljepnicu.</string>
     <string name="MessageNotifier_this_message_was_deleted">Ova je poruka izbrisana.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Isključiti obavještenja o tome da se kontakt prijavio na Molly? Možete ih ponovo aktivirati kroz Molly &gt; Podešavanja &gt; Obavještenja.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Isključiti obavještenja o tome da se kontakt prijavio na Signal? Možete ih ponovo aktivirati kroz Signal &gt; Podešavanja &gt; Obavještenja.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3318,7 +3376,7 @@
     <string name="NotificationChannel_new_linked_device">Novi povezani uređaj</string>
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Brzi odgovori nisu dostupni kada je Molly zaključan!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Brzi odgovori nisu dostupni kada je Signal zaključan!</string>
     <string name="QuickResponseService_problem_sending_message">Problem prilikom slanja poruke!</string>
 
     <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
@@ -3361,7 +3419,7 @@
     </plurals>
 
     <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
-    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mollyu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao pohranjivati podatke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signalu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao pohranjivati podatke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
 
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">Nije moguće bez dopuštenja pohraniti podatke u memoriju uređaja</string>
@@ -3380,7 +3438,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">Nevažeća kratica</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">Nova poruka</string>
     <string name="SingleRecipientNotificationBuilder_message_request">Zahtjev za komunikaciju</string>
     <string name="SingleRecipientNotificationBuilder_you">Vi</string>
@@ -3426,7 +3484,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ovaj uređaj više nije registriran. To je vjerovatno zato što ste registrovali broj telefona u Mollyu na drugom uređaju.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ovaj uređaj više nije registriran. To je vjerovatno zato što ste registrovali broj telefona u Signalu na drugom uređaju.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Ponovo registrirajte uređaj</string>
 
@@ -3439,10 +3497,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Da biste odgovorili na poziv, dozvolite Mollyu pristup Vašem mikrofonu.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Da biste odgovorili na poziv, dozvolite Signalu pristup Vašem mikrofonu.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Da odgovorite na video poziv, dozvolite Mollyu pristup mikrofonu i kameri.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mollyu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao slati i primati pozive, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Da odgovorite na video poziv, dozvolite Signalu pristup mikrofonu i kameri.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signalu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao slati i primati pozive, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Odgovoreno na povezanom uređaju.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Odbijeno na povezanom uređaju.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Zauzeto na povezanom uređaju.</string>
@@ -3487,7 +3545,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Ponovite novu lozinku</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Pozovite u Molly</string>
+    <string name="contact_selection_activity__invite_to_signal">Pozovite u Signal</string>
     <string name="contact_selection_activity__new_group">Nova grupa</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">Osvježite kontakte</string>
@@ -3513,7 +3571,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Slika kontakta</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Mollyu je potrebno dopuštenje da pristupi kontaktima kako bi mogao prikazati Vaše kontakte, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signalu je potrebno dopuštenje da pristupi kontaktima kako bi mogao prikazati Vaše kontakte, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Greška prilikom preuzimanja kontakta, provjerite internet-konekciju</string>
     <string name="ContactSelectionListFragment_username_not_found">Korisničko ime nije pronađeno</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" ne koristi Signal. Provjerite korisničko ime i pokušajte ponovo."</string>
@@ -3544,7 +3602,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Dozvolite pristup kontaktima. Vaši kontakti su šifrirani i nisu vidljivi usluzi Signal.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Mollyu je potreban pristup Vašim kontaktima kako bi ih mogao prikazati.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signalu je potreban pristup Vašim kontaktima kako bi ih mogao prikazati.</string>
     <string name="contact_selection_list_fragment__show_contacts">Prikaži kontakte</string>
 
     <!-- contact_selection_list_item -->
@@ -3659,7 +3717,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">Balončići su opcija Androida koju možete isključiti u Molly-porukama.</string>
+    <string name="BubbleOptOutTooltip__description">Balončići su opcija Androida koju možete isključiti u Signal-porukama.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">Ne sada</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3842,9 +3900,9 @@
     <string name="EditProfileFragment__group_description">Opis grupe</string>
   <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_title">Ažurirajte Molly</string>
+    <string name="EditProfileFragment_deprecated_dialog_title">Ažurirajte Signal</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">Ova verzija Mollya je istekla. Ažurirajte sada da nastavite koristiti Molly.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">Ova verzija Signala je istekla. Ažurirajte sada da nastavite koristiti Signal.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">Ažuriraj</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -4079,7 +4137,7 @@
     <string name="preferences__slow">Spora</string>
     <string name="preferences__help">Pomoć</string>
     <string name="preferences__advanced">Napredno</string>
-    <string name="preferences__donate_to_signal">Donirajte za Molly</string>
+    <string name="preferences__donate_to_signal">Donirajte za Signal</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">Privatnost</string>
     <!-- Preference label for stories -->
@@ -4116,13 +4174,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">Promijenite ikonu i naziv aplikacije u \"%1$s\"</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">Molly će se morati zatvoriti da promijenite ikonu i naziv aplikacije. Obavijesti će uvijek prikazivati zadanu ikonu i ime Mollya.</string>
+    <string name="preferences__app_icon_dialog_description">Signal će se morati zatvoriti da promijenite ikonu i naziv aplikacije. Obavijesti će uvijek prikazivati zadanu ikonu i ime Signala.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">Odaberite ikonu i naziv aplikacije koji će biti vidljivi na početnom ekranu vašeg telefona i ladici za aplikacije. Obavijesti će uvijek prikazivati zadanu ikonu i ime Mollya. Saznaj više</string>
+    <string name="preferences__app_icon_warning_learn_more">Odaberite ikonu i naziv aplikacije koji će biti vidljivi na početnom ekranu vašeg telefona i ladici za aplikacije. Obavijesti će uvijek prikazivati zadanu ikonu i ime Signala. Saznaj više</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">Ikone i nazivi aplikacija vidljivi su na početnom ekranu i ladici aplikacija.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">Obavijesti će uvijek prikazivati zadanu ikonu i ime Mollya.</string>
+    <string name="preferences__app_icon_notification_warning">Obavijesti će uvijek prikazivati zadanu ikonu i ime Signala.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">Saznaj više</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -4220,7 +4278,7 @@
     <string name="preferences_communication__category_censorship_circumvention">Zaobilazak cenzure</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">Zaobilazak cenzure</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ako je omogućeno, Molly će pokušati zaobići cenzuru. Nemojte omogućiti ovu funkciju osim ako niste na mjestu gdje je Molly cenzuriran.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ako je omogućeno, Signal će pokušati zaobići cenzuru. Nemojte omogućiti ovu funkciju osim ako niste na mjestu gdje je Signal cenzuriran.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Korištenje cenzure je aktivirano na temelju telefonskog broja vašeg računa.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -4273,7 +4331,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">Predstavljamo plaćanja</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Koristite Molly za slanje i primanje MobileCoina, nove digitalne valute s fokusom na privatnost. Aktivirajte da započnete.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Koristite Signal za slanje i primanje MobileCoina, nove digitalne valute s fokusom na privatnost. Aktivirajte da započnete.</string>
     <string name="PaymentsHomeFragment__activate_payments">Aktiviraj plaćanja</string>
     <string name="PaymentsHomeFragment__activating_payments">Aktiviram plaćanja…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">Obnovi račun s uplatama i isplatama</string>
@@ -4299,7 +4357,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Plaćanja nisu dostupna u Vašem regionu.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">Neuspjelo aktiviranje plaćanja. Pokušajte ponovo kasnije.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">Deaktivirati plaćanja?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Nećete moći slati ni primati MobileCoin preko Mollya ako deaktivirate plaćanja.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Nećete moći slati ni primati MobileCoin preko Signala ako deaktivirate plaćanja.</string>
     <string name="PaymentsHomeFragment__deactivate">Deaktiviraj</string>
     <string name="PaymentsHomeFragment__continue">Nastavi</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">Stanje na računu trenutno nije dostupno.</string>
@@ -4308,10 +4366,10 @@
     <string name="PaymentsHomeFragment__details">Detalji</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Molly možete koristiti za slanje i primanje MobileCoina. Sva plaćanja podliježu Uslovima korištenja za MobileCoins i MobileCoin Wallet. Možda ćete naići na neke probleme i uplate ili stanja koja možete izgubiti se ne mogu vratiti. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Signal možete koristiti za slanje i primanje MobileCoina. Sva plaćanja podliježu Uslovima korištenja za MobileCoins i MobileCoin Wallet. Možda ćete naići na neke probleme i uplate ili stanja koja možete izgubiti se ne mogu vratiti. </string>
     <string name="PaymentsHomeFragment__activate">Aktiviraj</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Pregledaj uslove korištenja MobileCoina</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Plaćanja preko Mollya više nisu dostupna. Još uvijek možete prenijeti sredstva na berzu, ali više ne možete vršiti isplate i uplate niti dodavati sredstva.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Plaćanja preko Signala više nisu dostupna. Još uvijek možete prenijeti sredstva na berzu, ali više ne možete vršiti isplate i uplate niti dodavati sredstva.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4339,7 +4397,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Dozvolite odobrenja</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Kako bi vam pomogao da šaljete poruke osobama koje poznajete, Molly će zatražiti ova odobrenja. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Kako bi vam pomogao da šaljete poruke osobama koje poznajete, Signal će zatražiti ova odobrenja. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">Obavještenja</string>
     <!-- Notifications permission row description -->
@@ -4431,10 +4489,10 @@
     <string name="PaymentsTransferFragment__next">Dalje</string>
     <string name="PaymentsTransferFragment__invalid_address">Adresa nije valjana</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">Provjerite adresu novčanika na koju pokušavate prenijeti sredstva i pokušajte ponovo.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ne možete izvršiti prenos sredstava na adresu vlastitog Molly novčanika. Unesite adresu novčanika sa svoga računa na podržanoj berzi.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Da bi mogao skenirati QR kōd, Mollyu je potreban pristup kameri.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Mollyu je potrebno odobrenje za pristup kameri kako bi mogao skenirati QR kōd. Idite na sistemska podešavanja, izaberite \"Dopuštenja\" i uključite \"Kamera\".</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Da bi mogao skenirati QR kōd, Mollyu je potreban pristup kameri.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Ne možete izvršiti prenos sredstava na adresu vlastitog Signal novčanika. Unesite adresu novčanika sa svoga računa na podržanoj berzi.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Da bi mogao skenirati QR kōd, Signalu je potreban pristup kameri.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signalu je potrebno odobrenje za pristup kameri kako bi mogao skenirati QR kōd. Idite na sistemska podešavanja, izaberite \"Dopuštenja\" i uključite \"Kamera\".</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Da bi mogao skenirati QR kōd, Signalu je potreban pristup kameri.</string>
     <string name="PaymentsTransferFragment__settings">Podešavanja</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4816,17 +4874,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Dolazni Molly glasovni poziv</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Dolazni Signal glasovni poziv</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Dolazni Molly video poziv</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Dolazni Signal video poziv</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Dolazni grupni Molly poziv</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Dolazni grupni Signal poziv</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">U toku Molly glasovni poziv</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">U toku Signal glasovni poziv</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">U toku Molly video poziv</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">U toku Signal video poziv</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">U toku Molly grupni poziv</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">U toku Signal grupni poziv</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Učitavanje…</string>
@@ -4880,9 +4938,9 @@
     <string name="BackupDialog_verify">Verifikuj</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Uspješno ste unijeli svoju lozinku za rezervne kopije</string>
     <string name="BackupDialog_passphrase_was_not_correct">Lozinka nije tačna</string>
-    <string name="LocalBackupJob_creating_signal_backup">Kreiram rezervnu kopiju Mollyovih podataka…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Kreiram rezervnu kopiju Signalovih podataka…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Provjera sigurnosne kopije Mollya…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Provjera sigurnosne kopije Signala…</string>
     <string name="LocalBackupJobApi29_backup_failed">Neuspjelo kreiranje rezervne kopije</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Direktorij sa sigurnosnim kopijama je izbrisan ili premješten.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Vaša rezervna kopija prevelika je za pohranjivanje na ovoj lokaciji.</string>
@@ -4897,8 +4955,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">Pozovi me (%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">Ponovo pošalji kȏd ( %1$02d : %2$02d )</string>
-    <string name="RegistrationActivity_contact_signal_support">Kontaktirajte Mollyovu podršku</string>
-    <string name="RegistrationActivity_code_support_subject">Molly registracija – potvrda kōda za Android</string>
+    <string name="RegistrationActivity_contact_signal_support">Kontaktirajte Signalovu podršku</string>
+    <string name="RegistrationActivity_code_support_subject">Signal registracija – potvrda kōda za Android</string>
     <string name="RegistrationActivity_incorrect_code">Pogrešan kôd</string>
     <string name="BackupUtil_never">Nikad</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4906,7 +4964,7 @@
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">Broj telefona</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">Odaberite ko može vidjeti vaš broj telefona i ko vas može kontaktirati na Mollyu pomoću njega.</string>
+    <string name="preferences_app_protection__choose_who_can_see">Odaberite ko može vidjeti vaš broj telefona i ko vas može kontaktirati na Signalu pomoću njega.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Ko može vidjeti moj broj</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4956,12 +5014,20 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Pokušali ste previše puta. Molimo pokušajte ponovo kasnije.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Greška pri povezivanju sa uslugom</string>
     <string name="preferences_chats__backups">Rezervne kopije</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">Beta</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">Info</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Otključajte Molly</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Otključajte Signal</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Koristite Android postavke zaključavanja uređaja da otključate Molly.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Koristite Android postavke zaključavanja uređaja da otključate Signal.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">Zaključavanje ekrana je uključeno i Molly je sigurno zaštićen postavkama zaključavanja vašeg uređaja. Otključajte Molly na isti način kao što biste inače otključali svoj telefon, to može biti pomoću otključavanja licem, otključavanja otiskom prsta, PIN-a, lozinke ili uzorka.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">Zaključavanje ekrana je uključeno i Signal je sigurno zaštićen postavkama zaključavanja vašeg uređaja. Otključajte Signal na isti način kao što biste inače otključali svoj telefon, to može biti pomoću otključavanja licem, otključavanja otiskom prsta, PIN-a, lozinke ili uzorka.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">Kontaktirajte podršku</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4973,7 +5039,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">Koristite zaključavanje ekrana</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Postavke zaključavanja vašeg Android uređaja će biti potrebne za otključavanje Mollya kada napustite ili promijenite aplikaciju. Kada je uređaj zaključan, pregledi obavještenja neće prikazati sadržaj poruke.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Postavke zaključavanja vašeg Android uređaja će biti potrebne za otključavanje Signala kada napustite ili promijenite aplikaciju. Kada je uređaj zaključan, pregledi obavještenja neće prikazati sadržaj poruke.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">Pokreni zaključavanje ekrana</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4987,9 +5053,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">Prilagodi vrijeme</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Koristite zaključavanje ekrana Molly</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Koristite zaključavanje ekrana Signal</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Isključite zaključavanje ekrana Molly</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Isključite zaključavanje ekrana Signal</string>
 
     <string name="Recipient_unknown">Nepoznato</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -5044,19 +5110,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">U toku su pripreme za povezivanje sa starim Android uređajem…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Trenutak, uskoro će biti spremno</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Čekam na stari Android uređaj da se poveže…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Mollyu je potrebno dopuštenje za pristup lokaciji kako bi pronašao i povezao se s Vašim starim Android uređajem.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Mollyu je potrebno da lokacija na telefonu bude aktivna kako bi mogao pronaći i povezati se s Vašim starim Android uređajem.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Mollyu je potrebno da Wi-Fi konekcija bude aktivna kako bi mogao pronaći i povezati se sa Vašim starim Android uređajem. Wi-Fi treba biti uključen, ali ne mora biti povezan na Wi-Fi mrežu.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Nažalost, izgleda da ovaj uređaj ne podržava Wi-Fi Direct. Molly koristi Wi-Fi Direct da pronađe i poveže se s Vašim starim Android uređajem. I dalje možete vratiti podatke iz rezervne kopije kako biste prenijeli račun sa svog starog Android uređaja.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signalu je potrebno dopuštenje za pristup lokaciji kako bi pronašao i povezao se s Vašim starim Android uređajem.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signalu je potrebno da lokacija na telefonu bude aktivna kako bi mogao pronaći i povezati se s Vašim starim Android uređajem.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signalu je potrebno da Wi-Fi konekcija bude aktivna kako bi mogao pronaći i povezati se sa Vašim starim Android uređajem. Wi-Fi treba biti uključen, ali ne mora biti povezan na Wi-Fi mrežu.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Nažalost, izgleda da ovaj uređaj ne podržava Wi-Fi Direct. Signal koristi Wi-Fi Direct da pronađe i poveže se s Vašim starim Android uređajem. I dalje možete vratiti podatke iz rezervne kopije kako biste prenijeli račun sa svog starog Android uređaja.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Vrati podatke iz rezervne kopije</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Došlo je do neočekivane greške prilikom pokušaja da se poveže s Vašim starim Android uređajem.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Tražim novi Android uređaj…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Mollyu je potrebno dopuštenje za pristup lokaciji kako bi pronašao i povezao se s Vašim novim Android uređajem.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Mollyu je potrebno da lokacija na telefonu bude aktivna kako bi mogao pronaći i povezati se s Vašim novim Android uređajem.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Mollyu je potrebno da Wi-Fi konekcija bude aktivna kako bi mogao pronaći i povezati se sa Vašim novim Android uređajem. Wi-Fi treba biti uključen, ali ne mora biti povezan na Wi-Fi mrežu.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Nažalost, izgleda da ovaj uređaj ne podržava Wi-Fi Direct. Molly koristi Wi-Fi Direct da pronađe i poveže se s Vašim novim Android uređajem. I dalje možete kreirati rezervnu kopiju podataka kako biste prenijeli račun na svoj novi Android uređaj.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signalu je potrebno dopuštenje za pristup lokaciji kako bi pronašao i povezao se s Vašim novim Android uređajem.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signalu je potrebno da lokacija na telefonu bude aktivna kako bi mogao pronaći i povezati se s Vašim novim Android uređajem.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signalu je potrebno da Wi-Fi konekcija bude aktivna kako bi mogao pronaći i povezati se sa Vašim novim Android uređajem. Wi-Fi treba biti uključen, ali ne mora biti povezan na Wi-Fi mrežu.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Nažalost, izgleda da ovaj uređaj ne podržava Wi-Fi Direct. Signal koristi Wi-Fi Direct da pronađe i poveže se s Vašim novim Android uređajem. I dalje možete kreirati rezervnu kopiju podataka kako biste prenijeli račun na svoj novi Android uređaj.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Kreiraj rezervnu kopiju</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Došlo je do neočekivane greške prilikom pokušaja da se poveže s Vašim novim Android uređajem.</string>
 
@@ -5099,7 +5165,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">Prenos podataka</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">Držite oba uređaja u blizini. Ne isključujte uređaje i držite Molly otvorenim. Prenos podataka je šifriran.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">Držite oba uređaja u blizini. Ne isključujte uređaje i držite Signal otvorenim. Prenos podataka je šifriran.</string>
     <string name="DeviceTransfer__d_messages_so_far">%1$d poruka do sada…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% poruka do sada…</string>
@@ -5113,7 +5179,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">Prenesi račun</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Instalirajte Molly na svoj novi Android uređaj</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Instalirajte Signal na svoj novi Android uređaj</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"Pritisnite \"Prenesi ili vrati račun\""</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -5187,7 +5253,7 @@
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Svako ko dobije ovaj link može vidjeti naziv i sliku grupe, kao i zatražiti da se pridruži grupi. Podijelite ga samo s osobama u koje imate povjerenja.</string>
     <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Svako ko dobije ovaj link može vidjeti naziv i sliku grupe, a može se i pridružiti grupi. Podijelite ga samo s osobama u koje imate povjerenja.</string>
-    <string name="GroupLinkBottomSheet_share_via_signal">Podijeli preko Mollya</string>
+    <string name="GroupLinkBottomSheet_share_via_signal">Podijeli preko Signala</string>
     <string name="GroupLinkBottomSheet_copy">Kopiraj</string>
     <string name="GroupLinkBottomSheet_qr_code">QR kōd</string>
     <string name="GroupLinkBottomSheet_share">Dijeli</string>
@@ -5389,7 +5455,7 @@
     <string name="payment_info_card_about_mobilecoin">O MobileCoinu</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin je nova digitalna valuta s fokusom na privatnost.</string>
     <string name="payment_info_card_adding_funds">Uplata sredstava</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Možete dodati sredstva za korištenje putem Mollya tako što ćete poslati MobileCoin na adresu svoga novčanika.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Možete dodati sredstva za korištenje putem Signala tako što ćete poslati MobileCoin na adresu svoga novčanika.</string>
     <string name="payment_info_card_cashing_out">Unovčavanje</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">U svakom trenutku možete unovčiti MobileCoin na nekoj od berzi koje ga podržavaju. Jednostavno izvršite prenos na svoj račun koji imate otvoren na toj berzi.</string>
     <string name="payment_info_card_hide_this_card">Sakriti ovu karticu?</string>
@@ -5410,12 +5476,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Deaktivirajte novčanik</string>
     <string name="DeactivateWalletFragment__your_balance">Vaša sredstva</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">Preporučuje se da svoja sredstva prenesete na adresu drugog novčanika prije nego što deaktivirate plaćanja. Ako odlučite da nećete sada prenijeti sredstva, ona će ostati u vašem novčaniku koji je povezan sa Mollyom i biti dostupna kad ponovo aktivirate plaćanja.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">Preporučuje se da svoja sredstva prenesete na adresu drugog novčanika prije nego što deaktivirate plaćanja. Ako odlučite da nećete sada prenijeti sredstva, ona će ostati u vašem novčaniku koji je povezan sa Signalom i biti dostupna kad ponovo aktivirate plaćanja.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">Prenesi ostatak sredstava</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">Deaktiviraj bez prenosa sredstava</string>
     <string name="DeactivateWalletFragment__deactivate">Deaktiviraj</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Deaktivirati bez prenosa sredstava?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">Vaša će sredstva ostati u vašem novčaniku povezanom sa Mollyom, ako odlučite ponovo aktivirati plaćanja.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">Vaša će sredstva ostati u vašem novčaniku povezanom sa Signalom, ako odlučite ponovo aktivirati plaćanja.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Greška prilikom deaktiviranja novčanika.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5860,7 +5926,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Licence</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Sporazum o korištenju i privatnosti</string>
-    <string name="HelpFragment__copyright_signal_messenger">Prava: Molly Messenger</string>
+    <string name="HelpFragment__copyright_signal_messenger">Prava: Signal Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Licencirano pod GNU AGPLv3</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -6061,6 +6127,8 @@
     <string name="NewConversationActivity__s_has_been_removed">%1$s je uklonjen/a</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">%1$s je blokiran/a</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">Nije moguće ukloniti korisnika %1$s</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -6359,9 +6427,9 @@
     <string name="MySupportPreference__checking_subscription">Provjera pretplate…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__title">Ažurirajte Molly</string>
+    <string name="UpdateSignalExpiredDialog__title">Ažurirajte Signal</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Ova verzija Mollya je istekla. Ažurirajte sada da nastavite koristiti Molly.</string>
+    <string name="UpdateSignalExpiredDialog__message">Ova verzija Signala je istekla. Ažurirajte sada da nastavite koristiti Signal.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">Ažuriraj</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -6370,7 +6438,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">Uređaj nije registriran</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">Ovaj uređaj više nije registriran. Ponovo se registrirajte da nastavite koristiti Molly na ovom uređaju.</string>
+    <string name="ReregisterSignalDialog__message">Ovaj uređaj više nije registriran. Ponovo se registrirajte da nastavite koristiti Signal na ovom uređaju.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">Re-register</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6689,7 +6757,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">Neuspjelo otvaranje birača.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">Da bi omogućio obavještenja, Molly treba dozvolu da ih prikaže.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">Da bi omogućio obavještenja, Signal treba dozvolu da ih prikaže.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Uključi</string>
 
@@ -7421,34 +7489,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">Napustiti Signal za potvrdu donacije?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">Kada potvrdite, vratite se na Signal da završite obradu vaše donacije.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">Bankovni transfer</string>
@@ -7509,7 +7549,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Odaberite banku</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Potvrdite svoju donaciju sa %1$s</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Da biste podesili svoju ponavljajuću donaciju, dodirnite \"Nastavi\" da potvrdite naplatu od 0,01 € u vašoj banci. Ovo će biti automatski vraćeno i omogućava da se vaša donacija od %1$s/mjesečno naplati s vašeg računa.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -8201,11 +8241,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Obnova medijskih sadržaja</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">Vraćanje je pauzirano</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Vraćanje podataka je završeno</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">Detalji</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Čeka se Wi-Fi…</string>
@@ -8237,6 +8279,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">Vaša posljednja sigurnosna kopija nije mogla biti dovršena. Provjerite koristite li najnoviju verziju Signala i pokušajte ponovo.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Saznaj više</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8339,8 +8386,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">Historija plaćanja</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">Detalji sigurnosne kopije</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">Vratite pomoću mobilne mreže</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Veličina rezervne kopije</string>
     <!-- Row label for backup frequency -->
@@ -8386,7 +8433,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">Isteklo %1$s</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Kreirajte sigurnosnu kopiju historije poruka da nikada ne izgubite podatke kada nabavite novi telefon ili ponovo instalirate Molly.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">Kreirajte sigurnosnu kopiju historije poruka da nikada ne izgubite podatke kada nabavite novi telefon ili ponovo instalirate Signal.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Drugi načini za kreiranje rezervnih kopija</string>
     <!-- Row title for performing on-device backup -->
@@ -8466,6 +8513,8 @@
         <item quantity="many">Imate %1$s podataka sigurnosne kopije koji nisu na ovom uređaju. Vaša sigurnosna kopija će biti izbrisana kada vaša pretplata završi za %2$d dana.</item>
         <item quantity="other">Imate %1$s podataka sigurnosne kopije koji nisu na ovom uređaju. Vaša sigurnosna kopija će biti izbrisana kada vaša pretplata završi za %2$d dana.</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">Preuzmi</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -8477,6 +8526,10 @@
         <item quantity="many">Ako preskočite preuzimanje, preostali mediji i prilozi u vašoj sigurnosnoj kopiji bit će izbrisani za %1$d dana.</item>
         <item quantity="other">Ako preskočite preuzimanje, preostali mediji i prilozi u vašoj sigurnosnoj kopiji bit će izbrisani za %1$d dana.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Skip restore?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Preskoči</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8530,9 +8583,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Vaš rezervni ključ</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Vaš rezervni ključ je 64-cifreni kod koji vam omogućava da vratite rezervnu kopiju kada ponovo instalirate Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Vaš rezervni ključ je 64-cifreni kod koji vam omogućava da vratite rezervnu kopiju kada ponovo instalirate Signal.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Ako zaboravite ključ, nećete moći vratiti sigurnosnu kopiju. Molly vam ne može pomoći da vratite sigurnosnu kopiju.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Ako zaboravite ključ, nećete moći vratiti sigurnosnu kopiju. Signal vam ne može pomoći da vratite sigurnosnu kopiju.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">Dalje</string>
 
@@ -8548,7 +8601,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Čuvajte svoj ključ</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Molly vam neće moći pomoći da vratite rezervnu kopiju ako izgubite ključ. Čuvajte ga na sigurnom mjestu i nemojte ga dijeliti s drugima.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Signal vam neće moći pomoći da vratite rezervnu kopiju ako izgubite ključ. Čuvajte ga na sigurnom mjestu i nemojte ga dijeliti s drugima.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">Snimio/la sam svoj ključ</string>
     <!-- Sheet action button label -->
@@ -8636,7 +8689,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Nemam svoj stari telefon</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">Ili ponovo instalirajte Molly na istom uređaju</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">Ili ponovo instalirajte Signal na istom uređaju</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Vratite ili prenesite račun</string>
@@ -8786,6 +8839,16 @@
     <string name="MainToolbar__notification_profile_content_description">Profil obavijesti</string>
     <!-- Accessibility label for more options button in MainToolbar -->
     <string name="MainToolbar__proxy_content_description">Proxy</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">Navigate up</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">Toggle</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

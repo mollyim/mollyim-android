@@ -112,6 +112,10 @@ class RegistrationViewModel : ViewModel() {
       store.update {
         it.copy(isReRegister = value)
       }
+
+      if (value) {
+        SignalStore.misc.needsUsernameRestore = true
+      }
     }
 
   val phoneNumber: Phonenumber.PhoneNumber?

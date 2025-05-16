@@ -55,6 +55,7 @@ import org.thoughtcrime.securesms.backup.v2.stream.EncryptedBackupWriter
 import org.thoughtcrime.securesms.backup.v2.stream.PlainTextBackupReader
 import org.thoughtcrime.securesms.backup.v2.stream.PlainTextBackupWriter
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.RecurringInAppPaymentRepository
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider
@@ -68,8 +69,10 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob
+import org.thoughtcrime.securesms.jobs.CheckRestoreMediaLeftJob
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
 import org.thoughtcrime.securesms.jobs.RestoreAttachmentJob
+import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob
 import org.thoughtcrime.securesms.keyvalue.BackupValues.ArchiveServiceCredentials
 import org.thoughtcrime.securesms.keyvalue.KeyValueStore
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -195,6 +198,12 @@ object BackupRepository {
     }
   }
 
+  @JvmStatic
+  fun resumeMediaRestore() {
+    SignalStore.backup.userManuallySkippedMediaRestore = false
+    RestoreOptimizedMediaJob.enqueue()
+  }
+
   /**
    * Cancels any relevant jobs for media restore
    */
@@ -205,6 +214,10 @@ object BackupRepository {
     AppDependencies.jobManager.cancelAllInQueue(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.RESTORE_OFFLOADED))
     AppDependencies.jobManager.cancelAllInQueue(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.INITIAL_RESTORE))
     AppDependencies.jobManager.cancelAllInQueue(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.MANUAL))
+
+    AppDependencies.jobManager.add(CheckRestoreMediaLeftJob(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.RESTORE_OFFLOADED)))
+    AppDependencies.jobManager.add(CheckRestoreMediaLeftJob(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.INITIAL_RESTORE)))
+    AppDependencies.jobManager.add(CheckRestoreMediaLeftJob(RestoreAttachmentJob.constructQueueString(RestoreAttachmentJob.RestoreOperation.MANUAL)))
   }
 
   /**
@@ -350,10 +363,16 @@ object BackupRepository {
   fun turnOffAndDisableBackups(): Boolean {
     return try {
       Log.d(TAG, "Attempting to disable backups.")
-      if (SignalStore.backup.backupTier == MessageBackupTier.PAID) {
+
+      val backupsSubscriber = InAppPaymentsRepository.getSubscriber(InAppPaymentSubscriberRecord.Type.BACKUP)
+      if (SignalStore.backup.backupTier == MessageBackupTier.PAID && backupsSubscriber != null) {
         Log.d(TAG, "User is currently on a paid tier. Canceling.")
         RecurringInAppPaymentRepository.cancelActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP)
         Log.d(TAG, "Successfully canceled paid tier.")
+      }
+
+      if (backupsSubscriber == null) {
+        Log.w(TAG, "No backup subscriber in the database. Proceeding with disabling backups anyway.")
       }
 
       Log.d(TAG, "Disabling backups.")

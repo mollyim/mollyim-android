@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
-  --><!-- smartling.instruction_comments_enabled = on --><resources>
+  -->
+<!-- smartling.instruction_comments_enabled = on -->
+<resources>
   <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
 
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
@@ -43,12 +46,12 @@
   <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
 
     <!-- ApplicationMigrationActivity -->
-    <string name="ApplicationMigrationActivity__signal_is_updating">Molly 업데이트 중…</string>
+    <string name="ApplicationMigrationActivity__signal_is_updating">Signal 업데이트 중…</string>
 
     <!-- ApplicationPreferencesActivity -->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">암호를 설정하지 않았습니다!</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">암호 사용을 비활성화하시겠습니까?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly이 잠금 해제되어 메시지 알림이 표시됩니다.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal이 잠금 해제되어 메시지 알림이 표시됩니다.</string>
     <string name="ApplicationPreferencesActivity_disable">사용 안 함</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">서버에 연결할 수 없습니다!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">등록 잠금을 위해 PIN이 필요합니다. PIN을 비활성화하려면 먼저 등록 잠금을 비활성화하세요.</string>
@@ -85,7 +88,7 @@
     <string name="AttachmentKeyboard_file">파일</string>
     <string name="AttachmentKeyboard_contact">연락처</string>
     <string name="AttachmentKeyboard_location">위치</string>
-    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">사진과 동영상을 표시하려면 Molly에 권한이 필요합니다.</string>
+    <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">사진과 동영상을 표시하려면 Signal에 권한이 필요합니다.</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">권한 허용</string>
     <string name="AttachmentKeyboard_payment">결제</string>
@@ -96,34 +99,34 @@
     <!-- Option in menu to go to settings -->
     <string name="AttachmentKeyboard_go_to_settings">설정으로 이동</string>
     <!-- Text explaining that Signal has limited access to photos -->
-    <string name="AttachmentKeyboard_signal_has_limited_access">Molly의 사진 또는 동영상에 대한 액세스 권한이 제한됩니다.</string>
+    <string name="AttachmentKeyboard_signal_has_limited_access">Signal의 사진 또는 동영상에 대한 액세스 권한이 제한됩니다.</string>
     <!-- Text shown when user has given no photos for Signal to access and an explanation on how to change those permissions -->
     <string name="AttachmentKeyboard_no_photos_found">사진을 찾을 수 없습니다. 여기에 표시할 사진과 동영상을 선택하거나 권한을 변경하세요.</string>
 
     <!-- MediaGalleryFragment -->
     <!-- Text describing that no photos or videos are currently found in the gallery and that Signal can only access media that the user allows -->
-    <string name="MediaGalleryFragment__no_photos_found">사진 또는 동영상을 찾을 수 없습니다. Molly에는 사용자가 선택한 사진과 동영상에 대해서만 액세스 권한이 부여됩니다.</string>
+    <string name="MediaGalleryFragment__no_photos_found">사진 또는 동영상을 찾을 수 없습니다. Signal에는 사용자가 선택한 사진과 동영상에 대해서만 액세스 권한이 부여됩니다.</string>
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">미디어를 선택할 수 있는 앱이 없습니다.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly에서 사진, 동영상 또는 오디오를 첨부하려면 저장 공간 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly에서 연락처 정보를 첨부하려면 연락처 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly에서 위치 정보를 첨부하려면 위치 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'위치\' 항목을 허용해 주세요.</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal에서 사진, 동영상 또는 오디오를 첨부하려면 저장 공간 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal에서 연락처 정보를 첨부하려면 연락처 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal에서 위치 정보를 첨부하려면 위치 접근 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'위치\' 항목을 허용해 주세요.</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">내 위치를 사용하도록 허용</string>
     <!-- Dialog description that will explain the steps needed to give location permission -->
     <string name="AttachmentManager_signal_to_send_location">위치를 보내려면 다음을 수행하세요.</string>
     <!-- Alert dialog description asking for location permission -->
-    <string name="AttachmentManager_signal_allow_signal_access_location">위치를 보내려면 Molly에서 내 위치를 사용할 수 있도록 허용하세요.</string>
+    <string name="AttachmentManager_signal_allow_signal_access_location">위치를 보내려면 Signal에서 내 위치를 사용할 수 있도록 허용하세요.</string>
     <!-- Toast text explaining Signal\'s need for location access -->
-    <string name="AttachmentManager_signal_needs_location_access">위치를 보내려면 Molly에서 내 위치를 사용할 수 있어야 합니다.</string>
+    <string name="AttachmentManager_signal_needs_location_access">위치를 보내려면 Signal에서 내 위치를 사용할 수 있어야 합니다.</string>
     <!-- Dialog title asking users for gallery storage permission -->
     <string name="AttachmentManager_signal_allow_storage">저장 공간 권한 허용</string>
     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
     <string name="AttachmentManager_signal_to_show_photos">사진과 동영상 표시 방법:</string>
     <!-- Toast text explaining Signal\'s need for storage access -->
-    <string name="AttachmentManager_signal_needs_storage_access">사진과 동영상을 표시하려면 Molly에 액세스 권한이 필요합니다.</string>
+    <string name="AttachmentManager_signal_needs_storage_access">사진과 동영상을 표시하려면 Signal에 액세스 권한이 필요합니다.</string>
 
     <!-- Alert dialog title to show the recipient has not activated payments -->
     <string name="AttachmentManager__not_activated_payments">%1$s 님이 결제를 아직 활성화하지 않았습니다. </string>
@@ -273,25 +276,25 @@
     <!-- Dialog title asking users for microphone permission -->
     <string name="CameraXFragment_allow_access_microphone">마이크 접근을 허용해 주세요.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">사진을 찍으려면 Molly에 카메라 접근을 허용해 주세요.</string>
+    <string name="CameraXFragment_to_capture_photos_allow_camera">사진을 찍으려면 Signal에 카메라 접근을 허용해 주세요.</string>
     <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">사진이나 동영상을 찍으려면 Molly에 카메라 접근을 허용해 주세요.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">사진이나 동영상을 찍으려면 Signal에 카메라 접근을 허용해 주세요.</string>
     <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">사진이나 동영상을 찍으려면 Molly에 카메라와 마이크 접근을 허용해 주세요.</string>
+    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">사진이나 동영상을 찍으려면 Signal에 카메라와 마이크 접근을 허용해 주세요.</string>
     <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">소리와 함께 동영상을 찍으려면 Molly에 마이크 접근을 허용해 주세요.</string>
+    <string name="CameraXFragment_to_capture_videos_with_sound">소리와 함께 동영상을 찍으려면 Signal에 마이크 접근을 허용해 주세요.</string>
     <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR 코드를 스캔하려면 Molly에 카메라 접근을 허용해 주세요.</string>
+    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR 코드를 스캔하려면 Signal에 카메라 접근을 허용해 주세요.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">사진을 찍으려면 Molly에 카메라 접근 권한이 필요합니다.</string>
+    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">사진을 찍으려면 Signal에 카메라 접근 권한이 필요합니다.</string>
     <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR 코드를 스캔하려면 Molly에 카메라 접근 권한이 필요합니다.</string>
+    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR 코드를 스캔하려면 Signal에 카메라 접근 권한이 필요합니다.</string>
     <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">동영상을 찍으려면 Molly에 마이크 접근 권한이 필요합니다.</string>
+    <string name="CameraXFragment_signal_needs_microphone_access_video">동영상을 찍으려면 Signal에 마이크 접근 권한이 필요합니다.</string>
     <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Molly에서 사진을 찍으려면 다음을 수행하세요.</string>
+    <string name="CameraXFragment_to_capture_photos">Signal에서 사진을 찍으려면 다음을 수행하세요.</string>
     <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Molly에서 사진과 동영상을 찍으려면 다음을 수행하세요.</string>
+    <string name="CameraXFragment_to_capture_photos_videos">Signal에서 사진과 동영상을 찍으려면 다음을 수행하세요.</string>
     <!-- Dialog description that explains the steps needed to give microphone permission -->
     <string name="CameraXFragment_to_capture_videos">소리와 함께 동영상을 찍으려면 다음을 수행하세요.</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -309,7 +312,7 @@
     <string name="CameraContacts_no_signal_contacts">Signal 연락처 없음</string>
     <string name="CameraContacts_you_can_only_use_the_camera_button">카메라 버튼은 Signal 연락처에 사진을 보내는 용도로만 사용할 수 있습니다. </string>
     <string name="CameraContacts_cant_find_who_youre_looking_for">원하는 사람을 찾지 못하셨나요?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Molly에 등록하도록 연락처 초대</string>
+    <string name="CameraContacts_invite_a_contact_to_join_signal">Signal에 등록하도록 연락처 초대</string>
     <string name="CameraContacts__menu_search">검색</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -328,7 +331,7 @@
     <string name="ClientDeprecatedActivity_update">업데이트</string>
     <string name="ClientDeprecatedActivity_dont_update">업데이트하지 않음</string>
     <string name="ClientDeprecatedActivity_warning">경고</string>
-    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Molly 버전이 만료되었습니다. 이전 메세지 기록은 읽을 수 있지만 업데이트하기 전까지 메세지를 보내거나 받을 수 없습니다.</string>
+    <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Signal 버전이 만료되었습니다. 이전 메세지 기록은 읽을 수 있지만 업데이트하기 전까지 메세지를 보내거나 받을 수 없습니다.</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">웹 브라우저를 찾을 수 없습니다.</string>
@@ -369,8 +372,8 @@
 
     <!-- ContactsDatabase -->
     <string name="ContactsDatabase_message_s">%1$s에 메시지 보내기</string>
-    <string name="ContactsDatabase_signal_call_s">Molly 음성 통화 %1$s</string>
-    <string name="ContactsDatabase_signal_video_call_s">Molly 화상 통화 %1$s</string>
+    <string name="ContactsDatabase_signal_call_s">Signal 음성 통화 %1$s</string>
+    <string name="ContactsDatabase_signal_video_call_s">Signal 화상 통화 %1$s</string>
 
     <!-- ContactNameEditActivity -->
     <!-- Toolbar title for contact name edit activity -->
@@ -465,7 +468,7 @@
     <string name="ConversationActivity_transport_signal">Signal 메시지</string>
     <!-- The content description for button to send a message in a conversation -->
     <string name="ConversationActivity_send_message_content_description">문자 보내기</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Molly로 대화해요! %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Signal로 대화해요! %1$s</string>
     <string name="ConversationActivity_specify_recipient">연락처를 선택해 주세요.</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">첨부 파일이 전송 메시지의 사이즈 제한을 초과합니다.</string>
     <string name="ConversationActivity_unable_to_record_audio">오디오를 녹음할 수 없습니다!</string>
@@ -484,18 +487,18 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="ConversationActivity_signal_to_send_audio_messages">음성 메시지를 보내는 방법:</string>
     <!-- Alert dialog description asking for microphone permission in order to send voice messages -->
-    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">음성 메시지를 보내려면 Molly에서 마이크를 사용할 수 있도록 허용하세요.</string>
+    <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">음성 메시지를 보내려면 Signal에서 마이크를 사용할 수 있도록 허용하세요.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">음성 메시지를 녹음하려면 Molly에서 마이크를 사용할 수 있어야 합니다.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly에서 오디오 메시지를 보내려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\' 항목을 허용해 주세요.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_message">음성 메시지를 녹음하려면 Signal에서 마이크를 사용할 수 있어야 합니다.</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal에서 오디오 메시지를 보내려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\' 항목을 허용해 주세요.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly에서 %1$s에게 전화하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Molly에서 사진과 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly에서 사진이나 동영상을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
-    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly에서 사진이나 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal에서 %1$s에게 전화하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Signal에서 사진과 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal에서 사진이나 동영상을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+    <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal에서 사진이나 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">소리가 나는 동영상을 찍으려면 마이크 권한을 허용해 주세요.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly에서 동영상을 찍으려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\'를 허용해 주세요.</string>
-    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly에서 동영상을 찍으려면 마이크 권한이 필요합니다.</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal에서 동영상을 찍으려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\'를 허용해 주세요.</string>
+    <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal에서 동영상을 찍으려면 마이크 권한이 필요합니다.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
     <string name="ConversationActivity_no">아니요</string>
@@ -516,9 +519,9 @@
     <!-- Dialog description that will explain the steps needed to give microphone permissions for a voice call -->
     <string name="ConversationActivity__to_start_call">통화를 시작하려면 다음을 수행하세요.</string>
     <!-- Alert dialog description asking for microphone permission in order to start a voice call -->
-    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">통화를 시작하려면 Molly에서 마이크를 사용할 수 있도록 허용하세요.</string>
+    <string name="ConversationActivity__to_call_signal_needs_access_to_your_microphone">통화를 시작하려면 Signal에서 마이크를 사용할 수 있도록 허용하세요.</string>
     <!-- Toast text explaining Signal\'s need for microphone access for a voice call -->
-    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">통화를 시작하려면 Molly에서 마이크를 사용할 수 있어야 합니다.</string>
+    <string name="ConversationActivity_signal_needs_microphone_access_voice_call">통화를 시작하려면 Signal에서 마이크를 사용할 수 있어야 합니다.</string>
 
 
     <string name="ConversationActivity_join">참가</string>
@@ -532,11 +535,13 @@
     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">Signal에서 더 이상 SMS 메시지를 지원하지 않습니다. %1$s 님을 Signal로 초대하여 대화를 이어가세요.</string>
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">이 사용자는 더 이상 Molly을 사용하지 않습니다. Molly로 초대하여 대화를 이어가세요.</string>
+    <string name="ConversationActivity__this_person_is_no_longer_using_signal">이 사용자는 더 이상 Signal을 사용하지 않습니다. Signal로 초대하여 대화를 이어가세요.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Molly로 초대</string>
+    <string name="ConversationActivity__invite_to_signal">Signal로 초대</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">알림이 곧 다시 표시됩니다.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">서식 지정 텍스트 보내기</string>
@@ -616,11 +621,11 @@
     <!-- Action shown to allow a user to update their application because it has expired -->
     <string name="ConversationFragment__update_build">시그널 최신 버전으로 업데이트</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
-    <string name="ConversationFragment__reregister_signal">Molly 다시 등록</string>
+    <string name="ConversationFragment__reregister_signal">Signal 다시 등록</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">돌아가기</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
-    <string name="ConversationFragment__content_description_launch_signal_button">Molly 열기</string>
+    <string name="ConversationFragment__content_description_launch_signal_button">Signal 열기</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
     <string name="ConversationFragment__no_longer_verified">더 이상 유효하지 않음</string>
     <!-- Button shown in conversation header when in a message request state and no groups in common to show new message safety tips -->
@@ -671,7 +676,7 @@
     <!-- Title of tip 0 -->
     <string name="SafetyTips_tip0_title">가짜 이름과 계정</string>
     <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Molly은 절대 사용자의 등록 코드나 PIN을 요청하지 않습니다. 사칭 계정에 유의하세요. 프로필 이름은 해당 계정 보유자가 선택하며, 프로필 이름이 확인되지 않았습니다.</string>
+    <string name="SafetyTips_tip0_message">Signal은 절대 사용자의 등록 코드나 PIN을 요청하지 않습니다. 사칭 계정에 유의하세요. 프로필 이름은 해당 계정 보유자가 선택하며, 프로필 이름이 확인되지 않았습니다.</string>
     <!-- Title of tip 1 -->
     <string name="SafetyTips_tip1_title">암호화폐 또는 금융 사기</string>
     <!-- Message of tip 1 -->
@@ -814,9 +819,9 @@
     <!-- Toolbar title for this screen -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">전화번호로 나를 찾을 수 있는 사람은 누구인가요?</string>
     <!-- Description for radio item stating anyone can see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">내 전화번호가 있는 사람은 Molly에서 나를 보고 나와 대화를 시작할 수 있습니다.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">내 전화번호가 있는 사람은 Signal에서 나를 보고 나와 대화를 시작할 수 있습니다.</string>
     <!-- Description for radio item stating no one will be able to see your phone number -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">내가 메시지를 보내는 사용자 또는 기존 대화 기록이 있는 사용자를 제외하고는 아무도 Molly에서 나를 볼 수 없습니다.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">내가 메시지를 보내는 사용자 또는 기존 대화 기록이 있는 사용자를 제외하고는 아무도 Signal에서 나를 볼 수 없습니다.</string>
 
     <!-- ChooseBackupFragment -->
     <string name="ChooseBackupFragment__restore_from_backup">백업으로 복원하시겠습니까?</string>
@@ -895,7 +900,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">백업 암호를 테스트하고 일치함을 인증</string>
     <string name="BackupsPreferenceFragment__turn_on">켜기</string>
     <string name="BackupsPreferenceFragment__turn_off">끄기</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"백업을 복원하려면 Molly의 새 사본을 설치하세요. 앱을 열고 \'백업 복원\'을 탭한 후 백업 파일을 찾으세요. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"백업을 복원하려면 Signal의 새 사본을 설치하세요. 앱을 열고 \'백업 복원\'을 탭한 후 백업 파일을 찾으세요. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">더 알아보기</string>
     <string name="BackupsPreferenceFragment__in_progress">진행 중…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -904,7 +909,7 @@
     <string name="BackupsPreferenceFragment__d_so_far">지금까지 %1$d…</string>
     <!-- Show percentage of completion of backup -->
     <string name="BackupsPreferenceFragment__s_so_far">%1$s%% 진행중…</string>
-    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly에서 백업을 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal에서 백업을 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">백업 시간 설정</string>
 
@@ -979,7 +984,7 @@
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">대화 세션을 새로 고침</string>
-    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Molly은 엔드투엔드 암호화를 사용하므로 때때로 대화 세션을 새로 고쳐야 할 수 있습니다. 이 작업은 대화 보안에 영향을 미치지 않으나, 이로 인해 해당 연락처가 보낸 메시지를 놓쳤을 수 있습니다. 메시지를 다시 보내달라고 요청하세요.</string>
+    <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal은 엔드투엔드 암호화를 사용하므로 때때로 대화 세션을 새로 고쳐야 할 수 있습니다. 이 작업은 대화 보안에 영향을 미치지 않으나, 이로 인해 해당 연락처가 보낸 메시지를 놓쳤을 수 있습니다. 메시지를 다시 보내달라고 요청하세요.</string>
 
     <!-- LinkDeviceFragment -->
     <!-- Description for how Signal will work with a linked device (eg desktop, iPad) -->
@@ -1090,7 +1095,7 @@
     <!-- Bottom sheet title telling users to complete the linking process on the other device  -->
     <string name="AddLinkDeviceFragment__finish_linking_on_other_device">다른 기기에서 연결 완료</string>
     <!-- Bottom sheet description telling users to complete the linking process -->
-    <string name="AddLinkDeviceFragment__finish_linking_signal">다른 기기에서 Molly 연결을 완료하세요.</string>
+    <string name="AddLinkDeviceFragment__finish_linking_signal">다른 기기에서 Signal 연결을 완료하세요.</string>
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">기기 연결 실패</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
@@ -1135,10 +1140,10 @@
 
     <!-- DozeReminder -->
     <string name="DozeReminder_optimize_for_missing_play_services">누락된 Play Services에 최적화</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">기기에서는 Play Services를 지원하지 않습니다. 탭하여 시스템 배터리 최적화 기능을 사용하지 않을 수 있습니다. 해당 기능은 Molly이 비활성화된 동안에 메시지를 검색하지 못하게 합니다.</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">기기에서는 Play Services를 지원하지 않습니다. 탭하여 시스템 배터리 최적화 기능을 사용하지 않을 수 있습니다. 해당 기능은 Signal이 비활성화된 동안에 메시지를 검색하지 못하게 합니다.</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly 버전이 만료되었습니다. 메시지를 송수신 하기 위해 지금 업데이트 하십시오.</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal 버전이 만료되었습니다. 메시지를 송수신 하기 위해 지금 업데이트 하십시오.</string>
     <string name="ExpiredBuildReminder_update_now">지금 업데이트하세요.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
@@ -1275,7 +1280,7 @@
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
     <string name="PromptLogsSlowNotificationsDialog__message">디버그 로그를 제출하면 문제를 진단하고 수정하는 데 도움이 됩니다. 디버그 로그에는 식별 정보가 포함되지 않습니다.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
-    <string name="PromptLogsSlowNotificationsDialog__title_crash">Molly에 오류가 발생했습니다. 디버그 로그를 제출할까요?</string>
+    <string name="PromptLogsSlowNotificationsDialog__title_crash">Signal에 오류가 발생했습니다. 디버그 로그를 제출할까요?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">메시지가 수신되지 않을 수 있습니다. 디버그 로그를 제출할까요?</string>
 
@@ -1283,12 +1288,12 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptBatterySaverBottomSheet__title">배터리 최적화로 인해 알림이 지연될 수 있습니다.</string>
     <!-- Message explaining that battery saver may delay notifications -->
-    <string name="PromptBatterySaverBottomSheet__message">Molly 배터리 최적화를 비활성화하여 메시지 알림이 지연되지 않도록 할 수 있습니다.</string>
+    <string name="PromptBatterySaverBottomSheet__message">Signal 배터리 최적화를 비활성화하여 메시지 알림이 지연되지 않도록 할 수 있습니다.</string>
 
     <!-- Title in bottom sheet that states that notifications for this device could be delayed -->
     <string name="DeviceSpecificNotificationBottomSheet__notifications_may_be_delayed">배터리 최적화로 인해 알림이 지연될 수 있습니다.</string>
     <!-- Message in bottom sheet prompting users to fix potential issues by disabling battery optimizations -->
-    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Molly 배터리 최적화를 비활성화하여 메시지 알림이 지연되지 않도록 하세요. \'계속\'을 탭하여 기기별 지침을 확인하세요.</string>
+    <string name="DeviceSpecificNotificationBottomSheet__disable_battery_optimizations">Signal 배터리 최적화를 비활성화하여 메시지 알림이 지연되지 않도록 하세요. \'계속\'을 탭하여 기기별 지침을 확인하세요.</string>
     <!-- Button to dismiss notification help prompt -->
     <string name="DeviceSpecificNotificationBottomSheet__no_thanks">아니요</string>
     <!-- Button to continue and go to Signal support website -->
@@ -1297,7 +1302,7 @@
     <!-- Title of a bottom sheet that is shown when the user is having connectivity issues -->
     <string name="ConnectivityWarningBottomSheet_title">메시지가 수신되지 않을 수 있습니다.</string>
     <!-- Body of a bottom sheet that is shown when the user is having connectivity issues -->
-    <string name="ConnectivityWarningBottomSheet_body">기기를 다시 시작하면 메시지 전송 문제를 해결하는 데 도움이 될 수도 있습니다. 문제가 지속되면 Molly 지원팀에 연락해 주세요.</string>
+    <string name="ConnectivityWarningBottomSheet_body">기기를 다시 시작하면 메시지 전송 문제를 해결하는 데 도움이 될 수도 있습니다. 문제가 지속되면 Signal 지원팀에 연락해 주세요.</string>
     <!-- Text for a button in a bottom sheet that is shown when the user is having connectivity issues. Clicking it will dismiss the bottom sheet. -->
     <string name="ConnectivityWarningBottomSheet_dismiss_button">확인</string>
 
@@ -1427,7 +1432,7 @@
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
     <string name="RemoteRestoreActivity__couldnt_restore">이 백업을 복원할 수 없음</string>
     <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
-    <string name="RemoteRestoreActivity__update_latest">이 Molly 버전은 백업을 복원할 수 없습니다. 최신 버전으로 업데이트하고 다시 시도하세요.</string>
+    <string name="RemoteRestoreActivity__update_latest">이 Signal 버전은 백업을 복원할 수 없습니다. 최신 버전으로 업데이트하고 다시 시도하세요.</string>
     <!-- Text on button that when pressed will redirect them to update Signal -->
     <string name="RemoteRestoreActivity__update_signal">시그널 최신 버전으로 업데이트</string>
     <!-- Text label button to dismiss the dialog -->
@@ -1598,12 +1603,12 @@
     <string name="InviteActivity_cancel">취소</string>
     <string name="InviteActivity_sending">보내는 중…</string>
     <string name="InviteActivity_invitations_sent">초대를 보냈습니다!</string>
-    <string name="InviteActivity_invite_to_signal">Molly로 초대</string>
+    <string name="InviteActivity_invite_to_signal">Signal로 초대</string>
     <string name="InviteActivity_send_sms">SMS 보내기 (%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">SMS 초대 %1$d개를 보내시겠습니까?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Molly로 같이 옮겨요! %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Signal로 같이 옮겨요! %1$s</string>
     <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
     <string name="InviteActivity_no_app_to_share_to">공유하기 위해 사용할 수 있는 앱이 없습니다.</string>
 
@@ -1618,7 +1623,7 @@
     <string name="LongMessageActivity_your_message">내 메시지</string>
 
     <!-- MessageRetrievalService -->
-    <string name="MessageRetrievalService_signal">Molly</string>
+    <string name="MessageRetrievalService_signal">Signal</string>
     <string name="MessageRetrievalService_background_connection_enabled">백그라운드 연결이 활성화됨</string>
 
     <!-- MediaOverviewActivity -->
@@ -1691,10 +1696,10 @@
     <string name="MessageQuotesBottomSheet_replies">회신</string>
 
     <!-- NotificationBarManager -->
-    <string name="NotificationBarManager__establishing_signal_call">Molly 전화 연결 중</string>
+    <string name="NotificationBarManager__establishing_signal_call">Signal 전화 연결 중</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Molly 통화 서비스 시작</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Molly 통화 서비스 중지</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Signal 통화 서비스 시작</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Signal 통화 서비스 중지</string>
     <string name="NotificationBarManager__cancel_call">전화 취소</string>
 
     <!-- NotificationsMegaphone -->
@@ -2009,7 +2014,7 @@
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
     <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">곧 Signal에서 SMS 메시지를 보낼 수 없게 됩니다. %1$s 님을 Signal로 초대하여 대화를 이어가세요.</string>
     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Molly에서 더 이상 SMS 메시지를 보낼 수 없습니다. %1$s 님을 Molly로 초대하여 대화를 이어가세요.</string>
+    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">Signal에서 더 이상 SMS 메시지를 보낼 수 없습니다. %1$s 님을 Signal로 초대하여 대화를 이어가세요.</string>
     <!-- Body for quote when message being quoted is an in-app payment message -->
     <string name="MessageRecord__payment_s">결제: %1$s</string>
     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
@@ -2129,24 +2134,24 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal 기기를 연결하시겠습니까?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">이 Signal 계정에 데스크톱이나 iPad를 연결하려면 연결된 기기로 이동하여 \'새 기기 연결\'을 탭한 다음 QR 코드를 다시 스캔하세요. Signal에서 직접 제공한 QR 코드만 스캔하세요.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">카메라 권한이 없어 QR 코드를 스캔할 수 없음</string>
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">지금 업데이트하세요.</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">이 Molly 버전은 오늘 만료됩니다. 최신 버전으로 업데이트하세요.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">이 Signal 버전은 오늘 만료됩니다. 최신 버전으로 업데이트하세요.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="other">이 Molly 버전은 %1$d일 후에 만료됩니다. 최신 버전으로 업데이트하세요.</item>
+        <item quantity="other">이 Signal 버전은 %1$d일 후에 만료됩니다. 최신 버전으로 업데이트하세요.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
     <string name="PassphrasePromptActivity_enter_passphrase">암호 입력</string>
-    <string name="PassphrasePromptActivity_watermark_content_description">Molly 아이콘</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Signal 아이콘</string>
     <string name="PassphrasePromptActivity_ok_button_content_description">암호 제출</string>
     <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">잘못된 암호입니다!</string>
-    <string name="PassphrasePromptActivity_unlock_signal">Molly 잠금 해제</string>
+    <string name="PassphrasePromptActivity_unlock_signal">Signal 잠금 해제</string>
     <!-- This is the subject line for the email that is sent to support -->
-    <string name="PassphrasePromptActivity_signal_android_lock_screen">Molly Android - 잠금 화면</string>
+    <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - 잠금 화면</string>
 
     <!-- PlacePickerActivity -->
     <string name="PlacePickerActivity_title">지도</string>
@@ -2214,7 +2219,7 @@
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
     <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">메시지를 계속 보내려면 확인하세요.</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly에서 스팸을 방지하려면 확인을 완료하세요.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal에서 스팸을 방지하려면 확인을 완료하세요.</string>
     <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">확인 후 메시지를 계속 전송할 수 있습니다. 일시 중지된 메시지는 자동으로 전송됩니다.</string>
 
     <!-- Recipient -->
@@ -2222,7 +2227,7 @@
     <!-- Name of recipient representing user\'s \'My Story\' -->
     <string name="Recipient_my_story">내 스토리</string>
     <!-- Name of recipient for a call link without a name -->
-    <string name="Recipient_signal_call">Molly 통화</string>
+    <string name="Recipient_signal_call">Signal 통화</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block">차단</string>
@@ -2258,7 +2263,7 @@
 
     <!-- WebRtcCallActivity -->
     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">비디오를 사용하려면 탭하세요</string>
-    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s 님에게 전화하려면 Molly에서 카메라 권한이 필요합니다.</string>
+    <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s 님에게 전화하려면 Signal에서 카메라 권한이 필요합니다.</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
     <string name="WebRtcCallActivity__signal_s">시그널 %1$s</string>
     <string name="WebRtcCallActivity__calling">전화 진행 중…</string>
@@ -2315,23 +2320,23 @@
     <!-- Dialog title asking users for camera permission -->
     <string name="WebRtcCallActivity__allow_access_camera">카메라 접근을 허용해 주세요.</string>
     <!-- Dialog description explaining why camera and microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_camera_microphone">통화를 시작하거나 통화에 참여하려면 Molly에 카메라와 마이크 접근을 허용해 주세요.</string>
+    <string name="WebRtcCallActivity__to_start_call_camera_microphone">통화를 시작하거나 통화에 참여하려면 Signal에 카메라와 마이크 접근을 허용해 주세요.</string>
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__to_start_call_microphone">통화를 시작하거나 통화에 참여하려면 Molly에 마이크 접근을 허용해 주세요.</string>
+    <string name="WebRtcCallActivity__to_start_call_microphone">통화를 시작하거나 통화에 참여하려면 Signal에 마이크 접근을 허용해 주세요.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">동영상을 사용하려면 Molly에 카메라 접근을 허용해 주세요.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">동영상을 사용하려면 Signal에 카메라 접근을 허용해 주세요.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
-    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">통화를 시작하거나 통화에 참여하려면 Molly에 마이크 사용 권한이 필요합니다.</string>
+    <string name="WebRtcCallActivity__signal_needs_microphone_start_call">통화를 시작하거나 통화에 참여하려면 Signal에 마이크 사용 권한이 필요합니다.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">동영상을 사용하려면 Molly에 카메라 접근 권한이 필요합니다.</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">동영상을 사용하려면 Signal에 카메라 접근 권한이 필요합니다.</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">통화 시작 또는 참여 방법:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">동영상 사용 방법:</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_call">Molly 전화</string>
-    <string name="WebRtcCallView__signal_video_call">Molly 영상 통화</string>
+    <string name="WebRtcCallView__signal_call">Signal 전화</string>
+    <string name="WebRtcCallView__signal_video_call">Signal 영상 통화</string>
     <string name="WebRtcCallView__start_call">전화 시작하기</string>
     <string name="WebRtcCallView__join_call">전화 참여하기</string>
     <string name="WebRtcCallView__call_is_full">통화 참가자 수 최대</string>
@@ -2398,6 +2403,15 @@
     <string name="WebRtcCallView__end_call">전화 종료</string>
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">그룹 벨소리 토글</string>
+
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">UI 오류가 발생했습니다. 이 오류를 개발자에게 보고해 주세요.</string>
@@ -2561,7 +2575,7 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">이 전화번호를 인증하는 데 필요한 전화를 수신하게 됩니다.</string>
     <string name="RegistrationActivity_edit_number">전화번호 수정</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play Services가 설치되어 있지 않음</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">기기에 Google Play Services가 없습니다. Molly을 사용할 수는 있지만, 안정성이나 성능이 떨어질 수 있습니다.\n\n맞춤형 안드로이드 ROM을 사용하는 고급 사용자가 아니거나, 이 메시지가 오류라고 생각한다면 문제 해결을 위해 이메일로 support@molly.im에 문의해 주세요.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">기기에 Google Play Services가 없습니다. Signal을 사용할 수는 있지만, 안정성이나 성능이 떨어질 수 있습니다.\n\n맞춤형 안드로이드 ROM을 사용하는 고급 사용자가 아니거나, 이 메시지가 오류라고 생각한다면 문제 해결을 위해 이메일로 support@signal.org에 문의해 주세요.</string>
     <string name="RegistrationActivity_i_understand">이해했습니다.</string>
     <string name="RegistrationActivity_play_services_error">Play Services 오류</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services가 업데이트 중이거나 잠시 제공되지 않고 있습니다. 다시 시도해 주세요.</string>
@@ -2581,7 +2595,7 @@
     <string name="RegistrationActivity_non_standard_number_format">비표준 전화번호 형식</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
     <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">입력한 번호(%1$s)가 표준 형식이 아닙니다.\n\n혹시 입력하려던 번호가 %2$s인가요?</string>
-    <string name="RegistrationActivity_signal_android_phone_number_format">Molly Android - 전화번호 형식</string>
+    <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - 전화번호 형식</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">통화 요청함</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
@@ -2653,13 +2667,13 @@
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">연락처에 추가</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Molly로 초대</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Signal로 초대</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal 메시지</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal 전화</string>
 
     <!-- SharedContactView -->
     <string name="SharedContactView_add_to_contacts">연락처에 추가</string>
-    <string name="SharedContactView_invite_to_signal">Molly로 초대</string>
+    <string name="SharedContactView_invite_to_signal">Signal로 초대</string>
     <string name="SharedContactView_message">Signal 메시지</string>
 
     <!-- SignalBottomActionBar -->
@@ -2691,18 +2705,21 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%1$s 님이 보안 세션을 초기화했습니다.</string>
     <string name="SmsMessageRecord_duplicate_message">메시지를 복사하세요.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">스티커</string>
-
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">Stickers</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="other">%1$s selected</item>
+    </plurals>
     <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
     <string name="StickerManagement_available_tab_label">사용 가능</string>
     <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
     <string name="StickerManagement_installed_tab_label">설치됨</string>
-    <!-- Shown when there are no sticker packs available for installation -->
+    <!-- Shown when there are no sticker packs available for installation. -->
     <string name="StickerManagement_available_tab_empty_text">사용할 수 있는 스티커 팩이 없습니다</string>
-    <!-- Shown when there are no sticker packs currently installed -->
+    <!-- Shown when there are no sticker packs currently installed. -->
     <string name="StickerManagement_installed_tab_empty_text">설치한 스티커 팩이 없습니다</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
+    <!-- Message shown when the author of the sticker pack is unknown. -->
     <string name="StickerManagement_author_unknown">알 수 없음</string>
     <!-- Sticker pack list section header for packs that are already installed. -->
     <string name="StickerManagement_installed_stickers_header">설치된 스티커</string>
@@ -2710,6 +2727,38 @@
     <string name="StickerManagement_stickers_you_received_header">받은 스티커</string>
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Signal 아티스트 시리즈</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">Forward to</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">Select all</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">Delete</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">Forward</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">Select</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">Install</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">Remove</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
     <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
     <string name="StickerManagement_accessibility_download_pack">%1$s 스티커 팩 다운로드</string>
     <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
@@ -2718,10 +2767,14 @@
     <string name="StickerManagement_accessibility_drag_handle">끌어다 놓기 핸들</string>
     <!-- Accessibility label for the button to download a sticker pack. -->
     <string name="StickerManagement_accessibility_download">다운로드</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">Open context menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_no_stickers_installed">설치된 스티커 없음</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">받은 메시지의 스티커가 여기에 표시됩니다.</string>
     <string name="StickerManagementAdapter_untitled">제목 없음</string>
 
     <!-- StickerPackPreviewActivity -->
@@ -2825,11 +2878,11 @@
     <string name="ThreadRecord_blocked_group">차단함</string>
 
     <!-- ApkUpdateNotifications -->
-    <string name="ApkUpdateNotifications_prompt_install_title">Molly 업데이트</string>
-    <string name="ApkUpdateNotifications_prompt_install_body">새 Molly 버전을 이용할 수 있습니다. 탭하여 업데이트하세요.</string>
-    <string name="ApkUpdateNotifications_failed_general_title">Molly 업데이트 실패</string>
+    <string name="ApkUpdateNotifications_prompt_install_title">Signal 업데이트</string>
+    <string name="ApkUpdateNotifications_prompt_install_body">새 Signal 버전을 이용할 수 있습니다. 탭하여 업데이트하세요.</string>
+    <string name="ApkUpdateNotifications_failed_general_title">Signal 업데이트 실패</string>
     <string name="ApkUpdateNotifications_failed_general_body">나중에 다시 시도하겠습니다.</string>
-    <string name="ApkUpdateNotifications_auto_update_success_title">Molly을 업데이트했습니다.</string>
+    <string name="ApkUpdateNotifications_auto_update_success_title">Signal을 업데이트했습니다.</string>
     <string name="ApkUpdateNotifications_auto_update_success_body">%1$s 버전으로 자동 업데이트되었습니다.</string>
     <string name="ApkUpdateNotifications_manual_update_success_body">%1$s 버전으로 업데이트했습니다.</string>
 
@@ -2900,7 +2953,7 @@
     <string name="VerifyIdentityActivity_our_signal_safety_number">우리 Signal 안전 번호:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">공유에 사용할 수 있는 앱이 없습니다.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">클립보드에 비교할 수 있는 안전 번호가 없음</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR 코드를 읽으려면 카메라 권한이 필요함</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s의 안전 번호를 보려면 먼저 메시지를 교환해야 합니다.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -2921,17 +2974,13 @@
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">존재하지 않는 세션의 암호화 메시지</string>
 
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">잘못된 암호화 MMS 메시지</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">존재하지 않는 세션의 암호화 MMS 메시지</string>
-
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">알림 끄기</string>
 
     <!-- KeyCachingService -->
     <string name="KeyCachingService_signal_passphrase_cached">터치하여 여세요.</string>
-    <string name="KeyCachingService_passphrase_cached">Molly이 잠금 해제됨</string>
-    <string name="KeyCachingService_lock">Molly 잠금</string>
+    <string name="KeyCachingService_passphrase_cached">Signal이 잠금 해제됨</string>
+    <string name="KeyCachingService_lock">Signal 잠금</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">나</string>
@@ -2979,7 +3028,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">메시지 전송에 실패했습니다.</string>
     <string name="MessageNotifier_error_delivering_message">메시지 전송 중 오류가 발생했습니다.</string>
     <string name="MessageNotifier_message_delivery_paused">메시지 전달이 일시 중지되었습니다.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly에서 메시지를 계속 보내려면 확인하세요.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal에서 메시지를 계속 보내려면 확인하세요.</string>
     <string name="MessageNotifier_mark_all_as_read">모두 읽음으로 표시</string>
     <string name="MessageNotifier_mark_read">읽음으로 표시</string>
     <string name="MessageNotifier_turn_off_these_notifications">이 알림 끄기</string>
@@ -3001,7 +3050,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">내 스티커에 %1$s 이모지로 반응했습니다.</string>
     <string name="MessageNotifier_this_message_was_deleted">이 메시지는 삭제되었습니다.</string>
 
-    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">연락처 인물이 Molly에 가입했다는 알림을 끄시겠습니까? Molly &gt; 설정 &gt; 알림에서 다시 활성화할 수 있습니다.</string>
+    <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">연락처 인물이 Signal에 가입했다는 알림을 끄시겠습니까? Signal &gt; 설정 &gt; 알림에서 다시 활성화할 수 있습니다.</string>
 
     <!-- TurnOnNotificationsBottomSheet -->
     <!-- Title for sheet explaining how to turn on app notifications -->
@@ -3042,7 +3091,7 @@
     <string name="NotificationChannel_new_linked_device">새 연결된 기기</string>
 
     <!-- QuickResponseService -->
-    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly가 잠겨 있는 경우 빠른 답장을 사용할 수 없습니다!</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal가 잠겨 있는 경우 빠른 답장을 사용할 수 없습니다!</string>
     <string name="QuickResponseService_problem_sending_message">메시지를 보내는 중에 오류가 발생했습니다!</string>
 
     <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
@@ -3073,7 +3122,7 @@
     </plurals>
 
     <!-- Message shown when the app requests permission to save media to the device storage, but that permission has been permanently denied by the user. -->
-    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly에서 외부 저장 공간에 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
+    <string name="AttachmentSaver__signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal에서 외부 저장 공간에 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
 
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">외부 저장 공간에 저장하려면 저장 공간 권한이 필요함</string>
@@ -3092,7 +3141,7 @@
     <string name="ShortcutLauncherActivity_invalid_shortcut">잘못된 단축키</string>
 
     <!-- SingleRecipientNotificationBuilder -->
-    <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+    <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
     <string name="SingleRecipientNotificationBuilder_new_message">새 메시지</string>
     <string name="SingleRecipientNotificationBuilder_message_request">메시지 요청</string>
     <string name="SingleRecipientNotificationBuilder_you">나</string>
@@ -3135,7 +3184,7 @@
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
-    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">이 기기의 등록이 해제됐습니다. 다른 기기에서 Molly에 전화번호를 등록했기 때문일 가능성이 높습니다.</string>
+    <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">이 기기의 등록이 해제됐습니다. 다른 기기에서 Signal에 전화번호를 등록했기 때문일 가능성이 높습니다.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">기기 다시 등록</string>
 
@@ -3148,10 +3197,10 @@
     <!-- Banner button to update now -->
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">통화를 수락하려면 Molly에서 마이크를 사용하도록 허용하세요.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">통화를 수락하려면 Signal에서 마이크를 사용하도록 허용하세요.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
-    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">영상 통화를 수락하려면 Molly에서 마이크와 카메라를 사용하도록 허용하세요.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly에서 전화 기능을 사용하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
+    <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">영상 통화를 수락하려면 Signal에서 마이크와 카메라를 사용하도록 허용하세요.</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal에서 전화 기능을 사용하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">연결된 기기에서 응답했습니다.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">연결된 기기에서 거부했습니다.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">연결된 기기에서 사용 중입니다.</string>
@@ -3196,7 +3245,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">새 암호 다시 입력</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Molly로 초대</string>
+    <string name="contact_selection_activity__invite_to_signal">Signal로 초대</string>
     <string name="contact_selection_activity__new_group">새 그룹</string>
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">연락처 새로 고침</string>
@@ -3222,7 +3271,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">연락처 사진</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly에서 연락처 정보를 표시하려면 연락처 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal에서 연락처 정보를 표시하려면 연락처 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">연락처를 가져오는 중 오류 발생, 네트워크 연결 확인</string>
     <string name="ContactSelectionListFragment_username_not_found">사용자 이름을 찾을 수 없음</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\'%1$s\' 님은 Signal 사용자가 아닙니다. 사용자 이름 확인 후 다시 시도해 주세요."</string>
@@ -3250,7 +3299,7 @@
     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">연락처 접근을 허용해 주세요. 연락처는 암호화되며 Signal 서비스에 표시되지 않습니다.</string>
 
     <!-- contact_selection_list_fragment -->
-    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
+    <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
     <string name="contact_selection_list_fragment__show_contacts">연락처 표시</string>
 
     <!-- contact_selection_list_item -->
@@ -3359,7 +3408,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">도움말 풍선은 Molly 대화에서 끌 수 있는 Android 기능입니다.</string>
+    <string name="BubbleOptOutTooltip__description">도움말 풍선은 Signal 대화에서 끌 수 있는 Android 기능입니다.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">나중에</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -3523,7 +3572,7 @@
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
     <string name="EditProfileFragment_deprecated_dialog_title">시그널 최신 버전으로 업데이트</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
-    <string name="EditProfileFragment_deprecated_dialog_body">이 Molly 버전은 만료되었습니다. Molly을 계속 사용하려면 지금 업데이트하세요.</string>
+    <string name="EditProfileFragment_deprecated_dialog_body">이 Signal 버전은 만료되었습니다. Signal을 계속 사용하려면 지금 업데이트하세요.</string>
     <!-- The button on a dialog prompting user to update to the latest version of Signal. When clicked, the user will be taken to the store to update their app. -->
     <string name="EditProfileFragment_deprecated_dialog_update_button">업데이트</string>
     <!-- The title of a dialog informing the user that they cannot use this app feature when they are unregistered. -->
@@ -3755,7 +3804,7 @@
     <string name="preferences__slow">느리게</string>
     <string name="preferences__help">도움</string>
     <string name="preferences__advanced">고급</string>
-    <string name="preferences__donate_to_signal">Molly에 기부</string>
+    <string name="preferences__donate_to_signal">Signal에 기부</string>
     <!-- Preference label for making one-time donations to Signal -->
     <string name="preferences__privacy">개인 정보</string>
     <!-- Preference label for stories -->
@@ -3792,13 +3841,13 @@
     <!-- Title for the confirmation dialog of changing the app icon. -->
     <string name="preferences__app_icon_dialog_title">앱 아이콘과 이름을 \"%1$s\"(으)로 변경</string>
     <!-- Description for the confirmation dialog of changing the app icon. -->
-    <string name="preferences__app_icon_dialog_description">앱 아이콘과 이름을 변경하려면 Molly을 종료해야 합니다. 알림은 항상 기본 Molly 아이콘과 이름을 표시합니다.</string>
+    <string name="preferences__app_icon_dialog_description">앱 아이콘과 이름을 변경하려면 Signal을 종료해야 합니다. 알림은 항상 기본 Signal 아이콘과 이름을 표시합니다.</string>
     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
-    <string name="preferences__app_icon_warning_learn_more">휴대폰 홈 화면과 앱 서랍에 표시될 앱 아이콘과 이름을 선택하세요. 알림은 항상 기본 Molly 아이콘과 이름을 표시합니다. 자세히 알아보기</string>
+    <string name="preferences__app_icon_warning_learn_more">휴대폰 홈 화면과 앱 서랍에 표시될 앱 아이콘과 이름을 선택하세요. 알림은 항상 기본 Signal 아이콘과 이름을 표시합니다. 자세히 알아보기</string>
     <!-- Visible warning label for the limitations of changing the app icon. -->
     <string name="preferences__app_icon_warning">앱 아이콘과 이름이 홈 화면과 앱 서랍에 표시됩니다.</string>
     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
-    <string name="preferences__app_icon_notification_warning">알림은 항상 기본 Molly 아이콘과 이름을 표시합니다.</string>
+    <string name="preferences__app_icon_notification_warning">알림은 항상 기본 Signal 아이콘과 이름을 표시합니다.</string>
     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
     <string name="preferences__app_icon_learn_more">자세히 알아보기</string>
     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
@@ -3890,7 +3939,7 @@
     <string name="preferences_communication__category_censorship_circumvention">검열 우회</string>
     <!-- Title of the \'censorship circumvention\' toggle switch -->
     <string name="preferences_communication__censorship_circumvention">검열 우회</string>
-    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">이 기능을 켠다면 Molly이 검열 우회를 시도합니다. Molly이 검열된 곳이 아니라면 이 기능을 켜지 마십시오.</string>
+    <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">이 기능을 켠다면 Signal이 검열 우회를 시도합니다. Signal이 검열된 곳이 아니라면 이 기능을 켜지 마십시오.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country -->
     <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">검열 우회가 계정의 휴대전화에서 활성화되습니다.</string>
     <!-- Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country -->
@@ -3943,7 +3992,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">결제 소개</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Molly을 사용하여 개인정보 보호에 중점을 둔 새로운 디지털 통화인 MobileCoin을 보내고 받으세요. 지금 활성화하여 시작해 보세요.</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Signal을 사용하여 개인정보 보호에 중점을 둔 새로운 디지털 통화인 MobileCoin을 보내고 받으세요. 지금 활성화하여 시작해 보세요.</string>
     <string name="PaymentsHomeFragment__activate_payments">결제 활성화</string>
     <string name="PaymentsHomeFragment__activating_payments">결제 활성화 중…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">결제 계정 복원</string>
@@ -3969,7 +4018,7 @@
     <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">귀하의 지역에서는 결제가 불가능합니다.</string>
     <string name="PaymentsHomeFragment__could_not_enable_payments">결제를 활성화할 수 없습니다. 나중에 다시 시도하세요.</string>
     <string name="PaymentsHomeFragment__deactivate_payments_question">결제를 비활성화하시겠습니까?</string>
-    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">결제를 비활성화하면 Molly에서 MobileCoin을 보내거나 받을 수 없습니다.</string>
+    <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">결제를 비활성화하면 Signal에서 MobileCoin을 보내거나 받을 수 없습니다.</string>
     <string name="PaymentsHomeFragment__deactivate">비활성화</string>
     <string name="PaymentsHomeFragment__continue">계속</string>
     <string name="PaymentsHomeFragment__balance_is_not_currently_available">현재 잔액을 사용할 수 없습니다.</string>
@@ -3978,10 +4027,10 @@
     <string name="PaymentsHomeFragment__details">세부 정보</string>
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
-    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Molly을 사용하여 MobileCoin을 주고받으세요. 모든 결제에는 MobileCoins와 MobileCoin Wallet의 사용 약관이 적용됩니다. 일부 문제가 발생할 수 있으며, 손실된 결제나 잔액은 복구할 수 없습니다. </string>
+    <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Signal을 사용하여 MobileCoin을 주고받으세요. 모든 결제에는 MobileCoins와 MobileCoin Wallet의 사용 약관이 적용됩니다. 일부 문제가 발생할 수 있으며, 손실된 결제나 잔액은 복구할 수 없습니다. </string>
     <string name="PaymentsHomeFragment__activate">활성화</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin 용어 보기</string>
-    <string name="PaymentsHomeFragment__payments_not_available">Molly 결제는 더 이상 사용할 수 없습니다. 여전히 거래소로 자금을 이체할 수 있지만 더 이상 지불을 주고받거나 자금을 추가할 수 없습니다.</string>
+    <string name="PaymentsHomeFragment__payments_not_available">Signal 결제는 더 이상 사용할 수 없습니다. 여전히 거래소로 자금을 이체할 수 있지만 더 이상 지불을 주고받거나 자금을 추가할 수 없습니다.</string>
 
   <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
@@ -4009,7 +4058,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">권한 허용</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">아는 사람에게 메시지를 보낼 수 있도록 Molly에서 이 권한을 요청합니다. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">아는 사람에게 메시지를 보낼 수 있도록 Signal에서 이 권한을 요청합니다. </string>
     <!-- Notifications permission row title -->
     <string name="GrantPermissionsFragment__notifications">알림</string>
     <!-- Notifications permission row description -->
@@ -4101,10 +4150,10 @@
     <string name="PaymentsTransferFragment__next">다음</string>
     <string name="PaymentsTransferFragment__invalid_address">유효하지 않은 주소</string>
     <string name="PaymentsTransferFragment__check_the_wallet_address">이체하려는 지갑 주소를 확인하고 다시 시도하세요.</string>
-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">내 Molly 지갑 주소로 이체할 수 없습니다. 지원되는 거래소에서 귀하의 계정에서 지갑 주소를 입력하세요.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR 코드를 스캔하려면 Molly이 카메라에 액세스할 수 있어야 합니다.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly이 QR 코드를 캡처하려면 카메라 권한이 필요합니다. 설정으로 이동하여 \'권한\'을 선택하고 \'카메라\'를 활성화하세요.</string>
-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR 코드를 스캔하려면 Molly이 카메라에 액세스할 수 있어야 합니다.</string>
+    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">내 Signal 지갑 주소로 이체할 수 없습니다. 지원되는 거래소에서 귀하의 계정에서 지갑 주소를 입력하세요.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QR 코드를 스캔하려면 Signal이 카메라에 액세스할 수 있어야 합니다.</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal이 QR 코드를 캡처하려면 카메라 권한이 필요합니다. 설정으로 이동하여 \'권한\'을 선택하고 \'카메라\'를 활성화하세요.</string>
+    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QR 코드를 스캔하려면 Signal이 카메라에 액세스할 수 있어야 합니다.</string>
     <string name="PaymentsTransferFragment__settings">설정</string>
 
     <!-- PaymentsTransferQrScanFragment -->
@@ -4459,17 +4508,17 @@
 
     <!-- CallNotificationBuilder -->
     <!-- Displayed in a notification when a Signal voice call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_voice_call">Molly 음성 통화 수신 중</string>
+    <string name="CallNotificationBuilder__incoming_signal_voice_call">Signal 음성 통화 수신 중</string>
     <!-- Displayed in a notification when a Signal video call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_video_call">Molly 영상 통화 수신 중</string>
+    <string name="CallNotificationBuilder__incoming_signal_video_call">Signal 영상 통화 수신 중</string>
     <!-- Displayed in a notification when a Signal group call is ringing -->
-    <string name="CallNotificationBuilder__incoming_signal_group_call">Molly 단체 통화 수신</string>
+    <string name="CallNotificationBuilder__incoming_signal_group_call">Signal 단체 통화 수신</string>
     <!-- Displayed in a notification when a Signal voice call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Molly 음성 통화 진행 중</string>
+    <string name="CallNotificationBuilder__ongoing_signal_voice_call">Signal 음성 통화 진행 중</string>
     <!-- Displayed in a notification when a Signal video call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_video_call">Molly 영상 통화 진행 중</string>
+    <string name="CallNotificationBuilder__ongoing_signal_video_call">Signal 영상 통화 진행 중</string>
     <!-- Displayed in a notification when a Signal group call is in progress -->
-    <string name="CallNotificationBuilder__ongoing_signal_group_call">Molly 그룹 통화 진행 중</string>
+    <string name="CallNotificationBuilder__ongoing_signal_group_call">Signal 그룹 통화 진행 중</string>
 
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">로드 중…</string>
@@ -4523,9 +4572,9 @@
     <string name="BackupDialog_verify">확인</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">백업 암호가 성공적으로 입력됨</string>
     <string name="BackupDialog_passphrase_was_not_correct">암호가 올바르지 않음</string>
-    <string name="LocalBackupJob_creating_signal_backup">Molly 백업 만드는 중…</string>
+    <string name="LocalBackupJob_creating_signal_backup">Signal 백업 만드는 중…</string>
     <!-- Title for progress notification shown in a system notification while verifying a recent backup. -->
-    <string name="LocalBackupJob_verifying_signal_backup">Molly 백업을 확인하는 중…</string>
+    <string name="LocalBackupJob_verifying_signal_backup">Signal 백업을 확인하는 중…</string>
     <string name="LocalBackupJobApi29_backup_failed">백업을 실패했습니다.</string>
     <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">백업 경로가 삭제되었거나 이동했습니다.</string>
     <string name="LocalBackupJobApi29_your_backup_file_is_too_large">백업 파일이 너무 커서 이 볼륨에 저장할 수 없습니다.</string>
@@ -4540,8 +4589,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">나한테 전화(%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">코드 다시 보내기(%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Molly 지원 팀에 문의</string>
-    <string name="RegistrationActivity_code_support_subject">Molly 등록 - 안드로이드용 인증 코드</string>
+    <string name="RegistrationActivity_contact_signal_support">Signal 지원 팀에 문의</string>
+    <string name="RegistrationActivity_code_support_subject">Signal 등록 - 안드로이드용 인증 코드</string>
     <string name="RegistrationActivity_incorrect_code">올바르지 않은 코드</string>
     <string name="BackupUtil_never">없음</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4549,7 +4598,7 @@
     <!-- Phone number heading displayed as a screen title -->
     <string name="preferences_app_protection__phone_number">전화번호</string>
     <!-- Subtext below option to launch into phone number privacy settings screen -->
-    <string name="preferences_app_protection__choose_who_can_see">내 전화번호를 볼 수 있고, Molly에서 내 전화번호로 나한테 연락할 수 있는 사람을 선택하세요.</string>
+    <string name="preferences_app_protection__choose_who_can_see">내 전화번호를 볼 수 있고, Signal에서 내 전화번호로 나한테 연락할 수 있는 사람을 선택하세요.</string>
     <!-- Section title above two radio buttons for enabling and disabling phone number display -->
     <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">내 전화번호를 볼 수 있는 사람</string>
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
@@ -4599,12 +4648,20 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">많이 시도했습니다. 다시 시도해 주세요.</string>
     <string name="RegistrationActivity_error_connecting_to_service">서비스 연결 중 오류 발생</string>
     <string name="preferences_chats__backups">백업</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">Beta</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">Info</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
-    <string name="prompt_passphrase_activity__unlock_signal">Molly 잠금 해제</string>
+    <string name="prompt_passphrase_activity__unlock_signal">Signal 잠금 해제</string>
     <!-- Description text explaining how to unlock Signal -->
-    <string name="prompt_passphrase_activity__use_your_android_device">Molly을 잠금 해제하려면 Android 기기 잠금 설정을 사용하세요.</string>
+    <string name="prompt_passphrase_activity__use_your_android_device">Signal을 잠금 해제하려면 Android 기기 잠금 설정을 사용하세요.</string>
     <!-- Text shown in a dialog that further explains how to unlock Signal by using the same unlocking methods that are used to unlock their own device -->
-    <string name="prompt_passphrase_activity__screen_lock_is_on">화면 잠금이 켜져 있으며 Molly이 기기 잠금 설정으로 안전하게 보호되고 있습니다. Molly을 얼굴 잠금 해제, 지문 잠금 해제, PIN, 암호, 패턴 등 평소 휴대폰을 잠금 해제하는 것과 같은 방식으로 잠금 해제하세요.</string>
+    <string name="prompt_passphrase_activity__screen_lock_is_on">화면 잠금이 켜져 있으며 Signal이 기기 잠금 설정으로 안전하게 보호되고 있습니다. Signal을 얼굴 잠금 해제, 지문 잠금 해제, PIN, 암호, 패턴 등 평소 휴대폰을 잠금 해제하는 것과 같은 방식으로 잠금 해제하세요.</string>
     <!-- Button in a dialog that will contact Signal support if pressed -->
     <string name="prompt_passphrase_activity__contact_support">지원팀에 문의</string>
     <!-- Button text to try again after unlocking has previously failed -->
@@ -4616,7 +4673,7 @@
     <!-- Text shown with toggle that when switched on will enable screen lock -->
     <string name="ScreenLockSettingsFragment__use_screen_lock">화면 잠금 사용</string>
     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
-    <string name="ScreenLockSettingsFragment__your_android_device">Molly에서 나가거나 앱을 전환할 경우 Molly을 잠금 해제하려면 Android 기기 잠금 설정이 필요합니다. 잠금 상태에서는 알림 미리 보기가 메시지 내용을 표시하지 않습니다.</string>
+    <string name="ScreenLockSettingsFragment__your_android_device">Signal에서 나가거나 앱을 전환할 경우 Signal을 잠금 해제하려면 Android 기기 잠금 설정이 필요합니다. 잠금 상태에서는 알림 미리 보기가 메시지 내용을 표시하지 않습니다.</string>
     <!-- Title text explaining when users should start the screen lock -->
     <string name="ScreenLockSettingsFragment__start_screen_lock">화면 잠금 시작</string>
     <!-- Option text explaining that screen lock should start immediately -->
@@ -4630,9 +4687,9 @@
     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
     <string name="ScreenLockSettingsFragment__custom_time">사용자 지정 시간</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Molly 화면 잠금 사용</string>
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Signal 화면 잠금 사용</string>
     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Molly 화면 잠금 해제</string>
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Signal 화면 잠금 해제</string>
 
     <string name="Recipient_unknown">알 수 없음</string>
     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
@@ -4687,19 +4744,19 @@
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">이전 Android 장치에 연결 준비 중…</string>
     <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">잠시만요, 곧 준비가 될 겁니다.</string>
     <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">이전 Android 장치 연결을 기다리는 중…</string>
-    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly이 이전 Android 장치를 검색하고 연결하려면 위치 권한이 필요합니다.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly이 이전 Android 장치를 검색하고 연결하려면 위치 서비스를 활성화해야 합니다.</string>
-    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly이 기존 Android 장치를 검색하고 연결하려면 Wi-Fi가 켜져 있어야 합니다. Wi-Fi가 켜져 있어야 하지만 Wi-Fi 네트워크에 연결되어 있지 않아도 됩니다.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">죄송합니다. 이 장치는 Wi-Fi Direct를 지원하지 않는 것 같습니다. Molly은 Wi-Fi Direct를 사용하여 이전 Android 장치를 검색하고 연결합니다. 여전히 백업을 복원하여 이전 Android 장치에서 계정을 복원할 수 있습니다.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal이 이전 Android 장치를 검색하고 연결하려면 위치 권한이 필요합니다.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal이 이전 Android 장치를 검색하고 연결하려면 위치 서비스를 활성화해야 합니다.</string>
+    <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal이 기존 Android 장치를 검색하고 연결하려면 Wi-Fi가 켜져 있어야 합니다. Wi-Fi가 켜져 있어야 하지만 Wi-Fi 네트워크에 연결되어 있지 않아도 됩니다.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">죄송합니다. 이 장치는 Wi-Fi Direct를 지원하지 않는 것 같습니다. Signal은 Wi-Fi Direct를 사용하여 이전 Android 장치를 검색하고 연결합니다. 여전히 백업을 복원하여 이전 Android 장치에서 계정을 복원할 수 있습니다.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">백업 복원</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">이전 Android 장치에 연결하는 동안 예기치 않은 오류가 발생했습니다.</string>
 
     <!-- OldDeviceTransferSetupFragment -->
     <string name="OldDeviceTransferSetup__searching_for_new_android_device">새 Android 장치 검색 중…</string>
-    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly이 새 Android 장치를 검색하고 연결하려면 위치 권한이 필요합니다.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly에서 새 Android 장치를 검색하고 연결하려면 위치 서비스를 활성화해야 합니다.</string>
-    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly이 새 Android 장치를 검색하고 연결하려면 Wi-Fi가 켜져 있어야 합니다. Wi-Fi가 켜져 있어야 하지만 Wi-Fi 네트워크에 연결되어 있지 않아도 됩니다.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">죄송합니다. 이 장치는 Wi-Fi Direct를 지원하지 않는 것 같습니다. Molly은 Wi-Fi Direct를 사용하여 새 Android 장치를 검색하고 연결합니다. 새 Android 장치에서 계정을 복원하기 위해 백업을 생성할 수 있습니다.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal이 새 Android 장치를 검색하고 연결하려면 위치 권한이 필요합니다.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal에서 새 Android 장치를 검색하고 연결하려면 위치 서비스를 활성화해야 합니다.</string>
+    <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal이 새 Android 장치를 검색하고 연결하려면 Wi-Fi가 켜져 있어야 합니다. Wi-Fi가 켜져 있어야 하지만 Wi-Fi 네트워크에 연결되어 있지 않아도 됩니다.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">죄송합니다. 이 장치는 Wi-Fi Direct를 지원하지 않는 것 같습니다. Signal은 Wi-Fi Direct를 사용하여 새 Android 장치를 검색하고 연결합니다. 새 Android 장치에서 계정을 복원하기 위해 백업을 생성할 수 있습니다.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">백업 만들기</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">새 Android 장치에 연결하는 동안 예기치 않은 오류가 발생했습니다.</string>
 
@@ -4742,7 +4799,7 @@
 
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">데이터 전송 중</string>
-    <string name="DeviceTransfer__keep_both_devices_near_each_other">두 장치를 서로 가까이 두세요. 장치를 끄지 말고 Molly을 켜두세요. 전송은 종단 간 암호화됩니다.</string>
+    <string name="DeviceTransfer__keep_both_devices_near_each_other">두 장치를 서로 가까이 두세요. 장치를 끄지 말고 Signal을 켜두세요. 전송은 종단 간 암호화됩니다.</string>
     <string name="DeviceTransfer__d_messages_so_far">지금까지 %1$d개의 메시지…</string>
     <!-- Filled in with total percentage of messages transferred -->
     <string name="DeviceTransfer__s_of_messages_so_far">현재까지 메시지 %1$s%% 전송 완료</string>
@@ -4756,7 +4813,7 @@
     <!-- OldDeviceTransferInstructionsFragment -->
     <string name="OldDeviceTransferInstructions__transfer_account">계정 이동</string>
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">새 Android 장치에서 Molly을 다운로드하세요.</string>
+    <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">새 Android 장치에서 Signal을 다운로드하세요.</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
     <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"계정 이전 또는 복원을 탭하세요."</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -5011,7 +5068,7 @@
     <string name="payment_info_card_about_mobilecoin">모바일 코인 소개</string>
     <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin은 새로운 개인정보 보호 중심의 디지털 통화입니다.</string>
     <string name="payment_info_card_adding_funds">자금 추가</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">MobileCoin을 지갑 주소로 전송하여 Molly에서 사용할 자금을 추가할 수 있습니다.</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">MobileCoin을 지갑 주소로 전송하여 Signal에서 사용할 자금을 추가할 수 있습니다.</string>
     <string name="payment_info_card_cashing_out">현금화</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin을 지원하는 거래소에서 언제든지 MobileCoin을 현금화할 수 있습니다. 해당 거래소에서 계좌로 이체하기만 하면 됩니다.</string>
     <string name="payment_info_card_hide_this_card">이 카드를 숨기시겠습니까?</string>
@@ -5032,12 +5089,12 @@
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">지갑 비활성화</string>
     <string name="DeactivateWalletFragment__your_balance">잔액</string>
-    <string name="DeactivateWalletFragment__its_recommended_that_you">결제를 비활성화하기 전에 다른 지갑 주소로 자금을 이체하는 것이 좋습니다. 지금 자금을 이체하지 않기로 선택할 경우 결제를 다시 활성화하면 자금이 Molly에 연결된 지갑에 남아 있게 됩니다.</string>
+    <string name="DeactivateWalletFragment__its_recommended_that_you">결제를 비활성화하기 전에 다른 지갑 주소로 자금을 이체하는 것이 좋습니다. 지금 자금을 이체하지 않기로 선택할 경우 결제를 다시 활성화하면 자금이 Signal에 연결된 지갑에 남아 있게 됩니다.</string>
     <string name="DeactivateWalletFragment__transfer_remaining_balance">잔액 이체</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring">전송하지 않고 비활성화</string>
     <string name="DeactivateWalletFragment__deactivate">비활성화</string>
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">이전하지 않고 비활성화하시겠습니까?</string>
-    <string name="DeactivateWalletFragment__your_balance_will_remain">결제를 다시 활성화하기로 선택할 경우 잔액이 Molly에 연결된 지갑에 남아 있게 됩니다.</string>
+    <string name="DeactivateWalletFragment__your_balance_will_remain">결제를 다시 활성화하기로 선택할 경우 잔액이 Signal에 연결된 지갑에 남아 있게 됩니다.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">지갑을 비활성화하는 동안 오류가 발생했습니다.</string>
   <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
 
@@ -5464,7 +5521,7 @@
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">라이선스</string>
     <string name="HelpSettingsFragment__terms_amp_privacy_policy">이용 약관 &amp; 개인 정보 보호 정책</string>
-    <string name="HelpFragment__copyright_signal_messenger">Molly Messenger 저작권</string>
+    <string name="HelpFragment__copyright_signal_messenger">Signal Messenger 저작권</string>
     <string name="HelpFragment__licenced_under_the_agplv3">GNU AGPLv3에 따라 라이선스가 부여됨</string>
 
     <!-- DataAndStorageSettingsFragment -->
@@ -5659,6 +5716,8 @@
     <string name="NewConversationActivity__s_has_been_removed">%1$s 님을 제거했습니다.</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">%1$s 님을 차단했습니다.</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">%1$s 님을 제거할 수 없습니다.</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -5938,7 +5997,7 @@
     <!-- Title of dialog telling user they need to update signal as it expired -->
     <string name="UpdateSignalExpiredDialog__title">시그널 최신 버전으로 업데이트</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">이 Molly 버전은 만료되었습니다. Molly을 계속 사용하려면 지금 업데이트하세요.</string>
+    <string name="UpdateSignalExpiredDialog__message">이 Signal 버전은 만료되었습니다. Signal을 계속 사용하려면 지금 업데이트하세요.</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
     <string name="UpdateSignalExpiredDialog__update_action">업데이트</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
@@ -5947,7 +6006,7 @@
     <!-- Title of dialog telling user they need to re-register signal -->
     <string name="ReregisterSignalDialog__title">기기를 등록 해제함</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">이 기기를 등록 해제했습니다. 이 기기에서 Molly을 계속 사용하려면 다시 등록하세요.</string>
+    <string name="ReregisterSignalDialog__message">이 기기를 등록 해제했습니다. 이 기기에서 Signal을 계속 사용하려면 다시 등록하세요.</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
     <string name="ReregisterSignalDialog__reregister_action">재등록</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
@@ -6266,7 +6325,7 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">선택창을 열지 못했습니다.</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">알림을 사용하려면 Molly에 알림을 표시할 권한을 부여해야 합니다.</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">알림을 사용하려면 Signal에 알림을 표시할 권한을 부여해야 합니다.</string>
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">사용</string>
 
@@ -6938,34 +6997,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">이 기부를 확인하기 위해 Signal에서 나가시겠습니까?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">확인 후 Signal로 돌아와 기부 처리를 완료하세요.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">송금</string>
@@ -7026,7 +7057,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">은행 선택하기</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">%1$s을(를) 통한 기부 확인</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">정기 기부를 설정하려면 계속을 탭하여 은행을 통한 €0,01 청구를 확인해 주세요. 이렇게 하면 청구 금액은 자동으로 환불되고 계정에서 월 %1$s 기부가 승인됩니다.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -7691,11 +7722,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">미디어 복원 중</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">복원을 일시 중지함</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">복구가 완료되었습니다.</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">세부 정보</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Wi-Fi를 기다리는 중…</string>
@@ -7727,6 +7760,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">마지막 백업을 완료하지 못했습니다. 최신 버전 Signal을 사용 중인지 확인하고 다시 시도하세요.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">자세히 알아보기</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -7826,8 +7864,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">결제 기록</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">백업 세부 정보</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">셀룰러 데이터를 사용하여 복원</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">백업 크기</string>
     <!-- Row label for backup frequency -->
@@ -7873,7 +7911,7 @@
     <!-- Displays the date the subscription expired. Placeholder is the date. -->
     <string name="RemoteBackupsSettingsFragment__expired_on_s">%1$s에 만료됨</string>
     <!-- Displayed at the top of the screen when no backup is currently enabled -->
-    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">새 휴대폰을 사용하거나 Molly을 다시 설치할 때 데이터를 잃지 않도록 메시지 기록을 백업하세요.</string>
+    <string name="RemoteBackupsSettingsFragment__back_up_your_message_history">새 휴대폰을 사용하거나 Signal을 다시 설치할 때 데이터를 잃지 않도록 메시지 기록을 백업하세요.</string>
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">다른 백업 방법</string>
     <!-- Row title for performing on-device backup -->
@@ -7944,6 +7982,8 @@
     <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
         <item quantity="other">이 기기에 있지 않은 백업 데이터가 %1$s 있습니다. %2$d일 후 구독이 종료되면 백업이 삭제됩니다.</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">다운로드</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -7952,6 +7992,10 @@
     <plurals name="RemoteBackupsSettingsFragment__if_you_skip_downloading">
         <item quantity="other">다운로드를 건너뛰면 백업의 남은 미디어와 첨부 파일이 %1$d일 후 삭제됩니다.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Skip restore?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">건너뛰기</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8005,9 +8049,9 @@
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">내 백업 키</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">백업 키는 Molly을 다시 설치할 경우 백업을 복원하는 데 사용할 수 있는 64자리 코드입니다.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">백업 키는 Signal을 다시 설치할 경우 백업을 복원하는 데 사용할 수 있는 64자리 코드입니다.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">키를 잊어버리면 백업을 복원할 수 없습니다. Molly은 백업을 복원하도록 도와드릴 수 없습니다.</string>
+    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">키를 잊어버리면 백업을 복원할 수 없습니다. Signal은 백업을 복원하도록 도와드릴 수 없습니다.</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__next">다음</string>
 
@@ -8023,7 +8067,7 @@
     <!-- Bottom sheet title -->
     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">키를 안전하게 보관하세요</string>
     <!-- Bottom sheet subtitle -->
-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">키를 분실할 경우 Molly은 백업을 복원하도록 도와드릴 수 없습니다. 안전한 곳에 키를 보관해 두고, 다른 사람과 공유하지 마세요.</string>
+    <string name="MessageBackupsKeyRecordScreen__signal_will_not">키를 분실할 경우 Signal은 백업을 복원하도록 도와드릴 수 없습니다. 안전한 곳에 키를 보관해 두고, 다른 사람과 공유하지 마세요.</string>
     <!-- Checkbox label -->
     <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">키를 기록했음</string>
     <!-- Sheet action button label -->
@@ -8105,7 +8149,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">이전 휴대폰이 없음</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">또는 동일한 기기에 Molly을 다시 설치하는 중입니다</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">또는 동일한 기기에 Signal을 다시 설치하는 중입니다</string>
 
     <!-- Screen title for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">계정 복원 또는 전송</string>
@@ -8255,6 +8299,16 @@
     <string name="MainToolbar__notification_profile_content_description">알림 프로필</string>
     <!-- Accessibility label for more options button in MainToolbar -->
     <string name="MainToolbar__proxy_content_description">프록시</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">Navigate up</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">Toggle</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

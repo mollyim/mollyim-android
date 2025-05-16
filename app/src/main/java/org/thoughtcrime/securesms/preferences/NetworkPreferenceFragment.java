@@ -8,10 +8,16 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.Navigation;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -44,6 +50,24 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
 
   public NetworkPreferenceFragment() {
     networkManager = AppDependencies.getNetworkManager();
+  }
+
+  @Override
+  public @NonNull View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.network_preference_fragment, container, false);
+
+    FrameLayout content = view.findViewById(R.id.preferences_content);
+    View preferencesView = super.onCreateView(inflater, content, savedInstanceState);
+    content.addView(preferencesView);
+
+    return view;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    Toolbar toolbar = view.findViewById(R.id.toolbar);
+    toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
   }
 
   @Override
@@ -123,15 +147,6 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   @Override
   protected void onCreateEncryptedPreferences(Bundle savedInstanceState, String rootKey) {
     addPreferencesFromResource(R.xml.preferences_network);
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    final ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setTitle(R.string.preferences__network);
-    }
   }
 
   @Override

@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.database.ThreadTable;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.util.ConversationUtil;
@@ -61,6 +62,11 @@ public class ConversationShortcutUpdateJob extends BaseJob {
     if (TextSecurePreferences.isPassphraseLockEnabled(context)) {
       Log.i(TAG, "Passphrase lock enabled. Clearing shortcuts.");
       ConversationUtil.clearAllShortcuts(context);
+      return;
+    }
+
+    if (SignalStore.account().getAci() == null) {
+      Log.i(TAG, "Need ACI for group shortcuts");
       return;
     }
 

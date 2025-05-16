@@ -101,6 +101,10 @@ public class WebRtcServiceStateBuilder {
 
     public @NonNull LocalDeviceStateBuilder isMicrophoneEnabled(boolean enabled) {
       toBuild.setMicrophoneEnabled(enabled);
+      if (enabled) {
+        // Clear any remote mute attribution.
+        toBuild.setRemoteMutedBy(null);
+      }
       return this;
     }
 
@@ -141,6 +145,12 @@ public class WebRtcServiceStateBuilder {
 
     public @NonNull LocalDeviceStateBuilder setHandRaisedTimestamp(long handRaisedTimestamp) {
       toBuild.setHandRaisedTimestamp(handRaisedTimestamp);
+      return this;
+    }
+
+    public @NonNull LocalDeviceStateBuilder setRemoteMutedBy(@NonNull CallParticipant participant) {
+      toBuild.setRemoteMutedBy(participant);
+      toBuild.setMicrophoneEnabled(false);
       return this;
     }
   }

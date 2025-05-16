@@ -52,7 +52,6 @@ import androidx.compose.ui.platform.ComposeView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -95,7 +94,7 @@ import org.thoughtcrime.securesms.banner.banners.OutdatedBuildBanner;
 import org.thoughtcrime.securesms.banner.banners.ServiceOutageBanner;
 import org.thoughtcrime.securesms.banner.banners.UnauthorizedBanner;
 import org.thoughtcrime.securesms.banner.banners.UsernameOutOfSyncBanner;
-import org.thoughtcrime.securesms.components.DeleteSyncEducationDialog;
+import org.thoughtcrime.securesms.components.compose.DeleteSyncEducationDialog;
 import org.thoughtcrime.securesms.components.SignalProgressDialog;
 import org.thoughtcrime.securesms.components.menu.ActionItem;
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar;
@@ -311,6 +310,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
     searchAdapter = contactSearchMediator.getAdapter();
 
+    if (WindowSizeClass.Companion.getWindowSizeClass(getResources()).isCompact()) {
+      ViewUtil.setBottomMargin(bottomActionBar, ViewUtil.getNavigationBarHeight(bottomActionBar));
+    }
+
     CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar);
     int                     openHeight              = (int) DimensionUnit.DP.toPixels(FilterLerp.FILTER_OPEN_HEIGHT);
 
@@ -385,6 +388,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     initializeVoiceNotePlayer();
     initializeBanners();
     maybeScheduleRefreshProfileJob();
+    ConversationListFragmentExtensionsKt.listenToEventBusWhileResumed(this, mainNavigationViewModel.getDetailLocation());
+
+    String query = contactSearchMediator.getFilter();
+    if (query != null) {
+      onSearchQueryUpdated(query);
+    }
 
     chatListBackHandler = new ChatListBackHandler(false);
     requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), chatListBackHandler);
@@ -392,6 +401,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     lifecycleDisposable.bindTo(getViewLifecycleOwner());
     lifecycleDisposable.add(mainNavigationViewModel.getTabClickEvents().filter(tab -> tab == MainNavigationListLocation.CHATS)
                                                    .subscribe(unused -> {
+                                                     Log.d(TAG, "Scroll to top please");
                                                      LinearLayoutManager layoutManager            = (LinearLayoutManager) list.getLayoutManager();
                                                      int                 firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                                                      if (firstVisibleItemPosition <= LIST_SMOOTH_SCROLL_TO_TOP_THRESHOLD) {
@@ -467,7 +477,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
     initializeSearchListener();
     initializeFilterListener();
-    EventBus.getDefault().register(this);
     itemAnimator.disable();
     SpoilerAnnotation.resetRevealedSpoilers();
 
@@ -494,13 +503,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     super.onStart();
     AppForegroundObserver.addListener(appForegroundObserver);
     itemAnimator.disable();
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-
-    EventBus.getDefault().unregister(this);
   }
 
   @Override
@@ -598,8 +600,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onShowArchiveClick() {
     if (viewModel.currentSelectedConversations().isEmpty()) {
-      NavHostFragment.findNavController(this)
-                     .navigate(ConversationListFragmentDirections.actionConversationListFragmentToConversationListArchiveFragment());
+      mainNavigationViewModel.goTo(MainNavigationListLocation.ARCHIVE);
     }
   }
 
@@ -662,7 +663,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
           } else if (event instanceof MainToolbarViewModel.Event.Chats.ClearFilter) {
             onClearFilterClick();
           } else if (event instanceof MainToolbarViewModel.Event.Chats.CloseArchive) {
-            NavHostFragment.findNavController(this).popBackStack(R.id.conversationListFragment, false);
+            mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS);
           }
         })
     );
@@ -716,6 +717,13 @@ public class ConversationListFragment extends MainFragment implements ActionMode
             if (backupStatusData instanceof BackupStatusData.NotEnoughFreeSpace) {
               BackupAlertBottomSheet.create(new BackupAlert.DiskFull(((BackupStatusData.NotEnoughFreeSpace) backupStatusData).getRequiredSpace()))
                                     .show(getParentFragmentManager(), null);
+            } else if (backupStatusData instanceof BackupStatusData.RestoringMedia && ((BackupStatusData.RestoringMedia) backupStatusData).getRestoreStatus() == BackupStatusData.RestoreStatus.WAITING_FOR_WIFI) {
+              new MaterialAlertDialogBuilder(requireContext())
+                  .setTitle(R.string.ResumeRestoreCellular_resume_using_cellular_title)
+                  .setMessage(R.string.ResumeRestoreCellular_resume_using_cellular_message)
+                  .setNegativeButton(android.R.string.cancel, null)
+                  .setPositiveButton(R.string.BackupStatus__resume, (d, w) -> SignalStore.backup().setRestoreWithCellular(true))
+                  .show();
             }
           }
 
@@ -810,12 +818,17 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   private void initializeViewModel() {
-    viewModel = new ViewModelProvider(this, new ConversationListViewModel.Factory(isArchived())).get(ConversationListViewModel.class);
+    Class<? extends ConversationListViewModel> viewModelClass = isArchived() ? ConversationListViewModel.ArchivedConversationListViewModel.class : ConversationListViewModel.UnarchivedConversationListViewModel.class;
+    viewModel = new ViewModelProvider(requireActivity(), new ConversationListViewModel.Factory(isArchived())).get(viewModelClass);
 
     lifecycleDisposable.add(viewModel.getConversationsState().subscribe(this::onConversationListChanged));
     lifecycleDisposable.add(viewModel.getHasNoConversations().subscribe(this::updateEmptyState));
     lifecycleDisposable.add(viewModel.getWebSocketState().subscribe(pipeState -> requireCallback().updateProxyStatus(pipeState)));
     lifecycleDisposable.add(viewModel.getChatFolderState().subscribe(this::onChatFoldersChanged));
+
+    if (viewModel.getConversationFilterRequest().getFilter() == ConversationFilter.UNREAD) {
+      pullView.openAfterNextLayout();
+    }
 
     appForegroundObserver = new AppForegroundObserver.Listener() {
       @Override
@@ -1337,7 +1350,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   protected Callback requireCallback() {
-    return ((Callback) getParentFragment().getParentFragment());
+    return ((Callback) requireActivity());
   }
 
   protected @PluralsRes int getArchivedSnackbarTitleRes() {

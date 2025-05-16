@@ -328,6 +328,7 @@ class ControlsAndInfoController private constructor(
 
     if (controlState == WebRtcControls.PIP) {
       waitingToBeLetIn.visible = false
+      toggleCameraDirectionView.visible = false
     }
 
     if (controlState != WebRtcControls.PIP && controlState.controlVisibilitiesChanged(previousState)) {

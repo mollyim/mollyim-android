@@ -232,15 +232,16 @@ class RecipientBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val chevronGlyph = SignalSymbols.getSpannedString(
           requireContext(),
           SignalSymbols.Weight.BOLD,
-          if (isLtr) SignalSymbols.Glyph.CHEVRON_RIGHT else SignalSymbols.Glyph.CHEVRON_LEFT
+          if (isLtr) SignalSymbols.Glyph.CHEVRON_RIGHT else SignalSymbols.Glyph.CHEVRON_LEFT,
+          ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOutline)
         )
 
         if (isLtr) {
           nameBuilder.append(" ")
-          nameBuilder.append(SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOutline), SpanUtil.ofSize(chevronGlyph, 24)))
+          nameBuilder.append(SpanUtil.ofSize(chevronGlyph, 24))
         } else {
           nameBuilder.insert(0, " ")
-          nameBuilder.insert(0, SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOutline), SpanUtil.ofSize(chevronGlyph, 24)))
+          nameBuilder.insert(0, SpanUtil.ofSize(chevronGlyph, 24))
         }
 
         fullName.text = nameBuilder

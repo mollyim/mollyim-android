@@ -87,7 +87,7 @@ fun Long.toLocalTime(zoneId: ZoneId = ZoneId.systemDefault()): LocalTime {
 }
 
 /**
- * Formats [LocalTime] as localized time. For example, "8:00 AM"
+ * Formats [LocalTime] as localized time. For example, "1:45 PM" or "13:45"
  */
 fun LocalTime.formatHours(context: Context): String {
   return DateUtils.getOnlyTimeString(context, localTime = this)
