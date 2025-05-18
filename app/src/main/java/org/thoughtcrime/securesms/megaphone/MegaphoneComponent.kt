@@ -125,7 +125,7 @@ private fun BasicMegaphone(
     border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.38f)),
     shape = RoundedCornerShape(12.dp),
     colors = CardDefaults.cardColors(
-      containerColor = MaterialTheme.colorScheme.background
+      containerColor = MaterialTheme.colorScheme.surfaceContainerLow
     ),
     modifier = Modifier
       .padding(8.dp)
