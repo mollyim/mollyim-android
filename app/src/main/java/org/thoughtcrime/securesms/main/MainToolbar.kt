@@ -572,19 +572,6 @@ private fun CallDropdownItems(callFilter: CallLogFilter, callback: MainToolbarCa
 
 @Composable
 private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCallback, onOptionSelected: () -> Unit) {
-  DropdownMenus.Item(
-    text = {
-      Text(
-        text = stringResource(R.string.text_secure_normal__menu_new_group),
-        style = MaterialTheme.typography.bodyLarge
-      )
-    },
-    onClick = {
-      callback.onNewGroupClick()
-      onOptionSelected()
-    }
-  )
-
   if (state.hasPassphrase) {
     DropdownMenus.Item(
       text = {
@@ -599,6 +586,19 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
       }
     )
   }
+
+  DropdownMenus.Item(
+    text = {
+      Text(
+        text = stringResource(R.string.text_secure_normal__menu_new_group),
+        style = MaterialTheme.typography.bodyLarge
+      )
+    },
+    onClick = {
+      callback.onNewGroupClick()
+      onOptionSelected()
+    }
+  )
 
   DropdownMenus.Item(
     text = {
