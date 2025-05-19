@@ -80,6 +80,7 @@ class RegistrationUtilTest {
     every { signalStore.account.isRegistered } returns true
     every { Recipient.self() } returns Recipient(profileName = ProfileName.fromParts("Dark", "Helmet"))
     every { signalStore.svr.hasPin() } returns false
+    every { signalStore.account.isLinkedDevice } returns false
     every { signalStore.svr.hasOptedOut() } returns true
     every { RemoteConfig.restoreAfterRegistration } returns false
 
