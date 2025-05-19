@@ -458,5 +458,6 @@
 
     <declare-styleable name="InsetAwareConstraintLayout">
         <attr name="animateKeyboardChanges" format="boolean" />
+        <attr name="applyRootInsets" format="boolean" />
     </declare-styleable>
 </resources>

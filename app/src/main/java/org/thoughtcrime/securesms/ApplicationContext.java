@@ -43,6 +43,7 @@ import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
 import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
+import org.signal.libsignal.net.ChatServiceException;
 import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
@@ -431,7 +432,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
         e = e.getCause();
       }
 
-      if (wasWrapped && (e instanceof SocketException || e instanceof InterruptedException || e instanceof InterruptedIOException)) {
+      if (wasWrapped && (e instanceof SocketException || e instanceof InterruptedException || e instanceof InterruptedIOException || e instanceof ChatServiceException)) {
         return;
       }
 
@@ -451,7 +452,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
   }
 
   private void initializeMessageRetrieval() {
-    AppDependencies.startNetwork();
+    SignalExecutors.UNBOUNDED.execute(AppDependencies::startNetwork);
   }
 
   private void finalizeMessageRetrieval() {

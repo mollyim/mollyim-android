@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.app.privacy.advanced.AdvancedPrivacySettingsRepository
+import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.database.JobDatabase
@@ -31,11 +32,13 @@ import org.thoughtcrime.securesms.database.LogDatabase
 import org.thoughtcrime.securesms.database.MegaphoneDatabase
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.JobTracker
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob
+import org.thoughtcrime.securesms.jobs.InAppPaymentKeepAliveJob
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
@@ -58,6 +61,7 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__internal_preferences) {
 
@@ -151,6 +155,28 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
       dividerPref()
+
+      sectionHeaderPref(DSLSettingsText.from("App UI"))
+
+      switchPref(
+        title = DSLSettingsText.from("Enable new split pane UI."),
+        summary = DSLSettingsText.from("Warning: Some bugs and non functional buttons are expected. App will restart."),
+        isChecked = state.largeScreenUi,
+        onClick = {
+          viewModel.setUseLargeScreenUi(!state.largeScreenUi)
+          AppUtil.restart(requireContext())
+        }
+      )
+
+      switchPref(
+        isEnabled = state.largeScreenUi,
+        title = DSLSettingsText.from("Force split pane UI on landscape phones."),
+        summary = DSLSettingsText.from("This setting requires split pane UI to be enabled."),
+        isChecked = state.forceSplitPaneOnCompactLandscape,
+        onClick = {
+          viewModel.setForceSplitPaneOnCompactLandscape(!state.forceSplitPaneOnCompactLandscape)
+        }
+      )
 
       sectionHeaderPref(DSLSettingsText.from("Playgrounds"))
 
@@ -511,15 +537,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       radioListPref(
-        title = DSLSettingsText.from("Audio processing method"),
-        listItems = CallManager.AudioProcessingMethod.entries.map { it.name }.toTypedArray(),
-        selected = CallManager.AudioProcessingMethod.entries.indexOf(state.callingAudioProcessingMethod),
-        onSelected = {
-          viewModel.setInternalCallingAudioProcessingMethod(CallManager.AudioProcessingMethod.entries[it])
-        }
-      )
-
-      radioListPref(
         title = DSLSettingsText.from("Bandwidth mode"),
         listItems = CallManager.DataMode.entries.map { it.name }.toTypedArray(),
         selected = CallManager.DataMode.entries.indexOf(state.callingDataMode),
@@ -533,6 +550,121 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         isChecked = state.callingDisableTelecom,
         onClick = {
           viewModel.setInternalCallingDisableTelecom(!state.callingDisableTelecom)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from("Set Audio Config:"),
+        isChecked = state.callingSetAudioConfig,
+        onClick = {
+          viewModel.setInternalCallingSetAudioConfig(!state.callingSetAudioConfig)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from("    Use Oboe ADM"),
+        isChecked = state.callingUseOboeAdm,
+        isEnabled = state.callingSetAudioConfig,
+        onClick = {
+          viewModel.setInternalCallingUseOboeAdm(!state.callingUseOboeAdm)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from("    Use Software AEC"),
+        isChecked = state.callingUseSoftwareAec,
+        isEnabled = state.callingSetAudioConfig,
+        onClick = {
+          viewModel.setInternalCallingUseSoftwareAec(!state.callingUseSoftwareAec)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from("    Use Software NS"),
+        isChecked = state.callingUseSoftwareNs,
+        isEnabled = state.callingSetAudioConfig,
+        onClick = {
+          viewModel.setInternalCallingUseSoftwareNs(!state.callingUseSoftwareNs)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from("    Use Input Low Latency"),
+        isChecked = state.callingUseInputLowLatency,
+        isEnabled = state.callingSetAudioConfig,
+        onClick = {
+          viewModel.setInternalCallingUseInputLowLatency(!state.callingUseInputLowLatency)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from("    Use Input Voice Comm"),
+        isChecked = state.callingUseInputVoiceComm,
+        isEnabled = state.callingSetAudioConfig,
+        onClick = {
+          viewModel.setInternalCallingUseInputVoiceComm(!state.callingUseInputVoiceComm)
+        }
+      )
+
+      dividerPref()
+
+      // TODO [alex] -- db access on main thread!
+      if (InAppPaymentsRepository.getSubscriber(InAppPaymentSubscriberRecord.Type.DONATION) != null) {
+        sectionHeaderPref(DSLSettingsText.from("Badges"))
+
+        clickPref(
+          title = DSLSettingsText.from("Enqueue redemption."),
+          onClick = {
+            enqueueSubscriptionRedemption()
+          }
+        )
+
+        clickPref(
+          title = DSLSettingsText.from("Enqueue keep-alive."),
+          onClick = {
+            enqueueSubscriptionKeepAlive()
+          }
+        )
+
+        clickPref(
+          title = DSLSettingsText.from("Set error state."),
+          onClick = {
+            findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToDonorErrorConfigurationFragment())
+          }
+        )
+
+        clickPref(
+          title = DSLSettingsText.from("Clear keep-alive timestamps"),
+          onClick = {
+            SignalStore.inAppPayments.subscriptionEndOfPeriodRedemptionStarted = 0L
+            SignalStore.inAppPayments.subscriptionEndOfPeriodConversionStarted = 0L
+            SignalStore.inAppPayments.setLastEndOfPeriod(0L)
+            Toast.makeText(context, "Cleared", Toast.LENGTH_SHORT).show()
+          }
+        )
+        dividerPref()
+      }
+
+      if (state.hasPendingOneTimeDonation) {
+        clickPref(
+          title = DSLSettingsText.from("Clear pending one-time donation."),
+          onClick = {
+            SignalStore.inAppPayments.setPendingOneTimeDonation(null)
+          }
+        )
+      } else {
+        clickPref(
+          title = DSLSettingsText.from("Set pending one-time donation."),
+          onClick = {
+            findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToOneTimeDonationConfigurationFragment())
+          }
+        )
+      }
+
+      clickPref(
+        title = DSLSettingsText.from("Enqueue terminal donation"),
+        onClick = {
+          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToTerminalDonationConfigurationFragment())
         }
       )
 
@@ -804,6 +936,14 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   private fun clearAllLocalMetricsState() {
     LocalMetricsDatabase.getInstance(AppDependencies.application).clear()
     Toast.makeText(context, "Cleared all local metrics state.", Toast.LENGTH_SHORT).show()
+  }
+
+  private fun enqueueSubscriptionRedemption() {
+    viewModel.enqueueSubscriptionRedemption()
+  }
+
+  private fun enqueueSubscriptionKeepAlive() {
+    InAppPaymentKeepAliveJob.enqueueAndTrackTime(System.currentTimeMillis().milliseconds)
   }
 
   private fun clearCdsHistory() {

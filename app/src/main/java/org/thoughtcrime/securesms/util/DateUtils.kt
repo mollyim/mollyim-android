@@ -405,7 +405,7 @@ object DateUtils : android.text.format.DateUtils() {
     }
   }
 
-  private fun Context.is24HourFormat(): Boolean {
+  fun Context.is24HourFormat(): Boolean {
     return is24HourFormatCache ?: DateFormat.is24HourFormat(this).also {
       is24HourFormatCache = it
     }

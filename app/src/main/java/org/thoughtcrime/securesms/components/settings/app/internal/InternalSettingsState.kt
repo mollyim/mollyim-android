@@ -10,10 +10,14 @@ data class InternalSettingsState(
   val allowCensorshipSetting: Boolean,
   val forceWebsocketMode: Boolean,
   val callingServer: String,
-  val callingAudioProcessingMethod: CallManager.AudioProcessingMethod,
   val callingDataMode: CallManager.DataMode,
   val callingDisableTelecom: Boolean,
-  val callingEnableOboeAdm: Boolean,
+  val callingSetAudioConfig: Boolean,
+  val callingUseOboeAdm: Boolean,
+  val callingUseSoftwareAec: Boolean,
+  val callingUseSoftwareNs: Boolean,
+  val callingUseInputLowLatency: Boolean,
+  val callingUseInputVoiceComm: Boolean,
   val useBuiltInEmojiSet: Boolean,
   val emojiVersion: EmojiFiles.Version?,
   val removeSenderKeyMinimium: Boolean,
@@ -21,6 +25,9 @@ data class InternalSettingsState(
   val disableStorageService: Boolean,
   val canClearOnboardingState: Boolean,
   val useConversationItemV2ForMedia: Boolean,
+  val hasPendingOneTimeDonation: Boolean,
   val hevcEncoding: Boolean,
-  val newCallingUi: Boolean
+  val newCallingUi: Boolean,
+  val largeScreenUi: Boolean,
+  val forceSplitPaneOnCompactLandscape: Boolean
 )

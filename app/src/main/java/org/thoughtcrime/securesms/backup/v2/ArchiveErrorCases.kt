@@ -183,6 +183,14 @@ object ImportSkips {
     return log(sentTimestamp, "Failed to find a threadId for the provided chatId. ChatId in backup: $chatId")
   }
 
+  fun chatFolderIdNotFound(): String {
+    return log(0, "Failed to parse chatFolderId for the provided chat folder.")
+  }
+
+  fun notificationProfileIdNotFound(): String {
+    return log(0, "Failed to parse notificationProfileId for the provided notification profile.")
+  }
+
   private fun log(sentTimestamp: Long, message: String): String {
     return "[SKIP][$sentTimestamp] $message"
   }

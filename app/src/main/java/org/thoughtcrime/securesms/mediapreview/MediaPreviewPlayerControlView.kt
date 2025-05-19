@@ -47,6 +47,8 @@ class MediaPreviewPlayerControlView @JvmOverloads constructor(
   private val shareButton: ImageButton = findViewById(R.id.exo_share)
   private val forwardButton: ImageButton = findViewById(R.id.exo_forward)
 
+  private var wasPlaying: Boolean = false
+
   enum class MediaMode {
     IMAGE,
     VIDEO;
@@ -77,6 +79,8 @@ class MediaPreviewPlayerControlView @JvmOverloads constructor(
       exoProgress.addListener(
         object : TimeBar.OnScrubListener {
           override fun onScrubStart(p0: TimeBar, position: Long) {
+            wasPlaying = player?.isPlaying == true
+            player?.pause()
             updateTimeLabels(position)
           }
 
@@ -86,6 +90,9 @@ class MediaPreviewPlayerControlView @JvmOverloads constructor(
 
           override fun onScrubStop(p0: TimeBar, position: Long, p2: Boolean) {
             updateTimeLabels(position)
+            if (wasPlaying) {
+              player?.play()
+            }
           }
         }
       )
@@ -105,8 +112,8 @@ class MediaPreviewPlayerControlView @JvmOverloads constructor(
     val videoDuration: Duration = finalPlayer.duration.milliseconds
     currentPositionLabel.text = "${currentMinutes.toString().padStart(2, '0')}:${currentSeconds.toString().padStart(2, '0')}"
     val remainingDuration: Duration = videoDuration - currentPosition
-    val remainingMinutes: Long = remainingDuration.inWholeMinutes
-    val remainingSeconds: Long = remainingDuration.inWholeSeconds % 60
+    val remainingMinutes: Long = remainingDuration.inWholeMinutes.coerceAtLeast(0L)
+    val remainingSeconds: Long = (remainingDuration.inWholeSeconds % 60).coerceAtLeast(0L)
     remainingDurationLabel.text = "–${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}"
   }
 

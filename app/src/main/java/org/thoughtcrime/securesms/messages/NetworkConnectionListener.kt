@@ -47,7 +47,7 @@ class NetworkConnectionListener(context: Context, private val onNetworkLost: (()
     }
 
     fun setInitialConnectionState(network: Network?, isAvailable: Boolean) {
-      Log.d(TAG, "Initial state: Network $network is ${if (isAvailable) "UP" else "DOWN"}")
+      Log.d(TAG, "Initial state: Network $network ${if (isAvailable) "UP" else "DOWN"}")
 
       synchronized(this) {
         if (lastConnectionState == null) {
@@ -64,7 +64,7 @@ class NetworkConnectionListener(context: Context, private val onNetworkLost: (()
     }
 
     override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
-      Log.d(TAG, "Network $network is UP and ${if (blocked) "BLOCKED" else "UNBLOCKED"}")
+      Log.d(TAG, "Network $network UP and ${if (blocked) "BLOCKED" else "UNBLOCKED"}")
       currentNetworks[network] = !blocked
       connectionChanged()
     }
@@ -93,8 +93,7 @@ class NetworkConnectionListener(context: Context, private val onNetworkLost: (()
     connectivityManager.registerNetworkCallback(request, callback)
 
     val network = connectivityManager.activeNetwork
-    val hasInternet = connectivityManager
-      .getNetworkCapabilities(network)
+    val hasInternet = connectivityManager.getNetworkCapabilities(network)
       ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
       ?: false
 

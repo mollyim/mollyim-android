@@ -24,7 +24,6 @@ import org.signal.core.util.billing.BillingPurchaseResult
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
-import org.signal.donations.PaymentSourceType
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatValue
@@ -85,10 +84,15 @@ class MessageBackupsFlowViewModel(
     }
 
     viewModelScope.launch {
-      val availableBackupTypes = withContext(SignalDispatchers.IO) {
-        BackupRepository.getAvailableBackupsTypes(
-          if (!RemoteConfig.messageBackups) emptyList() else listOf(MessageBackupTier.FREE, MessageBackupTier.PAID)
-        )
+      val availableBackupTypes = try {
+        withContext(SignalDispatchers.IO) {
+          BackupRepository.getAvailableBackupsTypes(
+            if (!RemoteConfig.messageBackups) emptyList() else listOf(MessageBackupTier.FREE, MessageBackupTier.PAID)
+          )
+        }
+      } catch (e: Exception) {
+        Log.w(TAG, "Failed to download available backup types.", e)
+        emptyList()
       }
 
       internalStateFlow.update {
@@ -133,12 +137,12 @@ class MessageBackupsFlowViewModel(
               }
             } catch (e: Exception) {
               Log.d(TAG, "Failed to handle purchase.", e)
-              InAppPaymentsRepository.handlePipelineError(
-                inAppPaymentId = id,
-                donationErrorSource = DonationErrorSource.BACKUPS,
-                paymentSourceType = PaymentSourceType.GooglePlayBilling,
-                error = e
-              )
+              withContext(SignalDispatchers.IO) {
+                InAppPaymentsRepository.handlePipelineError(
+                  inAppPaymentId = id,
+                  error = e
+                )
+              }
 
               internalStateFlow.update {
                 it.copy(

@@ -31,12 +31,14 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileContentUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob
+import org.thoughtcrime.securesms.jobs.ReclaimUsernameAndLinkJob
 import org.thoughtcrime.securesms.keyvalue.NewAccount
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.Skipped
 import org.thoughtcrime.securesms.keyvalue.Start
 import org.thoughtcrime.securesms.keyvalue.intendToRestore
 import org.thoughtcrime.securesms.keyvalue.isDecisionPending
+import org.thoughtcrime.securesms.keyvalue.isTerminal
 import org.thoughtcrime.securesms.keyvalue.isWantingManualRemoteRestore
 import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.pin.SvrRepository
@@ -120,6 +122,10 @@ class RegistrationViewModel : ViewModel() {
     set(value) {
       store.update {
         it.copy(isReRegister = value)
+      }
+
+      if (value) {
+        SignalStore.misc.needsUsernameRestore = true
       }
     }
 
@@ -853,22 +859,31 @@ class RegistrationViewModel : ViewModel() {
   private suspend fun registerVerifiedSession(context: Context, sessionId: String) {
     Log.v(TAG, "registerVerifiedSession()")
     val registrationData = getRegistrationData()
-    val registrationResult: RegisterAccountResult = RegistrationRepository.registerAccount(context = context, sessionId = sessionId, registrationData = registrationData)
+    var result: RegisterAccountResult = RegistrationRepository.registerAccount(context = context, sessionId = sessionId, registrationData = registrationData)
 
-    val reglockEnabled = if (registrationResult is RegisterAccountResult.RegistrationLocked) {
-      Log.i(TAG, "Received a registration lock response when trying to register verified session. Retrying with master key.")
-      store.update {
-        it.copy(
-          svr2AuthCredentials = registrationResult.svr2Credentials,
-          svr3AuthCredentials = registrationResult.svr3Credentials
-        )
+    val reglockEnabled = result is RegisterAccountResult.RegistrationLocked
+
+    if (reglockEnabled) {
+      Log.i(TAG, "Registration lock response received.")
+      store.update { it.copy(lockedTimeRemaining = result.timeRemaining) }
+
+      if (SignalStore.svr.registrationLockToken != null) {
+        Log.d(TAG, "Retrying registration with stored credentials.")
+        result = RegistrationRepository.registerAccount(context, sessionId, registrationData, SignalStore.svr.pin) { SignalStore.svr.masterKey }
       }
-      true
-    } else {
-      false
+
+      if (result is RegisterAccountResult.RegistrationLocked && (result.svr2Credentials != null || result.svr3Credentials != null)) {
+        Log.i(TAG, "Saving registration lock received credentials (svr2: ${result.svr2Credentials != null}, svr3: ${result.svr3Credentials != null}).")
+        store.update {
+          it.copy(
+            svr2AuthCredentials = result.svr2Credentials,
+            svr3AuthCredentials = result.svr3Credentials
+          )
+        }
+      }
     }
 
-    handleRegistrationResult(context, registrationData, registrationResult, reglockEnabled)
+    handleRegistrationResult(context, registrationData, result, reglockEnabled)
   }
 
   private suspend fun onSuccessfulRegistration(context: Context, registrationData: RegistrationData, remoteResult: AccountRegistrationResult, reglockEnabled: Boolean) = withContext(Dispatchers.IO) {
@@ -883,18 +898,20 @@ class RegistrationViewModel : ViewModel() {
       Log.w(TAG, "Unable to start auth websocket", e)
     }
 
-    if (!remoteResult.storageCapable && SignalStore.registration.restoreDecisionState.isDecisionPending) {
-      Log.v(TAG, "Not storage capable and still pending restore decision, likely an account with no data to restore, skipping post register restore")
+    if (!remoteResult.storageCapable && !SignalStore.account.restoredAccountEntropyPool && SignalStore.registration.restoreDecisionState.isDecisionPending) {
+      Log.v(TAG, "Not storage capable or restored with AEP, and still pending restore decision, likely an account with no data to restore, skipping post register restore")
       SignalStore.registration.restoreDecisionState = RestoreDecisionState.NewAccount
     }
 
-    if (reglockEnabled || SignalStore.svr.hasOptedInWithAccess()) {
+    if (reglockEnabled || SignalStore.account.restoredAccountEntropyPool) {
       SignalStore.onboarding.clearAll()
 
-      if (!SignalStore.registration.restoreDecisionState.isDecisionPending) {
+      if (SignalStore.registration.restoreDecisionState.isTerminal) {
         Log.d(TAG, "No pending restore decisions, can restore account from storage service")
         StorageServiceRestore.restore()
       }
+    } else if (SignalStore.registration.restoreDecisionState.isTerminal && SignalStore.misc.needsUsernameRestore) {
+      AppDependencies.jobManager.runSynchronously(ReclaimUsernameAndLinkJob(), 10.seconds.inWholeMilliseconds)
     }
 
     if (SignalStore.account.restoredAccountEntropyPool) {

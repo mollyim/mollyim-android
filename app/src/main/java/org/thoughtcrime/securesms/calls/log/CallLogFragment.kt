@@ -9,20 +9,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.compose.material3.SnackbarDuration
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.app.SharedElementCallback
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionInflater
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.Flowables
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.DimensionUnit
@@ -31,9 +25,8 @@ import org.signal.core.util.concurrent.addTo
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.MainNavigator
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
+import org.thoughtcrime.securesms.calls.links.create.CreateCallLinkBottomSheetDialogFragment
 import org.thoughtcrime.securesms.calls.links.details.CallLinkDetailsActivity
-import org.thoughtcrime.securesms.calls.new.NewCallActivity
 import org.thoughtcrime.securesms.components.ProgressCardDialogFragment
 import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -50,19 +43,21 @@ import org.thoughtcrime.securesms.conversationlist.chatfilter.FilterLerp
 import org.thoughtcrime.securesms.conversationlist.chatfilter.FilterPullState
 import org.thoughtcrime.securesms.databinding.CallLogFragmentBinding
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.main.MainNavigationDestination
+import org.thoughtcrime.securesms.main.MainNavigationListLocation
+import org.thoughtcrime.securesms.main.MainNavigationViewModel
 import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
+import org.thoughtcrime.securesms.main.SnackbarState
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel
+import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.visible
+import org.thoughtcrime.securesms.window.WindowSizeClass.Companion.getWindowSizeClass
 import java.util.Objects
-import java.util.concurrent.TimeUnit
 
 /**
  * Call Log tab.
@@ -89,12 +84,10 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   private lateinit var signalBottomActionBarController: SignalBottomActionBarController
 
   private val viewModel: CallLogViewModel by activityViewModels()
-  private val tabsViewModel: ConversationListTabsViewModel by viewModels(ownerProducer = { requireActivity() })
   private val mainToolbarViewModel: MainToolbarViewModel by activityViewModels()
+  private val mainNavigationViewModel: MainNavigationViewModel by activityViewModels()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    initializeSharedElementTransition()
-
     viewLifecycleOwner.lifecycle.addObserver(conversationUpdateTick)
     viewLifecycleOwner.lifecycle.addObserver(viewModel.callLogPeekHelper)
 
@@ -150,9 +143,6 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
     this.callLogAdapter = callLogAdapter
 
     requireListener<Material3OnScrollHelperBinder>().bindScrollHelper(binding.recycler, viewLifecycleOwner)
-    binding.fab.setOnClickListener {
-      startActivity(NewCallActivity.createIntent(requireContext()))
-    }
 
     binding.pullView.setPillText(R.string.CallLogFragment__filtered_by_missed)
 
@@ -180,11 +170,15 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
           if (!closeSearchIfOpen()) {
-            tabsViewModel.onChatsSelected()
+            mainNavigationViewModel.onChatsSelected()
           }
         }
       }
     )
+
+    if (resources.getWindowSizeClass().isCompact()) {
+      ViewUtil.setBottomMargin(binding.bottomActionBar, ViewUtil.getNavigationBarHeight(binding.bottomActionBar))
+    }
 
     signalBottomActionBarController = SignalBottomActionBarController(
       binding.bottomActionBar,
@@ -204,29 +198,9 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
     callLogAdapter?.onTimestampTick()
   }
 
-  private fun initializeSharedElementTransition() {
-    ViewCompat.setTransitionName(binding.fab, "new_convo_fab")
-    ViewCompat.setTransitionName(binding.fabSharedElementTarget, "camera_fab")
-
-    sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.change_transform_fabs)
-    setEnterSharedElementCallback(object : SharedElementCallback() {
-      override fun onSharedElementStart(sharedElementNames: MutableList<String>?, sharedElements: MutableList<View>?, sharedElementSnapshots: MutableList<View>?) {
-        if (sharedElementNames?.contains("camera_fab") == true) {
-          this@CallLogFragment.binding.fab.setImageResource(R.drawable.symbol_edit_24)
-          disposables += Single.timer(200, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-              this@CallLogFragment.binding.fab.setImageResource(R.drawable.symbol_phone_plus_24)
-              this@CallLogFragment.binding.fabSharedElementTarget.alpha = 0f
-            }
-        }
-      }
-    })
-  }
-
   private fun initializeTapToScrollToTop(scrollToPositionDelegate: ScrollToPositionDelegate) {
-    disposables += tabsViewModel.tabClickEvents
-      .filter { it == MainNavigationDestination.CALLS }
+    disposables += mainNavigationViewModel.tabClickEvents
+      .filter { it == MainNavigationListLocation.CALLS }
       .subscribeBy(onNext = {
         scrollToPositionDelegate.resetScrollPosition()
       })
@@ -320,7 +294,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   }
 
   override fun onCreateACallLinkClicked() {
-    findNavController().navigate(R.id.createCallLinkBottomSheet)
+    CreateCallLinkBottomSheetDialogFragment().show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
   }
 
   override fun onCallClicked(callLogRow: CallLogRow.Call) {
@@ -363,14 +337,22 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   override fun onStartAudioCallClicked(recipient: Recipient) {
     CommunicationActions.startVoiceCall(this, recipient) {
-      YouAreAlreadyInACallSnackbar.show(requireView())
+      mainNavigationViewModel.setSnackbar(
+        SnackbarState(
+          getString(R.string.CommunicationActions__you_are_already_in_a_call)
+        )
+      )
     }
   }
 
   override fun onStartVideoCallClicked(recipient: Recipient, canUserBeginCall: Boolean) {
     if (canUserBeginCall) {
       CommunicationActions.startVideoCall(this, recipient) {
-        YouAreAlreadyInACallSnackbar.show(requireView())
+        mainNavigationViewModel.setSnackbar(
+          SnackbarState(
+            getString(R.string.CommunicationActions__you_are_already_in_a_call)
+          )
+        )
       }
     } else {
       ConversationDialogs.displayCannotStartGroupCallDueToPermissionsDialog(requireContext())
@@ -461,13 +443,12 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
           }
 
           CallLogDeletionResult.Success -> {
-            Snackbar
-              .make(
-                binding.root,
-                snackbarMessage,
-                Snackbar.LENGTH_SHORT
+            mainNavigationViewModel.setSnackbar(
+              SnackbarState(
+                message = snackbarMessage,
+                duration = SnackbarDuration.Short
               )
-              .show()
+            )
           }
 
           is CallLogDeletionResult.UnknownFailure -> {
@@ -488,14 +469,12 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       val actionMode = (requireActivity() as AppCompatActivity).startSupportActionMode(callback)
       requireListener<Callback>().onMultiSelectStarted()
       signalBottomActionBarController.setVisibility(true)
-      binding.fab.visible = false
       return actionMode
     }
 
     override fun onActionModeWillEnd() {
       requireListener<Callback>().onMultiSelectFinished()
       signalBottomActionBarController.setVisibility(false)
-      binding.fab.visible = true
     }
 
     override fun getResources(): Resources = resources

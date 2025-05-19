@@ -55,7 +55,7 @@ import org.signal.core.util.money.FiatMoney
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.fonts.SignalSymbols
-import org.thoughtcrime.securesms.fonts.SignalSymbols.SignalSymbol
+import org.thoughtcrime.securesms.fonts.SignalSymbols.signalSymbolText
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.ByteUnit
 import java.math.BigDecimal
@@ -82,7 +82,7 @@ fun MessageBackupsTypeSelectionScreen(
   Scaffolds.Settings(
     title = "",
     onNavigationClick = onNavigationClick,
-    navigationIconPainter = painterResource(id = R.drawable.symbol_arrow_left_24)
+    navigationIconPainter = painterResource(id = R.drawable.symbol_arrow_start_24)
   ) { paddingValues ->
     Column(
       modifier = Modifier
@@ -260,11 +260,10 @@ fun MessageBackupsTypeBlock(
   ) {
     if (isCurrent) {
       Text(
-        text = buildAnnotatedString {
-          SignalSymbol(weight = SignalSymbols.Weight.REGULAR, glyph = SignalSymbols.Glyph.CHECKMARK)
-          append(" ")
-          append(stringResource(R.string.MessageBackupsTypeSelectionScreen__current_plan))
-        },
+        text = signalSymbolText(
+          text = stringResource(R.string.MessageBackupsTypeSelectionScreen__current_plan),
+          glyphStart = SignalSymbols.Glyph.CHECK
+        ),
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier
           .padding(bottom = 12.dp)

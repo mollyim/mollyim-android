@@ -3,6 +3,7 @@ package org.whispersystems.signalservice.internal.configuration
 import okhttp3.Dns
 import okhttp3.Interceptor
 import java.net.ProxySelector
+import java.util.Optional
 import javax.net.SocketFactory
 
 /**
@@ -19,6 +20,7 @@ data class SignalServiceConfiguration(
   val socketFactory: SocketFactory,
   val proxySelector: ProxySelector,
   val dns: Dns,
+  val systemHttpProxy: Optional<HttpProxy>,
   val zkGroupServerPublicParams: ByteArray,
   val genericServerPublicParams: ByteArray,
   val backupServerPublicParams: ByteArray,

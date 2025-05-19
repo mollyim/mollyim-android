@@ -49,6 +49,8 @@ import kotlin.math.max
 class DefaultMessageNotifier(context: Application) : MessageNotifier {
   @Volatile private var visibleThread: ConversationId? = null
 
+  @Volatile private var visibleBubbleThread: ConversationId? = null
+
   @Volatile private var lastDesktopActivityTimestamp: Long = -1
 
   @Volatile private var lastAudibleNotification: Long = -1
@@ -85,12 +87,20 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     setVisibleThread(null)
   }
 
+  override fun setVisibleBubbleThread(conversationId: ConversationId?) {
+    visibleBubbleThread = conversationId
+  }
+
+  override fun clearVisibleBubbleThread() {
+    setVisibleBubbleThread(null)
+  }
+
   override fun setLastDesktopActivityTimestamp(timestamp: Long) {
     lastDesktopActivityTimestamp = timestamp
   }
 
   override fun notifyMessageDeliveryFailed(context: Context, recipient: Recipient, conversationId: ConversationId) {
-    NotificationFactory.notifyMessageDeliveryFailed(context, recipient, conversationId, visibleThread)
+    NotificationFactory.notifyMessageDeliveryFailed(context, recipient, conversationId, visibleThread, visibleBubbleThread)
   }
 
   override fun notifyStoryDeliveryFailed(context: Context, recipient: Recipient, conversationId: ConversationId) {

@@ -554,6 +554,15 @@ class AttachmentTable(
       .readToSingleLong()
   }
 
+  fun getOptimizedMediaAttachmentSize(): Long {
+    return readableDatabase
+      .select("SUM($DATA_SIZE)")
+      .from(TABLE_NAME)
+      .where("$TRANSFER_STATE = ?", TRANSFER_RESTORE_OFFLOADED)
+      .run()
+      .readToSingleLong()
+  }
+
   /**
    * Finds all of the attachmentIds of attachments that need to be uploaded to the archive cdn.
    */
@@ -660,6 +669,20 @@ class AttachmentTable(
         .where("$DATA_FILE = ?", dataFile)
         .run()
     }
+  }
+
+  /**
+   * Sets the archive transfer state for the given attachment by digest.
+   */
+  fun resetArchiveTransferStateByDigest(digest: ByteArray) {
+    writableDatabase
+      .update(TABLE_NAME)
+      .values(
+        ARCHIVE_TRANSFER_STATE to ArchiveTransferState.NONE.value,
+        ARCHIVE_CDN to 0
+      )
+      .where("$REMOTE_DIGEST = ?", digest)
+      .run()
   }
 
   /**

@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Заблокированные пользователи</string>
     <string name="BlockedUsersActivity__add_blocked_user">Добавить заблокированного пользователя</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Невозможно заблокировать себя</string>
     <string name="BlockedUsersActivity__blocked_users_will">Заблокированные пользователи не смогут звонить вам или отправлять вам сообщения.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Нет заблокированных пользователей</string>
     <string name="BlockedUsersActivity__block_user">Заблокировать пользователя?</string>
@@ -551,6 +552,8 @@
     <string name="ConversationActivity__invite_to_signal">Пригласить в Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Скоро вы снова получите напоминание об этом.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">Отправка отформатированного текста</string>
@@ -1814,6 +1817,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Отправили вы</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s отправил(-а) %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Вы отправили %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Этот медиафайл ещё не отправлен.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Напомните мне позже</string>
@@ -1883,6 +1888,10 @@
     <string name="MessageRecord_missed_voice_call">Пропущенный голосовой звонок</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">Пропущенный видеозвонок</string>
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
+    <string name="MessageRecord_declined_voice_call">Отклонённый аудиозвонок</string>
+    <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
+    <string name="MessageRecord_declined_video_call">Отклонённый видеозвонок</string>
     <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
     <string name="MessageRecord_missed_voice_call_notification_profile">Пропущенный аудиозвонок при включённом профиле уведомлений</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
@@ -2626,6 +2635,15 @@
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">Включение звонка для групповых звонков</string>
 
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
+
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Произошла ошибка пользовательского интерфейса. Пожалуйста, сообщите об этой ошибке разработчикам.</string>
     <!-- Error message when the user is trying to change audio outputs but none are present. -->
@@ -2735,6 +2753,14 @@
     <string name="AboutSheet__you">Вы</string>
     <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
     <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
+
+    <!-- Title of the screen showing which groups they have in common with another user. -->
+    <plurals name="GroupsInCommon__n_groups_in_common_title">
+        <item quantity="one">%1$s общая группа</item>
+        <item quantity="few">%1$s общие группы</item>
+        <item quantity="many">%1$s общих групп</item>
+        <item quantity="other">%1$s общих групп</item>
+    </plurals>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2925,6 +2951,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN-код успешно проверен. Мы напомним вам снова через неделю.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN-код успешно проверен. Мы напомним вам снова через пару недель.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN-код успешно проверен. Мы напомним вам снова через месяц.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Мы напомним вам позже.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Мы напомним вам завтра.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Мы напомним вам через несколько дней.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Мы напомним вам через неделю.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Мы напомним вам через пару недель.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Мы напомним вам через месяц.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Изображение</string>
@@ -2937,18 +2969,86 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%1$s сбросил(-а) защищённый сеанс.</string>
     <string name="SmsMessageRecord_duplicate_message">Дубликат сообщения.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">Стикеры</string>
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">Стикеры</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="one">Выбрано: %1$s</item>
+        <item quantity="few">Выбрано: %1$s</item>
+        <item quantity="many">Выбрано: %1$s</item>
+        <item quantity="other">Выбрано: %1$s</item>
+    </plurals>
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Доступные</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Установлено</string>
+    <!-- Shown when there are no sticker packs available for installation. -->
+    <string name="StickerManagement_available_tab_empty_text">Нет доступных наборов стикеров</string>
+    <!-- Shown when there are no sticker packs currently installed. -->
+    <string name="StickerManagement_installed_tab_empty_text">Не установленных наборов стикеров</string>
+    <!-- Message shown when the author of the sticker pack is unknown. -->
+    <string name="StickerManagement_author_unknown">Неизвестно</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Установленные стикеры</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Полученные вами стикеры</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Стикеры от художников Signal</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">Переслать</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">Выбрать все</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">Удалить</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="one">Remove %1$s sticker pack</item>
+        <item quantity="few">Remove %1$s sticker packs</item>
+        <item quantity="many">Remove %1$s sticker packs</item>
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="one">%1$s sticker pack removed.</item>
+        <item quantity="few">%1$s sticker packs removed.</item>
+        <item quantity="many">%1$s sticker packs removed.</item>
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">Переслать</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">Выбрать</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">Установить</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">Удалить</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Скачать набор стикеров %1$s</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Галочка загрузки</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Хэндл для перетаскивания</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Скачать</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">Открыть контекстное меню</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Установленные стикеры</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Полученные вами стикеры</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Стикеры от художников Signal</string>
-    <string name="StickerManagementAdapter_no_stickers_installed">Нет установленных стикеров</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Стикеры из входящих сообщений появятся здесь</string>
     <string name="StickerManagementAdapter_untitled">Безымянный</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Неизвестно</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Безымянный</string>
@@ -2975,6 +3075,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Скопируйте этот URL-адрес и добавьте его в отчет о проблеме или в письмо в службу поддержки:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Поделиться</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Этот журнал будет опубликован в интернете, чтобы разработчики смогли его просмотреть. Вы можете изучить его перед отправкой.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Когда вы нажмёте «Отправить», ваш журнал будет размещён в интернете на 30 дней по уникальному неопубликованному URL-адресу. Вы можете сначала сохранить его локально.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3045,6 +3147,8 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s принадлежит %2$s</string>
     <!-- Displayed in the conversation list when a person has been blocked -->
     <string name="ThreadRecord_blocked">Заблокирован</string>
+    <!-- Displayed in the conversation list when a group has been blocked -->
+    <string name="ThreadRecord_blocked_group">Заблокирована</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Обновление Molly</string>
@@ -3145,10 +3249,6 @@
 
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Сообщение зашифровано для несуществующей сессии</string>
-
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">Неверное зашифрованное MMS-сообщение</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">MMS-сообщение зашифровано для несуществующей сессии</string>
 
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">Откл. звук уведомлений</string>
@@ -3913,6 +4013,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Нет, спасибо</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Недавние</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Это сообщение</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Недавно использованные</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Смайлики и люди</string>
@@ -3925,6 +4026,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Флаги</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Смайлики</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Поиск не дал результатов</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Недавние</string>
+    <string name="GifQuickSearchOption__trending">Тренды</string>
+    <string name="GifQuickSearchOption__celebrate">Праздники</string>
+    <string name="GifQuickSearchOption__love">Любовь</string>
+    <string name="GifQuickSearchOption__thumbs_up">Отлично</string>
+    <string name="GifQuickSearchOption__surprised">Удивлён</string>
+    <string name="GifQuickSearchOption__excited">Взволнован</string>
+    <string name="GifQuickSearchOption__sad">Грустен</string>
+    <string name="GifQuickSearchOption__angry">Сердит</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Использовать настройку по умолчанию</string>
@@ -4528,6 +4640,8 @@
     <string name="conversation_list_fragment__fab_content_description">Новый чат</string>
     <string name="conversation_list_fragment__open_camera_description">Открыть камеру</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Ещё нет чатов.\nОтправьте другу своё первое сообщение.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Архивированные чаты появятся здесь.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Нет чатов для отображения</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4897,6 +5011,14 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз позже.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Ошибка подключения к сервису</string>
     <string name="preferences_chats__backups">Резервные копии</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">Бета</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">Информация</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Разблокировать Molly</string>
     <!-- Description text explaining how to unlock Signal -->
@@ -5171,10 +5293,10 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Нет других общих групп.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Нет общих групп.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d общая группа</item>
-        <item quantity="few">%1$d общие группы</item>
-        <item quantity="many">%1$d общих групп</item>
-        <item quantity="other">%1$d общих групп</item>
+        <item quantity="one">%1$d другая общая группа</item>
+        <item quantity="few">%1$d другие общие группы</item>
+        <item quantity="many">%1$d других общих групп</item>
+        <item quantity="other">%1$d другой общей группы</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d общая группа</item>
@@ -5948,6 +6070,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Номер телефона был скопирован в буфер обмена.</string>
     <string name="ConversationSettingsFragment__phone_number">Номер телефона</string>
     <string name="ConversationSettingsFragment__get_badges">Получайте значки для своего профиля, поддерживая Signal. Нажмите на значок, чтобы узнать больше.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Этот медиафайл ещё не отправлен.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Добавлять участников</string>
@@ -6000,6 +6124,8 @@
     <string name="NewConversationActivity__s_has_been_removed">%1$s был(-а) удален(-а)</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">%1$s был(-а) заблокирован(-а).</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">Не удалось удалить %1$s</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -7360,34 +7486,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">Покинуть Signal для подтверждения пожертвования?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">После подтверждения вернитесь в Signal для завершения обработки вашего пожертвования.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">Банковский перевод</string>
@@ -7448,7 +7546,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Выберите свой банк</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Подтвердить пожертвование через %1$s</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Для настройки регулярного пожертвования нажмите «Продолжить», чтобы подтвердить списание средств в размере 0,01 евро в вашем банке. Эта сумма будет автоматически возвращена, и это позволит списывать с вашего счёта пожертвование в размере %1$s в месяц.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -8140,11 +8238,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Восстановление медиафайлов</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">Восстановление приостановлено</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Восстановление завершено</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">Подробнее</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Ожидание Wi-Fi…</string>
@@ -8176,6 +8276,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">Не удалось завершить последнее резервное копирование. Убедитесь, что на вашем устройстве установлена последняя версия Signal, и повторите попытку.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Узнать больше</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8278,8 +8383,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">История платежей</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">Сведения о резервном копировании</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">Восстановление с помощью сотовых данных</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Размер резервной копии</string>
     <!-- Row label for backup frequency -->
@@ -8405,6 +8510,8 @@
         <item quantity="many">У вас есть %1$s резервных копий, которых нет на этом устройстве. Резервные копии будут удалены, когда ваша подписка закончится через %2$d дней.</item>
         <item quantity="other">У вас есть %1$s резервных копий, которых нет на этом устройстве. Резервные копии будут удалены, когда ваша подписка закончится через %2$d дня.</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">Скачать</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -8416,6 +8523,10 @@
         <item quantity="many">Если вы пропустите загрузку, оставшиеся медиафайлы и вложения из резервной копии будут удалены через %1$d дней.</item>
         <item quantity="other">Если вы пропустите загрузку, оставшиеся медиафайлы и вложения из резервной копии будут удалены через %1$d дня.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Пропустить восстановление?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Пропустить</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8714,6 +8825,27 @@
     <string name="NoBackupToRestore_step3">Включите резервное копирование и дождитесь его завершения</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Пропустить восстановление</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Закрыть поиск</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Очистить поиск</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Больше опций</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Профиль уведомлений</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Прокси</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">Перейти назад</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">Переключить</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

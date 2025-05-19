@@ -9,11 +9,14 @@ import android.graphics.Rect
 import android.graphics.Typeface
 import android.media.AudioManager
 import android.os.Bundle
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.method.ScrollingMovementMethod
+import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.text.style.URLSpan
+import android.text.util.Linkify
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -24,8 +27,10 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.util.LinkifyCompat
 import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.animation.PathInterpolatorCompat
 import androidx.fragment.app.DialogFragment
@@ -89,6 +94,8 @@ import org.thoughtcrime.securesms.util.AvatarUtil
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Debouncer
+import org.thoughtcrime.securesms.util.LinkUtil
+import org.thoughtcrime.securesms.util.LongClickCopySpan
 import org.thoughtcrime.securesms.util.LongClickMovementMethod
 import org.thoughtcrime.securesms.util.Projection
 import org.thoughtcrime.securesms.util.ServiceUtil
@@ -232,7 +239,7 @@ class StoryViewerPageFragment :
     )
 
     closeView.setOnClickListener {
-      requireActivity().onBackPressed()
+      onBackPressed()
     }
 
     val addToGroupStoryDelegate = AddToGroupStoryDelegate(this)
@@ -290,7 +297,7 @@ class StoryViewerPageFragment :
         val canCloseFromHorizontalSlide = requireView().translationX > DimensionUnit.DP.toPixels(56f)
         val canCloseFromVerticalSlide = requireView().translationY > DimensionUnit.DP.toPixels(56f) || requireView().translationY < -DimensionUnit.DP.toPixels(56f)
         if ((canCloseFromHorizontalSlide || canCloseFromVerticalSlide) && event.actionMasked == MotionEvent.ACTION_UP) {
-          requireActivity().onBackPressed()
+          onBackPressed()
         } else {
           sharedViewModel.setIsChildScrolling(false)
           requireView().animate()
@@ -515,6 +522,14 @@ class StoryViewerPageFragment :
         reactionAnimationView.playForEmoji(listOf(emoji))
         viewModel.setIsDisplayingReactionAnimation(true)
       }
+    }
+  }
+
+  private fun onBackPressed() {
+    if (sharedViewModel.getInitialRecipientId() != storyViewerPageArgs.recipientId) {
+      requireActivity().finish()
+    } else {
+      ActivityCompat.finishAfterTransition(requireActivity())
     }
   }
 
@@ -934,7 +949,7 @@ class StoryViewerPageFragment :
       if (ranges != null && displayBodySpan.isNotEmpty()) {
         MessageStyler.style(storyPost.conversationMessage.messageRecord.dateSent, ranges, displayBodySpan)
       }
-
+      linkifyUrlLinks(displayBodySpan)
       displayBodySpan
     } else {
       ""
@@ -953,14 +968,33 @@ class StoryViewerPageFragment :
     caption.setOverflowText(overflow)
     caption.maxLines = 5
     caption.text = displayBody
-    caption.setMaxLength(280)
+    caption.setMaxLength(SMALL_CAPTION_TEXT_MAX_LENGTH)
 
-    if (caption.text.length == displayBody.length) {
+    if (displayBody.length <= SMALL_CAPTION_TEXT_MAX_LENGTH) {
       caption.setOnClickListener(null)
       caption.isClickable = false
     } else {
       caption.setOnClickListener {
         onShowCaptionOverlay(caption, largeCaption, largeCaptionOverlay)
+      }
+    }
+  }
+
+  fun linkifyUrlLinks(spannable: Spannable) {
+    val hasLinks = LinkifyCompat.addLinks(spannable, CAPTION_LINK_PATTERN)
+
+    if (hasLinks) {
+      spannable.getSpans(0, spannable.length, URLSpan::class.java)
+        .filterNot { url -> LinkUtil.isLegalUrl(url.url) }
+        .forEach { spannable.removeSpan(it) }
+
+      val urlSpans = spannable.getSpans(0, spannable.length, URLSpan::class.java)
+
+      for (urlSpan in urlSpans) {
+        val start = spannable.getSpanStart(urlSpan)
+        val end = spannable.getSpanEnd(urlSpan)
+        val span = LongClickCopySpan(urlSpan.url)
+        spannable.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
       }
     }
   }
@@ -971,7 +1005,7 @@ class StoryViewerPageFragment :
     caption.visible = false
     largeCaption.visible = true
     largeCaptionOverlay.visible = true
-    largeCaption.movementMethod = ScrollingMovementMethod()
+    largeCaption.movementMethod = LinkMovementMethod.getInstance()
     largeCaption.scrollY = 0
     largeCaption.setOnClickListener {
       onHideCaptionOverlay(caption, largeCaption, largeCaptionOverlay)
@@ -1266,6 +1300,8 @@ class StoryViewerPageFragment :
     private val CHARACTERS_PER_SECOND = 15L
     private val DEFAULT_DURATION = TimeUnit.SECONDS.toMillis(5)
     private val ONBOARDING_DURATION = TimeUnit.SECONDS.toMillis(10)
+    private const val SMALL_CAPTION_TEXT_MAX_LENGTH = 280
+    private const val CAPTION_LINK_PATTERN = Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES or Linkify.PHONE_NUMBERS
 
     private const val ARGS = "args"
 

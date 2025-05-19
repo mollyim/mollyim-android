@@ -22,7 +22,7 @@ RUN yes | sdkmanager --licenses
 
 RUN sdkmanager "platform-tools"
 
-ARG NDK_VERSION=27.0.12077973
+ARG NDK_VERSION=28.0.13004108
 ARG BUILD_TOOLS_VERSION=35.0.0
 ARG COMPILE_SDK_VERSION=android-35
 

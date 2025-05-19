@@ -221,6 +221,9 @@ public class InputPanel extends ConstraintLayout
                        @NonNull QuoteModel.Type quoteType)
   {
     this.quoteView.setQuote(requestManager, id, author, body, false, attachments, null, quoteType);
+    if (listener != null) {
+      this.quoteView.setOnClickListener(v -> listener.onQuoteClicked(id, author.getId()));
+    }
 
     int originalHeight = this.quoteView.getVisibility() == VISIBLE ? this.quoteView.getMeasuredHeight()
                                                                    : 0;
@@ -563,6 +566,11 @@ public class InputPanel extends ConstraintLayout
   }
 
   @Override
+  public void onRecorderAlreadyInUse() {
+    if (listener != null) listener.onRecorderAlreadyInUse();
+  }
+
+  @Override
   public void onRecordPressed() {
     if (listener != null) listener.onRecorderStarted();
     recordTime.display();
@@ -781,11 +789,15 @@ public class InputPanel extends ConstraintLayout
   }
 
   private void updateVisibility() {
-    if (hideForGroupState || hideForBlockedState || hideForSearch || hideForSelection || hideForMessageRequestState) {
+    if (isHidden()) {
       setVisibility(GONE);
     } else {
       setVisibility(VISIBLE);
     }
+  }
+
+  public boolean isHidden() {
+    return hideForGroupState || hideForBlockedState || hideForSearch || hideForSelection || hideForMessageRequestState;
   }
 
   public @Nullable MessageRecord getEditMessage() {
@@ -805,11 +817,13 @@ public class InputPanel extends ConstraintLayout
     void onRecorderFinished();
     void onRecorderCanceled(boolean byUser);
     void onRecorderPermissionRequired();
+    void onRecorderAlreadyInUse();
     void onEmojiToggle();
     void onLinkPreviewCanceled();
     void onStickerSuggestionSelected(@NonNull StickerRecord sticker);
     void onQuoteChanged(long id, @NonNull RecipientId author);
     void onQuoteCleared();
+    void onQuoteClicked(long quoteId, RecipientId authorId);
     void onEnterEditMode();
     void onExitEditMode();
     void onQuickCameraToggleClicked();

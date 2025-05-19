@@ -121,10 +121,9 @@ object RemoteConfig {
     Log.i(TAG, "[Disk]   After : ${result.disk}")
   }
 
-  /** Only for rendering debug info.  */
   @JvmStatic
   @get:Synchronized
-  val debugMemoryValues: Map<String, Any>
+  val memoryValues: Map<String, Any>
     get() = TreeMap(REMOTE_VALUES)
 
   /** Only for rendering debug info.  */
@@ -690,37 +689,9 @@ object RemoteConfig {
     hotSwappable = false
   )
 
-  /** A comma-separated list of models that should *not* use hardware AEC for calling.  */
-  val hardwareAecBlocklistModels: String by remoteString(
-    key = "android.calling.hardwareAecBlockList",
-    defaultValue = "",
-    hotSwappable = true
-  )
-
-  /** A comma-separated list of models that should *not* use software AEC for calling.  */
-  val softwareAecBlocklistModels: String by remoteString(
-    key = "android.calling.softwareAecBlockList",
-    defaultValue = "",
-    hotSwappable = true
-  )
-
-  /** Whether the Oboe ADM should be used or not.  */
-  val oboeDeployment: Boolean by remoteBoolean(
-    key = "android.calling.oboeDeployment",
-    defaultValue = false,
-    hotSwappable = false
-  )
-
-  /** A comma-separated list of models that should use the Java ADM instead of the Oboe ADM.  */
-  val useJavaAdmModels: String by remoteString(
-    key = "android.calling.useJavaAdmList",
-    defaultValue = "",
-    hotSwappable = true
-  )
-
-  /** A comma-separated list of models that should use software AEC for calling with the Oboe ADM.  */
-  val useSoftwareAecForOboeModels: String by remoteString(
-    key = "android.calling.useSoftwareAecForOboe",
+  /** A json string representing rules necessary to build an audio configuration for a device. */
+  val callingAudioDeviceConfig: String by remoteString(
+    key = "android.calling.audioDeviceConfig",
     defaultValue = "",
     hotSwappable = true
   )
@@ -751,13 +722,6 @@ object RemoteConfig {
     key = "android.cameraXMixedModelBlockList",
     defaultValue = "",
     hotSwappable = false
-  )
-
-  /** Whether or not hardware AEC should be used for calling on devices older than API 29.  */
-  val useHardwareAecIfOlderThanApi29: Boolean by remoteBoolean(
-    key = "android.calling.useHardwareAecIfOlderThanApi29",
-    defaultValue = false,
-    hotSwappable = true
   )
 
   /** Prefetch count for stories from a given user. */
@@ -998,12 +962,21 @@ object RemoteConfig {
   /** Whether unauthenticated chat web socket is backed by libsignal-net  */
   @JvmStatic
   @get:JvmName("libSignalWebSocketEnabled")
-  // val libSignalWebSocketEnabled: Boolean by remoteBoolean(
-  //   key = "android.libsignalWebSocketEnabled",
-  //   defaultValue = false,
+  // val libSignalWebSocketEnabled: Boolean by remoteValue(
+  //   key = "android.libsignalWebSocketEnabled.3",
   //   hotSwappable = false
-  // )
+  // ) { value ->
+  //   value.asBoolean(false) || Environment.IS_NIGHTLY
+  // }
   val libSignalWebSocketEnabled: Boolean = false
+
+  @JvmStatic
+  @get:JvmName("libsignalEnforceMinTlsVersion")
+  val libsignalEnforceMinTlsVersion by remoteBoolean(
+    key = "android.libsignalEnforceMinTlsVersion",
+    defaultValue = false,
+    hotSwappable = false
+  )
 
   /** Whether or not to launch the restore activity after registration is complete, rather than before.  */
   @JvmStatic
@@ -1086,18 +1059,19 @@ object RemoteConfig {
     hotSwappable = false
   )
 
-  /** Whether or not libsignal-net's CDSI lookups use the new route-based internals or the old ones */
-  val libsignalRouteBasedCDSILookup: Boolean by remoteBoolean(
-    key = "android.libsignal.libsignalRouteBasedCDSILookup",
-    defaultValue = true,
-    hotSwappable = true
-  )
-
   /** Whether to allow different WindowSizeClasses to be used to determine screen layout */
   val largeScreenUi: Boolean by remoteBoolean(
     key = "android.largeScreenUI",
     defaultValue = false,
     hotSwappable = false
+  )
+
+  @JvmStatic
+  @get:JvmName("useMessageSendRestFallback")
+  val useMessageSendRestFallback: Boolean by remoteBoolean(
+    key = "android.useMessageSendRestFallback",
+    defaultValue = false,
+    hotSwappable = true
   )
 
   // endregion

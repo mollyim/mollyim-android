@@ -165,11 +165,13 @@ public class ApplicationMigrations {
     static final int AVATAR_COLOR_MIGRATION_JOB    = 132;
     static final int DUPLICATE_E164_FIX_2          = 133;
     static final int E164_FORMATTING               = 134;
-    // Need to skip because a 135 exists in 7.40, which went to beta users before this
+    // Need to skip 135 because of hotfix ordering issues
     static final int FIX_CHANGE_NUMBER_ERROR       = 136;
+    static final int CHAT_FOLDER_STORAGE_SYNC      = 137;
+    static final int SVR2_ENCLAVE_UPDATE_3         = 138;
   }
 
-  public static final int CURRENT_VERSION = 136;
+  public static final int CURRENT_VERSION = 138;
 
  /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -754,6 +756,14 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.FIX_CHANGE_NUMBER_ERROR) {
       jobs.put(Version.FIX_CHANGE_NUMBER_ERROR, new FixChangeNumberErrorMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.CHAT_FOLDER_STORAGE_SYNC) {
+      jobs.put(Version.CHAT_FOLDER_STORAGE_SYNC, new SyncChatFoldersMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.SVR2_ENCLAVE_UPDATE_3) {
+      jobs.put(Version.SVR2_ENCLAVE_UPDATE_3, new Svr2MirrorMigrationJob());
     }
 
     return jobs;

@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,9 +33,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.fragment.findNavController
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
@@ -125,9 +127,9 @@ class CreateCallLinkBottomSheetDialogFragment : ComposeBottomSheetDialogFragment
 
   private fun onAddACallNameClicked() {
     val snapshot = viewModel.callLink.value
-    findNavController().navigate(
-      CreateCallLinkBottomSheetDialogFragmentDirections.actionCreateCallLinkBottomSheetToEditCallLinkNameDialogFragment(snapshot.state.name)
-    )
+    EditCallLinkNameDialogFragment().apply {
+      arguments = bundleOf(EditCallLinkNameDialogFragment.ARG_NAME to snapshot.state.name)
+    }.show(parentFragmentManager, null)
   }
 
   private fun onJoinClicked() {
@@ -242,6 +244,7 @@ private fun CreateCallLinkBottomSheetContent(
       modifier = Modifier
         .fillMaxWidth()
         .wrapContentSize(Alignment.Center)
+        .verticalScroll(rememberScrollState())
     ) {
       BottomSheets.Handle(modifier = Modifier.align(Alignment.CenterHorizontally))
 

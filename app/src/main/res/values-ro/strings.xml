@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Utilizatori blocați</string>
     <string name="BlockedUsersActivity__add_blocked_user">Adaugă un utilizator blocat</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Nu te poți bloca pe tine</string>
     <string name="BlockedUsersActivity__blocked_users_will">Utilizatorii blocați nu vor putea să te sune sau să îți trimită mesaje.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Nu există utilizatori blocați</string>
     <string name="BlockedUsersActivity__block_user">Blochezi utilizatorul?</string>
@@ -546,6 +547,8 @@
     <string name="ConversationActivity__invite_to_signal">Invită la Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Vei primi un mesaj de reamintire curând din nou.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">Se trimite text formatat</string>
@@ -1764,6 +1767,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Trimis de tine</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">Trimis de %1$s către %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Trimis de tine către %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Fișierul nu este încă trimis.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Amintește-mi mai târziu</string>
@@ -1833,6 +1838,10 @@
     <string name="MessageRecord_missed_voice_call">Apel vocal nepreluat</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">Apel video nepreluat</string>
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
+    <string name="MessageRecord_declined_voice_call">Apel video respins</string>
+    <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
+    <string name="MessageRecord_declined_video_call">Apel video respins</string>
     <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
     <string name="MessageRecord_missed_voice_call_notification_profile">Apel vocal pierdut în timp ce profilul de notificare este activat</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
@@ -2548,6 +2557,15 @@
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">Schimbă sunetul la grup</string>
 
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
+
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">S-a petrecut o eroare UI. Raportează eroare către developeri.</string>
     <!-- Error message when the user is trying to change audio outputs but none are present. -->
@@ -2652,6 +2670,13 @@
     <string name="AboutSheet__you">Tu</string>
     <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
     <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
+
+    <!-- Title of the screen showing which groups they have in common with another user. -->
+    <plurals name="GroupsInCommon__n_groups_in_common_title">
+        <item quantity="one">%1$s grup în comun</item>
+        <item quantity="few">%1$s grupuri în comun</item>
+        <item quantity="other">%1$s de grupuri în comun</item>
+    </plurals>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2837,6 +2862,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN-ul a fost verificat cu succes. Îți vom reaminti din nou peste o săptămână.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN-ul a fost verificat cu succes. Îți vom reaminti din nou peste câteva săptămâni.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN-ul a fost verificat cu succes. Îți vom reaminti din nou peste o lună.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Îți reamintim din nou mai târziu.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Îți vom reaminti mâine.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">Îți vom reaminti în câteva zile.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Îți vom reaminti din nou într-o săptămână.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Îți vom reaminti din nou în câteva săptămâni.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Îți vom reaminti din nou într-o lună.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Imagine</string>
@@ -2849,18 +2880,83 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%1$s a resetat sesiunea securizată.</string>
     <string name="SmsMessageRecord_duplicate_message">Mesaj duplicat.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">Autocolante</string>
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">Autocolante</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="one">%1$s selectată</item>
+        <item quantity="few">%1$s selectate</item>
+        <item quantity="other">%1$s selectate</item>
+    </plurals>
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Disponibil</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Instalat</string>
+    <!-- Shown when there are no sticker packs available for installation. -->
+    <string name="StickerManagement_available_tab_empty_text">Nu e disponibil niciun pachet de autocolante</string>
+    <!-- Shown when there are no sticker packs currently installed. -->
+    <string name="StickerManagement_installed_tab_empty_text">Nu e instalat niciun pachet de autocolante</string>
+    <!-- Message shown when the author of the sticker pack is unknown. -->
+    <string name="StickerManagement_author_unknown">Necunoscut</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Autocolante instalate</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Autocolante Primite</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Seria artistică Signal</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">Redirecționează către</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">Selectează tot</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">Șterge</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="one">Remove %1$s sticker pack</item>
+        <item quantity="few">Remove %1$s sticker packs</item>
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="one">%1$s sticker pack removed.</item>
+        <item quantity="few">%1$s sticker packs removed.</item>
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">Redirecționează</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">Selectează</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">Instalează</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">Elimină</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Descarcă %1$s pachetul de autocolante </string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Bifă pentru Descărcat</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Semnul de Trage și plasează</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Descarcă</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">Deschide meniul de context</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Autocolante instalate</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Autocolante Primite</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Seria artistică Signal</string>
-    <string name="StickerManagementAdapter_no_stickers_installed">Nici un autocolant instalat</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Autocolantele din mesajele primite se vor afișa aici</string>
     <string name="StickerManagementAdapter_untitled">Fără titlu</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Necunoscut</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Fără titlu</string>
@@ -2887,6 +2983,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copiază acest URL și adaugă-l la raportul de probleme sau la emailul de suport:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Distribuie</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Acest jurnal va fi publicat online pentru a fi vizualizat de către contribuitori. Poți să-l examinezi înainte să fie încărcat.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Când apeși Trimite, jurnalul tău de depanare va fi postat online pentru 30 de zile cu un URL unic și nepublicat. Poți să-l salvezi local mai întâi.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -2957,6 +3055,8 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s aparține persoanei %2$s</string>
     <!-- Displayed in the conversation list when a person has been blocked -->
     <string name="ThreadRecord_blocked">Blocat</string>
+    <!-- Displayed in the conversation list when a group has been blocked -->
+    <string name="ThreadRecord_blocked_group">Blocat</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Actualizare Molly</string>
@@ -3056,10 +3156,6 @@
 
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Mesaj criptat pentru o sesiune inexistentă</string>
-
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">Mesaj MMS criptat incorect</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Mesaj MMS criptat pentru o sesiune inexistentă</string>
 
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">Notificări fără sunet</string>
@@ -3807,6 +3903,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Nu, mulțumesc</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Recente</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Acest mesaj</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Utilizate Recent</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Smiley-uri &amp; Oameni</string>
@@ -3819,6 +3916,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Steaguri</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Emoticoane</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Nici un rezultat găsit</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Recente</string>
+    <string name="GifQuickSearchOption__trending">În trend</string>
+    <string name="GifQuickSearchOption__celebrate">Sărbătorește</string>
+    <string name="GifQuickSearchOption__love">Dragoste</string>
+    <string name="GifQuickSearchOption__thumbs_up">Bravo</string>
+    <string name="GifQuickSearchOption__surprised">Surprindere</string>
+    <string name="GifQuickSearchOption__excited">Entuziasm</string>
+    <string name="GifQuickSearchOption__sad">Tristețe</string>
+    <string name="GifQuickSearchOption__angry">Furie</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Implicit</string>
@@ -4418,6 +4526,8 @@
     <string name="conversation_list_fragment__fab_content_description">Conversație nouă</string>
     <string name="conversation_list_fragment__open_camera_description">Deschide Camera</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Nu există conversații. Începe prin a trimite unui prieten un mesaj.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Conversațiile arhivate vor apărea aici.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Nu există conversații de afișat</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4779,6 +4889,14 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Ai făcut prea multe încercări. Te rugăm să încerci din nou mai târziu.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Eroare de conectare la serviciu</string>
     <string name="preferences_chats__backups">Backup-uri</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">Beta</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">Informații</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Deblochează Molly</string>
     <!-- Description text explaining how to unlock Signal -->
@@ -5051,9 +5169,9 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Nu există alte grupuri în comun.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Niciun grup în comun.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d grup în comun</item>
-        <item quantity="few">%1$d grupuri în comun</item>
-        <item quantity="other">%1$d de grupuri în comun</item>
+        <item quantity="one">%1$d alt grup în comun</item>
+        <item quantity="few">%1$d alte grupuri în comun</item>
+        <item quantity="other">%1$d de alte grupuri în comun</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d grup în comun</item>
@@ -5815,6 +5933,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Numărul de telefon a fost copiat în clipboard.</string>
     <string name="ConversationSettingsFragment__phone_number">Număr de telefon</string>
     <string name="ConversationSettingsFragment__get_badges">Poți obține insigne pentru profilul tău susținând Signal. Atinge o insignă pentru a afla mai multe.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Fișierul nu este încă trimis.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Adăugare membri</string>
@@ -5867,6 +5987,8 @@
     <string name="NewConversationActivity__s_has_been_removed">%1$s a fost eliminat</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">%1$s a fost blocat/ă</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">Nu s-a putut elimina %1$s</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -7200,34 +7322,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">Ieși din Signal ca să confirmi donația?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">După confirmare, revino la Signal pentru a finaliza procesarea donației.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">Transfer bancar</string>
@@ -7288,7 +7382,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Alege-ți banca</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Confirmă-ți donația cu %1$s</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Pentru a configura donația recurentă, atinge Continuă, pentru a confirma o taxă de 0,01 € la banca ta. Aceasta va fi rambursată automat și va permite ca donația ta de %1$s/lună să fie debitată din contul tău.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -7971,11 +8065,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Se restaurează fișierele</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">Restaurare întreruptă</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Restaurarea a fost finalizată</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">Detalii</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Se așteaptă Wi-Fi…</string>
@@ -8007,6 +8103,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">Ultimul backup nu a putut fi finalizat. Asigură-te că ai cea mai recentă versiune de Signal și încearcă din nou.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Află mai multe</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8108,8 +8209,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">Istoricul plăților</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">Detaliile backup-ului</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">Restabilește folosind telefonul celular</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Dimensiunea backup-ului</string>
     <!-- Row label for backup frequency -->
@@ -8232,6 +8333,8 @@
         <item quantity="few">Ai %1$s de date de back-up care nu se află pe acest dispozitiv. Copia de rezervă va fi ștearsă când abonamentul se încheie în %2$d zile.</item>
         <item quantity="other">Ai %1$s de date de back-up care nu se află pe acest dispozitiv. Copia de rezervă va fi ștearsă când abonamentul se încheie în %2$d de zile.</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">Descarcă</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -8242,6 +8345,10 @@
         <item quantity="few">Dacă omiți descărcarea, fișierele și atașamentele rămase din backup vor fi eliminate în %1$d zile.</item>
         <item quantity="other">Dacă omiți descărcarea, fișierele și atașamentele rămase din backup vor fi eliminate în %1$d de zile.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Sari peste restaurare?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Omite</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8538,6 +8645,27 @@
     <string name="NoBackupToRestore_step3">Activează backup-urile și așteaptă până când backup-ul este finalizat</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Sari peste restaurare</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Închide căutarea</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Șterge căutarea</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Mai multe opțiuni</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Profil notificări</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Proxy</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">Navighează în sus</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">Comutare</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

@@ -126,6 +126,11 @@ import org.thoughtcrime.securesms.database.helpers.migration.V267_FixGroupInvita
 import org.thoughtcrime.securesms.database.helpers.migration.V268_FixInAppPaymentsErrorStateConsistency
 import org.thoughtcrime.securesms.database.helpers.migration.V268_RestorePaymentTable
 import org.thoughtcrime.securesms.database.helpers.migration.V269_BackupMediaSnapshotChanges
+import org.thoughtcrime.securesms.database.helpers.migration.V270_FixChatFolderColumnsForStorageSync
+import org.thoughtcrime.securesms.database.helpers.migration.V271_AddNotificationProfileIdColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V272_UpdateUnreadCountIndices
+import org.thoughtcrime.securesms.database.helpers.migration.V273_FixUnreadOriginalMessages
+import org.thoughtcrime.securesms.database.helpers.migration.V274_BackupMediaSnapshotLastSeenOnRemote
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -254,10 +259,15 @@ object SignalDatabaseMigrations {
     266 to V266_UniqueThreadPinOrder,
     267 to V267_FixGroupInvitationDeclinedUpdate,
     268 to V268_FixInAppPaymentsErrorStateConsistency,
-    269 to V269_BackupMediaSnapshotChanges
+    269 to V269_BackupMediaSnapshotChanges,
+    270 to V270_FixChatFolderColumnsForStorageSync,
+    271 to V271_AddNotificationProfileIdColumn,
+    272 to V272_UpdateUnreadCountIndices,
+    273 to V273_FixUnreadOriginalMessages,
+    274 to V274_BackupMediaSnapshotLastSeenOnRemote
   )
 
-  const val DATABASE_VERSION = 269
+  const val DATABASE_VERSION = 274
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(

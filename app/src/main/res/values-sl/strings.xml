@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Blokirani_e uporabniki_ce</string>
     <string name="BlockedUsersActivity__add_blocked_user">Dodaj blokiranega_o uporabnika_co</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">Sami sebe ne morete blokirati</string>
     <string name="BlockedUsersActivity__blocked_users_will">Blokirani_e uporabniki_ce vas ne bodo mogli_e klicati ali vam pošiljati sporočil.</string>
     <string name="BlockedUsersActivity__no_blocked_users">Ni blokiranih uporabnikov_ic</string>
     <string name="BlockedUsersActivity__block_user">Želite blokirati uporabnika_co?</string>
@@ -551,6 +552,8 @@
     <string name="ConversationActivity__invite_to_signal">Povabi na Molly</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">Kmalu vas znova opozorimo.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">Pošiljanje oblikovanega besedila</string>
@@ -1814,6 +1817,8 @@
     <string name="MediaOverviewActivity_sent_by_you">Poslano od vas</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">Poslano od uporabnika_ce %1$s za uporabnika_co %2$s</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">Poslano od vas za uporabnika_co %1$s</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Ta medij še ni poslan.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Spomni me kasneje</string>
@@ -1883,6 +1888,10 @@
     <string name="MessageRecord_missed_voice_call">Zgrešen glasovni klic</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">Zgrešen video klic</string>
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
+    <string name="MessageRecord_declined_voice_call">Zavrnjen zvočni klic</string>
+    <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
+    <string name="MessageRecord_declined_video_call">Zavrnjen video klic</string>
     <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
     <string name="MessageRecord_missed_voice_call_notification_profile">Neodgovorjen zvočni klic, medtem ko je profil za obvestila vklopljen</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
@@ -2626,6 +2635,15 @@
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">Preklapljanje zvonjenja skupine</string>
 
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
+
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Prišlo je do napake uporabniškega vmesnika. Prosimo, prijavite to napako razvijalcem.</string>
     <!-- Error message when the user is trying to change audio outputs but none are present. -->
@@ -2735,6 +2753,14 @@
     <string name="AboutSheet__you">Vi</string>
     <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
     <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
+
+    <!-- Title of the screen showing which groups they have in common with another user. -->
+    <plurals name="GroupsInCommon__n_groups_in_common_title">
+        <item quantity="one">%1$s skupna skupina</item>
+        <item quantity="two">%1$s skupni skupini</item>
+        <item quantity="few">%1$s skupne skupine</item>
+        <item quantity="other">%1$s skupnih skupin</item>
+    </plurals>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2925,6 +2951,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN je bil potrjen. Čez teden vas bomo znova opomnili.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN je bil potrjen. Čez nekaj tednov vas bomo znova opomnili.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN je bil potrjen. Čez mesec vas bomo znova opomnili.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">Pozneje vas bomo ponovno opomnili.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">Jutri vas bomo ponovno opomnili.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">V nekaj dneh vas bomo ponovno opomnili.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">Čez en teden vas bomo ponovno opomnili.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">Čez nekaj tednov vas bomo ponovno opomnili.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">Čez en mesec vas bomo ponovno opomnili.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Slika</string>
@@ -2937,18 +2969,86 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%1$s je ponastavil_a varno sejo.</string>
     <string name="SmsMessageRecord_duplicate_message">Podvojeno sporočilo.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">Nalepke</string>
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">Nalepke</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="one">%1$s izbran</item>
+        <item quantity="two">%1$s izbrana</item>
+        <item quantity="few">%1$s izbrani</item>
+        <item quantity="other">%1$s izbranih</item>
+    </plurals>
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">Na voljo</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">Nameščeno</string>
+    <!-- Shown when there are no sticker packs available for installation. -->
+    <string name="StickerManagement_available_tab_empty_text">Paketi nalepk niso na voljo</string>
+    <!-- Shown when there are no sticker packs currently installed. -->
+    <string name="StickerManagement_installed_tab_empty_text">Paketi nalepk niso nameščeni</string>
+    <!-- Message shown when the author of the sticker pack is unknown. -->
+    <string name="StickerManagement_author_unknown">Neznano</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">Nameščene nalepke</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">Prejete nalepke</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Serija Signalovi umetniki</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">Posreduj</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">Označi vse</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">Izbriši</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="one">Remove %1$s sticker pack</item>
+        <item quantity="two">Remove %1$s sticker packs</item>
+        <item quantity="few">Remove %1$s sticker packs</item>
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="one">%1$s sticker pack removed.</item>
+        <item quantity="two">%1$s sticker packs removed.</item>
+        <item quantity="few">%1$s sticker packs removed.</item>
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">Posreduj</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">Izberi</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">Namesti</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">Odstrani</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">Prenesi %1$s paket nalepk</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">Ikona za preneseno</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">Povlecite in spustite</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">Prenesi</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">Odprite meni bližnjic</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">Nameščene nalepke</string>
-    <string name="StickerManagementAdapter_stickers_you_received">Prejete nalepke</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Serija Signalovi umetniki</string>
-    <string name="StickerManagementAdapter_no_stickers_installed">Brez nameščenih nalepk</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Tu bodo prikazane nalepke iz dohodnih sporočil.</string>
     <string name="StickerManagementAdapter_untitled">Brez naslova</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">Neznano</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">Brez imena</string>
@@ -2975,6 +3075,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Prekopirajte naslov URL in ga dodajte k prijavi napake ali v elektronsko sporočilo za tehnično podporo:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Deli</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Sistemska zabeležba bo javno objavljena na spletu za razvijalce aplikacije. Pred objavo jo lahko pregledate.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">S klikom na Oddaj bo vaša zabeležba za 30 dni objavljena na edinstvenem URL naslovu. Lahko jo pred tem shranite lokalno.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3045,6 +3147,8 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s pripada %2$s</string>
     <!-- Displayed in the conversation list when a person has been blocked -->
     <string name="ThreadRecord_blocked">Blokirano</string>
+    <!-- Displayed in the conversation list when a group has been blocked -->
+    <string name="ThreadRecord_blocked_group">Blokirano</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Nadgradnja aplikacije Molly</string>
@@ -3145,10 +3249,6 @@
 
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Sporočilo je bilo šifrirano za neobstoječo sejo</string>
-
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">Napačno šifrirano sporočilo MMS</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Sporočilo MMS je bilo šifrirano za neobstoječo sejo</string>
 
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">Izklop obvestil</string>
@@ -3913,6 +4013,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">Ne, hvala!</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">Nedavno</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">To sporočilo</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Nedavno uporabljeno</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Smeški &amp; Ljudje</string>
@@ -3925,6 +4026,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Zastave</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Emotikoni</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Ni rezultatov</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">Nedavno</string>
+    <string name="GifQuickSearchOption__trending">Priljubljeno</string>
+    <string name="GifQuickSearchOption__celebrate">Praznovanje</string>
+    <string name="GifQuickSearchOption__love">Ljubezen</string>
+    <string name="GifQuickSearchOption__thumbs_up">Palec gor</string>
+    <string name="GifQuickSearchOption__surprised">Presenečenje</string>
+    <string name="GifQuickSearchOption__excited">Navdušenje</string>
+    <string name="GifQuickSearchOption__sad">Žalost</string>
+    <string name="GifQuickSearchOption__angry">Jeza</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">Uporabi prednastavljeno</string>
@@ -4528,6 +4640,8 @@
     <string name="conversation_list_fragment__fab_content_description">Nov klepet</string>
     <string name="conversation_list_fragment__open_camera_description">Odpri kamero</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Zaenkrat brez klepetov.\nZačnite s sporočilom prijatelju_ici.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">Arhivirani klepeti bodo prikazani tukaj.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">Ni klepetov za prikaz</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4897,6 +5011,14 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Preveč neuspešnih poskusov. Prosimo poskusite znova kasneje.</string>
     <string name="RegistrationActivity_error_connecting_to_service">Napaka pri povezavi do storitve</string>
     <string name="preferences_chats__backups">Varnostne kopije</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">Beta</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">Info</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Odkleni Molly</string>
     <!-- Description text explaining how to unlock Signal -->
@@ -5171,10 +5293,10 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">Ni drugih skupnih skupin.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">Ni skupnih skupin.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d skupna skupina</item>
-        <item quantity="two">%1$d skupni skupini</item>
-        <item quantity="few">%1$d skupne skupine</item>
-        <item quantity="other">%1$d skupnih skupin</item>
+        <item quantity="one">%1$d druga skupna skupina</item>
+        <item quantity="two">%1$d drugi skupni skupini</item>
+        <item quantity="few">%1$d druge skupne skupine</item>
+        <item quantity="other">%1$d drugih skupnih skupin</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d skupna skupina</item>
@@ -5948,6 +6070,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Telefonska številka je bila prekopirana v odložišče.</string>
     <string name="ConversationSettingsFragment__phone_number">Telefonska številka</string>
     <string name="ConversationSettingsFragment__get_badges">S podporo Signalu si pridobite značke za svoj profil. Za več tapnite na značko.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Ta medij še ni poslan.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Dodaj člane_ice</string>
@@ -6000,6 +6124,8 @@
     <string name="NewConversationActivity__s_has_been_removed">%1$s je bil_a odstranjen_a</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">%1$s je bil_a blokiran_a</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">%1$s ni mogoče odstraniti</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -7360,34 +7486,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">Želite zapustiti Signal, da potrdite donacijo?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">Ko potrdite, se vrnite v Signal, da dokončate obdelavo svoje donacije.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">Bančno nakazilo</string>
@@ -7448,7 +7546,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Izberite svojo banko</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">Potrdite svojo donacijo s plačilno metodo %1$s</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Za nastavitev ponavljajoče se donacije tapnite Nadaljuj, da potrdite zaračunavanje 0,01 EUR v svoji banki. To se bo samodejno povrnilo in omogočilo, da se vaša donacija %1$s/mesec odšteje z vašega računa.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -8140,11 +8238,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Obnovitev medijev</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">Obnovitev je začasno zaustavljena</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">Obnovitev je bila uspešna</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">Podrobnosti</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Čakanje na Wi-Fi …</string>
@@ -8176,6 +8276,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">Zadnje varnostne kopije ni bilo mogoče dokončati. Prepričajte se, da uporabljate najnovejšo različico Signala, in poskusite znova.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Preberite več</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8278,8 +8383,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">Zgodovina plačil</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">Podrobnosti o varnostni kopji</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">Obnovitev z uporabo mobilnih podatkov</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Velikost varnostne kopije</string>
     <!-- Row label for backup frequency -->
@@ -8405,6 +8510,8 @@
         <item quantity="few">Imate %1$s varnostne kopije, ki ni v tej napravi. Vaša varnostna kopija bo izbrisana, ko se vaša naročnina konča (čez %2$d dni).</item>
         <item quantity="other">Imate %1$s varnostne kopije, ki ni v tej napravi. Vaša varnostna kopija bo izbrisana, ko se vaša naročnina konča (čez %2$d dni).</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">Prenesi</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -8416,6 +8523,10 @@
         <item quantity="few">Če prenos preskočite, bodo preostali mediji in priponke v varnostni kopiji izbrisani v %1$d dneh.</item>
         <item quantity="other">Če prenos preskočite, bodo preostali mediji in priponke v varnostni kopiji izbrisani v %1$d dneh.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">Želite preskočiti obnovitev?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Preskoči</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8714,6 +8825,27 @@
     <string name="NoBackupToRestore_step3">Omogočite varnostno kopiranje in počakajte, da se zaključi</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Preskoči obnovitev</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">Zapri iskanje</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">Počisti iskalno polje</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">Več možnosti</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">Profili za obvestila</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">Proksi</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">Premik navzgor</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">Vklop</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

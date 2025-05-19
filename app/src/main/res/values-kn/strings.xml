@@ -148,6 +148,7 @@
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">ನಿರ್ಬಂಧಿಸಿದ ಬಳಕೆದಾರರು</string>
     <string name="BlockedUsersActivity__add_blocked_user">ನಿರ್ಬಂಧಿಸಿದ ಬಳಕೆದಾರರನ್ನು ಸೇರಿಸಿ</string>
+    <string name="BlockedUsersActivity__cannot_block_yourself">ನಿಮ್ಮನ್ನು ನೀವು ನಿರ್ಬಂಧಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
     <string name="BlockedUsersActivity__blocked_users_will">ನಿರ್ಬಂಧಿಸಿದ ಬಳಕೆದಾರರು ನಿಮಗೆ ಕರೆ ಮಾಡಲು ಅಥವಾ ನಿಮಗೆ ಮೆಸೇಜ್‌ಗಳನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
     <string name="BlockedUsersActivity__no_blocked_users">ನಿರ್ಬಂಧಿಸಿದ ಬಳಕೆದಾರರು ಇಲ್ಲ</string>
     <string name="BlockedUsersActivity__block_user">ಬಳಕೆದಾರರನ್ನು ನಿರ್ಬಂಧಿಸಬೇಕೇ?</string>
@@ -541,6 +542,8 @@
     <string name="ConversationActivity__invite_to_signal">Molly ಗೆ ಆಮಂತ್ರಿಸಿ</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
     <string name="ConversationActivity__you_will_be_reminded_again_soon">ಶೀಘ್ರದಲ್ಲೇ ನಿಮಗೆ ಮತ್ತೆ ನೆನೆಪಿಸಲಾಗುತ್ತದೆ.</string>
+    <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+    <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
 
     <!-- Title for dialog shown when first sending formatted text -->
     <string name="SendingFormattingTextDialog_title">ಫಾರ್ಮ್ಯಾಟ್ ಮಾಡಿದ ಟೆಕ್ಸ್ಟ್ ಅನ್ನು ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ</string>
@@ -1714,6 +1717,8 @@
     <string name="MediaOverviewActivity_sent_by_you">ನಿಮ್ಮಿಂದ ಕಳುಹಿಸಲಾಗಿದೆ</string>
     <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s ರಿಂದ %2$s ಗೆ ಕಳುಹಿಸಿದರು</string>
     <string name="MediaOverviewActivity_sent_by_you_to_s">%1$s ರವರಿಂದ ನಿಮಗೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="MediaOverviewActivity_this_media_is_not_sent_yet">ಈ ಮೀಡಿಯಾವನ್ನು ಇನ್ನೂ ಕಳುಹಿಸಲಾಗಿಲ್ಲ.</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">ನನಗೆ ನಂತರ ನೆನಪಿಸು</string>
@@ -1783,6 +1788,10 @@
     <string name="MessageRecord_missed_voice_call">ಮಿಸ್ಡ್ ವಾಯ್ಸ್ ಕಾಲ್</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_missed_video_call">ಮಿಸ್ಡ್ ವೀಡಿಯೊ ಕಾಲ್</string>
+    <!-- Update message shown when receiving an incoming 1:1 voice/audio call and not answered -->
+    <string name="MessageRecord_declined_voice_call">ನಿರಾಕರಿಸಿದ ಧ್ವನಿ ಕರೆ</string>
+    <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
+    <string name="MessageRecord_declined_video_call">ನಿರಾಕರಿಸಿದ ವೀಡಿಯೊ ಕರೆ</string>
     <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
     <string name="MessageRecord_missed_voice_call_notification_profile">ಅಧಿಸೂಚನೆ ಪ್ರೊಫೈಲ್ ಆನ್ ಆಗಿರುವಾಗ ತಪ್ಪಿಹೋದ ಧ್ವನಿ ಕರೆ</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
@@ -2470,6 +2479,15 @@
     <!-- Content description for toggling group ring state -->
     <string name="WebRtcCallView__toggle_group_ringing">ಗ್ರೂಪ್ ರಿಂಗಿಂಗ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಿ</string>
 
+    <!-- Alert message indicating that the local user was remotely muted by some other user. Placeholder is the muters display name. -->
+    <string name="WebRtcCallView__s_remotely_muted_you">%1$s muted you.</string>
+    <!-- Alert message indicating that the local user remotely muted another user. Placeholder is the name of the person muted. -->
+    <string name="WebRtcCallView__you_remotely_muted_s">You muted %1$s.</string>
+    <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
+    <string name="WebRtcCallView__s_remotely_muted_s">%1$s muted %2$s.</string>
+    <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
+    <string name="WebRtcCallView__you_muted_yourself">You muted yourself from another device.</string>
+
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">UI ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಈ ದೋಷವನ್ನು ಡೆವಲಪರ್‌ಗಳಿಗೆ ವರದಿ ಮಾಡಿ.</string>
     <!-- Error message when the user is trying to change audio outputs but none are present. -->
@@ -2569,6 +2587,12 @@
     <string name="AboutSheet__you">ನೀವು</string>
     <!-- Displays the name of a contact. The first placeholder is the name the user has assigned to that contact, the second name is the name the contact assigned to themselves -->
     <string name="AboutSheet__user_set_display_name_and_profile_name">%1$s (%2$s)</string>
+
+    <!-- Title of the screen showing which groups they have in common with another user. -->
+    <plurals name="GroupsInCommon__n_groups_in_common_title">
+        <item quantity="one">ಸಾಮಾನ್ಯ ಗುಂಪು %1$s</item>
+        <item quantity="other">%1$s ಗುಂಪುಗಳಲ್ಲಿ ನೀವಿಬ್ಬರೂ ಇರುವಿರಿ</item>
+    </plurals>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
@@ -2749,6 +2773,12 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ವಾರದಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ಒಂದೆರಡು ವಾರಗಳಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_month">ಯಶಸ್ವಿಯಾಗಿ PIN ದೃಢೀಕರಿಸಲಾಗಿದೆ. ತಿಂಗಳಲ್ಲಿ ಮತ್ತೆ ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</string>
+    <string name="SignalPinReminders__well_remind_you_again_later">ನಾವು ನಂತರ ನಿಮಗೆ ಪುನಃ ರಿಮೈಂಡ್ ಮಾಡುತ್ತೇವೆ.</string>
+    <string name="SignalPinReminders__well_remind_you_again_tomorrow">ನಾವು ನಾಳೆ ನಿಮಗೆ ಪುನಃ ರಿಮೈಂಡ್ ಮಾಡುತ್ತೇವೆ.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_few_days">ನಾವು ಕೆಲವು ದಿನಗಳಲ್ಲಿ ನಿಮಗೆ ಪುನಃ ರಿಮೈಂಡ್ ಮಾಡುತ್ತೇವೆ.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_week">ನಾವು ಒಂದು ವಾರದಲ್ಲಿ ನಿಮಗೆ ಪುನಃ ರಿಮೈಂಡ್ ಮಾಡುತ್ತೇವೆ.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_couple_weeks">ನಾವು ಕೆಲವು ವಾರಗಳಲ್ಲಿ ನಿಮಗೆ ಪುನಃ ರಿಮೈಂಡ್ ಮಾಡುತ್ತೇವೆ.</string>
+    <string name="SignalPinReminders__well_remind_you_again_in_a_month">ನಾವು ಒಂದು ತಿಂಗಳಿನಲ್ಲಿ ನಿಮಗೆ ಪುನಃ ರಿಮೈಂಡ್ ಮಾಡುತ್ತೇವೆ.</string>
 
     <!-- Slide -->
     <string name="Slide_image">ಚಿತ್ರ</string>
@@ -2761,18 +2791,80 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%1$s ಸುರಕ್ಷಿತ ಅವಧಿಯನ್ನು ಮರುಹೊಂದಿಸಿದ್ದಾರೆ.</string>
     <string name="SmsMessageRecord_duplicate_message">ಡುಪ್ಲಿಕೇಟ್ ಸಂದೇಶ.</string>
 
-    <!-- StickerManagementActivity -->
-    <string name="StickerManagementActivity_stickers">ಸ್ಟಿಕ್ಕರ್‌ಗಳು</string>
+    <!-- Sticker management screen default title. -->
+    <string name="StickerManagement_title_stickers">ಸ್ಟಿಕ್ಕರ್‌‌ ಗಳು</string>
+    <!-- Sticker management screen title displayed when multiple sticker packs are selected in order to perform an action. The placeholder is the number of selected items. -->
+    <plurals name="StickerManagement_title_n_selected">
+        <item quantity="one">%1$s ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</item>
+        <item quantity="other">%1$s ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</item>
+    </plurals>
+    <!-- Label for the sticker management screen tab which shows the stickers that are available to install. -->
+    <string name="StickerManagement_available_tab_label">ಲಭ್ಯವಿದೆ</string>
+    <!-- Label for the sticker management screen tab which shows the stickers that are currently installed. -->
+    <string name="StickerManagement_installed_tab_label">ಸ್ಥಾಪಿಸಲಾಗಿದೆ</string>
+    <!-- Shown when there are no sticker packs available for installation. -->
+    <string name="StickerManagement_available_tab_empty_text">ಯಾವುದೇ ಸ್ಟಿಕ್ಕರ್ ಪ್ಯಾಕ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
+    <!-- Shown when there are no sticker packs currently installed. -->
+    <string name="StickerManagement_installed_tab_empty_text">ಯಾವುದೇ ಸ್ಟಿಕ್ಕರ್ ಪ್ಯಾಕ್‌ಗಳನ್ನು ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿಲ್ಲ</string>
+    <!-- Message shown when the author of the sticker pack is unknown. -->
+    <string name="StickerManagement_author_unknown">ತಿಳಿದಿಲ್ಲ</string>
+    <!-- Sticker pack list section header for packs that are already installed. -->
+    <string name="StickerManagement_installed_stickers_header">ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿರುವ ಸ್ಟಿಕ್ಕರ್‌ಗಳು</string>
+    <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
+    <string name="StickerManagement_stickers_you_received_header">ನೀವು ಸ್ವೀಕರಿಸಿದ ಸ್ಟಿಕ್ಕರ್‌ಗಳು</string>
+    <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
+    <string name="StickerManagement_signal_artist_series_header">Signal ಕಲಾವಿದ ಸರಣಿ</string>
+    <!-- Title shown when sharing a sticker pack with another user. -->
+    <string name="StickerManagement_share_sheet_title">ಇವರಿಗೆ ಫಾರ್ವರ್ಡ್ ಮಾಡಿ</string>
+    <!-- Bottom action bar option to select all sticker packs in the list. -->
+    <string name="StickerManagement_action_select_all">ಎಲ್ಲ ಆಯ್ಕೆಮಾಡಿ</string>
+    <!-- Bottom action bar option to deselect all sticker packs in the list. -->
+    <string name="StickerManagement_action_deselect_all">Deselect all</string>
+    <!-- Bottom action bar option to uninstall all selected sticker packs. -->
+    <string name="StickerManagement_action_delete_selected">ಅಳಿಸಿ</string>
+    <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
+    <plurals name="StickerManagement_delete_n_packs_confirmation">
+        <item quantity="one">Remove %1$s sticker pack</item>
+        <item quantity="other">Remove %1$s sticker packs</item>
+    </plurals>
+    <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
+    <string name="StickerManagement_installed_pack_s">Installed %1$s.</string>
+    <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
+    <string name="StickerManagement_deleted_pack_s">Removed %1$s.</string>
+    <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
+    <plurals name="StickerManagement_deleted_n_packs">
+        <item quantity="one">%1$s sticker pack removed.</item>
+        <item quantity="other">%1$s sticker packs removed.</item>
+    </plurals>
+
+    <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
+    <string name="StickerManagement_menu_forward_pack">ಫಾರ್ವರ್ಡ್</string>
+    <!-- Sticker pack list dropdown menu label for the button to mark a sticker pack as selected in order to perform additional actions. -->
+    <string name="StickerManagement_menu_select_pack">ಆಯ್ಕೆಮಾಡಿ</string>
+    <!-- Sticker pack list dropdown menu label for the button to install a sticker pack. -->
+    <string name="StickerManagement_menu_install_pack">ಸ್ಥಾಪಿಸಿ</string>
+    <!-- Sticker pack list dropdown menu label for the button to uninstall a sticker pack. -->
+    <string name="StickerManagement_menu_remove_pack">ತೆಗೆದುಹಾಕಿ</string>
+    <!-- Sticker management screen dropdown menu label for the button to enter multi-select mode. -->
+    <string name="StickerManagement_menu_select_packs">Select sticker packs</string>
+
+    <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_download_pack">%1$s ಸ್ಟಿಕ್ಕರ್ ಪ್ಯಾಕ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
+    <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
+    <string name="StickerManagement_accessibility_downloaded_checkmark">ಚೆಕ್‌ಮಾರ್ಕ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
+    <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
+    <string name="StickerManagement_accessibility_drag_handle">ಡ್ರ್ಯಾಗ್ ಅಂಡ್ ಡ್ರಾಪ್ ಹ್ಯಾಂಡಲ್</string>
+    <!-- Accessibility label for the button to download a sticker pack. -->
+    <string name="StickerManagement_accessibility_download">ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="StickerManagement_accessibility_open_top_bar_menu">Open menu</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_open_context_menu">ಸಂದರ್ಭ ಮೆನು ತೆರೆಯಿರಿ</string>
+    <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
+    <string name="StickerManagement_accessibility_exit_multi_select_mode">Exit selection mode and clear selections</string>
 
     <!-- StickerManagementAdapter -->
-    <string name="StickerManagementAdapter_installed_stickers">ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿರುವ ಸ್ಟಿಕ್ಕರ್‌ಗಳು</string>
-    <string name="StickerManagementAdapter_stickers_you_received">ನೀವು ಸ್ವೀಕರಿಸಿದ ಸ್ಟಿಕ್ಕರ್‌ಗಳು</string>
-    <string name="StickerManagementAdapter_signal_artist_series">Signal ಕಲಾವಿದ ಸರಣಿ</string>
-    <string name="StickerManagementAdapter_no_stickers_installed">ಯಾವುದೇ ಸ್ಟಿಕ್ಕರ್‌ಗಳನ್ನು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
-    <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">ಒಳಬರುವ ಸಂದೇಶಗಳಿಂದ ಸ್ಟಿಕ್ಕರ್‌ಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ</string>
     <string name="StickerManagementAdapter_untitled">ಶೀರ್ಷಿಕ ರಹಿತ</string>
-    <!-- Message shown when the author of the sticker pack is unknown -->
-    <string name="StickerManagementAdapter_unknown">ತಿಳಿದಿಲ್ಲ</string>
 
     <!-- StickerPackPreviewActivity -->
     <string name="StickerPackPreviewActivity_untitled">ಶೀರ್ಷಿಕ ರಹಿತ</string>
@@ -2799,6 +2891,8 @@
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">ಈ URL ಅನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಇದನ್ನು ನಿಮ್ಮ ವಿಷಯ ವರದಿಗೆ ಸೇರಿಸಿ ಅಥವಾ ಇಮೇಲ್ ಬೆಂಬಲಿಸಿ :\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">ಈ ದಾಖಲೆಯನ್ನು ಕೊಡುಗೆದಾರರ ವೀಕ್ಷಣೆಗೆ ಬಹಿರಂಗ ಅಂತರ್ಜಾಲಕ್ಕೆ ಪೋಸ್ಟ್ ಮಾಡಲಾಗುತ್ತದೆ. ನೀವು ಇದನ್ನು ಸಲ್ಲಿಸುವ ಮೊದಲು ಪರೀಕ್ಷಿಸಬಹುದು.</string>
+    <!-- Banner message shown while submitting debug log -->
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">ನೀವು ಸಲ್ಲಿಸಿ ಕ್ಲಿಕ್ ಮಾಡಿದಾಗ, ನಿಮ್ಮ ಲಾಗ್ ಅನ್ನು 30 ದಿನಗಳ ಕಾಲ ಅನನ್ಯ, ಅಪ್ರಕಟಿತ URL ನಲ್ಲಿ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಪೋಸ್ಟ್ ಮಾಡಲಾಗುತ್ತದೆ. ನೀವದನ್ನು ಮೊದಲು ಸ್ಥಳೀಯವಾಗಿ ಸೇವ್ ಮಾಡಬಹುದು.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -2869,6 +2963,8 @@
     <string name="ThreadRecord_s_belongs_to_s">%1$s ಯು %2$s ಅವರದ್ದಾಗಿದೆ</string>
     <!-- Displayed in the conversation list when a person has been blocked -->
     <string name="ThreadRecord_blocked">ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</string>
+    <!-- Displayed in the conversation list when a group has been blocked -->
+    <string name="ThreadRecord_blocked_group">ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</string>
 
     <!-- ApkUpdateNotifications -->
     <string name="ApkUpdateNotifications_prompt_install_title">Molly ನವೀಕರಿಸಿ</string>
@@ -2967,10 +3063,6 @@
 
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲದ ಅವಧಿಗಾಗಿ ಸಂದೇಶ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗಿದೆ</string>
-
-    <!-- MmsMessageRecord -->
-    <string name="MmsMessageRecord_bad_encrypted_mms_message">ಕೆಟ್ಟದಾಗಿ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗಿರುವ ಎಸ್‌ಎಂಎಸ್‌ ಸಂದೇಶ</string>
-    <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲದ ಅವಧಿಗಾಗಿ ಎಂಎಂಎಸ್ ಸಂದೇಶ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗಿದೆ</string>
 
     <!-- MuteDialog -->
     <string name="MuteDialog_mute_notifications">ಅಧಿಸೂಚನೆಗಳನ್ನು ಮ್ಯೂಟ್ ಮಾಡಿ</string>
@@ -3701,6 +3793,7 @@
     <string name="DebugLogsPromptDialogFragment__no_thanks">ಇಲ್ಲ, ಧನ್ಯವಾದಗಳು</string>
 
     <!-- ReactWithAnyEmojiBottomSheetDialogFragment -->
+    <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recents">ಇತ್ತೀಚಿನವುಗಳು</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">ಈ ಸಂದೇಶ</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">ಇತ್ತೀಚೆಗೆ ಬಳಸಲಾಗಿದೆ</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">ಸ್ಮೈಲೀಗಳು ಮತ್ತು ಜನರು</string>
@@ -3713,6 +3806,17 @@
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">ಫ್ಲ್ಯಾಗ್‌ಗಳು</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">ಎಮೋಟಿಕಾನ್‌ಗಳು</string>
     <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">ಯಾವುದೇ ಫಲಿತಾಂಶ ಕಂಡುಬಂದಿಲ್ಲ</string>
+
+    <!-- GifQuickSearchOption -->
+    <string name="GifQuickSearchOption__recents">ಇತ್ತೀಚಿನವುಗಳು</string>
+    <string name="GifQuickSearchOption__trending">ಟ್ರೆಂಡಿಂಗ್</string>
+    <string name="GifQuickSearchOption__celebrate">ಸಂಭ್ರಮಿಸಿ</string>
+    <string name="GifQuickSearchOption__love">ಪ್ರೀತಿ</string>
+    <string name="GifQuickSearchOption__thumbs_up">ಥಂಬ್ಸ್ ಅಪ್</string>
+    <string name="GifQuickSearchOption__surprised">ಅಚ್ಚರಿ</string>
+    <string name="GifQuickSearchOption__excited">ಉತ್ಸುಕ</string>
+    <string name="GifQuickSearchOption__sad">ದುಃಖ</string>
+    <string name="GifQuickSearchOption__angry">ಕೋಪ</string>
 
     <!-- arrays.xml -->
     <string name="arrays__use_default">ಡೀಫಾಲ್ಟ್ ಬಳಸಿ</string>
@@ -4308,6 +4412,8 @@
     <string name="conversation_list_fragment__fab_content_description">ಹೊಸ ಚಾಟ್</string>
     <string name="conversation_list_fragment__open_camera_description">ಕ್ಯಾಮರಾ ತೆರೆಯಿರಿ</string>
     <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">ಇನ್ನೂ ಯಾವುದೇ ಚಾಟ್‌ಗಳಿಲ್ಲ.\nಸ್ನೇಹಿತರಿಗೆ ಮೆಸೇಜ್ ಮಾಡುವ ಮೂಲಕ ಆರಂಭಿಸಿ.</string>
+    <!-- Message shown when there are no archived chats to display -->
+    <string name="conversation_list_fragment__archived_chats_will_appear_here">ಆರ್ಕೈವ್ ಮಾಡಿದ ಚಾಟ್‌ಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ.</string>
     <!-- Message shown when there are no chats in the chat folder to display -->
     <string name="conversation_list_fragment__no_chats_to_display">ತೋರಿಸಲು ಯಾವುದೇ ಚಾಟ್ ಗಳು ಇಲ್ಲ</string>
     <!-- Button text that will open up chat folder settings -->
@@ -4661,6 +4767,14 @@
     <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">ನೀವು ಹಲವಾರು ಪ್ರಯತ್ನಗಳನ್ನು ಮಾಡಿದ್ದೀರಿ. ಮರಳಿ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="RegistrationActivity_error_connecting_to_service">ಸೇವೆಗೆ ಸಂಪರ್ಕಿಸುವಲ್ಲಿ ದೋಷ</string>
     <string name="preferences_chats__backups">ಬ್ಯಾಕಪ್‌ಗಳು</string>
+
+    <!-- Button label to indicate that a feature is in beta mode -->
+    <string name="Beta__beta_title">ಬೀಟಾ</string>
+    <!-- Content description for info icon -->
+    <string name="Beta__info">ಮಾಹಿತಿ</string>
+    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
+    <string name="Beta__this_is_beta">This is a beta feature that we will be adding functionality to on an ongoing basis.</string>
+
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Molly ಅನ್‌ಲಾಕ್ ಮಾಡಿ</string>
     <!-- Description text explaining how to unlock Signal -->
@@ -4931,8 +5045,8 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">ಬೇರೆ ಯಾವುದೇ ಗುಂಪುಗಳು ಸಾಮಾನ್ಯವಾಗಿಲ್ಲ.</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">ಯಾವುದೇ ಒಂದೇ ಗುಂಪುಗಳಲ್ಲಿಲ್ಲ.</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">ಸಾಮಾನ್ಯ ಗುಂಪು %1$d</item>
-        <item quantity="other">%1$d ಗುಂಪುಗಳಲ್ಲಿ ನೀವಿಬ್ಬರೂ ಇರುವಿರಿ</item>
+        <item quantity="one">%1$d ಇತರ ಸಾಮಾನ್ಯ ಗುಂಪು</item>
+        <item quantity="other">%1$d ಇತರ ಸಾಮಾನ್ಯ ಗುಂಪುಗಳು</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">ಸಾಮಾನ್ಯ ಗುಂಪು %1$d</item>
@@ -5682,6 +5796,8 @@
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ಫೋನ್ ನಂಬರ್ ಅನ್ನು ನಕಲಿಸಲಾಗಿದೆ</string>
     <string name="ConversationSettingsFragment__phone_number">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</string>
     <string name="ConversationSettingsFragment__get_badges">Signal ಅನ್ನು ಬೆಂಬಲಿಸುವ ಮೂಲಕ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್‌ಗೆ ಬ್ಯಾಡ್ಜ್‌ಗಳನ್ನು ಪಡೆಯಿರಿ. ಇನ್ನಷ್ಟು ತಿಳಿಯಲು ಬ್ಯಾಡ್ಜ್ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
+    <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">ಈ ಮೀಡಿಯಾವನ್ನು ಇನ್ನೂ ಕಳುಹಿಸಲಾಗಿಲ್ಲ.</string>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ</string>
@@ -5734,6 +5850,8 @@
     <string name="NewConversationActivity__s_has_been_removed">%1$s ಅವರನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
     <!-- Snackbar message after blocking a contact -->
     <string name="NewConversationActivity__s_has_been_blocked">%1$s ಅವರನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</string>
+    <!-- Snackbar message when blocking a contact has failed -->
+    <string name="NewConversationActivity__block_failed">Block failed</string>
     <!-- Dialog title when remove target contact is in system contacts -->
     <string name="NewConversationActivity__unable_to_remove_s">%1$s ಅವರನ್ನು ತೆಗೆದುಹಾಕಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ</string>
     <!-- Dialog message when remove target contact is in system contacts -->
@@ -7040,34 +7158,6 @@
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">ದೇಣಿಗೆಯನ್ನು ದೃಢೀಕರಿಸಲು Signal ಅನ್ನು ತೊರೆಯಬೇಕೇ?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">ದೃಢೀಕರಣಗೊಂಡಾಗ, ನಿಮ್ಮ ದೇಣಿಗೆಯ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು Signal ಗೆ ಹಿಂತಿರುಗಿ.</string>
 
-    <!-- IdealBank -->
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__abn_amro">ABN AMRO</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__asn_bank">ASN Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__bunq">bunq</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__ing">ING</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__knab">Knab</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__n26">N26</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__rabobank">Rabobank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__regiobank">RegioBank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__revolut">Revolut</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__sns_bank">SNS Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__triodos_bank">Triodos Bank</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__van_lanschot">Van Lanschot Kempen</string>
-    <!-- iDEAL bank name -->
-    <string name="IdealBank__yoursafe">Yoursafe</string>
-
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
     <string name="BankTransferMandateFragment__bank_transfer">ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ</string>
@@ -7128,7 +7218,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಆರಿಸಿ</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_s">%1$s ನೊಂದಿಗೆ ನಿಮ್ಮ ದೇಣಿಗೆಯನ್ನು ದೃಢೀಕರಿಸಿ</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Confirm your donation with iDEAL</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">ನಿಮ್ಮ ಮರುಕಳಿಸುವ ದೇಣಿಗೆಯನ್ನು ಸೆಟಪ್ ಮಾಡಲು ನಿಮ್ಮ ಬ್ಯಾಂಕ್‌ನೊಂದಿಗೆ €0,01 ಶುಲ್ಕವನ್ನು ಖಚಿತಪಡಿಸಲು ಮುಂದುವರಿಸಿ. ಇದನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಮರುಪಾವತಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ನಿಮ್ಮ %1$s/ತಿಂಗಳ ದೇಣಿಗೆಯನ್ನು ನಿಮ್ಮ ಖಾತೆಯಿಂದ ಡೆಬಿಟ್ ಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -7802,11 +7892,13 @@
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">ಮೀಡಿಯಾ ರಿಸ್ಟೋರ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
-    <string name="BackupStatus__restore_paused">ವಿರಾಮಗೊಳಿಸಿರುವುದನ್ನು ರಿಸ್ಟೋರ್ ಮಾಡಿ</string>
+    <string name="BackupStatus__restore_paused">Media restore paused</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
     <string name="BackupStatus__restore_complete">ಮರುಸ್ಥಾಪನೆ ಪೂರ್ಣಗೊಂಡಿದೆ</string>
     <!-- Status action label for seeing more details about storage space -->
     <string name="BackupStatus__details">ವಿವರಗಳು</string>
+    <!-- Status action label for resume restore from a paused state -->
+    <string name="BackupStatus__resume">Resume</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Wi-Fi ಗಾಗಿ ಕಾಯುತ್ತಿದೆ…</string>
@@ -7838,6 +7930,11 @@
     <string name="BackupStatusRow__your_last_backup_latest_version">ನಿಮ್ಮ ಮುಂಚಿನ ಬ್ಯಾಕಪ್ ಪೂರ್ತಿಯಾಗಿಲ್ಲ. ನೀವು Signal ನ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಹಾಗೂ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ</string>
+
+    <!-- Dialog title to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_title">Resume using cellular data?</string>
+    <!-- Dialog message to prompt resuming media restore over cellular -->
+    <string name="ResumeRestoreCellular_resume_using_cellular_message">Restoring your media using cellular data may result in data charges. You can connect to a Wi-Fi network to automatically resume.</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -7938,8 +8035,8 @@
     <string name="RemoteBackupsSettingsFragment__payment_history">ಪಾವತಿ ಇತಿಹಾಸ</string>
     <!-- Section header for backup information -->
     <string name="RemoteBackupsSettingsFragment__backup_details">ಬ್ಯಾಕಪ್ ವಿವರಗಳು</string>
-    <!-- Toggle row label to allow the restoration of a backup to occur while on cellular connection -->
-    <string name="RemoteBackupsSettingsFragment__restore_using_cellular">ಸೆಲ್ಯುಲರ್ ಬಳಸಿ ರಿಸ್ಟೋರ್ ಮಾಡಿ</string>
+    <!-- Row label to allow the restoration of a backup to occur while on cellular connection -->
+    <string name="RemoteBackupsSettingsFragment__resume_download">Resume download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">ಬ್ಯಾಕಪ್ ಗಾತ್ರ</string>
     <!-- Row label for backup frequency -->
@@ -8059,6 +8156,8 @@
         <item quantity="one">ನಿಮ್ಮ %1$s ಬ್ಯಾಕಪ್ ಡೇಟಾ ಈ ಸಾಧನದಲ್ಲಿ ಇಲ್ಲ. ನಿಮ್ಮ ಚಂದಾದಾರಿಕೆ ಕೊನೆಯಾಗುವ %2$d ದಿನದ ಮೊದಲು ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ಅನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.</item>
         <item quantity="other">ನಿಮ್ಮ %1$sಬ್ಯಾಕಪ್ ಡೇಟಾ ಈ ಸಾಧನದಲ್ಲಿ ಇಲ್ಲ. ನಿಮ್ಮ ಚಂದಾದಾರಿಕೆ ಕೊನೆಯಾಗುವ %2$d ದಿನ ಮೊದಲು ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ಅನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.</item>
     </plurals>
+    <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">You have %1$s of backup data that’s not on this device. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
     <string name="RemoteBackupsSettingsFragment__download">ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
     <!-- Dialog title for skipping download of backed up media -->
@@ -8068,6 +8167,10 @@
         <item quantity="one">ನೀವು ಡೌನ್ ಲೋಡ್ ನ್ನು ಸ್ಕಿಪ್ ಮಾಡಿದರೆ ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ನಲ್ಲಿರುವ ಮೀಡಿಯಾ ಮತ್ತು ಅಟ್ಯಾಚ್ ಮೆಂಟ್ ಗಳನ್ನು %1$d ದಿನದಲ್ಲಿಅಳಿಸಲಾಗುತ್ತದೆ.</item>
         <item quantity="other">ನೀವು ಡೌನ್ ಲೋಡ್ ನ್ನು ಸ್ಕಿಪ್ ಮಾಡಿದರೆ ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ನಲ್ಲಿರುವ ಮೀಡಿಯಾ ಮತ್ತು ಅಟ್ಯಾಚ್ ಮೆಂಟ್ ಗಳನ್ನು %1$d ದಿನಗಳಲ್ಲಿ ಅಳಿಸಲಾಗುತ್ತದೆ.</item>
     </plurals>
+    <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_question">ರಿಸ್ಟೋರ್ ಸ್ಕಿಪ್ ಮಾಡಬೇಕೇ?</string>
+    <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
+    <string name="RemoteBackupsSettingsFragment__skip_restore_message">If you skip restore the remaining media and attachments in your backup can be downloaded at a later time.</string>
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">ಬಿಟ್ಟು ಮುಂದುವರಿ</string>
     <!-- Dialog title for network error while trying to disable backups -->
@@ -8362,6 +8465,27 @@
     <string name="NoBackupToRestore_step3">ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ಪೂರ್ಣವಾಗುವವರೆಗೆ ನಿರೀಕ್ಷಿಸಿ</string>
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">ರಿಸ್ಟೋರ್ ಸ್ಕಿಪ್ ಮಾಡಿ</string>
+
+    <!-- Accessibility label for close search button in MainToolbar -->
+    <string name="MainToolbar__close_search_content_description">ಹುಡುಕಾಟವನ್ನು ಮುಚ್ಚಿ</string>
+    <!-- Accessibility label for clear search query in MainToolbar -->
+    <string name="MainToolbar__clear_search_content_description">ಶೋಧ ತೆರವುಗೊಳಿಸಿ</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__more_options_content_description">ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__notification_profile_content_description">ಅಧಿಸೂಚನೆ ಪ್ರೊಫೈಲ್</string>
+    <!-- Accessibility label for more options button in MainToolbar -->
+    <string name="MainToolbar__proxy_content_description">ಪ್ರಾಕ್ಸಿ</string>
+
+    <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
+    <string name="DefaultTopAppBar__navigate_up_content_description">ಮೇಲಕ್ಕೆ ಹೋಗಿ</string>
+
+    <!-- Accessibility label describing the action that occurs when clicking a checkbox. -->
+    <string name="SignalCheckbox_accessibility_on_click_label">ಟಾಗಲ್</string>
+    <!-- Accessibility label describing a checked checkbox. -->
+    <string name="SignalCheckbox_accessibility_checked_description">Ticked</string>
+    <!-- Accessibility label describing an unchecked checkbox. -->
+    <string name="SignalCheckbox_accessibility_unchecked_description">Unticked</string>
 
     <!-- EOF -->
 </resources>

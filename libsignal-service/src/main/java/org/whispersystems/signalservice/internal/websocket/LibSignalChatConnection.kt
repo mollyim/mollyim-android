@@ -19,6 +19,7 @@ import org.signal.libsignal.net.AuthenticatedChatConnection
 import org.signal.libsignal.net.ChatConnection
 import org.signal.libsignal.net.ChatConnectionListener
 import org.signal.libsignal.net.ChatServiceException
+import org.signal.libsignal.net.ConnectionInvalidatedException
 import org.signal.libsignal.net.DeviceDeregisteredException
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.net.UnauthenticatedChatConnection
@@ -273,7 +274,8 @@ class LibSignalChatConnection(
   override fun sendRequest(request: WebSocketRequestMessage, timeoutSeconds: Long): Single<WebsocketResponse> {
     CHAT_SERVICE_LOCK.withLock {
       if (isDead()) {
-        return Single.error(IOException("$name is closed!"))
+        // Match OkHttpWebSocketConnection by throwing here.
+        throw IOException("$name is closed!")
       }
 
       val single = SingleSubject.create<WebsocketResponse>()
@@ -295,11 +297,29 @@ class LibSignalChatConnection(
             //   keep this implementation simple. If another CompletableFuture implementation is
             //   used, we'll need to add some logic here to be ensure this completion handler
             //   fires after the one enqueued in connect().
-            sendRequest(request)
-              .subscribe(
-                { response -> single.onSuccess(response) },
-                { error -> single.onError(error) }
+            try {
+              sendRequest(request).subscribe(
+                { response ->
+                  single.onSuccess(response)
+                },
+                { error ->
+                  single.onError(error)
+                }
               )
+            } catch (e: IOException) {
+              // We failed to send the request because the connection closed between
+              //   when we got the completion callback and when we got scheduled for
+              //   execution. So, we need to propagate that error downstream, but we
+              //   do not need to worry about pendingResponses, because the response
+              //   single was never added to pendingResponses. (It is only added to
+              //   the set after the request is *successfully* sent off.)
+              // There's also an additional complication that we know from in-the-field
+              //   crash reports that some downstream consumer of the single's error
+              //   call is not resilient to raw IOExceptions, so we need to again mirror
+              //   the OkHttpWebSocketConnection behavior of passing an explicit
+              //   SocketException instead.
+              single.onError(SocketException("Closed unexpectedly"))
+            }
           },
           onFailure = { throwable ->
             // This matches the behavior of OkHttpWebSocketConnection when the connection fails
@@ -333,10 +353,14 @@ class LibSignalChatConnection(
           },
           onFailure = { throwable ->
             Log.w(TAG, "$name [sendRequest] Failure:", throwable)
-            // The clients of WebSocketConnection are often sensitive to the exact type of exception returned.
-            // This is the exception that OkHttpWebSocketConnection throws in the closest scenario to this, when
-            //   the connection fails before the request completes.
-            single.onError(SocketException("Failed to get response for request"))
+            val downstreamThrowable = when (throwable) {
+              is ConnectionInvalidatedException -> NonSuccessfulResponseCodeException(4401)
+              // The clients of WebSocketConnection are often sensitive to the exact type of exception returned.
+              // This is the exception that OkHttpWebSocketConnection throws in the closest scenario to this, when
+              //   the connection fails before the request completes.
+              else -> SocketException("Failed to get response for request")
+            }
+            single.onError(downstreamThrowable)
           }
         )
       return single.subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
@@ -483,6 +507,7 @@ class LibSignalChatConnection(
     }
   }
 
+  @Throws(IOException::class)
   override fun sendResponse(response: WebSocketResponseMessage) {
     if (response.status == 200 && response.message.equals("OK")) {
       ackSenderForInternalPseudoId[response.id]?.send() ?: Log.w(TAG, "$name [sendResponse] Silently dropped response without available ackSend {id: ${response.id}}")

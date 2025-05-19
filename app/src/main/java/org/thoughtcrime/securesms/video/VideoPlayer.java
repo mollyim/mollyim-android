@@ -18,7 +18,12 @@ package org.thoughtcrime.securesms.video;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.media.AudioAttributes;
+import android.media.AudioFocusRequest;
+import android.media.AudioManager;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -26,6 +31,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
+import androidx.core.content.ContextCompat;
 import androidx.media3.common.C;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.PlaybackException;
@@ -55,6 +61,7 @@ public class VideoPlayer extends FrameLayout {
   private static final String TAG = Log.tag(VideoPlayer.class);
 
   private final PlayerView                exoView;
+  private final View                      progressBar;
   private final DefaultMediaSourceFactory mediaSourceFactory;
 
   private ExoPlayer                           exoPlayer;
@@ -89,7 +96,26 @@ public class VideoPlayer extends FrameLayout {
     this.mediaSourceFactory = new DefaultMediaSourceFactory(context);
 
     this.exoView     = findViewById(R.id.video_view);
+    this.progressBar = findViewById(R.id.progress_bar);
     this.exoControls = createPlayerControls(getContext());
+
+    final AudioManager      audioManager = ContextCompat.getSystemService(context, AudioManager.class);
+    final AudioFocusRequest audioFocusRequest;
+    if (Build.VERSION.SDK_INT >= 26) {
+      audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+          .setAudioAttributes(
+              new AudioAttributes.Builder()
+                  .setUsage(AudioAttributes.USAGE_MEDIA)
+                  .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                  .build()
+          )
+          .setOnAudioFocusChangeListener(focusChange -> {
+
+          })
+          .build();
+    } else {
+      audioFocusRequest = null;
+    }
 
     this.exoPlayerListener = new ExoPlayerListener();
     this.playerListener    = new Player.Listener() {
@@ -100,6 +126,35 @@ public class VideoPlayer extends FrameLayout {
           exoPlayer.seekTo(0);
           exoPlayer.setPlayWhenReady(false);
         }
+
+        if (audioManager == null) {
+          return;
+        }
+
+        if (Build.VERSION.SDK_INT >= 26 && audioFocusRequest != null) {
+          if (isPlaying) {
+            audioManager.requestAudioFocus(audioFocusRequest);
+          } else {
+            audioManager.abandonAudioFocusRequest(audioFocusRequest);
+          }
+        } else {
+          if (isPlaying) {
+            audioManager.requestAudioFocus(
+                focusChange -> {
+                  // Do nothing
+                },
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK
+            );
+          } else {
+            audioManager.abandonAudioFocus(
+                focusChange -> {
+                  // Do nothing
+                }
+            );
+          }
+        }
+
       }
 
       @Override
@@ -113,6 +168,13 @@ public class VideoPlayer extends FrameLayout {
       }
 
       private void onPlaybackStateChanged(boolean playWhenReady, int playbackState) {
+        if (progressBar != null) {
+          if (playbackState == Player.STATE_BUFFERING) {
+            progressBar.setVisibility(View.VISIBLE);
+          } else {
+            progressBar.setVisibility(View.GONE);
+          }
+        }
         if (playerCallback != null) {
           switch (playbackState) {
             case Player.STATE_READY:
