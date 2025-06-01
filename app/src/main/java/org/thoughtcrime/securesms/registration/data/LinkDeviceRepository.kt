@@ -118,7 +118,8 @@ class LinkDeviceRepository(password: String) {
             masterKey = registration.masterKey,
             pin = null,
             aciPreKeyCollection = aciPreKeyCollection,
-            pniPreKeyCollection = pniPreKeyCollection
+            pniPreKeyCollection = pniPreKeyCollection,
+            peerExtraPublicKey = registration.peerExtraPublicKey
           )
         }
       }

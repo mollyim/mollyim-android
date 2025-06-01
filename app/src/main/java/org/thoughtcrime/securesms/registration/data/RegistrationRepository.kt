@@ -209,8 +209,9 @@ object RegistrationRepository {
       SignalStore.account.fcmEnabled = data.fcmEnabled
 
       val now = System.currentTimeMillis()
-      saveOwnIdentityKey(selfId, aci, aciProtocolStore, now)
-      saveOwnIdentityKey(selfId, pni, pniProtocolStore, now)
+      val peerExtraPublicKeyBytes = data.peerExtraPublicKey?.toByteArray()
+      saveOwnIdentityKey(selfId, aci, aciProtocolStore, now, peerExtraPublicKeyBytes)
+      saveOwnIdentityKey(selfId, pni, pniProtocolStore, now, null) // PNI does not have peerExtraPublicKey
 
       SignalStore.account.setServicePassword(data.servicePassword)
       SignalStore.account.setRegistered(true)
@@ -233,7 +234,7 @@ object RegistrationRepository {
     }
 
   @JvmStatic
-  private fun saveOwnIdentityKey(selfId: RecipientId, serviceId: ServiceId, protocolStore: SignalServiceAccountDataStoreImpl, now: Long) {
+  private fun saveOwnIdentityKey(selfId: RecipientId, serviceId: ServiceId, protocolStore: SignalServiceAccountDataStoreImpl, now: Long, peerExtraPublicKey: ByteArray?) {
     protocolStore.identities().saveIdentityWithoutSideEffects(
       selfId,
       serviceId,
@@ -241,7 +242,8 @@ object RegistrationRepository {
       IdentityTable.VerifiedStatus.VERIFIED,
       true,
       now,
-      true
+      true,
+      peerExtraPublicKey
     )
   }
 
