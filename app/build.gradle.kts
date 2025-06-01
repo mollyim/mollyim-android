@@ -521,6 +521,7 @@ dependencies {
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.rxdogtag)
+  implementation(libs.libsodium.jni)
 
   implementation(project(":libnetcipher"))
   implementation(libs.molly.argon2) { artifact { type = "aar" } }
