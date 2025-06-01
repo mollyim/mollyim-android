@@ -191,6 +191,13 @@ object StorageSyncModels {
       nickname = recipient.nickname.takeUnless { it.isEmpty }?.let { ContactRecord.Name(given = it.givenName, family = it.familyName) }
       note = recipient.note ?: ""
       avatarColor = localToRemoteAvatarColor(recipient.avatarColor)
+
+      val identityRecord = SignalDatabase.identities().getIdentityRecord(recipient.id).orElse(null)
+      if (identityRecord?.peerExtraPublicKey != null) {
+        peerExtraPublicKey = identityRecord.peerExtraPublicKey!!.toByteString()
+        peerExtraPublicKeyTimestamp = identityRecord.timestamp
+      }
+
     }.build().toSignalContactRecord(StorageId.forContact(rawStorageId))
   }
 

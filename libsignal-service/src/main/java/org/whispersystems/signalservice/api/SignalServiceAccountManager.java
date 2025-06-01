@@ -175,6 +175,7 @@ public class SignalServiceAccountManager {
     final boolean readReceipts = msg.readReceipts != null && msg.readReceipts;
 
     final MasterKey masterKey = (msg.masterKey != null) ? new MasterKey(msg.masterKey.toByteArray()) : null;
+    final byte[] peerExtraPublicKey = msg.peerExtraPublicKey != null ? msg.peerExtraPublicKey.toByteArray() : null;
 
     return new ProvisionDecryptResult(
         msg.provisioningCode,
@@ -182,7 +183,8 @@ public class SignalServiceAccountManager {
         number, aci, pni,
         profileKey,
         readReceipts,
-        masterKey
+        masterKey,
+        peerExtraPublicKey
     );
   }
 
@@ -244,8 +246,9 @@ public class SignalServiceAccountManager {
     private final ProfileKey      profileKey;
     private final boolean         readReceipts;
     private final MasterKey       masterKey;
+    private final byte[]          peerExtraPublicKey;
 
-    ProvisionDecryptResult(String provisioningCode, IdentityKeyPair aciIdentity, IdentityKeyPair pniIdentity, String number, ACI aci, PNI pni, ProfileKey profileKey, boolean readReceipts, MasterKey masterKey) {
+    ProvisionDecryptResult(String provisioningCode, IdentityKeyPair aciIdentity, IdentityKeyPair pniIdentity, String number, ACI aci, PNI pni, ProfileKey profileKey, boolean readReceipts, MasterKey masterKey, byte[] peerExtraPublicKey) {
       this.provisioningCode = provisioningCode;
       this.aciIdentity      = aciIdentity;
       this.pniIdentity      = pniIdentity;
@@ -255,6 +258,7 @@ public class SignalServiceAccountManager {
       this.profileKey       = profileKey;
       this.readReceipts     = readReceipts;
       this.masterKey        = masterKey;
+      this.peerExtraPublicKey = peerExtraPublicKey;
     }
 
     /**
@@ -309,6 +313,10 @@ public class SignalServiceAccountManager {
 
     public MasterKey getMasterKey() {
       return masterKey;
+    }
+
+    public byte[] getPeerExtraPublicKey() {
+      return peerExtraPublicKey;
     }
   }
 

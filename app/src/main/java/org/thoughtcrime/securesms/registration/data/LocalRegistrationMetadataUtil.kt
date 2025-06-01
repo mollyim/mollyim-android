@@ -39,6 +39,9 @@ object LocalRegistrationMetadataUtil {
       profileKey = registrationData.profileKey.serialize().toByteString()
       servicePassword = registrationData.password
       this.reglockEnabled = reglockEnabled
+      remoteResult.peerExtraPublicKey?.let {
+        this.peerExtraPublicKey = it.toByteString()
+      }
     }.build()
   }
 

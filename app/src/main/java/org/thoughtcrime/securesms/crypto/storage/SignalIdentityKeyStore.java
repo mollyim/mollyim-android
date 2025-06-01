@@ -56,9 +56,10 @@ public class SignalIdentityKeyStore implements IdentityKeyStore {
                                              VerifiedStatus verifiedStatus,
                                              boolean firstUse,
                                              long timestamp,
-                                             boolean nonBlockingApproval)
+                                             boolean nonBlockingApproval,
+                                             byte[] peerExtraPublicKey)
   {
-    baseStore.saveIdentityWithoutSideEffects(recipientId, serviceId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval);
+    baseStore.saveIdentityWithoutSideEffects(recipientId, serviceId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey);
   }
 
   @Override

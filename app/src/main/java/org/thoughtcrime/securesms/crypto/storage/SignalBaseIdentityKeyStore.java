@@ -121,9 +121,10 @@ public class SignalBaseIdentityKeyStore {
                                              VerifiedStatus verifiedStatus,
                                              boolean firstUse,
                                              long timestamp,
-                                             boolean nonBlockingApproval)
+                                             boolean nonBlockingApproval,
+                                             byte[] peerExtraPublicKey)
   {
-    cache.save(serviceId.toString(), recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval);
+    cache.save(serviceId.toString(), recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey);
   }
 
   public boolean isTrustedIdentity(SignalProtocolAddress address, IdentityKey identityKey, IdentityKeyStore.Direction direction) {
@@ -283,10 +284,10 @@ public class SignalBaseIdentityKeyStore {
       }
     }
 
-    public void save(@NonNull String addressName, @NonNull RecipientId recipientId, @NonNull IdentityKey identityKey, @NonNull VerifiedStatus verifiedStatus, boolean firstUse, long timestamp, boolean nonBlockingApproval) {
+    public void save(@NonNull String addressName, @NonNull RecipientId recipientId, @NonNull IdentityKey identityKey, @NonNull VerifiedStatus verifiedStatus, boolean firstUse, long timestamp, boolean nonBlockingApproval, byte[] peerExtraPublicKey) {
       withWriteLock(() -> {
-        identityDatabase.saveIdentity(addressName, recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval);
-        cache.put(addressName, new IdentityStoreRecord(addressName, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval));
+        identityDatabase.saveIdentity(addressName, recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey);
+        cache.put(addressName, new IdentityStoreRecord(addressName, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey));
       });
     }
 

@@ -57,6 +57,7 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
     private const val TIMESTAMP = "timestamp"
     const val VERIFIED = "verified"
     private const val NONBLOCKING_APPROVAL = "nonblocking_approval"
+    const val PEER_EXTRA_PUBLIC_KEY = "peer_extra_public_key"
     const val CREATE_TABLE = """
       CREATE TABLE $TABLE_NAME (
         $ID INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -65,7 +66,8 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
         $FIRST_USE INTEGER DEFAULT 0, 
         $TIMESTAMP INTEGER DEFAULT 0, 
         $VERIFIED INTEGER DEFAULT 0, 
-        $NONBLOCKING_APPROVAL INTEGER DEFAULT 0
+        $NONBLOCKING_APPROVAL INTEGER DEFAULT 0,
+        $PEER_EXTRA_PUBLIC_KEY TEXT DEFAULT NULL
       )
     """
   }
@@ -92,7 +94,8 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
             verifiedStatus = VerifiedStatus.forState(cursor.requireInt(VERIFIED)),
             firstUse = cursor.requireBoolean(FIRST_USE),
             timestamp = cursor.requireLong(TIMESTAMP),
-            nonblockingApproval = cursor.requireBoolean(NONBLOCKING_APPROVAL)
+            nonblockingApproval = cursor.requireBoolean(NONBLOCKING_APPROVAL),
+            peerExtraPublicKey = cursor.getString(cursor.getColumnIndexOrThrow(PEER_EXTRA_PUBLIC_KEY))?.let { Base64.decode(it) }
           )
         } else if (UuidUtil.isUuid(addressName)) {
           val byServiceId = recipients.getByServiceId(ServiceId.parseOrThrow(addressName))
@@ -122,9 +125,10 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
     verifiedStatus: VerifiedStatus,
     firstUse: Boolean,
     timestamp: Long,
-    nonBlockingApproval: Boolean
+    nonBlockingApproval: Boolean,
+    peerExtraPublicKey: ByteArray? = null
   ) {
-    saveIdentityInternal(addressName, recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval)
+    saveIdentityInternal(addressName, recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey)
     recipients.markNeedsSync(recipientId)
     StorageSyncHelper.scheduleSyncForDataChange()
   }
@@ -164,9 +168,10 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
     val hadEntry = existingRecord.isPresent
     val keyMatches = hasMatchingKey(addressName, identityKey)
     val statusMatches = keyMatches && hasMatchingStatus(addressName, identityKey, verifiedStatus)
+    val peerExtraPublicKeyMatches = existingRecord.map { it.peerExtraPublicKey?.contentEquals(null) ?: (null == null) }.orElse(false)
 
-    if (!keyMatches || !statusMatches) {
-      saveIdentityInternal(addressName, recipientId, identityKey, verifiedStatus, !hadEntry, System.currentTimeMillis(), nonBlockingApproval = true)
+    if (!keyMatches || !statusMatches || !peerExtraPublicKeyMatches) {
+      saveIdentityInternal(addressName, recipientId, identityKey, verifiedStatus, !hadEntry, System.currentTimeMillis(), nonBlockingApproval = true, peerExtraPublicKey = null)
 
       val record = getIdentityRecord(addressName)
       if (record.isPresent) {
@@ -202,7 +207,8 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
           verifiedStatus = VerifiedStatus.forState(cursor.requireInt(VERIFIED)),
           firstUse = cursor.requireBoolean(FIRST_USE),
           timestamp = cursor.requireLong(TIMESTAMP),
-          nonblockingApproval = cursor.requireBoolean(NONBLOCKING_APPROVAL)
+          nonblockingApproval = cursor.requireBoolean(NONBLOCKING_APPROVAL),
+          peerExtraPublicKey = cursor.getString(cursor.getColumnIndexOrThrow(PEER_EXTRA_PUBLIC_KEY))?.let { Base64.decode(it) }
         )
       }
       .toOptional()
@@ -229,7 +235,8 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
     verifiedStatus: VerifiedStatus,
     firstUse: Boolean,
     timestamp: Long,
-    nonBlockingApproval: Boolean
+    nonBlockingApproval: Boolean,
+    peerExtraPublicKey: ByteArray? = null
   ) {
     val contentValues = contentValuesOf(
       ADDRESS to addressName,
@@ -237,10 +244,11 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
       TIMESTAMP to timestamp,
       VERIFIED to verifiedStatus.toInt(),
       NONBLOCKING_APPROVAL to if (nonBlockingApproval) 1 else 0,
-      FIRST_USE to if (firstUse) 1 else 0
+      FIRST_USE to if (firstUse) 1 else 0,
+      PEER_EXTRA_PUBLIC_KEY to peerExtraPublicKey?.let { Base64.encodeWithPadding(it) }
     )
     writableDatabase.replace(TABLE_NAME, null, contentValues)
-    EventBus.getDefault().post(IdentityRecord(recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval))
+    EventBus.getDefault().post(IdentityRecord(recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey))
   }
 
   enum class VerifiedStatus {
