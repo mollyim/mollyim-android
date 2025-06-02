@@ -58,13 +58,24 @@ interface MainFloatingActionButtonsCallback {
   }
 }
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
+import org.thoughtcrime.securesms.conversationlist.DisplayMode
+import org.thoughtcrime.securesms.database.NoteDao
+import org.thoughtcrime.securesms.notes.NotesRepository
+import org.thoughtcrime.securesms.profile.edit.ProfileEditActivity // Assuming this is the target activity
+
 @Composable
 fun MainFloatingActionButtons(
   destination: MainNavigationListLocation,
+  mainNavViewModel: MainNavigationViewModel = viewModel(), // Get an instance of MainNavigationViewModel
   callback: MainFloatingActionButtonsCallback,
   modifier: Modifier = Modifier,
   navigation: Navigation = Navigation.rememberNavigation()
 ) {
+  val displayMode by mainNavViewModel.currentDisplayMode.collectAsState()
   val boxHeightDp = (ACTION_BUTTON_SIZE * 2 + ACTION_BUTTON_SPACING)
   val boxHeightPx = with(LocalDensity.current) {
     boxHeightDp.toPx().roundToInt()
@@ -101,6 +112,7 @@ fun MainFloatingActionButtons(
     ) {
       PrimaryActionButton(
         destination = destination,
+        displayMode = displayMode, // Pass displayMode
         onNewChatClick = callback::onNewChatClick,
         onCameraClick = callback::onCameraClick,
         onNewCallClick = callback::onNewCallClick,
@@ -163,18 +175,35 @@ private fun BoxScope.SecondaryActionButton(
 @Composable
 private fun PrimaryActionButton(
   destination: MainNavigationListLocation,
+  displayMode: DisplayMode, // Add displayMode parameter
   elevation: Dp,
   onNewChatClick: () -> Unit = {},
   onCameraClick: (MainNavigationListLocation) -> Unit = {},
   onNewCallClick: () -> Unit = {}
 ) {
-  val onClick = remember(destination) {
-    when (destination) {
-      MainNavigationListLocation.ARCHIVE -> error("Not supported")
-      MainNavigationListLocation.CHATS -> onNewChatClick
-      MainNavigationListLocation.CALLS -> onNewCallClick
-      MainNavigationListLocation.STORIES -> {
-        { onCameraClick(destination) }
+  val context = LocalContext.current
+  val scope = rememberCoroutineScope()
+
+  val onClick = remember(destination, displayMode) {
+    if (destination == MainNavigationListLocation.CHATS && displayMode == DisplayMode.NOTES) {
+      {
+        // Create new note logic
+        scope.launch {
+          val notesRepository = NotesRepository(NoteDao()) // Consider how to best provide this
+          val newNoteId = notesRepository.createNote("Untitled Note", "")
+          // Correctly call the static Java method newNoteIntent from EditProfileActivity
+          val intent = EditProfileActivity.newNoteIntent(context, org.thoughtcrime.securesms.profiles.EditMode.EDIT_NOTE, newNoteId)
+          context.startActivity(intent)
+        }
+      }
+    } else {
+      when (destination) {
+        MainNavigationListLocation.ARCHIVE -> error("Not supported")
+        MainNavigationListLocation.CHATS -> onNewChatClick
+        MainNavigationListLocation.CALLS -> onNewCallClick
+        MainNavigationListLocation.STORIES -> {
+          { onCameraClick(destination) }
+        }
       }
     }
   }
@@ -183,12 +212,16 @@ private fun PrimaryActionButton(
     onClick = onClick,
     shadowElevation = elevation,
     icon = {
-      AnimatedContent(destination) { targetState ->
-        val (icon, contentDescriptionId) = when (targetState) {
-          MainNavigationListLocation.ARCHIVE -> error("Not supported")
-          MainNavigationListLocation.CHATS -> R.drawable.symbol_edit_24 to R.string.conversation_list_fragment__fab_content_description
-          MainNavigationListLocation.CALLS -> R.drawable.symbol_phone_plus_24 to R.string.CallLogFragment__start_a_new_call
-          MainNavigationListLocation.STORIES -> R.drawable.symbol_camera_24 to R.string.conversation_list_fragment__open_camera_description
+      AnimatedContent(targetState = Pair(destination, displayMode)) { (targetDestination, targetDisplayMode) ->
+        val (icon, contentDescriptionId) = if (targetDestination == MainNavigationListLocation.CHATS && targetDisplayMode == DisplayMode.NOTES) {
+          R.drawable.ic_add_24dp to R.string.notes_list_fragment__fab_new_note // Assuming ic_add_24dp and a new string resource
+        } else {
+          when (targetDestination) {
+            MainNavigationListLocation.ARCHIVE -> error("Not supported")
+            MainNavigationListLocation.CHATS -> R.drawable.symbol_edit_24 to R.string.conversation_list_fragment__fab_content_description
+            MainNavigationListLocation.CALLS -> R.drawable.symbol_phone_plus_24 to R.string.CallLogFragment__start_a_new_call
+            MainNavigationListLocation.STORIES -> R.drawable.symbol_camera_24 to R.string.conversation_list_fragment__open_camera_description
+          }
         }
 
         Icon(

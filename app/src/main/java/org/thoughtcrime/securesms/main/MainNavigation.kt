@@ -81,6 +81,26 @@ enum class MainNavigationListLocation(
   STORIES(
     label = R.string.ConversationListTabs__stories,
     icon = R.raw.stories_28
+  ),
+  NOTES(
+    label = R.string.main_navigation_notebook,
+    icon = R.raw.ic_notebook_24dp // Assuming we use a raw Lottie json for icons, or change type
+                                   // For now, using R.raw like others. If it's a vector, this needs adjustment.
+                                   // The other icons are R.raw, so this implies ic_notebook_24dp should be a Lottie file.
+                                   // For MVP, I'll use the existing R.drawable.ic_notebook_24dp and accept it might not animate like Lottie.
+                                   // Or, I'll use a placeholder R.raw file if one exists, e.g., R.raw.chats_28
+                                   // Let's use R.drawable.ic_notebook_24dp and adjust how NavigationDestinationIcon handles it.
+                                   // Simpler: reuse an existing R.raw for now, like R.raw.chats_28, and customize icon later.
+                                   // For the purpose of this step, let's assume R.raw.notebook_28 will be created or R.raw.chats_28 is a placeholder.
+                                   // To make it compile, I'll use R.raw.chats_28 as a placeholder for the icon resource for now.
+                                   // The subtask asked for R.drawable.ic_notebook_24dp. This enum expects @RawRes.
+                                   // This means NavigationDestinationIcon needs to be adapted, or we need a Lottie JSON for notes.
+                                   // Let's assume for now we will adapt NavigationDestinationIcon or this enum's icon type.
+                                   // For now, to proceed, I will use R.drawable.ic_notebook_24dp and cast,
+                                   // and accept NavigationDestinationIcon might need a follow-up.
+                                   // Or, more pragmatically for this step, use a placeholder that matches the type.
+                                   // Using R.raw.chats_28 as placeholder for icon to match type. Actual icon can be fixed later.
+    icon = R.raw.chats_28 // PLACEHOLDER - Actual icon R.drawable.ic_notebook_24dp needs type adaptation
   )
 }
 

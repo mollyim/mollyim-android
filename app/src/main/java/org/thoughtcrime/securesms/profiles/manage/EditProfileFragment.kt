@@ -2,6 +2,9 @@
 
 package org.thoughtcrime.securesms.profiles.manage
 
+import org.thoughtcrime.securesms.profiles.EditMode // Import EditMode
+import org.signal.core.util.logging.Log // For logging
+
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -60,8 +63,60 @@ class EditProfileFragment : LoggingFragment() {
   private lateinit var binding: EditProfileFragmentBinding
   private lateinit var disposables: LifecycleDisposable
 
+  private lateinit var currentEditMode: EditMode
+  private var currentNoteId: Long? = null
+
   companion object {
     private const val DISABLED_ALPHA = 0.4f
+    private const val TAG = "EditProfileFragment" // For logging
+
+    // Argument keys (public if EditProfileActivity needs them, though NavController handles passing)
+    const val ARG_EDIT_MODE = "edit_mode"  // Corresponds to EditProfileActivity.EXTRA_EDIT_MODE
+    const val ARG_NOTE_ID = "note_id"      // Corresponds to EditProfileActivity.EXTRA_NOTE_ID
+
+    @JvmStatic
+    fun newInstance(editMode: EditMode, noteId: Long?): EditProfileFragment {
+      // This method might not be directly called if NavController handles instantiation,
+      // but it's good for defining arg keys and for potential manual instantiation.
+      return EditProfileFragment().apply {
+        arguments = Bundle().apply {
+          putString(ARG_EDIT_MODE, editMode.name)
+          noteId?.let { putLong(ARG_NOTE_ID, it) }
+        }
+      }
+    }
+  }
+
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+
+// ... other imports
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true) // Important for fragment to handle options menu
+
+    val editModeName = arguments?.getString(ARG_EDIT_MODE)
+    currentEditMode = if (editModeName != null) {
+      try {
+        EditMode.valueOf(editModeName)
+      } catch (e: IllegalArgumentException) {
+        Log.w(TAG, "Invalid EditMode received: $editModeName", e)
+        EditMode.EDIT_SELF_PROFILE // Default to self profile on error
+      }
+    } else {
+      Log.w(TAG, "No EditMode received, defaulting to self profile.")
+      EditMode.EDIT_SELF_PROFILE // Default if no argument found
+    }
+
+    currentNoteId = if (arguments?.containsKey(ARG_NOTE_ID) == true) {
+      arguments?.getLong(ARG_NOTE_ID)
+    } else {
+      null
+    }
+
+    Log.i(TAG, "Mode: $currentEditMode, Note ID: $currentNoteId")
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -69,9 +124,19 @@ class EditProfileFragment : LoggingFragment() {
     return binding.root
   }
 
+import androidx.appcompat.app.AppCompatActivity // Ensure this is imported
+
+// ... other imports might be needed depending on what setup methods do
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     disposables = LifecycleDisposable()
     disposables.bindTo(viewLifecycleOwner)
+
+    if (currentEditMode == EditMode.EDIT_NOTE) {
+      setupNoteEditingUI()
+    } else {
+      setupProfileEditingUI()
+    }
 
     UsernameEditFragment.ResultContract().registerForResult(parentFragmentManager, viewLifecycleOwner) {
       Snackbar.make(view, R.string.ManageProfileFragment__username_created, Snackbar.LENGTH_SHORT).show()
@@ -85,12 +150,17 @@ class EditProfileFragment : LoggingFragment() {
 
     binding.toolbar.setNavigationOnClickListener { requireActivity().finish() }
 
-    binding.manageProfileEditPhoto.setOnClickListener {
-      if (!viewModel.isRegisteredAndUpToDate) {
-        onClickWhenUnregisteredOrDeprecated()
-      } else {
-        onEditAvatarClicked()
+    if (currentEditMode != EditMode.EDIT_NOTE) {
+      binding.manageProfileEditPhoto.setOnClickListener {
+        if (!viewModel.isRegisteredAndUpToDate) {
+          onClickWhenUnregisteredOrDeprecated()
+        } else {
+          onEditAvatarClicked()
+        }
       }
+    } else {
+      // Ensure no listener if it's a note, or view is GONE
+      binding.manageProfileEditPhoto.setOnClickListener(null)
     }
 
     binding.manageProfileNameContainer.setOnClickListener { v: View ->
@@ -127,14 +197,16 @@ class EditProfileFragment : LoggingFragment() {
       }
     }
 
-    parentFragmentManager.setFragmentResultListener(AvatarPickerFragment.REQUEST_KEY_SELECT_AVATAR, viewLifecycleOwner) { _: String?, bundle: Bundle ->
-      if (!viewModel.isRegisteredAndUpToDate) {
-        onClickWhenUnregisteredOrDeprecated()
-      } else if (bundle.getBoolean(AvatarPickerFragment.SELECT_AVATAR_CLEAR)) {
-        viewModel.onAvatarSelected(requireContext(), null)
-      } else {
-        val result = bundle.getParcelableCompat(AvatarPickerFragment.SELECT_AVATAR_MEDIA, Media::class.java)
-        viewModel.onAvatarSelected(requireContext(), result)
+    if (currentEditMode != EditMode.EDIT_NOTE) {
+      parentFragmentManager.setFragmentResultListener(AvatarPickerFragment.REQUEST_KEY_SELECT_AVATAR, viewLifecycleOwner) { _: String?, bundle: Bundle ->
+        if (!viewModel.isRegisteredAndUpToDate) {
+          onClickWhenUnregisteredOrDeprecated()
+        } else if (bundle.getBoolean(AvatarPickerFragment.SELECT_AVATAR_CLEAR)) {
+          viewModel.onAvatarSelected(requireContext(), null)
+        } else {
+          val result = bundle.getParcelableCompat(AvatarPickerFragment.SELECT_AVATAR_MEDIA, Media::class.java)
+          viewModel.onAvatarSelected(requireContext(), result)
+        }
       }
     }
 
@@ -145,35 +217,57 @@ class EditProfileFragment : LoggingFragment() {
       }
     }
 
-    binding.manageProfileBadgesContainer.visibility = View.GONE
+    binding.manageProfileBadgesContainer.visibility = View.GONE // This is the original line, will be handled by setupUI methods.
 
-    binding.manageProfileAvatar.setOnClickListener {
-      if (!viewModel.isRegisteredAndUpToDate) {
-        onClickWhenUnregisteredOrDeprecated()
-      } else {
-        startActivity(
-          AvatarPreviewActivity.intentFromRecipientId(requireContext(), Recipient.self().id),
-          AvatarPreviewActivity.createTransitionBundle(requireActivity(), binding.manageProfileAvatar)
-        )
+    if (currentEditMode != EditMode.EDIT_NOTE) {
+      binding.manageProfileAvatar.setOnClickListener {
+        if (!viewModel.isRegisteredAndUpToDate) {
+          onClickWhenUnregisteredOrDeprecated()
+        } else {
+          startActivity(
+            AvatarPreviewActivity.intentFromRecipientId(requireContext(), Recipient.self().id),
+            AvatarPreviewActivity.createTransitionBundle(requireActivity(), binding.manageProfileAvatar)
+          )
+        }
       }
+    } else {
+      binding.manageProfileAvatar.setOnClickListener(null)
     }
   }
 
   private fun initializeViewModel() {
-    viewModel = ViewModelProvider(this, EditProfileViewModel.Factory()).get(EditProfileViewModel::class.java)
+    val factory = EditProfileViewModel.Factory(
+      requireActivity().application,
+      currentEditMode,
+      currentNoteId
+    )
+    viewModel = ViewModelProvider(this, factory).get(EditProfileViewModel::class.java)
 
-    LiveDataUtil
-      .distinctUntilChanged(viewModel.avatar) { b1, b2 -> Arrays.equals(b1.avatar, b2.avatar) }
-      .map { avatarState -> Optional.ofNullable(avatarState.avatar) }
-      .observe(viewLifecycleOwner) { avatarData -> presentAvatarImage(avatarData) }
+    if (currentEditMode == EditMode.EDIT_NOTE) {
+      viewModel.currentNote.observe(viewLifecycleOwner) { noteEntity ->
+        if (noteEntity != null) {
+          binding.manageProfileName.setText(noteEntity.title)
+          binding.editNoteContent.setText(noteEntity.content)
+          // TODO: Handle colorId if UI for color selection is added
+        }
+      }
+      // Observe saving state if needed for UI updates (e.g., show progress)
+      // viewModel.isSaving.observe(viewLifecycleOwner) { saving -> /* ... */ }
+    } else {
+      // Existing observers for profile mode
+      LiveDataUtil
+        .distinctUntilChanged(viewModel.avatar) { b1, b2 -> Arrays.equals(b1.avatar, b2.avatar) }
+        .map { avatarState -> Optional.ofNullable(avatarState.avatar) }
+        .observe(viewLifecycleOwner) { avatarData -> presentAvatarImage(avatarData) }
 
-    viewModel.avatar.observe(viewLifecycleOwner) { presentAvatarPlaceholder(it) }
-    viewModel.profileName.observe(viewLifecycleOwner) { presentProfileName(it) }
-    viewModel.events.observe(viewLifecycleOwner) { presentEvent(it) }
-    viewModel.about.observe(viewLifecycleOwner) { presentAbout(it) }
-    viewModel.aboutEmoji.observe(viewLifecycleOwner) { presentAboutEmoji(it) }
-    viewModel.badge.observe(viewLifecycleOwner) { presentBadge(it) }
-    viewModel.username.observe(viewLifecycleOwner) { presentUsername(it) }
+      viewModel.avatar.observe(viewLifecycleOwner) { presentAvatarPlaceholder(it) }
+      viewModel.profileName.observe(viewLifecycleOwner) { presentProfileName(it) }
+      viewModel.events.observe(viewLifecycleOwner) { presentEvent(it) }
+      viewModel.about.observe(viewLifecycleOwner) { presentAbout(it) }
+      viewModel.aboutEmoji.observe(viewLifecycleOwner) { presentAboutEmoji(it) }
+      viewModel.badge.observe(viewLifecycleOwner) { presentBadge(it) }
+      viewModel.username.observe(viewLifecycleOwner) { presentUsername(it) }
+    }
   }
 
   private fun presentAvatarImage(avatarData: Optional<ByteArray>) {
@@ -402,5 +496,106 @@ class EditProfileFragment : LoggingFragment() {
         }
         .show()
     }
+  }
+
+  private fun setupNoteEditingUI() {
+    binding.toolbar.title = if (currentNoteId == null) getString(R.string.edit_profile_fragment_title_new_note)
+                            else getString(R.string.edit_profile_fragment_title_edit_note)
+
+    // Hide profile-specific elements
+    binding.manageProfileAvatarBackground.visibility = View.GONE
+    binding.manageProfileAvatarPlaceholder.visibility = View.GONE
+    binding.manageProfileAvatarInitials.visibility = View.GONE
+    binding.manageProfileAvatar.visibility = View.GONE
+    binding.manageProfileBadge.visibility = View.GONE
+    binding.manageProfileEditPhoto.visibility = View.GONE
+
+    // Repurpose name field for Note Title
+    (binding.manageProfileName as? android.widget.TextView)?.hint = getString(R.string.edit_note_title_hint)
+    // binding.manageProfileNameIcon.setImageResource(R.drawable.ic_title_placeholder) // Optional: new icon
+
+    binding.manageProfileUsernameContainer.visibility = View.GONE
+    binding.usernameLinkContainer.visibility = View.GONE
+    binding.usernameInfoText.visibility = View.GONE
+    binding.usernameLinkTooltip.visibility = View.GONE
+    binding.manageProfileAboutContainer.visibility = View.GONE // Hide original about section
+    binding.manageProfileBadgesContainer.visibility = View.GONE
+    binding.manageProfileDivider.visibility = View.GONE
+    binding.groupDescriptionText.visibility = View.GONE
+
+    // Show note content field
+    binding.editNoteContent.visibility = View.VISIBLE
+
+    // Data population will be handled by observing ViewModel
+    if (currentNoteId == null) { // New note
+        binding.manageProfileName.setText("")
+        binding.editNoteContent.setText("")
+    } else {
+        // Placeholder for actual data loading via ViewModel
+        // viewModel.loadNoteData(currentNoteId)
+        // observe viewModel.noteDetails and populate fields
+    }
+  }
+
+  private fun setupProfileEditingUI() {
+    binding.toolbar.title = getString(R.string.CreateProfileActivity__profile)
+
+    // Ensure profile-specific elements are visible (or their default state)
+    binding.manageProfileAvatarBackground.visibility = View.VISIBLE
+    // manage_profile_avatar_placeholder and manage_profile_avatar_initials visibility is handled by presentAvatarPlaceholder/presentProfileName
+    binding.manageProfileAvatar.visibility = View.VISIBLE
+    binding.manageProfileBadge.visibility = View.VISIBLE // Visibility also handled by presentBadge
+    binding.manageProfileEditPhoto.visibility = View.VISIBLE
+
+    (binding.manageProfileName as? android.widget.TextView)?.hint = null // Clear hint or set to original
+    // binding.manageProfileNameIcon.setImageResource(R.drawable.symbol_person_24) // Restore original icon
+
+    binding.manageProfileUsernameContainer.visibility = View.VISIBLE
+    binding.usernameLinkContainer.visibility = if (SignalStore.account().username != null) View.VISIBLE else View.GONE
+    binding.usernameInfoText.visibility = View.VISIBLE
+    binding.manageProfileAboutContainer.visibility = View.VISIBLE
+    binding.manageProfileBadgesContainer.visibility = View.VISIBLE // Visibility also handled by presentBadge
+    binding.manageProfileDivider.visibility = View.VISIBLE
+    binding.groupDescriptionText.visibility = View.VISIBLE
+
+    // Hide note content field
+    binding.editNoteContent.visibility = View.GONE
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    super.onCreateOptionsMenu(menu, inflater)
+    inflater.inflate(R.menu.edit_profile_menu, menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == R.id.action_save_profile_note) {
+      handleSave()
+      return true
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  private fun handleSave() {
+    if (currentEditMode == EditMode.EDIT_NOTE) {
+      saveNoteData()
+    } else {
+      // TODO: Implement existing profile save logic here
+      // For example: viewModel.saveProfile(binding.manageProfileName.text.toString(), ...etc)
+      // For now, just show a toast for profile save.
+      Toast.makeText(requireContext(), "Profile save action (TODO)", Toast.LENGTH_SHORT).show()
+      // Potentially finish activity after save: requireActivity().finish()
+    }
+  }
+
+  private fun saveNoteData() {
+    val title = binding.manageProfileName.text.toString()
+    val content = binding.editNoteContent.text.toString()
+    // val colorId: Long? = null // Future feature
+
+    viewModel.saveCurrentNote(title, content, null /* colorId */)
+    // TODO: Observe save success from ViewModel to finish activity or show confirmation
+    // For now, finish directly after triggering save. This might be too soon if save is slow.
+    Toast.makeText(requireContext(), "Note saved (actual save is async)", Toast.LENGTH_SHORT).show() // Placeholder
+    requireActivity().finish()
   }
 }

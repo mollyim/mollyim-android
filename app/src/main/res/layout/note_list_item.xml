@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <View
+        android:id="@+id/note_item_color_indicator"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@drawable/note_color_indicator_default"
+        app:layout_constraintTop_toTopOf="@+id/note_item_title"
+        app:layout_constraintBottom_toBottomOf="@+id/note_item_snippet"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="8dp"
+        tools:backgroundTint="@color/signal_accent_blue"/> <!-- Default or placeholder color -->
+
+    <TextView
+        android:id="@+id/note_item_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/note_item_color_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        tools:text="Note Title Example" />
+
+    <TextView
+        android:id="@+id/note_item_snippet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/note_item_title"
+        app:layout_constraintStart_toStartOf="@+id/note_item_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="This is a snippet of the note content. It can be a couple of lines long to give a preview." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.asObservable
+import org.thoughtcrime.securesms.conversationlist.DisplayMode
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfilesRepository
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -60,6 +61,9 @@ class MainNavigationViewModel(
 
   private val internalMainNavigationState = MutableStateFlow(MainNavigationState(selectedDestination = initialListLocation))
   val mainNavigationState: StateFlow<MainNavigationState> = internalMainNavigationState
+
+  private val _currentDisplayMode = MutableStateFlow(DisplayMode.CHATS)
+  val currentDisplayMode: StateFlow<DisplayMode> = _currentDisplayMode
 
   /**
    * This is Rx because these are still accessed from Java.
@@ -191,6 +195,14 @@ class MainNavigationViewModel(
     onTabSelected(MainNavigationListLocation.STORIES)
   }
 
+  fun onNotesSelected() { // New method for Notes tab
+    onTabSelected(MainNavigationListLocation.NOTES)
+  }
+
+  fun setCurrentDisplayMode(displayMode: DisplayMode) {
+    _currentDisplayMode.value = displayMode
+  }
+
   private fun onTabSelected(destination: MainNavigationListLocation) {
     viewModelScope.launch {
       val currentTab = internalMainNavigationState.value.selectedDestination
@@ -200,6 +212,20 @@ class MainNavigationViewModel(
         internalMainNavigationState.update {
           it.copy(selectedDestination = destination)
         }
+      }
+
+      // Update DisplayMode based on the selected tab
+      if (destination == MainNavigationListLocation.NOTES) {
+        setCurrentDisplayMode(DisplayMode.NOTES)
+      } else if (destination == MainNavigationListLocation.CHATS || destination == MainNavigationListLocation.ARCHIVE) {
+        // Assuming CHATS and ARCHIVE should show chat-related content primarily
+        // ConversationListFragment handles its own isArchived state, so CHATS mode is fine.
+        setCurrentDisplayMode(DisplayMode.CHATS)
+      } else {
+        // For other tabs like CALLS or STORIES, what should DisplayMode be?
+        // If ConversationListFragment is not visible, it might not matter.
+        // Or, default to CHATS if CLF is somehow still active or default.
+        setCurrentDisplayMode(DisplayMode.CHATS)
       }
     }
   }
