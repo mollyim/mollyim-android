@@ -139,6 +139,29 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- EditText for Note Content -->
+            <EditText
+                android:id="@+id/edit_note_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/dsl_settings_gutter"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+                android:layout_marginBottom="16dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="@string/edit_note_content_hint"
+                android:inputType="textMultiLine|textCapSentences"
+                android:scrollbars="vertical"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/manage_profile_name_container"
+                tools:visibility="visible"
+                tools:text="This is a sample note content that can span multiple lines." />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/manage_profile_username_container"
                 android:layout_width="match_parent"

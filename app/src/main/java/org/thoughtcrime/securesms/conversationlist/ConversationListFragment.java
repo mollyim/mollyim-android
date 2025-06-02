@@ -1553,15 +1553,31 @@ import org.thoughtcrime.securesms.util.concurrent.SignalExecutors; // For delete
 
   // Implementation for new Note click methods in OnConversationClickListener
   @Override
+import org.thoughtcrime.securesms.profiles.EditMode;
+import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity;
+
+
+// ... other imports
+
   public void onNoteClick(@NonNull Conversation noteConversation) {
+    // If CAB is active for notes, a click should toggle selection (already handled by this call)
     if (actionMode != null && currentDisplayMode == DisplayMode.NOTES) {
       viewModel.toggleConversationSelected(noteConversation);
-    } else {
-      // TODO: Navigate to Note Edit screen
-      // Intent intent = ProfileEditActivity.getIntent(requireContext(), ProfileEditActivity.EditMode.EDIT_NOTE, noteConversation.getThreadRecord().getThreadId());
-      // startActivity(intent);
-      Log.d(TAG, "Note clicked (navigation to be implemented): ID " + noteConversation.getThreadRecord().getThreadId());
+      return; // Don't navigate if in CAB mode
     }
+
+    // If not in CAB mode, proceed to navigate
+    if (currentDisplayMode == DisplayMode.NOTES) {
+      long noteId = noteConversation.getThreadRecord().getThreadId();
+      if (noteId > 0) { // Basic validation for the ID
+        Intent intent = EditProfileActivity.newNoteIntent(requireContext(), EditMode.EDIT_NOTE, noteId);
+        startActivity(intent);
+      } else {
+        Log.w(TAG, "Invalid noteId for navigation: " + noteId);
+      }
+    }
+    // If currentDisplayMode is not NOTES, this method shouldn't ideally be called by a note click.
+    // However, if it could, ensure no action or log.
   }
 
   @Override

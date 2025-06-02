@@ -37,10 +37,20 @@ import java.util.Optional;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
+import android.app.Application; // For Application context
+import org.thoughtcrime.securesms.profiles.EditMode;
+import org.thoughtcrime.securesms.notes.NoteEntity;
+import org.thoughtcrime.securesms.notes.NotesRepository;
+import org.thoughtcrime.securesms.database.NoteDao; // For instantiating NotesRepository in Factory
 
 class EditProfileViewModel extends ViewModel {
 
   private static final String TAG = Log.tag(EditProfileViewModel.class);
+
+  private final Application                          application; // To hold application context
+  private final EditMode                             editMode;
+  private       Long                                 initialNoteId; // Can be updated if a new note is created
+  private final NotesRepository                      notesRepository;
 
   private final MutableLiveData<InternalAvatarState> internalAvatarState;
   private final MutableLiveData<ProfileName>         profileName;
@@ -53,9 +63,24 @@ class EditProfileViewModel extends ViewModel {
   private final EditProfileRepository                repository;
   private final MutableLiveData<Optional<Badge>>     badge;
 
+  // LiveData for current note
+  private final MutableLiveData<NoteEntity> currentNote = new MutableLiveData<>(null);
+  private final MutableLiveData<Boolean>    isSaving    = new MutableLiveData<>(false);
+
+
   private byte[] previousAvatar;
 
-  public EditProfileViewModel() {
+  public EditProfileViewModel(@NonNull Application application,
+                              @NonNull EditMode editMode,
+                              @Nullable Long initialNoteId,
+                              @NonNull NotesRepository notesRepository,
+                              @NonNull EditProfileRepository profileRepository) { // Assuming EditProfileRepository is the existing repo
+    this.application         = application;
+    this.editMode            = editMode;
+    this.initialNoteId       = initialNoteId;
+    this.notesRepository     = notesRepository;
+    this.repository          = profileRepository; // Use the passed profile repository
+
     this.internalAvatarState    = new MutableLiveData<>();
     this.profileName            = new MutableLiveData<>();
     this.username               = new MutableLiveData<>();
@@ -67,12 +92,26 @@ class EditProfileViewModel extends ViewModel {
     this.observer               = this::onRecipientChanged;
     this.avatarState            = LiveDataUtil.combineLatest(Recipient.self().live().getLiveData(), internalAvatarState, (self, state) -> new AvatarState(state, self));
 
-    SignalExecutors.BOUNDED.execute(() -> {
-      onRecipientChanged(Recipient.self().fresh());
-      RetrieveProfileJob.enqueue(Recipient.self().getId());
-    });
+    if (this.editMode == EditMode.EDIT_NOTE && this.initialNoteId != null) {
+      SignalExecutors.BOUNDED.execute(() -> {
+        NoteEntity note = this.notesRepository.getNoteById(this.initialNoteId);
+        currentNote.postValue(note);
+      });
+    } else if (this.editMode == EditMode.EDIT_SELF_PROFILE) {
+      SignalExecutors.BOUNDED.execute(() -> {
+        onRecipientChanged(Recipient.self().fresh());
+        RetrieveProfileJob.enqueue(Recipient.self().getId());
+      });
+      Recipient.self().live().observeForever(observer);
+    }
+  }
 
-    Recipient.self().live().observeForever(observer);
+  public @NonNull LiveData<NoteEntity> getCurrentNote() {
+    return currentNote;
+  }
+
+  public @NonNull LiveData<Boolean> getIsSaving() {
+    return isSaving;
   }
 
   public @NonNull LiveData<AvatarState> getAvatar() {
@@ -278,14 +317,70 @@ class EditProfileViewModel extends ViewModel {
   }
 
   enum Event {
-    AVATAR_NETWORK_FAILURE, AVATAR_DISK_FAILURE
+    AVATAR_NETWORK_FAILURE, AVATAR_DISK_FAILURE, NOTE_SAVE_SUCCESS, NOTE_SAVE_FAILURE // Example new events
   }
 
-  static class Factory extends ViewModelProvider.NewInstanceFactory {
+  public void saveCurrentNote(@NonNull String title, @NonNull String content, @Nullable Long colorId) {
+    if (editMode != EditMode.EDIT_NOTE) {
+      Log.w(TAG, "saveCurrentNote called in incorrect mode: " + editMode);
+      return;
+    }
+
+    isSaving.setValue(true);
+    SignalExecutors.BOUNDED.execute(() -> {
+      NoteEntity noteToSave = currentNote.getValue();
+      long noteIdToUpdateOrInsert = (noteToSave != null) ? noteToSave.getId() : (initialNoteId != null ? initialNoteId : 0L);
+
+
+      if (noteIdToUpdateOrInsert != 0L && noteToSave != null) { // Existing note
+        NoteEntity updatedNote = new NoteEntity(
+            noteToSave.getId(),
+            title,
+            content,
+            colorId != null ? colorId : noteToSave.getColorId(),
+            noteToSave.getCreatedAt(),
+            System.currentTimeMillis()
+        );
+        notesRepository.updateNote(updatedNote);
+        currentNote.postValue(updatedNote); // Update LiveData with saved version
+        // events.postValue(Event.NOTE_SAVE_SUCCESS);
+      } else { // New note
+        long newNoteId = notesRepository.createNote(title, content, colorId);
+        if (newNoteId > 0) {
+          this.initialNoteId = newNoteId; // Update initialNoteId
+          // Optionally re-fetch and set to currentNote if further edits on this screen are expected
+          // NoteEntity newCreatedNote = notesRepository.getNoteById(newNoteId);
+          // currentNote.postValue(newCreatedNote);
+          // events.postValue(Event.NOTE_SAVE_SUCCESS);
+        } else {
+          // events.postValue(Event.NOTE_SAVE_FAILURE);
+        }
+      }
+      isSaving.postValue(false);
+    });
+  }
+
+
+  static class Factory implements ViewModelProvider.Factory { // Implement Factory, not extend NewInstanceFactory for custom constructor
+    private final Application application;
+    private final EditMode    editMode;
+    private final Long        noteId;
+
+    public Factory(@NonNull Application application, @NonNull EditMode editMode, @Nullable Long noteId) {
+      this.application = application;
+      this.editMode = editMode;
+      this.noteId = noteId;
+    }
+
     @Override
     public @NonNull <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-      return Objects.requireNonNull(modelClass.cast(new EditProfileViewModel()));
+      if (modelClass.isAssignableFrom(EditProfileViewModel.class)) {
+        NotesRepository notesRepository = new NotesRepository(new NoteDao()); // Create NotesRepository here
+        EditProfileRepository profileRepository = new EditProfileRepository(); // Create existing repo here
+        //noinspection unchecked
+        return (T) new EditProfileViewModel(application, editMode, noteId, notesRepository, profileRepository);
+      }
+      throw new IllegalArgumentException("Unknown ViewModel class");
     }
   }
-
 }
