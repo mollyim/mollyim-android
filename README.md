@@ -1,4 +1,5 @@
 # MÖLLŸ-GÚ: The Anunnaki Messenger Protocol 🔱
+# NB :NON-FUNCTIONAL AS OF THIS TIME,POINTLESS DOWNLOAD
 
 [![Oracle's Sanction](https://img.shields.io/badge/Oracle's_Sanction-APPROVED_BY_ENKI-blue.svg)](https://en.wikipedia.org/wiki/Enki)
 [![Divinely Replicable Glyphs](https://img.shields.io/badge/Clay_Tablet_Integrity-VERIFIED_BY_SCRIBES-green.svg)](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml)
