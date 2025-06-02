@@ -195,6 +195,10 @@ class MainNavigationViewModel(
     onTabSelected(MainNavigationListLocation.STORIES)
   }
 
+  fun onNotesSelected() { // New method for Notes tab
+    onTabSelected(MainNavigationListLocation.NOTES)
+  }
+
   fun setCurrentDisplayMode(displayMode: DisplayMode) {
     _currentDisplayMode.value = displayMode
   }
@@ -208,6 +212,20 @@ class MainNavigationViewModel(
         internalMainNavigationState.update {
           it.copy(selectedDestination = destination)
         }
+      }
+
+      // Update DisplayMode based on the selected tab
+      if (destination == MainNavigationListLocation.NOTES) {
+        setCurrentDisplayMode(DisplayMode.NOTES)
+      } else if (destination == MainNavigationListLocation.CHATS || destination == MainNavigationListLocation.ARCHIVE) {
+        // Assuming CHATS and ARCHIVE should show chat-related content primarily
+        // ConversationListFragment handles its own isArchived state, so CHATS mode is fine.
+        setCurrentDisplayMode(DisplayMode.CHATS)
+      } else {
+        // For other tabs like CALLS or STORIES, what should DisplayMode be?
+        // If ConversationListFragment is not visible, it might not matter.
+        // Or, default to CHATS if CLF is somehow still active or default.
+        setCurrentDisplayMode(DisplayMode.CHATS)
       }
     }
   }

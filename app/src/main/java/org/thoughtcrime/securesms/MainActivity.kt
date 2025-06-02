@@ -369,6 +369,14 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
                       modifier = Modifier.fillMaxSize()
                     )
                   }
+                  MainNavigationListLocation.NOTES -> { // New case for NOTES
+                    val state = key(destination) { rememberFragmentState() }
+                    AndroidFragment(
+                      clazz = ConversationListFragment::class.java, // Reuse ConversationListFragment
+                      fragmentState = state,
+                      modifier = Modifier.fillMaxSize()
+                    )
+                  }
                 }
 
                 MainBottomChrome(
@@ -891,6 +899,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
         MainNavigationListLocation.CALLS -> mainNavigationViewModel.onCallsSelected()
         MainNavigationListLocation.STORIES -> mainNavigationViewModel.onStoriesSelected()
         MainNavigationListLocation.ARCHIVE -> mainNavigationViewModel.onArchiveSelected()
+        MainNavigationListLocation.NOTES -> mainNavigationViewModel.onNotesSelected()
       }
     }
   }

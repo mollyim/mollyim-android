@@ -191,7 +191,8 @@ private fun PrimaryActionButton(
         scope.launch {
           val notesRepository = NotesRepository(NoteDao()) // Consider how to best provide this
           val newNoteId = notesRepository.createNote("Untitled Note", "")
-          val intent = ProfileEditActivity.getIntent(context, ProfileEditActivity.EditMode.EDIT_NOTE, newNoteId)
+          // Correctly call the static Java method newNoteIntent from EditProfileActivity
+          val intent = EditProfileActivity.newNoteIntent(context, org.thoughtcrime.securesms.profiles.EditMode.EDIT_NOTE, newNoteId)
           context.startActivity(intent)
         }
       }
