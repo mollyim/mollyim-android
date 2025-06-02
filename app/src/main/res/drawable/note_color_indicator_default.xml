@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/transparent" /> <!-- Default to transparent, actual color will be set programmatically or via tint -->
+    <size android:width="4dp" />
+    <corners android:radius="2dp" />
+</shape>

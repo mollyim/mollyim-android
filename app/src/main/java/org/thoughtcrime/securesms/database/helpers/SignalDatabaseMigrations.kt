@@ -132,6 +132,7 @@ import org.thoughtcrime.securesms.database.helpers.migration.V272_UpdateUnreadCo
 import org.thoughtcrime.securesms.database.helpers.migration.V273_FixUnreadOriginalMessages
 import org.thoughtcrime.securesms.database.helpers.migration.V274_BackupMediaSnapshotLastSeenOnRemote
 import org.thoughtcrime.securesms.database.helpers.migration.V275_AddPeerExtraPublicKeyToIdentities
+import org.thoughtcrime.securesms.database.helpers.migration.V276_CreateNotesTables
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -266,10 +267,11 @@ object SignalDatabaseMigrations {
     272 to V272_UpdateUnreadCountIndices,
     273 to V273_FixUnreadOriginalMessages,
     274 to V274_BackupMediaSnapshotLastSeenOnRemote,
-    275 to V275_AddPeerExtraPublicKeyToIdentities
+    275 to V275_AddPeerExtraPublicKeyToIdentities,
+    276 to V276_CreateNotesTables
   )
 
-  const val DATABASE_VERSION = 275
+  const val DATABASE_VERSION = 276
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(

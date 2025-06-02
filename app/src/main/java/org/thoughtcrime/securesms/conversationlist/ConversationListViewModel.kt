@@ -40,9 +40,14 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+import android.app.Application
+import org.thoughtcrime.securesms.notes.NotesRepository
 import java.util.concurrent.TimeUnit
 
 sealed class ConversationListViewModel(
+  protected val application: Application,
+  val displayMode: DisplayMode, // Made public for use in logic, or internal if only used in init
+  protected val notesRepository: NotesRepository?, // Nullable if only used in NOTES mode
   private val isArchived: Boolean,
   private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -110,13 +115,54 @@ sealed class ConversationListViewModel(
       .replay(1)
       .refCount()
 
-    val pagedData = conversationListDataSource
-      .map { PagedData.createForObservable(it, pagingConfig) }
-      .doOnNext { controller.set(it.controller) }
-      .switchMap { it.data.toFlowable(BackpressureStrategy.LATEST) }
+    if (displayMode == DisplayMode.NOTES) {
+      viewModelScope.launch {
+        val notes = notesRepository?.getAllNotesSortedByTitle() ?: emptyList()
+        val noteConversations = notes.map { noteEntity ->
+          // Simplified mapping from NoteEntity to Conversation
+          // This is a placeholder and might need significant refinement
+          // depending on what fields ConversationListAdapter actually uses.
+          val recipient = Recipient.resolved(RecipientId.from(noteEntity.id)) // Placeholder
+          recipient.setProfileName(org.thoughtcrime.securesms.profiles.ProfileName.fromParts(noteEntity.title, "")) // Use note title as name
 
-    store.update(pagedData) { conversations, state -> state.copy(conversations = conversations) }
-      .addTo(disposables)
+          Conversation(
+            threadRecord = org.thoughtcrime.securesms.database.model.ThreadRecord(
+              threadId = noteEntity.id, // Using note ID as thread ID placeholder
+              recipient = recipient,
+              date = noteEntity.updatedAt,
+              unreadCount = 0,
+              isArchived = false,
+              isPinned = false, // Notes are not pinnable in this MVP
+              // Many other fields are omitted or will use defaults from ThreadRecord constructor
+              snippet = noteEntity.content.take(150), // Show part of content as snippet
+              read = true // Notes are always "read"
+            ),
+            hasDraft = false,
+            unreadSelfMentions = 0,
+            distributionType = -100, // Custom type for Notes
+            wallpaper = null,
+            typingState = null,
+            chatColor = null,
+            unreadCountForBadge = 0,
+            isBlocked = false,
+            lastSeen = -1L,
+            isMuted = false,
+            activeInFolder = true, // Assuming notes are always active if displayed
+            isEmpty = noteEntity.title.isEmpty() && noteEntity.content.isEmpty(),
+            lastMessageRecipient = recipient // Placeholder
+          )
+        }
+        store.update { it.copy(conversations = noteConversations) }
+      }
+    } else {
+      val pagedData = conversationListDataSource
+        .map { PagedData.createForObservable(it, pagingConfig) }
+        .doOnNext { controller.set(it.controller) }
+        .switchMap { it.data.toFlowable(BackpressureStrategy.LATEST) }
+
+      store.update(pagedData) { conversations, state -> state.copy(conversations = conversations) }
+        .addTo(disposables)
+    }
 
     RxDatabaseObserver
       .conversationList
@@ -317,19 +363,25 @@ sealed class ConversationListViewModel(
     val pinnedCount: Int = 0
   )
 
-  class UnarchivedConversationListViewModel(savedStateHandle: SavedStateHandle) : ConversationListViewModel(isArchived = false, savedStateHandle = savedStateHandle)
-  class ArchivedConversationListViewModel(savedStateHandle: SavedStateHandle) : ConversationListViewModel(isArchived = true, savedStateHandle = savedStateHandle)
+  class UnarchivedConversationListViewModel(application: Application, displayMode: DisplayMode, notesRepository: NotesRepository?, savedStateHandle: SavedStateHandle) : ConversationListViewModel(application, displayMode, notesRepository, isArchived = false, savedStateHandle = savedStateHandle)
+  class ArchivedConversationListViewModel(application: Application, displayMode: DisplayMode, notesRepository: NotesRepository?, savedStateHandle: SavedStateHandle) : ConversationListViewModel(application, displayMode, notesRepository, isArchived = true, savedStateHandle = savedStateHandle)
 
   class Factory(
+    private val application: Application,
+    private val displayMode: DisplayMode,
+    private val notesRepository: NotesRepository?,
     private val isArchived: Boolean
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
       val savedStateHandle = extras.createSavedStateHandle()
 
+      // It seems I need to ensure application, displayMode, and notesRepository are available here.
+      // They are constructor parameters of the Factory, so they are available.
+
       return if (isArchived) {
-        ArchivedConversationListViewModel(savedStateHandle) as T
+        ArchivedConversationListViewModel(application, displayMode, notesRepository, savedStateHandle) as T
       } else {
-        UnarchivedConversationListViewModel(savedStateHandle) as T
+        UnarchivedConversationListViewModel(application, displayMode, notesRepository, savedStateHandle) as T
       }
     }
   }

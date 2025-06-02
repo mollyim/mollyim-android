@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.asObservable
+import org.thoughtcrime.securesms.conversationlist.DisplayMode
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfilesRepository
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -60,6 +61,9 @@ class MainNavigationViewModel(
 
   private val internalMainNavigationState = MutableStateFlow(MainNavigationState(selectedDestination = initialListLocation))
   val mainNavigationState: StateFlow<MainNavigationState> = internalMainNavigationState
+
+  private val _currentDisplayMode = MutableStateFlow(DisplayMode.CHATS)
+  val currentDisplayMode: StateFlow<DisplayMode> = _currentDisplayMode
 
   /**
    * This is Rx because these are still accessed from Java.
@@ -189,6 +193,10 @@ class MainNavigationViewModel(
 
   fun onStoriesSelected() {
     onTabSelected(MainNavigationListLocation.STORIES)
+  }
+
+  fun setCurrentDisplayMode(displayMode: DisplayMode) {
+    _currentDisplayMode.value = displayMode
   }
 
   private fun onTabSelected(destination: MainNavigationListLocation) {

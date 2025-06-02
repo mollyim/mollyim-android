@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notes_list_fragment__fab_new_note">New note</string>
+    <string name="notes_list_fragment__empty_state_no_notes">You don\'t have any notes yet.</string>
+
+    <plurals name="NotesListFragment_delete_notes_confirmation_title">
+        <item quantity="one">Delete %d note?</item>
+        <item quantity="other">Delete %d notes?</item>
+    </plurals>
+    <string name="NotesListFragment_delete_notes_confirmation_message">This will permanently delete the selected note(s).</string>
+</resources>

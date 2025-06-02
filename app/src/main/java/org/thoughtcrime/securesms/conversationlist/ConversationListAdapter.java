@@ -40,6 +40,8 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
   private static final int TYPE_CLEAR_FILTER_EMPTY  = 7;
   private static final int TYPE_CHAT_FOLDER_EMPTY   = 8;
   private static final int TYPE_EMPTY_ARCHIVED      = 9;
+  private static final int TYPE_NOTE_ITEM           = 10; // New type for notes
+  private static final int TYPE_EMPTY_NOTES         = 11; // New type for notes empty state
 
   private enum Payload {
     TYPING_INDICATOR,
@@ -58,6 +60,7 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
   private       ConversationSet                                     selectedConversations         = new ConversationSet();
   private       long                                                activeThreadId                = 0;
   private       PagingController                                    pagingController;
+  private       DisplayMode                                         currentDisplayMode            = DisplayMode.CHATS; // Default
 
   protected ConversationListAdapter(@NonNull LifecycleOwner lifecycleOwner,
                                     @NonNull RequestManager requestManager,
@@ -74,6 +77,12 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
     this.onFolderSettingsClicked     = onFolderSettingsClicked;
 
     setStateRestorationPolicy(StateRestorationPolicy.PREVENT_WHEN_EMPTY);
+  }
+
+  public void setDisplayMode(@NonNull DisplayMode displayMode) {
+    this.currentDisplayMode = displayMode;
+    // Potentially notifyDataSetChanged() if the types of items visible might change,
+    // but usually this is set before submitting a list.
   }
 
   @Override
@@ -133,6 +142,35 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
     } else if (viewType == TYPE_CHAT_FOLDER_EMPTY) {
       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.conversation_list_item_folder_empty, parent, false);
       return new EmptyFolderViewHolder(v, onFolderSettingsClicked);
+    } else if (viewType == TYPE_NOTE_ITEM) {
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_list_item, parent, false);
+      NoteItemViewHolder holder = new NoteItemViewHolder(v);
+      // Set click listener for notes navigation (to be implemented later)
+      holder.itemView.setOnClickListener(tv -> {
+        int position = holder.getAdapterPosition();
+        if (position != RecyclerView.NO_POSITION) {
+          Conversation item = getItem(position);
+          if (item != null && item.getDistributionType() == -100) { // It's a Note
+            onConversationClickListener.onNoteClick(item); // New specific method for note clicks
+          }
+        }
+      });
+      holder.itemView.setOnLongClickListener(v -> {
+        if (currentDisplayMode == DisplayMode.NOTES) {
+          int position = holder.getAdapterPosition();
+          if (position != RecyclerView.NO_POSITION) {
+            Conversation item = getItem(position);
+            if (item != null && item.getDistributionType() == -100) { // It's a Note
+              return onConversationClickListener.onNoteLongClick(item, v); // New specific method
+            }
+          }
+        }
+        return false; // Let default long click proceed if not a note in notes mode
+      });
+      return holder;
+    } else if (viewType == TYPE_EMPTY_NOTES) {
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_list_empty_state, parent, false);
+      return new RecyclerView.ViewHolder(v) {}; // Simple ViewHolder, no binding needed as layout has text
     } else {
       throw new IllegalStateException("Unknown type! " + viewType);
     }
@@ -190,6 +228,31 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
       Conversation          conversation = Objects.requireNonNull(getItem(position));
 
       casted.bind(conversation);
+    } else if (holder.getItemViewType() == TYPE_NOTE_ITEM) {
+      NoteItemViewHolder noteHolder   = (NoteItemViewHolder) holder;
+      Conversation       noteConversation = Objects.requireNonNull(getItem(position));
+      // Bind data from noteConversation (which is a transformed NoteEntity)
+      // Title was stored in recipient's profile name
+      noteHolder.title.setText(noteConversation.getThreadRecord().getRecipient().getProfileName().toString());
+      // Snippet was stored in threadRecord's snippet
+      noteHolder.snippet.setText(noteConversation.getThreadRecord().getSnippet());
+
+      // Visual feedback for selection
+      boolean isSelected = selectedConversations.contains(noteConversation.getThreadRecord().getThreadId());
+      noteHolder.itemView.setSelected(isSelected);
+      // itemView's background should be a state list drawable that handles android:state_selected="true"
+      // For example: android:background="?attr/selectableItemBackground" or a custom one.
+      // If not using a state list drawable, you might set a specific background color:
+      // if (isSelected) {
+      //   noteHolder.itemView.setBackgroundColor(ContextCompat.getColor(noteHolder.itemView.getContext(), R.color.selected_item_background));
+      // } else {
+      //   noteHolder.itemView.setBackgroundResource(R.drawable.default_item_background); // Or ?attr/selectableItemBackground
+      // }
+
+
+      // Color indicator can be set here if colorId is available and mapped
+      // For now, using default. A more complex setup would involve NoteColorEntity.
+      // Example: if (noteConversation.getThreadRecord().getColorId() != null) { ... }
     }
   }
 
@@ -260,7 +323,20 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
       case EMPTY:
         return TYPE_EMPTY;
       default:
-        throw new IllegalArgumentException();
+        // Check for custom note type
+        if (conversation.getDistributionType() == -100) { // Matches ViewModel's note type indicator for actual notes
+          return TYPE_NOTE_ITEM;
+        }
+        // Fallback or unknown, potentially an error unless other types also use distributionType -100
+        throw new IllegalArgumentException("Unknown conversation type: " + conversation.getType() + " with distribution type: " + conversation.getDistributionType());
+      case EMPTY: // This is the generic empty type from Conversation.Type.EMPTY
+        if (currentDisplayMode == DisplayMode.NOTES) {
+          return TYPE_EMPTY_NOTES;
+        } else {
+          return TYPE_EMPTY; // Original empty state for chats
+        }
+      default:
+        throw new IllegalArgumentException("Unhandled conversation type: " + conversation.getType());
     }
   }
 
@@ -307,6 +383,19 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
     }
   }
 
+  static final class NoteItemViewHolder extends RecyclerView.ViewHolder {
+    final TextView title;
+    final TextView snippet;
+    // final View colorIndicator; // Optional
+
+    NoteItemViewHolder(@NonNull View itemView) {
+      super(itemView);
+      title = itemView.findViewById(R.id.note_item_title);
+      snippet = itemView.findViewById(R.id.note_item_snippet);
+      // colorIndicator = itemView.findViewById(R.id.note_item_color_indicator); // Optional
+    }
+  }
+
   static class EmptyFolderViewHolder extends RecyclerView.ViewHolder {
 
     public EmptyFolderViewHolder(@NonNull View itemView, OnFolderSettingsClickListener listener) {
@@ -323,5 +412,8 @@ class ConversationListAdapter extends ListAdapter<Conversation, RecyclerView.Vie
     void onConversationClick(@NonNull Conversation conversation);
     boolean onConversationLongClick(@NonNull Conversation conversation, @NonNull View view);
     void onShowArchiveClick();
+    // Methods for Notes interaction
+    void onNoteClick(@NonNull Conversation noteConversation); // For navigation
+    boolean onNoteLongClick(@NonNull Conversation noteConversation, @NonNull View view); // For CAB
   }
 }
