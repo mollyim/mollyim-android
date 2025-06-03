@@ -41,13 +41,39 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+/**
+ * Manages X25519 key pairs within the Android Keystore for performing Elliptic Curve Diffie-Hellman (ECDH)
+ * key agreement. Private keys are stored securely in the Android Keystore and are non-exportable.
+ * This class handles key generation, retrieval, and the conversion of public keys between
+ * Android's {@link java.security.PublicKey} format (X.509 SPKI) and libsignal's
+ * {@link org.signal.libsignal.protocol.ecc.ECPublicKey} format.
+ *
+ * It relies on BouncyCastle for ASN.1 parsing/encoding during public key conversions.
+ */
 public final class ExtraLockKeyManager {
 
     private static final String ANDROID_KEY_STORE_PROVIDER = "AndroidKeyStore";
     private static final String KEY_ALIAS_PREFIX = "extralock_";
 
+    /**
+     * Generates an X25519 key pair for the given Account Connection Identifier (ACI) and stores it
+     * in the Android Keystore. The private key is non-exportable.
+     *
+     * @param localAci The ACI to associate with this key pair. Used to derive the Keystore alias.
+     * @return An {@link IdentityKeyPair} containing the libsignal-formatted public key and a
+     *         placeholder for the private key (actual private key material resides in Keystore).
+     * @throws KeyStoreException If Keystore access fails.
+     * @throws CertificateException If there's an issue with Keystore certificates.
+     * @throws NoSuchAlgorithmException If cryptographic algorithms are not available.
+     * @throws IOException If there's an I/O error.
+     * @throws UnrecoverableKeyException If the key cannot be recovered (should not happen on generation).
+     * @throws InvalidAlgorithmParameterException If key generation parameters are invalid.
+     * @throws NoSuchProviderException If the AndroidKeyStore provider is not available.
+     * @throws java.security.spec.InvalidKeySpecException If there's an issue with key specifications during internal conversions.
+     * @throws InvalidKeyException If there is an issue with a generated or converted key.
+     */
     @RequiresApi(Build.VERSION_CODES.M)
-    public static IdentityKeyPair generateKeyPair(@NonNull String localAci) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchProviderException, java.security.spec.InvalidKeySpecException {
+    public static IdentityKeyPair generateKeyPair(@NonNull String localAci) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchProviderException, java.security.spec.InvalidKeySpecException, InvalidKeyException {
         String alias = KEY_ALIAS_PREFIX + localAci;
 
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(
@@ -87,6 +113,17 @@ public final class ExtraLockKeyManager {
         return new IdentityKeyPair(ecPublicKey, ecPrivateKey);
     }
 
+    /**
+     * Retrieves the {@link PrivateKey} for the given ACI from the Android Keystore.
+     *
+     * @param localAci The ACI associated with the key pair.
+     * @return The {@link PrivateKey} instance.
+     * @throws KeyStoreException If Keystore access fails.
+     * @throws CertificateException If there's an issue with Keystore certificates.
+     * @throws NoSuchAlgorithmException If cryptographic algorithms are not available.
+     * @throws IOException If there's an I/O error.
+     * @throws UnrecoverableKeyException If the key is not found or cannot be recovered.
+     */
     @RequiresApi(Build.VERSION_CODES.M)
     public static PrivateKey getPrivateKey(@NonNull String localAci) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException {
         String alias = KEY_ALIAS_PREFIX + localAci;
@@ -100,6 +137,19 @@ public final class ExtraLockKeyManager {
         return privateKey;
     }
 
+    /**
+     * Retrieves the libsignal-formatted {@link ECPublicKey} for the given ACI from the Android Keystore.
+     *
+     * @param localAci The ACI associated with the key pair.
+     * @return The {@link ECPublicKey}.
+     * @throws KeyStoreException If Keystore access fails.
+     * @throws CertificateException If there's an issue with Keystore certificates.
+     * @throws NoSuchAlgorithmException If cryptographic algorithms are not available.
+     * @throws IOException If there's an I/O error.
+     * @throws UnrecoverableKeyException If the key is not found or cannot be recovered.
+     * @throws java.security.spec.InvalidKeySpecException If there's an issue with key specifications during internal conversions.
+     * @throws InvalidKeyException If there is an issue with the stored or converted key.
+     */
     @RequiresApi(Build.VERSION_CODES.M)
     public static ECPublicKey getStoredPublicKey(@NonNull String localAci) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, java.security.spec.InvalidKeySpecException, InvalidKeyException {
         String alias = KEY_ALIAS_PREFIX + localAci;
@@ -119,6 +169,19 @@ public final class ExtraLockKeyManager {
         return Curve.decodePoint(ByteUtil.prepend(rawPublicKeyBytes, Curve.KEY_TYPE_X25519), 0);
     }
 
+    /**
+     * Calculates an ECDH shared secret using the local private key (from Android Keystore)
+     * and the peer's public key (libsignal format).
+     *
+     * @param localPrivateKey The local user's private key, which MUST be from the AndroidKeyStore provider.
+     * @param peerPublicKey The peer's public key in libsignal {@link ECPublicKey} format.
+     * @return A 32-byte array containing the shared secret.
+     * @throws NoSuchProviderException If required security providers are not available.
+     * @throws NoSuchAlgorithmException If cryptographic algorithms (XDH/ECDH) are not available.
+     * @throws InvalidKeyException If any of the keys are invalid (e.g., wrong type, or private key not from Keystore).
+     * @throws java.security.spec.InvalidKeySpecException If there's an issue with key specifications during peer public key conversion.
+     * @throws IOException If there's an I/O error during peer public key conversion.
+     */
     @RequiresApi(Build.VERSION_CODES.M)
     public static byte[] calculateSharedSecret(@NonNull PrivateKey localPrivateKey, @NonNull ECPublicKey peerPublicKey) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, java.security.spec.InvalidKeySpecException, IOException {
         if (!ANDROID_KEY_STORE_PROVIDER.equals(localPrivateKey.getProvider().getName())) {
