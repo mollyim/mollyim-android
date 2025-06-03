@@ -1,197 +1,169 @@
 package org.thoughtcrime.securesms.crypto;
 
 import android.os.Build;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
 
-import org.junit.Before;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
+import org.signal.libsignal.protocol.util.ByteUtil;
 
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.spec.ECGenParameterSpec;
+import java.security.Security;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import javax.crypto.KeyAgreement;
-
-
-// Robolectric is used for Build.VERSION.SDK_INT and potentially KeyStore/KeyPairGenerator behavior
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk = Build.VERSION_CODES.M) // ExtraLockKeyManager uses API M features
+@Config(sdk = Build.VERSION_CODES.P) // API 28, covers "ECDH" path and is M+
 public class ExtraLockKeyManagerTest {
 
-    private KeyPairGenerator mockKeyPairGenerator;
-    private KeyStore mockKeyStore;
-    private java.security.KeyPair mockJKeyPair;
-    private PublicKey mockPublicKey;
-    private PrivateKey mockPrivateKey;
-    private Certificate mockCertificate;
+    private static final String ACI_A = "testAciA";
+    private static final String ACI_B = "testAciB";
+    private static final String ACI_CONVERSION = "conversionTestAci";
 
-    private final String TEST_ACI = "test_aci_123";
-    private final String KEY_ALIAS = "extralock_" + TEST_ACI;
+    private static final String ALIAS_A = "extralock_" + ACI_A;
+    private static final String ALIAS_B = "extralock_" + ACI_B;
+    private static final String ALIAS_CONVERSION = "extralock_" + ACI_CONVERSION;
 
-    @Before
-    public void setUp() throws Exception {
-        mockKeyPairGenerator = mock(KeyPairGenerator.class);
-        mockKeyStore = mock(KeyStore.class);
-        mockJKeyPair = mock(java.security.KeyPair.class);
-        mockPublicKey = mock(PublicKey.class);
-        mockPrivateKey = mock(PrivateKey.class);
-        mockCertificate = mock(Certificate.class);
 
-        when(mockJKeyPair.getPublic()).thenReturn(mockPublicKey);
-        // For generateKeyPair, we need getEncoded to return *something*.
-        // The actual conversion in ExtraLockKeyManager is problematic and not deeply tested here.
-        when(mockPublicKey.getEncoded()).thenReturn(new byte[65]); // Dummy X.509 format for EC, typical length
-        when(mockJKeyPair.getPrivate()).thenReturn(mockPrivateKey);
-        when(mockPrivateKey.getEncoded()).thenReturn(new byte[32]); // Dummy PKCS#8, not raw
-
-        when(mockKeyPairGenerator.generateKeyPair()).thenReturn(mockJKeyPair);
-        when(mockKeyStore.getCertificate(KEY_ALIAS)).thenReturn(mockCertificate);
-        when(mockCertificate.getPublicKey()).thenReturn(mockPublicKey);
+    @BeforeClass
+    public static void setUpClass() {
+        if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
     }
 
-    @Test
-    public void generateKeyPair_createsKeyWithCorrectAliasAndParams() throws Exception {
-        try (MockedStatic<KeyPairGenerator> kpgStatic = Mockito.mockStatic(KeyPairGenerator.class);
-             MockedStatic<KeyStore> ksStatic = Mockito.mockStatic(KeyStore.class)) {
-
-            kpgStatic.when(() -> KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, "AndroidKeyStore"))
-                    .thenReturn(mockKeyPairGenerator);
-            ksStatic.when(() -> KeyStore.getInstance("AndroidKeyStore")).thenReturn(mockKeyStore);
-            // mockKeyStore.load(null) is void, so it's fine
-
-            IdentityKeyPair identityKeyPair = ExtraLockKeyManager.generateKeyPair(TEST_ACI);
-
-            assertNotNull(identityKeyPair);
-            assertNotNull(identityKeyPair.getPublicKey());
-            // Private key in IdentityKeyPair is a dummy/placeholder in the current implementation
-            assertNotNull(identityKeyPair.getPrivateKey());
-
-            ArgumentCaptor<KeyGenParameterSpec> specCaptor = ArgumentCaptor.forClass(KeyGenParameterSpec.class);
-            verify(mockKeyPairGenerator).initialize(specCaptor.capture());
-            KeyGenParameterSpec spec = specCaptor.getValue();
-            assertEquals(KEY_ALIAS, spec.getKeystoreAlias());
-            assertTrue((spec.getPurposes() & KeyProperties.PURPOSE_AGREE_KEY) != 0);
-
-            // Check algorithm parameter spec if possible (tricky as it's wrapped)
-            if (spec.getAlgorithmParameterSpec() instanceof ECGenParameterSpec) {
-                // This part depends on what curve name is used in ExtraLockKeyManager for the API level
-                // For API 23 (M), it might be a placeholder like "secp256r1" if "X25519" isn't available
-                // String expectedCurveName = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? "X25519" : "secp256r1";
-                // assertEquals(expectedCurveName, ((ECGenParameterSpec) spec.getAlgorithmParameterSpec()).getName());
-            }
+    @After
+    public void tearDown() throws Exception {
+        KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
+        keyStore.load(null); // Must load keystore before deleting
+        if (keyStore.containsAlias(ALIAS_A)) {
+            keyStore.deleteEntry(ALIAS_A);
+        }
+        if (keyStore.containsAlias(ALIAS_B)) {
+            keyStore.deleteEntry(ALIAS_B);
+        }
+        if (keyStore.containsAlias(ALIAS_CONVERSION)) {
+            keyStore.deleteEntry(ALIAS_CONVERSION);
         }
     }
 
     @Test
-    public void getPrivateKey_keyExists_returnsPrivateKey() throws Exception {
-        try (MockedStatic<KeyStore> ksStatic = Mockito.mockStatic(KeyStore.class)) {
-            ksStatic.when(() -> KeyStore.getInstance("AndroidKeyStore")).thenReturn(mockKeyStore);
-            when(mockKeyStore.getKey(KEY_ALIAS, null)).thenReturn(mockPrivateKey);
+    public void testGenerateKeyPair_shouldReturnValidKeyPair() throws Exception {
+        // When
+        IdentityKeyPair identityKeyPair = ExtraLockKeyManager.generateKeyPair(ACI_A);
 
-            PrivateKey retrievedKey = ExtraLockKeyManager.getPrivateKey(TEST_ACI);
-            assertNotNull(retrievedKey);
-            assertEquals(mockPrivateKey, retrievedKey);
-        }
-    }
+        // Then
+        assertNotNull("IdentityKeyPair should not be null", identityKeyPair);
+        assertNotNull("Public key should not be null", identityKeyPair.getPublicKey());
 
-    @Test(expected = UnrecoverableKeyException.class)
-    public void getPrivateKey_keyNotExists_throwsException() throws Exception {
-        try (MockedStatic<KeyStore> ksStatic = Mockito.mockStatic(KeyStore.class)) {
-            ksStatic.when(() -> KeyStore.getInstance("AndroidKeyStore")).thenReturn(mockKeyStore);
-            when(mockKeyStore.getKey(KEY_ALIAS, null)).thenReturn(null);
-            ExtraLockKeyManager.getPrivateKey(TEST_ACI);
-        }
-    }
+        byte[] serializedPublicKey = identityKeyPair.getPublicKey().serialize();
+        assertEquals("Serialized public key should be 33 bytes", 33, serializedPublicKey.length);
+        assertEquals("Public key type byte should be KEY_TYPE_X25519", Curve.KEY_TYPE_X25519, serializedPublicKey[0]);
 
-    @Test
-    public void getStoredPublicKey_keyExists_returnsPublicKey() throws Exception {
-         try (MockedStatic<KeyStore> ksStatic = Mockito.mockStatic(KeyStore.class)) {
-            ksStatic.when(() -> KeyStore.getInstance("AndroidKeyStore")).thenReturn(mockKeyStore);
-            // Assumes getEncoded returns something that Curve.decodePoint can handle,
-            // which is a known problematic area in the main code.
-            // This test mainly checks the flow and that a non-null ECPublicKey object is returned.
-            ECPublicKey retrievedEcPublicKey = ExtraLockKeyManager.getStoredPublicKey(TEST_ACI);
-            assertNotNull(retrievedEcPublicKey);
-        }
-    }
+        PrivateKey privateKey = ExtraLockKeyManager.getPrivateKey(ACI_A);
+        assertNotNull("Retrieved private key should not be null", privateKey);
+        assertEquals("AndroidKeyStore", privateKey.getProvider().getName());
 
-    @Test(expected = UnrecoverableKeyException.class)
-    public void getStoredPublicKey_certificateNull_throwsException() throws Exception {
-        try (MockedStatic<KeyStore> ksStatic = Mockito.mockStatic(KeyStore.class)) {
-            ksStatic.when(() -> KeyStore.getInstance("AndroidKeyStore")).thenReturn(mockKeyStore);
-            when(mockKeyStore.getCertificate(KEY_ALIAS)).thenReturn(null);
-            ExtraLockKeyManager.getStoredPublicKey(TEST_ACI);
-        }
-    }
 
-    @Test(expected = UnrecoverableKeyException.class)
-    public void getStoredPublicKey_publicKeyNull_throwsException() throws Exception {
-        try (MockedStatic<KeyStore> ksStatic = Mockito.mockStatic(KeyStore.class)) {
-            ksStatic.when(() -> KeyStore.getInstance("AndroidKeyStore")).thenReturn(mockKeyStore);
-            when(mockCertificate.getPublicKey()).thenReturn(null); // mockKeyStore already returns mockCertificate
-            ExtraLockKeyManager.getStoredPublicKey(TEST_ACI);
-        }
+        ECPublicKey storedEcPublicKey = ExtraLockKeyManager.getStoredPublicKey(ACI_A);
+        assertNotNull("Stored ECPublicKey should not be null", storedEcPublicKey);
+        assertArrayEquals("Stored ECPublicKey should match generated public key",
+                identityKeyPair.getPublicKey().serialize(), storedEcPublicKey.serialize());
     }
 
     @Test
-    public void calculateSharedSecret_placeholderConversion_runsWithoutConversionError() throws Exception {
-        // This test is limited because convertLibsignalPublicKeyToJavaPublicKey is a placeholder.
-        // We will mock KeyAgreement to avoid it calling the placeholder.
-        // The goal is to check if the method structure is callable.
-        PrivateKey localPrivKey = mock(PrivateKey.class); // A non-Keystore private key for simplicity
-        ECPublicKey peerPubKey = Curve.generateKeyPair().getPublicKey(); // A real ECPublicKey
+    public void testPublicKeyConversion_shouldBeLossless() throws Exception {
+        // Given
+        IdentityKeyPair idKeyOriginal = ExtraLockKeyManager.generateKeyPair(ACI_CONVERSION);
 
-        KeyAgreement mockKeyAgreement = mock(KeyAgreement.class);
-        when(mockKeyAgreement.generateSecret()).thenReturn(new byte[32]); // Simulate secret generation
+        KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
+        keyStore.load(null);
+        PublicKey javaPublicKeyOriginal = keyStore.getCertificate(ALIAS_CONVERSION).getPublicKey();
+        assertNotNull("Original Java PublicKey should not be null", javaPublicKeyOriginal);
+        byte[] originalEncodedSpki = javaPublicKeyOriginal.getEncoded();
 
-        try (MockedStatic<KeyAgreement> kaStatic = Mockito.mockStatic(KeyAgreement.class)) {
-            kaStatic.when(() -> KeyAgreement.getInstance(anyString())).thenReturn(mockKeyAgreement);
+        // When: Android PublicKey -> raw bytes
+        byte[] rawKeyBytes = ExtraLockKeyManager.extractX25519PublicKeyBytesFromEncoded(originalEncodedSpki);
 
-            // We expect an UnsupportedOperationException if the actual conversion is called
-            // To test the flow *around* it, we'd need to mock the conversion, which is too deep for this.
-            // Instead, this test primarily checks that the method can be called and
-            // KeyAgreement is initialized. If convertLibsignalPublicKeyToJavaPublicKey were working,
-            // it would proceed to doPhase.
-            // Since it throws, we expect that.
-            try {
-                 ExtraLockKeyManager.calculateSharedSecret(localPrivKey, peerPubKey);
-                 fail("Expected UnsupportedOperationException due to placeholder key conversion");
-            } catch (UnsupportedOperationException e) {
-                // This is expected due to the placeholder in convertLibsignalPublicKeyToJavaPublicKey
-                assertTrue(e.getMessage().contains("not yet implemented"));
-            } catch (Exception e) {
-                // If it's a different exception, something else went wrong.
-                fail("Unexpected exception: " + e.getMessage());
-            }
-        }
+        // Then
+        assertNotNull("Raw key bytes should not be null", rawKeyBytes);
+        assertEquals("Raw key bytes should be 32 bytes long", 32, rawKeyBytes.length);
+
+        // When: raw bytes -> Android PublicKey
+        PublicKey javaPublicKeyRestored = ExtraLockKeyManager.convertRawX25519ToJavaPublicKey(rawKeyBytes);
+
+        // Then
+        assertNotNull("Restored Java PublicKey should not be null", javaPublicKeyRestored);
+        assertArrayEquals("Original SPKI and restored SPKI should match", originalEncodedSpki, javaPublicKeyRestored.getEncoded());
+
+        // When: raw bytes -> libsignal ECPublicKey
+        ECPublicKey libsignalPublicKeyFromRaw = Curve.decodePoint(ByteUtil.prepend(rawKeyBytes, Curve.KEY_TYPE_X25519), 0);
+
+        // Then
+        assertNotNull("Libsignal ECPublicKey from raw should not be null", libsignalPublicKeyFromRaw);
+        assertArrayEquals("Original libsignal ECPublicKey and restored from raw should match",
+                idKeyOriginal.getPublicKey().serialize(), libsignalPublicKeyFromRaw.serialize());
+    }
+
+    @Test
+    public void testCalculateSharedSecret_endToEnd_shouldProduceMatchingSecrets() throws Exception {
+        // Given: Party A setup
+        IdentityKeyPair keyPairA = ExtraLockKeyManager.generateKeyPair(ACI_A);
+        PrivateKey privateKeyA = ExtraLockKeyManager.getPrivateKey(ACI_A);
+        ECPublicKey publicKeyA = keyPairA.getPublicKey();
+
+        // Given: Party B setup
+        IdentityKeyPair keyPairB = ExtraLockKeyManager.generateKeyPair(ACI_B);
+        PrivateKey privateKeyB = ExtraLockKeyManager.getPrivateKey(ACI_B);
+        ECPublicKey publicKeyB = keyPairB.getPublicKey();
+
+        // When
+        byte[] secretA = ExtraLockKeyManager.calculateSharedSecret(privateKeyA, publicKeyB);
+        byte[] secretB = ExtraLockKeyManager.calculateSharedSecret(privateKeyB, publicKeyA);
+
+        // Then
+        assertNotNull("Secret A should not be null", secretA);
+        assertNotNull("Secret B should not be null", secretB);
+        assertEquals("Secret A should be 32 bytes", 32, secretA.length);
+        assertEquals("Secret B should be 32 bytes", 32, secretB.length);
+        assertArrayEquals("Secret A and Secret B should match", secretA, secretB);
+        assertFalse("Shared secret should not be all zeros", Arrays.equals(new byte[32], secretA));
+    }
+
+    // Test for API S+ to cover the XDH path in KeyAgreement
+    @Test
+    @Config(sdk = Build.VERSION_CODES.S)
+    public void testCalculateSharedSecret_endToEnd_apiS_shouldProduceMatchingSecrets() throws Exception {
+        // Given: Party A setup
+        IdentityKeyPair keyPairA = ExtraLockKeyManager.generateKeyPair(ACI_A);
+        PrivateKey privateKeyA = ExtraLockKeyManager.getPrivateKey(ACI_A);
+        ECPublicKey publicKeyA = keyPairA.getPublicKey();
+
+        // Given: Party B setup
+        IdentityKeyPair keyPairB = ExtraLockKeyManager.generateKeyPair(ACI_B);
+        PrivateKey privateKeyB = ExtraLockKeyManager.getPrivateKey(ACI_B);
+        ECPublicKey publicKeyB = keyPairB.getPublicKey();
+
+        // When
+        byte[] secretA = ExtraLockKeyManager.calculateSharedSecret(privateKeyA, publicKeyB);
+        byte[] secretB = ExtraLockKeyManager.calculateSharedSecret(privateKeyB, publicKeyA);
+
+        // Then
+        assertNotNull("Secret A (API S) should not be null", secretA);
+        assertNotNull("Secret B (API S) should not be null", secretB);
+        assertEquals("Secret A (API S) should be 32 bytes", 32, secretA.length);
+        assertEquals("Secret B (API S) should be 32 bytes", 32, secretB.length);
+        assertArrayEquals("Secret A and Secret B (API S) should match", secretA, secretB);
+        assertFalse("Shared secret (API S) should not be all zeros", Arrays.equals(new byte[32], secretA));
     }
 }

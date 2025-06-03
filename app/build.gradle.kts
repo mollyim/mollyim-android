@@ -481,6 +481,7 @@ dependencies {
   "fossImplementation"(project(":libfakegms"))
   implementation(libs.bundles.media3)
   implementation(libs.conscrypt.android)
+  implementation("org.bouncycastle:bcprov-jdk15on:1.70")
   implementation(libs.signal.aesgcmprovider)
   implementation(libs.libsignal.android)
   implementation(libs.molly.ringrtc)

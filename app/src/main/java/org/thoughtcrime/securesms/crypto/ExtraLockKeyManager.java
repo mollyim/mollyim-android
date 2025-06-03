@@ -30,32 +30,26 @@ import java.security.cert.CertificateException;
 import java.security.interfaces.ECPublicKey as JavaECPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.security.Provider;
+import java.security.Security;
 
 import javax.crypto.KeyAgreement;
+
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.asn1.edec.EdECObjectIdentifiers;
+import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import org.bouncycastle.asn1.DERBitString;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public final class ExtraLockKeyManager {
 
     private static final String ANDROID_KEY_STORE_PROVIDER = "AndroidKeyStore";
     private static final String KEY_ALIAS_PREFIX = "extralock_";
-    private static final String KEY_AGREEMENT_ALGORITHM = "ECDH";
-    // For Curve25519, "secp256r1" is often used as a stand-in for ECGenParameterSpec
-    // as direct "curve25519" might not be supported by all KeyPairGenerator providers for Android Keystore.
-    // However, true Curve25519 (DJB's) is different from NIST curves like secp256r1.
-    // Signal uses DJB's Curve25519. Android M+ supports "curve25519" for KeyAgreement.
-    // Let's try to stick to "Ed25519" for key generation if it's for EdDSA keys or ensure "curve25519" is used if available for ECDH.
-    // KeyPairGenerator with "EC" for AndroidKeyStore might not support Curve25519 directly for key generation.
-    // This is a known tricky area. BouncyCastle is often used.
-    // For this exercise, we'll assume KeyPairGenerator *can* produce something usable for Curve25519
-    // or that KeyStoreHelper would abstract this if it were more complex (e.g. importing a BouncyCastle generated key).
-
-    // Let's use libsignal's key generation and then try to store/retrieve it from Keystore
-    // This simplifies the conversion problem significantly.
 
     @RequiresApi(Build.VERSION_CODES.M)
     public static IdentityKeyPair generateKeyPair(@NonNull String localAci) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchProviderException, java.security.spec.InvalidKeySpecException {
         String alias = KEY_ALIAS_PREFIX + localAci;
 
-        // Reverting to Keystore generation and focusing on conversion:
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(
                 KeyProperties.KEY_ALGORITHM_EC,
                 ANDROID_KEY_STORE_PROVIDER);
@@ -64,48 +58,31 @@ public final class ExtraLockKeyManager {
                 alias,
                 KeyProperties.PURPOSE_AGREE_KEY);
 
-        // Assuming 'curve25519' is a supported name for ECGenParameterSpec by the KeyPairGenerator provider on target API levels.
-        // This is optimistic for older Android versions or default providers.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-             specBuilder.setAlgorithmParameterSpec(new ECGenParameterSpec("X25519"));
-        } else {
-            // Fallback or assume it works - this is a known difficult part.
-            // For now, we'll proceed as if "curve25519" is a valid spec name.
-            // Using "secp256r1" as a placeholder will generate a NIST P-256 key, NOT a Curve25519 key.
-            // This will lead to cryptographic errors if used with actual Curve25519 operations.
-            // This highlights the need for a robust way to generate/use Curve25519 with AndroidKeystore.
-             specBuilder.setAlgorithmParameterSpec(new ECGenParameterSpec("secp256r1")); // Placeholder, NOT Curve25519
-        }
+        // For API 23 (M) and above, "X25519" should be a recognized curve name for KeyPairGenerator
+        // when the purpose is KeyAgreement and the underlying provider supports it.
+        // KeyAgreement itself supports "XDH" or "Curve25519" from API 23.
+        // KeyProperties.KEY_ALGORITHM_XDH is defined from API 31, but the curve itself is usable earlier.
+        specBuilder.setAlgorithmParameterSpec(new ECGenParameterSpec("X25519"));
 
         keyPairGenerator.initialize(specBuilder.build());
-        KeyPair javaKeyPair = keyPairGenerator.generateKeyPair(); // This key is in Keystore
-
-        // --- Conversion for Public Key ---
+        KeyPair javaKeyPair = keyPairGenerator.generateKeyPair();
         PublicKey javaPublicKey = javaKeyPair.getPublic();
         byte[] publicKeyBytes;
 
-        if (javaPublicKey instanceof JavaECPublicKey && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && "XDH".equals(javaPublicKey.getAlgorithm()))) {
-            // For X25519 keys generated as "XDH" on Android S+, getEncoded() might return a subjectPublicKeyInfo.
-            // We need to parse this to get the raw key. This is where extractX25519PublicKey would be essential.
-            // However, without a proper library, this is hard.
-            // As a placeholder, we'll assume it's extractable, but this is a known gap.
+        if (javaPublicKey instanceof JavaECPublicKey) {
+            // We expect an X25519 key. The actual parsing of the SPKI format
+            // to get raw bytes is handled by extractX25519PublicKeyBytesFromEncoded.
             publicKeyBytes = extractX25519PublicKeyBytesFromEncoded(javaPublicKey.getEncoded());
-
-        } else if (javaPublicKey instanceof JavaECPublicKey) {
-            // For generic ECKeys (like our secp256r1 placeholder), this path would be taken.
-            // This is NOT Curve25519/X25519.
-            // The following is a conceptual placeholder for extracting bytes if it were X25519.
-             publicKeyBytes = new byte[32]; // Dummy placeholder
         } else {
-            throw new InvalidKeyException("Unsupported public key type: " + javaPublicKey.toString());
+            throw new InvalidKeyException("Unsupported public key type, expected JavaECPublicKey: " + javaPublicKey.toString());
         }
 
         ECPublicKey ecPublicKey = Curve.decodePoint(ByteUtil.prepend(publicKeyBytes, Curve.KEY_TYPE_X25519), 0);
 
         // The private key remains in the Keystore, referenced by 'alias'.
         // ECPrivateKey for IdentityKeyPair is problematic as material isn't directly available.
-        // Create a dummy ECPrivateKey. Operations requiring the private key will use the Keystore PrivateKey object directly.
-        ECPrivateKey ecPrivateKey = Curve.decodePrivatePoint(new byte[32]); // Dummy, not the actual private key material
+        // Create a placeholder ECPrivateKey. Operations requiring the private key will use the Keystore PrivateKey object directly.
+        ECPrivateKey ecPrivateKey = Curve.decodePrivatePoint(new byte[32]); // Placeholder, not the actual private key material
 
         return new IdentityKeyPair(ecPublicKey, ecPrivateKey);
     }
@@ -134,28 +111,31 @@ public final class ExtraLockKeyManager {
         }
 
         byte[] rawPublicKeyBytes;
-        if (javaPublicKey instanceof JavaECPublicKey && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && "XDH".equals(javaPublicKey.getAlgorithm()))) {
-            // Placeholder for parsing X.509 encoded X25519 key
+        if (javaPublicKey instanceof JavaECPublicKey) {
             rawPublicKeyBytes = extractX25519PublicKeyBytesFromEncoded(javaPublicKey.getEncoded());
-        } else if (javaPublicKey instanceof JavaECPublicKey) {
-            // Placeholder for generic ECKey (e.g. secp256r1 from fallback)
-            // This is NOT X25519.
-            rawPublicKeyBytes = new byte[32]; // Dummy placeholder
         } else {
-             throw new InvalidKeyException("Unsupported public key type: " + javaPublicKey.toString());
+             throw new InvalidKeyException("Unsupported public key type, expected JavaECPublicKey: " + javaPublicKey.toString());
         }
         return Curve.decodePoint(ByteUtil.prepend(rawPublicKeyBytes, Curve.KEY_TYPE_X25519), 0);
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    public static byte[] calculateSharedSecret(@NonNull PrivateKey localPrivateKey, @NonNull ECPublicKey peerPublicKey) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, java.security.spec.InvalidKeySpecException {
-        // Ensure localPrivateKey is from AndroidKeyStore and algorithm matches what's expected for ECDH with X25519
+    public static byte[] calculateSharedSecret(@NonNull PrivateKey localPrivateKey, @NonNull ECPublicKey peerPublicKey) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, java.security.spec.InvalidKeySpecException, IOException {
         if (!ANDROID_KEY_STORE_PROVIDER.equals(localPrivateKey.getProvider().getName())) {
-            // Or if localPrivateKey.getAlgorithm() is not "EC" or "XDH"
-            // This check is important if private keys could come from other sources.
+            throw new InvalidKeyException("Local private key for ECDH must be from the AndroidKeyStore provider. Found: " + localPrivateKey.getProvider().getName());
         }
 
-        KeyAgreement keyAgreement = KeyAgreement.getInstance(KEY_AGREEMENT_ALGORITHM); // Use default provider for ECDH
+        // Note: localPrivateKey is from AndroidKeyStore.
+        // peerPublicKey is a libsignal ECPublicKey. It needs to be converted to java.security.PublicKey for KeyAgreement.
+
+        KeyAgreement keyAgreement;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            keyAgreement = KeyAgreement.getInstance(KeyProperties.KEY_ALGORITHM_XDH, ANDROID_KEY_STORE_PROVIDER);
+        } else {
+            // For API levels M-R (23-30), "ECDH" is used. The actual curve (X25519)
+            // is determined by the key material generated in AndroidKeyStore.
+            keyAgreement = KeyAgreement.getInstance("ECDH", ANDROID_KEY_STORE_PROVIDER);
+        }
         keyAgreement.init(localPrivateKey);
 
         byte[] peerPublicKeySerialized = peerPublicKey.serialize();
@@ -175,55 +155,87 @@ public final class ExtraLockKeyManager {
         return keyAgreement.generateSecret();
     }
 
-    // Placeholder for X.509 SubjectPublicKeyInfo to raw X25519 public key bytes
+    /**
+     * Extracts raw X25519 public key bytes from an X.509 SubjectPublicKeyInfo encoded byte array.
+     *
+     * @param encodedKey The X.509 encoded public key.
+     * @return The 32 raw public key bytes.
+     * @throws InvalidKeyException If the key is not a valid X25519 SPKI.
+     */
     private static byte[] extractX25519PublicKeyBytesFromEncoded(byte[] encodedKey) throws InvalidKeyException {
-        // This is a highly simplified placeholder.
-        // An actual implementation needs to parse the ASN.1 structure of SubjectPublicKeyInfo.
-        // For X25519, the key is usually after an AlgorithmIdentifier sequence.
-        // Example OID for X25519: 1.3.101.110
-        // If the encoded key is a SubjectPublicKeyInfo (SPKI) DER encoding:
-        // SPKI ::= SEQUENCE {
-        //   algorithm AlgorithmIdentifier,
-        //   publicKey BIT STRING }
-        // AlgorithmIdentifier ::= SEQUENCE {
-        //   algorithm OBJECT IDENTIFIER,
-        //   parameters ANY DEFINED BY algorithm OPTIONAL }
-        // The raw public key is inside the publicKey BIT STRING.
-        // For X25519, it's typically the last 32 bytes of the SPKI, but this is not robust.
-        if (encodedKey.length < 32) { // Basic sanity check
-            throw new InvalidKeyException("Encoded key too short to be X25519 SPKI.");
+        Provider bcProvider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
+        if (bcProvider == null) {
+            Security.addProvider(new BouncyCastleProvider());
         }
-        // THIS IS A GROSS OVERSIMPLIFICATION AND LIKELY INCORRECT FOR MOST SPKI
-        // A proper ASN.1 parser is required.
-        byte[] rawKey = new byte[32];
-        System.arraycopy(encodedKey, encodedKey.length - 32, rawKey, 0, 32);
-        // In a real scenario, use BouncyCastle or a similar library for robust parsing.
-        // e.g. org.bouncycastle.asn1.x509.SubjectPublicKeyInfo.getInstance(encodedKey).getPublicKeyData().getBytes()
-        // after verifying OID.
-        // For now, returning a dummy or potentially incorrect slice.
-        // This is a placeholder for a complex operation.
-        return rawKey; // Placeholder
+
+        try {
+            SubjectPublicKeyInfo spki = SubjectPublicKeyInfo.getInstance(encodedKey);
+            AlgorithmIdentifier algId = spki.getAlgorithm();
+
+            // OID for X25519 public key is 1.3.101.112 (EdECObjectIdentifiers.id_X25519)
+            if (!EdECObjectIdentifiers.id_X25519.equals(algId.getAlgorithm())) {
+                throw new InvalidKeyException("PublicKey OID is not id-X25519. Found OID: " + algId.getAlgorithm().getId());
+            }
+
+            // For X25519, the public key data is directly the 32 raw bytes.
+            // spki.getPublicKeyData() returns a DERBitString. getOctets() provides the raw byte content of the bit string.
+            byte[] rawKey = spki.getPublicKeyData().getOctets();
+
+            if (rawKey.length != 32) {
+                throw new InvalidKeyException("Extracted X25519 public key is not 32 bytes. Length: " + rawKey.length);
+            }
+            return rawKey;
+
+        } catch (Exception e) {
+            throw new InvalidKeyException("Failed to parse X25519 SubjectPublicKeyInfo from encoded key. " + e.getMessage(), e);
+        }
     }
 
-    // Placeholder for raw X25519 public key bytes to java.security.PublicKey (X.509)
-    private static PublicKey convertRawX25519ToJavaPublicKey(byte[] rawX25519PublicKeyBytes) throws NoSuchAlgorithmException, java.security.spec.InvalidKeySpecException {
-        // To convert raw X25519 bytes to a java.security.PublicKey, it needs to be wrapped
-        // into an X.509 SubjectPublicKeyInfo structure.
-        // This is non-trivial as it requires ASN.1 encoding.
-        // OID for X25519 is 1.3.101.110
-        // Structure: SubjectPublicKeyInfo (SEQUENCE) containing:
-        //   AlgorithmIdentifier (SEQUENCE) with OID for X25519
-        //   PublicKey (BIT STRING) containing the raw 32 bytes.
+    /**
+     * Converts raw X25519 public key bytes into a {@link PublicKey} object
+     * by wrapping them in an X.509 SubjectPublicKeyInfo structure.
+     *
+     * @param rawX25519PublicKeyBytes The 32 raw X25519 public key bytes.
+     * @return A {@link PublicKey} instance.
+     * @throws NoSuchAlgorithmException If the required KeyFactory algorithms are unavailable.
+     * @throws java.security.spec.InvalidKeySpecException If the key spec is invalid.
+     * @throws IOException If there's an error encoding the SubjectPublicKeyInfo.
+     */
+    private static PublicKey convertRawX25519ToJavaPublicKey(byte[] rawX25519PublicKeyBytes)
+            throws NoSuchAlgorithmException, java.security.spec.InvalidKeySpecException, IOException {
 
-        // Using BouncyCastle would be:
-        //   X25519PublicKeyParameters x25519Params = new X25519PublicKeyParameters(rawX25519PublicKeyBytes, 0);
-        //   SubjectPublicKeyInfo spki = SubjectPublicKeyInfoFactory.createSubjectPublicKeyInfo(x25519Params);
-        //   KeyFactory kf = KeyFactory.getInstance("XDH"); // Or "X25519"
-        //   return kf.generatePublic(new X509EncodedKeySpec(spki.getEncoded()));
+        if (rawX25519PublicKeyBytes == null || rawX25519PublicKeyBytes.length != 32) {
+            throw new java.security.spec.InvalidKeySpecException("Raw X25519 public key must be 32 bytes.");
+        }
 
-        // Without BouncyCastle, manual ASN.1 construction is needed, which is complex and error-prone.
-        // For this subtask, we cannot fully implement this without external libraries.
-        // We will throw UnsupportedOperationException to indicate this gap.
-        throw new UnsupportedOperationException("convertRawX25519ToJavaPublicKey requires ASN.1 encoding or a library like BouncyCastle and is not fully implemented.");
+        Provider bcProvider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
+        if (bcProvider == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+
+        try {
+            AlgorithmIdentifier algId = new AlgorithmIdentifier(EdECObjectIdentifiers.id_X25519);
+            DERBitString publicKeyData = new DERBitString(rawX25519PublicKeyBytes);
+            SubjectPublicKeyInfo spki = new SubjectPublicKeyInfo(algId, publicKeyData);
+            byte[] x509EncodedKeyBytes = spki.getEncoded();
+
+            KeyFactory keyFactory;
+            try {
+                keyFactory = KeyFactory.getInstance("XDH");
+            } catch (NoSuchAlgorithmException e) {
+                try {
+                   keyFactory = KeyFactory.getInstance("X25519", BouncyCastleProvider.PROVIDER_NAME);
+                } catch (NoSuchAlgorithmException | NoSuchProviderException ex) {
+                   throw new NoSuchAlgorithmException("Neither XDH nor X25519 KeyFactory available to convert X25519 key.", ex);
+                }
+            }
+
+            return keyFactory.generatePublic(new X509EncodedKeySpec(x509EncodedKeyBytes));
+
+        } catch (IOException e) {
+            throw new IOException("Failed to DER-encode SubjectPublicKeyInfo for X25519 key: " + e.getMessage(), e);
+        } catch (Exception e) { // Catch any other unexpected BouncyCastle or KeyFactory errors
+            throw new java.security.spec.InvalidKeySpecException("Failed to convert raw X25519 key to PublicKey: " + e.getMessage(), e);
+        }
     }
 }

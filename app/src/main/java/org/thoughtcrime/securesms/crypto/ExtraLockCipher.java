@@ -9,13 +9,22 @@ import org.signal.libsignal.protocol.hkdf.HKDFv3;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.Security; // Added for Security.getProvider/addProvider
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.ChaCha20ParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider; // Added for BouncyCastleProvider
+
 public final class ExtraLockCipher {
+
+    static {
+        if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+    }
 
     // HKDF_ALGORITHM is not directly used as libsignal's HKDF is instantiated directly.
     // private static final String HKDF_ALGORITHM = "HkdfSha256";
@@ -30,7 +39,7 @@ public final class ExtraLockCipher {
         this.sessionKey = deriveSessionKey(sharedSecret, passphrase.getBytes());
     }
 
-    private SecretKey deriveSessionKey(@NonNull byte[] ikm, @NonNull byte[] salt) {
+    SecretKey deriveSessionKey(@NonNull byte[] ikm, @NonNull byte[] salt) { // Made package-private for testing
         HKDF hkdf = new HKDFv3();
         byte[] derivedKeyMaterial = hkdf.deriveSecrets(ikm, salt, INFO_STRING.getBytes(), KEY_LENGTH_BYTES);
         // The HKDFv3 implementation in libsignal-protocol-java is:
