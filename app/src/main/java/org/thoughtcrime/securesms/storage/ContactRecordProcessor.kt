@@ -233,39 +233,35 @@ class ContactRecordProcessor(
       note = remote.proto.note.nullIfBlank() ?: ""
       avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
 
-      // PeerExtraPublicKey Merge Logic
-      val localRecipientId: RecipientId? =เปอร์extra_public_key_timestamp
-        local.proto.signalAci?.let { RecipientId.from(it) } ?:
-        local.proto.signalPni?.let { RecipientId.from(it) } ?:
-        local.proto.e164.nullIfBlank()?.let { recipientTable.getByE164(it).orElse(null) }
+      // Merge logic for PeerExtraPublicKey and its Timestamp
+      var finalPeerExtraPublicKey: ByteArray? = local.proto.peerExtraPublicKey?.toByteArray().nullIfEmpty()
+      var finalPeerExtraPublicKeyTimestamp: Long = local.proto.peerExtraPublicKeyTimestamp
 
-      var mergedPeerExtraPublicKey: ByteArray? = null
-      var mergedPeerExtraPublicKeyTimestamp: Long = 0
+      val remoteKey = remote.proto.peerExtraPublicKey?.toByteArray().nullIfEmpty()
+      val remoteTimestamp = remote.proto.peerExtraPublicKeyTimestamp
 
-      if (localRecipientId != null) {
-        val localIdentityRecord = SignalDatabase.identities().getIdentityRecord(localRecipientId).orElse(null)
-        mergedPeerExtraPublicKey = localIdentityRecord?.peerExtraPublicKey
-        mergedPeerExtraPublicKeyTimestamp = localIdentityRecord?.timestamp ?: 0
-      }
-
-      val remotePeerExtraPublicKey = remote.proto.peerExtraPublicKey?.toByteArray().nullIfEmpty()
-      val remotePeerExtraPublicKeyTimestamp = remote.proto.peerExtraPublicKeyTimestamp
-
-      if (remotePeerExtraPublicKey != null && remotePeerExtraPublicKeyTimestamp > 0) {
-        if (mergedPeerExtraPublicKey == null || remotePeerExtraPublicKeyTimestamp > mergedPeerExtraPublicKeyTimestamp) {
-          mergedPeerExtraPublicKey = remotePeerExtraPublicKey
-          mergedPeerExtraPublicKeyTimestamp = remotePeerExtraPublicKeyTimestamp
-        } else if (remotePeerExtraPublicKeyTimestamp == mergedPeerExtraPublicKeyTimestamp && !remotePeerExtraPublicKey.contentEquals(mergedPeerExtraPublicKey)) {
-          // Same timestamp, different keys. Prefer remote.
-          mergedPeerExtraPublicKey = remotePeerExtraPublicKey
-          // Timestamp remains the same (remotePeerExtraPublicKeyTimestamp)
+      if (remoteKey != null && remoteTimestamp > 0) {
+        if (finalPeerExtraPublicKey == null || remoteTimestamp > finalPeerExtraPublicKeyTimestamp) {
+          Log.d(TAG, "Using remote peerExtraPublicKey for ${remoteAci ?: remotePni ?: remote.proto.e164} due to newer timestamp or local having none.")
+          finalPeerExtraPublicKey = remoteKey
+          finalPeerExtraPublicKeyTimestamp = remoteTimestamp
+        } else if (remoteTimestamp == finalPeerExtraPublicKeyTimestamp && !remoteKey.contentEquals(finalPeerExtraPublicKey)) {
+          Log.d(TAG, "Using remote peerExtraPublicKey for ${remoteAci ?: remotePni ?: remote.proto.e164} due to different key at same timestamp.")
+          finalPeerExtraPublicKey = remoteKey
+          // Timestamp remains finalPeerExtraPublicKeyTimestamp (which is == remoteTimestamp)
         }
       }
 
-      if (mergedPeerExtraPublicKey != null) {
-        peerExtraPublicKey = mergedPeerExtraPublicKey.toByteString()
-        if (mergedPeerExtraPublicKeyTimestamp > 0) {
-          peerExtraPublicKeyTimestamp = mergedPeerExtraPublicKeyTimestamp
+      if (finalPeerExtraPublicKey != null) {
+        peerExtraPublicKey = finalPeerExtraPublicKey.toByteString()
+        if (finalPeerExtraPublicKeyTimestamp > 0) {
+          peerExtraPublicKeyTimestamp = finalPeerExtraPublicKeyTimestamp
+        } else {
+          // If somehow timestamp became 0 but key is present, try to use local or remote original non-zero timestamp if available
+          // This case should ideally not happen if remoteTimestamp > 0 check is effective
+          if (local.proto.peerExtraPublicKeyTimestamp > 0) peerExtraPublicKeyTimestamp = local.proto.peerExtraPublicKeyTimestamp
+          else if (remote.proto.peerExtraPublicKeyTimestamp > 0) peerExtraPublicKeyTimestamp = remote.proto.peerExtraPublicKeyTimestamp
+          else peerExtraPublicKeyTimestamp = 0 // Or System.currentTimeMillis() if a valid timestamp is mandatory
         }
       }
 
@@ -291,18 +287,29 @@ class ContactRecordProcessor(
     recipientTable.applyStorageSyncContactUpdate(update)
 
     // After RecipientTable update, explicitly save peerExtraPublicKey to IdentityTable if it changed
-    val localId: RecipientId? = update.old.proto.signalAci?.let { RecipientId.from(it) } ?:
-                                update.old.proto.signalPni?.let { RecipientId.from(it) } ?:
-                                update.old.proto.e164.nullIfBlank()?.let { recipientTable.getByE164(it).orElse(null) }
+    val recipientIdFromOld = update.old.proto.signalAci?.let { RecipientId.from(it) }
+      ?: update.old.proto.signalPni?.let { RecipientId.from(it) }
+      ?: update.old.proto.e164.nullIfBlank()?.let { recipientTable.getByE164(it).orElse(null) }
 
-    val newId: RecipientId? = update.new.proto.signalAci?.let { RecipientId.from(it) } ?:
-                              update.new.proto.signalPni?.let { RecipientId.from(it) } ?:
-                              update.new.proto.e164.nullIfBlank()?.let { recipientTable.getByE164(it).orElse(null) }
+    val recipientIdFromNew = update.new.proto.signalAci?.let { RecipientId.from(it) }
+      ?: update.new.proto.signalPni?.let { RecipientId.from(it) }
+      ?: update.new.proto.e164.nullIfBlank()?.let { recipientTable.getByE164(it).orElse(null) }
 
-    val recipientId = newId ?: localId
+    val recipientId = recipientIdFromNew ?: recipientIdFromOld
 
     if (recipientId != null) {
-      val localIdentityRecord = SignalDatabase.identities().getIdentityRecord(recipientId).orElse(null)
+      val addressName = update.new.proto.signalAci?.toString()
+        ?: update.new.proto.signalPni?.toStringWithoutPrefix()
+        ?: update.new.proto.e164.nullIfBlank()
+        ?: recipientTable.getServiceId(recipientId).orElse(null)?.toString()
+        ?: recipientTable.getE164(recipientId).orElse(null)
+
+      if (addressName == null) {
+        Log.w(TAG, "Cannot determine addressName for recipient $recipientId during PEAPK update.")
+        return
+      }
+
+      val localIdentityRecord = SignalDatabase.identities().getIdentityRecord(addressName).orElse(null)
       val mergedPeerExtraPublicKey = update.new.proto.peerExtraPublicKey?.toByteArray().nullIfEmpty()
       val mergedPeerExtraPublicKeyTimestamp = update.new.proto.peerExtraPublicKeyTimestamp
 
@@ -313,25 +320,32 @@ class ContactRecordProcessor(
                        (mergedPeerExtraPublicKey != null && localPeerExtraPublicKey == null) ||
                        (mergedPeerExtraPublicKey != null && localPeerExtraPublicKey != null && !mergedPeerExtraPublicKey.contentEquals(localPeerExtraPublicKey))
 
-      if (keyChanged || (mergedPeerExtraPublicKey != null && mergedPeerExtraPublicKeyTimestamp > localTimestamp)) {
-        val serviceId = update.new.proto.signalAci ?: update.new.proto.signalPni ?: return Log.w(TAG, "Cannot save identity for PEAPK update without a service ID.")
-        val identityKeyBytes = update.new.proto.identityKey?.toByteArray().nullIfEmpty() ?: return Log.w(TAG, "Cannot save identity for PEAPK update without an identity key.")
+      val timestampChangedAndValid = mergedPeerExtraPublicKey != null && mergedPeerExtraPublicKeyTimestamp > 0 && mergedPeerExtraPublicKeyTimestamp != localTimestamp
+
+      if (keyChanged || timestampChangedAndValid) {
+        // If the key itself changed, or if the key is present and its specific timestamp changed (and is valid).
+        // We prefer the mergedPeerExtraPublicKeyTimestamp if it's valid, otherwise the general record timestamp (which is localTimestamp here from previous record).
+        val effectiveTimestamp = if (mergedPeerExtraPublicKeyTimestamp > 0) mergedPeerExtraPublicKeyTimestamp else localTimestamp
+
+        val identityKeyBytes = update.new.proto.identityKey?.toByteArray().nullIfEmpty()
+                                ?: localIdentityRecord?.identityKey?.serialize() // Fallback to existing identity key if not in update.new
+                                ?: return Log.w(TAG, "Cannot save identity for PEAPK update for $addressName without a main identity key.")
 
         try {
-          val identityKey = IdentityKey(identityKeyBytes, 0)
+          val identityKey = org.signal.libsignal.protocol.IdentityKey(identityKeyBytes, 0)
           SignalDatabase.identities().saveIdentity(
-            serviceId.toString(),
+            addressName,
             recipientId,
             identityKey,
             StorageSyncModels.remoteToLocalIdentityStatus(update.new.proto.identityState),
             localIdentityRecord?.firstUse ?: (update.new.proto.identityKey.isNotEmpty()), // Best guess for firstUse
-            if (mergedPeerExtraPublicKeyTimestamp > 0) mergedPeerExtraPublicKeyTimestamp else System.currentTimeMillis(), // Use PEAPK timestamp if available and valid
+            effectiveTimestamp, // Use the PEAPK specific timestamp if valid, else the record's last update time
             localIdentityRecord?.nonblockingApproval ?: true, // Assume non-blocking if no prior record
             mergedPeerExtraPublicKey
           )
-          Log.d(TAG, "Updated peerExtraPublicKey for $recipientId in IdentityTable.")
+          Log.d(TAG, "Updated peerExtraPublicKey related fields for $addressName in IdentityTable.")
         } catch (e: org.signal.libsignal.protocol.InvalidKeyException) {
-          Log.w(TAG, "Failed to construct IdentityKey during PEAPK update for $recipientId", e)
+          Log.w(TAG, "Failed to construct IdentityKey during PEAPK update for $addressName", e)
         }
       }
     }

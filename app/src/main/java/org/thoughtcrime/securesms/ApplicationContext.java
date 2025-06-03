@@ -124,6 +124,10 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket;
+import org.thoughtcrime.securesms.crypto.ExtraLockKeyManager;
+import org.signal.libsignal.protocol.IdentityKeyPair;
+import org.signal.libsignal.protocol.ecc.ECPublicKey;
+import android.os.Build;
 
 import java.io.InterruptedIOException;
 import java.net.SocketException;
@@ -187,6 +191,13 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
     long startTime = System.currentTimeMillis();
 
+    // Initialize ExtraLock feature as early as possible after unlock and dependencies.
+    // This needs to be after SignalStore and other basic DB access is ready.
+    // Placing it after initializeAppDependencies seems appropriate.
+    initializeAppDependencies();
+    initializeExtraLockFeature(this);
+
+
     if (RemoteConfig.internalUser()) {
       Tracer.getInstance().setMaxBufferSize(35_000);
     }
@@ -201,7 +212,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
                               initializeLogging(false);
                               Log.i(TAG, "onCreateUnlock()");
                             })
-                            .addBlocking("app-dependencies", this::initializeAppDependencies)
+                            // initializeAppDependencies() is already called above
                             .addBlocking("security-provider", this::initializeSecurityProvider)
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", this::initializeRx)
@@ -742,6 +753,49 @@ public class ApplicationContext extends Application implements AppForegroundObse
   protected void attachBaseContext(Context base) {
     DynamicLanguageContextWrapper.updateContext(base);
     super.attachBaseContext(base);
+  }
+
+  private void initializeExtraLockFeature(Context context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (!TextSecurePreferences.isExtraLockKeyGenerated(context)) {
+        Log.i(TAG, "ExtraLock key not generated yet. Attempting generation.");
+        try {
+          Recipient self = Recipient.self();
+          if (self == null || self.getId().isUnknown()) {
+            Log.w(TAG, "Cannot generate ExtraLock key: Self recipient is not available or unknown.");
+            return;
+          }
+
+          String localAciString = self.getAci().orNull() != null ? self.getAci().get().toString() : null;
+          if (localAciString == null) {
+            // Fallback to serviceId if ACI is not present for some reason (should be rare for self)
+            localAciString = self.getServiceId().orNull() != null ? self.getServiceId().get().toString() : null;
+          }
+
+          if (localAciString == null) {
+            Log.e(TAG, "Local ACI or Service ID is null, cannot generate ExtraLock key for self.");
+            return;
+          }
+
+          Log.i(TAG, "Generating ExtraLock key pair for ACI: " + localAciString);
+          IdentityKeyPair extraLockKeyPair = ExtraLockKeyManager.generateKeyPair(localAciString);
+          ECPublicKey extraLockPublicKey = extraLockKeyPair.getPublicKey();
+
+          SignalDatabase.identities().saveExtraLockKey(self.getId(), localAciString, extraLockPublicKey.serialize());
+          TextSecurePreferences.setExtraLockKeyGenerated(context, true);
+          Log.i(TAG, "ExtraLock key pair generated and public key stored successfully.");
+
+        } catch (Exception e) {
+          Log.e(TAG, "Failed to generate or store ExtraLock key pair.", e);
+          // Depending on the exception, we might want to retry or disable the feature part.
+          // For now, just logging the error.
+        }
+      } else {
+        Log.i(TAG, "ExtraLock key already generated.");
+      }
+    } else {
+      Log.i(TAG, "ExtraLock feature requires Android M or higher. Current API: " + Build.VERSION.SDK_INT);
+    }
   }
 
   private static class ProviderInitializationException extends RuntimeException {

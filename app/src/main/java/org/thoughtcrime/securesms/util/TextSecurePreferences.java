@@ -166,6 +166,8 @@ public class TextSecurePreferences {
 
   private static final String GOOGLE_MAP_TYPE = "pref_google_map_type";
 
+  private static final String EXTRA_LOCK_KEY_GENERATED = "extralock_key_generated";
+
   public static String getGoogleMapType(Context context) {
     return getStringPreference(context, GOOGLE_MAP_TYPE, "normal");
   }
@@ -1080,5 +1082,13 @@ public class TextSecurePreferences {
   // NEVER rename these -- they're persisted by name
   public enum MediaKeyboardMode {
     EMOJI, STICKER, GIF
+  }
+
+  public static boolean isExtraLockKeyGenerated(Context context) {
+    return getBooleanPreference(context, EXTRA_LOCK_KEY_GENERATED, false);
+  }
+
+  public static void setExtraLockKeyGenerated(Context context, boolean value) {
+    setBooleanPreference(context, EXTRA_LOCK_KEY_GENERATED, value);
   }
 }

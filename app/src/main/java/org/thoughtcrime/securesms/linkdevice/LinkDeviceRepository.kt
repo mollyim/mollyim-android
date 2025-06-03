@@ -13,7 +13,9 @@ import org.signal.libsignal.protocol.ecc.Curve
 import org.thoughtcrime.securesms.backup.v2.ArchiveValidator
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.devicelist.protos.DeviceName
 import org.thoughtcrime.securesms.jobs.DeviceNameChangeJob
 import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob
@@ -154,6 +156,27 @@ object LinkDeviceRepository {
       return LinkDeviceResult.KeyError
     }
 
+    val self = Recipient.self()
+    val localPeerExtraPublicKey: ByteArray? = if (self.isResolving) {
+      Log.w(TAG, "Self recipient is still resolving. Cannot fetch ExtraPublicKey.")
+      null
+    } else if (self.id.isUnknown) {
+      Log.w(TAG, "Self recipient ID is unknown. Cannot fetch ExtraPublicKey.")
+      null
+    } else {
+      try {
+        SignalDatabase.identities().getExtraPublicKey(self.id)?.also {
+          logI(TAG, "Successfully fetched localPeerExtraPublicKey for device linking.")
+        } ?: run {
+          logW(TAG, "LocalPeerExtraPublicKey is null from database for self.")
+          null
+        }
+      } catch (e: Exception) {
+        logW(TAG, "Failed to fetch localPeerExtraPublicKey for device linking.", e)
+        null
+      }
+    }
+
     val deviceLinkResult = SignalNetwork.linkDevice.linkDevice(
       e164 = SignalStore.account.e164!!,
       aci = SignalStore.account.aci!!,
@@ -167,7 +190,8 @@ object LinkDeviceRepository {
       masterKey = SignalStore.svr.masterKey,
       code = verificationCodeResult.verificationCode,
       ephemeralMessageBackupKey = ephemeralMessageBackupKey,
-      mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey
+      mediaRootBackupKey = SignalStore.backup.mediaRootBackupKey,
+      localPeerExtraPublicKey = localPeerExtraPublicKey
     )
 
     return when (deviceLinkResult) {
