@@ -195,12 +195,16 @@ public class SignalServiceProfile {
     @JsonProperty("ssre2")
     private boolean storageServiceEncryptionV2;
 
+    @JsonProperty
+    private boolean extralock;
+
     @JsonCreator
     public Capabilities() {}
 
-    public Capabilities(boolean storage, boolean storageServiceEncryptionV2) {
+    public Capabilities(boolean storage, boolean storageServiceEncryptionV2, boolean extralock) {
       this.storage                    = storage;
       this.storageServiceEncryptionV2 = storageServiceEncryptionV2;
+      this.extralock                  = extralock;
     }
 
     public boolean isStorage() {
@@ -209,6 +213,10 @@ public class SignalServiceProfile {
 
     public boolean isStorageServiceEncryptionV2() {
       return storageServiceEncryptionV2;
+    }
+
+    public boolean isExtralock() {
+      return extralock;
     }
   }
 

@@ -1076,3 +1076,18 @@ class Recipient(
       get() = AppDependencies.recipientCache.getSelfId() != null
   }
 }
+
+/**
+ * Checks if the recipient is understood to support the ExtraLock feature.
+ * This relies on the peer's `extralock` capability (advertised as a boolean in their SignalServiceProfile.Capabilities)
+ * having been correctly translated into a bit in the `Recipient.capabilities.rawBits` field
+ * when their contact/profile information was synced and stored (via RecipientTable.maskCapabilitiesToLong).
+ */
+fun Recipient.supportsExtraLock(): Boolean {
+  val extraLockValue = org.signal.core.util.Bitmask.read(
+    this.capabilities.rawBits,
+    org.thoughtcrime.securesms.database.RecipientTable.Capabilities.EXTRA_LOCK,
+    org.thoughtcrime.securesms.database.RecipientTable.Capabilities.BIT_LENGTH
+  )
+  return org.thoughtcrime.securesms.recipients.Recipient.Capability.deserialize(extraLockValue.toInt()) == org.thoughtcrime.securesms.recipients.Recipient.Capability.SUPPORTED
+}

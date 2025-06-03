@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.signal.core.util.logging.Log
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.api.storage.SignalCallLinkRecord
 import org.whispersystems.signalservice.api.storage.SignalChatFolderRecord
@@ -192,10 +193,21 @@ object StorageSyncModels {
       note = recipient.note ?: ""
       avatarColor = localToRemoteAvatarColor(recipient.avatarColor)
 
-      val identityRecord = SignalDatabase.identities().getIdentityRecord(recipient.id).orElse(null)
-      if (identityRecord?.peerExtraPublicKey != null) {
-        peerExtraPublicKey = identityRecord.peerExtraPublicKey!!.toByteString()
-        peerExtraPublicKeyTimestamp = identityRecord.timestamp
+      if (recipient.id == Recipient.self().id) {
+        val selfRecipient = Recipient.self()
+        val addressName = selfRecipient.aci.orNull()?.toString() ?: selfRecipient.e164.orNull()
+        if (addressName != null) {
+          val identityRecord = SignalDatabase.identities().getIdentityRecord(addressName).orElse(null)
+          if (identityRecord?.peerExtraPublicKey != null) {
+            Log.i(TAG, "Adding peerExtraPublicKey and timestamp to ContactDetails for self (ACI: $addressName)")
+            peerExtraPublicKey = identityRecord.peerExtraPublicKey!!.toByteString()
+            peerExtraPublicKeyTimestamp = identityRecord.timestamp
+          } else {
+            Log.w(TAG, "peerExtraPublicKey or IdentityRecord not found for self (ACI: $addressName) during ContactDetails creation.")
+          }
+        } else {
+          Log.w(TAG, "Could not determine addressName (ACI/E164) for self during ContactDetails creation for peerExtraPublicKey.")
+        }
       }
 
     }.build().toSignalContactRecord(StorageId.forContact(rawStorageId))

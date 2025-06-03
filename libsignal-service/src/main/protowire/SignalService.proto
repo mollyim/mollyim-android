@@ -810,7 +810,9 @@ message ContactDetails {
   optional uint32 expireTimerVersion = 12;
   optional uint32 inboxPosition = 10;
   reserved /* archived */ 11;
-  // NEXT ID: 13
+  optional bytes peerExtraPublicKey = 13;
+  optional int64 peerExtraPublicKeyTimestamp = 14;
+  // NEXT ID: 15
 }
 
 message PaymentAddress {

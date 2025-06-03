@@ -105,7 +105,8 @@ class LinkDeviceApi(
     masterKey: MasterKey,
     mediaRootBackupKey: MediaRootBackupKey,
     code: String,
-    ephemeralMessageBackupKey: MessageBackupKey?
+    ephemeralMessageBackupKey: MessageBackupKey?,
+    localPeerExtraPublicKey: ByteArray? = null
   ): NetworkResult<Unit> {
     val cipher = PrimaryProvisioningCipher(deviceKey)
     val message = ProvisionMessage(
@@ -122,7 +123,8 @@ class LinkDeviceApi(
       accountEntropyPool = accountEntropyPool.value,
       masterKey = masterKey.serialize().toByteString(),
       mediaRootBackupKey = mediaRootBackupKey.value.toByteString(),
-      ephemeralBackupKey = ephemeralMessageBackupKey?.value?.toByteString()
+      ephemeralBackupKey = ephemeralMessageBackupKey?.value?.toByteString(),
+      peerExtraPublicKey = localPeerExtraPublicKey?.toByteString()
     )
     val ciphertext: ByteArray = cipher.encrypt(message)
     val body = ProvisioningMessage(encodeWithPadding(ciphertext))

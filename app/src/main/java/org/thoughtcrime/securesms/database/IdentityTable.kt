@@ -251,6 +251,65 @@ class IdentityTable internal constructor(context: Context?, databaseHelper: Sign
     EventBus.getDefault().post(IdentityRecord(recipientId, identityKey, verifiedStatus, firstUse, timestamp, nonBlockingApproval, peerExtraPublicKey))
   }
 
+  fun saveExtraLockKey(recipientId: RecipientId, addressName: String, extraPublicKey: ByteArray) {
+    Log.i(TAG, "Attempting to save ExtraLockKey for $addressName")
+    readableDatabase
+      .select(IDENTITY_KEY, VERIFIED, FIRST_USE, NONBLOCKING_APPROVAL)
+      .from(TABLE_NAME)
+      .where("$ADDRESS = ?", addressName)
+      .run()
+      .firstOrNull { cursor ->
+        val identityKeyString = cursor.requireNonNullString(IDENTITY_KEY)
+        val verifiedStatusInt = cursor.requireInt(VERIFIED)
+        val firstUseBool = cursor.requireBoolean(FIRST_USE)
+        val nonBlockingApprovalBool = cursor.requireBoolean(NONBLOCKING_APPROVAL)
+
+        if (identityKeyString.isNullOrEmpty()) {
+          Log.w(TAG, "Existing identity key is null or empty for $addressName. Cannot reliably save ExtraLockKey without it.")
+          null
+        } else {
+          val existingIdentityKey = IdentityKey(Base64.decode(identityKeyString), 0)
+          val existingVerifiedStatus = VerifiedStatus.forState(verifiedStatusInt)
+          saveIdentityInternal(
+            addressName = addressName,
+            recipientId = recipientId,
+            identityKey = existingIdentityKey,
+            verifiedStatus = existingVerifiedStatus,
+            firstUse = firstUseBool,
+            timestamp = System.currentTimeMillis(),
+            nonBlockingApproval = nonBlockingApprovalBool,
+            peerExtraPublicKey = extraPublicKey
+          )
+          Log.i(TAG, "ExtraLockKey saved for $addressName using saveIdentityInternal.")
+        }
+      } ?: run {
+      Log.w(TAG, "No existing identity record found for $addressName when trying to save ExtraLockKey. This is unexpected for self.")
+      // Optionally, if we are SURE this is only for self and self MUST have an identity key:
+      // throw IllegalStateException("Cannot save ExtraLockKey for self ($addressName) without an existing identity record.")
+      // Or, if we want to allow creating a new record (though this might miss the main identity key):
+      // Log.i(TAG, "Creating new identity record for $addressName to store ExtraLockKey. This may be incomplete if it's not for a fresh identity.")
+      // saveIdentityInternal(addressName, recipientId, IdentityKey(ByteArray(32)), VerifiedStatus.DEFAULT, true, System.currentTimeMillis(), true, extraPublicKey)
+    }
+  }
+
+  fun getExtraPublicKey(recipientId: RecipientId): ByteArray? {
+    val addressName = SignalDatabase.recipients().getServiceId(recipientId).orNull()?.toString()
+      ?: SignalDatabase.recipients().getE164(recipientId).orNull()
+      ?: run {
+        Log.w(TAG, "Cannot get addressName for recipientId: ${recipientId.serialize()} to fetch ExtraPublicKey")
+        return null
+      }
+
+    return readableDatabase
+      .select(PEER_EXTRA_PUBLIC_KEY)
+      .from(TABLE_NAME)
+      .where("$ADDRESS = ?", addressName)
+      .run()
+      .firstOrNull { cursor ->
+        cursor.getString(cursor.getColumnIndexOrThrow(PEER_EXTRA_PUBLIC_KEY))?.let { Base64.decode(it) }
+      }
+  }
+
   enum class VerifiedStatus {
     DEFAULT,
     VERIFIED,
