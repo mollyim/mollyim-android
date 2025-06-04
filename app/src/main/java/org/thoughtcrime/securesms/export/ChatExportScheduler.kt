@@ -8,7 +8,11 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.export.jobs.ScheduledChatExportWorker
+import org.thoughtcrime.securesms.export.model.PersistedScheduleData
 import org.thoughtcrime.securesms.export.ui.ExportFrequency // Assuming this is in the ui package from previous steps
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -20,7 +24,12 @@ class ChatExportScheduler(private val context: Context) {
 
     companion object {
         private const val TAG = "ChatExportScheduler"
+        private const val KVD_SCHEDULE_LIST_KEY = "chat_export_schedule_ids"
+        private const val KVD_SCHEDULE_PREFIX = "chat_export_schedule_"
     }
+
+    private val keyValueDatabase by lazy { SignalDatabase.keyValue() }
+    private val gson by lazy { Gson() }
 
     fun scheduleExport(
         threadId: Long,

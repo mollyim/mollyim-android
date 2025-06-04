@@ -14,6 +14,10 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationFactory
 import org.thoughtcrime.securesms.notifications.NotificationIds
 // import org.thoughtcrime.securesms.util.TextSecurePreferences // For potential notification settings - R class might be an issue
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import java.io.IOException
 
 /**
  * A WorkManager worker to perform scheduled chat exports.
@@ -85,42 +89,33 @@ class ScheduledChatExportWorker(
                         showNotification("Export Failed", "$chatName export failed: API URL missing.")
                         Result.failure()
                     } else {
-                        // Using a synchronous call here for simplicity within a CoroutineWorker.
-                        // For a real implementation, you might prefer the async version or ensure
-                        // the API client handles its own threading appropriately if it's blocking.
-                        var success = false
-                        var message = "API Export pending"
+                        try {
+                            // Call the new suspending function from ChatExportHelper
+                            val apiResult = chatExportHelper.sendExportToApiSuspending(content, apiUrl)
 
-                        // sendExportToApi is async, so we need a way to wait for its result in a coroutine.
-                        // This is a simplified way. Proper way might involve Kotlin Coroutines' CompletableDeferred.
-                        // For now, this will likely not work as expected without further changes to sendExportToApi
-                        // or using a blocking HTTP call if the client supports it.
-                        // For this step, we'll assume the helper method is adapted or a blocking alternative exists.
-
-                        // TODO: Adapt sendExportToApi or use a different mechanism for synchronous-like behavior in worker.
-                        // For now, let's simulate a direct call for structure, acknowledging this part needs refinement.
-                        Log.w(TAG, "API export in ScheduledChatExportWorker needs refinement for async operations. Simulating failure.")
-                        // Simulate a placeholder result as the current sendExportToApi is async with callback
-                        // In a real implementation, one would use a suspending HTTP client call or
-                        // convert the callback to a suspendCancellableCoroutine.
-                        success = false
-                        message = "API export mechanism in worker needs to be made synchronous or use coroutine synchronization to work correctly."
-
-
-                        if (success) {
-                            Log.i(TAG, "Scheduled API export successful for thread $threadId to $apiUrl.")
-                            showNotification("Export Successful", "$chatName exported to API.")
-                            Result.success()
-                        } else {
-                            Log.e(TAG, "Scheduled API export failed for thread $threadId: $message")
-                            showNotification("Export Failed", "$chatName API export failed: $message")
+                            if (apiResult.first) { // First element of Pair is success boolean
+                                Log.i(TAG, "Scheduled API export successful for thread $threadId to $apiUrl. Message: ${apiResult.second}")
+                                showNotification("Export Successful", "$chatName exported to API: ${apiResult.second}")
+                                Result.success()
+                            } else {
+                                Log.e(TAG, "Scheduled API export failed for thread $threadId: ${apiResult.second}")
+                                showNotification("Export Failed", "$chatName API export failed: ${apiResult.second}")
+                                Result.failure()
+                            }
+                        } catch (e: IOException) { // Catch specific IOExceptions from network issues
+                            Log.e(TAG, "IOException during API export for thread $threadId", e)
+                            showNotification("Export Network Error", "$chatName API export failed: ${e.message}")
+                            Result.failure()
+                        } catch (e: Exception) { // Catch any other unexpected errors
+                            Log.e(TAG, "Unexpected exception during API export for thread $threadId", e)
+                            showNotification("Export Error", "$chatName API export encountered an unexpected error: ${e.message}")
                             Result.failure()
                         }
                     }
                 }
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error during scheduled export for thread $threadId", e)
+        } catch (e: Exception) { // This will catch errors from getMessagesForThread, exporter.export, saveExportToFile etc.
+            Log.e(TAG, "Error during scheduled export processing for thread $threadId", e)
             showNotification("Export Error", "$chatName export encountered an error: ${e.message}")
             Result.failure()
         }

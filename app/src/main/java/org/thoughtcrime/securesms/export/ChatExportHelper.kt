@@ -28,6 +28,9 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 // IOException is already imported via java.io.IOException used in saveExportToFile
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.MediaUtil
 
@@ -221,6 +224,69 @@ class ChatExportHelper(private val context: Context) {
                         // Log.w(TAG, "API export failed with status: ${it.code}")
                         val responseBody = it.body?.string() ?: "No response body"
                         callback(false, "Export failed. Status: ${it.code}, Body: $responseBody")
+                    }
+                }
+            }
+        })
+    }
+
+    /**
+     * Sends the exported JSON data to a specified API endpoint, designed for use in coroutines.
+     *
+     * @param jsonContent The JSON string to send.
+     * @param apiUrl The URL of the API endpoint.
+     * @return Pair<Boolean, String> where first is success, second is message.
+     * @throws IOException if the underlying HTTP call fails at the network level before a response is received (e.g. host not found, network down).
+     */
+    suspend fun sendExportToApiSuspending(
+        jsonContent: String,
+        apiUrl: String
+    ): Pair<Boolean, String> = suspendCancellableCoroutine { continuation ->
+        // It's good practice to have a shared OkHttpClient instance.
+        // If the app has a dependency injection framework or a singleton provider for OkHttpClient,
+        // it should be used here instead of creating a new instance each time.
+        // For this example, a new instance is created.
+        val client = OkHttpClient()
+
+        val requestBody = jsonContent.toRequestBody("application/json; charset=utf-8".toMediaType())
+
+        val request = Request.Builder()
+            .url(apiUrl)
+            .post(requestBody)
+            // TODO: Add configurable headers, including Authorization, if needed.
+            // .addHeader("Authorization", "Bearer YOUR_TOKEN")
+            .build()
+
+        val call = client.newCall(request)
+
+        // Handle cancellation of the coroutine by cancelling the OkHttp call.
+        continuation.invokeOnCancellation {
+            call.cancel()
+        }
+
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Log using a class-specific TAG if available, or pass TAG from caller.
+                // Log.e("ChatExportHelper", "API export network failure for URL: $apiUrl", e)
+                if (continuation.isActive) {
+                    // Resume with an exception, which will be caught by the try-catch in the calling coroutine.
+                    continuation.resumeWithException(e)
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                // Log.d("ChatExportHelper", "Received response for API export to URL: $apiUrl. Status: ${response.code}")
+                response.use { // Ensures the response body is closed to prevent resource leaks.
+                    if (it.isSuccessful) {
+                        if (continuation.isActive) {
+                            continuation.resume(Pair(true, "Export successful. Status: ${it.code}"))
+                        }
+                    } else {
+                        val responseBodyString = it.body?.string() ?: "No response body"
+                        // Log.w("ChatExportHelper", "API export failed for URL: $apiUrl. Status: ${it.code}, Body: $responseBodyString")
+                        if (continuation.isActive) {
+                            continuation.resume(Pair(false, "Export failed. Status: ${it.code}, Body: $responseBodyString"))
+                        }
                     }
                 }
             }
