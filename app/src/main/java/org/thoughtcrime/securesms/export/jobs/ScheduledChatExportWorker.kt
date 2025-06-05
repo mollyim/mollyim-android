@@ -18,6 +18,8 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import java.io.IOException
+import org.thoughtcrime.securesms.export.model.ExportResult // Added
+import org.thoughtcrime.securesms.export.model.ExportErrorType // Added
 
 /**
  * A WorkManager worker to perform scheduled chat exports.
@@ -53,12 +55,26 @@ class ScheduledChatExportWorker(
         val exportFormat = ExportFormat.valueOf(exportFormatString)
         val exportDestination = ExportDestination.valueOf(exportDestinationString)
 
-        val chatExportHelper = ChatExportHelper(applicationContext)
-        val messages = chatExportHelper.getMessagesForThread(threadId)
+        // TODO: This worker will need ChatExportHelper injected if it's to be testable.
+        // For now, assuming it's instantiated directly with applicationContext and injected dependencies for helper.
+        // This part would need to be addressed in a DI setup for the worker itself.
+        val chatExportHelper = ChatExportHelper(applicationContext, SignalDatabase.messages(), SignalDatabase.attachments(), OkHttpClient())
+
+
+        val messagesResult = chatExportHelper.getMessagesForThread(threadId)
+        val messages: List<org.thoughtcrime.securesms.export.model.ExportedMessage> = when (messagesResult) {
+            is ExportResult.Success -> messagesResult.data
+            is ExportResult.Error -> {
+                Log.e(TAG, "Failed to get messages for thread $threadId: ${messagesResult.error.logMessage}")
+                showNotification("Export Failed", "Could not retrieve messages for $chatName: ${messagesResult.error.userMessage}")
+                return Result.failure()
+            }
+        }
 
         if (messages.isEmpty()) {
-            Log.i(TAG, "No messages to export for thread $threadId.")
-            // Optionally notify user that there was nothing to export for this schedule
+            Log.i(TAG, "No messages to export for thread $threadId. Worker completing successfully.")
+            // Optionally notify user, or just complete silently.
+            // showNotification("Export Notice", "No new messages to export for $chatName.")
             return Result.success() // Success, as there's no work to do.
         }
 
@@ -69,55 +85,63 @@ class ScheduledChatExportWorker(
         val content = exporter.export(messages)
         val fileBaseName = "ScheduledExport_${chatName.replace("[^a-zA-Z0-9.-]", "_")}"
 
-        return try {
-            when (exportDestination) {
-                ExportDestination.LOCAL_FILE -> {
-                    val filePath = chatExportHelper.saveExportToFile(content, fileBaseName, exporter.getFileExtension())
-                    if (filePath != null) {
-                        Log.i(TAG, "Scheduled export saved to: $filePath")
-                        showNotification("Export Successful", "$chatName exported to $filePath")
+        return when (exportDestination) {
+            ExportDestination.LOCAL_FILE -> {
+                when (val saveResult = chatExportHelper.saveExportToFile(content, fileBaseName, exporter.getFileExtension())) {
+                    is ExportResult.Success -> {
+                        Log.i(TAG, "Scheduled export saved to: ${saveResult.data}")
+                        showNotification("Export Successful", "$chatName exported to ${saveResult.data}")
                         Result.success()
-                    } else {
-                        Log.e(TAG, "Failed to save scheduled export to file for thread $threadId.")
-                        showNotification("Export Failed", "Could not save $chatName export.")
-                        Result.failure()
                     }
-                }
-                ExportDestination.API_ENDPOINT -> {
-                    if (apiUrl.isNullOrBlank()) {
-                        Log.e(TAG, "API URL is blank for scheduled export of thread $threadId.")
-                        showNotification("Export Failed", "$chatName export failed: API URL missing.")
+                    is ExportResult.Error -> {
+                        Log.e(TAG, "Failed to save scheduled export to file for thread $threadId: ${saveResult.error.logMessage}")
+                        showNotification("Export Failed", "Could not save $chatName export: ${saveResult.error.userMessage}")
                         Result.failure()
-                    } else {
-                        try {
-                            // Call the new suspending function from ChatExportHelper
-                            val apiResult = chatExportHelper.sendExportToApiSuspending(content, apiUrl)
-
-                            if (apiResult.first) { // First element of Pair is success boolean
-                                Log.i(TAG, "Scheduled API export successful for thread $threadId to $apiUrl. Message: ${apiResult.second}")
-                                showNotification("Export Successful", "$chatName exported to API: ${apiResult.second}")
-                                Result.success()
-                            } else {
-                                Log.e(TAG, "Scheduled API export failed for thread $threadId: ${apiResult.second}")
-                                showNotification("Export Failed", "$chatName API export failed: ${apiResult.second}")
-                                Result.failure()
-                            }
-                        } catch (e: IOException) { // Catch specific IOExceptions from network issues
-                            Log.e(TAG, "IOException during API export for thread $threadId", e)
-                            showNotification("Export Network Error", "$chatName API export failed: ${e.message}")
-                            Result.failure()
-                        } catch (e: Exception) { // Catch any other unexpected errors
-                            Log.e(TAG, "Unexpected exception during API export for thread $threadId", e)
-                            showNotification("Export Error", "$chatName API export encountered an unexpected error: ${e.message}")
-                            Result.failure()
-                        }
                     }
                 }
             }
-        } catch (e: Exception) { // This will catch errors from getMessagesForThread, exporter.export, saveExportToFile etc.
-            Log.e(TAG, "Error during scheduled export processing for thread $threadId", e)
-            showNotification("Export Error", "$chatName export encountered an error: ${e.message}")
-            Result.failure()
+            ExportDestination.API_ENDPOINT -> {
+                if (apiUrl.isNullOrBlank()) {
+                    Log.e(TAG, "API URL is blank for scheduled export of thread $threadId.")
+                    val error = ExportErrorType.ApiUrlMissing
+                    showNotification("Export Failed", "$chatName export failed: API URL missing.")
+                    Result.failure()
+                } else {
+                    try {
+                        when (val apiResult = chatExportHelper.sendExportToApiSuspending(content, apiUrl)) {
+                            is ExportResult.Success -> {
+                                Log.i(TAG, "Scheduled API export successful for thread $threadId to $apiUrl. Message: ${apiResult.data}")
+                                showNotification("Export Successful", "$chatName exported to API: ${apiResult.data}")
+                                Result.success()
+                            }
+                            is ExportResult.Error -> {
+                                val error = apiResult.error
+                                Log.e(TAG, "Scheduled API export failed for thread $threadId: ${error.logMessage}")
+                                showNotification("Export Failed", "$chatName API export failed: ${error.userMessage}")
+                                Result.failure()
+                            }
+                        }
+                    } catch (e: IOException) { // Catch network errors from sendExportToApiSuspending
+                        val error = ExportErrorType.NetworkError(
+                            userMessage = "Network error during API export. Please check your connection.",
+                            logMessage = "IOException during API export for thread $threadId to $apiUrl: ${e.message}",
+                            cause = e
+                        )
+                        Log.e(TAG, error.logMessage, e)
+                        showNotification("Export Failed", error.userMessage)
+                        Result.failure()
+                    } catch (e: Exception) { // Catch any other unexpected errors from the call itself
+                        val error = ExportErrorType.UnknownError(
+                            userMessage = "An unexpected error occurred during API export.",
+                            logMessage = "Unexpected exception during API export for thread $threadId: ${e.message}",
+                            cause = e
+                        )
+                        Log.e(TAG, error.logMessage, e)
+                        showNotification("Export Failed", error.userMessage)
+                        Result.failure()
+                    }
+                }
+            }
         }
     }
 

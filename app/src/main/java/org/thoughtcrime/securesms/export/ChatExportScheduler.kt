@@ -7,20 +7,26 @@ import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import com.google.gson.Gson
+import androidx.work.WorkManager // Added for injection
+import com.google.gson.Gson // Added for injection
 import com.google.gson.reflect.TypeToken
-import org.thoughtcrime.securesms.database.SignalDatabase
+// import org.thoughtcrime.securesms.database.SignalDatabase // No longer needed for KVD
+import org.thoughtcrime.securesms.database.KeyValueDatabase // Added for injection
 import org.thoughtcrime.securesms.export.jobs.ScheduledChatExportWorker
 import org.thoughtcrime.securesms.export.model.PersistedScheduleData
-import org.thoughtcrime.securesms.export.ui.ExportFrequency // Assuming this is in the ui package from previous steps
-import java.util.UUID
+import org.thoughtcrime.securesms.export.ui.ExportFrequency
+import java.util.UUID // Keep for now, though uniqueWorkName is deterministic
 import java.util.concurrent.TimeUnit
 
 /**
  * Manages the scheduling of chat exports using WorkManager.
  */
-class ChatExportScheduler(private val context: Context) {
+class ChatExportScheduler(
+    private val context: Context, // Context might still be needed for other things or future use
+    private val workManager: WorkManager,
+    private val keyValueDatabase: KeyValueDatabase,
+    private val gson: Gson
+) {
 
     companion object {
         private const val TAG = "ChatExportScheduler"
@@ -28,8 +34,7 @@ class ChatExportScheduler(private val context: Context) {
         private const val KVD_SCHEDULE_PREFIX = "chat_export_schedule_"
     }
 
-    private val keyValueDatabase by lazy { SignalDatabase.keyValue() }
-    private val gson by lazy { Gson() }
+    // Removed lazy initializers for keyValueDatabase and gson
 
     fun scheduleExport(
         threadId: Long,
@@ -39,11 +44,7 @@ class ChatExportScheduler(private val context: Context) {
         apiUrl: String?,
         frequency: ExportFrequency
     ): String {
-        val workManager = WorkManager.getInstance(context.applicationContext)
-        // Using threadId and a prefix for a more deterministic unique work name,
-        // allowing easier updates/cancellations if the user re-schedules for the same thread.
-        // However, if multiple distinct schedules for the same thread are desired, UUID is better.
-        // For now, let's assume one schedule per thread for simplicity of management.
+        // Use injected workManager
         val uniqueWorkName = "scheduled_export_thread_$threadId"
 
         val repeatIntervalMillis = when (frequency) {
@@ -64,8 +65,6 @@ class ChatExportScheduler(private val context: Context) {
         if (destination == "API_ENDPOINT") { // Assuming "API_ENDPOINT" is the enum name string
             constraintsBuilder.setRequiredNetworkType(NetworkType.CONNECTED)
         }
-        // Future: .setRequiresBatteryNotLow(true)
-        // Future: .setRequiresStorageNotLow(true)
         val constraints = constraintsBuilder.build()
 
         val exportWorkRequest = PeriodicWorkRequestBuilder<ScheduledChatExportWorker>(
@@ -73,47 +72,89 @@ class ChatExportScheduler(private val context: Context) {
         )
             .setInputData(inputData)
             .setConstraints(constraints)
-            .addTag(uniqueWorkName) // Tag can be used for querying status or cancelling
+            .addTag(uniqueWorkName)
             .build()
 
-        // REPLACE policy means if a schedule with this name exists, it's updated.
-        workManager.enqueueUniquePeriodicWork(
+        this.workManager.enqueueUniquePeriodicWork(
             uniqueWorkName,
             ExistingPeriodicWorkPolicy.REPLACE,
             exportWorkRequest
         )
 
-        // TODO: Persist the details of this schedule (uniqueWorkName, threadId, chatName, format, destination, apiUrl, frequency)
-        // in SharedPreferences or KeyValueDatabase to allow users to view and manage their schedules.
+        val scheduleData = PersistedScheduleData(
+            uniqueWorkName = uniqueWorkName,
+            threadId = threadId,
+            chatName = chatName,
+            format = format,
+            destination = destination,
+            apiUrl = apiUrl,
+            frequency = frequency.name // Store enum name
+        )
+        saveScheduleConfiguration(scheduleData)
+
         Log.i(TAG, "Scheduled export for thread '$chatName' ($threadId) with work name '$uniqueWorkName', frequency: $frequency")
-        return uniqueWorkName // Return the ID for potential management
+        return uniqueWorkName
     }
 
     fun cancelScheduledExport(uniqueWorkName: String) {
-        WorkManager.getInstance(context.applicationContext).cancelUniqueWork(uniqueWorkName)
-        // TODO: Remove the schedule from persistent storage as well.
+        this.workManager.cancelUniqueWork(uniqueWorkName)
+        removeScheduleConfiguration(uniqueWorkName)
         Log.i(TAG, "Cancelled scheduled export with work name '$uniqueWorkName'")
     }
 
     fun cancelAllScheduledExports() {
-        // This would typically involve retrieving all stored uniqueWorkNames and cancelling them.
-        // For now, just a placeholder.
-        // Or, if using a common tag for all export jobs:
-        // WorkManager.getInstance(context.applicationContext).cancelAllWorkByTag("CHAT_EXPORT_SCHEDULE_TAG")
-        Log.w(TAG, "cancelAllScheduledExports - Implementation needed to fetch and cancel all known jobs.")
+        val scheduleIds = getScheduleIds()
+        if (scheduleIds.isEmpty()) {
+            Log.i(TAG, "No scheduled exports to cancel.")
+            return
+        }
+        scheduleIds.forEach { uniqueWorkName ->
+            this.workManager.cancelUniqueWork(uniqueWorkName)
+            this.keyValueDatabase.remove(KVD_SCHEDULE_PREFIX + uniqueWorkName)
+        }
+        this.keyValueDatabase.remove(KVD_SCHEDULE_LIST_KEY)
+        Log.i(TAG, "Cancelled all ${scheduleIds.size} scheduled exports.")
     }
 
-    // TODO: Add methods to retrieve stored schedule configurations for UI display and management.
-    // fun getAllScheduledExports(): List<PersistedScheduleData> { ... }
-}
+    private fun saveScheduleConfiguration(scheduleData: PersistedScheduleData) {
+        val scheduleJson = this.gson.toJson(scheduleData)
+        this.keyValueDatabase.put(KVD_SCHEDULE_PREFIX + scheduleData.uniqueWorkName, scheduleJson)
 
-// Data class for persisting schedule info (example)
-// data class PersistedScheduleData(
-//    val uniqueWorkName: String,
-//    val threadId: Long,
-//    val chatName: String,
-//    val format: String,
-//    val destination: String,
-//    val apiUrl: String?,
-//    val frequency: String // Store enum name
-// )
+        val currentIds = getScheduleIds().toMutableSet()
+        currentIds.add(scheduleData.uniqueWorkName)
+        this.keyValueDatabase.put(KVD_SCHEDULE_LIST_KEY, this.gson.toJson(currentIds))
+        Log.d(TAG, "Saved schedule config for ${scheduleData.uniqueWorkName}")
+    }
+
+    private fun removeScheduleConfiguration(uniqueWorkName: String) {
+        this.keyValueDatabase.remove(KVD_SCHEDULE_PREFIX + uniqueWorkName)
+
+        val currentIds = getScheduleIds().toMutableSet()
+        if (currentIds.remove(uniqueWorkName)) {
+            this.keyValueDatabase.put(KVD_SCHEDULE_LIST_KEY, this.gson.toJson(currentIds))
+        }
+        Log.d(TAG, "Removed schedule config for $uniqueWorkName")
+    }
+
+    fun getScheduleConfig(uniqueWorkName: String): PersistedScheduleData? {
+        val scheduleJson = this.keyValueDatabase.getString(KVD_SCHEDULE_PREFIX + uniqueWorkName, null)
+        return scheduleJson?.let {
+            this.gson.fromJson(it, PersistedScheduleData::class.java)
+        }
+    }
+
+    fun getAllScheduledExportConfigs(): List<PersistedScheduleData> {
+        val scheduleIds = getScheduleIds()
+        return scheduleIds.mapNotNull { id ->
+            getScheduleConfig(id)
+        }
+    }
+
+    private fun getScheduleIds(): Set<String> {
+        val idsJson = this.keyValueDatabase.getString(KVD_SCHEDULE_LIST_KEY, null)
+        return idsJson?.let {
+            val type = object : TypeToken<Set<String>>() {}.type
+            this.gson.fromJson<Set<String>>(it, type)
+        } ?: emptySet()
+    }
+}

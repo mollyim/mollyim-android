@@ -3,14 +3,17 @@ package org.thoughtcrime.securesms.export
 import android.content.Context
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
+import org.thoughtcrime.securesms.database.AttachmentTable // Added
 import org.thoughtcrime.securesms.database.MessageTable
-import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.SignalDatabase // Will still be used for Recipient.resolved if not injecting that
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.Quote
 import org.thoughtcrime.securesms.export.model.ExportedAttachment
 import org.thoughtcrime.securesms.export.model.ExportedMessage
 import org.thoughtcrime.securesms.export.model.ExportedQuote
+import org.thoughtcrime.securesms.export.model.ExportResult
+import org.thoughtcrime.securesms.export.model.ExportErrorType
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.StickerSlide
 import android.os.Environment
@@ -28,6 +31,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 // IOException is already imported via java.io.IOException used in saveExportToFile
+// OkHttpClient import was already here
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -37,152 +41,176 @@ import org.thoughtcrime.securesms.util.MediaUtil
 /**
  * Helper class to fetch and map chat data for export.
  */
-class ChatExportHelper(private val context: Context) {
+class ChatExportHelper(
+    private val context: Context,
+    private val messageTable: MessageTable,
+    private val attachmentTable: AttachmentTable, // Injected, though usage in getMessagesForThread is indirect via MessageRecord
+    private val okHttpClient: OkHttpClient // Injected OkHttpClient
+) {
 
-    fun getMessagesForThread(threadId: Long): List<ExportedMessage> {
-        val exportedMessages = mutableListOf<ExportedMessage>()
-        val messageTable = SignalDatabase.messages() // Assuming direct access like this is possible
-        val attachmentTable = SignalDatabase.attachments() // Assuming direct access
-
-        // Using a cursor to iterate through all messages in a thread
-        // The getConversation method typically orders messages from newest to oldest.
-        // For export, chronological order (oldest to newest) is usually preferred.
-        // So we will fetch all and then reverse, or adapt the query if possible.
-        val messagesInDbOrder = mutableListOf<MessageRecord>()
-        messageTable.getConversation(threadId).use { reader ->
-            for (messageRecord in reader) {
-                messagesInDbOrder.add(messageRecord)
+    fun getMessagesForThread(threadId: Long): ExportResult<List<ExportedMessage>, ExportErrorType.DatabaseError> {
+        return try {
+            val exportedMessages = mutableListOf<ExportedMessage>()
+            // Use injected messageTable directly
+            val messagesInDbOrder = mutableListOf<MessageRecord>()
+            messageTable.getConversation(threadId).use { reader ->
+                for (messageRecord in reader) {
+                    messagesInDbOrder.add(messageRecord)
+                }
             }
-        }
-        // Reverse to get chronological order
-        messagesInDbOrder.reverse()
+            messagesInDbOrder.reverse()
 
+            for (record in messagesInDbOrder) {
+                val sender = Recipient.resolved(record.fromRecipient.id)
+                val attachments = mutableListOf<ExportedAttachment>()
 
-        for (record in messagesInDbOrder) {
-            val sender = Recipient.resolved(record.fromRecipient.id)
-            val attachments = mutableListOf<ExportedAttachment>()
-
-            if (record is MmsMessageRecord && record.slideDeck.slides.isNotEmpty()) {
-                record.slideDeck.slides.forEach { slide ->
-                    // Prefer local URI if the attachment is downloaded
-                    val localUri = slide.uri?.toString() ?: slide.transferProgressUri?.toString()
-                    val fileName = slide.fileName ?: MediaUtil.getFileName(context, slide.uri)
-
-                    attachments.add(
-                        ExportedAttachment(
-                            contentType = slide.contentType,
-                            fileName = fileName,
-                            localUri = localUri,
-                            downloadUrl = if (localUri == null) slide.downloadUrl else null, // Only relevant if not local
-                            size = slide.size,
-                            isVoiceNote = slide.isVoiceNote,
-                            isSticker = slide is StickerSlide
+                if (record is MmsMessageRecord && record.slideDeck.slides.isNotEmpty()) {
+                    record.slideDeck.slides.forEach { slide ->
+                        val localUri = slide.uri?.toString() ?: slide.transferProgressUri?.toString()
+                        val fileName = slide.fileName ?: MediaUtil.getFileName(context, slide.uri)
+                        attachments.add(
+                            ExportedAttachment(
+                                contentType = slide.contentType,
+                                fileName = fileName,
+                                localUri = localUri,
+                                downloadUrl = if (localUri == null) slide.downloadUrl else null,
+                                size = slide.size,
+                                isVoiceNote = slide.isVoiceNote,
+                                isSticker = slide is StickerSlide
+                            )
                         )
+                    }
+                } else if (record.attachments.isNotEmpty()) {
+                    record.attachments.forEach { attachment ->
+                        val dbAttachment = attachment as? DatabaseAttachment
+                        attachments.add(
+                            ExportedAttachment(
+                                contentType = dbAttachment?.contentType ?: "application/octet-stream",
+                                fileName = dbAttachment?.fileName,
+                                localUri = dbAttachment?.uri?.toString(),
+                                downloadUrl = null,
+                                size = dbAttachment?.size ?: 0L,
+                                isVoiceNote = dbAttachment?.isVoiceNote ?: false,
+                                isSticker = dbAttachment?.isSticker ?: false
+                            )
+                        )
+                    }
+                }
+
+                val quote: ExportedQuote? = record.quote?.let { dbQuote ->
+                    val quoteAuthor = Recipient.resolved(dbQuote.author)
+                    ExportedQuote(
+                        authorId = quoteAuthor.getPreferredExportIdentifier(), // Conceptual method
+                        authorName = quoteAuthor.getDisplayName(context),
+                        text = dbQuote.text?.toString(),
+                        originalTimestamp = dbQuote.id
                     )
                 }
-            } else if (record.attachments.isNotEmpty()) { // For older attachment models if any
-                 record.attachments.forEach { attachment ->
-                    val dbAttachment = attachment as? DatabaseAttachment
-                    attachments.add(
-                        ExportedAttachment(
-                            contentType = dbAttachment?.contentType ?: "application/octet-stream",
-                            fileName = dbAttachment?.fileName,
-                            localUri = dbAttachment?.uri?.toString(),
-                            downloadUrl = null, // Older model might not have separate download URL easily
-                            size = dbAttachment?.size ?: 0L,
-                            isVoiceNote = dbAttachment?.isVoiceNote ?: false,
-                            isSticker = dbAttachment?.isSticker ?: false
-                        )
+
+                val messageType = when {
+                    record.isOutgoing -> "outgoing"
+                    record.isIncoming -> "incoming"
+                    record.isJoin() -> "join"
+                    record.isGroupTimerChange() -> "timer_change"
+                    record.isGroupUpdate() -> "group_update"
+                    record.isGroupV2Leave() -> "group_leave"
+                    record.isEndSession -> "end_session"
+                    else -> "system"
+                }
+
+                exportedMessages.add(
+                    ExportedMessage(
+                        id = record.id,
+                        threadId = record.threadId,
+                        senderId = sender.getPreferredExportIdentifier(), // Conceptual method
+                        senderName = sender.getDisplayName(context),
+                        dateSent = record.dateSent,
+                        dateReceived = record.dateReceived,
+                        body = record.body?.toString(),
+                        messageType = messageType,
+                        attachments = attachments,
+                        quote = quote,
+                        isViewOnce = record.isViewOnce,
+                        isRemoteDelete = record.isRemoteDelete
                     )
-                 }
-            }
-
-
-            val quote: ExportedQuote? = record.quote?.let { dbQuote ->
-                val quoteAuthor = Recipient.resolved(dbQuote.author)
-                ExportedQuote(
-                    authorId = quoteAuthor.id.toString(), // Or use e164/UUID based on availability
-                    authorName = quoteAuthor.getDisplayName(context),
-                    text = dbQuote.text?.toString(),
-                    originalTimestamp = dbQuote.id // This 'id' in Quote is usually the original message's sent_timestamp
                 )
             }
-
-            val messageType = when {
-                record.isOutgoing -> "outgoing"
-                record.isIncoming -> "incoming"
-                record.isJoin() -> "join"
-                record.isGroupTimerChange() -> "timer_change"
-                record.isGroupUpdate() -> "group_update"
-                record.isGroupV2Leave() -> "group_leave"
-                record.isEndSession -> "end_session"
-                // Add more system message types as needed
-                else -> "system"
-            }
-
-            exportedMessages.add(
-                ExportedMessage(
-                    id = record.id,
-                    threadId = record.threadId,
-                    senderId = sender.id.toString(), // Or use e164/UUID
-                    senderName = sender.getDisplayName(context),
-                    dateSent = record.dateSent,
-                    dateReceived = record.dateReceived,
-                    body = record.body?.toString(),
-                    messageType = messageType,
-                    attachments = attachments,
-                    quote = quote,
-                    isViewOnce = record.isViewOnce,
-                    isRemoteDelete = record.isRemoteDelete
+            // Return success even if the list is empty, as per current decision.
+            ExportResult.Success(exportedMessages)
+        } catch (e: Exception) {
+            // Log.e(TAG, "Error fetching messages for thread $threadId", e) // Assuming TAG is available or passed
+            ExportResult.Error(
+                ExportErrorType.DatabaseError(
+                    userMessage = "Failed to retrieve messages from the database.",
+                    logMessage = "Database error fetching messages for thread $threadId: ${e.message}",
+                    cause = e
                 )
             )
         }
-        return exportedMessages
     }
 
     /**
-     * Saves the exported data to a file in the app's external files directory (e.g., Downloads/AppName).
-     * Returns the absolute path of the saved file, or null on failure.
+     * Saves the exported data to a file in the app's external files directory.
      */
     fun saveExportToFile(
         content: String,
         baseFileName: String, // e.g., "ChatExport_JohnDoe"
         fileExtension: String // e.g., "json" or "csv"
-    ): String? {
+    ): ExportResult<String, ExportErrorType> {
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
-            // External storage not available
-            // Consider logging this or throwing an exception
-            return null
+            return ExportResult.Error(ExportErrorType.StorageUnavailable)
         }
 
-        // Create a timestamped filename to avoid overwrites and ensure uniqueness
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val fileName = "${baseFileName}_${timeStamp}.$fileExtension"
 
-        // Get the directory for the app's public documents, or a subdirectory within Downloads
-        // Using getExternalFilesDir for simplicity, which is app-specific external storage.
-        // For saving to common Downloads, Storage Access Framework would be more appropriate for Android Q+
         val downloadsDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         if (downloadsDir == null) {
-            // Handle error: directory not accessible
-            return null
+            return ExportResult.Error(
+                ExportErrorType.FileSystemError(
+                    userMessage = "Downloads directory is not accessible.",
+                    logMessage = "Failed to access external files directory (Downloads)."
+                )
+            )
         }
 
         if (!downloadsDir.exists()) {
-            downloadsDir.mkdirs()
+            try {
+                downloadsDir.mkdirs()
+            } catch (se: SecurityException) {
+                 return ExportResult.Error(
+                    ExportErrorType.FileSystemError(
+                        userMessage = "Could not create downloads directory due to security restrictions.",
+                        logMessage = "Failed to create downloads directory: ${se.message}",
+                        cause = se
+                    )
+                )
+            }
         }
 
         val file = File(downloadsDir, fileName)
 
-        try {
+        return try {
             FileOutputStream(file).use { fos ->
                 fos.write(content.toByteArray(Charsets.UTF_8))
             }
-            return file.absolutePath
+            ExportResult.Success(file.absolutePath)
         } catch (e: IOException) {
-            // Log error e.g., Log.e(TAG, "Error saving export to file", e)
-            // Consider throwing a custom exception or returning a more specific error indicator
-            return null
+            ExportResult.Error(
+                ExportErrorType.FileSystemError(
+                    userMessage = "Failed to save the export file.",
+                    logMessage = "IOException saving export to file ${file.absolutePath}: ${e.message}",
+                    cause = e
+                )
+            )
+        } catch (se: SecurityException) {
+             return ExportResult.Error(
+                ExportErrorType.FileSystemError(
+                    userMessage = "Failed to save the export file due to security restrictions.",
+                    logMessage = "SecurityException saving export to file ${file.absolutePath}: ${se.message}",
+                    cause = se
+                )
+            )
         }
     }
 
@@ -235,18 +263,17 @@ class ChatExportHelper(private val context: Context) {
      *
      * @param jsonContent The JSON string to send.
      * @param apiUrl The URL of the API endpoint.
-     * @return Pair<Boolean, String> where first is success, second is message.
-     * @throws IOException if the underlying HTTP call fails at the network level before a response is received (e.g. host not found, network down).
+     * @return ExportResult<String, ExportErrorType> where String is a success message.
+     * @throws IOException if the underlying HTTP call fails at the network level before a response is received.
      */
     suspend fun sendExportToApiSuspending(
         jsonContent: String,
         apiUrl: String
-    ): Pair<Boolean, String> = suspendCancellableCoroutine { continuation ->
+    ): ExportResult<String, ExportErrorType> = suspendCancellableCoroutine { continuation ->
         // It's good practice to have a shared OkHttpClient instance.
         // If the app has a dependency injection framework or a singleton provider for OkHttpClient,
         // it should be used here instead of creating a new instance each time.
-        // For this example, a new instance is created.
-        val client = OkHttpClient()
+        // Use the injected okHttpClient
 
         val requestBody = jsonContent.toRequestBody("application/json; charset=utf-8".toMediaType())
 
@@ -257,7 +284,7 @@ class ChatExportHelper(private val context: Context) {
             // .addHeader("Authorization", "Bearer YOUR_TOKEN")
             .build()
 
-        val call = client.newCall(request)
+        val call = this.okHttpClient.newCall(request) // Use injected client
 
         // Handle cancellation of the coroutine by cancelling the OkHttp call.
         continuation.invokeOnCancellation {
@@ -266,26 +293,32 @@ class ChatExportHelper(private val context: Context) {
 
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                // Log using a class-specific TAG if available, or pass TAG from caller.
-                // Log.e("ChatExportHelper", "API export network failure for URL: $apiUrl", e)
                 if (continuation.isActive) {
-                    // Resume with an exception, which will be caught by the try-catch in the calling coroutine.
-                    continuation.resumeWithException(e)
+                    // Resume with an exception, this will be caught by the try-catch in the calling coroutine (ScheduledChatExportWorker)
+                    // and translated into ExportResult.Error(ExportErrorType.NetworkError(...)) there.
+                    continuation.resumeWithException(IOException("Network request failed for $apiUrl: ${e.message}", e))
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
-                // Log.d("ChatExportHelper", "Received response for API export to URL: $apiUrl. Status: ${response.code}")
                 response.use { // Ensures the response body is closed to prevent resource leaks.
                     if (it.isSuccessful) {
                         if (continuation.isActive) {
-                            continuation.resume(Pair(true, "Export successful. Status: ${it.code}"))
+                            continuation.resume(ExportResult.Success("Export successful. Status: ${it.code}"))
                         }
                     } else {
                         val responseBodyString = it.body?.string() ?: "No response body"
-                        // Log.w("ChatExportHelper", "API export failed for URL: $apiUrl. Status: ${it.code}, Body: $responseBodyString")
                         if (continuation.isActive) {
-                            continuation.resume(Pair(false, "Export failed. Status: ${it.code}, Body: $responseBodyString"))
+                            continuation.resume(
+                                ExportResult.Error(
+                                    ExportErrorType.ApiError(
+                                        statusCode = it.code,
+                                        userMessage = "API request failed. Please check the server.",
+                                        logMessage = "API export failed for URL $apiUrl. Status: ${it.code}, Body: $responseBodyString",
+                                        errorBody = responseBodyString
+                                    )
+                                )
+                            )
                         }
                     }
                 }
