@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+// Import ChatExportHelper
 import org.thoughtcrime.securesms.export.ChatExportHelper
 import org.thoughtcrime.securesms.export.formatter.ChatExporter
 import org.thoughtcrime.securesms.export.formatter.CsvChatExporter
@@ -26,7 +27,8 @@ import org.thoughtcrime.securesms.export.model.ExportErrorType // Added
  */
 class ScheduledChatExportWorker(
     appContext: Context,
-    workerParams: WorkerParameters
+    workerParams: WorkerParameters,
+    private val chatExportHelper: ChatExportHelper // Injected ChatExportHelper
 ) : CoroutineWorker(appContext, workerParams) {
 
     companion object {
@@ -55,13 +57,10 @@ class ScheduledChatExportWorker(
         val exportFormat = ExportFormat.valueOf(exportFormatString)
         val exportDestination = ExportDestination.valueOf(exportDestinationString)
 
-        // TODO: This worker will need ChatExportHelper injected if it's to be testable.
-        // For now, assuming it's instantiated directly with applicationContext and injected dependencies for helper.
-        // This part would need to be addressed in a DI setup for the worker itself.
-        val chatExportHelper = ChatExportHelper(applicationContext, SignalDatabase.messages(), SignalDatabase.attachments(), OkHttpClient())
+        // Remove local instantiation, use injected this.chatExportHelper
+        // val chatExportHelper = ChatExportHelper(applicationContext, SignalDatabase.messages(), SignalDatabase.attachments(), OkHttpClient())
 
-
-        val messagesResult = chatExportHelper.getMessagesForThread(threadId)
+        val messagesResult = this.chatExportHelper.getMessagesForThread(threadId)
         val messages: List<org.thoughtcrime.securesms.export.model.ExportedMessage> = when (messagesResult) {
             is ExportResult.Success -> messagesResult.data
             is ExportResult.Error -> {
@@ -87,7 +86,7 @@ class ScheduledChatExportWorker(
 
         return when (exportDestination) {
             ExportDestination.LOCAL_FILE -> {
-                when (val saveResult = chatExportHelper.saveExportToFile(content, fileBaseName, exporter.getFileExtension())) {
+                when (val saveResult = this.chatExportHelper.saveExportToFile(content, fileBaseName, exporter.getFileExtension())) {
                     is ExportResult.Success -> {
                         Log.i(TAG, "Scheduled export saved to: ${saveResult.data}")
                         showNotification("Export Successful", "$chatName exported to ${saveResult.data}")
@@ -108,7 +107,7 @@ class ScheduledChatExportWorker(
                     Result.failure()
                 } else {
                     try {
-                        when (val apiResult = chatExportHelper.sendExportToApiSuspending(content, apiUrl)) {
+                        when (val apiResult = this.chatExportHelper.sendExportToApiSuspending(content, apiUrl)) {
                             is ExportResult.Success -> {
                                 Log.i(TAG, "Scheduled API export successful for thread $threadId to $apiUrl. Message: ${apiResult.data}")
                                 showNotification("Export Successful", "$chatName exported to API: ${apiResult.data}")

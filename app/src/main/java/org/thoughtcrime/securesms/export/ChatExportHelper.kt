@@ -14,11 +14,12 @@ import org.thoughtcrime.securesms.export.model.ExportedMessage
 import org.thoughtcrime.securesms.export.model.ExportedQuote
 import org.thoughtcrime.securesms.export.model.ExportResult
 import org.thoughtcrime.securesms.export.model.ExportErrorType
+import org.thoughtcrime.securesms.export.util.FileSystemOps // Added import
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.StickerSlide
-import android.os.Environment
-import java.io.File
-import java.io.FileOutputStream
+import android.os.Environment // Still needed for Environment.DIRECTORY_DOWNLOADS
+import java.io.File // Still needed for 'new File(downloadsDir, fileName)'
+// import java.io.FileOutputStream // No longer directly used
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -45,7 +46,8 @@ class ChatExportHelper(
     private val context: Context,
     private val messageTable: MessageTable,
     private val attachmentTable: AttachmentTable, // Injected, though usage in getMessagesForThread is indirect via MessageRecord
-    private val okHttpClient: OkHttpClient // Injected OkHttpClient
+    private val okHttpClient: OkHttpClient, // Injected OkHttpClient
+    private val fileSystemOps: FileSystemOps // Injected FileSystemOps
 ) {
 
     fun getMessagesForThread(threadId: Long): ExportResult<List<ExportedMessage>, ExportErrorType.DatabaseError> {
@@ -157,60 +159,62 @@ class ChatExportHelper(
         baseFileName: String, // e.g., "ChatExport_JohnDoe"
         fileExtension: String // e.g., "json" or "csv"
     ): ExportResult<String, ExportErrorType> {
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
+        if (fileSystemOps.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
             return ExportResult.Error(ExportErrorType.StorageUnavailable)
         }
 
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val fileName = "${baseFileName}_${timeStamp}.$fileExtension"
 
-        val downloadsDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+        val downloadsDir = fileSystemOps.getExternalFilesDir(this.context, Environment.DIRECTORY_DOWNLOADS)
         if (downloadsDir == null) {
-            return ExportResult.Error(
-                ExportErrorType.FileSystemError(
-                    userMessage = "Downloads directory is not accessible.",
-                    logMessage = "Failed to access external files directory (Downloads)."
-                )
-            )
+            return ExportResult.Error(ExportErrorType.FileSystemError(
+                userMessage = "Download directory not accessible.",
+                logMessage = "Failed to access external files directory (Downloads)."
+            ))
         }
 
-        if (!downloadsDir.exists()) {
-            try {
-                downloadsDir.mkdirs()
-            } catch (se: SecurityException) {
-                 return ExportResult.Error(
-                    ExportErrorType.FileSystemError(
-                        userMessage = "Could not create downloads directory due to security restrictions.",
-                        logMessage = "Failed to create downloads directory: ${se.message}",
-                        cause = se
-                    )
-                )
+        if (!fileSystemOps.fileExists(downloadsDir)) {
+            if (!fileSystemOps.mkdirs(downloadsDir)) {
+                // Attempt to get path for logging, even if downloadsDir itself might be problematic if mkdirs failed for an existing path
+                val dirPathForLog = try { fileSystemOps.getAbsolutePath(downloadsDir) } catch (e: Exception) { "unknown" }
+                return ExportResult.Error(ExportErrorType.FileSystemError(
+                    userMessage = "Could not create download directory.",
+                    logMessage = "Failed to create download directory at $dirPathForLog"
+                ))
             }
         }
 
-        val file = File(downloadsDir, fileName)
+        val file = File(downloadsDir, fileName) // Still using java.io.File to define the target
 
-        return try {
-            FileOutputStream(file).use { fos ->
+        try {
+            fileSystemOps.openOutputStream(file)?.use { fos ->
                 fos.write(content.toByteArray(Charsets.UTF_8))
-            }
-            ExportResult.Success(file.absolutePath)
+                fos.flush() // Good practice to flush
+            } ?: return ExportResult.Error(ExportErrorType.FileSystemError( // Handle case where openOutputStream returns null
+                userMessage = "Could not open file for writing.",
+                logMessage = "openOutputStream returned null for file: ${fileSystemOps.getAbsolutePath(file)}"
+            ))
+
+            return ExportResult.Success(fileSystemOps.getAbsolutePath(file))
         } catch (e: IOException) {
-            ExportResult.Error(
-                ExportErrorType.FileSystemError(
-                    userMessage = "Failed to save the export file.",
-                    logMessage = "IOException saving export to file ${file.absolutePath}: ${e.message}",
-                    cause = e
-                )
-            )
-        } catch (se: SecurityException) {
-             return ExportResult.Error(
-                ExportErrorType.FileSystemError(
-                    userMessage = "Failed to save the export file due to security restrictions.",
-                    logMessage = "SecurityException saving export to file ${file.absolutePath}: ${se.message}",
-                    cause = se
-                )
-            )
+            return ExportResult.Error(ExportErrorType.FileSystemError(
+                userMessage = "Failed to write export data to file.",
+                logMessage = "IOException during file write: ${e.message}",
+                cause = e
+            ))
+        } catch (e: SecurityException) { // More specific catch for SecurityException
+             return ExportResult.Error(ExportErrorType.FileSystemError(
+                userMessage = "Failed to save the export file due to security restrictions.",
+                logMessage = "SecurityException during file operation for ${fileSystemOps.getAbsolutePath(file)}: ${e.message}",
+                cause = e
+            ))
+        } catch (e: Exception) { // Catch any other unexpected error during file operations
+            return ExportResult.Error(ExportErrorType.UnknownError(
+                userMessage = "An unexpected error occurred while saving the file.",
+                logMessage = "Unexpected error during file save for ${fileSystemOps.getAbsolutePath(file)}: ${e.message}",
+                cause = e
+            ))
         }
     }
 
