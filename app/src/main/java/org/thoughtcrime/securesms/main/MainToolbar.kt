@@ -78,7 +78,9 @@ import org.thoughtcrime.securesms.avatar.AvatarImage
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.components.settings.app.subscription.BadgeImageSmall
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
+import org.thoughtcrime.securesms.dependencies.GooglePlayBillingDependencies.context
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.recipients.rememberRecipientField
 
 interface MainToolbarCallback {
   fun onNewGroupClick()
@@ -96,6 +98,7 @@ interface MainToolbarCallback {
   fun onStoryPrivacyClick()
   fun onCloseSearchClick()
   fun onCloseArchiveClick()
+  fun onCloseActionModeClick()
   fun onSearchQueryUpdated(query: String)
   fun onNotificationProfileTooltipDismissed()
 
@@ -115,6 +118,7 @@ interface MainToolbarCallback {
     override fun onStoryPrivacyClick() = Unit
     override fun onCloseSearchClick() = Unit
     override fun onCloseArchiveClick() = Unit
+    override fun onCloseActionModeClick() = Unit
     override fun onSearchQueryUpdated(query: String) = Unit
     override fun onNotificationProfileTooltipDismissed() = Unit
   }
@@ -141,7 +145,8 @@ data class MainToolbarState(
   val hasPassphrase: Boolean = false,
   val proxyState: ProxyState = ProxyState.NONE,
   @StringRes val searchHint: Int = R.string.SearchToolbar_search,
-  val searchQuery: String = ""
+  val searchQuery: String = "",
+  val actionModeCount: Int = 0
 ) {
   enum class ProxyState(@DrawableRes val icon: Int) {
     NONE(-1),
@@ -158,7 +163,10 @@ fun MainToolbar(
   callback: MainToolbarCallback
 ) {
   if (state.mode == MainToolbarMode.ACTION_MODE) {
-    TopAppBar(title = {})
+    ActionModeToolbar(
+      state = state,
+      callback = callback
+    )
     return
   }
 
@@ -204,6 +212,32 @@ fun MainToolbar(
       false -> ArchiveToolbar(state, callback)
     }
   }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ActionModeToolbar(
+  state: MainToolbarState,
+  callback: MainToolbarCallback
+) {
+  TopAppBar(
+    colors = TopAppBarDefaults.topAppBarColors(
+      containerColor = state.toolbarColor ?: MaterialTheme.colorScheme.surface
+    ),
+    navigationIcon = {
+      IconButtons.IconButton(onClick = {
+        callback.onCloseActionModeClick()
+      }) {
+        Icon(
+          imageVector = ImageVector.vectorResource(R.drawable.symbol_x_24),
+          contentDescription = stringResource(R.string.CallScreenTopBar__go_back)
+        )
+      }
+    },
+    title = {
+      Text(text = context.resources.getQuantityString(R.plurals.ConversationListFragment_s_selected, state.actionModeCount, state.actionModeCount))
+    }
+  )
 }
 
 @Composable
@@ -346,8 +380,10 @@ private fun PrimaryToolbar(
             }
         )
 
+        val badge by rememberRecipientField(state.self) { featuredBadge }
+
         BadgeImageSmall(
-          badge = state.self.featuredBadge,
+          badge = badge,
           modifier = Modifier
             .padding(start = 14.dp, top = 16.dp)
             .size(16.dp)

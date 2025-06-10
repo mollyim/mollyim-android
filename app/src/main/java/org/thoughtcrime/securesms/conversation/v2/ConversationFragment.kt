@@ -326,6 +326,7 @@ import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.getQuote
 import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
+import org.thoughtcrime.securesms.util.hasLinkPreview
 import org.thoughtcrime.securesms.util.hasNonTextSlide
 import org.thoughtcrime.securesms.util.isValidReactionTarget
 import org.thoughtcrime.securesms.util.padding
@@ -937,7 +938,7 @@ class ConversationFragment :
             firstRender = false
             binding.conversationItemRecycler.doAfterNextLayout {
               SignalLocalMetrics.ConversationOpen.onRenderFinished()
-              (requireActivity() as? MainActivity)?.onFirstRender()
+              (context as? MainActivity)?.onFirstRender()
               doAfterFirstRender()
             }
           }
@@ -1378,7 +1379,7 @@ class ConversationFragment :
 
   private fun presentNavigationIconForNormal() {
     if (!resources.getWindowSizeClass().isSplitPane()) {
-      binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_left_24)
+      binding.toolbar.setNavigationIcon(R.drawable.symbol_arrow_start_24)
       binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button)
       binding.toolbar.setNavigationOnClickListener {
         binding.root.hideKeyboard(composeText)
@@ -1662,7 +1663,8 @@ class ConversationFragment :
 
     if (editMessage.body == composeText.editableText.toString() &&
       editMessage.getQuote()?.displayText?.toString() == inputPanel.quote.map { it.text }.orNull() &&
-      editMessage.messageRanges == composeText.styling
+      editMessage.messageRanges == composeText.styling &&
+      editMessage.hasLinkPreview() == inputPanel.hasLinkPreview()
     ) {
       Log.d(TAG, "Updated message matches original, exiting edit mode")
       inputPanel.exitEditMessageMode()

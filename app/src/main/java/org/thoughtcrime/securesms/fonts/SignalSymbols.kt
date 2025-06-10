@@ -190,7 +190,7 @@ object SignalSymbols {
 
     REFRESH('\uE000'),
     ACTIVATE_PAYMENTS('\uE000'),
-    CALENDAR('\uE000')
+    CALENDAR('\uE0A2')
   }
 
   enum class Weight {

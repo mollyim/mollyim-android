@@ -5,7 +5,10 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import org.json.JSONException
 import org.json.JSONObject
+import org.signal.core.util.ByteSize
+import org.signal.core.util.bytes
 import org.signal.core.util.gibiBytes
+import org.signal.core.util.kibiBytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.mebiBytes
 import org.thoughtcrime.securesms.BuildConfig
@@ -959,11 +962,27 @@ object RemoteConfig {
   // }
   val messageBackups: Boolean = false
 
+  val backupFallbackArchiveCdn: Int by remoteInt(
+    key = "global.backups.mediaTierFallbackCdnNumber",
+    hotSwappable = true,
+    active = true,
+    defaultValue = 3
+  )
+
+  /** Max plaintext unpadded file size for backup thumbnails. */
+  val backupMaxThumbnailFileSize: ByteSize by remoteValue(
+    key = "global.backups.maxThumbnailFileSizeBytes",
+    hotSwappable = true,
+    active = true
+  ) { value ->
+    value.asLong(8.kibiBytes.inWholeBytes).bytes
+  }
+
   /** Whether unauthenticated chat web socket is backed by libsignal-net  */
   @JvmStatic
   @get:JvmName("libSignalWebSocketEnabled")
   // val libSignalWebSocketEnabled: Boolean by remoteValue(
-  //   key = "android.libsignalWebSocketEnabled.3",
+  //   key = "android.libsignalWebSocketEnabled.5",
   //   hotSwappable = false
   // ) { value ->
   //   value.asBoolean(false) || Environment.IS_NIGHTLY

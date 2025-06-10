@@ -125,7 +125,6 @@ class AccountRecordProcessor(
       preferContactAvatars = remote.proto.preferContactAvatars
       universalExpireTimer = remote.proto.universalExpireTimer
       primarySendsSms = false
-      e164 = if (SignalStore.account.isPrimaryDevice) local.proto.e164 else remote.proto.e164
       preferredReactionEmoji = remote.proto.preferredReactionEmoji.takeIf { it.isNotEmpty() } ?: local.proto.preferredReactionEmoji
       displayBadgesOnProfile = remote.proto.displayBadgesOnProfile
       subscriptionManuallyCancelled = remote.proto.subscriptionManuallyCancelled
@@ -138,6 +137,7 @@ class AccountRecordProcessor(
       hasCompletedUsernameOnboarding = remote.proto.hasCompletedUsernameOnboarding || local.proto.hasCompletedUsernameOnboarding
       username = remote.proto.username
       usernameLink = remote.proto.usernameLink
+      notificationProfileManualOverride = remote.proto.notificationProfileManualOverride
       avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())
