@@ -524,7 +524,7 @@ dependencies {
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.rxdogtag)
   implementation(libs.androidx.credentials)
-  implementation(libs.androidx.credentials.compat)
+  "gmsImplementation"(libs.androidx.credentials.compat)
 
   implementation(project(":libnetcipher"))
   implementation(libs.molly.argon2) { artifact { type = "aar" } }
