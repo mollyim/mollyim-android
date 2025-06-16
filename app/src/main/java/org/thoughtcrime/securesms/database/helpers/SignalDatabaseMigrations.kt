@@ -131,6 +131,9 @@ import org.thoughtcrime.securesms.database.helpers.migration.V271_AddNotificatio
 import org.thoughtcrime.securesms.database.helpers.migration.V272_UpdateUnreadCountIndices
 import org.thoughtcrime.securesms.database.helpers.migration.V273_FixUnreadOriginalMessages
 import org.thoughtcrime.securesms.database.helpers.migration.V274_BackupMediaSnapshotLastSeenOnRemote
+import org.thoughtcrime.securesms.database.helpers.migration.V275_EnsureDefaultAllChatsFolder
+import org.thoughtcrime.securesms.database.helpers.migration.V276_AttachmentCdnDefaultValueMigration
+import org.thoughtcrime.securesms.database.helpers.migration.V277_AddNotificationProfileStorageSync
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -264,10 +267,13 @@ object SignalDatabaseMigrations {
     271 to V271_AddNotificationProfileIdColumn,
     272 to V272_UpdateUnreadCountIndices,
     273 to V273_FixUnreadOriginalMessages,
-    274 to V274_BackupMediaSnapshotLastSeenOnRemote
+    274 to V274_BackupMediaSnapshotLastSeenOnRemote,
+    275 to V275_EnsureDefaultAllChatsFolder,
+    276 to V276_AttachmentCdnDefaultValueMigration,
+    277 to V277_AddNotificationProfileStorageSync
   )
 
-  const val DATABASE_VERSION = 274
+  const val DATABASE_VERSION = 277
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(

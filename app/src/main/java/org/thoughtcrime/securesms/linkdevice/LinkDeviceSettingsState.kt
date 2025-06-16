@@ -19,6 +19,7 @@ data class LinkDeviceSettingsState(
   val linkUri: Uri? = null,
   val linkDeviceResult: LinkDeviceResult = LinkDeviceResult.None,
   val linkWithoutQrCode: Boolean = false,
+  val canLinkDevices: Boolean = !SignalStore.account.isLinkedDevice,
   val seenBioAuthEducationSheet: Boolean = false,
   val needsBioAuthEducationSheet: Boolean = !seenBioAuthEducationSheet && SignalStore.uiHints.lastSeenLinkDeviceAuthSheetTime < System.currentTimeMillis() - 30.days.inWholeMilliseconds,
   val bottomSheetVisible: Boolean = false,

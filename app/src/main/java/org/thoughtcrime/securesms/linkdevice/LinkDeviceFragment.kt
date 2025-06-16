@@ -197,7 +197,7 @@ class LinkDeviceFragment : ComposeFragment() {
     Scaffolds.Settings(
       title = stringResource(id = R.string.preferences__linked_devices),
       onNavigationClick = { navController.popOrFinish() },
-      navigationIconPainter = painterResource(id = R.drawable.ic_arrow_left_24),
+      navigationIconPainter = painterResource(id = R.drawable.symbol_arrow_start_24),
       navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close)
     ) { contentPadding: PaddingValues ->
       DeviceListScreen(
@@ -408,6 +408,7 @@ fun DeviceListScreen(
 
     Buttons.LargeTonal(
       onClick = onLinkNewDeviceClicked,
+      enabled = state.canLinkDevices,
       modifier = Modifier
         .defaultMinSize(300.dp)
         .padding(bottom = 8.dp)

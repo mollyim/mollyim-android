@@ -258,7 +258,7 @@ object LinkDeviceRepository {
         outputStream = outputStream,
         append = { tempBackupFile.appendBytes(it) },
         messageBackupKey = ephemeralMessageBackupKey,
-        mediaBackupEnabled = false,
+        skipMediaBackup = true,
         forTransfer = true,
         cancellationSignal = cancellationSignal
       )

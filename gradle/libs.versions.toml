@@ -13,7 +13,7 @@ androidx-window = "1.3.0"
 glide = "4.15.1"
 gradle = "8.9.0"
 kotlin = "2.1.0"
-libsignal-client = "0.71.1"
+libsignal-client = "0.73.2"
 mp4parser = "1.9.39"
 android-gradle-plugin = "8.7.2"
 accompanist = "0.28.0"
@@ -114,6 +114,8 @@ androidx-asynclayoutinflater = "androidx.asynclayoutinflater:asynclayoutinflater
 androidx-asynclayoutinflater-appcompat = "androidx.asynclayoutinflater:asynclayoutinflater-appcompat:1.1.0-alpha01"
 androidx-emoji2 = "androidx.emoji2:emoji2:1.5.0"
 androidx-documentfile = "androidx.documentfile:documentfile:1.0.1"
+androidx-credentials = "androidx.credentials:credentials:1.5.0"
+androidx-credentials-compat = "androidx.credentials:credentials-play-services-auth:1.5.0"
 androidx-splashscreen = "androidx.core:core-splashscreen:1.0.1"
 androidx-webkit = "androidx.webkit:webkit:1.4.0"
 android-billing = "com.android.billingclient:billing-ktx:7.1.1"
@@ -142,7 +144,7 @@ libsignal-client = { module = "org.signal:libsignal-client", version.ref = "libs
 libsignal-android = { module = "org.signal:libsignal-android", version.ref = "libsignal-client" }
 protobuf-gradle-plugin = { module = "com.google.protobuf:protobuf-gradle-plugin", version.ref = "protobuf-gradle-plugin" }
 signal-aesgcmprovider = "org.signal:aesgcmprovider:0.0.4"
-molly-ringrtc = "im.molly:ringrtc-android:2.52.1-1"
+molly-ringrtc = "im.molly:ringrtc-android:2.52.3-1"
 signal-android-database-sqlcipher = "org.signal:sqlcipher-android:4.6.0-S1"
 
 # MOLLY
