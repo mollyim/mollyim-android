@@ -408,6 +408,7 @@ fun DeviceListScreen(
 
     Buttons.LargeTonal(
       onClick = onLinkNewDeviceClicked,
+      enabled = state.canLinkDevices,
       modifier = Modifier
         .defaultMinSize(300.dp)
         .padding(bottom = 8.dp)
