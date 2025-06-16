@@ -17,7 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.Navigation;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -67,7 +66,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     Toolbar toolbar = view.findViewById(R.id.toolbar);
-    toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
+    toolbar.setNavigationOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
   }
 
   @Override
