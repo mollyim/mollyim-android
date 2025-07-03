@@ -74,8 +74,6 @@ class SignalServiceNetworkAccess(context: Context) {
     private const val HTTPS_CLIENTS_4_GOOGLE_COM = "https://clients4.google.com"
     private const val HTTPS_GOOGLEMAIL_COM = "https://googlemail.com"
     private const val HTTPS_GITHUB_GITHUBASSETS_COM = "https://github.githubassets.com"
-    private const val HTTPS_PINTEREST_COM = "https://pinterest.com"
-    private const val HTTPS_WWW_REDDITSTATIC_COM = "https://www.redditstatic.com"
     private const val HTTPS_WWW_GOOGLE_COM_EG = "https://www.google.com.eg"
     private const val HTTPS_WWW_GOOGLE_AE = "https://www.google.ae"
     private const val HTTPS_WWW_GOOGLE_COM_OM = "https://www.google.com.om"
@@ -83,6 +81,7 @@ class SignalServiceNetworkAccess(context: Context) {
     private const val HTTPS_WWW_GOOGLE_CO_UZ = "https://www.google.co.uz"
     private const val HTTPS_WWW_GOOGLE_CO_VE = "https://www.google.co.ve"
     private const val HTTPS_WWW_GOOGLE_COM_PK = "https://www.google.com.pk"
+    private const val HTTPS_WWW_GOV_UK = "https://www.gov.uk"
 
     @JvmField
     val HOSTNAMES = setOf(
@@ -113,8 +112,6 @@ class SignalServiceNetworkAccess(context: Context) {
       HTTPS_CLIENTS_4_GOOGLE_COM.stripProtocol(),
       HTTPS_GOOGLEMAIL_COM.stripProtocol(),
       HTTPS_GITHUB_GITHUBASSETS_COM.stripProtocol(),
-      HTTPS_PINTEREST_COM.stripProtocol(),
-      HTTPS_WWW_REDDITSTATIC_COM.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_EG.stripProtocol(),
       HTTPS_WWW_GOOGLE_AE.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_OM.stripProtocol(),
@@ -122,6 +119,7 @@ class SignalServiceNetworkAccess(context: Context) {
       HTTPS_WWW_GOOGLE_CO_UZ.stripProtocol(),
       HTTPS_WWW_GOOGLE_CO_VE.stripProtocol(),
       HTTPS_WWW_GOOGLE_COM_PK.stripProtocol(),
+      HTTPS_WWW_GOV_UK.stripProtocol(),
     )
 
     private val GMAPS_CONNECTION_SPEC = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
@@ -240,7 +238,7 @@ class SignalServiceNetworkAccess(context: Context) {
     HostConfig(HTTPS_GOOGLEMAIL_COM, G_HOST, GMAIL_CONNECTION_SPEC)
   )
 
-  private val fUrls = arrayOf(HTTPS_GITHUB_GITHUBASSETS_COM, HTTPS_PINTEREST_COM, HTTPS_WWW_REDDITSTATIC_COM)
+  private val fUrls = arrayOf(HTTPS_GITHUB_GITHUBASSETS_COM, HTTPS_WWW_GOV_UK)
 
   private val fConfig: SignalServiceConfiguration = SignalServiceConfiguration(
     signalServiceUrls = fUrls.map { SignalServiceUrl(it, F_SERVICE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
