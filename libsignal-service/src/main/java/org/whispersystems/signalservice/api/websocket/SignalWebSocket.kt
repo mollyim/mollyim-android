@@ -23,9 +23,12 @@ import org.whispersystems.signalservice.internal.websocket.WebSocketRequestMessa
 import org.whispersystems.signalservice.internal.websocket.WebSocketResponseMessage
 import org.whispersystems.signalservice.internal.websocket.WebsocketResponse
 import java.io.IOException
+import java.util.concurrent.CopyOnWriteArraySet
 import java.util.concurrent.TimeoutException
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+
+private typealias Listener = () -> Unit
 
 /**
  * Base wrapper around a [WebSocketConnection] to provide a more developer friend interface to websocket
@@ -53,8 +56,8 @@ sealed class SignalWebSocket(
   private val _state: BehaviorSubject<WebSocketConnectionState> = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED)
   protected var disposable: CompositeDisposable = CompositeDisposable()
 
-  private val keepAliveTokens: MutableSet<String> = mutableSetOf()
-  var keepAliveChangedListener: (() -> Unit)? = null
+  private val keepAliveTokens: MutableSet<String> = CopyOnWriteArraySet()
+  private val keepAliveChangeListeners: MutableSet<Listener> = CopyOnWriteArraySet()
 
   private var delayedDisconnectThread: DelayedDisconnectThread? = null
 
@@ -97,43 +100,49 @@ sealed class SignalWebSocket(
     }
   }
 
-  @Synchronized
-  open fun shouldSendKeepAlives(): Boolean {
+  fun shouldSendKeepAlives(): Boolean {
     return keepAliveTokens.isNotEmpty()
   }
 
-  @Synchronized
   fun registerKeepAliveToken(token: String) {
-    delayedDisconnectThread?.abort()
-    delayedDisconnectThread = null
-
     val changed = keepAliveTokens.add(token)
     if (changed) {
       Log.v(TAG, "$connectionName Adding keepAliveToken: $token, current: $keepAliveTokens")
     }
 
-    if (canConnect.canConnect()) {
-      try {
-        connect()
-      } catch (e: WebSocketUnavailableException) {
-        Log.w(TAG, "$connectionName Keep alive requested, but connection not available", e)
+    synchronized(this) {
+      delayedDisconnectThread?.abort()
+      delayedDisconnectThread = null
+
+      if (canConnect.canConnect()) {
+        try {
+          connect()
+        } catch (e: WebSocketUnavailableException) {
+          Log.w(TAG, "$connectionName Keep alive requested, but connection not available", e)
+        }
+      } else {
+        Log.w(TAG, "$connectionName Keep alive requested, but connection not available")
       }
-    } else {
-      Log.w(TAG, "$connectionName Keep alive requested, but connection not available")
     }
 
     if (changed) {
-      keepAliveChangedListener?.invoke()
+      keepAliveChangeListeners.forEach { it() }
     }
   }
 
-  @Synchronized
   fun removeKeepAliveToken(token: String) {
     if (keepAliveTokens.remove(token)) {
       Log.v(TAG, "$connectionName Removing keepAliveToken: $token, remaining: $keepAliveTokens")
-      startDelayedDisconnectIfNecessary()
-      keepAliveChangedListener?.invoke()
+      synchronized(this) {
+        startDelayedDisconnectIfNecessary()
+      }
     }
+
+    keepAliveChangeListeners.forEach { it() }
+  }
+
+  fun addKeepAliveChangeListener(listener: Listener) {
+    keepAliveChangeListeners.add(listener)
   }
 
   fun request(request: WebSocketRequestMessage): Single<WebsocketResponse> {
@@ -299,11 +308,6 @@ sealed class SignalWebSocket(
       } catch (e: IOException) {
         return Single.error(e)
       }
-    }
-
-    @Synchronized
-    override fun shouldSendKeepAlives(): Boolean {
-      return false
     }
   }
 

@@ -70,6 +70,7 @@ import org.thoughtcrime.securesms.jobs.CheckServiceReachabilityJob;
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob;
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
+import org.thoughtcrime.securesms.jobs.RetryPendingSendsJob;
 import org.thoughtcrime.securesms.jobs.FontDownloaderJob;
 import org.thoughtcrime.securesms.jobs.GroupRingCleanupJob;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
@@ -257,6 +258,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
                             .addPostRender(() -> ActiveCallManager.clearNotifications(this))
                             .addPostRender(() -> GroupSendEndorsementInternalNotifier.init())
                             .addPostRender(RestoreOptimizedMediaJob::enqueueIfNecessary)
+                            .addPostRender(RetryPendingSendsJob::enqueueForAll)
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");

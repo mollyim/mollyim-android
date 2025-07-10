@@ -18,7 +18,6 @@ import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.messages.IncomingMessageObserver
 import org.thoughtcrime.securesms.notifications.MessageNotifier
 import org.thoughtcrime.securesms.notifications.MessageNotifier.ReminderReceiver
 import org.thoughtcrime.securesms.notifications.NotificationCancellationHelper
@@ -29,10 +28,8 @@ import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.service.KeyCachingService
-import org.thoughtcrime.securesms.service.WipeMemoryService
 import org.thoughtcrime.securesms.util.BubbleUtil.BubbleState
 import org.thoughtcrime.securesms.util.ServiceUtil
-import org.thoughtcrime.securesms.webrtc.CallNotificationBuilder
 import org.whispersystems.signalservice.internal.util.Util
 import java.util.Optional
 import java.util.concurrent.ConcurrentHashMap
@@ -190,22 +187,6 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
       return
     }
 
-    val displayedNotifications: Set<Int>? = ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrNull()
-    if (displayedNotifications != null) {
-      val cleanedUpThreads: MutableSet<ConversationId> = mutableSetOf()
-      state.conversations.filterNot { it.hasNewNotifications() || displayedNotifications.contains(it.notificationId) }
-        .forEach { conversation ->
-          cleanedUpThreads += conversation.thread
-          conversation.notificationItems.forEach { item ->
-            SignalDatabase.messages.markAsNotified(item.id)
-          }
-        }
-      if (cleanedUpThreads.isNotEmpty()) {
-        Log.i(TAG, "Cleaned up ${cleanedUpThreads.size} thread(s) with dangling notifications")
-        state = state.copy(conversations = state.conversations.filterNot { cleanedUpThreads.contains(it.thread) })
-      }
-    }
-
     val retainStickyThreadIds: Set<ConversationId> = state.getThreadsWithMostRecentNotificationFromSelf()
     stickyThreads.keys.retainAll { retainStickyThreadIds.contains(it) }
 
@@ -351,12 +332,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 }
 
 private fun StatusBarNotification.isMessageNotification(): Boolean {
-  return id != NotificationIds.MESSAGE_SUMMARY &&
-    id != KeyCachingService.SERVICE_RUNNING_ID &&
-    id != WipeMemoryService.NOTIFICATION_ID &&
-    id != IncomingMessageObserver.FOREGROUND_ID &&
-    id != NotificationIds.PENDING_MESSAGES &&
-    !CallNotificationBuilder.isWebRtcNotification(id)
+  return NotificationIds.isMessageNotificationId(id)
 }
 
 private fun NotificationManager.getDisplayedNotificationIds(): Result<Set<Int>> {

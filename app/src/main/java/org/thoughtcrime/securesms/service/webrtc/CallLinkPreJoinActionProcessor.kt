@@ -64,6 +64,7 @@ class CallLinkPreJoinActionProcessor(
         WebRtcUtil.getProxyInfo(),
         callLinkAuthCredentialPresentation.serialize(),
         callLinkRootKey,
+        null,
         callLink.credentials.adminPassBytes,
         ByteArray(0),
         AUDIO_LEVELS_INTERVAL,

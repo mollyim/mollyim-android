@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Загружаем медиафайл…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Сжимаем видео…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Резервное копирование медиафайлов…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Проверяем наличие новых сообщений…</string>
 
@@ -1131,6 +1135,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Устройство, которое было привязано %1$s, больше не связано.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">ОК</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Недостаточно места для хранения</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">На вашем устройстве недостаточно свободного места для переноса сообщений. Освободите место и повторите попытку или привяжите устройство без переноса сообщений.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1208,6 +1216,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Эта версия Molly устарела. Обновитесь сейчас, чтобы отправлять и получать сообщения.</string>
     <string name="ExpiredBuildReminder_update_now">Обновиться</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Обновить Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Эта версия Molly устарела. Нажмите для обновления, чтобы отправлять и получать сообщения.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1518,6 +1531,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Загружаем резервную копию…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Восстанавливаем сообщения…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Завершаем…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Восстановление…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1554,6 +1569,8 @@
     <string name="RemoteRestoreActivity__update_signal">Обновить Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Не сейчас</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Уведомлять меня об упоминаниях</string>
@@ -1664,7 +1681,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Невозможно присоединиться к группе</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Вы не можете присоединиться к этой группе по ссылке, потому что администратор удалил вас из этой группы.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Вы не можете присоединиться к этой группе по ссылке, потому что администратор удалил вас из неё. Свяжитесь с администратором, чтобы вас снова добавили в группу.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Эта ссылка на группу уже недействительна.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5597,6 +5614,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Не удалось выполнить резервное копирование</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Не удалось активировать подписку на резервное копирование</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Хранилище резервных копий заполнено</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Пригласить друзей</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7541,7 +7560,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Введите свой банк, имя и адрес электронной почты. Stripe использует этот адрес электронной почты для отправки обновлений о вашем пожертвовании. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Введите своё имя и адрес электронной почты. Stripe использует этот адрес электронной почты для отправки обновлений о вашем пожертвовании. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Введите ваши банковские реквизиты. Signal не собирает и не хранит вашу личную информацию. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -8043,6 +8062,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Отклонить все</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Включить резервное копирование Signal</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Вы не потеряете ни одно сообщение при покупке нового телефона или переустановке Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Включить</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Не сейчас</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Включить уведомления во весь экран?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -8170,9 +8198,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Вы можете снова начать оплату за резервное копирование в любое время, чтобы продолжить создавать резервные копии всех своих медиафайлов. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Ваши медиафайлы будут удалены сегодня</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Ваш план резервного копирования медиафайлов Signal был отменён, так как мы не смогли обработать ваш платёж. Это ваш последний шанс загрузить медиафайлы из резервной копии, прежде чем они будут удалены.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Загрузите резервную копию уже сегодня</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Загрузка данных резервной копии</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">У вас есть %1$s медиафайлов, которых нет на этом устройстве. Без платной подписки медиафайлы и вложения, сохранённые в резервной копии, будут удалены навсегда.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Освободите %1$s на этом устройстве</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -8200,6 +8230,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Узнать больше</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Связаться с поддержкой</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Пропустить восстановление</string>
     <!-- Primary action button to open backups management screen -->
@@ -8213,9 +8245,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Подписаться за %1$s/месяц</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Загрузить медиафайлы сейчас</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Загрузить резервную копию</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Не загружать медиафайлы</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Не загружать резервную копию</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Не сейчас</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8389,13 +8421,33 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">ОК</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Нет резервного копирования: %1$d день</item>
+        <item quantity="few">Нет резервного копирования: %1$d дня</item>
+        <item quantity="many">Нет резервного копирования: %1$d дней</item>
+        <item quantity="other">Нет резервного копирования: %1$d дня</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Вы не выполняли резервное копирование в течение %1$d дня. Чтобы обеспечить сохранность сообщений и медиафайлов, создайте резервную копию прямо сейчас.</item>
+        <item quantity="few">Вы не выполняли резервное копирование в течение %1$d дней. Чтобы обеспечить сохранность сообщений и медиафайлов, создайте резервную копию прямо сейчас.</item>
+        <item quantity="many">Вы не выполняли резервное копирование в течение %1$d дней. Чтобы обеспечить сохранность сообщений и медиафайлов, создайте резервную копию прямо сейчас.</item>
+        <item quantity="other">Вы не выполняли резервное копирование в течение %1$d дня. Чтобы обеспечить сохранность сообщений и медиафайлов, создайте резервную копию прямо сейчас.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/месяц · продлится %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Последняя резервная копия %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Подписка отменена</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Автоматическое резервное копирование с помощью службы безопасного хранения Signal, защищённой сквозным шифрованием.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Подписка не найдена на этом устройстве."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Настроить</string>
 
@@ -8482,6 +8534,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Отключить и удалить резервные копии?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Резервная копия будет удалена, а новые резервные копии создаваться не будут. Все медиафайлы, сохранённые в резервной копии, будут загружены на ваш телефон.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Ваша подписка будет отменена, и с вас больше не будет взиматься плата. Резервная копия также будет удалена, а новые резервные копии создаваться не будут. Все медиафайлы, сохранённые в резервной копии, будут загружены на ваш телефон.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Отключить и удалить</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8517,6 +8571,8 @@
         <item quantity="many">Ваша подписка на этом устройстве действительна в течение следующих %1$d дней. Продлите, чтобы продолжить резервное копирование Signal Backups</item>
         <item quantity="other">Ваша подписка на этом устройстве действительна в течение следующих %1$d дня. Продлите, чтобы продолжить резервное копирование Signal Backups</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Подписаться снова</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Продлить</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8533,12 +8589,7 @@
         <item quantity="other">Обработка %1$s из %2$s сообщения (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">У вас есть %1$s резервных копий, которых нет на этом устройстве. Резервные копии будут удалены, когда ваша подписка закончится через %2$d день.</item>
-        <item quantity="few">У вас есть %1$s резервных копий, которых нет на этом устройстве. Резервные копии будут удалены, когда ваша подписка закончится через %2$d дня.</item>
-        <item quantity="many">У вас есть %1$s резервных копий, которых нет на этом устройстве. Резервные копии будут удалены, когда ваша подписка закончится через %2$d дней.</item>
-        <item quantity="other">У вас есть %1$s резервных копий, которых нет на этом устройстве. Резервные копии будут удалены, когда ваша подписка закончится через %2$d дня.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">У вас есть %1$s данных резервных копий, которых нет на этом устройстве. Без платной подписки медиафайлы не могут быть выгружены.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">У вас есть %1$s резервных копий, которых нет на этом устройстве. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8584,6 +8635,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Резервное копирование было отключено, а ваши данные — удалены из защищённого хранилища Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Загрузка: %1$s из %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Вы достигли %1$s лимита хранилища, включенного в план резервного копирования. Освободите место для резервного копирования новых чатов и медиафайлов.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Управлять хранилищем</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Загрузите резервную копию уже сегодня</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">У вас есть %1$s данных резервных копий, которых нет на этом устройстве. Без платной подписки ваши медиафайлы и вложения будут удалены навсегда.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Скачать</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Не загружать</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8650,10 +8715,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Храните резервный ключ только в том менеджере паролей, которому доверяете. Signal не дает рекомендаций по поводу того, какой менеджер паролей подходит именно вам.</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Сохранено в менеджере паролей</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Не удаётся сохранить в менеджере паролей</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">У вас не настроен либо не поддерживается менеджер паролей.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Далее</string>
     <!-- Bottom sheet title -->
@@ -8820,7 +8889,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Ошибка сетевого восстановления резервной копии Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Ошибка сетевого экспорта резервной копии Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Отправить журналы отладки?</string>
@@ -8909,6 +8983,29 @@
     <string name="SignalCheckbox_accessibility_checked_description">Помечено</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Пометка снята</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Хранилище резервных копий заполнено</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Вы исчерпали лимит хранилища резервных копий. Освободите место в Signal, чтобы продолжить резервное копирование чатов и медиафайлов.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Резервное копирование не удалось</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Произошла ошибка, резервное копирование не может быть завершено. Показать подробности.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Нет резервного копирования: %1$d день</item>
+        <item quantity="few">Нет резервного копирования: %1$d дня</item>
+        <item quantity="many">Нет резервного копирования: %1$d дней</item>
+        <item quantity="other">Нет резервного копирования: %1$d дня</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Вы не выполняли резервное копирование в течение %1$d дня. Создайте резервную копию прямо сейчас.</item>
+        <item quantity="few">Вы не выполняли резервное копирование в течение %1$d дней. Создайте резервную копию прямо сейчас.</item>
+        <item quantity="many">Вы не выполняли резервное копирование в течение %1$d дней. Создайте резервную копию прямо сейчас.</item>
+        <item quantity="other">Вы не выполняли резервное копирование в течение %1$d дня. Создайте резервную копию прямо сейчас.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

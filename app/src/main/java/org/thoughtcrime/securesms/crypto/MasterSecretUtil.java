@@ -28,7 +28,6 @@ import android.os.Build;
 
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECKeyPair;
 import org.signal.libsignal.protocol.ecc.ECPrivateKey;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
@@ -210,7 +209,7 @@ public class MasterSecretUtil {
                                                                       MasterSecret masterSecret)
   {
     MasterCipher masterCipher = new MasterCipher(masterSecret);
-    ECKeyPair    keyPair      = Curve.generateKeyPair();
+    ECKeyPair    keyPair      = ECKeyPair.generate();
 
     if (!getSharedPreferences(context).edit()
         .putString(ASYMMETRIC_LOCAL_PUBLIC_DJB, Base64.encodeWithPadding(masterCipher.encryptPublicKey(keyPair.getPublicKey())))

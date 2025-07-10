@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">กำลังอัปโหลดสื่อ…</string>
     <string name="AttachmentUploadJob_compressing_video_start">กำลังบีบอัดวิดีโอ…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">กำลังสำรองไฟล์สื่อ…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">กำลังตรวจหาข้อความ…</string>
 
@@ -1065,6 +1069,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">อุปกรณ์ที่คุณเชื่อมโยงเมื่อ%1$s ไม่ได้ถูกเชื่อมโยงอีกต่อไป</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">ตกลง</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">พื้นที่จัดเก็บไม่เพียงพอ</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">อุปกรณ์ของคุณมีพื้นที่ว่างไม่เพียงพอสำหรับการถ่ายโอนข้อความ โปรดเพิ่มพื้นที่จัดเก็บแล้วลองอีกครั้ง หรือเลือกเชื่อมโยงอุปกรณ์โดยไม่ถ่ายโอนข้อความ</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1142,6 +1150,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly รุ่นนี้หมดอายุแล้ว ปรับรุ่นเดี๋ยวนี้เพื่อรับและส่งข้อความ</string>
     <string name="ExpiredBuildReminder_update_now">ปรับรุ่นเดี๋ยวนี้</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">อัปเดต Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Molly เวอร์ชันนี้หมดอายุแล้ว แตะอัปเดตที่นี่เพื่อใช้งานการส่งและรับข้อความต่อไป</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1398,6 +1411,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">กำลังดาวน์โหลดข้อมูลสำรอง…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">กำลังกู้คืนข้อความ…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">ใกล้เสร็จสิ้น…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">กำลังกู้คืน…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1434,6 +1449,8 @@
     <string name="RemoteRestoreActivity__update_signal">อัปเดต Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">ไว้ทีหลัง</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">แจ้งให้ฉันรู้สำหรับการกล่าวถึง</string>
@@ -1535,7 +1552,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">เข้าร่วมกลุ่มไม่ได้</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">คุณเข้าร่วมกลุ่มนี้ด้วยลิงก์กลุ่มไม่ได้เพราะผู้ดูแลลบคุณออกไปแล้ว</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">คุณเข้าร่วมกลุ่มนี้ด้วยลิงก์กลุ่มไม่ได้เพราะผู้ดูแลลบคุณออกไปแล้ว โปรดติดต่อผู้ดูแลให้เพิ่มคุณกลับเข้ากลุ่มอีกครั้ง</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">ลิงก์กลุ่มนี้ใช้ไม่ได้แล้ว</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5204,6 +5221,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">การสำรองข้อมูลไม่เสร็จสมบูรณ์</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">ไม่สามารถใช้งานแพ็กเกจสำรองข้อมูลของคุณได้</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">พื้นที่จัดเก็บข้อมูลสำรองเต็มแล้ว</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">เชิญเพื่อนของคุณ</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7046,7 +7065,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">โปรดกรอกข้อมูลธนาคาร ชื่อ และอีเมลของคุณ Stripe จะส่งข้อมูลอัปเดตเกี่ยวกับการบริจาคของคุณไปยังอีเมลนี้ %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">โปรดกรอกชื่อและอีเมลของคุณ โดย Stripe จะส่งข้อมูลอัปเดตเกี่ยวกับการบริจาคของคุณไปยังอีเมลนี้ %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">โปรดกรอกข้อมูลธนาคารของคุณ โดย Signal จะไม่รวบรวมหรือจัดเก็บข้อมูลส่วนบุคคลของคุณ %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7530,6 +7549,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">ปฏิเสธทั้งหมด</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">เปิดใช้งานการสำรองข้อมูลของ Signal</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">ช่วยเก็บรักษาทุกข้อความแม้ในกรณีที่คุณเปลี่ยนโทรศัพท์เครื่องใหม่หรือติดตั้ง Signal อีกครั้ง</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">เปิดใช้งาน</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">ไว้ทีหลัง</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">เปิดการแจ้งเตือนแบบเต็มหน้าจอหรือไม่</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7651,9 +7679,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">หากต้องการสำรองข้อมูลสื่อต่อ คุณสามารถเริ่มชำระเงินเพื่อสำรองข้อมูลอีกครั้งได้ทุกเมื่อ </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">สื่อของคุณจะถูกลบวันนี้</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">แพ็กเกจสำรองข้อมูลสื่อของคุณถูกยกเลิกเนื่องจาก Signal ประมวลผลการชำระเงินของคุณไม่ได้ นี่เป็นโอกาสสุดท้ายที่คุณจะสามารถดาวน์โหลดไฟล์สื่อที่เก็บอยู่ในข้อมูลสำรองก่อนที่ข้อมูลจะถูกลบ</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">ดาวน์โหลดข้อมูลสำรองของคุณวันนี้</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">ดาวน์โหลดข้อมูลสำรองของคุณ</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">คุณมีไฟล์สื่อ %1$s ที่ยังไม่ได้กู้คืนมายังอุปกรณ์เครื่องนี้ หากไม่มีการสมัครและชำระค่าแพ็กเกจ ไฟล์สื่อและไฟล์แนบที่เก็บอยู่ในข้อมูลสำรองของคุณจะถูกลบอย่างถาวร</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">เพิ่มพื้นที่ %1$s บนอุปกรณ์เครื่องนี้</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7678,6 +7708,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">ติดต่อฝ่ายสนับสนุน</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">ข้ามการกู้คืน</string>
     <!-- Primary action button to open backups management screen -->
@@ -7691,9 +7723,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">สมัครใช้งาน %1$s/เดือน</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">ดาวน์โหลดสื่อเดี๋ยวนี้</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">ดาวน์โหลดข้อมูลสำรองเดี๋ยวนี้</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">ไม่ต้องดาวน์โหลดสื่อ</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">ไม่ต้องดาวน์โหลดข้อมูลสำรอง</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">ไว้ทีหลัง</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7864,13 +7896,27 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">ตกลง</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="other">ไม่มีการสำรองข้อมูลมา %1$d วัน</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="other">คุณไม่ได้ดำเนินการสำรองข้อมูลเป็นเวลา %1$d วัน สร้างข้อมูลสำรองเพื่อเก็บรักษาข้อความและไฟล์สื่อของคุณ</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/เดือน ต่ออายุ %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">สำรองข้อมูลล่าสุด %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">ยกเลิกการสมัครแล้ว</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">สำรองข้อมูลอัตโนมัติด้วยบริการจัดเก็บที่ปลอดภัยและถูกเข้ารหัสตั้งแต่ต้นทางถึงปลายทางของ Signal</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"ไม่พบการสมัครแพ็กเกจบนอุปกรณ์เครื่องนี้"</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">ตั้งชื่อผู้ใช้</string>
 
@@ -7957,6 +8003,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">ปิดใช้งานและลบข้อมูลสำรองใช่หรือไม่</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">ข้อมูลสำรองของคุณจะถูกลบและระบบจะไม่สำรองข้อมูลใหม่ขึ้นอีก เมื่อกดยืนยัน ไฟล์สื่อทั้งหมดที่เก็บอยู่ในข้อมูลสำรองของคุณจะถูกดาวน์โหลดไปยังโทรศัพท์</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">แพ็กเกจของคุณจะถูกยกเลิกและคุณจะไม่ถูกเรียกเก็บเงินอีก โดยข้อมูลสำรองของคุณจะถูกลบและระบบจะไม่สำรองข้อมูลใหม่ขึ้นอีก เมื่อกดยืนยัน ไฟล์สื่อทั้งหมดที่เก็บอยู่ในข้อมูลสำรองของคุณจะถูกดาวน์โหลดไปยังโทรศัพท์</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">ปิดใช้งานและลบ</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -7989,6 +8037,8 @@
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
         <item quantity="other">แพ็กเกจสำรองข้อมูลของ Signal บนอุปกรณ์เครื่องนี้มีอายุการใช้งานอีก %1$d วัน โปรดต่ออายุเพื่อการใช้งานอย่างต่อเนื่อง</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">สมัครใช้งานอีกครั้ง</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">ต่ออายุ</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8002,9 +8052,7 @@
         <item quantity="other">กำลังประมวลผล %1$s จาก ~%2$s ข้อความ (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="other">คุณมีข้อมูลสำรอง %1$s ที่ยังไม่ได้บันทึกไว้บนอุปกรณ์เครื่องนี้ โดยข้อมูลสำรองของคุณจะถูกลบเมื่อแพ็กเกจหมดอายุในอีก %2$d วัน</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">คุณมีข้อมูลสำรอง %1$s ที่ยังไม่ได้กู้คืนมายังอุปกรณ์เครื่องนี้ หากไม่มีการสมัครและชำระค่าแพ็กเกจ คุณจะไม่สามารถออฟโหลดไฟล์สื่อได้</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">คุณมีข้อมูลสำรอง %1$s ที่ยังไม่ได้กู้คืนมายังอุปกรณ์เครื่องนี้ </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8047,6 +8095,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">การสำรองข้อมูลถูกปิดใช้งานและข้อมูลของคุณถูกลบออกจากบริการจัดเก็บที่ปลอดภัยของ Signal แล้ว</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">กำลังดาวน์โหลด: %1$s จาก %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">พื้นที่จัดเก็บ %1$s ในแพ็กเกจสำรองข้อมูลของคุณเต็มแล้ว โปรดเพิ่มพื้นที่จัดเก็บเพื่อสำรองข้อมูลแชทและไฟล์สื่อล่าสุด</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">จัดการพื้นที่จัดเก็บ</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">ดาวน์โหลดข้อมูลสำรองของคุณวันนี้</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">คุณมีข้อมูลสำรอง %1$s ที่ยังไม่ได้กู้คืนมายังอุปกรณ์เครื่องนี้ หากไม่มีการสมัครและชำระค่าแพ็กเกจ ไฟล์สื่อและไฟล์แนบของคุณจะถูกลบอย่างถาวร</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">ดาวน์โหลด</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">ไม่ต้องดาวน์โหลด</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8113,10 +8175,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">โปรดเก็บกุญแจสำรองของคุณไว้กับตัวจัดการรหัสผ่านที่คุณมั่นใจว่าปลอดภัยเท่านั้น โดย Signal จะไม่แนะนำตัวจัดการรหัสผ่านที่เหมาะกับคุณตัวใดตัวหนึ่งเป็นพิเศษ</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">บันทึกไปยังตัวจัดการรหัสผ่านของคุณแล้ว</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">ไม่สามารถบันทึกไปยังตัวจัดการรหัสผ่าน</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">คุณยังไม่ได้ตั้งค่าตัวจัดการรหัสผ่าน หรือระบบไม่รองรับตัวจัดการรหัสผ่านที่คุณใช้อยู่</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">ดำเนินการต่อ</string>
     <!-- Bottom sheet title -->
@@ -8277,7 +8343,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">การกู้คืนข้อมูลสำรองของ Signal Android พบข้อผิดพลาดของเครือข่าย</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">การส่งออกข้อมูลสำรองของ Signal Android พบข้อผิดพลาดของเครือข่าย</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">คุณต้องการส่งบันทึกดีบักหรือไม่</string>
@@ -8366,6 +8437,23 @@
     <string name="SignalCheckbox_accessibility_checked_description">มีเครื่องหมายถูก</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">ไม่มีเครื่องหมายถูก</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">พื้นที่จัดเก็บข้อมูลสำรองเต็มแล้ว</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">พื้นที่จัดเก็บข้อมูลสำรองของคุณเต็มแล้ว โปรดเพิ่มพื้นที่จัดเก็บใน Signal เพื่อสำรองข้อมูลแชทและไฟล์สื่อต่อไป</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">สำรองข้อมูลไม่สำเร็จ</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">เกิดข้อผิดพลาดที่ทำให้การสำรองข้อมูลของคุณไม่เสร็จสมบูรณ์ แตะเพื่อดูรายละเอียด</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="other">ไม่มีการสำรองข้อมูลมา %1$d วัน</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="other">คุณไม่ได้ดำเนินการสำรองข้อมูลเป็นเวลา %1$d วัน สร้างข้อมูลสำรองได้เลย</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

@@ -848,6 +848,7 @@ object SyncMessageProcessor {
 
     val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(recipient)
     val messageId: Long = SignalDatabase.messages.insertMessageOutbox(mediaMessage, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null)
+    log(envelopeTimestamp, "Inserted sync message as messageId $messageId")
 
     if (recipient.isGroup) {
       updateGroupReceiptStatus(sent, messageId, recipient.requireGroupId())
@@ -914,7 +915,11 @@ object SyncMessageProcessor {
       messageId = SignalDatabase.messages.insertMessageOutbox(outgoingTextMessage, threadId, false, null)
       SignalDatabase.messages.markUnidentified(messageId, sent.isUnidentified(recipient.serviceId.orNull()))
     }
+
+    log(envelopeTimestamp, "Inserted sync message as messageId $messageId")
+
     SignalDatabase.messages.markAsSent(messageId, true)
+
     if (expiresInMillis > 0) {
       SignalDatabase.messages.markExpireStarted(messageId, sent.expirationStartTimestamp ?: 0)
       AppDependencies.expiringMessageManager.scheduleDeletion(messageId, isGroup, sent.expirationStartTimestamp ?: 0, expiresInMillis)

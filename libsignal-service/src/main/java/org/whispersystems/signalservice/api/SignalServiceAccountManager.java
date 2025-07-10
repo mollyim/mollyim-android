@@ -10,10 +10,8 @@ import org.signal.libsignal.net.Network;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECPrivateKey;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
-import org.signal.libsignal.protocol.util.ByteUtil;
 import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.whispersystems.signalservice.api.account.AccountApi;
@@ -160,9 +158,9 @@ public class SignalServiceAccountManager {
       ((StaticCredentialsProvider) credentials).setE164(number);
     }
 
-    final IdentityKeyPair aciIdentity = getIdentityKeyPair(msg.aciIdentityKeyPublic.toByteArray(), msg.aciIdentityKeyPrivate.toByteArray());
+    final IdentityKeyPair aciIdentity = getIdentityKeyPair(msg.aciIdentityKeyPrivate.toByteArray());
     final IdentityKeyPair pniIdentity = msg.pniIdentityKeyPublic != null && msg.pniIdentityKeyPrivate != null
-                                        ? getIdentityKeyPair(msg.pniIdentityKeyPublic.toByteArray(), msg.pniIdentityKeyPrivate.toByteArray())
+                                        ? getIdentityKeyPair(msg.pniIdentityKeyPrivate.toByteArray())
                                         : null;
 
     final ProfileKey profileKey;
@@ -186,18 +184,12 @@ public class SignalServiceAccountManager {
     );
   }
 
-  private IdentityKeyPair getIdentityKeyPair(byte[] publicKeyBytes, byte[] privateKeyBytes) throws IOException {
-    if (publicKeyBytes.length == 32) {
-      // The public key is missing the type specifier, probably from iOS
-      // Signal-Desktop handles this by ignoring the sent public key and regenerating it from the private key
-      byte[] type = { Curve.DJB_TYPE };
-      publicKeyBytes = ByteUtil.combine(type, publicKeyBytes);
-    }
+  private IdentityKeyPair getIdentityKeyPair(byte[] privateKeyBytes) throws IOException {
     final ECPublicKey  publicKey;
     final ECPrivateKey privateKey;
     try {
-      publicKey  = Curve.decodePoint(publicKeyBytes, 0);
-      privateKey = Curve.decodePrivatePoint(privateKeyBytes);
+      privateKey = new ECPrivateKey(privateKeyBytes);
+      publicKey = privateKey.publicKey();
     } catch (InvalidKeyException e) {
       throw new IOException("Failed to decrypt key", e);
     }

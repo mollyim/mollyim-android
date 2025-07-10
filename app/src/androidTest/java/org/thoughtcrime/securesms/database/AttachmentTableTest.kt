@@ -8,15 +8,14 @@ import androidx.test.platform.app.InstrumentationRegistry
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.signal.core.util.Base64.decodeBase64OrThrow
 import org.signal.core.util.copyTo
-import org.signal.core.util.readFully
 import org.signal.core.util.stream.NullOutputStream
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.AttachmentId
@@ -26,13 +25,10 @@ import org.thoughtcrime.securesms.mms.MediaStream
 import org.thoughtcrime.securesms.mms.SentMediaQuality
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.MediaUtil
-import org.thoughtcrime.securesms.util.Util
-import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherOutputStream
 import org.whispersystems.signalservice.api.crypto.NoCipherOutputStream
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
-import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.Optional
@@ -182,74 +178,18 @@ class AttachmentTableTest {
   }
 
   @Test
-  fun finalizeAttachmentAfterDownload_fixDigestOnNonZeroPadding() {
-    // Insert attachment metadata for badly-padded attachment
-    val plaintext = byteArrayOf(1, 2, 3, 4)
-    val key = Util.getSecretBytes(64)
-    val iv = Util.getSecretBytes(16)
-
-    val badlyPaddedPlaintext = PaddingInputStream(plaintext.inputStream(), plaintext.size.toLong()).readFully().also { it[it.size - 1] = 0x42 }
-    val badlyPaddedCiphertext = encryptPrePaddedBytes(badlyPaddedPlaintext, key, iv)
-    val badlyPaddedDigest = getDigest(badlyPaddedCiphertext)
-
-    val cipherFile = getTempFile()
-    cipherFile.writeBytes(badlyPaddedCiphertext)
-
-    val mmsId = -1L
-    val attachmentId = SignalDatabase.attachments.insertAttachmentsForMessage(mmsId, listOf(createAttachmentPointer(key, badlyPaddedDigest, plaintext.size)), emptyList()).values.first()
-
-    // Give data to attachment table
-    val cipherInputStream = AttachmentCipherInputStream.createForAttachment(cipherFile, plaintext.size.toLong(), key, badlyPaddedDigest, null, 4, false)
-    SignalDatabase.attachments.finalizeAttachmentAfterDownload(mmsId, attachmentId, cipherInputStream, iv)
-
-    // Verify the digest has been updated to the properly padded one
-    val properlyPaddedPlaintext = PaddingInputStream(plaintext.inputStream(), plaintext.size.toLong()).readFully()
-    val properlyPaddedCiphertext = encryptPrePaddedBytes(properlyPaddedPlaintext, key, iv)
-    val properlyPaddedDigest = getDigest(properlyPaddedCiphertext)
-
-    val newDigest = SignalDatabase.attachments.getAttachment(attachmentId)!!.remoteDigest!!
-
-    assertArrayEquals(properlyPaddedDigest, newDigest)
-  }
-
-  @Test
-  fun finalizeAttachmentAfterDownload_leaveDigestAloneForAllZeroPadding() {
-    // Insert attachment metadata for properly-padded attachment
-    val plaintext = byteArrayOf(1, 2, 3, 4)
-    val key = Util.getSecretBytes(64)
-    val iv = Util.getSecretBytes(16)
-
-    val paddedPlaintext = PaddingInputStream(plaintext.inputStream(), plaintext.size.toLong()).readFully()
-    val ciphertext = encryptPrePaddedBytes(paddedPlaintext, key, iv)
-    val digest = getDigest(ciphertext)
-
-    val cipherFile = getTempFile()
-    cipherFile.writeBytes(ciphertext)
-
-    val mmsId = -1L
-    val attachmentId = SignalDatabase.attachments.insertAttachmentsForMessage(mmsId, listOf(createAttachmentPointer(key, digest, plaintext.size)), emptyList()).values.first()
-
-    // Give data to attachment table
-    val cipherInputStream = AttachmentCipherInputStream.createForAttachment(cipherFile, plaintext.size.toLong(), key, digest, null, 4, false)
-    SignalDatabase.attachments.finalizeAttachmentAfterDownload(mmsId, attachmentId, cipherInputStream, iv)
-
-    // Verify the digest hasn't changed
-    val newDigest = SignalDatabase.attachments.getAttachment(attachmentId)!!.remoteDigest!!
-    assertArrayEquals(digest, newDigest)
-  }
-
-  @Test
-  fun resetArchiveTransferStateByDigest_singleMatch() {
-    // Given an attachment with some digest
+  fun resetArchiveTransferStateByPlaintextHashAndRemoteKey_singleMatch() {
+    // Given an attachment with some plaintextHash+remoteKey
     val blob = BlobProvider.getInstance().forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
     val attachment = createAttachment(1, blob, AttachmentTable.TransformProperties.empty())
     val attachmentId = SignalDatabase.attachments.insertAttachmentsForMessage(-1L, listOf(attachment), emptyList()).values.first()
     SignalDatabase.attachments.finalizeAttachmentAfterUpload(attachmentId, AttachmentTableTestUtil.createUploadResult(attachmentId))
     SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.FINISHED)
 
-    // Reset the transfer state by digest
-    val digest = SignalDatabase.attachments.getAttachment(attachmentId)!!.remoteDigest!!
-    SignalDatabase.attachments.resetArchiveTransferStateByDigest(digest)
+    // Reset the transfer state by plaintextHash+remoteKey
+    val plaintextHash = SignalDatabase.attachments.getAttachment(attachmentId)!!.dataHash!!.decodeBase64OrThrow()
+    val remoteKey = SignalDatabase.attachments.getAttachment(attachmentId)!!.remoteKey!!.decodeBase64OrThrow()
+    SignalDatabase.attachments.resetArchiveTransferStateByPlaintextHashAndRemoteKey(plaintextHash, remoteKey)
 
     // Verify it's been reset
     assertThat(SignalDatabase.attachments.getAttachment(attachmentId)!!.archiveTransferState).isEqualTo(AttachmentTable.ArchiveTransferState.NONE)

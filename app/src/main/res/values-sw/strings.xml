@@ -46,11 +46,11 @@
     <string name="ApplicationMigrationActivity__signal_is_updating">Molly inasasishwa…</string>
 
     <!-- ApplicationPreferencesActivity -->
-    <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Bado haujaweka sisitizo.</string>
-    <string name="ApplicationPreferencesActivity_disable_passphrase">Lemaza ufafanuzi</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Hii itafungua kabisa Molly na arifu za ujumbe</string>
+    <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Bado haujaweka sisitizo!</string>
+    <string name="ApplicationPreferencesActivity_disable_passphrase">Lemaza ufafanuzi?</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Hii itafungua kabisa Molly na arifu za ujumbe.</string>
     <string name="ApplicationPreferencesActivity_disable">Lemaza</string>
-    <string name="ApplicationPreferencesActivity_error_connecting_to_server">Hitilafu kuunganisha kwa mtambo.</string>
+    <string name="ApplicationPreferencesActivity_error_connecting_to_server">Hitilafu kuunganisha kwa mtambo!</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Nambari za Siri zinahitajika kwenye kufuli ya usajili. Ili kulemaza Nambari za Siri, tafadhali kwanza lemaza kufuli ya usajili.</string>
     <string name="ApplicationPreferencesActivity_pin_created">PIN imeundwa.</string>
     <string name="ApplicationPreferencesActivity_pin_disabled">PIN imezimwa.</string>
@@ -135,8 +135,12 @@
     <string name="AttachmentManager__cancel">Ghairi</string>
 
     <!-- AttachmentUploadJob -->
-    <string name="AttachmentUploadJob_uploading_media">Media inapakiwa…</string>
+    <string name="AttachmentUploadJob_uploading_media">Picha na video zinapakia…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Video inafinyazwa…</string>
+
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Inahifadhi nakala za picha na video…</string>
 
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Inatafuta ujumbe…</string>
@@ -1087,6 +1091,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Kifaa kilichounganishwa kwenye %1$s kimetenganishwa.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">Sawa</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Hakuna nafasi ya kutosha</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Huna nafasi ya kutosha ya kuhifadhi kwenye kifaa chako ili kuhamisha ujumbe wako. Futa baadhi ya maudhui kisha ujaribu tena, au uunganishe kifaa chako bila kuhamisha ujumbe wako.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Muda wa toleo hili la Molly umekwisha. Sasisha sasa ili utume na kupokea ujumbe.</string>
     <string name="ExpiredBuildReminder_update_now">Sasisha sasa</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Sasisha Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Toleo hili la Molly limekwisha muda wake. Gusa kusasisha ili uendelee kutuma na kupokea jumbe.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Inapakua uhifadhi nakala…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Kurejesha jumbe…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Inamaliza…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Inarejesha…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Sasisha Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Sio sasa</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Niarifu Ninapotajwa</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Huwezi kujiunga kwenye kikundi</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Huwezi kujiunga na kikundi hiki kupitia kiungo cha kikundi kwa sababu admin amekuondoa.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Huwezi jiunga na kikundi hiki kupitia kiungo cha kikundi kwa sababu admin amekuondoa. Wasiliana na admin ili akuongeze tena kwenye kikundi.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Kiungo hiki cha kikundi sio halali tena.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5335,6 +5352,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Imeshindwa kumaliza nakala</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Imeshindwa kuanzisha usajili wako wa nakala</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Nafasi ya hifadhi nakala imejaa</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Waalike marafiki zako</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7211,7 +7230,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Ingiza benki yako, jina na barua pepe. Stripe inatumia barua pepe hii kukutumia taarifa kuhusu mchango wako. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Ingiza jina lako na barua pepe. Stripe inatumia barua pepe hii kukutumia sasisho kuhusu mchango wako. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Weka taarifa zako za benki. Signal haikusanyi wala kuhifadhi taarifa zako binafsi. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7701,6 +7720,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Wakatalie wote</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Washa Hifadhi Nakala ya Signal</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Usipoteze ujumbe unapopata simu mpya au kusakinisha tena Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Washa</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Sio sasa</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Washa arifa za skrini nzima?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7852,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Unaweza kuanza kulipia nakala muda wowote ule ili kuendelea kuhifadhi nakala ya video na picha zako. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Video na picha zako zitafutwa leo</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Mpango wako wa uhifadhi nakala za video na picha za Signal umeghairishwa kwa sababu tumeshindwa kuchakata malipo yako. Hii ni nafasi yako ya mwisho kupakua video na picha kwenye nakala yako kabla haijafutwa.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Pakua hifadhi nakala yako leo</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Pakua data yako ya hifadhi nakala</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Una picha na video %1$s ambazo haziko kwenye kifaa hiki. Picha, video na viambatisho vilivyohifadhiwa kwenye hifadhi nakala yako vitafutwa kabisa ikiwa hauna usajili unaolipiwa.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Futa %1$s ili upate nafasi kwenye kifaa hiki</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7882,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Jifunze zaidi</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Wasiliana Msaada</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Ruka rejesha</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7897,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Sajili kwa %1$s/mwezi</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Pakua video na picha sasa</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Pakua hifadhi nakala sasa</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Usipakue video na picha</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Usipakue hifadhi nakala sasa</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Sio sasa</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8039,13 +8071,29 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">Sawa</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Hakuna hifadhi nakala kwa siku %1$d</item>
+        <item quantity="other">Hakuna hifadhi nakala kwa siku %1$d</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Hujakamilisha kuhifadhi nakala kwa siku %1$d. Ili kuhakikisha jumbe, picha na video zako zimehifadhiwa, tengeneza hifadhi nakala.</item>
+        <item quantity="other">Hujakamilisha kuhifadhi nakala kwa siku %1$d. Ili kuhakikisha jumbe, picha na video zako zimehifadhiwa, tengeneza hifadhi nakala.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/mwezi, kusasisha %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Uhifadhi nakala wa mwisho %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Usajili umeghairishwa</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Hifadhi nakala kiotomatiki ukitumia huduma salama za uhifadhi wa Signal zilizosimbwa fiche.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Usajili haujapatikana kwenye kifaa hiki."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Weka mipangilio</string>
 
@@ -8132,6 +8180,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Zima au ufute nakala?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Nakala yako itafutwa na hakutakuwa na nakala mpya zitakazotengenezwa. Picha na video zilizohifadhiwa katika hifadhi nakala yako zitapakuliwa kwenye simu yako sasa.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Usajili wako utafutwa na hautatozwa tena. Nakala yako itafutwa na hakutakuwa na nakala mpya zitakazotengenezwa. Picha na video zilizohifadhiwa katika hifadhi nakala yako zitapakuliwa kwenye simu yako sasa.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Zima na futa</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8215,8 @@
         <item quantity="one">Usajili wako kwenye kifaa hiki unatumika kwa siku %1$d ijayo. Sasisha ili uendelee kutumia Hifadhi Nakala ya Signal</item>
         <item quantity="other">Usajili wako kwenye kifaa hiki unatumika kwa siku %1$d zijazo. Sasisha ili uendelee kutumia Hifadhi Nakala ya Signal</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Jisajili tena</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Sasisha</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8231,7 @@
         <item quantity="other">Inachakata %1$s ya ujumbe ~%2$s (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Una %1$s ya data ya hifadhi ambayo haiko kwenye kifaa hiki. Hifadhi yako itafutwa usajili wako ukiisha ndani ya siku %2$d.</item>
-        <item quantity="other">Una %1$s ya data ya hifadhi ambayo haiko kwenye kifaa hiki. Hifadhi yako itafutwa usajili wako ukiisha ndani ya siku %2$d.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Una data ya hifadhi ya %1$s ambayo haiko katika kifaa hiki. Bila usajili wa kulipiwa hauwezi kupakua picha na video.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Una data ya akiba %1$s ambayo haiko katika kifaa hiki. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8226,6 +8275,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Hifadhi nakala zimezimwa na data yako kufutwa kutoka kwenye huduma salama ya hifadhi ya Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Inapakua: %1$s ya %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Umefikia kikomo cha hifadhi cha %1$s ambacho kimejumuishwa kwenye mpango wako wa kuhifadhi nakala. Tengeneza nafasi kuhifadhi magumzo mapya na video na picha.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Dhibiti hifadhi</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Pakua data yako ya hifadhi nakala leo</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Una data ya hifadhi ya %1$s ambayo haiko katika kifaa hiki. Picha na video na viambatisho vyako vitafutwa kabisa bila usajili uliolipiwa.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Pakua</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Usipakue</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8292,10 +8355,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Hifadhi tu ufunguo wako mbadala katika kidhibiti cha manenosiri ambacho unaamini ni salama. Signal haitoi mapendekezo kuhusu kidhibiti gani cha manenosiri ni sahihi kwako.</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Hifadhi kwenye kidhibiti chako cha manenosiri</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Imeshindwa kuhifadhi kidhibiti manenosiri</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Hujaweka mipangilio ya kidhibiti manenosiri au kidhibiti manenosiri unachotumia hakitumiwi na ufunguo mbadala.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Inayofuata</string>
     <!-- Bottom sheet title -->
@@ -8458,7 +8525,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Hiilafu ya kimtandao ya Hifadhi nakala ya Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Hitilafu ya kimtandao ya Hifadhi Nakala ya Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Je, wasilisha kumbukumbu za utatuzi?</string>
@@ -8547,6 +8619,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">Imewekwa tiki</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Imeondolewa tiki</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Hifadhi nakala imejaa</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Umefikia kiwango cha ukomo wa hifadhi nakala. Futa nafasi kwenye Signal ili uendelee kuhifadhi nakala za gumzo, picha na video.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Nakala hifadhi haijawekwa</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Hitilafu imetokea na mchakato wa kuhifadhi nakala yako haukukamilika. Gusa ili upate taarifa zaidi.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Hakuna hifadhi nakala kwa siku %1$d</item>
+        <item quantity="other">Hakuna hifadhi nakala kwa siku %1$d</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Hujakamilisha hifadhi kwa siku %1$d. Unda hifadhi sasa.</item>
+        <item quantity="other">Hujakamilisha hifadhi kwa siku %1$d. Unda hifadhi sasa.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

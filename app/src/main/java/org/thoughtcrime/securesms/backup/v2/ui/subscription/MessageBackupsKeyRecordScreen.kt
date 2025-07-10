@@ -25,11 +25,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.exceptions.CreateCredentialCancellationException
 import androidx.credentials.exceptions.CreateCredentialInterruptedException
 import androidx.credentials.exceptions.CreateCredentialNoCreateOptionException
+import androidx.credentials.exceptions.CreateCredentialUnknownException
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
@@ -46,12 +49,16 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalPreview
 import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.backups.remote.BackupKeyCredentialManagerHandler
 import org.thoughtcrime.securesms.components.settings.app.backups.remote.BackupKeySaveState
 import org.thoughtcrime.securesms.components.settings.app.backups.remote.CredentialManagerError
 import org.thoughtcrime.securesms.components.settings.app.backups.remote.CredentialManagerResult
 import org.thoughtcrime.securesms.fonts.MonoTypeface
 import org.signal.core.ui.R as CoreUiR
+
+private const val TAG = "MessageBackupsKeyRecordScreen"
 
 /**
  * Screen displaying the backup key allowing the user to write it down
@@ -66,7 +73,8 @@ fun MessageBackupsKeyRecordScreen(
   onRequestSaveToPasswordManager: () -> Unit = {},
   onConfirmSaveToPasswordManager: () -> Unit = {},
   onSaveToPasswordManagerComplete: (CredentialManagerResult) -> Unit = {},
-  onNextClick: () -> Unit = {}
+  onNextClick: () -> Unit = {},
+  onGoToDeviceSettingsClick: () -> Unit = {}
 ) {
   val snackbarHostState = remember { SnackbarHostState() }
   val backupKeyString = remember(backupKey) {
@@ -75,7 +83,7 @@ fun MessageBackupsKeyRecordScreen(
 
   Scaffolds.Settings(
     title = "",
-    navigationIconPainter = painterResource(R.drawable.symbol_arrow_start_24),
+    navigationIcon = ImageVector.vectorResource(R.drawable.symbol_arrow_start_24),
     onNavigationClick = onNavigationClick,
     snackbarHost = { Snackbars.Host(snackbarHostState = snackbarHostState) }
   ) { paddingValues ->
@@ -157,7 +165,7 @@ fun MessageBackupsKeyRecordScreen(
             }
           }
 
-          if (Build.VERSION.SDK_INT >= 24) {
+          if (BackupKeyCredentialManagerHandler.isCredentialManagerSupported) {
             item {
               Buttons.Small(
                 onClick = { onRequestSaveToPasswordManager() }
@@ -214,13 +222,30 @@ fun MessageBackupsKeyRecordScreen(
         }
 
         is BackupKeySaveState.Error -> {
-          if (keySaveState.errorType is CredentialManagerError.MissingCredentialManager) {
-            Dialogs.SimpleMessageDialog(
-              title = stringResource(R.string.MessageBackupsKeyRecordScreen__missing_password_manager_title),
-              message = stringResource(R.string.MessageBackupsKeyRecordScreen__missing_password_manager_message),
-              dismiss = stringResource(android.R.string.ok),
-              onDismiss = { onSaveToPasswordManagerComplete(CredentialManagerResult.UserCanceled) }
-            )
+          when (keySaveState.errorType) {
+            is CredentialManagerError.MissingCredentialManager -> {
+              Dialogs.SimpleAlertDialog(
+                title = stringResource(R.string.MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title),
+                body = stringResource(R.string.MessageBackupsKeyRecordScreen__missing_password_manager_message),
+                confirm = stringResource(R.string.MessageBackupsKeyRecordScreen__go_to_settings),
+                onConfirm = { onGoToDeviceSettingsClick() },
+                dismiss = stringResource(android.R.string.cancel),
+                onDismiss = { onSaveToPasswordManagerComplete(CredentialManagerResult.UserCanceled) }
+              )
+            }
+
+            is CredentialManagerError.SavePromptDisabled -> {
+              Dialogs.SimpleAlertDialog(
+                title = stringResource(R.string.MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title),
+                body = stringResource(R.string.MessageBackupsKeyRecordScreen__missing_password_manager_message),
+                confirm = stringResource(R.string.MessageBackupsKeyRecordScreen__go_to_settings),
+                onConfirm = { onGoToDeviceSettingsClick() },
+                dismiss = stringResource(android.R.string.cancel),
+                onDismiss = { onSaveToPasswordManagerComplete(CredentialManagerResult.UserCanceled) }
+              )
+            }
+
+            is CredentialManagerError.Unexpected -> Unit
           }
         }
 
@@ -251,6 +276,29 @@ private suspend fun saveKeyToCredentialManager(
       is CreateCredentialCancellationException -> CredentialManagerResult.UserCanceled
       is CreateCredentialInterruptedException -> CredentialManagerResult.Interrupted(e)
       is CreateCredentialNoCreateOptionException -> CredentialManagerError.MissingCredentialManager(e)
+      is CreateCredentialUnknownException -> {
+        when {
+          Build.VERSION.SDK_INT <= 33 && e.message?.contains("[28431]") == true -> {
+            // This error only impacts Android 13 and earlier, when Google is the designated autofill provider. The error can be safely disregarded, since users
+            // will receive a save prompt from autofill and the password will be stored in Google Password Manager, which syncs with the Credential Manager API.
+            Log.d(TAG, "Disregarding CreateCredentialUnknownException and treating credential creation as success: \"${e.message}\".")
+            CredentialManagerResult.Success
+          }
+
+          e.message?.contains("[28434]") == true -> {
+            Log.w(TAG, "Detected MissingCredentialManager error based on CreateCredentialUnknownException message: \"${e.message}\"")
+            CredentialManagerError.MissingCredentialManager(e)
+          }
+
+          e.message?.contains("[28435]") == true -> {
+            Log.w(TAG, "CreateCredentialUnknownException: \"${e.message}\"")
+            CredentialManagerError.SavePromptDisabled(e)
+          }
+
+          else -> CredentialManagerError.Unexpected(e)
+        }
+      }
+
       else -> CredentialManagerError.Unexpected(e)
     }
   }

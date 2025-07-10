@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Media aan het uploaden…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Video aan het comprimeren…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Back-up van media maken…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Aan het nagaan of er nieuwe berichten zijn…</string>
 
@@ -630,7 +634,7 @@
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Molly opnieuw registreren</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
-    <string name="ConversationFragment__content_description_back_button">Ga terug.</string>
+    <string name="ConversationFragment__content_description_back_button">Terug</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
     <string name="ConversationFragment__content_description_launch_signal_button">Molly openen</string>
     <!-- Dialog title shown when more than one contact in a group conversation is no longer verified -->
@@ -862,7 +866,7 @@
 
     <!-- CreateBackupBottomSheet -->
     <!-- Bottom sheet title -->
-    <string name="CreateBackupBottomSheet__you_are_all_set">Je bent er klaar voor. Start nu je back-up.</string>
+    <string name="CreateBackupBottomSheet__you_are_all_set">Je bent er klaar voor. Maak nu je back-up.</string>
     <!-- Bottom sheet message -->
     <string name="CreateBackupBottomSheet__depending_on_the_size">Afhankelijk van de grootte van je back-up kan dit even duren. Tijdens het maken van de back-up kun je je telefoon gebruiken zoals je normaal doet.</string>
     <!-- Action button to dismiss sheet and back up later -->
@@ -953,13 +957,13 @@
     <string name="DateUtils_tonight">Vanavond</string>
     <!-- Used when showing the time a device was linked. %1$s is replaced with the date while %2$s is replaced with the time. e.g. on Jan 15 at 9:00pm -->
     <plurals name="DateUtils_date_time_at">
-        <item quantity="one">op %1$s om %2$s uur</item>
-        <item quantity="other">op %1$s om %2$s uur</item>
+        <item quantity="one">op %1$s om %2$s</item>
+        <item quantity="other">op %1$s om %2$s</item>
     </plurals>
     <!-- Used when showing the time a device was linked. e.g. at 9:00pm -->
     <plurals name="DateUtils_time_at">
-        <item quantity="one">om %1$s uur</item>
-        <item quantity="other">om %1$s uur</item>
+        <item quantity="one">om %1$s</item>
+        <item quantity="other">om %1$s</item>
     </plurals>
 
     <!-- Scheduled Messages -->
@@ -1084,9 +1088,13 @@
     <!-- Dialog title shown when a device is unlinked -->
     <string name="LinkDeviceFragment__device_unlinked">Apparaat ontkoppeld</string>
     <!-- Dialog body shown when a device is unlinked where %1$s is the date and time the device was originally linked (eg Jan 15 at 9:00pm) -->
-    <string name="LinkDeviceFragment__the_device_that_was">Het apparaat dat %1$s was gekoppeld, is nu ontkoppeld.</string>
+    <string name="LinkDeviceFragment__the_device_that_was">Het apparaat dat %1$s werd gekoppeld, is nu ontkoppeld.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Niet genoeg opslagruimte</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Je hebt niet genoeg vrije opslagruimte op je apparaat om je berichten over te zetten. Maak wat ruimte vrij en probeer het opnieuw, of koppel je apparaat zonder je berichten over te zetten.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1135,7 +1143,7 @@
     <!-- Title of notification telling users that a device was linked to their account -->
     <string name="NewLinkedDeviceNotification__you_linked_new_device">Je hebt een nieuw apparaat gekoppeld</string>
     <!-- Message body of notification telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">Een nieuw apparaat werd gekoppeld aan je account %1$s. Tik om te bekijken.</string>
+    <string name="NewLinkedDeviceNotification__a_new_device_was_linked">Er is een nieuw apparaat gekoppeld aan je account %1$s. Tik om te bekijken.</string>
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">‘%1$s’ ontkoppelen?</string>
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Deze versie van Molly is verlopen. Werk Molly nu bij om berichten te kunnen verzenden en ontvangen.</string>
     <string name="ExpiredBuildReminder_update_now">Nu bijwerken</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Werk Molly bij</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Deze versie van Molly is verlopen. Tik om bij te werken en berichten te kunnen verzenden en ontvangen.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Back-up aan het downloaden…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Berichten herstellen…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Voltooien…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Herstellen…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Molly bijwerken</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Niet nu</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Meldingen bij vermeldingen</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Kan niet lid worden van de groep</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Je kunt niet via de groepslink lid worden van deze groep omdat je door een beheerder uit deze groep bent verwijderd.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Je kunt niet via de groepslink lid worden van deze groep omdat je door een beheerder uit deze groep bent verwijderd. Neem contact op met een beheerder om weer aan de groep te worden toegevoegd.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Deze groepslink is niet langer geldig.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -1733,7 +1750,7 @@
     <string name="Megaphones_add_a_profile_photo">Profielfoto</string>
 
     <!-- Message body of megaphone telling users that a device was linked to their account. %1$s is the time it was linked -->
-    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">Een nieuw apparaat werd gekoppeld aan je account %1$s.</string>
+    <string name="NewLinkedDeviceMegaphone__a_new_device_was_linked">Er is een nieuw apparaat gekoppeld aan je account %1$s.</string>
     <!-- Button shown on megaphone that will redirect to the linked devices screen -->
     <string name="NewLinkedDeviceMegaphone__view_device">Apparaat bekijken</string>
     <!-- Button shown on megaphone to acknowledge and dismiss the megaphone -->
@@ -2897,7 +2914,7 @@
     <string name="SubmitDebugLogActivity_share">Delen</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Dit log bevat geen persoonlijke details zoals telefoonnummers. Als je op uploaden tikt dan wordt dit log 30 dagen lang online beschikbaar gesteld op een unieke nergens onthulde URL. Die URL kun je zelf naar de ontwikkelaars sturen.</string>
     <!-- Banner message shown while submitting debug log -->
-    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Als je op uploaden klikt dan wordt dit log 30 dagen lang online beschikbaar gesteld op een unieke nergens onthulde URL. Je kunt dit log ook offline op je eigen apparaat opslaan.</string>
+    <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Als je op uploaden tikt dan wordt dit log 30 dagen lang online beschikbaar gesteld op een unieke nergens onthulde URL. Je kunt dit log ook offline op je eigen apparaat opslaan.</string>
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -5335,6 +5352,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Back-up kon niet worden voltooid</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Kan je back-upabonnement niet activeren</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Limiet voor back-upopslag bereikt</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Vrienden uitnodigen</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -5970,7 +5989,7 @@
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
     <string name="MediaReviewFragment__photo_set_to_standard_quality">Foto ingesteld op standaardkwaliteit</string>
     <!-- Accessibility label describing the add media button on the Media review screen -->
-    <string name="MediaReviewFragment__add_media_accessibility_label">Een bestand toevoegen</string>
+    <string name="MediaReviewFragment__add_media_accessibility_label">Een mediabestand toevoegen</string>
     <!-- Accessibility label describing the brush and pen button on the Media review screen -->
     <string name="MediaReviewFragment__brush_pen_accessibility_label">Kwast en pen</string>
     <!-- Accessibility label describing the crop and rotate button on the Media review screen -->
@@ -7211,7 +7230,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Vul je bank, naam en e-mailadres in. Stripe gebruikt je e-mailadres om je op de hoogte te houden over je donatie. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Vul je naam en e-mailadres in. Stripe gebruikt je e-mailadres om je op de hoogte te houden over je donatie. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Vul je bankgegevens in. Signal verzamelt of bewaart jouw persoonlijke gegevens niet. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7278,14 +7297,14 @@
         <item quantity="other">We proberen binnen %1$d dagen opnieuw je contacten te verwerken.</item>
     </plurals>
     <!-- The second part of the body text in a bottom sheet dialog that advises the user to remove contacts from their phone to fix the issue. -->
-    <string name="CdsTemporaryErrorBottomSheet_body2">Om dit probleem sneller op te lossen, kun je overwegen contacten of accounts op je telefoon te verwijderen die veel contacten synchroniseren.</string>
+    <string name="CdsTemporaryErrorBottomSheet_body2">Om dit probleem sneller op te lossen, kun je overwegen contacten of accounts die veel contacten synchroniseren op je telefoon te verwijderen.</string>
     <!-- A button label in a bottom sheet that will navigate the user to their contacts settings. -->
     <!-- A toast that will be shown if we are unable to open the user\'s default contacts app. -->
 
     <!-- The title of a bottom sheet dialog that tells the user we can\'t process their contacts. -->
     <string name="CdsPermanentErrorBottomSheet_title">Je contacten kunnen niet worden verwerkt.</string>
     <!-- The first part of the body text in a bottom sheet dialog that tells the user we can\'t process their contacts. -->
-    <string name="CdsPermanentErrorBottomSheet_body">Het aantal contacten op je telefoon overschrijdt de limiet die Signal kan verwerken. Om toch contacten op Signal te kunnen vinden, kun je overwegen contacten of accounts op je telefoon te verwijderen die veel contacten synchroniseren.</string>
+    <string name="CdsPermanentErrorBottomSheet_body">Het aantal contacten op je telefoon overschrijdt de limiet die Signal kan verwerken. Om toch contacten op Signal te kunnen vinden, kun je overwegen contacten of accounts die veel contacten synchroniseren op je telefoon te verwijderen.</string>
     <!-- The first part of the body text in a bottom sheet dialog that tells the user we can\'t process their contacts. -->
     <string name="CdsPermanentErrorBottomSheet_learn_more">Meer informatie</string>
     <!-- A button label in a bottom sheet that will navigate the user to their contacts settings. -->
@@ -7701,6 +7720,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Alle weigeren</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Signal back-ups inschakelen</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Raak nooit meer berichten kwijt als je een nieuwe telefoon krijgt of Signal opnieuw installeert.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Inschakelen</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Niet nu</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Meldingen op volledig scherm inschakelen?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7852,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Je kunt op elk gewenst moment opnieuw betalen zodat back-ups van al je media worden gemaakt. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Je media worden vandaag verwijderd</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Je mediaback-upabonnement in Signal is stopgezet omdat we je betaling niet konden verwerken. Dit is de laatste mogelijkheid om de media in je back-up te downloaden voordat deze worden verwijderd.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Download je back-upgegevens vandaag nog</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Download je back-upgegevens</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Je hebt %1$s aan media die niet op dit apparaat staat. De media en bijlagen die in je back-up zijn opgeslagen, worden permanent verwijderd als je geen betaald abonnement hebt.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Maak %1$s vrij op dit apparaat</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7882,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Meer lezen</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Neem contact op met ondersteuning</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Herstel overslaan</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7897,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Abonneren voor %1$s/maand</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Nu media downloaden</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Nu back-up downloaden</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Media niet downloaden</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Back-up niet downloaden</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Niet nu</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7997,9 +8029,9 @@
     <!-- Setting section title header for storage optimization -->
     <string name="ManageStorageSettingsFragment__on_device_storage">Apparaatopslag</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimaliseer de apparaatopslag</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Apparaatopslag optimaliseren</string>
     <!-- Setting row explanation for storage optimization -->
-    <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Ongebruikte media worden verwijderd, maar kunnen altijd opnieuw gedownload worden vanuit je back-up.</string>
+    <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Ongebruikte media worden verwijderd van je apparaat, maar kunnen op elk moment opnieuw worden gedownload vanuit je back-up.</string>
     <!-- Dialog message for paid tier pending dialog -->
     <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Opslagoptimalisatie kan alleen worden gebruikt met een betaald abonnement op Signal back-ups. Je back-upabonnement wordt nog verwerkt en is nog niet actief. Probeer het later opnieuw.</string>
 
@@ -8039,13 +8071,29 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">Begrepen</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">%1$d dag geen back-up</item>
+        <item quantity="other">%1$d dagen geen back-up</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Je hebt %1$d dag geen back-up voltooid. Maak nu een back-up om ervoor te zorgen dat je berichten en media bewaard blijven.</item>
+        <item quantity="other">Je hebt in de afgelopen %1$d dagen geen back-up voltooid. Maak nu een back-up om ervoor te zorgen dat je berichten en media bewaard blijven.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/maand · Verlengt op %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Laatste back-up %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Abonnement opgezegd</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Automatische back-ups met de veilige, end-to-end versleutelde opslagservice van Signal.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Abonnement niet gevonden op dit apparaat."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Instellen</string>
 
@@ -8111,7 +8159,7 @@
     <!-- Section header for other ways to back up -->
     <string name="RemoteBackupsSettingsFragment__other_ways_to_backup">Andere manieren om een back-up te maken</string>
     <!-- Row title for performing on-device backup -->
-    <string name="RemoteBackupsSettingsFragment__on_device_backups">Back-ups op het apparaat</string>
+    <string name="RemoteBackupsSettingsFragment__on_device_backups">Lokale back-ups</string>
     <!-- Row label for performing on-device backup -->
     <string name="RemoteBackupsSettingsFragment__save_your_backups_to">Bewaar je back-ups in een map op dit apparaat</string>
     <!-- Button label to manage or cancel backups -->
@@ -8132,6 +8180,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Back-ups uitschakelen en verwijderen?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Je back-up wordt verwijderd en er worden geen nieuwe back-ups gemaakt. Alle media die in je back-up zijn opgeslagen, worden nu naar je telefoon gedownload.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Je abonnement wordt beëindigd en er worden geen kosten meer in rekening gebracht. Je back-up wordt ook verwijderd en er worden geen nieuwe back-ups gemaakt. Alle media die in je back-up zijn opgeslagen, worden nu naar je telefoon gedownload.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Uitschakelen en verwijderen</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8215,8 @@
         <item quantity="one">Je abonnement op dit apparaat is nog %1$d dag geldig. Verleng om Signal back-ups te blijven gebruiken</item>
         <item quantity="other">Je abonnement op dit apparaat is nog %1$d dagen geldig. Verleng om Signal back-ups te blijven gebruiken</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Opnieuw abonneren</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Vernieuwen</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8231,7 @@
         <item quantity="other">%1$s van ~%2$s berichten aan het verwerken (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Je hebt %1$s aan back-upgegevens die niet op dit apparaat staan. Je back-up wordt verwijderd over %2$d dag wanneer je abonnement afloopt.</item>
-        <item quantity="other">Je hebt %1$s aan back-upgegevens die niet op dit apparaat staan. Je back-up wordt verwijderd over %2$d dagen wanneer je abonnement afloopt.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Je hebt %1$s aan back-upgegevens die niet op dit apparaat staan. Zonder een betaald abonnement kun je je media niet downloaden.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Je hebt %1$s aan back-upgegevens die niet op dit apparaat staan. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8226,6 +8275,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Back-ups zijn uitgeschakeld en je gegevens zijn verwijderd uit de beveiligde opslagservice van Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Voortgang download: %1$s van %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Je hebt de opslaglimiet van %1$s in je back-upabonnement bereikt. Maak ruimte vrij om een back-up te maken van nieuwe chats en media.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Opslag beheren</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Download je back-up vandaag nog</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Je hebt %1$s aan back-upgegevens die niet op dit apparaat staan. Je media en bijlagen die in je back-up zijn opgeslagen, worden permanent verwijderd als je geen betaald abonnement hebt.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Downloaden</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Niet downloaden</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8292,10 +8355,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Bewaar je back-upsleutel alleen in een wachtwoordmanager waarvan je zeker weet dat deze veilig is. Signal doet geen aanbevelingen over geschikte wachtwoordmanagers.</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Opgeslagen in je wachtwoordmanager</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Kan niet opslaan in wachtwoordmanager</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Je hebt geen wachtwoordmanager ingesteld of de wachtwoordmanager die je gebruikt, wordt niet ondersteund.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Volgende</string>
     <!-- Bottom sheet title -->
@@ -8458,7 +8525,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Netwerkfout bij herstel Signal Android back-up</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Netwerkfout bij het exporteren van back-up in Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Foutopsporingslog indienen?</string>
@@ -8547,6 +8619,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">Aangevinkt</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Niet aangevinkt</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Back-upopslag vol</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Je hebt de limiet voor je back-upopslag bereikt. Maak ruimte vrij in Signal om back-ups van chats en media te kunnen maken.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Het maken van een back-up is mislukt</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Er is een fout opgetreden en je back-up kon niet worden voltooid. Tik voor details.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">%1$d dag geen back-up</item>
+        <item quantity="other">%1$d dagen geen back-up</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Je hebt %1$d dag geen back-up voltooid. Maak nu een back-up.</item>
+        <item quantity="other">Je hebt in de afgelopen %1$d dagen geen back-up voltooid. Maak nu een back-up.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

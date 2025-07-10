@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Prijenos priloga…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Kompresija videozapisa u toku …</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Kreiranje sigurnosne kopije medija…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Provjeravam ima li poruka…</string>
 
@@ -1131,6 +1135,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Uređaj koji je povezan %1$s više nije povezan.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Nema dovoljno prostora za pohranu</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Nemate dovoljno slobodnog prostora za pohranu na uređaju za prijenos poruka. Oslobodite prostor i pokušajte ponovo ili povežite uređaj bez prenošenja poruka.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1208,6 +1216,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ova verzija Mollya je istekla. Ažurirajte aplikaciju sada da biste mogli slati i primati poruke.</string>
     <string name="ExpiredBuildReminder_update_now">Ažuriraj sada</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Ažurirajte Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Ova verzija Mollya je istekla. Dodirnite za ažuriranje kako biste slali i primali poruke.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1518,6 +1531,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Preuzimanje sigurnosne kopije…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Vraćanje poruka…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Završava se…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Vraćanje…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1554,6 +1569,8 @@
     <string name="RemoteRestoreActivity__update_signal">Ažurirajte Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Ne sada</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Obavijesti me kad me neko spomene</string>
@@ -1664,7 +1681,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Ne mogu se pridružiti grupi</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Ovoj grupi ne možete se pridružiti putem linka za grupu jer Vas je administrator odstranio.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Ovoj grupi ne možete se pridružiti putem linka za grupu jer Vas je administrator odstranio. Kontaktirajte administratora da vas ponovo doda u grupu.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Ovaj link za grupu više nije valjan.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5597,6 +5614,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Nije moguće završiti kreiranje sigurnosne kopije</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Nije moguće iskoristiti vašu pretplatu na sigurnosne kopije</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Dostignuto je ograničenje prostora za sigurnosnu kopiju</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Pozovite prijatelje</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7541,7 +7560,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Unesite svoju banku, ime i adresu e-pošte. Stripe koristi ovu e-poštu da vam šalje novosti o vašoj donaciji. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Unesite svoje ime i e-poštu. Stripe koristi ovu e-poštu da vam šalje novosti o vašoj donaciji. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Unesite bankovne podatke. Signal ne prikuplja niti pohranjuje vaše lične podatke. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -8043,6 +8062,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Odbij sve</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Uključite Sigurnosne kopije Signala</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Nikada nemojte izgubiti poruku kada dobijete novi telefon ili ponovo instalirate Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Uključi</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Ne sada</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Uključiti obavještenja preko cijelog ekrana?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -8170,9 +8198,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Možete ponovo početi plaćati sigurnosne kopije u bilo kojem trenutku kako biste nastavili s kreiranjem sigurnosnih kopija svih svojih medija. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Vaši mediji će biti izbrisani danas</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Vaš Signal paket sigurnosne kopije medija je otkazan jer nismo mogli obraditi vašu uplatu. Ovo je vaša posljednja prilika da preuzmete medij u vašoj sigurnosnoj kopiji prije nego što se izbriše.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Preuzmite svoje sigurnosne kopije podataka već danas</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Preuzmite sigurnosne kopije podataka</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Imate medijski sadržaj (broj datoteka: %1$s) koji nije na ovom uređaju. Medijski sadržaj i prilozi pohranjeni u vašoj sigurnosnoj kopiji bit će trajno izbrisani bez plaćene pretplate.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Oslobodite %1$s na ovom uređaju</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -8200,6 +8230,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Saznaj više</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Kontaktirajte podršku</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Preskoči obnovu</string>
     <!-- Primary action button to open backups management screen -->
@@ -8213,9 +8245,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Pretplatite se za %1$s mjesečno</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Preuzmite medije sada</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Preuzmite sigurnosnu kopiju odmah</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Ne preuzimaj medij</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Ne preuzimaj sigurnosnu kopiju</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Ne sada</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8389,13 +8421,33 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Sigurnosna kopija nije kreirana %1$d dan</item>
+        <item quantity="few">Sigurnosna kopija nije kreirana %1$d dana</item>
+        <item quantity="many">Sigurnosna kopija nije kreirana %1$d dana</item>
+        <item quantity="other">Sigurnosna kopija nije kreirana %1$d dana</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Niste napravili sigurnosnu kopiju %1$d dan. Da biste osigurali očuvanje svojih poruka i medija, kreirajte sigurnosnu kopiju odmah.</item>
+        <item quantity="few">Niste napravili sigurnosnu kopiju %1$d dana. Da biste osigurali očuvanje svojih poruka i medija, kreirajte sigurnosnu kopiju odmah.</item>
+        <item quantity="many">Niste napravili sigurnosnu kopiju %1$d dana. Da biste osigurali očuvanje svojih poruka i medija, kreirajte sigurnosnu kopiju odmah.</item>
+        <item quantity="other">Niste napravili sigurnosnu kopiju %1$d dana. Da biste osigurali očuvanje svojih poruka i medija, kreirajte sigurnosnu kopiju odmah.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s mjesečno, obnavlja se %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Zadnja kreirana kopija: %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Pretplata je otkazana</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Automatsko kreiranje rezervnih kopija sa Signalovim sigurnom sveobuhvatnom uslugom pohranjivanja.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Pretplata nije pronađena na ovom uređaju."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Postavi</string>
 
@@ -8482,6 +8534,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Isključiti i izbrisati sigurnosne kopije?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Vaša sigurnosna kopija će biti izbrisana i nove sigurnosne kopije neće biti kreirane. Svi mediji pohranjeni u vašoj sigurnosnoj kopiji sada će se preuzeti na vaš telefon.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Vaša pretplata će biti otkazana i neće vam se više naplaćivati. Vaša sigurnosna kopija će biti izbrisana i nove sigurnosne kopije neće biti kreirane. Svi mediji pohranjeni u vašoj sigurnosnoj kopiji sada će se preuzeti na vaš telefon.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Isključi i izbriši</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8517,6 +8571,8 @@
         <item quantity="many">Vaša pretplata na ovom uređaju vrijedi narednih %1$d dana. Obnovite da nastavite koristiti Signal Backups.</item>
         <item quantity="other">Vaša pretplata na ovom uređaju vrijedi narednih %1$d dana. Obnovite da nastavite koristiti Signal Backups.</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Ponovo se pretplati</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Obnovi</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8533,12 +8589,7 @@
         <item quantity="other">Obrada %1$s od %2$s poruke (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Imate %1$s podatak sigurnosne kopije koji nije na ovom uređaju. Vaša sigurnosna kopija će biti izbrisana kada vaša pretplata završi za %2$d dan.</item>
-        <item quantity="few">Imate %1$s podatka sigurnosne kopije koja nisu na ovom uređaju. Vaša sigurnosna kopija će biti izbrisana kada vaša pretplata završi za %2$d dana.</item>
-        <item quantity="many">Imate %1$s podataka sigurnosne kopije koji nisu na ovom uređaju. Vaša sigurnosna kopija će biti izbrisana kada vaša pretplata završi za %2$d dana.</item>
-        <item quantity="other">Imate %1$s podataka sigurnosne kopije koji nisu na ovom uređaju. Vaša sigurnosna kopija će biti izbrisana kada vaša pretplata završi za %2$d dana.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Imate sigurnosne kopije podataka (njih %1$s) koje nisu na ovom uređaju. Bez plaćene pretplate, medijski sadržaji se ne mogu prenijeti.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Imate sigurnosne kopije podataka (njih %1$s) koje nisu na ovom uređaju. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8584,6 +8635,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Sigurnosne kopije su isključene i vaši podaci su izbrisani iz Signalove usluge sigurnog pohranjivanja.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Preuzimanje: %1$s od %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Dostigli ste ograničenje prostora za pohranu od %1$s koje je uključeno u vaš plan sigurnosne kopije. Oslobodite prostor za kreiranje sigurnosnih kopija novih chatova i medijskih sadržaja.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Upravljanje memorijom</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Preuzmite svoju sigurnosnu kopiju danas</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Imate sigurnosne kopije podataka (njih %1$s) koje nisu na ovom uređaju. Vaši medijski sadržaji i prilozi bit će trajno izbrisani bez plaćene pretplate.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Preuzmi</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Ne preuzimaj</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8650,10 +8715,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Rezervni ključ čuvajte samo u upravitelju lozinki za koji vjerujete da je siguran. Signal ne daje preporuke o tome koji je upravitelj lozinki pravi za vas.</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Sačuvano u vašem upravitelju lozinki</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Nije moguće sačuvati u upravitelju lozinki</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Nemate instaliran upravitelj lozinki ili onaj koji koristite nije podržan.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Dalje</string>
     <!-- Bottom sheet title -->
@@ -8820,7 +8889,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Greška mreže vraćanja sigurnosne kopije za Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Greška mreže vraćanja sigurnosne kopije za Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Pošalji zapisnik o otklanjanju grešaka?</string>
@@ -8909,6 +8983,29 @@
     <string name="SignalCheckbox_accessibility_checked_description">Označeno</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Poništena oznaka</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Prostor za sigurnosne kopije je pun</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Dostigli ste ograničenje prostora za pohranu sigurnosnih kopija. Oslobodite prostor u Signalu da biste nastavili sa izradom sigurnosnih kopija chatova i medija.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Neuspjelo kreiranje rezervne kopije</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Došlo je do greške i vaša sigurnosna kopija nije mogla biti dovršena. Dodirnite za detalje.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Sigurnosna kopija nije kreirana %1$d dan</item>
+        <item quantity="few">Sigurnosna kopija nije kreirana %1$d dana</item>
+        <item quantity="many">Sigurnosna kopija nije kreirana %1$d dana</item>
+        <item quantity="other">Sigurnosna kopija nije kreirana %1$d dana</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Niste napravili sigurnosnu kopiju %1$d dan. Napravite sigurnosnu kopiju odmah.</item>
+        <item quantity="few">Niste napravili sigurnosnu kopiju %1$d dana. Napravite sigurnosnu kopiju odmah.</item>
+        <item quantity="many">Niste napravili sigurnosnu kopiju %1$d dana. Napravite sigurnosnu kopiju odmah.</item>
+        <item quantity="other">Niste napravili sigurnosnu kopiju %1$d dana. Napravite sigurnosnu kopiju odmah.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

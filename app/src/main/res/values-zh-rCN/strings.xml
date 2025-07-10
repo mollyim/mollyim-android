@@ -50,7 +50,7 @@
     <string name="ApplicationPreferencesActivity_disable_passphrase">禁用密码？</string>
     <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">这将永久解锁 Molly 和消息通知。</string>
     <string name="ApplicationPreferencesActivity_disable">禁用</string>
-    <string name="ApplicationPreferencesActivity_error_connecting_to_server">连接服务出错！</string>
+    <string name="ApplicationPreferencesActivity_error_connecting_to_server">连接服务器出错！</string>
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN 对于注册锁定是必需的。如需禁用 PIN，请先禁用注册锁定。</string>
     <string name="ApplicationPreferencesActivity_pin_created">PIN 已创建。</string>
     <string name="ApplicationPreferencesActivity_pin_disabled">已禁用 PIN。</string>
@@ -137,6 +137,10 @@
     <!-- AttachmentUploadJob -->
     <string name="AttachmentUploadJob_uploading_media">上传媒体中…</string>
     <string name="AttachmentUploadJob_compressing_video_start">压缩视频中…</string>
+
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">正在备份媒体…</string>
 
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">正在检查消息…</string>
@@ -1065,6 +1069,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">%1$s 链接的设备已取消链接。</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">好</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">存储空间不足</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">您的设备上没有足够的可用存储空间来转移您的消息。请释放一些空间并重试，或链接设备但不转移消息。</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1142,6 +1150,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">此 Molly 版本已过期，请升级到最新版本以继续收发消息。</string>
     <string name="ExpiredBuildReminder_update_now">现在升级</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">升级 Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">此 Molly 版本已过期。请点击以更新版本并继续收发消息。</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1398,6 +1411,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">正在下载备份…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">正在恢复消息…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">正在完成…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">正在恢复…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1434,6 +1449,8 @@
     <string name="RemoteRestoreActivity__update_signal">升级 Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">稍后再说</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">提到我时通知我</string>
@@ -1535,7 +1552,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">无法加入群组</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">您无法通过此群组链接加入群组，因为有一位管理员移除了您。</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">您无法通过此群组链接加入群组，因为有一位管理员移除了您。请联系管理员以重新加入该群组。</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">此群组链接已失效。</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5204,6 +5221,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">无法完成备份</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">无法兑换您的备份套餐</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">已达到备份存储空间上限</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">邀请好友</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7046,7 +7065,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">请输入您的银行、名称和电子邮件地址。Stripe 将使用此电子邮件地址给您发送关于您的捐款的最新信息。%1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">请输入您的姓名和电子邮件地址。Stripe 将使用此电子邮件地址给您发送关于您捐款的最新动态。%1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">请输入您的银行信息。Signal 不会收集或储存您的个人信息。%1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7530,6 +7549,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">全部拒绝</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">打开 Signal 备份</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">无论您是更换手机还是重装 Signal，您的消息都不会丢失。</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">开启</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">稍后再说</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">要开启全屏通知吗？</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7651,9 +7679,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">您可以随时重新开始支付备份费用，以继续备份您的所有媒体。 </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">您的媒体将于今日删除</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">由于我们无法处理您的付款，您的 Signal 媒体备份计划已取消。这是您在备份被删除之前下载备份媒体的最后机会。</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">立即下载您的备份数据</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">下载您的备份数据</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">您有 %1$s 的媒体不在此设备上。如不订阅付费备份套餐，存储在您备份中的媒体和附件将会被永久删除。</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">在此设备上释放 %1$s</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7678,6 +7708,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">了解详情</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">联系支持人员</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">跳过恢复</string>
     <!-- Primary action button to open backups management screen -->
@@ -7691,9 +7723,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">按 %1$s/月订阅</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">立即下载媒体</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">立即下载备份</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">不下载媒体</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">不下载备份</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">稍后再说</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7864,13 +7896,27 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">好</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="other">%1$d 天未备份</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="other">您已有 %1$d 天未备份。请立即创建备份，确保您的消息和媒体得到妥善保存。</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/月，%2$s续期</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">上次备份 %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">备份套餐已取消</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">通过 Signal 的安全端对端加密存储服务自动备份。</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"未在此设备上找到备份套餐。"</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">设置</string>
 
@@ -7957,6 +8003,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">要关闭并删除备份？</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">您的备份将被删除，并且不会创建新的备份。您在备份中存储的任何媒体现在将下载到您的手机中。</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">您的备份套餐将会被取消，系统不会再向您收费。您的备份也将会被删除，并且不会创建新的备份。您在备份中存储的任何媒体现在将下载到您的手机中。</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">关闭和删除</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -7989,6 +8037,8 @@
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
         <item quantity="other">您在此设备上的套餐将在 %1$d 天后到期。请续订以继续使用 Signal 备份。</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">重新订阅</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">续订</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8002,9 +8052,7 @@
         <item quantity="other">正在处理 %1$s/%2$s 条消息（%3$d%%）</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="other">您有 %1$s 的备份不在此设备上。您的套餐将于 %2$d 天后到期，届时您的备份将会被删除。</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">您有 %1$s 的备份数据不在此设备上。如不订阅付费备份套餐，媒体无法转移。</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">您有 %1$s 的备份数据不在此设备上。 </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8047,6 +8095,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">备份已关闭，您的数据已从 Signal 的安全存储服务中删除。</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">正在下载：%1$s/%2$s（%3$d%%）</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">您已达到备份套餐的 %1$s 存储空间上限。如要备份新的聊天和媒体，请释放存储空间。</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">管理存储</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">立即下载您的备份</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">您有 %1$s 的备份数据不在此设备上。如不订阅付费备份套餐，您的媒体和附件将会被永久删除。</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">下载</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">不下载</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8113,10 +8175,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">请仅将您的备份密钥存储到您信任的安全密码管理器中。Signal 不会推荐哪款密码管理器适合您。</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">已保存到您的密码管理器</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">无法保存到密码管理器</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">您未设置密码管理器，或者您使用的密码管理器不受支持。</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">下一步</string>
     <!-- Bottom sheet title -->
@@ -8277,7 +8343,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Signal Android 备份恢复出现网络错误</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Android 版 Signal 备份导出发生网络错误</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">要提交调试日志吗？</string>
@@ -8366,6 +8437,23 @@
     <string name="SignalCheckbox_accessibility_checked_description">已勾选</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">未勾选</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">备份存储空间已满</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">您已达到备份存储空间的上限。请释放 Signal 的空间，以继续备份聊天记录和媒体。</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">备份失败</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">发生了错误，您的备份无法完成。点击查看详情。</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="other">%1$d 天未备份</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="other">您已有 %1$d 天未备份。立即创建备份。</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

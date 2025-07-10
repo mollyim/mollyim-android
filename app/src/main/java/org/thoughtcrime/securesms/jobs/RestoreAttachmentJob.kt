@@ -10,6 +10,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import org.greenrobot.eventbus.EventBus
+import org.signal.core.util.Base64.decodeBase64OrThrow
 import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.InvalidMacException
@@ -27,6 +28,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PartProgressEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JobLogger.format
+import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
 import org.thoughtcrime.securesms.jobmanager.impl.BatteryNotLowConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.RestoreAttachmentConstraint
@@ -38,6 +40,8 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.transport.RetryLaterException
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream.IntegrityCheck
+import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.push.exceptions.MissingConfigurationException
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
@@ -46,6 +50,11 @@ import org.whispersystems.signalservice.api.push.exceptions.RangeException
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import kotlin.jvm.optionals.getOrNull
+import kotlin.math.max
+import kotlin.math.pow
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -165,20 +174,21 @@ class RestoreAttachmentJob private constructor(
     val attachment = SignalDatabase.attachments.getAttachment(attachmentId)
 
     if (attachment == null) {
-      Log.w(TAG, "attachment no longer exists.")
+      Log.w(TAG, "[$attachmentId] Attachment no longer exists.")
       return
     }
 
     if (attachment.isPermanentlyFailed) {
-      Log.w(TAG, "Attachment was marked as a permanent failure. Refusing to download.")
+      Log.w(TAG, "[$attachmentId] Attachment was marked as a permanent failure. Refusing to download.")
       return
     }
 
     if (attachment.transferState != AttachmentTable.TRANSFER_NEEDS_RESTORE &&
       attachment.transferState != AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS &&
-      (attachment.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED)
+      attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_FAILED &&
+      attachment.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED
     ) {
-      Log.w(TAG, "Attachment does not need to be restored.")
+      Log.w(TAG, "[$attachmentId] Attachment does not need to be restored. Current state: ${attachment.transferState}")
       return
     }
 
@@ -196,8 +206,19 @@ class RestoreAttachmentJob private constructor(
   }
 
   override fun onShouldRetry(exception: Exception): Boolean {
-    return exception is PushNetworkException ||
-      exception is RetryLaterException
+    return exception is PushNetworkException || exception is RetryLaterException
+  }
+
+  override fun getNextRunAttemptBackoff(pastAttemptCount: Int, exception: java.lang.Exception): Long {
+    return if (exception is NonSuccessfulResponseCodeException && exception.code == 404) {
+      if (manual) {
+        BackoffUtil.exponentialBackoff(pastAttemptCount, 1.hours.inWholeMilliseconds)
+      } else {
+        1.days.inWholeMilliseconds * 2.0.pow(max(0.0, pastAttemptCount.toDouble()) - 1.0).toInt()
+      }
+    } else {
+      super.getNextRunAttemptBackoff(pastAttemptCount, exception)
+    }
   }
 
   @Throws(IOException::class, RetryLaterException::class)
@@ -209,17 +230,22 @@ class RestoreAttachmentJob private constructor(
   ) {
     val maxReceiveSize: Long = RemoteConfig.maxAttachmentReceiveSizeBytes
     val attachmentFile: File = SignalDatabase.attachments.getOrCreateTransferFile(attachmentId)
-    var archiveFile: File? = null
     var useArchiveCdn = false
+
+    if (attachment.remoteDigest == null && attachment.dataHash == null) {
+      Log.w(TAG, "[$attachmentId] Attachment has no integrity check! Cannot proceed.")
+      markPermanentlyFailed(attachmentId)
+      return
+    }
 
     try {
       if (attachment.size > maxReceiveSize) {
-        throw MmsException("Attachment too large, failing download")
+        throw MmsException("[$attachmentId] Attachment too large, failing download")
       }
 
       useArchiveCdn = if (SignalStore.backup.backsUpMedia && !forceTransitTier) {
         if (attachment.archiveTransferState != AttachmentTable.ArchiveTransferState.FINISHED) {
-          throw InvalidAttachmentException("Invalid attachment configuration! backsUpMedia: ${SignalStore.backup.backsUpMedia}, forceTransitTier: $forceTransitTier, archiveTransferState: ${attachment.archiveTransferState}")
+          throw InvalidAttachmentException("[$attachmentId] Invalid attachment configuration! backsUpMedia: ${SignalStore.backup.backsUpMedia}, forceTransitTier: $forceTransitTier, archiveTransferState: ${attachment.archiveTransferState}")
         }
         true
       } else {
@@ -230,8 +256,8 @@ class RestoreAttachmentJob private constructor(
       val pointer = attachment.createArchiveAttachmentPointer(useArchiveCdn)
 
       val progressListener = object : SignalServiceAttachment.ProgressListener {
-        override fun onAttachmentProgress(total: Long, progress: Long) {
-          EventBus.getDefault().postSticky(PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, total, progress))
+        override fun onAttachmentProgress(progress: AttachmentTransferProgress) {
+          EventBus.getDefault().postSticky(PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, progress))
         }
 
         override fun shouldCancel(): Boolean {
@@ -239,19 +265,17 @@ class RestoreAttachmentJob private constructor(
         }
       }
 
-      val downloadResult = if (useArchiveCdn) {
-        archiveFile = SignalDatabase.attachments.getOrCreateArchiveTransferFile(attachmentId)
+      val decryptingStream = if (useArchiveCdn) {
         val cdnCredentials = BackupRepository.getCdnReadCredentials(BackupRepository.CredentialType.MEDIA, attachment.archiveCdn ?: RemoteConfig.backupFallbackArchiveCdn).successOrThrow().headers
 
         messageReceiver
           .retrieveArchivedAttachment(
             SignalStore.backup.mediaRootBackupKey.deriveMediaSecrets(attachment.requireMediaName()),
+            attachment.dataHash!!.decodeBase64OrThrow(),
             cdnCredentials,
-            archiveFile,
-            pointer,
             attachmentFile,
+            pointer,
             maxReceiveSize,
-            false,
             progressListener
           )
       } else {
@@ -260,15 +284,15 @@ class RestoreAttachmentJob private constructor(
             pointer,
             attachmentFile,
             maxReceiveSize,
+            IntegrityCheck.forEncryptedDigestAndPlaintextHash(pointer.digest.getOrNull(), attachment.dataHash),
             progressListener
           )
       }
 
-      SignalDatabase.attachments.finalizeAttachmentAfterDownload(messageId, attachmentId, downloadResult.dataStream, downloadResult.iv, if (manual) System.currentTimeMillis().milliseconds else null)
+      SignalDatabase.attachments.finalizeAttachmentAfterDownload(messageId, attachmentId, decryptingStream, if (manual) System.currentTimeMillis().milliseconds else null)
     } catch (e: RangeException) {
-      val transferFile = archiveFile ?: attachmentFile
-      Log.w(TAG, "Range exception, file size " + transferFile.length(), e)
-      if (transferFile.delete()) {
+      Log.w(TAG, "[$attachmentId] Range exception, file size " + attachmentFile.length(), e)
+      if (attachmentFile.delete()) {
         Log.i(TAG, "Deleted temp download file to recover")
         throw RetryLaterException(e)
       } else {
@@ -280,31 +304,35 @@ class RestoreAttachmentJob private constructor(
     } catch (e: NonSuccessfulResponseCodeException) {
       if (SignalStore.backup.backsUpMedia) {
         if (e.code == 404 && !forceTransitTier && attachment.remoteLocation?.isNotBlank() == true) {
-          Log.i(TAG, "Failed to download attachment from archive! Should only happen for recent attachments in a narrow window. Retrying download from transit CDN.")
+          Log.i(TAG, "[$attachmentId] Failed to download attachment from archive! Should only happen for recent attachments in a narrow window. Retrying download from transit CDN.")
           if (RemoteConfig.internalUser) {
             postFailedToDownloadFromArchiveNotification()
           }
+
           retrieveAttachment(messageId, attachmentId, attachment, true)
           return
         } else if (e.code == 401 && useArchiveCdn) {
           SignalStore.backup.mediaCredentials.cdnReadCredentials = null
           SignalStore.backup.cachedMediaCdnPath = null
           throw RetryLaterException(e)
+        } else if (e.code == 404 && attachment.remoteLocation?.isNotBlank() == true) {
+          Log.i(TAG, "Failed to download attachment from transit tier. Scheduling retry.")
+          throw e
         }
       }
 
-      Log.w(TAG, "Experienced exception while trying to download an attachment.", e)
+      Log.w(TAG, "[$attachmentId] Experienced exception while trying to download an attachment.", e)
       markFailed(attachmentId)
     } catch (e: MmsException) {
-      Log.w(TAG, "Experienced exception while trying to download an attachment.", e)
+      Log.w(TAG, "[$attachmentId] Experienced exception while trying to download an attachment.", e)
       markFailed(attachmentId)
     } catch (e: MissingConfigurationException) {
-      Log.w(TAG, "Experienced exception while trying to download an attachment.", e)
+      Log.w(TAG, "[$attachmentId] Experienced exception while trying to download an attachment.", e)
       markFailed(attachmentId)
     } catch (e: InvalidMessageException) {
-      Log.w(TAG, "Experienced an InvalidMessageException while trying to download an attachment.", e)
+      Log.w(TAG, "[$attachmentId] Experienced an InvalidMessageException while trying to download an attachment.", e)
       if (e.cause is InvalidMacException) {
-        Log.w(TAG, "Detected an invalid mac. Treating as a permanent failure.")
+        Log.w(TAG, "[$attachmentId] Detected an invalid mac. Treating as a permanent failure.")
         markPermanentlyFailed(attachmentId)
       } else {
         markFailed(attachmentId)

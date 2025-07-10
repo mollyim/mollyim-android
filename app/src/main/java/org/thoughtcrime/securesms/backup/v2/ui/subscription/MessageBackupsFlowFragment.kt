@@ -33,6 +33,7 @@ import org.signal.core.util.getSerializableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
+import org.thoughtcrime.securesms.components.settings.app.backups.remote.BackupKeyCredentialManagerHandler
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentCheckoutDelegate
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.Nav
@@ -150,7 +151,11 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
           },
           onRequestSaveToPasswordManager = viewModel::onBackupKeySaveRequested,
           onConfirmSaveToPasswordManager = viewModel::onBackupKeySaveConfirmed,
-          onSaveToPasswordManagerComplete = viewModel::onBackupKeySaveCompleted
+          onSaveToPasswordManagerComplete = viewModel::onBackupKeySaveCompleted,
+          onGoToDeviceSettingsClick = {
+            val intent = BackupKeyCredentialManagerHandler.getCredentialManagerSettingsIntent(requireContext())
+            requireContext().startActivity(intent)
+          }
         )
       }
 
@@ -171,7 +176,12 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
           isNextEnabled = state.isCheckoutButtonEnabled(),
           onMessageBackupsTierSelected = viewModel::onMessageBackupTierUpdated,
           onNavigationClick = viewModel::goToPreviousStage,
-          onReadMoreClicked = {},
+          onReadMoreClicked = {
+            CommunicationActions.openBrowserLink(
+              requireContext(),
+              getString(R.string.backup_support_url)
+            )
+          },
           onNextClicked = viewModel::goToNextStage
         )
       }

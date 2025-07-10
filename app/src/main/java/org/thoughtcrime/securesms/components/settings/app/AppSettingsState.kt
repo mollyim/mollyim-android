@@ -12,7 +12,8 @@ data class AppSettingsState(
   val showInternalPreferences: Boolean = RemoteConfig.internalUser,
   val showAppUpdates: Boolean = BuildConfig.MANAGES_MOLLY_UPDATES,
   val showBackups: Boolean = RemoteConfig.messageBackups,
-  val backupFailureState: BackupFailureState = BackupFailureState.NONE
+  val backupFailureState: BackupFailureState = BackupFailureState.NONE,
+  val legacyLocalBackupsEnabled: Boolean
 ) {
   fun isRegisteredAndUpToDate(): Boolean {
     return !userUnregistered && !clientDeprecated

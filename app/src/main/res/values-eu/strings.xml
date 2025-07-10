@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Multimedia-edukia kargatzen…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Bideoa konprimatzen…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Multimedia-edukiaren babeskopia egiten…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Mezuak dauden bilatzen…</string>
 
@@ -1087,6 +1091,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Lotu zenuen gailua (%1$s) jada ez dago lotuta.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">Ados</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Ez duzu nahikoa tokirik memorian</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Ez duzu nahikoa toki librerik gailuko memorian mezuak transferitzeko. Egin tokia eta saiatu berriro, edo lotu gailua mezuak transferitu gabe.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Mollyen bertsio hau iraungi da. Eguneratu orain mezuak bidali eta jaso ahal izateko.</string>
     <string name="ExpiredBuildReminder_update_now">Eguneratu orain</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Eguneratu Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Molly-en bertsio hau zaharkituta dago. Mezuak bidali eta jasotzeko, sakatu hau eguneratzeko.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Babeskopia deskargatzen…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Mezuak leheneratzen…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Amaitzen…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Leheneratzen…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Eguneratu Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Orain ez</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Nahi dut aipamenak jakinaraztea</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Ezin zara sartu taldean</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Ezin zara sartu talde honetan taldearen estekaren bidez, administratzaile batek kendu egin zaituelako.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Ezin zara sartu talde honetan taldearen estekaren bidez, administratzaile batek kendu egin zaituelako. Jarri harremanetan administratzaile batekin berriro gehi zaitzan taldean.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Talde esteka hau dagoeneko ez da baliagarria</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5335,6 +5352,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Ezin izan da osatu babeskopia</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Ezin izan da trukatu babeskopien harpidetza</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Babeskopien biltegiratze-mugara iritsi zara</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Gonbidatu zure lagunak</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7211,7 +7230,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Sartu zure bankua, izena eta helbide elektronikoa. Stripe-k posta elektroniko hau erabiltzen du zure dohaintzari buruzko eguneraketak bidaltzeko. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Idatzi zure izena eta e-maila. Dohaintzari buruzko informazio eguneratua bidaltzeko erabiliko du Stripe-k helbide hori. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Idatzi bankuaren xehetasunak. Signal-ek ez du biltzen edo gordetzen zure informazio pertsonala. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7701,6 +7720,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Guztia ukatu</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Aktibatu Signal-en babeskopiak</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Ez galdu mezuak telefono berri bat eskuratzean edo Signal berriro instalatzean.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Aktibatu</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Orain ez</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Pantaila osoko jakinarazpenak aktibatu nahi dituzu?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7852,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Multimedia-edukiaren babeskopiak egiten jarraitzeko, babeskopiak berriro ordaintzen has zaitezke. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Multimedia-edukia gaur ezabatuko da</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Signal-eko multimedia-edukiaren babeskopia-plana bertan behera utzi da, ezin izan dugulako prozesatu zure ordainketa. Babeskopiako multimedia-edukia ezabatu aurretik deskargatzeko azken aukera duzu hau.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Deskargatu babeskopia-datuak gaur</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Deskargatu babeskopia-datuak</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Gailu honetan ez dauden multimedia-edukiak dauzkazu (%1$s). Ordainpeko harpidetza bat lortu ezean, babeskopian gordetako multimedia-eduki eta eranskinak betiko ezabatuko dira.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Utzi %1$s libre gailu honetan</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7882,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Informazio gehiago</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Jarri harremanetan laguntza-zerbitzuarekin</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Saltatu leheneratzeko aukera</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7897,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Harpidetu hilean %1$s ordainduta</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Deskargatu multimedia-edukia</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Deskargatu babeskopia orain</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Ez deskargatu multimedia-edukia</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Ez deskargatu babeskopia</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Orain ez</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8039,13 +8071,29 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">Ados</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Ez da babeskopiarik egin %1$d egunez</item>
+        <item quantity="other">Ez da babeskopiarik egin %1$d egunez</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Ez duzu babeskopiarik egin %1$d egunez. Mezuak eta multimedia-edukia ez galtzeko, sortu babeskopia bat orain.</item>
+        <item quantity="other">Ez duzu babeskopiarik egin %1$d egunez. Mezuak eta multimedia-edukia ez galtzeko, sortu babeskopia bat orain.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">Hilean %1$s (berritze-data: %2$s)</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Azken babeskopia: %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Harpidetza bertan behera utzi da</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Babeskopia automatikoak, Signal-en muturretik muturrera enkriptatutako biltegiratze-zerbitzu seguruarekin.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Gailu honetan ez da harpidetzarik aurkitu."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Konfiguratu</string>
 
@@ -8132,6 +8180,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Babeskopiak desaktibatu eta ezabatu nahi dituzu?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Babeskopia ezabatu egingo da, eta ez da beste babeskopiarik sortuko. Babeskopian gordetako multimedia-edukiak telefonoan deskargatuko dira orain.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Zure harpidetza bertan behera utziko da, eta ez zaizu berriro kobratuko. Babeskopia ezabatu egingo da, eta ez da beste babeskopiarik sortuko. Babeskopian gordetako multimedia-edukiak telefonoan deskargatuko dira orain.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Itzali eta ezabatu</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8215,8 @@
         <item quantity="one">Gailu honetako harpidetza %1$d egunez izango da baliozkoa. Berri ezazu Signal-en Babeskopiak erabiltzen jarraitzeko.</item>
         <item quantity="other">Gailu honetako harpidetza %1$d egunez izango da baliozkoa. Berri ezazu Signal-en Babeskopiak erabiltzen jarraitzeko.</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Harpidetu berriro</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Berritu</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8231,7 @@
         <item quantity="other">%1$s / %2$s mezu prozesatzen (%% %3$d)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">%1$s-ko babeskopia bat duzu gailu honetatik kanpo. Harpidetza %2$d egun barru amaitzean, babeskopia ezabatu egingo da.</item>
-        <item quantity="other">%1$s-ko babeskopia bat duzu gailu honetatik kanpo. Harpidetza %2$d egun barru amaitzean, babeskopia ezabatu egingo da.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Gailu honetan ez dauden babeskopia-datuak dauzkazu (%1$s). Ordainpeko harpidetza bat izan ezean, multimedia-eduki horiek ezin dira deskargatu.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Gailu honetan ez dauden babeskopia-datuak dauzkazu (%1$s). </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8226,6 +8275,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Babeskopiak desaktibatu egin dira, eta zure datuak ezabatu egin dira Signal-en biltegiratze-zerbitzu segurutik.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">%1$s/%2$s deskargatzen (%% %3$d)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Babeskopia-planaren biltegiratze-mugara (%1$s) iritsi zara. Txat eta multimedia-eduki gehiagoren babeskopiak egiteko, egin tokia.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Kudeatu biltegiratzea</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Deskargatu babeskopia gaur</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Gailu honetan ez dauden babeskopia-datuak dauzkazu (%1$s). Ordainpeko harpidetza bat lortu ezean, multimedia-eduki eta eranskinak betiko ezabatuko dira.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Deskargatu</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Ez deskargatu</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8292,10 +8355,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Babeskopia-gakoa gordetzeko, erabili fidagarritzat duzun eta segurua den pasahitz-kudeatzaile bat. Signal-ek ez dizu gomendatuko zein pasahitz-kudeatzaile den onena zuretzat.</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Gorde da pasahitz-kudeatzailean</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Ezin da gorde pasahitz-kudeatzailean</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Ez daukazu pasahitz-kudeatzailerik konfiguratuta, edo erabiltzen ari zaren pasahitz-kudeatzailea ez da bateragarria.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Hurrengoa</string>
     <!-- Bottom sheet title -->
@@ -8458,7 +8525,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Android-erako Signal-en babeskopia leheneratzeko errorea</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Android-erako Signal-en babeskopia esportatzeko errorea</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Arazketa-erregistroa bidali nahi duzu?</string>
@@ -8547,6 +8619,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">Markatuta</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Markatu gabe</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Babeskopien biltegia beteta dago.</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Babeskopien biltegiratze-mugara iritsi zara. Txaten eta multimedia-edukien babeskopiak egiten jarraitzeko, egin tokia Signal-en.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Babeskopiak huts egin du</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Errore bat gertatu da eta ezin izan da osatu babeskopia. Sakatu xehetasunak ikusteko.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Ez da babeskopiarik egin %1$d egunez</item>
+        <item quantity="other">Ez da babeskopiarik egin %1$d egunez</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Ez duzu babeskopiarik egin %1$d egunez. Sortu babeskopia bat orain.</item>
+        <item quantity="other">Ez duzu babeskopiarik egin %1$d egunez. Sortu babeskopia bat orain.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

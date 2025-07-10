@@ -146,6 +146,8 @@ import java.util.UUID
 import java.util.function.Function
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.milliseconds
 
 open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : DatabaseTable(context, databaseHelper), MessageTypes, RecipientIdDatabaseReference, ThreadIdDatabaseReference {
 
@@ -2008,6 +2010,19 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
   }
 
+  fun getRecentPendingMessages(): MmsReader {
+    val now = System.currentTimeMillis()
+    val oneDayAgo = now.milliseconds - 1.days
+    val messageIds = readableDatabase
+      .select(ID)
+      .from(TABLE_NAME)
+      .where("$DATE_SENT > ${oneDayAgo.inWholeMilliseconds} AND $DATE_SENT < $now AND ($TYPE & ${MessageTypes.BASE_TYPE_MASK}) = ${MessageTypes.BASE_SENDING_TYPE} AND $SCHEDULED_DATE = -1")
+      .run()
+      .readToList { it.requireLong(ID) }
+
+    return getMessages(messageIds)
+  }
+
   private fun getOriginalEditedMessageRecord(messageId: Long): Long {
     return readableDatabase.select(ID)
       .from(TABLE_NAME)
@@ -2243,7 +2258,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         NOTIFIED to 1,
         REACTIONS_LAST_SEEN to System.currentTimeMillis()
       )
-      .where("$ID = ?", id)
+      .where("$ID = ? OR $ORIGINAL_MESSAGE_ID = ? OR $LATEST_REVISION_ID = ?", id, id, id)
       .run()
   }
 
@@ -2719,6 +2734,17 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     } else {
       contentValues.put(QUOTE_ID, 0)
       contentValues.put(QUOTE_AUTHOR, 0)
+    }
+
+    if (editedMessage != null) {
+      val notified = readableDatabase
+        .select(NOTIFIED)
+        .from(TABLE_NAME)
+        .where(ID_WHERE, editedMessage.id)
+        .run()
+        .readToSingleInt(0)
+
+      contentValues.put(NOTIFIED, notified.toInt())
     }
 
     val (messageId, insertedAttachments) = insertMediaMessage(
@@ -4896,7 +4922,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         AND $STORY_TYPE = 0 
         AND $LATEST_REVISION_ID IS NULL 
         AND (
-          $READ = 0 
+          ($READ = 0 AND ($ORIGINAL_MESSAGE_ID IS NULL OR EXISTS (SELECT 1 FROM $TABLE_NAME AS m WHERE m.$ID = $TABLE_NAME.$ORIGINAL_MESSAGE_ID AND m.$READ = 0)))
           OR $REACTIONS_UNREAD = 1 
           ${if (stickyQuery.isNotEmpty()) "OR ($stickyQuery)" else ""}
           OR ($IS_MISSED_CALL_TYPE_CLAUSE AND EXISTS (SELECT 1 FROM ${CallTable.TABLE_NAME} WHERE ${CallTable.MESSAGE_ID} = $TABLE_NAME.$ID AND ${CallTable.EVENT} = ${CallTable.Event.serialize(CallTable.Event.MISSED)} AND ${CallTable.READ} = 0)) 
@@ -5312,15 +5338,6 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val hasDeliveryReceipt: Boolean,
     val type: Long
   )
-
-  enum class MessageStatus {
-    PENDING,
-    SENT,
-    DELIVERED,
-    READ,
-    VIEWED,
-    FAILED
-  }
 
   data class SyncMessageId(
     val recipientId: RecipientId,

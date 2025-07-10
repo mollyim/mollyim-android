@@ -11,7 +11,6 @@ import org.signal.core.util.Base64
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.inRoundedDays
 import org.signal.core.util.logging.Log
-import org.signal.core.util.mebiBytes
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.Attachment
@@ -32,8 +31,10 @@ import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.service.AttachmentProgressService
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
+import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResumableUploadResponseCodeException
@@ -64,11 +65,6 @@ class AttachmentUploadJob private constructor(
     private val NETWORK_RESET_THRESHOLD = 1.minutes.inWholeMilliseconds
 
     val UPLOAD_REUSE_THRESHOLD = 3.days.inWholeMilliseconds
-
-    /**
-     * Foreground notification shows while uploading attachments above this.
-     */
-    private val FOREGROUND_LIMIT = 10.mebiBytes.inWholeBytes
 
     @JvmStatic
     val maxPlaintextSize: Long
@@ -136,7 +132,7 @@ class AttachmentUploadJob private constructor(
       throw NotPushRegisteredException()
     }
 
-    SignalDatabase.attachments.createKeyIvIfNecessary(attachmentId)
+    SignalDatabase.attachments.createRemoteKeyIfNecessary(attachmentId)
 
     val databaseAttachment = SignalDatabase.attachments.getAttachment(attachmentId) ?: throw InvalidAttachmentException("Cannot find the specified attachment.")
 
@@ -160,7 +156,7 @@ class AttachmentUploadJob private constructor(
         .then { form ->
           SignalNetwork.attachments.getResumableUploadSpec(
             key = Base64.decode(databaseAttachment.remoteKey!!),
-            iv = databaseAttachment.remoteIv!!,
+            iv = Util.getSecretBytes(16),
             uploadForm = form
           )
         }
@@ -224,7 +220,7 @@ class AttachmentUploadJob private constructor(
   }
 
   private fun getAttachmentNotificationIfNeeded(attachment: Attachment): AttachmentProgressService.Controller? {
-    return if (attachment.size >= FOREGROUND_LIMIT) {
+    return if (attachment.size >= AttachmentUploadUtil.FOREGROUND_LIMIT_BYTES) {
       AttachmentProgressService.start(context, context.getString(R.string.AttachmentUploadJob_uploading_media))
     } else {
       null
@@ -263,17 +259,10 @@ class AttachmentUploadJob private constructor(
         uploadSpec = resumableUploadSpec,
         cancellationSignal = { isCanceled },
         progressListener = object : SignalServiceAttachment.ProgressListener {
-          private var lastUpdate = 0L
-          private val updateRate = 500.milliseconds.inWholeMilliseconds
-
-          override fun onAttachmentProgress(total: Long, progress: Long) {
-            val now = System.currentTimeMillis()
-            if (now < lastUpdate || lastUpdate + updateRate < now || progress >= total) {
-              SignalExecutors.BOUNDED_IO.execute {
-                EventBus.getDefault().postSticky(PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, total, progress))
-                notification?.progress = (progress.toFloat() / total)
-              }
-              lastUpdate = now
+          override fun onAttachmentProgress(progress: AttachmentTransferProgress) {
+            SignalExecutors.BOUNDED_IO.execute {
+              EventBus.getDefault().postSticky(PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, progress))
+              notification?.updateProgress(progress.value)
             }
           }
 

@@ -8,7 +8,6 @@ package org.thoughtcrime.securesms.jobs
 import android.os.Build
 import org.signal.core.util.logging.Log
 import org.signal.protos.resumableuploads.ResumableUpload
-import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.PointerAttachment
@@ -25,6 +24,7 @@ import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.util.ImageCompressionUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream
@@ -85,8 +85,8 @@ class ArchiveThumbnailUploadJob private constructor(
       return Result.success()
     }
 
-    if (attachment.remoteDigest == null) {
-      Log.w(TAG, "$attachmentId was never uploaded! Cannot proceed.")
+    if (attachment.remoteDigest == null && attachment.dataHash == null) {
+      Log.w(TAG, "$attachmentId has no integrity check! Cannot proceed.")
       return Result.success()
     }
 
@@ -106,7 +106,7 @@ class ArchiveThumbnailUploadJob private constructor(
       .then { form ->
         SignalNetwork.attachments.getResumableUploadSpec(
           key = mediaRootBackupKey.deriveThumbnailTransitKey(attachment.requireThumbnailMediaName()),
-          iv = attachment.remoteIv!!,
+          iv = Util.getSecretBytes(16),
           uploadForm = form
         )
       }
@@ -116,25 +116,28 @@ class ArchiveThumbnailUploadJob private constructor(
         Log.d(TAG, "Got an upload spec!")
         specResult.result.toProto()
       }
+
       is NetworkResult.ApplicationError -> {
         Log.w(TAG, "Failed to get an upload spec due to an application error. Retrying.", specResult.throwable)
         return Result.retry(defaultBackoff())
       }
+
       is NetworkResult.NetworkError -> {
         Log.w(TAG, "Encountered a transient network error when getting upload spec. Retrying.")
         return Result.retry(defaultBackoff())
       }
+
       is NetworkResult.StatusCodeError -> {
         Log.w(TAG, "Failed to get an upload spec with status code ${specResult.code}")
         return Result.retry(defaultBackoff())
       }
     }
 
-    val stream = buildSignalServiceAttachmentStream(thumbnailResult, resumableUpload)
-
-    val attachmentPointer: Attachment = try {
-      val pointer = AppDependencies.signalServiceMessageSender.uploadAttachment(stream)
-      PointerAttachment.forPointer(Optional.of(pointer)).get()
+    val attachmentPointer = try {
+      buildSignalServiceAttachmentStream(thumbnailResult, resumableUpload).use { stream ->
+        val pointer = AppDependencies.signalServiceMessageSender.uploadAttachment(stream)
+        PointerAttachment.forPointer(Optional.of(pointer)).get()
+      }
     } catch (e: IOException) {
       Log.w(TAG, "Failed to upload attachment", e)
       return Result.retry(defaultBackoff())
@@ -145,21 +148,25 @@ class ArchiveThumbnailUploadJob private constructor(
         // save attachment thumbnail
         SignalDatabase.attachments.finalizeAttachmentThumbnailAfterUpload(
           attachmentId = attachmentId,
-          attachmentDigest = attachment.remoteDigest,
+          attachmentPlaintextHash = attachment.dataHash,
+          attachmentRemoteKey = attachment.remoteKey,
           data = thumbnailResult.data
         )
 
-        Log.d(TAG, "Successfully archived thumbnail for $attachmentId mediaName=${attachment.requireThumbnailMediaName()}")
+        Log.d(TAG, "Successfully archived thumbnail for $attachmentId")
         Result.success()
       }
+
       is NetworkResult.NetworkError -> {
         Log.w(TAG, "Hit a network error when trying to archive thumbnail for $attachmentId", result.exception)
         Result.retry(defaultBackoff())
       }
+
       is NetworkResult.StatusCodeError -> {
         Log.w(TAG, "Hit a status code error of ${result.code} when trying to archive thumbnail for $attachmentId")
         Result.retry(defaultBackoff())
       }
+
       is NetworkResult.ApplicationError -> Result.fatalFailure(RuntimeException(result.throwable))
     }
   }

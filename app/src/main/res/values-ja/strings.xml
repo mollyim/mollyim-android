@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">メディアをアップロードしています…</string>
     <string name="AttachmentUploadJob_compressing_video_start">動画を圧縮しています…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">メディアのバックアップ中です…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">メッセージを確認しています…</string>
 
@@ -1065,6 +1069,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">%1$sリンクされた端末は、リンクが解除されました。</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">ストレージ容量が不足しています</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">メッセージを移行するための端末のストレージ容量が不足しています。空き容量を増やしてからもう一度試すか、メッセージを移行せずに端末をリンクしてください。</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1142,6 +1150,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">このバージョンのMollyは期限が切れています。メッセージを送受信するには、アップデートしてください。</string>
     <string name="ExpiredBuildReminder_update_now">アップデートする</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Mollyをアップデートしてください</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">このバージョンのMollyは期限が切れています。メッセージを送受信するには、タップしてアップデートしてください。</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1398,6 +1411,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">バックアップをダウンロードしています…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">メッセージを復元しています…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">終了しています…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">復元中…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1434,6 +1449,8 @@
     <string name="RemoteRestoreActivity__update_signal">Mollyをアップデートしてください</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">今はしない</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">If you choose not to restore now, you won\'t be able to restore later. Your media will restore in the background.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">メンションの通知</string>
@@ -1535,7 +1552,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">グループに参加できません</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">管理者があなたを削除したため、グループリンクからはこのグループに参加できません。</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">管理者があなたを削除したため、グループリンクからはこのグループに参加できません。管理者に連絡して、グループに再度追加してもらってください。</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">このグループリンクはすでに無効です。</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -5204,6 +5221,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">バックアップが完了していません</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">バックアップのサブスクリプションを有効化することができませんでした</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">バックアップストレージがいっぱいです</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">友達を招待</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7046,7 +7065,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">銀行名、氏名、メールアドレスを入力してください。入力いただいたメールアドレスは、Stripeがお客様の寄付に関するお知らせをお送りするために使用されます。%1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">お名前とメールアドレスを入力してください。入力いただいたメールアドレスは、Stripeがお客様の寄付に関するお知らせをお送りするために使用されます。%1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">口座情報を入力してください。Signalがお客様の個人情報を収集したり保存したりすることはありません。%1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7530,6 +7549,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">全員拒否する</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Signalバックアップを有効にする</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">スマートフォンを買い替えたり、Signalを再インストールしてもメッセージを失うことはありません。</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">有効にする</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">今はしない</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">全画面通知をオンにしますか？</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7651,9 +7679,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">決済の再開はいつでも可能であり、すべてのメディアのバックアップは継続されます。 </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">メディアは今日消去されます</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">決済手続きができなかったため、Signalメディアのバックアッププランが無効になりました。バックアップ内のメディアをダウンロードできるのは今日が最終日となります。</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">今日中にバックアップデータをダウンロードしてください</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">バックアップデータをダウンロードしてください</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">この端末に保存されていないメディアが%1$sあります。有料のサブスクリプションに加入しない場合は、バックアップに保存されているメディアや添付ファイルは完全に消去されます。</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">端末に%1$sのストレージを確保してください</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7678,6 +7708,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">詳しく見る</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">サポートに問い合わせる</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">復元をスキップする</string>
     <!-- Primary action button to open backups management screen -->
@@ -7691,9 +7723,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">%1$s ／月で申し込む</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">今すぐメディアをダウンロードする</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">今すぐバックアップをダウンロードする</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">メディアをダウンロードしない</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">バックアップをダウンロードしない</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">今はしない</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7864,13 +7896,27 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="other">%1$d日間バックアップが実行されていません</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="other">%1$d日間バックアップが実行されていません。大切なメッセージとメディアを失わないように、今すぐバックアップを作成してください。</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s／月、更新日 %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">最終バックアップ：%1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">サブスクリプションが解除されました</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Signalによる、安全なエンドツーエンドの暗号化ストレージサービスによる自動バックアップです。</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"ご利用の端末でのサブスクリプションが確認できません。"</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">設定</string>
 
@@ -7957,6 +8003,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">バックアップをオフにして消去しますか？</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">これまでのバックアップは消去されて、以降のバックアップはされません。バックアップに保存されているすべてのメディアはご利用のスマートフォンにダウンロードされます。</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">サブスクリプションはキャンセルされ、今後、料金は発生しません。これまでのバックアップも消去されて、以降のバックアップはされません。バックアップに保存されているすべてのメディアはご利用のスマートフォンにダウンロードされます。</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">非表示にして消去する</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -7989,6 +8037,8 @@
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
         <item quantity="other">この端末でのサブスクリプションは、あと%1$d日間有効です。Signalバックアップのご利用を継続するには更新手続きをしてください</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">再開する</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">更新する</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8002,9 +8052,7 @@
         <item quantity="other">%2$s件のメッセージのうち%1$s件を処理中です（%3$d%%）</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="other">この端末上にないバックアップデータが %1$s あります。サブスクリプションが %2$d 日後に終了すると、バックアップは消去されます。</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">この端末に保存されていないバックアップデータが%1$sあります。有料のサブスクリプションに加入しない場合は、メディアを移行できません。</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">このデバイスに存在しないバックアップデータが%1$sあります。 </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8047,6 +8095,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">バックアップがオフになり、データはSignalの安全なストレージサービスから消去されました。</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">ダウンロード中：%2$s のうち %1$s （%3$d%%）</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">ご利用中のバックアッププランに設定された、%1$sストレージ容量の上限に達しました。新しいチャットやメディアをバックアップするには、空き容量を増やしてください。</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">ストレージの管理</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">今日中にバックアップをダウンロードしてください</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">この端末に保存されていないバックアップデータが%1$sあります。有料のサブスクリプションに加入しない場合は、メディアと添付ファイルは、完全に消去されます。</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">ダウンロード</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">ダウンロードしない</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8113,10 +8175,14 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">バックアップキーは、安全だと信頼できるパスワードマネージャーにのみ保管してください。Signalは、どのパスワードマネージャーがお客様に適しているかの推奨はいたしません。</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">パスワードマネージャーに保存されました</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">パスワードマネージャーに保存できませんでした</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Can\'t save to password manager</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">パスワードマネージャーが設定されていないか、使用しているパスワードマネージャーがサポートされていません。</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">You previously chose not to save passwords for Signal to Google Password Manager. In your Google Password Manager settings, remove Signal from \"Declined sites and apps\" and try again.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Go to settings</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">次へ</string>
     <!-- Bottom sheet title -->
@@ -8277,7 +8343,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Signal Androidのバックアップ復元時のネットワークエラーについて</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Signal Androidの、バックアップエクスポート時のネットワークエラーについて</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">デバッグログを送信しますか？</string>
@@ -8366,6 +8437,23 @@
     <string name="SignalCheckbox_accessibility_checked_description">チェック済み</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">チェック無し</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">バックアップストレージがいっぱいです</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">バックアップストレージの上限に達しました。チャットやメディアのバックアップを続けるには、Signalの空き容量を増やしてください。</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">バックアップに失敗しました</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">エラーが発生し、バックアップを完了できませんでした。タップして詳細を見る。</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="other">%1$d日間バックアップが実行されていません</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="other">%1$d日間バックアップが実行されていません。今すぐバックアップを作成してください。</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>
