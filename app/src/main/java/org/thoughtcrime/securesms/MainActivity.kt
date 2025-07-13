@@ -65,6 +65,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import im.molly.unifiedpush.UnifiedPushDistributor
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.compose.theme.colorAttribute
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getSerializableCompat
 import org.signal.core.util.logging.Log
@@ -309,7 +310,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               Column(
                 modifier = Modifier
                   .clip(contentLayoutData.navigationBarShape)
-                  .background(color = SignalTheme.colors.colorSurface2)
+                  .background(color = colorAttribute(R.attr.navbar_container_color))
               ) {
                 MainNavigationBar(
                   state = mainNavigationState,
