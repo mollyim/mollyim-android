@@ -103,6 +103,8 @@ import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.database.model.StoryType.Companion.fromCode
 import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
+import org.thoughtcrime.securesms.database.model.databaseprotos.DecryptedGroupV2Context
+import org.thoughtcrime.securesms.database.model.databaseprotos.GV2UpdateDescription
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.database.model.databaseprotos.GroupCallUpdateDetails
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExportState
@@ -1665,8 +1667,23 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           )
         """
 
+      val storyRepliesQuery = """
+        SELECT $ID FROM $TABLE_NAME
+        WHERE 
+          $PARENT_STORY_ID < 0 AND 
+          ABS($PARENT_STORY_ID) IN (
+            SELECT $ID 
+            FROM $TABLE_NAME 
+            WHERE $storiesBeforeTimestampWhere
+          )
+        """
+
       db.execSQL(deleteStoryRepliesQuery, sharedArgs)
       db.execSQL(disassociateQuoteQuery, sharedArgs)
+      db.rawQuery(storyRepliesQuery, sharedArgs).forEach { cursor: Cursor ->
+        val mmsId = cursor.requireLong(ID)
+        attachments.deleteAttachmentsForMessage(mmsId)
+      }
 
       db.select(FROM_RECIPIENT_ID)
         .from(TABLE_NAME)
@@ -1729,8 +1746,23 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           )
         """
 
+      val storyRepliesQuery = """
+        SELECT $ID FROM $TABLE_NAME
+        WHERE 
+          $PARENT_STORY_ID < 0 AND 
+          ABS($PARENT_STORY_ID) IN (
+            SELECT $ID 
+            FROM $TABLE_NAME 
+            WHERE $storesInRecipientThread
+          )
+        """
+
       db.execSQL(deleteStoryRepliesQuery, sharedArgs)
       db.execSQL(disassociateQuoteQuery, sharedArgs)
+      db.rawQuery(storyRepliesQuery, sharedArgs).forEach { cursor: Cursor ->
+        val mmsId = cursor.requireLong(ID)
+        attachments.deleteAttachmentsForMessage(mmsId)
+      }
 
       AppDependencies.databaseObserver.notifyStoryObservers(recipientId)
 
@@ -3837,20 +3869,25 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
             val secondLatestMessage = reader.getNext()
 
             val id: Long
-            val encodedBody: String
+            val updatedContext: DecryptedGroupV2Context
+            val messageExtras: MessageExtras?
             val changeRevision: Int = message.groupContext?.let { GroupV2UpdateMessageUtil.getChangeRevision(it) } ?: -1
 
             if (secondLatestMessage != null && secondLatestMessage.isGroupV2JoinRequest(changeEditor.get())) {
               id = secondLatestMessage.id
-              encodedBody = MessageRecord.createNewContextWithAppendedDeleteJoinRequest(secondLatestMessage, changeRevision, changeEditor.get().toByteString())
+              messageExtras = secondLatestMessage.messageExtras
+              updatedContext = MessageRecord.createNewContextWithAppendedDeleteJoinRequest(secondLatestMessage, changeRevision, changeEditor.get().toByteString())
               deleteMessage(latestMessage.id)
             } else {
               id = latestMessage.id
-              encodedBody = MessageRecord.createNewContextWithAppendedDeleteJoinRequest(latestMessage, changeRevision, changeEditor.get().toByteString())
+              messageExtras = latestMessage.messageExtras
+              updatedContext = MessageRecord.createNewContextWithAppendedDeleteJoinRequest(latestMessage, changeRevision, changeEditor.get().toByteString())
             }
 
+            val updatedMessageExtras = (messageExtras?.newBuilder() ?: MessageExtras.Builder()).gv2UpdateDescription(GV2UpdateDescription(gv2ChangeDescription = updatedContext)).build()
+
             db.update(TABLE_NAME)
-              .values(BODY to encodedBody)
+              .values(MESSAGE_EXTRAS to updatedMessageExtras.encode())
               .where("$ID = ?", id)
               .run()
 

@@ -171,7 +171,7 @@ private fun BackupsSettingsContent(
 
           is BackupState.ActiveFree, is BackupState.ActivePaid, is BackupState.Canceled -> {
             ActiveBackupsRow(
-              backupState = backupsSettingsState.backupState,
+              backupState = backupsSettingsState.backupState as BackupState.WithTypeAndRenewalTime,
               onBackupsRowClick = onBackupsRowClick,
               lastBackupAt = backupsSettingsState.lastBackupAt
             )
@@ -379,10 +379,23 @@ private fun PendingBackupRow(
           color = MaterialTheme.colorScheme.onSurfaceVariant,
           style = MaterialTheme.typography.bodyMedium
         )
+
+        ViewSettingsButton(onBackupsRowClick)
       }
-    },
-    onClick = onBackupsRowClick
+    }
   )
+}
+
+@Composable
+private fun ViewSettingsButton(onClick: () -> Unit) {
+  Buttons.MediumTonal(
+    onClick = onClick,
+    modifier = Modifier.padding(top = 12.dp)
+  ) {
+    Text(
+      text = stringResource(R.string.BackupsSettingsFragment_view_settings)
+    )
+  }
 }
 
 @Composable
@@ -464,9 +477,10 @@ private fun ActiveBackupsRow(
           color = MaterialTheme.colorScheme.onSurfaceVariant,
           style = MaterialTheme.typography.bodyMedium
         )
+
+        ViewSettingsButton(onBackupsRowClick)
       }
-    },
-    onClick = onBackupsRowClick
+    }
   )
 }
 
@@ -524,7 +538,8 @@ private fun BackupsSettingsContentPreview() {
           ),
           renewalTime = 0.seconds,
           price = FiatMoney(BigDecimal.valueOf(4), Currency.getInstance("CAD"))
-        )
+        ),
+        lastBackupAt = 0.seconds
       )
     )
   }
@@ -536,7 +551,8 @@ private fun BackupsSettingsContentNotAvailablePreview() {
   Previews.Preview {
     BackupsSettingsContent(
       backupsSettingsState = BackupsSettingsState(
-        backupState = BackupState.NotAvailable
+        backupState = BackupState.NotAvailable,
+        lastBackupAt = 0.seconds
       )
     )
   }
@@ -550,7 +566,8 @@ private fun BackupsSettingsContentBackupTierInternalOverridePreview() {
       backupsSettingsState = BackupsSettingsState(
         backupState = BackupState.None,
         showBackupTierInternalOverride = true,
-        backupTierInternalOverride = null
+        backupTierInternalOverride = null,
+        lastBackupAt = 0.seconds
       )
     )
   }

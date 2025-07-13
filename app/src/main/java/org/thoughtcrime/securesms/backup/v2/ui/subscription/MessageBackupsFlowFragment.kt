@@ -33,7 +33,6 @@ import org.signal.core.util.getSerializableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
-import org.thoughtcrime.securesms.components.settings.app.backups.remote.BackupKeyCredentialManagerHandler
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentCheckoutDelegate
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.Nav
@@ -41,6 +40,7 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.Util
+import org.thoughtcrime.securesms.util.storage.AndroidCredentialRepository
 import org.thoughtcrime.securesms.util.viewModel
 
 /**
@@ -140,22 +140,19 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
 
       composable(route = MessageBackupsStage.Route.BACKUP_KEY_RECORD.name) {
         val context = LocalContext.current
+        val passwordManagerSettingsIntent = AndroidCredentialRepository.getCredentialManagerSettingsIntent(requireContext())
 
         MessageBackupsKeyRecordScreen(
           backupKey = state.accountEntropyPool.displayValue,
           keySaveState = state.backupKeySaveState,
+          canOpenPasswordManagerSettings = passwordManagerSettingsIntent != null,
           onNavigationClick = viewModel::goToPreviousStage,
           onNextClick = viewModel::goToNextStage,
-          onCopyToClipboardClick = {
-            Util.copyToClipboard(context, it, CLIPBOARD_TIMEOUT_SECONDS)
-          },
+          onCopyToClipboardClick = { Util.copyToClipboard(context, it, CLIPBOARD_TIMEOUT_SECONDS) },
           onRequestSaveToPasswordManager = viewModel::onBackupKeySaveRequested,
           onConfirmSaveToPasswordManager = viewModel::onBackupKeySaveConfirmed,
           onSaveToPasswordManagerComplete = viewModel::onBackupKeySaveCompleted,
-          onGoToDeviceSettingsClick = {
-            val intent = BackupKeyCredentialManagerHandler.getCredentialManagerSettingsIntent(requireContext())
-            requireContext().startActivity(intent)
-          }
+          onGoToPasswordManagerSettingsClick = { requireContext().startActivity(passwordManagerSettingsIntent) }
         )
       }
 

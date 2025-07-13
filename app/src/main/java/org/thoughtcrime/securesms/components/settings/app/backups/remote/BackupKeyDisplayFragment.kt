@@ -13,6 +13,7 @@ import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsKeyRec
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.Util
+import org.thoughtcrime.securesms.util.storage.AndroidCredentialRepository
 import org.thoughtcrime.securesms.util.viewModel
 
 /**
@@ -29,20 +30,19 @@ class BackupKeyDisplayFragment : ComposeFragment() {
   @Composable
   override fun FragmentContent() {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val passwordManagerSettingsIntent = AndroidCredentialRepository.getCredentialManagerSettingsIntent(requireContext())
 
     MessageBackupsKeyRecordScreen(
       backupKey = SignalStore.account.accountEntropyPool.displayValue,
       keySaveState = state.keySaveState,
+      canOpenPasswordManagerSettings = passwordManagerSettingsIntent != null,
       onNavigationClick = { findNavController().popBackStack() },
       onCopyToClipboardClick = { Util.copyToClipboard(requireContext(), it, CLIPBOARD_TIMEOUT_SECONDS) },
       onRequestSaveToPasswordManager = viewModel::onBackupKeySaveRequested,
       onConfirmSaveToPasswordManager = viewModel::onBackupKeySaveConfirmed,
       onSaveToPasswordManagerComplete = viewModel::onBackupKeySaveCompleted,
       onNextClick = { findNavController().popBackStack() },
-      onGoToDeviceSettingsClick = {
-        val intent = BackupKeyCredentialManagerHandler.getCredentialManagerSettingsIntent(requireContext())
-        requireContext().startActivity(intent)
-      }
+      onGoToPasswordManagerSettingsClick = { requireContext().startActivity(passwordManagerSettingsIntent) }
     )
   }
 }

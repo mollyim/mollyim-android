@@ -70,15 +70,11 @@ import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.WallpaperAttachment
 import org.thoughtcrime.securesms.audio.AudioHash
+import org.thoughtcrime.securesms.backup.v2.proto.BackupDebugInfo
 import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.COPY_PENDING
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.FINISHED
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.NONE
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.PERMANENT_FAILURE
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.UPLOAD_IN_PROGRESS
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_FILE
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_HASH_END
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.PREUPLOAD_MESSAGE_ID
@@ -925,7 +921,7 @@ class AttachmentTable(
   fun deleteAttachments(toDelete: List<SyncAttachmentId>): List<SyncMessageId> {
     val unhandled = mutableListOf<SyncMessageId>()
     for (syncAttachmentId in toDelete) {
-      val messageId = SignalDatabase.messages.getMessageIdOrNull(syncAttachmentId.syncMessageId)
+      val messageId = messages.getMessageIdOrNull(syncAttachmentId.syncMessageId)
       if (messageId != null) {
         val attachments = readableDatabase
           .select(ID, ATTACHMENT_UUID, REMOTE_DIGEST, DATA_HASH_END)
@@ -948,7 +944,7 @@ class AttachmentTable(
         val attachmentToDelete = (byUuid ?: byDigest ?: byPlaintext)?.id
         if (attachmentToDelete != null) {
           if (attachments.size == 1) {
-            SignalDatabase.messages.deleteMessage(messageId)
+            messages.deleteMessage(messageId)
           } else {
             deleteAttachment(attachmentToDelete)
           }
@@ -2456,7 +2452,7 @@ class AttachmentTable(
       transferProgress = cursor.requireInt(TRANSFER_STATE),
       size = cursor.requireLong(DATA_SIZE),
       fileName = cursor.requireString(FILE_NAME),
-      cdn = cursor.requireObject(CDN_NUMBER, Cdn.Serializer),
+      cdn = cursor.requireObject(CDN_NUMBER, Cdn),
       location = cursor.requireString(REMOTE_LOCATION),
       key = cursor.requireString(REMOTE_KEY),
       digest = cursor.requireBlob(REMOTE_DIGEST),
@@ -2611,6 +2607,27 @@ class AttachmentTable(
       pendingUploadBytes = pendingUploadBytes,
       uploadedAttachmentBytes = uploadedAttachmentBytes,
       thumbnailBytes = uploadedThumbnailBytes
+    )
+  }
+
+  fun debugAttachmentStatsForBackupProto(): BackupDebugInfo.AttachmentDetails {
+    val archiveStateCounts = ArchiveTransferState
+      .entries.associateWith {
+        readableDatabase
+          .count()
+          .from(TABLE_NAME)
+          .where("$ARCHIVE_TRANSFER_STATE = ${it.value} AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL")
+          .run()
+          .readToSingleLong(-1L)
+      }
+
+    return BackupDebugInfo.AttachmentDetails(
+      notStartedCount = archiveStateCounts[ArchiveTransferState.NONE]?.toInt() ?: 0,
+      uploadInProgressCount = archiveStateCounts[ArchiveTransferState.UPLOAD_IN_PROGRESS]?.toInt() ?: 0,
+      copyPendingCount = archiveStateCounts[ArchiveTransferState.COPY_PENDING]?.toInt() ?: 0,
+      finishedCount = archiveStateCounts[ArchiveTransferState.FINISHED]?.toInt() ?: 0,
+      permanentFailureCount = archiveStateCounts[ArchiveTransferState.PERMANENT_FAILURE]?.toInt() ?: 0,
+      temporaryFailureCount = archiveStateCounts[ArchiveTransferState.TEMPORARY_FAILURE]?.toInt() ?: 0
     )
   }
 
