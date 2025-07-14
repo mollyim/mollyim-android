@@ -199,7 +199,11 @@ public class KeyCachingService extends Service {
         && TextSecurePreferences.isPassphraseLockEnabled(this)
         && TextSecurePreferences.getPassphraseLockTrigger(this).isTimeoutEnabled()) {
       long lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(this);
-      scheduleTimeout(lockTimeoutSeconds);
+      if (lockTimeoutSeconds > 0) {
+        scheduleTimeout(lockTimeoutSeconds);
+      } else {
+        handleClearKey(true);
+      }
     } else {
       cancelTimeout();
     }
@@ -207,10 +211,9 @@ public class KeyCachingService extends Service {
 
   private synchronized void scheduleTimeout(long timeoutSeconds) {
     if (pendingAlarm) {
+      Log.i(TAG, "Timeout already scheduled");
       return;
     }
-
-    Log.i(TAG, "Starting timeout: " + timeoutSeconds + " s.");
 
     long at = SystemClock.elapsedRealtime() + TimeUnit.SECONDS.toMillis(timeoutSeconds);
 
@@ -218,15 +221,17 @@ public class KeyCachingService extends Service {
     alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
 
     pendingAlarm = true;
+    Log.i(TAG, "Scheduled timeout in " + timeoutSeconds + " seconds");
   }
 
   private synchronized void cancelTimeout() {
+    if (pendingAlarm) {
+      Log.i(TAG, "Timeout canceled");
+    }
     pendingAlarm = false;
 
     AlarmManager alarmManager = ServiceUtil.getAlarmManager(this);
     alarmManager.cancel(buildExpirationIntent());
-
-    Log.i(TAG, "Timeout canceled");
   }
 
   private void foregroundService() {
@@ -290,6 +295,7 @@ public class KeyCachingService extends Service {
   private void registerScreenReceiver() {
     IntentFilter filter = new IntentFilter();
     filter.addAction(Intent.ACTION_SCREEN_OFF);
+    filter.addAction(Intent.ACTION_SCREEN_ON);
     filter.addAction(Intent.ACTION_USER_PRESENT);
 
     registerReceiver(screenReceiver, filter);
@@ -303,8 +309,21 @@ public class KeyCachingService extends Service {
     public void onReceive(Context context, Intent intent) {
       String action = intent.getAction();
       Log.d(TAG, "onReceive, " + action);
-           if (Intent.ACTION_SCREEN_OFF  .equals(action)) startTimeoutIfAppropriate();
-      else if (Intent.ACTION_USER_PRESENT.equals(action)) cancelTimeout();
+      if (action == null) return;
+
+      switch (action) {
+        case Intent.ACTION_SCREEN_OFF:
+          startTimeoutIfAppropriate();
+          break;
+        case Intent.ACTION_SCREEN_ON:
+          if (!ServiceUtil.getKeyguardManager(context).isKeyguardLocked()) {
+            cancelTimeout();
+          }
+          break;
+        case Intent.ACTION_USER_PRESENT:
+          cancelTimeout();
+          break;
+      }
     }
   };
 }
