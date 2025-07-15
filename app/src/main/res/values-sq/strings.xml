@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Po ngarkohet media…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Po shkurtohet video…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Po bëhet kopjeruajtja e medias…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Duke kontrolluar për mesazhe…</string>
 
@@ -1087,6 +1091,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Pajisja që u lidh %1$s nuk është më e lidhur.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Nuk ka hapësirë të mjaftueshme ruajtjeje</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Nuk ke hapësirë të mjaftueshme të lirë në pajisje për të transferuar mesazhet. Liro pak hapësirë dhe provo përsëri, ose lidh pajisjen pa transferuar mesazhet.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ky version i Molly-it ka skaduar. Që të dërgoni dhe merrni mesazhe, përditësojeni që tani.</string>
     <string name="ExpiredBuildReminder_update_now">Përditësoje tani</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Përditësoni Molly-in</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Ky version i Molly ka skaduar. Preke për ta përditësuar që të dërgosh dhe marrësh mesazhe.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Kopjeruajtja po shkarkohet…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Po rikthehen mesazhet…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Duke përfunduar…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Po kthehet…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Përditësoni Molly-in</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Jo tani</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Nëse zgjedh të mos e rikthesh tani, nuk do të jesh në gjendje ta rikthesh më vonë. Media do të rikthehet në sfond.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Njoftomë për Përmendje</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">S’bëhet dot pjesë e grupit</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Nuk mund të bëhesh pjesë e këtij grupi përmes lidhjes së grupit, ngaqë të ka hequr një përgjegjës.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Nuk mund të bëhesh pjesë e këtij grupi përmes lidhjes së grupit, sepse të ka hequr administratori. Kontakto administratorin për t\'u shtuar sërish në grup.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Kjo lidhje grupi s’është më e vlefshme.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -2838,8 +2855,8 @@
     </plurals>
     <!-- Describes the number of stickers that are available in a specific sticker pack. The placeholder is the sticker count. -->
     <plurals name="StickerManagement_sticker_pack_preview_sticker_count">
-        <item quantity="one">%1$s sticker</item>
-        <item quantity="other">%1$s stickers</item>
+        <item quantity="one">%1$s ngjitës</item>
+        <item quantity="other">%1$s ngjitëse</item>
     </plurals>
 
     <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
@@ -4548,6 +4565,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">PIN-i u krijua.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Rijepni PIN-in tuaj</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Po krijohet PIN-i…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Ju paraqesim PIN-et</string>
@@ -5335,6 +5354,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Kopjeruajtja nuk përfundoi</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Abonimi i kopjeruajtjeve nuk mund të përdorej</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">U arrit limiti i hapësirës së kopjeruajtjeve</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Ftoni shokët tuaj</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7211,7 +7232,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Shkruaj emrin e bankës, emrin tënd dhe emailin. Stripe e përdor këtë email për të të dërguar përditësime rreth dhurimit. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Shkruaj emrin dhe emailin. Stripe e përdor këtë email për të dërguar përditësime rreth dhurimit. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Vendos të dhënat e tua bankare. Signal nuk mbledh dhe as nuk ruan të dhënat e tua personale. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7701,6 +7722,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Refuzo të gjitha</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Aktivizo kopjeruajtjet e Signal</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Mos e humb as edhe një mesazh kur merr telefon të ri ose riinstalon Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Aktivizo</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Jo tani</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Të aktivizohen njoftimet me ekran të plotë?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7854,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Mund të fillosh të paguash përsëri për kopjeruajtjet në çdo kohë për të vazhduar të kopjeruash të gjitha mediat. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Media do të fshihet sot</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Plani yt kopjeruajtës i medias në Signal është anuluar sepse nuk mund ta përpunonim pagesën. Kjo është mundësia jote e fundit për ta shkarkuar median në kopjeruajtje përpara se të fshihet.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Shkarko të dhënat e kopjeruajtjes sot</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Shkarko të dhënat e kopjeruajtjeve</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Ke %1$s media që nuk janë në këtë pajisje. Mediat dhe bashkëngjitjet e ruajtura në kopjeruajtje do të fshihen përgjithmonë pa një abonim me pagesë.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Liro %1$s në këtë pajisje</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7884,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Mëso më shumë</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Kontakto ndihmën</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Kapërce rikthimin</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7899,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Abonohu për %1$s/muaj</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Shkarko media tani</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Shkarko kopjeruajtjet tani</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Mos shkarko median</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Mos shkarko kopjeruajtjen</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Jo tani</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7938,11 +7972,11 @@
     <!-- Backup progress during deletion download. Placeholders are size restored, size to restore, and percent, i.e. 50MB of 100MB (50%) -->
     <string name="BackupStatusRow__downloading_s_of_s_s">Po shkarkohet: %1$s nga %2$s (%3$s%%)</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for Wi-Fi -->
-    <string name="BackupStatusRow__download_waiting_for_wifi">Download paused: Waiting for Wi-Fi…</string>
+    <string name="BackupStatusRow__download_waiting_for_wifi">Shkarkimi u ndërpre: Duke pritur për Wi-Fi…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for internet -->
-    <string name="BackupStatusRow__download_no_internet">Download paused: No internet…</string>
+    <string name="BackupStatusRow__download_no_internet">Shkarkimi u ndërpre: Nuk ka internet…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for low battery -->
-    <string name="BackupStatusRow__download_device_has_low_battery">Download paused: Device has low battery</string>
+    <string name="BackupStatusRow__download_device_has_low_battery">Shkarkimi u ndërpre: Pajisja ka pak bateri</string>
     <!-- Notice that there is not enough free space to continue restore. Placeholder is required space, for example 1.6GB -->
     <string name="BackupStatusRow__not_enough_space">Nuk ka hapësirë të mjaftueshme për të shkarkuar kopjeruajtjen. Për të vazhduar liro %1$s hapësirë.</string>
     <!-- Text row label to skip download -->
@@ -8039,15 +8073,33 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Nuk ka kopjeruajtje për %1$d ditë</item>
+        <item quantity="other">Nuk ka kopjeruajtje për %1$d ditë</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Nuk ke përfunduar kopjeruajtje për %1$d ditë. Për t\'u siguruar që mesazhet dhe mediat janë ruajtur, krijo një kopjeruajtje tani.</item>
+        <item quantity="other">Nuk ke përfunduar kopjeruajtje për %1$d ditë. Për t\'u siguruar që mesazhet dhe media janë ruajtur, krijo një kopjeruajtje tani.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/muaj, Rinovohet më %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Kopjeruajtja e fundit: %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Abonimi u anulua</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Kopjeruajtjet automatike me shërbimin e sigurt të ruajtjes së koduar nga skaji në skaj të Signal.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Abonimi nuk u gjet në këtë pajisje."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Konfiguro</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -8131,7 +8183,9 @@
     <!-- Dialog title when confirming whether to turn off and deleting backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Të çaktivizohen dhe fshihen kopjeruajtjet?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
-    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Your backup will be deleted and no new backups will be created. Any media stored in your backup will be downloaded to your phone now.</string>
+    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Kopjeruajtjet do të fshihen dhe nuk do të krijohen kopjeruajtje të reja. Çdo media e ruajtur në kopjeruajtje do të shkarkohet tani në telefon.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Abonimi do të anulohet dhe nuk do të tarifohesh përsëri. Kopjeruajtjet do të fshihen dhe nuk do të krijohen kopjeruajtje të reja. Çdo media e ruajtur në kopjeruajtje do të shkarkohet tani në telefon.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Çaktivizo dhe fshij</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8219,8 @@
         <item quantity="one">Abonimi në këtë pajisje është i vlefshëm për %1$d ditë të ardhshme. Rinovoje për të vazhduar përdorimin e kopjeruajtjeve në Signal</item>
         <item quantity="other">Abonimi në këtë pajisje është i vlefshëm për %1$d ditët e ardhshme. Rinovoje për të vazhduar përdorimin e kopjeruajtjeve në Signal</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Riabonohu</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Rinovo</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8235,7 @@
         <item quantity="other">Po përpunohen %1$s nga ~%2$s mesazhe (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Ti ke %1$s të dhëna kopjeruajtjeje që nuk janë në këtë pajisje. Kopjeruajtja do të fshihet kur abonimi të përfundojë për %2$d ditë.</item>
-        <item quantity="other">Ti ke %1$s të dhëna kopjeruajtjeje që nuk janë në këtë pajisje. Kopjeruajtja do të fshihet kur abonimi të përfundojë për %2$d ditë.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Ke %1$s të dhëna kopjeruajtje që nuk janë në këtë pajisje. Pa një abonim me pagesë, media nuk mund të shkarkohet.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Ke %1$s të dhëna kopjeruajtje që nuk janë në këtë pajisje. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8195,7 +8248,7 @@
         <item quantity="other">Nëse e kapërcen shkarkimin, media dhe bashkëngjitjet e mbetura në kopjeruajtje do të fshihen brenda %1$d ditësh.</item>
     </plurals>
     <!-- Dialog body for skipping download of backed up media during deletion -->
-    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">If you skip downloading the remaining media and attachments in your backup they will be permanently deleted. This data won\'t be recoverable.</string>
+    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">Nëse nuk i shkarkon median dhe bashkëngjitjet e mbetura në kopjeruajtje, ato do të fshihen përgjithmonë. Këto të dhëna nuk do të rikthehen.</string>
     <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
     <string name="RemoteBackupsSettingsFragment__skip_restore_question">Të kapërcehet rikthimi?</string>
     <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
@@ -8203,7 +8256,7 @@
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Kapërce</string>
     <!-- Positive dialog action to skip download during deletion -->
-    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Skip and delete permanently</string>
+    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Kapërce dhe fshi përgjithmonë</string>
     <!-- Dialog title for network error while trying to disable backups -->
     <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Kopjeruajtjet nuk mund të çaktivizohen dhe fshihen</string>
     <!-- Dialog body for network error while trying to disable backups -->
@@ -8213,19 +8266,33 @@
     <!-- Button label to see more details about redemption error -->
     <string name="RemoteBackupsSettingsFragment__details">Hollësi</string>
     <!-- Text displayed when there was an error deleting backup -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Backups have been turned off, but there was an error deleting your data from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Kopjeruajtjet janë çaktivizuar, por ka pasur një gabim gjatë fshirjes së të dhënave nga shërbimi i ruajtjes së sigurt i Signal.</string>
     <!-- Text displayed as the title in a card when backup fails to delete -->
-    <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">Failed to delete backup</string>
+    <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">Fshirja e kopjeruajtjes dështoi</string>
     <!-- Text displayed as the body in a card when backup fails to delete -->
-    <string name="RemoteBackupsSettingsFragment__an_error_occurred_please_contact_support">An error occurred. Please contact support.</string>
+    <string name="RemoteBackupsSettingsFragment__an_error_occurred_please_contact_support">Ka ndodhur një gabim. Të lutem, kontakto ndihmën.</string>
     <!-- Text displayed while we are processing a backup delete but are or need to download optimized media -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Backups have been turned off, your data will download to your device and then be deleted from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Kopjeruajtjet janë çaktivizuar, të dhënat do të shkarkohen në pajisje dhe më pas do të fshihen nga shërbimi i ruajtjes së sigurt i Signal.</string>
     <!-- Text displayed while we are processing a backup delete -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">Backups have been turned off and your data will be deleted from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">Kopjeruajtjet janë çaktivizuar dhe të dhënat janë fshirë nga shërbimi i ruajtjes së sigurt i Signal.</string>
     <!-- Text displayed after we have deleted a user\'s backup -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Backups have been turned off and your data has been deleted from Signal’s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Kopjeruajtjet janë çaktivizuar dhe të dhënat janë fshirë nga shërbimi i ruajtjes së sigurt i Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Po shkarkohet: %1$s nga %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Ke arritur limitin e hapësirës së ruajtjes %1$s që përfshihet në planin e kopjeruajtjes. Për të kopjeruajtur bisedat dhe mediat e reja, liro hapësirë.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Administroni depozitim</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Shkarko kopjeruajtjet sot</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Ke %1$s të dhëna kopjeruajtje që nuk janë në këtë pajisje. Mediat dhe bashkëngjitjet do të fshihen përgjithmonë pa një abonim me pagesë.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Shkarko</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Mos shkarko</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8251,7 +8318,7 @@
     <!-- Body for network failure dialog in message backups checkout flow -->
     <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Ndodhi një gabim rrjeti. Të lutem, provo sërish më vonë.</string>
     <!-- Toast message if this fragment encounters an in progress deletion -->
-    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">A backup deletion is in progress.</string>
+    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">Fshirja e kopjeruatjes është në proces.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -8285,17 +8352,23 @@
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Kopjoje në të papastër</string>
     <!-- Label for the button to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Ruaj te menaxheri i fjalëkalimeve</string>
     <!-- Dialog title confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Save to password manager?</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Të ruhet te menaxheri i fjalëkalimeve?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Only store your backup key in a password manager that you trust is secure. Signal does not make a recommendation on which password manager is right for you.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Ruaj kodin i kopjeruajtjes vetëm në një menaxher fjalëkalimesh që beson se është i sigurt. Signal nuk jep rekomandim se cili menaxher fjalëkalimesh është i duhuri për ty.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Saved to your password manager</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Can\'t save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Ruaj te menaxheri yt i fjalëkalimeve</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Nuk mund të ruhet te menaxheri i fjalëkalimeve</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">You don\'t have a password manager set up, or the password manager you\'re using isn\'t supported.</string>
+    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Nuk ke konfiguruar menaxherin e fjalëkalimeve, ose menaxheri i fjalëkalimeve që po përdor nuk mbështetet.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Më parë zgjodhe të mos i ruash fjalëkalimet për Signal në Google Password Manager. Te parametrat e Google Password Manager, hiq Signal nga \"Faqet dhe aplikacionet e refuzuara\" dhe provo përsëri.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Shko te parametrat</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Tjetër</string>
     <!-- Bottom sheet title -->
@@ -8330,7 +8403,7 @@
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Mëso më shumë</string>
     <!-- Primary action button label when selecting the free backup tier without a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__subscribe">Subscribe</string>
+    <string name="MessageBackupsTypeSelectionScreen__subscribe">Abonohu</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Abonohu për %1$s/muaj</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8458,7 +8531,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Gabim rrjeti gjatë rikthimit të kopjeruajtjes të Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Gabim në rrjetin e eksportimit të kopjeruajtjes së Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Të paraqitet regjistri i diagnostikimeve?</string>
@@ -8547,6 +8625,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">Zgjedhur</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">I pazgjedhur</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Hapësira e kopjeruajtjes është plot</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Ke arritur limitin e hapësirës së kopjeruajtjes. Liro hapësirë në Signal për të vazhduar kopjeruajtjen e bisedave dhe medias.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Kopjeruajtja dështoi</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Ndodhi një gabim dhe kopjeruajtja nuk mund të kryhej. Prek për më shumë detaje.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Nuk ka kopjeruajtje për %1$d ditë</item>
+        <item quantity="other">Nuk ka kopjeruajtje për %1$d ditë</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Nuk ke përfunduar kopjeruajtje për %1$d ditë. Krijo një kopjeruajtje tani.</item>
+        <item quantity="other">Nuk ke kryer kopjeruajtje për %1$d ditë. Krijo një kopjeruajtje tani.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">미디어 업로드 중…</string>
     <string name="AttachmentUploadJob_compressing_video_start">동영상 압축 중…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">미디어를 백업하는 중…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">새로운 메시지를 확인 중입니다…</string>
 
@@ -1065,6 +1069,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">%1$s 연결한 기기의 연결을 해제했습니다.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">확인</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">저장 공간 부족</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">기기에 메시지를 전송할 여유 저장 공간이 충분하지 않습니다. 여유 공간을 확보하고 다시 시도하거나, 메시지를 전송하지 않고 기기를 연결하세요.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1142,6 +1150,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly 버전이 만료되었습니다. 메시지를 송수신 하기 위해 지금 업데이트 하십시오.</string>
     <string name="ExpiredBuildReminder_update_now">지금 업데이트하세요.</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">시그널 최신 버전으로 업데이트</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">이 Molly 버전은 만료되었습니다. 메시지를 주고받으려면 탭하여 업데이트하세요.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1398,6 +1411,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">백업을 다운로드하는 중…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">메시지를 복원하는 중…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">완료하는 중…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">복원 중…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1434,6 +1449,8 @@
     <string name="RemoteRestoreActivity__update_signal">시그널 최신 버전으로 업데이트</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">나중에</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">지금 복원하지 않도록 선택하면 나중에 복원할 수 없습니다. 미디어가 백그라운드에서 복원됩니다.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">멘션 알림</string>
@@ -1535,7 +1552,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">그룹에 참가할 수 없습니다.</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">관리자가 당신을 그룹 링크를 통한 참가를 차단했기 때문에 그룹 링크를 통해 그룹에 참가할 수 없습니다.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">관리자가 귀하를 제거했기 때문에 그룹 링크를 통해 그룹에 참가할 수 없습니다. 관리자에게 그룹에 다시 추가해 달라고 요청하세요.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">그룹 링크가 더 이상 유효하지 않습니다.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -2746,7 +2763,7 @@
     </plurals>
     <!-- Describes the number of stickers that are available in a specific sticker pack. The placeholder is the sticker count. -->
     <plurals name="StickerManagement_sticker_pack_preview_sticker_count">
-        <item quantity="other">%1$s stickers</item>
+        <item quantity="other">스티커 %1$s개</item>
     </plurals>
 
     <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
@@ -3039,7 +3056,7 @@
     <string name="MessageNotifier_signal_message">Signal 메시지</string>
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">연락처</string>
-    <string name="MessageNotifier_reacted_s_to_s">\'%2$s\'에 %1$s 이모지로 반응했습니다.</string>
+    <string name="MessageNotifier_reacted_s_to_s">다음에 %1$s 이모지로 반응함: \"%2$s\".</string>
     <string name="MessageNotifier_reacted_s_to_your_video">내 동영상에 %1$s 이모지로 반응했습니다.</string>
     <string name="MessageNotifier_reacted_s_to_your_image">내 이미지에 %1$s 이모지로 반응했습니다.</string>
     <string name="MessageNotifier_reacted_s_to_your_gif">내 GIF에 %1$s 이모지로 반응했습니다.</string>
@@ -4430,6 +4447,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">번호가 생성되었습니다.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">PIN을 다시 입력하세요.</string>
     <string name="ConfirmKbsPinFragment__creating_pin">번호 생성 중…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">번호를 소개합니다.</string>
@@ -5204,6 +5223,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">백업을 완료할 수 없음</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">백업 구독을 사용하지 못했습니다</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">백업 저장 용량 한도에 도달</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">친구 초대하기</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7046,7 +7067,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">은행과 이름, 이메일 주소를 입력하세요. Stripe는 이 이메일 주소로 기부에 관한 업데이트를 보내드립니다. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">이름과 이메일을 입력하세요. Stripe에서 이 이메일 주소를 사용하여 기부에 관한 업데이트를 보냅니다. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">은행 세부 정보를 입력하세요. Signal은 개인 정보를 수집하거나 저장하지 않습니다. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7530,6 +7551,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">모두 거부</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Signal 백업 켜기</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">새 휴대폰을 구매하거나 Signal을 다시 설치하는 경우에도 메시지를 손실할 염려가 없습니다.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">켜기</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">나중에</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">전체 화면 알림을 켜시겠습니까?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7651,9 +7681,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">언제든 백업 비용을 다시 결제하기 시작하여 모든 미디어를 계속 백업할 수 있습니다. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">오늘 미디어 삭제됨</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">결제를 처리할 수 없어 Signal 미디어 백업 플랜을 취소했습니다. 미디어가 삭제되기 전에 다운로드할 수 있는 마지막 기회입니다.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">지금 백업 데이터를 다운로드하세요</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">백업 데이터 다운로드</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">이 기기에 없는 미디어가 %1$s 있습니다. 유료 구독을 하지 않으면 백업에 저장된 미디어와 첨부 파일이 영구 삭제됩니다.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">기기에서 %1$s 공간을 확보하세요</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7678,6 +7710,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">자세히 알아보기</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">지원팀에 문의</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">복원 건너뛰기</string>
     <!-- Primary action button to open backups management screen -->
@@ -7691,9 +7725,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">월 %1$s로 구독</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">지금 미디어 다운로드</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">지금 백업 다운로드</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">미디어 다운로드 안 함</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">백업을 다운로드하지 않음</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">나중에</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7764,11 +7798,11 @@
     <!-- Backup progress during deletion download. Placeholders are size restored, size to restore, and percent, i.e. 50MB of 100MB (50%) -->
     <string name="BackupStatusRow__downloading_s_of_s_s">다운로드하는 중: %1$s/%2$s(%3$s%%)</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for Wi-Fi -->
-    <string name="BackupStatusRow__download_waiting_for_wifi">Download paused: Waiting for Wi-Fi…</string>
+    <string name="BackupStatusRow__download_waiting_for_wifi">다운로드 일시 중지됨: Wi-Fi를 기다리는 중…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for internet -->
-    <string name="BackupStatusRow__download_no_internet">Download paused: No internet…</string>
+    <string name="BackupStatusRow__download_no_internet">다운로드 일시 중지됨: 인터넷 연결 없음…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for low battery -->
-    <string name="BackupStatusRow__download_device_has_low_battery">Download paused: Device has low battery</string>
+    <string name="BackupStatusRow__download_device_has_low_battery">다운로드 일시 중지됨: 기기 배터리 부족</string>
     <!-- Notice that there is not enough free space to continue restore. Placeholder is required space, for example 1.6GB -->
     <string name="BackupStatusRow__not_enough_space">백업을 다운로드할 공간이 부족합니다. 계속하려면 %1$s의 공간을 확보하세요.</string>
     <!-- Text row label to skip download -->
@@ -7864,15 +7898,31 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">확인</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="other">%1$d일 동안 백업 없음</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="other">%1$d일 동안 백업을 만들지 않았습니다. 메시지와 미디어가 보존될 수 있도록 지금 백업을 만드세요.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">월 %1$s, %2$s 갱신</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">마지막 백업 %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">구독을 취소했습니다.</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Signal의 안전한 엔드투엔드 암호화 스토리지 서비스를 사용하는 자동 백업.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"이 기기에서 구독을 찾을 수 없습니다."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">설정</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -7956,7 +8006,9 @@
     <!-- Dialog title when confirming whether to turn off and deleting backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">백업을 끄고 삭제할까요?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
-    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Your backup will be deleted and no new backups will be created. Any media stored in your backup will be downloaded to your phone now.</string>
+    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">백업이 삭제되고 새로운 백업이 생성되지 않습니다. 백업에 저장된 모든 미디어가 지금 휴대폰으로 다운로드됩니다.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">구독이 취소되고 다시는 요금이 청구되지 않습니다. 백업이 삭제되고 새로운 백업이 생성되지 않습니다. 백업에 저장된 모든 미디어가 지금 휴대폰으로 다운로드됩니다.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">끄기 및 삭제</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -7989,6 +8041,8 @@
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
         <item quantity="other">이 기기의 구독은 다음 %1$d일 동안 유지됩니다. Signal 백업을 계속 사용하려면 갱신하세요.</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">다시 구독</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">갱신</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8002,9 +8056,7 @@
         <item quantity="other">메시지 %1$s/%2$s개 처리 중(%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="other">이 기기에 있지 않은 백업 데이터가 %1$s 있습니다. %2$d일 후 구독이 종료되면 백업이 삭제됩니다.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">이 기기에 없는 백업 데이터가 %1$s 있습니다. 유료 구독이 없으면 미디어를 오프로드할 수 없습니다.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">이 기기에 없는 %1$s의 백업 데이터가 있습니다. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8016,7 +8068,7 @@
         <item quantity="other">다운로드를 건너뛰면 백업의 남은 미디어와 첨부 파일이 %1$d일 후 삭제됩니다.</item>
     </plurals>
     <!-- Dialog body for skipping download of backed up media during deletion -->
-    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">If you skip downloading the remaining media and attachments in your backup they will be permanently deleted. This data won\'t be recoverable.</string>
+    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">백업에 남아 있는 미디어와 첨부 파일을 지금 다운로드하지 않으면 해당 항목이 영구적으로 삭제됩니다. 이 데이터는 복구할 수 없습니다.</string>
     <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
     <string name="RemoteBackupsSettingsFragment__skip_restore_question">복원을 건너뛰시겠어요?</string>
     <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
@@ -8024,7 +8076,7 @@
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">건너뛰기</string>
     <!-- Positive dialog action to skip download during deletion -->
-    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Skip and delete permanently</string>
+    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">건너뛰기 및 영구 삭제</string>
     <!-- Dialog title for network error while trying to disable backups -->
     <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">백업을 비활성화하고 삭제하지 못함</string>
     <!-- Dialog body for network error while trying to disable backups -->
@@ -8034,19 +8086,33 @@
     <!-- Button label to see more details about redemption error -->
     <string name="RemoteBackupsSettingsFragment__details">세부 정보</string>
     <!-- Text displayed when there was an error deleting backup -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Backups have been turned off, but there was an error deleting your data from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">백업을 사용하지 않도록 설정했지만, Signal의 안전한 저장소 서비스에서 데이터를 삭제하는 동안 오류가 발생했습니다.</string>
     <!-- Text displayed as the title in a card when backup fails to delete -->
     <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">백업 삭제 실패</string>
     <!-- Text displayed as the body in a card when backup fails to delete -->
     <string name="RemoteBackupsSettingsFragment__an_error_occurred_please_contact_support">오류가 발생했습니다. 고객 지원팀에 문의하세요.</string>
     <!-- Text displayed while we are processing a backup delete but are or need to download optimized media -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Backups have been turned off, your data will download to your device and then be deleted from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">백업을 사용하지 않도록 설정했으며, 데이터가 기기에 다운로드된 다음 Signal의 안전한 저장소 서비스에서 삭제됩니다.</string>
     <!-- Text displayed while we are processing a backup delete -->
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">백업을 사용하지 않도록 설정했으며, Signal의 안전한 저장소 서비스에서 데이터가 삭제됩니다.</string>
     <!-- Text displayed after we have deleted a user\'s backup -->
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">백업을 사용하지 않도록 설정했으며, Signal의 안전한 저장소 서비스에서 데이터를 삭제했습니다.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">다운로드하는 중: %1$s/%2$s(%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">백업 플랜에 포함된 %1$s 저장 용량 한도에 도달했습니다. 새 채팅과 미디어를 백업하여 여유 공간을 확보하세요.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">저장공간 관리하기</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">오늘 백업을 다운로드하세요</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">이 기기에 없는 백업 데이터가 %1$s 있습니다. 유료 구독을 하지 않으면 미디어와 첨부 파일이 영구 삭제됩니다.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">다운로드</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">다운로드 안 함</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8072,7 +8138,7 @@
     <!-- Body for network failure dialog in message backups checkout flow -->
     <string name="MessageBackupsFlowFragment__a_network_failure_occurred">네트워크 오류가 발생했습니다. 나중에 다시 시도해 주세요.</string>
     <!-- Toast message if this fragment encounters an in progress deletion -->
-    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">A backup deletion is in progress.</string>
+    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">백업을 삭제하는 중입니다.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -8106,17 +8172,23 @@
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">클립보드에 복사</string>
     <!-- Label for the button to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">암호 관리자에 저장</string>
     <!-- Dialog title confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Save to password manager?</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">암호 관리자에 저장하시겠습니까?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Only store your backup key in a password manager that you trust is secure. Signal does not make a recommendation on which password manager is right for you.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">백업 키는 안전하다고 신뢰할 수 있는 암호 관리자에만 저장하세요. Signal은 사용자에게 어떤 암호 관리자를 사용해야 할지 추천하지 않습니다.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Saved to your password manager</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Can\'t save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">암호 관리자에 저장함</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">암호 관리자에 저장할 수 없음</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">You don\'t have a password manager set up, or the password manager you\'re using isn\'t supported.</string>
+    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">암호 관리자를 설정하지 않았거나, 사용 중인 암호 관리자가 지원되지 않습니다.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">이전에 Signal의 비밀번호를 Google 비밀번호 관리자에 저장하지 않도록 선택했습니다. Google 비밀번호 관리자 설정에서 \'거부된 사이트 및 앱\'에서 Signal을 삭제하고 다시 시도하세요.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">설정으로 이동</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">다음</string>
     <!-- Bottom sheet title -->
@@ -8151,9 +8223,9 @@
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">자세히 알아보기</string>
     <!-- Primary action button label when selecting the free backup tier without a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__subscribe">Subscribe</string>
+    <string name="MessageBackupsTypeSelectionScreen__subscribe">구독</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">월 %1$s로 구독</string>
+    <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">월 %1$s(으)로 구독</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__change_backup_type">백업 유형 변경</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
@@ -8277,7 +8349,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Signal Android 백업 복원 네트워크 오류</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Signal Android 백업 내보내기 네트워크 오류</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">디버그 로그를 제출할까요?</string>
@@ -8366,6 +8443,23 @@
     <string name="SignalCheckbox_accessibility_checked_description">선택함</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">선택하지 않음</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">백업 스토리지 용량 부족</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">백업 저장 용량이 한도에 도달했습니다. 채팅과 미디어를 계속 백업하려면 Signal에 사용 가능한 공간을 확보하세요.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">백업에 실패했습니다.</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">오류가 발생하여 백업을 완료하지 못했습니다. 탭하여 자세한 내용을 확인하세요.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="other">%1$d일 동안 백업 없음</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="other">%1$d일 동안 백업을 완료하지 않았습니다. 지금 백업을 만드세요.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

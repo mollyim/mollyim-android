@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Ag uasluchtú na meán…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Ag comhbhrúigh an fhíseáin…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Meáin á gcúltacú…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Seiceáil le haghaidh teachtaireachtaí…</string>
 
@@ -1153,6 +1157,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">An gléas a nascadh %1$s, níl sé nasctha a thuilleadh.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">CGL</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Ní leor an spás stórála</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Níl go leor spás stórála agat ar do ghléas chun do theachtaireachtaí a aistriú. Saor roinnt spáis agus triail arís, nó nasc do ghléas gan do theachtaireachtaí a aistriú.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1230,6 +1238,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Chuaigh an leagan seo de Molly i léig. Nuashonraigh anois é chun teachtaireachtaí a sheoladh agus a fháil.</string>
     <string name="ExpiredBuildReminder_update_now">Nuashonraigh anois é</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Nuashonraigh Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Tá an leagan Molly seo imithe as feidhm. Tapáil lena nuashonrú chun teachtaireachtaí a sheoladh agus a fháil.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1558,6 +1571,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Cúltaca á íoslódáil…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Teachtaireachtaí á gcur ar ais…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Á chur i gcrích…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Aischur ar bun…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1594,6 +1609,8 @@
     <string name="RemoteRestoreActivity__update_signal">Nuashonraigh Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Ní anois</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Má roghnaíonn tú gan aischur a dhéanamh anois, ní bheidh tú in ann é a dhéanamh níos déanaí. Aischuirfear do mheáin sa chúlra.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Cuir Tráchtanna in iúl dom</string>
@@ -1707,7 +1724,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Ní féidir dul isteach sa ghrúpa</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Ní féidir leat dul isteach sa ghrúpa seo trí nasc an ghrúpa toisc gur bhain riarthóir thú.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Ní féidir leat dul isteach sa ghrúpa seo trí nasc an ghrúpa toisc gur bhain riarthóir thú. Déan teagmháil le riarthóir le thú a chur ar ais sa ghrúpa.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">This group link is no longer valid.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -3114,11 +3131,11 @@
     </plurals>
     <!-- Describes the number of stickers that are available in a specific sticker pack. The placeholder is the sticker count. -->
     <plurals name="StickerManagement_sticker_pack_preview_sticker_count">
-        <item quantity="one">%1$s sticker</item>
-        <item quantity="two">%1$s stickers</item>
-        <item quantity="few">%1$s stickers</item>
-        <item quantity="many">%1$s stickers</item>
-        <item quantity="other">%1$s stickers</item>
+        <item quantity="one">%1$s ghreamán</item>
+        <item quantity="two">%1$s ghreamán</item>
+        <item quantity="few">%1$s ghreamán</item>
+        <item quantity="many">%1$s ngreamán</item>
+        <item quantity="other">%1$s greamán</item>
     </plurals>
 
     <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
@@ -4902,6 +4919,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">Cruthaíodh an UAP.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Cuir isteach d\'UAP arís</string>
     <string name="ConfirmKbsPinFragment__creating_pin">UAP á cruthú…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Seo dhuit UAPanna</string>
@@ -5728,6 +5747,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Níorbh fhéidir an cúltaca a chur i gcrích</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Níorbh fhéidir do shíntiús cúltacaí a fhuascailt</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Teorainn le stóráil chúltaca bainte amach</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Tabhair Cuireadh do Chairde</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7706,7 +7727,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Cuir isteach do bhanc, d\'ainm agus do sheoladh ríomhphoist. Úsáideann Stripe an seoladh ríomhphoist seo le nuashonruithe a sheoladh chugat maidir le do thabhartas. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Cuir isteach d\'ainm agus do sheoladh ríomhphoist. Úsáideann Stripe an seoladh ríomhphoist sin le nuashonruithe maidir le do thabhartas a sheoladh chugat. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Cuir isteach do shonraí bainc. Ní dhéanann Signal d\'fhaisnéis phearsanta a bhailiú ná a stóráil. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -8214,6 +8235,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Diúltaigh gach duine</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Cas air Cúltacaí Signal</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Ná caill teachtaireacht choíche nuair a fhaigheann tú guthán nua nó nuair a athshuiteálann tú Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Cas orthu</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Ní anois</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Cas air fógraí lánscáileáin?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -8343,9 +8373,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Is féidir leat tosú ag íoc as cúltacaí arís am ar bith le leanúint le cúltacú do mheán uile. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Scriosfar do mheáin inniu</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Cuireadh do phlean Signal um chúltacú meán ar ceal toisc nárbh fhéidir linn d\'íocaíocht a phróiseáil. Seo do dheis dheiridh na meáin i do chúltaca a íoslódáil sula scriosfar é.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Íoslódáil do shonraí chúltaca inniu</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Íoslódáil do shonraí cúltaca</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Tá %1$s de mheáin agat nach bhfuil ar an ngléas seo. Scriosfar go buan meáin agus ceangaltáin atá stóráilte i do chúltaca gan síntiús íoctha.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Déan %1$s de spás ar an ngléas seo</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -8374,6 +8406,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Tuilleadh faisnéise</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Déan teagmháil leis an bhfoireann tacaíochta</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Scipeáil aischur</string>
     <!-- Primary action button to open backups management screen -->
@@ -8387,9 +8421,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Íoc síntiús %1$s/sa mhí</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Íoslódáil meáin anois</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Íoslódáil an cúltaca anois</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Ná híoslódáil meáin</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Ná híoslódáil an cúltaca</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Ní anois</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8460,11 +8494,11 @@
     <!-- Backup progress during deletion download. Placeholders are size restored, size to restore, and percent, i.e. 50MB of 100MB (50%) -->
     <string name="BackupStatusRow__downloading_s_of_s_s">Íoslódáil: %1$s as %2$s (%3$s%%)</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for Wi-Fi -->
-    <string name="BackupStatusRow__download_waiting_for_wifi">Download paused: Waiting for Wi-Fi…</string>
+    <string name="BackupStatusRow__download_waiting_for_wifi">Íoslódáil curtha ar sos: Ag fanacht le Wi-Fi…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for internet -->
-    <string name="BackupStatusRow__download_no_internet">Download paused: No internet…</string>
+    <string name="BackupStatusRow__download_no_internet">Íoslódáil curtha ar sos: Níl aon Idirlíon ann…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for low battery -->
-    <string name="BackupStatusRow__download_device_has_low_battery">Download paused: Device has low battery</string>
+    <string name="BackupStatusRow__download_device_has_low_battery">Íoslódáil curtha ar sos: Tá ceallra an ghléis lag</string>
     <!-- Notice that there is not enough free space to continue restore. Placeholder is required space, for example 1.6GB -->
     <string name="BackupStatusRow__not_enough_space">Níl go leor spáis ann chun do Chúltaca a íoslódáil. Déan %1$s de spás le leanúint leis.</string>
     <!-- Text row label to skip download -->
@@ -8564,15 +8598,39 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">CGL</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Ní dhearnadh aon chúltaca le %1$d lá amháin anuas</item>
+        <item quantity="two">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+        <item quantity="few">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+        <item quantity="many">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+        <item quantity="other">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Níor chuir tú cúltaca i gcrích le %1$d lá amháin anuas. Lena chinntiú go gcoinnítear do theachtaireachtaí agus do mheáin, cruthaigh cúltaca anois.</item>
+        <item quantity="two">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Lena chinntiú go gcoinnítear do theachtaireachtaí agus do mheáin, cruthaigh cúltaca anois.</item>
+        <item quantity="few">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Lena chinntiú go gcoinnítear do theachtaireachtaí agus do mheáin, cruthaigh cúltaca anois.</item>
+        <item quantity="many">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Lena chinntiú go gcoinnítear do theachtaireachtaí agus do mheáin, cruthaigh cúltaca anois.</item>
+        <item quantity="other">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Lena chinntiú go gcoinnítear do theachtaireachtaí agus do mheáin, cruthaigh cúltaca anois.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/sa mhí, athnuachan %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">An cúltaca deireanach %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Síntiús curtha ar ceal</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Cúltacaí uathoibríocha le seirbhís shlán stórála, criptithe ó cheann ceann, de chuid Signal.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Ní bhfuarthas síntiús ar an ngléas seo."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Socraigh</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -8656,7 +8714,9 @@
     <!-- Dialog title when confirming whether to turn off and deleting backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Cas as agus scrios cúltacaí?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
-    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Your backup will be deleted and no new backups will be created. Any media stored in your backup will be downloaded to your phone now.</string>
+    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Scriosfar do chúltaca agus ní chruthófar aon chúltaca nua. Íoslódálfar aon mheán atá stóráilte i do chúltaca chuig do ghuthán anois.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Cuirfear do shíntiús ar ceal agus ní ghearrfar táillí ort arís. Scriosfar do chúltaca freisin agus ní chruthófar aon chúltacaí nua. Íoslódálfar aon mheán atá stóráilte i do chúltaca chuig do ghuthán anois.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Cas as agus scrios</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8693,6 +8753,8 @@
         <item quantity="many">Tá do shíntiús ar an ngléas seo bailí ar feadh %1$d lá eile. Athnuaigh chun leanúint le Cúltacaí Signal a úsáid</item>
         <item quantity="other">Tá do shíntiús ar an ngléas seo bailí ar feadh %1$d lá eile. Athnuaigh chun leanúint le Cúltacaí Signal a úsáid</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Glac síntiús arís</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Athnuaigh</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8710,13 +8772,7 @@
         <item quantity="other">%1$s as ~%2$s teachtaireacht (%3$d%%) á bpróiseáil</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Scriosfar do chúltaca nuair a thiocfaidh deireadh le do shíntiús i gceann %2$d lae.</item>
-        <item quantity="two">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Scriosfar do chúltaca nuair a thiocfaidh deireadh le do shíntiús i gceann %2$d lá.</item>
-        <item quantity="few">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Scriosfar do chúltaca nuair a thiocfaidh deireadh le do shíntiús i gceann %2$d lá.</item>
-        <item quantity="many">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Scriosfar do chúltaca nuair a thiocfaidh deireadh le do shíntiús i gceann %2$d lá.</item>
-        <item quantity="other">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Scriosfar do chúltaca nuair a thiocfaidh deireadh le do shíntiús i gceann %2$d lá.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Ní féidir leat fáil réidh le meáin gan síntiús íoctha.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8732,7 +8788,7 @@
         <item quantity="other">Má scipeálann tú íoslódáil scriosfar na meáin agus ceangaltáin atá fágtha i do chúltaca i gceann %1$d lá.</item>
     </plurals>
     <!-- Dialog body for skipping download of backed up media during deletion -->
-    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">If you skip downloading the remaining media and attachments in your backup they will be permanently deleted. This data won\'t be recoverable.</string>
+    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">Mura n-íoslódálann tú na meáin agus na ceangaltáin atá fágtha i do chúltaca scriosfar go buan iad. Ní bheidh na sonraí sin in-aisghabhála.</string>
     <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
     <string name="RemoteBackupsSettingsFragment__skip_restore_question">Scipeáil an t-aischur?</string>
     <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
@@ -8740,7 +8796,7 @@
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Léim thar seo</string>
     <!-- Positive dialog action to skip download during deletion -->
-    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Skip and delete permanently</string>
+    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Ná bac lena n-íoslódáil agus scrios go buan iad</string>
     <!-- Dialog title for network error while trying to disable backups -->
     <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Níorbh fhéidir cúltacaí a chasadh as agus a scriosadh</string>
     <!-- Dialog body for network error while trying to disable backups -->
@@ -8750,19 +8806,33 @@
     <!-- Button label to see more details about redemption error -->
     <string name="RemoteBackupsSettingsFragment__details">Mionsonraí</string>
     <!-- Text displayed when there was an error deleting backup -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Backups have been turned off, but there was an error deleting your data from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Tá cúltacaí casta as, ach tharla earráid le do shonraí a scriosadh ó sheirbhís stórála shlán Signal.</string>
     <!-- Text displayed as the title in a card when backup fails to delete -->
-    <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">Theip ar Scriosadh Cúltaca</string>
+    <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">Theip ar scriosadh an chúltaca</string>
     <!-- Text displayed as the body in a card when backup fails to delete -->
     <string name="RemoteBackupsSettingsFragment__an_error_occurred_please_contact_support">Tharla earráid. Déan teagmháil leis an bhfoireann tacaíochta.</string>
     <!-- Text displayed while we are processing a backup delete but are or need to download optimized media -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Backups have been turned off, your data will download to your device and then be deleted from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Tá cúltacaí casta as, íoslódálfar do shonraí chuig do ghléas agus scriosfar ó sheirbhís stórála shlán Signal iad ina dhiaidh sin.</string>
     <!-- Text displayed while we are processing a backup delete -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">Tá cúltacaí casta as agus scriosfar do shonraí ó sheirbhís stórála sláine Signal.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">Tá cúltacaí casta as agus scriosfar do shonraí ó sheirbhís stórála shlán Signal.</string>
     <!-- Text displayed after we have deleted a user\'s backup -->
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Tá cúltacaí casta as agus scriosadh do shonraí ó sheirbhís stórála shlán Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Íoslódáil: %1$s as %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Tá an teorainn stórála %1$s atá i do phlean cúltaca bainte amach agat. Saor spás chun comhráite agus meáin nua a chúltacú.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Bainistigh stóras</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Íoslódáil do chúltaca inniu</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Tá %1$s de shonraí cúltaca agat nach bhfuil ar an ngléas seo. Scriosfar go buan do mheáin agus ceangaltáin gan síntiús íoctha.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Íoslódáil</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Ná híoslódáil</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8788,7 +8858,7 @@
     <!-- Body for network failure dialog in message backups checkout flow -->
     <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Tharla cliseadh líonra. Triail arís níos déanaí.</string>
     <!-- Toast message if this fragment encounters an in progress deletion -->
-    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">A backup deletion is in progress.</string>
+    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">Tá scriosadh cúltaca ar bun.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -8822,17 +8892,23 @@
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Macasamhlaigh chuig an ghearrthaisce</string>
     <!-- Label for the button to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Sábháil chuig an mbainisteoir pasfhocal</string>
     <!-- Dialog title confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Save to password manager?</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Sábháil chuig an mbainisteoir pasfhocal?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Only store your backup key in a password manager that you trust is secure. Signal does not make a recommendation on which password manager is right for you.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Ná stóráil d\'eochair chúltaca ach i mbainisteoir pasfhocal a bhfuil muinín agat as a shláine. Ní thugann Signal moladh ar bhainisteoir pasfhocal atá ceart duit.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Saved to your password manager</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Can\'t save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Sábháilte chuig do bhainisteoir pasfhocal</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Ní féidir sábháil chuig an mbainisteoir pasfhocal</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">You don\'t have a password manager set up, or the password manager you\'re using isn\'t supported.</string>
+    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Níl bainisteoir pasfhocal socraithe agat, nó níl tacú ar fáil don bhainisteoir pasfhocal atá in úsáid agat.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Roghnaigh tú roimhe gan pasfhocail do Signal a shábháil chuig Bainisteoir Pasfhocal Google. I do shocruithe le Bainisteoir Pasfhocal Google, bain Signal de \"Suíomhanna agus aipeanna ar diúltaíodh dóibh\" agus triail arís é.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Socruithe</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Ar aghaidh</string>
     <!-- Bottom sheet title -->
@@ -8867,9 +8943,9 @@
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Tuilleadh faisnéise</string>
     <!-- Primary action button label when selecting the free backup tier without a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__subscribe">Subscribe</string>
+    <string name="MessageBackupsTypeSelectionScreen__subscribe">Roghnaigh an leibhéal gan chostas</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Íoc síntiús %1$s/sa mhí</string>
+    <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Faigh síntiús ar %1$s/sa mhí</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Athraigh cineál cúltaca</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
@@ -9001,7 +9077,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Earráid líonra le haischur Chúltaca Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Earráid líonra le heaspórtáil Chúltaca Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Cuir isteach loga dífhabhtaithe?</string>
@@ -9090,6 +9171,31 @@
     <string name="SignalCheckbox_accessibility_checked_description">Tic curtha leis</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Tic bainte de</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Stóras cúltaca lán</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Tá do theorainn le stóráil cúltacaí bainte amach agat. Saor spás in Signal le leanúint le comhráite agus le meáin a chúltacú.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Theip ar an gcúltaca</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Tharla earráid agus níorbh fhéidir do cúltaca a chur i gcrích. Tapáil chun sonraí a fháil.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Ní dhearnadh aon chúltaca le %1$d lá amháin anuas</item>
+        <item quantity="two">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+        <item quantity="few">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+        <item quantity="many">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+        <item quantity="other">Ní dhearnadh aon chúltaca le %1$d lá anuas</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Níor chuir tú cúltaca i gcrích le %1$d lá amháin anuas. Cruthaigh cúltaca anois.</item>
+        <item quantity="two">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Cruthaigh cúltaca anois.</item>
+        <item quantity="few">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Cruthaigh cúltaca anois.</item>
+        <item quantity="many">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Cruthaigh cúltaca anois.</item>
+        <item quantity="other">Níor chuir tú cúltaca i gcrích le %1$d lá anuas. Cruthaigh cúltaca anois.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

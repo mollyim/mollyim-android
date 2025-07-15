@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">İçerik yükleniyor…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Video sıkıştırılıyor…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Medya yedekleniyor…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">İletiler denetleniyor…</string>
 
@@ -1087,6 +1091,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">%1$s tarihinde bağlı olan cihaz artık bağlı değil.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">TAMAM</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Yeterli depolama alanı yok</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Mesajlarını aktarmak için cihazında yeterli boş depolama alanın yok. Biraz yer aç ve tekrar dene veya mesajlarını aktarmadan cihazını bağla.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly\'in bu sürümü kullanım dışı kaldı. İleti gönderip alabilmek için şimdi güncelleyin.</string>
     <string name="ExpiredBuildReminder_update_now">Şimdi güncelle</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Molly\'i Güncelle</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Molly\'ın bu sürümü kullanım dışı kaldı. Mesaj gönderimini ve alımını güncellemek için dokun.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Yedekleme indiriliyor…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Mesajlar geri yükleniyor…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Tamamlanıyor…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Geri yükleniyor…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Molly\'i Güncelle</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Şimdi değil</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Şimdi geri yüklememeyi seçersen, daha sonra geri yükleyemezsin. Medyan arka planda geri yüklenecektir.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Bahsedilmeleri bana bildir</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Gruba katılınamadı</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Gruptan yönetici tarafından çıkarıldığın için gruba bağlantıyla katılamazsın.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Gruptan yönetici tarafından çıkarıldığın için, gruba bağlantıyla katılamazsın. Gruba geri eklenmek için bir yönetici ile iletişime geç.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Bu grup bağlantısı artık geçerli değil.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -4548,6 +4565,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">PIN oluşturuldu.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">PIN\'inizi tekrar girin</string>
     <string name="ConfirmKbsPinFragment__creating_pin">PIN oluşturuluyor…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Karşınızda PIN\'ler</string>
@@ -5335,6 +5354,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Yedekleme tamamlanamadı</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Yedekleme aboneliğini kullanamadın</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Yedekleme depolama sınırına ulaşıldı</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Arkadaşlarınızı davet edin</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7211,7 +7232,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Bankanı, adını ve e-posta adresini gir. Stripe, sana bağışınla ilgili güncellemeleri göndermek için bu e-postayı kullanır. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Adını ve e-postanı gir. Stripe, sana bağışınla ilgili güncellemeleri göndermek için bu e-postayı kullanır. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Banka bilgilerini gir. Signal, kişisel bilgilerini toplamaz veya saklamaz. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7701,6 +7722,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Tümünü reddet</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Signal Yedeklemelerini aç</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Yeni bir telefon aldığında veya Signal\'i yeniden yüklediğinde asla mesaj kaybetme.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Aç</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Şimdi değil</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Tam ekran bildirimleri açılsın mı?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7854,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Medyanın tamamını yedeklemeye devam etmek için istediğin zaman yedeklemeler için yeniden ödeme yapmaya başlayabilirsin. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Medyan bugün silinecek</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Signal medya yedekleme planın iptal edildi çünkü ödemeni işleme alamadık. Bu, silinmeden önce yedeklemendeki medyayı indirmek için son şansın.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Yedekleme verilerini hemen indir</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Yedekleme verilerini indir</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Bu cihazda olmayan %1$s medyan var. Yedeklemende depolanan medya ve ekler, ücretli bir abonelik olmadan kalıcı olarak silinecektir.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Bu cihazda %1$s yer boşalt</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7884,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Daha fazlasını öğren</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Destekle iletişime geç</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Geri yüklemeyi atla</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7899,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">%1$s/ay ile abone ol</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Medyayı şimdi indir</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Yedeklemeyi şimdi indir</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Medyayı indirme</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Yedeklemeyi indirme</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Şimdi değil</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8039,15 +8073,33 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">TAMAM</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">%1$d günlük yedekleme yok</item>
+        <item quantity="other">%1$d günlük yedekleme yok</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">%1$d günlük yedeklemeyi tamamlamadın. Mesajlarının ve medyanın korunduğundan emin olmak için hemen bir yedekleme oluştur.</item>
+        <item quantity="other">%1$d günlük yedeklemeyi tamamlamadın. Mesajlarının ve medyanın korunduğundan emin olmak için hemen bir yedekleme oluştur.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/ay, yenilenme %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Son yedekleme %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Abonelik iptal edildi</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Signal\'in güvenli uçtan uca şifrelenmiş depolama hizmeti ile otomatik yedeklemeler.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Bu cihazda abonelik bulunamadı."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Ayarla</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -8132,6 +8184,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Yedeklemeler kapatılıp silinsin mi?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Yedeklemen silinecek ve yeni yedekleme oluşturulmayacaktır. Yedeklemende depolanan tüm medya şimdi telefonuna indirilecektir.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Aboneliğin iptal edilecek ve tekrar ücretlendirilmeyeceksin. Yedeklemen de silinecek ve yeni yedekleme oluşturulmayacaktır. Yedeklemende depolanan tüm medya şimdi telefonuna indirilecektir.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Kapat ve sil</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8219,8 @@
         <item quantity="one">Bu cihazdaki aboneliğin önümüzdeki %1$d gün için geçerlidir. Signal Yedeklemelerini kullanmaya devam etmek için yenile</item>
         <item quantity="other">Bu cihazdaki aboneliğin önümüzdeki %1$d gün için geçerlidir. Signal Yedeklemelerini kullanmaya devam etmek için yenile</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Yeniden abone ol</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Yenile</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8235,7 @@
         <item quantity="other">%1$s / ~%2$s mesaj işleniyor (%%%3$d)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Bu cihazda olmayan %1$s yedekleme verin var. Aboneliğin %2$d gün içinde sona erdiğinde, yedeklemen silinir.</item>
-        <item quantity="other">Bu cihazda olmayan %1$s yedekleme verin var. Aboneliğin %2$d gün içinde sona erdiğinde, yedeklemen silinir.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Bu cihazda olmayan %1$s yedekleme verin var. Ücretli abonelik olmadan medya yüklenemez.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Bu cihazda olmayan %1$s yedekleme verin var. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8226,6 +8279,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Yedeklemeler kapatıldı ve verilerin Signal\'ın güvenli depolama hizmetinden silindi.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">İndiriliyor: %1$s / %2$s (%%%3$d)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Yedekleme planına dahil olan %1$s depolama sınırına ulaştın. Yeni sohbetleri ve medyayı yedeklemek için yer aç.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Depolamayı yönet</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Yedeklemeni hemen indir</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Bu cihazda olmayan %1$s yedekleme verin var. Medyan ve eklerin, ücretli bir abonelik olmadan kalıcı olarak silinecektir.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">İndir</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">İndirme</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8290,12 +8357,18 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Parola yöneticisine kaydedilsin mi?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Yedekleme anahtarını sadece güvenli olduğuna güvendiğin bir parola yöneticisinde sakla. Signal, hangi parola yöneticisinin senin için doğru olduğu konusunda bir öneride bulunmaz.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Parola yöneticine kaydedildi</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Parola yöneticisine kaydedilemiyor</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Parola yöneticisine kaydedilemiyor</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Bir parola yöneticisi kurulumun yok veya kullanmakta olduğun parola yöneticisi desteklenmiyor.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Daha önce Signal şifrelerini Google Parola Yöneticisi\'ne kaydetmemeyi seçmiştin. Google Parola Yöneticisi ayarlarında, Signal\'i \"Reddedilen siteler ve uygulamalar\" adresinden kaldır ve tekrar dene.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Ayarlara git</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">İleri</string>
     <!-- Bottom sheet title -->
@@ -8458,7 +8531,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Signal Android Yedeklemesi geri yükleme ağ hatası</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Signal Android Yedeklemesini dışa aktarmada ağ hatası</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Hata ayıklama günlüğü gönderilsin mi?</string>
@@ -8547,6 +8625,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">İşaretli</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">İşaretsiz</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Yedekleme depolama dolu</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Yedekleme depolama sınırına ulaştın. Sohbetleri ve medyayı yedeklemeye devam etmek için Signal\'da yer aç.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Yedekleme başarısız oldu</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Bir hata oluştu ve yedeklemen tamamlanamadı. Ayrıntılar için dokun.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">%1$d günlük yedekleme yok</item>
+        <item quantity="other">%1$d günlük yedekleme yok</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">%1$d günlük yedeklemeyi tamamlamadın. Hemen bir yedekleme oluştur.</item>
+        <item quantity="other">%1$d günlük yedeklemeyi tamamlamadın. Hemen bir yedekleme oluştur.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

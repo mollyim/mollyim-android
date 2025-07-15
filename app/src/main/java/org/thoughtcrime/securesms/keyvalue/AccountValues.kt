@@ -6,13 +6,14 @@ import org.signal.core.util.logging.Log
 import org.signal.core.util.nullIfBlank
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
-import org.signal.libsignal.protocol.ecc.Curve
+import org.signal.libsignal.protocol.ecc.ECPrivateKey
 import org.signal.libsignal.protocol.util.Medium
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.crypto.storage.PreKeyMetadataStore
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.jobmanager.impl.RegisteredConstraint
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
@@ -169,6 +170,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   fun setAci(aci: ACI) {
     putString(KEY_ACI, aci.toString())
+    RegisteredConstraint.Observer.notifyListeners()
   }
 
   /** The local user's [PNI]. */
@@ -221,7 +223,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       require(store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) { "Not yet set!" }
       return IdentityKeyPair(
         IdentityKey(getBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, null)),
-        Curve.decodePrivatePoint(getBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, null))
+        ECPrivateKey(getBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, null))
       )
     }
 
@@ -231,7 +233,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       require(store.containsKey(KEY_PNI_IDENTITY_PUBLIC_KEY)) { "Not yet set!" }
       return IdentityKeyPair(
         IdentityKey(getBlob(KEY_PNI_IDENTITY_PUBLIC_KEY, null)),
-        Curve.decodePrivatePoint(getBlob(KEY_PNI_IDENTITY_PRIVATE_KEY, null))
+        ECPrivateKey(getBlob(KEY_PNI_IDENTITY_PRIVATE_KEY, null))
       )
     }
 
@@ -441,6 +443,8 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     } else if (!registered) {
       registeredAtTimestamp = -1
     }
+
+    RegisteredConstraint.Observer.notifyListeners()
   }
 
   /**

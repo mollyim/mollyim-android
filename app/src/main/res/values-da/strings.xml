@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Uploader mediefil …</string>
     <string name="AttachmentUploadJob_compressing_video_start">Komprimerer video …</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Sikkerhedskopierer medier…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Tjekker efter beskeder …</string>
 
@@ -1087,6 +1091,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Enheden, der blev tilknyttet %1$s, er ikke længere tilknyttet.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Der er ikke nok lagerplads</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Din enhed har ikke tilstrækkelig ledig plads til at overføre beskederne. Frigør noget plads, og prøv igen, eller tilslut din enhed uden at overføre dine beskeder.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Denne version af Molly er udløbet. Opdatér nu for at sende og modtage beskeder.</string>
     <string name="ExpiredBuildReminder_update_now">Opdatér nu</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Opdater Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Denne version af Molly er udløbet. Tryk for at opdatere, så du kan sende og modtage beskeder.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Downloader sikkerhedskopi…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Gendanner beskeder…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Afslutter…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Gendanner…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Opdater Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Ikke nu</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Hvis du vælger ikke at gendanne nu, vil du ikke kunne gendanne senere. Dine medier vil blive gendannet i baggrunden.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Underret mig ved omtaler</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Kan ikke tilslutte gruppe</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Du kan ikke tilslutte dig denne gruppe via gruppelinket, fordi en administrator har fjernet dig.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Du kan ikke deltage i denne gruppe via gruppelinket, fordi en administrator har fjernet dig. Kontakt en administrator for at blive føjet til gruppen igen.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Gruppelinket er ikke længere gyldigt</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -4548,6 +4565,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">Pinkode oprettet.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Indtast din pinkode igen</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Opretter pinkode…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Nu introduceres pinkoder</string>
@@ -5335,6 +5354,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Kunne ikke gennemføre sikkerhedskopieringen</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Dit sikkerhedskopieringsabonnement kunne ikke indløses</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Din sikkerhedskopieringslagerplads er fuld</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Inviter dine venner</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7211,7 +7232,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Angiv din bank, dit navn og din mailadresse. Stripe bruger disse oplysninger til at sende opdateringer vedrørende din donation. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Angiv dit navn og mailadresse. Stripe bruger din mailadresse til at sende opdateringer vedrørende din donation. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Angiv dine bankoplysninger. Signal indsamler eller opbevarer ikke dine personlige oplysninger. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7701,6 +7722,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Afvis alle</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Slå Signal-sikkerhedskopier til</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Mist aldrig en besked, når du får en ny telefon eller geninstallerer Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Aktiver</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Ikke nu</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Slå notifikationer på fuld skærm til?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7854,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Du kan til enhver tid begynde at betale for sikkerhedskopier igen for at fortsætte med at sikkerhedskopiere alle dine medier. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Dine medier slettes i dag</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Dit abonnement for sikkerhedskopiering af Signal medier er blevet opsagt, fordi vi ikke kunne behandle din betaling. Dette er din sidste chance for at downloade medierne i din sikkerhedskopi, før de slettes.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Download dine sikkerhedskopidata i dag</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Download din sikkerhedskopi</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Du har %1$s medie, som ikke er på denne enhed. De medier og vedhæftede filer, der er gemt i din sikkerhedskopi, vil blive slettet permanent uden et betalt abonnement.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Frigør %1$s på denne enhed</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7884,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Få mere at vide</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Kontakt support</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Spring gendannelse over</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7899,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Abonner for %1$s/måned</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Download medier nu</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Download din sikkerhedskopi nu</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Download ikke medier</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Download ikke din sikkerhedskopi</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Ikke nu</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8039,15 +8073,33 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Ingen sikkerhedskopiering i %1$d dag</item>
+        <item quantity="other">Ingen sikkerhedskopiering i %1$d dage</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Du har ikke udført en sikkerhedskopiering i %1$d dag. For at sikre, at dine beskeder og medier bevares, bør du oprette en sikkerhedskopi nu.</item>
+        <item quantity="other">Du har ikke udført en sikkerhedskopiering i %1$d dage. For at sikre, at dine beskeder og medier bevares, bør du oprette en sikkerhedskopi nu.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/måned, fornyes til %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Seneste sikkerhedskopiering %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Abonnement annulleret</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Automatiske sikkerhedskopier med Signals sikre E2E-krypterede lagertjeneste.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Der blev ikke fundet noget abonnement på denne enhed."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Opsæt</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -8132,6 +8184,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Slå fra og slet sikkerhedskopier?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Din sikkerhedskopi bliver slettet, og der oprettes ingen nye sikkerhedskopier. Alle medier, der er gemt i din sikkerhedskopi, vil nu blive downloadet til din telefon.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Dit abonnement bliver annulleret, og du bliver ikke opkrævet igen. Din sikkerhedskopi bliver også slettet, og der oprettes ingen nye sikkerhedskopier. Alle medier, der er gemt i din sikkerhedskopi, vil nu blive downloadet til din telefon.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Deaktivér og slet</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8219,8 @@
         <item quantity="one">Dit abonnement på denne enhed er gyldigt i den næste %1$d dag. Forny for at fortsætte med at bruge Signal-sikkerhedskopier</item>
         <item quantity="other">Dit abonnement på denne enhed er gyldigt i de næste %1$d dage. Forny for at fortsætte med at bruge Signal-sikkerhedskopier</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Genoptag abonnementet</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Forny</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8235,7 @@
         <item quantity="other">Behandler %1$s af ~%2$s beskeder (%3$d %%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Du har %1$s sikkerhedskopieret data, der ikke er på denne enhed. Din sikkerhedskopi slettes, når dit abonnement slutter om %2$d dag.</item>
-        <item quantity="other">Du har %1$s sikkerhedskopieret data, der ikke er på denne enhed. Din sikkerhedskopi slettes, når dit abonnement slutter om %2$d dage.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Du har %1$s sikkerhedskopieret data, som ikke er på denne enhed. Uden et betalt abonnement kan medier ikke flyttes fra enheden.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Du har %1$s sikkerhedskopieret data, som ikke er på denne enhed. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8226,6 +8279,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Sikkerhedskopiering er slået fra, og dine data er blevet slettet fra Signals sikre lagringstjeneste.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Downloader: %1$s af %2$s (%3$d %%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Du har opbrugt de %1$s lagerplads, der er inkluderet i dit sikkerhedskopieringsabonnement. Frigør plads for at sikkerhedskopiere nye chats og medier.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Administrer lagerplads</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Download din sikkerhedskopi i dag</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Du har %1$s sikkerhedskopieret data, som ikke er på denne enhed. Uden et betalt abonnement vil dine medier og vedhæftede filer blive slettet permanent.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Hent</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Download ikke</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8290,12 +8357,18 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Vil du gemme i adgangskodeadministratoren?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Gem kun din sikkerhedskopinøgle i en adgangskodeadministrator, som du har tillid til er sikker. Signal kommer ikke med anbefalinger om, hvilken adgangskodeadministrator der er den rette for dig.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Gemt i din adgangskodeadministrator</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Kan ikke gemmes i adgangskodeadministrator</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Kan ikke gemmes i adgangskodeadministrator</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Ingen adgangskodeadministrator er opsat, ellers er den, du bruger, ikke understøttet.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Du har tidligere valgt ikke at gemme adgangskoder for Signal i Google Adgangskodeadministrator. Fjern Signal fra \"Afviste websites og apps\" i dine indstillinger for Google Adgangskodeadministrator, og prøv igen.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Gå til indstillinger</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Næste</string>
     <!-- Bottom sheet title -->
@@ -8458,7 +8531,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Netværksfejl under gendannelse af Signal Android-sikkerhedskopi</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Netværksfejl under gendannelse af Signal Android-sikkerhedskopi</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Vil du indsende fejlsøgningslog?</string>
@@ -8547,6 +8625,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">Markeret</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Ikke markeret</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Din sikkerhedskopieringslagerplads er fuld</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Du har ikke mere plads til sikkerhedskopier. Frigør plads i Signal for at kunne sikkerhedskopiere beskeder og medier.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Sikkerhedskopiering mislykkedes</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Der opstod en fejl, og din sikkerhedskopiering kunne ikke fuldføres. Tryk for flere oplysninger.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Ingen sikkerhedskopiering i %1$d dag</item>
+        <item quantity="other">Ingen sikkerhedskopiering i %1$d dage</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Du har ikke udført en sikkerhedskopiering i %1$d dag. Opret en sikkerhedskopi nu.</item>
+        <item quantity="other">Du har ikke udført en sikkerhedskopiering i %1$d dage. Opret en sikkerhedskopi nu.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

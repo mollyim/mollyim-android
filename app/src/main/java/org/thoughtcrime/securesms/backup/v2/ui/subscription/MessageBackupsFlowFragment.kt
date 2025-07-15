@@ -40,6 +40,7 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.Util
+import org.thoughtcrime.securesms.util.storage.AndroidCredentialRepository
 import org.thoughtcrime.securesms.util.viewModel
 
 /**
@@ -139,18 +140,19 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
 
       composable(route = MessageBackupsStage.Route.BACKUP_KEY_RECORD.name) {
         val context = LocalContext.current
+        val passwordManagerSettingsIntent = AndroidCredentialRepository.getCredentialManagerSettingsIntent(requireContext())
 
         MessageBackupsKeyRecordScreen(
           backupKey = state.accountEntropyPool.displayValue,
           keySaveState = state.backupKeySaveState,
+          canOpenPasswordManagerSettings = passwordManagerSettingsIntent != null,
           onNavigationClick = viewModel::goToPreviousStage,
           onNextClick = viewModel::goToNextStage,
-          onCopyToClipboardClick = {
-            Util.copyToClipboard(context, it, CLIPBOARD_TIMEOUT_SECONDS)
-          },
+          onCopyToClipboardClick = { Util.copyToClipboard(context, it, CLIPBOARD_TIMEOUT_SECONDS) },
           onRequestSaveToPasswordManager = viewModel::onBackupKeySaveRequested,
           onConfirmSaveToPasswordManager = viewModel::onBackupKeySaveConfirmed,
-          onSaveToPasswordManagerComplete = viewModel::onBackupKeySaveCompleted
+          onSaveToPasswordManagerComplete = viewModel::onBackupKeySaveCompleted,
+          onGoToPasswordManagerSettingsClick = { requireContext().startActivity(passwordManagerSettingsIntent) }
         )
       }
 
@@ -171,7 +173,12 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
           isNextEnabled = state.isCheckoutButtonEnabled(),
           onMessageBackupsTierSelected = viewModel::onMessageBackupTierUpdated,
           onNavigationClick = viewModel::goToPreviousStage,
-          onReadMoreClicked = {},
+          onReadMoreClicked = {
+            CommunicationActions.openBrowserLink(
+              requireContext(),
+              getString(R.string.backup_support_url)
+            )
+          },
           onNextClicked = viewModel::goToNextStage
         )
       }

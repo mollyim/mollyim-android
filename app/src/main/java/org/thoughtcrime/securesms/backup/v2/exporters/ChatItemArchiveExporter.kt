@@ -736,7 +736,7 @@ private fun CallTable.Call.toRemoteCallUpdate(exportState: ExportState, messageR
             }
           },
           startedCallTimestamp = this.timestamp.clampToValidBackupRange(),
-          read = messageRecord.read
+          read = this.read
         )
       )
     }

@@ -143,11 +143,11 @@ class IncomingMessageObserver(
 
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
-        onAppForegrounded()
+        SignalExecutors.BOUNDED.execute { onAppForegrounded() }
       }
 
       override fun onBackground() {
-        onAppBackgrounded()
+        SignalExecutors.BOUNDED.execute { onAppBackgrounded() }
       }
     })
 
@@ -161,6 +161,12 @@ class IncomingMessageObserver(
           releaseConnectionDecisionSemaphore()
         }
       }
+
+    authWebSocket.addKeepAliveChangeListener {
+      SignalExecutors.BOUNDED.execute {
+        releaseConnectionDecisionSemaphore()
+      }
+    }
   }
 
   fun notifyRegistrationStateChanged() {
@@ -215,12 +221,12 @@ class IncomingMessageObserver(
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
 
-    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $isForeground, Time Since Last Interaction: $lastInteractionString, PushAvailable: $pushAvailable, WS Connected: $websocketAlreadyOpen, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket")
+    Log.d(TAG, "[$needsConnectionString] Network: $hasNetwork, Foreground: $isForeground, Time Since Last Interaction: $lastInteractionString, PushAvailable: $pushAvailable, WS Open or Keep-alives: $websocketAlreadyOpen, Registered: $registered, Proxy: $hasProxy, Force websocket: $forceWebsocket")
     return conclusion
   }
 
   private fun isConnectionAvailable(): Boolean {
-    return authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED
+    return authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || authWebSocket.shouldSendKeepAlives()
   }
 
   private fun releaseConnectionDecisionSemaphore() {

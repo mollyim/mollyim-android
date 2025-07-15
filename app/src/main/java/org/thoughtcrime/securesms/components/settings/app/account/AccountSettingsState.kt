@@ -7,7 +7,8 @@ data class AccountSettingsState(
   val pinRemindersEnabled: Boolean,
   val registrationLockEnabled: Boolean,
   val userUnregistered: Boolean,
-  val clientDeprecated: Boolean
+  val clientDeprecated: Boolean,
+  val canTransferWhileUnregistered: Boolean
 ) {
   fun isNotDeprecatedOrUnregistered(): Boolean {
     return !(userUnregistered || clientDeprecated)

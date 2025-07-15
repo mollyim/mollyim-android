@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Đang tải tệp lên…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Đang nén video…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Đang sao lưu tập tin đa phương tiện…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Đang kiểm tra tin nhắn…</string>
 
@@ -1065,6 +1069,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Thiết bị được liên kết %1$s hiện không còn được liên kết.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">OK</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Không đủ dung lượng</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Thiết bị của bạn không đủ dung lượng lưu trữ trống để chuyển tin nhắn. Giải phóng dung lượng và thử lại, hoặc liên kết thiết bị của bạn và không chuyển tin nhắn.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1142,6 +1150,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Phiên bản này của Molly đã hết hạn. Cập nhật ngay để gửi và nhận tin nhắn.</string>
     <string name="ExpiredBuildReminder_update_now">Cập nhật ngay</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Cập nhật Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Phiên bản này của Molly đã hết hạn. Nhấn để cập nhật để gửi và nhận tin nhắn.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1398,6 +1411,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Đang tải bản sao lưu…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Đang khôi phục tin nhắn…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Đang hoàn tất…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Đang khôi phục…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1434,6 +1449,8 @@
     <string name="RemoteRestoreActivity__update_signal">Cập nhật Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Để sau</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Nếu bạn chọn không khôi phục bây giờ, bạn sẽ không khôi phục được sau này. Tập tin đa phương tiện sẽ khôi phục ở chế độ nền.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Thông báo khi tôi được nhắc tên</string>
@@ -1535,7 +1552,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Không thể tham gia nhóm</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Bạn không thể tham gia nhóm này qua đường dẫn nhóm vì một quản trị viên đã xóa bạn khỏi nhóm.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Bạn không thể tham gia nhóm này qua đường dẫn nhóm vì một quản trị viên đã xóa bạn khỏi nhóm. Liên hệ với một quản trị viên để được thêm vào lại nhóm.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Đường dẫn nhóm không còn hiệu lực.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -4430,6 +4447,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">Mã PIN đã được tạo.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Điền lại mã PIN của bạn</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Đang tạo mã PIN…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Giới thiệu mã PIN</string>
@@ -5204,6 +5223,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Không thể hoàn tất sao lưu</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Không thể nhận gói đăng ký sao lưu của bạn</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Đã đạt giới hạn dung lượng sao lưu</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Mời bạn bè của mình</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7046,7 +7067,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Nhập tên ngân hàng, tên và địa chỉ email của bạn. Stripe sử dụng địa chỉ email này để gửi thông tin cập nhật về khoản ủng hộ của bạn. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Nhập tên và email của bạn. Stripe sử dụng địa chỉ email này để gửi thông tin cập nhật về khoản ủng hộ của bạn. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Nhập thông tin ngân hàng của bạn. Signal không thu thập hay lưu trữ thông tin cá nhân của bạn. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7530,6 +7551,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Từ chối tất cả</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Bật Sao lưu Signal</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Không bao giờ bị mất tin nhắn khi bạn có điện thoại mới hoặc cài đặt lại Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Bật</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Để sau</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Bật thông báo toàn màn hình?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7651,9 +7681,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Bạn có thể thanh toán cho gói sao lưu bất kỳ lúc nào để tiếp tục sao lưu tất cả tập tin đa phương tiện của mình. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Tập tin đa phương tiện của bạn sẽ được xóa vào hôm nay</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Gói đăng ký sao lưu tập tin đa phương tiện Signal của bạn đã bị hủy vì chúng tôi không thể xử lý khoản thanh toán của bạn. Đây là cơ hội cuối cùng để bạn tải tập tin đa phương tiện trong bản sao lưu của mình trước khi những nội dung này bị xóa.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Tải dữ liệu sao lưu ngay hôm nay</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Tải dữ liệu sao lưu của bạn</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Bạn có %1$s tập tin đa phương tiện không có trên thiết bị này. Tập tin đa phương tiện và đính kèm được lưu trong bản sao lưu của bạn sẽ bị xóa vĩnh viễn nếu không có gói đăng ký trả phí.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Giải phóng %1$s trên thiết bị này</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7678,6 +7710,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Tìm hiểu thêm</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Liên hệ hỗ trợ</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Bỏ qua</string>
     <!-- Primary action button to open backups management screen -->
@@ -7691,9 +7725,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Đăng ký gói với giá %1$s/tháng</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Tải tập tin đa phương tiện ngay</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Tải bản sao lưu ngay</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Không tải tập tin đa phương tiện</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Không tải bản sao lưu</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Để sau</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -7864,15 +7898,31 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">OK</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="other">Chưa sao lưu trong %1$d ngày</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="other">Bạn chưa hoàn tất sao lưu trong %1$d ngày. Để đảm bảo tin nhắn và tập tin đa phương tiện của bạn được bảo toàn, tạo bản sao lưu ngay.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/tháng, gia hạn %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Sao lưu gần đây nhất %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Gói đăng ký đã được hủy</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Sao lưu tự động với dịch vụ lưu trữ bảo mật, được mã hóa đầu cuối của Signal.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Không tìm thấy gói đăng ký trên thiết bị này."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Thiết Lập</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -7957,6 +8007,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Tắt và xóa bản sao lưu?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Bản sao lưu của bạn sẽ được xóa và các bản sao lưu mới sẽ không được tạo nữa. Bất kỳ tập tin đa phương nào có trong bản sao lưu của bạn sẽ được tải về điện thoại ngay.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Gói đăng ký của bạn sẽ được hủy và bạn sẽ không bị tính phí nữa. Bản sao lưu của bạn cũng sẽ được xóa và sẽ không có các bản sao lưu mới nào được tạo. Bất kỳ tập tin đa phương nào có trong bản sao lưu của bạn sẽ được tải về điện thoại ngay.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Tắt và xóa</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -7989,6 +8041,8 @@
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
         <item quantity="other">Gói đăng ký của bạn trên thiết bị này còn %1$d ngày. Gia hạn để tiếp tục sử dụng Sao lưu Signal</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Đăng ký lại</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Gia hạn</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8002,9 +8056,7 @@
         <item quantity="other">Đang xử lý %1$s trong số ~%2$s tin nhắn (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="other">Bạn có %1$s dữ liệu sao lưu không có trên thiết bị này. Dữ liệu sao lưu của bạn sẽ được xóa khi gói đăng ký kết thúc trong %2$d ngày nữa.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Bạn có %1$s dữ liệu sao lưu không có trên thiết bị này. Nếu không có gói đăng ký trả phí thì tập tin đa phương tiện không thể được gỡ bỏ.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Bạn có %1$s dữ liệu sao lưu không có trên thiết bị này. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8047,6 +8099,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Đã tắt sao lưu và dữ liệu của bạn đã được xóa khỏi dịch vụ lưu trữ bảo mật của Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Đang tải: %1$s trên tổng số %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Bạn đã đạt %1$s giới hạn dung lượng có trong gói sao lưu. Để sao lưu cuộc trò chuyện và tập tin đa phương tiện mới, hãy giải phóng dung lượng.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Quản lí bộ nhớ</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Tải bản sao lưu của bạn</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Bạn có %1$s dữ liệu sao lưu không có trên thiết bị này. Tập tin đa phương tiện và đính kèm sẽ bị xóa vĩnh viễn nếu không có gói đăng ký trả phí.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Tải xuống</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Không tải xuống</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8111,12 +8177,18 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Lưu vào công cụ quản lý mật khẩu?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Chỉ lưu trữ mã khóa sao lưu trong công cụ quản lý mật khẩu bạn tin tưởng là an toàn. Signal không đưa ra khuyến nghị về công cụ quản lý mật khẩu phù hợp với bạn.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Đã lưu vào công cụ quản lý mật khẩu</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Không thể lưu vào công cụ quản lý mật khẩu</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Không thể lưu vào công cụ quản lý mật khẩu</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Bạn chưa thiết lập công cụ quản lý mật khẩu, hoặc công cụ quản lý mật khẩu bạn đang sử dụng không được hỗ trợ.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Trước đó, bạn đã chọn không lưu mật khẩu Signal vào Google Password Manager. Trong mục cài đặt của Google Password Manager, hãy xóa Signal khỏi mục \"Trang web và ứng dụng đã từ chối\" và thử lại.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Đến mục cài đặt</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Tiếp</string>
     <!-- Bottom sheet title -->
@@ -8277,7 +8349,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Lỗi mạng khôi phục bản sao lưu của Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Lỗi mạng xuất bản sao lưu của Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Gửi nhật ký gỡ lỗi?</string>
@@ -8366,6 +8443,23 @@
     <string name="SignalCheckbox_accessibility_checked_description">Đã đánh dấu</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Đã bỏ đánh dấu</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Dung lượng sao lưu đầy</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Bạn đã đạt giới hạn dung lượng sao lưu. Giải phóng dung lượng trong Signal để tiếp tục sao lưu cuộc trò chuyện và tập tin đa phương tiện.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Sao lưu thất bại.</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Đã xảy ra lỗi và không thể hoàn tất quá trình sao lưu của bạn. Nhấn để biết chi tiết.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="other">Chưa sao lưu trong %1$d ngày</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="other">Bạn chưa hoàn tất sao lưu trong %1$d ngày. Tạo bản sao lưu ngay.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

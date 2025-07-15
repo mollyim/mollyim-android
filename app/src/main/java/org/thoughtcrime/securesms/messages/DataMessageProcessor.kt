@@ -168,6 +168,9 @@ object DataMessageProcessor {
     }
 
     messageId = messageId ?: insertResult?.messageId?.let { MessageId(it) }
+    if (messageId != null) {
+      log(envelope.timestamp!!, "Inserted as messageId $messageId")
+    }
 
     if (groupId != null) {
       val unknownGroup = when (groupProcessResult) {

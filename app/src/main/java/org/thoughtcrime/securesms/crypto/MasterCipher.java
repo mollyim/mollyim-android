@@ -22,7 +22,6 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.Curve;
 import org.signal.libsignal.protocol.ecc.ECPrivateKey;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
 
@@ -68,7 +67,7 @@ public class MasterCipher {
 
   public ECPrivateKey decryptPrivateKey(byte[] key) throws InvalidKeyException {
     try {
-      return Curve.decodePrivatePoint(decrypt(key, "ECPrivateKey".getBytes()));
+      return new ECPrivateKey(decrypt(key, "ECPrivateKey".getBytes()));
     } catch (GeneralSecurityException ge) {
       throw new InvalidKeyException(ge);
     }
@@ -76,7 +75,7 @@ public class MasterCipher {
 
   public ECPublicKey decryptPublicKey(byte[] key) throws InvalidKeyException {
     try {
-      return Curve.decodePoint(decrypt(key, "ECPublicKey".getBytes()), 0);
+      return new ECPublicKey(decrypt(key, "ECPublicKey".getBytes()));
     } catch (GeneralSecurityException ge) {
       throw new InvalidKeyException(ge);
     }

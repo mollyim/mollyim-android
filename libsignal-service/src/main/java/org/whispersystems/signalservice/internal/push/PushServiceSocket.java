@@ -28,12 +28,14 @@ import org.whispersystems.signalservice.api.account.AccountAttributes;
 import org.whispersystems.signalservice.api.account.PreKeyCollection;
 import org.whispersystems.signalservice.api.crypto.SealedSenderAccess;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2AuthorizationString;
+import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.calls.CallingResponse;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.SignedPreKeyEntity;
 import org.whispersystems.signalservice.api.push.exceptions.AlreadyVerifiedException;
+import org.whispersystems.signalservice.api.remoteconfig.RemoteConfigResponse;
 import org.whispersystems.signalservice.api.push.exceptions.AuthorizationFailedException;
 import org.whispersystems.signalservice.api.push.exceptions.ChallengeRequiredException;
 import org.whispersystems.signalservice.api.push.exceptions.ConflictException;
@@ -577,6 +579,11 @@ public class PushServiceSocket {
     }
   }
 
+  public RemoteConfigResponse getRemoteConfig() throws IOException {
+    String response = makeServiceRequest("/v1/config", "GET", null);
+    return JsonUtil.fromJson(response, RemoteConfigResponse.class);
+  }
+
   public void cancelInFlightRequests() {
     synchronized (connections) {
       Log.w(TAG, "Canceling: " + connections.size());
@@ -698,7 +705,7 @@ public class PushServiceSocket {
           if ((totalRead += read) > maxSizeBytes) throw new PushNetworkException("Response exceeded max size!");
 
           if (listener != null) {
-            listener.onAttachmentProgress(body.contentLength() + offset, totalRead);
+            listener.onAttachmentProgress(new AttachmentTransferProgress(body.contentLength() + offset, totalRead));
             if (listener.shouldCancel()) {
               call.cancel();
               throw new PushNetworkException("Canceled by listener check.");
@@ -721,8 +728,7 @@ public class PushServiceSocket {
     }
   }
 
-  @Nullable
-  public ZonedDateTime getCdnLastModifiedTime(int cdnNumber, Map<String, String> headers, String path) throws MissingConfigurationException, PushNetworkException, NonSuccessfulResponseCodeException {
+  public @Nonnull ZonedDateTime getCdnLastModifiedTime(int cdnNumber, Map<String, String> headers, String path) throws MissingConfigurationException, PushNetworkException, NonSuccessfulResponseCodeException, MalformedResponseException {
     ConnectionHolder[] cdnNumberClients = cdnClientsMap.get(cdnNumber);
     if (cdnNumberClients == null) {
       throw new MissingConfigurationException("Attempted to download from unsupported CDN number: " + cdnNumber + ", Our configuration supports: " + cdnClientsMap.keySet());
@@ -734,7 +740,7 @@ public class PushServiceSocket {
                                                           .readTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                           .build();
 
-    Request.Builder request = new Request.Builder().url(connectionHolder.getUrl() + "/" + path).get();
+    Request.Builder request = new Request.Builder().url(connectionHolder.getUrl() + "/" + path).head();
 
     if (connectionHolder.getHostHeader().isPresent()) {
       request.addHeader("Host", connectionHolder.getHostHeader().get());
@@ -754,7 +760,7 @@ public class PushServiceSocket {
       if (response.isSuccessful()) {
         String lastModified = response.header("Last-Modified");
         if (lastModified == null) {
-          return null;
+          throw new MalformedResponseException("No Last-Modified header in response");
         }
         return ZonedDateTime.parse(lastModified, DateTimeFormatter.RFC_1123_DATE_TIME);
       } else {

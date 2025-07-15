@@ -11,6 +11,7 @@ import org.signal.core.util.gibiBytes
 import org.signal.core.util.kibiBytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.mebiBytes
+import org.signal.libsignal.protocol.UsePqRatchet
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.SelectionLimits
@@ -30,10 +31,13 @@ import kotlin.concurrent.withLock
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.reflect.KProperty
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 /**
  * A location for accessing remotely-configured values.
@@ -425,6 +429,24 @@ object RemoteConfig {
       active = active,
       onChangeListener = onChangeListener,
       transformer = { it.asLong(defaultValue) }
+    )
+  }
+
+  private fun remoteDuration(
+    key: String,
+    defaultValue: Duration,
+    hotSwappable: Boolean,
+    durationUnit: DurationUnit,
+    active: Boolean = true,
+    onChangeListener: OnFlagChange? = null
+  ): Config<Duration> {
+    return remoteValue(
+      key = key,
+      hotSwappable = hotSwappable,
+      sticky = false,
+      active = active,
+      onChangeListener = onChangeListener,
+      transformer = { it?.toString()?.toLongOrNull()?.toDuration(durationUnit) ?: defaultValue }
     )
   }
 
@@ -982,7 +1004,7 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("libSignalWebSocketEnabled")
   // val libSignalWebSocketEnabled: Boolean by remoteValue(
-  //   key = "android.libsignalWebSocketEnabled.5",
+  //   key = "android.libsignalWebSocketEnabled.7",
   //   hotSwappable = false
   // ) { value ->
   //   value.asBoolean(false) || Environment.IS_NIGHTLY
@@ -1092,6 +1114,35 @@ object RemoteConfig {
     defaultValue = false,
     hotSwappable = true
   )
+
+  /**
+   * Also determines how long an unregistered/deleted record should remain in storage service
+   */
+  val messageQueueTime: Long by remoteValue(
+    key = "global.messageQueueTimeInSeconds",
+    hotSwappable = true
+  ) { value ->
+    val inSeconds = value.asLong(45.days.inWholeSeconds)
+    inSeconds.seconds.inWholeMilliseconds
+  }
+
+  @JvmStatic
+  val archiveReconciliationSyncInterval: Duration by remoteDuration(
+    key = "global.archive.attachmentReconciliationSyncIntervalDays",
+    defaultValue = 7.days,
+    hotSwappable = true,
+    durationUnit = DurationUnit.DAYS
+  )
+
+  /** Whether or not to use the new post-quantum ratcheting. */
+  @JvmStatic
+  @get:JvmName("usePqRatchet")
+  val usePqRatchet: UsePqRatchet by remoteValue(
+    key = "global.usePqRatchet",
+    hotSwappable = true
+  ) { value ->
+    if (value.asBoolean(false)) UsePqRatchet.YES else UsePqRatchet.NO
+  }
 
   // endregion
 }

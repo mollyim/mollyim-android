@@ -13,18 +13,19 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
-import kotlinx.coroutines.withContext
-import org.signal.core.util.billing.BillingPurchaseResult
 import org.signal.core.util.bytes
 import org.signal.core.util.logging.Log
-import org.signal.core.util.money.FiatMoney
+import org.signal.core.util.mebiBytes
+import org.signal.core.util.throttleLatest
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.DeletionState
@@ -34,19 +35,18 @@ import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusData
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.banner.banners.MediaRestoreProgressBanner
-import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
+import org.thoughtcrime.securesms.components.settings.app.backups.BackupStateRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
-import org.thoughtcrime.securesms.components.settings.app.subscription.RecurringInAppPaymentRepository
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
+import org.thoughtcrime.securesms.database.attachmentUpdates
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
 import org.thoughtcrime.securesms.service.MessageBackupListener
-import java.util.Currency
-import kotlin.time.Duration.Companion.milliseconds
+import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -61,12 +61,14 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
 
   private val _state = MutableStateFlow(
     RemoteBackupsSettingsState(
+      tier = SignalStore.backup.backupTier,
       backupsEnabled = SignalStore.backup.areBackupsEnabled,
+      canViewBackupKey = !TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application),
       lastBackupTimestamp = SignalStore.backup.lastBackupTime,
-      backupMediaSize = SignalStore.backup.totalBackupSize,
       backupsFrequency = SignalStore.backup.backupFrequency,
       canBackUpUsingCellular = SignalStore.backup.backupWithCellular,
-      canRestoreUsingCellular = SignalStore.backup.restoreWithCellular
+      canRestoreUsingCellular = SignalStore.backup.restoreWithCellular,
+      includeDebuglog = SignalStore.internal.includeDebuglogInBackup.takeIf { RemoteConfig.internalUser }
     )
   )
 
@@ -77,6 +79,10 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
   val restoreState: StateFlow<BackupRestoreState> = _restoreState
 
   init {
+    viewModelScope.launch(Dispatchers.IO) {
+      _state.update { it.copy(backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize()) }
+    }
+
     viewModelScope.launch(Dispatchers.IO) {
       SignalStore.backup.deletionStateFlow.collectLatest {
         refresh()
@@ -92,6 +98,16 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
     }
 
     viewModelScope.launch(Dispatchers.IO) {
+      AppDependencies
+        .databaseObserver
+        .attachmentUpdates()
+        .throttleLatest(5.seconds)
+        .collectLatest {
+          _state.update { it.copy(backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize()) }
+        }
+    }
+
+    viewModelScope.launch(Dispatchers.IO) {
       val restoreProgress = MediaRestoreProgressBanner()
 
       var optimizedRemainingBytes = 0L
@@ -100,10 +116,9 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
           Log.d(TAG, "Backup is being restored. Collecting updates.")
           restoreProgress
             .dataFlow
+            .onEach { latest -> _restoreState.update { BackupRestoreState.FromBackupStatusData(latest) } }
             .takeWhile { it !is BackupStatusData.RestoringMedia || it.restoreStatus != BackupStatusData.RestoreStatus.FINISHED }
-            .collectLatest { latest ->
-              _restoreState.update { BackupRestoreState.FromBackupStatusData(latest) }
-            }
+            .collect()
         } else if (
           !SignalStore.backup.optimizeStorage &&
           SignalStore.backup.userManuallySkippedMediaRestore &&
@@ -129,9 +144,6 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
       ArchiveUploadProgress.progress
         .collect { current ->
           if (previous != null && current.state == ArchiveUploadProgressState.State.None) {
-            _state.update {
-              it.copy(lastBackupTimestamp = SignalStore.backup.lastBackupTime)
-            }
             refreshState(null)
           }
           previous = current.state
@@ -204,6 +216,11 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
     ArchiveUploadProgress.cancel()
   }
 
+  fun setIncludeDebuglog(includeDebuglog: Boolean) {
+    SignalStore.internal.includeDebuglogInBackup = includeDebuglog
+    _state.update { it.copy(includeDebuglog = includeDebuglog) }
+  }
+
   private suspend fun refreshState(lastPurchase: InAppPaymentTable.InAppPayment?) {
     try {
       Log.i(TAG, "Performing a state refresh.")
@@ -215,184 +232,42 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
   }
 
   private suspend fun performStateRefresh(lastPurchase: InAppPaymentTable.InAppPayment?) {
-    val tier = SignalStore.backup.latestBackupTier
+    if (BackupRepository.shouldDisplayOutOfStorageSpaceUx()) {
+      val paidType = BackupRepository.getBackupsType(MessageBackupTier.PAID) as? MessageBackupsType.Paid
+
+      if (paidType != null) {
+        val remoteStorageAllowance = paidType.storageAllowanceBytes.bytes
+        val estimatedSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize().bytes
+
+        if (estimatedSize + 300.mebiBytes <= remoteStorageAllowance) {
+          BackupRepository.clearOutOfRemoteStorageError()
+        }
+
+        _state.update {
+          it.copy(
+            totalAllowedStorageSpace = estimatedSize.toUnitString()
+          )
+        }
+      }
+    }
 
     _state.update {
       it.copy(
+        tier = SignalStore.backup.backupTier,
         backupsEnabled = SignalStore.backup.areBackupsEnabled,
-        backupState = RemoteBackupsSettingsState.BackupState.Loading,
         lastBackupTimestamp = SignalStore.backup.lastBackupTime,
-        backupMediaSize = SignalStore.backup.totalBackupSize,
+        backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize(),
         backupsFrequency = SignalStore.backup.backupFrequency,
         canBackUpUsingCellular = SignalStore.backup.backupWithCellular,
-        canRestoreUsingCellular = SignalStore.backup.restoreWithCellular
+        canRestoreUsingCellular = SignalStore.backup.restoreWithCellular,
+        isOutOfStorageSpace = BackupRepository.shouldDisplayOutOfStorageSpaceUx(),
+        hasRedemptionError = lastPurchase?.data?.error?.data_ == "409"
       )
     }
 
-    if (lastPurchase?.state == InAppPaymentTable.State.PENDING) {
-      Log.d(TAG, "We have a pending subscription.")
-      _state.update {
-        it.copy(
-          backupState = RemoteBackupsSettingsState.BackupState.Pending(
-            price = lastPurchase.data.amount!!.toFiatMoney()
-          )
-        )
-      }
-
-      return
+    val state = BackupStateRepository.resolveBackupState(lastPurchase)
+    _state.update {
+      it.copy(backupState = state)
     }
-
-    if (SignalStore.backup.subscriptionStateMismatchDetected) {
-      Log.d(TAG, "[subscriptionStateMismatchDetected] A mismatch was detected.")
-
-      val hasActiveGooglePlayBillingSubscription = when (val purchaseResult = AppDependencies.billingApi.queryPurchases()) {
-        is BillingPurchaseResult.Success -> purchaseResult.isAcknowledged && purchaseResult.isWithinTheLastMonth() && purchaseResult.isAutoRenewing
-        else -> false
-      } || SignalStore.backup.backupTierInternalOverride == MessageBackupTier.PAID
-
-      Log.d(TAG, "[subscriptionStateMismatchDetected] hasActiveGooglePlayBillingSubscription: $hasActiveGooglePlayBillingSubscription")
-
-      val activeSubscription = withContext(Dispatchers.IO) {
-        RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP).getOrNull()
-      }
-
-      val hasActiveSignalSubscription = activeSubscription?.isActive == true
-
-      Log.d(TAG, "[subscriptionStateMismatchDetected] hasActiveSignalSubscription: $hasActiveSignalSubscription")
-
-      val type = withContext(Dispatchers.IO) {
-        BackupRepository.getBackupsType(MessageBackupTier.PAID) as MessageBackupsType.Paid
-      }
-
-      when {
-        hasActiveSignalSubscription && !hasActiveGooglePlayBillingSubscription -> {
-          _state.update {
-            it.copy(
-              backupState = RemoteBackupsSettingsState.BackupState.SubscriptionMismatchMissingGooglePlay(
-                messageBackupsType = type,
-                renewalTime = activeSubscription.activeSubscription.endOfCurrentPeriod.seconds
-              )
-            )
-          }
-
-          return
-        }
-
-        hasActiveSignalSubscription && hasActiveGooglePlayBillingSubscription -> {
-          Log.d(TAG, "Found active signal subscription and active google play subscription. Clearing mismatch.")
-          SignalStore.backup.subscriptionStateMismatchDetected = false
-        }
-
-        !hasActiveSignalSubscription && !hasActiveGooglePlayBillingSubscription -> {
-          Log.d(TAG, "Found inactive signal subscription and inactive google play subscription. Clearing mismatch.")
-          SignalStore.backup.subscriptionStateMismatchDetected = false
-        }
-
-        else -> {
-          Log.w(TAG, "Hit unexpected subscription mismatch state: signal:false, google:true")
-          return
-        }
-      }
-    }
-
-    when (tier) {
-      MessageBackupTier.PAID -> {
-        Log.d(TAG, "Attempting to retrieve subscription details for active PAID backup.")
-
-        val type = withContext(Dispatchers.IO) {
-          BackupRepository.getBackupsType(tier) as MessageBackupsType.Paid
-        }
-
-        Log.d(TAG, "Attempting to retrieve current subscription...")
-        val activeSubscription = withContext(Dispatchers.IO) {
-          RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP)
-        }
-
-        if (activeSubscription.isSuccess) {
-          Log.d(TAG, "Retrieved subscription details.")
-
-          val subscription = activeSubscription.getOrThrow().activeSubscription
-          if (subscription != null) {
-            Log.d(TAG, "Subscription found. Updating UI state with subscription details. Status: ${subscription.status}")
-            _state.update {
-              it.copy(
-                hasRedemptionError = lastPurchase?.data?.error?.data_ == "409",
-                backupState = when {
-                  subscription.isCanceled && subscription.isActive -> RemoteBackupsSettingsState.BackupState.Canceled(
-                    messageBackupsType = type,
-                    renewalTime = subscription.endOfCurrentPeriod.seconds
-                  )
-
-                  subscription.isActive -> RemoteBackupsSettingsState.BackupState.ActivePaid(
-                    messageBackupsType = type,
-                    price = FiatMoney.fromSignalNetworkAmount(subscription.amount, Currency.getInstance(subscription.currency)),
-                    renewalTime = subscription.endOfCurrentPeriod.seconds
-                  )
-
-                  else -> RemoteBackupsSettingsState.BackupState.Inactive(
-                    messageBackupsType = type,
-                    renewalTime = subscription.endOfCurrentPeriod.seconds
-                  )
-                }
-              )
-            }
-          } else {
-            Log.d(TAG, "ActiveSubscription had null subscription object.")
-            if (SignalStore.backup.areBackupsEnabled) {
-              _state.update {
-                it.copy(
-                  backupState = RemoteBackupsSettingsState.BackupState.NotFound
-                )
-              }
-            } else if (lastPurchase != null && lastPurchase.endOfPeriod > System.currentTimeMillis().milliseconds) {
-              _state.update {
-                it.copy(
-                  backupState = RemoteBackupsSettingsState.BackupState.Canceled(
-                    messageBackupsType = type,
-                    renewalTime = lastPurchase.endOfPeriod
-                  )
-                )
-              }
-            } else {
-              _state.update {
-                it.copy(
-                  backupState = RemoteBackupsSettingsState.BackupState.Inactive(type)
-                )
-              }
-            }
-          }
-        } else {
-          Log.d(TAG, "Failed to load ActiveSubscription data. Updating UI state with error.")
-          _state.update {
-            it.copy(
-              backupState = RemoteBackupsSettingsState.BackupState.Error
-            )
-          }
-        }
-      }
-
-      MessageBackupTier.FREE -> {
-        val type = withContext(Dispatchers.IO) {
-          BackupRepository.getBackupsType(tier) as MessageBackupsType.Free
-        }
-
-        val backupState = if (SignalStore.backup.areBackupsEnabled) {
-          RemoteBackupsSettingsState.BackupState.ActiveFree(type)
-        } else {
-          RemoteBackupsSettingsState.BackupState.Inactive(type)
-        }
-
-        Log.d(TAG, "Updating UI state with $backupState FREE tier.")
-        _state.update { it.copy(backupState = backupState) }
-      }
-
-      null -> {
-        Log.d(TAG, "Updating UI state with NONE null tier.")
-        _state.update { it.copy(backupState = RemoteBackupsSettingsState.BackupState.None) }
-      }
-    }
-  }
-
-  private fun refreshLocalState() {
   }
 }

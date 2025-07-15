@@ -335,17 +335,39 @@ class LinkDeviceViewModel : ViewModel() {
         }
         loadDevices()
       }
-      is LinkDeviceRepository.LinkUploadArchiveResult.BackupCreationFailure,
-      is LinkDeviceRepository.LinkUploadArchiveResult.BadRequest,
-      is LinkDeviceRepository.LinkUploadArchiveResult.NetworkError -> {
-        Log.w(TAG, "[addDeviceWithSync] Failed to upload the archive! Result: $uploadResult")
-        val canRetry = uploadResult !is LinkDeviceRepository.LinkUploadArchiveResult.BackupCreationFailure
+      is LinkDeviceRepository.LinkUploadArchiveResult.NotEnoughSpace -> {
+        Log.w(TAG, "[addDeviceWithSync] Failed to upload the archive because there is not enough space")
         _state.update {
           it.copy(
             dialogState = DialogState.SyncingFailed(
               deviceId = waitResult.id,
               deviceCreatedAt = waitResult.created,
-              canRetry = canRetry
+              syncFailType = LinkDeviceSettingsState.SyncFailType.NOT_ENOUGH_SPACE
+            )
+          )
+        }
+      }
+      is LinkDeviceRepository.LinkUploadArchiveResult.BackupCreationFailure -> {
+        Log.w(TAG, "[addDeviceWithSync] Failed to upload the archive because of backup creation failure")
+        _state.update {
+          it.copy(
+            dialogState = DialogState.SyncingFailed(
+              deviceId = waitResult.id,
+              deviceCreatedAt = waitResult.created,
+              syncFailType = LinkDeviceSettingsState.SyncFailType.NOT_RETRYABLE
+            )
+          )
+        }
+      }
+      is LinkDeviceRepository.LinkUploadArchiveResult.BadRequest,
+      is LinkDeviceRepository.LinkUploadArchiveResult.NetworkError -> {
+        Log.w(TAG, "[addDeviceWithSync] Failed to upload the archive! Result: $uploadResult")
+        _state.update {
+          it.copy(
+            dialogState = DialogState.SyncingFailed(
+              deviceId = waitResult.id,
+              deviceCreatedAt = waitResult.created,
+              syncFailType = LinkDeviceSettingsState.SyncFailType.RETRYABLE
             )
           )
         }
@@ -410,9 +432,11 @@ class LinkDeviceViewModel : ViewModel() {
     return if (RemoteConfig.internalUser) {
       this.getQueryParameter("capabilities")?.split(",")?.contains("backup") == true ||
         this.getQueryParameter("capabilities")?.split(",")?.contains("backup2") == true ||
-        this.getQueryParameter("capabilities")?.split(",")?.contains("backup3") == true
+        this.getQueryParameter("capabilities")?.split(",")?.contains("backup3") == true ||
+        this.getQueryParameter("capabilities")?.split(",")?.contains("backup4") == true
     } else {
-      this.getQueryParameter("capabilities")?.split(",")?.contains("backup3") == true
+      this.getQueryParameter("capabilities")?.split(",")?.contains("backup3") == true ||
+        this.getQueryParameter("capabilities")?.split(",")?.contains("backup4") == true
     }
   }
 
@@ -453,11 +477,13 @@ class LinkDeviceViewModel : ViewModel() {
       }
     }
 
+    val shouldLaunchQrScanner = !(dialogState is DialogState.SyncingFailed && dialogState.syncFailType != LinkDeviceSettingsState.SyncFailType.NOT_ENOUGH_SPACE)
+
     _state.update {
       it.copy(
         linkDeviceResult = LinkDeviceResult.None,
         dialogState = DialogState.None,
-        oneTimeEvent = OneTimeEvent.LaunchQrCodeScanner
+        oneTimeEvent = if (shouldLaunchQrScanner) OneTimeEvent.LaunchQrCodeScanner else OneTimeEvent.None
       )
     }
   }

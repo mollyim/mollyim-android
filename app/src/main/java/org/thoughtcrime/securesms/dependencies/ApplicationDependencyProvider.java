@@ -168,7 +168,8 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             Optional.of(new SecurityEventListener(context)),
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", ThreadUtil.PRIORITY_IMPORTANT_BACKGROUND_THREAD, 1, 16, 30),
                                             ByteUnit.KILOBYTES.toBytes(256),
-                                            RemoteConfig::useMessageSendRestFallback);
+                                            RemoteConfig::useMessageSendRestFallback,
+                                            RemoteConfig.usePqRatchet());
   }
 
   @Override
@@ -549,8 +550,8 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull RemoteConfigApi provideRemoteConfigApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket) {
-    return new RemoteConfigApi(authWebSocket);
+  public @NonNull RemoteConfigApi provideRemoteConfigApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull PushServiceSocket pushServiceSocket) {
+    return new RemoteConfigApi(authWebSocket, pushServiceSocket);
   }
 
   @Override

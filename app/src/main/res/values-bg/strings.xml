@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Качване на медия…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Компресиране на видео…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Архивиране на мултимедия…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Проверка за съобщения…</string>
 
@@ -1087,6 +1091,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">Устройството, свързано %1$s, вече не е свързано.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">ОК</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Недостатъчно място за съхранение</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Не разполагате с достатъчно свободно място за съхранение на устройството си, за да прехвърлите съобщенията си. Освободете място и опитайте отново или свържете устройството си, без да прехвърляте съобщенията си.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1164,6 +1172,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Тази версия на Molly е изтекла. Обновете сега, за да можете да получавате и изпращате съобщения.</string>
     <string name="ExpiredBuildReminder_update_now">Обнови сега</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Актуализиране на Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Тази версия на Molly е изтекла. Докоснете за актуализиране, за да можете да получавате и изпращате съобщения.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1438,6 +1451,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Изтегляне на резервно копие…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Възстановяване на съобщенията…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Завършване…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Възстановяване…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1474,6 +1489,8 @@
     <string name="RemoteRestoreActivity__update_signal">Актуализиране на Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Не сега</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Ако изберете да не възстановите сега, няма да можете да възстановите по-късно. Мултимедията ще се възстановява във фонов режим.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Уведоми ме за споменавания</string>
@@ -1578,7 +1595,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Не може да се присъедините към групата</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Не можете да се присъедините към тази група чрез линка за групата, тъй като сте премахнати от администратор.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Не можете да се присъедините към тази група чрез линка за групата, тъй като сте премахнати от администратор. Свържете се с администратор, който отново да ви добави в групата.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Груповата връзка не е валидна</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -4548,6 +4565,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">ПИН-ът е създаден.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Въведете отново своя ПИН</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Създаване на ПИН…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Представяме ПИН кодове</string>
@@ -5335,6 +5354,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Неуспешно резервно копиране</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Неуспешно осребряване на абонамента за резервни копия</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Достигнали сте лимита за съхранение на резервни копия</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Поканете свои приятели</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7211,7 +7232,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Въведете вашите банка, име и имейл. Stripe използва този имейл, за да ви изпраща актуализации за вашето дарение. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Въведете вашите име и имейл адрес. Stripe използва този имейл адрес, за да ви изпраща новини относно вашето дарение. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Въведете своите банкови данни. Signal не събира и не съхранява личната ви информация. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -7701,6 +7722,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Отхвърляне на всички</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Включване на „Резервни копия на Signal“</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Никога не губете съобщения, когато вземете нов телефон или преинсталирате Signal.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Включване</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Не сега</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Включване на известията на цял екран?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7824,9 +7854,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Можете да започнете отново да плащате за резервно копиране по всяко време, за да продължите да поддържате резервно копие на всичката ви мултимедия. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Вашата мултимедия ще бъде изтрита днес</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Вашият план за резервно копиране на мултимедия в Signal е анулиран, защото не можахме да обработим плащането ви. Това е последният ви шанс да изтеглите мултимедията от резервното си копие, преди да бъде изтрита.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Изтеглете данните от резервните си копия днес</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Изтеглете данните от резервните си копия</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Имате %1$s мултимедия, която не е на това устройство. Мултимедията и прикачените файлове, съхранени във вашето резервно копие, ще бъде изтрити без платен абонамент.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Освободете %1$s на това устройство</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -7852,6 +7884,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Научете повече</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Връзка с отдела за поддръжка</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Пропуснете възстановяването</string>
     <!-- Primary action button to open backups management screen -->
@@ -7865,9 +7899,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Абониране за %1$s/месец</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Изтегляне на мултимедията сега</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Изтегляне на резервното копие сега</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Без изтегляне на мултимедията</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Не изтегляйте резервното копие</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Не сега</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8039,15 +8073,33 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">ОК</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Няма резервни копия от последния %1$d ден</item>
+        <item quantity="other">Няма резервни копия от последните %1$d дни</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Не сте правили резервно копиране от %1$d ден. За да гарантирате, че вашите съобщения и мултимедия ще бъдат запазени, направете резервно копие сега.</item>
+        <item quantity="other">Не сте правили резервно копиране от %1$d дни. За да гарантирате, че вашите съобщения и мултимедия ще бъдат запазени, направете резервно копие сега.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/месец, подновява се на %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Последно резервно копие %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Абонаментът е отменен</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Автоматични резервни копия, криптирани от край до край със защитената услуга за съхранение на Signal.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Абонаментът не е открит на това устройство."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Настройване</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -8132,6 +8184,8 @@
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Изключване и изтриване на резервните копия?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Резервното ви копие ще бъде изтрито и няма да се създават нови резервни копия. Всичката мултимедия, съхранена във вашето резервно копие, сега ще бъде изтеглена на телефона ви.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Абонаментът ви ще бъде отменен и няма да бъдете таксувани отново. Резервното ви копие също така ще бъде изтрито и няма да се създават нови резервни копия. Всичката мултимедия, съхранена във вашето резервно копие, сега ще бъде изтеглена на телефона ви.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Изключете и изтрийте</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8165,6 +8219,8 @@
         <item quantity="one">Абонаментът ви на това устройство е валиден още %1$d ден. Подновете го, за да продължите да използвате Signal Backups</item>
         <item quantity="other">Абонаментът ви на това устройство е валиден още %1$d дни. Подновете го, за да продължите да използвате Signal Backups</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Повторен абонамент</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Подновяване</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8179,10 +8235,7 @@
         <item quantity="other">Обработване на %1$s от %2$s съобщения (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Имате %1$s резервно копие на данни, които не са на това устройство. Вашето резервно копие ще бъде изтрито, когато абонаментът ви приключи след %2$d ден.</item>
-        <item quantity="other">Имате %1$s резервно копие на данни, които не са на това устройство. Вашето резервно копие ще бъде изтрито, когато абонаментът ви приключи след %2$d дни.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Имате %1$s резервни копия, които не са на това устройство. Без платен абонамент мултимедията не може да бъде прехвърлена.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Имате %1$s резервни копия, които не са на това устройство. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8226,6 +8279,20 @@
     <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Резервните копия са изключени и данните ви са изтрити от услугата за сигурно съхранение на Signal.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Изтегляне: %1$s от %2$s (%3$d%%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Достигали сте лимита за съхранение от %1$s, който е включен във вашия план за архивиране. За архивиране на нови чатове и мултимедия освободете място.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Управление на съхранението</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Изтеглете резервните си копия днес</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Имате %1$s резервни копия, които не са на това устройство. Мултимедията и прикачените файлове ще бъде изтрити завинаги без платен абонамент.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Изтегляне</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Не изтегляйте</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8290,12 +8357,18 @@
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Запазване в мениджър на пароли?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Съхранявайте резервния си ключ само в мениджър на пароли, който считате за сигурен. Signal не предоставя препоръки относно това кой мениджър на пароли е подходящ за вас.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Запазен във вашия мениджър на пароли</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Неуспешно запазване в мениджър на пароли</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Неуспешно запазване в мениджър на пароли</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Не сте задали мениджър на пароли или този, който използвате, не се поддържа.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">По-рано сте избрали да не запазвате пароли за Signal в Google Password Manager. В настройките на Google Password Manager премахнете Signal от „Отхвърлени сайтове и приложения“ и опитайте отново.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Отидете на настройки</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Напред</string>
     <!-- Bottom sheet title -->
@@ -8458,7 +8531,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Мрежова грешка при възстановяване на резервно копие в Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">Мрежова грешка при експортиране на резервно копие в Signal Android</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Желаете ли да изпратите доклад за дебъг?</string>
@@ -8547,6 +8625,25 @@
     <string name="SignalCheckbox_accessibility_checked_description">Отбелязано</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Не е отбелязано</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Хранилището за резервни копия е пълно</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Достигнали сте лимита за съхранение на резервни копия. Освободете място в Signal, за да продължите да архивирате чатове и мултимедия.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Архивирането не беше успешно</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Възникна грешка и резервното копиране не беше завършено успешно. Докоснете за подробности.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Няма резервни копия от последния %1$d ден</item>
+        <item quantity="other">Няма резервни копия от последните %1$d дни</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Не сте правили резервно копиране от %1$d ден. Направете резервно копие сега.</item>
+        <item quantity="other">Не сте правили резервно копиране от %1$d дни. Направете резервно копие сега.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>

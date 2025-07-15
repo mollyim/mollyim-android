@@ -106,7 +106,8 @@
                  android:backupAgent=".absbackup.SignalBackupAgent"
                  android:theme="@style/Theme.Molly.Starting"
                  android:largeHeap="true"
-                 android:networkSecurityConfig="@xml/network_security_config">
+                 android:networkSecurityConfig="@xml/network_security_config"
+                 tools:replace="android:networkSecurityConfig">
 
     <!-- MOLLY: GMS and Google Maps stuff moved to gms/AndroidManifest.xml -->
 
@@ -1023,7 +1024,6 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout"
               android:windowSoftInputMode="stateUnchanged"
               android:resizeableActivity="true"
-              android:launchMode="singleTask"
               android:exported="false"/>
 
     <activity android:name=".pin.PinRestoreActivity"

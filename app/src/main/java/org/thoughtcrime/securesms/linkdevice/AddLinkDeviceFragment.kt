@@ -12,8 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -113,7 +115,7 @@ private fun MainScreen(
   Scaffolds.Settings(
     title = if (linkWithoutQrCode) stringResource(id = R.string.DeviceAddFragment__link_without_scanning) else "",
     onNavigationClick = { navController?.popBackStack() },
-    navigationIconPainter = painterResource(id = R.drawable.ic_x),
+    navigationIcon = ImageVector.vectorResource(id = R.drawable.ic_x),
     navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close),
     actions = {
       if (!linkWithoutQrCode) {

@@ -180,7 +180,7 @@ private fun AppSettingsContent(
   Scaffolds.Settings(
     title = stringResource(R.string.text_secure_normal__menu_settings),
     navigationContentDescription = stringResource(R.string.CallScreenTopBar__go_back),
-    navigationIconPainter = painterResource(R.drawable.symbol_arrow_start_24),
+    navigationIcon = ImageVector.vectorResource(R.drawable.symbol_arrow_start_24),
     onNavigationClick = callbacks::onNavigationClick
   ) { contentPadding ->
     Column(
@@ -238,6 +238,23 @@ private fun AppSettingsContent(
                 text = stringResource(R.string.AppSettingsFragment__couldnt_redeem_your_backups_subscription),
                 onClick = {
                   BackupRepository.markBackupAlreadyRedeemedIndicatorClicked()
+                  callbacks.navigate(R.id.action_appSettingsFragment_to_remoteBackupsSettingsFragment)
+                }
+              )
+
+              Dividers.Default()
+            }
+          }
+
+          BackupFailureState.OUT_OF_STORAGE_SPACE -> {
+            item {
+              Dividers.Default()
+
+              Rows.TextRow(
+                text = stringResource(R.string.AppSettingsFragment__backup_storage_limit_reached),
+                icon = ImageVector.vectorResource(R.drawable.symbol_error_circle_fill_24),
+                iconTint = MaterialTheme.colorScheme.error,
+                onClick = {
                   callbacks.navigate(R.id.action_appSettingsFragment_to_remoteBackupsSettingsFragment)
                 }
               )
@@ -444,7 +461,7 @@ private fun BackupsWarningRow(
     icon = {
       Box {
         Icon(
-          painter = painterResource(R.drawable.symbol_backup_24),
+          imageVector = ImageVector.vectorResource(R.drawable.symbol_backup_24),
           tint = MaterialTheme.colorScheme.onSurface,
           contentDescription = null
         )
@@ -589,7 +606,8 @@ private fun AppSettingsContentPreview() {
         showInternalPreferences = true,
         showAppUpdates = true,
         showBackups = true,
-        backupFailureState = BackupFailureState.SUBSCRIPTION_STATE_MISMATCH
+        backupFailureState = BackupFailureState.OUT_OF_STORAGE_SPACE,
+        legacyLocalBackupsEnabled = false
       ),
       bannerManager = BannerManager(
         banners = listOf(TestBanner())

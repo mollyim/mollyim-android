@@ -103,6 +103,7 @@ import org.signal.core.util.dp
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.setActionItemTint
+import org.signal.ringrtc.CallLinkEpoch
 import org.signal.ringrtc.CallLinkRootKey
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.GroupMembersDialog
@@ -1661,7 +1662,7 @@ class ConversationFragment :
       return
     }
 
-    if (editMessage.body == composeText.editableText.toString() &&
+    if (editMessage.body == composeText.editableText.toString().trim() &&
       editMessage.getQuote()?.displayText?.toString() == inputPanel.quote.map { it.text }.orNull() &&
       editMessage.messageRanges == composeText.styling &&
       editMessage.hasLinkPreview() == inputPanel.hasLinkPreview()
@@ -2001,6 +2002,7 @@ class ConversationFragment :
     disposables += send
       .doOnSubscribe {
         if (clearCompose) {
+          AppDependencies.typingStatusSender.onTypingStopped(args.threadId)
           composeTextEventsListener?.typingStatusEnabled = false
           composeText.setText("")
           composeTextEventsListener?.typingStatusEnabled = true
@@ -3144,7 +3146,9 @@ class ConversationFragment :
 
     override fun onItemLongClick(itemView: View, item: MultiselectPart) {
       Log.d(TAG, "onItemLongClick")
-      if (actionMode != null) return
+      if (actionMode != null) { return }
+
+      if (item.getMessageRecord().isInMemoryMessageRecord) { return }
 
       val messageRecord = item.getMessageRecord()
       val recipient = viewModel.recipientSnapshot ?: return
@@ -3282,8 +3286,8 @@ class ConversationFragment :
       GroupDescriptionDialog.show(childFragmentManager, groupName, description, shouldLinkifyWebLinks)
     }
 
-    override fun onJoinCallLink(callLinkRootKey: CallLinkRootKey) {
-      CommunicationActions.startVideoCall(this@ConversationFragment, callLinkRootKey) {
+    override fun onJoinCallLink(callLinkRootKey: CallLinkRootKey, callLinkEpoch: CallLinkEpoch?) {
+      CommunicationActions.startVideoCall(this@ConversationFragment, callLinkRootKey, callLinkEpoch) {
         YouAreAlreadyInACallSnackbar.show(requireView())
       }
     }

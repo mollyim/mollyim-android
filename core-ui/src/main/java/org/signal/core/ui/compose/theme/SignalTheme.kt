@@ -222,9 +222,21 @@ fun SignalTheme(
   val context = LocalContext.current
   val maySupportDynamicColor = Build.VERSION.SDK_INT >= 31
   val dynamicColors = maySupportDynamicColor && (useDynamicColors ?: isThemeUsingDynamicColors(context))
+
+  // MOLLY: Apply dynamic color if supported and enabled:
+  // - API 34+: Use Compose's built-in dynamic scheme (matches system Material You).
+  // - API 31–33: Use mapped color resources to approximate system dynamic palette, avoiding Compose's more saturated fallback.
+  // - Otherwise: Use app light/dark color schemes.
   val colorScheme = when {
-    dynamicColors && isDarkMode -> dynamicDarkColorScheme(context)
-    dynamicColors && !isDarkMode -> dynamicLightColorScheme(context)
+    dynamicColors -> {
+      if (Build.VERSION.SDK_INT >= 34) {
+        if (isDarkMode) dynamicDarkColorScheme(context)
+        else dynamicLightColorScheme(context)
+      } else {
+        if (isDarkMode) systemAlignedDarkColorScheme()
+        else systemAlignedLightColorScheme()
+      }
+    }
     isDarkMode -> darkColorScheme
     else -> lightColorScheme
   }
@@ -240,6 +252,82 @@ fun SignalTheme(
     )
   }
 }
+
+@Composable
+private fun systemAlignedLightColorScheme() = lightColorScheme(
+  primary = colorResource(R.color.dynamic_primary_light),
+  onPrimary = colorResource(R.color.dynamic_on_primary_light),
+  primaryContainer = colorResource(R.color.dynamic_primary_container_light),
+  onPrimaryContainer = colorResource(R.color.dynamic_on_primary_container_light),
+  inversePrimary = colorResource(R.color.dynamic_primary_inverse_light),
+  secondary = colorResource(R.color.dynamic_secondary_light),
+  onSecondary = colorResource(R.color.dynamic_on_secondary_light),
+  secondaryContainer = colorResource(R.color.dynamic_secondary_container_light),
+  onSecondaryContainer = colorResource(R.color.dynamic_on_secondary_container_light),
+  tertiary = colorResource(R.color.dynamic_tertiary_light),
+  onTertiary = colorResource(R.color.dynamic_on_tertiary_light),
+  tertiaryContainer = colorResource(R.color.dynamic_tertiary_container_light),
+  onTertiaryContainer = colorResource(R.color.dynamic_on_tertiary_container_light),
+  background = colorResource(R.color.dynamic_background_light),
+  onBackground = colorResource(R.color.dynamic_on_background_light),
+  surface = colorResource(R.color.dynamic_surface_light),
+  onSurface = colorResource(R.color.dynamic_on_surface_light),
+  surfaceVariant = colorResource(R.color.dynamic_surface_variant_light),
+  onSurfaceVariant = colorResource(R.color.dynamic_on_surface_variant_light),
+  inverseSurface = colorResource(R.color.dynamic_surface_inverse_light),
+  inverseOnSurface = colorResource(R.color.dynamic_on_surface_inverse_light),
+  error = colorResource(R.color.dynamic_error_light),
+  onError = colorResource(R.color.dynamic_on_error_light),
+  errorContainer = colorResource(R.color.dynamic_error_container_light),
+  onErrorContainer = colorResource(R.color.dynamic_on_error_container_light),
+  outline = colorResource(R.color.dynamic_outline_light),
+  outlineVariant = colorResource(R.color.dynamic_outline_variant_light),
+  surfaceBright = colorResource(R.color.dynamic_surface_bright_light),
+  surfaceContainer = colorResource(R.color.dynamic_surface_container_light),
+  surfaceContainerHigh = colorResource(R.color.dynamic_surface_container_high_light),
+  surfaceContainerHighest = colorResource(R.color.dynamic_surface_container_highest_light),
+  surfaceContainerLow = colorResource(R.color.dynamic_surface_container_low_light),
+  surfaceContainerLowest = colorResource(R.color.dynamic_surface_container_lowest_light),
+  surfaceDim = colorResource(R.color.dynamic_surface_dim_light),
+)
+
+@Composable
+private fun systemAlignedDarkColorScheme() = darkColorScheme(
+  primary = colorResource(R.color.dynamic_primary_dark),
+  onPrimary = colorResource(R.color.dynamic_on_primary_dark),
+  primaryContainer = colorResource(R.color.dynamic_primary_container_dark),
+  onPrimaryContainer = colorResource(R.color.dynamic_on_primary_container_dark),
+  inversePrimary = colorResource(R.color.dynamic_primary_inverse_dark),
+  secondary = colorResource(R.color.dynamic_secondary_dark),
+  onSecondary = colorResource(R.color.dynamic_on_secondary_dark),
+  secondaryContainer = colorResource(R.color.dynamic_secondary_container_dark),
+  onSecondaryContainer = colorResource(R.color.dynamic_on_secondary_container_dark),
+  tertiary = colorResource(R.color.dynamic_tertiary_dark),
+  onTertiary = colorResource(R.color.dynamic_on_tertiary_dark),
+  tertiaryContainer = colorResource(R.color.dynamic_tertiary_container_dark),
+  onTertiaryContainer = colorResource(R.color.dynamic_on_tertiary_container_dark),
+  background = colorResource(R.color.dynamic_background_dark),
+  onBackground = colorResource(R.color.dynamic_on_background_dark),
+  surface = colorResource(R.color.dynamic_surface_dark),
+  onSurface = colorResource(R.color.dynamic_on_surface_dark),
+  surfaceVariant = colorResource(R.color.dynamic_surface_variant_dark),
+  onSurfaceVariant = colorResource(R.color.dynamic_on_surface_variant_dark),
+  inverseSurface = colorResource(R.color.dynamic_surface_inverse_dark),
+  inverseOnSurface = colorResource(R.color.dynamic_on_surface_inverse_dark),
+  error = colorResource(R.color.dynamic_error_dark),
+  onError = colorResource(R.color.dynamic_on_error_dark),
+  errorContainer = colorResource(R.color.dynamic_error_container_dark),
+  onErrorContainer = colorResource(R.color.dynamic_on_error_container_dark),
+  outline = colorResource(R.color.dynamic_outline_dark),
+  outlineVariant = colorResource(R.color.dynamic_outline_variant_dark),
+  surfaceBright = colorResource(R.color.dynamic_surface_bright_dark),
+  surfaceContainer = colorResource(R.color.dynamic_surface_container_dark),
+  surfaceContainerHigh = colorResource(R.color.dynamic_surface_container_high_dark),
+  surfaceContainerHighest = colorResource(R.color.dynamic_surface_container_highest_dark),
+  surfaceContainerLow = colorResource(R.color.dynamic_surface_container_low_dark),
+  surfaceContainerLowest = colorResource(R.color.dynamic_surface_container_lowest_dark),
+  surfaceDim = colorResource(R.color.dynamic_surface_dim_dark),
+)
 
 private fun isThemeUsingDynamicColors(context: Context): Boolean {
   val theme = context.theme

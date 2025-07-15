@@ -138,6 +138,10 @@
     <string name="AttachmentUploadJob_uploading_media">Nusiunčiama medija…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Glaudinamas vaizdo įrašas…</string>
 
+    <!-- UploadAttachmentToArchiveJob -->
+    <!-- Notification message displayed when uploading large backup attachments to the archive CDN. -->
+    <string name="UploadAttachmentToArchiveJob_uploading_media">Kuriama įrašų atsarginė kopija…</string>
+
     <!-- BackgroundMessageRetriever -->
     <string name="BackgroundMessageRetriever_checking_for_messages">Tikrinama, ar yra žinučių…</string>
 
@@ -1131,6 +1135,10 @@
     <string name="LinkDeviceFragment__the_device_that_was">%1$s susietas įrenginys daugiau nebėra susietas.</string>
     <!-- Button to dismiss dialog -->
     <string name="LinkDeviceFragment__ok">Gerai</string>
+    <!-- Dialog title shown when you don\'t have enough storage space -->
+    <string name="LinkDeviceFragment__not_enough_storage_space">Nepakanka vietos saugykloje</string>
+    <!-- Dialog message body explaining that you need to free storage space or transfer without sending over message -->
+    <string name="LinkDeviceFragment__you_dont_have_enough">Jūsų įrenginyje nėra pakankamai laisvos vietos žinutėms perkelti. Atlaisvinkite vietos ir bandykite dar kartą arba susiekite įrenginį neperkėlę žinučių.</string>
 
     <!-- EditDeviceNameFragment -->
     <!-- App bar title when editing the name of a device -->
@@ -1208,6 +1216,11 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ši Molly versija nebegalioja. Norėdami siųsti ir gauti žinutes, atnaujinkite programėlę dabar.</string>
     <string name="ExpiredBuildReminder_update_now">Atnaujinti dabar</string>
+
+    <!-- Title of notification telling users to update Signal -->
+    <string name="DeprecatedNotificationJob_update_signal">Atnaujinti Molly</string>
+    <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
+    <string name="DeprecatedNotificationJob_this_version_of_signal_has_expired">Ši „Molly“ versija nebegalioja. Norėdami siųsti ir gauti žinutes, bakstelėkite, kad atnaujintumėte.</string>
 
     <!-- PendingGroupJoinRequestsReminder -->
     <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
@@ -1518,6 +1531,8 @@
     <string name="RemoteRestoreActivity__downloading_backup">Atsisiunčiama atsarginė kopija…</string>
     <!-- Progress dialog label when restoring a backup -->
     <string name="RemoteRestoreActivity__restoring_messages">Atkuriamos žinutės…</string>
+    <!-- Progress dialog label when finishing a backup restore -->
+    <string name="RemoteRestoreActivity__finishing_restore">Užbaigiama…</string>
     <!-- Progress dialog label while awaiting updates -->
     <string name="RemoteRestoreActivity__restoring">Atkuriama…</string>
     <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
@@ -1554,6 +1569,8 @@
     <string name="RemoteRestoreActivity__update_signal">Atnaujinti Molly</string>
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Ne dabar</string>
+    <!-- Text shown on restore screen as information on what will happen if you skip -->
+    <string name="RemoteRestoreActivity__if_you_choose_not_to_restore">Jei pasirinksite neatkurti dabar, vėliau to padaryti nebegalėsite. Jūsų įrašai bus atkuriami fone.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Pranešti apie paminėjimus</string>
@@ -1664,7 +1681,7 @@
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Nepavyksta prisijungti prie grupės</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
-    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Tu negali prisijungti prie grupės per šią grupės nuorodą, nes administratorius tave pašalino.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Negalite prisijungti prie grupės per šią grupės nuorodą, nes administratorius jus pašalino. Susisiekite su administratoriumi, kad vėl prisijungtumėte prie grupės.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Ši grupės nuoroda daugiau nebegalioja.</string>
     <!-- Title shown when there was an unknown issue getting group information from a group link -->
@@ -3022,10 +3039,10 @@
     </plurals>
     <!-- Describes the number of stickers that are available in a specific sticker pack. The placeholder is the sticker count. -->
     <plurals name="StickerManagement_sticker_pack_preview_sticker_count">
-        <item quantity="one">%1$s sticker</item>
-        <item quantity="few">%1$s stickers</item>
-        <item quantity="many">%1$s stickers</item>
-        <item quantity="other">%1$s stickers</item>
+        <item quantity="one">%1$s lipdukas</item>
+        <item quantity="few">%1$s lipdukai</item>
+        <item quantity="many">%1$s lipduko</item>
+        <item quantity="other">%1$s lipdukų</item>
     </plurals>
 
     <!-- Sticker pack list dropdown menu label for the button to forward a sticker pack to another user. -->
@@ -4784,6 +4801,8 @@
     <string name="ConfirmKbsPinFragment__pin_created">PIN kodas sukurtas.</string>
     <string name="ConfirmKbsPinFragment__re_enter_your_pin">Pakartokite PIN kodą</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Kuriamas PIN kodas…</string>
+    <!-- ID used when saving the PIN to the device password manager. -->
+    <string name="ConfirmKbsPinFragment__pin_password_manager_id">Signal PIN</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Pristatome PIN kodus</string>
@@ -5597,6 +5616,8 @@
     <string name="AppSettingsFragment__couldnt_complete_backup">Nepavyko sukurti atsarginės kopijos</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Nepavyko panaudoti jūsų atsarginių kopijų prenumeratos</string>
+    <!-- String alerting user that backup storage limit has been reached -->
+    <string name="AppSettingsFragment__backup_storage_limit_reached">Pasiektas atsarginių kopijų saugyklos limitas</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">Pakvieskite savo draugus</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
@@ -7541,7 +7562,7 @@
     <!-- Title of the screen, displayed in the toolbar -->
     <string name="IdealTransferDetailsFragment__ideal">iDEAL</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
-    <string name="IdealTransferDetailsFragment__enter_your_bank">Įvesk savo banko duomenis, vardą ir el. pašto adresą. „Stripe“ šiuo el. pašto adresu siųs naujienas apie skirtą paramą. %1$s</string>
+    <string name="IdealTransferDetailsFragment__enter_your_bank">Įveskite savo vardą, pavardę ir el. pašto adresą. „Stripe“ šiuo el. pašto adresu siųs naujienas apie skirtą paramą. %1$s</string>
     <!-- Subtitle of the screen, displayed below the toolbar. Placeholder is for \'learn more\' -->
     <string name="IdealTransferDetailsFragment__enter_your_bank_details_one_time">Įveskite savo banko duomenis. Jūsų asmeninės informacijos „Signal“ nerenka ir nekaupia. %1$s</string>
     <!-- Subtitle learn-more button displayed inline with the subtitle text -->
@@ -8043,6 +8064,15 @@
     <!-- Button text to deny all participants from joining the call -->
     <string name="PendingParticipantsBottomSheet__deny_all">Visus atmesti</string>
 
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__title">Įjungti „Signal“ atsargines kopijas</string>
+    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+    <string name="TurnOnSignalBackups__body">Nepraraskite nė vienos žinutes įsigiję naują telefoną arba iš naujo įdiegę „Signal“.</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
+    <string name="TurnOnSignalBackups__turn_on">Įjungti</string>
+    <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
+    <string name="TurnOnSignalBackups__not_now">Ne dabar</string>
+
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Įjungti viso ekrano pranešimus?</string>
     <!-- Body of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -8170,9 +8200,11 @@
     <!-- Sheet body part 2 when media backups have been disabled. -->
     <string name="BackupAlertBottomSheet__you_can_begin_paying_for_backups_again">Bet kada galite vėl pradėti mokėti už atsargines kopijas ir toliau kopijuoti visus savo įrašus. </string>
     <!-- Sheet title when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_media_will_be_deleted_today">Jūsų įrašai bus ištrinti šiandien</string>
-    <!-- Sheet body part 1 when user\'s media will be deleted today -->
-    <string name="BackupAlertBottomSheet__your_signal_media_backup_plan_has_been">Jūsų „Signal“ įrašų atsarginės kopijos planas buvo atšauktas, nes negalėjome apdoroti mokėjimo. Tai paskutinė galimybė atsisiųsti įrašus iš atsarginės kopijos prieš ją ištrinant.</string>
+    <string name="BackupAlertBottomSheet__download_your_backup_data_today">Atsisiųskite savo atsarginės kopijos duomenis šiandien</string>
+    <!-- Sheet title when user\'s media will be deleted at the end of their grace period -->
+    <string name="BackupAlertBottomSheet__download_your_backup_data">Atsisiųskite savo atsarginės kopijos duomenis</string>
+    <!-- Sheet body part 1 when user\'s media will be deleted after grace period lapses -->
+    <string name="BackupAlertBottomSheet__you_have_s_of_media_thats_not_on_this_device">Turite %1$s įrašų, kurių nėra šiame įrenginyje. Neturint mokamos prenumeratos, jūsų atsarginėje kopijoje saugomi įrašai ir priedai bus ištrinti visam laikui.</string>
     <!-- Sheet title when user does not have enough space to download their backup. Placeholder is formatted byte size, for example 12GB. -->
     <string name="BackupAlertBottomSheet__free_up_s_on_this_device">Atlaisvinkite %1$s šiame įrenginyje</string>
     <!-- Sheet body part 1 when user does not have enough space to download their backup. Placeholder is the amount of space needed. -->
@@ -8200,6 +8232,8 @@
     </plurals>
     <!-- Clickable text to learn more about the content of this bottom sheet -->
     <string name="BackupAlertBottomSheet__learn_more">Sužinoti daugiau</string>
+    <!-- Clickable text to enter contact support flow -->
+    <string name="BackupAlertBottomSheet__contact_support">Susisiekti su aptarnavimo komanda</string>
     <!-- Secondary action button text when user does not have enough free space to download their backup. -->
     <string name="BackupAlertBottomSheet__skip_restore">Praleisti atkūrimą</string>
     <!-- Primary action button to open backups management screen -->
@@ -8213,9 +8247,9 @@
     <!-- Primary action button text prompting user to subscriber. Placeholder is formatted price -->
     <string name="BackupAlertBottomSheet__subscribe_for_s_month">Prenumeruokite už %1$s/mėn.</string>
     <!-- Primary action button text prompting user to download their media -->
-    <string name="BackupAlertBottomSheet__download_media_now">Atsisiųsti įrašus dabar</string>
+    <string name="BackupAlertBottomSheet__download_backup_now">Atsisiųsti duomenis dabar</string>
     <!-- Secondary action button text to dismiss sheet, skipping media download -->
-    <string name="BackupAlertBottomSheet__dont_download_media">Neatsisiųsti įrašų</string>
+    <string name="BackupAlertBottomSheet__dont_download_backup">Neatsisiųsti duomenų</string>
     <!-- Secondary generic action button to dismiss sheet without performing an action -->
     <string name="BackupAlertBottomSheet__not_now">Ne dabar</string>
     <!-- Secondary action button to dismiss could not complete backup sheet -->
@@ -8286,11 +8320,11 @@
     <!-- Backup progress during deletion download. Placeholders are size restored, size to restore, and percent, i.e. 50MB of 100MB (50%) -->
     <string name="BackupStatusRow__downloading_s_of_s_s">Atsisiunčiama %1$s iš %2$s (%3$s %%)</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for Wi-Fi -->
-    <string name="BackupStatusRow__download_waiting_for_wifi">Download paused: Waiting for Wi-Fi…</string>
+    <string name="BackupStatusRow__download_waiting_for_wifi">Atsisiuntimas pristabdytas: laukiama „Wi-Fi“…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for internet -->
-    <string name="BackupStatusRow__download_no_internet">Download paused: No internet…</string>
+    <string name="BackupStatusRow__download_no_internet">Atsisiuntimas pristabdytas: nėra interneto ryšio…</string>
     <!-- Text displayed under progress bar when restoring media during deletion download pauses for low battery -->
-    <string name="BackupStatusRow__download_device_has_low_battery">Download paused: Device has low battery</string>
+    <string name="BackupStatusRow__download_device_has_low_battery">Atsisiuntimas pristabdytas: įrenginio baterija senka</string>
     <!-- Notice that there is not enough free space to continue restore. Placeholder is required space, for example 1.6GB -->
     <string name="BackupStatusRow__not_enough_space">Nepakanka vietos, kad būtų galima atsisiųsti atsarginę kopiją. Norėdami tęsti atlaisvinkite %1$s vietos.</string>
     <!-- Text row label to skip download -->
@@ -8389,15 +8423,37 @@
     <!-- Educational bottom sheet confirm/dismiss button text shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_acknowledge_button">Gerai</string>
 
+    <!-- NoManualBackupBottomSheet -->
+    <!-- Title for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__no_backup_for_d_days">
+        <item quantity="one">Atsarginė kopija nesukurta %1$d dieną</item>
+        <item quantity="few">Atsarginė kopija nesukurta %1$d dienas</item>
+        <item quantity="many">Atsarginė kopija nesukurta %1$d dienos</item>
+        <item quantity="other">Atsarginė kopija nesukurta %1$d dienų</item>
+    </plurals>
+    <!-- Body for bottom sheet, placeholder is number of days. -->
+    <plurals name="NoManualBackupBottomSheet__you_have_not_completed_a_backup">
+        <item quantity="one">Jau %1$d dieną nesukūrėte atsarginės kopijos. Sukurkite atsarginę kopiją dabar, kad jūsų žinutės ir įrašai būtų išsaugoti.</item>
+        <item quantity="few">Jau %1$d dienas nesukūrėte atsarginės kopijos. Sukurkite atsarginę kopiją dabar, kad jūsų žinutės ir įrašai būtų išsaugoti.</item>
+        <item quantity="many">Jau %1$d dienos nesukūrėte atsarginės kopijos. Sukurkite atsarginę kopiją dabar, kad jūsų žinutės ir įrašai būtų išsaugoti.</item>
+        <item quantity="other">Jau %1$d dienų nesukūrėte atsarginės kopijos. Sukurkite atsarginę kopiją dabar, kad jūsų žinutės ir įrašai būtų išsaugoti.</item>
+    </plurals>
+
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/mėn., atsinaujina %2$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Paskutinė atsarginė kopija %1$s</string>
+    <!-- Subtitle for row for canceled backup -->
+    <string name="BackupsSettingsFragment__subscription_canceled">Prenumerata nutraukta</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Automatinės atsarginės kopijos naudojant „Signal“ saugią, užšifruotą saugyklos paslaugą.</string>
+    <!-- Subtitle for row for backups that are active but subscription not found -->
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"Prenumerata šiame įrenginyje nerasta."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Nustatyti</string>
+    <!-- Action button label to open remote backup settings -->
+    <string name="BackupsSettingsFragment_view_settings">View settings</string>
 
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
@@ -8481,7 +8537,9 @@
     <!-- Dialog title when confirming whether to turn off and deleting backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backups">Išjungti ir ištrinti atsargines kopijas?</string>
     <!-- Dialog message when confirming whether to turn off and delete backups -->
-    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Your backup will be deleted and no new backups will be created. Any media stored in your backup will be downloaded to your phone now.</string>
+    <string name="RemoteBackupsSettingsFragment__your_backup_will_be_deleted_and_no_new_backups_will_be_created">Jūsų atsarginė kopija bus ištrinta ir nebus sukurtos naujos atsarginės kopijos. Visi atsarginėje kopijoje saugomi įrašai dabar bus atsisiųsti į jūsų telefoną.</string>
+    <!-- Dialog message when confirming whether to turn off and delete backups -->
+    <string name="RemoteBackupsSettingsFragment__your_subscription_will_be_canceled">Jūsų prenumerata bus atšaukta ir daugiau nebūsite apmokestinti. Be to, jūsų atsarginė kopija bus ištrinta ir nebus sukurtos naujos atsarginės kopijos. Visi atsarginėje kopijoje saugomi įrašai dabar bus atsisiųsti į jūsų telefoną.</string>
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Išjungti ir ištrinti</string>
     <!-- Text on dialog while user backup is being deleted -->
@@ -8517,6 +8575,8 @@
         <item quantity="many">Jūsų prenumerata šiame įrenginyje galioja dar %1$d d. Atnaujinkite, kad galėtumėte toliau naudoti „Signal“ atsargines kopijas</item>
         <item quantity="other">Jūsų prenumerata šiame įrenginyje galioja dar %1$d d. Atnaujinkite, kad galėtumėte toliau naudoti „Signal“ atsargines kopijas</item>
     </plurals>
+    <!-- Button label to start subscription resubscribe after cancellation -->
+    <string name="RemoteBackupsSettingsFragment__resubscribe">Prenumeruoti iš naujo</string>
     <!-- Button label to start subscription renewal -->
     <string name="RemoteBackupsSettingsFragment__renew">Atnaujinti</string>
     <!-- Button label to learn more about why subscription disappeared -->
@@ -8533,12 +8593,7 @@
         <item quantity="other">Apdorojama %1$s žinučių iš %2$s (%3$d %%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
-    <plurals name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">
-        <item quantity="one">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
-        <item quantity="few">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
-        <item quantity="many">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
-        <item quantity="other">Turite %1$s atsarginės kopijos duomenų, kurių nėra šiame įrenginyje. Atsarginė kopija bus ištrinta, kai prenumerata baigsis po %2$d d.</item>
-    </plurals>
+    <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">Turite %1$s atsarginių kopijų duomenų, kurių nėra šiame įrenginyje. Neturint mokamos prenumeratos, įrašų atsisiųsti neįmanoma.</string>
     <!-- Display in a row when backup is available for download but the user has canceled the restore. Place holder is data size e.g. 12MB -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data_not_on_device">Turite %1$s atsarginių kopijų duomenų, kurių nėra šiame įrenginyje. </string>
     <!-- Displayed in row when backup is available for download to let user start download -->
@@ -8553,7 +8608,7 @@
         <item quantity="other">Jei pasirinksite praleisti atsisiuntimą, likę įrašai ir priedai iš atsarginės kopijos bus ištrinti po %1$d d.</item>
     </plurals>
     <!-- Dialog body for skipping download of backed up media during deletion -->
-    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">If you skip downloading the remaining media and attachments in your backup they will be permanently deleted. This data won\'t be recoverable.</string>
+    <string name="RemoteBackupsSettingsFragment__if_you_skip_downloading_the_remaining">Jei pasirinksite praleisti atsisiuntimą, likę įrašai ir priedai iš atsarginės kopijos bus ištrinti visam laikui. Šių duomenų atkurti nebus galima.</string>
     <!-- Dialog title for skipping download of in progress initial restore of backed up media -->
     <string name="RemoteBackupsSettingsFragment__skip_restore_question">Praleisti atkūrimą?</string>
     <!-- Dialog message for skipping download of in progress initial restore of backed up media -->
@@ -8561,7 +8616,7 @@
     <!-- Positive dialog action to skip download -->
     <string name="RemoteBackupsSettingsFragment__skip">Praleisti</string>
     <!-- Positive dialog action to skip download during deletion -->
-    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Skip and delete permanently</string>
+    <string name="RemoteBackupsSettingsFragment__skip_and_delete_permanently">Praleisti ir ištrinti visam laikui</string>
     <!-- Dialog title for network error while trying to disable backups -->
     <string name="RemoteBackupsSettingsFragment__couldnt_turn_off_and_delete_backups">Nepavyko išjungti ir ištrinti atsarginių kopijų</string>
     <!-- Dialog body for network error while trying to disable backups -->
@@ -8571,19 +8626,33 @@
     <!-- Button label to see more details about redemption error -->
     <string name="RemoteBackupsSettingsFragment__details">Išsamesnė informacija</string>
     <!-- Text displayed when there was an error deleting backup -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Backups have been turned off, but there was an error deleting your data from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_but_there_was_an_error">Atsarginės kopijos buvo išjungtos, tačiau įvyko klaida ištrinant jūsų duomenis iš saugios „Signal“ saugyklos paslaugos.</string>
     <!-- Text displayed as the title in a card when backup fails to delete -->
-    <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">Failed to delete backup</string>
+    <string name="RemoteBackupsSettingsFragment__failed_to_delete_backup">Nepavyko ištrinti atsarginės kopijos</string>
     <!-- Text displayed as the body in a card when backup fails to delete -->
-    <string name="RemoteBackupsSettingsFragment__an_error_occurred_please_contact_support">An error occurred. Please contact support.</string>
+    <string name="RemoteBackupsSettingsFragment__an_error_occurred_please_contact_support">Įvyko klaida. Susisiekite su aptarnavimo komanda.</string>
     <!-- Text displayed while we are processing a backup delete but are or need to download optimized media -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Backups have been turned off, your data will download to your device and then be deleted from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_your_data_will_be">Atsarginės kopijos buvo išjungtos, jūsų duomenys bus atsisiųsti į jūsų įrenginį ir tuomet ištrinti iš saugios „Signal“ saugyklos paslaugos.</string>
     <!-- Text displayed while we are processing a backup delete -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">Backups have been turned off and your data will be deleted from Signal\'s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data">Atsarginės kopijos buvo išjungtos ir jūsų duomenys bus ištrinti iš saugios „Signal“ saugyklos paslaugos.</string>
     <!-- Text displayed after we have deleted a user\'s backup -->
-    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Backups have been turned off and your data has been deleted from Signal’s secure storage service.</string>
+    <string name="RemoteBackupsSettingsFragment__backups_have_been_turned_off_and_your_data_has_been_deleted">Atsarginės kopijos buvo išjungtos ir jūsų duomenys ištrinti iš saugios „Signal“ saugyklos paslaugos.</string>
     <!-- Text displayed while downloading backup during deletion. First placeholder is amount downloaded, second is amount remaining, last is percentage. -->
     <string name="RemoteBackupsSettingsFragment__downloading_s_of_s_d">Atsisiunčiama %1$s iš %2$s (%3$d %%)</string>
+    <!-- Text displayed when user is out of storage space. Placeholder is storage limit in human readable form (ex. 1GB) -->
+    <string name="RemoteBackupsSettingsFragment__youve_reached_the_s_storage_limit">Pasiekėte %1$s saugyklos limitą, įtrauktą į jūsų atsarginės kopijos planą. Norėdami sukurti naujų pokalbių ir įrašų atsargines kopijas, atlaisvinkite vietos.</string>
+    <!-- Button label to open storage management screen -->
+    <string name="RemoteBackupsSettingsFragment__manage_storage">Tvarkyti saugyklą</string>
+
+    <!-- DownloadYourBackupTodayDialog -->
+    <!-- Dialog title -->
+    <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Atsisiųskite savo atsarginės kopijos duomenis šiandien</string>
+    <!-- Dialog body. Placeholder is human readable byte count, for example 2.3 MB -->
+    <string name="DownloadYourBackupTodayDialog__you_have_s_of_backup_data">Turite %1$s atsarginių kopijų duomenų, kurių nėra šiame įrenginyje. Neturint mokamos prenumeratos, įrašai ir priedai bus ištrinti visam laikui.</string>
+    <!-- Dialog positive action label -->
+    <string name="DownloadYourBackupTodayDialog__download">Atsisiųsti</string>
+    <!-- Dialog negative action label -->
+    <string name="DownloadYourBackupTodayDialog__dont_download">Neatsisiųsti</string>
 
     <!-- SubscriptionNotFoundBottomSheet -->
     <!-- Displayed as a bottom sheet title -->
@@ -8609,7 +8678,7 @@
     <!-- Body for network failure dialog in message backups checkout flow -->
     <string name="MessageBackupsFlowFragment__a_network_failure_occurred">Įvyko tinklo gedimas. Bandykite dar kartą vėliau.</string>
     <!-- Toast message if this fragment encounters an in progress deletion -->
-    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">A backup deletion is in progress.</string>
+    <string name="MessageBackupsFlowFragment__a_backup_deletion_is_in_progress">Vykdomas atsarginės kopijos trynimas.</string>
 
     <!-- MessageBackupsEducationScreen -->
     <!-- Screen subtitle underneath large headline title -->
@@ -8643,17 +8712,23 @@
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Kopijuoti į iškarpinę</string>
     <!-- Label for the button to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Išsaugoti slaptažodžių tvarkyklėje</string>
     <!-- Dialog title confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Save to password manager?</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Išsaugoti slaptažodžių tvarkyklėje?</string>
     <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Only store your backup key in a password manager that you trust is secure. Signal does not make a recommendation on which password manager is right for you.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Atsarginės kopijos raktą saugokite tik toje slaptažodžių tvarkyklėje, kurios saugumu pasitikite. „Signal“ neteikia rekomendacijų, kurią slaptažodžių tvarkyklę jums rinktis.</string>
+    <!-- ID used when saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Signal Backups</string>
     <!-- Message shown after the backup key is successfully saved to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Saved to your password manager</string>
-    <!-- Dialog title shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_title">Can\'t save to password manager</string>
+    <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Išsaugota slaptažodžių tvarkyklėje</string>
+    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Neįmanoma išsaugoti slaptažodžių tvarkyklėje</string>
     <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
-    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">You don\'t have a password manager set up, or the password manager you\'re using isn\'t supported.</string>
+    <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Neturite nustatytos slaptažodžių tvarkyklės arba jūsų naudojama slaptažodžių tvarkyklė nepalaikoma.</string>
+    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Anksčiau pasirinkote neišsaugoti „Signal“ slaptažodžių „Google“ slaptažodžių tvarkyklėje. „Google“ slaptažodžių tvarkyklės nustatymuose pašalinkite „Signal“ iš „Atmestos svetainės ir programos“ ir bandykite dar kartą.</string>
+    <!-- Label for a button that navigates to the device settings -->
+    <string name="MessageBackupsKeyRecordScreen__go_to_settings">Eiti į nustatymus</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyRecordScreen__next">Kitas</string>
     <!-- Bottom sheet title -->
@@ -8688,7 +8763,7 @@
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Sužinoti daugiau</string>
     <!-- Primary action button label when selecting the free backup tier without a current selection -->
-    <string name="MessageBackupsTypeSelectionScreen__subscribe">Subscribe</string>
+    <string name="MessageBackupsTypeSelectionScreen__subscribe">Prenumeruoti</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Prenumeruokite už %1$s/mėn.</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8820,7 +8895,12 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">„Signal“ „Android“ atsarginės kopijos atkūrimo tinklo klaida</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Signal Android Backup restore network error</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+
+    <!-- Email subject when contacting support on a create backup failure -->
+    <string name="BackupAlertBottomSheet_network_failure_support_email">„Signal“ „Android“ atsarginės kopijos eksportavimo tinklo klaida</string>
+    <!-- Email filter when contacting support on a create backup failure -->
+  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Pateikti derinimo žurnalą?</string>
@@ -8909,6 +8989,29 @@
     <string name="SignalCheckbox_accessibility_checked_description">Pažymėta</string>
     <!-- Accessibility label describing an unchecked checkbox. -->
     <string name="SignalCheckbox_accessibility_unchecked_description">Nepažymėta</string>
+
+    <!-- Notification title for when user is out of remote storage -->
+    <string name="Notification_backup_storage_full">Atsarginių kopijų saugykla pilna</string>
+    <!-- Notification body for when user is out of remote storage -->
+    <string name="Notification_youve_reached_your_backup_storage_limit">Pasiekėte atsarginių kopijų saugyklos limitą. Atlaisvinkite vietos „Signal“, kad galėtumėte toliau kurti pokalbių ir įrašų atsargines kopijas.</string>
+    <!-- Notification title for when initial backup failed -->
+    <string name="Notification_backup_failed">Atsarginė kopija nepavyko</string>
+    <!-- Notification body for when initial backup failed -->
+    <string name="Notification_an_error_occurred_and_your_backup">Įvyko klaida ir nepavyko užbaigti atsarginės kopijos. Bakstelėkite peržiūrėti informaciją.</string>
+    <!-- Notification title for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_no_backup_for_d_days">
+        <item quantity="one">Atsarginė kopija nesukurta %1$d dieną</item>
+        <item quantity="few">Atsarginė kopija nesukurta %1$d dienas</item>
+        <item quantity="many">Atsarginė kopija nesukurta %1$d dienos</item>
+        <item quantity="other">Atsarginė kopija nesukurta %1$d dienų</item>
+    </plurals>
+    <!-- Notification body for when manual backup hasn\'t been created within threshold. Placeholder is number of days. -->
+    <plurals name="Notification_you_have_not_completed_a_backup">
+        <item quantity="one">Nesukūrėte atsarginės kopijos jau %1$d dieną. Kurkite atsarginę kopiją dabar.</item>
+        <item quantity="few">Nesukūrėte atsarginės kopijos jau %1$d dienas. Kurkite atsarginę kopiją dabar.</item>
+        <item quantity="many">Nesukūrėte atsarginės kopijos jau %1$d dienos. Kurkite atsarginę kopiją dabar.</item>
+        <item quantity="other">Nesukūrėte atsarginės kopijos jau %1$d dienų. Kurkite atsarginę kopiją dabar.</item>
+    </plurals>
 
     <!-- EOF -->
 </resources>
