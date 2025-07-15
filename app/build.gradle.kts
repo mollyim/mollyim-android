@@ -29,6 +29,7 @@ val selectableVariants = listOf(
   "stagingFossWebsiteRelease",
   "stagingGmsWebsiteDebug",
   "stagingGmsWebsiteRelease",
+  "devFossWebsiteDebug",
 )
 
 val signalBuildToolsVersion: String by rootProject.extra
@@ -350,6 +351,42 @@ android {
       buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.DEBUG")
       buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\"")
     }
+
+    create("dev") {
+      dimension = "environment"
+
+      applicationIdSuffix = ".dev"
+
+      buildConfigField("String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms.dev\"")
+
+      buildConfigField("String", "SIGNAL_URL", "\"https://whisper.flatline.localhost:8443\"")
+      buildConfigField("String", "STORAGE_URL", "\"https://storage.flatline.localhost:8443\"")
+      buildConfigField("String", "SIGNAL_CDN_URL", "\"https://invalid\"")
+      buildConfigField("String", "SIGNAL_CDN2_URL", "\"https://invalid\"")
+      buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://invalid\"")
+      buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://cds.flatline.localhost:8443\"")
+      buildConfigField("String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\"")
+      buildConfigField("String", "SIGNAL_SVR2_URL", "\"https://invalid\"")
+      buildConfigField("String", "SIGNAL_SFU_URL", "\"https://invalid\"")
+      buildConfigField("String", "SIGNAL_STAGING_SFU_URL", "\"https://invalid\"")
+      buildConfigField("String[]", "SIGNAL_SFU_INTERNAL_NAMES", "new String[]{\"Test\", \"Staging\", \"Development\"}")
+      buildConfigField("String[]", "SIGNAL_SFU_INTERNAL_URLS", "new String[]{\"https://invalid\", \"https://invalid\", \"https://invalid\"}")
+      buildConfigField("String", "CONTENT_PROXY_HOST", "\"invalid\"")
+      buildConfigField("int", "CONTENT_PROXY_PORT", "443")
+      // buildConfigField("String", "SVR2_MRENCLAVE_LEGACY", "\"9314436a9a144992bb3680770ea5fd7934a7ffd29257844a33763a238903d570\"")
+      // buildConfigField("String", "SVR2_MRENCLAVE", "\"093be9ea32405e85ae28dbb48eb668aebeb7dbe29517b9b86ad4bec4dfe0e6a6\"")
+      buildConfigField("String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BSHB7UfEJ0+UFnpCoFrHVUP/aNYVfKZxOkOl3Wgjf7xn\"")
+      buildConfigField("String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AFiSjE8ZN1YWOGvV9m5VZG61NBtatqE1k2Juwf/BPd0Y7lIBsR5hPD5E/NirE/KQ0Eb3D5UkV6hXeKKV3i5ruQ8WhH8wP6YJbD+1Xc3z1Tp5gyj7/5lubQ5rYsYpLxBpHai0xcwAyr7P7H1bChkzkut01VQ8EtmWWj+0OgFSogwhdgFzyUroElVAPllKNSTHxq0DgyHDpCeOSlYMWzihCR60qAVkHQaX7oOm3A7wJZ07HQvZ6D9fR05FLubkD1cEMzaz54wtdaJVGIUwsf76ZKbi2VTZkpei+W3sm8cnT0gjnLRxHzOD7G8ADuYXWE7PLJuAQVyJCUprE7vVlQY3UAVqI0o9JAfDeMUIO7PhiBZYaMuIj/yGz89jrRHmIh36NSrdWUQEsAr8hFY8dAE88KEh3sZ8HxceVPSFfCcpkI9tckX9Ht1EGOn1nDrVr37ce2d8FO5CHVjPMpGGAbbuHGg0uTcIvXcqgTbkipG9NMpsTbjwfd9ob+yGSvKTOkjhPzalq5nMDB5vGGofCEwLnmjZPgZYQUAh5TwDxvkQdhgojGXTKAiVEZ9Q5iS5ptgB/Vh+mS8X2J9y3qn5yzzvsDo8rLmcO/vJ7pfwRqDQk3bZKhnDxIjGAA6RAnE84JflCNbkrBzIo5Gw5AoCyQGHiARAe1lMsmd2/uX0616AUXd4vq3t45ykInKukm23TuY/KHGUUry6aXU7cXhfbpFLq2rM3MpcRLALpJ263TRQ4Wksl1aOG7GoUYJMSvRz5qz1LG62RmecLyuniUqZ5sYypvZu1ydantg8LquPzw6VPUAaBA3BCIa4QGqdpjjBthFRCpd19SU44YtWRvRo8iiJNkRoiNS7xxmkOkwdp/f/cX8ZucBSzcIMur3kk/Dk+sg3cA==\"")
+      // buildConfigField("String", "GENERIC_SERVER_PUBLIC_PARAMS", "\"AByD873dTilmOSG0TjKrvpeaKEsUmIO8Vx9BeMmftwUs9v7ikPwM8P3OHyT0+X3EUMZrSe9VUp26Wai51Q9I8mdk0hX/yo7CeFGJyzoOqn8e/i4Ygbn5HoAyXJx5eXfIbqpc0bIxzju4H/HOQeOpt6h742qii5u/cbwOhFZCsMIbElZTaeU+BWMBQiZHIGHT5IE0qCordQKZ5iPZom0HeFa8Yq0ShuEyAl0WINBiY6xE3H/9WnvzXBbMuuk//eRxXgzO8ieCeK8FwQNxbfXqZm6Ro1cMhCOF3u7xoX83QhpN\"")
+      // buildConfigField("String", "BACKUP_SERVER_PUBLIC_PARAMS", "\"AJwNSU55fsFCbgaxGRD11wO1juAs8Yr5GF8FPlGzzvdJJIKH5/4CC7ZJSOe3yL2vturVaRU2Cx0n751Vt8wkj1bozK3CBV1UokxV09GWf+hdVImLGjXGYLLhnI1J2TWEe7iWHyb553EEnRb5oxr9n3lUbNAJuRmFM7hrr0Al0F0wrDD4S8lo2mGaXe0MJCOM166F8oYRQqpFeEHfiLnxA1O8ZLh7vMdv4g9jI5phpRBTsJ5IjiJrWeP0zdIGHEssUeprDZ9OUJ14m0v61eYJMKsf59Bn+mAT2a7YfB+Don9O\"")
+      buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://invalid\"")
+      buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://invalid\"")
+      buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.DEV")
+      buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.DEBUG")
+      buildConfigField("String", "STATIC_ASSETS_URL", "\"https://invalid\"")
+      buildConfigField("String", "STRIPE_BASE_URL", "\"https://invalid\"")
+      buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\"")
+    }
   }
 
   lint {
@@ -360,9 +397,14 @@ android {
   }
 
   applicationVariants.all {
-    val isStaging = productFlavors.any { it.name == "staging" }
+    val flavorNames = productFlavors.map { it.name }
+    val appNameQualifier = when {
+      "staging" in flavorNames -> " Staging"
+      "dev" in flavorNames -> " Dev"
+      else -> ""
+    }
 
-    resValue("string", "app_name", baseAppTitle + if (isStaging) " Staging" else "")
+    resValue("string", "app_name", "$baseAppTitle$appNameQualifier")
     resValue("string", "package_name", applicationId)
 
     outputs

@@ -37,7 +37,7 @@ public class SequentialDns implements Dns {
     for (Dns dns : dnsList) {
       try {
         LinkedList<InetAddress> addresses = new LinkedList<>(dns.lookup(hostname));
-        // MOLLY: Filter out invalid addresses for Signal service hosts, except in the Dev environment
+        // MOLLY: Filter out local addresses for Signal service hosts, except in the Dev environment
         if (isServiceHost && !Environment.IS_DEV) {
           if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
             Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving hostname " + hostname);
@@ -46,7 +46,7 @@ public class SequentialDns implements Dns {
             Log.w(TAG, "Ignore loopback address while resolving hostname " + hostname);
           }
         }
-        if (addresses.size() > 0) {
+        if (!addresses.isEmpty()) {
           return addresses;
         } else {
           Log.w(TAG, String.format(Locale.ENGLISH, "Didn't find any addresses for %s using %s. Continuing.", hostname, dns.getClass().getSimpleName()));
