@@ -125,6 +125,18 @@ class UploadAttachmentToArchiveJob private constructor(
       return Result.success()
     }
 
+    if (SignalDatabase.messages.isStory(attachment.mmsId)) {
+      Log.i(TAG, "[$attachmentId] Attachment is a story. Resetting transfer state to none and skipping.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+      return Result.success()
+    }
+
+    if (SignalDatabase.messages.willMessageExpireBeforeCutoff(attachment.mmsId)) {
+      Log.i(TAG, "[$attachmentId] Message will expire within 24 hours. Resetting transfer state to none and skipping.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+      return Result.success()
+    }
+
     if (attachment.remoteKey == null) {
       Log.w(TAG, "[$attachmentId] Attachment is missing remote key! Cannot upload.")
       return Result.failure()

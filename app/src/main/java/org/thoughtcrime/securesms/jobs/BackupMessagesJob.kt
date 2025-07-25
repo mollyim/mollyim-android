@@ -18,8 +18,7 @@ import org.thoughtcrime.securesms.backup.v2.ResumableMessagesBackupUploadSpec
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
-import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
-import org.thoughtcrime.securesms.jobmanager.impl.WifiConstraint
+import org.thoughtcrime.securesms.jobmanager.impl.BackupMessagesConstraint
 import org.thoughtcrime.securesms.jobs.protos.BackupMessagesJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.isDecisionPending
@@ -96,6 +95,10 @@ class BackupMessagesJob private constructor(
 
       chain.enqueue()
     }
+
+    fun cancel() {
+      AppDependencies.jobManager.find { it.factoryKey == KEY }.forEach { AppDependencies.jobManager.cancel(it.id) }
+    }
   }
 
   constructor() : this(
@@ -103,7 +106,7 @@ class BackupMessagesJob private constructor(
     dataFile = "",
     resumableMessagesBackupUploadSpec = null,
     parameters = Parameters.Builder()
-      .addConstraint(if (SignalStore.backup.backupWithCellular) NetworkConstraint.KEY else WifiConstraint.KEY)
+      .addConstraint(BackupMessagesConstraint.KEY)
       .setMaxAttempts(3)
       .setMaxInstancesForFactory(1)
       .build()
@@ -155,7 +158,7 @@ class BackupMessagesJob private constructor(
     this.syncTime = currentTime
     this.dataFile = tempBackupFile.path
 
-    val backupSpec: ResumableMessagesBackupUploadSpec = resumableMessagesBackupUploadSpec ?: when (val result = BackupRepository.getResumableMessagesBackupUploadSpec()) {
+    val backupSpec: ResumableMessagesBackupUploadSpec = resumableMessagesBackupUploadSpec ?: when (val result = BackupRepository.getResumableMessagesBackupUploadSpec(tempBackupFile.length())) {
       is NetworkResult.Success -> {
         Log.i(TAG, "Successfully generated a new upload spec.")
 
@@ -170,7 +173,15 @@ class BackupMessagesJob private constructor(
       }
 
       is NetworkResult.StatusCodeError -> {
-        Log.i(TAG, "Status code failure", result.getCause())
+        when (result.code) {
+          413 -> {
+            Log.i(TAG, "Backup file is too large! Size: ${tempBackupFile.length()} bytes", result.getCause())
+            // TODO [backup] Need to show the user an error
+          }
+          else -> {
+            Log.i(TAG, "Status code failure", result.getCause())
+          }
+        }
         return Result.retry(defaultBackoff())
       }
 
@@ -240,8 +251,10 @@ class BackupMessagesJob private constructor(
     BackupRepository.clearBackupFailure()
     SignalDatabase.backupMediaSnapshots.commitPendingRows()
 
-    AppDependencies.jobManager.add(ArchiveCommitAttachmentDeletesJob())
-    AppDependencies.jobManager.add(ArchiveAttachmentReconciliationJob())
+    if (SignalStore.backup.backsUpMedia) {
+      AppDependencies.jobManager.add(ArchiveCommitAttachmentDeletesJob())
+      AppDependencies.jobManager.add(ArchiveAttachmentReconciliationJob())
+    }
 
     return Result.success()
   }

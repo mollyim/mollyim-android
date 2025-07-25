@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.backup.RestoreState
 import org.thoughtcrime.securesms.backup.v2.BackupFrequency
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
+import org.thoughtcrime.securesms.jobmanager.impl.BackupMessagesConstraintObserver
 import org.thoughtcrime.securesms.jobmanager.impl.NoRemoteArchiveGarbageCollectionPendingConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.RestoreAttachmentConstraintObserver
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
@@ -60,7 +61,7 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_OPTIMIZE_STORAGE = "backup.optimizeStorage"
     private const val KEY_BACKUPS_INITIALIZED = "backup.initialized"
 
-    private const val KEY_ARCHIVE_UPLOAD_STATE = "backup.archiveUploadState"
+    const val KEY_ARCHIVE_UPLOAD_STATE = "backup.archiveUploadState"
 
     private const val KEY_BACKUP_UPLOADED = "backup.backupUploaded"
     private const val KEY_SUBSCRIPTION_STATE_MISMATCH = "backup.subscriptionStateMismatch"
@@ -82,6 +83,10 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
 
     private const val KEY_MEDIA_ROOT_BACKUP_KEY = "backup.mediaRootBackupKey"
 
+    private const val KEY_LAST_VERIFY_KEY_TIME = "backup.last_verify_key_time"
+    private const val KEY_HAS_SNOOZED_VERIFY = "backup.has_snoozed_verify"
+    private const val KEY_HAS_VERIFIED_BEFORE = "backup.has_verified_before"
+
     private val cachedCdnCredentialsExpiresIn: Duration = 12.hours
 
     private val lock = ReentrantLock()
@@ -100,7 +105,12 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   var restoreState: RestoreState by enumValue(KEY_RESTORE_STATE, RestoreState.NONE, RestoreState.serializer)
   var optimizeStorage: Boolean by booleanValue(KEY_OPTIMIZE_STORAGE, false)
-  var backupWithCellular: Boolean by booleanValue(KEY_BACKUP_OVER_CELLULAR, false)
+  var backupWithCellular: Boolean
+    get() = getBoolean(KEY_BACKUP_OVER_CELLULAR, false)
+    set(value) {
+      putBoolean(KEY_BACKUP_OVER_CELLULAR, value)
+      BackupMessagesConstraintObserver.onChange()
+    }
 
   var backupDownloadNotifierState: BackupDownloadNotifierState? by protoValue(KEY_BACKUP_DOWNLOAD_NOTIFIER_STATE, BackupDownloadNotifierState.ADAPTER)
     private set
@@ -299,6 +309,9 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
       .putLong(KEY_NEXT_BACKUP_TIME, -1)
       .putBoolean(KEY_BACKUPS_INITIALIZED, false)
       .putBoolean(KEY_BACKUP_UPLOADED, false)
+      .putLong(KEY_LAST_VERIFY_KEY_TIME, -1)
+      .putBoolean(KEY_HAS_VERIFIED_BEFORE, false)
+      .putBoolean(KEY_HAS_SNOOZED_VERIFY, false)
       .apply()
     backupTier = null
     backupTierInternalOverride = null
@@ -323,6 +336,15 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   var isNotEnoughRemoteStorageSpace by booleanValue(KEY_NOT_ENOUGH_REMOTE_STORAGE_SPACE, false)
 
   var isNoBackupForManualUploadNotified by booleanValue(KEY_MANUAL_NO_BACKUP_NOTIFIED, false)
+
+  /** Last time they successfully entered their backup key, including when they first initialized backups **/
+  var lastVerifyKeyTime by longValue(KEY_LAST_VERIFY_KEY_TIME, -1)
+
+  /** Checks if they have previously snoozed the megaphone to verify their backup key **/
+  var hasSnoozedVerified by booleanValue(KEY_HAS_SNOOZED_VERIFY, false)
+
+  /** Checks if they have ever verified their backup key before **/
+  var hasVerifiedBefore by booleanValue(KEY_HAS_VERIFIED_BEFORE, false)
 
   /**
    * If true, it means we have been told that remote storage is full, but we have not yet run any of our "garbage collection" tasks, like committing deletes

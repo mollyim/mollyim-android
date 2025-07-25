@@ -70,11 +70,17 @@ import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.WallpaperAttachment
 import org.thoughtcrime.securesms.audio.AudioHash
+import org.thoughtcrime.securesms.backup.v2.exporters.ChatItemArchiveExporter
 import org.thoughtcrime.securesms.backup.v2.proto.BackupDebugInfo
 import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream
+import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.COPY_PENDING
+import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.FINISHED
+import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.NONE
+import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.PERMANENT_FAILURE
+import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.UPLOAD_IN_PROGRESS
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_FILE
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_HASH_END
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.PREUPLOAD_MESSAGE_ID
@@ -118,6 +124,7 @@ import java.util.Optional
 import java.util.UUID
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.milliseconds
 
 class AttachmentTable(
   context: Context,
@@ -274,6 +281,7 @@ class AttachmentTable(
       """
 
     private const val DATA_FILE_INDEX = "attachment_data_index"
+    private const val DATA_HASH_REMOTE_KEY_INDEX = "attachment_data_hash_end_remote_key_index"
 
     @JvmField
     val CREATE_INDEXS = arrayOf(
@@ -281,7 +289,7 @@ class AttachmentTable(
       "CREATE INDEX IF NOT EXISTS attachment_transfer_state_index ON $TABLE_NAME ($TRANSFER_STATE);",
       "CREATE INDEX IF NOT EXISTS attachment_sticker_pack_id_index ON $TABLE_NAME ($STICKER_PACK_ID);",
       "CREATE INDEX IF NOT EXISTS attachment_data_hash_start_index ON $TABLE_NAME ($DATA_HASH_START);",
-      "CREATE INDEX IF NOT EXISTS attachment_data_hash_end_remote_key_index ON $TABLE_NAME ($DATA_HASH_END, $REMOTE_KEY);",
+      "CREATE INDEX IF NOT EXISTS $DATA_HASH_REMOTE_KEY_INDEX ON $TABLE_NAME ($DATA_HASH_END, $REMOTE_KEY);",
       "CREATE INDEX IF NOT EXISTS $DATA_FILE_INDEX ON $TABLE_NAME ($DATA_FILE);",
       "CREATE INDEX IF NOT EXISTS attachment_archive_transfer_state ON $TABLE_NAME ($ARCHIVE_TRANSFER_STATE);",
       "CREATE INDEX IF NOT EXISTS attachment_remote_digest_index ON $TABLE_NAME ($REMOTE_DIGEST);"
@@ -419,6 +427,15 @@ class AttachmentTable(
       .firstOrNull()
   }
 
+  fun getAttachmentIdByPlaintextHashAndRemoteKey(plaintextHash: ByteArray, remoteKey: ByteArray): AttachmentId? {
+    return readableDatabase
+      .select(ID)
+      .from("$TABLE_NAME INDEXED BY $DATA_HASH_REMOTE_KEY_INDEX")
+      .where("$DATA_HASH_END = ? AND $REMOTE_KEY = ?", Base64.encodeWithPadding(plaintextHash), Base64.encodeWithPadding(remoteKey))
+      .run()
+      .readToSingleObject { AttachmentId(it.requireLong(ID)) }
+  }
+
   fun getAttachmentsForMessage(mmsId: Long): List<DatabaseAttachment> {
     return readableDatabase
       .select(*PROJECTION)
@@ -509,6 +526,54 @@ class AttachmentTable(
       }
   }
 
+  /**
+   * Grabs the last 30 days worth of restorable attachments with respect to the message's server timestamp,
+   * up to the given batch size.
+   */
+  fun getLast30DaysOfRestorableAttachments(batchSize: Int): List<RestorableAttachment> {
+    val thirtyDaysAgo = System.currentTimeMillis().milliseconds - 30.days
+    return readableDatabase
+      .select("$TABLE_NAME.$ID", MESSAGE_ID, DATA_SIZE, DATA_HASH_END, REMOTE_KEY)
+      .from("$TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} ON ${MessageTable.TABLE_NAME}.${MessageTable.ID} = $TABLE_NAME.$MESSAGE_ID")
+      .where("$TRANSFER_STATE = ? AND ${MessageTable.TABLE_NAME}.${MessageTable.DATE_RECEIVED} >= ?", TRANSFER_NEEDS_RESTORE, thirtyDaysAgo.inWholeMilliseconds)
+      .limit(batchSize)
+      .orderBy("$TABLE_NAME.$ID DESC")
+      .run()
+      .readToList {
+        RestorableAttachment(
+          attachmentId = AttachmentId(it.requireLong(ID)),
+          mmsId = it.requireLong(MESSAGE_ID),
+          size = it.requireLong(DATA_SIZE),
+          plaintextHash = it.requireBlob(DATA_HASH_END),
+          remoteKey = it.requireBlob(REMOTE_KEY)
+        )
+      }
+  }
+
+  /**
+   * Grabs attachments outside of the last 30 days with respect to the message's server timestamp,
+   * up to the given batch size.
+   */
+  fun getOlderRestorableAttachments(batchSize: Int): List<RestorableAttachment> {
+    val thirtyDaysAgo = System.currentTimeMillis().milliseconds - 30.days
+    return readableDatabase
+      .select("$TABLE_NAME.$ID", MESSAGE_ID, DATA_SIZE, DATA_HASH_END, REMOTE_KEY)
+      .from("$TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} ON ${MessageTable.TABLE_NAME}.${MessageTable.ID} = $TABLE_NAME.$MESSAGE_ID")
+      .where("$TRANSFER_STATE = ? AND ${MessageTable.TABLE_NAME}.${MessageTable.DATE_RECEIVED} < ?", TRANSFER_NEEDS_RESTORE, thirtyDaysAgo.inWholeMilliseconds)
+      .limit(batchSize)
+      .orderBy("$TABLE_NAME.$ID DESC")
+      .run()
+      .readToList {
+        RestorableAttachment(
+          attachmentId = AttachmentId(it.requireLong(ID)),
+          mmsId = it.requireLong(MESSAGE_ID),
+          size = it.requireLong(DATA_SIZE),
+          plaintextHash = it.requireBlob(DATA_HASH_END),
+          remoteKey = it.requireBlob(REMOTE_KEY)
+        )
+      }
+  }
+
   fun getRestorableAttachments(batchSize: Int): List<RestorableAttachment> {
     return readableDatabase
       .select(ID, MESSAGE_ID, DATA_SIZE, DATA_HASH_END, REMOTE_KEY)
@@ -564,15 +629,25 @@ class AttachmentTable(
       .readToSingleLong()
   }
 
+  private fun getMessageDoesNotExpireWithinTimeoutClause(): String {
+    val messageHasExpiration = "${MessageTable.TABLE_NAME}.${MessageTable.EXPIRES_IN} > 0"
+    val messageExpiresInOneDayAfterViewing = "$messageHasExpiration AND  ${MessageTable.TABLE_NAME}.${MessageTable.EXPIRES_IN} < ${1.days.inWholeMilliseconds}"
+    return "NOT $messageExpiresInOneDayAfterViewing"
+  }
+
   /**
    * Finds all of the attachmentIds of attachments that need to be uploaded to the archive cdn.
    */
   fun getAttachmentsThatNeedArchiveUpload(): List<AttachmentId> {
     return readableDatabase
-      .select(ID)
-      .from(TABLE_NAME)
-      .where("($ARCHIVE_TRANSFER_STATE = ? or $ARCHIVE_TRANSFER_STATE = ?) AND $DATA_FILE NOT NULL AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE", ArchiveTransferState.NONE.value, ArchiveTransferState.TEMPORARY_FAILURE.value)
-      .orderBy("$ID DESC")
+      .select("$TABLE_NAME.$ID")
+      .from("$TABLE_NAME LEFT JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}")
+      .where(
+        "($ARCHIVE_TRANSFER_STATE = ? or $ARCHIVE_TRANSFER_STATE = ?) AND $DATA_FILE NOT NULL AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND (${MessageTable.STORY_TYPE} = 0 OR ${MessageTable.STORY_TYPE} IS NULL) AND ${getMessageDoesNotExpireWithinTimeoutClause()}",
+        ArchiveTransferState.NONE.value,
+        ArchiveTransferState.TEMPORARY_FAILURE.value
+      )
+      .orderBy("$TABLE_NAME.$ID DESC")
       .run()
       .readToList { AttachmentId(it.requireLong(ID)) }
   }
@@ -617,8 +692,12 @@ class AttachmentTable(
    */
   fun doAnyAttachmentsNeedArchiveUpload(): Boolean {
     return readableDatabase
-      .exists(TABLE_NAME)
-      .where("($ARCHIVE_TRANSFER_STATE = ? OR $ARCHIVE_TRANSFER_STATE = ?) AND $DATA_FILE NOT NULL AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE", ArchiveTransferState.NONE.value, ArchiveTransferState.TEMPORARY_FAILURE.value)
+      .exists("$TABLE_NAME LEFT JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}")
+      .where(
+        "($ARCHIVE_TRANSFER_STATE = ? OR $ARCHIVE_TRANSFER_STATE = ?) AND $DATA_FILE NOT NULL AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND (${MessageTable.STORY_TYPE} = 0 OR ${MessageTable.STORY_TYPE} IS NULL) AND ${getMessageDoesNotExpireWithinTimeoutClause()}",
+        ArchiveTransferState.NONE.value,
+        ArchiveTransferState.TEMPORARY_FAILURE.value
+      )
       .run()
   }
 
@@ -680,16 +759,16 @@ class AttachmentTable(
   }
 
   /**
-   * Sets the archive transfer state for the given attachment by digest.
+   * Resets the archive upload state by hash/key if we believe the attachment should have been uploaded already.
    */
-  fun resetArchiveTransferStateByPlaintextHashAndRemoteKey(plaintextHash: ByteArray, remoteKey: ByteArray): Boolean {
+  fun resetArchiveTransferStateByPlaintextHashAndRemoteKeyIfNecessary(plaintextHash: ByteArray, remoteKey: ByteArray): Boolean {
     return writableDatabase
       .update(TABLE_NAME)
       .values(
         ARCHIVE_TRANSFER_STATE to ArchiveTransferState.NONE.value,
         ARCHIVE_CDN to null
       )
-      .where("$DATA_HASH_END = ? AND $REMOTE_KEY = ?", Base64.encodeWithPadding(plaintextHash), Base64.encodeWithPadding(remoteKey))
+      .where("$DATA_HASH_END = ? AND $REMOTE_KEY = ? AND $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value}", Base64.encodeWithPadding(plaintextHash), Base64.encodeWithPadding(remoteKey))
       .run() > 0
   }
 
@@ -769,12 +848,14 @@ class AttachmentTable(
           SELECT SUM($DATA_SIZE)
           FROM (
             SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY, $DATA_SIZE
-            FROM $TABLE_NAME
+            FROM $TABLE_NAME LEFT JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}
             WHERE 
               $DATA_FILE NOT NULL AND 
               $DATA_HASH_END NOT NULL AND 
               $REMOTE_KEY NOT NULL AND
-              $ARCHIVE_TRANSFER_STATE NOT IN (${ArchiveTransferState.FINISHED.value}, ${ArchiveTransferState.PERMANENT_FAILURE.value})
+              $ARCHIVE_TRANSFER_STATE NOT IN (${ArchiveTransferState.FINISHED.value}, ${ArchiveTransferState.PERMANENT_FAILURE.value}) AND
+              (${MessageTable.STORY_TYPE} = 0 OR ${MessageTable.STORY_TYPE} IS NULL) AND
+              ${getMessageDoesNotExpireWithinTimeoutClause()}
           )
         """.trimIndent()
       )
@@ -1091,6 +1172,7 @@ class AttachmentTable(
       ThumbnailRestoreState.IN_PROGRESS -> {
         "($THUMBNAIL_RESTORE_STATE = ${ThumbnailRestoreState.NEEDS_RESTORE.value} OR $THUMBNAIL_RESTORE_STATE = ${ThumbnailRestoreState.IN_PROGRESS.value}) AND"
       }
+
       else -> ""
     }
 
@@ -1428,6 +1510,15 @@ class AttachmentTable(
     }
 
     return getAttachment(result.values.iterator().next()) ?: throw MmsException("Failed to retrieve attachment we just inserted!")
+  }
+
+  fun getMessageId(attachmentId: AttachmentId): Long {
+    return readableDatabase
+      .select(MESSAGE_ID)
+      .from(TABLE_NAME)
+      .where("$ID = ?", attachmentId.id)
+      .run()
+      .readToSingleLong()
   }
 
   fun updateMessageId(attachmentIds: Collection<AttachmentId>, mmsId: Long, isStory: Boolean) {
@@ -2259,9 +2350,11 @@ class AttachmentTable(
           hashMatch.hashStart -> {
             Log.i(TAG, "[insertAttachmentWithData] Found that the new attachment hash matches the DATA_HASH_START of ${hashMatch.id}. Using all of it's fields. (MessageId: $messageId, ${attachment.uri})")
           }
+
           hashMatch.hashEnd -> {
             Log.i(TAG, "[insertAttachmentWithData] Found that the new attachment hash matches the DATA_HASH_END of ${hashMatch.id}. Using all of it's fields. (MessageId: $messageId, ${attachment.uri})")
           }
+
           else -> {
             throw IllegalStateException("Should not be possible based on query.")
           }
@@ -2303,7 +2396,10 @@ class AttachmentTable(
       }
 
       if (uploadTemplate != null) {
-        Log.i(TAG, "[insertAttachmentWithData] Found a valid template we could use to skip upload. Template: ${uploadTemplate.attachmentId}, TemplateUploadTimestamp: ${hashMatch?.uploadTimestamp}, CurrentTime: ${System.currentTimeMillis()}, InsertingAttachment: (MessageId: $messageId, ${attachment.uri})")
+        Log.i(
+          TAG,
+          "[insertAttachmentWithData] Found a valid template we could use to skip upload. Template: ${uploadTemplate.attachmentId}, TemplateUploadTimestamp: ${hashMatch?.uploadTimestamp}, CurrentTime: ${System.currentTimeMillis()}, InsertingAttachment: (MessageId: $messageId, ${attachment.uri})"
+        )
         transformProperties = (uploadTemplate.transformProperties ?: transformProperties).copy(skipTransform = true)
       }
 
@@ -2378,20 +2474,23 @@ class AttachmentTable(
   }
 
   fun getEstimatedArchiveMediaSize(): Long {
+    val expirationCutoff = ChatItemArchiveExporter.EXPIRATION_CUTOFF.inWholeMilliseconds
+
     val estimatedThumbnailCount = readableDatabase
       .select("COUNT(*)")
       .from(
         """
         (
           SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY
-          FROM $TABLE_NAME
+          FROM $TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} AS m ON $TABLE_NAME.$MESSAGE_ID = m.${MessageTable.ID}
           WHERE 
             $DATA_FILE NOT NULL AND 
             $DATA_HASH_END NOT NULL AND 
             $REMOTE_KEY NOT NULL AND
             $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND
             $ARCHIVE_TRANSFER_STATE != ${ArchiveTransferState.PERMANENT_FAILURE.value} AND 
-            ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%')
+            ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%') AND
+            (m.${MessageTable.EXPIRES_IN} = 0 OR (m.${MessageTable.EXPIRES_IN} > $expirationCutoff AND (m.${MessageTable.EXPIRE_STARTED} + m.${MessageTable.EXPIRES_IN} + $expirationCutoff < ${System.currentTimeMillis()})))
         )
         """
       )
@@ -2404,13 +2503,14 @@ class AttachmentTable(
           SELECT $DATA_SIZE
           FROM (
             SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY, $DATA_SIZE
-            FROM $TABLE_NAME
+            FROM $TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} AS m ON $TABLE_NAME.$MESSAGE_ID = m.${MessageTable.ID}
             WHERE 
               $DATA_FILE NOT NULL AND 
               $DATA_HASH_END NOT NULL AND 
               $REMOTE_KEY NOT NULL AND 
               $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND
-              $ARCHIVE_TRANSFER_STATE != ${ArchiveTransferState.PERMANENT_FAILURE.value}
+              $ARCHIVE_TRANSFER_STATE != ${ArchiveTransferState.PERMANENT_FAILURE.value} AND
+              (m.${MessageTable.EXPIRES_IN} = 0 OR (m.${MessageTable.EXPIRES_IN} > $expirationCutoff AND (m.${MessageTable.EXPIRE_STARTED} + m.${MessageTable.EXPIRES_IN} + $expirationCutoff < ${System.currentTimeMillis()})))
           )
         """
       )
@@ -2566,11 +2666,19 @@ class AttachmentTable(
       .associate { it to readableDatabase.count().from(TABLE_NAME).where("$ARCHIVE_TRANSFER_STATE = ${it.value} AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL").run().readToSingleLong(-1L) }
 
     val attachmentFileCount = readableDatabase.query("SELECT COUNT(DISTINCT $DATA_FILE) FROM $TABLE_NAME WHERE $DATA_FILE NOT NULL AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL").readToSingleLong(-1L)
-    val finishedAttachmentFileCount = readableDatabase.query("SELECT COUNT(DISTINCT $DATA_FILE) FROM $TABLE_NAME WHERE $DATA_FILE NOT NULL AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value}").readToSingleLong(-1L)
-    val attachmentPlaintextHashAndKeyCount = readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $TRANSFER_STATE in ($TRANSFER_PROGRESS_DONE, $TRANSFER_RESTORE_OFFLOADED, $TRANSFER_RESTORE_IN_PROGRESS, $TRANSFER_NEEDS_RESTORE))").readToSingleLong(-1L)
-    val finishedAttachmentDigestCount = readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value})").readToSingleLong(-1L)
+    val finishedAttachmentFileCount =
+      readableDatabase.query("SELECT COUNT(DISTINCT $DATA_FILE) FROM $TABLE_NAME WHERE $DATA_FILE NOT NULL AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value}")
+        .readToSingleLong(-1L)
+    val attachmentPlaintextHashAndKeyCount =
+      readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $TRANSFER_STATE in ($TRANSFER_PROGRESS_DONE, $TRANSFER_RESTORE_OFFLOADED, $TRANSFER_RESTORE_IN_PROGRESS, $TRANSFER_NEEDS_RESTORE))")
+        .readToSingleLong(-1L)
+    val finishedAttachmentDigestCount =
+      readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value})")
+        .readToSingleLong(-1L)
     val thumbnailFileCount = readableDatabase.query("SELECT COUNT(DISTINCT $THUMBNAIL_FILE) FROM $TABLE_NAME WHERE $THUMBNAIL_FILE IS NOT NULL").readToSingleLong(-1L)
-    val estimatedThumbnailCount = readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value} AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%'))").readToSingleLong(-1L)
+    val estimatedThumbnailCount =
+      readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value} AND $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%'))")
+        .readToSingleLong(-1L)
 
     val pendingUploadBytes = getPendingArchiveUploadBytes()
     val uploadedAttachmentBytes = readableDatabase

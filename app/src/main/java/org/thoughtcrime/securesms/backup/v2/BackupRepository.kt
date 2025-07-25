@@ -9,10 +9,12 @@ import android.app.PendingIntent
 import android.database.Cursor
 import android.os.Environment
 import android.os.StatFs
+import androidx.annotation.CheckResult
 import androidx.annotation.Discouraged
 import androidx.annotation.WorkerThread
 import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import okio.ByteString
@@ -36,7 +38,6 @@ import org.signal.core.util.getAllIndexDefinitions
 import org.signal.core.util.getAllTableDefinitions
 import org.signal.core.util.getAllTriggerDefinitions
 import org.signal.core.util.getForeignKeyViolations
-import org.signal.core.util.isNotEmpty
 import org.signal.core.util.logging.Log
 import org.signal.core.util.money.FiatMoney
 import org.signal.core.util.requireIntOrNull
@@ -49,6 +50,7 @@ import org.signal.libsignal.zkgroup.backups.BackupLevel
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.Attachment
+import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
@@ -96,9 +98,11 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.WifiConstraint
 import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob
 import org.thoughtcrime.securesms.jobs.BackupDeleteJob
+import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.jobs.BackupRestoreMediaJob
 import org.thoughtcrime.securesms.jobs.CheckRestoreMediaLeftJob
 import org.thoughtcrime.securesms.jobs.CreateReleaseChannelJob
+import org.thoughtcrime.securesms.jobs.LocalBackupJob
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
 import org.thoughtcrime.securesms.jobs.RestoreAttachmentJob
 import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob
@@ -174,10 +178,7 @@ object BackupRepository {
     when (error.code) {
       401 -> {
         Log.w(TAG, "Received status 401. Resetting initialized state + auth credentials.", error.exception)
-        SignalStore.backup.backupsInitialized = false
-        SignalStore.backup.messageCredentials.clearAll()
-        SignalStore.backup.mediaCredentials.clearAll()
-        SignalStore.backup.cachedMediaCdnPath = null
+        resetInitializedStateAndAuthCredentials()
       }
 
       403 -> {
@@ -203,6 +204,41 @@ object BackupRepository {
       Log.w(TAG, "Unable to verify/receive credentials, clearing cache to fetch new.", error.getCause())
       SignalStore.backup.messageCredentials.clearAll()
       SignalStore.backup.mediaCredentials.clearAll()
+    }
+  }
+
+  /**
+   * Generates a new AEP that the user can choose to confirm.
+   */
+  @CheckResult
+  fun stageAEPKeyRotation(): AccountEntropyPool {
+    return AccountEntropyPool.generate()
+  }
+
+  /**
+   * Saves the AEP to the local storage and kicks off a backup upload.
+   */
+  suspend fun commitAEPKeyRotation(accountEntropyPool: AccountEntropyPool) {
+    haltAllJobs()
+    resetInitializedStateAndAuthCredentials()
+    SignalStore.account.rotateAccountEntropyPool(accountEntropyPool)
+    BackupMessagesJob.enqueue()
+  }
+
+  private fun resetInitializedStateAndAuthCredentials() {
+    SignalStore.backup.backupsInitialized = false
+    SignalStore.backup.messageCredentials.clearAll()
+    SignalStore.backup.mediaCredentials.clearAll()
+    SignalStore.backup.cachedMediaCdnPath = null
+  }
+
+  private suspend fun haltAllJobs() {
+    ArchiveUploadProgress.cancelAndBlock()
+    AppDependencies.jobManager.cancelAllInQueue(LocalBackupJob.QUEUE)
+
+    Log.d(TAG, "Waiting for local backup job cancelations to occur...")
+    while (!AppDependencies.jobManager.areQueuesEmpty(setOf(LocalBackupJob.QUEUE))) {
+      delay(1.seconds)
     }
   }
 
@@ -1296,10 +1332,10 @@ object BackupRepository {
       }
   }
 
-  fun getResumableMessagesBackupUploadSpec(): NetworkResult<ResumableMessagesBackupUploadSpec> {
+  fun getResumableMessagesBackupUploadSpec(backupFileSize: Long): NetworkResult<ResumableMessagesBackupUploadSpec> {
     return initBackupAndFetchAuth()
       .then { credential ->
-        SignalNetwork.archive.getMessageBackupUploadForm(SignalStore.account.requireAci(), credential.messageBackupAccess)
+        SignalNetwork.archive.getMessageBackupUploadForm(SignalStore.account.requireAci(), credential.messageBackupAccess, backupFileSize)
           .also { Log.i(TAG, "UploadFormResult: ${it::class.simpleName}") }
       }
       .then { form ->
@@ -1368,6 +1404,29 @@ object BackupRepository {
       .then { credential ->
         SignalNetwork.archive.getMediaUploadForm(SignalStore.account.requireAci(), credential.mediaBackupAccess)
       }
+  }
+
+  /**
+   * Returns if an attachment should be copied to the archive if it meets certain requirements eg
+   * not a story, not already uploaded to the archive cdn, not a preuploaded attachment, etc.
+   */
+  @JvmStatic
+  fun shouldCopyAttachmentToArchive(attachmentId: AttachmentId, messageId: Long): Boolean {
+    if (!SignalStore.backup.backsUpMedia) {
+      return false
+    }
+
+    val attachment = SignalDatabase.attachments.getAttachment(attachmentId)
+
+    return when {
+      attachment == null -> false
+      attachment.archiveTransferState == AttachmentTable.ArchiveTransferState.FINISHED -> false
+      !DatabaseAttachmentArchiveUtil.hadIntegrityCheckPerformed(attachment) -> false
+      messageId == AttachmentTable.PREUPLOAD_MESSAGE_ID -> false
+      SignalDatabase.messages.isStory(messageId) -> false
+      SignalDatabase.messages.willMessageExpireBeforeCutoff(messageId) -> false
+      else -> true
+    }
   }
 
   /**
@@ -1611,19 +1670,17 @@ object BackupRepository {
   }
 
   suspend fun getAvailableBackupsTypes(availableBackupTiers: List<MessageBackupTier>): List<MessageBackupsType> {
-    return availableBackupTiers.mapNotNull { getBackupsType(it) }
+    return availableBackupTiers.mapNotNull {
+      val type = getBackupsType(it)
+
+      if (type is NetworkResult.Success) type.result else null
+    }
   }
 
-  suspend fun getBackupsType(tier: MessageBackupTier): MessageBackupsType? {
-    val result = when (tier) {
+  private suspend fun getBackupsType(tier: MessageBackupTier): NetworkResult<out MessageBackupsType> {
+    return when (tier) {
       MessageBackupTier.FREE -> getFreeType()
       MessageBackupTier.PAID -> getPaidType()
-    }
-
-    return if (result is NetworkResult.Success) {
-      result.result
-    } else {
-      null
     }
   }
 
@@ -1642,7 +1699,7 @@ object BackupRepository {
   }
 
   @WorkerThread
-  private fun getFreeType(): NetworkResult<MessageBackupsType.Free> {
+  fun getFreeType(): NetworkResult<MessageBackupsType.Free> {
     return AppDependencies.donationsApi
       .getDonationsConfiguration(Locale.getDefault())
       .map {

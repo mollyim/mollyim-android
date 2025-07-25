@@ -31,9 +31,7 @@ import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.BackupFrequency
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
-import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusData
-import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.banner.banners.MediaRestoreProgressBanner
 import org.thoughtcrime.securesms.components.settings.app.backups.BackupStateRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
@@ -41,12 +39,14 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.attachmentUpdates
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.jobmanager.impl.BackupMessagesConstraint
 import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
 import org.thoughtcrime.securesms.service.MessageBackupListener
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.whispersystems.signalservice.api.NetworkResult
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -63,6 +63,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
     RemoteBackupsSettingsState(
       tier = SignalStore.backup.backupTier,
       backupsEnabled = SignalStore.backup.areBackupsEnabled,
+      canBackupMessagesJobRun = BackupMessagesConstraint.isMet(AppDependencies.application),
       canViewBackupKey = !TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application),
       lastBackupTimestamp = SignalStore.backup.lastBackupTime,
       backupsFrequency = SignalStore.backup.backupFrequency,
@@ -93,6 +94,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
       latestPurchaseId
         .flatMapLatest { id -> InAppPaymentsRepository.observeUpdates(id).asFlow() }
         .collectLatest { purchase ->
+          Log.d(TAG, "Refreshing state after archive IAP update.")
           refreshState(purchase)
         }
     }
@@ -143,7 +145,8 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
       var previous: ArchiveUploadProgressState.State? = null
       ArchiveUploadProgress.progress
         .collect { current ->
-          if (previous != null && current.state == ArchiveUploadProgressState.State.None) {
+          if (previous != null && previous != current.state && current.state == ArchiveUploadProgressState.State.None) {
+            Log.d(TAG, "Refreshing state after archive upload.")
             refreshState(null)
           }
           previous = current.state
@@ -153,7 +156,12 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
 
   fun setCanBackUpUsingCellular(canBackUpUsingCellular: Boolean) {
     SignalStore.backup.backupWithCellular = canBackUpUsingCellular
-    _state.update { it.copy(canBackUpUsingCellular = canBackUpUsingCellular) }
+    _state.update {
+      it.copy(
+        canBackupMessagesJobRun = BackupMessagesConstraint.isMet(AppDependencies.application),
+        canBackUpUsingCellular = canBackUpUsingCellular
+      )
+    }
   }
 
   fun setCanRestoreUsingCellular() {
@@ -233,10 +241,10 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
 
   private suspend fun performStateRefresh(lastPurchase: InAppPaymentTable.InAppPayment?) {
     if (BackupRepository.shouldDisplayOutOfStorageSpaceUx()) {
-      val paidType = BackupRepository.getBackupsType(MessageBackupTier.PAID) as? MessageBackupsType.Paid
+      val paidType = BackupRepository.getPaidType()
 
-      if (paidType != null) {
-        val remoteStorageAllowance = paidType.storageAllowanceBytes.bytes
+      if (paidType is NetworkResult.Success) {
+        val remoteStorageAllowance = paidType.result.storageAllowanceBytes.bytes
         val estimatedSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize().bytes
 
         if (estimatedSize + 300.mebiBytes <= remoteStorageAllowance) {
@@ -248,6 +256,8 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
             totalAllowedStorageSpace = estimatedSize.toUnitString()
           )
         }
+      } else {
+        Log.w(TAG, "Failed to load PAID type.", paidType.getCause())
       }
     }
 
@@ -256,6 +266,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         tier = SignalStore.backup.backupTier,
         backupsEnabled = SignalStore.backup.areBackupsEnabled,
         lastBackupTimestamp = SignalStore.backup.lastBackupTime,
+        canBackupMessagesJobRun = BackupMessagesConstraint.isMet(AppDependencies.application),
         backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize(),
         backupsFrequency = SignalStore.backup.backupFrequency,
         canBackUpUsingCellular = SignalStore.backup.backupWithCellular,
