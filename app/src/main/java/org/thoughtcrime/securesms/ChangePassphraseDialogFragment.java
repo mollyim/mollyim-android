@@ -44,6 +44,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   public static final int MODE_CHANGE  = 0;
   public static final int MODE_ENABLE  = 1;
   public static final int MODE_DISABLE = 2;
+  public static final int MODE_DURESS_SET = 3;
 
   private int mode = MODE_CHANGE;
 
@@ -90,6 +91,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     }
 
     if (mode == MODE_ENABLE || mode == MODE_CHANGE) {
+          // || mode == MODE_DURESS_SET) { may be use validator for duress later
       initializePassphraseValidator();
     }
 
@@ -105,6 +107,9 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
       layoutResId = R.layout.disable_passphrase_dialog_view;
       titleResId  = R.string.ApplicationPreferencesActivity_disable_passphrase;
       positiveButtonResId = R.string.ApplicationPreferencesActivity_disable;
+    } else if (mode == MODE_DURESS_SET) {
+      layoutResId = R.layout.create_duress_code_dialog_view;
+      titleResId = R.string.preferences__create_duress_code_dialog_title;
     }
 
     dialog = builder.setView(setLayout(layoutResId))
@@ -149,6 +154,8 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
       handleChange();
     } else if (mode == MODE_DISABLE) {
       handleDisable();
+    } else if (mode == MODE_DURESS_SET) {
+      handleDuressSet();
     }
   }
 
@@ -275,6 +282,10 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     }
   }
 
+  private void handleDuressSet() {
+    setDuressCode();
+  }
+
   private void changePassphrase(final char[] oldPassphrase) {
     final char[] newPassphrase    = getEnteredPassphrase(newPassphraseInput);
     final char[] repeatPassphrase = getEnteredPassphrase(repeatPassphraseInput);
@@ -304,6 +315,28 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     changeMasterSecret(newPassphrase, oldPassphrase);
   }
 
+  private void setDuressCode() {
+    final char[] newDuressCode  = getEnteredPassphrase(newPassphraseInput);
+    final char[] repeatDuressCode = getEnteredPassphrase(repeatPassphraseInput);
+
+    if (newDuressCode.length == 0) {
+      showPopup(R.string.PassphraseChangeActivity_enter_new_passphrase_exclamation);
+      return;
+    } else if (!Arrays.equals(newDuressCode, repeatDuressCode)) {
+      showPopup(R.string.PassphraseChangeActivity_passphrases_dont_match_exclamation);
+      return;
+    }
+
+    // May be later add better validation...
+    if (newDuressCode.length < 4) {
+      showPopup(R.string.PassphraseChangeActivity_enter_new_passphrase_exclamation);
+      return;
+    }
+
+    changeMasterSecret(newDuressCode, new char[0] /* Pass empty */);
+
+  }
+
   private void changeMasterSecret(char[] newPassphrase, char[] oldPassphrase) {
     ChangeMasterSecretTask task = new ChangeMasterSecretTask(newPassphrase, oldPassphrase);
     masterSecretTask = task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -316,6 +349,10 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
       editText.getText().getChars(0, len, passphrase, 0);
     }
     return passphrase;
+  }
+
+  private boolean isDuress() {
+    return mode == MODE_DURESS_SET;
   }
 
   public interface MasterSecretChangedListener {
@@ -352,13 +389,17 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
 
       MasterSecret masterSecret = null;
 
-      if (!MasterSecretUtil.isPassphraseInitialized(context)) {
-        masterSecret = MasterSecretUtil.generateMasterSecret(context, newPassphrase);
+      if (isDuress()) {
+        masterSecret = MasterSecretUtil.generateMasterSecret(context, newPassphrase, true);
       } else {
-        try {
-          masterSecret = MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
-        } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-          Log.d(TAG, e);
+        if (!MasterSecretUtil.isPassphraseInitialized(context)) {
+          masterSecret = MasterSecretUtil.generateMasterSecret(context, newPassphrase);
+        } else {
+          try {
+            masterSecret = MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
+          } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+            Log.d(TAG, e);
+          }
         }
       }
 
