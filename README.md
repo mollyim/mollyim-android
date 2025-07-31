@@ -112,10 +112,33 @@ See the [Changelog](https://github.com/mollyim/mollyim-android/wiki/Changelog) t
 
 ## License
 
-License and legal notices in the original [README](README-ORIG.md).
+Licensed under the [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.html).
 
-## Disclaimer
+Original license and export notices in the [original README](README-ORIG.md).
 
-This project is *NOT* sponsored by Signal Messenger or the Signal Foundation.
+## Acknowledgements
 
-The software is produced independently of Signal and carries no guarantee about quality, security or anything else. Use at your own risk.
+Thanks to the following organizations for supporting the **Molly** project.
+
+<div align="center">
+<table>
+<tr>
+  <td>
+    <a href="https://nlnet.nl/" target="_blank">
+      <img src="https://nlnet.nl/logo/banner.svg" alt="NLnet logo" height="60" />
+    </a>
+  </td>
+  <td>
+    <a href="https://www.jetbrains.com/community/opensource/" target="_blank">
+      <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg" alt="JetBrains logo" height="32" />
+    </a>
+  </td>
+</tr>
+</table>
+</div>
+
+## Legal Notice
+
+This project is *NOT* affiliated with Signal Messenger or the Signal Foundation.
+
+The software is developed independently and provided as-is, without warranties of any kind. Use at your own risk.
