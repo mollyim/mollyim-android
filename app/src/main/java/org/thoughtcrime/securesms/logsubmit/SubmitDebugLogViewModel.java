@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
@@ -63,7 +62,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
 
         dataSource = new LogDataSource(AppDependencies.getApplication(), staticLines, firstViewTime);
       } catch (IllegalStateException e) {
-        dataSource = new PagedDataSource<Long, LogLine>() {
+        dataSource = new PagedDataSource<>() {
           @Override
           public int size() {
             return staticLines.size();

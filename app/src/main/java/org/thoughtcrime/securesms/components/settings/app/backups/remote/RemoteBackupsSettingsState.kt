@@ -27,7 +27,8 @@ data class RemoteBackupsSettingsState(
   val lastBackupTimestamp: Long = 0,
   val dialog: Dialog = Dialog.NONE,
   val snackbar: Snackbar = Snackbar.NONE,
-  val includeDebuglog: Boolean? = null
+  val includeDebuglog: Boolean? = null,
+  val canBackupMessagesJobRun: Boolean = false
 ) {
 
   enum class Dialog {
@@ -49,6 +50,7 @@ data class RemoteBackupsSettingsState(
     BACKUP_TYPE_CHANGED_AND_SUBSCRIPTION_CANCELLED,
     SUBSCRIPTION_CANCELLED,
     DOWNLOAD_COMPLETE,
-    BACKUP_WILL_BE_CREATED_OVERNIGHT
+    BACKUP_WILL_BE_CREATED_OVERNIGHT,
+    AEP_KEY_ROTATED
   }
 }

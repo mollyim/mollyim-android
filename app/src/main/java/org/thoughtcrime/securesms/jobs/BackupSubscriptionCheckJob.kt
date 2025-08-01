@@ -100,6 +100,12 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
       return Result.success()
     }
 
+    if (SignalStore.backup.backupTierInternalOverride != null) {
+      Log.i(TAG, "User has internal override set for backup version. Clearing mismatch value and exiting.", true)
+      SignalStore.backup.subscriptionStateMismatchDetected = false
+      return Result.success()
+    }
+
     val purchase: BillingPurchaseResult = AppDependencies.billingApi.queryPurchases()
     Log.i(TAG, "Retrieved purchase result from Billing api: $purchase", true)
 
@@ -146,7 +152,12 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
       val hasTokenMismatch = purchaseToken?.let { hasLocalDevicePurchaseTokenMismatch(purchaseToken) } == true
       if (hasActiveSignalSubscription && hasTokenMismatch) {
         Log.i(TAG, "Encountered token mismatch with an active Signal subscription. Attempting to redeem against latest token.", true)
-        enqueueRedemptionForNewToken(purchaseToken, product.price)
+        rotateAndRedeem(purchaseToken, product.price)
+        SignalStore.backup.subscriptionStateMismatchDetected = false
+        return Result.success()
+      } else if (purchaseToken != null && hasActiveSignalSubscription && !hasActivePaidBackupTier && !SignalDatabase.inAppPayments.hasPendingBackupRedemption()) {
+        Log.i(TAG, "We have an active signal subscription and active purchase, but no entitlement and no pending redemption. Enqueuing a redemption now.")
+        rotateAndRedeem(purchaseToken, product.price)
         SignalStore.backup.subscriptionStateMismatchDetected = false
         return Result.success()
       } else {
@@ -197,7 +208,7 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
     }
   }
 
-  private fun enqueueRedemptionForNewToken(localDevicePurchaseToken: String, localProductPrice: FiatMoney) {
+  private fun rotateAndRedeem(localDevicePurchaseToken: String, localProductPrice: FiatMoney) {
     RecurringInAppPaymentRepository.ensureSubscriberIdSync(
       subscriberType = InAppPaymentSubscriberRecord.Type.BACKUP,
       isRotation = true,
@@ -208,8 +219,8 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
 
     val id = SignalDatabase.inAppPayments.insert(
       type = InAppPaymentType.RECURRING_BACKUP,
-      state = InAppPaymentTable.State.CREATED,
-      subscriberId = null,
+      state = InAppPaymentTable.State.PENDING,
+      subscriberId = InAppPaymentsRepository.requireSubscriber(InAppPaymentSubscriberRecord.Type.BACKUP).subscriberId,
       endOfPeriod = null,
       inAppPaymentData = InAppPaymentData(
         badge = null,
@@ -223,7 +234,7 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
       )
     )
 
-    InAppPaymentRecurringContextJob.createJobChain(
+    InAppPaymentPurchaseTokenJob.createJobChain(
       inAppPayment = SignalDatabase.inAppPayments.getById(id)!!
     ).enqueue()
   }

@@ -226,7 +226,7 @@ class IncomingMessageObserver(
   }
 
   private fun isConnectionAvailable(): Boolean {
-    return authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || authWebSocket.shouldSendKeepAlives()
+    return authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && networkIsActive)
   }
 
   private fun releaseConnectionDecisionSemaphore() {
