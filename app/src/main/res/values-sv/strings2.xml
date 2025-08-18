@@ -43,7 +43,7 @@
     <string name="preferences__network">Nätverk</string>
     <string name="preferences_network__connection">Koppling</string>
     <string name="preferences_network__proxy">Proxy</string>
-    <string name="preferences_network__host">Nätverkshost</string>
+    <string name="preferences_network__host">Nätverksvärd</string>
     <string name="preferences_network__tunnels_network_traffic">Tunnlar nätverkstrafik</string>
     <string name="preferences_network__check_connection">Kontrollera anslutningen</string>
     <string name="preferences_network__connecting">Ansluter…</string>
@@ -52,7 +52,7 @@
     <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Växla för att visa eller dölja ikonen på navigationsfältet</string>
     <string name="BlockUnblockDialog_delete_this_contact">Ta bort kontakten?</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Din chatt med %1$s raderas.</string>
-    <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Raderade kontakter kan fortfarande ringa dig eller skicka meddelanden om de inte också är blockerade.</string>
+    <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Raderade kontakter kan fortfarande ringa dig eller skicka meddelanden, om du inte också har blockerat dem.</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Ett giltigt portnummer är mellan 0 och 65535</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Nätverkshosten du angav är ogiltig</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Orbotappen saknas</string>
@@ -79,7 +79,7 @@
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly behöver kontakt- och mediebehörigheter för att hjälpa dig att hitta dina vänner och skicka meddelanden. Dina kontakter laddas upp med Signals \"private contact discovery\", vilket innebär att de är end-to-end-krypterade och aldrig synliga för Signal-tjänsten.</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Denna enhet saknar stöd för biometrisk upplåsning</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot har startat</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly kommer inte att ansluta utan Orbot, som inte är installerad på den här enheten.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly ansluter bara genom Orbot, som inte är installerat på den här enheten.</string>
     <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Den här versionen av Molly stödjer inte automatiska uppdateringar, kolla efter uppdateringar pp din app-platform.</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
     <string name="RegistrationActivity_link_device">Länka till befintlig enhet</string>
@@ -100,7 +100,7 @@
     <string name="RegistrationActivity_copied_to_clipboard">Kopierat till urklipp</string>
     <string name="RegistrationActivity_link_retry">Försök länka igen</string>
     <string name="RegistrationActivity_provider_declined">Leverantören har nekat att skicka dig en verifieringskod, troligen på grund av bedrägeriförebyggande regler.</string>
-    <string name="AppUpdatesSettingsFragment__last_checked_s">Senaste kontrollen: %s</string>
+    <string name="AppUpdatesSettingsFragment__last_checked_s">Senast kontrollerat: %s</string>
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">Textmeddelanden är privata på alla länkade enheter.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">För Android-enheter: besök %s för att installera Molly.</string>
     <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Kan inte registrera mot Play tjänster</string>
@@ -123,4 +123,23 @@
     <string name="UnifiedPushSettingsFragment__status_summary_bad_response">Felaktigt svar från servern</string>
     <string name="UnifiedPushSettingsFragment__status_summary_forbidden_uuid">Account-ID nekades av servern</string>
     <string name="UnifiedPushSettingsFragment__status_summary_linked_device_error">Kunde inte skapa länkade enheten</string>
+    <string name="app_icon_label_zen">Zen</string>
+    <string name="app_icon_label_moon">Månfaser</string>
+    <string name="app_icon_label_music">Musik</string>
+    <string name="preferences__follow_system">Samma som systemet</string>
+    <string name="preferences_appearance__dynamic_colors">Dynamiska färger</string>
+    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Använd systemets temafärger även för denna app</string>
+    <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lås Molly med hjälp av fingeravtryck eller ansiktsigenkänning</string>
+    <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s har inte registrerat något Signal-konto</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Kolla så att Google Play Services har installerats och aktiverats, eller byt till annan notistjänst.</string>
+    <string name="NotificationsSettingsFragment__push_notifications">Notistjänst</string>
+    <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Välj vilken notistjänst du vill använda. Om den inte fungerar, kommer appen automatiskt att använda WebSocket för att leverera notiser.</string>
+    <string name="NotificationsSettingsFragment__delivery_service">Notisleverantör</string>
+    <string name="NotificationsSettingsFragment__configure_unifiedpush">Konfigurera UnifiedPush</string>
+    <string name="NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server">För att använda UnifiedPush måste du ha en MollySocket-server att koppla ditt Signalkonto till.\n\nBörja med att skanna den QR-kod din server visar.</string>
+    <string name="NotificationsSettingsFragment__mollysocket_server">MollySocket-server</string>
+    <string name="NotificationsSettingsFragment__not_selected">Ingen har valts</string>
+    <string name="UnifiedPushSettingsFragment__none_available">Ingen är tillgänglig</string>
+    <string name="UnifiedPushSettingsFragment__distributor_app">Distributörsapp</string>
+    <string name="UnifiedPushSettingsFragment__status">Status</string>
 </resources>
