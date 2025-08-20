@@ -20,7 +20,6 @@ import org.thoughtcrime.securesms.jobs.Svr3MirrorJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.util.RemoteConfig.Config
 import org.thoughtcrime.securesms.util.RemoteConfig.remoteBoolean
 import org.thoughtcrime.securesms.util.RemoteConfig.remoteValue
 import org.whispersystems.signalservice.api.NetworkResultUtil
@@ -1000,16 +999,29 @@ object RemoteConfig {
     value.asLong(8.kibiBytes.inWholeBytes).bytes
   }
 
-  /** Whether unauthenticated chat web socket is backed by libsignal-net  */
+  /** Whether the chat web socket is backed by libsignal for direct connections  */
   @JvmStatic
   @get:JvmName("libSignalWebSocketEnabled")
   // val libSignalWebSocketEnabled: Boolean by remoteValue(
-  //   key = "android.libsignalWebSocketEnabled.7",
+  //   key = "android.libsignalWebSocketEnabled.8",
   //   hotSwappable = false
   // ) { value ->
   //   value.asBoolean(false) || Environment.IS_NIGHTLY
   // }
   val libSignalWebSocketEnabled: Boolean = false
+
+  /** Whether the chat web socket is backed by libsignal for all connections, including proxied connections.
+   *  Note, this does *not* gate HTTP proxies, which are treated as direct connections.
+   *  This only has an effect if libSignalWebSocketEnabled is also enabled. */
+  @JvmStatic
+  @get:JvmName("libSignalWebSocketEnabledForProxies")
+  // val libSignalWebSocketEnabledForProxies: Boolean by remoteValue(
+  //   key = "android.libSignalWebSocketEnabledForProxies.8",
+  //   hotSwappable = false
+  // ) { value ->
+  //   value.asBoolean(false) || Environment.IS_NIGHTLY
+  // }
+  val libSignalWebSocketEnabledForProxies = false
 
   @JvmStatic
   @get:JvmName("libsignalEnforceMinTlsVersion")
@@ -1027,7 +1039,7 @@ object RemoteConfig {
   //   hotSwappable = false,
   //   active = false
   // ) { value ->
-  //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
+  //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || BuildConfig.LINK_DEVICE_UX_ENABLED || value.asBoolean(false)
   // }
   val restoreAfterRegistration: Boolean = false
 

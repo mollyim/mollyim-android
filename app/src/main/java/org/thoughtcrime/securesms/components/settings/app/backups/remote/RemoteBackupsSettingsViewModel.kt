@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.withContext
 import org.signal.core.util.bytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.mebiBytes
@@ -31,9 +32,10 @@ import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.BackupFrequency
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
+import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusData
 import org.thoughtcrime.securesms.banner.banners.MediaRestoreProgressBanner
-import org.thoughtcrime.securesms.components.settings.app.backups.BackupStateRepository
+import org.thoughtcrime.securesms.components.settings.app.backups.BackupStateObserver
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
@@ -44,6 +46,7 @@ import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
 import org.thoughtcrime.securesms.service.MessageBackupListener
+import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.NetworkResult
@@ -62,6 +65,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
   private val _state = MutableStateFlow(
     RemoteBackupsSettingsState(
       tier = SignalStore.backup.backupTier,
+      backupState = BackupStateObserver.getNonIOBackupState(),
       backupsEnabled = SignalStore.backup.areBackupsEnabled,
       canBackupMessagesJobRun = BackupMessagesConstraint.isMet(AppDependencies.application),
       canViewBackupKey = !TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application),
@@ -81,7 +85,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
 
   init {
     viewModelScope.launch(Dispatchers.IO) {
-      _state.update { it.copy(backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize()) }
+      refreshBackupMediaSizeState()
     }
 
     viewModelScope.launch(Dispatchers.IO) {
@@ -105,7 +109,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         .attachmentUpdates()
         .throttleLatest(5.seconds)
         .collectLatest {
-          _state.update { it.copy(backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize()) }
+          refreshBackupMediaSizeState()
         }
     }
 
@@ -151,6 +155,14 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
           }
           previous = current.state
         }
+    }
+
+    viewModelScope.launch {
+      BackupStateObserver(viewModelScope).backupState.collect { state ->
+        _state.update {
+          it.copy(backupState = state)
+        }
+      }
     }
   }
 
@@ -209,10 +221,14 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
   }
 
   fun turnOffAndDeleteBackups() {
-    requestDialog(RemoteBackupsSettingsState.Dialog.PROGRESS_SPINNER)
+    viewModelScope.launch {
+      requestDialog(RemoteBackupsSettingsState.Dialog.PROGRESS_SPINNER)
 
-    viewModelScope.launch(Dispatchers.IO) {
-      BackupRepository.turnOffAndDisableBackups()
+      withContext(Dispatchers.IO) {
+        BackupRepository.turnOffAndDisableBackups()
+      }
+
+      requestDialog(RemoteBackupsSettingsState.Dialog.NONE)
     }
   }
 
@@ -229,6 +245,20 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
     _state.update { it.copy(includeDebuglog = includeDebuglog) }
   }
 
+  private fun refreshBackupMediaSizeState() {
+    _state.update {
+      it.copy(
+        backupMediaSize = getBackupMediaSize(),
+        backupMediaDetails = if (RemoteConfig.internalUser || Environment.IS_STAGING) {
+          RemoteBackupsSettingsState.BackupMediaDetails(
+            awaitingRestore = SignalDatabase.attachments.getRemainingRestorableAttachmentSize().bytes,
+            offloaded = SignalDatabase.attachments.getOptimizedMediaAttachmentSize().bytes
+          )
+        } else null
+      )
+    }
+  }
+
   private suspend fun refreshState(lastPurchase: InAppPaymentTable.InAppPayment?) {
     try {
       Log.i(TAG, "Performing a state refresh.")
@@ -240,7 +270,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
   }
 
   private suspend fun performStateRefresh(lastPurchase: InAppPaymentTable.InAppPayment?) {
-    if (BackupRepository.shouldDisplayOutOfStorageSpaceUx()) {
+    if (BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx()) {
       val paidType = BackupRepository.getPaidType()
 
       if (paidType is NetworkResult.Success) {
@@ -248,7 +278,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         val estimatedSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize().bytes
 
         if (estimatedSize + 300.mebiBytes <= remoteStorageAllowance) {
-          BackupRepository.clearOutOfRemoteStorageError()
+          BackupRepository.clearOutOfRemoteStorageSpaceError()
         }
 
         _state.update {
@@ -267,18 +297,21 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         backupsEnabled = SignalStore.backup.areBackupsEnabled,
         lastBackupTimestamp = SignalStore.backup.lastBackupTime,
         canBackupMessagesJobRun = BackupMessagesConstraint.isMet(AppDependencies.application),
-        backupMediaSize = SignalDatabase.attachments.getEstimatedArchiveMediaSize(),
+        backupMediaSize = getBackupMediaSize(),
         backupsFrequency = SignalStore.backup.backupFrequency,
         canBackUpUsingCellular = SignalStore.backup.backupWithCellular,
         canRestoreUsingCellular = SignalStore.backup.restoreWithCellular,
-        isOutOfStorageSpace = BackupRepository.shouldDisplayOutOfStorageSpaceUx(),
+        isOutOfStorageSpace = BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx(),
         hasRedemptionError = lastPurchase?.data?.error?.data_ == "409"
       )
     }
+  }
 
-    val state = BackupStateRepository.resolveBackupState(lastPurchase)
-    _state.update {
-      it.copy(backupState = state)
+  private fun getBackupMediaSize(): Long {
+    return if (SignalStore.backup.backupTier == MessageBackupTier.PAID && SignalStore.backup.hasBackupBeenUploaded) {
+      SignalDatabase.attachments.getEstimatedArchiveMediaSize()
+    } else {
+      0L
     }
   }
 }

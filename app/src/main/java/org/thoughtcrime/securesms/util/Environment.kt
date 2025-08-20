@@ -10,7 +10,8 @@ object Environment {
   private const val GOOGLE_PLAY_BILLING_APPLICATION_ID = "org.thoughtcrime.securesms"
 
   const val IS_STAGING: Boolean = BuildConfig.FLAVOR_environment == "staging"
-  const val IS_DEV: Boolean = BuildConfig.FLAVOR_environment == "dev" || BuildConfig.BUILD_TYPE == "instrumentation"
+  const val IS_INSTRUMENTATION: Boolean = BuildConfig.BUILD_TYPE == "instrumentation"
+  const val IS_DEV: Boolean = BuildConfig.FLAVOR_environment == "dev"
 
   object Backups {
     @JvmStatic

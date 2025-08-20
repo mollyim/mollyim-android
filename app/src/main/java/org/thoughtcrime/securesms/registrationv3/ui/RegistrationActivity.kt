@@ -13,7 +13,6 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.ActivityNavigator
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
@@ -61,7 +60,7 @@ class RegistrationActivity : PassphraseRequiredActivity() {
   }
 
   private fun handleSuccessfulVerify() {
-    if (SignalStore.account.hasLinkedDevices && SignalStore.account.isPrimaryDevice) {
+    if (SignalStore.account.isPrimaryDevice && SignalStore.account.isMultiDevice) {
       SignalStore.misc.shouldShowLinkedDevicesReminder = sharedViewModel.isReregister
     }
 

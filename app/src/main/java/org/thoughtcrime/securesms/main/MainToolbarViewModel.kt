@@ -24,7 +24,6 @@ import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 
@@ -48,7 +47,7 @@ class MainToolbarViewModel : ViewModel() {
     internalStateFlow.update {
       it.copy(
         hasFailedBackups = BackupRepository.shouldDisplayBackupFailedIndicator() || BackupRepository.shouldDisplayBackupAlreadyRedeemedIndicator(),
-        isOutOfRemoteStorageSpace = BackupRepository.shouldDisplayOutOfStorageSpaceUx(),
+        isOutOfRemoteStorageSpace = BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx(),
         hasPassphrase = TextSecurePreferences.isPassphraseLockEnabled(AppDependencies.application)
       )
     }

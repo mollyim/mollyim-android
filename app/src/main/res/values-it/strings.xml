@@ -1305,7 +1305,7 @@
     <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Non sarai più in grado di inviare o ricevere messaggi in questo gruppo.</string>
     <string name="LeaveGroupDialog_leave">Abbandona</string>
     <string name="LeaveGroupDialog_choose_new_admin">Scegli un nuovo amministratore</string>
-    <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Prima di abbandonarlo, devi scegliere almeno un nuovo amministratore per questo gruppo.</string>
+    <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Prima di abbandonarlo, devi scegliere almeno un nuovo admin per questo gruppo.</string>
     <string name="LeaveGroupDialog_choose_admin">Scegli amministratore</string>
 
     <!-- LinkPreviewView -->
@@ -1479,6 +1479,12 @@
     <string name="RemoteRestoreActivity__skip_restore">Salta il ripristino</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">Impossibile completare il trasferimento</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Impossibile ripristinare il backup</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">Si è verificato un errore durante il ripristino del tuo backup. Il tuo backup non è recuperabile. Ti consigliamo di contattare l\'assistenza.</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Contatta l\'assistenza</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">Si è verificato un errore e non è stato possibile trasferire il tuo account. Riprova scegliendo la tua modalità di trasferimento.</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -1570,7 +1576,7 @@
     <string name="ShareableGroupLinkDialogFragment__share">Condividi</string>
     <string name="ShareableGroupLinkDialogFragment__reset_link">Reimposta link</string>
     <string name="ShareableGroupLinkDialogFragment__require_admin_approval">Richiedi l\'approvazione dell\'admin</string>
-    <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Richiedi a un amministratore di approvare i nuovi membri che si uniscono tramite il link del gruppo.</string>
+    <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Richiedi a un admin di approvare i nuovi membri che si uniscono tramite il link del gruppo.</string>
     <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Sei sicuro di voler reimpostare il link del gruppo? Le persone non saranno più in grado di unirsi al gruppo utilizzando il link attuale.</string>
 
     <!-- GroupLinkShareQrDialogFragment -->
@@ -1604,7 +1610,7 @@
     <string name="GroupJoinBottomSheetDialogFragment_joining_via_this_link_failed_try_joining_again_later">Unione tramite questo link non riuscita. Prova a unirti di nuovo più tardi.</string>
 
     <string name="GroupJoinBottomSheetDialogFragment_direct_join">Vuoi unirti a questo gruppo e condividere il tuo nome e la tua foto con i suoi membri?</string>
-    <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Un amministratore di questo gruppo deve approvare la tua richiesta prima che tu possa unirti a questo gruppo. Quando richiedi di unirti, il tuo nome e la tua foto verranno condivisi con i suoi membri.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Un admin di questo gruppo deve approvare la tua richiesta prima che tu possa unirti a questo gruppo. Quando richiedi di unirti, il tuo nome e la tua foto verranno condivisi con i suoi membri.</string>
     <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
         <item quantity="one">Gruppo · %1$d persona</item>
         <item quantity="other">Gruppo · %1$d persone</item>
@@ -1900,7 +1906,7 @@
     <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Qualcuno ha rifiutato un invito al gruppo.</string>
     <string name="MessageRecord_you_declined_the_invitation_to_the_group">Hai rifiutato l\'invito al gruppo.</string>
     <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s ha revocato il tuo invito al gruppo.</string>
-    <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Un amministratore ha revocato il tuo invito al gruppo.</string>
+    <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Un admin ha revocato il tuo invito al gruppo.</string>
     <plurals name="MessageRecord_d_invitations_were_revoked">
         <item quantity="one">Un invito al gruppo è stato revocato.</item>
         <item quantity="other">%1$d inviti al gruppo sono stati revocati.</item>
@@ -2822,13 +2828,13 @@
     <!-- Shown when there are no sticker packs available for installation. -->
     <string name="StickerManagement_available_tab_empty_text">Nessun pacchetto di sticker disponibile</string>
     <!-- Shown when there are no sticker packs currently installed. -->
-    <string name="StickerManagement_installed_tab_empty_text">Nessun pacchetto di sticker installato</string>
+    <string name="StickerManagement_installed_tab_empty_text">Nessun pacchetto di adesivi installato</string>
     <!-- Message shown when the author of the sticker pack is unknown. -->
     <string name="StickerManagement_author_unknown">Sconosciuto</string>
     <!-- Sticker pack list section header for packs that are already installed. -->
-    <string name="StickerManagement_installed_stickers_header">Sticker installati</string>
+    <string name="StickerManagement_installed_stickers_header">Adesivi installati</string>
     <!-- Sticker pack list section header for packs that have been received from incoming messages. -->
-    <string name="StickerManagement_stickers_you_received_header">Sticker ricevuti</string>
+    <string name="StickerManagement_stickers_you_received_header">Adesivi ricevuti</string>
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Serie artisti di Signal</string>
     <!-- Title shown when sharing a sticker pack with another user. -->
@@ -2871,7 +2877,7 @@
     <string name="StickerManagement_menu_select_packs">Seleziona pacchetti di adesivi</string>
 
     <!-- Accessibility label for the button to download a sticker pack. The placeholder is the sticker pack name. -->
-    <string name="StickerManagement_accessibility_download_pack">Scarica il pacchetto di sticker \"%1$s\"</string>
+    <string name="StickerManagement_accessibility_download_pack">Scarica il pacchetto di adesivi \"%1$s\"</string>
     <!-- Accessibility label for the icon that is displayed after a sticker pack has been downloaded. The placeholder is the sticker pack name. -->
     <string name="StickerManagement_accessibility_downloaded_checkmark">Segno di spunta che segnala il download effettuato</string>
     <!-- Accessibility label for the sticker pack drag and drop handle used to reorder the list. -->
@@ -2915,6 +2921,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Questo log verrà postato pubblicamente online per essere visualizzato dai contributori. Puoi esaminarlo prima di caricarlo.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Quando fai clic su Invia, il tuo log sarà pubblicato online per 30 giorni su un URL unico e non pubblicato. Puoi prima salvarlo localmente.</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3671,8 +3684,8 @@
 
     <!-- BadDecryptLearnMoreDialog -->
     <string name="BadDecryptLearnMoreDialog_delivery_issue">Problema di consegna</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Non è stato possibile consegnarti un messaggio, uno sticker, una reazione o una conferma di lettura da parte di %1$s. Questa persona potrebbe aver provato a inviarti il contenuto in una chat singola o in un gruppo.</string>
-    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">Non è stato possibile consegnarti un messaggio, uno sticker, una reazione o una conferma di lettura da parte di %1$s.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">Non è stato possibile consegnarti un messaggio, un adesivo, una reazione o una conferma di lettura da parte di %1$s. Questa persona potrebbe aver provato a inviarti il contenuto in una chat singola o in un gruppo.</string>
+    <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">Non è stato possibile consegnarti un messaggio, un adesivo, una reazione o una conferma di lettura da parte di %1$s.</string>
 
     <!-- profile_create_activity -->
     <string name="CreateProfileActivity_first_name_required">Nome (obbligatorio)</string>
@@ -4865,7 +4878,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Ripristina i tuoi messaggi da un backup locale. Se non lo ripristini ora, non sarai in grado di ripristinarlo in seguito</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Ripristina backup locale</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Ripristina il backup di Signal</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Ripristina tutti i tuoi messaggi in chat + i tuoi ultimi 30 giorni di foto e video</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Più opzioni</string>
 
@@ -5004,7 +5016,7 @@
     <string name="RecipientBottomSheet_remove_as_admin">Rimuovi come amministratore</string>
     <string name="RecipientBottomSheet_remove_from_group">Rimuovi dal gruppo</string>
 
-    <string name="RecipientBottomSheet_remove_s_as_group_admin">Rimuovere %1$s come amministratore del gruppo?</string>
+    <string name="RecipientBottomSheet_remove_s_as_group_admin">Rimuovere %1$s come admin del gruppo?</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"\"%1$s\" potrà modificare questo gruppo e i suoi membri."</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">Rimuovere %1$s dal gruppo?</string>
@@ -7734,7 +7746,7 @@
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
     <string name="VerifyBackupKey__title">Verifica la tua chiave di backup</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">Per aiutarti a ricordare la tua chiave, te la chiederemo ogni tanto.</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
     <string name="VerifyBackupKey__verify">Verifica</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
@@ -7742,7 +7754,7 @@
     <!-- Snackbar text shown when the backup key entered is correct. -->
     <string name="VerifyBackupKey__backup_key_correct">Chiave di backup corretta. Tieni la tua chiave al sicuro.</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">Te lo chiederemo di nuovo fra una settimana.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Attivare le notifiche a schermo intero?</string>
@@ -7939,6 +7951,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Impossibile riscattare il tuo abbonamento ai backup</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Si è verificato un errore e non è stato possibile completare il backup. Assicurati di avere l\'ultima versione di Signal installata e prova di nuovo. Se il problema persiste, contatta l\'assistenza.</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">Si è verificato un errore e non è stato possibile completare il backup. Se il problema persiste, contatta l\'assistenza.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Controlla per aggiornamenti</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -8129,6 +8143,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">Riprendi il download</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Dimensioni del backup</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">Loading…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Frequenza dei backup</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -8138,7 +8154,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Sblocca per vedere la chiave per il backup</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">Per vedere la tua chiave, conferma che sei tu</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Disattiva ed elimina backup</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -8152,7 +8168,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Il backup verrà creato stanotte.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Nuova chiave di backup creata</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Abbonamento non attivo</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8403,27 +8419,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Vedi di nuovo la chiave</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">Crea nuova chiave</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">Scarica media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Per creare una nuova chiave di backup, devi disattivare l\'opzione \"Ottimizza lo spazio di archiviazione\" e attendere che il download dei tuoi media sia stato completato. Fatto ciò, potrai creare una nuova chiave.</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Disattiva e scarica</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Crea una nuova chiave di backup</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creare una nuova chiave è necessario solo se un\'altra persona conosce la tua chiave. Dovrai riscaricare il tuo backup, inclusi i media. Se stai usando l\'opzione \"Ottimizza lo spazio di archiviazione\" dovrai scaricare anche i media salvati in remoto.</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Annullare la creazione della chiave?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">La tua nuova chiave di backup verrà creata solo se lo confermi.</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">Conferma la chiave</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">Annulla</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Conferma la tua chiave di backup</string>
@@ -8441,7 +8457,7 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">Inserisci la tua chiave di backup</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Inserisci il codice a 64 cifre che hai registrato quando hai attivato i backup.</string>
     <!-- Button text when you forget your backup key -->
     <string name="VerifyBackupPinScreen__forgot_key">Chiave dimenticata?</string>
 
@@ -8452,8 +8468,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Tutti i backup sono crittografati end-to-end. Signal è un\'organizzazione no-profit: i soldi ricavati dalla vendita dei backup ci aiuta a tenere il servizio operativo.</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Scopri di più</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">Abbonati</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">Scegli il piano gratuito</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Abbonati a %1$s al mese</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8582,6 +8600,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Errore di network per il ripristino del backup di Signal Android</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Errore permanente nel ripristino del backup per Signal Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Errore di network per l\'esportazione del backup di Signal Android</string>

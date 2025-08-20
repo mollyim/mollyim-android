@@ -7,7 +7,6 @@ package org.thoughtcrime.securesms.backup.v2.ui.subscription
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -148,6 +148,7 @@ fun MessageBackupsTypeSelectionScreen(
           { _, item -> item.tier }
         ) { index, item ->
           MessageBackupsTypeBlock(
+            enabled = selectedBackupTier != item.tier,
             messageBackupsType = item,
             isCurrent = item.tier == currentBackupTier,
             isSelected = item.tier == selectedBackupTier,
@@ -177,6 +178,8 @@ fun MessageBackupsTypeSelectionScreen(
             }
 
             stringResource(R.string.MessageBackupsTypeSelectionScreen__subscribe_for_x_month, price)
+          } else if (selectedBackupTier == MessageBackupTier.FREE) {
+            stringResource(R.string.MessageBackupsTypeSelectionScreen__choose_free_plan)
           } else {
             stringResource(R.string.MessageBackupsTypeSelectionScreen__subscribe)
           }
@@ -205,7 +208,7 @@ private fun MessageBackupsTypeSelectionScreenPreview() {
   Previews.Preview {
     MessageBackupsTypeSelectionScreen(
       stage = MessageBackupsStage.TYPE_SELECTION,
-      selectedBackupTier = MessageBackupTier.FREE,
+      selectedBackupTier = selectedBackupsType,
       availableBackupTypes = testBackupTypes(),
       onMessageBackupsTierSelected = { selectedBackupsType = it },
       onNavigationClick = {},
@@ -225,7 +228,7 @@ private fun MessageBackupsTypeSelectionScreenWithCurrentTierPreview() {
   Previews.Preview {
     MessageBackupsTypeSelectionScreen(
       stage = MessageBackupsStage.TYPE_SELECTION,
-      selectedBackupTier = MessageBackupTier.FREE,
+      selectedBackupTier = selectedBackupsType,
       availableBackupTypes = testBackupTypes(),
       onMessageBackupsTierSelected = { selectedBackupsType = it },
       onNavigationClick = {},
@@ -255,11 +258,16 @@ fun MessageBackupsTypeBlock(
 
   Column(
     modifier = modifier
+      .selectable(
+        selected = isSelected,
+        enabled = enabled,
+        onClick = onSelected
+      )
+      .testTag("message-backups-type-block-${messageBackupsType.tier.name.lowercase()}")
       .fillMaxWidth()
       .background(color = SignalTheme.colors.colorSurface2, shape = RoundedCornerShape(18.dp))
       .border(width = 3.5.dp, color = borderColor, shape = RoundedCornerShape(18.dp))
       .clip(shape = RoundedCornerShape(18.dp))
-      .clickable(onClick = onSelected, enabled = enabled)
       .padding(vertical = 16.dp, horizontal = 20.dp)
   ) {
     if (isCurrent) {

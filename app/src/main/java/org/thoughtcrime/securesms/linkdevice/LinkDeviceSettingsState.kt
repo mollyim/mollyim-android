@@ -19,7 +19,7 @@ data class LinkDeviceSettingsState(
   val linkDeviceResult: LinkDeviceResult = LinkDeviceResult.None,
   val linkWithoutQrCode: Boolean = false,
   val canLinkDevices: Boolean = !SignalStore.account.isLinkedDevice,
-  val seenQrEducationSheet: Boolean = SignalStore.uiHints.hasSeenLinkDeviceQrEducationSheet() || SignalStore.account.hasLinkedDevices,
+  val seenQrEducationSheet: Boolean = SignalStore.uiHints.hasSeenLinkDeviceQrEducationSheet() || SignalStore.account.isMultiDevice,
   val bottomSheetVisible: Boolean = false,
   val deviceToEdit: Device? = null,
   val shouldCancelArchiveUpload: Boolean = false,
@@ -29,9 +29,9 @@ data class LinkDeviceSettingsState(
     data object None : DialogState
     data object Linking : DialogState
     data object Unlinking : DialogState
-    data class SyncingMessages(val deviceId: Int, val deviceCreatedAt: Long) : DialogState
+    data class SyncingMessages(val deviceId: Int) : DialogState
     data object SyncingTimedOut : DialogState
-    data class SyncingFailed(val deviceId: Int, val deviceCreatedAt: Long, val syncFailType: SyncFailType) : DialogState
+    data class SyncingFailed(val deviceId: Int, val deviceRegistrationId: Int, val syncFailType: SyncFailType) : DialogState
     data class DeviceUnlinked(val deviceCreatedAt: Long) : DialogState
     data object LoadingDebugLog : DialogState
     data object ContactSupport : DialogState
