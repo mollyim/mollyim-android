@@ -56,6 +56,9 @@ public class SubmitDebugLogViewModel extends ViewModel {
             for (LogLine line : prefixLines) {
               prefixStrings.add(line.getText());
             }
+            if (!emitter.isDisposed()) {
+              emitter.onNext(new ArrayList<>(prefixStrings));
+            }
             stopwatch.split("prefix");
 
             Log.blockUntilAllWritesFinished();
@@ -63,10 +66,6 @@ public class SubmitDebugLogViewModel extends ViewModel {
 
             LogDatabase.getInstance(AppDependencies.getApplication()).logs().trimToSize();
             stopwatch.split("trim-old");
-
-            if (!emitter.isDisposed()) {
-              emitter.onNext(new ArrayList<>(prefixStrings));
-            }
 
             List<String> currentChunk = new ArrayList<>();
 
@@ -98,6 +97,11 @@ public class SubmitDebugLogViewModel extends ViewModel {
 
               stopwatch.split("lines");
               stopwatch.stop(TAG);
+            }
+          } catch (IllegalStateException ise) {
+            if (!emitter.isDisposed()) {
+              mode.postValue(Mode.NORMAL);
+              emitter.onComplete();
             }
           } catch (Exception e) {
             if (!emitter.isDisposed()) {
