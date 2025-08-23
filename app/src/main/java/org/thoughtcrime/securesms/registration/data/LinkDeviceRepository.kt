@@ -104,10 +104,10 @@ class LinkDeviceRepository(password: String) {
           // We have to set the deviceId before setting the identity keys, or they will throw for not being a linked device
           // But we also have to set the identity keys before calling registerAccountInternal, otherwise it will generate new ones when creating the prekeys
           SignalStore.account.deviceId = deviceId
-          SignalStore.account.setDeviceName(deviceName)
-          SignalStore.account.setAciIdentityKeysFromPrimaryDevice(registration.aciIdentity)
-          SignalStore.account.setPniIdentityKeyAfterChangeNumber(registration.pniIdentity)
-          SignalStore.account.hasLinkedDevices = true
+          SignalStore.account.deviceName = deviceName
+          SignalStore.account.restoreAciIdentityKeyFromBackup(registration.aciIdentity.publicKey.serialize(), registration.aciIdentity.privateKey.serialize())
+          SignalStore.account.restorePniIdentityKeyFromBackup(registration.pniIdentity.publicKey.serialize(), registration.pniIdentity.privateKey.serialize())
+          SignalStore.account.isMultiDevice = true
           SignalStore.registration.hasUploadedProfile = true
 
           AccountRegistrationResult(
@@ -118,7 +118,8 @@ class LinkDeviceRepository(password: String) {
             masterKey = registration.masterKey,
             pin = null,
             aciPreKeyCollection = aciPreKeyCollection,
-            pniPreKeyCollection = pniPreKeyCollection
+            pniPreKeyCollection = pniPreKeyCollection,
+            reRegistration = true
           )
         }
       }

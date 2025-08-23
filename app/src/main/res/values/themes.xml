@@ -230,6 +230,7 @@
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
 
         <item name="colorControlHighlight">@color/transparent_black_10</item>
 
@@ -394,6 +395,7 @@
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
 
         <item name="colorControlHighlight">@color/transparent_white_10</item>
 

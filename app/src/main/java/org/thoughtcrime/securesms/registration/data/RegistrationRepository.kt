@@ -443,7 +443,8 @@ object RegistrationRepository {
             masterKey = masterKey,
             pin = pin,
             aciPreKeyCollection = aciPreKeyCollection,
-            pniPreKeyCollection = pniPreKeyCollection
+            pniPreKeyCollection = pniPreKeyCollection,
+            reRegistration = accountRegistrationResponse.reregistration
           )
         }
 

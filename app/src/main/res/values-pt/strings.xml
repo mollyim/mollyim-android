@@ -1479,6 +1479,12 @@
     <string name="RemoteRestoreActivity__skip_restore">Saltar restauro</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">Não foi possível terminar a transferência</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Não é possível restaurar a cópia de segurança</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">Ocorreu um erro ao restaurar a sua cópia de segurança. A cópia de segurança não pode ser recuperada. Entre em contacto com a equipa de suporte para obter ajuda.</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Contactar o Suporte</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">Ocorreu um erro e não foi possível transferir a sua conta. Tente novamente escolhendo o seu método de transferência.</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -2915,6 +2921,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Este registo será publicado online para ser consultado pelos contribuidores. Poderá analisá-lo antes de o carregar.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Ao clicar em \'Enviar\', o seu histórico será postado online durante 30 dias num URL exclusivo e não publicado. Você pode guardá-lo localmente primeiro.</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -4865,7 +4878,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Restore as suas mensagens a partir de uma cópia de segurança local. Se não as restaurar agora, não as poderá restaurar mais tarde.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Restaurar cópia de segurança local</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Restaurar a cópia de segurança do Signal</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Restaure todas as suas mensagens de texto + os seus últimos 30 dias de ficheiros</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Mais opções</string>
 
@@ -7734,7 +7746,7 @@
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
     <string name="VerifyBackupKey__title">Verifique a sua chave da cópia de segurança</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">Para ajudar a memorizar a sua chave, iremos pedir-lha periodicamente.</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
     <string name="VerifyBackupKey__verify">Verificar</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
@@ -7742,7 +7754,7 @@
     <!-- Snackbar text shown when the backup key entered is correct. -->
     <string name="VerifyBackupKey__backup_key_correct">Chave da cópia de segurança correta. Mantenha a sua chave segura.</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">Voltaremos a perguntar daqui a uma semana.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Ativar as notificações de ecrã inteiro?</string>
@@ -7939,6 +7951,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Não foi possível resgatar a sua subscrição das cópias de segurança</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Ocorreu um erro e a sua cópia de segurança não pôde ser concluída. Certifique-se de que está a usar a última versão do Signal e tente outra vez. Se o problema persistir, contacte o suporte.</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">Ocorreu um erro e a sua cópia de segurança não pôde ser concluída. Se o problema persistir, contacte o suporte.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Procurar atualizações</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -8129,6 +8143,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">Resumir transferência</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Tamanho da cópia de segurança</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">A carregar…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Frequência da cópia de segurança</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -8138,7 +8154,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Desbloqueie para ver a chave da cópia de segurança</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">Para ver a sua chave, confirme que é o utilizador</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Desative e elimine a cópia de segurança</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -8152,7 +8168,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">A cópia de segurança será criada durante a noite.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Nova chave da cópia de segurança criada</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Subscrição inativa</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8403,27 +8419,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Ver chave outra vez</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">Criar nova chave</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">Transferir ficheiros multimédia</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Para criar uma nova chave da cópia de segurança, tem de desativar \"Otimizar armazenamento\" e aguardar que os seus ficheiros multimédia sejam transferidos. Quando a transferência estiver concluída, pode criar uma nova chave.</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Desativar e transferir</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Criar uma nova chave da cópia de segurança</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">A criação de uma nova chave só é necessária se mais alguém souber qual é a sua chave. Terá de voltar a carregar a sua cópia de segurança, incluindo os ficheiros multimédia. Se estiver a utilizar a opção \"Otimizar armazenamento\", terá de transferir primeiro os ficheiros carregados.</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancelar criação da chave?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">A sua nova chave da cópia de segurança não será criada a não ser que confirme.</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">Confirmar chave</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancelar criação da chave</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Confirme a sua chave da cópia de segurança</string>
@@ -8441,7 +8457,7 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">Introduza a sua chave da cópia de segurança</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Introduza o código de 64 dígitos que registou ao ativar as cópias de segurança.</string>
     <!-- Button text when you forget your backup key -->
     <string name="VerifyBackupPinScreen__forgot_key">Esqueceu-se da chave?</string>
 
@@ -8452,8 +8468,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Todas as cópias de segurança são encriptadas de ponta a ponta. O Signal é uma organização sem fins lucrativos. Pagar pelas cópias de segurança ajuda a apoiar a nossa missão.</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Saber mais</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">Subscrever</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">Escolher plano grátis</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Subscreva por %1$s/mês</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8582,6 +8600,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Erro de rede ao restaurar a cópia de segurança do Signal</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Falha permanente ao restaurar a cópia de segurança do Signal</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Erro de rede ao exportar a cópia de segurança do Signal</string>

@@ -1479,6 +1479,12 @@
     <string name="RemoteRestoreActivity__skip_restore">Ohita palautus</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">Siirtoa ei voitu suorittaa loppuun</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Varmuuskopiota ei voitu palauttaa</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">Varmuuskopion palauttamisessa tapahtui virhe. Varmuuskopiota ei voi palauttaa. Ota yhteyttä tukeen saadaksesi apua.</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Ota yhteyttä tukeen</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">Tapahtui virhe eikä tiliäsi voitu siirtää. Yritä uudelleen valitsemalla siirtotapa.</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -2915,6 +2921,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Loki julkaistaan intermetissä, jossa se on kehittäjien nähtävissä. Voit tutkia sitä ennen lähettämistä.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Kun napsautat Lähetä, lokitiedosto lähetetään 30 päivän ajaksi verkkoon ja sille määritetään yksityinen URL-osoite. Voit tallentaa sen ensin myös paikallisesti.</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -4865,7 +4878,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Palauta viestisi paikallisesta varmuuskopiostasi. Jos et palauta niitä nyt, et voi palauttaa niitä enää myöhemmin.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Palauta paikallinen varmuuskopio</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Palauta Signal-varmuuskopio</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Palauta kaikki tekstiviestit + media viimeisten 30 päivän ajalta</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Lisää valintoja</string>
 
@@ -7734,7 +7746,7 @@
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
     <string name="VerifyBackupKey__title">Vahvista varmuuskopion avain</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">Jotta muistaisit avaimesi, pyydämme sitä sinulta ajoittain.</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
     <string name="VerifyBackupKey__verify">Vahvista</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
@@ -7742,7 +7754,7 @@
     <!-- Snackbar text shown when the backup key entered is correct. -->
     <string name="VerifyBackupKey__backup_key_correct">Varmuuskopion avain on oikea. Pidä avain turvassa.</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">Pyydämme sitä jälleen viikon kuluttua.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Otetaanko koko näytön ilmoitukset käyttöön?</string>
@@ -7939,6 +7951,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Varmuuskopiotilausta ei voitu lunastaa</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Tapahtui virhe, eikä varmuuskopiointia voitu suorittaa loppuun. Varmista, että käytät Signalin uusinta versiota ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä tukeen.</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">Tapahtui virhe, eikä varmuuskopiointia voitu suorittaa loppuun. Jos ongelma jatkuu, ota yhteyttä tukeen.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Tarkista päivitykset</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -8129,6 +8143,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">Jatka latausta</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Varmuuskopion koko</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">Ladataan…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Varmuuskopiointitiheys</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -8138,7 +8154,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Avaa lukitus nähdäksesi varmuuskopion avaimen</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">Vahvista henkilöllisyytesi nähdäksesi avaimesi</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Kytke varmuuskopio pois käytöstä ja poista se</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -8152,7 +8168,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Varmuuskopio luodaan yön aikana.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Uusi varmuuskopion avain luotu</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Tilaus ei ole aktiivinen</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8403,27 +8419,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Näytä avain uudelleen</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">Luo uusi avain</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">Lataa media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Uuden varmuuskopion avaimen luomiseksi sinun on poistettava käytöstä Optimoi tallennustila ja odotettava, kunnes mediasisältö on ladattu. Kun lataus on valmis, voit luoda uuden avaimen.</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Poista käytöstä ja lataa</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Luo uusi varmuuskopion avain</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Uuden avaimen luominen on tarpeen vain, jos joku muu tietää sen. Sinun on ladattava varmuuskopio uudelleen, mediasisältö mukaan lukien. Jos Optimoi tallennustila -toiminto on käytössä, sinun on ensin ladattava sivuun siirretty media.</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Peruutetaanko avaimen luonti?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">Uutta varmuuskopion avainta ei luoda, ellet vahvista sitä.</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">Vahvista avain</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">Peruuta avaimen luonti</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Vahvista varmuuskopion avain</string>
@@ -8441,7 +8457,7 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">Anna varmuuskopion avain</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Syötä 64-numeroinen koodi, jonka tallensit varmuuskopioinnin käyttöönoton yhteydessä.</string>
     <!-- Button text when you forget your backup key -->
     <string name="VerifyBackupPinScreen__forgot_key">Unohditko avaimen?</string>
 
@@ -8452,8 +8468,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Kaikki varmuuskopiot salataan päästä päähän. Signal on voittoa tavoittelematon organisaatio. Varmuuskopioinnin maksullisuus tukee tehtäväämme.</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Lue lisää</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">Tilaa</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">Valitse ilmainen tilaus</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Tilaa hintaan %1$s / kk</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8582,6 +8600,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Verkkovirhe Signal Androidin varmuuskopion palauttamisessa</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Pysyvä virhe Signal Androidin varmuuskopion palauttamisessa</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Verkkovirhe Signal Androidin varmuuskopion palauttamisessa</string>

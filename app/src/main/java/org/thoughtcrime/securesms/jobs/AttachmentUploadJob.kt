@@ -148,7 +148,7 @@ class AttachmentUploadJob private constructor(
     if (timeSinceUpload < UPLOAD_REUSE_THRESHOLD && !TextUtils.isEmpty(databaseAttachment.remoteLocation)) {
       Log.i(TAG, "We can re-use an already-uploaded file. It was uploaded $timeSinceUpload ms (${timeSinceUpload.milliseconds.inRoundedDays()} days) ago. Skipping.")
       SignalDatabase.attachments.setTransferState(databaseAttachment.mmsId, attachmentId, AttachmentTable.TRANSFER_PROGRESS_DONE)
-      if (BackupRepository.shouldCopyAttachmentToArchive(databaseAttachment.attachmentId, databaseAttachment.mmsId)) {
+      if (SignalStore.account.isPrimaryDevice && BackupRepository.shouldCopyAttachmentToArchive(databaseAttachment.attachmentId, databaseAttachment.mmsId)) {
         Log.i(TAG, "[$attachmentId] The re-used file was not copied to the archive. Copying now.")
         AppDependencies.jobManager.add(CopyAttachmentToArchiveJob(attachmentId))
       }
@@ -198,9 +198,14 @@ class AttachmentUploadJob private constructor(
               messageId == AttachmentTable.PREUPLOAD_MESSAGE_ID -> {
                 Log.i(TAG, "[$attachmentId] Avoid uploading preuploaded attachments to archive. Skipping.")
               }
-
               SignalDatabase.messages.willMessageExpireBeforeCutoff(messageId) -> {
                 Log.i(TAG, "[$attachmentId] Message will expire within 24hrs. Skipping.")
+              }
+              databaseAttachment.contentType == MediaUtil.LONG_TEXT -> {
+                Log.i(TAG, "[$attachmentId] Long text attachment. Skipping.")
+              }
+              SignalStore.account.isLinkedDevice -> {
+                Log.i(TAG, "[$attachmentId] Linked device. Skipping archive.")
               }
               else -> {
                 Log.i(TAG, "[$attachmentId] Enqueuing job to copy to archive.")

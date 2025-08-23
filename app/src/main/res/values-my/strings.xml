@@ -1439,6 +1439,12 @@
     <string name="RemoteRestoreActivity__skip_restore">ပြန်လည်ရယူခြင်းကို ကျော်မည်</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">လွှဲပြောင်းခြင်းကို အပြီးသတ်၍ မရပါ</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">ဘက်ခ်အပ်ကို ပြန်လည်ရယူ၍မရပါ</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">သင်၏ ဘက်ခ်အပ်ကို ပြန်လည်ရယူစဉ် အမှားအယွင်းတစ်ခု ဖြစ်ပွားခဲ့သည်။ သင်၏ဘက်ခ်အပ်ကို ပြန်လည်ရယူ၍မရပါ။ အကူအညီအတွက် ပံ့ပိုရေးသို့ ဆက်သွယ်ပါ။</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">ပံ့ပိုးရေးသို့ ဆက်သွယ်ရန်</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">ချွတ်ယွင်းချက်တစ်ခု ဖြစ်ပွားခဲ့သောကြောင့် သင့်အကောင့်ကို လွှဲပြောင်း၍မရပါ။ လွှဲပြောင်းရန်နည်းလမ်းကို ရွေးချယ်၍ ထပ်စမ်းကြည့်ပါ။</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -2822,6 +2828,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">ကူညီပံ့ပိုးသူများ ကြည့်ရှုနိုင်ရန်အတွက် ဤမှတ်တမ်းကို အွန်လိုင်းတွင် လူသူမရွေးကြည့်နိုင်ရန် တင်သွားပါမည်။ အပ်လုဒ်မလုပ်မီ ဆန်းစစ်နိုင်ပါသည်။</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">ပေးပို့ရန်ကို နှိပ်သည့်အခါ သင့်မှတ်တမ်းကို သီးခြား အများနှင့်မဆိုင်သော URL တွင် ရက် ၃၀ ကြာ ပို့စ်တင်ထားပါမည်။ ဦးစွာ ၎င်းကို စက်ထဲတွင် သိမ်းထားနိုင်ပါသည်။</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -4742,7 +4755,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">လိုကယ် နောက်ခံအရန်မှ သင့်မက်ဆေ့ချ်များ ပြန်လည်ရယူပါ။ ယခု ပြန်လည်မရယူလျှင် နောက်မှပြန်လည်မရယူနိုင်ပါ။</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">စက်အတွင်း ဘက်ခ်အပ် ပြုလုပ်ခြင်း</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Signal ဘက်ခ်အပ်ကို ပြန်လည် ရယူခြင်း</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">သင်၏ စာသားမက်ဆေ့ခ်များ အားလုံး+ သင်၏ နောက်ဆုံး မီဒီယာ 30 ရက်ကို ပြန်ရယူပါ</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">နောက်ထပ် ရွေးစရာများ</string>
 
@@ -7561,17 +7573,17 @@
     <string name="TurnOnSignalBackups__not_now">ယခု မလုပ်သေးပါ</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__title">Verify your backup key</string>
+    <string name="VerifyBackupKey__title">သင့် ဘက်ခ်အပ်ကီးကို စစ်ဆေးအတည်ပြုပါ</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">သင့်ကီးကို မှတ်မိစေရန်အတွက် သင့်အား အခါအားလျော်စွာ တောင်းဆိုပါမည်။</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
-    <string name="VerifyBackupKey__verify">စစ်ဆေးအတည်ပြုသည်</string>
+    <string name="VerifyBackupKey__verify">စစ်ဆေးအတည်ပြုမည်</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
     <string name="VerifyBackupKey__not_now">ယခု မလုပ်သေးပါ</string>
     <!-- Snackbar text shown when the backup key entered is correct. -->
-    <string name="VerifyBackupKey__backup_key_correct">Backup key correct. Keep your key safe.</string>
+    <string name="VerifyBackupKey__backup_key_correct">သင့် ဘက်ခ်အပ်ကီး မှန်ကန်ပါသည်။ သင့်ကီးကို လုံခြုံအောင်ထားပါ။</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">တစ်ပတ်အတွင်း ထပ်မေးပါမည်။</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">မျက်နှာပြင်အပြည့် အသိပေးချက်များကို ဖွင့်မည်လား။</string>
@@ -7765,6 +7777,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">သင့် ဘက်ခ်အပ် ပုံမှန်လှူဒါန်းငွေကို ထုတ်ယူ၍မရပါ</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">ချို့ယွင်းချက်တစ်ခု ဖြစ်ပွားခဲ့ပြီး သင်၏ဘက်ခ်အပ်ကို မပြီးမြောက်နိုင်ခဲ့ပါ။ Signal ၏ နောက်ဆုံးဗားရှင်းကို သင်အသုံးပြုနေကြောင်း သေချာစေပြီး ထပ်ကြိုးစားကြည့်ပါ။ ဤပြဿနာဆက်လက်ရှိနေပါက Signal ပံ့ပိုးမှုသို့ ဆက်သွယ်ပါ။</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">ချို့ယွင်းချက်တစ်ခု ဖြစ်ပွားခဲ့ပြီး သင်၏ဘက်ခ်အပ်ကို မပြီးမြောက်နိုင်ခဲ့ပါ။ ဤပြဿနာဆက်လက်ရှိနေပါက Signal ပံ့ပိုးရေးသို့ ဆက်သွယ်ပါ။</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">အပ်ဒိတ်အတွက် စစ်ဆေးရန်</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -7952,6 +7966,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">ဒေါင်းလုဒ်ပြန်ဆက်လုပ်မည်</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">ဘက်ခ်အပ် အရွယ်အစား</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">လုပ်ဆောင်နေသည်…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">ဘက်ခ်အပ် အကြိမ်ရေ</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -7961,7 +7977,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">ဘက်ခ်အပ်ကီးကိုကြည့်ရန် လော့ခ်ဖွင့်ပါ</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">သင့်ကီးကို ကြည့်ရှုရန် သင်ဖြစ်ကြောင်း အတည်ပြုပါ</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">ပိတ်ပြီး ဘက်ခ်အပ်ကို ဖျက်ပါ</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -7975,7 +7991,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">ဘက်ခ်အပ်ကို ညတွင်းချင်း ဖန်တီးပါမည်။</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">ဘက်ခ်အပ်ကီး အသစ် ဖန်တီးထားသည်</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">ပုံမှန်လှူဒါန်းမှု အသက်မဝင်ပါ</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8223,27 +8239,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">ကီး ကိုပြန်ကြည့်ရန်</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">ကီးအသစ် ဖန်တီးပါ</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">မီဒီယာကို ဒေါင်းလုဒ်လုပ်ရန်</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">သင့် ဘက်ခ်အပ်ကီး အသစ်တစ်ခုဖန်တီးရန် သင်၏မီဒီယာကို ဒေါင်းလုဒ်လုပ်ပြီးသည်အထိ \"ထားသိုမှု အကောင်းဆုံးချိန်ညှိရန်\" ကို ပိတ်ထားကာ စောင့်ဆိုင်းရပါမည်။ ဒေါင်းလုဒ်ပြီးသွားသောအခါတွင် ကီးအသစ်တစ်ခု ဖန်တီးနိုင်သည်။</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">ပိတ်ပြီး ဒေါင်းလုဒ်လုပ်ပါ</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">သင့် ဘက်ခ်အပ်ကီး အသစ်တစ်ခု ဖန်တီးရန်</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">သင့်ကီးကို အခြားသူတစ်ဦး သိရှိမှသာ ကီးအသစ်ဖန်တီးရန် လိုအပ်ပါသည်။ မီဒီယာ အပါအဝင် သင်၏ဘက်ခ်အပ်ကို ပြန်လည်အပ်လုဒ်လုပ်ရပါမည်။ အကယ်၍ သင်သည် \"ထားသိုမှု အကောင်းဆုံးချိန်ညှိရန်\" ကို အသုံးပြုနေပါက Offloaded မီဒီယာကို ဦးစွာ ဒေါင်းလုဒ်လုပ်ရပါမည်။</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">ကီးဖန်တီးမှုကို ပယ်ဖျက်မလား။</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">သင့် ဘက်ခ်အပ်ကီးကို သင်အတည်မပြုပေးပါက ဖန်တီးမည်မဟုတ်ပါ။</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">ကီးကိုအတည်ပြုပါ</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">ကီးဖန်တီးမှုကို ပယ်ဖျက်ပါ</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">သင့် ဘက်ခ်အပ်ကီးကို အတည်ပြုပါ</string>
@@ -8261,9 +8277,9 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">သင့် ဘက်ခ်အပ်ကီးကို ထည့်ပါ။</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">ဘက်ခ်အပ်ကို ဖွင့်ထားသောအခါတွင် သင်မှတ်ထားသော စာလုံး 64 လုံးကုဒ်ကို ထည့်ပါ။</string>
     <!-- Button text when you forget your backup key -->
-    <string name="VerifyBackupPinScreen__forgot_key">Forgot key?</string>
+    <string name="VerifyBackupPinScreen__forgot_key">ကီးမေ့နေပြီလား။</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
     <!-- Screen headline -->
@@ -8272,8 +8288,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">ဘက်ခ်အပ်အားလုံးကို ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ထားသည်။ Signal သည် အကျိုးအမြတ်မယူပါ— ဘက်ခ်အပ်များအတွက် ပေးဆောင်ခြင်းသည် ကျွန်ုပ်တို့၏မစ်ရှင်ကို ထောက်အကူဖြစ်စေပါသည်။</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">ပိုမိုလေ့လာရန်</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">စာရင်းသွင်းပါ</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">အခမဲ့အစီအစဉ်ကို ရွေးချယ်ရန်</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">၁ လ %1$s ပုံမှန်လှူဒါန်းရန်</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8400,6 +8418,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Signal Android ဘက်ခ်အပ် ပြန်လည်ရယူခြင်းဆိုင်ရာ ကွန်ရက်ချို့ယွင်းချက်</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Signal Android ဘက်ခ်အပ် ပြန်လည်ရယူခြင်းဆိုင်ရာ အမြဲတမ်း ချို့ယွင်းချက်</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Signal Android ဘက်ခ်အပ် ထုတ်ယူခြင်းဆိုင်ရာ ကွန်ရက်ချို့ယွင်းချက်</string>

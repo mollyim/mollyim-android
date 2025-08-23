@@ -99,7 +99,7 @@ object MollySocketRepository {
       aciPreKeyCollection, pniPreKeyCollection,
       null
     ).also {
-      SignalStore.account.hasLinkedDevices = true
+      SignalStore.account.isMultiDevice = true
     }
   }
 

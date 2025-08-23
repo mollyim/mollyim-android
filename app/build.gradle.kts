@@ -8,8 +8,8 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1565
-val canonicalVersionName = "7.50.1"
+val canonicalVersionCode = 1576
+val canonicalVersionName = "7.53.4"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -417,6 +417,7 @@ dependencies {
   implementation(project(":device-transfer"))
   implementation(project(":image-editor"))
   implementation(project(":donations"))
+  implementation(project(":debuglogs-viewer"))
   implementation(project(":contacts"))
   implementation(project(":qr"))
   implementation(project(":sticky-header-grid"))
@@ -644,13 +645,18 @@ tasks.withType<Test>().configureEach {
 }
 
 fun Project.languageList(): List<String> {
+  // In API 35, language codes for Hebrew and Indonesian now use the ISO 639-1 code ("he" and "id").
+  // However, the value resources still only support the outdated code ("iw" and "in") so we have
+  // to manually indicate that we support these languages.
+  val updatedLanguageCodes = listOf("he", "id")
+
   return fileTree("src/main/res") { include("**/strings.xml") }
     .map { stringFile -> stringFile.parentFile.name }
     .map { valuesFolderName -> valuesFolderName.replace("values-", "") }
     .filter { valuesFolderName -> valuesFolderName != "values" }
     .map { languageCode -> languageCode.replace("-r", "_") }
     .distinct()
-    .sorted() + "en"
+    .sorted() + updatedLanguageCodes + "en"
 }
 
 fun String.capitalize(): String {

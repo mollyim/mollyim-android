@@ -1439,6 +1439,12 @@
     <string name="RemoteRestoreActivity__skip_restore">Bỏ qua</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">Không thể hoàn tất việc chuyển</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Không thể khôi phục bản sao lưu</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">Có lỗi xảy ra trong quá trình khôi phục bản sao lưu của bạn. Bản sao lưu của bạn không thể khôi phục được. Vui lòng liên hệ bộ phận hỗ trợ để được trợ giúp.</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Liên hệ hỗ trợ</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">Có lỗi xảy ra và không thể chuyển tài khoản của bạn. Thử lại bằng cách chọn phương pháp chuyển.</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -2822,6 +2828,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Nhật kí này sẽ được đăng trực tuyến công khai cho những người đóng góp theo dõi. Bạn có thể kiểm tra nó trước khi gửi đi.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Khi bạn bấm Gửi, nhật ký của bạn sẽ được đăng online trong 30 ngày tại một URL độc nhất, chưa được xuất bản. Bạn có thể Lưu trên thiết bị trước.</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -4742,7 +4755,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Khôi phục tin nhắn của bạn từ bản sao lưu cục bộ. Nếu bạn không khôi phục bây giờ, bạn sẽ không khôi phục được sau này.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Khôi phục bản sao lưu cục bộ</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Khôi phục bản sao lưu của Signal</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Khôi phục tất cả tin nhắn + tệp đa phương tiện trong 30 ngày qua của bạn</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Tùy chọn khác</string>
 
@@ -7563,15 +7575,15 @@
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
     <string name="VerifyBackupKey__title">Xác minh Mã khóa sao lưu</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">Để giúp bạn ghi nhớ, chúng tôi sẽ hỏi mã khóa định kỳ.</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
-    <string name="VerifyBackupKey__verify">Kiểm chứng</string>
+    <string name="VerifyBackupKey__verify">Xác minh</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
     <string name="VerifyBackupKey__not_now">Để sau</string>
     <!-- Snackbar text shown when the backup key entered is correct. -->
     <string name="VerifyBackupKey__backup_key_correct">Mã khóa sao lưu đúng. Cất giữ mã khóa một cách an toàn.</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">Chúng tôi sẽ hỏi lại bạn trong một tuần nữa.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Bật thông báo toàn màn hình?</string>
@@ -7765,6 +7777,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Không thể nhận gói đăng ký sao lưu của bạn</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Đã xảy ra lỗi và không thể hoàn tất quá trình sao lưu của bạn. Đảm bảo bạn đang sử dụng phiên bản mới nhất của Signal và thử lại. Nếu vẫn gặp vấn đề này, hãy liên hệ với bộ phận hỗ trợ.</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">Đã xảy ra lỗi và không thể hoàn tất quá trình sao lưu của bạn. Nếu vẫn gặp vấn đề này, hãy liên hệ với bộ phận hỗ trợ.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Kiểm tra cập nhật</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -7952,6 +7966,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">Tiếp tục tải</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Kích thước bản sao lưu</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">Đang tải…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Tần suất sao lưu</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -7961,7 +7977,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Mở khóa để xem mã khóa sao lưu</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">Xác minh danh tính để xem mã khóa của bạn</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Tắt và xóa bản sao lưu</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -7975,7 +7991,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Bản sao lưu sẽ được tạo trong đêm.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Đã tạo mã khóa sao lưu mới</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Gói đăng ký không hoạt động</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8223,27 +8239,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Xem lại mã khóa</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">Tạo mã khóa mới</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">Tải xuống</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Để tạo mã khóa mới, bạn phải tắt \"Tối ưu hóa lưu trữ\" và chờ cho đến khi tập tin đa phương tiện đã được hoàn tất tải xuống. Khi quá trình tải xuống hoàn tất, bạn có thể tạo mã khóa mới.</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Tắt và tải xuống</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Tạo mã khóa sao lưu mới</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Việc tạo mã khóa mới chỉ cần thiết nếu có người khác biết mã khóa của bạn. Bạn sẽ cần tải lên bản sao lưu của mình, bao gồm cả tập tin đa phương tiện. Nếu bạn đang sử dụng tính năng \"Tối ưu hóa lưu trữ\", bạn cần tải xuống tập tin đa phương tiện đã được offload trước.</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Hủy tạo mã khóa?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">Mã khóa sao lưu của bạn sẽ không được tạo trừ khi bạn xác nhận.</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">Xác nhận mã khóa</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">Hủy tạo mã khóa</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Xác nhận mã khóa sao lưu</string>
@@ -8261,7 +8277,7 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">Nhập mã khóa sao lưu</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Nhập mã 64 chữ số mà bạn đã ghi lại khi bật tính năng sao lưu.</string>
     <!-- Button text when you forget your backup key -->
     <string name="VerifyBackupPinScreen__forgot_key">Quên mã khóa?</string>
 
@@ -8272,8 +8288,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Tất cả bản sao lưu được mã hóa đầu cuối. Signal là một tổ chức phi lợi nhuận—việc chi trả cho cơ chế sao lưu góp phần hỗ trợ sứ mệnh của chúng tôi.</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Tìm hiểu thêm</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">Đăng ký</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">Chọn gói đăng ký miễn phí</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Đăng ký gói với giá %1$s/tháng</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8400,6 +8418,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Lỗi mạng khôi phục bản sao lưu của Signal Android</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Lỗi không thể khôi phục bản sao lưu của Signal Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Lỗi mạng xuất bản sao lưu của Signal Android</string>

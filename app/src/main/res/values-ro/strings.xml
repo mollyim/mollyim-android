@@ -1519,6 +1519,12 @@
     <string name="RemoteRestoreActivity__skip_restore">Sari peste restaurare</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">Nu s-a putut termina transferul</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Nu se poate restabili backup-ul</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">A apărut o eroare la restaurarea backup-ului. Backup-ul nu se poate recupera. Contactează serviciul de asistență.</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Contactează Asistența</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">A apărut o eroare și contul tău nu a putut fi transferat. Încearcă din nou, alegând metoda de transfer.</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -3008,6 +3014,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Acest jurnal va fi publicat online pentru a fi vizualizat de către contribuitori. Poți să-l examinezi înainte să fie încărcat.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Când apeși Trimite, jurnalul tău de depanare va fi postat online pentru 30 de zile cu un URL unic și nepublicat. Poți să-l salvezi local mai întâi.</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -4988,7 +5001,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Restaurează mesajele dintr-un backup local. Dacă nu restaurezi acum, nu vei putea restaura mai târziu.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Restaurează backup-ul local</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Restaurare backup Signal</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Restaurează toate mesajele text + ultimele 30 de zile de fișiere media</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Mai multe opțiuni</string>
 
@@ -7905,7 +7917,7 @@
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
     <string name="VerifyBackupKey__title">Verifică-ți codul de rezervă</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">Ca să te ajutăm să-ți amintești codul, ți-l vom solicita periodic.</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
     <string name="VerifyBackupKey__verify">Verifică</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
@@ -7913,7 +7925,7 @@
     <!-- Snackbar text shown when the backup key entered is correct. -->
     <string name="VerifyBackupKey__backup_key_correct">Codul de rezervă este corect. Păstrează-ți codul în siguranță.</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">Te vom întreba din nou peste o săptămână.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Activezi notificările pe ecran complet?</string>
@@ -8113,6 +8125,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Nu s-a putut recupera abonamentul pentru copiile de rezervă</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">A apărut o eroare și backup-ul nu a putut fi finalizat. Asigură-te că ai cea mai recentă versiune de Signal și încearcă din nou. Dacă această problemă persistă, contactează serviciul de asistență.</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">A apărut o eroare și backup-ul nu a putut fi finalizat. Dacă această problemă persistă, contactează serviciul de asistență.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Verifică actualizarea</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -8306,6 +8320,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">Reia descărcarea</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Dimensiunea backup-ului</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">Se încarcă…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Frecvența backup-ului</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -8315,7 +8331,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Deblochează ca să vezi codul de rezervă</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">Pentru a vedea codul, confirmă identitatea ta</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Dezactivează și elimină backup-ul</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -8329,7 +8345,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Backup-ul va fi creat peste noapte.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Cod de rezervă nou creat</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Abonament inactiv</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8583,27 +8599,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Vezi din nou codul</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">Creează un cod nou</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">Descarcă fișiere media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Ca să creezi un nou cod de rezervă, trebuie să dezactivezi „Optimizează spațiul de stocare” și să aștepți până când fișierele media au fost descărcate. Când descărcarea este completă, poți crea un cod nou.</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Dezactivează și descarcă</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Creează un cod de rezervă nou</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Crearea unui nou cod este necesară numai dacă altcineva îl cunoaște. Va trebui să reîncarci copia de rezervă, inclusiv fișierele media. Dacă folosești „Optimizare stocare”, va trebui mai întâi să descarci fișierele media descărcate.</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Anulezi crearea codului?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">Noul cod de rezervă nu va fi creat decât dacă îl confirmi.</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">Confirmă codul</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">Anulează crearea codului</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Confirmă-ți codul de rezervă</string>
@@ -8621,7 +8637,7 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">Introdu codul de rezervă</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Introdu codul de 64 de cifre pe care l-ai înregistrat când ai activat copiile de rezervă.</string>
     <!-- Button text when you forget your backup key -->
     <string name="VerifyBackupPinScreen__forgot_key">Ai uitat cheia?</string>
 
@@ -8632,8 +8648,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Toate backup-urile sunt criptate end-to-end. Signal este o organizație non-profit—plata pentru backup-uri ajută la susținerea misiunii noastre.</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Află mai multe</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">Abonare</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">Alege planul gratuit</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Abonează-te pentru %1$s/lună</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -8764,6 +8782,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Eroare de rețea de restabilire a backup-ului Signal Android</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Eroare permanentă la restaurarea backup-ului Signal Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Eroare de rețea de restabilire a backup-ului Signal Android</string>

@@ -55,6 +55,7 @@ import org.whispersystems.signalservice.api.remoteconfig.RemoteConfigApi
 import org.whispersystems.signalservice.api.services.DonationsService
 import org.whispersystems.signalservice.api.services.ProfileService
 import org.whispersystems.signalservice.api.storage.StorageServiceApi
+import org.whispersystems.signalservice.api.svr.SvrBApi
 import org.whispersystems.signalservice.api.username.UsernameApi
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
@@ -293,6 +294,10 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
   }
 
   override fun provideDonationsApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): DonationsApi {
+    return mockk(relaxed = true)
+  }
+
+  override fun provideSvrBApi(libSignalNetwork: Network): SvrBApi {
     return mockk(relaxed = true)
   }
 }

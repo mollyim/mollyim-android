@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.NoRemoteArchiveGarbageCollectionPendingConstraint
 import org.thoughtcrime.securesms.jobs.protos.CopyAttachmentToArchiveJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.util.MediaUtil
 import org.whispersystems.signalservice.api.NetworkResult
 import java.util.concurrent.TimeUnit
 
@@ -47,7 +48,7 @@ class CopyAttachmentToArchiveJob private constructor(private val attachmentId: A
       .addConstraint(NoRemoteArchiveGarbageCollectionPendingConstraint.KEY)
       .setLifespan(TimeUnit.DAYS.toMillis(1))
       .setMaxAttempts(Parameters.UNLIMITED)
-      .setQueue(UploadAttachmentToArchiveJob.buildQueueKey())
+      .setQueue(UploadAttachmentToArchiveJob.QUEUES.random())
       .setQueuePriority(Parameters.PRIORITY_HIGH)
       .build()
   )
@@ -68,6 +69,12 @@ class CopyAttachmentToArchiveJob private constructor(private val attachmentId: A
   }
 
   override fun run(): Result {
+    if (SignalStore.account.isLinkedDevice) {
+      Log.w(TAG, "[$attachmentId] Linked devices don't backup media. Skipping.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+      return Result.success()
+    }
+
     if (!SignalStore.backup.backsUpMedia) {
       Log.w(TAG, "[$attachmentId] This user does not back up media. Skipping.")
       return Result.success()
@@ -98,6 +105,12 @@ class CopyAttachmentToArchiveJob private constructor(private val attachmentId: A
 
     if (SignalDatabase.messages.willMessageExpireBeforeCutoff(attachment.mmsId)) {
       Log.i(TAG, "[$attachmentId] Message will expire in less than 24 hours. Resetting transfer state to none and skipping.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+      return Result.success()
+    }
+
+    if (attachment.contentType == MediaUtil.LONG_TEXT) {
+      Log.i(TAG, "[$attachmentId] Attachment is long text. Resetting transfer state to none and skipping.")
       SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
       return Result.success()
     }
@@ -141,7 +154,7 @@ class CopyAttachmentToArchiveJob private constructor(private val attachmentId: A
             val remoteStorageQuota = getServerQuota() ?: return Result.retry(defaultBackoff()).logW(TAG, "[$attachmentId] Failed to fetch server quota! Retrying.")
 
             if (SignalDatabase.attachments.getEstimatedArchiveMediaSize() > remoteStorageQuota.inWholeBytes) {
-              BackupRepository.markOutOfRemoteStorageError()
+              BackupRepository.markOutOfRemoteStorageSpaceError()
               return Result.failure()
             }
 

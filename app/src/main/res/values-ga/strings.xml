@@ -1599,6 +1599,12 @@
     <string name="RemoteRestoreActivity__skip_restore">Scipeáil aischur</string>
     <!-- Dialog title displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__couldnt_transfer">Níorbh fhéidir an t-aistriú a chur i gcrích</string>
+    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Ní féidir an cúltaca a aischur</string>
+    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">Tharla earráid agus do chúltaca a aischur. Níl do chúltaca in-athshlánaithe. Déan teagmháil leis an bhfoireann tacaíochta le cabhair a fháil.</string>
+    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Déan teagmháil leis an bhfoireann tacaíochta</string>
     <!-- Dialog message displayed when remote restore failed -->
     <string name="RemoteRestoreActivity__error_occurred">Tharla earráid agus níorbh fhéidir do chuntas a aistriú. Triail arís trí do mhodh aistrithe a roghnú.</string>
     <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
@@ -3194,6 +3200,13 @@
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Postálfar an loga seo go poiblí ar líne le go mbeidh rannpháirtithe in ann amharc air. Is féidir leat é a scrúdú roimh uaslódáil.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Nuair a chliceálann tú Cuir Isteach, postálfar do loga ar líne go ceann 30 lá ag URL uathúil neamhfhoilsithe. Is féidir leat é a shábháil go logánta ar dtús.</string>
+    <!-- Debug log level names to filter by levels. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -5234,7 +5247,6 @@
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Aischuir do theachtaireachtaí ó chúltaca logánta. Mura ndéanann tú an t-aischur anois, ní bheidh tú in ann iad a aischur níos déanaí.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Aischuir cúltaca logánta</string>
     <string name="TransferOrRestoreFragment__restore_from_signal_backup">Aischuir cúltaca Signal</string>
-    <string name="TransferOrRestoreFragment__restore_your_messages_from_a_signal_backup">Aischuir do theachtaireachtaí téacs uile + na 30 lá deiridh de do mheáin</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Tuilleadh roghanna</string>
 
@@ -8245,17 +8257,17 @@
     <string name="TurnOnSignalBackups__not_now">Ní anois</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__title">Fíoraigh d\'Eochair Chúltaca</string>
+    <string name="VerifyBackupKey__title">Fíoraigh d\'eochair chúltaca</string>
     <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">To help you remember your key, we\'ll periodically ask you for it.</string>
+    <string name="VerifyBackupKey__body">Le cabhrú leat cuimhneamh ar d\'eochair, iarrfaimid ort í ó am go ham.</string>
     <!-- Button of a megaphone that will take users to the verify backup key screen -->
-    <string name="VerifyBackupKey__verify">Deimhnigh</string>
+    <string name="VerifyBackupKey__verify">Fíoraigh</string>
     <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
     <string name="VerifyBackupKey__not_now">Ní anois</string>
     <!-- Snackbar text shown when the backup key entered is correct. -->
     <string name="VerifyBackupKey__backup_key_correct">Eochair chúltaca cheart. Coinnigh d\'eochair sábháilte.</string>
     <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
-    <string name="VerifyBackupKey__we_will_ask_again">We will ask you again in a week.</string>
+    <string name="VerifyBackupKey__we_will_ask_again">Iarrfaimid ort arís i gceann seachtaine.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
     <string name="GrantFullScreenIntentPermission_megaphone_title">Cas air fógraí lánscáileáin?</string>
@@ -8461,6 +8473,8 @@
     <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Níorbh fhéidir do shíntiús cúltacaí a fhuascailt</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Tharla earráid agus níorbh fhéidir do chúltacú a chur i gcrích. Cinntigh go bhfuil an leagan Signal is déanaí agat agus triail arís. Má leanann an fhadhb sin, déan teagmháil leis an bhfoireann tacaíochta.</string>
+    <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
+    <string name="BackupAlertBottomSheet__an_error_occurred_and">Tharla earráid agus níorbh fhéidir do chúltaca a chur i gcrích. Má leanann an fhadhb sin, déan teagmháil leis an bhfoireann tacaíochta.</string>
     <!-- Dialog action button that will allow you to check for any Signal version updates -->
     <string name="BackupAlertBottomSheet__check_for_update">Seiceáil le haghaidh nuashonraithe</string>
     <!-- Backup redemption error sheet text line 1 -->
@@ -8660,6 +8674,8 @@
     <string name="RemoteBackupsSettingsFragment__resume_download">Atosaigh an íoslódáil</string>
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Méid an chúltaca</string>
+    <!-- Row description for backup size when waiting for it to load in from the database -->
+    <string name="RemoteBackupsSettingsFragment__loading">Á lódáil…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Minicíocht an chúltaca</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
@@ -8669,7 +8685,7 @@
     <!-- Prompt title for unlocking device to view backup key -->
     <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Díghlasáil le hamharc ar eochair chúltaca</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
-    <string name="RemoteBackupsSettingsFragment__to_view_your_key">To view your key, confirm it\'s you</string>
+    <string name="RemoteBackupsSettingsFragment__to_view_your_key">Chun féachaint ar d\'eochair, deimhnigh gur tusa atá ann</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Cas as agus scrios cúltaca</string>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
@@ -8683,7 +8699,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Cruthófar cúltaca thar oíche.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">New backup key created</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Eochair chúltaca nua cruthaithe</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Síntiús neamhghníomhach</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8943,27 +8959,27 @@
     <!-- Sheet secondary action button label -->
     <string name="MessageBackupsKeyRecordScreen__see_key_again">Féach ar an eochair arís</string>
     <!-- Action label to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_new_key">Create new key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_new_key">Cruthaigh eochair nua</string>
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__download_media">Download media</string>
+    <string name="MessageBackupsKeyRecordScreen__download_media">Íoslódáil meáin</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new backup key, you must turn off \"Optimize storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Chun eochair chúltaca nua a chruthú, ní mór duit \"Optamaigh stóras\" a chasadh as agus fanacht go dtí go n-íoslódálfar do mheáin. Tar éis an íoslódáil a chur i gcrích, beidh tú in ann eochair nua a chruthú.</string>
     <!-- Action label to turn off optimized storage and download media -->
-    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Turn off and download</string>
+    <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Cas as agus íoslódáil</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Create a new backup key</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Cruthaigh eochair chúltaca nua</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Ní gá eochair nua a chruthú ach amháin má tá d\'eochair ar eolas ag duine eile. Beidh ort do chúltaca a ath-uaslódáil, meáin san áireamh. Má tá \"Optamaigh stóras\" á úsáid agat beidh ort meáin a baineadh a íoslódáil ar dtús.</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cancel key creation?</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Cuir cruthú eochrach ar ceal?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Your new backup key won\'t be created unless you confirm it.</string>
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">Ní chruthófar d\'eochair chúltaca nua mura ndeimhneoidh tú í.</string>
     <!-- Dialog button to continue confirming new backup key-->
-    <string name="BackupKeyDisplayFragment__confirm_key">Confirm key</string>
+    <string name="BackupKeyDisplayFragment__confirm_key">Deimhnigh an eochair</string>
     <!-- Dialog button to cancel new key creation -->
-    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cancel key creation</string>
+    <string name="BackupKeyDisplayFragment__cancel_key_creation">Cuir cruthú eochrach ar ceal</string>
 
     <!-- Confirm key title -->
     <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Deimhnigh d\'eochair chúltaca</string>
@@ -8981,7 +8997,7 @@
     <!-- Verify your key title -->
     <string name="VerifyBackupPinScreen__enter_your_backup_key">Cuir isteach d\'eochair chúltaca</string>
     <!-- Verify your key subtitle -->
-    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Enter the 64-digit code you recorded when you enabled backups.</string>
+    <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Cuir isteach an cód 64 digit a thaifead tú nuair a chumasaigh tú cúltacaí.</string>
     <!-- Button text when you forget your backup key -->
     <string name="VerifyBackupPinScreen__forgot_key">Eochair dearmadta?</string>
 
@@ -8992,8 +9008,10 @@
     <string name="MessageBackupsTypeSelectionScreen__all_backups_are_end_to_end_encrypted">Tá gach cúltaca criptithe ó cheann ceann. Eagraíocht neamhbhrabúis is é Signal — cuidíonn íoc as cúltacaí le tacú lenár misean.</string>
     <!-- Screen subhead highlighted read-more button -->
     <string name="MessageBackupsTypeSelectionScreen__learn_more">Tuilleadh faisnéise</string>
-    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <!-- Primary action button label without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe">Roghnaigh an leibhéal gan chostas</string>
+    <!-- Primary action button label when selecting the free backup tier without a current selection -->
+    <string name="MessageBackupsTypeSelectionScreen__choose_free_plan">Roghnaigh plean saor in aisce</string>
     <!-- Primary action button label when selecting the paid backup tier without a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Faigh síntiús ar %1$s/sa mhí</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
@@ -9128,6 +9146,9 @@
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Earráid líonra le haischur Chúltaca Signal Android</string>
   <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <!-- Email subject when contacting support on a permanent backup import failure -->
+    <string name="EnterBackupKey_permanent_failure_support_email">Teip bhuan le haischur Chúltaca Signal Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
 
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Earráid líonra le heaspórtáil Chúltaca Signal Android</string>

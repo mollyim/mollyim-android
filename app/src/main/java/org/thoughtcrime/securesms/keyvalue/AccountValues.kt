@@ -83,6 +83,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
     private const val KEY_ACCOUNT_ENTROPY_POOL = "account.account_entropy_pool"
     private const val KEY_RESTORED_ACCOUNT_ENTROPY_KEY = "account.restored_account_entropy_pool"
+    private const val KEY_RESTORED_ACCOUNT_ENTROPY_KEY_FROM_PRIMARY = "account.restore_account_entropy_pool_primary"
 
     private val AEP_LOCK = ReentrantLock()
   }
@@ -127,7 +128,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
           return AccountEntropyPool(it)
         }
 
-        Log.i(TAG, "Generating Account Entropy Pool (AEP)...")
+        Log.i(TAG, "Generating Account Entropy Pool (AEP)...", Throwable(), true)
         val newAep = LibSignalAccountEntropyPool.generate()
         putString(KEY_ACCOUNT_ENTROPY_POOL, newAep)
         return AccountEntropyPool(newAep)
@@ -136,9 +137,21 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   fun rotateAccountEntropyPool(aep: AccountEntropyPool) {
     AEP_LOCK.withLock {
+      Log.i(TAG, "Rotating Account Entropy Pool (AEP)...", Throwable(), true)
       store
         .beginWrite()
         .putString(KEY_ACCOUNT_ENTROPY_POOL, aep.value)
+        .commit()
+    }
+  }
+
+  fun setAccountEntropyPoolFromPrimaryDevice(aep: AccountEntropyPool) {
+    AEP_LOCK.withLock {
+      Log.i(TAG, "Setting new AEP from primary device")
+      store
+        .beginWrite()
+        .putString(KEY_ACCOUNT_ENTROPY_POOL, aep.value)
+        .putBoolean(KEY_RESTORED_ACCOUNT_ENTROPY_KEY_FROM_PRIMARY, true)
         .commit()
     }
   }
@@ -165,8 +178,9 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   }
 
   @get:JvmName("restoredAccountEntropyPool")
-  @get:Synchronized
   val restoredAccountEntropyPool by booleanValue(KEY_RESTORED_ACCOUNT_ENTROPY_KEY, false)
+
+  val restoredAccountEntropyPoolFromPrimary by booleanValue(KEY_RESTORED_ACCOUNT_ENTROPY_KEY_FROM_PRIMARY, false)
 
   /** The local user's [ACI]. */
   val aci: ACI?
@@ -288,18 +302,6 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
         .beginWrite()
         .putBlob(KEY_PNI_IDENTITY_PUBLIC_KEY, key.publicKey.serialize())
         .putBlob(KEY_PNI_IDENTITY_PRIVATE_KEY, key.privateKey.serialize())
-        .commit()
-    }
-  }
-
-  /** When acting as a linked device, this method lets you store the identity keys sent from the primary device */
-  fun setAciIdentityKeysFromPrimaryDevice(aciKeys: IdentityKeyPair) {
-    synchronized(this) {
-      require(isLinkedDevice) { "Must be a linked device!" }
-      store
-        .beginWrite()
-        .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, aciKeys.publicKey.serialize())
-        .putBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, aciKeys.privateKey.serialize())
         .commit()
     }
   }
@@ -474,15 +476,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     Recipient.self().live().refresh()
   }
 
-  val deviceName: String?
-    get() = getString(KEY_DEVICE_NAME, null)
-
-  fun setDeviceName(deviceName: String?) {
-    if (deviceName == null)
-      remove(KEY_DEVICE_NAME)
-    else
-      putString(KEY_DEVICE_NAME, deviceName)
-  }
+  var deviceName: String? by stringValue(KEY_DEVICE_NAME, null)
 
   var deviceId: Int by integerValue(KEY_DEVICE_ID, SignalServiceAddress.DEFAULT_DEVICE_ID)
 
@@ -547,10 +541,10 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   }
 
   /**
-   * Whether or not the user has linked devices.
+   * Whether or not the user is a multi-device account (has linked devices or is a linked device).
    */
-  @get:JvmName("hasLinkedDevices")
-  var hasLinkedDevices by booleanValue(KEY_HAS_LINKED_DEVICES, false)
+  @get:JvmName("isMultiDevice")
+  var isMultiDevice by booleanValue(KEY_HAS_LINKED_DEVICES, false)
 
   // MOLLY: Keys were parametrized with the account number until 7.23.1
   private fun migrateLegacyAccountKeys() {
