@@ -108,14 +108,6 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
-            android:id="@+id/action_linkDevice"
-            app:destination="@+id/enterDeviceNameFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <action
             android:id="@+id/action_reRegisterWithPinFragment"
             app:destination="@id/reRegisterWithPinFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -145,28 +137,6 @@
 
 
     </fragment>
-
-    <fragment
-        android:id="@+id/enterDeviceNameFragment"
-        android:name="org.thoughtcrime.securesms.registration.ui.linkdevice.EnterDeviceNameFragment"
-        android:label="fragment_enter_device_name"
-        tools:layout="@layout/fragment_registration_link_device_name">
-
-        <action
-            android:id="@+id/action_linkDevice"
-            app:destination="@id/registerAsLinkedDeviceFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/registerAsLinkedDeviceFragment"
-        android:name="org.thoughtcrime.securesms.registration.ui.linkdevice.RegisterAsLinkedDeviceFragment"
-        android:label="fragment_register_as_linked_device"
-        tools:layout="@layout/fragment_registration_link_device" />
 
     <fragment
         android:id="@+id/enterCodeFragment"

@@ -41,6 +41,7 @@ import org.signal.core.util.ThreadUtil
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -62,12 +63,14 @@ import org.thoughtcrime.securesms.registrationv3.data.RegistrationRepository
 import org.thoughtcrime.securesms.registrationv3.ui.RegistrationCheckpoint
 import org.thoughtcrime.securesms.registrationv3.ui.RegistrationState
 import org.thoughtcrime.securesms.registrationv3.ui.RegistrationViewModel
+import org.thoughtcrime.securesms.registrationv3.ui.welcome.WelcomeFragmentDirections
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.Dialogs
 import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.SupportEmailUtil
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.livedata.LiveDataObserverCallback
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -555,12 +558,18 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
   }
 
   private fun onRegistrationButtonClicked() {
+    enableNetwork()
     when (enterPhoneNumberMode) {
       EnterPhoneNumberMode.NORMAL,
       EnterPhoneNumberMode.RESTART_AFTER_COLLECTION -> startNormalRegistration()
 
       EnterPhoneNumberMode.COLLECT_FOR_MANUAL_SIGNAL_BACKUPS_RESTORE -> findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.goToEnterBackupKey())
     }
+  }
+
+  private fun enableNetwork() {
+    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
+    AppDependencies.networkManager.setNetworkEnabled(true)
   }
 
   private fun startNormalRegistration() {
@@ -655,7 +664,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       setMessage(message)
       setPositiveButton(android.R.string.ok) { _, _ ->
         Log.d(TAG, "User confirmed number.")
-        if (missingFcmConsentRequired) {
+        if (missingFcmConsentRequired && BuildConfig.USE_PLAY_SERVICES) {
           handlePromptForNoPlayServices()
         } else {
           sharedViewModel.onUserConfirmedPhoneNumber(requireContext())

@@ -23,9 +23,6 @@ import org.signal.core.util.Base64
 import org.signal.core.util.Stopwatch
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
-import org.signal.libsignal.protocol.IdentityKeyPair
-import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileContentUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob
@@ -38,13 +35,11 @@ import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
 import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
-import org.thoughtcrime.securesms.registration.data.LinkDeviceRepository
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
 import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.data.network.BackupAuthCheckResult
 import org.thoughtcrime.securesms.registration.data.network.Challenge
-import org.thoughtcrime.securesms.registration.data.network.DeviceUuidRequestResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCheckResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCreationResult
@@ -898,83 +893,6 @@ class RegistrationViewModel : ViewModel() {
     store.update {
       it.copy(
         registrationCheckpoint = RegistrationCheckpoint.LOCAL_REGISTRATION_COMPLETE
-      )
-    }
-  }
-
-  fun setLinkDeviceName(name: String?) {
-    store.update {
-      it.copy(linkDeviceName = name)
-    }
-  }
-
-  fun attemptDeviceLink(context: Context, registrationErrorHandler: (RegisterAccountResult) -> Unit) {
-    setInProgress(true)
-
-    viewModelScope.launch(context = coroutineExceptionHandler) {
-      val linkDeviceRepository = LinkDeviceRepository(password)
-
-      val deviceUuid = linkDeviceRepository.requestDeviceLinkUuid().let { result ->
-        if (result !is DeviceUuidRequestResult.Success || result.uuid == null) {
-            registrationErrorHandler(RegisterAccountResult.UnknownError(result.getCause()))
-            return@launch
-        }
-        result.uuid
-      }
-
-      val deviceKeyPair: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
-      val url = linkDeviceRepository.deviceLinkUrl(deviceUuid, deviceKeyPair.publicKey)
-
-      store.update {
-        it.copy(
-          deviceLinkUrl = url,
-          inProgress = false,
-        )
-      }
-
-      val profileKey = ProfileKeyUtil.createNew()
-      val registrationId = RegistrationRepository.getRegistrationId()
-      val pniRegistrationId = RegistrationRepository.getPniRegistrationId()
-      val fcmToken = RegistrationRepository.getFcmToken(context)
-
-      val registrationResult = linkDeviceRepository.attemptDeviceLink(
-        deviceKeyPair = deviceKeyPair,
-        deviceName = store.value.linkDeviceName ?: throw IllegalStateException(),
-        profileKey = profileKey,
-        registrationId = registrationId,
-        pniRegistrationId = pniRegistrationId,
-        fcmToken = fcmToken,
-      )
-
-      setInProgress(true)
-
-      when (registrationResult) {
-        is RegisterAccountResult.Success -> {
-          val remoteResult = registrationResult.accountRegistrationResult
-          val registrationData = RegistrationData(
-            code = "",
-            e164 = remoteResult.number,
-            password = password,
-            registrationId = registrationId,
-            profileKey = profileKey,
-            fcmToken = fcmToken,
-            pniRegistrationId = pniRegistrationId,
-            recoveryPassword = null,
-          )
-          onSuccessfulRegistration(context, registrationData, remoteResult, true)
-        }
-
-        else -> {
-          registrationErrorHandler(registrationResult)
-          return@launch
-        }
-      }
-    }
-
-    store.update {
-      it.copy(
-        deviceLinkUrl = null,
-        inProgress = false,
       )
     }
   }
