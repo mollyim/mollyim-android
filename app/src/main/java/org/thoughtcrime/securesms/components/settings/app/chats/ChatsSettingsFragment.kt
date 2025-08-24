@@ -106,7 +106,7 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
         }
       )
 
-      if (!RemoteConfig.messageBackups) {
+      if (!RemoteConfig.messageBackupsInSettings) {
         dividerPref()
 
         sectionHeaderPref(R.string.preferences_chats__backups)

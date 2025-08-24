@@ -981,7 +981,8 @@ object RemoteConfig {
   // ) { value ->
   //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
   // }
-  val messageBackups: Boolean = false
+  val messageBackups: Boolean = true
+  val messageBackupsInSettings: Boolean = false
 
   val backupFallbackArchiveCdn: Int by remoteInt(
     key = "global.backups.mediaTierFallbackCdnNumber",
@@ -1041,7 +1042,7 @@ object RemoteConfig {
   // ) { value ->
   //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || BuildConfig.LINK_DEVICE_UX_ENABLED || value.asBoolean(false)
   // }
-  val restoreAfterRegistration: Boolean = false
+  val restoreAfterRegistration: Boolean = true
 
   @JvmStatic
   val backgroundMessageProcessInterval: Long by remoteValue(

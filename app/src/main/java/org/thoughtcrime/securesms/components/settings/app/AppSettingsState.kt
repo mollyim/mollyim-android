@@ -11,7 +11,7 @@ data class AppSettingsState(
   val clientDeprecated: Boolean,
   val showInternalPreferences: Boolean = RemoteConfig.internalUser,
   val showAppUpdates: Boolean = BuildConfig.MANAGES_MOLLY_UPDATES,
-  val showBackups: Boolean = RemoteConfig.messageBackups,
+  val showBackups: Boolean = RemoteConfig.messageBackupsInSettings,
   val backupFailureState: BackupFailureState = BackupFailureState.NONE,
   val legacyLocalBackupsEnabled: Boolean
 ) {

@@ -45,7 +45,8 @@ class SelectManualRestoreMethodFragment : ComposeFragment() {
   @Composable
   override fun FragmentContent() {
     SelectRestoreMethodScreen(
-      restoreMethods = listOf(RestoreMethod.FROM_SIGNAL_BACKUPS, RestoreMethod.FROM_LOCAL_BACKUP_V1),
+      // MOLLY: Remove RestoreMethod.FROM_SIGNAL_BACKUPS until messageBackupsInSettings is enabled
+      restoreMethods = listOf(RestoreMethod.FROM_LOCAL_BACKUP_V1),
       onRestoreMethodClicked = this::startRestoreMethod,
       onSkip = {
         sharedViewModel.skipRestore()
