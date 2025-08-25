@@ -621,7 +621,7 @@ public final class Megaphones {
   }
 
   private static boolean shouldShowTurnOnBackupsMegaphone(@NonNull Context context) {
-    if (!RemoteConfig.messageBackups() || SignalStore.backup().getLatestBackupTier() != null) {
+    if (!RemoteConfig.getMessageBackupsInSettings() || SignalStore.backup().getLatestBackupTier() != null) {
       return false;
     }
 

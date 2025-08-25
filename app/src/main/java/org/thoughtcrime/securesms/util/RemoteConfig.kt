@@ -982,6 +982,8 @@ object RemoteConfig {
   //   BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED || value.asBoolean(false)
   // }
   val messageBackups: Boolean = true
+
+  @JvmStatic
   val messageBackupsInSettings: Boolean = false
 
   val backupFallbackArchiveCdn: Int by remoteInt(
