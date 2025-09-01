@@ -4,6 +4,7 @@
 [![Reproducible build](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml/badge.svg)](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml)
 [![Translation status](https://hosted.weblate.org/widgets/molly-instant-messenger/-/svg-badge.svg)](https://hosted.weblate.org/engage/molly-instant-messenger/?utm_source=widget)
 [![Financial contributors](https://opencollective.com/mollyim/tiers/badge.svg)](https://opencollective.com/mollyim#category-CONTRIBUTE)
+[![Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square)](https://cloudsmith.com)
 
 Molly is a hardened version of [Signal](https://github.com/signalapp/Signal-Android) for Android, the fast simple yet secure messaging app by [Signal Foundation](https://signal.org).
 
@@ -125,7 +126,12 @@ Thanks to the following organizations for supporting the **Molly** project.
 <tr>
   <td>
     <a href="https://nlnet.nl/" target="_blank">
-      <img src="https://nlnet.nl/logo/banner.svg" alt="NLnet logo" height="60" />
+      <img src="https://nlnet.nl/logo/banner.svg" alt="NLnet logo" height="58" />
+    </a>
+  </td>
+  <td>
+    <a href="https://cloudsmith.com/blog/cloudsmith-loves-opensource/" target="_blank">
+      <img src="https://raw.githubusercontent.com/opswithranjan/CloudsmithLogo/main/CloudsmithLogoCropped.jpeg" alt="Cloudsmith logo" height="37" />
     </a>
   </td>
   <td>
