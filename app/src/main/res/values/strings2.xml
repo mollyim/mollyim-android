@@ -11,6 +11,11 @@
     <string name="arrays__socks5" translatable="false">SOCKS5</string>
     <string name="preferences__passphrase_lock">Database encryption</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">Protect Molly\'s database with a passphrase</string>
+    <string name="preferences__duress_code">Duress code</string>
+    <string name="preferences__duress_code_summary">Triggers app data wipe when this code is used to unlock</string>
+    <string name="preferences__change_duress_code">Change duress code</string>
+    <string name="preferences__create_duress_code_dialog_title">Create duress code</string>
+    <string name="preferences__duress_code_changed">Duress code changed</string>
     <string name="preferences__automatic_lockdown">Automatic lockdown</string>
     <string name="preferences__device_lock_timeout">Device lock timeout</string>
     <string name="preferences__passphrase_changed">Passphrase changed</string>
@@ -54,6 +59,7 @@
     <string name="ChangePassphraseDialogFragment_passphrase">Passphrase</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Please choose a passphrase that will be used to locally encrypt your data.\n\nThis should be a strong passphrase.</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generating keys. This may take a while…</string>
+    <string name="ChangePassphraseDialogFragment_duress_code_passphrase_dialog_content_text">Please choose a passphrase to trigger data wipe when you unlock.\n\nThis should not be same as your unlock passphrase.</string>
     <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Add to your device contacts</string>
     <string name="BlockUnblockDialog_delete_this_contact">Delete this contact?</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Your chat with %1$s will be deleted.</string>
