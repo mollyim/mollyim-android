@@ -1,0 +1,51 @@
+name: Publish to F-Droid
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  fdroid-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout F-Droid repo
+      uses: actions/checkout@v3
+      with:
+        repository: aditya-aswani/molly-privacy-fdroid
+        token: ${{ secrets.FDROID_REPO_TOKEN }}
+        path: fdroid-repo
+        
+    - name: Download APK from release
+      run: |
+        # Get latest release APK
+        gh release download --repo aditya-aswani/mollyim-android --pattern "*.apk"
+        
+    - name: Setup F-Droid
+      run: |
+        sudo apt update
+        sudo apt install fdroidserver
+        
+    - name: Update F-Droid repo
+      run: |
+        cd fdroid-repo
+        
+        # Copy APK to repo
+        mkdir -p repo/
+        cp ../Molly-*.apk repo/
+        
+        # Update index
+        fdroid update --create-metadata
+        fdroid publish
+        
+    - name: Commit and push
+      run: |
+        cd fdroid-repo
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Update Molly Privacy Enhanced $(date +%Y-%m-%d)" || exit 0
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.FDROID_REPO_TOKEN }}
