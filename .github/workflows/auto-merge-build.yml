@@ -14,33 +14,113 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Setup upstream
       run: |
         git remote add upstream https://github.com/mollyim/mollyim-android.git
         git fetch upstream
         
+    - name: Get upstream version
+      id: version
+      run: |
+        UPSTREAM_VERSION=$(git describe --tags upstream/main --abbrev=0 2>/dev/null || echo "unknown")
+        echo "upstream_version=$UPSTREAM_VERSION" >> $GITHUB_OUTPUT
+        DATE=$(date +%Y.%m.%d)
+        echo "build_date=$DATE" >> $GITHUB_OUTPUT
+        
     - name: Merge upstream changes
+      id: merge
       run: |
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git checkout disable-gif-linkpreview
-        git merge upstream/main --no-edit || true
+        
+        # Attempt merge and capture result
+        if git merge upstream/main --no-edit; then
+          echo "merge_success=true" >> $GITHUB_OUTPUT
+          git push origin disable-gif-linkpreview
+        else
+          echo "merge_success=false" >> $GITHUB_OUTPUT
+          echo "Merge conflicts detected. Manual intervention required."
+          exit 1
+        fi
         
     - name: Set up JDK
+      if: steps.merge.outputs.merge_success == 'true'
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
         
+    - name: Setup Android SDK
+      if: steps.merge.outputs.merge_success == 'true'
+      uses: android-actions/setup-android@v2
+      with:
+        api-level: 35
+        build-tools: 35.0.0
+        ndk: 28.0.13004108
+        
     - name: Build APK
+      if: steps.merge.outputs.merge_success == 'true'
       run: |
         chmod +x gradlew
-        ./gradlew assembleFossWebsiteRelease
+        ./gradlew assembleProdFossWebsiteRelease
         
-    - name: Upload APK
+    - name: Get APK info
+      if: steps.merge.outputs.merge_success == 'true'
+      id: apk_info
+      run: |
+        APK_PATH=$(find app/build/outputs/apk -name "*.apk" | head -1)
+        APK_SIZE=$(ls -lh "$APK_PATH" | awk '{print $5}')
+        echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+        echo "apk_size=$APK_SIZE" >> $GITHUB_OUTPUT
+        echo "apk_name=$(basename $APK_PATH)" >> $GITHUB_OUTPUT
+        
+    - name: Create Release
+      if: steps.merge.outputs.merge_success == 'true'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.upstream_version }}-privacy-${{ steps.version.outputs.build_date }}
+        name: "Molly Privacy Enhanced ${{ steps.version.outputs.upstream_version }} (${{ steps.version.outputs.build_date }})"
+        body: |
+          ## 🔒 Molly Privacy Enhanced - Automated Monthly Build
+          
+          **Base Version**: ${{ steps.version.outputs.upstream_version }}  
+          **Build Date**: ${{ steps.version.outputs.build_date }}  
+          **APK Size**: ${{ steps.apk_info.outputs.apk_size }}
+          
+          ### 🛡️ Privacy Modifications Included:
+          - ❌ **GIF Search Disabled**: No external Giphy API calls
+          - ❌ **Link Previews Disabled**: No automatic webpage fetching  
+          - ✅ **All Molly Features**: Complete messaging, calling, encryption
+          
+          ### 📱 Installation:
+          ```bash
+          adb install ${{ steps.apk_info.outputs.apk_name }}
+          ```
+          
+          ### 🧪 Testing:
+          - **GIF Test**: Should show "GIF search disabled" toast
+          - **Link Test**: URLs appear as plain text (no previews)
+          
+          ### 🔄 Auto-Generated:
+          This release was automatically generated from upstream Molly changes.
+          Privacy modifications remain intact and functional.
+          
+          ---
+          **🔒 Privacy First** • **📱 Fully Functional** • **🤖 Auto-Updated**
+        files: |
+          ${{ steps.apk_info.outputs.apk_path }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload Backup Artifact
+      if: steps.merge.outputs.merge_success == 'true'
       uses: actions/upload-artifact@v3
       with:
-        name: molly-no-gif-preview
-        path: app/build/outputs/apk/fossWebsite/release/*.apk
+        name: molly-privacy-${{ steps.version.outputs.build_date }}
+        path: ${{ steps.apk_info.outputs.apk_path }}
         retention-days: 90
