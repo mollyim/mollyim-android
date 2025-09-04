@@ -2,7 +2,7 @@ name: Auto Merge and Build
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # Monthly on the 1st
+    - cron: '0 0 */10 * *'  # Every 10 days
   workflow_dispatch:  # Manual trigger option
 
 jobs:
@@ -84,7 +84,7 @@ jobs:
         tag_name: ${{ steps.version.outputs.upstream_version }}-privacy-${{ steps.version.outputs.build_date }}
         name: "Molly Privacy Enhanced ${{ steps.version.outputs.upstream_version }} (${{ steps.version.outputs.build_date }})"
         body: |
-          ## 🔒 Molly Privacy Enhanced - Automated Monthly Build
+          ## 🔒 Molly Privacy Enhanced - Automated Build (Every 10 Days)
           
           **Base Version**: ${{ steps.version.outputs.upstream_version }}  
           **Build Date**: ${{ steps.version.outputs.build_date }}  
