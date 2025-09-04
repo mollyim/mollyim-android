@@ -64,25 +64,6 @@ public class GiphyActivity extends PassphraseRequiredActivity implements Keyboar
     Toast.makeText(this, "GIF search disabled", Toast.LENGTH_SHORT).show();
     finish();
     return;
-    setContentView(R.layout.giphy_activity);
-
-    final boolean forMms = getIntent().getBooleanExtra(EXTRA_IS_MMS, false);
-
-    recipientId = getIntent().getParcelableExtra(EXTRA_RECIPIENT_ID);
-    sendType    = getIntent().getParcelableExtra(EXTRA_TRANSPORT);
-    text        = getIntent().getCharSequenceExtra(EXTRA_TEXT);
-
-    giphyMp4ViewModel = new ViewModelProvider(this, new GiphyMp4ViewModel.Factory(forMms)).get(GiphyMp4ViewModel.class);
-    giphyMp4ViewModel.getSaveResultEvents().observe(this, this::handleGiphyMp4SaveResult);
-
-    initializeToolbar();
-
-    Fragment fragment = GiphyMp4Fragment.create(forMms);
-    getSupportFragmentManager().beginTransaction()
-                               .replace(R.id.fragment_container, fragment)
-                               .commit();
-
-    ViewUtil.focusAndShowKeyboard(findViewById(R.id.emoji_search_entry));
   }
 
   @Override
