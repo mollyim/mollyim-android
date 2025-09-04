@@ -1,0 +1,46 @@
+name: Auto Merge and Build
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Monthly on the 1st
+  workflow_dispatch:  # Manual trigger option
+
+jobs:
+  merge-and-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout your fork
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        
+    - name: Setup upstream
+      run: |
+        git remote add upstream https://github.com/mollyim/mollyim-android.git
+        git fetch upstream
+        
+    - name: Merge upstream changes
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git checkout disable-gif-linkpreview
+        git merge upstream/main --no-edit || true
+        
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Build APK
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleFossWebsiteRelease
+        
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: molly-no-gif-preview
+        path: app/build/outputs/apk/fossWebsite/release/*.apk
+        retention-days: 90
