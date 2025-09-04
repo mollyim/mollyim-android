@@ -10,6 +10,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
 env:
   TAG_REF: "${{ inputs.version || github.ref_name }}"
   BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
@@ -20,9 +23,6 @@ jobs:
     name: Build
     if: "github.event.base_ref != 'refs/heads/upstream'"
     runs-on: ubuntu-22.04
-
-    permissions:
-      contents: read # to fetch code (actions/checkout)
 
     env:
       GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
@@ -37,9 +37,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: gradle
 
-      - name: Set up builder image
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: true
+
+      - name: Build Docker image
         run: docker compose build
         working-directory: reproducible-builds
 

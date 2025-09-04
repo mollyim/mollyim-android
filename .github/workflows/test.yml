@@ -15,16 +15,6 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
-  wrapper_validation:
-    name: Validate Gradle wrapper
-    runs-on: ubuntu-22.04
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run wrapper validation
-        uses: gradle/actions/wrapper-validation@v3
-
   test:
     name: Run tests
     runs-on: ubuntu-22.04
@@ -42,7 +32,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Run tests
         run: ./gradlew build --no-daemon
