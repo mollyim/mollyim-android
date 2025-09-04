@@ -73,9 +73,14 @@ jobs:
       run: |
         APK_PATH=$(find app/build/outputs/apk -name "*.apk" | head -1)
         APK_SIZE=$(ls -lh "$APK_PATH" | awk '{print $5}')
-        echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+        
+        # Create Obtainium-friendly filename
+        OBTAINIUM_NAME="Molly-Privacy-Enhanced-${{ steps.version.outputs.upstream_version }}-FOSS.apk"
+        cp "$APK_PATH" "$OBTAINIUM_NAME"
+        
+        echo "apk_path=$OBTAINIUM_NAME" >> $GITHUB_OUTPUT
         echo "apk_size=$APK_SIZE" >> $GITHUB_OUTPUT
-        echo "apk_name=$(basename $APK_PATH)" >> $GITHUB_OUTPUT
+        echo "apk_name=$OBTAINIUM_NAME" >> $GITHUB_OUTPUT
         
     - name: Create Release
       if: steps.merge.outputs.merge_success == 'true'
@@ -108,8 +113,12 @@ jobs:
           This release was automatically generated from upstream Molly changes.
           Privacy modifications remain intact and functional.
           
+          ### 📱 Obtainium Users:
+          This release is optimized for Obtainium auto-updates.
+          Use filter: `privacy` to track only privacy-enhanced builds.
+          
           ---
-          **🔒 Privacy First** • **📱 Fully Functional** • **🤖 Auto-Updated**
+          **🔒 Privacy First** • **📱 Fully Functional** • **🤖 Auto-Updated** • **📱 Obtainium Ready**
         files: |
           ${{ steps.apk_info.outputs.apk_path }}
         draft: false
