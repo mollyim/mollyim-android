@@ -169,73 +169,9 @@ public class LinkPreviewView extends FrameLayout {
   }
 
   public void setLinkPreview(@NonNull RequestManager requestManager, @NonNull LinkPreview linkPreview, boolean showThumbnail, boolean showDescription, boolean scheduleMessageMode) {
-    spinner.setVisibility(GONE);
-    noPreview.setVisibility(GONE);
-
-    CallLinks.CallLinkParseResult linkParseResult = CallLinks.parseUrl(linkPreview.getUrl());
-    if (!Util.isEmpty(linkPreview.getTitle())) {
-      title.setText(linkPreview.getTitle());
-      title.setVisibility(VISIBLE);
-    } else if (linkParseResult != null) {
-      title.setText(R.string.Recipient_signal_call);
-      title.setVisibility(VISIBLE);
-    } else {
-      title.setVisibility(GONE);
-    }
-
-    if (showDescription && !Util.isEmpty(linkPreview.getDescription())) {
-      description.setText(linkPreview.getDescription());
-      description.setVisibility(VISIBLE);
-    } else if (linkParseResult != null) {
-      description.setText(R.string.LinkPreviewView__use_this_link_to_join_a_signal_call);
-      description.setVisibility(VISIBLE);
-    } else {
-      description.setVisibility(GONE);
-    }
-
-    String domain = null;
-
-    if (!Util.isEmpty(linkPreview.getUrl())) {
-      HttpUrl url = HttpUrl.parse(linkPreview.getUrl());
-      if (url != null) {
-        domain = url.topPrivateDomain();
-      }
-    }
-
-    if (domain != null && linkPreview.getDate() > 0) {
-      site.setText(getContext().getString(R.string.LinkPreviewView_domain_date, domain, formatDate(linkPreview.getDate())));
-      site.setVisibility(VISIBLE);
-    } else if (domain != null) {
-      site.setText(domain);
-      site.setVisibility(VISIBLE);
-    } else if (linkPreview.getDate() > 0) {
-      site.setText(formatDate(linkPreview.getDate()));
-      site.setVisibility(VISIBLE);
-    } else {
-      site.setVisibility(GONE);
-    }
-
-    if (showThumbnail && linkPreview.getThumbnail().isPresent()) {
-      thumbnail.setVisibility(VISIBLE);
-      thumbnailState.applyState(thumbnail);
-      thumbnail.get().setImageResource(requestManager, new ImageSlide(linkPreview.getThumbnail().get()), type == TYPE_CONVERSATION && !scheduleMessageMode, false);
-      thumbnail.get().showSecondaryText(false);
-      thumbnail.get().setOutlineEnabled(true);
-    } else if (linkParseResult != null) {
-      thumbnail.setVisibility(VISIBLE);
-      thumbnailState.applyState(thumbnail);
-      thumbnail.get().setImageDrawable(
-          requestManager,
-          new FallbackAvatarDrawable(
-              getContext(),
-              new FallbackAvatar.Resource.CallLink(AvatarColorHash.forCallLink(linkParseResult.getRootKey().getKeyBytes()))
-          ).circleCrop()
-      );
-      thumbnail.get().showSecondaryText(false);
-      thumbnail.get().setOutlineEnabled(false);
-    } else {
-      thumbnail.setVisibility(GONE);
-    }
+    // Disable link preview rendering
+    setVisibility(View.GONE);
+    return;
   }
 
   public void setCorners(int topStart, int topEnd) {

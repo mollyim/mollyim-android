@@ -127,52 +127,11 @@ public class LinkPreviewRepository {
                                              @NonNull String url,
                                              @NonNull Callback callback)
   {
-    if (!SignalStore.settings().isLinkPreviewsEnabled()) {
-      throw new IllegalStateException();
-    }
-
-    CompositeRequestController compositeController = new CompositeRequestController();
-
-    if (!LinkUtil.isValidPreviewUrl(url)) {
-      Log.w(TAG, "Tried to get a link preview for a non-whitelisted domain.");
-      callback.onError(Error.PREVIEW_NOT_AVAILABLE);
-      return compositeController;
-    }
-
-    RequestController metadataController;
-
-    if (StickerUrl.isValidShareLink(url)) {
-      metadataController = fetchStickerPackLinkPreview(context, url, callback);
-    } else if (GroupInviteLinkUrl.isGroupLink(url)) {
-      metadataController = fetchGroupLinkPreview(context, url, callback);
-    } else if (CallLinks.isCallLink(url)) {
-      metadataController = fetchCallLinkPreview(context, url, callback);
-    } else {
-      metadataController = fetchMetadata(url, metadata -> {
-        if (metadata.isEmpty()) {
-          callback.onError(Error.PREVIEW_NOT_AVAILABLE);
-          return;
-        }
-
-        if (!metadata.getImageUrl().isPresent()) {
-          callback.onSuccess(new LinkPreview(url, metadata.getTitle().orElse(""), metadata.getDescription().orElse(""), metadata.getDate(), Optional.empty()));
-          return;
-        }
-
-        RequestController imageController = fetchThumbnail(metadata.getImageUrl().get(), attachment -> {
-          if (!metadata.getTitle().isPresent() && !attachment.isPresent()) {
-            callback.onError(Error.PREVIEW_NOT_AVAILABLE);
-          } else {
-            callback.onSuccess(new LinkPreview(url, metadata.getTitle().orElse(""), metadata.getDescription().orElse(""), metadata.getDate(), attachment));
-          }
-        });
-
-        compositeController.addController(imageController);
-      });
-    }
-
-    compositeController.addController(metadataController);
-    return compositeController;
+    callback.onError(Error.PREVIEW_NOT_AVAILABLE);
+    return new RequestController() {
+      @Override
+      public void cancel() {}
+    };
   }
 
   private @NonNull RequestController fetchMetadata(@NonNull String url, Consumer<Metadata> callback) {

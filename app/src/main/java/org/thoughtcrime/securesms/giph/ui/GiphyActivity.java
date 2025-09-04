@@ -60,9 +60,10 @@ public class GiphyActivity extends PassphraseRequiredActivity implements Keyboar
   @SuppressLint("MissingInflatedId")
   @Override
   public void onCreate(Bundle bundle, boolean ready) {
-    if (!RemoteConfig.gifSearchAvailable()) {
-      finish();
-    }
+    // Disable GIF search - immediately close activity
+    Toast.makeText(this, "GIF search disabled", Toast.LENGTH_SHORT).show();
+    finish();
+    return;
     setContentView(R.layout.giphy_activity);
 
     final boolean forMms = getIntent().getBooleanExtra(EXTRA_IS_MMS, false);
