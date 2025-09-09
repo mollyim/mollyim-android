@@ -42,12 +42,6 @@ dependencyResolutionManagement {
       }
     }
     maven {
-      url = uri("https://raw.githubusercontent.com/mollyim/maven/master/glide-webp-decoder/releases/")
-      content {
-        includeModule("im.molly", "glide-webp-decoder")
-      }
-    }
-    maven {
       url = uri("https://raw.githubusercontent.com/signalapp/maven/master/sqlcipher/release/")
       content {
         includeModule("org.signal", "sqlcipher-android")

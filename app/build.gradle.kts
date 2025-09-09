@@ -526,7 +526,6 @@ dependencies {
   implementation(project(":libnetcipher"))
   implementation(libs.molly.argon2) { artifact { type = "aar" } }
   implementation(libs.molly.native.utils)
-  implementation(libs.molly.glide.webp.decoder)
   implementation(libs.gosimple.nbvcxz)
   "fossImplementation"(libs.osmdroid.android)
   implementation(libs.unifiedpush.connector) {
