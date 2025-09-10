@@ -166,8 +166,13 @@ class BackupMessagesJob private constructor(
 
     val svrBMetadata: SvrBStoreResponse = when (val result = SignalNetwork.svrB.store(auth, SignalStore.backup.messageBackupKey, backupSecretData)) {
       is SvrBApi.StoreResult.Success -> result.data
-      is SvrBApi.StoreResult.NetworkError -> return Result.retry(defaultBackoff()).logW(TAG, "SVRB transient network error.", result.exception)
+      is SvrBApi.StoreResult.NetworkError -> return Result.retry(result.retryAfter?.inWholeMilliseconds ?: defaultBackoff()).logW(TAG, "SVRB transient network error.", result.exception)
       is SvrBApi.StoreResult.SvrError -> return Result.retry(defaultBackoff()).logW(TAG, "SVRB error.", result.throwable)
+      SvrBApi.StoreResult.InvalidDataError -> {
+        Log.w(TAG, "Invalid SVRB data on the server! Clearing backup secret data and retrying.")
+        SignalStore.backup.nextBackupSecretData = null
+        return Result.retry(defaultBackoff())
+      }
       is SvrBApi.StoreResult.UnknownError -> return Result.fatalFailure(RuntimeException(result.throwable))
     }
 
@@ -290,7 +295,7 @@ class BackupMessagesJob private constructor(
       return Result.failure()
     }
 
-    if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload(System.currentTimeMillis())) {
+    if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
       Log.i(TAG, "Enqueuing attachment backfill job.")
       AppDependencies.jobManager.add(ArchiveAttachmentBackfillJob())
     } else {

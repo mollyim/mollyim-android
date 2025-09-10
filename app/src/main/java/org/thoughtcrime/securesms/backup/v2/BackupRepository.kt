@@ -103,6 +103,7 @@ import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob
 import org.thoughtcrime.securesms.jobs.BackupDeleteJob
 import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.jobs.BackupRestoreMediaJob
+import org.thoughtcrime.securesms.jobs.CheckRestoreMediaLeftJob
 import org.thoughtcrime.securesms.jobs.CreateReleaseChannelJob
 import org.thoughtcrime.securesms.jobs.LocalBackupJob
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
@@ -359,6 +360,8 @@ object BackupRepository {
     SignalStore.backup.userManuallySkippedMediaRestore = true
 
     RestoreAttachmentJob.Queues.ALL.forEach { AppDependencies.jobManager.cancelAllInQueue(it) }
+
+    RestoreAttachmentJob.Queues.ALL.forEach { AppDependencies.jobManager.add(CheckRestoreMediaLeftJob(it)) }
   }
 
   fun markBackupFailure() {
@@ -1590,6 +1593,7 @@ object BackupRepository {
       !DatabaseAttachmentArchiveUtil.hadIntegrityCheckPerformed(attachment) -> false
       messageId == AttachmentTable.PREUPLOAD_MESSAGE_ID -> false
       SignalDatabase.messages.isStory(messageId) -> false
+      SignalDatabase.messages.isViewOnce(messageId) -> false
       SignalDatabase.messages.willMessageExpireBeforeCutoff(messageId) -> false
       else -> true
     }
@@ -2086,14 +2090,22 @@ object BackupRepository {
         result.data.forwardSecrecyToken
       }
       is SvrBApi.RestoreResult.NetworkError -> {
-        return RemoteRestoreResult.NetworkError.logW(TAG, "[remoteRestore] Network error during SVRB.", result.exception)
+        Log.w(TAG, "[remoteRestore] Network error during SVRB.", result.exception)
+        return RemoteRestoreResult.NetworkError
+      }
+      is SvrBApi.RestoreResult.RestoreFailedError,
+      SvrBApi.RestoreResult.InvalidDataError -> {
+        Log.w(TAG, "[remoteRestore] Permanent SVRB error! $result")
+        return RemoteRestoreResult.PermanentSvrBFailure
       }
       SvrBApi.RestoreResult.DataMissingError,
-      is SvrBApi.RestoreResult.RestoreFailedError,
-      is SvrBApi.RestoreResult.SvrError,
-      is SvrBApi.RestoreResult.UnknownError -> {
+      is SvrBApi.RestoreResult.SvrError -> {
         Log.w(TAG, "[remoteRestore] Failed to fetch SVRB data: $result")
         return RemoteRestoreResult.Failure
+      }
+      is SvrBApi.RestoreResult.UnknownError -> {
+        Log.e(TAG, "[remoteRestore] Unknown SVRB result! Crashing.", result.throwable)
+        throw result.throwable
       }
     }
 

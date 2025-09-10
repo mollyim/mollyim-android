@@ -348,7 +348,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               modifier = Modifier
                 .padding(start = contentLayoutData.listPaddingStart)
                 .fillMaxSize()
-                .background(listContainerColor)
+                .background(listContainerColor, contentLayoutData.shape)
                 .clip(contentLayoutData.shape)
             ) {
               MainToolbar(

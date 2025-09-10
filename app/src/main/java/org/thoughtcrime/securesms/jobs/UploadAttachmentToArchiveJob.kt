@@ -56,10 +56,18 @@ class UploadAttachmentToArchiveJob private constructor(
 
     /** A set of possible queues this job may use. The number of queues determines the parallelism. */
     val QUEUES = setOf(
-      "ArchiveAttachmentJobs_1",
-      "ArchiveAttachmentJobs_2",
-      "ArchiveAttachmentJobs_3",
-      "ArchiveAttachmentJobs_4"
+      "ArchiveAttachmentJobs_01",
+      "ArchiveAttachmentJobs_02",
+      "ArchiveAttachmentJobs_03",
+      "ArchiveAttachmentJobs_04",
+      "ArchiveAttachmentJobs_05",
+      "ArchiveAttachmentJobs_06",
+      "ArchiveAttachmentJobs_07",
+      "ArchiveAttachmentJobs_08",
+      "ArchiveAttachmentJobs_09",
+      "ArchiveAttachmentJobs_10",
+      "ArchiveAttachmentJobs_11",
+      "ArchiveAttachmentJobs_12"
     )
   }
 
@@ -134,6 +142,12 @@ class UploadAttachmentToArchiveJob private constructor(
       return Result.success()
     }
 
+    if (SignalDatabase.messages.isViewOnce(attachment.mmsId)) {
+      Log.i(TAG, "[$attachmentId] Attachment is a view-once. Resetting transfer state to none and skipping.")
+      SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+      return Result.success()
+    }
+
     if (SignalDatabase.messages.willMessageExpireBeforeCutoff(attachment.mmsId)) {
       Log.i(TAG, "[$attachmentId] Message will expire within 24 hours. Resetting transfer state to none and skipping.")
       SignalDatabase.attachments.setArchiveTransferState(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
@@ -181,6 +195,8 @@ class UploadAttachmentToArchiveJob private constructor(
     } else {
       null
     }
+
+    ArchiveUploadProgress.onAttachmentStarted(attachmentId, attachment.size)
 
     val attachmentStream = try {
       AttachmentUploadUtil.buildSignalServiceAttachmentStream(

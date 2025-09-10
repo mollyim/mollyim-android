@@ -8,9 +8,9 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1576
-val canonicalVersionName = "7.53.5"
-val currentHotfixVersion = 1
+val canonicalVersionCode = 1578
+val canonicalVersionName = "7.54.1"
+val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
 
@@ -565,6 +565,7 @@ dependencies {
   testImplementation(testFixtures(project(":libsignal-service")))
   testImplementation(testLibs.espresso.core)
   testImplementation(testLibs.kotlinx.coroutines.test)
+  testImplementation(libs.androidx.compose.ui.test.junit4)
 
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)

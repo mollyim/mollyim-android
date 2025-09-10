@@ -86,6 +86,7 @@ import org.thoughtcrime.securesms.notifications.MarkReadReceiver
 import org.thoughtcrime.securesms.ratelimit.RateLimitUtil
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkCredentials
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
 import org.thoughtcrime.securesms.service.webrtc.links.SignalCallLinkState
@@ -1165,7 +1166,7 @@ object SyncMessageProcessor {
       }
       MessageRequestResponse.Type.BLOCK -> {
         SignalDatabase.recipients.setBlocked(recipient.id, true)
-        SignalDatabase.recipients.setProfileSharing(recipient.id, false)
+        RecipientUtil.updateProfileSharingAfterBlock(recipient, true)
         SignalDatabase.messages.insertMessageOutbox(
           message = OutgoingMessage.blockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
           threadId = threadId
@@ -1173,7 +1174,7 @@ object SyncMessageProcessor {
       }
       MessageRequestResponse.Type.BLOCK_AND_DELETE -> {
         SignalDatabase.recipients.setBlocked(recipient.id, true)
-        SignalDatabase.recipients.setProfileSharing(recipient.id, false)
+        RecipientUtil.updateProfileSharingAfterBlock(recipient, true)
         if (threadId > 0) {
           SignalDatabase.threads.deleteConversation(threadId, syncThreadDelete = false)
         }
@@ -1186,7 +1187,7 @@ object SyncMessageProcessor {
       }
       MessageRequestResponse.Type.BLOCK_AND_SPAM -> {
         SignalDatabase.recipients.setBlocked(recipient.id, true)
-        SignalDatabase.recipients.setProfileSharing(recipient.id, false)
+        RecipientUtil.updateProfileSharingAfterBlock(recipient, true)
         SignalDatabase.messages.insertMessageOutbox(
           message = OutgoingMessage.reportSpamMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong())),
           threadId = threadId

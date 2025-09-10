@@ -1359,6 +1359,13 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     databaseHelper.signalWritableDatabase
   }
 
+  fun isViewOnce(messageId: Long): Boolean {
+    return readableDatabase
+      .exists(TABLE_NAME)
+      .where("$ID = ? AND $VIEW_ONCE > 0", messageId)
+      .run()
+  }
+
   fun isStory(messageId: Long): Boolean {
     return readableDatabase
       .exists(TABLE_NAME)
