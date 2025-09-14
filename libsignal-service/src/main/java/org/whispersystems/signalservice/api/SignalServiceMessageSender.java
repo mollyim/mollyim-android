@@ -185,7 +185,8 @@ public class SignalServiceMessageSender {
   private final Scheduler       scheduler;
   private final long            maxEnvelopeSize;
   private final BooleanSupplier useRestFallback;
-  private final UsePqRatchet usePqRatchet;
+  private final UsePqRatchet    usePqRatchet;
+  private final Optional<Long>  internalOnlyMaxEnvelopeSize;
 
   public SignalServiceMessageSender(PushServiceSocket pushServiceSocket,
                                     SignalServiceDataStore store,
@@ -197,25 +198,27 @@ public class SignalServiceMessageSender {
                                     ExecutorService executor,
                                     long maxEnvelopeSize,
                                     BooleanSupplier useRestFallback,
-                                    UsePqRatchet usePqRatchet)
+                                    UsePqRatchet usePqRatchet,
+                                    Optional<Long> internalOnlyMaxEnvelopeSize)
   {
     CredentialsProvider credentialsProvider = pushServiceSocket.getCredentialsProvider();
 
-    this.socket           = pushServiceSocket;
-    this.aciStore         = store.aci();
-    this.sessionLock      = sessionLock;
-    this.localAddress     = new SignalServiceAddress(credentialsProvider.getAci(), credentialsProvider.getE164());
-    this.localDeviceId    = credentialsProvider.getDeviceId();
-    this.localPni         = credentialsProvider.getPni();
-    this.attachmentApi    = attachmentApi;
-    this.messageApi       = messageApi;
-    this.eventListener    = eventListener;
-    this.maxEnvelopeSize  = maxEnvelopeSize;
-    this.localPniIdentity = store.pni().getIdentityKeyPair();
-    this.scheduler        = Schedulers.from(executor, false, false);
-    this.keysApi          = keysApi;
-    this.useRestFallback  = useRestFallback;
-    this.usePqRatchet     = usePqRatchet;
+    this.socket                      = pushServiceSocket;
+    this.aciStore                    = store.aci();
+    this.sessionLock                 = sessionLock;
+    this.localAddress                = new SignalServiceAddress(credentialsProvider.getAci(), credentialsProvider.getE164());
+    this.localDeviceId               = credentialsProvider.getDeviceId();
+    this.localPni                    = credentialsProvider.getPni();
+    this.attachmentApi               = attachmentApi;
+    this.messageApi                  = messageApi;
+    this.eventListener               = eventListener;
+    this.maxEnvelopeSize             = maxEnvelopeSize;
+    this.localPniIdentity            = store.pni().getIdentityKeyPair();
+    this.scheduler                   = Schedulers.from(executor, false, false);
+    this.keysApi                     = keysApi;
+    this.useRestFallback             = useRestFallback;
+    this.usePqRatchet                = usePqRatchet;
+    this.internalOnlyMaxEnvelopeSize = internalOnlyMaxEnvelopeSize;
   }
 
   /**
@@ -1098,7 +1101,11 @@ public class SignalServiceMessageSender {
           }
 
           if (attachment.getThumbnail() != null) {
-            quotedAttachment.thumbnail(createAttachmentPointer(attachment.getThumbnail().asStream()));
+            if (attachment.getThumbnail().isStream()) {
+              quotedAttachment.thumbnail(createAttachmentPointer(attachment.getThumbnail().asStream()));
+            } else {
+              quotedAttachment.thumbnail(createAttachmentPointer(attachment.getThumbnail().asPointer()));
+            }
           }
 
           quotedAttachments.add(quotedAttachment.build());
@@ -2813,6 +2820,11 @@ public class SignalServiceMessageSender {
     if (maxEnvelopeSize > 0 && size > maxEnvelopeSize) {
       throw new ContentTooLargeException(size);
     }
+
+    if (internalOnlyMaxEnvelopeSize.isPresent() && size > internalOnlyMaxEnvelopeSize.get()) {
+      throw new ContentTooLargeException(size);
+    }
+
     return content;
   }
 
@@ -2822,6 +2834,11 @@ public class SignalServiceMessageSender {
     if (maxEnvelopeSize > 0 && size > maxEnvelopeSize) {
       throw new ContentTooLargeException(size);
     }
+
+    if (internalOnlyMaxEnvelopeSize.isPresent() && size > internalOnlyMaxEnvelopeSize.get()) {
+      throw new ContentTooLargeException(size);
+    }
+
     return content;
   }
 

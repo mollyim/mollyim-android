@@ -119,6 +119,10 @@ object ExportSkips {
     return log(sentTimestamp, "Failed to parse thread merge event.")
   }
 
+  fun individualChatUpdateInWrongTypeOfChat(sentTimestamp: Long): String {
+    return log(sentTimestamp, "A chat update that only makes sense for individual chats was found in a different kind of chat.")
+  }
+
   private fun log(sentTimestamp: Long, message: String): String {
     return "[SKIP][$sentTimestamp] $message"
   }
@@ -175,7 +179,7 @@ object ExportOddities {
   }
 
   fun unreadableLongTextAttachment(sentTimestamp: Long): String {
-    return log(sentTimestamp, "Long text attachment was unreadable. Falling back to the known body with an attachment pointer.")
+    return log(sentTimestamp, "Long text attachment was unreadable. Dropping the pointer.")
   }
 
   fun unopenableLongTextAttachment(sentTimestamp: Long): String {

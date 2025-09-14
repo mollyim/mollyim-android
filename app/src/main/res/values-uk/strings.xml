@@ -559,15 +559,6 @@
     <!-- Toast message shown when trying to record a voice message during an ongoing call -->
     <string name="ConversationFragment_cannot_record_voice_message_during_call">Неможливо записати голосове повідомлення під час виклику.</string>
 
-    <!-- Title for dialog shown when first sending formatted text -->
-    <string name="SendingFormattingTextDialog_title">Надсилання форматованого тексту</string>
-    <!-- Message for dialog shown when first sending formatted text -->
-    <string name="SendingFormattingTextDialog_message">Можливо, дехто використовує версію Signal, яка не підтримує форматований текст. Такі користувачі не зможуть побачити, що ви змінили форматування свого повідомлення.</string>
-    <!-- Button text for confirming they\'d like to send the message with formatting after seeing warning. -->
-    <string name="SendingFormattingTextDialog_send_anyway_button">Усе одно надіслати</string>
-    <!-- Button text for canceling sending the message with formatting after seeing warning. -->
-    <string name="SendingFormattingTextDialog_cancel_send_button">Скасувати</string>
-
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
         <item quantity="one">%1$d непрочитане повідомлення</item>
@@ -909,10 +900,6 @@
     <string name="CreateBackupBottomSheet__you_are_all_set">Усе готово. Тепер можна створити резервну копію.</string>
     <!-- Bottom sheet message -->
     <string name="CreateBackupBottomSheet__depending_on_the_size">Що більший розмір резервної копії, то довше триватиме її створення. Поки копія створюється, ви можете користуватися телефоном як зазвичай.</string>
-    <!-- Action button to dismiss sheet and back up later -->
-    <string name="CreateBackupBottomSheet__back_up_later">Створити пізніше</string>
-    <!-- Action button to dismiss sheet and back up now -->
-    <string name="CreateBackupBottomSheet__back_up_now">Створити копію зараз</string>
 
     <!-- Headline text for a bottom sheet dialog shown when the restoration of the media backup fails. -->
     <string name="RestoreMediaFailedBottomSheet__Cant_restore_media">Не вдається відновити медіафайли</string>
@@ -1179,6 +1166,8 @@
     <string name="LinkDeviceSyncBottomSheet_transfer">Перенести історію повідомлень</string>
     <!-- Description in bottom sheet of what transferring message history will do -->
     <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Буде перенесено всі текстові повідомлення і медіафайли за минулі 45 днів</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text_and_all_media">Буде перенесено текстові повідомлення й медіафайли</string>
     <!-- Option in bottom sheet to not transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_dont_transfer">Не переносити</string>
     <!-- Description in bottom sheet of what not transferring history will do -->
@@ -1576,7 +1565,7 @@
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Не зараз</string>
     <!-- Text shown on restore screen as information on what will happen if you skip -->
-    <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Your media will restore in the background. If you choose not to restore now, you won\'t be able to restore later.</string>
+    <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Відновлення медіафайлів відбувається у фоновому режимі. Якщо ви не відновите дані зараз, то не зможете зробити цього пізніше.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Сповіщати про згадки</string>
@@ -2231,6 +2220,8 @@
     <string name="MessageRecord_you_blocked_this_group">Ви заблокували цю групу</string>
     <!-- Update message shown in chat after you unblock a group -->
     <string name="MessageRecord_you_unblocked_this_group">Ви розблокували цю групу</string>
+    <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
+    <string name="MessageRecord_unsupported_feature">Користувач %1$s надіслав вам повідомлення, яке неможливо опрацювати або показати, оскільки було використано нову функцію Signal.</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Прийняти</string>
@@ -5056,7 +5047,7 @@
     <!-- Content description for info icon -->
     <string name="Beta__info">Інформація</string>
     <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
-    <string name="Beta__this_is_beta">Це бета-функція, яку ми регулярно оновлюватимемо.</string>
+    <string name="Beta__this_is_beta">This is a beta feature and will be improved over time.</string>
 
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Розблокуйте Molly</string>
@@ -5623,7 +5614,7 @@
 
     <!-- AppSettingsFragment -->
     <!-- String alerting user that something is wrong with their backups subscription -->
-    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Поновіть передплату на резервне копіювання від Signal</string>
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Поновіть передплату на надійне резервне копіювання від Signal</string>
     <!-- String alerting user that backup failed -->
     <string name="AppSettingsFragment__couldnt_complete_backup">Резервне копіювання не завершено</string>
     <!-- String alerting user that backup redemption -->
@@ -7948,15 +7939,6 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Попередній текст</string>
-    <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Редагування повідомлення</string>
-    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">Якщо ви відредагуєте повідомлення, це буде видно тільки користувачам найновіших версій Signal. Вони зможуть побачити, що ви відредагували повідомлення.</string>
-    <!-- Button to cancel sending edit message as it is beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_cancel">Скасувати</string>
-    <!-- Button to continue sending edit message despite it being beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_send">Надіслати</string>
-
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->
@@ -8077,7 +8059,7 @@
     <string name="PendingParticipantsBottomSheet__deny_all">Відхилити всі</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
-    <string name="TurnOnSignalBackups__title">Увімкніть резервне копіювання</string>
+    <string name="TurnOnSignalBackups__title">Увімкніть надійне резервне копіювання</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">Ви не втратите повідомлення, навіть якщо зміните телефон або перевстановите Signal.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8085,17 +8067,17 @@
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">Не зараз</string>
 
-    <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__title">Підтвердьте свій ключ</string>
-    <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">We\'ll occasionally ask you to verify your key to ensure you still know it</string>
-    <!-- Button of a megaphone that will take users to the verify backup key screen -->
+    <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
+    <string name="VerifyBackupKey__title">Перевірте ключ відновлення</string>
+    <!-- Body of a megaphone shown to prompt the user to verify their recovery key -->
+    <string name="VerifyBackupKey__body">Періодично ми проситимемо вас підтверджувати ключ від резервної копії, щоб ви не забували, де його зберегли</string>
+    <!-- Button of a megaphone that will take users to the verify recovery key screen -->
     <string name="VerifyBackupKey__verify">Підтвердити</string>
-    <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
+    <!-- Button of a megaphone that will snooze the reminder to verify their recovery key -->
     <string name="VerifyBackupKey__not_now">Не зараз</string>
-    <!-- Snackbar text shown when the backup key entered is correct. -->
-    <string name="VerifyBackupKey__backup_key_correct">Ключ від резервної копії правильний. Бережіть цей ключ.</string>
-    <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
+    <!-- Snackbar text shown when the recovery key entered is correct. -->
+    <string name="VerifyBackupKey__backup_key_correct">Ключ відновлення правильний. Бережіть цей ключ.</string>
+    <!-- Snackbar text shown when the user chooses to snooze the recovery key reminder. -->
     <string name="VerifyBackupKey__we_will_ask_again">Через тиждень ми спитаємо знов.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -8245,7 +8227,7 @@
     <!-- Sheet body part 1 for when user falls out of grace period -->
     <string name="BackupAlertBottomSheet__your_subscription_couldnt_be_renewed">Не вдалося відновити передплату з цим платіжним засобом. Щоб і надалі створювати резервну копію медіафайлів, потрібна активна передплата.</string>
     <!-- Sheet body part 2 for when user falls out of grace period -->
-    <string name="BackupAlertBottomSheet__youll_continue_to_have_access_to_the_free">Ви все одно матимете доступ до безплатного плану резервного копіювання від Signal.</string>
+    <string name="BackupAlertBottomSheet__youll_continue_to_have_access_to_the_free">Ви все одно матимете доступ до безплатного плану надійного резервного копіювання від Signal.</string>
     <!-- Sheet title for generic backup error -->
     <string name="BackupAlertBottomSheet__couldnt_complete_backup">Резервне копіювання не завершено</string>
     <!-- Sheet body for generic backup error. Placeholder is days since last backup. -->
@@ -8315,6 +8297,8 @@
     <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Звільніть %1$s, щоб відновити медіафайли.</string>
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Відновлення медіафайлів</string>
+    <!-- Status title for banner when user is canceling restore media from a backup -->
+    <string name="BackupStatus__cancel_restore_media">Скасування відновлення медіафайлів</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
     <string name="BackupStatus__restore_paused">Відновлення медіафайлів припинено</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
@@ -8410,13 +8394,13 @@
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Медіафайли, які не використовуються, буде вивантажено з пам\'яті пристрою; їх можна в будь-який час завантажити на пристрій з резервної копії.</string>
     <!-- Dialog message for paid tier pending dialog -->
-    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Оптимізація пам\'яті доступна тим, хто користується платним резервним копіюванням від Signal. Опрацювання вашої передплати ще триває, тому вона поки що неактивна. Будь ласка, спробуйте пізніше.</string>
+    <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Оптимізація пам\'яті доступна тим, хто платить за надійне резервне копіювання від Signal. Опрацювання вашої передплати ще триває, тому вона поки що неактивна. Будь ласка, спробуйте пізніше.</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
     <string name="UpgradeToEnableOptimizedStorageSheet__upgrade_to_enable_this_feature">Функція доступна за передплатою</string>
     <!-- Subtitle of bottom sheet detailing that the user must upgrade to enable storage optimization -->
-    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">Оптимізація пам\'яті доступна тим, хто користується платним резервним копіюванням від Signal. Оформте передплату, щоб використовувати цю функцію.</string>
+    <string name="UpgradeToEnableOptimizedStorageSheet__storage_optimization_can_only_be_used">Оптимізація пам\'яті доступна тим, хто платить за надійне резервне копіювання від Signal. Оформте передплату, щоб використовувати цю можливість.</string>
     <!-- Primary action to launch upgrade flow. Placeholder is formatted price. -->
     <string name="UpgradeToEnableOptimizedStorageSheet__subscribe_for_s_month">Передплатити за %1$s/місяць</string>
 
@@ -8437,7 +8421,7 @@
     <!-- Title on a bottom sheet explaining that the given media is no longer available. -->
     <string name="MediaNoLongerAvailableSheet__this_media_is_no_longer_available">Цей медіафайл більше не доступний</string>
     <!-- Body on a bottom sheet explaining that the user can enable backups -->
-    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Щоб створювати резервні копії всіх медіафайлів, увімкніть резервне копіювання від Signal і оформте передплату.</string>
+    <string name="MediaNoLongerAvailableSheet__to_start_backing_up_all_your_media">Щоб створювати резервну копію всіх медіафайлів, увімкніть надійне резервне копіювання від Signal і оформте передплату.</string>
     <!-- Primary action button on bottom sheet -->
     <string name="MediaNoLongerAvailableSheet__continue">Продовжити</string>
     <!-- Secondary action button on bottom sheet -->
@@ -8485,8 +8469,12 @@
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
     <string name="RemoteBackupsSettingsFragment__cancel_upload">Скасувати вивантаження</string>
+    <!-- Displayed on the title bar for Signal Secure Backups -->
+    <string name="RemoteBackupsSettingsFragment__secure_backups">Надійне резервне копіювання</string>
     <!-- Displayed on the title bar -->
-    <string name="RemoteBackupsSettingsFragment__signal_backups">Резервне копіювання від Signal</string>
+    <string name="RemoteBackupsSettingsFragment__signal_backups">Надійне резервне копіювання від Signal</string>
+    <!-- Displayed as a label when remote backups are off -->
+    <string name="RemoteBackupsSettingsFragment__off">Вимк.</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
     <string name="RemoteBackupsSettingsFragment__authenticatino_required">Необхідна автентифікація</string>
     <!-- Row label to launch payment history screen -->
@@ -8498,15 +8486,17 @@
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Розмір резервної копії</string>
     <!-- Row description for backup size when waiting for it to load in from the database -->
-    <string name="RemoteBackupsSettingsFragment__loading">Завантаження…</string>
+    <string name="RemoteBackupsSettingsFragment__calculating">Визначення…</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Періодичність створення</string>
+    <!-- The body of a pop-up dialog explaining that backups are performed every day. -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency_dialog_body">Your media and messages are backed up daily.</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
     <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">Резервне копіювання через мобільний інтернет</string>
-    <!-- Row label for viewing backup key -->
-    <string name="RemoteBackupsSettingsFragment__view_backup_key">Переглянути ключ від резервної копії</string>
-    <!-- Prompt title for unlocking device to view backup key -->
-    <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Розблокуйте, щоб побачити ключ від резервної копії</string>
+    <!-- Row label for viewing recovery key -->
+    <string name="RemoteBackupsSettingsFragment__view_backup_key">Переглянути ключ відновлення</string>
+    <!-- Prompt title for unlocking device to view recovery key -->
+    <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Розблокуйте, щоб побачити ключ відновлення</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
     <string name="RemoteBackupsSettingsFragment__to_view_your_key">Щоб побачити ключ, підтвердьте, що це ви</string>
     <!-- Row label for cancelling and deleting backup -->
@@ -8522,7 +8512,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Резервну копію буде створено вночі.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Створено новий ключ від резервної копії</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Створено новий ключ відновлення</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Передплата неактивна</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8600,13 +8590,13 @@
     <!-- Dialog message for dialog which alerts user their optimized media will be downloaded -->
     <string name="RemoteBackupsSettingsFragment__depending_on_the_size">Що більший розмір резервної копії, то довше триватиме її завантаження. Поки воно триває, ви можете користуватися телефоном як зазвичай.</string>
     <!-- Displayed in card when user has backups enabled but there is otherwise no subscription available. This can happen for example after a device transfer. -->
-    <string name="RemoteBackupsSettingsFragment__your_subscription_was_not_found">Передплату на цьому пристрої не знайдено. Поновіть її, щоб знову користуватися резервним копіюванням від Signal.</string>
+    <string name="RemoteBackupsSettingsFragment__your_subscription_was_not_found">Передплату на цьому пристрої не знайдено. Поновіть її, щоб знову користуватися надійним резервним копіюванням від Signal.</string>
     <!-- Displayed in card when user has a signal subscription but the device doesn\'t see a google play billing subscription. Placeholder is days until subscription expiration. -->
     <plurals name="RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid">
-        <item quantity="one">Передплата на цьому пристрої буде дійсна ще %1$d день. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
-        <item quantity="few">Передплата на цьому пристрої буде дійсна ще %1$d дні. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
-        <item quantity="many">Передплата на цьому пристрої буде дійсна ще %1$d днів. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
-        <item quantity="other">Передплата на цьому пристрої буде дійсна ще %1$d дня. Поновіть передплату, щоб і надалі користуватися резервним копіюванням від Signal</item>
+        <item quantity="one">Передплата на цьому пристрої буде дійсна ще %1$d день. Поновіть передплату, щоб і надалі користуватися надійним резервним копіюванням від Signal</item>
+        <item quantity="few">Передплата на цьому пристрої буде дійсна ще %1$d дні. Поновіть передплату, щоб і надалі користуватися надійним резервним копіюванням від Signal</item>
+        <item quantity="many">Передплата на цьому пристрої буде дійсна ще %1$d днів. Поновіть передплату, щоб і надалі користуватися надійним резервним копіюванням від Signal</item>
+        <item quantity="other">Передплата на цьому пристрої буде дійсна ще %1$d дня. Поновіть передплату, щоб і надалі користуватися надійним резервним копіюванням від Signal</item>
     </plurals>
     <!-- Button label to start subscription resubscribe after cancellation -->
     <string name="RemoteBackupsSettingsFragment__resubscribe">Передплачувати знову</string>
@@ -8733,9 +8723,9 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Ключ від резервної копії</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Ваш ключ відновлення</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ключ від резервної копії — це код із 64 символів, який дає змогу відновити дані з резервної копії в разі перевстановлення Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ключ відновлення — це код із 64 символів, який дає змогу відновити дані з резервної копії в разі перевстановлення Molly.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Якщо ви забудете цей ключ, то не зможете відновити дані з резервної копії. Molly не зможе допомогти вам з відновленням даних.</string>
     <!-- Action button label -->
@@ -8743,26 +8733,26 @@
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Збережіть ключ від своєї резервної копії</string>
+    <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Збережіть ключ відновлення</string>
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Цей ключ потрібен для відновлення акаунту й даних. Зберігайте його в надійному місці. Якщо ви втратите ключ, то не зможете відновити акаунт.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Скопіювати в буфер обміну</string>
-    <!-- Label for the button to save a backup key to the device password manager. -->
+    <!-- Label for the button to save a recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Зберегти в менеджер паролів</string>
-    <!-- Dialog title confirming that the user wants to save a backup key to the device password manager. -->
+    <!-- Dialog title confirming that the user wants to save a recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Зберегти в менеджер паролів?</string>
-    <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Зберігайте ключ від резервної копії тільки в надійному менеджері паролів. Signal не дає порад щодо вибору найкращого менеджера паролів.</string>
-    <!-- ID used when saving the backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Резервне копіювання від Signal</string>
-    <!-- Message shown after the backup key is successfully saved to the device password manager. -->
+    <!-- Dialog message confirming that the user wants to save a recovery key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Зберігайте ключ відновлення тільки в надійному менеджері паролів. Signal не дає порад щодо вибору найкращого менеджера паролів.</string>
+    <!-- ID used when saving the recovery key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Надійне резервне копіювання від Signal</string>
+    <!-- Message shown after the recovery key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Збережено в менеджер паролів</string>
-    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <!-- Dialog title shown when there is an error saving the recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Неможливо зберегти в менеджер паролів</string>
-    <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
+    <!-- Dialog message shown when there is an error saving the recovery key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Менеджер паролів не встановлено або він не підтримується.</string>
-    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <!-- Dialog message shown when there is an error saving the recovery key because the user previously chose not to save Signal passwords to their password manager. -->
     <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Раніше ви вирішили не зберігати паролі від Signal у менеджері паролів. Зайдіть у налаштування Android і знайдіть менеджер паролів. Перейдіть у налаштування й вилучіть Signal зі списку «Відхилені сайти й застосунки» (Declined sites and apps) і збережіть пароль.</string>
     <!-- Label for a button that navigates to the device settings -->
     <string name="MessageBackupsKeyRecordScreen__go_to_settings">Відкрити налаштування</string>
@@ -8783,11 +8773,11 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Завантажте медіафайли</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Щоб створити новий ключ від резервної копії, потрібно вимкнути оптимізацію внутрішньої пам\'яті й дочекатися, поки медіафайли завантажаться. Тоді ви зможете створити новий ключ.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Щоб створити новий ключ відновлення, потрібно вимкнути оптимізацію внутрішньої пам\'яті й дочекатися, поки медіафайли завантажаться. Тоді ви зможете створити новий ключ.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Вимкнути й завантажити</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Новий ключ від резервної копії</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Створіть новий ключ відновлення</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Створювати новий ключ варто, лише якщо хтось дізнався ваш поточний ключ. Вам потрібно буде заново завантажити резервну копію, включно з медіафайлами. Якщо у вас ввімкнена функція оптимізації внутрішньої пам\'яті, спочатку потрібно завантажити медіафайли, вивантажені з пристрою.</string>
 
@@ -8795,30 +8785,30 @@
     <!-- Dialog title when exiting before confirming new key -->
     <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Скасувати створення ключа?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Якщо не підтвердити, новий ключ від резервної копії не буде створено.</string>
-    <!-- Dialog button to continue confirming new backup key-->
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">Якщо не підтвердити, новий ключ відновлення не буде створено.</string>
+    <!-- Dialog button to continue confirming new recovery key-->
     <string name="BackupKeyDisplayFragment__confirm_key">Підтвердити ключ</string>
     <!-- Dialog button to cancel new key creation -->
     <string name="BackupKeyDisplayFragment__cancel_key_creation">Скасувати створення</string>
 
     <!-- Confirm key title -->
-    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Підтвердьте ключ від резервної копії</string>
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Підтвердьте ключ відновлення</string>
     <!-- Confirm your key subtitle -->
-    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Введіть ключ від резервної копії, який ви щойно зберегли</string>
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Введіть ключ відновлення, який ви щойно зберегли</string>
     <!-- Confirm your key text entry hint text -->
-    <string name="MessageBackupsKeyVerifyScreen__backup_key">Ключ від резервної копії</string>
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">Ключ відновлення</string>
     <!-- Confirm your key text entry error text -->
-    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Неправильний ключ</string>
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Неправильний ключ відновлення</string>
     <!-- Confirm your key button text to return to record key screen. -->
     <string name="MessageBackupsKeyVerifyScreen__see_key_again">Подивитися ключ ще раз</string>
     <!-- Confirm your key button text to move onto next screen in flow -->
     <string name="MessageBackupsKeyVerifyScreen__next">Далі</string>
 
     <!-- Verify your key title -->
-    <string name="VerifyBackupPinScreen__enter_your_backup_key">Введіть ключ від резервної копії</string>
+    <string name="VerifyBackupPinScreen__enter_your_backup_key">Введіть ключ відновлення</string>
     <!-- Verify your key subtitle -->
     <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Введіть 64-значний код, який ви записали після ввімкнення резервного копіювання.</string>
-    <!-- Button text when you forget your backup key -->
+    <!-- Button text when you forget your recovery key -->
     <string name="VerifyBackupPinScreen__forgot_key">Забули ключ?</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
@@ -8868,6 +8858,10 @@
     </plurals>
     <!-- Text designating that an option is your current plan -->
     <string name="MessageBackupsTypeSelectionScreen__current_plan">Поточний план</string>
+    <!-- Dialog title when user can\'t upgrade plan due to missing Google Services -->
+    <string name="MessageBackupsTypeSelectionScreen__cant_upgrade_plan">Can\'t upgrade plan</string>
+    <!-- Dialog body text explaining Google Services requirement for backup subscription -->
+    <string name="MessageBackupsTypeSelectionScreen__to_subscribe_to_signal_secure_backups">To subscribe to Signal Secure Backups, you must have Google Services enabled on your phone and be signed into the Google Play Store.</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
@@ -8898,9 +8892,9 @@
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Відновлення або перенесення акаунту</string>
     <!-- Screen subtitle for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__get_your_signal_account">Перенесіть акаунт Signal і історію повідомлень на цей пристрій.</string>
-    <!-- Option title for restoring via signal backups -->
-    <string name="SelectRestoreMethodFragment__from_signal_backups">Зі сховища резервних копій Signal</string>
-    <!-- Option subtitle for restoring via signal backups -->
+    <!-- Option title for restoring via signal secure backups -->
+    <string name="SelectRestoreMethodFragment__from_signal_backups">Зі сховища надійних резервних копій Signal</string>
+    <!-- Option subtitle for restoring via signal secure backups -->
     <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Безкоштовне або платне резервне копіювання від Signal</string>
     <!-- Option title for restoring via a local backup folder -->
     <string name="SelectRestoreMethodFragment__from_a_backup_folder">З папки з резервною копією</string>
@@ -8918,40 +8912,40 @@
     <!-- Screen subtitle for restore via local backup -->
     <string name="RestoreLocalBackup_subtitle">Відновіть повідомлення з резервної копії, збереженої на пристрої. Якщо ви не відновите їх зараз, то не зможете зробити цього пізніше.</string>
 
-    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
-    <string name="EnterBackupKey_title">Введіть ключ від резервної копії</string>
-    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
-    <string name="EnterBackupKey_subtitle">Ключ від резервної копії — це код із 64 символів, який дає змогу відновити акаунт і пов\'язані з ним дані.</string>
-    <!-- Button to skip entering backup key and resuming normal registration flow -->
-    <string name="EnterBackupKey_no_backup_key">Не зберегли ключа?</string>
-    <!-- Backup key text field hint -->
-    <string name="EnterBackupKey_backup_key">Ключ від резервної копії</string>
-    <!-- Backup key not known bottom sheet info paragraph 1 -->
-    <string name="EnterBackupKey_no_key_paragraph_1">Резервну копію неможливо відновити без відповідного ключа з 64 символів. Якщо ви втратили доступ до свого ключа, Signal не допоможе вам відновити резервну копію.</string>
-    <!-- Backup key not known bottom sheet info paragraph 2 -->
-    <string name="EnterBackupKey_no_key_paragraph_2">Якщо у вас лишився старий пристрій, ключ від резервної копії можна переглянути, відкривши налаштування &gt; Резервне копіювання. Потім виберіть «Переглянути ключ від резервної копії».</string>
-    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <!-- Screen title for manual entry of recovery key material for restoring via signal secure backups -->
+    <string name="EnterBackupKey_title">Введіть ключ відновлення</string>
+    <!-- Screen subtitle for manual entry of recovery key material for restoring via signal secure backups -->
+    <string name="EnterBackupKey_subtitle">Ключ відновлення — це код із 64 символів, який дає змогу відновити акаунт і пов\'язані з ним дані.</string>
+    <!-- Button to skip entering recovery key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Немає ключа відновлення?</string>
+    <!-- Recovery key text field hint -->
+    <string name="EnterBackupKey_backup_key">Ключ відновлення</string>
+    <!-- Recovery key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Резервну копію неможливо відновити без ключа відновлення з 64 символів. Якщо ви втратили доступ до свого ключа, Signal не допоможе вам відновити резервну копію.</string>
+    <!-- Recovery key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Якщо у вас лишився старий пристрій, ключ відновлення можна переглянути, відкривши налаштування &gt; Резервне копіювання. Потім виберіть «Переглянути ключ відновлення».</string>
+    <!-- Recovery key not known bottom sheet button to learn more about it -->
     <string name="EnterBackupKey_learn_more">Докладніше</string>
-    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <!-- Recovery key not known bottom sheet button to skip recovery key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">Продовжити без відновлення</string>
     <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_title">Неправильний ключ</string>
+    <string name="EnterBackupKey_incorrect_backup_key_title">Неправильний ключ відновлення</string>
     <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_message">Щоб відновити, потрібно зайти з того ж самого номера телефону й використати той самий 64-значний ключ від резервної копії, який ви зберегли, активувавши резервне копіювання від Signal. Без цього ключа відновити дані з резервної копії неможливо.</string>
-    <!-- Dialog positive button text to try entering their backup key again -->
+    <string name="EnterBackupKey_incorrect_backup_key_message">Потрібно зайти з того ж самого номера телефону й використати той самий 64-символьний ключ відновлення, який ви зберегли, активувавши надійне резервне копіювання від Signal. Без цього ключа відновити дані з резервної копії неможливо.</string>
+    <!-- Dialog positive button text to try entering their recovery key again -->
     <string name="EnterBackupKey_try_again">Повторити спробу</string>
-    <!-- Dialog negative button text to get help with backup key -->
+    <!-- Dialog negative button text to get help with recovery key -->
     <string name="EnterBackupKey_backup_key_help">Потрібна допомога</string>
-    <!-- Text field error text when the backup key provided has been confirmed invalid -->
-    <string name="EnterBackupKey_incorrect_backup_key_error">Неправильний ключ</string>
-    <!-- Text field error text when the backup key is too long -->
+    <!-- Text field error text when the recovery key provided has been confirmed invalid -->
+    <string name="EnterBackupKey_incorrect_backup_key_error">Неправильний ключ відновлення</string>
+    <!-- Text field error text when the recovery key is too long -->
     <string name="EnterBackupKey_too_long_error">Ключ задовгий (%1$d/%2$d)</string>
-    <!-- Text field error when the backup key is invalid -->
-    <string name="EnterBackupKey_invalid_backup_key_error">Ключ недійсний</string>
+    <!-- Text field error when the recovery key is invalid -->
+    <string name="EnterBackupKey_invalid_backup_key_error">Недійсний ключ відновлення</string>
     <!-- Dialog title shown during registration and trying to restore a remote backup -->
     <string name="EnterBackupKey_backup_not_found">Резервної копії не знайдено.</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
-    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Ви ввели правильний ключ, але з ним не пов’язано жодної резервної копії. Якщо у вас лишився старий телефон, переконайтеся, що на ньому ввімкнено резервне копіювання й створено резервну копію, а потім повторіть спробу.</string>
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Ви ввели правильний ключ, але з ним не пов\'язано жодної резервної копії. Якщо у вас лишився старий телефон, переконайтеся, що на ньому ввімкнено резервне копіювання й створено резервну копію, а потім повторіть спробу.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Не відновлювати</string>
     <!-- Dialog title text when encountering backup restore network error -->
@@ -9030,7 +9024,7 @@
     <!-- No Backup to Restore screen title -->
     <string name="NoBackupToRestore_title">Резервна копія відсутня</string>
     <!-- No Backup to Restore screen subtitle -->
-    <string name="NoBackupToRestore_subtitle">Оскільки ви переходите з iPhone на Android, то єдиний спосіб перенести повідомлення і медіафайли — ввімкнути резервне копіювання від Signal на старому пристрої.</string>
+    <string name="NoBackupToRestore_subtitle">Оскільки ви переходите з iPhone на Android, то єдиний спосіб перенести повідомлення й медіафайли — ввімкнути надійне резервне копіювання від Signal на старому пристрої.</string>
     <!-- No Backup to Restore step 1 to enable backups on old device -->
     <string name="NoBackupToRestore_step1">Відкрийте Signal на старому пристрої</string>
     <!-- No Backup to Restore step 2 to enable backups on old device -->

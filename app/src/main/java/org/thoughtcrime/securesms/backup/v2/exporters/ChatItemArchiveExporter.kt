@@ -109,6 +109,7 @@ import org.thoughtcrime.securesms.backup.v2.proto.GiftBadge as BackupGiftBadge
 private val TAG = Log.tag(ChatItemArchiveExporter::class.java)
 private val MAX_INLINED_BODY_SIZE = 128.kibiBytes.bytes.toInt()
 private val MAX_INLINED_BODY_SIZE_WITH_LONG_ATTACHMENT_POINTER = 2.kibiBytes.bytes.toInt()
+private val MAX_INLINED_QUOTE_BODY_SIZE = 2.kibiBytes.bytes.toInt()
 
 /**
  * An iterator for chat items with a clever performance twist: rather than do the extra queries one at a time (for reactions,
@@ -386,7 +387,7 @@ class ChatItemArchiveExporter(
 
       if (record.latestRevisionId == null) {
         builder.revisions = revisionMap.remove(record.id)?.repairRevisions(builder) ?: emptyList()
-        val chatItem = builder.build().validateChatItem() ?: continue
+        val chatItem = builder.build().validateChatItem(exportState) ?: continue
         buffer += chatItem
       } else {
         var previousEdits = revisionMap[record.latestRevisionId]
@@ -449,7 +450,7 @@ class ChatItemArchiveExporter(
 
     val attachmentsFuture = executor.submitTyped {
       extraDataTimer.timeEvent("attachments") {
-        db.attachmentTable.getAttachmentsForMessages(messageIds)
+        db.attachmentTable.getAttachmentsForMessages(messageIds, excludeTranscodingQuotes = true)
       }
     }
 
@@ -1009,19 +1010,22 @@ private fun BackupMessageRecord.getBodyText(attachments: List<DatabaseAttachment
   }
 
   if (longTextAttachment.uri == null || longTextAttachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE) {
-    return StringUtil.trimToFit(this.body.emptyIfNull(), MAX_INLINED_BODY_SIZE_WITH_LONG_ATTACHMENT_POINTER) to longTextAttachment
+    Log.w(TAG, ExportOddities.undownloadedLongTextAttachment(this.dateSent))
+    val body = StringUtil.trimToFit(this.body.emptyIfNull(), MAX_INLINED_BODY_SIZE_WITH_LONG_ATTACHMENT_POINTER)
+    return body to longTextAttachment.takeUnless { body.isBlank() }
   }
 
   val longText = try {
     PartAuthority.getAttachmentStream(AppDependencies.application, longTextAttachment.uri!!)?.readFully()?.toString(Charsets.UTF_8)
   } catch (e: IOException) {
     Log.w(TAG, ExportOddities.unreadableLongTextAttachment(this.dateSent))
-    return this.body.emptyIfNull() to longTextAttachment
+    return this.body.emptyIfNull() to null
   }
 
   if (longText == null) {
     Log.w(TAG, ExportOddities.unopenableLongTextAttachment(this.dateSent))
-    return StringUtil.trimToFit(this.body.emptyIfNull(), MAX_INLINED_BODY_SIZE_WITH_LONG_ATTACHMENT_POINTER) to longTextAttachment
+    val body = StringUtil.trimToFit(this.body.emptyIfNull(), MAX_INLINED_BODY_SIZE_WITH_LONG_ATTACHMENT_POINTER)
+    return body to longTextAttachment.takeUnless { body.isBlank() }
   }
 
   val trimmed = StringUtil.trimToFit(longText, MAX_INLINED_BODY_SIZE)
@@ -1040,7 +1044,7 @@ private fun BackupMessageRecord.toRemoteQuote(exportState: ExportState, attachme
   val localType = QuoteModel.Type.fromCode(this.quoteType)
   val remoteType = when (localType) {
     QuoteModel.Type.NORMAL -> {
-      if (attachments?.any { it.contentType == MediaUtil.VIEW_ONCE } == true) {
+      if (attachments?.any { it.quoteTargetContentType == MediaUtil.VIEW_ONCE } == true) {
         Quote.Type.VIEW_ONCE
       } else {
         Quote.Type.NORMAL
@@ -1050,7 +1054,8 @@ private fun BackupMessageRecord.toRemoteQuote(exportState: ExportState, attachme
   }
 
   val bodyRanges = this.quoteBodyRanges?.toRemoteBodyRanges(dateSent) ?: emptyList()
-  val body = this.quoteBody?.takeUnless { it.isBlank() }?.let { body ->
+  val trimmedQuoteBody = StringUtil.trimToFit(this.quoteBody, MAX_INLINED_QUOTE_BODY_SIZE)
+  val body = trimmedQuoteBody.takeUnless { it.isBlank() }?.let { body ->
     Text(
       body = body,
       bodyRanges = bodyRanges
@@ -1127,11 +1132,11 @@ private fun DatabaseAttachment.toRemoteStickerMessage(sentTimestamp: Long, react
 private fun List<DatabaseAttachment>.toRemoteQuoteAttachments(): List<Quote.QuotedAttachment> {
   return this.map { attachment ->
     Quote.QuotedAttachment(
-      contentType = attachment.contentType,
+      contentType = attachment.quoteTargetContentType,
       fileName = attachment.fileName,
       thumbnail = attachment.toRemoteMessageAttachment(
         flagOverride = MessageAttachment.Flag.NONE,
-        contentTypeOverride = "image/jpeg"
+        contentTypeOverride = attachment.contentType
       )
     )
   }
@@ -1302,7 +1307,7 @@ private fun List<GroupReceiptTable.GroupReceiptInfo>?.toRemoteSendStatus(message
             reason = SendStatus.Failed.FailureReason.NETWORK
           )
         }
-        MessageTypes.isFailedMessageType(messageRecord.type) -> {
+        it.status == GroupReceiptTable.STATUS_FAILED -> {
           statusBuilder.failed = SendStatus.Failed(
             reason = SendStatus.Failed.FailureReason.UNKNOWN
           )
@@ -1436,7 +1441,7 @@ private fun <T> ExecutorService.submitTyped(callable: Callable<T>): Future<T> {
   return this.submit(callable)
 }
 
-fun ChatItem.validateChatItem(): ChatItem? {
+private fun ChatItem.validateChatItem(exportState: ExportState): ChatItem? {
   if (this.standardMessage == null &&
     this.contactMessage == null &&
     this.stickerMessage == null &&
@@ -1450,10 +1455,24 @@ fun ChatItem.validateChatItem(): ChatItem? {
     Log.w(TAG, ExportSkips.emptyChatItem(this.dateSent))
     return null
   }
+
+  if (this.updateMessage != null && this.updateMessage.isOnlyForIndividualChats() && exportState.threadIdToRecipientId[this.chatId] !in exportState.contactRecipientIds) {
+    Log.w(TAG, ExportSkips.individualChatUpdateInWrongTypeOfChat(this.dateSent))
+    return null
+  }
+
   return this
 }
 
-fun List<ChatItem>.repairRevisions(current: ChatItem.Builder): List<ChatItem> {
+private fun ChatUpdateMessage.isOnlyForIndividualChats(): Boolean {
+  return this.simpleUpdate?.type == SimpleChatUpdate.Type.JOINED_SIGNAL ||
+    this.simpleUpdate?.type == SimpleChatUpdate.Type.END_SESSION ||
+    this.simpleUpdate?.type == SimpleChatUpdate.Type.CHAT_SESSION_REFRESH ||
+    this.simpleUpdate?.type == SimpleChatUpdate.Type.PAYMENT_ACTIVATION_REQUEST ||
+    this.simpleUpdate?.type == SimpleChatUpdate.Type.PAYMENTS_ACTIVATED
+}
+
+private fun List<ChatItem>.repairRevisions(current: ChatItem.Builder): List<ChatItem> {
   return if (current.standardMessage != null) {
     val filtered = this
       .filter { it.standardMessage != null }

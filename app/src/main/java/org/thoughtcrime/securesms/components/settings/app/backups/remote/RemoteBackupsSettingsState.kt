@@ -6,7 +6,6 @@
 package org.thoughtcrime.securesms.components.settings.app.backups.remote
 
 import org.signal.core.util.ByteSize
-import org.thoughtcrime.securesms.backup.v2.BackupFrequency
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.components.settings.app.backups.BackupState
 
@@ -21,21 +20,24 @@ data class RemoteBackupsSettingsState(
   val canRestoreUsingCellular: Boolean = false,
   val hasRedemptionError: Boolean = false,
   val isOutOfStorageSpace: Boolean = false,
+  val isPaidTierPricingAvailable: Boolean = false,
   val totalAllowedStorageSpace: String = "",
   val backupState: BackupState,
   val backupMediaSize: Long = -1L,
-  val backupsFrequency: BackupFrequency = BackupFrequency.DAILY,
   val lastBackupTimestamp: Long = 0,
   val dialog: Dialog = Dialog.NONE,
   val snackbar: Snackbar = Snackbar.NONE,
   val includeDebuglog: Boolean? = null,
   val canBackupMessagesJobRun: Boolean = false,
-  val backupMediaDetails: BackupMediaDetails? = null
+  val backupMediaDetails: BackupMediaDetails? = null,
+  val showBackupCreateFailedError: Boolean = false,
+  val showBackupCreateCouldNotCompleteError: Boolean = false
 ) {
 
   data class BackupMediaDetails(
     val awaitingRestore: ByteSize,
-    val offloaded: ByteSize
+    val offloaded: ByteSize,
+    val protoFileSize: ByteSize
   )
 
   enum class Dialog {

@@ -549,15 +549,6 @@
     <!-- Toast message shown when trying to record a voice message during an ongoing call -->
     <string name="ConversationFragment_cannot_record_voice_message_during_call">Det går inte att spela in röstmeddelande under samtal.</string>
 
-    <!-- Title for dialog shown when first sending formatted text -->
-    <string name="SendingFormattingTextDialog_title">Skickar formaterad text</string>
-    <!-- Message for dialog shown when first sending formatted text -->
-    <string name="SendingFormattingTextDialog_message">Vissa personer kanske använder en version av Signal som inte stöder formaterad text. De kommer inte att kunna se formateringsändringarna du har gjort i ditt meddelande.</string>
-    <!-- Button text for confirming they\'d like to send the message with formatting after seeing warning. -->
-    <string name="SendingFormattingTextDialog_send_anyway_button">Skicka ändå</string>
-    <!-- Button text for canceling sending the message with formatting after seeing warning. -->
-    <string name="SendingFormattingTextDialog_cancel_send_button">Avbryt</string>
-
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
         <item quantity="one">%1$d oläst meddelande</item>
@@ -869,10 +860,6 @@
     <string name="CreateBackupBottomSheet__you_are_all_set">Du är redo. Starta din säkerhetskopiering nu.</string>
     <!-- Bottom sheet message -->
     <string name="CreateBackupBottomSheet__depending_on_the_size">Beroende på hur stor din säkerhetskopia är kan detta ta lång tid. Du kan använda din telefon som vanligt medan säkerhetskopieringen pågår.</string>
-    <!-- Action button to dismiss sheet and back up later -->
-    <string name="CreateBackupBottomSheet__back_up_later">Säkerhetskopiera senare</string>
-    <!-- Action button to dismiss sheet and back up now -->
-    <string name="CreateBackupBottomSheet__back_up_now">Säkerhetskopiera nu</string>
 
     <!-- Headline text for a bottom sheet dialog shown when the restoration of the media backup fails. -->
     <string name="RestoreMediaFailedBottomSheet__Cant_restore_media">Det går inte att återställa media</string>
@@ -1135,6 +1122,8 @@
     <string name="LinkDeviceSyncBottomSheet_transfer">Överför meddelandehistorik</string>
     <!-- Description in bottom sheet of what transferring message history will do -->
     <string name="LinkDeviceSyncBottomSheet_transfer_your_text">Överför dina textmeddelanden och dina senaste 45 dagars media</string>
+    <!-- Description in bottom sheet of what transferring message history will do -->
+    <string name="LinkDeviceSyncBottomSheet_transfer_your_text_and_all_media">Överför dina textmeddelanden och media</string>
     <!-- Option in bottom sheet to not transfer message history -->
     <string name="LinkDeviceSyncBottomSheet_dont_transfer">Överför inte</string>
     <!-- Description in bottom sheet of what not transferring history will do -->
@@ -1496,7 +1485,7 @@
     <!-- Text label button to dismiss the dialog -->
     <string name="RemoteRestoreActivity__not_now">Inte nu</string>
     <!-- Text shown on restore screen as information on what will happen if you skip -->
-    <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Your media will restore in the background. If you choose not to restore now, you won\'t be able to restore later.</string>
+    <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Dina media kommer att återställas i bakgrunden. Om du väljer att inte återställa nu kommer du inte att kunna återställa senare.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Meddela mig om omnämnanden</string>
@@ -2111,6 +2100,8 @@
     <string name="MessageRecord_you_blocked_this_group">Du blockerade den här gruppen</string>
     <!-- Update message shown in chat after you unblock a group -->
     <string name="MessageRecord_you_unblocked_this_group">Du avblockerade den här gruppen</string>
+    <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
+    <string name="MessageRecord_unsupported_feature">%1$s skickade dig ett meddelande som inte kan bearbetas eller visas eftersom det använder en ny Signal-funktion.</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Acceptera</string>
@@ -4810,7 +4801,7 @@
     <!-- Content description for info icon -->
     <string name="Beta__info">Info</string>
     <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
-    <string name="Beta__this_is_beta">Detta är en betafunktion som vi kommer att lägga till funktioner till kontinuerligt.</string>
+    <string name="Beta__this_is_beta">This is a beta feature and will be improved over time.</string>
 
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Lås upp Molly</string>
@@ -5361,7 +5352,7 @@
 
     <!-- AppSettingsFragment -->
     <!-- String alerting user that something is wrong with their backups subscription -->
-    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Förnya ditt abonnemang för säkerhetskopiering av Signal</string>
+    <string name="AppSettingsFragment__renew_your_signal_backups_subscription">Förnya din prenumeration på Säkerhetskopiering av Signal</string>
     <!-- String alerting user that backup failed -->
     <string name="AppSettingsFragment__couldnt_complete_backup">Det gick inte slutföra säkerhetskopieringen</string>
     <!-- String alerting user that backup redemption -->
@@ -7610,15 +7601,6 @@
 
     <!-- Title shown at top of bottom sheet dialog for displaying a message\'s edit history -->
     <string name="EditMessageHistoryDialog_title">Redigeringshistorik</string>
-    <!-- Title of dialog shown alerting user that edit message is in beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_title">Redigera meddelande</string>
-    <!-- Body of dialog shown alerting user that edit message is in beta only and only sent to beta users. -->
-    <string name="SendingEditMessageBetaOnlyDialog_body">Om du redigerar ett meddelande kommer det bara att vara synligt för personer som använder de senaste versionerna av Signal. De kommer att kunna se att du redigerade ett meddelande.</string>
-    <!-- Button to cancel sending edit message as it is beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_cancel">Avbryt</string>
-    <!-- Button to continue sending edit message despite it being beta only -->
-    <string name="SendingEditMessageBetaOnlyDialog_send">Skicka</string>
-
 
     <!-- CallLinkDetailsFragment -->
     <!-- Displayed in action bar at the top of the fragment -->
@@ -7743,17 +7725,17 @@
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">Inte nu</string>
 
-    <!-- Title of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__title">Verifiera din säkerhetskopieringsnyckel</string>
-    <!-- Body of a megaphone shown to prompt the user to verify their backup key -->
-    <string name="VerifyBackupKey__body">We\'ll occasionally ask you to verify your key to ensure you still know it</string>
-    <!-- Button of a megaphone that will take users to the verify backup key screen -->
+    <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
+    <string name="VerifyBackupKey__title">Verifiera din återställningsnyckel</string>
+    <!-- Body of a megaphone shown to prompt the user to verify their recovery key -->
+    <string name="VerifyBackupKey__body">Vi kommer ibland att be dig att verifiera din nyckel för att säkerställa att du fortfarande känner till den</string>
+    <!-- Button of a megaphone that will take users to the verify recovery key screen -->
     <string name="VerifyBackupKey__verify">Verifiera</string>
-    <!-- Button of a megaphone that will snooze the reminder to verify their backup key -->
+    <!-- Button of a megaphone that will snooze the reminder to verify their recovery key -->
     <string name="VerifyBackupKey__not_now">Inte nu</string>
-    <!-- Snackbar text shown when the backup key entered is correct. -->
-    <string name="VerifyBackupKey__backup_key_correct">Säkerhetskopieringsnyckeln är korrekt. Förvara din nyckel säkert.</string>
-    <!-- Snackbar text shown when the user chooses to snooze the backup key reminder. -->
+    <!-- Snackbar text shown when the recovery key entered is correct. -->
+    <string name="VerifyBackupKey__backup_key_correct">Återställningsnyckeln är korrekt. Förvara din nyckel säkert.</string>
+    <!-- Snackbar text shown when the user chooses to snooze the recovery key reminder. -->
     <string name="VerifyBackupKey__we_will_ask_again">Vi frågar dig igen om en vecka.</string>
 
     <!-- Title of a megaphone shown at the bottom of the chat list when a user has disable the system setting for showing full screen notifications used showing incoming calls -->
@@ -7967,6 +7949,8 @@
     <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Frigör %1$s utrymme för att återställa dina media.</string>
     <!-- Status title for banner when user is actively restoring media from a backup -->
     <string name="BackupStatus__restoring_media">Återställer media</string>
+    <!-- Status title for banner when user is canceling restore media from a backup -->
+    <string name="BackupStatus__cancel_restore_media">Avbryter medieåterställning</string>
     <!-- Status title for banner when user has paused restore media from a backup -->
     <string name="BackupStatus__restore_paused">Medieåterställning pausad</string>
     <!-- Status title for banner when user has completed restoring restore media from a backup -->
@@ -8131,8 +8115,12 @@
     <!-- RemoteBackupsSettingsFragment -->
     <!-- Content description for canceling backup upload -->
     <string name="RemoteBackupsSettingsFragment__cancel_upload">Avbryt uppladdning</string>
+    <!-- Displayed on the title bar for Signal Secure Backups -->
+    <string name="RemoteBackupsSettingsFragment__secure_backups">Säkra säkerhetskopior</string>
     <!-- Displayed on the title bar -->
     <string name="RemoteBackupsSettingsFragment__signal_backups">Säkerhetskopiering av Signal</string>
+    <!-- Displayed as a label when remote backups are off -->
+    <string name="RemoteBackupsSettingsFragment__off">Av</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
     <string name="RemoteBackupsSettingsFragment__authenticatino_required">Autentisering krävs</string>
     <!-- Row label to launch payment history screen -->
@@ -8144,15 +8132,17 @@
     <!-- Row label for backup size -->
     <string name="RemoteBackupsSettingsFragment__backup_size">Storlek på säkerhetskopia</string>
     <!-- Row description for backup size when waiting for it to load in from the database -->
-    <string name="RemoteBackupsSettingsFragment__loading">Hämtar in …</string>
+    <string name="RemoteBackupsSettingsFragment__calculating">Beräknar …</string>
     <!-- Row label for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__backup_frequency">Frekvens för säkerhetskopiering</string>
+    <!-- The body of a pop-up dialog explaining that backups are performed every day. -->
+    <string name="RemoteBackupsSettingsFragment__backup_frequency_dialog_body">Your media and messages are backed up daily.</string>
     <!-- Toggle row label for allowing backups to occur while on cellular connection -->
     <string name="RemoteBackupsSettingsFragment__back_up_using_cellular">Säkerhetskopiera med mobilnät</string>
-    <!-- Row label for viewing backup key -->
-    <string name="RemoteBackupsSettingsFragment__view_backup_key">Visa säkerhetskopieringsnyckel</string>
-    <!-- Prompt title for unlocking device to view backup key -->
-    <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Lås upp för att visa säkerhetskopieringsnyckel</string>
+    <!-- Row label for viewing recovery key -->
+    <string name="RemoteBackupsSettingsFragment__view_backup_key">Visa återställningsnyckel</string>
+    <!-- Prompt title for unlocking device to view recovery key -->
+    <string name="RemoteBackupsSettingsFragment__unlock_to_view_backup_key">Lås upp för att visa återställningsnyckeln</string>
     <!-- Title of bottom sheet explaining that authentication is required to view your key -->
     <string name="RemoteBackupsSettingsFragment__to_view_your_key">Bekräfta din identitet för att se din nyckel</string>
     <!-- Row label for cancelling and deleting backup -->
@@ -8168,7 +8158,7 @@
     <!-- Snackbar text displayed when backup will be created overnight -->
     <string name="RemoteBackupsSettingsFragment__backup_will_be_created_overnight">Säkerhetskopia kommer att skapas över natten.</string>
     <!-- Snackbar text displayed when user rotates AEP -->
-    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Ny säkerhetskopieringsnyckel skapad</string>
+    <string name="RemoteBackupsSettingsFragment__new_backup_key_created">Ny återställningsnyckel skapad</string>
     <!-- Text displayed in card when subscription is inactive -->
     <string name="RemoteBackupsSettingsFragment__subscription_inactive">Abonnemanget inaktivt</string>
     <!-- Text displayed in card when free tier is inactive -->
@@ -8373,9 +8363,9 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Din säkerhetskopieringsnyckel</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Din återställningsnyckel</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Din säkerhetskopieringsnyckel är en kod på 64 tecken som låter dig återställa din säkerhetskopia när du installerar om Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Din återställningsnyckel är en kod på 64 tecken som låter dig återställa din säkerhetskopia när du installerar om Molly.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Om du glömmer din nyckel kommer du inte att kunna återställa din säkerhetskopia. Molly kan inte hjälpa dig att återställa din säkerhetskopia.</string>
     <!-- Action button label -->
@@ -8383,26 +8373,26 @@
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Spara din säkerhetskopieringsnyckel</string>
+    <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Spara din återställningsnyckel</string>
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Denna nyckel krävs för att återställa ditt konto och dina data. Förvara den här nyckeln på ett säkert ställe. Om du förlorar den kommer du inte att kunna återställa ditt konto.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Kopiera till urklipp</string>
-    <!-- Label for the button to save a backup key to the device password manager. -->
+    <!-- Label for the button to save a recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager">Spara i lösenordshanterare</string>
-    <!-- Dialog title confirming that the user wants to save a backup key to the device password manager. -->
+    <!-- Dialog title confirming that the user wants to save a recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_title">Spara i lösenordshanterare?</string>
-    <!-- Dialog message confirming that the user wants to save a backup key to the device password manager. -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Förvara bara din säkerhetskopieringsnyckel i en lösenordshanterare som du litar på är säker. Signal ger ingen rekommendation om vilken lösenordshanterare som är rätt för dig.</string>
-    <!-- ID used when saving the backup key to the device password manager. -->
+    <!-- Dialog message confirming that the user wants to save a recovery key to the device password manager. -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_save_to_password_manager_body">Förvara bara din återställningsnyckel i en lösenordshanterare som du litar på är säker. Signal ger ingen rekommendation om vilken lösenordshanterare som är rätt för dig.</string>
+    <!-- ID used when saving the recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__backup_key_password_manager_id">Säkerhetskopiering av Signal</string>
-    <!-- Message shown after the backup key is successfully saved to the device password manager. -->
+    <!-- Message shown after the recovery key is successfully saved to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__save_to_password_manager_success">Sparad i din lösenordshanterare</string>
-    <!-- Dialog title shown when there is an error saving the backup key to the device password manager. -->
+    <!-- Dialog title shown when there is an error saving the recovery key to the device password manager. -->
     <string name="MessageBackupsKeyRecordScreen__cant_save_to_password_manager_title">Det gick inte att spara i lösenordshanteraren</string>
-    <!-- Dialog message shown when there is an error saving the backup key because no compatible password manager was detected. -->
+    <!-- Dialog message shown when there is an error saving the recovery key because no compatible password manager was detected. -->
     <string name="MessageBackupsKeyRecordScreen__missing_password_manager_message">Du har ingen lösenordshanterare konfigurerad, eller så stöds inte lösenordshanteraren du använder.</string>
-    <!-- Dialog message shown when there is an error saving the backup key because the user previously chose not to save Signal passwords to their password manager. -->
+    <!-- Dialog message shown when there is an error saving the recovery key because the user previously chose not to save Signal passwords to their password manager. -->
     <string name="MessageBackupsKeyRecordScreen__password_save_prompt_disabled_message">Du valde tidigare att inte spara lösenord för Signal till Google Password Manager. I dina inställningar för Google Password Manager tar du bort Signal från Avvisade webbplatser och appar och försöker igen.</string>
     <!-- Label for a button that navigates to the device settings -->
     <string name="MessageBackupsKeyRecordScreen__go_to_settings">Gå till inställningar</string>
@@ -8423,11 +8413,11 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Ladda ner media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">För att skapa en ny säkerhetskopieringsnyckel måste du inaktivera Optimera lagring och vänta tills dina media har laddats ner. När nedladdningen är klar kan du skapa en ny nyckel.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">För att skapa en ny återställningsnyckel måste du inaktivera Optimera lagring och vänta tills dina media har laddats ner. När nedladdningen är klar kan du skapa en ny nyckel.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Stäng av och ladda ner</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Skapa en ny säkerhetskopieringsnyckel</string>
+    <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Skapa en ny återställningsnyckel</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Att skapa en ny nyckel är bara nödvändigt om någon annan känner till din nyckel. Du måste ladda upp din säkerhetskopia igen, inklusive media. Om du använder Optimera lagring måste du först ladda ner avlastade media.</string>
 
@@ -8435,30 +8425,30 @@
     <!-- Dialog title when exiting before confirming new key -->
     <string name="BackupKeyDisplayFragment__cancel_key_creation_question">Avbryt skapande av nyckel?</string>
     <!-- Dialog body when exiting before confirming new key -->
-    <string name="BackupKeyDisplayFragment__your_new_backup_key">Din nya säkerhetskopieringsnyckel skapas inte förrän du bekräftar den.</string>
-    <!-- Dialog button to continue confirming new backup key-->
+    <string name="BackupKeyDisplayFragment__your_new_backup_key">Din nya återställningsnyckel skapas inte förrän du bekräftar den.</string>
+    <!-- Dialog button to continue confirming new recovery key-->
     <string name="BackupKeyDisplayFragment__confirm_key">Bekräfta nyckel</string>
     <!-- Dialog button to cancel new key creation -->
     <string name="BackupKeyDisplayFragment__cancel_key_creation">Avbryt skapande av nyckel</string>
 
     <!-- Confirm key title -->
-    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Bekräfta din säkerhetskopieringsnyckel</string>
+    <string name="MessageBackupsKeyVerifyScreen__confirm_your_backup_key">Bekräfta din återställningsnyckel</string>
     <!-- Confirm your key subtitle -->
-    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Ange säkerhetskopieringsnyckeln som du just spelade in</string>
+    <string name="MessageBackupsKeyVerifyScreen__enter_the_backup_key_that_you_just_recorded">Ange återställningsnyckeln som du just registrerat</string>
     <!-- Confirm your key text entry hint text -->
-    <string name="MessageBackupsKeyVerifyScreen__backup_key">Säkerhetskopieringsnyckel</string>
+    <string name="MessageBackupsKeyVerifyScreen__backup_key">Återställningsnyckel</string>
     <!-- Confirm your key text entry error text -->
-    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Fel säkerhetskopieringsnyckel</string>
+    <string name="MessageBackupsKeyVerifyScreen__incorrect_backup_key">Felaktig återställningsnyckel</string>
     <!-- Confirm your key button text to return to record key screen. -->
     <string name="MessageBackupsKeyVerifyScreen__see_key_again">Visa nyckel igen</string>
     <!-- Confirm your key button text to move onto next screen in flow -->
     <string name="MessageBackupsKeyVerifyScreen__next">Nästa</string>
 
     <!-- Verify your key title -->
-    <string name="VerifyBackupPinScreen__enter_your_backup_key">Ange din säkerhetskopieringsnyckel</string>
+    <string name="VerifyBackupPinScreen__enter_your_backup_key">Ange din återställningsnyckel</string>
     <!-- Verify your key subtitle -->
     <string name="VerifyBackupPinScreen__enter_the_backup_key_that_you_recorded">Ange koden på 64 tecken som du sparade när du aktiverade säkerhetskopior.</string>
-    <!-- Button text when you forget your backup key -->
+    <!-- Button text when you forget your recovery key -->
     <string name="VerifyBackupPinScreen__forgot_key">Glömt nyckel?</string>
 
     <!-- MessagesBackupsTypeSelectionScreen -->
@@ -8504,6 +8494,10 @@
     </plurals>
     <!-- Text designating that an option is your current plan -->
     <string name="MessageBackupsTypeSelectionScreen__current_plan">Nuvarande plan</string>
+    <!-- Dialog title when user can\'t upgrade plan due to missing Google Services -->
+    <string name="MessageBackupsTypeSelectionScreen__cant_upgrade_plan">Can\'t upgrade plan</string>
+    <!-- Dialog body text explaining Google Services requirement for backup subscription -->
+    <string name="MessageBackupsTypeSelectionScreen__to_subscribe_to_signal_secure_backups">To subscribe to Signal Secure Backups, you must have Google Services enabled on your phone and be signed into the Google Play Store.</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
@@ -8534,9 +8528,9 @@
     <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Återställ eller överför konto</string>
     <!-- Screen subtitle for selecting which restore method to use during registration -->
     <string name="SelectRestoreMethodFragment__get_your_signal_account">Hämta ditt Signal-konto och din meddelandehistorik till den här enheten.</string>
-    <!-- Option title for restoring via signal backups -->
+    <!-- Option title for restoring via signal secure backups -->
     <string name="SelectRestoreMethodFragment__from_signal_backups">Från Säkerhetskopiering av Signal</string>
-    <!-- Option subtitle for restoring via signal backups -->
+    <!-- Option subtitle for restoring via signal secure backups -->
     <string name="SelectRestoreMethodFragment__your_free_or_paid_signal_backup_plan">Din gratis eller betalda plan för Säkerhetskopiering av Signal</string>
     <!-- Option title for restoring via a local backup folder -->
     <string name="SelectRestoreMethodFragment__from_a_backup_folder">Från en säkerhetskopieringsmapp</string>
@@ -8554,40 +8548,40 @@
     <!-- Screen subtitle for restore via local backup -->
     <string name="RestoreLocalBackup_subtitle">Återställ dina meddelanden från säkerhetskopian som du har sparat på din enhet. Om du inte återställer nu kommer du inte att kunna återställa senare.</string>
 
-    <!-- Screen title for manual entry of backup key material for restoring via signal backups -->
-    <string name="EnterBackupKey_title">Ange din säkerhetskopieringsnyckel</string>
-    <!-- Screen subtitle for manual entry of backup key material for restoring via signal backups -->
-    <string name="EnterBackupKey_subtitle">Din säkerhetskopieringsnyckel är en kod på 64 tecken som krävs för att återställa ditt konto och dina data.</string>
-    <!-- Button to skip entering backup key and resuming normal registration flow -->
-    <string name="EnterBackupKey_no_backup_key">Ingen säkerhetskopieringsnyckel?</string>
-    <!-- Backup key text field hint -->
-    <string name="EnterBackupKey_backup_key">Säkerhetskopieringsnyckel</string>
-    <!-- Backup key not known bottom sheet info paragraph 1 -->
-    <string name="EnterBackupKey_no_key_paragraph_1">Säkerhetskopior kan inte återställas utan deras återställningskod på 64 tecken. Om du har tappat bort din säkerhetskopieringsnyckel kan Signal inte hjälpa till att återställa din säkerhetskopia.</string>
-    <!-- Backup key not known bottom sheet info paragraph 2 -->
-    <string name="EnterBackupKey_no_key_paragraph_2">Om du har din gamla enhet kan du visa din säkerhetskopieringsnyckel i Inställningar &gt; Säkerhetskopior. Tryck sedan på Visa säkerhetskopieringsnyckel.</string>
-    <!-- Backup key not known bottom sheet button to learn more about it -->
+    <!-- Screen title for manual entry of recovery key material for restoring via signal secure backups -->
+    <string name="EnterBackupKey_title">Ange din återställningsnyckel</string>
+    <!-- Screen subtitle for manual entry of recovery key material for restoring via signal secure backups -->
+    <string name="EnterBackupKey_subtitle">Din återställningsnyckel är en kod på 64 tecken som krävs för att återställa ditt konto och dina data.</string>
+    <!-- Button to skip entering recovery key and resuming normal registration flow -->
+    <string name="EnterBackupKey_no_backup_key">Ingen återställningsnyckel?</string>
+    <!-- Recovery key text field hint -->
+    <string name="EnterBackupKey_backup_key">Återställningsnyckel</string>
+    <!-- Recovery key not known bottom sheet info paragraph 1 -->
+    <string name="EnterBackupKey_no_key_paragraph_1">Säkerhetskopior kan inte återställas utan deras återställningskod på 64 tecken. Om du har tappat bort din återställningsnyckel kan Signal inte hjälpa till att återställa din säkerhetskopia.</string>
+    <!-- Recovery key not known bottom sheet info paragraph 2 -->
+    <string name="EnterBackupKey_no_key_paragraph_2">Om du har din gamla enhet kan du visa din återställningsnyckel i Inställningar &gt; Säkerhetskopior. Tryck sedan på Visa återställningsnyckel.</string>
+    <!-- Recovery key not known bottom sheet button to learn more about it -->
     <string name="EnterBackupKey_learn_more">Läs mer</string>
-    <!-- Backup key not known bottom sheet button to skip backup key entry and resume normal reregistration -->
+    <!-- Recovery key not known bottom sheet button to skip recovery key entry and resume normal reregistration -->
     <string name="EnterBackupKey_skip_and_dont_restore">Hoppa över och återställ inte</string>
     <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_title">Fel säkerhetskopieringsnyckel</string>
+    <string name="EnterBackupKey_incorrect_backup_key_title">Felaktig återställningsnyckel</string>
     <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
-    <string name="EnterBackupKey_incorrect_backup_key_message">Kontrollera att du registrerar dig med samma telefonnummer och säkerhetskopieringsnyckel på 64 tecken som du sparade när du aktiverade Säkerhetskopiering av Signal. Säkerhetskopior kan inte återställas utan denna nyckel.</string>
-    <!-- Dialog positive button text to try entering their backup key again -->
+    <string name="EnterBackupKey_incorrect_backup_key_message">Se till att du registrerar dig med samma telefonnummer och 64-teckens återställningsnyckel som du sparade när du aktiverade Säkerhetskopiering av Signal. Säkerhetskopior kan inte återställas utan denna nyckel.</string>
+    <!-- Dialog positive button text to try entering their recovery key again -->
     <string name="EnterBackupKey_try_again">Försök igen</string>
-    <!-- Dialog negative button text to get help with backup key -->
-    <string name="EnterBackupKey_backup_key_help">Hjälp för säkerhetskopieringsnyckel</string>
-    <!-- Text field error text when the backup key provided has been confirmed invalid -->
-    <string name="EnterBackupKey_incorrect_backup_key_error">Fel säkerhetskopieringsnyckel</string>
-    <!-- Text field error text when the backup key is too long -->
+    <!-- Dialog negative button text to get help with recovery key -->
+    <string name="EnterBackupKey_backup_key_help">Hjälp med återställningsnyckel</string>
+    <!-- Text field error text when the recovery key provided has been confirmed invalid -->
+    <string name="EnterBackupKey_incorrect_backup_key_error">Felaktig återställningsnyckel</string>
+    <!-- Text field error text when the recovery key is too long -->
     <string name="EnterBackupKey_too_long_error">För långt (%1$d/%2$d)</string>
-    <!-- Text field error when the backup key is invalid -->
-    <string name="EnterBackupKey_invalid_backup_key_error">Ogiltig säkerhetskopieringsnyckel</string>
+    <!-- Text field error when the recovery key is invalid -->
+    <string name="EnterBackupKey_invalid_backup_key_error">Ogiltig återställningsnyckel</string>
     <!-- Dialog title shown during registration and trying to restore a remote backup -->
     <string name="EnterBackupKey_backup_not_found">Säkerhetskopia hittades inte</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
-    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Säkerhetskopieringsnyckeln du angav är korrekt, men det finns ingen säkerhetskopia kopplad till den. Om du fortfarande har din gamla telefon, se till att säkerhetskopiering är aktiverad och att en säkerhetskopiering har slutförts. Försök sedan igen.</string>
+    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Återställningsnyckeln du angav är korrekt, men det finns ingen säkerhetskopia kopplad till den. Om du fortfarande har din gamla telefon, se till att säkerhetskopiering är aktiverad och att en säkerhetskopiering har slutförts. Försök sedan igen.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Hoppa över återställning</string>
     <!-- Dialog title text when encountering backup restore network error -->

@@ -35,6 +35,8 @@ import org.thoughtcrime.securesms.database.PendingRetryReceiptCache;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.JobMigrator;
 import org.thoughtcrime.securesms.jobmanager.impl.FactoryJobPredicate;
+import org.thoughtcrime.securesms.jobs.AttachmentCompressionJob;
+import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
 import org.thoughtcrime.securesms.jobs.FastJobStorage;
 import org.thoughtcrime.securesms.jobs.GroupCallUpdateSendJob;
 import org.thoughtcrime.securesms.jobs.IndividualSendJob;
@@ -44,6 +46,7 @@ import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
 import org.thoughtcrime.securesms.jobs.PushGroupSendJob;
 import org.thoughtcrime.securesms.jobs.PushProcessMessageJob;
 import org.thoughtcrime.securesms.jobs.ReactionSendJob;
+import org.thoughtcrime.securesms.jobs.SendDeliveryReceiptJob;
 import org.thoughtcrime.securesms.jobs.TypingSendJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
@@ -171,7 +174,8 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", ThreadUtil.PRIORITY_IMPORTANT_BACKGROUND_THREAD, 1, 16, 30),
                                             ByteUnit.KILOBYTES.toBytes(256),
                                             RemoteConfig::useMessageSendRestFallback,
-                                            RemoteConfig.usePqRatchet());
+                                            RemoteConfig.usePqRatchet(),
+                                            RemoteConfig.internalUser() ? Optional.of(ByteUnit.KILOBYTES.toBytes(96)) : Optional.empty());
   }
 
   @Override
@@ -203,7 +207,15 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                                                   .setJobStorage(new FastJobStorage(JobDatabase.getInstance(context)))
                                                                   .setJobMigrator(new JobMigrator(TextSecurePreferences.getJobManagerVersion(context), JobManager.CURRENT_VERSION, JobManagerFactories.getJobMigrations(context)))
                                                                   .addReservedJobRunner(new FactoryJobPredicate(PushProcessMessageJob.KEY, MarkerJob.KEY))
-                                                                  .addReservedJobRunner(new FactoryJobPredicate(IndividualSendJob.KEY, PushGroupSendJob.KEY, ReactionSendJob.KEY, TypingSendJob.KEY, GroupCallUpdateSendJob.KEY))
+                                                                  .addReservedJobRunner(new FactoryJobPredicate(AttachmentUploadJob.KEY, AttachmentCompressionJob.KEY))
+                                                                  .addReservedJobRunner(new FactoryJobPredicate(
+                                                                      IndividualSendJob.KEY,
+                                                                      PushGroupSendJob.KEY,
+                                                                      ReactionSendJob.KEY,
+                                                                      TypingSendJob.KEY,
+                                                                      GroupCallUpdateSendJob.KEY,
+                                                                      SendDeliveryReceiptJob.KEY
+                                                                  ))
                                                                   .build();
     return new JobManager(context, config);
   }

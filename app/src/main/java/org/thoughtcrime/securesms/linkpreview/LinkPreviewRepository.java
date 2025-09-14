@@ -492,6 +492,7 @@ public class LinkPreviewRepository {
                              null,
                              null,
                              null,
+                             null,
                              null);
   }
 

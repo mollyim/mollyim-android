@@ -80,6 +80,7 @@ class UploadAttachmentToArchiveJob private constructor(
       .setLifespan(30.days.inWholeMilliseconds)
       .setMaxAttempts(Parameters.UNLIMITED)
       .setQueue(QUEUES.random())
+      .setGlobalPriority(Parameters.PRIORITY_LOW)
       .build()
   )
 
@@ -117,6 +118,11 @@ class UploadAttachmentToArchiveJob private constructor(
 
     if (attachment == null) {
       Log.w(TAG, "[$attachmentId] Attachment no longer exists! Skipping.")
+      return Result.failure()
+    }
+
+    if (attachment.uri == null) {
+      Log.w(TAG, "[$attachmentId] Attachment has no uri! Cannot upload.")
       return Result.failure()
     }
 
@@ -160,7 +166,7 @@ class UploadAttachmentToArchiveJob private constructor(
       return Result.success()
     }
 
-    if (attachment.remoteKey == null) {
+    if (attachment.remoteKey == null || attachment.remoteKey.isBlank()) {
       Log.w(TAG, "[$attachmentId] Attachment is missing remote key! Cannot upload.")
       return Result.failure()
     }

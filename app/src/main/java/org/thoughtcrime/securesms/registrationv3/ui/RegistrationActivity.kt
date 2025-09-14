@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.registration.sms.SmsRetrieverReceiver
+import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 
 /**
@@ -49,6 +50,7 @@ class RegistrationActivity : PassphraseRequiredActivity() {
 
     sharedViewModel.checkpoint.observe(this) {
       if (it >= RegistrationCheckpoint.LOCAL_REGISTRATION_COMPLETE) {
+        RegistrationUtil.maybeMarkRegistrationComplete()
         handleSuccessfulVerify()
       }
     }

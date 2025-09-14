@@ -39,15 +39,17 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
     private const val LAST_NETWORK_RESET_TIME = "misc.last_network_reset_time"
     private const val NEW_LINKED_DEVICE_ID = "misc.new_linked_device_id"
     private const val NEW_LINKED_DEVICE_CREATED_TIME = "misc.new_linked_device_created_time"
+    private const val STARTED_QUOTE_THUMBNAIL_MIGRATION = "misc.started_quote_thumbnail_migration"
   }
 
   public override fun onFirstEverAppLaunch() {
     putLong(MESSAGE_REQUEST_ENABLE_TIME, 0)
     putBoolean(NEEDS_USERNAME_RESTORE, true)
+    putBoolean(STARTED_QUOTE_THUMBNAIL_MIGRATION, true)
   }
 
   public override fun getKeysToIncludeInBackup(): List<String> {
-    return emptyList()
+    return listOf(STARTED_QUOTE_THUMBNAIL_MIGRATION)
   }
 
   /**
@@ -260,4 +262,13 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
    * The time, in milliseconds, that the device was created at
    */
   var newLinkedDeviceCreatedTime: Long by longValue(NEW_LINKED_DEVICE_CREATED_TIME, 0)
+
+  /**
+   * Whether or not we have started the quote thumbnail migration. We store this so that upon restoring from
+   * a local backup, we can know whether or not the user marked all of the quotes that need conversion in
+   * the database. If so, we can enqueue a job to continue any pending conversions, and if not we can start
+   * the conversion process from scratch.
+   */
+  @get:JvmName("startedQuoteThumbnailMigration")
+  var startedQuoteThumbnailMigration: Boolean by booleanValue(STARTED_QUOTE_THUMBNAIL_MIGRATION, false)
 }

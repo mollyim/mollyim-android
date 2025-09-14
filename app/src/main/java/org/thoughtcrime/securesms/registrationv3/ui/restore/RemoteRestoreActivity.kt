@@ -73,6 +73,7 @@ import org.thoughtcrime.securesms.components.contactsupport.ContactSupportViewMo
 import org.thoughtcrime.securesms.components.contactsupport.SendSupportEmailEffect
 import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.registrationv3.ui.shared.RegistrationScreen
 import org.thoughtcrime.securesms.registrationv3.ui.shared.RegistrationScreenTitleSubtitle
 import org.thoughtcrime.securesms.util.DateUtils
@@ -118,6 +119,7 @@ class RemoteRestoreActivity : PassphraseRequiredActivity() {
           .firstOrNull()
 
         if (restored != null) {
+          RegistrationUtil.maybeMarkRegistrationComplete()
           startActivity(MainActivity.clearTop(this@RemoteRestoreActivity))
           finishAffinity()
         }

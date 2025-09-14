@@ -6,7 +6,6 @@
 package org.thoughtcrime.securesms.components.settings.app.changenumber
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -52,6 +51,9 @@ class ChangeNumberRegistrationLockFragment : LoggingFragment(R.layout.fragment_c
 
   private var timeRemaining: Long = 0
 
+  private val pinEntryKeyboardType: PinKeyboardType
+    get() = PinKeyboardType.fromEditText(editText = binding.kbsLockPinInput)
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     RegistrationViewDelegate.setDebugLogSubmitMultiTapView(view.findViewById(R.id.kbs_lock_pin_title))
@@ -92,13 +94,9 @@ class ChangeNumberRegistrationLockFragment : LoggingFragment(R.layout.fragment_c
     }
 
     binding.kbsLockKeyboardToggle.setOnClickListener {
-      val keyboardType: PinKeyboardType = getPinEntryKeyboardType()
-      updateKeyboard(keyboardType.other)
-      binding.kbsLockKeyboardToggle.setIconResource(keyboardType.iconResource)
+      updateKeyboard(pinEntryKeyboardType.other)
     }
-
-    val keyboardType: PinKeyboardType = getPinEntryKeyboardType().getOther()
-    binding.kbsLockKeyboardToggle.setIconResource(keyboardType.iconResource)
+    updateKeyboard(pinEntryKeyboardType)
 
     viewModel.liveLockedTimeRemaining.observe(viewLifecycleOwner) { t: Long -> timeRemaining = t }
 
@@ -277,21 +275,11 @@ class ChangeNumberRegistrationLockFragment : LoggingFragment(R.layout.fragment_c
     ViewUtil.focusAndShowKeyboard(binding.kbsLockPinInput)
   }
 
-  private fun getPinEntryKeyboardType(): PinKeyboardType {
-    val isNumeric = (binding.kbsLockPinInput.inputType and InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_NUMBER
-
-    return if (isNumeric) PinKeyboardType.NUMERIC else PinKeyboardType.ALPHA_NUMERIC
-  }
-
-  private fun updateKeyboard(keyboard: PinKeyboardType) {
-    val isAlphaNumeric = keyboard == PinKeyboardType.ALPHA_NUMERIC
-
-    binding.kbsLockPinInput.setInputType(
-      if (isAlphaNumeric) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-      else InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+  private fun updateKeyboard(newType: PinKeyboardType) {
+    newType.applyTo(
+      pinEditText = binding.kbsLockPinInput,
+      toggleTypeButton = binding.kbsLockKeyboardToggle
     )
-
-    binding.kbsLockPinInput.getText().clear()
   }
 
   private fun navigateToAccountLocked() {

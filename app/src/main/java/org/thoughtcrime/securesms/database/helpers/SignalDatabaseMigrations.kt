@@ -143,6 +143,11 @@ import org.thoughtcrime.securesms.database.helpers.migration.V283_ViewOnceRemote
 import org.thoughtcrime.securesms.database.helpers.migration.V284_SetPlaceholderGroupFlag
 import org.thoughtcrime.securesms.database.helpers.migration.V285_AddEpochToCallLinksTable
 import org.thoughtcrime.securesms.database.helpers.migration.V286_FixRemoteKeyEncoding
+import org.thoughtcrime.securesms.database.helpers.migration.V287_FixInvalidArchiveState
+import org.thoughtcrime.securesms.database.helpers.migration.V288_CopyStickerDataHashStartToEnd
+import org.thoughtcrime.securesms.database.helpers.migration.V289_AddQuoteTargetContentTypeColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V290_AddArchiveThumbnailTransferStateColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V291_NullOutRemoteKeyIfEmpty
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -152,7 +157,7 @@ object SignalDatabaseMigrations {
 
   val TAG: String = Log.tag(SignalDatabaseMigrations.javaClass)
 
-  private val migrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
+  private val signalMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
     149 to V149_LegacyMigrations,
     150 to V150_UrgentMslFlagMigration,
     151 to V151_MyStoryMigration,
@@ -288,10 +293,15 @@ object SignalDatabaseMigrations {
     283 to V283_ViewOnceRemoteDataCleanup,
     284 to V284_SetPlaceholderGroupFlag,
     285 to V285_AddEpochToCallLinksTable,
-    286 to V286_FixRemoteKeyEncoding
+    286 to V286_FixRemoteKeyEncoding,
+    287 to V287_FixInvalidArchiveState,
+    288 to V288_CopyStickerDataHashStartToEnd,
+    289 to V289_AddQuoteTargetContentTypeColumn,
+    290 to V290_AddArchiveThumbnailTransferStateColumn,
+    291 to V291_NullOutRemoteKeyIfEmpty
   )
 
-  const val DATABASE_VERSION = 286
+  const val DATABASE_VERSION = 291
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
@@ -304,57 +314,64 @@ object SignalDatabaseMigrations {
   fun migrate(context: Application, db: SignalSqliteDatabase, oldVersion: Int, newVersion: Int) {
     val initialForeignKeyState = db.areForeignKeyConstraintsEnabled()
 
-    // Combines migrations and extraMigrations, ensuring migrations come first for each version
-    val combined = mutableMapOf<Int, MutableList<SignalDatabaseMigration>>()
-    for ((version, migration) in migrations) {
-      require(combined.putIfAbsent(version, mutableListOf(migration)) == null) {
-        "Duplicated migration for version $version"
+    // Merge migrations by version, with `signalMigrations` first
+    val migrations = mutableMapOf<Int, MutableList<SignalDatabaseMigration>>()
+      .apply {
+        for ((v, migration) in signalMigrations) {
+          require(putIfAbsent(v, mutableListOf(migration)) == null) {
+            "Duplicated migration for version $v"
+          }
+        }
+        for ((v, migration) in extraMigrations) {
+          getOrPut(v) { mutableListOf() }.add(migration)
+        }
       }
-    }
-    for ((version, migration) in extraMigrations) {
-      combined.getOrPut(version) { mutableListOf() }.add(migration)
-    }
-    val migrationsByVersion = combined.toSortedMap()
-    for ((version, migrationList) in migrationsByVersion) {
+      .toSortedMap()
+      .also { sortedMap ->
+        sortedMap.forEach { (v, migrationList) ->
+          check(migrationList.map { it.enableForeignKeys }.distinct().size == 1) {
+            "Inconsistent foreign key constraints for version $v"
+          }
+        }
+      }
+
+    val eligibleMigrations = migrations.filter { (version, _) -> version > oldVersion && version <= newVersion }
+
+    for (migrationData in eligibleMigrations) {
+      val (version, migrationList) = migrationData
       val enableForeignKeys = migrationList.first().enableForeignKeys
       val migrationNames = migrationList.joinToString(", ") { it.javaClass.simpleName }
 
-      check(migrationList.all { it.enableForeignKeys == enableForeignKeys }) {
-        "Inconsistent foreign key constraints for version $version"
+      Log.i(TAG, "Running migration for version $version: $migrationNames. Foreign keys: $enableForeignKeys")
+      val startTime = System.currentTimeMillis()
+
+      var ftsException: SQLiteException? = null
+
+      db.setForeignKeyConstraintsEnabled(enableForeignKeys)
+      db.beginTransaction()
+      try {
+        migrationList.forEach { migration ->
+          migration.migrate(context, db, oldVersion, newVersion)
+        }
+        db.version = version
+        db.setTransactionSuccessful()
+      } catch (e: SQLiteException) {
+        if (e.message?.contains("invalid fts5 file format") == true || e.message?.contains("vtable constructor failed") == true) {
+          ftsException = e
+        } else {
+          throw e
+        }
+      } finally {
+        db.endTransaction()
       }
 
-      if (oldVersion < version) {
-        Log.i(TAG, "Running migration for version $version: $migrationNames. Foreign keys: $enableForeignKeys")
-        val startTime = System.currentTimeMillis()
-
-        var ftsException: SQLiteException? = null
-
-        db.setForeignKeyConstraintsEnabled(enableForeignKeys)
-        db.beginTransaction()
-        try {
-          migrationList.forEach { migration ->
-            migration.migrate(context, db, oldVersion, newVersion)
-          }
-          db.version = version
-          db.setTransactionSuccessful()
-        } catch (e: SQLiteException) {
-          if (e.message?.contains("invalid fts5 file format") == true || e.message?.contains("vtable constructor failed") == true) {
-            ftsException = e
-          } else {
-            throw e
-          }
-        } finally {
-          db.endTransaction()
-        }
-
-        if (ftsException != null) {
-          Log.w(TAG, "Encountered FTS format issue! Attempting to repair.", ftsException)
-          SignalDatabase.messageSearch.fullyResetTables(db)
-          throw ftsException
-        }
-
-        Log.i(TAG, "Successfully completed migration for version $version in ${System.currentTimeMillis() - startTime} ms")
+      if (ftsException != null) {
+        Log.w(TAG, "Encountered FTS format issue! Attempting to repair.", ftsException)
+        SignalDatabase.messageSearch.fullyResetTables(db)
+        throw ftsException
       }
+
+      Log.i(TAG, "Successfully completed migration for version $version in ${System.currentTimeMillis() - startTime} ms")
     }
 
     db.setForeignKeyConstraintsEnabled(initialForeignKeyState)

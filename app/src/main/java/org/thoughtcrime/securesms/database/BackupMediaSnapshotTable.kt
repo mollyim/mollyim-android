@@ -128,17 +128,25 @@ class BackupMediaSnapshotTable(context: Context, database: SignalDatabase) : Dat
   }
 
   /**
-   * Writes the set of media items that are slated to be referenced in the next backup, updating their pending sync time.
-   * Will insert multiple rows per object -- one for the main item, and one for the thumbnail.
+   * Writes the set of full-size media items that are slated to be referenced in the next backup, updating their pending sync time.
    */
-  fun writePendingMediaObjects(mediaObjects: Sequence<ArchiveMediaItem>) {
+  fun writeFullSizePendingMediaObjects(mediaObjects: Sequence<ArchiveMediaItem>) {
     mediaObjects
       .chunked(SqlUtil.MAX_QUERY_ARGS)
       .forEach { chunk ->
         writePendingMediaObjectsChunk(
           chunk.map { MediaEntry(it.mediaId, it.cdn, it.plaintextHash, it.remoteKey, isThumbnail = false) }
         )
+      }
+  }
 
+  /**
+   * Writes the set of thumbnail media items that are slated to be referenced in the next backup, updating their pending sync time.
+   */
+  fun writeThumbnailPendingMediaObjects(mediaObjects: Sequence<ArchiveMediaItem>) {
+    mediaObjects
+      .chunked(SqlUtil.MAX_QUERY_ARGS)
+      .forEach { chunk ->
         writePendingMediaObjectsChunk(
           chunk.map { MediaEntry(it.thumbnailMediaId, it.cdn, it.plaintextHash, it.remoteKey, isThumbnail = true) }
         )
@@ -229,6 +237,32 @@ class BackupMediaSnapshotTable(context: Context, database: SignalDatabase) : Dat
     return objects.filterNot { foundObjects.contains(it.mediaId) }.toSet()
   }
 
+  fun getMediaEntriesForObjects(objects: List<ArchivedMediaObject>): Set<MediaEntry> {
+    if (objects.isEmpty()) {
+      return emptySet()
+    }
+
+    val queries: List<SqlUtil.Query> = SqlUtil.buildCollectionQuery(
+      column = MEDIA_ID,
+      values = objects.map { it.mediaId },
+      collectionOperator = SqlUtil.CollectionOperator.IN,
+      prefix = "$SNAPSHOT_VERSION = $MAX_VERSION AND "
+    )
+
+    val entries: MutableSet<MediaEntry> = mutableSetOf()
+
+    for (query in queries) {
+      entries += readableDatabase
+        .select(MEDIA_ID, CDN, PLAINTEXT_HASH, REMOTE_KEY, IS_THUMBNAIL)
+        .from("$TABLE_NAME JOIN ${AttachmentTable.TABLE_NAME}")
+        .where(query.where, query.whereArgs)
+        .run()
+        .readToList { MediaEntry.fromCursor(it) }
+    }
+
+    return entries.toSet()
+  }
+
   /**
    * Given a list of media objects, find the ones that are present in the most recent snapshot, but have a different CDN than the one passed in.
    * This will ignore thumbnails, as the results are intended to be used to update CDNs, which we do not track for thumbnails.
@@ -291,6 +325,10 @@ class BackupMediaSnapshotTable(context: Context, database: SignalDatabase) : Dat
   }
 
   private fun writePendingMediaObjectsChunk(chunk: List<MediaEntry>) {
+    if (chunk.isEmpty()) {
+      return
+    }
+
     val values = chunk.map {
       contentValuesOf(
         MEDIA_ID to it.mediaId,
@@ -324,7 +362,9 @@ class BackupMediaSnapshotTable(context: Context, database: SignalDatabase) : Dat
     val thumbnailMediaId: String,
     val cdn: Int?,
     val plaintextHash: ByteArray,
-    val remoteKey: ByteArray
+    val remoteKey: ByteArray,
+    val quote: Boolean,
+    val contentType: String?
   )
 
   class CdnMismatchResult(

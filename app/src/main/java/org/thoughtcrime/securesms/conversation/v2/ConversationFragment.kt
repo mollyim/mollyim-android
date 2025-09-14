@@ -583,6 +583,7 @@ class ConversationFragment :
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.toolbar.isBackInvokedCallbackEnabled = false
 
+    binding.root.setApplyRootInsets(!resources.getWindowSizeClass().isSplitPane())
     binding.root.setUseWindowTypes(!resources.getWindowSizeClass().isSplitPane())
 
     disposables.bindTo(viewLifecycleOwner)
@@ -1646,11 +1647,6 @@ class ConversationFragment :
       return
     }
 
-    if (SignalStore.uiHints.hasNotSeenEditMessageBetaAlert()) {
-      Dialogs.showEditMessageBetaDialog(requireContext()) { handleSendEditMessage() }
-      return
-    }
-
     val editMessage = inputPanel.editMessage
     if (editMessage == null) {
       Log.w(TAG, "No edit message found, forcing exit")
@@ -1944,13 +1940,6 @@ class ConversationFragment :
     }
 
     if (scheduledDate != -1L && ReenableScheduledMessagesDialogFragment.showIfNeeded(requireContext(), childFragmentManager, null, scheduledDate)) {
-      return
-    }
-
-    if (SignalStore.uiHints.hasNotSeenTextFormattingAlert() && bodyRanges != null && bodyRanges.ranges.isNotEmpty()) {
-      Dialogs.showFormattedTextDialog(requireContext()) {
-        sendMessage(body, mentions, bodyRanges, messageToEdit, quote, scheduledDate, slideDeck, contacts, clearCompose, linkPreviews, preUploadResults, bypassPreSendSafetyNumberCheck, isViewOnce, afterSendComplete)
-      }
       return
     }
 
@@ -2992,6 +2981,10 @@ class ConversationFragment :
 
     override fun onShowUnverifiedProfileSheet(forGroup: Boolean) {
       UnverifiedProfileNameBottomSheet.show(parentFragmentManager, forGroup)
+    }
+
+    override fun onUpdateSignalClicked() {
+      PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext())
     }
 
     override fun onJoinGroupCallClicked() {
