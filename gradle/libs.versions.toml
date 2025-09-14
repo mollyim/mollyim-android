@@ -13,7 +13,7 @@ androidx-window = "1.3.0"
 glide = "4.15.1"
 gradle = "8.9.0"
 kotlin = "2.1.0"
-libsignal-client = "0.78.2"
+libsignal-client = "0.78.2-1"
 mp4parser = "1.9.39"
 android-gradle-plugin = "8.7.2"
 accompanist = "0.28.0"
@@ -140,8 +140,8 @@ com-google-devtools-ksp-gradle-plugin = "com.google.devtools.ksp:com.google.devt
 firebase-messaging = "com.google.firebase:firebase-messaging:24.1.0"
 
 # 1st Party
-libsignal-client = { module = "org.signal:libsignal-client", version.ref = "libsignal-client" }
-libsignal-android = { module = "org.signal:libsignal-android", version.ref = "libsignal-client" }
+libsignal-client = { module = "im.molly:libsignal-client", version.ref = "libsignal-client" }
+libsignal-android = { module = "im.molly:libsignal-android", version.ref = "libsignal-client" }
 protobuf-gradle-plugin = { module = "com.google.protobuf:protobuf-gradle-plugin", version.ref = "protobuf-gradle-plugin" }
 signal-aesgcmprovider = "org.signal:aesgcmprovider:0.0.4"
 molly-ringrtc = "im.molly:ringrtc-android:2.57.0-1"
