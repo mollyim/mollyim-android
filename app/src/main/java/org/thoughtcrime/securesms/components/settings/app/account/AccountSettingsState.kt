@@ -1,7 +1,7 @@
 package org.thoughtcrime.securesms.components.settings.app.account
 
 data class AccountSettingsState(
-  val isLinkedDevice: Boolean,
+  val isLinkedDevice: Boolean = false,
   val hasPin: Boolean,
   val hasRestoredAep: Boolean,
   val pinRemindersEnabled: Boolean,

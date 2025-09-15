@@ -16,7 +16,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
@@ -28,6 +27,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.mms.SentMediaQuality
+import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.webrtc.CallDataMode
 import kotlin.math.abs
@@ -36,7 +36,7 @@ class DataAndStorageSettingsFragment : ComposeFragment() {
 
   private val viewModel: DataAndStorageSettingsViewModel by viewModels(
     factoryProducer = {
-      val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+      val preferences =  SecurePreferenceManager.getSecurePreferences(requireContext())
       val repository = DataAndStorageSettingsRepository()
       DataAndStorageSettingsViewModel.Factory(preferences, repository)
     }
@@ -75,10 +75,6 @@ class DataAndStorageSettingsFragment : ComposeFragment() {
       viewModel.setCallDataMode(CallDataMode.fromCode(abs(code.toInt() - 2)))
     }
 
-    override fun onUseProxyClick() {
-      findNavController().safeNavigate(R.id.action_dataAndStorageSettingsFragment_to_editProxyFragment)
-    }
-
     override fun onMobileDataAutoDownloadSelectionChanged(selection: Array<String>) {
       viewModel.setMobileAutoDownloadValues(selection.toSet())
     }
@@ -98,7 +94,6 @@ private interface DataAndStorageSettingsCallbacks {
   fun onManageStorageClick() = Unit
   fun onSentMediaQualitySelected(code: String) = Unit
   fun onCallDataModeSelected(code: String) = Unit
-  fun onUseProxyClick() = Unit
   fun onMobileDataAutoDownloadSelectionChanged(selection: Array<String>) = Unit
   fun onWifiDataAutoDownloadSelectionChanged(selection: Array<String>) = Unit
   fun onRoamingDataAutoDownloadSelectionChanged(selection: Array<String>) = Unit
@@ -229,22 +224,6 @@ private fun DataAndStorageSettingsScreen(
           }
         )
       }
-
-      item {
-        Dividers.Default()
-      }
-
-      item {
-        Texts.SectionHeader(stringResource(R.string.preferences_proxy))
-      }
-
-      item {
-        Rows.TextRow(
-          text = stringResource(R.string.preferences_use_proxy),
-          label = stringResource(if (state.isProxyEnabled) R.string.preferences_on else R.string.preferences_off),
-          onClick = callbacks::onUseProxyClick
-        )
-      }
     }
   }
 }
@@ -260,7 +239,6 @@ private fun DataAndStorageSettingsScreenPreview() {
         wifiAutoDownloadValues = setOf(),
         roamingAutoDownloadValues = setOf(),
         callDataMode = CallDataMode.HIGH_ALWAYS,
-        isProxyEnabled = false,
         sentMediaQuality = SentMediaQuality.STANDARD
       ),
       callbacks = DataAndStorageSettingsCallbacks.Empty

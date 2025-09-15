@@ -1,50 +1,21 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
 import android.app.Application
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
-import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.jobs.ApkUpdateJob
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.livedata.Store
 
 class HelpSettingsViewModel : ViewModel() {
 
   private val application: Application = AppDependencies.application
 
-  private val store: Store<HelpSettingsState> = Store(getCurrentState())
+  private val internalState = MutableStateFlow(getState())
 
-  val stateLiveData: LiveData<HelpSettingsState> = store.stateLiveData
-
-  private val _state = mutableStateOf(getCurrentState())
-
-  val state: State<HelpSettingsState> = _state
-
-  fun setUpdateApkEnabled(enabled: Boolean) {
-    TextSecurePreferences.setUpdateApkEnabled(application, enabled)
-    if (enabled) {
-      checkForUpdates()
-    }
-    refreshState()
-  }
-
-  fun setIncludeBetaEnabled(enabled: Boolean) {
-    TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, enabled)
-    ApkUpdateNotifications.dismissInstallPrompt(application)
-    checkForUpdates()
-    refreshState()
-  }
-
-  fun checkForUpdates() {
-    ApkUpdateRefreshListener.scheduleIfAllowed(application)
-    AppDependencies.jobManager.add(ApkUpdateJob())
-  }
+  val state: StateFlow<HelpSettingsState> = internalState
 
   fun setLogEnabled(enabled: Boolean) {
     TextSecurePreferences.setLogEnabled(application, enabled)
@@ -52,20 +23,16 @@ class HelpSettingsViewModel : ViewModel() {
     if (!enabled) {
       Log.wipeLogs()
     }
-    refreshState()
+    refresh()
   }
 
-  fun refreshState() {
-    store.update { getCurrentState() }
-    _state.value =  store.state
+  fun refresh() {
+    internalState.update { getState() }
   }
 
-  private fun getCurrentState(): HelpSettingsState {
+  private fun getState(): HelpSettingsState {
     return HelpSettingsState(
-      updateApkEnabled = TextSecurePreferences.isUpdateApkEnabled(application),
-      includeBetaEnabled = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(application),
       logEnabled = TextSecurePreferences.isLogEnabled(application),
-      lastUpdateCheckTime = SignalStore.apkUpdate.lastSuccessfulCheck
     )
   }
 }

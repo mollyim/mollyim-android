@@ -1,17 +1,10 @@
 package org.thoughtcrime.securesms.components.settings.app.account
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
-import android.util.DisplayMetrics
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -28,12 +21,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.core.app.DialogCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Dividers
@@ -45,19 +35,14 @@ import org.signal.core.ui.compose.Texts
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
-import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
-import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
-import org.thoughtcrime.securesms.lock.v2.SvrConstants
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog
 import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.util.PlayStoreUtil
 import org.thoughtcrime.securesms.util.ServiceUtil
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
-import org.whispersystems.signalservice.api.kbs.PinHashUtil
 
 class AccountSettingsFragment : ComposeFragment() {
 
@@ -94,66 +79,8 @@ class AccountSettingsFragment : ComposeFragment() {
   }
 
   private fun setPinRemindersEnabled(enabled: Boolean) {
-    if (!enabled) {
-      val context: Context = requireContext()
-      val metrics: DisplayMetrics = resources.displayMetrics
-
-      val dialog: AlertDialog = MaterialAlertDialogBuilder(context)
-        .setView(R.layout.pin_disable_reminders_dialog)
-        .setOnDismissListener { viewModel.refreshState() }
-        .create()
-
-      dialog.show()
-      dialog.window!!.setLayout((metrics.widthPixels * .80).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
-
-      val pinEditText = DialogCompat.requireViewById(dialog, R.id.reminder_disable_pin) as EditText
-      val statusText = DialogCompat.requireViewById(dialog, R.id.reminder_disable_status) as TextView
-      val cancelButton = DialogCompat.requireViewById(dialog, R.id.reminder_disable_cancel)
-      val turnOffButton = DialogCompat.requireViewById(dialog, R.id.reminder_disable_turn_off)
-      val changeKeyboard = DialogCompat.requireViewById(dialog, R.id.reminder_change_keyboard) as MaterialButton
-
-      changeKeyboard.setOnClickListener {
-        val newType = PinKeyboardType.fromEditText(pinEditText).other
-        newType.applyTo(
-          pinEditText = pinEditText,
-          toggleTypeButton = changeKeyboard
-        )
-        pinEditText.typeface = Typeface.DEFAULT
-      }
-
-      pinEditText.post {
-        ViewUtil.focusAndShowKeyboard(pinEditText)
-      }
-
-      SignalStore.pin.keyboardType.applyTo(
-        pinEditText = pinEditText,
-        toggleTypeButton = changeKeyboard
-      )
-
-      pinEditText.addTextChangedListener(object : SimpleTextWatcher() {
-        override fun onTextChanged(text: String) {
-          turnOffButton.isEnabled = text.length >= SvrConstants.MINIMUM_PIN_LENGTH
-        }
-      })
-
-      pinEditText.typeface = Typeface.DEFAULT
-      turnOffButton.setOnClickListener {
-        val pin = pinEditText.text.toString()
-        val correct = PinHashUtil.verifyLocalPinHash(SignalStore.svr.localPinHash!!, pin)
-        if (correct) {
-          SignalStore.pin.setPinRemindersEnabled(false)
-          viewModel.refreshState()
-          dialog.dismiss()
-        } else {
-          statusText.setText(R.string.preferences_app_protection__incorrect_pin_try_again)
-        }
-      }
-
-      cancelButton.setOnClickListener { dialog.dismiss() }
-    } else {
-      SignalStore.pin.setPinRemindersEnabled(true)
-      viewModel.refreshState()
-    }
+    SignalStore.pin.setPinRemindersEnabled(enabled)
+    viewModel.refreshState()
   }
 
   private inner class Callbacks : AccountSettingsScreenCallbacks {
@@ -276,56 +203,64 @@ fun AccountSettingsScreen(
         )
       }
 
-      item {
-        @StringRes val textId = if (state.hasPin || state.hasRestoredAep) {
-          R.string.preferences_app_protection__change_your_pin
-        } else {
-          R.string.preferences_app_protection__create_a_pin
+      if (state.isLinkedDevice) {
+        item {
+          Rows.TextRow(
+            text = stringResource(R.string.AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device),
+          )
+        }
+      } else {
+        item {
+          @StringRes val textId = if (state.hasPin || state.hasRestoredAep) {
+            R.string.preferences_app_protection__change_your_pin
+          } else {
+            R.string.preferences_app_protection__create_a_pin
+          }
+
+          Rows.TextRow(
+            text = stringResource(textId),
+            enabled = state.isNotDeprecatedOrUnregistered(),
+            onClick = {
+              if (state.hasPin) {
+                callbacks.onChangePinClick()
+              } else {
+                callbacks.onCreatePinClick()
+              }
+            },
+            modifier = Modifier.testTag(AccountSettingsTestTags.ROW_MODIFY_PIN)
+          )
         }
 
-        Rows.TextRow(
-          text = stringResource(textId),
-          enabled = state.isNotDeprecatedOrUnregistered(),
-          onClick = {
-            if (state.hasPin) {
-              callbacks.onChangePinClick()
-            } else {
-              callbacks.onCreatePinClick()
-            }
-          },
-          modifier = Modifier.testTag(AccountSettingsTestTags.ROW_MODIFY_PIN)
-        )
-      }
+        item {
+          Rows.ToggleRow(
+            text = stringResource(R.string.preferences_app_protection__pin_reminders),
+            label = stringResource(R.string.AccountSettingsFragment__youll_be_asked_less_frequently),
+            checked = state.hasPin && state.pinRemindersEnabled,
+            enabled = state.hasPin && state.isNotDeprecatedOrUnregistered(),
+            onCheckChanged = callbacks::setPinRemindersEnabled,
+            modifier = Modifier.testTag(AccountSettingsTestTags.ROW_PIN_REMINDER)
+          )
+        }
 
-      item {
-        Rows.ToggleRow(
-          text = stringResource(R.string.preferences_app_protection__pin_reminders),
-          label = stringResource(R.string.AccountSettingsFragment__youll_be_asked_less_frequently),
-          checked = state.hasPin && state.pinRemindersEnabled,
-          enabled = state.hasPin && state.isNotDeprecatedOrUnregistered(),
-          onCheckChanged = callbacks::setPinRemindersEnabled,
-          modifier = Modifier.testTag(AccountSettingsTestTags.ROW_PIN_REMINDER)
-        )
-      }
+        item {
+          Rows.ToggleRow(
+            text = stringResource(R.string.preferences_app_protection__registration_lock),
+            label = stringResource(R.string.AccountSettingsFragment__require_your_signal_pin),
+            checked = state.registrationLockEnabled,
+            enabled = state.hasPin && state.isNotDeprecatedOrUnregistered(),
+            onCheckChanged = callbacks::setRegistrationLockEnabled,
+            modifier = Modifier.testTag(AccountSettingsTestTags.ROW_REGISTRATION_LOCK)
+          )
+        }
 
-      item {
-        Rows.ToggleRow(
-          text = stringResource(R.string.preferences_app_protection__registration_lock),
-          label = stringResource(R.string.AccountSettingsFragment__require_your_signal_pin),
-          checked = state.registrationLockEnabled,
-          enabled = state.hasPin && state.isNotDeprecatedOrUnregistered(),
-          onCheckChanged = callbacks::setRegistrationLockEnabled,
-          modifier = Modifier.testTag(AccountSettingsTestTags.ROW_REGISTRATION_LOCK)
-        )
-      }
-
-      item {
-        Rows.TextRow(
-          text = stringResource(R.string.preferences__advanced_pin_settings),
-          enabled = state.isNotDeprecatedOrUnregistered(),
-          onClick = callbacks::openAdvancedPinSettings,
-          modifier = Modifier.testTag(AccountSettingsTestTags.ROW_ADVANCED_PIN_SETTINGS)
-        )
+        item {
+          Rows.TextRow(
+            text = stringResource(R.string.preferences__advanced_pin_settings),
+            enabled = state.isNotDeprecatedOrUnregistered(),
+            onClick = callbacks::openAdvancedPinSettings,
+            modifier = Modifier.testTag(AccountSettingsTestTags.ROW_ADVANCED_PIN_SETTINGS)
+          )
+        }
       }
 
       item {
@@ -342,7 +277,7 @@ fun AccountSettingsScreen(
         item {
           Rows.TextRow(
             text = stringResource(R.string.AccountSettingsFragment__change_phone_number),
-            enabled = state.isNotDeprecatedOrUnregistered(),
+            enabled = state.isNotDeprecatedOrUnregistered() && !state.isLinkedDevice,
             onClick = callbacks::openChangeNumberFlow,
             modifier = Modifier.testTag(AccountSettingsTestTags.ROW_CHANGE_PHONE_NUMBER)
           )
@@ -353,7 +288,7 @@ fun AccountSettingsScreen(
         Rows.TextRow(
           text = stringResource(R.string.preferences_chats__transfer_account),
           label = stringResource(R.string.preferences_chats__transfer_account_to_a_new_android_device),
-          enabled = state.canTransferWhileUnregistered || state.isNotDeprecatedOrUnregistered(),
+          enabled = state.canTransferWhileUnregistered || state.isNotDeprecatedOrUnregistered() && !state.isLinkedDevice,
           onClick = callbacks::openDeviceTransferFlow,
           modifier = Modifier.testTag(AccountSettingsTestTags.ROW_TRANSFER_ACCOUNT)
         )

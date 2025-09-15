@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -39,7 +40,7 @@ class HelpSettingsFragment : ComposeFragment() {
 
   @Composable
   override fun FragmentContent() {
-    val state: HelpSettingsState by viewModel.state
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val navController: NavController = remember { findNavController() }
 
     val context = LocalContext.current
