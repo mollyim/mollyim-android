@@ -381,8 +381,15 @@ android {
 
   androidComponents {
     beforeVariants { variant ->
-      val selected = variant.name in selectableVariants
-      if (!(selected && buildVariants.toRegex().containsMatchIn(variant.name))) {
+      val isSelected = variant.name in selectableVariants
+      val matchesBuild = buildVariants.toRegex().containsMatchIn(variant.name)
+
+      if (isSelected && matchesBuild) {
+        // MOLLY: Disable unit tests for non-debug builds
+        if (variant.buildType != "debug") {
+          (variant as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = false
+        }
+      } else {
         variant.enable = false
       }
     }
@@ -566,6 +573,8 @@ dependencies {
   testImplementation(testLibs.espresso.core)
   testImplementation(testLibs.kotlinx.coroutines.test)
   testImplementation(libs.androidx.compose.ui.test.junit4)
+
+  debugImplementation(libs.androidx.compose.ui.test.manifest)
 
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
