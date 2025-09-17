@@ -359,12 +359,12 @@ android {
 
       buildConfigField("String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms.dev\"")
 
-      buildConfigField("String", "SIGNAL_URL", "\"https://localhost:8443\"")
-      buildConfigField("String", "STORAGE_URL", "\"https://localhost:10443\"")
+      buildConfigField("String", "SIGNAL_URL", "\"https://flatline-whisper.localhost:8443\"")
+      buildConfigField("String", "STORAGE_URL", "\"https://flatline-storage.localhost:8443\"")
       buildConfigField("String", "SIGNAL_CDN_URL", "\"https://invalid\"")
       buildConfigField("String", "SIGNAL_CDN2_URL", "\"https://invalid\"")
       buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://invalid\"")
-      buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://invalid\"")
+      buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://flatline-cds.localhost:8443\"")
       buildConfigField("String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\"")
       buildConfigField("String", "SIGNAL_SVR2_URL", "\"https://invalid\"")
       buildConfigField("String", "SIGNAL_SFU_URL", "\"https://invalid\"")
