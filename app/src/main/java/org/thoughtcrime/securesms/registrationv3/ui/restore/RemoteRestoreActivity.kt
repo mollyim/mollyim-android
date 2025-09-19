@@ -292,6 +292,7 @@ private fun BackupAvailableContent(
   }
 
   RegistrationScreen(
+    menu = null,
     topContent = {
       if (state.backupTier != null) {
         RegistrationScreenTitleSubtitle(
