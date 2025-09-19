@@ -335,7 +335,11 @@ object SignalDatabaseMigrations {
         }
       }
 
-    val eligibleMigrations = migrations.filter { (version, _) -> version > oldVersion && version <= newVersion }
+    val eligibleMigrations = if (newVersion < 0) {
+      migrations.filter { (version, _) -> version > oldVersion }
+    } else {
+      migrations.filter { (version, _) -> version > oldVersion && version <= newVersion }
+    }
 
     for (migrationData in eligibleMigrations) {
       val (version, migrationList) = migrationData
