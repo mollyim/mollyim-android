@@ -9,6 +9,7 @@ import okio.HashingSink
 import okio.sink
 import org.signal.core.util.Hex
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
 import org.thoughtcrime.securesms.util.JsonUtils
@@ -240,7 +241,7 @@ object S3 {
   @VisibleForTesting
   fun s3Url(path: String): URL {
     try {
-      return URI("https", "updates2.signal.org", path, null).toURL()
+      return URI("https", URI(BuildConfig.STATIC_ASSETS_URL).host, path, null).toURL()
     } catch (e: URISyntaxException) {
       throw IOException(e)
     }

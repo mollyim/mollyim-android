@@ -62,7 +62,8 @@ object Badges {
   }
 
   private fun getBadgeImageUri(densityPath: String): Uri {
-    return Uri.parse(BuildConfig.BADGE_STATIC_ROOT).buildUpon()
+    return Uri.parse(BuildConfig.STATIC_ASSETS_URL).buildUpon()
+      .appendPath("/static/badges/")
       .appendPath(densityPath)
       .build()
   }

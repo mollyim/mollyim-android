@@ -58,7 +58,6 @@ class SignalServiceNetworkAccess(context: Context) {
 
     // MOLLY: Add new hostnames and URLs to HOSTNAMES below
     private const val SIGNALCAPTCHAS_HOST = "signalcaptchas.org"
-    private const val UPDATES2_HOST = "updates2.signal.org"
     private const val G_HOST = "reflector-nrgwuv7kwq-uc.a.run.app"
     private const val F_SERVICE_HOST = "chat-signal.global.ssl.fastly.net"
     private const val F_STORAGE_HOST = "storage.signal.org.global.prod.fastly.net"
@@ -95,9 +94,9 @@ class SignalServiceNetworkAccess(context: Context) {
       BuildConfig.SIGNAL_SVR2_URL.stripProtocol(),
       BuildConfig.SIGNAL_SFU_URL.stripProtocol(),
       BuildConfig.SIGNAL_STAGING_SFU_URL.stripProtocol(),
+      BuildConfig.STATIC_ASSETS_URL.stripProtocol(),
       BuildConfig.CONTENT_PROXY_HOST,
       SIGNALCAPTCHAS_HOST,
-      UPDATES2_HOST,
       G_HOST,
       F_SERVICE_HOST,
       F_STORAGE_HOST,
