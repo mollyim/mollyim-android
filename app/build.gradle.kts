@@ -361,9 +361,9 @@ android {
 
       buildConfigField("String", "SIGNAL_URL", "\"https://whisper.flatline.localhost:8443\"")
       buildConfigField("String", "STORAGE_URL", "\"https://storage.flatline.localhost:8443\"")
-      buildConfigField("String", "SIGNAL_CDN_URL", "\"https://invalid-a2f850\"")
+      buildConfigField("String", "SIGNAL_CDN_URL", "\"https://cdn-s3.flatline.localhost:8443\"")
       buildConfigField("String", "SIGNAL_CDN2_URL", "\"https://invalid-e3cc69\"")
-      buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://cdn.flatline.localhost:8443\"")
+      buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://cdn-tus.flatline.localhost:8443\"")
       buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://cds.flatline.localhost:8443\"")
       buildConfigField("String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\"")
       buildConfigField("String", "SIGNAL_SVR2_URL", "\"https://invalid-3bd5ac\"")
