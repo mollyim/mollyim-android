@@ -5,7 +5,9 @@ body:
     id: guidelines
     attributes:
       label: "Guidelines"
-      description: "Please search for already reported issues to avoid submitting a duplicate. [Search existing issues](https://github.com/mollyim/mollyim-android/issues?q=is%3Aissue+-label%3Afeature-request)."
+      description: |
+        Please check whether this issue has already been reported to avoid duplicates.
+        [Search existing issues](https://github.com/mollyim/mollyim-android/issues?q=is%3Aissue+-type%3AFeature).
       options:
         - label: "Yes, I have searched for existing issues"
           required: true
@@ -13,7 +15,7 @@ body:
     id: description-of-bug
     attributes:
       label: "Bug Description"
-      description: "Explain the problem clearly, including steps to reproduce."
+      description: "Explain the problem clearly, including the steps to reproduce it."
       placeholder: "What did you do, and what went wrong?"
     validations:
       required: true
@@ -26,10 +28,18 @@ body:
     validations:
       required: false
   - type: input
+    id: app-version
+    attributes:
+      label: "App Version"
+      description: "Molly app ► Settings ► Help"
+      placeholder: "e.g. v7.21.5-2"
+    validations:
+      required: true
+  - type: input
     id: device-model
     attributes:
       label: "Device Model"
-      description: "Found in Settings ► About Phone."
+      description: "System Settings ► About Phone"
       placeholder: "e.g. Pixel 9"
     validations:
       required: false
@@ -37,16 +47,8 @@ body:
     id: android-version
     attributes:
       label: "Android Version"
-      description: "Found in Settings ► About Phone."
+      description: "System Settings ► About Phone"
       placeholder: "e.g. Android 14"
-    validations:
-      required: false
-  - type: input
-    id: app-version
-    attributes:
-      label: "App Version"
-      description: "Found in Molly's Settings ► Help"
-      placeholder: "e.g. v7.21.5-2"
     validations:
       required: false
   - type: input
@@ -54,8 +56,8 @@ body:
     attributes:
       label: "Link to Debug Log"
       description: |
-        If possible, include a debug log via Molly’s Settings ► Help ► Debug Log. Copy the URL here.
-        Logs cover ~24 hours, so capture it soon after encountering the bug.
+        If possible, include a debug log: Molly app ► Settings ► Help ► Debug Log.
+        Copy the generated link here. Logs cover about 24 hours, so capture it soon after the issue occurs.
       placeholder: "e.g. https://debuglogs.org/..."
     validations:
       required: false

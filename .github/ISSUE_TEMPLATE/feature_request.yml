@@ -1,12 +1,14 @@
 name: "✨ Feature Request"
 description: "Suggest a new feature or enhancement."
-labels: [ "feature-request" ]
+type: Feature
 body:
   - type: checkboxes
     id: guidelines
     attributes:
       label: "Guidelines"
-      description: "Please search for similar requests to avoid duplicates. If you find a similar one, comment there instead. [Search existing requests](https://github.com/mollyim/mollyim-android/issues?q=is%3Aissue+label%3Afeature-request)."
+      description: |
+        Please search for similar requests to avoid duplicates. If you find a similar one, comment there instead.
+        [Search existing requests](https://github.com/mollyim/mollyim-android/issues?q=is%3Aissue+type%3AFeature).
       options:
         - label: "Yes, I have searched the existing requests"
           required: true
