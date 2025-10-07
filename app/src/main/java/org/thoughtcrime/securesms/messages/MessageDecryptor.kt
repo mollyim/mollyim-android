@@ -1,11 +1,14 @@
 package org.thoughtcrime.securesms.messages
 
+import android.Manifest
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.squareup.wire.internal.toUnmodifiableList
 import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.isAbsent
@@ -44,7 +47,6 @@ import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.jobs.SendRetryReceiptJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity
-import org.thoughtcrime.securesms.messages.MessageDecryptor.FollowUpOperation
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.hasGroupContext
 import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
@@ -128,6 +130,12 @@ object MessageDecryptor {
       return Result.Ignore(envelope, serverDeliveredTimestamp, emptyList())
     }
 
+    val sourceServiceId = ServiceId.parseOrNull(envelope.sourceServiceId)
+    if (sourceServiceId is PNI && envelope.type != Envelope.Type.SERVER_DELIVERY_RECEIPT) {
+      Log.w(TAG, "${logPrefix(envelope)} Got a message from a PNI that was not a SERVER_DELIVERY_RECEIPT.")
+      return Result.Ignore(envelope, serverDeliveredTimestamp, emptyList())
+    }
+
     val followUpOperations: MutableList<FollowUpOperation> = mutableListOf()
 
     if (envelope.type == Envelope.Type.PREKEY_BUNDLE) {
@@ -148,6 +156,11 @@ object MessageDecryptor {
 
       if (cipherResult == null) {
         Log.w(TAG, "${logPrefix(envelope)} Decryption resulted in a null result!", true)
+        return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+      }
+
+      if (cipherResult.metadata.sourceServiceId is PNI && envelope.sourceServiceId == null) {
+        Log.w(TAG, "${logPrefix(envelope)} Invalid message! Sealed sender used for a PNI.")
         return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
       }
 
@@ -430,6 +443,11 @@ object MessageDecryptor {
   }
 
   private fun postDecryptionErrorNotification(context: Context) {
+    if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+      Log.w(TAG, "postDecryptionErrorNotification: Notification permission is not granted.")
+      return
+    }
+
     val notification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
       .setSmallIcon(R.drawable.ic_notification)
       .setContentTitle("[Internal-only] Failed to decrypt a message!")
@@ -441,6 +459,11 @@ object MessageDecryptor {
   }
 
   private fun postInvalidMessageNotification(context: Context, message: String) {
+    if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+      Log.w(TAG, "postInvalidMessageNotification: Notification permission is not granted.")
+      return
+    }
+
     val notification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
       .setSmallIcon(R.drawable.ic_notification)
       .setContentTitle("[Internal-only] Received an invalid message!")

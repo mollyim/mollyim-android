@@ -1,12 +1,15 @@
 package org.thoughtcrime.securesms.mediapreview
 
+import android.Manifest
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
@@ -31,7 +34,6 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.rx.RxStore
-import java.util.Optional
 
 class MediaPreviewV2ViewModel : ViewModel() {
 
@@ -164,6 +166,11 @@ class MediaPreviewV2ViewModel : ViewModel() {
       return
     }
 
+    if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+      Log.w(TAG, "maybePostInvalidMacErrorNotification: Notification permission is not granted.")
+      return
+    }
+
     val notification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
       .setSmallIcon(R.drawable.ic_notification)
       .setContentTitle("[Internal-only] Bad incrementalMac!")
@@ -183,18 +190,18 @@ fun MediaTable.MediaRecord.toMedia(): Media? {
   }
 
   return Media(
-    uri,
-    this.contentType,
-    this.date,
-    attachment.width,
-    attachment.height,
-    attachment.size,
-    0,
-    attachment.borderless,
-    attachment.videoGif,
-    Optional.empty(),
-    Optional.ofNullable(attachment.caption),
-    Optional.empty(),
-    Optional.empty()
+    uri = uri,
+    contentType = this.contentType,
+    date = this.date,
+    width = attachment.width,
+    height = attachment.height,
+    size = attachment.size,
+    duration = 0,
+    isBorderless = attachment.borderless,
+    isVideoGif = attachment.videoGif,
+    bucketId = null,
+    caption = attachment.caption,
+    transformProperties = null,
+    fileName = null
   )
 }

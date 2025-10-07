@@ -148,6 +148,7 @@ import org.thoughtcrime.securesms.contactshare.SharedContactDetailsActivity
 import org.thoughtcrime.securesms.conversation.AttachmentKeyboardButton
 import org.thoughtcrime.securesms.conversation.BadDecryptLearnMoreDialog
 import org.thoughtcrime.securesms.conversation.ConversationAdapter
+import org.thoughtcrime.securesms.conversation.ConversationArgs
 import org.thoughtcrime.securesms.conversation.ConversationBottomSheetCallback
 import org.thoughtcrime.securesms.conversation.ConversationData
 import org.thoughtcrime.securesms.conversation.ConversationHeaderView
@@ -177,6 +178,7 @@ import org.thoughtcrime.securesms.conversation.ScheduledMessagesBottomSheet
 import org.thoughtcrime.securesms.conversation.ScheduledMessagesRepository
 import org.thoughtcrime.securesms.conversation.SelectedConversationModel
 import org.thoughtcrime.securesms.conversation.ShowAdminsBottomSheetDialog
+import org.thoughtcrime.securesms.conversation.clicklisteners.PollVotesFragment
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.Colorizer
 import org.thoughtcrime.securesms.conversation.colors.RecyclerViewColorizer
@@ -250,6 +252,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModelV2
 import org.thoughtcrime.securesms.longmessage.LongMessageFragment
+import org.thoughtcrime.securesms.main.InsetsViewModel
 import org.thoughtcrime.securesms.main.MainNavigationListLocation
 import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity
 import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory
@@ -273,6 +276,9 @@ import org.thoughtcrime.securesms.mms.VideoSlide
 import org.thoughtcrime.securesms.nicknames.NicknameActivity
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.permissions.Permissions
+import org.thoughtcrime.securesms.polls.Poll
+import org.thoughtcrime.securesms.polls.PollOption
+import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment
 import org.thoughtcrime.securesms.providers.BlobProvider
@@ -326,6 +332,7 @@ import org.thoughtcrime.securesms.util.atMidnight
 import org.thoughtcrime.securesms.util.atUTC
 import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.fragments.requireListener
+import org.thoughtcrime.securesms.util.getPoll
 import org.thoughtcrime.securesms.util.getQuote
 import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
@@ -342,6 +349,7 @@ import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil
+import org.thoughtcrime.securesms.window.WindowSizeClass
 import org.thoughtcrime.securesms.window.WindowSizeClass.Companion.getWindowSizeClass
 import java.time.Instant
 import java.time.LocalDateTime
@@ -384,8 +392,8 @@ class ConversationFragment :
     private const val IS_SCROLLED_TO_BOTTOM_THRESHOLD: Int = 2
   }
 
-  private val args: ConversationIntents.Args by lazy {
-    ConversationIntents.Args.from(requireArguments())
+  private val args: ConversationArgs by lazy {
+    ConversationIntents.readArgsFromBundle(requireArguments())
   }
 
   private val conversationRecipientRepository: ConversationRecipientRepository by lazy {
@@ -471,6 +479,8 @@ class ConversationFragment :
   }
 
   private val shareDataTimestampViewModel: ShareDataTimestampViewModel by activityViewModels()
+
+  private val insetsViewModel: InsetsViewModel by activityViewModels()
 
   private val inlineQueryController: InlineQueryResultsControllerV2 by lazy {
     InlineQueryResultsControllerV2(
@@ -583,8 +593,21 @@ class ConversationFragment :
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.toolbar.isBackInvokedCallbackEnabled = false
 
-    binding.root.setApplyRootInsets(!resources.getWindowSizeClass().isSplitPane())
-    binding.root.setUseWindowTypes(!resources.getWindowSizeClass().isSplitPane())
+    if (WindowSizeClass.isLargeScreenSupportEnabled()) {
+      viewLifecycleOwner.lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.RESUMED) {
+          binding.root.clearVerticalInsetOverride()
+          if (!resources.getWindowSizeClass().isSplitPane()) {
+            insetsViewModel.insets.collect {
+              binding.root.applyInsets(it)
+            }
+          }
+        }
+      }
+    }
+
+    binding.root.setApplyRootInsets(!WindowSizeClass.isLargeScreenSupportEnabled())
+    binding.root.setUseWindowTypes(!WindowSizeClass.isLargeScreenSupportEnabled())
 
     disposables.bindTo(viewLifecycleOwner)
 
@@ -1324,19 +1347,19 @@ class ConversationFragment :
     } else {
       val mimeType = MediaUtil.getMimeType(requireContext(), uri) ?: mediaType.toFallbackMimeType()
       val media = Media(
-        uri,
-        mimeType,
-        0,
-        width,
-        height,
-        0,
-        0,
-        borderless,
-        videoGif,
-        Optional.empty(),
-        Optional.empty(),
-        Optional.of(AttachmentTable.TransformProperties.forSentMediaQuality(SignalStore.settings.sentMediaQuality.code)),
-        Optional.empty()
+        uri = uri,
+        contentType = mimeType,
+        date = 0,
+        width = width,
+        height = height,
+        size = 0,
+        duration = 0,
+        isBorderless = borderless,
+        isVideoGif = videoGif,
+        bucketId = null,
+        caption = null,
+        transformProperties = AttachmentTable.TransformProperties.forSentMediaQuality(SignalStore.settings.sentMediaQuality.code),
+        fileName = null
       )
       conversationActivityResultContracts.launchMediaEditor(listOf(media), recipientId, composeText.textTrimmed)
     }
@@ -1595,6 +1618,7 @@ class ConversationFragment :
         composeText.setDraftText(data.text)
         inputPanel.clickOnComposeInput()
       }
+
       is ShareOrDraftData.SetLocation -> attachmentManager.setLocation(data.location, MediaConstraints.getPushMediaConstraints())
       is ShareOrDraftData.SetEditMessage -> {
         composeText.setDraftText(data.draftText)
@@ -1913,6 +1937,16 @@ class ConversationFragment :
       bypassPreSendSafetyNumberCheck = true,
       scheduledDate = scheduledDate
     )
+  }
+
+  private fun sendPoll(recipient: Recipient, poll: Poll) {
+    val send = viewModel.sendPoll(recipient, poll)
+
+    disposables += send
+      .subscribeBy(
+        onComplete = { onSendComplete() },
+        onError = { Log.w(TAG, "Error received during poll send!", it) }
+      )
   }
 
   private fun sendMessage(
@@ -2494,6 +2528,21 @@ class ConversationFragment :
       }
   }
 
+  private fun handleEndPoll(pollId: Long?) {
+    if (pollId == null) {
+      Log.w(TAG, "Unable to find poll to end $pollId")
+      return
+    }
+
+    val endPoll = viewModel.endPoll(pollId)
+
+    disposables += endPoll
+      .subscribeBy(
+        // TODO(michelle): Error state when poll terminate fails
+        onError = { Log.w(TAG, "Error received during poll end!", it) }
+      )
+  }
+
   private inner class SwipeAvailabilityProvider : ConversationItemSwipeCallback.SwipeAvailabilityProvider {
     override fun isSwipeAvailable(conversationMessage: ConversationMessage): Boolean {
       val recipient = viewModel.recipientSnapshot ?: return false
@@ -2987,6 +3036,32 @@ class ConversationFragment :
       PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext())
     }
 
+    override fun onViewResultsClicked(pollId: Long) {
+      if (parentFragmentManager.findFragmentByTag(PollVotesFragment.POLL_VOTES_FRAGMENT_TAG) == null) {
+        PollVotesFragment.create(pollId, parentFragmentManager)
+
+        parentFragmentManager.setFragmentResultListener(PollVotesFragment.RESULT_KEY, requireActivity()) { _, bundle ->
+          val shouldEndPoll = bundle.getBoolean(PollVotesFragment.RESULT_KEY, false)
+          if (shouldEndPoll) {
+            handleEndPoll(pollId)
+          }
+        }
+      }
+    }
+
+    override fun onViewPollClicked(messageId: Long) {
+      disposables += viewModel
+        .moveToMessage(messageId)
+        .subscribeBy(
+          onSuccess = { moveToPosition(it) },
+          onError = { Toast.makeText(requireContext(), R.string.Poll__unable_poll, Toast.LENGTH_LONG).show() }
+        )
+    }
+
+    override fun onToggleVote(poll: PollRecord, pollOption: PollOption, isChecked: Boolean) {
+      viewModel.toggleVote(poll, pollOption, isChecked)
+    }
+
     override fun onJoinGroupCallClicked() {
       val activity = activity ?: return
       val recipient = viewModel.recipientSnapshot ?: return
@@ -3142,9 +3217,13 @@ class ConversationFragment :
 
     override fun onItemLongClick(itemView: View, item: MultiselectPart) {
       Log.d(TAG, "onItemLongClick")
-      if (actionMode != null) { return }
+      if (actionMode != null) {
+        return
+      }
 
-      if (item.getMessageRecord().isInMemoryMessageRecord) { return }
+      if (item.getMessageRecord().isInMemoryMessageRecord) {
+        return
+      }
 
       val messageRecord = item.getMessageRecord()
       val recipient = viewModel.recipientSnapshot ?: return
@@ -3639,6 +3718,7 @@ class ConversationFragment :
         ConversationReactionOverlay.Action.MULTISELECT -> handleEnterMultiselect(conversationMessage)
         ConversationReactionOverlay.Action.VIEW_INFO -> handleDisplayDetails(conversationMessage)
         ConversationReactionOverlay.Action.DELETE -> handleDeleteMessages(conversationMessage.multiselectCollection.toSet())
+        ConversationReactionOverlay.Action.END_POLL -> handleEndPoll(conversationMessage.messageRecord.getPoll()?.id)
       }
     }
   }
@@ -3707,11 +3787,11 @@ class ConversationFragment :
 
       val slides: List<Slide> = result.nonUploadedMedia.mapNotNull {
         when {
-          MediaUtil.isVideoType(it.contentType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption.orNull(), it.transformProperties.orNull())
-          MediaUtil.isGif(it.contentType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption.orNull())
-          MediaUtil.isImageType(it.contentType) -> ImageSlide(requireContext(), it.uri, it.contentType, it.size, it.width, it.height, it.isBorderless, it.caption.orNull(), null, it.transformProperties.orNull())
+          MediaUtil.isVideoType(it.contentType) -> VideoSlide(requireContext(), it.uri, it.size, it.isVideoGif, it.width, it.height, it.caption, it.transformProperties)
+          MediaUtil.isGif(it.contentType) -> GifSlide(requireContext(), it.uri, it.size, it.width, it.height, it.isBorderless, it.caption)
+          MediaUtil.isImageType(it.contentType) -> ImageSlide(requireContext(), it.uri, it.contentType, it.size, it.width, it.height, it.isBorderless, it.caption, null, it.transformProperties)
           MediaUtil.isDocumentType(it.contentType) -> {
-            DocumentSlide(requireContext(), it.uri, it.contentType, it.size, it.fileName.orNull())
+            DocumentSlide(requireContext(), it.uri, it.contentType!!, it.size, it.fileName)
           }
 
           else -> {
@@ -4278,6 +4358,12 @@ class ConversationFragment :
           AttachmentKeyboardButton.FILE -> {
             if (!conversationActivityResultContracts.launchSelectFile()) {
               toast(R.string.AttachmentManager_cant_open_media_selection, Toast.LENGTH_LONG)
+            }
+          }
+          AttachmentKeyboardButton.POLL -> {
+            CreatePollFragment.show(childFragmentManager)
+            childFragmentManager.setFragmentResultListener(CreatePollFragment.REQUEST_KEY, requireActivity()) { _, bundle ->
+              sendPoll(recipient, Poll.fromBundle(bundle))
             }
           }
         }

@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 class AccountSettingsViewModel : ViewModel() {
@@ -18,16 +17,23 @@ class AccountSettingsViewModel : ViewModel() {
     store.update { getCurrentState() }
   }
 
+  fun togglePinKeyboardType() {
+    store.update { previousState ->
+      previousState.copy(pinKeyboardType = previousState.pinKeyboardType.other)
+    }
+  }
+
   private fun getCurrentState(): AccountSettingsState {
     return AccountSettingsState(
       isLinkedDevice = SignalStore.account.isLinkedDevice,
       hasPin = SignalStore.svr.hasPin() && !SignalStore.svr.hasOptedOut(),
+      pinKeyboardType = SignalStore.pin.keyboardType,
       hasRestoredAep = SignalStore.account.restoredAccountEntropyPool,
       pinRemindersEnabled = SignalStore.pin.arePinRemindersEnabled() && SignalStore.svr.hasPin(),
       registrationLockEnabled = SignalStore.svr.isRegistrationLockEnabled,
       userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application),
       clientDeprecated = SignalStore.misc.isClientDeprecated,
-      canTransferWhileUnregistered = RemoteConfig.restoreAfterRegistration
+      canTransferWhileUnregistered = true
     )
   }
 }

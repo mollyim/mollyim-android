@@ -26,11 +26,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
-import org.signal.core.ui.compose.SignalPreview
 import org.signal.core.ui.compose.Snackbars
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
@@ -174,7 +174,7 @@ private fun RecordPaymentsRecoveryPhraseDialog(
   )
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun AdvancedPinSettingsFragmentContentEnabledPreview() {
   Previews.Preview {
@@ -184,7 +184,7 @@ private fun AdvancedPinSettingsFragmentContentEnabledPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun AdvancedPinSettingsFragmentContentDisabledPreview() {
   Previews.Preview {
@@ -194,7 +194,7 @@ private fun AdvancedPinSettingsFragmentContentDisabledPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun PinsAreRequiredForRegistrationLockDialogPreview() {
   Previews.Preview {
@@ -202,7 +202,7 @@ private fun PinsAreRequiredForRegistrationLockDialogPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun RecordPaymentsRecoveryPhraseDialogPreview() {
   Previews.Preview {

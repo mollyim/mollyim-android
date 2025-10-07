@@ -85,6 +85,8 @@
     <string name="AttachmentKeyboard_file">Fails</string>
     <string name="AttachmentKeyboard_contact">Kontakts</string>
     <string name="AttachmentKeyboard_location">Atrašanās vieta</string>
+    <!-- Text for a button that will allow users to create a poll -->
+    <string name="AttachmentKeyboard_poll">Poll</string>
     <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly ir nepieciešama atļauja rādīt jūsu fotoattēlus un videoklipus</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Atļaut piekļuvi</string>
@@ -878,8 +880,10 @@
     <!-- CreateBackupBottomSheet -->
     <!-- Bottom sheet title -->
     <string name="CreateBackupBottomSheet__you_are_all_set">Viss gatavs. Tagad sāciet rezerves kopijas izveidi.</string>
-    <!-- Bottom sheet message -->
+    <!-- Bottom sheet paid message -->
     <string name="CreateBackupBottomSheet__depending_on_the_size">Atkarībā no jūsu rezerves kopijas izmēra, process var aizņemt ilgu laiku. Kamēr notiek rezerves kopijas izveide, varat izmantot savu tālruni kā parasti.</string>
+    <!-- Bottom sheet free message -->
+    <string name="CreateBackupBottomSheet__free_tier">Rezerves kopija tiek papildināta ar multivides failiem brīdī, kad jūs sūtāt un saņemat ziņas.</string>
 
     <!-- Headline text for a bottom sheet dialog shown when the restoration of the media backup fails. -->
     <string name="RestoreMediaFailedBottomSheet__Cant_restore_media">Nevar atjaunot multividi</string>
@@ -2162,6 +2166,8 @@
     <string name="MessageRecord_you_unblocked_this_group">Jūs atbloķējāt šo grupu</string>
     <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
     <string name="MessageRecord_unsupported_feature">%1$snosūtīja jums ziņu, kuru nevar apstrādāt vai parādīt, jo tajā izmantota jauna Signal funkcija.</string>
+    <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
+    <string name="MessageRecord_ended_the_poll">%1$s ended the poll: \"%2$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Apstiprināt</string>
@@ -3263,6 +3269,8 @@
     <string name="MessageNotifier_reacted_s_to_your_payment">Reakcija uz jūsu maksājumu: %1$s.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reakcija uz jūsu uzlīmi: %1$s.</string>
     <string name="MessageNotifier_this_message_was_deleted">Ziņojums ir izdzēsts.</string>
+    <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
+    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Vai izslēgt paziņojumus par kontaktpersonām, kas sākušās lietot Molly? Paziņojumus var atkal iespējot sadaļā Molly &gt; Iestatījumi &gt; Paziņojumi.</string>
 
@@ -4527,6 +4535,8 @@
     <string name="conversation_selection__menu_multi_select">Atlasīt</string>
     <!-- Button to view a in-chat payment message\'s full payment details; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_payment_details">Maksājuma informācija</string>
+    <!-- Button to end a poll -->
+    <string name="conversation_selection__menu_end_poll">End poll</string>
 
     <!-- conversation_expiring_on -->
 
@@ -4924,7 +4934,7 @@
     <!-- Content description for info icon -->
     <string name="Beta__info">Informācija</string>
     <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
-    <string name="Beta__this_is_beta">This is a beta feature and will be improved over time.</string>
+    <string name="Beta__this_is_beta">Šī ir beta funkcija, un tā laika gaitā tiks uzlabota.</string>
 
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Molly atbloķēšana</string>
@@ -5088,6 +5098,14 @@
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
     <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">"Kad tiek prasīts, atlasiet Pārsūtīt no Android ierīces un pēc tam pieskarieties pie Turpināt. Turiet abas ierīces tuvumā."</string>
     <string name="OldDeviceTransferInstructions__continue">Turpināt</string>
+    <!-- Title for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__confirm_exit_title">Pārtraukt ierīces pārsūtīšanu?</string>
+    <!-- Message for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__confirm_exit_message">Dati uz jauno ierīci nav pārsūtīti.</string>
+    <!-- Confirm button for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__stop_transfer">Pārtraukt nosūtīšanu</string>
+    <!-- Negative/cancel button for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__continue_transfer">Turpināt pārsūtīšanu</string>
 
     <!-- OldDeviceTransferComplete -->
     <string name="OldDeviceTransferComplete__go_to_your_new_device">Doties uz jauno ierīci</string>
@@ -7890,7 +7908,7 @@
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Ieslēgt Signal drošās rezerves kopijas</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
-    <string name="TurnOnSignalBackups__body">Nezaudējiet nevienu ziņu, pat ja iegādāsieties jaunu tālruni vai atkārtoti instalēsiet Signal.</string>
+    <string name="TurnOnSignalBackups__body">Nezaudējiet nevienu ziņu, pat ja iegādāsieties jaunu tālruni vai atkārtoti instalēsiet Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
     <string name="TurnOnSignalBackups__turn_on">Ieslēgt</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
@@ -8200,6 +8218,32 @@
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">Mainīt vai atcelt abonementu</string>
 
+    <!-- GooglePlayServicesAvailability -->
+    <!-- Dialog title when Google Play services are missing from the device -->
+    <string name="GooglePlayServicesAvailability__service_missing_title">Trūkst Google Play pakalpojumu</string>
+    <!-- Dialog message explaining that Google Play services are required for Signal Secure backups subscription -->
+    <string name="GooglePlayServicesAvailability__service_missing_message">Lai abonētu Signal Drošās Rezerves Kopijas, instalējiet tālrunī Google Play pakalpojumus.</string>
+    <!-- Dialog button text to install Google Play services -->
+    <string name="GooglePlayServicesAvailability__install_play_services">Instalēt Play pakalpojumus</string>
+    <!-- Dialog title when Google Play services are currently updating -->
+    <string name="GooglePlayServicesAvailability__service_updating_title">Google Play pakalpojumi tiek atjaunināti</string>
+    <!-- Dialog message asking user to wait while Google Play services finish updating -->
+    <string name="GooglePlayServicesAvailability__service_updating_message">Lai abonētu Signal Drošās Rezerves Kopijas, uzgaidiet, līdz Google Play pakalpojumu atjaunināšana ir pabeigta.</string>
+    <!-- Dialog title when Google Play services need to be updated -->
+    <string name="GooglePlayServicesAvailability__service_update_required_title">Atjaunināt Google Play pakalpojumus</string>
+    <!-- Dialog message explaining that Google Play services need to be updated for Signal Secure backups -->
+    <string name="GooglePlayServicesAvailability__service_update_required_message">Lai abonētu Signal Drošās Rezerves Kopijas, atjauniniet Google Play pakalpojumus savā tālrunī.</string>
+    <!-- Dialog button text to update Google Play services -->
+    <string name="GooglePlayServicesAvailability__update">Aktualizēt</string>
+    <!-- Dialog title when Google Play services are disabled -->
+    <string name="GooglePlayServicesAvailability__service_disabled_title">Maksas abonementiem nepieciešams Google Play</string>
+    <!-- Dialog message explaining that Google Play services must be enabled for subscriptions -->
+    <string name="GooglePlayServicesAvailability__service_disabled_message">Lai abonētu Signal Drošās Rezerves Kopijas, tālrunī iespējojiet Google Play pakalpojumus un pierakstieties Google Play veikalā. </string>
+    <!-- Dialog button text to learn more about enabling Google Play services -->
+    <string name="GooglePlayServicesAvailability__learn_more">Uzzināt vairāk</string>
+    <!-- Dialog message shown when Google Play services is invalid and subscriptions are not available -->
+    <string name="GooglePlayServicesAvailability__service_invalid_message">Jūs nevarat abonēt Signal Drošās Rezerves Kopijas, jo jūsu tālrunis neatbalsta Google Play pakalpojumus. Lai saņemtu palīdzību, sazinieties ar tālruņa ražotāju.</string>
+
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
     <string name="ManageStorageSettingsFragment_chat_limit">Ziņu ierobežojumi sarunās</string>
@@ -8276,6 +8320,8 @@
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s mēnesī, atjaunošanas datums: %2$s</string>
+    <!-- Subtitle for row for active backup when price is not available, first placeholder is renewal date -->
+    <string name="BackupsSettingsFragment_renews_s">Atjaunojas %1$s</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">Pēdējā rezerves kopija: %1$s</string>
     <!-- Subtitle for row for canceled backup -->
@@ -8324,6 +8370,14 @@
     <string name="RemoteBackupsSettingsFragment__to_view_your_key">Lai skatītu savu atslēgu, apstipriniet savu identitāti</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">Izslēgt rezerves kopijas izveidi un dzēst to</string>
+    <!-- Dialog title for explainer text to on how backup size works for free tier -->
+    <string name="RemoteBackupsSettingsFragment__free_tier_storage_title">Rezerves kopijas izmērs</string>
+    <!-- Dialog message for explainer text to on how backup size works for free tier -->
+    <plurals name="RemoteBackupsSettingsFragment__backup_frequency_dialog_body">
+        <item quantity="zero">Rezerves kopijā ir iekļautas visas teksta ziņas un pēdējo %1$d dienu multivide. Tās izmērs mainīsies, kad saņemsiet jaunu multividi un vecās multivides glabāšanas laiks beigsies.</item>
+        <item quantity="one">Rezerves kopijā ir iekļautas visas teksta ziņas un pēdējās %1$d dienas multivide. Tās izmērs mainīsies, kad saņemsiet jaunu multividi un vecās multivides glabāšanas laiks beigsies.</item>
+        <item quantity="other">Rezerves kopijā ir iekļautas visas teksta ziņas un pēdējo %1$d dienu multivide. Tās izmērs mainīsies, kad saņemsiet jaunu multividi un vecās multivides glabāšanas laiks beigsies.</item>
+    </plurals>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
     <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">Rezerves kopija dzēsta, un tās izveide izslēgta.</string>
     <!-- Snackbar text displayed when backup type is downgraded -->
@@ -8470,6 +8524,8 @@
     <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">Radās tīkla kļūda. Pārbaudiet interneta savienojumu un mēģiniet vēlreiz.</string>
     <!-- Progress message when backup file is being uploaded. First placeholder and second placeholder are formatted byte sizes (2 MB) and third is percent completion. -->
     <string name="RemoteBackupsSettingsFragment__uploading_s_of_s_d">Notiek augšupielāde: %1$s no %2$s (%3$d%%)</string>
+    <!-- Progress message when backup file is being uploaded. Placeholder is percent completion. -->
+    <string name="RemoteBackupsSettingsFragment__uploading_d">Notiek augšupielāde: %1$d%%</string>
     <!-- Button label to see more details about redemption error -->
     <string name="RemoteBackupsSettingsFragment__details">Rekvizīti</string>
     <!-- Text displayed when there was an error deleting backup -->
@@ -8646,10 +8702,14 @@
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">Abonēt par %1$s mēnesī</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__change_backup_type">Mainīt rezerves kopijas veidu</string>
+    <!-- Primary action button label when selecting paid tier when Google Play API isn\'t available -->
+    <string name="MessageBackupsTypeSelectionScreen__more_about_this_plan">Plašāka informācija par šo plānu</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">Atcelt abonementu</string>
     <!-- MessageBackupsType block amount for free tier -->
     <string name="MessageBackupsTypeSelectionScreen__free">Bezmaksas</string>
+    <!-- MessageBackupsType block amount for paid tier when no pricing is available -->
+    <string name="MessageBackupsTypeSelectionScreen__paid">Apmaksāts</string>
     <!-- MessageBackupsType block amount for paid tier. Placeholder is formatted currency amount. -->
     <string name="MessageBackupsTypeSelectionScreen__s_month">%1$s/mēnesī</string>
     <!-- Title for free tier -->
@@ -8677,9 +8737,9 @@
     <!-- Text designating that an option is your current plan -->
     <string name="MessageBackupsTypeSelectionScreen__current_plan">Pašreizējais plāns</string>
     <!-- Dialog title when user can\'t upgrade plan due to missing Google Services -->
-    <string name="MessageBackupsTypeSelectionScreen__cant_upgrade_plan">Can\'t upgrade plan</string>
+    <string name="MessageBackupsTypeSelectionScreen__cant_upgrade_plan">Nevar jaunināt plānu</string>
     <!-- Dialog body text explaining Google Services requirement for backup subscription -->
-    <string name="MessageBackupsTypeSelectionScreen__to_subscribe_to_signal_secure_backups">To subscribe to Signal Secure Backups, you must have Google Services enabled on your phone and be signed into the Google Play Store.</string>
+    <string name="MessageBackupsTypeSelectionScreen__to_subscribe_to_signal_secure_backups">Lai abonētu Signal Drošās Rezerves Kopijas, jūsu tālrunī ir jābūt iespējotiem Google pakalpojumiem, un jums jābūt pierakstījušamies Google Play veikalā.</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
@@ -8829,9 +8889,9 @@
     <string name="TransferAccount_continue_on_your_other_device_details">Turpiniet konta pārsūtīšanu otrā ierīcē.</string>
 
     <!-- Restore Complete bottom sheet dialog title -->
-    <string name="RestoreCompleteBottomSheet_restore_complete">Atjaunošana pabeigta</string>
+    <string name="RestoreCompleteBottomSheet_restore_complete">Pabeigt citā ierīcē</string>
     <!-- Restore Complete bottom sheet dialog message -->
-    <string name="RestoreCompleteBottomSheet_restore_complete_message">Ir uzsākta Signal konta un ziņu pārsūtīšana uz otru ierīci. Tagad Signal vairs nav aktīvs šajā ierīcē.</string>
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">Jūsu Signal konts un ziņas ir gatavi atjaunošanai citā ierīcē. Signal šajā ierīcē vairs nav aktīvs.</string>
     <!-- Restore Complete bottom sheet dialog title after device transfer -->
     <string name="RestoreCompleteBottomSheet_transfer_complete">Pārsūtīšana pabeigta</string>
     <!-- Restore Complete bottom sheet dialog message after device transfer -->
@@ -8893,6 +8953,66 @@
         <item quantity="one">Jūs neesat veidojuši rezerves kopijas %1$d dienu. Izveidojiet rezerves kopiju.</item>
         <item quantity="other">Jūs neesat veidojuši rezerves kopijas %1$d dienas. Izveidojiet rezerves kopiju.</item>
     </plurals>
+
+    <!-- Polls -->
+    <!-- Caption in poll message to select an option  -->
+    <string name="Poll__select_one">Poll · Select One</string>
+    <!-- Caption in poll message to select one or more options  -->
+    <string name="Poll__select_multiple">Poll · Select one or more</string>
+    <!-- Caption in poll message once a poll has ended  -->
+    <string name="Poll__final_results">Poll · Final results</string>
+    <!-- Caption in poll message that no votes have been cast  -->
+    <string name="Poll__no_votes">No votes</string>
+    <!-- Button in poll message to view current votes for a poll -->
+    <string name="Poll__view_votes">View votes</string>
+    <!-- Button in poll message to view the poll after it has ended -->
+    <string name="Poll__view_poll">View poll</string>
+    <!-- Toast message shown if we cannot find the poll -->
+    <string name="Poll__unable_poll">Poll not found</string>
+    <!-- Button in poll message to view results for a poll after it ends -->
+    <string name="Poll__view_results">View results</string>
+    <!-- Quote preview when replying to a poll. %1$s is the question of the poll -->
+    <string name="Poll__poll_question">Poll: %1$s</string>
+    <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
+    <string name="Poll__poll_end">%1$s ended the poll: \"%2$s\"</string>
+    <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
+    <string name="Poll__poll_voted">%1$s voted in the poll: \"%2$s\"</string>
+    <!-- Option in settings to configure notifications for polls -->
+    <string name="Poll__poll">Polls</string>
+    <!-- Title of screen that shows the poll results of a poll -->
+    <string name="Poll__poll_results">Poll results</string>
+    <!-- Header text displaying the question of the poll -->
+    <string name="Poll__question">Question</string>
+    <!-- Text displaying how many votes, %1$d, an option has gotten -->
+    <plurals name="Poll__num_votes">
+        <item quantity="zero">%1$d votes</item>
+        <item quantity="one">%1$d vote</item>
+        <item quantity="other">%1$d votes</item>
+    </plurals>
+    <!-- Text that when pressed will end the poll   -->
+    <string name="Poll__end_poll">End poll</string>
+    <!-- Button that once pressed will show all of the voters for a poll -->
+    <string name="Poll__see_all">See all</string>
+    <!-- Header when creating a new poll -->
+    <string name="CreatePollFragment__new_poll">New poll</string>
+    <!-- Section text to enter in a question for a poll  -->
+    <string name="CreatePollFragment__question">Question</string>
+    <!-- Hint text for question field when creating a poll  -->
+    <string name="CreatePollFragment__ask_a_question">Ask a question</string>
+    <!-- Section text to enter in options for a poll -->
+    <string name="CreatePollFragment__options">Options</string>
+    <!-- Hint text for the option field, where %1$d is the option number (max 10) -->
+    <string name="CreatePollFragment__option_n">Option %1$d</string>
+    <!-- Accessibility label for the polls drag and drop handle used to reorder the list. -->
+    <string name="CreatePollFragment__drag_handle">Drag and drop handle</string>
+    <!-- Text next to button to allow the poll to allow for multiple votes -->
+    <string name="CreatePollFragment__allow_multiple_votes">Allow multiple votes</string>
+    <!-- Snackbar text to add a question and two options before creating a poll -->
+    <string name="CreatePollFragment__add_question_option">Add a question and at least 2 options</string>
+    <!-- Snackbar text to add two options before creating a poll -->
+    <string name="CreatePollFragment__add_option">Add at least 2 options</string>
+    <!-- Snackbar text to add a question before creating a poll -->
+    <string name="CreatePollFragment__add_question">Add a question</string>
 
     <!-- EOF -->
 </resources>

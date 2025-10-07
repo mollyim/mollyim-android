@@ -119,7 +119,6 @@ import org.whispersystems.signalservice.internal.configuration.SignalServiceConf
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.websocket.LibSignalChatConnection;
 import org.whispersystems.signalservice.internal.websocket.LibSignalNetworkExtensions;
-import org.whispersystems.signalservice.internal.websocket.OkHttpWebSocketConnection;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -172,10 +171,9 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             keysApi,
                                             Optional.of(new SecurityEventListener(context)),
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", ThreadUtil.PRIORITY_IMPORTANT_BACKGROUND_THREAD, 1, 16, 30),
-                                            ByteUnit.KILOBYTES.toBytes(256),
+                                            RemoteConfig.maxEnvelopeSizeBytes(),
                                             RemoteConfig::useMessageSendRestFallback,
-                                            RemoteConfig.usePqRatchet(),
-                                            RemoteConfig.internalUser() ? Optional.of(ByteUnit.KILOBYTES.toBytes(96)) : Optional.empty());
+                                            RemoteConfig.usePqRatchet());
   }
 
   @Override
@@ -279,7 +277,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   public @NonNull Network provideLibsignalNetwork(@NonNull SignalServiceConfiguration config) {
     Network network = new Network(BuildConfig.LIBSIGNAL_NET_ENV, StandardUserAgentInterceptor.USER_AGENT);
     LibSignalNetworkExtensions.applyConfiguration(network, config);
-    LibSignalNetworkExtensions.buildAndSetRemoteConfig(network, RemoteConfig.libsignalEnforceMinTlsVersion());
+    network.setRemoteConfig(RemoteConfig.getLibsignalConfigs());
 
     return network;
   }
@@ -314,25 +312,6 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
     return new PendingRetryReceiptCache();
   }
 
-  private boolean shouldUseLibsignalForWebsocket(@NonNull SignalServiceConfiguration signalServiceConfiguration) {
-    // MOLLY: TODO
-    // if (RemoteConfig.libSignalWebSocketEnabled()) {
-    //   if (RemoteConfig.libSignalWebSocketEnabledForProxies()) {
-    //     return true;
-    //   } else {
-    //     // libsignalWebSocketEnabled = true but libsignalWebSocketEnabledForProxies = false
-    //     if (signalServiceConfiguration.getCensored() ||
-    //         signalServiceConfiguration.getSignalProxy().isPresent()) {
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    //   }
-    // } else {
-    //   return false;
-    // }
-    return false;
-  }
   @Override
   public @NonNull SignalWebSocket.AuthenticatedWebSocket provideAuthWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier, @NonNull Supplier<Network> libSignalNetworkSupplier) {
     SleepTimer                   sleepTimer    = !SignalStore.account().isPushAvailable() || SignalStore.internal().isWebsocketModeForced() ? new AlarmSleepTimer(context) : new UptimeSleepTimer();
@@ -345,21 +324,12 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
         throw new WebSocketUnavailableException("Invalid auth credentials");
       }
 
-      if (shouldUseLibsignalForWebsocket(signalServiceConfigurationSupplier.get())) {
-        Network network = libSignalNetworkSupplier.get();
-        return new LibSignalChatConnection("libsignal-auth",
-                                           network,
-                                           credentialsProvider,
-                                           Stories.isFeatureEnabled(),
-                                           healthMonitor);
-      } else {
-        return new OkHttpWebSocketConnection("auth",
-                                             signalServiceConfigurationSupplier.get(),
-                                             Optional.of(credentialsProvider),
-                                             BuildConfig.SIGNAL_AGENT,
-                                             healthMonitor,
-                                             Stories.isFeatureEnabled());
-      }
+      Network network = libSignalNetworkSupplier.get();
+      return new LibSignalChatConnection("libsignal-auth",
+                                         network,
+                                         credentialsProvider,
+                                         Stories.isFeatureEnabled(),
+                                         healthMonitor);
     };
 
     SignalWebSocket.AuthenticatedWebSocket webSocket = new SignalWebSocket.AuthenticatedWebSocket(authFactory,
@@ -381,21 +351,12 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
     SignalWebSocketHealthMonitor healthMonitor = new SignalWebSocketHealthMonitor(sleepTimer);
 
     WebSocketFactory unauthFactory = () -> {
-      if (shouldUseLibsignalForWebsocket(signalServiceConfigurationSupplier.get())) {
-        Network network = libSignalNetworkSupplier.get();
-        return new LibSignalChatConnection("libsignal-unauth",
-                                           network,
-                                           null,
-                                           Stories.isFeatureEnabled(),
-                                           healthMonitor);
-      } else {
-        return new OkHttpWebSocketConnection("unauth",
-                                             signalServiceConfigurationSupplier.get(),
-                                             Optional.empty(),
-                                             BuildConfig.SIGNAL_AGENT,
-                                             healthMonitor,
-                                             Stories.isFeatureEnabled());
-      }
+      Network network = libSignalNetworkSupplier.get();
+      return new LibSignalChatConnection("libsignal-unauth",
+                                         network,
+                                         null,
+                                         Stories.isFeatureEnabled(),
+                                         healthMonitor);
     };
 
     SignalWebSocket.UnauthenticatedWebSocket webSocket = new SignalWebSocket.UnauthenticatedWebSocket(unauthFactory,
@@ -499,7 +460,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull BillingApi provideBillingApi() {
-    return BillingFactory.create(GooglePlayBillingDependencies.INSTANCE, RemoteConfig.messageBackups() && Environment.Backups.supportsGooglePlayBilling());
+    return BillingFactory.create(GooglePlayBillingDependencies.INSTANCE, Environment.Backups.supportsGooglePlayBilling());
   }
 
   @Override

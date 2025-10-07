@@ -215,6 +215,10 @@
         <item name="android:windowAnimationStyle">@style/TextSecure.Animation.FullScreenDialog</item>
     </style>
 
+    <style name="Signal.DayNight.Dialog.FullScreen.Poll" parent="@style/ThemeOverlay.Material3">
+        <item name="android:windowAnimationStyle">@style/TextSecure.Animation.FullScreenDialogPoll</item>
+    </style>
+
     <style name="Signal.DayNight.Dialog.Animated.Bottom" parent="@style/ThemeOverlay.Material3">
         <item name="android:windowAnimationStyle">@style/FakeBottomSheet</item>
     </style>

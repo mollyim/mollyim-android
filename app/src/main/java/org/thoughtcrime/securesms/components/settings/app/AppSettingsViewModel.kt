@@ -8,8 +8,6 @@ import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.BackupUtil
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
@@ -19,8 +17,7 @@ class AppSettingsViewModel : ViewModel() {
     AppSettingsState(
       unreadPaymentsCount = 0,
       userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
-      clientDeprecated = SignalStore.misc.isClientDeprecated,
-      legacyLocalBackupsEnabled = !RemoteConfig.messageBackups && SignalStore.settings.isBackupEnabled && BackupUtil.canUserAccessBackupDirectory(AppDependencies.application)
+      clientDeprecated = SignalStore.misc.isClientDeprecated
     )
   )
 
@@ -51,9 +48,7 @@ class AppSettingsViewModel : ViewModel() {
   }
 
   private fun getBackupFailureState(): BackupFailureState {
-    return if (!RemoteConfig.messageBackups) {
-      BackupFailureState.NONE
-    } else if (BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx()) {
+    return if (BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx()) {
       BackupFailureState.OUT_OF_STORAGE_SPACE
     } else if (BackupRepository.shouldDisplayBackupFailedSettingsRow()) {
       BackupFailureState.BACKUP_FAILED

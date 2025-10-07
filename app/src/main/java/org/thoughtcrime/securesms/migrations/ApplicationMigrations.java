@@ -177,11 +177,13 @@ public class ApplicationMigrations {
     static final int RESET_ARCHIVE_TIER            = 144;
     static final int ARCHIVE_BACKUP_ID             = 145;
     static final int QUOTE_THUMBNAIL_BACKFILL      = 146;
+    static final int EMOJI_ENGLISH_SEARCH          = 147;
+    static final int AEP_ROTATE_FIX                = 148;
   }
 
-  public static final int CURRENT_VERSION = 146;
+  public static final int CURRENT_VERSION = 148;
 
- /**
+  /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
    * to {@link JobManager#beginJobLoop()}. Otherwise, other non-migration jobs may have started
    * executing before we add the migration jobs.
@@ -453,7 +455,7 @@ public class ApplicationMigrations {
     }
 
     if (lastSeenVersion < Version.CHANGE_NUMBER_CAPABILITY_4) {
-      jobs.put(Version.CHANGE_NUMBER_CAPABILITY_4,new AttributesMigrationJob());
+      jobs.put(Version.CHANGE_NUMBER_CAPABILITY_4, new AttributesMigrationJob());
     }
 
     // if (lastSeenVersion < Version.KBS_MIGRATION) {
@@ -623,11 +625,11 @@ public class ApplicationMigrations {
     }
 
     if (lastSeenVersion < Version.SELF_REGISTERTED_STATE) {
-      jobs.put(Version.SELF_REGISTERTED_STATE,  new SelfRegisteredStateMigrationJob());
+      jobs.put(Version.SELF_REGISTERTED_STATE, new SelfRegisteredStateMigrationJob());
     }
 
     if (lastSeenVersion < Version.SVR2_ENCLAVE_UPDATE) {
-      jobs.put(Version.SVR2_ENCLAVE_UPDATE,  new Svr2MirrorMigrationJob());
+      jobs.put(Version.SVR2_ENCLAVE_UPDATE, new Svr2MirrorMigrationJob());
     }
 
     if (lastSeenVersion < Version.STORAGE_LOCAL_UNKNOWNS_FIX) {
@@ -691,7 +693,7 @@ public class ApplicationMigrations {
     }
 
     if (lastSeenVersion < Version.SVR2_ENCLAVE_UPDATE_2) {
-      jobs.put(Version.SVR2_ENCLAVE_UPDATE_2,  new Svr2MirrorMigrationJob());
+      jobs.put(Version.SVR2_ENCLAVE_UPDATE_2, new Svr2MirrorMigrationJob());
     }
 
     if (lastSeenVersion < Version.WALLPAPER_MIGRATION_CLEANUP) {
@@ -753,7 +755,7 @@ public class ApplicationMigrations {
     if (lastSeenVersion < Version.AVATAR_COLOR_MIGRATION_JOB) {
       jobs.put(Version.AVATAR_COLOR_MIGRATION_JOB, new AvatarColorStorageServiceMigrationJob());
     }
-    
+
     if (lastSeenVersion < Version.DUPLICATE_E164_FIX_2) {
       jobs.put(Version.DUPLICATE_E164_FIX_2, new DuplicateE164MigrationJob());
     }
@@ -804,6 +806,14 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.QUOTE_THUMBNAIL_BACKFILL) {
       jobs.put(Version.QUOTE_THUMBNAIL_BACKFILL, new QuoteThumbnailBackfillMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.EMOJI_ENGLISH_SEARCH) {
+      jobs.put(Version.EMOJI_ENGLISH_SEARCH, new EmojiSearchEnglishLabelsMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.AEP_ROTATE_FIX) {
+      jobs.put(Version.AEP_ROTATE_FIX, new AepMigrationJob());
     }
 
     return jobs;

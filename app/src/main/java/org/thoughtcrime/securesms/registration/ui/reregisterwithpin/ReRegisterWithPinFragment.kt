@@ -18,13 +18,13 @@ import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.databinding.FragmentRegistrationPinRestoreEntryV2Binding
-import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
 import org.thoughtcrime.securesms.lock.v2.SvrConstants
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate
 import org.thoughtcrime.securesms.registration.ui.RegistrationCheckpoint
 import org.thoughtcrime.securesms.registration.ui.RegistrationState
 import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
+import org.thoughtcrime.securesms.registration.ui.phonenumber.EnterPhoneNumberMode
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.SupportEmailUtil
 import org.thoughtcrime.securesms.util.ViewUtil
@@ -40,9 +40,6 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
   private val reRegisterViewModel by viewModels<ReRegisterWithPinViewModel>()
 
   private val binding: FragmentRegistrationPinRestoreEntryV2Binding by ViewBinderDelegate(FragmentRegistrationPinRestoreEntryV2Binding::bind)
-
-  private val pinEntryKeyboardType: PinKeyboardType
-    get() = PinKeyboardType.fromEditText(editText = binding.pinRestorePinInput)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -71,10 +68,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
       handlePinEntry()
     }
 
-    binding.pinRestoreKeyboardToggle.setOnClickListener {
-      updateKeyboard(newType = pinEntryKeyboardType.other)
-    }
-    updateKeyboard(newType = pinEntryKeyboardType)
+    binding.pinRestoreKeyboardToggle.setOnClickListener { reRegisterViewModel.toggleKeyboardType() }
 
     LiveDataUtil
       .combineLatest(registrationViewModel.uiState, reRegisterViewModel.uiState) { reg, rereg -> reg to rereg }
@@ -86,7 +80,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
       genericErrorDialog()
       registrationViewModel.networkErrorShown()
     } else if (!state.canSkipSms) {
-      findNavController().safeNavigate(ReRegisterWithPinFragmentDirections.actionReRegisterWithPinFragmentToEnterPhoneNumberFragment())
+      findNavController().safeNavigate(ReRegisterWithPinFragmentDirections.actionReRegisterWithPinFragmentToEnterPhoneNumberFragment(EnterPhoneNumberMode.NORMAL))
       registrationViewModel.setInProgress(false)
     } else if (state.isRegistrationLockEnabled && state.svrTriesRemaining == 0) {
       Log.w(TAG, "Unable to continue skip flow, KBS is locked")
@@ -95,6 +89,11 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
       presentProgress(state.inProgress)
       presentTriesRemaining(reRegisterState, state.svrTriesRemaining)
     }
+
+    reRegisterState.pinKeyboardType.applyTo(
+      pinEditText = binding.pinRestorePinInput,
+      toggleTypeButton = binding.pinRestoreKeyboardToggle
+    )
 
     state.registerAccountError?.let { error ->
       registrationErrorHandler(error)
@@ -193,13 +192,6 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
     ViewUtil.focusAndShowKeyboard(binding.pinRestorePinInput)
   }
 
-  private fun updateKeyboard(newType: PinKeyboardType) {
-    newType.applyTo(
-      pinEditText = binding.pinRestorePinInput,
-      toggleTypeButton = binding.pinRestoreKeyboardToggle
-    )
-  }
-
   private fun onNeedHelpClicked() {
     Log.i(TAG, "User clicked need help dialog.")
     val message = if (reRegisterViewModel.isLocalVerification) R.string.ReRegisterWithPinFragment_need_help_local else R.string.PinRestoreEntryFragment_your_pin_is_a_d_digit_code
@@ -270,7 +262,7 @@ class ReRegisterWithPinFragment : LoggingFragment(R.layout.fragment_registration
 
       is RegisterAccountResult.IncorrectRecoveryPassword -> {
         registrationViewModel.setUserSkippedReRegisterFlow(true)
-        findNavController().safeNavigate(ReRegisterWithPinFragmentDirections.actionReRegisterWithPinFragmentToEnterPhoneNumberFragment())
+        findNavController().safeNavigate(ReRegisterWithPinFragmentDirections.actionReRegisterWithPinFragmentToEnterPhoneNumberFragment(EnterPhoneNumberMode.NORMAL))
       }
 
       is RegisterAccountResult.AttemptsExhausted,

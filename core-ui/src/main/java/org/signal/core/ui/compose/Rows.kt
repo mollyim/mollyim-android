@@ -150,20 +150,47 @@ object Rows {
     labels: Array<String>,
     values: Array<String>,
     selectedValue: String,
-    onSelected: (String) -> Unit
+    onSelected: (String) -> Unit,
+    enabled: Boolean = true
+  ) {
+    RadioListRow(
+      text = { selectedIndex ->
+        val selectedLabel = if (selectedIndex in labels.indices) {
+          labels[selectedIndex]
+        } else {
+          null
+        }
+
+        TextAndLabel(
+          text = text,
+          label = selectedLabel
+        )
+      },
+      dialogTitle = text,
+      labels = labels,
+      values = values,
+      selectedValue = selectedValue,
+      onSelected = onSelected,
+      enabled = enabled
+    )
+  }
+
+  @Composable
+  fun RadioListRow(
+    text: @Composable RowScope.(Int) -> Unit,
+    dialogTitle: String,
+    labels: Array<String>,
+    values: Array<String>,
+    selectedValue: String,
+    onSelected: (String) -> Unit,
+    enabled: Boolean = true
   ) {
     val selectedIndex = values.indexOf(selectedValue)
-    val selectedLabel = if (selectedIndex in labels.indices) {
-      labels[selectedIndex]
-    } else {
-      null
-    }
-
     var displayDialog by remember { mutableStateOf(false) }
 
     TextRow(
-      text = text,
-      label = selectedLabel,
+      text = { text(selectedIndex) },
+      enabled = enabled,
       onClick = {
         displayDialog = true
       }
@@ -175,25 +202,13 @@ object Rows {
         labels = labels,
         values = values,
         selectedIndex = selectedIndex,
-        title = text,
+        title = dialogTitle,
         onSelected = {
           onSelected(values[it])
         }
       )
     }
   }
-
-  /*
-   multiSelectPref(
-        text = stringResource(R.string.preferences_chats__when_using_mobile_data),
-        listItems = autoDownloadLabels,
-        selected = autoDownloadValues.map { state.mobileAutoDownloadValues.contains(it) }.toBooleanArray(),
-        onSelected = {
-          val resultSet = it.mapIndexed { index, selected -> if (selected) autoDownloadValues[index] else null }.filterNotNull().toSet()
-          viewModel.setMobileAutoDownloadValues(resultSet)
-        }
-      )
-   */
 
   @Composable
   fun MultiSelectRow(
@@ -569,7 +584,7 @@ private data class ToggleState(
   val onCheckChanged: (Boolean) -> Unit
 )
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun RadioRowPreview() {
   Previews.Preview {
@@ -586,7 +601,7 @@ private fun RadioRowPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun ToggleRowPreview() {
   Previews.Preview {
@@ -603,7 +618,7 @@ private fun ToggleRowPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun ToggleLoadingRowPreview() {
   Previews.Preview {
@@ -621,7 +636,7 @@ private fun ToggleLoadingRowPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun TextRowPreview() {
   Previews.Preview {
@@ -633,7 +648,7 @@ private fun TextRowPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun TextAndLabelPreview() {
   Previews.Preview {
@@ -651,7 +666,7 @@ private fun TextAndLabelPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun RadioListRowPreview() {
   var selectedValue by remember { mutableStateOf("b") }
@@ -669,7 +684,7 @@ private fun RadioListRowPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun MultiSelectRowPreview() {
   var selectedValues by remember { mutableStateOf(arrayOf("b")) }

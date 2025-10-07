@@ -85,6 +85,8 @@
     <string name="AttachmentKeyboard_file">ফাইল</string>
     <string name="AttachmentKeyboard_contact">পরিচিতি</string>
     <string name="AttachmentKeyboard_location">স্থান</string>
+    <!-- Text for a button that will allow users to create a poll -->
+    <string name="AttachmentKeyboard_poll">Poll</string>
     <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">আপনার ছবি ও ভিডিও দেখানোর জন্য Molly-এর অনুমতি প্রয়োজন</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">অ্যাক্সেসের অনুমতি দিন</string>
@@ -858,8 +860,10 @@
     <!-- CreateBackupBottomSheet -->
     <!-- Bottom sheet title -->
     <string name="CreateBackupBottomSheet__you_are_all_set">আপনার সব প্রস্তুতি সম্পন্ন হয়েছে। এখনই আপনার ব্যাকআপ শুরু করুন।</string>
-    <!-- Bottom sheet message -->
+    <!-- Bottom sheet paid message -->
     <string name="CreateBackupBottomSheet__depending_on_the_size">আপনার ব্যাকআপের আকারের উপর নির্ভর করে, এটি লম্বা সময় নিতে পারে। ব্যাকআপ নেওয়ার সময় আপনি স্বাভাবিক সময়ের মতই আপনার ফোন ব্যবহার করতে পারবেন।</string>
+    <!-- Bottom sheet free message -->
+    <string name="CreateBackupBottomSheet__free_tier">আপনি মেসেজ পাঠানোর ও পাওয়ার সাথে সাথে আপনার ব্যাকআপে মিডিয়া যোগ করা হয়।</string>
 
     <!-- Headline text for a bottom sheet dialog shown when the restoration of the media backup fails. -->
     <string name="RestoreMediaFailedBottomSheet__Cant_restore_media">মিডিয়া পুনরুদ্ধার করা যায়নি</string>
@@ -2102,6 +2106,8 @@
     <string name="MessageRecord_you_unblocked_this_group">আপনি এই গ্রুপটিকে আনব্লক করেছেন</string>
     <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
     <string name="MessageRecord_unsupported_feature">%1$s একটি বার্তা প্রেরণ করেছে যা এখানে প্রক্রিয়া করা বা প্রদর্শিত করা যাচ্ছে না  কারণ এটি একটি নতুন Signal বৈশিষ্ট্য ব্যবহার করেছে।</string>
+    <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
+    <string name="MessageRecord_ended_the_poll">%1$s ended the poll: \"%2$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">মানছি</string>
@@ -3167,6 +3173,8 @@
     <string name="MessageNotifier_reacted_s_to_your_payment">আপনার পেমেন্টে %1$s রিঅ্যাক্ট করেছেন।</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">আপনার স্টিকারে %1$s রিঅ্যাক্ট করেছেন।</string>
     <string name="MessageNotifier_this_message_was_deleted">এই বার্তাটি মুছে ফেলা হয়েছে।</string>
+    <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
+    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">কন্ট্যাক্টের Molly-এ যোগ দেওয়ার নোটিফিকেশনটি বন্ধ করবেন? আপনি Molly &gt; সেটিংস &gt; নোটিফিকেশন অপশনে গিয়ে এটি চালু করতে পারবেন।</string>
 
@@ -4412,6 +4420,8 @@
     <string name="conversation_selection__menu_multi_select">নির্বাচন</string>
     <!-- Button to view a in-chat payment message\'s full payment details; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_payment_details">পেমেন্টের বিস্তারিত</string>
+    <!-- Button to end a poll -->
+    <string name="conversation_selection__menu_end_poll">End poll</string>
 
     <!-- conversation_expiring_on -->
 
@@ -4801,7 +4811,7 @@
     <!-- Content description for info icon -->
     <string name="Beta__info">তথ্য</string>
     <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
-    <string name="Beta__this_is_beta">This is a beta feature and will be improved over time.</string>
+    <string name="Beta__this_is_beta">এটি একটি বিটা ফিচার এবং সময়ের সাথে সাথে এটি উন্নত করা হবে।</string>
 
     <!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Molly আনলক করুন</string>
@@ -4965,6 +4975,14 @@
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
     <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">"অনুরোধ করা হলে \"Android ডিভাইস থেকে ট্রান্সফার করুন\" বেছে নিয়ে \"চালিয়ে যান\" নির্বাচন করুন। দুটি ডিভাইসকে কাছাকাছি রাখুন।"</string>
     <string name="OldDeviceTransferInstructions__continue">চলতে থাকুন</string>
+    <!-- Title for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__confirm_exit_title">ডিভাইস ট্রান্সফার বন্ধ করবেন?</string>
+    <!-- Message for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__confirm_exit_message">আপনার নতুন ডিভাইসে কোনো ডেটা ট্রান্সফার করা হয়নি।</string>
+    <!-- Confirm button for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__stop_transfer">স্থানান্তর বন্ধ করুন</string>
+    <!-- Negative/cancel button for exit device transfer confirmation dialog -->
+    <string name="OldDeviceTransferInstructions__continue_transfer">স্থানান্তর চালিয়ে যান</string>
 
     <!-- OldDeviceTransferComplete -->
     <string name="OldDeviceTransferComplete__go_to_your_new_device">আপনার নতুন ডিভাইসে যান</string>
@@ -7719,7 +7737,7 @@
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Signal নিরাপদ ব্যাকআপ সচল করুন</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
-    <string name="TurnOnSignalBackups__body">আপনি যখন একটি নতুন ফোন পাবেন বা Signal পুনরায় ইনস্টল করবেন তখন আর কোনো মেসেজ মিস করবেন না।</string>
+    <string name="TurnOnSignalBackups__body">আপনি যখন একটি নতুন ফোন পাবেন বা Molly পুনরায় ইনস্টল করবেন তখন আর কোনো মেসেজ মিস করবেন না।</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
     <string name="TurnOnSignalBackups__turn_on">চালু করুন</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
@@ -8026,6 +8044,32 @@
     <!-- Row title to change or cancel subscription -->
     <string name="BackupsTypeSettingsFragment__change_or_cancel_subscription">সাবস্ক্রিপশন পরিবর্তন বা বাতিল করুন</string>
 
+    <!-- GooglePlayServicesAvailability -->
+    <!-- Dialog title when Google Play services are missing from the device -->
+    <string name="GooglePlayServicesAvailability__service_missing_title">Google Play পরিষেবা অনুপস্থিত</string>
+    <!-- Dialog message explaining that Google Play services are required for Signal Secure backups subscription -->
+    <string name="GooglePlayServicesAvailability__service_missing_message">Signal নিরাপদ ব্যাকআপে সাবস্ক্রাইব করতে, আপনার ফোনে Google Play পরিষেবা ইনস্টল করতে হবে।</string>
+    <!-- Dialog button text to install Google Play services -->
+    <string name="GooglePlayServicesAvailability__install_play_services">Play পরিষেবা ইনস্টল করুন</string>
+    <!-- Dialog title when Google Play services are currently updating -->
+    <string name="GooglePlayServicesAvailability__service_updating_title">Google Play পরিষেবা আপডেট হচ্ছে</string>
+    <!-- Dialog message asking user to wait while Google Play services finish updating -->
+    <string name="GooglePlayServicesAvailability__service_updating_message">Signal নিরাপদ ব্যাকআপে সাবস্ক্রাইব করতে, অনুগ্রহ করে Google Play পরিষেবা আপডেট শেষ না হওয়া পর্যন্ত অপেক্ষা করুন।</string>
+    <!-- Dialog title when Google Play services need to be updated -->
+    <string name="GooglePlayServicesAvailability__service_update_required_title">Google Play পরিষেবা আপডেট করুন</string>
+    <!-- Dialog message explaining that Google Play services need to be updated for Signal Secure backups -->
+    <string name="GooglePlayServicesAvailability__service_update_required_message">Signal নিরাপদ ব্যাকআপে সাবস্ক্রাইব করতে, আপনার ফোনে Google Play পরিষেবা আপডেট করুন।</string>
+    <!-- Dialog button text to update Google Play services -->
+    <string name="GooglePlayServicesAvailability__update">আপডেট করুন</string>
+    <!-- Dialog title when Google Play services are disabled -->
+    <string name="GooglePlayServicesAvailability__service_disabled_title">পেইড সাবস্ক্রিপশনের জন্য Google Play প্রয়োজন</string>
+    <!-- Dialog message explaining that Google Play services must be enabled for subscriptions -->
+    <string name="GooglePlayServicesAvailability__service_disabled_message">Signal নিরাপদ ব্যাকআপে সাবস্ক্রাইব করতে, আপনার ফোনে Google Play পরিষেবা সক্রিয় করুন এবং Google Play Store-এ সাইন ইন করুন। </string>
+    <!-- Dialog button text to learn more about enabling Google Play services -->
+    <string name="GooglePlayServicesAvailability__learn_more">আরো জানুন</string>
+    <!-- Dialog message shown when Google Play services is invalid and subscriptions are not available -->
+    <string name="GooglePlayServicesAvailability__service_invalid_message">আপনার ফোন Google Play পরিষেবা সমর্থন করে না বলে আপনি Signal নিরাপদ ব্যাকআপে সাবস্ক্রাইব করতে পারবেন না। সহায়তার জন্য ফোন প্রস্তুতকারকের সাথে যোগাযোগ করুন।</string>
+
     <!-- ManageStorageSettingsFragment -->
     <!-- Settings section title header show above manage settings options for automatic chat history management (deleting) -->
     <string name="ManageStorageSettingsFragment_chat_limit">চ্যাট সংখ্যার সীমা</string>
@@ -8099,6 +8143,8 @@
     <!-- BackupsSettingsFragment -->
     <!-- Subtitle for row for active backup, first placeholder is formatted amount, second is renewal date -->
     <string name="BackupsSettingsFragment_s_month_renews_s">%1$s/মাস, নবায়ন %2$s</string>
+    <!-- Subtitle for row for active backup when price is not available, first placeholder is renewal date -->
+    <string name="BackupsSettingsFragment_renews_s">%1$s নবায়ন করছে</string>
     <!-- Subtitle for row for active backup, placeholder is last date of backup -->
     <string name="BackupsSettingsFragment_last_backup_s">সর্বশেষ ব্যাকআপ %1$s</string>
     <!-- Subtitle for row for canceled backup -->
@@ -8147,6 +8193,13 @@
     <string name="RemoteBackupsSettingsFragment__to_view_your_key">আপনার \'কি\' দেখতে, আপনার পরিচয় নিশ্চিত করুন</string>
     <!-- Row label for cancelling and deleting backup -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete_backup">বন্ধ করুন এবং ব্যাকআপ মুছুন</string>
+    <!-- Dialog title for explainer text to on how backup size works for free tier -->
+    <string name="RemoteBackupsSettingsFragment__free_tier_storage_title">ব্যাকআপের আকার</string>
+    <!-- Dialog message for explainer text to on how backup size works for free tier -->
+    <plurals name="RemoteBackupsSettingsFragment__backup_frequency_dialog_body">
+        <item quantity="one">আপনার ব্যাকআপে আপনার যাবতীয় টেক্সট মেসেজ এবং আপনার সর্বশেষ %1$d দিনের মিডিয়া অন্তর্ভুক্ত থাকবে। নতুন মিডিয়া পেলে এবং পুরানো মিডিয়ার মেয়াদ শেষ হলে আকার পরিবর্তন হবে।</item>
+        <item quantity="other">আপনার ব্যাকআপে আপনার যাবতীয় টেক্সট মেসেজ এবং আপনার সর্বশেষ %1$d দিনের মিডিয়া অন্তর্ভুক্ত থাকবে। নতুন মিডিয়া পেলে এবং পুরানো মিডিয়ার মেয়াদ শেষ হলে আকার পরিবর্তন হবে।</item>
+    </plurals>
     <!-- Snackbar text displayed when backup has been deleted and turned off -->
     <string name="RemoteBackupsSettingsFragment__backup_deleted_and_turned_off">ব্যাকআপ মুছে ফেলা হয়েছে এবং বন্ধ করা হয়েছে।</string>
     <!-- Snackbar text displayed when backup type is downgraded -->
@@ -8290,6 +8343,8 @@
     <string name="RemoteBackupsSettingsFragment__a_network_error_occurred">নেটওয়ার্কে কোনো ত্রুটি ঘটেছে। আপনার ইন্টারনেট সংযোগ ঠিক আছে কি না দেখুন এবং আবার চেষ্টা করুন।</string>
     <!-- Progress message when backup file is being uploaded. First placeholder and second placeholder are formatted byte sizes (2 MB) and third is percent completion. -->
     <string name="RemoteBackupsSettingsFragment__uploading_s_of_s_d">আপলোড করা হচ্ছে: %2$sটির মধ্যে %1$sটি (%3$d%%)</string>
+    <!-- Progress message when backup file is being uploaded. Placeholder is percent completion. -->
+    <string name="RemoteBackupsSettingsFragment__uploading_d">আপলোড হচ্ছে: %1$d%%</string>
     <!-- Button label to see more details about redemption error -->
     <string name="RemoteBackupsSettingsFragment__details">খুঁটিনাটি</string>
     <!-- Text displayed when there was an error deleting backup -->
@@ -8466,10 +8521,14 @@
     <string name="MessageBackupsTypeSelectionScreen__subscribe_for_x_month">%1$s/মাসের জন্য সাবস্ক্রাইব করুন</string>
     <!-- Primary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__change_backup_type">ব্যাকআপের ধরন পরিবর্তন করুন</string>
+    <!-- Primary action button label when selecting paid tier when Google Play API isn\'t available -->
+    <string name="MessageBackupsTypeSelectionScreen__more_about_this_plan">এই প্ল্যান সম্পর্কে আরো তথ্য</string>
     <!-- Secondary action button label when selecting a backup tier with a current selection -->
     <string name="MessageBackupsTypeSelectionScreen__cancel_subscription">সাবস্ক্রিপশন বাতিল করুন</string>
     <!-- MessageBackupsType block amount for free tier -->
     <string name="MessageBackupsTypeSelectionScreen__free">ফ্রি</string>
+    <!-- MessageBackupsType block amount for paid tier when no pricing is available -->
+    <string name="MessageBackupsTypeSelectionScreen__paid">পেইড</string>
     <!-- MessageBackupsType block amount for paid tier. Placeholder is formatted currency amount. -->
     <string name="MessageBackupsTypeSelectionScreen__s_month">%1$s/মাস</string>
     <!-- Title for free tier -->
@@ -8495,9 +8554,9 @@
     <!-- Text designating that an option is your current plan -->
     <string name="MessageBackupsTypeSelectionScreen__current_plan">বর্তমান প্ল্যান</string>
     <!-- Dialog title when user can\'t upgrade plan due to missing Google Services -->
-    <string name="MessageBackupsTypeSelectionScreen__cant_upgrade_plan">Can\'t upgrade plan</string>
+    <string name="MessageBackupsTypeSelectionScreen__cant_upgrade_plan">প্ল্যান আপগ্রেড করা যাচ্ছে না</string>
     <!-- Dialog body text explaining Google Services requirement for backup subscription -->
-    <string name="MessageBackupsTypeSelectionScreen__to_subscribe_to_signal_secure_backups">To subscribe to Signal Secure Backups, you must have Google Services enabled on your phone and be signed into the Google Play Store.</string>
+    <string name="MessageBackupsTypeSelectionScreen__to_subscribe_to_signal_secure_backups">Signal নিরাপদ ব্যাকআপে সাবস্ক্রাইব করতে, আপনার ফোনে Google পরিষেবা সক্রিয় থাকতে হবে এবং Google Play Store-এ সাইন ইন অবস্থায় থাকতে হবে।</string>
 
     <!-- ConfirmBackupCancellationDialog -->
     <!-- Dialog title -->
@@ -8647,9 +8706,9 @@
     <string name="TransferAccount_continue_on_your_other_device_details">আপনার অন্য ডিভাইসে আপনার অ্যাকাউন্ট ট্রান্সফার চালিয়ে যান।</string>
 
     <!-- Restore Complete bottom sheet dialog title -->
-    <string name="RestoreCompleteBottomSheet_restore_complete">পুনরুদ্ধার সম্পূর্ণ</string>
+    <string name="RestoreCompleteBottomSheet_restore_complete">আপনার অন্য ডিভাইসের কার্যক্রম শেষ করুন</string>
     <!-- Restore Complete bottom sheet dialog message -->
-    <string name="RestoreCompleteBottomSheet_restore_complete_message">আপনার Signal অ্যাকাউন্ট এবং মেসেজ আপনার অন্য ডিভাইসে ট্রান্সফার শুরু হয়েছে। এই ডিভাইসে Signal এখন নিষ্ক্রিয়।</string>
+    <string name="RestoreCompleteBottomSheet_restore_complete_message">আপনার Signal অ্যাকাউন্ট ও মেসেজ আপনার অন্য ডিভাইসে পুনর্বহালের জন্য প্রস্তুত। এই ডিভাইসে Signal এখন নিষ্ক্রিয়।</string>
     <!-- Restore Complete bottom sheet dialog title after device transfer -->
     <string name="RestoreCompleteBottomSheet_transfer_complete">স্থানান্তর সম্পূর্ণ</string>
     <!-- Restore Complete bottom sheet dialog message after device transfer -->
@@ -8709,6 +8768,65 @@
         <item quantity="one">আপনি %1$d দিন ধরে ব্যাকআপ সম্পন্ন করেননি। এখনই একটি ব্যাকআপ তৈরি করুন।</item>
         <item quantity="other">আপনি %1$d দিন ধরে ব্যাকআপ সম্পন্ন করেননি। এখনই একটি ব্যাকআপ তৈরি করুন।</item>
     </plurals>
+
+    <!-- Polls -->
+    <!-- Caption in poll message to select an option  -->
+    <string name="Poll__select_one">Poll · Select One</string>
+    <!-- Caption in poll message to select one or more options  -->
+    <string name="Poll__select_multiple">Poll · Select one or more</string>
+    <!-- Caption in poll message once a poll has ended  -->
+    <string name="Poll__final_results">Poll · Final results</string>
+    <!-- Caption in poll message that no votes have been cast  -->
+    <string name="Poll__no_votes">No votes</string>
+    <!-- Button in poll message to view current votes for a poll -->
+    <string name="Poll__view_votes">View votes</string>
+    <!-- Button in poll message to view the poll after it has ended -->
+    <string name="Poll__view_poll">View poll</string>
+    <!-- Toast message shown if we cannot find the poll -->
+    <string name="Poll__unable_poll">Poll not found</string>
+    <!-- Button in poll message to view results for a poll after it ends -->
+    <string name="Poll__view_results">View results</string>
+    <!-- Quote preview when replying to a poll. %1$s is the question of the poll -->
+    <string name="Poll__poll_question">Poll: %1$s</string>
+    <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
+    <string name="Poll__poll_end">%1$s ended the poll: \"%2$s\"</string>
+    <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
+    <string name="Poll__poll_voted">%1$s voted in the poll: \"%2$s\"</string>
+    <!-- Option in settings to configure notifications for polls -->
+    <string name="Poll__poll">Polls</string>
+    <!-- Title of screen that shows the poll results of a poll -->
+    <string name="Poll__poll_results">Poll results</string>
+    <!-- Header text displaying the question of the poll -->
+    <string name="Poll__question">Question</string>
+    <!-- Text displaying how many votes, %1$d, an option has gotten -->
+    <plurals name="Poll__num_votes">
+        <item quantity="one">%1$d vote</item>
+        <item quantity="other">%1$d votes</item>
+    </plurals>
+    <!-- Text that when pressed will end the poll   -->
+    <string name="Poll__end_poll">End poll</string>
+    <!-- Button that once pressed will show all of the voters for a poll -->
+    <string name="Poll__see_all">See all</string>
+    <!-- Header when creating a new poll -->
+    <string name="CreatePollFragment__new_poll">New poll</string>
+    <!-- Section text to enter in a question for a poll  -->
+    <string name="CreatePollFragment__question">Question</string>
+    <!-- Hint text for question field when creating a poll  -->
+    <string name="CreatePollFragment__ask_a_question">Ask a question</string>
+    <!-- Section text to enter in options for a poll -->
+    <string name="CreatePollFragment__options">Options</string>
+    <!-- Hint text for the option field, where %1$d is the option number (max 10) -->
+    <string name="CreatePollFragment__option_n">Option %1$d</string>
+    <!-- Accessibility label for the polls drag and drop handle used to reorder the list. -->
+    <string name="CreatePollFragment__drag_handle">Drag and drop handle</string>
+    <!-- Text next to button to allow the poll to allow for multiple votes -->
+    <string name="CreatePollFragment__allow_multiple_votes">Allow multiple votes</string>
+    <!-- Snackbar text to add a question and two options before creating a poll -->
+    <string name="CreatePollFragment__add_question_option">Add a question and at least 2 options</string>
+    <!-- Snackbar text to add two options before creating a poll -->
+    <string name="CreatePollFragment__add_option">Add at least 2 options</string>
+    <!-- Snackbar text to add a question before creating a poll -->
+    <string name="CreatePollFragment__add_question">Add a question</string>
 
     <!-- EOF -->
 </resources>
