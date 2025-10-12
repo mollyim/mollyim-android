@@ -150,6 +150,10 @@ async def list_conversations(
     userId: Optional[str] = Query(None, description="User ID to compute unseen counts for"),
     folder: str = Query("all", description="Folder filter: all | unseen"),
 ):
+    await ensure_db()
+    if conversations_col is None:
+        raise HTTPException(status_code=500, detail="Database not configured")
+
     cursor = conversations_col.find({}, sort=[("createdAt", -1)])
     results: List[Dict[str, Any]] = []
     async for doc in cursor:
