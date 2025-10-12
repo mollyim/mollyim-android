@@ -206,6 +206,9 @@ async def add_reaction(payload: ReactionCreate):
 
 @app.post(f"{API_PREFIX}/reactions/mark-seen")
 async def mark_seen(payload: MarkSeenRequest):
+    await ensure_db()
+    if conversations_col is None:
+        raise HTTPException(status_code=500, detail="Database not configured")
     conv = await conversations_col.find_one({"_id": payload.conversationId})
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
