@@ -7,14 +7,10 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
 
 # -----------------------------------------------------------------------------
 # Environment & App
 # -----------------------------------------------------------------------------
-# Load .env if present (do not modify values)
-load_dotenv(dotenv_path="/app/backend/.env")
-
 MONGO_URL = os.environ.get("MONGO_URL")
 USE_GOOGLE_MAPS_LINKS = os.environ.get("USE_GOOGLE_MAPS_LINKS", "false").lower() == "true"
 
