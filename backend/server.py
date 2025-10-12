@@ -3,19 +3,19 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
 
-from fastapi import FastAPI, HTTPException, Depends, Query
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from motor.motor_asyncio import AsyncIOMotorClient
+from dotenv import load_dotenv
 
 # -----------------------------------------------------------------------------
 # Environment & App
 # -----------------------------------------------------------------------------
-MONGO_URL = os.environ.get("MONGO_URL")
-if not MONGO_URL:
-    # We do not create/modify .env here. If the platform provides it, this will be set.
-    raise RuntimeError("MONGO_URL environment variable is required for backend service")
+# Load .env if present (do not modify values)
+load_dotenv(dotenv_path="/app/backend/.env")
 
+MONGO_URL = os.environ.get("MONGO_URL")
 USE_GOOGLE_MAPS_LINKS = os.environ.get("USE_GOOGLE_MAPS_LINKS", "false").lower() == "true"
 
 app = FastAPI(title="Conversations API", openapi_url="/api/openapi.json")
@@ -32,12 +32,24 @@ app.add_middleware(
 )
 
 # -----------------------------------------------------------------------------
-# Database
+# Database (lazy init to avoid crash if env missing)
 # -----------------------------------------------------------------------------
-client = AsyncIOMotorClient(MONGO_URL)
-db = client["app_db"]
-conversations_col = db["conversations"]
-reactions_col = db["reactions"]
+_client: AsyncIOMotorClient | None = None
+_db = None
+conversations_col = None
+reactions_col = None
+
+async def ensure_db():
+    global _client, _db, conversations_col, reactions_col
+    if _client is not None:
+        return
+    if not MONGO_URL:
+        # Defer error to when endpoints attempt DB ops
+        return
+    _client = AsyncIOMotorClient(MONGO_URL)
+    _db = _client["app_db"]
+    conversations_col = _db["conversations"]
+    reactions_col = _db["reactions"]
 
 # -----------------------------------------------------------------------------
 # Models
