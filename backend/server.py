@@ -124,7 +124,7 @@ async def health():
 # -----------------------------------------------------------------------------
 @app.get(f"{API_PREFIX}/health")
 async def health():
-    return {"ok": True, "useGoogleMapsLinks": USE_GOOGLE_MAPS_LINKS}
+    return {"ok": True, "useGoogleMapsLinks": USE_GOOGLE_MAPS_LINKS, "dbConfigured": bool(MONGO_URL)}
 
 @app.post(f"{API_PREFIX}/conversations", response_model=ConversationOut)
 async def create_conversation(payload: ConversationCreate):
