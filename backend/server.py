@@ -32,26 +32,6 @@ app.add_middleware(
 )
 
 # -----------------------------------------------------------------------------
-# Database (lazy init to avoid crash if env missing)
-# -----------------------------------------------------------------------------
-_client: AsyncIOMotorClient | None = None
-_db = None
-conversations_col = None
-reactions_col = None
-
-async def ensure_db():
-    global _client, _db, conversations_col, reactions_col
-    if _client is not None:
-        return
-    if not MONGO_URL:
-        # Defer error to when endpoints attempt DB ops
-        return
-    _client = AsyncIOMotorClient(MONGO_URL)
-    _db = _client["app_db"]
-    conversations_col = _db["conversations"]
-    reactions_col = _db["reactions"]
-
-# -----------------------------------------------------------------------------
 # Models
 # -----------------------------------------------------------------------------
 class ConversationCreate(BaseModel):
