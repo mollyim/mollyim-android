@@ -102,6 +102,12 @@ async def compute_unseen_count(conversation_id: str, user_id: str) -> int:
 
     if last_seen_str:
         last_seen_dt = datetime.fromisoformat(last_seen_str)
+@app.get(f"{API_PREFIX}/health")
+async def health():
+    db_ok = bool(MONGO_URL)
+    return {"ok": True, "useGoogleMapsLinks": USE_GOOGLE_MAPS_LINKS, "dbConfigured": db_ok}
+
+
         q = {
             "conversationId": conversation_id,
             "createdAt": {"$gt": last_seen_dt.isoformat()},
