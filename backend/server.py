@@ -126,6 +126,10 @@ async def health():
 
 @app.post(f"{API_PREFIX}/conversations", response_model=ConversationOut)
 async def create_conversation(payload: ConversationCreate):
+    await ensure_db()
+    if conversations_col is None:
+        raise HTTPException(status_code=500, detail="Database not configured")
+
     conv_id = str(uuid.uuid4())
     doc = {
         "_id": conv_id,
