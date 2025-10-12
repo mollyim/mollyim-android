@@ -180,6 +180,9 @@ async def get_unseen_count(conversation_id: str, userId: str):
 
 @app.post(f"{API_PREFIX}/reactions")
 async def add_reaction(payload: ReactionCreate):
+    await ensure_db()
+    if conversations_col is None or reactions_col is None:
+        raise HTTPException(status_code=500, detail="Database not configured")
     # Validate conversation exists
     conv = await conversations_col.find_one({"_id": payload.conversationId})
     if not conv:
