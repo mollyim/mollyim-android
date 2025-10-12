@@ -172,6 +172,9 @@ async def list_conversations(
 
 @app.get(f"{API_PREFIX}/conversations/{{conversation_id}}/unseen-count")
 async def get_unseen_count(conversation_id: str, userId: str):
+    await ensure_db()
+    if conversations_col is None:
+        raise HTTPException(status_code=500, detail="Database not configured")
     count = await compute_unseen_count(conversation_id, userId)
     return {"conversationId": conversation_id, "userId": userId, "unseenCount": count}
 
