@@ -151,6 +151,7 @@ object Rows {
     values: Array<String>,
     selectedValue: String,
     onSelected: (String) -> Unit,
+    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
     enabled: Boolean = true
   ) {
     RadioListRow(
@@ -171,6 +172,7 @@ object Rows {
       values = values,
       selectedValue = selectedValue,
       onSelected = onSelected,
+      trailingIcon = trailingIcon,
       enabled = enabled
     )
   }
@@ -183,6 +185,7 @@ object Rows {
     values: Array<String>,
     selectedValue: String,
     onSelected: (String) -> Unit,
+    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
     enabled: Boolean = true
   ) {
     val selectedIndex = values.indexOf(selectedValue)
@@ -190,6 +193,7 @@ object Rows {
 
     TextRow(
       text = { text(selectedIndex) },
+      trailingIcon = trailingIcon,
       enabled = enabled,
       onClick = {
         displayDialog = true
@@ -480,6 +484,7 @@ object Rows {
     text: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     icon: (@Composable RowScope.() -> Unit)? = null,
+    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
     enabled: Boolean = true
@@ -501,11 +506,17 @@ object Rows {
         .padding(defaultPadding()),
       verticalAlignment = CenterVertically
     ) {
-      if (icon != null) {
-        icon()
-        Spacer(modifier = Modifier.width(24.dp))
+      Row(modifier = Modifier.weight(1f)) {
+        if (icon != null) {
+          icon()
+          Spacer(modifier = Modifier.width(24.dp))
+        }
+        text()
       }
-      text()
+      // MOLLY: Trailing icon aligned to the end
+      if (trailingIcon != null) {
+        trailingIcon()
+      }
     }
   }
 
@@ -677,6 +688,9 @@ private fun RadioListRowPreview() {
       labels = arrayOf("A", "B", "C"),
       values = arrayOf("a", "b", "c"),
       selectedValue = selectedValue,
+      trailingIcon = {
+        Icon(painterResource(android.R.drawable.ic_dialog_alert), contentDescription = null)
+      },
       onSelected = {
         selectedValue = it
       }

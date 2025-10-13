@@ -56,6 +56,8 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
           .setStartCategoryIndex(appSettingsRoute.startCategoryIndex)
         AppSettingsRoute.DataAndStorageRoute.Proxy -> AppSettingsFragmentDirections.actionDirectToNetworkPreferenceFragment()
         AppSettingsRoute.NotificationsRoute.Notifications -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
+        is AppSettingsRoute.NotificationsRoute.PlayServicesProblem -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
+          .setPlayServicesErrorCode(appSettingsRoute.errorCode)
         AppSettingsRoute.ChangeNumberRoute.Start -> AppSettingsFragmentDirections.actionDirectToChangeNumberFragment()
         is AppSettingsRoute.DonationsRoute.Donations -> AppSettingsFragmentDirections.actionDirectToManageDonations().setDirectToCheckoutType(appSettingsRoute.directToCheckoutType)
         AppSettingsRoute.NotificationsRoute.NotificationProfiles -> AppSettingsFragmentDirections.actionDirectToNotificationProfiles()
@@ -168,10 +170,12 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
     fun notifications(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.NotificationsRoute.Notifications)
 
     @JvmStatic
-    fun changeNumber(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.ChangeNumberRoute.Start)
+    fun playServicesProblem(context: Context, errorCode: Int): Intent {
+      return getIntentForStartLocation(context, AppSettingsRoute.NotificationsRoute.PlayServicesProblem(errorCode = errorCode))
+    }
 
     @JvmStatic
-    fun subscriptions(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.DonationsRoute.Donations(directToCheckoutType = InAppPaymentType.RECURRING_DONATION))
+    fun changeNumber(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.ChangeNumberRoute.Start)
 
     @JvmStatic
     fun subscriptions(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.DonationsRoute.Donations(directToCheckoutType = InAppPaymentType.RECURRING_DONATION))

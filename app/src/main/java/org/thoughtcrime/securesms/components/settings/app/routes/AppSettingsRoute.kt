@@ -72,6 +72,8 @@ sealed interface AppSettingsRoute : Parcelable {
   sealed interface NotificationsRoute : AppSettingsRoute {
     data object Notifications : NotificationsRoute
     data object NotificationProfiles : NotificationsRoute
+    data object UnifiedPushSettings : NotificationsRoute
+    data class PlayServicesProblem(val errorCode: Int) : NotificationsRoute
     data class EditProfile(val profileId: Long = -1L) : NotificationsRoute
     data class ProfileDetails(val profileId: Long) : NotificationsRoute
     data class AddAllowedMembers(val profileId: Long) : NotificationsRoute
