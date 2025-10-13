@@ -185,7 +185,7 @@ public final class ConversationUpdateItem extends FrameLayout
       groupObserver.observe(lifecycleOwner, null);
     }
 
-    int textColor = ContextCompat.getColor(getContext(), R.color.conversation_item_update_text_color);
+    int textColor = ThemeUtil.getThemedColor(getContext(), R.attr.conversation_item_update_text_color);
     if (ThemeUtil.isDarkTheme(getContext()) && hasWallpaper) {
       textColor = ContextCompat.getColor(getContext(), R.color.core_grey_15);
     }
@@ -423,7 +423,7 @@ public final class ConversationUpdateItem extends FrameLayout
     SpannableStringBuilder builder = new SpannableStringBuilder(displayBody);
 
     if (latestFrame != 0) {
-      Drawable drawable = DrawableUtil.tint(getContext().getDrawable(latestFrame), ContextCompat.getColor(getContext(), R.color.signal_icon_tint_secondary));
+      Drawable drawable = DrawableUtil.tint(getContext().getDrawable(latestFrame), ThemeUtil.getThemedColor(getContext(), R.attr.signal_icon_tint_secondary));
       SpanUtil.appendCenteredImageSpan(builder, drawable, 12, 12);
     }
 
@@ -611,26 +611,6 @@ public final class ConversationUpdateItem extends FrameLayout
       });
 
       actionButton.setText(R.string.ConversationActivity__invite_to_signal);
-    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.payments().mobileCoinPaymentsEnabled()) {
-      actionButton.setText(R.string.ConversationUpdateItem_activate_payments);
-      actionButton.setVisibility(VISIBLE);
-      actionButton.setOnClickListener(v -> {
-        if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onActivatePaymentsClicked();
-        } else {
-          passthroughClickListener.onClick(v);
-        }
-      });
-    } else if (conversationMessage.getMessageRecord().isPaymentsActivated() && !conversationMessage.getMessageRecord().isOutgoing()) {
-      actionButton.setText(R.string.ConversationUpdateItem_send_payment);
-      actionButton.setVisibility(VISIBLE);
-      actionButton.setOnClickListener(v -> {
-        if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onSendPaymentClicked(conversationMessage.getMessageRecord().getFromRecipient().getId());
-        } else {
-          passthroughClickListener.onClick(v);
-        }
-      });
     } else if (conversationMessage.getMessageRecord().isReportedSpam()) {
       actionButton.setText(R.string.ConversationUpdateItem_learn_more);
       actionButton.setVisibility(VISIBLE);
@@ -765,8 +745,8 @@ public final class ConversationUpdateItem extends FrameLayout
 
   private void presentActionButton(boolean hasWallpaper, boolean isBoostRequest) {
     if (isBoostRequest) {
-      actionButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.signal_colorSecondaryContainer)));
-      actionButton.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.signal_colorOnSecondaryContainer)));
+      actionButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorSecondaryContainer)));
+      actionButton.setTextColor(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSecondaryContainer)));
     } else if (hasWallpaper) {
       actionButton.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_background_wallpaper));
       actionButton.setTextColor(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_text_color_wallpaper));
