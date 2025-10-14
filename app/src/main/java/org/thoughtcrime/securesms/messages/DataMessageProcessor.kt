@@ -968,6 +968,11 @@ object DataMessageProcessor {
     groupId: GroupId.V2?,
     receivedTime: Long
   ): InsertResult? {
+    if (!RemoteConfig.receivePolls) {
+      log(envelope.timestamp!!, "Poll creation not allowed due to remote config.")
+      return null
+    }
+
     log(envelope.timestamp!!, "Handle poll creation")
     val poll: DataMessage.PollCreate = message.pollCreate!!
 
@@ -1023,6 +1028,11 @@ object DataMessageProcessor {
     groupId: GroupId.V2?,
     receivedTime: Long
   ): InsertResult? {
+    if (!RemoteConfig.receivePolls) {
+      log(envelope.timestamp!!, "Poll terminate not allowed due to remote config.")
+      return null
+    }
+
     val pollTerminate: DataMessage.PollTerminate = message.pollTerminate!!
     val targetSentTimestamp = pollTerminate.targetSentTimestamp!!
 
@@ -1071,6 +1081,11 @@ object DataMessageProcessor {
     senderRecipient: Recipient,
     earlyMessageCacheEntry: EarlyMessageCacheEntry?
   ): MessageId? {
+    if (!RemoteConfig.receivePolls) {
+      log(envelope.timestamp!!, "Poll vote not allowed due to remote config.")
+      return null
+    }
+
     val pollVote: DataMessage.PollVote = message.pollVote!!
     val targetSentTimestamp = pollVote.targetSentTimestamp!!
 

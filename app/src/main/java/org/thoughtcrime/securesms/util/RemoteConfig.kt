@@ -1170,5 +1170,12 @@ object RemoteConfig {
   // )
   val polls: Boolean = false
 
+  @JvmStatic
+  @get:JvmName("receivePolls")
+  val receivePolls: Boolean by remoteBoolean(
+    key = "android.receivePolls",
+    defaultValue = false,
+    hotSwappable = true
+  )
   // endregion
 }
