@@ -1945,7 +1945,8 @@ object BackupRepository {
       Log.d(TAG, "Accessing price via billing api.")
       AppDependencies.billingApi.queryProduct()?.price
     } else {
-      FiatMoney(BigDecimal.ZERO, SignalStore.inAppPayments.getRecurringDonationCurrency())
+      // MOLLY: Omit the PAID tier by returning null instead of a placeholder price
+      null
     }
 
     if (productPrice == null) {
