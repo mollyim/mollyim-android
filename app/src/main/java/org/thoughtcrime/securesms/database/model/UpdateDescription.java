@@ -97,8 +97,11 @@ public final class UpdateDescription {
   /**
    * Create an update description that's string value is fixed with a start glyph and has the ability to expire when a disappearing timer is set.
    */
-  public static UpdateDescription staticDescriptionWithExpiration(@NonNull String staticString, Glyph glyph) {
-    return new UpdateDescription(Collections.emptyList(), null, new SpannableString(staticString), glyph, true,0, 0);
+  public static UpdateDescription staticDescriptionWithExpiration(@NonNull String staticString,
+                                                                  Glyph glyph,
+                                                                  @ColorInt int lightTint,
+                                                                  @ColorInt int darkTint) {
+    return new UpdateDescription(Collections.emptyList(), null, new SpannableString(staticString), glyph, true, lightTint, darkTint);
   }
 
   /**

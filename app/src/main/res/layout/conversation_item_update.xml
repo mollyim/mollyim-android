@@ -24,35 +24,16 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <LinearLayout
+        <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+            android:id="@+id/conversation_update_body"
+            style="@style/Signal.Text.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:textColor="?attr/conversation_item_update_text_color"
+            tools:text="Gwen Stacy set the disappearing message timer to 1 hour" />
 
-            <org.thoughtcrime.securesms.components.emoji.EmojiTextView
-                android:id="@+id/conversation_update_body"
-                style="@style/Signal.Text.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="?attr/conversation_item_update_text_color"
-                tools:text="Gwen Stacy set the disappearing message timer to 1 hour" />
-
-            <org.thoughtcrime.securesms.components.ExpirationTimerView
-                android:id="@+id/conversation_update_expiration_timer"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginTop="3sp"
-                android:layout_gravity="center"
-                android:tint="?attr/conversation_item_update_text_color"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-        </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/conversation_update_action"
             style="@style/Widget.Signal.Button.Small"
             android:layout_width="wrap_content"

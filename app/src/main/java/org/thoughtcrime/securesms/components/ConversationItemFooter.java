@@ -315,7 +315,6 @@ public class ConversationItemFooter extends ConstraintLayout {
     simView.setVisibility(View.GONE);
   }
 
-  // MOLLY: Called from ConversationUpdateItem to show timer for call logs too
   static public void presentTimer(@NonNull final MessageRecord messageRecord, @NonNull ExpirationTimerView timerView) {
     if (messageRecord.getExpiresIn() > 0 && !messageRecord.isPending()) {
       timerView.setVisibility(View.VISIBLE);
