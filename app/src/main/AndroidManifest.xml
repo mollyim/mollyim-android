@@ -828,19 +828,12 @@
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:exported="false"/>
 
-    <activity android:name=".registrationv3.olddevice.TransferAccountActivity"
+    <activity android:name=".registration.olddevice.TransferAccountActivity"
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:exported="false"/>
 
     <activity android:name=".registration.ui.RegistrationActivity"
-              android:launchMode="singleTask"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:windowSoftInputMode="stateHidden"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:exported="false"/>
-
-    <activity android:name=".registrationv3.ui.RegistrationActivity"
         android:launchMode="singleTask"
         android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:windowSoftInputMode="stateHidden|adjustResize"
@@ -910,7 +903,7 @@
               android:finishOnTaskLaunch="true"
               android:exported="false"/>
 
-    <activity android:name=".SmsSendtoActivity" android:exported="true">
+    <activity android:name=".SystemContactsEntrypointActivity" android:exported="true">
         <intent-filter tools:ignore="AppLinkUrlError">
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -961,7 +954,7 @@
               android:windowSoftInputMode="stateVisible|adjustResize"
               android:exported="false"/>
 
-    <activity android:name=".registrationv3.ui.restore.RemoteRestoreActivity"
+    <activity android:name=".registration.ui.restore.RemoteRestoreActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="false"/>
 

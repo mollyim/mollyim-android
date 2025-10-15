@@ -65,12 +65,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.DropdownMenus
 import org.signal.core.ui.compose.IconButtons
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.SignalPreview
 import org.signal.core.ui.compose.TextFields
 import org.signal.core.ui.compose.Tooltips
 import org.signal.core.ui.compose.circularReveal
@@ -715,8 +714,7 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
   )
 }
 
-@Preview
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun FullMainToolbarPreview() {
   Previews.Preview {
@@ -745,7 +743,7 @@ private fun FullMainToolbarPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun SearchToolbarPreview() {
   Previews.Preview {
@@ -759,7 +757,7 @@ private fun SearchToolbarPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun ArchiveToolbarPreview() {
   Previews.Preview {
@@ -772,7 +770,7 @@ private fun ArchiveToolbarPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun TooltipOverflowButtonPreview() {
   Previews.Preview {

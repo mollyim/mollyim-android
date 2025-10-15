@@ -33,7 +33,6 @@ import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.InternetConnectionObserver
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import java.math.BigDecimal
@@ -80,18 +79,16 @@ class BackupStateObserver(
      * setting initial ViewModel state values.
      */
     fun getNonIOBackupState(): BackupState {
-      return if (RemoteConfig.messageBackups) {
-        val tier = SignalStore.backup.backupTier
+      val tier = SignalStore.backup.backupTier
 
-        if (tier != null) {
-          BackupState.LocalStore(tier)
-        } else {
-          BackupState.None
-        }
+      return if (tier != null) {
+        BackupState.LocalStore(tier)
       } else {
-        BackupState.NotAvailable
+        defaultOrUnsupportedState()
       }
     }
+
+    fun defaultOrUnsupportedState() = BackupState.None(featureSupported = SignalStore.account.isPrimaryDevice)
   }
 
   private val internalBackupState = MutableStateFlow(getNonIOBackupState())
@@ -217,11 +214,6 @@ class BackupStateObserver(
   }
 
   private suspend fun performDatabaseBackupStateRefresh() {
-    if (!RemoteConfig.messageBackups) {
-      Log.d(TAG, "[performDatabaseBackupStateRefresh] Dropping refresh for disabled feature.")
-      return
-    }
-
     if (!SignalStore.account.isRegistered) {
       Log.d(TAG, "[performDatabaseBackupStateRefresh] Dropping refresh for unregistered user.")
       return
@@ -236,11 +228,6 @@ class BackupStateObserver(
   }
 
   private suspend fun performFullBackupStateRefresh() {
-    if (!RemoteConfig.messageBackups) {
-      Log.d(TAG, "[performFullBackupStateRefresh] Dropping refresh for disabled feature.")
-      return
-    }
-
     if (!SignalStore.account.isRegistered) {
       Log.d(TAG, "[performFullBackupStateRefresh] Dropping refresh for unregistered user.")
       return
@@ -267,7 +254,10 @@ class BackupStateObserver(
     if (SignalStore.backup.subscriptionStateMismatchDetected) {
       Log.d(TAG, "[getNetworkBackupState][subscriptionStateMismatchDetected] A mismatch was detected.")
 
-      val hasActiveGooglePlayBillingSubscription = when (val purchaseResult = AppDependencies.billingApi.queryPurchases()) {
+      val purchaseResult = AppDependencies.billingApi.queryPurchases()
+      Log.d(TAG, "[getNetworkBackupState][subscriptionStateMismatchDetected] queryPurchase result: $purchaseResult")
+
+      val hasActiveGooglePlayBillingSubscription = when (purchaseResult) {
         is BillingPurchaseResult.Success -> {
           Log.d(TAG, "[getNetworkBackupState][subscriptionStateMismatchDetected] Found a purchase: $purchaseResult")
           purchaseResult.isAcknowledged && purchaseResult.isAutoRenewing
@@ -315,6 +305,11 @@ class BackupStateObserver(
           SignalStore.backup.subscriptionStateMismatchDetected = false
         }
 
+        SignalStore.backup.backupTier == MessageBackupTier.FREE -> {
+          Log.i(TAG, "[getNetworkBackupState][subscriptionMismatchDetected] User is on the free tier, has no signal subscription, and has a google play subscription. Clearing mismatch.")
+          SignalStore.backup.subscriptionStateMismatchDetected = false
+        }
+
         else -> {
           Log.w(TAG, "[getNetworkBackupState][subscriptionMismatchDetected] Hit unexpected subscription mismatch state: signal:false, google:true")
           return BackupState.NotFound
@@ -332,8 +327,9 @@ class BackupStateObserver(
       }
 
       null -> {
-        Log.d(TAG, "[getNetworkBackupState] Updating UI state with NONE null tier.")
-        return BackupState.None
+        val state = defaultOrUnsupportedState()
+        Log.d(TAG, "[getNetworkBackupState] Updating UI state with $state null tier.")
+        return state
       }
     }
   }

@@ -4,11 +4,14 @@
  */
 package org.thoughtcrime.securesms.jobs
 
+import android.Manifest
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.Base64.decodeBase64OrThrow
 import org.signal.core.util.PendingIntentFlags
@@ -58,6 +61,7 @@ import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.jvm.optionals.getOrNull
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.pow
 import kotlin.time.Duration.Companion.days
@@ -103,6 +107,14 @@ class RestoreAttachmentJob private constructor(
 
     /** All possible queues used by this job. */
     val ALL = INITIAL_RESTORE + OFFLOAD_RESTORE + MANUAL_RESTORE
+
+    fun random(queues: Set<String>, queueHash: Int?): String {
+      return if (queueHash != null) {
+        queues.elementAt(abs(queueHash) % queues.size)
+      } else {
+        queues.random()
+      }
+    }
   }
 
   companion object {
@@ -113,12 +125,12 @@ class RestoreAttachmentJob private constructor(
      * Create a restore job for the initial large batch of media on a fresh restore.
      * Will enqueue with some amount of parallelization with low job priority.
      */
-    fun forInitialRestore(attachmentId: AttachmentId, messageId: Long, stickerPackId: String?): RestoreAttachmentJob {
+    fun forInitialRestore(attachmentId: AttachmentId, messageId: Long, stickerPackId: String?, queueHash: Int?): RestoreAttachmentJob {
       return RestoreAttachmentJob(
         attachmentId = attachmentId,
         messageId = messageId,
         manual = false,
-        queue = Queues.INITIAL_RESTORE.random(),
+        queue = Queues.random(Queues.INITIAL_RESTORE, queueHash),
         priority = Parameters.PRIORITY_LOW,
         stickerPackId = stickerPackId
       )
@@ -129,12 +141,12 @@ class RestoreAttachmentJob private constructor(
      *
      * See [RestoreOptimizedMediaJob].
      */
-    fun forOffloadedRestore(attachmentId: AttachmentId, messageId: Long): RestoreAttachmentJob {
+    fun forOffloadedRestore(attachmentId: AttachmentId, messageId: Long, queueHash: Int?): RestoreAttachmentJob {
       return RestoreAttachmentJob(
         attachmentId = attachmentId,
         messageId = messageId,
         manual = false,
-        queue = Queues.OFFLOAD_RESTORE.random(),
+        queue = Queues.random(Queues.OFFLOAD_RESTORE, queueHash),
         priority = Parameters.PRIORITY_LOW
       )
     }
@@ -471,6 +483,11 @@ class RestoreAttachmentJob private constructor(
       return
     }
 
+    if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+      Log.w(TAG, "maybePostFailedToDownloadFromArchiveNotification: Notification permission is not granted.")
+      return
+    }
+
     val notification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
       .setSmallIcon(R.drawable.ic_notification)
       .setContentTitle("[Internal-only] Failed to restore attachment from Archive CDN!")
@@ -483,6 +500,11 @@ class RestoreAttachmentJob private constructor(
 
   private fun maybePostFailedToDownloadFromArchiveAndTransitNotification() {
     if (!RemoteConfig.internalUser || !SignalStore.backup.backsUpMedia) {
+      return
+    }
+
+    if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+      Log.w(TAG, "maybePostFailedToDownloadFromArchiveAndTransitNotification: Notification permission is not granted.")
       return
     }
 

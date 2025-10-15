@@ -215,7 +215,7 @@ object AccountDataArchiveProcessor {
     SignalStore.story.userHasSeenGroupStoryEducationSheet = settings.hasSeenGroupStoryEducationSheet
     SignalStore.story.viewedReceiptsEnabled = settings.storyViewReceiptsEnabled ?: settings.readReceipts
     SignalStore.backup.optimizeStorage = settings.optimizeOnDeviceStorage
-    SignalStore.backup.backupTier = settings.backupTier?.toLocalBackupTier()
+    SignalStore.backup.backupTier = if (SignalStore.account.isPrimaryDevice) settings.backupTier?.toLocalBackupTier() else null
 
     settings.customChatColors
       .mapNotNull { chatColor ->

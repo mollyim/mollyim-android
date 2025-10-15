@@ -16,14 +16,9 @@ import kotlin.time.Duration.Companion.seconds
  */
 sealed interface BackupState {
   /**
-   * Backups are not available on this device
-   */
-  data object NotAvailable : BackupState
-
-  /**
    * User has no active backup tier, no tier history
    */
-  data object None : BackupState
+  data class None(val featureSupported: Boolean) : BackupState
 
   /**
    * Temporary state object that just denotes what the local store thinks we are.

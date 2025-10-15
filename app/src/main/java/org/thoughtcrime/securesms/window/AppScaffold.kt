@@ -7,6 +7,8 @@ package org.thoughtcrime.securesms.window
 
 import android.content.res.Configuration
 import android.content.res.Resources
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
@@ -30,9 +33,11 @@ import androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneSca
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
@@ -42,9 +47,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.window.core.ExperimentalWindowCoreApi
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
+import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.MainFloatingActionButtonsCallback
@@ -95,7 +102,7 @@ enum class WindowSizeClass(
   fun isPortrait(): Boolean = !isLandscape()
 
   fun isSplitPane(): Boolean {
-    return if (SignalStore.internal.largeScreenUi && SignalStore.internal.forceSplitPaneOnCompactLandscape) {
+    return if (isLargeScreenSupportEnabled() && SignalStore.internal.forceSplitPaneOnCompactLandscape) {
       this != COMPACT_PORTRAIT
     } else {
       this.navigation != Navigation.BAR
@@ -120,8 +127,12 @@ enum class WindowSizeClass(
       return getSizeClassForOrientationAndSystemSizeClass(orientation, windowSizeClass)
     }
 
+    fun isLargeScreenSupportEnabled(): Boolean {
+      return RemoteConfig.largeScreenUi && SignalStore.internal.largeScreenUi
+    }
+
     fun isForcedCompact(): Boolean {
-      return !SignalStore.internal.largeScreenUi
+      return !isLargeScreenSupportEnabled()
     }
 
     @Composable
@@ -219,14 +230,33 @@ fun AppScaffold(
     return
   }
 
-  val minPaneWidth = 300.dp
+  val minPaneWidth = navigator.scaffoldDirective.defaultPanePreferredWidth
 
   NavigableListDetailPaneScaffold(
     navigator = navigator,
     listPane = {
-      AnimatedPane {
+      val offset by animateDp(
+        targetWhenHiding = {
+          (-48).dp
+        },
+        targetWhenShowing = {
+          0.dp
+        }
+      )
+
+      val alpha by animateFloat {
+        1f
+      }
+
+      AnimatedPane(
+        enterTransition = EnterTransition.None,
+        exitTransition = ExitTransition.None,
+        modifier = Modifier.zIndex(0f)
+      ) {
         Box(
           modifier = Modifier
+            .alpha(alpha)
+            .offset(x = offset)
             .clipToBounds()
             .layout { measurable, constraints ->
               val width = max(minPaneWidth.roundToPx(), constraints.maxWidth)
@@ -254,9 +284,28 @@ fun AppScaffold(
       }
     },
     detailPane = {
-      AnimatedPane {
+      val offset by animateDp(
+        targetWhenHiding = {
+          48.dp
+        },
+        targetWhenShowing = {
+          0.dp
+        }
+      )
+
+      val alpha by animateFloat {
+        1f
+      }
+
+      AnimatedPane(
+        enterTransition = EnterTransition.None,
+        exitTransition = ExitTransition.None,
+        modifier = Modifier.zIndex(1f)
+      ) {
         Box(
           modifier = Modifier
+            .alpha(alpha)
+            .offset(x = offset)
             .clipToBounds()
             .layout { measurable, constraints ->
               val width = max(minPaneWidth.roundToPx(), constraints.maxWidth)
@@ -313,12 +362,7 @@ private fun ListAndNavigation(
 }
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
-@Preview(device = "spec:width=360dp,height=640dp,orientation=portrait")
-@Preview(device = "spec:width=640dp,height=360dp,orientation=landscape")
-@Preview(device = "spec:width=600dp,height=1024dp,orientation=portrait")
-@Preview(device = "spec:width=1024dp,height=600dp,orientation=landscape")
-@Preview(device = "spec:width=840dp,height=1280dp,orientation=portrait")
-@Preview(device = "spec:width=1280dp,height=840dp,orientation=landscape")
+@AllDevicePreviews
 @Composable
 private fun AppScaffoldPreview() {
   Previews.Preview {

@@ -27,16 +27,15 @@ import org.thoughtcrime.securesms.database.documents.NetworkFailure;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge;
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras;
-import org.thoughtcrime.securesms.fonts.SignalSymbols;
 import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.payments.Payment;
+import org.thoughtcrime.securesms.polls.PollRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,6 +70,7 @@ public class MmsMessageRecord extends MessageRecord {
   private final BodyRangeList  messageRanges;
   private final Payment        payment;
   private final CallTable.Call call;
+  private final PollRecord     poll;
   private final long           scheduledDate;
   private final MessageId      latestRevisionId;
   private final boolean        isRead;
@@ -111,6 +111,7 @@ public class MmsMessageRecord extends MessageRecord {
                           @Nullable GiftBadge giftBadge,
                           @Nullable Payment payment,
                           @Nullable CallTable.Call call,
+                          @Nullable PollRecord poll,
                           long scheduledDate,
                           @Nullable MessageId latestRevisionId,
                           @Nullable MessageId originalMessageId,
@@ -133,6 +134,7 @@ public class MmsMessageRecord extends MessageRecord {
     this.messageRanges    = messageRanges;
     this.payment          = payment;
     this.call             = call;
+    this.poll             = poll;
     this.scheduledDate    = scheduledDate;
     this.latestRevisionId = latestRevisionId;
     this.isRead           = isRead;
@@ -195,6 +197,10 @@ public class MmsMessageRecord extends MessageRecord {
     return giftBadge;
   }
 
+  public @Nullable PollRecord getPoll() {
+    return poll;
+  }
+
   @Override
   public boolean hasSelfMention() {
     return mentionsSelf;
@@ -236,10 +242,10 @@ public class MmsMessageRecord extends MessageRecord {
       if (call.getDirection() == CallTable.Direction.OUTGOING) {
         if (call.getType() == CallTable.Type.AUDIO_CALL) {
           int updateString = R.string.MessageRecord_outgoing_voice_call;
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), Glyph.PHONE);
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), Glyph.PHONE);
         } else {
           int updateString = R.string.MessageRecord_outgoing_video_call;
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), Glyph.VIDEO_CAMERA);
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), Glyph.VIDEO_CAMERA);
         }
       } else {
         boolean isVideoCall = call.getType() == CallTable.Type.VIDEO_CALL;
@@ -247,7 +253,7 @@ public class MmsMessageRecord extends MessageRecord {
         if (accepted || !call.isDisplayedAsMissedCallInUi()) {
           int updateString = isVideoCall ? R.string.MessageRecord_incoming_video_call : R.string.MessageRecord_incoming_voice_call;
           Glyph icon       = isVideoCall ? Glyph.VIDEO_CAMERA : Glyph.PHONE;
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
         } else {
           Glyph icon = isVideoCall ? Glyph.VIDEO_CAMERA : Glyph.PHONE;
           int message;
@@ -259,7 +265,7 @@ public class MmsMessageRecord extends MessageRecord {
             message = isVideoCall ? R.string.MessageRecord_missed_video_call : R.string.MessageRecord_missed_voice_call;
           }
 
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date,
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date,
                                                            context.getString(message),
                                                            callDateString),
                                          icon,
@@ -316,7 +322,7 @@ public class MmsMessageRecord extends MessageRecord {
     return new MmsMessageRecord(getId(), getFromRecipient(), getFromDeviceId(), getToRecipient(), getDateSent(), getDateReceived(), getServerTimestamp(), hasDeliveryReceipt(), getThreadId(), getBody(), getSlideDeck(),
                                 getType(), getIdentityKeyMismatches(), getNetworkFailures(), getSubscriptionId(), getExpiresIn(), getExpireStarted(), getExpireTimerVersion(), isViewOnce(),
                                 hasReadReceipt(), getQuote(), getSharedContacts(), getLinkPreviews(), isUnidentified(), reactions, isRemoteDelete(), mentionsSelf,
-                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), getScheduledDate(), getLatestRevisionId(),
+                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), getPoll(), getScheduledDate(), getLatestRevisionId(),
                                 getOriginalMessageId(), getRevisionNumber(), isRead(), getMessageExtras());
   }
 
@@ -324,7 +330,7 @@ public class MmsMessageRecord extends MessageRecord {
     return new MmsMessageRecord(getId(), getFromRecipient(), getFromDeviceId(), getToRecipient(), getDateSent(), getDateReceived(), getServerTimestamp(), hasDeliveryReceipt(), getThreadId(), getBody(), getSlideDeck(),
                                 getType(), getIdentityKeyMismatches(), getNetworkFailures(), getSubscriptionId(), getExpiresIn(), getExpireStarted(), getExpireTimerVersion(), isViewOnce(),
                                 hasReadReceipt(), null, getSharedContacts(), getLinkPreviews(), isUnidentified(), getReactions(), isRemoteDelete(), mentionsSelf,
-                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), getScheduledDate(), getLatestRevisionId(),
+                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), getPoll(), getScheduledDate(), getLatestRevisionId(),
                                 getOriginalMessageId(), getRevisionNumber(), isRead(), getMessageExtras());
   }
 
@@ -346,7 +352,7 @@ public class MmsMessageRecord extends MessageRecord {
     return new MmsMessageRecord(getId(), getFromRecipient(), getFromDeviceId(), getToRecipient(), getDateSent(), getDateReceived(), getServerTimestamp(), hasDeliveryReceipt(), getThreadId(), getBody(), slideDeck,
                                 getType(), getIdentityKeyMismatches(), getNetworkFailures(), getSubscriptionId(), getExpiresIn(), getExpireStarted(), getExpireTimerVersion(), isViewOnce(),
                                 hasReadReceipt(), quote, contacts, linkPreviews, isUnidentified(), getReactions(), isRemoteDelete(), mentionsSelf,
-                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), getScheduledDate(), getLatestRevisionId(),
+                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), getPoll(), getScheduledDate(), getLatestRevisionId(),
                                 getOriginalMessageId(), getRevisionNumber(), isRead(), getMessageExtras());
   }
 
@@ -354,7 +360,7 @@ public class MmsMessageRecord extends MessageRecord {
     return new MmsMessageRecord(getId(), getFromRecipient(), getFromDeviceId(), getToRecipient(), getDateSent(), getDateReceived(), getServerTimestamp(), hasDeliveryReceipt(), getThreadId(), getBody(), getSlideDeck(),
                                 getType(), getIdentityKeyMismatches(), getNetworkFailures(), getSubscriptionId(), getExpiresIn(), getExpireStarted(), getExpireTimerVersion(), isViewOnce(),
                                 hasReadReceipt(), getQuote(), getSharedContacts(), getLinkPreviews(), isUnidentified(), getReactions(), isRemoteDelete(), mentionsSelf,
-                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), payment, getCall(), getScheduledDate(), getLatestRevisionId(),
+                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), payment, getCall(), getPoll(), getScheduledDate(), getLatestRevisionId(),
                                 getOriginalMessageId(), getRevisionNumber(), isRead(), getMessageExtras());
   }
 
@@ -363,7 +369,15 @@ public class MmsMessageRecord extends MessageRecord {
     return new MmsMessageRecord(getId(), getFromRecipient(), getFromDeviceId(), getToRecipient(), getDateSent(), getDateReceived(), getServerTimestamp(), hasDeliveryReceipt(), getThreadId(), getBody(), getSlideDeck(),
                                 getType(), getIdentityKeyMismatches(), getNetworkFailures(), getSubscriptionId(), getExpiresIn(), getExpireStarted(), getExpireTimerVersion(), isViewOnce(),
                                 hasReadReceipt(), getQuote(), getSharedContacts(), getLinkPreviews(), isUnidentified(), getReactions(), isRemoteDelete(), mentionsSelf,
-                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), call, getScheduledDate(), getLatestRevisionId(),
+                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), call, getPoll(), getScheduledDate(), getLatestRevisionId(),
+                                getOriginalMessageId(), getRevisionNumber(), isRead(), getMessageExtras());
+  }
+
+  public @NonNull MmsMessageRecord withPoll(@Nullable PollRecord poll) {
+    return new MmsMessageRecord(getId(), getFromRecipient(), getFromDeviceId(), getToRecipient(), getDateSent(), getDateReceived(), getServerTimestamp(), hasDeliveryReceipt(), getThreadId(), getBody(), getSlideDeck(),
+                                getType(), getIdentityKeyMismatches(), getNetworkFailures(), getSubscriptionId(), getExpiresIn(), getExpireStarted(), getExpireTimerVersion(), isViewOnce(),
+                                hasReadReceipt(), getQuote(), getSharedContacts(), getLinkPreviews(), isUnidentified(), getReactions(), isRemoteDelete(), mentionsSelf,
+                                getNotifiedTimestamp(), isViewed(), getReceiptTimestamp(), getMessageRanges(), getStoryType(), getParentStoryId(), getGiftBadge(), getPayment(), getCall(), poll, getScheduledDate(), getLatestRevisionId(),
                                 getOriginalMessageId(), getRevisionNumber(), isRead(), getMessageExtras());
   }
 

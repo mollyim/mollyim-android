@@ -56,6 +56,7 @@ public class WipeMemoryService extends IntentService {
   private ActivityManager activityManager;
 
   private volatile boolean lowMemory;
+  private boolean canPostNotifications;
 
   private PowerManager.WakeLock busyWakeLock;
 
@@ -97,6 +98,8 @@ public class WipeMemoryService extends IntentService {
 
     int savePriority = Thread.currentThread().getPriority();
 
+    canPostNotifications = notificationManager.areNotificationsEnabled();
+
     try {
       Thread.currentThread().setPriority(MIN_PRIORITY);
 
@@ -130,7 +133,7 @@ public class WipeMemoryService extends IntentService {
 
         memFree = getFreeMemory();
 
-        if (memFree < maxProgress) {
+        if (memFree < maxProgress && canPostNotifications) {
           progress = Math.max(progress, maxProgress - memFree);
           showProgress(maxProgress, progress);
         }
@@ -235,7 +238,11 @@ public class WipeMemoryService extends IntentService {
     }
     lastProgressNotification = now;
     notification.setProgress((int) (totalBytes / 1024), (int) (progressBytes / 1024), false);
-    notificationManager.notify(NOTIFICATION_ID, notification.build());
+    try {
+      notificationManager.notify(NOTIFICATION_ID, notification.build());
+    } catch (SecurityException ignored) {
+      canPostNotifications = false;
+    }
   }
 
   private static void killProcess() {

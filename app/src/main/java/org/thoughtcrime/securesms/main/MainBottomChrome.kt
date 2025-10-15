@@ -20,9 +20,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.SignalPreview
 import org.signal.core.ui.compose.Snackbars
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.megaphone.Megaphone
@@ -93,7 +94,9 @@ fun MainBottomChrome(
           callback = callback
         )
       }
+    }
 
+    if (state.mainToolbarMode == MainToolbarMode.FULL) {
       MainMegaphoneContainer(
         state = state.megaphoneState,
         controller = megaphoneActionController,
@@ -101,7 +104,6 @@ fun MainBottomChrome(
       )
     }
 
-    val windowSizeClass = WindowSizeClass.rememberWindowSizeClass()
     val snackBarModifier = if (windowSizeClass.isCompact() && state.mainToolbarMode == MainToolbarMode.BASIC) {
       Modifier.navigationBarsPadding()
     } else {
@@ -151,7 +153,7 @@ private fun MainSnackbar(
   }
 }
 
-@SignalPreview
+@AllDevicePreviews
 @Composable
 fun MainBottomChromePreview() {
   Previews.Preview {

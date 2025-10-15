@@ -495,10 +495,10 @@ public final class Megaphones {
   public static @NonNull Megaphone buildTurnOnSignalBackupsMegaphone() {
     return new Megaphone.Builder(Event.TURN_ON_SIGNAL_BACKUPS, Megaphone.Style.BASIC)
         .setImage(R.drawable.backups_megaphone_image)
-        .setTitle(R.string.TurnOnSignalBackups__title)
+        .setTitle(R.string.preferences_chats__backups)
         .setBody(R.string.TurnOnSignalBackups__body)
-        .setActionButton(R.string.TurnOnSignalBackups__turn_on, (megaphone, controller) -> {
-          Intent intent = AppSettingsActivity.remoteBackups(controller.getMegaphoneActivity());
+        .setActionButton(R.string.BackupsSettingsFragment_set_up, (megaphone, controller) -> {
+          Intent intent = AppSettingsActivity.backupsSettings(controller.getMegaphoneActivity());
 
           controller.onMegaphoneNavigationRequested(intent);
           controller.onMegaphoneSnooze(Event.TURN_ON_SIGNAL_BACKUPS);
@@ -610,7 +610,11 @@ public final class Megaphones {
       return false;
     }
 
-    if (!RemoteConfig.getMessageBackupsInSettings() || SignalStore.backup().getLatestBackupTier() != null) {
+    if (SignalStore.backup().getLatestBackupTier() != null || SignalStore.settings().isBackupEnabled()) {
+      return false;
+    }
+
+    if (!SignalStore.account().isRegistered() || TextSecurePreferences.isUnauthorizedReceived(context)) {
       return false;
     }
 

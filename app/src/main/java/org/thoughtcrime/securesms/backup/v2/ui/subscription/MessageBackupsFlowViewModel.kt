@@ -45,7 +45,6 @@ import org.thoughtcrime.securesms.jobs.InAppPaymentPurchaseTokenJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.next
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.internal.push.SubscriptionsConfiguration
@@ -53,6 +52,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class MessageBackupsFlowViewModel(
   private val initialTierSelection: MessageBackupTier?,
+  googlePlayApiAvailability: Int,
   startScreen: MessageBackupsStage = if (SignalStore.backup.backupTier == null) MessageBackupsStage.EDUCATION else MessageBackupsStage.TYPE_SELECTION
 ) : ViewModel(), BackupKeyCredentialManagerHandler {
 
@@ -64,6 +64,7 @@ class MessageBackupsFlowViewModel(
   private val internalStateFlow = MutableStateFlow(
     MessageBackupsFlowState(
       allBackupTypes = emptyList(),
+      googlePlayApiAvailability = GooglePlayServicesAvailability.fromCode(googlePlayApiAvailability),
       currentMessageBackupTier = SignalStore.backup.backupTier,
       selectedMessageBackupTier = resolveSelectedTier(initialTierSelection, SignalStore.backup.backupTier),
       startScreen = startScreen
@@ -74,6 +75,14 @@ class MessageBackupsFlowViewModel(
   val deletionState: Flow<DeletionState> = SignalStore.backup.deletionStateFlow
 
   init {
+    viewModelScope.launch(SignalDispatchers.IO) {
+      internalStateFlow.update {
+        it.copy(
+          googlePlayBillingAvailability = AppDependencies.billingApi.getApiAvailability()
+        )
+      }
+    }
+
     viewModelScope.launch {
       val result = withContext(SignalDispatchers.IO) {
         BackupRepository.triggerBackupIdReservation()
@@ -94,7 +103,7 @@ class MessageBackupsFlowViewModel(
       val allBackupTypes: List<MessageBackupsType> = try {
         withContext(SignalDispatchers.IO) {
           BackupRepository.getBackupTypes(
-            if (!RemoteConfig.messageBackups) emptyList() else listOf(MessageBackupTier.FREE, MessageBackupTier.PAID)
+            listOf(MessageBackupTier.FREE, MessageBackupTier.PAID)
           )
         }
       } catch (e: Exception) {
@@ -105,7 +114,6 @@ class MessageBackupsFlowViewModel(
       internalStateFlow.update { state ->
         state.copy(
           allBackupTypes = allBackupTypes,
-          isBillingApiAvailable = AppDependencies.billingApi.isApiAvailable(),
           selectedMessageBackupTier = if (state.selectedMessageBackupTier in allBackupTypes.map { it.tier }) state.selectedMessageBackupTier else allBackupTypes.firstOrNull()?.tier
         )
       }
@@ -155,6 +163,12 @@ class MessageBackupsFlowViewModel(
           else -> goToPreviousStage()
         }
       }
+    }
+  }
+
+  fun setGooglePlayApiAvailability(googlePlayApiAvailability: Int) {
+    internalStateFlow.update {
+      it.copy(googlePlayApiAvailability = GooglePlayServicesAvailability.fromCode(googlePlayApiAvailability))
     }
   }
 

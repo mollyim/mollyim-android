@@ -34,7 +34,7 @@ class RegistrationValues internal constructor(store: KeyValueStore) : SignalStor
       .putBoolean(HAS_UPLOADED_PROFILE, false)
       .putBoolean(REGISTRATION_COMPLETE, false)
       .putBoolean(PIN_REQUIRED, true)
-      .apply { /*if (BuildConfig.MESSAGE_BACKUP_RESTORE_ENABLED) putBlob(RESTORE_DECISION_STATE, RestoreDecisionState.Start.encode())*/ }
+      .putBlob(RESTORE_DECISION_STATE, RestoreDecisionState.Start.encode())
       .commit()
   }
 

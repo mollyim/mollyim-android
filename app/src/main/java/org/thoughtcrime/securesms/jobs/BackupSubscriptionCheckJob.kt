@@ -29,7 +29,6 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
@@ -61,10 +60,6 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
 
     @JvmStatic
     fun enqueueIfAble() {
-      if (!RemoteConfig.messageBackups) {
-        return
-      }
-
       val job = create()
 
       AppDependencies.jobManager.add(job)
@@ -84,13 +79,7 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
       return Result.success()
     }
 
-    if (!RemoteConfig.messageBackups) {
-      Log.i(TAG, "Message backups feature is not available. Clearing mismatch value and exiting.", true)
-      SignalStore.backup.subscriptionStateMismatchDetected = false
-      return Result.success()
-    }
-
-    if (!AppDependencies.billingApi.isApiAvailable()) {
+    if (!AppDependencies.billingApi.getApiAvailability().isSuccess) {
       Log.i(TAG, "Google Play Billing API is not available on this device. Clearing mismatch value and exiting.", true)
       SignalStore.backup.subscriptionStateMismatchDetected = false
       return Result.success()
@@ -114,8 +103,26 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
       return Result.success()
     }
 
+    if (SignalDatabase.inAppPayments.hasPrePendingRecurringTransaction(InAppPaymentType.RECURRING_BACKUP)) {
+      Log.i(TAG, "A backup redemption is in the pre-pending state. Clearing mismatch and skipping check job.", true)
+      SignalStore.backup.subscriptionStateMismatchDetected = false
+      return Result.success()
+    }
+
+    if (SignalDatabase.inAppPayments.hasPendingBackupRedemption()) {
+      Log.i(TAG, "A backup redemption is pending. Clearing mismatch and skipping check job.", true)
+      SignalStore.backup.subscriptionStateMismatchDetected = false
+      return Result.success()
+    }
+
     val purchase: BillingPurchaseResult = AppDependencies.billingApi.queryPurchases()
     Log.i(TAG, "Retrieved purchase result from Billing api: $purchase", true)
+
+    if (purchase !is BillingPurchaseResult.Success && purchase !is BillingPurchaseResult.None) {
+      Log.w(TAG, "Possible error when grabbing purchase from billing API. Clearing mismatch and exiting.")
+      SignalStore.backup.subscriptionStateMismatchDetected = false
+      return Result.success()
+    }
 
     val hasActivePurchase = purchase is BillingPurchaseResult.Success && purchase.isAcknowledged
     val product: BillingProduct? = AppDependencies.billingApi.queryProduct()
@@ -181,8 +188,14 @@ class BackupSubscriptionCheckJob private constructor(parameters: Parameters) : C
             )
             SignalStore.backup.subscriptionStateMismatchDetected = false
             return Result.success()
+          } else if (hasActivePurchase && !hasActiveSignalSubscription && SignalStore.backup.backupTier == MessageBackupTier.FREE) {
+            Log.i(TAG, "Mismatched state but user has no Signal Service subscription and is on the free tier. Clearing flag.", true)
+
+            SignalStore.backup.subscriptionStateMismatchDetected = false
+            return Result.success()
           } else {
             Log.w(TAG, "State mismatch: (hasActivePaidBackupTier: $hasActivePaidBackupTier, hasActiveSignalSubscription: $hasActiveSignalSubscription, hasActivePurchase: $hasActivePurchase). Setting mismatch value and exiting.", true)
+
             SignalStore.backup.subscriptionStateMismatchDetected = true
             return Result.success()
           }

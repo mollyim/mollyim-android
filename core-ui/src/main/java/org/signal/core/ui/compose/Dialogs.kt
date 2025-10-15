@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -44,6 +45,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -199,21 +202,24 @@ object Dialogs {
   fun IndeterminateProgressDialog(
     onDismissRequest: () -> Unit = {}
   ) {
-    BaseAlertDialog(
-      onDismissRequest = onDismissRequest,
-      confirmButton = {},
-      dismissButton = {},
-      text = {
+    Dialog(
+      onDismissRequest = onDismissRequest
+    ) {
+      Surface(
+        modifier = Modifier.size(100.dp),
+        shape = Defaults.shape,
+        color = Defaults.containerColor,
+        tonalElevation = Defaults.TonalElevation
+      ) {
         CircularProgressIndicator(
           modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .padding(24.dp)
             .testTag("dialog-circular-progress-indicator")
         )
-      },
-      modifier = Modifier
-        .size(100.dp)
-    )
+      }
+    }
   }
 
   /**
@@ -372,7 +378,7 @@ object Dialogs {
     ) {
       Surface(
         modifier = Modifier
-          .padding(vertical = 100.dp)
+          .heightIn(min = 0.dp, max = getScreenHeight() - 200.dp)
           .background(
             color = SignalTheme.colors.colorSurface2,
             shape = AlertDialogDefaults.shape
@@ -456,7 +462,7 @@ object Dialogs {
     ) {
       Surface(
         modifier = Modifier
-          .padding(vertical = 100.dp)
+          .heightIn(min = 0.dp, max = getScreenHeight() - 200.dp)
           .background(
             color = SignalTheme.colors.colorSurface2,
             shape = AlertDialogDefaults.shape
@@ -510,7 +516,9 @@ object Dialogs {
 
           FlowRow(
             horizontalArrangement = Arrangement.End,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(bottom = 16.dp)
           ) {
             TextButton(onClick = onDismissRequest) {
               Text(text = stringResource(R.string.cancel))
@@ -587,9 +595,16 @@ object Dialogs {
       }
     }
   }
+
+  @Composable
+  private fun getScreenHeight(): Dp {
+    return with(LocalDensity.current) {
+      LocalWindowInfo.current.containerSize.height.toDp()
+    }
+  }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun PermissionRationaleDialogPreview() {
   Previews.Preview {
@@ -604,7 +619,7 @@ private fun PermissionRationaleDialogPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun AlertDialogPreview() {
   Previews.Preview {
@@ -619,7 +634,7 @@ private fun AlertDialogPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun AdvancedAlertDialogPreview() {
   Previews.Preview {
@@ -636,7 +651,7 @@ private fun AdvancedAlertDialogPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun MessageDialogPreview() {
   Previews.Preview {
@@ -648,7 +663,7 @@ private fun MessageDialogPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun IndeterminateProgressDialogPreview() {
   Previews.Preview {
@@ -656,7 +671,7 @@ private fun IndeterminateProgressDialogPreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun IndeterminateProgressDialogMessagePreview() {
   Previews.Preview {
@@ -664,7 +679,7 @@ private fun IndeterminateProgressDialogMessagePreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun IndeterminateProgressDialogCancellablePreview() {
   Previews.Preview {
@@ -672,7 +687,7 @@ private fun IndeterminateProgressDialogCancellablePreview() {
   }
 }
 
-@SignalPreview
+@DayNightPreviews
 @Composable
 private fun RadioListDialogPreview() {
   Previews.Preview {

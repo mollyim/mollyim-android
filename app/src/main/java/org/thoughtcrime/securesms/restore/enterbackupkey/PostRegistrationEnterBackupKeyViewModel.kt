@@ -19,8 +19,8 @@ import kotlinx.coroutines.withContext
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.registrationv3.ui.restore.AccountEntropyPoolVerification
-import org.thoughtcrime.securesms.registrationv3.ui.restore.AccountEntropyPoolVerification.AEPValidationError
+import org.thoughtcrime.securesms.registration.ui.restore.AccountEntropyPoolVerification
+import org.thoughtcrime.securesms.registration.ui.restore.AccountEntropyPoolVerification.AEPValidationError
 import org.whispersystems.signalservice.api.AccountEntropyPool
 
 class PostRegistrationEnterBackupKeyViewModel : ViewModel() {
@@ -70,7 +70,7 @@ class PostRegistrationEnterBackupKeyViewModel : ViewModel() {
         store.update { it.copy(restoreBackupTierSuccessful = true) }
       } else {
         Log.w(TAG, "Unable to validate AEP against currently registered account")
-        store.update { it.copy(showBackupTierNotRestoreError = true) }
+        store.update { it.copy(aepValidationError = AEPValidationError.Incorrect, showBackupTierNotRestoreError = true) }
       }
     }
   }

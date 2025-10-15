@@ -148,6 +148,9 @@ import org.thoughtcrime.securesms.database.helpers.migration.V288_CopyStickerDat
 import org.thoughtcrime.securesms.database.helpers.migration.V289_AddQuoteTargetContentTypeColumn
 import org.thoughtcrime.securesms.database.helpers.migration.V290_AddArchiveThumbnailTransferStateColumn
 import org.thoughtcrime.securesms.database.helpers.migration.V291_NullOutRemoteKeyIfEmpty
+import org.thoughtcrime.securesms.database.helpers.migration.V292_AddPollTables
+import org.thoughtcrime.securesms.database.helpers.migration.V293_LastResortKeyTupleTableMigration
+import org.thoughtcrime.securesms.database.helpers.migration.V294_RemoveLastResortKeyTupleColumnConstraintMigration
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -298,10 +301,13 @@ object SignalDatabaseMigrations {
     288 to V288_CopyStickerDataHashStartToEnd,
     289 to V289_AddQuoteTargetContentTypeColumn,
     290 to V290_AddArchiveThumbnailTransferStateColumn,
-    291 to V291_NullOutRemoteKeyIfEmpty
+    291 to V291_NullOutRemoteKeyIfEmpty,
+    292 to V292_AddPollTables,
+    293 to V293_LastResortKeyTupleTableMigration,
+    294 to V294_RemoveLastResortKeyTupleColumnConstraintMigration
   )
 
-  const val DATABASE_VERSION = 291
+  const val DATABASE_VERSION = 294
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
