@@ -18,7 +18,7 @@ sealed interface BackupState {
   /**
    * User has no active backup tier, no tier history
    */
-  data object None : BackupState
+  data class None(val featureSupported: Boolean) : BackupState
 
   /**
    * Temporary state object that just denotes what the local store thinks we are.

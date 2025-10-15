@@ -17,6 +17,7 @@ class AppSettingsViewModel : ViewModel() {
     AppSettingsState(
       unreadPaymentsCount = 0,
       userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
+      isLinkedDevice = SignalStore.account.isLinkedDevice,
       clientDeprecated = SignalStore.misc.isClientDeprecated
     )
   )

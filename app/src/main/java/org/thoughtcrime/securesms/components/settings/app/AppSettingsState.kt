@@ -8,6 +8,7 @@ import org.thoughtcrime.securesms.util.RemoteConfig
 data class AppSettingsState(
   val unreadPaymentsCount: Int,
   val userUnregistered: Boolean,
+  val isLinkedDevice: Boolean = false,
   val clientDeprecated: Boolean,
   val showInternalPreferences: Boolean = RemoteConfig.internalUser,
   val showAppUpdates: Boolean = BuildConfig.MANAGES_MOLLY_UPDATES,

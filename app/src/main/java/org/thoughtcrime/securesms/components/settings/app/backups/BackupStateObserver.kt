@@ -84,9 +84,11 @@ class BackupStateObserver(
       return if (tier != null) {
         BackupState.LocalStore(tier)
       } else {
-        BackupState.None
+        defaultOrUnsupportedState()
       }
     }
+
+    fun defaultOrUnsupportedState() = BackupState.None(featureSupported = SignalStore.account.isPrimaryDevice)
   }
 
   private val internalBackupState = MutableStateFlow(getNonIOBackupState())
@@ -325,8 +327,9 @@ class BackupStateObserver(
       }
 
       null -> {
-        Log.d(TAG, "[getNetworkBackupState] Updating UI state with NONE null tier.")
-        return BackupState.None
+        val state = defaultOrUnsupportedState()
+        Log.d(TAG, "[getNetworkBackupState] Updating UI state with $state null tier.")
+        return state
       }
     }
   }

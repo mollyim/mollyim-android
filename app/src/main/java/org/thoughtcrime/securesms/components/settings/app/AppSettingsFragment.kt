@@ -48,6 +48,7 @@ import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.IconButtons
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
+import org.signal.core.ui.compose.Rows.TextAndLabel
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
@@ -381,10 +382,17 @@ private fun AppSettingsContent(
         item {
           Rows.TextRow(
             text = {
-              TextWithBetaLabel(
-                text = stringResource(R.string.preferences_chats__backups),
-                textStyle = MaterialTheme.typography.bodyLarge
-              )
+              if (state.isLinkedDevice) {
+                TextAndLabel(
+                  text = stringResource(R.string.preferences_chats__backups),
+                  textStyle = MaterialTheme.typography.bodyLarge
+                )
+              } else {
+                TextWithBetaLabel(
+                  text = stringResource(R.string.preferences_chats__backups),
+                  textStyle = MaterialTheme.typography.bodyLarge
+                )
+              }
             },
             icon = {
               Icon(

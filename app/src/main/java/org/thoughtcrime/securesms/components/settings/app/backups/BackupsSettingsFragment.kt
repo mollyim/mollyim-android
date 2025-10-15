@@ -94,7 +94,7 @@ class BackupsSettingsFragment : ComposeFragment() {
         when (state.backupState) {
           is BackupState.Error -> Unit
 
-          BackupState.None -> {
+          is BackupState.None -> {
             checkoutLauncher.launch(null)
           }
 
@@ -181,12 +181,14 @@ private fun BackupsSettingsContent(
             OtherWaysToBackUpHeading()
           }
 
-          BackupState.None -> {
-            NeverEnabledBackupsRow(
-              onBackupsRowClick = onBackupsRowClick
-            )
+          is BackupState.None -> {
+            if (backupsSettingsState.backupState.featureSupported) {
+              NeverEnabledBackupsRow(
+                onBackupsRowClick = onBackupsRowClick
+              )
 
-            OtherWaysToBackUpHeading()
+              OtherWaysToBackUpHeading()
+            }
           }
 
           is BackupState.Error -> {
@@ -640,7 +642,7 @@ private fun BackupsSettingsContentBackupTierInternalOverridePreview() {
   Previews.Preview {
     BackupsSettingsContent(
       backupsSettingsState = BackupsSettingsState(
-        backupState = BackupState.None,
+        backupState = BackupState.None(featureSupported = true),
         showBackupTierInternalOverride = true,
         backupTierInternalOverride = null,
         lastBackupAt = 0.seconds
