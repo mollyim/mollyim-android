@@ -155,6 +155,7 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
       WelcomeUserSelection.LINK,
       WelcomeUserSelection.CONTINUE -> throw IllegalArgumentException()
       WelcomeUserSelection.RESTORE_WITH_OLD_PHONE -> {
+        enableNetwork()
         sharedViewModel.intendToRestore(hasOldDevice = true, fromRemote = true)
         findNavController().safeNavigate(WelcomeFragmentDirections.goToRestoreViaQr())
       }
