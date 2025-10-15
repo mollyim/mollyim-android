@@ -84,7 +84,6 @@ import org.thoughtcrime.securesms.migrations.ProfileMigrationJob;
 import org.thoughtcrime.securesms.migrations.ProfileSharingUpdateMigrationJob;
 import org.thoughtcrime.securesms.migrations.QuoteThumbnailBackfillMigrationJob;
 import org.thoughtcrime.securesms.migrations.RebuildMessageSearchIndexMigrationJob;
-import org.thoughtcrime.securesms.migrations.ResetArchiveTierMigrationJob;
 import org.thoughtcrime.securesms.migrations.SelfRegisteredStateMigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerAdditionMigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerDayByDayMigrationJob;
@@ -331,7 +330,7 @@ public final class JobManagerFactories {
       put(RebuildMessageSearchIndexMigrationJob.KEY,      new RebuildMessageSearchIndexMigrationJob.Factory());
       put("RecheckPaymentsMigrationJob",                  new FailingJob.Factory());  // MOLLY
       put("RecipientSearchMigrationJob",                  new FailingJob.Factory());  // MOLLY
-      put(ResetArchiveTierMigrationJob.KEY,               new ResetArchiveTierMigrationJob.Factory());
+      put("ResetArchiveTierMigrationJob",                 new FailingJob.Factory());  // MOLLY
       put(SelfRegisteredStateMigrationJob.KEY,            new SelfRegisteredStateMigrationJob.Factory());
       put("StickerLaunchMigrationJob",                    new FailingJob.Factory());  // MOLLY
       put(StickerAdditionMigrationJob.KEY,                new StickerAdditionMigrationJob.Factory());
