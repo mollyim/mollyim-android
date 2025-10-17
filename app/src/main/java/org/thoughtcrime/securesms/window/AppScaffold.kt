@@ -51,7 +51,6 @@ import org.thoughtcrime.securesms.main.MainFloatingActionButtonsCallback
 import org.thoughtcrime.securesms.main.MainNavigationBar
 import org.thoughtcrime.securesms.main.MainNavigationRail
 import org.thoughtcrime.securesms.main.MainNavigationState
-import org.thoughtcrime.securesms.util.RemoteConfig
 import java.lang.Integer.max
 
 enum class Navigation {
@@ -130,7 +129,7 @@ enum class WindowSizeClass(
     }
 
     fun isLargeScreenSupportEnabled(): Boolean {
-      return RemoteConfig.largeScreenUi && SignalStore.internal.largeScreenUi
+      return SignalStore.internal.largeScreenUi
     }
 
     fun isForcedCompact(): Boolean {
