@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.SafeForegroundService
 import org.thoughtcrime.securesms.util.AlarmSleepTimer
 import org.thoughtcrime.securesms.util.AppForegroundObserver
+import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.asChain
 import org.whispersystems.signalservice.api.push.ServiceId
@@ -86,18 +87,18 @@ class IncomingMessageObserver(
 
   private val connectionDecisionSemaphore = Semaphore(0)
   private val networkConnectionListener = NetworkConnectionListener(
-    context = context,
-    onNetworkLost = { isNetworkUnavailable ->
+    connectivityManager = ServiceUtil.getConnectivityManager(context),
+    onNetworkChange = { state ->
       AppDependencies.libsignalNetwork.onNetworkChange()
-      if (isNetworkUnavailable()) {
+      if (state.isReady) {
+        networkIsActive = true
+      } else {
         Log.w(TAG, "Lost network connection. Resetting the drained state.")
         decryptionDrained = false
         authWebSocket.disconnect()
         // TODO [no-more-rest] Move the connection listener to a neutral location so this isn't passed in
         unauthWebSocket.disconnect()
         networkIsActive = false
-      } else {
-        networkIsActive = true
       }
       releaseConnectionDecisionSemaphore()
     },
