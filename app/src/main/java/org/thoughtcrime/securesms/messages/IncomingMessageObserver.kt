@@ -89,6 +89,7 @@ class IncomingMessageObserver(
   private val networkConnectionListener = NetworkConnectionListener(
     connectivityManager = ServiceUtil.getConnectivityManager(context),
     onNetworkChange = { state ->
+      // MOLLY: Accessing libsignalNetwork applies proxy configuration on access
       AppDependencies.libsignalNetwork.onNetworkChange()
       if (state.isReady) {
         networkIsActive = true
@@ -102,16 +103,6 @@ class IncomingMessageObserver(
       }
       releaseConnectionDecisionSemaphore()
     },
-    // MOLLY: TODO
-    // onProxySettingsChanged = { proxyInfo ->
-    //   if (proxyInfo != previousProxyInfo) {
-    //     val networkReset = AppDependencies.onSystemHttpProxyChange(proxyInfo?.host, proxyInfo?.port)
-    //     if (networkReset) {
-    //       Log.i(TAG, "System proxy configuration changed, network reset.")
-    //     }
-    //   }
-    //   previousProxyInfo = proxyInfo
-    // }
   )
 
   private val messageContentProcessor = MessageContentProcessor(context)

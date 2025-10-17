@@ -123,8 +123,8 @@ public class NetworkManager {
     Networking.setSocksProxy(newProxy);
     existingProxy = newProxy;
 
-    SignalExecutors.UNBOUNDED.execute(() -> {
-      if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+    if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+      SignalExecutors.UNBOUNDED.execute(() -> {
         if (newProxy != null) {
           String newProxyUrl = newProxy.getUrl();
           if (newProxyUrl == null) {
@@ -137,8 +137,8 @@ public class NetworkManager {
         } else {
           ProxyController.getInstance().clearProxyOverride(Runnable::run, this::onProxyOverrideComplete);
         }
-      }
-    });
+      });
+    }
 
     return true;
   }
