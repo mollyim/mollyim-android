@@ -43,7 +43,6 @@ import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.JavaTimeExtensionsKt;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -374,11 +373,10 @@ public class BackupsPreferenceFragment extends Fragment {
   }
 
   private void updateToggle() {
-    boolean userUnregistered          = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.getApplication()) || !SignalStore.account().isRegistered();
     boolean clientDeprecated          = SignalStore.misc().isClientDeprecated();
     boolean legacyLocalBackupsEnabled = SignalStore.settings().isBackupEnabled() && BackupUtil.canUserAccessBackupDirectory(AppDependencies.getApplication());
 
-    toggle.setEnabled(legacyLocalBackupsEnabled || (!userUnregistered && !clientDeprecated));
+    toggle.setEnabled(legacyLocalBackupsEnabled || !clientDeprecated);
   }
 
   private void setBackupsEnabled() {

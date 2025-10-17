@@ -407,7 +407,6 @@ private fun AppSettingsContent(
             onLongClick = {
               callbacks.copyRemoteBackupsSubscriberIdToClipboard()
             },
-            enabled = isRegisteredAndUpToDate
           )
         }
 
