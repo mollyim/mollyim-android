@@ -407,7 +407,6 @@ private fun AppSettingsContent(
             onLongClick = {
               callbacks.copyRemoteBackupsSubscriberIdToClipboard()
             },
-            enabled = isRegisteredAndUpToDate
           )
         }
 
@@ -627,6 +626,7 @@ private fun AppSettingsContentPreview() {
         )
       ),
       state = AppSettingsState(
+        isPrimaryDevice = true,
         unreadPaymentsCount = 5,
         userUnregistered = false,
         clientDeprecated = false,

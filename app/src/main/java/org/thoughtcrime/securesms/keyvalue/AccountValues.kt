@@ -8,7 +8,6 @@ import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.ecc.ECPrivateKey
 import org.signal.libsignal.protocol.util.Medium
-import org.thoughtcrime.securesms.crypto.IdentityKeyUtil
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.crypto.storage.PreKeyMetadataStore
 import org.thoughtcrime.securesms.database.SignalDatabase
@@ -158,6 +157,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   fun restoreAccountEntropyPool(aep: AccountEntropyPool) {
     AEP_LOCK.withLock {
+      Log.i(TAG, "Restoring AEP from registration source", Throwable())
       store
         .beginWrite()
         .putString(KEY_ACCOUNT_ENTROPY_POOL, aep.value)
@@ -274,7 +274,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
       Log.i(TAG, "Generating a new ACI identity key pair.")
 
-      val key: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
+      val key: IdentityKeyPair = IdentityKeyPair.generate()
       store
         .beginWrite()
         .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, key.publicKey.serialize())
@@ -297,7 +297,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
       Log.i(TAG, "Generating a new PNI identity key pair.")
 
-      val key: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
+      val key: IdentityKeyPair = IdentityKeyPair.generate()
       store
         .beginWrite()
         .putBlob(KEY_PNI_IDENTITY_PUBLIC_KEY, key.publicKey.serialize())

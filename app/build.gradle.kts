@@ -9,9 +9,9 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1596
-val canonicalVersionName = "7.59.2"
-val currentHotfixVersion = 1
+val canonicalVersionCode = 1602
+val canonicalVersionName = "7.61.2"
+val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
 
@@ -433,7 +433,6 @@ dependencies {
   implementation(project(":core-ui"))
 
   implementation(libs.androidx.fragment.ktx)
-  implementation(libs.androidx.fragment.compose)
   implementation(libs.androidx.appcompat) {
     version {
       strictly("1.6.1")

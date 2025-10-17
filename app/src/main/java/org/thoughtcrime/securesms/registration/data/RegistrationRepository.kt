@@ -51,13 +51,10 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getAciIdentityKeyPair
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getAciPreKeyCollection
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getPniIdentityKeyPair
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getPniPreKeyCollection
-import org.thoughtcrime.securesms.registration.data.RegisterAsLinkedDeviceResponse
-import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.network.BackupAuthCheckResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCheckResult
@@ -174,6 +171,11 @@ object RegistrationRepository {
   suspend fun registerAccountLocally(context: Context, data: LocalRegistrationMetadata) =
     withContext(Dispatchers.IO) {
       Log.v(TAG, "registerAccountLocally()")
+      if (data.linkedDeviceInfo != null) {
+        SignalStore.account.deviceId = data.linkedDeviceInfo.deviceId
+        SignalStore.account.deviceName = data.linkedDeviceInfo.deviceName
+      }
+
       val aciIdentityKeyPair = data.getAciIdentityKeyPair()
       val pniIdentityKeyPair = data.getPniIdentityKeyPair()
       SignalStore.account.restoreAciIdentityKeyFromBackup(aciIdentityKeyPair.publicKey.serialize(), aciIdentityKeyPair.privateKey.serialize())
@@ -222,9 +224,6 @@ object RegistrationRepository {
       saveOwnIdentityKey(selfId, pni, pniProtocolStore, now)
 
       if (data.linkedDeviceInfo != null) {
-        SignalStore.account.deviceId = data.linkedDeviceInfo.deviceId
-        SignalStore.account.deviceName = data.linkedDeviceInfo.deviceName
-
         if (data.linkedDeviceInfo.accountEntropyPool != null) {
           SignalStore.account.setAccountEntropyPoolFromPrimaryDevice(AccountEntropyPool(data.linkedDeviceInfo.accountEntropyPool))
         }
@@ -256,7 +255,6 @@ object RegistrationRepository {
         RotateSignedPreKeyListener.schedule(context)
       } else {
         SignalStore.account.isMultiDevice = true
-        SignalStore.registration.hasUploadedProfile = true
         jobManager.runJobBlocking(RefreshOwnProfileJob(), 30.seconds)
 
         jobManager.add(RotateCertificateJob())

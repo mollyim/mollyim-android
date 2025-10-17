@@ -49,6 +49,8 @@ import org.thoughtcrime.securesms.backup.v2.proto.GroupV2MigrationUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.IndividualCall
 import org.thoughtcrime.securesms.backup.v2.proto.LearnedProfileChatUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.MessageAttachment
+import org.thoughtcrime.securesms.backup.v2.proto.Poll
+import org.thoughtcrime.securesms.backup.v2.proto.PollTerminateUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.ProfileChangeChatUpdate
 import org.thoughtcrime.securesms.backup.v2.proto.Quote
 import org.thoughtcrime.securesms.backup.v2.proto.Reaction
@@ -89,6 +91,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.mms.QuoteModel
+import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.MediaUtil
@@ -360,6 +363,22 @@ class ChatItemArchiveExporter(
           transformTimer.emit("story")
         }
 
+        MessageTypes.isPollTerminate(record.type) -> {
+          val pollTerminateUpdate = record.toRemotePollTerminateUpdate()
+          if (pollTerminateUpdate == null) {
+            Log.w(TAG, ExportSkips.pollTerminateIsEmpty(record.dateSent))
+            continue
+          }
+          builder.updateMessage = ChatUpdateMessage(pollTerminate = pollTerminateUpdate)
+          transformTimer.emit("poll-terminate")
+        }
+
+        extraData.pollsById[record.id] != null -> {
+          val poll = extraData.pollsById[record.id]!!
+          builder.poll = poll.toRemotePollMessage()
+          transformTimer.emit("poll")
+        }
+
         else -> {
           val attachments = extraData.attachmentsById[record.id]
           val sticker = attachments?.firstOrNull { dbAttachment -> dbAttachment.isSticker }
@@ -460,16 +479,24 @@ class ChatItemArchiveExporter(
       }
     }
 
+    val pollsFuture = executor.submitTyped {
+      extraDataTimer.timeEvent("polls") {
+        db.pollTable.getPollsForMessages(messageIds)
+      }
+    }
+
     val mentionsResult = mentionsFuture.get()
     val reactionsResult = reactionsFuture.get()
     val attachmentsResult = attachmentsFuture.get()
     val groupReceiptsResult = groupReceiptsFuture.get()
+    val pollsResult = pollsFuture.get()
 
     return ExtraMessageData(
       mentionsById = mentionsResult,
       reactionsById = reactionsResult,
       attachmentsById = attachmentsResult,
-      groupReceiptsById = groupReceiptsResult
+      groupReceiptsById = groupReceiptsResult,
+      pollsById = pollsResult
     )
   }
 }
@@ -750,6 +777,14 @@ private fun CallTable.Call.toRemoteCallUpdate(exportState: ExportState, messageR
 
     CallTable.Type.AD_HOC_CALL -> throw IllegalArgumentException("AdHoc calls are not update messages!")
   }
+}
+
+private fun BackupMessageRecord.toRemotePollTerminateUpdate(): PollTerminateUpdate? {
+  val pollTerminate = this.messageExtras?.pollTerminate ?: return null
+  return PollTerminateUpdate(
+    targetSentTimestamp = pollTerminate.targetTimestamp,
+    question = pollTerminate.question
+  )
 }
 
 private fun BackupMessageRecord.toRemoteSharedContact(attachments: List<DatabaseAttachment>?): Contact? {
@@ -1100,6 +1135,25 @@ private fun BackupMessageRecord.toRemoteGiftBadgeUpdate(): BackupGiftBadge? {
   )
 }
 
+private fun PollRecord.toRemotePollMessage(): Poll {
+  return Poll(
+    question = this.question,
+    allowMultiple = this.allowMultipleVotes,
+    hasEnded = this.hasEnded,
+    options = this.pollOptions.map { option ->
+      Poll.PollOption(
+        option = option.text,
+        votes = option.voters.map { voter ->
+          Poll.PollOption.PollVote(
+            voterId = voter.id,
+            voteCount = voter.voteCount
+          )
+        }
+      )
+    }
+  )
+}
+
 private fun DatabaseAttachment.toRemoteStickerMessage(sentTimestamp: Long, reactions: List<ReactionRecord>?): StickerMessage? {
   val stickerLocator = this.stickerLocator!!
 
@@ -1419,7 +1473,8 @@ private fun Long.isDirectionlessType(): Boolean {
     MessageTypes.isGroupCall(this) ||
     MessageTypes.isGroupUpdate(this) ||
     MessageTypes.isGroupV1MigrationEvent(this) ||
-    MessageTypes.isGroupQuit(this)
+    MessageTypes.isGroupQuit(this) ||
+    MessageTypes.isPollTerminate(this)
 }
 
 private fun Long.isIdentityVerifyType(): Boolean {
@@ -1450,7 +1505,8 @@ private fun ChatItem.validateChatItem(exportState: ExportState): ChatItem? {
     this.paymentNotification == null &&
     this.giftBadge == null &&
     this.viewOnceMessage == null &&
-    this.directStoryReplyMessage == null
+    this.directStoryReplyMessage == null &&
+    this.poll == null
   ) {
     Log.w(TAG, ExportSkips.emptyChatItem(this.dateSent))
     return null
@@ -1621,7 +1677,8 @@ private data class ExtraMessageData(
   val mentionsById: Map<Long, List<Mention>>,
   val reactionsById: Map<Long, List<ReactionRecord>>,
   val attachmentsById: Map<Long, List<DatabaseAttachment>>,
-  val groupReceiptsById: Map<Long, List<GroupReceiptTable.GroupReceiptInfo>>
+  val groupReceiptsById: Map<Long, List<GroupReceiptTable.GroupReceiptInfo>>,
+  val pollsById: Map<Long, PollRecord>
 )
 
 private enum class Direction {

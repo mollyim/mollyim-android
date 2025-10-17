@@ -129,6 +129,7 @@ fun MainNavigationBar(
       NavigationBarItem(
         colors = NavigationBarItemDefaults.colors(
           indicatorColor = colorAttribute(R.attr.navbar_active_indicator_color),
+          selectedTextColor = MaterialTheme.colorScheme.onSurface,
         ),
         selected = selected,
         icon = {

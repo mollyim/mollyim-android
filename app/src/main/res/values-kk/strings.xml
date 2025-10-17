@@ -86,7 +86,7 @@
     <string name="AttachmentKeyboard_contact">Контакт</string>
     <string name="AttachmentKeyboard_location">Орналасқан жері</string>
     <!-- Text for a button that will allow users to create a poll -->
-    <string name="AttachmentKeyboard_poll">Poll</string>
+    <string name="AttachmentKeyboard_poll">Сауалнама</string>
     <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly фотосуреттер мен видеоларды көрсету үшін рұқсат сұрайды</string>
     <!-- Text for a button prompting users to allow Signal access to their gallery storage -->
     <string name="AttachmentKeyboard_allow_access">Пайдалануға рұқсат беру</string>
@@ -1490,6 +1490,10 @@
     <string name="RemoteRestoreActivity__not_now">Кейін</string>
     <!-- Text shown on restore screen as information on what will happen if you skip -->
     <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Мультимедиа файлыңыз фондық режимде қалпына келеді. Оны қазір қалпына келтірмесеңіз, кейінірек қалпына келтіре алмай қаласыз.</string>
+    <!-- Dialog title -->
+    <string name="RestoreActivity__no_longer_registered_title">Бұл құрылғы енді тіркелмеген</string>
+    <!-- Dialog message -->
+    <string name="RestoreActivity__no_longer_registered_message">Мұның себебі Signal аккаунтыңызды басқа құрылғыда тіркегендіктен сияқты.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Менің атым аталғанда хабарландыру алғым келеді</string>
@@ -2107,7 +2111,7 @@
     <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
     <string name="MessageRecord_unsupported_feature">%1$s сізге жіберген хаты өңделмейді немесе көрсетілмейді, себебі жаңа Signal функциясын пайдаланады.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
-    <string name="MessageRecord_ended_the_poll">%1$s ended the poll: \"%2$s\"</string>
+    <string name="MessageRecord_ended_the_poll">%1$s сауалнаманы аяқтады: «%2$s»</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Қабылдау</string>
@@ -3174,7 +3178,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Стикеріңізге %1$s эмоджиімен реакция қалдырды.</string>
     <string name="MessageNotifier_this_message_was_deleted">Бұл хат жойылды.</string>
     <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
-    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
+    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s деген кісі «%3$s» тақырыбындағы сауалнамада дауыс берді</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Molly-ға контакт қосылғандығы туралы хабарландыруларды өшіру керек пе? Оларды \"Molly &gt; Параметрлер &gt; Хабарландырулар\" бөлімінен қайта қосып қоюыңызға болады. </string>
 
@@ -4421,7 +4425,7 @@
     <!-- Button to view a in-chat payment message\'s full payment details; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_payment_details">Төлем туралы мәлімет</string>
     <!-- Button to end a poll -->
-    <string name="conversation_selection__menu_end_poll">End poll</string>
+    <string name="conversation_selection__menu_end_poll">Сауалнаманы аяқтау</string>
 
     <!-- conversation_expiring_on -->
 
@@ -5915,8 +5919,8 @@
         <item quantity="other">%1$s Signal пайдаланушылары емес</item>
     </plurals>
 
-    <!-- ContactFilterView -->
-    <string name="ContactFilterView__search_name_or_number">Атын немесе нөмірін іздеу</string>
+    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
+    <string name="ContactFilterView__search_name_or_number">Аты, пайдаланушы аты немесе нөмірі</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -8602,11 +8606,11 @@
     <!-- Option subtitle for restoring via device transfer -->
     <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Ескі Android құрылғыңыздан тікелей тасымалдау</string>
     <!-- Dialog title shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_title">Skip restore?</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_title">Қалпына келтіруді өткізіп жіберу керек пе?</string>
     <!-- Dialog message shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_warning">If you skip restore now you will not be able to restore later. If you re-enable backups after skipping restore, your current backup will be replaced with your new messaging history.</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_warning">Қалпына келтіру процесін қазір өткізіп жіберсеңіз, кейінірек қалпына келтіре алмайсыз. Қалпына келтіру процесін өткізіп жіберген соң, сақтық көшірмелерді қайта іске қоссаңыз, ағымдағы сақтық көшірменің орнын жаңа хабарлар тарихы басады.</string>
     <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore">Skip restore</string>
+    <string name="SelectRestoreMethodFragment__skip_restore">Қалпына келтіру функциясын өткізіп жіберу</string>
 
     <!-- Screen title for restore via local backup -->
     <string name="RestoreLocalBackup_title">Жергілікті резервтік көшірмені қалпына келтіру</string>
@@ -8647,6 +8651,10 @@
     <string name="EnterBackupKey_backup_not_found">Сақтық көшірме табылмады</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Сіз енгізген қалпына келтіру кілті дұрыс, бірақ онымен байланысты сақтық көшірме жоқ. Егер ескі телефоныңыз әлі де болса, сақтық көшірмелер қосылып тұрғанына және сақтық көшірменің жасалғанына көз жеткізіңіз де, қайталап көріңіз.</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_incorrect_or_backups_not_enabled">Қалпына келтіру кілтін қате енгізген болуыңыз мүмкін немесе ескі құрылғыңызда кемінде бір сақтық көшірме жасамағансыз.\n\nSignal Қауіпсіз сақтық көшірмесін қосқан кезде сақталған телефон нөмірі мен қалпына келтіру кілтімен тіркелуіңіз керек. Ескі құрылғыңызда сақтық көшірменің орындалғанына көз жеткізіңіз.</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_check_rate_limited">Қалпына келтіру кілтін енгізуге берілген мүмкіндіктің барлығын пайдаланып қойдыңыз. Қауіпсіздік мақсатында қайталап көруге болатын әрекеттер саны шектелген. Бір сағат күте тұрып, қайталап көріңіз.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Қалпына келтіру функциясын өткізіп жіберу</string>
     <!-- Dialog title text when encountering backup restore network error -->
@@ -8777,62 +8785,62 @@
 
     <!-- Polls -->
     <!-- Caption in poll message to select an option  -->
-    <string name="Poll__select_one">Poll · Select One</string>
+    <string name="Poll__select_one">Сауалнама · Біреуін таңдаңыз</string>
     <!-- Caption in poll message to select one or more options  -->
-    <string name="Poll__select_multiple">Poll · Select one or more</string>
+    <string name="Poll__select_multiple">Сауалнама · Бір немесе бірнеше таңдау</string>
     <!-- Caption in poll message once a poll has ended  -->
-    <string name="Poll__final_results">Poll · Final results</string>
+    <string name="Poll__final_results">Сауалнама · Соңғы нәтижелер</string>
     <!-- Caption in poll message that no votes have been cast  -->
-    <string name="Poll__no_votes">No votes</string>
+    <string name="Poll__no_votes">Дауыстар жоқ</string>
     <!-- Button in poll message to view current votes for a poll -->
-    <string name="Poll__view_votes">View votes</string>
+    <string name="Poll__view_votes">Дауыстарды көру</string>
     <!-- Button in poll message to view the poll after it has ended -->
-    <string name="Poll__view_poll">View poll</string>
+    <string name="Poll__view_poll">Сауалнаманы көру</string>
     <!-- Toast message shown if we cannot find the poll -->
-    <string name="Poll__unable_poll">Poll not found</string>
+    <string name="Poll__unable_poll">Сауалнама табылмады</string>
     <!-- Button in poll message to view results for a poll after it ends -->
-    <string name="Poll__view_results">View results</string>
+    <string name="Poll__view_results">Нәтижелерді көру</string>
     <!-- Quote preview when replying to a poll. %1$s is the question of the poll -->
-    <string name="Poll__poll_question">Poll: %1$s</string>
+    <string name="Poll__poll_question">Сауалнама: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
-    <string name="Poll__poll_end">%1$s ended the poll: \"%2$s\"</string>
+    <string name="Poll__poll_end">%1$s сауалнаманы аяқтады: «%2$s»</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
-    <string name="Poll__poll_voted">%1$s voted in the poll: \"%2$s\"</string>
+    <string name="Poll__poll_voted">%1$s сауалнамада жауап берді: «%2$s»</string>
     <!-- Option in settings to configure notifications for polls -->
-    <string name="Poll__poll">Polls</string>
+    <string name="Poll__poll">Сауалнамалар</string>
     <!-- Title of screen that shows the poll results of a poll -->
-    <string name="Poll__poll_results">Poll results</string>
+    <string name="Poll__poll_results">Сауалнама нәтижелері</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Сұрақ</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
     <plurals name="Poll__num_votes">
-        <item quantity="one">%1$d vote</item>
-        <item quantity="other">%1$d votes</item>
+        <item quantity="one">%1$d дауыс</item>
+        <item quantity="other">%1$d дауыс</item>
     </plurals>
     <!-- Text that when pressed will end the poll   -->
-    <string name="Poll__end_poll">End poll</string>
+    <string name="Poll__end_poll">Сауалнаманы аяқтау</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">Барлығын көру</string>
     <!-- Header when creating a new poll -->
-    <string name="CreatePollFragment__new_poll">New poll</string>
+    <string name="CreatePollFragment__new_poll">Жаңа сауалнама</string>
     <!-- Section text to enter in a question for a poll  -->
     <string name="CreatePollFragment__question">Сұрақ</string>
     <!-- Hint text for question field when creating a poll  -->
-    <string name="CreatePollFragment__ask_a_question">Ask a question</string>
+    <string name="CreatePollFragment__ask_a_question">Сұрақ қойыңыз</string>
     <!-- Section text to enter in options for a poll -->
     <string name="CreatePollFragment__options">Опциялар</string>
     <!-- Hint text for the option field, where %1$d is the option number (max 10) -->
-    <string name="CreatePollFragment__option_n">Option %1$d</string>
+    <string name="CreatePollFragment__option_n">%1$d-нұсқа</string>
     <!-- Accessibility label for the polls drag and drop handle used to reorder the list. -->
     <string name="CreatePollFragment__drag_handle">Сүйреп апаратын тетік</string>
     <!-- Text next to button to allow the poll to allow for multiple votes -->
-    <string name="CreatePollFragment__allow_multiple_votes">Allow multiple votes</string>
+    <string name="CreatePollFragment__allow_multiple_votes">Бірнеше дауысқа рұқсат ету</string>
     <!-- Snackbar text to add a question and two options before creating a poll -->
-    <string name="CreatePollFragment__add_question_option">Add a question and at least 2 options</string>
+    <string name="CreatePollFragment__add_question_option">Сұрақ және кемінде 2 нұсқа қосыңыз</string>
     <!-- Snackbar text to add two options before creating a poll -->
-    <string name="CreatePollFragment__add_option">Add at least 2 options</string>
+    <string name="CreatePollFragment__add_option">Кемінде 2 нұсқа қосыңыз</string>
     <!-- Snackbar text to add a question before creating a poll -->
-    <string name="CreatePollFragment__add_question">Add a question</string>
+    <string name="CreatePollFragment__add_question">Сұрақ қосу</string>
 
     <!-- EOF -->
 </resources>
