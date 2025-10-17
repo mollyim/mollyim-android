@@ -1450,6 +1450,10 @@
     <string name="RemoteRestoreActivity__not_now">Để sau</string>
     <!-- Text shown on restore screen as information on what will happen if you skip -->
     <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Tập tin đa phương tiện sẽ khôi phục ở chế độ nền. Nếu bạn chọn không khôi phục bây giờ, bạn sẽ không khôi phục được sau này.</string>
+    <!-- Dialog title -->
+    <string name="RestoreActivity__no_longer_registered_title">Thiết bị này không còn được đăng ký</string>
+    <!-- Dialog message -->
+    <string name="RestoreActivity__no_longer_registered_message">Nguyên nhân có thể là do bạn đăng ký tài khoản Signal của mình trên một thiết bị khác.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Thông báo khi tôi được nhắc tên</string>
@@ -2047,7 +2051,7 @@
     <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
     <string name="MessageRecord_unsupported_feature">%1$s đã gửi cho bạn một tin nhắn nhưng không thể xử lý hoặc hiển thị vì sử dụng tính năng Signal mới.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
-    <string name="MessageRecord_ended_the_poll">%1$s ended the poll: \"%2$s\"</string>
+    <string name="MessageRecord_ended_the_poll">%1$s đã kết thúc hỏi ý kiến: \"%2$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Chấp nhận</string>
@@ -3078,7 +3082,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Đã bày tỏ cảm xúc %1$s với nhãn dán của bạn.</string>
     <string name="MessageNotifier_this_message_was_deleted">Tin nhắn này đã bị xóa.</string>
     <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
-    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
+    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s đã bình chọn trong cuộc hỏi ý kiến \"%3$s\"</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Tắt thông báo khi liên hệ bắt đầu sử dụng Molly? Bạn có thể bật lại ở Molly &gt; Cài đặt &gt; Thông báo.</string>
 
@@ -5776,8 +5780,8 @@
         <item quantity="other">%1$s không phải là người dùng Signal</item>
     </plurals>
 
-    <!-- ContactFilterView -->
-    <string name="ContactFilterView__search_name_or_number">Tìm kiếm tên hoặc số điện thoại</string>
+    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
+    <string name="ContactFilterView__search_name_or_number">Tên, tên người dùng hoặc số điện thoại</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">. %1$s</string>
@@ -8419,11 +8423,11 @@
     <!-- Option subtitle for restoring via device transfer -->
     <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Chuyển trực tiếp từ điện thoại Android cũ của bạn</string>
     <!-- Dialog title shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_title">Skip restore?</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_title">Bỏ qua khôi phục?</string>
     <!-- Dialog message shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_warning">If you skip restore now you will not be able to restore later. If you re-enable backups after skipping restore, your current backup will be replaced with your new messaging history.</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_warning">Nếu bạn bỏ qua việc khôi phục bây giờ, bạn sẽ không thể khôi phục sau này. Nếu bạn bật lại tính năng sao lưu sau khi bỏ qua việc khôi phục, bản sao lưu hiện tại sẽ được thay thế bởi lịch sử tin nhắn mới.</string>
     <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore">Skip restore</string>
+    <string name="SelectRestoreMethodFragment__skip_restore">Bỏ qua</string>
 
     <!-- Screen title for restore via local backup -->
     <string name="RestoreLocalBackup_title">Khôi phục bản sao lưu cục bộ</string>
@@ -8464,6 +8468,10 @@
     <string name="EnterBackupKey_backup_not_found">Không tìm thấy bản sao lưu</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Mã khóa khôi phục bạn nhập đúng nhưng không có bản sao lưu đi kèm. Nếu bạn còn giữ điện thoại cũ, đảm bảo đã bật sao lưu và đã hoàn tất sao lưu rồi thử lại.</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_incorrect_or_backups_not_enabled">Có thể bạn đã nhập sai mã khóa khôi phục hoặc chưa hoàn tất ít nhất một lần sao lưu trên thiết bị cũ.\n\nHãy đảm bảo rằng bạn đang đăng ký bằng cùng số điện thoại và mã khóa khôi phục bạn đã lưu khi bật Sao lưu bảo mật Signal và xác nhận rằng thiết bị cũ của bạn đã hoàn tất quá trình sao lưu.</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_check_rate_limited">Bạn đã hết số lượt thử mã khóa khôi phục. Vì lý do bảo mật, bạn chỉ có thể nhập mã khóa với số lượt nhất định. Hãy chờ một tiếng và thử lại.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Bỏ qua</string>
     <!-- Dialog title text when encountering backup restore network error -->
@@ -8592,31 +8600,31 @@
 
     <!-- Polls -->
     <!-- Caption in poll message to select an option  -->
-    <string name="Poll__select_one">Poll · Select One</string>
+    <string name="Poll__select_one">Hỏi ý kiến · Chọn một</string>
     <!-- Caption in poll message to select one or more options  -->
-    <string name="Poll__select_multiple">Poll · Select one or more</string>
+    <string name="Poll__select_multiple">Hỏi ý kiến · Chọn một hoặc hơn</string>
     <!-- Caption in poll message once a poll has ended  -->
-    <string name="Poll__final_results">Poll · Final results</string>
+    <string name="Poll__final_results">Hỏi ý kiến · Kết quả</string>
     <!-- Caption in poll message that no votes have been cast  -->
     <string name="Poll__no_votes">Không có bình chọn</string>
     <!-- Button in poll message to view current votes for a poll -->
     <string name="Poll__view_votes">Xem các bình chọn</string>
     <!-- Button in poll message to view the poll after it has ended -->
-    <string name="Poll__view_poll">View poll</string>
+    <string name="Poll__view_poll">Xem câu hỏi</string>
     <!-- Toast message shown if we cannot find the poll -->
-    <string name="Poll__unable_poll">Poll not found</string>
+    <string name="Poll__unable_poll">Không tìm thấy câu hỏi</string>
     <!-- Button in poll message to view results for a poll after it ends -->
     <string name="Poll__view_results">Xem kết quả</string>
     <!-- Quote preview when replying to a poll. %1$s is the question of the poll -->
-    <string name="Poll__poll_question">Poll: %1$s</string>
+    <string name="Poll__poll_question">Hỏi ý kiến: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
-    <string name="Poll__poll_end">%1$s ended the poll: \"%2$s\"</string>
+    <string name="Poll__poll_end">%1$s đã kết thúc hỏi ý kiến: \"%2$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
-    <string name="Poll__poll_voted">%1$s voted in the poll: \"%2$s\"</string>
+    <string name="Poll__poll_voted">%1$s đã bình chọn trong cuộc hỏi ý kiến: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
-    <string name="Poll__poll">Polls</string>
+    <string name="Poll__poll">Hỏi ý kiến</string>
     <!-- Title of screen that shows the poll results of a poll -->
-    <string name="Poll__poll_results">Poll results</string>
+    <string name="Poll__poll_results">Kết quả hỏi ý kiến</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Câu hỏi</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8636,17 +8644,17 @@
     <!-- Section text to enter in options for a poll -->
     <string name="CreatePollFragment__options">Tùy chọn</string>
     <!-- Hint text for the option field, where %1$d is the option number (max 10) -->
-    <string name="CreatePollFragment__option_n">Option %1$d</string>
+    <string name="CreatePollFragment__option_n">Lựa chọn %1$d</string>
     <!-- Accessibility label for the polls drag and drop handle used to reorder the list. -->
     <string name="CreatePollFragment__drag_handle">Thanh kéo và thả</string>
     <!-- Text next to button to allow the poll to allow for multiple votes -->
     <string name="CreatePollFragment__allow_multiple_votes">Nhiều bình chọn</string>
     <!-- Snackbar text to add a question and two options before creating a poll -->
-    <string name="CreatePollFragment__add_question_option">Add a question and at least 2 options</string>
+    <string name="CreatePollFragment__add_question_option">Thêm một câu hỏi và ít nhất 2 lựa chọn</string>
     <!-- Snackbar text to add two options before creating a poll -->
-    <string name="CreatePollFragment__add_option">Add at least 2 options</string>
+    <string name="CreatePollFragment__add_option">Thêm ít nhất 2 lựa chọn</string>
     <!-- Snackbar text to add a question before creating a poll -->
-    <string name="CreatePollFragment__add_question">Add a question</string>
+    <string name="CreatePollFragment__add_question">Thêm câu hỏi</string>
 
     <!-- EOF -->
 </resources>

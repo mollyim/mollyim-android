@@ -1490,6 +1490,10 @@
     <string name="RemoteRestoreActivity__not_now">Ei nyt</string>
     <!-- Text shown on restore screen as information on what will happen if you skip -->
     <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Mediasisältö palautetaan taustalla. Jos et palauta tietoja nyt, et voi palauttaa niitä enää myöhemmin.</string>
+    <!-- Dialog title -->
+    <string name="RestoreActivity__no_longer_registered_title">Tämä laite ei ole enää rekisteröity</string>
+    <!-- Dialog message -->
+    <string name="RestoreActivity__no_longer_registered_message">Tämä johtuu todennäköisesti siitä, että olet rekisteröinyt puhelinnumerosi Signaliin toisella laitteella.</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Ilmoita minulle maininnoista</string>
@@ -2107,7 +2111,7 @@
     <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
     <string name="MessageRecord_unsupported_feature">%1$s lähetti sinulle viestin, jota ei voida käsitellä tai näyttää, koska se käyttää uutta Signal-ominaisuutta.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
-    <string name="MessageRecord_ended_the_poll">%1$s ended the poll: \"%2$s\"</string>
+    <string name="MessageRecord_ended_the_poll">%1$s lopetti kyselyn “%2$s”</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Hyväksy</string>
@@ -3174,7 +3178,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">Lähetti reaktion %1$s tarraasi.</string>
     <string name="MessageNotifier_this_message_was_deleted">Viesti poistettiin.</string>
     <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
-    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
+    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s äänesti kyselyssä ”%3$s”</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Poistetaanko Yhteystietosi liittyi Mollyiin -ilmoitukset käytöstä? Voit ottaa ne uudelleen käyttöön avaamalla Molly &gt; Asetukset &gt; Ilmoitukset.</string>
 
@@ -5915,8 +5919,8 @@
         <item quantity="other">%1$s eivät ole Signalin käyttäjiä</item>
     </plurals>
 
-    <!-- ContactFilterView -->
-    <string name="ContactFilterView__search_name_or_number">Etsi nimellä tai numerolla</string>
+    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
+    <string name="ContactFilterView__search_name_or_number">Nimi, käyttäjänimi tai numero</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -8602,11 +8606,11 @@
     <!-- Option subtitle for restoring via device transfer -->
     <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Siirrä suoraan vanhasta Androidista</string>
     <!-- Dialog title shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_title">Skip restore?</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_title">Ohitetaanko palauttaminen?</string>
     <!-- Dialog message shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_warning">If you skip restore now you will not be able to restore later. If you re-enable backups after skipping restore, your current backup will be replaced with your new messaging history.</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_warning">Jos ohitat palauttamisen nyt, et voi tehdä palautusta enää myöhemmin. Jos otat varmuuskopiot uudelleen käyttöön palautuksen ohittamisen jälkeen, nykyinen varmuuskopio korvataan uudella viestihistoriallasi.</string>
     <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore">Skip restore</string>
+    <string name="SelectRestoreMethodFragment__skip_restore">Ohita palautus</string>
 
     <!-- Screen title for restore via local backup -->
     <string name="RestoreLocalBackup_title">Palauta paikallinen varmuuskopio</string>
@@ -8647,6 +8651,10 @@
     <string name="EnterBackupKey_backup_not_found">Varmuuskopiota ei löydy</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">Antamasi varmuuskopion avain on oikea, mutta siihen ei liity varmuuskopiota. Jos vanha puhelimesi on edelleen tallella, varmista, että sen varmuuskopiointi on käytössä ja yritä uudelleen, kun varmuuskopiointi on valmis.</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_incorrect_or_backups_not_enabled">Olet ehkä syöttänyt palautusavaimesi väärin tai et ole tehnyt vähintään yhtä varmuuskopiota vanhalla laitteellasi.\n\nVarmista, että rekisteröidyt samalla puhelinnumerolla ja palautusavaimella, jotka tallensit ottaessasi Signal Secure -varmuuskopioinnin käyttöön, ja tarkista, että vanha laitteesi on suorittanut varmuuskopioinnin loppuun.</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_check_rate_limited">Palautusavaimen syöttöyritykset ovat loppuneet. Turvallisuutesi vuoksi yritysten määrä on rajoitettu. Odota tunti ja yritä uudelleen.</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">Ohita palautus</string>
     <!-- Dialog title text when encountering backup restore network error -->
@@ -8777,31 +8785,31 @@
 
     <!-- Polls -->
     <!-- Caption in poll message to select an option  -->
-    <string name="Poll__select_one">Poll · Select One</string>
+    <string name="Poll__select_one">Kysely · Valitse yksi</string>
     <!-- Caption in poll message to select one or more options  -->
-    <string name="Poll__select_multiple">Poll · Select one or more</string>
+    <string name="Poll__select_multiple">Kysely · Valitse yksi tai useampi</string>
     <!-- Caption in poll message once a poll has ended  -->
-    <string name="Poll__final_results">Poll · Final results</string>
+    <string name="Poll__final_results">Kysely · Lopulliset tulokset</string>
     <!-- Caption in poll message that no votes have been cast  -->
     <string name="Poll__no_votes">Ei ääniä</string>
     <!-- Button in poll message to view current votes for a poll -->
     <string name="Poll__view_votes">Näytä äänet</string>
     <!-- Button in poll message to view the poll after it has ended -->
-    <string name="Poll__view_poll">View poll</string>
+    <string name="Poll__view_poll">Näytä kysely</string>
     <!-- Toast message shown if we cannot find the poll -->
-    <string name="Poll__unable_poll">Poll not found</string>
+    <string name="Poll__unable_poll">Kyselyä ei löytynyt</string>
     <!-- Button in poll message to view results for a poll after it ends -->
     <string name="Poll__view_results">Näytä tulokset</string>
     <!-- Quote preview when replying to a poll. %1$s is the question of the poll -->
-    <string name="Poll__poll_question">Poll: %1$s</string>
+    <string name="Poll__poll_question">Kysely: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
-    <string name="Poll__poll_end">%1$s ended the poll: \"%2$s\"</string>
+    <string name="Poll__poll_end">%1$s lopetti kyselyn “%2$s”</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
-    <string name="Poll__poll_voted">%1$s voted in the poll: \"%2$s\"</string>
+    <string name="Poll__poll_voted">%1$s äänesti kyselyssä: ”%2$s”</string>
     <!-- Option in settings to configure notifications for polls -->
-    <string name="Poll__poll">Polls</string>
+    <string name="Poll__poll">Kyselyt</string>
     <!-- Title of screen that shows the poll results of a poll -->
-    <string name="Poll__poll_results">Poll results</string>
+    <string name="Poll__poll_results">Kyselyn tulokset</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Kysymys</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8822,17 +8830,17 @@
     <!-- Section text to enter in options for a poll -->
     <string name="CreatePollFragment__options">Valinnat</string>
     <!-- Hint text for the option field, where %1$d is the option number (max 10) -->
-    <string name="CreatePollFragment__option_n">Option %1$d</string>
+    <string name="CreatePollFragment__option_n">Vaihtoehto %1$d</string>
     <!-- Accessibility label for the polls drag and drop handle used to reorder the list. -->
     <string name="CreatePollFragment__drag_handle">Vedä ja pudota -kahva</string>
     <!-- Text next to button to allow the poll to allow for multiple votes -->
     <string name="CreatePollFragment__allow_multiple_votes">Salli usean vaihtoehdon äänestäminen</string>
     <!-- Snackbar text to add a question and two options before creating a poll -->
-    <string name="CreatePollFragment__add_question_option">Add a question and at least 2 options</string>
+    <string name="CreatePollFragment__add_question_option">Lisää kysymys ja vähintään kaksi vaihtoehtoa</string>
     <!-- Snackbar text to add two options before creating a poll -->
-    <string name="CreatePollFragment__add_option">Add at least 2 options</string>
+    <string name="CreatePollFragment__add_option">Lisää vähintään kaksi vaihtoehtoa</string>
     <!-- Snackbar text to add a question before creating a poll -->
-    <string name="CreatePollFragment__add_question">Add a question</string>
+    <string name="CreatePollFragment__add_question">Lisää kysymys</string>
 
     <!-- EOF -->
 </resources>

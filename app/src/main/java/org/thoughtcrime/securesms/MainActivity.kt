@@ -40,7 +40,6 @@ import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.PaneExpansionAnchor
 import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.rememberPaneExpansionState
-import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -104,7 +103,6 @@ import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
 import org.thoughtcrime.securesms.main.DetailsScreenNavHost
-import org.thoughtcrime.securesms.main.InsetsViewModelUpdater
 import org.thoughtcrime.securesms.main.MainBottomChrome
 import org.thoughtcrime.securesms.main.MainBottomChromeCallback
 import org.thoughtcrime.securesms.main.MainBottomChromeState
@@ -160,8 +158,9 @@ import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.viewModel
 import org.thoughtcrime.securesms.window.AppPaneDragHandle
 import org.thoughtcrime.securesms.window.AppScaffold
+import org.thoughtcrime.securesms.window.AppScaffoldNavigator
 import org.thoughtcrime.securesms.window.WindowSizeClass
-import org.thoughtcrime.securesms.window.rememberAppScaffoldNavigator
+import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 
 class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, MainNavigator.NavigatorProvider, Material3OnScrollHelperBinder, ConversationListFragment.Callback, CallLogFragment.Callback {
@@ -412,8 +411,6 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
           }
         }
 
-        InsetsViewModelUpdater()
-
         AppScaffold(
           navigator = wrappedNavigator,
           paneExpansionState = paneExpansionState,
@@ -444,7 +441,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               )
             }
           },
-          listContent = {
+          secondaryContent = {
             val listContainerColor = if (windowSizeClass.isMedium()) {
               SignalTheme.colors.colorSurface1
             } else {
@@ -513,7 +510,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               }
             }
           },
-          detailContent = {
+          primaryContent = {
             when (mainNavigationState.currentListLocation) {
               MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> {
                 DetailsScreenNavHost(
@@ -582,8 +579,8 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     windowSizeClass: WindowSizeClass,
     contentLayoutData: MainContentLayoutData,
     maxWidth: Dp
-  ): ThreePaneScaffoldNavigator<Any> {
-    val scaffoldNavigator = rememberAppScaffoldNavigator(
+  ): AppScaffoldNavigator<Any> {
+    val scaffoldNavigator = rememberThreePaneScaffoldNavigatorDelegate(
       isSplitPane = windowSizeClass.isSplitPane(),
       horizontalPartitionSpacerSize = contentLayoutData.partitionWidth,
       defaultPanePreferredWidth = contentLayoutData.rememberDefaultPanePreferredWidth(maxWidth)

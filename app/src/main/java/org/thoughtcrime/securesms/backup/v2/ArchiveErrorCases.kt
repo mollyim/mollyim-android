@@ -119,6 +119,10 @@ object ExportSkips {
     return log(sentTimestamp, "Failed to parse thread merge event.")
   }
 
+  fun pollTerminateIsEmpty(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Poll terminate update was empty.")
+  }
+
   fun individualChatUpdateInWrongTypeOfChat(sentTimestamp: Long): String {
     return log(sentTimestamp, "A chat update that only makes sense for individual chats was found in a different kind of chat.")
   }
@@ -199,6 +203,10 @@ object ExportOddities {
  * These represent situations where we will skip importing a data frame due to the data being invalid.
  */
 object ImportSkips {
+  fun recipientWithoutId(): String {
+    return log(0, " No aci, pni, or e164 available for recipient")
+  }
+
   fun fromRecipientNotFound(sentTimestamp: Long): String {
     return log(sentTimestamp, "Failed to find the fromRecipient for the message.")
   }

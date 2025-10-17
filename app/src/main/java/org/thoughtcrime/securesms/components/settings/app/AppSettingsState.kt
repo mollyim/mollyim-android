@@ -6,6 +6,7 @@ import org.thoughtcrime.securesms.util.RemoteConfig
 
 @Immutable
 data class AppSettingsState(
+  val isPrimaryDevice: Boolean,
   val unreadPaymentsCount: Int,
   val userUnregistered: Boolean,
   val isLinkedDevice: Boolean = false,

@@ -102,6 +102,7 @@ class RegistrationUtilTest {
     every { Recipient.self() } returns Recipient(profileName = ProfileName.fromParts("Dark", "Helmet"))
     every { signalStore.svr.hasPin() } returns false
     every { signalStore.svr.hasOptedOut() } returns false
+    every { signalStore.account.isLinkedDevice } returns false
 
     RegistrationUtil.maybeMarkRegistrationComplete()
 

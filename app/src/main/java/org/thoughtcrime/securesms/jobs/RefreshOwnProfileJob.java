@@ -135,6 +135,8 @@ public class RefreshOwnProfileJob extends BaseJob {
     profileAndCredential.getExpiringProfileKeyCredential()
                         .ifPresent(expiringProfileKeyCredential -> setExpiringProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), expiringProfileKeyCredential));
 
+    SignalStore.registration().setHasDownloadedProfile(true);
+
     StoryOnboardingDownloadJob.Companion.enqueueIfNeeded();
 
     checkUsernameIsInSync();

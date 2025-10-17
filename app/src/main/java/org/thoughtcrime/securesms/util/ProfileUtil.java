@@ -68,6 +68,11 @@ public final class ProfileUtil {
    */
   @WorkerThread
   public static void handleSelfProfileKeyChange() {
+    if (SignalStore.account().isLinkedDevice()) {
+      Log.i(TAG, "Linked devices shouldn't rotate self profile key after initial link");
+      return;
+    }
+
     List<Job> gv2UpdateJobs = SignalDatabase.groups()
                                             .getAllGroupV2Ids()
                                             .stream()

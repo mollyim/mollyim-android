@@ -1490,6 +1490,10 @@
     <string name="RemoteRestoreActivity__not_now">ابھی نہیں</string>
     <!-- Text shown on restore screen as information on what will happen if you skip -->
     <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">آپ کا میڈیا پس منظر میں ری اسٹور ہو گا۔ اگر آپ ابھی ری اسٹور نہ کرنے کا انتخاب کرتے ہیں، تو آپ بعد میں ری اسٹور نہیں کر سکیں گے۔</string>
+    <!-- Dialog title -->
+    <string name="RestoreActivity__no_longer_registered_title">یہ ڈیوائس اب رجسٹر شدہ نہیں رہی۔</string>
+    <!-- Dialog message -->
+    <string name="RestoreActivity__no_longer_registered_message">ایسا ہو سکتا ہے کیونکہ آپ نے ایک مختلف ڈیوائس پر اپنا Signal اکاؤنٹ رجسٹر کیا تھا۔</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">جب مجھے کوئی ذکر کرتا ہے تو مجھے مطلع کریں</string>
@@ -2107,7 +2111,7 @@
     <!-- Update message shown when you receive a message that cannot be processed because your Signal version is too old. %1$s is the sender\'s name -->
     <string name="MessageRecord_unsupported_feature">%1$s  نے آپ کو ایک پیغام بھیجا جس پر کارروائی نہیں ہوسکتی ہے یا ظاہر نہیں ہوسکتی ہے کیونکہ یہ ایک نئی Signal کی خصوصیت استعمال کرتی ہے۔</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
-    <string name="MessageRecord_ended_the_poll">%1$s ended the poll: \"%2$s\"</string>
+    <string name="MessageRecord_ended_the_poll">%1$s نے پول ختم کر دیا: \"%2$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">قبول کریں</string>
@@ -3174,7 +3178,7 @@
     <string name="MessageNotifier_reacted_s_to_your_sticker">آپ کے اسٹیکر پر %1$s ری ایکٹ کیا۔</string>
     <string name="MessageNotifier_this_message_was_deleted">یہ پیغام حذف کردیا گیا تھا۔</string>
     <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
-    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
+    <string name="MessageNotifier_s_voted_in_poll">%1$s%2$s نے پول میں ووٹ دیا \"%3$s\"</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">رابطے میں شامل Molly اطلاعات بند کردیں؟ آپ انہیں Molly &amp; gt میں دوبارہ فعال کرسکتے ہیں۔ ترتیبات &amp; gt؛ اطلاعات۔</string>
 
@@ -5915,8 +5919,8 @@
         <item quantity="other">%1$s Signal کے یوزرز نہیں ہیں</item>
     </plurals>
 
-    <!-- ContactFilterView -->
-    <string name="ContactFilterView__search_name_or_number">نام یا نمبر تلاش کریں</string>
+    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
+    <string name="ContactFilterView__search_name_or_number">نام، یوزر نیم ، یا نمبر</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -8602,11 +8606,11 @@
     <!-- Option subtitle for restoring via device transfer -->
     <string name="SelectRestoreMethodFragment__transfer_directly_from_old">اپنے پرانے Android سے براہ راست ٹرانسفر کریں</string>
     <!-- Dialog title shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_title">Skip restore?</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_title">بحال کرنا چھوڑ دیں؟</string>
     <!-- Dialog message shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_warning">If you skip restore now you will not be able to restore later. If you re-enable backups after skipping restore, your current backup will be replaced with your new messaging history.</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_warning">اگر آپ ابھی ری اسٹور نہیں کرتے تو آپ بعد میں بھی ری اسٹور نہیں کر سکیں گے۔ اگر آپ ری اسٹور چھوڑ دینے کے بعد بیک اپس دوبارہ فعال کرتے ہیں، تو آپ کا موجودہ بیک اپ آپ کی نئی میسجنگ ہسٹری کے ساتھ تبدیل ہو جائے گا۔</string>
     <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore">Skip restore</string>
+    <string name="SelectRestoreMethodFragment__skip_restore">بحال کرنا نظر انداز کریں</string>
 
     <!-- Screen title for restore via local backup -->
     <string name="RestoreLocalBackup_title">لوکل بیک اپ کو ری اسٹور کریں</string>
@@ -8647,6 +8651,10 @@
     <string name="EnterBackupKey_backup_not_found">بیک اپ نہیں ملا</string>
     <!-- Dialog message shown during registration and trying to restore a remote backup -->
     <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">جو ریکوری کیی آپ نے درج کی ہے وہ درست ہے، لیکن اس سے کوئی بیک اپ منسلک نہیں ہے۔ اگر آپ کے پاس ابھی تک پرانا فون ہے، تو یقینی بنائیں کہ بیک اپس فعال ہیں اور بیک اپ مکمل ہو چکا ہے اور دوبارہ کوشش کریں۔</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_incorrect_or_backups_not_enabled">ہو سکتا ہے آپ نے اپنی بحالی کی کیی غلط درج کی ہو، یا آپ نے اپنی پرانی ڈیوائس پر کم از کم ایک بیک اپ مکمل نہ کیا ہو۔\n\nیقینی بنائیں کہ آپ اسی فون نمبر اور بحالی کی کیی کے ساتھ رجسٹر کر رہے ہیں جو آپ نے Signal محفوظ بیک اپس کو فعال کرتے ہوئے محفوظ کی تھی، اور تصدیق کریں کہ آپ کی پرانی ڈیوائس پر بیک اپ مکمل ہو گیا ہو۔</string>
+    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+    <string name="EnterBackupKey_backup_key_check_rate_limited">آپ کی بحالی کی کیی کی کوششوں کی حد ختم ہو گئی ہے۔ آپ کی حفاظت کے لیے، آپ کی انجام دی جانے والی کوششوں کی تعداد محدود ہے۔ ایک گھنٹے تک انتظار کریں اور دوبارہ کوشش کریں۔</string>
     <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
     <string name="EnterBackupKey_skip_restore">بحال کرنا نظر انداز کریں</string>
     <!-- Dialog title text when encountering backup restore network error -->
@@ -8777,31 +8785,31 @@
 
     <!-- Polls -->
     <!-- Caption in poll message to select an option  -->
-    <string name="Poll__select_one">Poll · Select One</string>
+    <string name="Poll__select_one">پول · ایک منتخب کریں</string>
     <!-- Caption in poll message to select one or more options  -->
-    <string name="Poll__select_multiple">Poll · Select one or more</string>
+    <string name="Poll__select_multiple">پول · ایک یا زیادہ</string>
     <!-- Caption in poll message once a poll has ended  -->
-    <string name="Poll__final_results">Poll · Final results</string>
+    <string name="Poll__final_results">پول · حتمی نتائج</string>
     <!-- Caption in poll message that no votes have been cast  -->
     <string name="Poll__no_votes">کوئی ووٹس نہیں ہیں</string>
     <!-- Button in poll message to view current votes for a poll -->
     <string name="Poll__view_votes">ووٹس دیکھیں</string>
     <!-- Button in poll message to view the poll after it has ended -->
-    <string name="Poll__view_poll">View poll</string>
+    <string name="Poll__view_poll">پول دیکھیں</string>
     <!-- Toast message shown if we cannot find the poll -->
-    <string name="Poll__unable_poll">Poll not found</string>
+    <string name="Poll__unable_poll">پول نہیں ملے</string>
     <!-- Button in poll message to view results for a poll after it ends -->
     <string name="Poll__view_results">نتائج دیکھیں</string>
     <!-- Quote preview when replying to a poll. %1$s is the question of the poll -->
-    <string name="Poll__poll_question">Poll: %1$s</string>
+    <string name="Poll__poll_question">پول: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
-    <string name="Poll__poll_end">%1$s ended the poll: \"%2$s\"</string>
+    <string name="Poll__poll_end">%1$s نے پول ختم کر دیا: \"%2$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
-    <string name="Poll__poll_voted">%1$s voted in the poll: \"%2$s\"</string>
+    <string name="Poll__poll_voted">%1$s نے پول میں ووٹ دیا: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
-    <string name="Poll__poll">Polls</string>
+    <string name="Poll__poll">پولز</string>
     <!-- Title of screen that shows the poll results of a poll -->
-    <string name="Poll__poll_results">Poll results</string>
+    <string name="Poll__poll_results">پول کے نتائج</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">سوال</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8822,17 +8830,17 @@
     <!-- Section text to enter in options for a poll -->
     <string name="CreatePollFragment__options">آپشنز</string>
     <!-- Hint text for the option field, where %1$d is the option number (max 10) -->
-    <string name="CreatePollFragment__option_n">Option %1$d</string>
+    <string name="CreatePollFragment__option_n">اختیار کا انتخاب کریں %1$d</string>
     <!-- Accessibility label for the polls drag and drop handle used to reorder the list. -->
     <string name="CreatePollFragment__drag_handle">ہینڈل کو ڈریگ اور ڈراپ کریں</string>
     <!-- Text next to button to allow the poll to allow for multiple votes -->
     <string name="CreatePollFragment__allow_multiple_votes">متعدد ووٹس کی اجازت دیتا ہے</string>
     <!-- Snackbar text to add a question and two options before creating a poll -->
-    <string name="CreatePollFragment__add_question_option">Add a question and at least 2 options</string>
+    <string name="CreatePollFragment__add_question_option">ایک سوال اور کم از کم 2 اختیارات شامل کریں</string>
     <!-- Snackbar text to add two options before creating a poll -->
-    <string name="CreatePollFragment__add_option">Add at least 2 options</string>
+    <string name="CreatePollFragment__add_option">کم از کم 2 اختیارات شامل کریں</string>
     <!-- Snackbar text to add a question before creating a poll -->
-    <string name="CreatePollFragment__add_question">Add a question</string>
+    <string name="CreatePollFragment__add_question">سوال شامل کریں</string>
 
     <!-- EOF -->
 </resources>

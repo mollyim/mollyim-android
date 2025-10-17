@@ -15,6 +15,7 @@ class AppSettingsViewModel : ViewModel() {
 
   private val store = Store(
     AppSettingsState(
+      isPrimaryDevice = SignalStore.account.isPrimaryDevice,
       unreadPaymentsCount = 0,
       userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
       isLinkedDevice = SignalStore.account.isLinkedDevice,

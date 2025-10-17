@@ -627,6 +627,7 @@ private fun AppSettingsContentPreview() {
         )
       ),
       state = AppSettingsState(
+        isPrimaryDevice = true,
         unreadPaymentsCount = 5,
         userUnregistered = false,
         clientDeprecated = false,
