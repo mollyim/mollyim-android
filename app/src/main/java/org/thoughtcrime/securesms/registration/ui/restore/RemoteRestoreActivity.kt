@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.registration.ui.restore
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -70,7 +71,6 @@ import org.signal.core.util.ThreadUtil
 import org.signal.core.util.bytes
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.MainActivity
-import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.RestoreV2Event
@@ -95,7 +95,8 @@ import kotlin.time.Duration
 /**
  * Restore backup from remote source.
  */
-class RemoteRestoreActivity : PassphraseRequiredActivity() {
+@SuppressLint("BaseActivitySubclass")
+class RemoteRestoreActivity : BaseActivity() {
   companion object {
 
     private const val KEY_ONLY_OPTION = "ONLY_OPTION"
@@ -115,8 +116,8 @@ class RemoteRestoreActivity : PassphraseRequiredActivity() {
 
   private lateinit var wakeLock: RemoteRestoreWakeLock
 
-  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    super.onCreate(savedInstanceState, ready)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
     wakeLock = RemoteRestoreWakeLock(this)
 

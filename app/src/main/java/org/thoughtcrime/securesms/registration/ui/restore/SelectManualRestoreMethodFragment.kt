@@ -55,8 +55,7 @@ class SelectManualRestoreMethodFragment : ComposeFragment() {
     var showSkipRestoreWarning by remember { mutableStateOf(false) }
 
     SelectRestoreMethodScreen(
-      // MOLLY: Remove RestoreMethod.FROM_SIGNAL_BACKUPS until messageBackupsInSettings is enabled
-      restoreMethods = listOf(RestoreMethod.FROM_LOCAL_BACKUP_V1),
+      restoreMethods = listOf(RestoreMethod.FROM_SIGNAL_BACKUPS, RestoreMethod.FROM_LOCAL_BACKUP_V1),
       onRestoreMethodClicked = this::startRestoreMethod,
       onSkip = {
         showSkipRestoreWarning = true

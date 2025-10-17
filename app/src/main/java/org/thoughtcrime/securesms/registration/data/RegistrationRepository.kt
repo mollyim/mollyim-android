@@ -51,13 +51,10 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getAciIdentityKeyPair
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getAciPreKeyCollection
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getPniIdentityKeyPair
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getPniPreKeyCollection
-import org.thoughtcrime.securesms.registration.data.RegisterAsLinkedDeviceResponse
-import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.network.BackupAuthCheckResult
 import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCheckResult
