@@ -98,7 +98,7 @@ Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-
 ## Feedback
 
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues) on GitHub
-- Join us at [#mollyim:matrix.org](https://matrix.to/#/#mollyim:matrix.org) on Matrix
+- Join us at [#mollyim:matrix.org](https://matrix.to/#/#mollyim:matrix.org) on Matrix (via space: [#mollyim-space:matrix.org](https://matrix.to/#/#mollyim-space:matrix.org))
 - For news, tips, and tricks, follow [@mollyim](https://fosstodon.org/@mollyim) on Mastodon
 
 ## Reproducible Builds
