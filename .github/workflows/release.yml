@@ -32,6 +32,9 @@ jobs:
         with:
           ref: "${{ env.TAG_REF }}"
 
+      - name: Free up disk space in runner
+        uses: ./.github/actions/disk-cleanup
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
