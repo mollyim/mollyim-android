@@ -46,9 +46,6 @@ class MainNavigationViewModel(
   private var navigatorScope: CoroutineScope? = null
   private var goToLegacyDetailLocation: ((MainNavigationDetailLocation) -> Unit)? = null
 
-  /**
-   * The latest detail location that has been requested, for consumption by other components.
-   */
   private val internalDetailLocation = MutableSharedFlow<MainNavigationDetailLocation>()
   val detailLocation: SharedFlow<MainNavigationDetailLocation> = internalDetailLocation
 
@@ -72,11 +69,15 @@ class MainNavigationViewModel(
   private val internalMainNavigationState = MutableStateFlow(MainNavigationState(currentListLocation = initialListLocation))
   val mainNavigationState: StateFlow<MainNavigationState> = internalMainNavigationState
 
+  private val internalIsFullScreenPane = MutableStateFlow(false)
+  val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
+
   /**
    * This is Rx because these are still accessed from Java.
    */
   private val internalTabClickEvents: MutableSharedFlow<MainNavigationListLocation> = MutableSharedFlow()
-  val tabClickEvents: Observable<MainNavigationListLocation> = internalTabClickEvents.asObservable()
+  val tabClickEvents: SharedFlow<MainNavigationListLocation> = internalTabClickEvents
+  val tabClickEventsObservable: Observable<MainNavigationListLocation> = internalTabClickEvents.asObservable()
 
   private var earlyNavigationListLocationRequested: MainNavigationListLocation? = null
   var earlyNavigationDetailLocationRequested: MainNavigationDetailLocation? = null
@@ -121,6 +122,10 @@ class MainNavigationViewModel(
         }
       }
     }
+  }
+
+  fun onPaneAnchorChanged(isFullScreenPane: Boolean) {
+    internalIsFullScreenPane.update { isFullScreenPane }
   }
 
   /**

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.conversation.ConversationIntents;
+import org.thoughtcrime.securesms.conversation.NewConversationActivity;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.recipients.Recipient;
 
@@ -43,8 +44,7 @@ public class SystemContactsEntrypointActivity extends PassphraseRequiredActivity
       }
     }
 
-    nextIntent = new Intent(this, NewConversationActivity.class);
-    nextIntent.putExtra(Intent.EXTRA_TEXT, "");
+    nextIntent = NewConversationActivity.createIntent(this, "");
     Toast.makeText(this, R.string.ConversationActivity_specify_recipient, Toast.LENGTH_LONG).show();
     return nextIntent;
   }

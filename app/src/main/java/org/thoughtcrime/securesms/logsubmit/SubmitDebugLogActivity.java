@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.ShareCompat;
 import androidx.core.text.util.LinkifyCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +36,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar;
 import org.thoughtcrime.securesms.components.ProgressCard;
 import org.thoughtcrime.securesms.components.SearchView;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
@@ -55,6 +57,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SubmitDebugLogActivity extends BaseActivity {
 
   private static final int CODE_SAVE = 24601;
+
+  public static final String ARG_VIEW_ONLY = "args.view_only";
 
   private WebView                 logWebView;
   private SubmitDebugLogViewModel viewModel;
@@ -354,12 +358,19 @@ public class SubmitDebugLogActivity extends BaseActivity {
       subscribeToLogLines();
     });
 
-    if (KeyCachingService.isLocked()) {
-      submitButton.setText(R.string.SubmitDebugLogActivity_save);
-      submitButton.setOnClickListener(v -> onSaveClicked());
+    boolean isViewOnly = getIntent().getBooleanExtra(ARG_VIEW_ONLY, false);
+    if (isViewOnly) {
+      submitButton.setText(R.string.SubmitDebugLogActivity_close);
+      submitButton.setOnClickListener(v -> ActivityCompat.finishAfterTransition(this));
     } else {
-      submitButton.setOnClickListener(v -> onSubmitClicked());
+      if (KeyCachingService.isLocked()) {
+        submitButton.setText(R.string.SubmitDebugLogActivity_save);
+        submitButton.setOnClickListener(v -> onSaveClicked());
+      } else {
+        submitButton.setOnClickListener(v -> onSubmitClicked());
+      }
     }
+
     scrollToTopButton.setOnClickListener(v -> DebugLogsViewer.scrollToTop(logWebView));
     scrollToBottomButton.setOnClickListener(v -> DebugLogsViewer.scrollToBottom(logWebView));
 

@@ -12,6 +12,7 @@ import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
@@ -64,6 +65,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -86,9 +88,12 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -253,6 +258,7 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModelV2
 import org.thoughtcrime.securesms.longmessage.LongMessageFragment
 import org.thoughtcrime.securesms.main.MainNavigationListLocation
+import org.thoughtcrime.securesms.main.MainNavigationViewModel
 import org.thoughtcrime.securesms.main.VerticalInsets
 import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity
 import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory
@@ -340,7 +346,6 @@ import org.thoughtcrime.securesms.util.hasLinkPreview
 import org.thoughtcrime.securesms.util.hasNonTextSlide
 import org.thoughtcrime.securesms.util.isValidReactionTarget
 import org.thoughtcrime.securesms.util.padding
-import org.thoughtcrime.securesms.util.savedStateViewModel
 import org.thoughtcrime.securesms.util.setIncognitoKeyboardEnabled
 import org.thoughtcrime.securesms.util.toMillis
 import org.thoughtcrime.securesms.util.viewModel
@@ -442,8 +447,8 @@ class ConversationFragment :
     )
   }
 
-  private val linkPreviewViewModel: LinkPreviewViewModelV2 by savedStateViewModel {
-    LinkPreviewViewModelV2(it, enablePlaceholder = false)
+  private val linkPreviewViewModel: LinkPreviewViewModelV2 by viewModel {
+    LinkPreviewViewModelV2(it.createSavedStateHandle(), enablePlaceholder = false)
   }
 
   private val groupCallViewModel: ConversationGroupCallViewModel by viewModel {
@@ -479,6 +484,8 @@ class ConversationFragment :
   }
 
   private val shareDataTimestampViewModel: ShareDataTimestampViewModel by activityViewModels()
+
+  private val mainNavigationViewModel: MainNavigationViewModel by activityViewModels()
 
   private val inlineQueryController: InlineQueryResultsControllerV2 by lazy {
     InlineQueryResultsControllerV2(
@@ -580,6 +587,9 @@ class ConversationFragment :
   }
 
   private lateinit var voiceMessageRecordingDelegate: VoiceMessageRecordingDelegate
+
+  private val internalDidFirstFrameRender = MutableStateFlow(false)
+  val didFirstFrameRender: StateFlow<Boolean> = internalDidFirstFrameRender
 
   //region Android Lifecycle
 
@@ -971,6 +981,7 @@ class ConversationFragment :
     }
 
     activity?.supportStartPostponedEnterTransition()
+    internalDidFirstFrameRender.update { true }
 
     val backPressedDelegate = BackPressedDelegate()
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedDelegate)
@@ -1395,16 +1406,37 @@ class ConversationFragment :
   }
 
   private fun presentNavigationIconForNormal() {
-    if (!resources.getWindowSizeClass().isSplitPane()) {
+    if (WindowSizeClass.isLargeScreenSupportEnabled()) {
+      lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.RESUMED) {
+          mainNavigationViewModel.isFullScreenPane.collect { isFullScreenPane ->
+            updateNavigationIconForNormal(isFullScreenPane)
+          }
+        }
+      }
+    } else {
+      updateNavigationIconForNormal(true)
+    }
+  }
+
+  private fun updateNavigationIconForNormal(isFullScreenPane: Boolean) {
+    if (!resources.getWindowSizeClass().isSplitPane() || isFullScreenPane) {
       binding.toolbar.setNavigationIcon(R.drawable.symbol_arrow_start_24)
       binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button)
       binding.toolbar.setNavigationOnClickListener {
         binding.root.hideKeyboard(composeText)
         requireActivity().onBackPressedDispatcher.onBackPressed()
       }
+      binding.toolbar.setContentInsetsRelative(
+        46.dp,
+        binding.toolbar.contentInsetEnd
+      )
     } else {
       binding.toolbar.navigationIcon = null
-      binding.toolbar.contentInsetStartWithNavigation = 0
+      binding.toolbar.setContentInsetsRelative(
+        24.dp,
+        binding.toolbar.contentInsetEnd
+      )
     }
   }
 
@@ -2527,8 +2559,14 @@ class ConversationFragment :
 
     disposables += endPoll
       .subscribeBy(
-        // TODO(michelle): Error state when poll terminate fails
-        onError = { Log.w(TAG, "Error received during poll end!", it) }
+        onError = {
+          Log.w(TAG, "Error received during poll end!", it)
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.Poll__couldnt_end_poll)
+            .setMessage(getString(R.string.Poll__check_connection))
+            .setPositiveButton(android.R.string.ok) { dialog: DialogInterface?, which: Int -> dialog!!.dismiss() }
+            .show()
+        }
       )
   }
 

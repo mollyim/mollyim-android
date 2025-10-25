@@ -392,7 +392,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
     requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), chatListBackHandler);
 
     lifecycleDisposable.bindTo(getViewLifecycleOwner());
-    lifecycleDisposable.add(mainNavigationViewModel.getTabClickEvents().filter(tab -> tab == MainNavigationListLocation.CHATS)
+    lifecycleDisposable.add(mainNavigationViewModel.getTabClickEventsObservable().filter(tab -> tab == MainNavigationListLocation.CHATS)
                                                    .subscribe(unused -> {
                                                      Log.d(TAG, "Scroll to top please");
                                                      LinearLayoutManager layoutManager            = (LinearLayoutManager) list.getLayoutManager();
@@ -834,6 +834,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
           if (conversations.isEmpty()) {
             endActionModeIfActive();
           } else {
+            startActionModeIfNotActive();
             updateMultiSelectState();
           }
         })
@@ -1092,6 +1093,12 @@ public class ConversationListFragment extends MainFragment implements Conversati
     }, (nothing) -> {
       getNavigator().goToConversation(recipient.getId(), threadId, distributionType, -1);
     });
+  }
+
+  private void startActionModeIfNotActive() {
+    if (!mainToolbarViewModel.isInActionMode()) {
+      startActionMode();
+    }
   }
 
   private void startActionMode() {

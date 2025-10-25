@@ -689,13 +689,8 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
-    <activity android:name=".NewConversationActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:exported="false"/>
-
     <activity
-              android:name=".conversation.NewConversationActivityV2"
+              android:name=".conversation.NewConversationActivity"
               android:exported="false"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
@@ -1040,6 +1035,11 @@
     <activity android:name=".groups.ui.creategroup.CreateGroupActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="false"/>
+
+    <activity
+        android:name=".groups.ui.creategroup.CreateGroupActivityV2"
+        android:exported="false"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".groups.ui.addtogroup.AddToGroupsActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"

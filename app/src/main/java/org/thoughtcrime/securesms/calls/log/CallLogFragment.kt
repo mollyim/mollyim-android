@@ -142,6 +142,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe { (selected, totalCount) ->
         if (selected.isNotEmpty(totalCount)) {
+          callLogActionMode.start()
           callLogActionMode.setCount(selected.count(totalCount))
         } else if (mainToolbarViewModel.isInActionMode()) {
           callLogActionMode.end()
@@ -206,7 +207,7 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   }
 
   private fun initializeTapToScrollToTop(scrollToPositionDelegate: ScrollToPositionDelegate) {
-    disposables += mainNavigationViewModel.tabClickEvents
+    disposables += mainNavigationViewModel.tabClickEventsObservable
       .filter { it == MainNavigationListLocation.CALLS }
       .subscribeBy(onNext = {
         scrollToPositionDelegate.resetScrollPosition()

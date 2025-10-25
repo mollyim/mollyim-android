@@ -32,6 +32,8 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -564,7 +566,10 @@ private fun BioRow(
 
       Text(
         text = prettyPhoneNumber,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = TextStyle(
+          textDirection = TextDirection.ContentOrLtr
+        )
       )
 
       if (hasUsername) {
