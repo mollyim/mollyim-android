@@ -10,6 +10,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -76,6 +77,7 @@ class CreateGroupActivityV2 : PassphraseRequiredActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    enableEdgeToEdge()
     super.onCreate(savedInstanceState, ready)
 
     val navigateBack = onBackPressedDispatcher::onBackPressed
@@ -218,9 +220,7 @@ private fun CreateGroupRecipientPicker(
         findByUsername = callbacks,
         findByPhoneNumber = callbacks
       ),
-      modifier = modifier
-        .fillMaxSize()
-        .padding(vertical = 12.dp)
+      modifier = modifier.fillMaxSize()
     )
 
     AnimatedContent(
