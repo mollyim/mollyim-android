@@ -422,7 +422,7 @@ public class QuoteView extends ConstraintLayout implements RecipientForeverObser
       return;
     }
 
-    if (TextUtils.isEmpty(quoteTargetContentType) || slide == null || slide.getUri() == null) {
+    if (TextUtils.isEmpty(quoteTargetContentType)) {
       thumbnailView.setVisibility(GONE);
       attachmentNameViewStub.setVisibility(GONE);
 
@@ -449,12 +449,12 @@ public class QuoteView extends ConstraintLayout implements RecipientForeverObser
         attachmentVideoOVerlayStub.setVisibility(VISIBLE);
       }
 
-      requestManager.load(new DecryptableUri(slide.getUri()))
+      requestManager.load(slide.getUri() != null ? new DecryptableUri(slide.getUri()) : null)
                     .centerCrop()
                     .override(thumbWidth, thumbHeight)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(thumbnailView);
-    } else if (MediaUtil.isAudioType(quoteTargetContentType)) {
+    } else if (MediaUtil.isAudioType(quoteTargetContentType) || MediaUtil.isLongTextType(quoteTargetContentType)) {
       thumbnailView.setVisibility(GONE);
       attachmentNameViewStub.setVisibility(GONE);
 

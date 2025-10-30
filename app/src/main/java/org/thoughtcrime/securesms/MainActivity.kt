@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -47,6 +46,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -68,8 +68,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import im.molly.unifiedpush.UnifiedPushDistributor
@@ -288,22 +286,6 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       }
     }
 
-    val callback = object : OnBackPressedCallback(toolbarViewModel.state.value.mode == MainToolbarMode.ACTION_MODE) {
-      override fun handleOnBackPressed() {
-        toolbarCallback.onCloseActionModeClick()
-      }
-    }
-
-    lifecycleScope.launch {
-      repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        toolbarViewModel.state.collect { state ->
-          callback.isEnabled = state.mode == MainToolbarMode.ACTION_MODE
-        }
-      }
-    }
-
-    onBackPressedDispatcher.addCallback(this, callback)
-
     shareDataTimestampViewModel.setTimestampFromActivityCreation(savedInstanceState, intent)
 
     setContent {
@@ -321,13 +303,18 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
         }
       }
 
+      val isActionModeActive = mainToolbarState.mode == MainToolbarMode.ACTION_MODE
       val isNavigationRailVisible = mainToolbarState.mode != MainToolbarMode.SEARCH
       val isNavigationBarVisible = mainToolbarState.mode == MainToolbarMode.FULL
-      val isBackHandlerEnabled = mainToolbarState.destination != MainNavigationListLocation.CHATS
+      val isBackHandlerEnabled = mainToolbarState.destination != MainNavigationListLocation.CHATS && !isActionModeActive
 
       BackHandler(enabled = isBackHandlerEnabled) {
         mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Secondary)
         mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS)
+      }
+
+      BackHandler(enabled = isActionModeActive) {
+        toolbarCallback.onCloseActionModeClick()
       }
 
       val focusManager = LocalFocusManager.current
@@ -355,16 +342,35 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       MainContainer {
         val wrappedNavigator = rememberNavigator(windowSizeClass, contentLayoutData, maxWidth)
         val listPaneWidth = contentLayoutData.rememberDefaultPanePreferredWidth(maxWidth)
-        val halfPartitionWidth = contentLayoutData.partitionWidth / 2
 
-        val detailOffset = if (mainToolbarState.mode == MainToolbarMode.SEARCH || mainToolbarState.mode == MainToolbarMode.ACTION_MODE) 0.dp else 80.dp
-        val detailOnlyAnchor = PaneExpansionAnchor.Offset.fromStart(detailOffset + contentLayoutData.listPaddingStart + halfPartitionWidth)
-        val detailAndListAnchor = PaneExpansionAnchor.Offset.fromStart(listPaneWidth + halfPartitionWidth)
-        val listOnlyAnchor = PaneExpansionAnchor.Offset.fromEnd(contentLayoutData.detailPaddingEnd - halfPartitionWidth)
+        val anchors = remember(contentLayoutData, mainToolbarState) {
+          val halfPartitionWidth = contentLayoutData.partitionWidth / 2
+
+          val detailOffset = if (mainToolbarState.mode == MainToolbarMode.SEARCH || mainToolbarState.mode == MainToolbarMode.ACTION_MODE) 0.dp else 80.dp
+          val detailOnlyAnchor = PaneExpansionAnchor.Offset.fromStart(detailOffset + contentLayoutData.listPaddingStart + halfPartitionWidth)
+          val detailAndListAnchor = PaneExpansionAnchor.Offset.fromStart(listPaneWidth + halfPartitionWidth)
+          val listOnlyAnchor = PaneExpansionAnchor.Offset.fromEnd(contentLayoutData.detailPaddingEnd - halfPartitionWidth)
+
+          listOf(detailOnlyAnchor, detailAndListAnchor, listOnlyAnchor)
+        }
+
+        val (detailOnlyAnchor, detailAndListAnchor, listOnlyAnchor) = anchors
 
         val paneExpansionState = rememberPaneExpansionState(
-          anchors = listOf(detailOnlyAnchor, detailAndListAnchor, listOnlyAnchor)
+          key = wrappedNavigator.scaffoldValue.paneExpansionStateKey,
+          anchors = anchors,
+          initialAnchoredIndex = 1
         )
+
+        val paneAnchorIndex = rememberSaveable(paneExpansionState.currentAnchor) {
+          anchors.indexOf(paneExpansionState.currentAnchor)
+        }
+
+        LaunchedEffect(windowSizeClass) {
+          val anchor = anchors[paneAnchorIndex]
+
+          paneExpansionState.animateTo(anchor)
+        }
 
         val chatNavGraphState = ChatNavGraphState.remember(windowSizeClass)
         val mutableInteractionSource = remember { MutableInteractionSource() }
@@ -440,22 +446,32 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
           mainNavigationViewModel.onPaneAnchorChanged(isFullScreenPane)
         }
 
-        LaunchedEffect(paneExpansionState, detailOnlyAnchor, listOnlyAnchor, wrappedNavigator) {
-          mainNavigationViewModel.detailLocation.collect {
-            if (paneExpansionState.currentAnchor == listOnlyAnchor) {
-              paneExpansionState.animateTo(detailOnlyAnchor)
+        LaunchedEffect(paneExpansionState.currentAnchor) {
+          when (paneExpansionState.currentAnchor) {
+            listOnlyAnchor -> {
+              mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Secondary)
             }
+
+            detailOnlyAnchor -> {
+              mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Primary)
+            }
+
+            else -> Unit
           }
         }
 
-        LaunchedEffect(paneExpansionState, detailOnlyAnchor, listOnlyAnchor, wrappedNavigator) {
-          val a = mainNavigationViewModel.mainNavigationState.map { it.currentListLocation }
-          val b = mainNavigationViewModel.tabClickEvents
+        val paneFocusRequest by mainNavigationViewModel.paneFocusRequests.collectAsStateWithLifecycle(null)
+        LaunchedEffect(paneFocusRequest) {
+          if (paneFocusRequest == null) {
+            return@LaunchedEffect
+          }
 
-          merge(a, b).collect {
-            if (paneExpansionState.currentAnchor == detailOnlyAnchor) {
-              paneExpansionState.animateTo(listOnlyAnchor)
-            }
+          if (paneFocusRequest == ThreePaneScaffoldRole.Secondary && paneExpansionState.currentAnchor == detailOnlyAnchor) {
+            paneExpansionState.animateTo(listOnlyAnchor)
+          }
+
+          if (paneFocusRequest == ThreePaneScaffoldRole.Primary && paneExpansionState.currentAnchor == listOnlyAnchor) {
+            paneExpansionState.animateTo(detailOnlyAnchor)
           }
         }
 
@@ -960,7 +976,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   inner class ToolbarCallback : MainToolbarCallback {
 
     override fun onNewGroupClick() {
-      startActivity(CreateGroupActivity.newIntent(this@MainActivity))
+      startActivity(CreateGroupActivity.createIntent(this@MainActivity))
     }
 
     override fun onClearPassphraseClick() {

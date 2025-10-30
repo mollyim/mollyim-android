@@ -38,7 +38,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -56,7 +58,7 @@ import org.thoughtcrime.securesms.main.MainFloatingActionButtonsCallback
 import org.thoughtcrime.securesms.main.MainNavigationBar
 import org.thoughtcrime.securesms.main.MainNavigationRail
 import org.thoughtcrime.securesms.main.MainNavigationState
-import java.lang.Integer.max
+import kotlin.math.max
 
 enum class Navigation {
   RAIL,
@@ -175,6 +177,10 @@ enum class WindowSizeClass(
     }
 
     private fun getSizeClassForOrientationAndSystemSizeClass(orientation: Int, windowSizeClass: androidx.window.core.layout.WindowSizeClass): WindowSizeClass {
+      if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.COMPACT || windowSizeClass.windowHeightSizeClass == WindowHeightSizeClass.COMPACT) {
+        return getCompactSizeClassForOrientation(orientation)
+      }
+
       return when (orientation) {
         Configuration.ORIENTATION_PORTRAIT, Configuration.ORIENTATION_UNDEFINED, Configuration.ORIENTATION_SQUARE -> {
           when (windowSizeClass.windowWidthSizeClass) {
@@ -186,10 +192,10 @@ enum class WindowSizeClass(
         }
 
         Configuration.ORIENTATION_LANDSCAPE -> {
-          when (windowSizeClass.windowHeightSizeClass) {
-            WindowHeightSizeClass.COMPACT -> COMPACT_LANDSCAPE
-            WindowHeightSizeClass.MEDIUM -> MEDIUM_LANDSCAPE
-            WindowHeightSizeClass.EXPANDED -> EXTENDED_LANDSCAPE
+          when (windowSizeClass.windowWidthSizeClass) {
+            WindowWidthSizeClass.COMPACT -> COMPACT_LANDSCAPE
+            WindowWidthSizeClass.MEDIUM -> MEDIUM_LANDSCAPE
+            WindowWidthSizeClass.EXPANDED -> EXTENDED_LANDSCAPE
             else -> error("Unsupported.")
           }
         }
@@ -272,11 +278,19 @@ fun AppScaffold(
           exitTransition = ExitTransition.None,
           modifier = Modifier
             .zIndex(0f)
-            .then(animationState.parentModifier)
+            .drawWithContent {
+              with(animationState) {
+                applyParentValues()
+              }
+            }
         ) {
           Box(
             modifier = Modifier
-              .then(animationState.toModifier())
+              .graphicsLayer {
+                with(animationState) {
+                  applyChildValues()
+                }
+              }
               .clipToBounds()
               .layout { measurable, constraints ->
                 val width = max(minPaneWidth.roundToPx(), constraints.maxWidth)
@@ -315,11 +329,19 @@ fun AppScaffold(
           exitTransition = ExitTransition.None,
           modifier = Modifier
             .zIndex(1f)
-            .then(animationState.parentModifier)
+            .drawWithContent {
+              with(animationState) {
+                applyParentValues()
+              }
+            }
         ) {
           Box(
             modifier = Modifier
-              .then(animationState.toModifier())
+              .graphicsLayer {
+                with(animationState) {
+                  applyChildValues()
+                }
+              }
               .clipToBounds()
               .layout { measurable, constraints ->
                 val width = max(minPaneWidth.roundToPx(), constraints.maxWidth)

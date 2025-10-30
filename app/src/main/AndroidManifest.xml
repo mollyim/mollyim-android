@@ -1022,7 +1022,7 @@
     <activity android:name=".MainActivity"
               android:enableOnBackInvokedCallback="true"
               android:theme="@style/Theme.Molly.Starting"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout"
+              android:configChanges="touchscreen|keyboard|keyboardHidden"
               android:windowSoftInputMode="stateUnchanged"
               android:resizeableActivity="true"
               android:exported="false"/>
@@ -1032,12 +1032,8 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
-    <activity android:name=".groups.ui.creategroup.CreateGroupActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:exported="false"/>
-
     <activity
-        android:name=".groups.ui.creategroup.CreateGroupActivityV2"
+        android:name=".groups.ui.creategroup.CreateGroupActivity"
         android:exported="false"
         android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 

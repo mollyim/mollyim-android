@@ -25,6 +25,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.graphics.layer.drawLayer
 import androidx.compose.ui.graphics.rememberGraphicsLayer
@@ -41,13 +42,13 @@ import androidx.navigation.toRoute
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.thoughtcrime.securesms.MainNavigator
 import org.thoughtcrime.securesms.conversation.ConversationArgs
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.v2.ConversationFragment
 import org.thoughtcrime.securesms.serialization.JsonSerializableNavType
 import org.thoughtcrime.securesms.window.AppScaffoldAnimationDefaults
 import org.thoughtcrime.securesms.window.AppScaffoldAnimationState
-import org.thoughtcrime.securesms.window.AppScaffoldNavigator
 import org.thoughtcrime.securesms.window.WindowSizeClass
 import kotlin.reflect.typeOf
 import kotlin.time.Duration.Companion.milliseconds
@@ -85,12 +86,20 @@ fun NavGraphBuilder.chatNavGraphBuilder(
       }
     }
 
+    LaunchedEffect(shouldDisplayFragment) {
+      (context as? MainNavigator.NavigatorProvider)?.onFirstRender()
+    }
+
     if (bitmap != null) {
       Image(
         bitmap = bitmap,
         contentDescription = null,
         modifier = Modifier
-          .then(fakeChatListAnimationState.toModifier())
+          .graphicsLayer {
+            with(fakeChatListAnimationState) {
+              applyChildValues()
+            }
+          }
           .fillMaxSize()
       )
     }
@@ -100,7 +109,11 @@ fun NavGraphBuilder.chatNavGraphBuilder(
       fragmentState = fragmentState,
       arguments = requireNotNull(ConversationIntents.createBuilderSync(context, route.conversationArgs).build().extras) { "Handed null Conversation intent arguments." },
       modifier = Modifier
-        .then(chatAnimationState.toModifier())
+        .graphicsLayer {
+          with(chatAnimationState) {
+            applyChildValues()
+          }
+        }
         .background(MaterialTheme.colorScheme.background)
         .fillMaxSize()
     ) { fragment ->
@@ -129,34 +142,37 @@ fun NavGraphBuilder.chatNavGraphBuilder(
 
 @Composable
 private fun Transition<Boolean>.fakeChatListAnimationState(): AppScaffoldAnimationState {
-  val alpha by animateFloat(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) 0f else 1f }
-  val offset by animateDp(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) (-48).dp else 0.dp }
+  val alpha = animateFloat(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) 0f else 1f }
+  val offset = animateDp(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) (-48).dp else 0.dp }
 
-  return AppScaffoldAnimationState(
-    navigationState = AppScaffoldNavigator.NavigationState.ENTER,
-    offset = offset,
-    alpha = alpha
-  )
+  return remember {
+    AppScaffoldAnimationState(
+      offset = offset,
+      alpha = alpha
+    )
+  }
 }
 
 @Composable
 private fun Transition<Boolean>.chatAnimationState(hasFake: Boolean): AppScaffoldAnimationState {
-  val alpha by animateFloat(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) 1f else 0f }
+  val alpha = animateFloat(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) 1f else 0f }
 
   return if (!hasFake) {
-    AppScaffoldAnimationState(
-      navigationState = AppScaffoldNavigator.NavigationState.ENTER,
-      offset = 0.dp,
-      alpha = alpha
-    )
+    remember {
+      AppScaffoldAnimationState(
+        offset = mutableStateOf(0.dp),
+        alpha = alpha
+      )
+    }
   } else {
-    val offset by animateDp(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) 0.dp else 48.dp }
+    val offset = animateDp(transitionSpec = { AppScaffoldAnimationDefaults.tween() }) { if (it) 0.dp else 48.dp }
 
-    AppScaffoldAnimationState(
-      navigationState = AppScaffoldNavigator.NavigationState.ENTER,
-      offset = offset,
-      alpha = alpha
-    )
+    remember {
+      AppScaffoldAnimationState(
+        offset = offset,
+        alpha = alpha
+      )
+    }
   }
 }
 

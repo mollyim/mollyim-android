@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -49,11 +50,18 @@ class MainNavigationViewModel(
   private val internalDetailLocation = MutableSharedFlow<MainNavigationDetailLocation>()
   val detailLocation: SharedFlow<MainNavigationDetailLocation> = internalDetailLocation
 
+  private val internalIsFullScreenPane = MutableStateFlow(false)
+  val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
+
   private val internalActiveChatThreadId = MutableStateFlow(-1L)
-  val observableActiveChatThreadId: Observable<Long> = internalActiveChatThreadId.asObservable()
+  val observableActiveChatThreadId: Observable<Long> = internalActiveChatThreadId.combine(isFullScreenPane) { id, expanded ->
+    if (expanded) -1L else id
+  }.asObservable()
 
   private val internalActiveCallId = MutableStateFlow<CallLogRow.Id?>(null)
-  val observableActiveCallId: Observable<Optional<CallLogRow.Id>> = internalActiveCallId.map { Optional.ofNullable(it) }.asObservable()
+  val observableActiveCallId: Observable<Optional<out CallLogRow.Id>> = internalActiveCallId.map { Optional.ofNullable(it) }.combine(isFullScreenPane) { id, expanded ->
+    if (expanded) Optional.ofNullable(null) else id
+  }.asObservable()
 
   private val internalMegaphone = MutableStateFlow(Megaphone.NONE)
   val megaphone: StateFlow<Megaphone> = internalMegaphone
@@ -69,19 +77,18 @@ class MainNavigationViewModel(
   private val internalMainNavigationState = MutableStateFlow(MainNavigationState(currentListLocation = initialListLocation))
   val mainNavigationState: StateFlow<MainNavigationState> = internalMainNavigationState
 
-  private val internalIsFullScreenPane = MutableStateFlow(false)
-  val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
-
   /**
    * This is Rx because these are still accessed from Java.
    */
   private val internalTabClickEvents: MutableSharedFlow<MainNavigationListLocation> = MutableSharedFlow()
-  val tabClickEvents: SharedFlow<MainNavigationListLocation> = internalTabClickEvents
   val tabClickEventsObservable: Observable<MainNavigationListLocation> = internalTabClickEvents.asObservable()
 
   private var earlyNavigationListLocationRequested: MainNavigationListLocation? = null
   var earlyNavigationDetailLocationRequested: MainNavigationDetailLocation? = null
     private set
+
+  private val internalPaneFocusRequests = MutableSharedFlow<ThreePaneScaffoldRole?>()
+  val paneFocusRequests: SharedFlow<ThreePaneScaffoldRole?> = internalPaneFocusRequests
 
   private var earlyFocusedPaneRequested: ThreePaneScaffoldRole? = null
 
@@ -174,6 +181,10 @@ class MainNavigationViewModel(
 
     navigatorScope?.launch {
       navigator?.navigateTo(roleToGoTo)
+    }
+
+    viewModelScope.launch {
+      internalPaneFocusRequests.emit(roleToGoTo)
     }
   }
 
@@ -273,6 +284,7 @@ class MainNavigationViewModel(
     viewModelScope.launch {
       val currentTab = internalMainNavigationState.value.currentListLocation
       if (currentTab == destination) {
+        internalPaneFocusRequests.emit(ThreePaneScaffoldRole.Secondary)
         internalTabClickEvents.emit(destination)
       } else {
         setFocusedPane(ThreePaneScaffoldRole.Secondary)
