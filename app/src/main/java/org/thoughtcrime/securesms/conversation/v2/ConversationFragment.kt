@@ -50,6 +50,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isInvisible
@@ -1568,12 +1569,6 @@ class ConversationFragment :
       binding.conversationItemRecycler.invalidateItemDecorations()
     }
 
-    val navColor = if (wallpaperEnabled) {
-      R.color.conversation_navigation_wallpaper
-    } else {
-      MaterialR.attr.colorSurface
-    }
-
     binding.scrollDateHeader.setBackgroundResource(
       if (wallpaperEnabled) R.drawable.sticky_date_header_background_wallpaper else R.drawable.sticky_date_header_background
     )
@@ -1586,8 +1581,18 @@ class ConversationFragment :
     )
 
     if (!inputPanel.isHidden) {
-      binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), navColor))
+      setNavBarBackgroundColor(chatWallpaper)
     }
+  }
+
+  private fun setNavBarBackgroundColor(chatWallpaper: ChatWallpaper?) {
+    val navColor = if (chatWallpaper != null) {
+      R.color.conversation_navigation_wallpaper
+    } else {
+      MaterialR.attr.colorSurface
+    }
+
+    binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), navColor))
   }
 
   private fun presentChatColors(chatColors: ChatColors) {
@@ -2266,9 +2271,7 @@ class ConversationFragment :
     }
 
     bottomActionBar.setItems(items)
-    bottomActionBar.doAfterNextLayout {
-      setBottomActionBarVisibility(true)
-    }
+    setBottomActionBarVisibility(true)
   }
 
   private fun setBottomActionBarVisibility(isVisible: Boolean) {
@@ -2283,24 +2286,21 @@ class ConversationFragment :
 
     val additionalScrollOffset = 54.dp
     if (isVisible) {
-      ViewUtil.animateIn(bottomActionBar, bottomActionBar.enterAnimation)
-      container.hideInput()
-      inputPanel.setHideForSelection(true)
+      bottomActionBar.visibility = View.INVISIBLE
       animationsAllowed = false
 
-      bottomActionBar.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-        override fun onPreDraw(): Boolean {
-          if (bottomActionBar.measuredHeight == 0 && bottomActionBar.visible) {
-            return false
-          }
+      bottomActionBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+          bottomActionBar.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
-          bottomActionBar.viewTreeObserver.removeOnPreDrawListener(this)
+          ViewUtil.animateIn(bottomActionBar, bottomActionBar.enterAnimation)
+          container.hideInput()
+          inputPanel.setHideForSelection(true)
 
           val bottomPadding = bottomActionBar.measuredHeight + ((bottomActionBar.layoutParams as? ViewGroup.MarginLayoutParams)?.bottomMargin ?: 18.dp)
           ViewUtil.setPaddingBottom(binding.conversationItemRecycler, bottomPadding)
           binding.conversationItemRecycler.scrollBy(0, -(bottomPadding - additionalScrollOffset))
           animationsAllowed = true
-          return false
         }
       })
     } else {
@@ -4419,7 +4419,9 @@ class ConversationFragment :
 
   private object MediaKeyboardFragmentCreator : InputAwareConstraintLayout.FragmentCreator {
     override val id: Int = 2
-    override fun create(): Fragment = KeyboardPagerFragment()
+    override fun create(): Fragment = KeyboardPagerFragment().apply {
+      arguments = bundleOf(KeyboardPagerFragment.ARG_SET_NAV_COLOR to false)
+    }
   }
 
   private inner class KeyboardEvents :
@@ -4431,10 +4433,12 @@ class ConversationFragment :
     }
 
     override fun onInputShown() {
+      binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), R.attr.mediaKeyboardBottomBarBackgroundColor))
       isEnabled = true
     }
 
     override fun onInputHidden() {
+      setNavBarBackgroundColor(viewModel.wallpaperSnapshot)
       isEnabled = false
     }
 
