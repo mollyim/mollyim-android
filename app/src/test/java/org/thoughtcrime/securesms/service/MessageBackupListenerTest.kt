@@ -26,7 +26,8 @@ import org.thoughtcrime.securesms.testutil.MockRandom
 import org.thoughtcrime.securesms.testutil.MockSignalStoreRule
 import org.thoughtcrime.securesms.util.toLocalDateTime
 import java.time.Duration
-import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
@@ -35,6 +36,8 @@ import kotlin.time.Duration.Companion.minutes
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = Application::class)
 class MessageBackupListenerTest {
+
+  private val zone = ZoneOffset.UTC
 
   @get:Rule
   val rule = MockSignalStoreRule()
@@ -68,7 +71,7 @@ class MessageBackupListenerTest {
   @Test
   fun testSetNextBackupTimeToIntervalFromNow() {
     val mockRandom = MockRandom(listOf(1.minutes.inWholeSeconds.toInt()))
-    val now = LocalDateTime.of(2025, 6, 27, 2, 0, 0)
+    val now = ZonedDateTime.of(2025, 6, 27, 2, 0, 0, 0, zone)
     val jitterWindow = 10.minutes
 
     every { SignalStore.settings.signalBackupHour } returns 2
@@ -79,7 +82,7 @@ class MessageBackupListenerTest {
       now = now,
       maxJitterSeconds = jitterWindow.inWholeSeconds.toInt(),
       randomSource = mockRandom
-    ).toLocalDateTime()
+    ).toLocalDateTime(zoneId = zone)
 
     assertThat(nextDateTime.dayOfMonth).isEqualTo(28)
     assertThat(nextDateTime.hour).isEqualTo(1)
@@ -89,7 +92,7 @@ class MessageBackupListenerTest {
   @Test
   fun testBackupJitterExactlyWithinJitterWindow() {
     val jitterWindowSeconds = Math.toIntExact(TimeUnit.MINUTES.toSeconds(10))
-    val now = LocalDateTime.of(2024, 6, 7, 2, 55)
+    val now = ZonedDateTime.of(2024, 6, 7, 2, 55, 0, 0, zone)
     val next = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, 3, 0, jitterWindowSeconds)
     assertEquals(8, next.dayOfMonth)
   }
@@ -97,7 +100,7 @@ class MessageBackupListenerTest {
   @Test
   fun testBackupJitterWithinJitterWindow() {
     val jitterWindowSeconds = Math.toIntExact(TimeUnit.MINUTES.toSeconds(10))
-    val now = LocalDateTime.of(2024, 6, 7, 2, 58)
+    val now = ZonedDateTime.of(2024, 6, 7, 2, 58, 0, 0, zone)
     val next = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, 3, 0, jitterWindowSeconds)
     assertEquals(8, next.dayOfMonth)
   }
@@ -105,7 +108,7 @@ class MessageBackupListenerTest {
   @Test
   fun testBackupJitterJustOutsideOfWindow() {
     val jitterWindowSeconds = Math.toIntExact(TimeUnit.MINUTES.toSeconds(10))
-    val now = LocalDateTime.of(2024, 6, 7, 2, 54, 59)
+    val now = ZonedDateTime.of(2024, 6, 7, 2, 54, 59, 0, zone)
     val next = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, 3, 0, jitterWindowSeconds)
     assertEquals(7, next.dayOfMonth)
   }
@@ -113,7 +116,7 @@ class MessageBackupListenerTest {
   @Test
   fun testBackupJitter() {
     val jitterWindowSeconds = Math.toIntExact(TimeUnit.MINUTES.toSeconds(10))
-    val now = LocalDateTime.of(2024, 6, 7, 3, 15, 0)
+    val now = ZonedDateTime.of(2024, 6, 7, 3, 15, 0, 0, zone)
     val next = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, 3, 0, jitterWindowSeconds)
     assertEquals(8, next.dayOfMonth)
   }
@@ -122,8 +125,8 @@ class MessageBackupListenerTest {
   fun testBackupJitterWhenScheduledForMidnightButJitterMakesItRunJustBefore() {
     val mockRandom = MockRandom(listOf(1.minutes.inWholeSeconds.toInt()))
     val jitterWindowSeconds = 10.minutes.inWholeSeconds.toInt()
-    val now: LocalDateTime = LocalDateTime.of(2024, 6, 27, 23, 57, 0)
-    val next: LocalDateTime = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, 0, 0, jitterWindowSeconds, mockRandom)
+    val now: ZonedDateTime = ZonedDateTime.of(2024, 6, 27, 23, 57, 0, 0, zone)
+    val next: ZonedDateTime = MessageBackupListener.getNextDailyBackupTimeFromNowWithJitter(now, 0, 0, jitterWindowSeconds, mockRandom)
 
     assertTrue(Duration.between(now, next).toSeconds() > (1.days.inWholeSeconds - jitterWindowSeconds))
   }
