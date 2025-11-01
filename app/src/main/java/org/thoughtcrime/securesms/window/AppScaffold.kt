@@ -5,8 +5,6 @@
 
 package org.thoughtcrime.securesms.window
 
-import android.content.res.Configuration
-import android.content.res.Resources
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -42,165 +39,34 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.window.core.ExperimentalWindowCoreApi
 import androidx.window.core.layout.WindowHeightSizeClass
-import androidx.window.core.layout.WindowWidthSizeClass
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.MainFloatingActionButtonsCallback
 import org.thoughtcrime.securesms.main.MainNavigationBar
 import org.thoughtcrime.securesms.main.MainNavigationRail
 import org.thoughtcrime.securesms.main.MainNavigationState
 import kotlin.math.max
 
-enum class Navigation {
+enum class NavigationType {
   RAIL,
   BAR;
 
   companion object {
     @Composable
-    fun rememberNavigation(): Navigation {
-      val windowSizeClass = WindowSizeClass.rememberWindowSizeClass()
+    fun rememberNavigationType(): NavigationType {
+      val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
-      return remember(windowSizeClass) { windowSizeClass.navigation }
-    }
-  }
-}
-
-/**
- * Describes the size of screen we are displaying, and what components should be displayed.
- *
- * Screens should utilize this class by convention instead of calling [currentWindowAdaptiveInfo]
- * themselves, as this class includes checks with [RemoteConfig] to ensure we're allowed to display
- * content in different screen sizes.
- *
- * https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes
- */
-enum class WindowSizeClass(
-  val navigation: Navigation
-) {
-  COMPACT_PORTRAIT(Navigation.BAR),
-  COMPACT_LANDSCAPE(Navigation.BAR),
-  MEDIUM_PORTRAIT(Navigation.RAIL),
-  MEDIUM_LANDSCAPE(Navigation.RAIL),
-  EXTENDED_PORTRAIT(Navigation.RAIL),
-  EXTENDED_LANDSCAPE(Navigation.RAIL);
-
-  val listPaneDefaultPreferredWidth: Dp
-    get() = if (isExtended()) 416.dp else 316.dp
-
-  val detailPaneMaxContentWidth: Dp = 624.dp
-  val horizontalPartitionDefaultSpacerSize: Dp = 12.dp
-
-  fun isCompact(): Boolean = this == COMPACT_PORTRAIT || this == COMPACT_LANDSCAPE
-  fun isMedium(): Boolean = this == MEDIUM_PORTRAIT || this == MEDIUM_LANDSCAPE
-  fun isExtended(): Boolean = this == EXTENDED_PORTRAIT || this == EXTENDED_LANDSCAPE
-
-  fun isLandscape(): Boolean = this == COMPACT_LANDSCAPE || this == MEDIUM_LANDSCAPE || this == EXTENDED_LANDSCAPE
-  fun isPortrait(): Boolean = !isLandscape()
-
-  @JvmOverloads
-  fun isSplitPane(
-    forceSplitPaneOnCompactLandscape: Boolean = SignalStore.internal.forceSplitPaneOnCompactLandscape
-  ): Boolean {
-    return if (isLargeScreenSupportEnabled() && forceSplitPaneOnCompactLandscape) {
-      this != COMPACT_PORTRAIT
-    } else {
-      this.navigation != Navigation.BAR
-    }
-  }
-
-  companion object {
-    @OptIn(ExperimentalWindowCoreApi::class)
-    fun Resources.getWindowSizeClass(): WindowSizeClass {
-      val orientation = configuration.orientation
-
-      if (isForcedCompact()) {
-        return getCompactSizeClassForOrientation(orientation)
-      }
-
-      val windowSizeClass = androidx.window.core.layout.WindowSizeClass.compute(
-        displayMetrics.widthPixels,
-        displayMetrics.heightPixels,
-        displayMetrics.density
-      )
-
-      return getSizeClassForOrientationAndSystemSizeClass(orientation, windowSizeClass)
-    }
-
-    fun isLargeScreenSupportEnabled(): Boolean {
-      return SignalStore.internal.largeScreenUi
-    }
-
-    fun isForcedCompact(): Boolean {
-      return !isLargeScreenSupportEnabled()
-    }
-
-    @Composable
-    fun checkForcedCompact(): Boolean {
-      return !LocalInspectionMode.current && isForcedCompact()
-    }
-
-    @Composable
-    fun rememberWindowSizeClass(forceCompact: Boolean = checkForcedCompact()): WindowSizeClass {
-      val orientation = LocalConfiguration.current.orientation
-
-      if (forceCompact) {
-        return remember(orientation) {
-          getCompactSizeClassForOrientation(orientation)
+      return remember(windowSizeClass) {
+        if (windowSizeClass.isSplitPane() && windowSizeClass.windowHeightSizeClass.isAtLeast(WindowHeightSizeClass.MEDIUM)) {
+          RAIL
+        } else {
+          BAR
         }
-      }
-
-      val wsc = currentWindowAdaptiveInfo().windowSizeClass
-
-      return remember(orientation, wsc) {
-        getSizeClassForOrientationAndSystemSizeClass(orientation, wsc)
-      }
-    }
-
-    private fun getCompactSizeClassForOrientation(orientation: Int): WindowSizeClass {
-      return when (orientation) {
-        Configuration.ORIENTATION_PORTRAIT, Configuration.ORIENTATION_UNDEFINED, Configuration.ORIENTATION_SQUARE -> {
-          COMPACT_PORTRAIT
-        }
-
-        Configuration.ORIENTATION_LANDSCAPE -> COMPACT_LANDSCAPE
-        else -> error("Unexpected orientation: $orientation")
-      }
-    }
-
-    private fun getSizeClassForOrientationAndSystemSizeClass(orientation: Int, windowSizeClass: androidx.window.core.layout.WindowSizeClass): WindowSizeClass {
-      if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.COMPACT || windowSizeClass.windowHeightSizeClass == WindowHeightSizeClass.COMPACT) {
-        return getCompactSizeClassForOrientation(orientation)
-      }
-
-      return when (orientation) {
-        Configuration.ORIENTATION_PORTRAIT, Configuration.ORIENTATION_UNDEFINED, Configuration.ORIENTATION_SQUARE -> {
-          when (windowSizeClass.windowWidthSizeClass) {
-            WindowWidthSizeClass.COMPACT -> COMPACT_PORTRAIT
-            WindowWidthSizeClass.MEDIUM -> MEDIUM_PORTRAIT
-            WindowWidthSizeClass.EXPANDED -> EXTENDED_PORTRAIT
-            else -> error("Unsupported.")
-          }
-        }
-
-        Configuration.ORIENTATION_LANDSCAPE -> {
-          when (windowSizeClass.windowWidthSizeClass) {
-            WindowWidthSizeClass.COMPACT -> COMPACT_LANDSCAPE
-            WindowWidthSizeClass.MEDIUM -> MEDIUM_LANDSCAPE
-            WindowWidthSizeClass.EXPANDED -> EXTENDED_LANDSCAPE
-            else -> error("Unsupported.")
-          }
-        }
-
-        else -> error("Unexpected orientation: $orientation")
       }
     }
   }
@@ -239,8 +105,8 @@ fun AppScaffold(
   contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
   animatorFactory: AppScaffoldAnimationStateFactory = AppScaffoldAnimationStateFactory.Default
 ) {
-  val isForcedCompact = WindowSizeClass.checkForcedCompact()
-  val windowSizeClass = WindowSizeClass.rememberWindowSizeClass()
+  val isForcedCompact = !LocalInspectionMode.current && !isLargeScreenSupportEnabled()
+  val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
   if (isForcedCompact) {
     ListAndNavigation(
@@ -248,7 +114,6 @@ fun AppScaffold(
       listContent = secondaryContent,
       navRailContent = navRailContent,
       bottomNavContent = bottomNavContent,
-      windowSizeClass = windowSizeClass,
       contentWindowInsets = contentWindowInsets,
       modifier = modifier
     )
@@ -313,7 +178,6 @@ fun AppScaffold(
               listContent = secondaryContent,
               navRailContent = navRailContent,
               bottomNavContent = bottomNavContent,
-              windowSizeClass = windowSizeClass,
               contentWindowInsets = WindowInsets() // parent scaffold already applies the necessary insets
             )
           }
@@ -379,10 +243,11 @@ private fun ListAndNavigation(
   navRailContent: @Composable () -> Unit,
   bottomNavContent: @Composable () -> Unit,
   snackbarHost: @Composable () -> Unit = {},
-  windowSizeClass: WindowSizeClass,
   contentWindowInsets: WindowInsets,
   modifier: Modifier = Modifier
 ) {
+  val navigationType = NavigationType.rememberNavigationType()
+
   Scaffold(
     containerColor = Color.Transparent,
     topBar = topBarContent,
@@ -393,9 +258,8 @@ private fun ListAndNavigation(
     Row(
       modifier = Modifier
         .padding(paddingValues)
-        .then(if (windowSizeClass.isLandscape()) Modifier.displayCutoutPadding() else Modifier)
     ) {
-      if (windowSizeClass.navigation == Navigation.RAIL) {
+      if (navigationType == NavigationType.RAIL) {
         navRailContent()
       }
 
@@ -404,7 +268,7 @@ private fun ListAndNavigation(
           listContent()
         }
 
-        if (windowSizeClass.navigation == Navigation.BAR) {
+        if (navigationType == NavigationType.BAR) {
           bottomNavContent()
         }
       }
@@ -417,11 +281,11 @@ private fun ListAndNavigation(
 @Composable
 private fun AppScaffoldPreview() {
   Previews.Preview {
-    val windowSizeClass = WindowSizeClass.rememberWindowSizeClass()
+    val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
     AppScaffold(
       navigator = rememberAppScaffoldNavigator(
-        isSplitPane = windowSizeClass.navigation != Navigation.BAR,
+        isSplitPane = windowSizeClass.isSplitPane(),
         defaultPanePreferredWidth = 416.dp,
         horizontalPartitionSpacerSize = 16.dp
       ),

@@ -291,6 +291,7 @@ class RecipientBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFr
         background = DSLSettingsIcon.from(ContextUtil.requireDrawable(requireContext(), R.drawable.selectable_recipient_bottom_sheet_icon_button)),
         enabled = !viewModel.isDeprecatedOrUnregistered,
         onMessageClick = {
+          callback?.onMessageClicked()
           dismiss()
           viewModel.onMessageClicked(requireActivity())
         },
@@ -438,5 +439,6 @@ class RecipientBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFr
 
   interface Callback {
     fun onRecipientBottomSheetDismissed()
+    fun onMessageClicked()
   }
 }
