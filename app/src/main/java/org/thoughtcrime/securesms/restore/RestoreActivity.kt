@@ -26,9 +26,12 @@ import org.signal.core.util.ThreadUtil
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BaseActivity
+import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.RestoreDirections
+import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.keyvalue.isWantingManualRemoteRestore
 import org.thoughtcrime.securesms.registration.ui.restore.RemoteRestoreActivity
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -75,11 +78,28 @@ class RestoreActivity : BaseActivity() {
 
     when (navTarget) {
       NavTarget.NEW_LANDING -> {
-        if (!sharedViewModel.hasMultipleRestoreMethods()) {
-          startActivity(RemoteRestoreActivity.getIntent(this, isOnlyOption = true))
-          finish()
+        if (sharedViewModel.hasNoRestoreMethods()) {
+          if (SignalStore.registration.restoreDecisionState.isWantingManualRemoteRestore) {
+            Log.i(TAG, "User has no available restore methods but previously wanted a remote restore, navigating immediately.")
+            startActivity(RemoteRestoreActivity.getIntent(this, isOnlyOption = true))
+          } else {
+            Log.i(TAG, "No restore methods available, skipping")
+            sharedViewModel.skipRestore()
+
+            val nextIntent = sharedViewModel.getNextIntent()
+
+            if (nextIntent != null) {
+              Log.d(TAG, "Launching ${nextIntent.component}")
+              startActivity(nextIntent)
+            } else {
+              startActivity(MainActivity.clearTop(this))
+            }
+          }
+
+          supportFinishAfterTransition()
         }
       }
+
       NavTarget.LOCAL_RESTORE -> navController.safeNavigate(RestoreDirections.goDirectlyToChooseLocalBackup())
       NavTarget.TRANSFER -> navController.safeNavigate(RestoreDirections.goDirectlyToDeviceTransfer())
     }
@@ -122,7 +142,7 @@ class RestoreActivity : BaseActivity() {
 
   fun onBackupCompletedSuccessfully() {
     sharedViewModel.getNextIntent()?.let {
-      Log.d(TAG, "Launching ${it.component}", Throwable())
+      Log.d(TAG, "Launching ${it.component}")
       startActivity(it)
     }
 

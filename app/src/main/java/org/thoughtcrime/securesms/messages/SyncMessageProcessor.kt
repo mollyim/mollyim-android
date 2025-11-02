@@ -138,6 +138,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
+import org.whispersystems.signalservice.internal.util.Util as Utils
 
 object SyncMessageProcessor {
 
@@ -282,7 +283,7 @@ object SyncMessageProcessor {
         continue
       }
 
-      val pni = PNI.parsePrefixedOrNull(status.destinationServiceId)
+      val pni = PNI.parsePrefixedOrNull(status.destinationServiceId, status.destinationServiceIdBinary)
       if (pni == null) {
         continue
       }
@@ -308,7 +309,7 @@ object SyncMessageProcessor {
     return if (message.message.hasGroupContext) {
       Recipient.externalPossiblyMigratedGroup(GroupId.v2(message.message!!.groupV2!!.groupMasterKey))
     } else {
-      Recipient.externalPush(SignalServiceAddress(ServiceId.parseOrThrow(message.destinationServiceId!!), message.destinationE164))
+      Recipient.externalPush(SignalServiceAddress(ServiceId.parseOrThrow(message.destinationServiceId, message.destinationServiceIdBinary), message.destinationE164))
     }
   }
 
@@ -336,7 +337,7 @@ object SyncMessageProcessor {
       val toRecipient: Recipient = if (message.hasGroupContext) {
         Recipient.externalPossiblyMigratedGroup(GroupId.v2(message.groupV2!!.groupMasterKey))
       } else {
-        Recipient.externalPush(ServiceId.parseOrThrow(sent.destinationServiceId!!))
+        Recipient.externalPush(ServiceId.parseOrThrow(sent.destinationServiceId, sent.destinationServiceIdBinary))
       }
 
       if (message.isMediaMessage) {
@@ -359,7 +360,7 @@ object SyncMessageProcessor {
     log(envelopeTimestamp, "Synchronize sent edit text message for message: ${targetMessage.id}")
 
     val body = message.body ?: ""
-    val bodyRanges = message.bodyRanges.filter { it.mentionAci == null }.toBodyRangeList()
+    val bodyRanges = message.bodyRanges.filter { Utils.allAreNull(it.mentionAci, it.mentionAciBinary) }.toBodyRangeList()
 
     val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(toRecipient)
     val isGroup = toRecipient.isGroup
@@ -735,7 +736,7 @@ object SyncMessageProcessor {
 
       val reaction: DataMessage.Reaction? = dataMessage.reaction
       val parentStoryId: ParentStoryId
-      val authorServiceId: ServiceId = ServiceId.parseOrThrow(storyContext.authorAci!!)
+      val authorServiceId: ServiceId = ACI.parseOrThrow(storyContext.authorAci, storyContext.authorAciBinary)
       val sentTimestamp: Long = storyContext.sentTimestamp!!
       val recipient: Recipient = getSyncMessageDestination(sent)
       var quoteModel: QuoteModel? = null
@@ -898,7 +899,7 @@ object SyncMessageProcessor {
     val dataMessage: DataMessage = sent.message!!
     val body = dataMessage.body ?: ""
     val expiresInMillis = dataMessage.expireTimerDuration.inWholeMilliseconds
-    val bodyRanges = dataMessage.bodyRanges.filter { it.mentionAci == null }.toBodyRangeList()
+    val bodyRanges = dataMessage.bodyRanges.filter { Utils.allAreNull(it.mentionAci, it.mentionAciBinary) }.toBodyRangeList()
 
     if (recipient.expiresInSeconds != dataMessage.expireTimerDuration.inWholeSeconds.toInt() || ((dataMessage.expireTimerVersion ?: -1) > recipient.expireTimerVersion)) {
       handleSynchronizeSentExpirationUpdate(sent, sideEffect = true)
@@ -1012,7 +1013,7 @@ object SyncMessageProcessor {
 
     val records = viewedMessages
       .mapNotNull { message ->
-        val author = Recipient.externalPush(ServiceId.parseOrThrow(message.senderAci!!)).id
+        val author = Recipient.externalPush(ACI.parseOrThrow(message.senderAci, message.senderAciBinary)).id
         if (message.timestamp != null) {
           SignalDatabase.messages.getMessageFor(message.timestamp!!, author)
         } else {
@@ -1044,7 +1045,7 @@ object SyncMessageProcessor {
   private fun handleSynchronizeViewOnceOpenMessage(context: Context, openMessage: ViewOnceOpen, envelopeTimestamp: Long, earlyMessageCacheEntry: EarlyMessageCacheEntry?) {
     log(envelopeTimestamp, "Handling a view-once open for message: " + openMessage.timestamp)
 
-    val author: RecipientId = Recipient.externalPush(ServiceId.parseOrThrow(openMessage.senderAci!!)).id
+    val author: RecipientId = Recipient.externalPush(ACI.parseOrThrow(openMessage.senderAci, openMessage.senderAciBinary)).id
     val timestamp: Long = if (openMessage.timestamp != null) {
       openMessage.timestamp!!
     } else {
@@ -1117,7 +1118,7 @@ object SyncMessageProcessor {
   }
 
   private fun handleSynchronizeBlockedListMessage(blockMessage: Blocked, envelopeTimestamp: Long) {
-    val blockedAcis = blockMessage.acis.mapNotNull { ACI.parseOrNull(it) }
+    val blockedAcis = if (blockMessage.acisBinary.isNotEmpty()) { blockMessage.acisBinary.mapNotNull { ACI.parseOrNull(it) } } else blockMessage.acis.mapNotNull { ACI.parseOrNull(it) }
     val blockedE164s = blockMessage.numbers
     val blockedGroupIds = blockMessage.groupIds.map { it.toByteArray() }
     log(envelopeTimestamp, "Synchronize block message. Counts: (ACI: ${blockedAcis.size}, E164: ${blockedE164s.size}, Group: ${blockedGroupIds.size})")
@@ -1139,8 +1140,8 @@ object SyncMessageProcessor {
   private fun handleSynchronizeMessageRequestResponse(response: MessageRequestResponse, envelopeTimestamp: Long) {
     log(envelopeTimestamp, "Synchronize message request response.")
 
-    val recipient: Recipient = if (response.threadAci != null) {
-      Recipient.externalPush(ServiceId.parseOrThrow(response.threadAci!!))
+    val recipient: Recipient = if (Utils.anyNotNull(response.threadAci, response.threadAciBinary)) {
+      Recipient.externalPush(ACI.parseOrThrow(response.threadAci, response.threadAciBinary))
     } else if (response.groupId != null) {
       val groupId: GroupId = GroupId.push(response.groupId!!)
       Recipient.externalPossiblyMigratedGroup(groupId)
@@ -1806,6 +1807,7 @@ object SyncMessageProcessor {
   }
 
   private fun ConversationIdentifier.toRecipientId(): RecipientId? {
+    val threadServiceId = ServiceId.parseOrNull(this.threadServiceId, this.threadServiceIdBinary)
     return when {
       threadGroupId != null -> {
         try {
@@ -1817,9 +1819,7 @@ object SyncMessageProcessor {
       }
 
       threadServiceId != null -> {
-        ServiceId.parseOrNull(threadServiceId)?.let {
-          SignalDatabase.recipients.getOrInsertFromServiceId(it)
-        }
+        SignalDatabase.recipients.getOrInsertFromServiceId(threadServiceId)
       }
 
       threadE164 != null -> {
@@ -1833,8 +1833,8 @@ object SyncMessageProcessor {
   }
 
   private fun AddressableMessage.toSyncMessageId(envelopeTimestamp: Long): MessageTable.SyncMessageId? {
-    return if (this.sentTimestamp != null && (this.authorServiceId != null || this.authorE164 != null)) {
-      val serviceId = ServiceId.parseOrNull(this.authorServiceId)
+    return if (this.sentTimestamp != null && Utils.anyNotNull(this.authorServiceId, this.authorServiceIdBinary) || this.authorE164 != null) {
+      val serviceId = ServiceId.parseOrNull(this.authorServiceId, this.authorServiceIdBinary)
       val id = if (serviceId != null) {
         SignalDatabase.recipients.getOrInsertFromServiceId(serviceId)
       } else {

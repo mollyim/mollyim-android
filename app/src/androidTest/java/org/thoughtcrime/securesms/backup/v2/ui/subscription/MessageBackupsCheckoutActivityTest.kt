@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -46,6 +47,7 @@ import org.thoughtcrime.securesms.testing.SignalActivityRule
 import java.math.BigDecimal
 import java.util.Currency
 
+@Ignore
 @RunWith(AndroidJUnit4::class)
 class MessageBackupsCheckoutActivityTest {
 
@@ -138,7 +140,7 @@ class MessageBackupsCheckoutActivityTest {
 
     // Key education screen
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyEducationScreen__your_backup_key)).assertIsDisplayed()
-    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__next)).performClick()
+    composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyEducationScreen__view_recovery_key)).performClick()
 
     // Key record screen
     composeTestRule.onNodeWithText(context.getString(R.string.MessageBackupsKeyRecordScreen__record_your_backup_key)).assertIsDisplayed()

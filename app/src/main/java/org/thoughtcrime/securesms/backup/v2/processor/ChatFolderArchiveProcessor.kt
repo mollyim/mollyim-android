@@ -29,9 +29,9 @@ import org.thoughtcrime.securesms.backup.v2.proto.ChatFolder as ChatFolderProto
 /**
  * Handles exporting and importing [ChatFolderRecord]s.
  */
-object ChatFolderProcessor {
+object ChatFolderArchiveProcessor {
 
-  private val TAG = Log.tag(ChatFolderProcessor::class)
+  private val TAG = Log.tag(ChatFolderArchiveProcessor::class)
 
   fun export(db: SignalDatabase, exportState: ExportState, emitter: BackupFrameEmitter) {
     val folders = db
@@ -113,10 +113,10 @@ object ChatFolderProcessor {
 private fun ChatFolderRecord.toBackupFrame(includedRecipientIds: List<Long>, excludedRecipientIds: List<Long>): Frame {
   val chatFolder = ChatFolderProto(
     name = this.name,
-    showOnlyUnread = this.showUnread,
-    showMutedChats = this.showMutedChats,
-    includeAllIndividualChats = this.showIndividualChats,
-    includeAllGroupChats = this.showGroupChats,
+    showOnlyUnread = this.showUnread && this.folderType != ChatFolderRecord.FolderType.ALL,
+    showMutedChats = this.showMutedChats || this.folderType == ChatFolderRecord.FolderType.ALL,
+    includeAllIndividualChats = this.showIndividualChats || this.folderType == ChatFolderRecord.FolderType.ALL,
+    includeAllGroupChats = this.showGroupChats || this.folderType == ChatFolderRecord.FolderType.ALL,
     folderType = when (this.folderType) {
       ChatFolderRecord.FolderType.ALL -> ChatFolderProto.FolderType.ALL
       ChatFolderRecord.FolderType.CUSTOM -> ChatFolderProto.FolderType.CUSTOM

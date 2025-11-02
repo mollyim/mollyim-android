@@ -1166,6 +1166,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Esta versão do Molly expirou. Faça agora a atualização par aenviar e receber mensagens.</string>
     <string name="ExpiredBuildReminder_update_now">Atualizar agora</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">O Signal já não funciona neste dispositivo. Para voltar a usar o Signal, atualize o seu dispositivo para uma versão mais recente do Android ou utilize um dispositivo mais recente.</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Atualizar o Molly</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -2919,6 +2922,8 @@
     <string name="SubmitDebugLogActivity_success">Efetuado com sucesso!</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copie este URL e adicione-o ao seu relatório de problema ou e-mail de pedido de apoio:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Partilhar</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">Fechar</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Este registo será publicado online para ser consultado pelos contribuidores. Poderá analisá-lo antes de o carregar.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Ao clicar em \'Enviar\', o seu histórico será postado online durante 30 dias num URL exclusivo e não publicado. Você pode guardá-lo localmente primeiro.</string>
@@ -5178,10 +5183,19 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Saltar</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="one">%1$d membro</item>
         <item quantity="other">%1$d membros</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="one">%1$s membro</item>
+        <item quantity="other">%1$s membros</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">Seguinte</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">Partilhar</string>
@@ -5903,24 +5917,24 @@
     <string name="NewConversationActivity__s_has_been_blocked">O utilizador %1$s foi bloqueado</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">O bloqueio falhou</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">Não foi possível remover %1$s</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">Esta pessoa está guardada nos Contactos do seu dispositivo. Elimine-a dos seus contactos e tente outra vez.</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">Ver contacto</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s não é um utilizador Signal</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s não é um utilizador Signal</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">Abrir menu</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="one">%1$s não é um utilizador do Signal</item>
         <item quantity="other">%1$s não são utilizadores do Signal</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">Nome, nome de utilizador ou número</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">Nome, nome de utilizador ou número</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -7746,6 +7760,8 @@
     <string name="TurnOnSignalBackups__turn_on">Ativar</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">Agora não</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Verifique a sua chave de recuperação</string>
@@ -8422,13 +8438,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">A sua chave de recuperação</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Chave de recuperação</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">A sua chave de recuperação é um código de 64 caracteres que lhe permite restaurar a sua cópia de segurança ao reinstalar o Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">A chave de recuperação é um código de 64 caracteres de que necessitará para restaurar a sua cópia de segurança.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Se esquecer a sua chave, não poderá restaurar a cópia de segurança. O Molly não o pode ajudar a restaurar a sua cópia de segurança.</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">Armazene a sua chave de recuperação num local seguro, como um gestor de palavras-passe, e não a partilhe com ninguém.</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">Se a perder, não poderá recuperar as suas mensagens.</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">Seguinte</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">Ver chave de recuperação</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8808,8 +8826,10 @@
     <string name="Poll__poll_voted">%1$s votou na sondagem: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">Sondagens</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">Resultados da sondagem</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">Detalhes da sondagem</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Pergunta</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8817,10 +8837,16 @@
         <item quantity="one">%1$d voto</item>
         <item quantity="other">%1$d votos</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">Vencedor</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">Terminar sondagem</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">Ver tudo</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">Não foi possível terminar a sondagem</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">Verifique a sua ligação e tente novamente.</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Nova sondagem</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8841,6 +8867,76 @@
     <string name="CreatePollFragment__add_option">Adicione pelo menos 2 opções</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">Adicione uma pergunta</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">Problemas de áudio</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">Problema de vídeo</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">A chamada caiu</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">Outra coisa</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">Quebras no áudio</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">Cortes no áudio</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">Ouvi eco</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">Os outros ouviram eco</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">Má qualidade de vídeo</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">Resolução baixa</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">A câmara não funcionou</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">Algo mais</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">Descreva o seu problema</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">Inclua quaisquer detalhes relevantes para o problema. Tudo o que partilhar aqui será mantido privado e só será utilizado para ajudar a melhorar as chamadas no Signal.</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">Guardar</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">Voltar</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">Como foi a sua chamada?</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">Isto ajuda-nos a melhorar as chamadas no Signal. Não serão armazenadas quaisquer informações de identificação pessoal.</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">Teve problemas</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">Excelente</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">Que problemas teve?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">Selecione todos os que se aplicam</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">Descreva o seu problema</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">Continuar</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">Ajude-nos a melhorar</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">Enviar-nos as suas informações de diagnóstico ajuda-nos a melhorar a qualidade das chamadas. Pode </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">ver o seu relatório de depuração</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> antes de enviar</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">Partilhar relatório de depuração</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">Os relatórios de depuração contêm informações de baixo nível sobre a app e não revelam qualquer conteúdo da mensagem.</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">Submeter</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">Obrigado pelo seu feedback!</string>
 
     <!-- EOF -->
 </resources>

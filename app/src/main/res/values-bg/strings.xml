@@ -1166,6 +1166,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Тази версия на Molly е изтекла. Обновете сега, за да можете да получавате и изпращате съобщения.</string>
     <string name="ExpiredBuildReminder_update_now">Обнови сега</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">Signal вече не работи на това устройство. За да използвате Signal отново, актуализирайте устройството си до по-нова версия на Android или преминете към по-ново устройство.</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Актуализиране на Molly</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -2919,6 +2922,8 @@
     <string name="SubmitDebugLogActivity_success">Успех!</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Копирайте този URL адрес и го добавете към вашия доклад за проблем или имейл за поддръжка:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Споделяне</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">Затвори</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Тези записки ще бъдат публикувани онлайн за разглеждане от доброволци. Може да го прегледате, преди да го качите.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Когато кликнете „Изпрати“, вашият регистър ще бъде качен онлайн за 30 дни на уникален, непубликуван URL адрес. Може преди това да го запазите локално.</string>
@@ -5178,10 +5183,19 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Пропусни</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="one">%1$d член</item>
         <item quantity="other">%1$d членове</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="one">%1$s член</item>
+        <item quantity="other">%1$s членове</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">Напред</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">Споделяне</string>
@@ -5903,24 +5917,24 @@
     <string name="NewConversationActivity__s_has_been_blocked">Контактът „%1$s“ е блокиран</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">Неуспешно блокиране</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">Неуспешно премахване на %1$s</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">Този човек е запазен в „Контакти“ на устройството ви. Изтрийте го от „Контакти“ и опитайте отново.</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">Вижте контакта</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s не е потребител на Signal</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s не е потребител на Signal</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">Отваряне на менюто</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="one">%1$s не е потребител на Signal</item>
         <item quantity="other">%1$s не са потребители на Signal</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">Име, потребителско име или номер</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">Име, потребителско име или номер</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">. %1$s</string>
@@ -7746,6 +7760,8 @@
     <string name="TurnOnSignalBackups__turn_on">Включване</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">Не сега</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Потвърдете своя ключ за възстановяване</string>
@@ -8422,13 +8438,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Вашият ключ за възстановяване</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Ключ за възстановяване</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Вашият ключ за възстановяване е код от 64 знака, който ви позволява да възстановите резервното копие, когато инсталирате Molly отново.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Вашият ключ за възстановяване е код от 64 знака, който ще ви е необходим за възстановяване на резервното ви копие.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Ако забравите своя ключ, няма да можете да възстановите резервното си копие. Molly не може да ви помогне да възстановите резервното си копие.</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">Съхранявайте своя ключ за възстановяване на сигурно място като защитен мениджър на пароли и не го споделяйте с никого.</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">Ако го изгубите, няма да можете да възстановите съобщенията си.</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">Напред</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">Преглед на ключа за възстановяване</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8808,8 +8826,10 @@
     <string name="Poll__poll_voted">%1$s гласува в анкетата: „%2$s“</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">Анкети</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">Резултати от анкетата</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">Подробности за анкетата</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Въпрос</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8817,10 +8837,16 @@
         <item quantity="one">%1$d глас</item>
         <item quantity="other">%1$d гласа</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">Победител</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">Приключване на анкетата</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">Вижте всички</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">Неуспешно приключване на анкетата</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">Проверете връзката си и опитайте отново.</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Нова анкета</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8841,6 +8867,76 @@
     <string name="CreatePollFragment__add_option">Добавете поне 2 опции</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">Добавяне на въпрос</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">Проблем със звука</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">Проблем с видеото</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">Обаждането прекъсна</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">Нещо друго</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">Звукът сечеше</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">Прекъсване на звука</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">Чувах ехо</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">Други чуваха ехо</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">Лошо качество на видеото</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">Ниска резолюция</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">Камерата не работеше</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">Нещо друго</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">Опишете вашия проблем</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">Моля, включете всички подробности, свързани с проблема. Всичко, което споделяте тук, ще бъде запазено поверително и ще се използва единствено, за да помогне в подобряването на обажданията в Signal.</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">Запазване</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">Обратно</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">Как беше обаждането ви?</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">Това ни помага да подобряваме обажданията в Signal. Няма да се съхранява лична идентифицираща информация.</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">Имаше проблеми</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">Добре</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">Какви проблеми срещнахте?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">Изберете всичко, което е приложимо</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">Опишете вашия проблем</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">Продължаване</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">Помогнете ни да станем по-добри</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">Като ни изпращате вашата диагностична информация, вие ни помагате да подобряваме качеството на обажданията. Можете да </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">прегледате своя доклад за дебъг</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> преди да го изпратите</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">Споделяне на доклад за дебъг</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">Докладите за дебъг съдържат информация за приложенията от ниско ниво и не разкриват никакво съдържание от съобщенията ви.</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">Изпрати</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">Благодарим за обратната връзка!</string>
 
     <!-- EOF -->
 </resources>

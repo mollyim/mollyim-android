@@ -1117,7 +1117,7 @@
     <!-- Title of dialog when the QR code being scanned is invalid -->
     <string name="AddLinkDeviceFragment__linking_device_failed">डिवाइस लिंक करना असफल रहा</string>
     <!-- Text shown in a dialog when the QR code being scanned is invalid -->
-    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">यह QR कोड सही नहीं है। कृपया जांच लें कि आप उसी डिवाइस का QR कोड स्कैन कर रहे हैं जिसे आपको लिंक करना है।</string>
+    <string name="AddLinkDeviceFragment__this_qr_code_not_valid">यह QR कोड सही नहीं है। कृपया देख लें कि उसी डिवाइस का QR कोड स्कैन किया जा रहा है, जिसे आपको लिंक करना है।</string>
     <!-- Button in dialog to retry linking a device with a qr code -->
     <string name="AddLinkDeviceFragment__retry">दोबारा कोशिश करें</string>
 
@@ -1165,6 +1165,9 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly का यह वर्ज़न एक्सपायर हो गया है। मैसेज भेजने और पानेे के लिए इसे अभी अपडेट करें।</string>
     <string name="ExpiredBuildReminder_update_now">अभी अपडेट करें</string>
+
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">Signal अब इस डिवाइस पर काम नहीं करता। Signal का फिर से इस्तेमाल करने के लिए अपने डिवाइस को ऐंड्रॉयड के एक अधिक नए वर्ज़न में अपडेट करें या फिर किसी नए डिवाइस पर स्विच करें।</string>
 
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Molly अपडेट करें</string>
@@ -2008,7 +2011,7 @@
     <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">%1$s का मैसेज डिलीवर नहीं हुआ</string>
     <string name="MessageRecord_s_changed_their_phone_number">%1$s ने अपना फ़ोन नंबर बदल लिया है।</string>
     <!-- Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost. -->
-    <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">यह नया फ़ीचर पसंद आया? एक बार का दान देकर Signal को सहयोग देने में मदद करें।</string>
+    <string name="MessageRecord_like_this_new_feature_help_support_signal_with_a_one_time_donation">यह नया फ़ीचर पसंद आया? एकमुश्त डोनेशन देकर Signal को सहयोग देने में मदद करें।</string>
     <!-- Update item message shown when we merge two threads together. First placeholder is a name, second placeholder is a phone number. -->
     <string name="MessageRecord_your_message_history_with_s_and_their_number_s_has_been_merged">%1$s के साथ आपके संदेश इतिहास को उनके नंबर %2$s के साथ जोड़ दिया गया है।</string>
     <!-- Update item message shown when we merge two threads together and we don\'t know the phone number of the other thread. The placeholder is a person\'s name. -->
@@ -2121,7 +2124,7 @@
     <string name="MessageRequestBottomView_unblock">अनब्लॉक करें</string>
     <!-- Text explaining a message request from someone you\'ve removed before -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">%1$s को आपको संदेश भेजने और अपना नाम और फ़ोटो उनके साथ साझा करने दें? आपने इस व्यक्ति को पहले हटाया है।</string>
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">क्या %1$s को यह अनुमति देनी है कि वह आपको मैसेज भेज सकें और आपका नाम और फ़ोटो देख सकें? स्वीकार करने के बाद ही उन्हें पता चल पाएगा कि आपने उनका मैसेज देखा है।</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">क्या %1$s को यह अनुमति देनी है कि वह आपको मैसेज भेज सकें और आपका नाम और फ़ोटो देख सकें? आपकी ओर से अनुरोध स्वीकार करने के बाद ही उन्हें पता चल पाएगा कि आपने उनका मैसेज देखा है।</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">%1$s को आपको मेसेज करने देना है और उनके साथ अपना नाम और तस्वीर शेयर करनी है? आप कोई भी मेसेज प्राप्त नहीं करेंगे जब तक आप उन्हें अनब्लॉक नहीं करते।</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
@@ -2132,7 +2135,7 @@
     <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">इस लेगेसी ग्रुप का अब उपयोग नहीं किया जा सकता. @mentions और एडमिन जैसे नए फ़ीचर को सक्रिय करने के लिए एक नया ग्रुप बनाएं।</string>
     <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">इस पुराने ग्रुप का अब इस्तेमाल नहीं किया जा सकता, क्योंकि यह बहुत बड़ा है। ग्रुप का साइज़ ज़्यादा से ज़्यादा %1$d हो सकता है।</string>
     <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">%1$s के साथ आपका चैट जारी रखनी है और इनके साथ अपना नाम और तस्वीर शेयर करनी है?</string>
-    <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">क्या आपको इस ग्रुप से जुड़ना है और अपना नाम और फ़ोटो इसके सदस्यों के साथ शेयर करनी है? स्वीकार करने के बाद ही उन्हें पता चल पाएगा कि आपने उनके मैसेज देखे हैं।</string>
+    <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">क्या आपको इस ग्रुप में शामिल होना है और अपना नाम और फ़ोटो इसके सदस्यों के साथ शेयर करना है? आपकी ओर से अनुरोध स्वीकार करने के बाद ही उन्हें पता चल पाएगा कि आपने उनके मैसेज देखे हैं।</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">क्या आपको इस ग्रुप से जुड़ना है और अपना नाम और फ़ोटो इसके सदस्यों के साथ शेयर करनी है? स्वीकार करने के बाद ही आपको उनके मैसेज दिख पाएंगे।</string>
     <!-- Shown when you are invited to a group and explains that until you accept the invitation to the group, members will not know that you have seen their messages. -->
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">इस ग्रुप में जुड़ना है? आपकी ओर से स्वीकार करने के बाद ही ग्रुप के सदस्यों को पता चल पाएगा कि आपने उनके मैसेज देखे हैं।</string>
@@ -2252,9 +2255,9 @@
 
     <!-- PinRestoreEntryFragment -->
     <string name="PinRestoreEntryFragment_incorrect_pin">पिन सही नहीं है</string>
-    <string name="PinRestoreEntryFragment_skip_pin_entry">बिना पिन डाले ही आगे बढ़ना है?</string>
+    <string name="PinRestoreEntryFragment_skip_pin_entry">बिना पिन डाले आगे बढ़ना है?</string>
     <string name="PinRestoreEntryFragment_need_help">क्या आपको कोई मदद चाहिए?</string>
-    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">आपका पिन एक %1$d+ अंकों का कोड होता है, जिसे आपने बनाया था। यह न्यूमेरिक या अल्फ़ान्यूमेरिक हो सकता है।\n\nअगर आपको अपना पिन याद नहीं है, तो आपके पास नया पिन बनाने का विकल्प मौजूद है। रजिस्टर करके अपना अकाउंट इस्तेमाल किया जा सकता है, लेकिन कुछ सेव की गई सेटिंग खो सकती है, जैसे कि आपकी प्रोफ़ाइल से जुड़ी जानकारी।</string>
+    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">आपका पिन एक %1$d+ अंकों का कोड होता है, जिसे आपने बनाया था। यह न्यूमेरिक या अल्फ़ान्यूमेरिक हो सकता है।\n\nअगर आपको अपना पिन याद नहीं है, तो आपके पास नया पिन बनाने का विकल्प मौजूद है। रजिस्टर करके अपना अकाउंट इस्तेमाल किया जा सकता है, लेकिन सेव की गईं कुछ सेटिंग खो सकती हैं, जैसे कि आपकी प्रोफ़ाइल से जुड़ी जानकारी।</string>
     <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">अगर आपको अपना पिन याद नहीं है, तो आपके पास नया पिन बनाने का विकल्प मौजूद है। रजिस्टर करके अपना अकाउंट इस्तेमाल किया जा सकता है, लेकिन कुछ सेव की गई सेटिंग खो सकती है, जैसे कि आपकी प्रोफ़ाइल से जुड़ी जानकारी।</string>
     <string name="PinRestoreEntryFragment_create_new_pin">नया पिन बनाएं</string>
     <string name="PinRestoreEntryFragment_contact_support">सपोर्ट टीम से संपर्क करें</string>
@@ -2597,7 +2600,7 @@
     <!-- Explains that the given user (placeholder is short name) is in the users system contact -->
     <string name="AboutSheet__s_is_in_your_system_contacts">%1$s आपके फोन संपर्कों में है</string>
     <!-- Notice in a row when user has no groups in common -->
-    <string name="AboutSheet__you_have_no_groups_in_common">कोई साझा समूह नहीं</string>
+    <string name="AboutSheet__you_have_no_groups_in_common">कोई साझा ग्रुप मौजूद नहीं है</string>
     <!-- Notice when a user is not a connection to review requests carefully -->
     <string name="AboutSheet__review_requests_carefully">अनुरोधों की सावधानीपूर्वक समीक्षा करें</string>
     <!-- Text used when user has groups in common. Placeholder is the count -->
@@ -2919,6 +2922,8 @@
     <string name="SubmitDebugLogActivity_success">हो गया!</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">इस URL को कॉपी करें और इसे अपनी समस्या रिपोर्ट या सपोर्ट ईमेल में शामिल करें:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">शेयर करें</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">बंद करें</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">इस लॉग को लॉग सार्वजनिक रूप से ऑनलाइन पोस्ट किया जाएगा, ताकि लोग इसे देख सकें। आपके पास लोड करने से पहले इसे सही से देखने की सुविधा मौजूद है।</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">जब आप सबमिट करें पर क्लिक करते हैं तब एक विशेष, अप्रकाशित URL पर 30 दिनों के लिए आपका लॉग ऑनलाइन पोस्ट किया जाएगा। आप इसे अपने पास सबसे पहले सहेज कर रख सकते हैं।</string>
@@ -3497,7 +3502,7 @@
     <!-- Update item button text to show to block a recipient from requesting to join via group link -->
     <string name="ConversationUpdateItem_block_request">अनुरोध ब्लॉक करें</string>
     <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
-    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">कोई साझा समूह नहीं</string>
+    <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">कोई साझा ग्रुप मौजूद नहीं है</string>
     <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">इस ग्रुप में आपका कोई कॉन्टैक्ट मौजूद नहीं है। सावधानी के साथ अनुरोधों समीक्षा करें।</string>
     <string name="ConversationUpdateItem_view">देखें</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">उन्हें मैसेज भेजने पर, %1$s में मैसेज अपने-आप गायब हो जाएगा।</string>
@@ -3539,7 +3544,7 @@
     <!-- Label indicating that the story being replied to no longer exists -->
     <string name="QuoteView_no_longer_available">मौजूद नहीं है</string>
     <!-- Label for quoted gift -->
-    <string name="QuoteView__donation_for_a_friend">किसी दोस्त के लिए दान</string>
+    <string name="QuoteView__donation_for_a_friend">किसी दोस्त के लिए डोनेशन</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">नीचे तक पूरा स्क्रॉल करें</string>
@@ -3706,8 +3711,8 @@
     <string name="EditAboutFragment_be_kind">विनम्र रहें</string>
     <string name="EditAboutFragment_coffee_lover">कॉफ़ी पसंद है</string>
     <string name="EditAboutFragment_free_to_chat">चैट करने के लिए हाज़िर</string>
-    <string name="EditAboutFragment_taking_a_break">ब्रेक लेना है</string>
-    <string name="EditAboutFragment_working_on_something_new">किसी नई चीज़ पर काम करना है</string>
+    <string name="EditAboutFragment_taking_a_break">ब्रेक पर हैं</string>
+    <string name="EditAboutFragment_working_on_something_new">किसी नई चीज़ पर काम कर रहे हैं</string>
 
     <!-- EditProfileFragment -->
     <string name="EditProfileFragment__edit_group">ग्रुप एडिट करें</string>
@@ -3819,7 +3824,7 @@
         <item>सवाल</item>
         <item>फ़ीडबैक</item>
         <item>भुगतान (मोबाइल कॉयन)</item>
-        <item>दान और बैज</item>
+        <item>डोनेशन और बैज</item>
         <item>Signal Android का बैकअप</item>
         <item>अन्य</item>
     </string-array>
@@ -4140,7 +4145,7 @@
 
     <!-- Displayed on a welcome screen for payments -->
     <string name="PaymentsHomeFragment_introducing_payments">भुगतान का परिचय</string>
-    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">एक नई गोपनीयता केंद्रित डिजिटल मुद्रा, MobileCoin भेजने और प्राप्त करने के लिए Molly का उपयोग करें। शुरू करने के लिए सक्रीय करें।</string>
+    <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">MobileCoin भेजने और पाने के लिए Molly का इस्तेमाल करें। यह एक डिजिटल करंसी है, जिसमें प्राइवेसी का खास ध्यान रखा जाता है। शुरू करने के लिए ऐक्टिवेट करें।</string>
     <string name="PaymentsHomeFragment__activate_payments">पेमेंट की सुविधा ऐक्टिवेट करें</string>
     <string name="PaymentsHomeFragment__activating_payments">पेमेंट की सुविधा ऐक्टिवेट हो रही है…</string>
     <string name="PaymentsHomeFragment__restore_payments_account">पेमेंट खाता रीस्टोर करें</string>
@@ -5178,10 +5183,19 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">आगे बढ़ें</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="one">%1$d सदस्य</item>
         <item quantity="other">%1$d सदस्य</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="one">%1$s सदस्य</item>
+        <item quantity="other">%1$s सदस्य</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">अगले पर जाएं</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">शेयर करें</string>
@@ -5241,9 +5255,9 @@
 
     <!-- InfoCard -->
     <string name="payment_info_card_about_mobilecoin">MobileCoin के बारे में</string>
-    <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin एक नई निजता केंद्रित डिजिटल मुद्रा है।</string>
+    <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin एक डिजिटल करंसी है, जिसमें प्राइवेसी का खास ध्यान रखा जाता है।</string>
     <string name="payment_info_card_adding_funds">फ़ंड जोड़ना</string>
-    <string name="payment_info_card_you_can_add_funds_for_use_in">Molly में इस्तेमाल करने के लिए, अपने वॉलेट पते पर MobileCoin भेजकर फ़ंड जोड़ सकते हैं।</string>
+    <string name="payment_info_card_you_can_add_funds_for_use_in">Molly में इस्तेमाल करने के लिए, अपने वॉलेट पते पर MobileCoin भेजकर फ़ंड जोड़े जा सकते हैं।</string>
     <string name="payment_info_card_cashing_out">कैश भुनाना</string>
     <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin की सुविधा वाले किसी एक्सचेंज पर किसी भी समय MobileCoin को भुनाया जा सकता है। आपको बस एक्सचेंज में अपने अकाउंट में ट्रांसफ़र करना होगा।</string>
     <string name="payment_info_card_hide_this_card">इस कार्ड को छिपाना है?</string>
@@ -5903,24 +5917,24 @@
     <string name="NewConversationActivity__s_has_been_blocked">%1$s को ब्लॉक कर दिया गया है</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ब्लॉक नहीं हो पाया</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">%1$s को नहीं हटाया जा सकता</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">आपके डिवाइस के संपर्कों में इस व्यक्ति को सहेजा जा चुका है। उन्हें अपने संपर्कों में से डिलीट करके फिर से प्रयास करें।</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">संपर्क देखें</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s एक Signal यूज़र नहीं है</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s एक Signal यूज़र नहीं है</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">मेन्यू खोलें</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="one">%1$s एक Signal यूज़र नहीं है</item>
         <item quantity="other">%1$s Signal यूज़र नहीं है</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">नाम, यूज़रनेम या नंबर</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">नाम, यूज़रनेम या नंबर</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -6132,7 +6146,7 @@
 
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">आपके सहयोग के लिए शुक्रिया!</string>
     <!-- Subtext underneath the dialog title on the thanks sheet -->
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">आपको Signal की ओर से एक डोनर बैज मिला है। अपना सहयोग दर्शाने के लिए इसे अपनी प्रोफ़ाइल पर प्रदर्शित करें।</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">आपको Signal की ओर से एक डोनर बैज मिला है। अपना सहयोग दिखाने के लिए इसे अपनी प्रोफ़ाइल पर डिसप्ले करें।</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">आप भी</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">बन सकते/सकती हैं मासिक सस्टेनर।</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">प्रोफ़ाइल पर दिखाएं</string>
@@ -6158,7 +6172,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">देने के अन्य तरीके</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__donate_for_a_friend">किसी दोस्त के लिए दान दें</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">किसी दोस्त के बदले डोनेट करें</string>
     <!-- Dialog title shown when a donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet -->
     <string name="ManageDonationsFragment__couldnt_confirm_donation">दान की पुष्टि नहीं की जा सकी</string>
     <!-- Dialog message shown when a monthly donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
@@ -6235,7 +6249,7 @@
     <string name="Subscription__get_a_s_badge">एक %1$s बैज पाएँ</string>
 
     <!-- *PaymentInProgressFragment strings -->
-    <string name="InAppPaymentInProgressFragment__processing_donation">दान संसाधित किया जा रहा है…</string>
+    <string name="InAppPaymentInProgressFragment__processing_donation">डोनेशन प्रोसेस किया जा रहा है…</string>
     <string name="InAppPaymentInProgressFragment__processing_payment">भुगतान प्रोसेस किया जा रहा है…</string>
 
     <!--InAppDonations -->
@@ -6276,7 +6290,7 @@
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">सर्वर रेस्पॉन्स वैलिडेट नहीं हो सका। कृपया सपोर्ट टीम से संपर्क करें।</string>
     <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
-    <string name="DonationsErrors__donation_failed">दान विफल रहा</string>
+    <string name="DonationsErrors__donation_failed">डोनेशन विफल रहा</string>
     <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
     <string name="DonationsErrors__your_payment_was_processed_but">आपका दान प्रोसेस कर लिया गया था लेकिन Signal द्वारा आपका दान संदेश नहीं भेजा जा सका। कृपया सपोर्ट से संपर्क करें।</string>
     <string name="DonationsErrors__your_badge_could_not">आपका बैज आपके अकाउंट में जोड़ा नहीं जा सका, लेकिन हो सकता है कि आपसे शुल्क लिया गया हो। कृपया सपोर्ट से संपर्क करें।</string>
@@ -6867,7 +6881,7 @@
     <!-- Displayed in the viewer when the network is not available -->
     <string name="StorySlateView__no_internet_connection">इंटरनेट कनेक्शन मौजूद नहीं है</string>
     <!-- Displayed in the viewer when network is available but content could not be downloaded -->
-    <string name="StorySlateView__couldnt_load_content">कंटेंट लोड नहीं हो पाया</string>
+    <string name="StorySlateView__couldnt_load_content">कॉन्टेंट लोड नहीं हो पाया</string>
     <!-- Toasted when the user externally shares to a text story successfully -->
     <string name="TextStoryPostCreationFragment__sent_story">भेजी गई स्टोरी</string>
     <!-- Toasted when the user external share to a text story fails -->
@@ -6900,7 +6914,7 @@
         <item quantity="other">%1$s · %2$d दिनों की अवधि</item>
     </plurals>
     <!-- Headline text on start fragment for gifting a badge -->
-    <string name="GiftFlowStartFragment__donate_for_a_friend">किसी दोस्त के लिए दान दें</string>
+    <string name="GiftFlowStartFragment__donate_for_a_friend">किसी दोस्त के बदले डोनेट करें</string>
     <!-- Description text on start fragment for gifting a badge -->
     <plurals name="GiftFlowStartFragment__support_signal_by">
         <item quantity="one">Signal इस्तेमाल करनेवाले किसी दोस्त या परिवार के सदस्य के लिए दान देकर Signal को सहयोग दें। उन्हें %1$d दिन के लिए अपनी प्रोफ़ाइल पर दर्शाने के लिए एक बैज मिलेगा</item>
@@ -7161,7 +7175,7 @@
     <!-- Continue button label -->
     <string name="DonateToSignalFragment__continue">जारी रखें</string>
     <!-- Description below title -->
-    <string name="DonateToSignalFragment__private_messaging">आपके द्वारा आर्थिक सहायता प्राप्त निजी संदेश सेवा। न कोई विज्ञापन, न ट्रैकिंग, न ही समझौता। Signal को सहयोग देने के लिए अभी दान दें।</string>
+    <string name="DonateToSignalFragment__private_messaging">आपके द्वारा आर्थिक सहायता प्राप्त निजी संदेश सेवा। न कोई विज्ञापन, न ट्रैकिंग, न ही समझौता। Signal को सहयोग करने के लिए अभी डोनेट करें।</string>
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">आपका दान लंबित है</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
@@ -7186,7 +7200,7 @@
 
     <!-- GatewaySelectorBottomSheet -->
     <!-- Sheet title when subscribing -->
-    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Signal को %1$s/माह का दान दें</string>
+    <string name="GatewaySelectorBottomSheet__donate_s_month_to_signal">Signal को %1$s/माह डोनेट करें</string>
     <!-- Sheet summary when subscribing -->
     <string name="GatewaySelectorBottomSheet__get_a_s_badge">एक %1$s बैज पाएँ</string>
     <!-- Sheet title when giving a one-time donation -->
@@ -7199,9 +7213,9 @@
     <!-- Button label for paying with a bank transfer -->
     <string name="GatewaySelectorBottomSheet__bank_transfer">बैंक ट्रांसफर</string>
     <!-- Button label for paying with a credit card -->
-    <string name="GatewaySelectorBottomSheet__credit_or_debit_card">डेबिट कार्ड के लिए क्रेडिट</string>
+    <string name="GatewaySelectorBottomSheet__credit_or_debit_card">क्रेडिट या डेबिट कार्ड</string>
     <!-- Sheet summary when giving donating for a friend -->
-    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">किसी दोस्त के लिए दान दें</string>
+    <string name="GatewaySelectorBottomSheet__donate_for_a_friend">किसी दोस्त के बदले डोनेट करें</string>
     <!-- Button label for paying with iDEAL -->
     <string name="GatewaySelectorBottomSheet__ideal">iDEAL</string>
 
@@ -7746,6 +7760,8 @@
     <string name="TurnOnSignalBackups__turn_on">शुरु करें</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">अभी नहीं</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">अपनी \'रिकवरी की\' वेरिफ़ाई करें</string>
@@ -8030,7 +8046,7 @@
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__google_play">Google Play</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
-    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">डेबिट कार्ड के लिए क्रेडिट</string>
+    <string name="BackupsTypeSettingsFragment__credit_or_debit_card">क्रेडिट या डेबिट कार्ड</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
     <string name="BackupsTypeSettingsFragment__iDEAL">iDEAL</string>
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8422,13 +8438,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">आपकी \'रिकवरी की\'</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">\'रिकवरी की\'</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">आपकी \'रिकवरी की\' 64-कैरेक्टर वाला एक कोड है। यह Molly को फिर से इंस्टॉल करने पर बैकअप रीस्टोर करने के लिए ज़रूरी है।</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">आपकी \'रिकवरी की\' 64-कैरेक्टर वाला एक कोड है। आपको बैकअप रीस्टोर करते समय इसकी ज़रूरत पड़ेगी।</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">अगर आप अपनी की भूल जाते हैं, तो आप अपना बैकअप रीस्टोर नहीं कर पाएँगे। Molly आपके बैकअप को रिकवर करने में मदद नहीं कर सकता।</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">अपनी \'रिकवरी की\' को सिक्योर पासवर्ड मैनेजर जैसी किसी सुरक्षित जगह पर स्टोर करें और इसे किसी के साथ शेयर न करें।</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">अगर आपने ऐसा नहीं किया, तो आपके मैसेज रिकवर नहीं हो पाएंगे।</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">अगला</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">\'रिकवरी की\' देखें</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8608,7 +8626,7 @@
     <!-- Dialog title shown as a warning when skipping restore during registration -->
     <string name="SelectRestoreMethodFragment__skip_restore_title">अभी रीस्टोर नहीं करना है?</string>
     <!-- Dialog message shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_warning">अगर आपने अभी रीस्टोर नहीं किया, तो आपके पास बाद में रीस्टोर करने का विकल्प नहीं रहेगा। अभी रीस्टोर नहीं करने बाद, अगर आपने बाद में बैकअप फिर से चालू किया, तो आपके पुराने बैकअप को नई चैट हिस्ट्री से बदल दिया जाएगा।</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_warning">अगर आपने अभी रीस्टोर नहीं किया, तो आपके पास बाद में रीस्टोर करने का विकल्प नहीं रहेगा। अगर आपने अभी रीस्टोर नहीं किया और बाद में बैकअप फिर से चालू किया, तो आपके पुराने बैकअप को नई चैट हिस्ट्री से बदल दिया जाएगा।</string>
     <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
     <string name="SelectRestoreMethodFragment__skip_restore">रीस्टोर करना छोड़ें</string>
 
@@ -8808,8 +8826,10 @@
     <string name="Poll__poll_voted">%1$s ने इस पोल में वोट दिया: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">पोल</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">पोल के नतीजे</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">पोल का विवरण</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">सवाल</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8817,10 +8837,16 @@
         <item quantity="one">%1$d वोट</item>
         <item quantity="other">%1$d वोट</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">विजेता</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">पोल समाप्त करें</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">सभी देखें</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">पोल खत्म नहीं हो पाया</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">अपना इंटरनेट कनेक्शन देखें और दोबारा कोशिश करें।</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">नया पोल</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8841,6 +8867,76 @@
     <string name="CreatePollFragment__add_option">कम से कम 2 विकल्प जोड़ें</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">कोई सवाल जोड़ें</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">ऑडियो से जुड़ी समस्या</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">वीडियो से जुड़ी समस्या</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">कॉल ड्रॉप होना</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">कुछ और</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">ऑडियो रुक-रुक कर आना</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">ऑडियो का कट जाना</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">मुझे आवाज़ गूंजती हुई सुनाई दी</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">दूसरों को आवाज़ गूंजती हुई सुनाई दी</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">वीडियो की खराब क्वालिटी</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">कम रिज़ॉल्यूशन वाला वीडियो</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">कैमरा काम नहीं कर रहा था</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">कुछ और</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">अपनी समस्या बताएं</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">कृपया समस्या से जुड़ी हर एक जानकारी दें। यहां जो भी जानकारी शेयर की जाती है उसे गोपनीय रखा जाता है। इस जानकारी का इस्तेमाल सिर्फ़ Signal में कॉल की क्वालिटी को बेहतर बनाने के लिए किया जाता है।</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">सेव करें</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">पीछे जाएं</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">आपकी कॉल कैसी रही?</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">इससे हमें Signal में कॉल की क्वालिटी बेहतर बनाने में मदद मिलती है। ऐसी कोई व्यक्तिगत जानकारी स्टोर नहीं की जाती है जिससे किसी की पहचान हो सके।</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">समस्या आई</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">बहुत बढ़िया</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">आपको किस तरह की समस्याएं आई हैं?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">लागू होने वाले सभी विकल्प चुनें</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">अपनी समस्या बताएं</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">जारी रखें</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">Signal को बेहतर बनाने में हमारी मदद करें</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">आप हमें अपनी समस्या से जुड़ी जो जानकारी भेजते हैं, उससे हमें कॉल की क्वालिटी को बेहतर बनाने में मदद मिलती है। आप चाहें, तो </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">अपना डीबग लॉग देखें</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> और फिर सबमिट करें</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">डीबग लॉग शेयर करें</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">डीबग लॉग में ऐप की थोड़ी-बहुत तकनीकी जानकारी शामिल होती है, लेकिन इनसे आपके मैसेज के कॉन्टेंट का पता नहीं चलता।</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">सबमिट करें</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">आपके फ़ीडबैक के लिए शुक्रिया!</string>
 
     <!-- EOF -->
 </resources>

@@ -85,6 +85,9 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
 
+    <!-- MOLLY: Keep for backward compatibility with Android 11–12 storage model -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
     <!-- For services -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
@@ -686,13 +689,8 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
-    <activity android:name=".NewConversationActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:exported="false"/>
-
     <activity
-              android:name=".conversation.NewConversationActivityV2"
+              android:name=".conversation.NewConversationActivity"
               android:exported="false"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
@@ -1024,7 +1022,7 @@
     <activity android:name=".MainActivity"
               android:enableOnBackInvokedCallback="true"
               android:theme="@style/Theme.Molly.Starting"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout"
+              android:configChanges="touchscreen|keyboard|keyboardHidden"
               android:windowSoftInputMode="stateUnchanged"
               android:resizeableActivity="true"
               android:exported="false"/>
@@ -1034,9 +1032,10 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
-    <activity android:name=".groups.ui.creategroup.CreateGroupActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:exported="false"/>
+    <activity
+        android:name=".groups.ui.creategroup.CreateGroupActivity"
+        android:exported="false"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".groups.ui.addtogroup.AddToGroupsActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"

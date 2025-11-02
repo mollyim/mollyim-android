@@ -1166,6 +1166,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly-ის ამ ვერსიას ვადა გაუვიდა. განაახლე ახლავე, რათა გააგზავნო და მიიღო შეტყობინებები.</string>
     <string name="ExpiredBuildReminder_update_now">განაახლე ახლავე</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">ამ მოწყობილობაზე Signal-ი აღარ მუშაობს. იმისათვის, რომ Signal-ის გამოყენება ისევ შეძლო, განაახლე Android-ის ვერსია, ან შეცვალე შენი მოწყობილობა ახლით.</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Molly-ის განახლება</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -2919,6 +2922,8 @@
     <string name="SubmitDebugLogActivity_success">Success!</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">დააკოპირე ეს URL-ი და დაამატე ის შენი პრობლემის ანგარიშში ან მხარდაჭერის წერილში:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">გაზიარება</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">Close</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">ეს რეესტრი საჯაროდ გამოქვეყნდება ინტერნეტში, რომ კონტრიბუტორებმა ნახონ. მისი შემოწმება ატვირთვამდე შეგიძლია.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">როცა \"გაგზავნა\"-ზე დააწკაპუნებ, შენი რეესტრი ინტერნეტში გამოქვეყნდება 30 დღით უნიკალურ, გამოუქვეყნებელ URL-ზე. შეგიძლია ის ჯერ ადგილობრივად შეინახო.</string>
@@ -5178,10 +5183,19 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">გამოტოვება</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="one">%1$d წევრი</item>
         <item quantity="other">%1$d წევრი</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="one">%1$s წევრი</item>
+        <item quantity="other">%1$s წევრი</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">შემდეგი</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">გაზიარება</string>
@@ -5903,24 +5917,24 @@
     <string name="NewConversationActivity__s_has_been_blocked">%1$s დაბლოკილია</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">დაბლოკვა ვერ მოხერხდა</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">%1$s-ის წაშლა ვერ მოხერხდა</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">ეს ადამიანი შენი მოწყობილობის კონტაქტებშია შენახული. წაშალე ის შენი კონტაქტებიდან და თავიდან სცადე.</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">კონტაქტის ნახვა</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s Signal-ის მომხმარებელი არაა</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s Signal-ის მომხმარებელი არაა</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">მენიუს გახსნა</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="one">%1$s არ არის Signal-ის მომხმარებელი</item>
         <item quantity="other">%1$s არ არიან Signal-ის მომხმარებლები</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">სახელი, მომხმარებლის სახელი ან ნომერი</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">სახელი, მომხმარებლის სახელი ან ნომერი</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">ნუმერულ კლავიატურაზე გადასვლა</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">ალფანუმერულ კლავიატურაზე გადასვლა</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">ძიების ფილტრის ახლიდან დაყენება</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -7746,6 +7760,8 @@
     <string name="TurnOnSignalBackups__turn_on">ჩართვა</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">ახლა არა</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">სათადარიგო ასლების ჩართვა \"პარამეტრებიდან\" შეგიძლია</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">დაადასტურე შენი აღდგენის გასაღები</string>
@@ -8422,13 +8438,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">შენი აღდგენის გასაღები</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">აღდგენის გასაღები</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">შენი სათადარიგო ასლების გასაღები 64-სიმბოლოიანი კოდია, რომელიც საშუალებას გაძლევს, შენი ჩანაწერები აღადგინო, თუ Molly-ს თავიდან გადმოიწერ.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">შენი აღდგენის გასაღები 64 სიმბოლოსგან შემდგარი კოდია, რომელიც შენი სათადარიგო ასლების აღსადგენად დაგჭირდება.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">თუ შენი პინ-კოდი დაგავიწყდება, სათადარიგო ჩანაწერების აღდგენას ვეღარ შეძლებ. Molly-ი შენი სათადარიგო ჩანაწერების აღდგენაში ვერ დაგეხმარება.</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">შენი აღდგენის გასაღები სადმე უსაფრთხოდ, მაგალითად უსაფრთხო პაროლის მენეჯერში შეინახე და არავის გაუზიარო.</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">თუ მას დაკარგავ, შენი წერილების აღდგენას ვერ შეძლებ.</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">შემდეგი</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">აღდგენის გასაღების ნახვა</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8808,8 +8826,10 @@
     <string name="Poll__poll_voted">%1$s-მ(ა) გამოკითხვაში მონიშნა: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">გამოკითხვები</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">გამოკითხვის შედეგები</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">გამოკითხვის დეტალები</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">კითხვა</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -8817,10 +8837,16 @@
         <item quantity="one">%1$d ხმა</item>
         <item quantity="other">%1$d ხმა</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">გამარჯვებული</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">გამოკითხვის დასრულება</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">ყველას ნახვა</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">გამოკითხვის დასრულება ვერ მოხერხდა</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">შეამოწმე შენი კავშირი და თავიდან სცადე.</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">ახალი გამოკითხვა</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8841,6 +8867,76 @@
     <string name="CreatePollFragment__add_option">დაამატე მინიმუმ 2 ვარიანტი</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">კითხვის დამატება</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">აუდიოს პრობლემა</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">ვიდეოს პრობლემა</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">ზარი გაითიშა</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">სხვა</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">ხმა წყვეტილად ისმოდა</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">ამოჭრილი აუდიო</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">ექო მესმოდა</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">სხვებს ექო ესმოდათ</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">ვიდეოს ცუდი ხარისხი</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">დაბალი გარჩევადობა</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">კამერა არ მუშაობდა</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">სხვა</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">აღწერე შენი პრობლემა</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">გთხოვთ საკითხთან დაკავშირებული ნებისმიერი დეტალი მიუთითო. ყველაფერს, რასაც აქ გააზიარებ, კონფიდენციალურობას შევუნარჩუნებთ და მხოლოდ Signal-ის ზარების გასაუმჯობესებლად გამოვიყენებთ.</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">შენახვა</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">უკან</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">როგორ შეაფასებდი ზარს?</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">ეს Signal-ის ზარების გაუმჯობესებაში გვეხმარება. არანაირი პირადი საიდენტიფიკაციო ინფორმაცია არ ინახება.</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">პრობლემები ჰქონდა</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">მშვენიერი იყო</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">რა პრობლემებს გადააწყდი?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">მონიშნე ყველაფერი, რაც მიესადაგება</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">აღწერე შენი პრობლემა</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">გაგრძელება</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">დაგვეხმარე გაუმჯობესებაში</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">თუ დიაგნოსტიკურ ინფორმაციას გამოგვიგზავნი, ზარების ხარისხის გაუმჯობესებაში დაგვეხმარები. შეგიძლია </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">შენი გაუმართაობის რეესტრი ნახო</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> სანამ ატვირთავ</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">გაუმართაობის რეესტრის გაზიარება</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">გაუმართაობის რეესტრი აპის ქვედა დონის ინფორმაციას შეიცავს და შენი არც ერთი წერილის შინაარს არ ავლენს.</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">Submit</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">მადლობა უკუკავშირისთვის!</string>
 
     <!-- EOF -->
 </resources>

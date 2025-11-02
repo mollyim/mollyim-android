@@ -13,12 +13,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx3.await
 import kotlinx.coroutines.withContext
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.conversation.NewConversationUiState.UserMessage
+import org.thoughtcrime.securesms.contacts.management.ContactsManagementRepository
+import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery
+import org.thoughtcrime.securesms.conversation.NewConversationUiState.UserMessage.Info
+import org.thoughtcrime.securesms.conversation.NewConversationUiState.UserMessage.Prompt
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.PhoneNumber
-import org.thoughtcrime.securesms.recipients.Recipient.Companion.resolved
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientRepository
 
@@ -27,44 +32,44 @@ class NewConversationViewModel : ViewModel() {
     private val TAG = Log.tag(NewConversationViewModel::class)
   }
 
-  private val _uiState = MutableStateFlow(NewConversationUiState())
-  val uiState: StateFlow<NewConversationUiState> = _uiState.asStateFlow()
+  private val internalUiState = MutableStateFlow(NewConversationUiState())
+  val uiState: StateFlow<NewConversationUiState> = internalUiState.asStateFlow()
 
-  fun onMessage(id: RecipientId): Unit = openConversation(recipientId = id)
+  private val contactsManagementRepo = ContactsManagementRepository(AppDependencies.application)
 
-  fun onRecipientSelected(id: RecipientId?, phone: PhoneNumber?) {
+  fun onSearchQueryChanged(query: String) {
+    internalUiState.update { it.copy(searchQuery = query) }
+  }
+
+  fun openConversation(recipientId: RecipientId) {
+    internalUiState.update { it.copy(pendingDestination = recipientId) }
+  }
+
+  fun openConversation(id: RecipientId?, phone: PhoneNumber?) {
     when {
       id != null -> openConversation(recipientId = id)
 
       SignalStore.account.isRegistered -> {
-        Log.d(TAG, "[onRecipientSelected] Missing recipientId: attempting to look up.")
-        resolveAndOpenConversation(phone)
+        Log.d(TAG, "[openConversation] Missing recipientId: attempting to look up.")
+        resolveAndOpenConversation(phone!!)
       }
 
-      else -> Log.w(TAG, "[onRecipientSelected] Cannot look up recipient: account not registered.")
+      else -> Log.w(TAG, "[openConversation] Cannot look up recipient: account not registered.")
     }
   }
 
-  private fun openConversation(recipientId: RecipientId) {
-    _uiState.update { it.copy(pendingDestination = recipientId) }
-  }
-
-  private fun resolveAndOpenConversation(phone: PhoneNumber?) {
+  private fun resolveAndOpenConversation(phone: PhoneNumber) {
     viewModelScope.launch {
-      _uiState.update { it.copy(isRefreshingRecipient = true) }
+      internalUiState.update { it.copy(isLookingUpRecipient = true) }
 
       val lookupResult = withContext(Dispatchers.IO) {
-        if (phone != null) {
-          RecipientRepository.lookupNewE164(inputE164 = phone.value)
-        } else {
-          RecipientRepository.LookupResult.InvalidEntry
-        }
+        RecipientRepository.lookupNewE164(inputE164 = phone.value)
       }
 
       when (lookupResult) {
         is RecipientRepository.LookupResult.Success -> {
-          val recipient = resolved(lookupResult.recipientId)
-          _uiState.update { it.copy(isRefreshingRecipient = false) }
+          val recipient = Recipient.resolved(lookupResult.recipientId)
+          internalUiState.update { it.copy(isLookingUpRecipient = false) }
 
           if (recipient.isRegistered && recipient.hasServiceId) {
             openConversation(recipient.id)
@@ -74,19 +79,19 @@ class NewConversationViewModel : ViewModel() {
         }
 
         is RecipientRepository.LookupResult.NotFound, is RecipientRepository.LookupResult.InvalidEntry -> {
-          _uiState.update {
+          internalUiState.update {
             it.copy(
-              isRefreshingRecipient = false,
-              userMessage = UserMessage.RecipientNotSignalUser(phone)
+              isLookingUpRecipient = false,
+              userMessage = Info.RecipientNotSignalUser(phone)
             )
           }
         }
 
         is RecipientRepository.LookupResult.NetworkError -> {
-          _uiState.update {
+          internalUiState.update {
             it.copy(
-              isRefreshingRecipient = false,
-              userMessage = UserMessage.NetworkError
+              isLookingUpRecipient = false,
+              userMessage = Info.NetworkError
             )
           }
         }
@@ -94,19 +99,88 @@ class NewConversationViewModel : ViewModel() {
     }
   }
 
-  fun onUserMessageDismissed() {
-    _uiState.update { it.copy(userMessage = null) }
+  fun showRemoveConfirmation(recipient: Recipient) {
+    internalUiState.update {
+      it.copy(userMessage = Prompt.ConfirmRemoveRecipient(recipient))
+    }
+  }
+
+  suspend fun removeRecipient(recipient: Recipient) {
+    contactsManagementRepo.hideContact(recipient).await()
+    refresh()
+
+    internalUiState.update {
+      it.copy(
+        shouldResetContactsList = true,
+        userMessage = Info.RecipientRemoved(recipient)
+      )
+    }
+  }
+
+  fun showBlockConfirmation(recipient: Recipient) {
+    internalUiState.update {
+      it.copy(userMessage = Prompt.ConfirmBlockRecipient(recipient))
+    }
+  }
+
+  suspend fun blockRecipient(recipient: Recipient) {
+    contactsManagementRepo.blockContact(recipient).await()
+    refresh()
+
+    internalUiState.update {
+      it.copy(
+        shouldResetContactsList = true,
+        userMessage = Info.RecipientBlocked(recipient)
+      )
+    }
+  }
+
+  fun showUserAlreadyInACall() {
+    internalUiState.update { it.copy(userMessage = Info.UserAlreadyInAnotherCall) }
+  }
+
+  fun clearShouldResetContactsList() {
+    internalUiState.update { it.copy(shouldResetContactsList = false) }
+  }
+
+  fun refresh() {
+    viewModelScope.launch {
+      internalUiState.update { it.copy(isRefreshingContacts = true) }
+
+      withContext(Dispatchers.IO) {
+        ContactDiscovery.refreshAll(AppDependencies.application, true)
+      }
+
+      internalUiState.update { it.copy(isRefreshingContacts = false) }
+    }
+  }
+
+  fun clearUserMessage() {
+    internalUiState.update { it.copy(userMessage = null) }
   }
 }
 
 data class NewConversationUiState(
-  val forceSplitPaneOnCompactLandscape: Boolean = SignalStore.internal.forceSplitPaneOnCompactLandscape,
-  val isRefreshingRecipient: Boolean = false,
+  val forceSplitPaneOnCompactLandscape: Boolean = SignalStore.internal.forceSplitPane,
+  val searchQuery: String = "",
+  val isLookingUpRecipient: Boolean = false,
+  val isRefreshingContacts: Boolean = false,
+  val shouldResetContactsList: Boolean = false,
   val pendingDestination: RecipientId? = null,
   val userMessage: UserMessage? = null
 ) {
   sealed interface UserMessage {
-    data class RecipientNotSignalUser(val phone: PhoneNumber?) : UserMessage
-    data object NetworkError : UserMessage
+    sealed interface Info : UserMessage {
+      data class RecipientRemoved(val recipient: Recipient) : Info
+      data class RecipientBlocked(val recipient: Recipient) : Info
+      data class RecipientNotSignalUser(val phone: PhoneNumber) : Info
+      data object UserAlreadyInAnotherCall : Info
+      data object NetworkError : Info
+    }
+
+    sealed interface Prompt : UserMessage {
+      data class ConfirmRemoveRecipient(val recipient: Recipient) : Prompt
+      data class ConfirmBlockRecipient(val recipient: Recipient) : Prompt
+    }
   }
 }

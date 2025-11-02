@@ -1188,6 +1188,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Šīs Molly versijas lietošanas termiņš ir beidzies. Lai nosūtītu un saņemtu ziņas, tā jānomaina ar jaunāku.</string>
     <string name="ExpiredBuildReminder_update_now">Aktualizēt tagad</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">Signal vairs nedarbojas šajā ierīcē. Lai varētu izmantot Signak, atjauniniet ierīci uz jaunāku Android versiju vai pārejiet uz jaunāku ierīci.</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Atjaunināt Molly</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -3012,6 +3015,8 @@
     <string name="SubmitDebugLogActivity_success">Izdevās!</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Nokopējiet šo URL un pievienojiet to problēmas ziņojumam vai atbalsta e-pastam:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Kopīgot</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">Aizvērt</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Šis žurnāls tiks publiski izlikts tiešsaistē apskatei līdzstrādniekiem. Pirms augšupielādes varat to pārbaudīt.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Kad noklikšķināsiet uz \"Iesniegt\", jūsu žurnāls tiks publicēts un 30 dienas būs pieejams tiešsaistē ar unikālu, nepublisku URL. Varat to vispirms saglabāt lokāli.</string>
@@ -5307,11 +5312,21 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Izlaist</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="zero">%1$d dalībnieks</item>
         <item quantity="one">%1$d dalībnieks</item>
         <item quantity="other">%1$d dalībnieki</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="zero">%1$s dalībnieki</item>
+        <item quantity="one">%1$s dalībnieks</item>
+        <item quantity="other">%1$s dalībnieki</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">Tālāk</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">Kopīgot</string>
@@ -6041,16 +6056,10 @@
     <string name="NewConversationActivity__s_has_been_blocked">%1$s ir bloķēts</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">Bloķēšana neizdevās</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">Nevar noņemt %1$s</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">Šī persona ir saglabāta jūsu ierīces kontaktos. Izdzēsiet viņu no kontaktiem un mēģiniet vēlreiz.</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">Skatīt kontaktu</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s nav Signal lietotājs</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s nav Signal lietotājs</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">Atvērt izvēlni</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="zero">%1$s nav Signal lietotāji</item>
@@ -6058,8 +6067,14 @@
         <item quantity="other">%1$s nav Signal lietotāji</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">Vārds, lietotājvārds vai numurs</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">Vārds, lietotājvārds vai numurs</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -7917,6 +7932,8 @@
     <string name="TurnOnSignalBackups__turn_on">Ieslēgt</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">Ne tagad</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Pārbaudiet savu atkopšanas atslēgu</string>
@@ -8603,13 +8620,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Jūsu atkopšanas atslēga</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Atkopšanas atslēga</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Atkopšanas atslēga ir 64 rakstzīmju kods, kas ļauj atjaunot rezerves kopiju, atkārtoti instalējot Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Atkopšanas atslēga ir 64 rakstzīmju kods, kas nepieciešams rezerves kopijas atjaunošanai.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Ja aizmirsīsiet atslēgu, nevarēsiet atjaunot rezerves kopiju. Molly nevar palīdzēt atgūt rezerves kopiju.</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">Glabājiet atkopšanas atslēgu drošā vietā, piemēram, drošā paroļu pārvaldniekā, un nevienam to neizpaudiet.</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">Ja to pazaudēsiet, nevarēsiet atgūt savas ziņas.</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">Tālāk</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">Skatīt atkopšanas atslēgu</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8993,8 +9012,10 @@
     <string name="Poll__poll_voted">%1$s balsoja aptaujā \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">Aptaujas</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">Aptaujas rezultāti</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">Informācija par aptauju</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Jautājums</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -9003,10 +9024,16 @@
         <item quantity="one">%1$d balss</item>
         <item quantity="other">%1$d balsis</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">Laimētājs</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">Pabeigt aptauju</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">Skatīt visas</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">Neizdevās beigt aptauju</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">Pārbaudiet savienojumu un mēģiniet vēlreiz.</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Jauna aptauja</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -9027,6 +9054,76 @@
     <string name="CreatePollFragment__add_option">Pievienojiet vismaz 2 opcijas</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">Pievienot jautājumu</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">Audio problēma</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">Video problēma</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">Zvans tika pārtraukts</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">Kaut kas cits</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">Audio traucējumi</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">Audio pārrāvums</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">Es dzirdēju atbalsi</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">Citas personas dzirdēja atbalsi</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">Slikta video kvalitāte</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">Zema izšķirtspēja</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">Kamera nedarbojās</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">Kaut kas cits</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">Aprakstiet problēmu</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">Lūdzu, norādiet jebkādu informāciju, kas attiecas uz problēmu. Visa šeit sniegtā informācija tiks uzskatīta par privātu un izmantota tikai zvanu uzlabošanai programmā Signal.</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">Saglabāt</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">Atpakaļ</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">Kā jūs novērtētu zvanu?</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">Tas palīdz mums uzlabot zvanus programmā Signal. Personu identificējoša informācija netiks saglabāta.</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">Radās problēmas</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">Lieliski</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">Kādas problēmas jums radās?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">Atlasiet visu, kas attiecas</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">Aprakstiet problēmu</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">Turpināt</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">Palīdziet mums veikt uzlabojumus</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">Diagnostikas informācijas nosūtīšana palīdz mums uzlabot zvanu kvalitāti. Jūs varat </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">skatīt mūsu atkļūdošanas žurnālu</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> pirms iesniegšanas</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">Kopīgot atkļūdošanas žurnālu</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">Atkļūdošanas žurnāli satur tikai tehnisku informāciju par lietotni un neatklāj jūsu ziņu saturu.</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">Iesniegt</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">Paldies par atsauksmēm!</string>
 
     <!-- EOF -->
 </resources>

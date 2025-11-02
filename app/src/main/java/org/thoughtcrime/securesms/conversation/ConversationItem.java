@@ -1094,7 +1094,6 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       }
       if (MessageRecordUtil.hasPoll(messageRecord)) {
         styledText.setSpan(new StyleSpan(Typeface.BOLD), 0, styledText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        bodyText.setMaxWidth(readDimen(R.dimen.media_bubble_default_dimens));
       }
       styledText = SearchUtil.getHighlightedSpan(locale, STYLE_FACTORY, styledText, searchQuery, SearchUtil.STRICT);
 

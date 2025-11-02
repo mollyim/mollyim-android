@@ -9,8 +9,8 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1603
-val canonicalVersionName = "7.61.3"
+val canonicalVersionCode = 1610
+val canonicalVersionName = "7.63.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -586,7 +586,6 @@ dependencies {
   androidTestImplementation(testLibs.androidx.test.ext.junit.ktx)
   androidTestImplementation(testLibs.assertk)
   androidTestImplementation(testLibs.mockk.android)
-  androidTestImplementation(testLibs.square.okhttp.mockserver)
   androidTestImplementation(testLibs.diff.utils)
 
   androidTestUtil(testLibs.androidx.test.orchestrator)

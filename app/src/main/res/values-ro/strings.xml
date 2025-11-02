@@ -1188,6 +1188,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Această versiune a Molly a expirat. Actualizează acum pentru a trimite și primi mesaje.</string>
     <string name="ExpiredBuildReminder_update_now">Actualizează acum</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">Signal nu mai funcționează pe acest dispozitiv. Ca să folosești Signal din nou, actualizează-ți dispozitivul pentru o versiune mai nouă a Android sau treci la un dispozitiv mai nou.</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Actualizează Molly</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -3012,6 +3015,8 @@
     <string name="SubmitDebugLogActivity_success">Succes!</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copiază acest URL și adaugă-l la raportul de probleme sau la emailul de suport:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">Distribuie</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">Închide</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Acest jurnal va fi publicat online pentru a fi vizualizat de către contribuitori. Poți să-l examinezi înainte să fie încărcat.</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Când apeși Trimite, jurnalul tău de depanare va fi postat online pentru 30 de zile cu un URL unic și nepublicat. Poți să-l salvezi local mai întâi.</string>
@@ -5307,11 +5312,21 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Omite</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="one">%1$d membru</item>
         <item quantity="few">%1$d membri</item>
         <item quantity="other">%1$d de membri</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="one">%1$s membru</item>
+        <item quantity="few">%1$s membri</item>
+        <item quantity="other">%1$s de membri</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">Următorul</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">Distribuie</string>
@@ -6041,16 +6056,10 @@
     <string name="NewConversationActivity__s_has_been_blocked">%1$s a fost blocat/ă</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">Blocarea a eșuat</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">Nu s-a putut elimina %1$s</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">Această persoană este salvată în Agenda dispozitivului tău. Șterge-o din Agendă și încearcă din nou.</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">Vezi contactul</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s nu este utilizator Signal</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s nu este utilizator Signal</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">Deschide meniul</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="one">%1$s nu este utilizator Signal</item>
@@ -6058,8 +6067,14 @@
         <item quantity="other">%1$s nu sunt utilizatori Signal</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">Nume, nume de utilizator sau număr de telefon</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">Nume, nume de utilizator sau număr de telefon</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -7917,6 +7932,8 @@
     <string name="TurnOnSignalBackups__turn_on">Activare</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">Nu acum</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Verifică-ți cheia de recuperare</string>
@@ -8603,13 +8620,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Codul tău de recuperare</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">Cod de recuperare</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Codul de recuperare este un cod din 64 de caractere care îți permite să îți restaurezi backup-ul atunci când reinstalezi Molly.</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Codul de recuperare este un cod de 64 de caractere de care vei avea nevoie pentru a restaura backup-ul.</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">Dacă uiți codul, nu vei putea să îți restaurezi copia de rezervă. Molly nu te poate ajuta să îți recuperezi backup-ul.</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">Păstrează codul de recuperare într-un loc sigur, cum ar fi un manager de parole și nu-l arăta altor persoane.</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">Dacă îl pierzi, nu îți vei putea recupera mesajele.</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">Următorul</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">Vezi codul de recuperare</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8993,8 +9012,10 @@
     <string name="Poll__poll_voted">%1$s a votat în sondajul: „ %2$s ”</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">Sondaje</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">Rezultatele sondajului</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">Detaliile sondajului</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">Întrebare</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
@@ -9003,10 +9024,16 @@
         <item quantity="few">%1$d Voturi</item>
         <item quantity="other">%1$d de Voturi</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">Câștigător</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">Încheie sondajul</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">Vezi tot</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">Nu s-a putut încheia sondajul</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">Verifică-ți conexiunea și încearcă din nou.</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Sondaj nou</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -9027,6 +9054,76 @@
     <string name="CreatePollFragment__add_option">Adaugă cel puțin 2 opțiuni</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">Adaugă o întrebare</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">Problemă audio</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">Problemă video</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">Apel întrerupt</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">Altceva</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">Audio sacadat</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">Sunet întrerupt</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">Am auzit ecou</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">Alții au auzit ecou</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">Calitate video slabă</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">Rezoluție slabă</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">Camera nu a funcționat</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">Altceva</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">Descrie problema ta</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">Include orice detalii relevante pentru problemă. Orice informații trimiți aici vor rămâne private și vor fi folosite doar pentru a îmbunătăți apelurile în Signal.</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">Salvează</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">Înapoi</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">Cum a fost apelul tău?</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">Acest lucru ne ajută să îmbunătățim apelurile în Signal. Nu vor fi stocate informații personale identificabile.</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">Am avut probleme</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">Minunat</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">Ce probleme ai avut?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">Selectează toate variantele aplicabile</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">Descrie problema ta</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">Continuă</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">Ajută-ne să ne îmbunătățim</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">Ne ajuți să îmbunătățim calitatea apelurilor, dacă ne trimiți informații de diagnosticare. Poți </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">vedea jurnalul de depanare</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> înainte de a trimite</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">Trimite jurnalul de depanare</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">Jurnalele de depanare conțin informații de nivel scăzut despre aplicație și nu dezvăluie conținutul mesajelor tale.</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">Trimite</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">Mulțumesc pentru feedback!</string>
 
     <!-- EOF -->
 </resources>

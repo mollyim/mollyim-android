@@ -1144,6 +1144,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">呢個版本嘅 Molly 已經過期喇。即刻更新以傳送同接收訊息。</string>
     <string name="ExpiredBuildReminder_update_now">即刻更新</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">Signal no longer works on this device. To use Signal again, update your device to a newer version of Android or switch to a newer device.</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">更新 Molly</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -2826,6 +2829,8 @@
     <string name="SubmitDebugLogActivity_success">成功！</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">請複製呢個 URL，然後擺埋落去您個問題報告或者支援電郵度吖：\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">分享</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">關閉</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">下低呢個記錄檔將會公開擺上網，畀有心貢獻嘅人睇到。您可以自己睇一次先，上載嘅話先至撳掣。</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">當你㩒咗提交之後，你嘅記錄會透過一個專屬而且未經發佈嘅網址喺網上發佈 30 日。你可以事先喺你部機度儲存記錄。</string>
@@ -5049,9 +5054,17 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">飛過</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="other">%1$d 位成員</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="other">%1$s 位成員</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">下一步</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">分享</string>
@@ -5765,23 +5778,23 @@
     <string name="NewConversationActivity__s_has_been_blocked">%1$s 已經被封鎖</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">封鎖失敗</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">移除唔到 %1$s</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">呢個聯絡人儲存咗喺裝置嘅聯絡人清單。請你喺聯絡人清單度將佢刪除，然後再試一次。</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">檢視聯絡人</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s 唔係 Signal 嘅用戶</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$s 唔係 Signal 嘅用戶</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">打開選單</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="other">%1$s 唔係 Signal 嘅用戶</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">名稱、用戶名稱或電話冧把</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">名稱、用戶名稱或電話冧把</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -7575,6 +7588,8 @@
     <string name="TurnOnSignalBackups__turn_on">開啟</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">遲啲先啦</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">驗證你嘅恢復金鑰</string>
@@ -8241,13 +8256,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">你嘅恢復金鑰</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">恢復金鑰</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">你嘅恢復金鑰係一個 64 個字元嘅代碼，方便你喺重新安裝 Molly 之後還原備份。</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">你嘅恢復金鑰係一組 64 個字元嘅代碼，用嚟還原你嘅備份。</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">如果你唔記得咗個金鑰，就冇辦法還原備份喇。Molly 冇辦法幫你還原備份。</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">請將恢復金鑰儲存喺安全嘅地方，例如信得過嘅密碼管理器入面，同埋千祈唔好講俾任何人知。</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">如果你唔見咗佢，就冇辦法恢復你啲訊息㗎喇。</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">下一步</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">睇吓恢復金鑰</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8623,18 +8640,26 @@
     <string name="Poll__poll_voted">%1$s 投咗票：「%2$s」</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">投票</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">投票結果</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">投票詳情</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">發問</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
     <plurals name="Poll__num_votes">
         <item quantity="other">%1$d 個投票</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">贏家</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">結束投票</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">睇晒全部</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">結束唔到個投票</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">請檢查你嘅連線，然後再試多次。</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">新嘅投票</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8655,6 +8680,76 @@
     <string name="CreatePollFragment__add_option">最少要加 2 個選項</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">加條問題</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">語音訊息問題</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">影像問題</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">通話中斷</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">其他</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">語音窒下窒下</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">語音斷咗或者無聲</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">我聽到回音</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">其他人聽到回音</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">影像畫質唔掂</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">解析度低</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">相機失靈</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">其他</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">講吓你遇到嘅問題</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">請提供同問題有關嘅任何詳細資料。你喺度分享嘅所有內容都會保密，同埋只會用喺協助改善 Signal 嘅通話。</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">儲存</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">返轉頭</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">通話順利嗎？</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">你嘅回應可以幫到我哋改善 Signal 嘅通話。我哋唔會儲存個人識別資料。</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">有問題</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">無得頂</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">你遇到咩問題？</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">請揀選全部啱用嘅選項</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">講吓你遇到嘅問題</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">繼續</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">幫我哋改進</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">將診斷資訊傳送俾我哋，可以幫我哋改善通話品質。你可以 </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">睇吓你嘅除錯記錄</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> （响提交之前）</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">分享除錯記錄</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">除錯記錄只包括 APP 嘅基本資訊，唔會顯示任何訊息內容。</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">提交</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">多謝你嘅回應！</string>
 
     <!-- EOF -->
 </resources>

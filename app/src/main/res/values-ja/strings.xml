@@ -1144,6 +1144,9 @@
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">このバージョンのMollyは期限が切れています。メッセージを送受信するには、アップデートしてください。</string>
     <string name="ExpiredBuildReminder_update_now">アップデートする</string>
 
+    <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
+    <string name="DeprecatedSdkBanner_body">このデバイスではSignalは動作しなくなりました。再びSignalを利用するためには、お使いのデバイスでAndroidのバージョンをアップデートするか、機種変更をしてください。</string>
+
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Mollyをアップデートしてください</string>
     <!-- Message body of notification telling users that this current version of Signal has expired. If pressed, we will direct them to the website APK or PlayStore page -->
@@ -2826,6 +2829,8 @@
     <string name="SubmitDebugLogActivity_success">成功しました！</string>
     <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">このURLをコピーしてバグレポートやサポートメールに貼り付けてください:\n\n<b>%1$s</b></string>
     <string name="SubmitDebugLogActivity_share">共有</string>
+    <!-- Displayed when entering activity in view-only mode -->
+    <string name="SubmitDebugLogActivity_close">閉じる</string>
     <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">このログはコントリビュータにオンラインで公開されます。アップロードする前に内容を確認できます。</string>
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">「送信する」をクリックすると、このログがユニークな未公開のURLで30日間見られるようになります。\n「保存」をクリックすると、送信する前にあなたの端末にログを保存しておくこともできます。</string>
@@ -5049,9 +5054,17 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">スキップ</string>
+
     <plurals name="CreateGroupActivity__d_members">
         <item quantity="other">メンバー %1$d人</item>
     </plurals>
+
+    <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
+    <plurals name="CreateGroupActivity__s_members">
+        <item quantity="other">メンバー %1$s人</item>
+    </plurals>
+    <!-- Accessibility label for navigating to the next screen in the create group flow. -->
+    <string name="CreateGroupActivity__accessibility_next">次へ</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity__share">共有する</string>
@@ -5765,23 +5778,23 @@
     <string name="NewConversationActivity__s_has_been_blocked">%1$s はブロックされました</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ブロックできませんでした</string>
-    <!-- Dialog title when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__unable_to_remove_s">%1$s さんを削除できません</string>
-    <!-- Dialog message when remove target contact is in system contacts -->
-    <string name="NewConversationActivity__this_person_is_saved_to_your">このユーザーはデバイスの連絡先に保存されています。連絡先から消去して再度試してください。</string>
-    <!-- Dialog action to view contact when they can\'t be removed otherwise -->
-    <string name="NewConversationActivity__view_contact">連絡先を表示する</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
     <string name="NewConversationActivity__s_is_not_a_signal_user">%1$sはSignalユーザーではありません</string>
-    <!-- Error message shown when we could not get a user from the username link -->
-    <string name="NewConversationActivity__">%1$sはSignalユーザーではありません</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="NewConversationActivity__accessibility_open_top_bar_menu">メニューを開く</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
     <plurals name="CreateGroupActivity_not_signal_users">
         <item quantity="other">%1$sさんはSignalユーザーではありません</item>
     </plurals>
 
-    <!-- Hint text that shows in the recipient search box when no text is entered yet. -->
-    <string name="ContactFilterView__search_name_or_number">名前、ユーザーネーム、電話番号</string>
+    <!-- Hint text that shows in the recipient search bar when no text is entered yet. -->
+    <string name="RecipientSearchBar__search_name_or_number">名前、ユーザーネーム、電話番号</string>
+    <!-- Accessibility label for the button to switch to the numeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_numeric_keyboard">Switch to numeric keyboard</string>
+    <!-- Accessibility label for the button to switch to the alphanumeric keyboard type. -->
+    <string name="RecipientSearchBar_accessibility_switch_to_alphanumeric_keyboard">Switch to alphanumeric keyboard</string>
+    <!-- Accessibility label for the button to clear the search filter. -->
+    <string name="RecipientSearchBar_accessibility_clear_search">Reset search filter</string>
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__dot_s">· %1$s</string>
@@ -7575,6 +7588,8 @@
     <string name="TurnOnSignalBackups__turn_on">有効にする</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will simply dismiss the megaphone -->
     <string name="TurnOnSignalBackups__not_now">今はしない</string>
+    <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
+    <string name="TurnOnSignalBackups__toast_not_now">You can enable backups in \"Settings\"</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">リカバリーキーを確認してください</string>
@@ -8241,13 +8256,15 @@
 
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key">リカバリーキーとは</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key">回復キー</string>
     <!-- Screen body part 1 -->
-    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">リカバリーキーは64文字のコードで、Mollyを再インストールした際には、このコードを使ってバックアップを復元することができます。</string>
+    <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">回復キーは、バックアップを復元するために必要な64文字のコードです。</string>
     <!-- Screen body part 2 -->
-    <string name="MessageBackupsKeyEducationScreen__if_you_forget_your_key">キーを忘れた場合、バックアップの復元はできません。Mollyはバックアップの復元をサポートできません。</string>
+    <string name="MessageBackupsKeyEducationScreen__store_your_recovery">回復キーはパスワードマネージャーなどの安全な場所に保存し、誰とも共有しないでください。</string>
+    <!-- Screen body part 3 -->
+    <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">紛失した場合、メッセージを復元できなくなります。</string>
     <!-- Action button label -->
-    <string name="MessageBackupsKeyEducationScreen__next">次へ</string>
+    <string name="MessageBackupsKeyEducationScreen__view_recovery_key">回復キーを表示する</string>
 
     <!-- MessageBackupsKeyRecordScreen -->
     <!-- Screen headline -->
@@ -8623,18 +8640,26 @@
     <string name="Poll__poll_voted">%1$sが「%2$s」に投票しました</string>
     <!-- Option in settings to configure notifications for polls -->
     <string name="Poll__poll">投票</string>
-    <!-- Title of screen that shows the poll results of a poll -->
+    <!-- Title of screen that shows the poll results of a poll after it has ended-->
     <string name="Poll__poll_results">投票結果</string>
+    <!-- Title of screen that shows the poll details of a poll -->
+    <string name="Poll__poll_details">投票の詳細</string>
     <!-- Header text displaying the question of the poll -->
     <string name="Poll__question">質問</string>
     <!-- Text displaying how many votes, %1$d, an option has gotten -->
     <plurals name="Poll__num_votes">
         <item quantity="other">%1$d人が投票</item>
     </plurals>
+    <!-- Content description to describe the icon that is shown next to the winning option when the poll ends -->
+    <string name="Poll__poll_winner">決定</string>
     <!-- Text that when pressed will end the poll   -->
     <string name="Poll__end_poll">投票を終了する</string>
     <!-- Button that once pressed will show all of the voters for a poll -->
     <string name="Poll__see_all">すべて表示</string>
+    <!-- Dialog title when a poll fails to end -->
+    <string name="Poll__couldnt_end_poll">投票を終了できませんでした</string>
+    <!-- Dialog body when a poll fails to end and to try again -->
+    <string name="Poll__check_connection">インターネット接続を確認して再度試してください。</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">新しい投票</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8655,6 +8680,76 @@
     <string name="CreatePollFragment__add_option">少なくとも2つの選択肢を追加してください</string>
     <!-- Snackbar text to add a question before creating a poll -->
     <string name="CreatePollFragment__add_question">質問を追加する</string>
+
+    <!-- CallQualityIssue -->
+    <!-- Label for general audio issue category -->
+    <string name="CallQualityIssue__audio_issue">音声の問題</string>
+    <!-- Label for general video issue category -->
+    <string name="CallQualityIssue__video_issue">ビデオの問題</string>
+    <!-- Label for call dropped issue -->
+    <string name="CallQualityIssue__call_droppped">通話が切れる</string>
+    <!-- Label for other/custom issues not covered by predefined categories -->
+    <string name="CallQualityIssue__something_else">その他</string>
+    <!-- Label for audio stuttering/choppy audio issue -->
+    <string name="CallQualityIssue__audio_stuttering">音声が途切れる</string>
+    <!-- Label for audio cutting out/dropping issue -->
+    <string name="CallQualityIssue__audio_cut_out">音声が聞こえない時がある</string>
+    <!-- Label for echo heard by the user -->
+    <string name="CallQualityIssue__i_heard_echo">音声が反響する</string>
+    <!-- Label for echo heard by other call participants -->
+    <string name="CallQualityIssue__others_heard_echo">他の人に、自分の声が反響して聞こえる</string>
+    <!-- Label for poor video quality issue -->
+    <string name="CallQualityIssue__poor_video_quality">ビデオの画質が悪い</string>
+    <!-- Label for low video resolution issue -->
+    <string name="CallQualityIssue__low_resolution">解像度が低い</string>
+    <!-- Label for camera malfunction issue -->
+    <string name="CallQualityIssue__camera_did_not_work">カメラが動作しない</string>
+
+    <!-- CallQualitySomethingElseScreen -->
+    <!-- Title for the "Something else" call quality issue screen -->
+    <string name="CallQualitySomethingElseScreen__title">その他</string>
+    <!-- Label for text field where user describes their call quality issue -->
+    <string name="CallQualitySomethingElseScreen__describe_your_issue">問題について記入してください</string>
+    <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
+    <string name="CallQualitySomethingElseScreen__privacy_notice">問題に関して、できるだけ詳細にご記入ください。ここで共有いただいた内容はすべて非公開であり、Signalでの通話品質の改善の為のみに使用されます。</string>
+    <!-- Button to save the call quality issue description -->
+    <string name="CallQualitySomethingElseScreen__save">保存</string>
+    <!-- Content description for the back navigation button -->
+    <string name="CallQualitySomethingElseScreen__back">戻る</string>
+
+    <!-- CallQualitySheet -->
+    <!-- Title asking user how their call was -->
+    <string name="CallQualitySheet__how_was_your_call">通話状態はいかがでしたか？</string>
+    <!-- Subtitle explaining that feedback helps improve Signal and no PII is stored -->
+    <string name="CallQualitySheet__how_was_your_call_subtitle">Signalの通話品質改善にご協力をお願いいたします。個人情報は一切保存されません。</string>
+    <!-- Button label indicating the call had issues -->
+    <string name="CallQualitySheet__had_issues">問題あり</string>
+    <!-- Button label indicating the call was great -->
+    <string name="CallQualitySheet__great">良好</string>
+    <!-- Title asking what issues the user experienced -->
+    <string name="CallQualitySheet__what_issues_did_you_have">どのような問題がありますか?</string>
+    <!-- Instruction to select all applicable issues -->
+    <string name="CallQualitySheet__select_all_that_apply">該当するものをすべて選んでください</string>
+    <!-- Placeholder text for describing a custom issue -->
+    <string name="CallQualitySheet__describe_your_issue">問題について記入してください</string>
+    <!-- Button to continue to the next step -->
+    <string name="CallQualitySheet__continue">続行</string>
+    <!-- Title asking user to help improve Signal -->
+    <string name="CallQualitySheet__help_us_improve">改善にご協力ください</string>
+    <!-- First part of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_prefix">診断情報を送信していただくと、今後の品質改善に繋がります。送信前に </string>
+    <!-- Link text to view debug log -->
+    <string name="CallQualitySheet__view_your_debug_log">デバッグログを表示する</string>
+    <!-- Last part of description about viewing debug log before submitting -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix"> ことができます</string>
+    <!-- Toggle label for sharing debug log -->
+    <string name="CallQualitySheet__share_debug_log">デバッグログを共有する</string>
+    <!-- Privacy notice explaining what debug logs contain and why they are helpful -->
+    <string name="CallQualitySheet__debug_log_privacy_notice">デバッグログには最低限のアプリ情報のみが含まれ、メッセージ内容は一切明らかにされません。</string>
+    <!-- Button to submit the call quality feedback -->
+    <string name="CallQualitySheet__submit">送信する</string>
+    <!-- Displayed as a snackbar after submitting feedback -->
+    <string name="CallQualitySheet__thanks_for_your_feedback">フィードバックをありがとうございます！</string>
 
     <!-- EOF -->
 </resources>

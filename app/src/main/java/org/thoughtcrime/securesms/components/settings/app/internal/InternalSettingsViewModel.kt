@@ -177,7 +177,7 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     hevcEncoding = SignalStore.internal.hevcEncoding,
     newCallingUi = SignalStore.internal.newCallingUi,
     largeScreenUi = SignalStore.internal.largeScreenUi,
-    forceSplitPaneOnCompactLandscape = SignalStore.internal.forceSplitPaneOnCompactLandscape
+    forceSplitPane = SignalStore.internal.forceSplitPane
   )
 
   fun onClearOnboardingState() {
@@ -198,8 +198,8 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
-  fun setForceSplitPaneOnCompactLandscape(forceSplitPaneOnCompactLandscape: Boolean) {
-    SignalStore.internal.forceSplitPaneOnCompactLandscape = forceSplitPaneOnCompactLandscape
+  fun setForceSplitPane(forceSplitPane: Boolean) {
+    SignalStore.internal.forceSplitPane = forceSplitPane
     refresh()
   }
 

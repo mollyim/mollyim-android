@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -33,7 +34,7 @@ import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.window.AppScaffoldNavigator
-import org.thoughtcrime.securesms.window.WindowSizeClass
+import org.thoughtcrime.securesms.window.isLargeScreenSupportEnabled
 import java.util.Optional
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
@@ -46,17 +47,21 @@ class MainNavigationViewModel(
   private var navigatorScope: CoroutineScope? = null
   private var goToLegacyDetailLocation: ((MainNavigationDetailLocation) -> Unit)? = null
 
-  /**
-   * The latest detail location that has been requested, for consumption by other components.
-   */
   private val internalDetailLocation = MutableSharedFlow<MainNavigationDetailLocation>()
   val detailLocation: SharedFlow<MainNavigationDetailLocation> = internalDetailLocation
 
+  private val internalIsFullScreenPane = MutableStateFlow(false)
+  val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
+
   private val internalActiveChatThreadId = MutableStateFlow(-1L)
-  val observableActiveChatThreadId: Observable<Long> = internalActiveChatThreadId.asObservable()
+  val observableActiveChatThreadId: Observable<Long> = internalActiveChatThreadId.combine(isFullScreenPane) { id, expanded ->
+    if (expanded) -1L else id
+  }.asObservable()
 
   private val internalActiveCallId = MutableStateFlow<CallLogRow.Id?>(null)
-  val observableActiveCallId: Observable<Optional<CallLogRow.Id>> = internalActiveCallId.map { Optional.ofNullable(it) }.asObservable()
+  val observableActiveCallId: Observable<Optional<out CallLogRow.Id>> = internalActiveCallId.map { Optional.ofNullable(it) }.combine(isFullScreenPane) { id, expanded ->
+    if (expanded) Optional.ofNullable(null) else id
+  }.asObservable()
 
   private val internalMegaphone = MutableStateFlow(Megaphone.NONE)
   val megaphone: StateFlow<Megaphone> = internalMegaphone
@@ -76,11 +81,14 @@ class MainNavigationViewModel(
    * This is Rx because these are still accessed from Java.
    */
   private val internalTabClickEvents: MutableSharedFlow<MainNavigationListLocation> = MutableSharedFlow()
-  val tabClickEvents: Observable<MainNavigationListLocation> = internalTabClickEvents.asObservable()
+  val tabClickEventsObservable: Observable<MainNavigationListLocation> = internalTabClickEvents.asObservable()
 
   private var earlyNavigationListLocationRequested: MainNavigationListLocation? = null
   var earlyNavigationDetailLocationRequested: MainNavigationDetailLocation? = null
     private set
+
+  private val internalPaneFocusRequests = MutableSharedFlow<ThreePaneScaffoldRole?>()
+  val paneFocusRequests: SharedFlow<ThreePaneScaffoldRole?> = internalPaneFocusRequests
 
   private var earlyFocusedPaneRequested: ThreePaneScaffoldRole? = null
 
@@ -121,6 +129,10 @@ class MainNavigationViewModel(
         }
       }
     }
+  }
+
+  fun onPaneAnchorChanged(isFullScreenPane: Boolean) {
+    internalIsFullScreenPane.update { isFullScreenPane }
   }
 
   /**
@@ -170,6 +182,10 @@ class MainNavigationViewModel(
     navigatorScope?.launch {
       navigator?.navigateTo(roleToGoTo)
     }
+
+    viewModelScope.launch {
+      internalPaneFocusRequests.emit(roleToGoTo)
+    }
   }
 
   /**
@@ -182,7 +198,7 @@ class MainNavigationViewModel(
   override fun goTo(location: MainNavigationDetailLocation) {
     lockPaneToSecondary = false
 
-    if (!WindowSizeClass.isLargeScreenSupportEnabled()) {
+    if (!isLargeScreenSupportEnabled()) {
       goToLegacyDetailLocation?.invoke(location)
       return
     }
@@ -268,6 +284,7 @@ class MainNavigationViewModel(
     viewModelScope.launch {
       val currentTab = internalMainNavigationState.value.currentListLocation
       if (currentTab == destination) {
+        internalPaneFocusRequests.emit(ThreePaneScaffoldRole.Secondary)
         internalTabClickEvents.emit(destination)
       } else {
         setFocusedPane(ThreePaneScaffoldRole.Secondary)

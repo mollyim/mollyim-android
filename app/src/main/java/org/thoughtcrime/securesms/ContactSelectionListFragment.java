@@ -158,11 +158,11 @@ public final class ContactSelectionListFragment extends LoggingFragment {
     }
 
     if (getParentFragment() instanceof ScrollCallback) {
-      scrollCallback = (ScrollCallback) getParentFragment();
+      setScrollCallback((ScrollCallback) getParentFragment());
     }
 
     if (context instanceof ScrollCallback) {
-      scrollCallback = (ScrollCallback) context;
+      setScrollCallback((ScrollCallback) context);
     }
 
     if (getParentFragment() instanceof OnContactSelectedListener) {
@@ -190,11 +190,11 @@ public final class ContactSelectionListFragment extends LoggingFragment {
     }
 
     if (context instanceof OnItemLongClickListener) {
-      onItemLongClickListener = (OnItemLongClickListener) context;
+      setOnItemLongClickListener((OnItemLongClickListener) context);
     }
 
     if (getParentFragment() instanceof OnItemLongClickListener) {
-      onItemLongClickListener = (OnItemLongClickListener) getParentFragment();
+      setOnItemLongClickListener((OnItemLongClickListener) getParentFragment());
     }
   }
 
@@ -206,8 +206,16 @@ public final class ContactSelectionListFragment extends LoggingFragment {
     this.findByCallback = callback;
   }
 
+  public void setScrollCallback(@Nullable ScrollCallback callback) {
+    this.scrollCallback = callback;
+  }
+
   public void setOnContactSelectedListener(@Nullable OnContactSelectedListener listener) {
     this.onContactSelectedListener = listener;
+  }
+
+  public void setOnItemLongClickListener(@Nullable OnItemLongClickListener listener) {
+    this.onItemLongClickListener = listener;
   }
 
   @Override
@@ -438,14 +446,6 @@ public final class ContactSelectionListFragment extends LoggingFragment {
     onRefreshListener = null;
   }
 
-  public int getSelectedMembersSize() {
-    if (contactSearchMediator == null) {
-      return 0;
-    }
-
-    return contactSearchMediator.getSelectedMembersSize();
-  }
-
   private @NonNull Bundle safeArguments() {
     return getArguments() != null ? getArguments() : new Bundle();
   }
@@ -467,7 +467,11 @@ public final class ContactSelectionListFragment extends LoggingFragment {
   }
 
   public int getSelectedContactsCount() {
-    return getSelectedMembersSize();
+    if (contactSearchMediator == null) {
+      return 0;
+    }
+
+    return contactSearchMediator.getSelectedContacts().size();
   }
 
   public int getTotalMemberCount() {
@@ -864,7 +868,7 @@ public final class ContactSelectionListFragment extends LoggingFragment {
     constraintSet.applyTo(constraintLayout);
   }
 
-  public void setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
+  public void setOnRefreshListener(@Nullable SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
     this.onRefreshListener = onRefreshListener;
     this.swipeRefresh.setOnRefreshListener(onRefreshListener);
   }

@@ -864,14 +864,14 @@ class AttachmentTable(
    */
   fun doAnyThumbnailsNeedArchiveUpload(): Boolean {
     return readableDatabase
-      .exists(TABLE_NAME)
+      .exists("$TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}")
       .where(
         """
-        $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value} AND 
-        $ARCHIVE_THUMBNAIL_TRANSFER_STATE IN (${ArchiveTransferState.NONE.value}, ${ArchiveTransferState.TEMPORARY_FAILURE.value}) AND
+        ${buildAttachmentsThatNeedUploadQuery("$ARCHIVE_THUMBNAIL_TRANSFER_STATE IN (${ArchiveTransferState.NONE.value}, ${ArchiveTransferState.TEMPORARY_FAILURE.value})")} AND
         $QUOTE = 0 AND
         ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%') AND
-        $CONTENT_TYPE != 'image/svg+xml'
+        $CONTENT_TYPE != 'image/svg+xml' AND
+        $MESSAGE_ID != $WALLPAPER_MESSAGE_ID
       """
       )
       .run()
@@ -882,15 +882,15 @@ class AttachmentTable(
    */
   fun getThumbnailsThatNeedArchiveUpload(): List<AttachmentId> {
     return readableDatabase
-      .select(ID)
-      .from(TABLE_NAME)
+      .select("$TABLE_NAME.$ID")
+      .from("$TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}")
       .where(
         """
-        $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value} AND 
-        $ARCHIVE_THUMBNAIL_TRANSFER_STATE IN (${ArchiveTransferState.NONE.value}, ${ArchiveTransferState.TEMPORARY_FAILURE.value}) AND
+        ${buildAttachmentsThatNeedUploadQuery("$ARCHIVE_THUMBNAIL_TRANSFER_STATE IN (${ArchiveTransferState.NONE.value}, ${ArchiveTransferState.TEMPORARY_FAILURE.value})")} AND
         $QUOTE = 0 AND
         ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%') AND
-        $CONTENT_TYPE != 'image/svg+xml'
+        $CONTENT_TYPE != 'image/svg+xml' AND
+        $MESSAGE_ID != $WALLPAPER_MESSAGE_ID
       """
       )
       .run()
@@ -1782,7 +1782,9 @@ class AttachmentTable(
       DATA_SIZE to uploadResult.dataSize,
       DATA_HASH_END to dataHashEnd,
       UPLOAD_TIMESTAMP to uploadResult.uploadTimestamp,
-      BLUR_HASH to uploadResult.blurHash
+      BLUR_HASH to uploadResult.blurHash,
+      ARCHIVE_TRANSFER_STATE to ArchiveTransferState.NONE.value,
+      ARCHIVE_CDN to null
     )
 
     val dataFilePath = getDataFilePath(id) ?: throw IOException("No data file found for attachment!")
@@ -3056,16 +3058,12 @@ class AttachmentTable(
           """
           (
             SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY
-            FROM $TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} AS m ON $TABLE_NAME.$MESSAGE_ID = m.${MessageTable.ID}
+            FROM $TABLE_NAME INNER JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}
             WHERE 
-              $DATA_FILE NOT NULL AND 
-              $DATA_HASH_END NOT NULL AND 
-              $REMOTE_KEY NOT NULL AND
-              $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND
-              $ARCHIVE_TRANSFER_STATE != ${ArchiveTransferState.PERMANENT_FAILURE.value} AND 
+              ${buildAttachmentsThatNeedUploadQuery("$ARCHIVE_THUMBNAIL_TRANSFER_STATE != ${ArchiveTransferState.PERMANENT_FAILURE.value}")} AND
               ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%') AND
               $CONTENT_TYPE != 'image/svg+xml' AND
-              ${getMessageDoesNotExpireWithinTimeoutClause(tablePrefix = "m")}
+              $MESSAGE_ID != $WALLPAPER_MESSAGE_ID
           )
           """
         )
@@ -3331,11 +3329,11 @@ class AttachmentTable(
           SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY
           FROM $TABLE_NAME LEFT JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}
           WHERE 
-            $ARCHIVE_THUMBNAIL_TRANSFER_STATE = ${state.value} AND
-            $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value} AND
+            ${buildAttachmentsThatNeedUploadQuery("$ARCHIVE_THUMBNAIL_TRANSFER_STATE = ${state.value}")} AND
             $QUOTE = 0 AND
             ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%') AND
-            $CONTENT_TYPE != 'image/svg+xml'
+            $CONTENT_TYPE != 'image/svg+xml' AND
+            $MESSAGE_ID != $WALLPAPER_MESSAGE_ID
         )
         """
       )
@@ -3861,8 +3859,8 @@ class AttachmentTable(
     }
   }
 
-  data class CreateRemoteKeyResult(val totalCount: Int, val notQuoteOrSickerDupeNotFoundCount: Int, val notQuoteOrSickerDupeFoundCount: Int) {
-    val unexpectedKeyCreation = notQuoteOrSickerDupeFoundCount > 0 || notQuoteOrSickerDupeNotFoundCount > 0
+  data class CreateRemoteKeyResult(val totalCount: Int, val notQuoteOrStickerDupeNotFoundCount: Int, val notQuoteOrStickerDupeFoundCount: Int) {
+    val unexpectedKeyCreation = notQuoteOrStickerDupeFoundCount > 0 || notQuoteOrStickerDupeNotFoundCount > 0
   }
 
   class DebugArchiveMediaInfo(
