@@ -11,13 +11,17 @@ add_library(molly_security SHARED
     memory_scrambler.cpp
     timing_obfuscation.cpp
     kyber1024.cpp
+    ml_kem_1024.cpp
+    ml_dsa_87.cpp
     jni_bridge.cpp
 )
 
 find_library(log-lib log)
 find_library(android-lib android)
+find_library(crypto-lib crypto)
 
 target_link_libraries(molly_security
     ${log-lib}
     ${android-lib}
+    ${crypto-lib}
 )

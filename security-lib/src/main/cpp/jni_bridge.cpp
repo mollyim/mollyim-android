@@ -5,6 +5,8 @@
 #include "cache_operations.h"
 #include "memory_scrambler.h"
 #include "timing_obfuscation.h"
+#include "ml_kem_1024.h"
+#include "ml_dsa_87.h"
 
 #define TAG "MollySecurityJNI"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
@@ -118,6 +120,223 @@ JNIEXPORT void JNICALL
 Java_im_molly_security_TimingObfuscation_nativeJitterSleep(JNIEnv* env, jclass /* clazz */,
     jint baseMs, jint jitterPercent) {
     TimingObfuscation::jitter_sleep_ms(baseMs, jitterPercent);
+}
+
+// ============================================================================
+// ML-KEM-1024 (FIPS 203) JNI Bindings
+// ============================================================================
+
+JNIEXPORT jobject JNICALL
+Java_im_molly_security_MLKEM1024_nativeGenerateKeypair(JNIEnv* env, jclass /* clazz */) {
+    try {
+        auto keypair = MLKEM1024::generate_keypair();
+
+        // Create byte arrays
+        jbyteArray publicKey = env->NewByteArray(keypair.public_key.size());
+        jbyteArray secretKey = env->NewByteArray(keypair.secret_key.size());
+
+        env->SetByteArrayRegion(publicKey, 0, keypair.public_key.size(),
+                                reinterpret_cast<const jbyte*>(keypair.public_key.data()));
+        env->SetByteArrayRegion(secretKey, 0, keypair.secret_key.size(),
+                                reinterpret_cast<const jbyte*>(keypair.secret_key.data()));
+
+        // Find KeyPair class and constructor
+        jclass keypairClass = env->FindClass("im/molly/security/MLKEM1024$KeyPair");
+        if (!keypairClass) {
+            LOGE("Could not find MLKEM1024$KeyPair class");
+            return nullptr;
+        }
+
+        jmethodID constructor = env->GetMethodID(keypairClass, "<init>", "([B[B)V");
+        if (!constructor) {
+            LOGE("Could not find MLKEM1024$KeyPair constructor");
+            return nullptr;
+        }
+
+        return env->NewObject(keypairClass, constructor, publicKey, secretKey);
+    } catch (const std::exception& e) {
+        LOGE("ML-KEM-1024 keypair generation failed: %s", e.what());
+        return nullptr;
+    }
+}
+
+JNIEXPORT jobject JNICALL
+Java_im_molly_security_MLKEM1024_nativeEncapsulate(JNIEnv* env, jclass /* clazz */,
+    jbyteArray publicKey) {
+    if (!publicKey) return nullptr;
+
+    try {
+        jbyte* pkBytes = env->GetByteArrayElements(publicKey, nullptr);
+        jsize pkLength = env->GetArrayLength(publicKey);
+
+        std::vector<uint8_t> pk(reinterpret_cast<uint8_t*>(pkBytes),
+                                reinterpret_cast<uint8_t*>(pkBytes) + pkLength);
+        env->ReleaseByteArrayElements(publicKey, pkBytes, JNI_ABORT);
+
+        auto result = MLKEM1024::encapsulate(pk);
+
+        // Create byte arrays
+        jbyteArray ciphertext = env->NewByteArray(result.ciphertext.size());
+        jbyteArray sharedSecret = env->NewByteArray(result.shared_secret.size());
+
+        env->SetByteArrayRegion(ciphertext, 0, result.ciphertext.size(),
+                                reinterpret_cast<const jbyte*>(result.ciphertext.data()));
+        env->SetByteArrayRegion(sharedSecret, 0, result.shared_secret.size(),
+                                reinterpret_cast<const jbyte*>(result.shared_secret.data()));
+
+        // Find EncapsulationResult class and constructor
+        jclass resultClass = env->FindClass("im/molly/security/MLKEM1024$EncapsulationResult");
+        if (!resultClass) {
+            LOGE("Could not find MLKEM1024$EncapsulationResult class");
+            return nullptr;
+        }
+
+        jmethodID constructor = env->GetMethodID(resultClass, "<init>", "([B[B)V");
+        if (!constructor) {
+            LOGE("Could not find MLKEM1024$EncapsulationResult constructor");
+            return nullptr;
+        }
+
+        return env->NewObject(resultClass, constructor, ciphertext, sharedSecret);
+    } catch (const std::exception& e) {
+        LOGE("ML-KEM-1024 encapsulation failed: %s", e.what());
+        return nullptr;
+    }
+}
+
+JNIEXPORT jbyteArray JNICALL
+Java_im_molly_security_MLKEM1024_nativeDecapsulate(JNIEnv* env, jclass /* clazz */,
+    jbyteArray ciphertext, jbyteArray secretKey) {
+    if (!ciphertext || !secretKey) return nullptr;
+
+    try {
+        jbyte* ctBytes = env->GetByteArrayElements(ciphertext, nullptr);
+        jsize ctLength = env->GetArrayLength(ciphertext);
+        jbyte* skBytes = env->GetByteArrayElements(secretKey, nullptr);
+        jsize skLength = env->GetArrayLength(secretKey);
+
+        std::vector<uint8_t> ct(reinterpret_cast<uint8_t*>(ctBytes),
+                                reinterpret_cast<uint8_t*>(ctBytes) + ctLength);
+        std::vector<uint8_t> sk(reinterpret_cast<uint8_t*>(skBytes),
+                                reinterpret_cast<uint8_t*>(skBytes) + skLength);
+
+        env->ReleaseByteArrayElements(ciphertext, ctBytes, JNI_ABORT);
+        env->ReleaseByteArrayElements(secretKey, skBytes, JNI_ABORT);
+
+        auto sharedSecret = MLKEM1024::decapsulate(ct, sk);
+
+        jbyteArray result = env->NewByteArray(sharedSecret.size());
+        env->SetByteArrayRegion(result, 0, sharedSecret.size(),
+                                reinterpret_cast<const jbyte*>(sharedSecret.data()));
+
+        return result;
+    } catch (const std::exception& e) {
+        LOGE("ML-KEM-1024 decapsulation failed: %s", e.what());
+        return nullptr;
+    }
+}
+
+// ============================================================================
+// ML-DSA-87 (FIPS 204) JNI Bindings
+// ============================================================================
+
+JNIEXPORT jobject JNICALL
+Java_im_molly_security_MLDSA87_nativeGenerateKeypair(JNIEnv* env, jclass /* clazz */) {
+    try {
+        auto keypair = MLDSA87::generate_keypair();
+
+        // Create byte arrays
+        jbyteArray publicKey = env->NewByteArray(keypair.public_key.size());
+        jbyteArray secretKey = env->NewByteArray(keypair.secret_key.size());
+
+        env->SetByteArrayRegion(publicKey, 0, keypair.public_key.size(),
+                                reinterpret_cast<const jbyte*>(keypair.public_key.data()));
+        env->SetByteArrayRegion(secretKey, 0, keypair.secret_key.size(),
+                                reinterpret_cast<const jbyte*>(keypair.secret_key.data()));
+
+        // Find KeyPair class and constructor
+        jclass keypairClass = env->FindClass("im/molly/security/MLDSA87$KeyPair");
+        if (!keypairClass) {
+            LOGE("Could not find MLDSA87$KeyPair class");
+            return nullptr;
+        }
+
+        jmethodID constructor = env->GetMethodID(keypairClass, "<init>", "([B[B)V");
+        if (!constructor) {
+            LOGE("Could not find MLDSA87$KeyPair constructor");
+            return nullptr;
+        }
+
+        return env->NewObject(keypairClass, constructor, publicKey, secretKey);
+    } catch (const std::exception& e) {
+        LOGE("ML-DSA-87 keypair generation failed: %s", e.what());
+        return nullptr;
+    }
+}
+
+JNIEXPORT jbyteArray JNICALL
+Java_im_molly_security_MLDSA87_nativeSign(JNIEnv* env, jclass /* clazz */,
+    jbyteArray message, jbyteArray secretKey) {
+    if (!message || !secretKey) return nullptr;
+
+    try {
+        jbyte* msgBytes = env->GetByteArrayElements(message, nullptr);
+        jsize msgLength = env->GetArrayLength(message);
+        jbyte* skBytes = env->GetByteArrayElements(secretKey, nullptr);
+        jsize skLength = env->GetArrayLength(secretKey);
+
+        std::vector<uint8_t> msg(reinterpret_cast<uint8_t*>(msgBytes),
+                                 reinterpret_cast<uint8_t*>(msgBytes) + msgLength);
+        std::vector<uint8_t> sk(reinterpret_cast<uint8_t*>(skBytes),
+                                reinterpret_cast<uint8_t*>(skBytes) + skLength);
+
+        env->ReleaseByteArrayElements(message, msgBytes, JNI_ABORT);
+        env->ReleaseByteArrayElements(secretKey, skBytes, JNI_ABORT);
+
+        auto signature = MLDSA87::sign(msg, sk);
+
+        jbyteArray result = env->NewByteArray(signature.size());
+        env->SetByteArrayRegion(result, 0, signature.size(),
+                                reinterpret_cast<const jbyte*>(signature.data()));
+
+        return result;
+    } catch (const std::exception& e) {
+        LOGE("ML-DSA-87 signing failed: %s", e.what());
+        return nullptr;
+    }
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_molly_security_MLDSA87_nativeVerify(JNIEnv* env, jclass /* clazz */,
+    jbyteArray message, jbyteArray signature, jbyteArray publicKey) {
+    if (!message || !signature || !publicKey) return JNI_FALSE;
+
+    try {
+        jbyte* msgBytes = env->GetByteArrayElements(message, nullptr);
+        jsize msgLength = env->GetArrayLength(message);
+        jbyte* sigBytes = env->GetByteArrayElements(signature, nullptr);
+        jsize sigLength = env->GetArrayLength(signature);
+        jbyte* pkBytes = env->GetByteArrayElements(publicKey, nullptr);
+        jsize pkLength = env->GetArrayLength(publicKey);
+
+        std::vector<uint8_t> msg(reinterpret_cast<uint8_t*>(msgBytes),
+                                 reinterpret_cast<uint8_t*>(msgBytes) + msgLength);
+        std::vector<uint8_t> sig(reinterpret_cast<uint8_t*>(sigBytes),
+                                 reinterpret_cast<uint8_t*>(sigBytes) + sigLength);
+        std::vector<uint8_t> pk(reinterpret_cast<uint8_t*>(pkBytes),
+                                reinterpret_cast<uint8_t*>(pkBytes) + pkLength);
+
+        env->ReleaseByteArrayElements(message, msgBytes, JNI_ABORT);
+        env->ReleaseByteArrayElements(signature, sigBytes, JNI_ABORT);
+        env->ReleaseByteArrayElements(publicKey, pkBytes, JNI_ABORT);
+
+        bool valid = MLDSA87::verify(msg, sig, pk);
+
+        return valid ? JNI_TRUE : JNI_FALSE;
+    } catch (const std::exception& e) {
+        LOGE("ML-DSA-87 verification failed: %s", e.what());
+        return JNI_FALSE;
+    }
 }
 
 } // extern "C"
