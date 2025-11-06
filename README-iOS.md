@@ -639,6 +639,35 @@ This program is free software: you can redistribute it and/or modify it under th
 
 ---
 
+## 📚 Documentation
+
+### iOS-Specific Documentation
+
+- **This README** - Complete iOS feature documentation and usage guide
+- **[docs/IOS_PORT_ROADMAP.md](docs/IOS_PORT_ROADMAP.md)** - Technical porting strategy (160+ pages)
+  - Architecture diagrams and API mappings
+  - SwiftUI code examples
+  - CoreML integration details
+  - 6-phase implementation timeline
+
+### Cross-Platform Documentation
+
+- **[README.md](README.md)** - Android EMMA documentation
+- **[docs/FINAL_IMPLEMENTATION_REPORT.md](docs/FINAL_IMPLEMENTATION_REPORT.md)** - Android implementation report
+- **[BUILDING.md](BUILDING.md)** - Build instructions (Android)
+
+### For Developers
+
+The iOS port reuses **95% of C++ security code** from Android. Key differences:
+- `perf_event_open` → `task_info()` + boot state checks
+- JNI bridges → Objective-C++ bridges
+- Android Keystore → iOS Keychain Services
+- Material Design → SwiftUI native components
+
+See **[docs/IOS_PORT_ROADMAP.md](docs/IOS_PORT_ROADMAP.md)** for complete technical details.
+
+---
+
 ## Disclaimer
 
 EMMA provides **defense-in-depth** against advanced threats but is not a silver bullet. Use in conjunction with:
