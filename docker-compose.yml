@@ -1,0 +1,72 @@
+services:
+  # Android app builder
+  android-builder:
+    image: emma-android-builder
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ANDROID_SDK_DIST: commandlinetools-linux-11076708_latest.zip
+        ANDROID_SDK_SHA256: 2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
+        NDK_VERSION: 28.0.13004108
+        BUILD_TOOLS_VERSION: 35.0.0
+        COMPILE_SDK_VERSION: android-35
+    volumes:
+      - ./app/build/outputs:/molly/app/build/outputs
+      - gradle-cache:/root/.gradle/cache
+      - gradle-wrapper:/root/.gradle/wrapper
+    environment:
+      # Build configuration
+      - GRADLE_OPTS=-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.workers.max=4
+      - PRODUCTION_CRYPTO=${PRODUCTION_CRYPTO:-ON}
+
+      # App customization
+      - CI_APP_TITLE=${CI_APP_TITLE:-EMMA}
+      - CI_APP_FILENAME=${CI_APP_FILENAME:-EMMA}
+      - CI_PACKAGE_ID=${CI_PACKAGE_ID:-im.molly.app}
+      - CI_BUILD_VARIANTS=${CI_BUILD_VARIANTS:-prod(Gms|Foss)}
+      - CI_FORCE_INTERNAL_USER_FLAG=${CI_FORCE_INTERNAL_USER_FLAG:-false}
+      - CI_MAPS_API_KEY=${CI_MAPS_API_KEY}
+
+      # Signing (optional)
+      - CI_KEYSTORE_PATH=${CI_KEYSTORE_PATH}
+      - CI_KEYSTORE_PASSWORD=${CI_KEYSTORE_PASSWORD}
+      - CI_KEYSTORE_ALIAS=${CI_KEYSTORE_ALIAS}
+    command: assembleDebug
+
+  # Python translation server builder
+  python-server:
+    image: emma-python-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile.server
+    volumes:
+      - ./server:/app
+      - python-cache:/root/.cache/pip
+    ports:
+      - "5353:5353"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - EMMA_SERVER_PORT=5353
+      - EMMA_SERVER_HOST=0.0.0.0
+    command: python3 emma_server.py
+
+  # Development environment
+  dev:
+    image: emma-android-builder
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/molly
+      - gradle-cache:/root/.gradle/cache
+      - gradle-wrapper:/root/.gradle/wrapper
+    working_dir: /molly
+    stdin_open: true
+    tty: true
+    command: /bin/sh
+
+volumes:
+  gradle-cache:
+  gradle-wrapper:
+  python-cache:

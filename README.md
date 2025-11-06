@@ -303,6 +303,34 @@ export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/25.2.9519653
 ./gradlew connectedAndroidTest
 ```
 
+#### Docker Build (Recommended)
+
+For a reproducible, isolated build environment without installing Android SDK/NDK locally:
+
+```bash
+# Quick start - build debug APK
+./build.sh debug
+
+# Build production release with post-quantum crypto
+./build.sh release --production
+
+# Build all variants
+./build.sh full
+
+# Start translation server
+./build.sh server
+
+# Interactive development shell
+./build.sh dev
+```
+
+See **[Docker Build Guide](DOCKER_BUILD.md)** for complete documentation including:
+- Configuration options
+- Build variants
+- APK signing
+- Production crypto setup
+- CI/CD integration
+
 ### Project Structure
 ```
 EMMA-android/
@@ -373,7 +401,9 @@ This software is provided for educational and research purposes only. Users are 
 
 ### Quick Links
 
+- **[Docker Build Guide](DOCKER_BUILD.md)** - Dockerized build system (recommended)
 - **[Building from Source](BUILDING.md)** - Detailed build instructions
+- **[Production Build Guide](BUILD_GUIDE.md)** - Production crypto configuration
 - **[iOS Version](README-iOS.md)** - EMMA for iOS/Signal-iOS
 - **[Implementation Report](docs/FINAL_IMPLEMENTATION_REPORT.md)** - Complete Phase 3 report
 - **[iOS Port Roadmap](docs/IOS_PORT_ROADMAP.md)** - iOS porting strategy (160+ pages)
@@ -384,7 +414,11 @@ This software is provided for educational and research purposes only. Users are 
 EMMA-android/
 ├── README.md                           # This file (Android)
 ├── README-iOS.md                       # iOS version README
+├── DOCKER_BUILD.md                     # Docker build system guide
 ├── BUILDING.md                         # Build instructions
+├── BUILD_GUIDE.md                      # Production crypto build guide
+├── build.sh                            # Docker build wrapper script
+├── docker-compose.yml                  # Docker orchestration
 └── docs/
     ├── FINAL_IMPLEMENTATION_REPORT.md  # 100% implementation report
     ├── IMPLEMENTATION_STATUS.md        # Historical tracking
