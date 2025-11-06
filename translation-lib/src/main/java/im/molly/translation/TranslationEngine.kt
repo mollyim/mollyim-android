@@ -50,6 +50,10 @@ class TranslationEngine private constructor(private val context: Context) {
         }
     }
 
+    fun isInitialized(): Boolean {
+        return initialized
+    }
+
     private external fun nativeInitialize(modelPath: String): Boolean
     private external fun nativeTranslate(
         sourceText: String,

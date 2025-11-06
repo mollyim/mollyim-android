@@ -6,7 +6,7 @@ import android.util.Log
 import im.molly.security.AdaptiveCountermeasures
 import im.molly.security.ThreatAnalysis
 import im.molly.security.ThreatCategory
-import im.molly.translation.TranslationEngine
+import im.molly.translation.TranslationCoordinator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,13 +19,13 @@ import java.util.concurrent.ConcurrentHashMap
  * Coordinates:
  * - EL2 threat detection and countermeasures
  * - Intimate Protection mode per conversation
- * - Translation services
+ * - Translation services with automatic fallback
  * - Security status monitoring
  */
 class SecurityManager private constructor(private val context: Context) {
 
     private val countermeasures = AdaptiveCountermeasures.getInstance()
-    private val translationEngine = TranslationEngine.getInstance(context)
+    private val translationCoordinator = TranslationCoordinator.getInstance(context)
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -54,9 +54,19 @@ class SecurityManager private constructor(private val context: Context) {
             return false
         }
 
-        // Initialize translation engine
+        // Initialize translation coordinator with on-device fallback
         val modelPath = "${context.filesDir}/models/opus-mt-da-en-int8.bin"
-        translationEngine.initialize(modelPath)
+        val translationStrategy = getTranslationStrategy()
+        val networkDiscovery = prefs.getBoolean(KEY_TRANSLATION_NETWORK_ENABLED, true)
+
+        translationCoordinator.initialize(
+            modelPath = modelPath,
+            translationStrategy = translationStrategy,
+            enableNetworkDiscovery = networkDiscovery,
+            networkTimeoutMs = 3000L
+        )
+
+        Log.d(TAG, "Translation initialized with strategy: $translationStrategy, network: $networkDiscovery")
 
         // Load saved preferences
         _securityEnabled.value = prefs.getBoolean(KEY_SECURITY_ENABLED, true)
@@ -137,6 +147,50 @@ class SecurityManager private constructor(private val context: Context) {
         return _securityEnabled.value && (getThreatPercentage() >= 35)
     }
 
+    /**
+     * Get configured translation strategy from preferences
+     */
+    private fun getTranslationStrategy(): TranslationCoordinator.TranslationStrategy {
+        val strategyName = prefs.getString(KEY_TRANSLATION_STRATEGY, "NETWORK_FIRST")
+        return when (strategyName) {
+            "ON_DEVICE_FIRST" -> TranslationCoordinator.TranslationStrategy.ON_DEVICE_FIRST
+            "ON_DEVICE_ONLY" -> TranslationCoordinator.TranslationStrategy.ON_DEVICE_ONLY
+            else -> TranslationCoordinator.TranslationStrategy.NETWORK_FIRST
+        }
+    }
+
+    /**
+     * Set translation strategy
+     *
+     * @param strategy Translation strategy to use
+     */
+    fun setTranslationStrategy(strategy: TranslationCoordinator.TranslationStrategy) {
+        prefs.edit().putString(KEY_TRANSLATION_STRATEGY, strategy.name).apply()
+        translationCoordinator.setStrategy(strategy)
+        Log.d(TAG, "Translation strategy set to: $strategy")
+    }
+
+    /**
+     * Get the translation coordinator for direct access if needed
+     */
+    fun getTranslationCoordinator(): TranslationCoordinator {
+        return translationCoordinator
+    }
+
+    /**
+     * Check if network translation is currently available
+     */
+    fun isNetworkTranslationAvailable(): Boolean {
+        return translationCoordinator.isNetworkAvailable()
+    }
+
+    /**
+     * Check if on-device translation is available
+     */
+    fun isOnDeviceTranslationAvailable(): Boolean {
+        return translationCoordinator.isOnDeviceAvailable()
+    }
+
     private fun loadIntimateProtectionSettings() {
         val saved = prefs.getStringSet(KEY_INTIMATE_THREADS, emptySet()) ?: emptySet()
         saved.forEach { threadIdStr ->
@@ -164,6 +218,7 @@ class SecurityManager private constructor(private val context: Context) {
     fun shutdown() {
         countermeasures.removeThreatLevelChangeListener(threatListener)
         countermeasures.shutdown()
+        translationCoordinator.shutdown()
         scope.cancel()
         isInitialized = false
         Log.d(TAG, "EMMA Security Manager shut down")
@@ -174,6 +229,8 @@ class SecurityManager private constructor(private val context: Context) {
         private const val PREFS_NAME = "emma_security_prefs"
         private const val KEY_SECURITY_ENABLED = "security_enabled"
         private const val KEY_INTIMATE_THREADS = "intimate_threads"
+        private const val KEY_TRANSLATION_STRATEGY = "translation_strategy"
+        private const val KEY_TRANSLATION_NETWORK_ENABLED = "translation_network_enabled"
 
         @Volatile
         private var instance: SecurityManager? = null

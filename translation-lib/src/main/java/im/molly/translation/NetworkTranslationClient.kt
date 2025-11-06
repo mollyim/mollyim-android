@@ -243,6 +243,14 @@ class NetworkTranslationClient(private val context: Context) {
         }
     }
 
+    fun hasAvailableServers(): Boolean {
+        return discoveredServers.isNotEmpty()
+    }
+
+    fun getServerCount(): Int {
+        return discoveredServers.size
+    }
+
     fun shutdown() {
         stopDiscovery()
         scope.cancel()
