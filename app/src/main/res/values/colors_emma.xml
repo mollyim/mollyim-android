@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- EMMA MIL-SPEC Color Palette -->
+
+    <!-- Base Colors - Dark Military Theme -->
+    <color name="emma_black_primary">#0A0E12</color>
+    <color name="emma_black_secondary">#121820</color>
+    <color name="emma_black_tertiary">#1A2028</color>
+
+    <color name="emma_grey_dark">#252D38</color>
+    <color name="emma_grey_medium">#3A424D</color>
+    <color name="emma_grey_light">#4F5860</color>
+
+    <!-- Tactical Accent Colors -->
+    <color name="emma_tactical_green">#00FF88</color>
+    <color name="emma_tactical_green_dim">#00B35C</color>
+    <color name="emma_tactical_amber">#FFB800</color>
+    <color name="emma_tactical_red">#FF3B30</color>
+
+    <!-- Threat Level Color Coding -->
+    <color name="emma_threat_low">#00FF88</color>          <!-- Green -->
+    <color name="emma_threat_medium">#FFB800</color>       <!-- Amber -->
+    <color name="emma_threat_high">#FF6B00</color>         <!-- Orange -->
+    <color name="emma_threat_critical">#FF3B30</color>     <!-- Red -->
+    <color name="emma_threat_nuclear">#FF006B</color>      <!-- Magenta -->
+
+    <!-- Status Colors -->
+    <color name="emma_status_secure">#00FF88</color>
+    <color name="emma_status_warning">#FFB800</color>
+    <color name="emma_status_danger">#FF3B30</color>
+    <color name="emma_status_offline">#4F5860</color>
+
+    <!-- UI Elements -->
+    <color name="emma_panel_bg">#15191E</color>
+    <color name="emma_card_bg">#1C2228</color>
+    <color name="emma_divider">#2A323C</color>
+
+    <!-- Text Colors -->
+    <color name="emma_text_primary">#E8EAED</color>
+    <color name="emma_text_secondary">#9FA3A8</color>
+    <color name="emma_text_tertiary">#6C7278</color>
+    <color name="emma_text_tactical">#00FF88</color>
+
+    <!-- HUD/Overlay Colors with Alpha -->
+    <color name="emma_hud_bg">#CC0A0E12</color>
+    <color name="emma_hud_border">#40FFFFFF</color>
+    <color name="emma_hud_highlight">#8000FF88</color>
+
+    <!-- Button Colors -->
+    <color name="emma_button_primary">#00FF88</color>
+    <color name="emma_button_primary_pressed">#00B35C</color>
+    <color name="emma_button_secondary">#252D38</color>
+    <color name="emma_button_danger">#FF3B30</color>
+
+    <!-- Graph/Chart Colors for Security Metrics -->
+    <color name="emma_graph_cpu">#00D9FF</color>
+    <color name="emma_graph_memory">#FF00D9</color>
+    <color name="emma_graph_cache">#FFB800</color>
+    <color name="emma_graph_network">#00FF88</color>
+</resources>

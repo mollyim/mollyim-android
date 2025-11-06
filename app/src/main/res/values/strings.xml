@@ -8720,5 +8720,21 @@
         <item quantity="other">You haven’t completed a backup for %1$d days. Create a backup now.</item>
     </plurals>
 
+    <!-- EMMA Security Features -->
+    <string name="molly_secure_ime_label">EMMA Secure Input</string>
+    <string name="emma_security_title">EMMA Security</string>
+    <string name="emma_threat_level">Threat Level: %1$d%%</string>
+    <string name="emma_threat_category_low">Low</string>
+    <string name="emma_threat_category_medium">Medium</string>
+    <string name="emma_threat_category_high">High</string>
+    <string name="emma_threat_category_critical">Critical</string>
+    <string name="emma_threat_category_nuclear">Nuclear</string>
+    <string name="emma_intimate_protection">Intimate Protection</string>
+    <string name="emma_intimate_protection_desc">Enable maximum security for this conversation</string>
+    <string name="emma_countermeasures_active">Active Countermeasures</string>
+    <string name="emma_chaos_intensity">Chaos Intensity: %1$d%%</string>
+    <string name="emma_translation_enabled">Translation: Enabled</string>
+    <string name="emma_translation_disabled">Translation: Disabled</string>
+
     <!-- EOF -->
 </resources>

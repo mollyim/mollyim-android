@@ -113,6 +113,8 @@ include(":core-ui")
 include(":video")
 //include(":video-app")
 include(":billing")
+include(":security-lib")
+include(":translation-lib")
 
 project(":paging").projectDir = file("paging/lib")
 //project(":paging-app").projectDir = file("paging/app")

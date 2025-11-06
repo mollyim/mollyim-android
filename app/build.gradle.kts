@@ -524,6 +524,8 @@ dependencies {
   "gmsImplementation"(libs.androidx.credentials.compat)
 
   implementation(project(":libnetcipher"))
+  implementation(project(":security-lib"))
+  implementation(project(":translation-lib"))
   implementation(libs.molly.argon2) { artifact { type = "aar" } }
   implementation(libs.molly.native.utils)
   implementation(libs.molly.glide.webp.decoder)

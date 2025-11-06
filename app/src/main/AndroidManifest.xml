@@ -1178,6 +1178,20 @@
         android:foregroundServiceType="dataSync"
         android:exported="false"/>
 
+    <!-- EMMA Security: Secure Input Method Service -->
+    <service
+        android:name=".security.MollySecureInputMethodService"
+        android:label="@string/molly_secure_ime_label"
+        android:permission="android.permission.BIND_INPUT_METHOD"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.view.InputMethod" />
+        </intent-filter>
+        <meta-data
+            android:name="android.view.im"
+            android:resource="@xml/method" />
+    </service>
+
     <service
         android:name=".gcm.FcmFetchBackgroundService"
         android:exported="false"/>

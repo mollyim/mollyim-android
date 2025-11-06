@@ -1,0 +1,16 @@
+# EMMA Translation Server Requirements
+
+# Translation
+transformers>=4.35.0
+torch>=2.1.0
+sentencepiece>=0.1.99
+
+# Network & Encryption
+zeroconf>=0.131.0
+cryptography>=41.0.0
+
+# Optional: GPU support
+# torch+cu118  # Uncomment for CUDA 11.8 support
+
+# Development
+pytest>=7.4.0
