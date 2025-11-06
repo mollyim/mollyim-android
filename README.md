@@ -277,21 +277,28 @@ export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/25.2.9519653
 
 ### Project Structure
 ```
-molly-security-translation/
+EMMA-android/
 ├── app/                    # Main application module
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/      # Kotlin/Java source
 │   │   │   ├── cpp/       # Native C++ code
-│   │   │   └── res/       # Resources
-│   │   └── test/          # Unit tests
+│   │   │   └── res/       # Resources (mil-spec theme)
+│   │   └── test/          # Unit tests (15+ security tests)
 ├── security-lib/          # Security components
+│   ├── src/main/cpp/      # EL2 detection, Kyber-1024, countermeasures
+│   └── src/main/java/     # Kotlin wrappers
 ├── translation-lib/       # Translation engine
+│   ├── src/main/cpp/      # Translation engine (C++)
+│   └── src/main/java/     # Network client, cache
 ├── deps/                  # External dependencies
-├── models/               # Translation models
-├── scripts/              # Build and deployment scripts
-├── server/               # Linux translation server
-└── docs/                 # Documentation
+├── models/                # Translation models (auto-downloaded)
+├── scripts/               # Build and deployment scripts
+├── server/                # Python translation server
+└── docs/                  # Technical documentation
+    ├── FINAL_IMPLEMENTATION_REPORT.md
+    ├── IMPLEMENTATION_STATUS.md
+    └── IOS_PORT_ROADMAP.md
 ```
 
 ---
@@ -329,6 +336,32 @@ This software is provided for educational and research purposes only. Users are 
 **Export Control**: This software includes cryptographic components that may be subject to export restrictions.
 
 **No Warranty**: This software is provided "as is" without warranty of any kind.
+
+---
+
+## 📚 Documentation
+
+### Quick Links
+
+- **[Building from Source](BUILDING.md)** - Detailed build instructions
+- **[iOS Version](README-iOS.md)** - EMMA for iOS/Signal-iOS
+- **[Implementation Report](docs/FINAL_IMPLEMENTATION_REPORT.md)** - Complete Phase 3 report
+- **[iOS Port Roadmap](docs/IOS_PORT_ROADMAP.md)** - iOS porting strategy (160+ pages)
+
+### Documentation Structure
+
+```
+EMMA-android/
+├── README.md                           # This file (Android)
+├── README-iOS.md                       # iOS version README
+├── BUILDING.md                         # Build instructions
+└── docs/
+    ├── FINAL_IMPLEMENTATION_REPORT.md  # 100% implementation report
+    ├── IMPLEMENTATION_STATUS.md        # Historical tracking
+    └── IOS_PORT_ROADMAP.md             # iOS port technical plan
+```
+
+For detailed technical documentation, see the **[docs/](docs/)** directory.
 
 ---
 
