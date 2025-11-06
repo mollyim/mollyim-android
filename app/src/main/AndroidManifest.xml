@@ -85,6 +85,9 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
 
+    <!-- MOLLY: Keep for backward compatibility with Android 11–12 storage model -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
     <!-- For services -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
@@ -133,6 +136,10 @@
     <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
     <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
     <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
+
+    <meta-data
+        android:name="android.telephony.PROPERTY_SATELLITE_DATA_OPTIMIZED"
+        android:value="org.thoughtcrime.securesms" />
 
     <activity android:name=".components.webrtc.v2.WebRtcCallActivity"
               android:theme="@style/TextSecure.DarkTheme.WebRTCCall"
@@ -682,10 +689,10 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
-    <activity android:name=".NewConversationActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:exported="false"/>
+    <activity
+              android:name=".conversation.NewConversationActivity"
+              android:exported="false"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".recipients.ui.findby.FindByActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
@@ -828,19 +835,12 @@
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:exported="false"/>
 
-    <activity android:name=".registrationv3.olddevice.TransferAccountActivity"
+    <activity android:name=".registration.olddevice.TransferAccountActivity"
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:exported="false"/>
 
     <activity android:name=".registration.ui.RegistrationActivity"
-              android:launchMode="singleTask"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:windowSoftInputMode="stateHidden"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:exported="false"/>
-
-    <activity android:name=".registrationv3.ui.RegistrationActivity"
         android:launchMode="singleTask"
         android:theme="@style/Theme.Signal.DayNight.NoActionBar"
         android:windowSoftInputMode="stateHidden|adjustResize"
@@ -910,7 +910,7 @@
               android:finishOnTaskLaunch="true"
               android:exported="false"/>
 
-    <activity android:name=".SmsSendtoActivity" android:exported="true">
+    <activity android:name=".SystemContactsEntrypointActivity" android:exported="true">
         <intent-filter tools:ignore="AppLinkUrlError">
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -961,7 +961,7 @@
               android:windowSoftInputMode="stateVisible|adjustResize"
               android:exported="false"/>
 
-    <activity android:name=".registrationv3.ui.restore.RemoteRestoreActivity"
+    <activity android:name=".registration.ui.restore.RemoteRestoreActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="false"/>
 
@@ -1022,7 +1022,7 @@
     <activity android:name=".MainActivity"
               android:enableOnBackInvokedCallback="true"
               android:theme="@style/Theme.Molly.Starting"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout"
+              android:configChanges="touchscreen|keyboard|keyboardHidden"
               android:windowSoftInputMode="stateUnchanged"
               android:resizeableActivity="true"
               android:exported="false"/>
@@ -1032,9 +1032,10 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
               android:exported="false"/>
 
-    <activity android:name=".groups.ui.creategroup.CreateGroupActivity"
-              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-              android:exported="false"/>
+    <activity
+        android:name=".groups.ui.creategroup.CreateGroupActivity"
+        android:exported="false"
+        android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".groups.ui.addtogroup.AddToGroupsActivity"
               android:theme="@style/Theme.Signal.DayNight.NoActionBar"
@@ -1191,6 +1192,11 @@
             android:name="android.view.im"
             android:resource="@xml/method" />
     </service>
+
+    <service
+        android:name=".service.BackupMediaRestoreService"
+        android:foregroundServiceType="dataSync"
+        android:exported="false"/>
 
     <service
         android:name=".gcm.FcmFetchBackgroundService"

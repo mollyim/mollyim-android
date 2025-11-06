@@ -48,6 +48,7 @@ import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -311,7 +312,7 @@ public final class PlacePickerActivity extends AppCompatActivity {
   private static @NonNull String addressToShortString(@Nullable Address address) {
     if (address == null) return "";
 
-    String   addressLine = address.getAddressLine(0);
+    String   addressLine = Objects.requireNonNullElse(address.getAddressLine(0), "");
     String[] split       = addressLine.split(",");
 
     if (split.length >= 3) {

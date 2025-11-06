@@ -24,8 +24,8 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
 import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.net.SignalNetwork
+import org.thoughtcrime.securesms.registration.ui.restore.StorageServiceRestore
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
-import org.thoughtcrime.securesms.registrationv3.ui.restore.StorageServiceRestore
 import org.whispersystems.signalservice.api.NetworkResultUtil
 import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.kbs.MasterKey
@@ -299,7 +299,8 @@ object SvrRepository {
     masterKey: MasterKey?,
     userPin: String?,
     hasPinToRestore: Boolean,
-    setRegistrationLockEnabled: Boolean
+    setRegistrationLockEnabled: Boolean,
+    restoredAEP: Boolean
   ) {
     Log.i(TAG, "[onRegistrationComplete] Starting", true)
     operationLock.withLock {
@@ -321,8 +322,12 @@ object SvrRepository {
 
         AppDependencies.jobManager.add(ResetSvrGuessCountJob())
       } else if (masterKey != null) {
-        Log.i(TAG, "[onRegistrationComplete] ReRegistered with key without pin")
+        Log.i(TAG, "[onRegistrationComplete] ReRegistered with key without pin", true)
         SignalStore.svr.masterKeyForInitialDataRestore = masterKey
+        if (restoredAEP && setRegistrationLockEnabled) {
+          Log.i(TAG, "[onRegistrationComplete] Registration Lock", true)
+          SignalStore.svr.isRegistrationLockEnabled = true
+        }
       } else if (hasPinToRestore) {
         Log.i(TAG, "[onRegistrationComplete] Has a PIN to restore.", true)
         SignalStore.svr.clearRegistrationLockAndPin()

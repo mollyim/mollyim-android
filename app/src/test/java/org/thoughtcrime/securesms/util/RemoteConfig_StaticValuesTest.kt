@@ -48,6 +48,7 @@ class RemoteConfig_StaticValuesTest {
       "debugMemoryValues",
       "debugDiskValues",
       "debugPendingDiskValues",
+      "libsignalConfigs",
       "CRASH_PROMPT_CONFIG",
       "PROMPT_BATTERY_SAVER",
       "PROMPT_FOR_NOTIFICATION_LOGS",

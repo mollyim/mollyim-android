@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
-import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobLogger;
 import org.thoughtcrime.securesms.jobmanager.JobManager.Chain;
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil;

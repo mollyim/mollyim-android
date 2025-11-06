@@ -30,7 +30,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.SafeForegroundService
 import org.thoughtcrime.securesms.util.AlarmSleepTimer
 import org.thoughtcrime.securesms.util.AppForegroundObserver
-import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.asChain
 import org.whispersystems.signalservice.api.push.ServiceId
@@ -87,31 +87,22 @@ class IncomingMessageObserver(
 
   private val connectionDecisionSemaphore = Semaphore(0)
   private val networkConnectionListener = NetworkConnectionListener(
-    context = context,
-    onNetworkLost = { isNetworkUnavailable ->
+    connectivityManager = ServiceUtil.getConnectivityManager(context),
+    onNetworkChange = { state ->
+      // MOLLY: Accessing libsignalNetwork applies proxy configuration on access
       AppDependencies.libsignalNetwork.onNetworkChange()
-      if (isNetworkUnavailable()) {
+      if (state.isReady) {
+        networkIsActive = true
+      } else {
         Log.w(TAG, "Lost network connection. Resetting the drained state.")
         decryptionDrained = false
         authWebSocket.disconnect()
         // TODO [no-more-rest] Move the connection listener to a neutral location so this isn't passed in
         unauthWebSocket.disconnect()
         networkIsActive = false
-      } else {
-        networkIsActive = true
       }
       releaseConnectionDecisionSemaphore()
     },
-    // MOLLY: TODO
-    // onProxySettingsChanged = { proxyInfo ->
-    //   if (proxyInfo != previousProxyInfo) {
-    //     val networkReset = AppDependencies.onSystemHttpProxyChange(proxyInfo?.host, proxyInfo?.port)
-    //     if (networkReset) {
-    //       Log.i(TAG, "System proxy configuration changed, network reset.")
-    //     }
-    //   }
-    //   previousProxyInfo = proxyInfo
-    // }
   )
 
   private val messageContentProcessor = MessageContentProcessor(context)
@@ -226,7 +217,7 @@ class IncomingMessageObserver(
   }
 
   private fun isConnectionAvailable(): Boolean {
-    return authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && networkIsActive)
+    return SignalStore.account.isRegistered && (authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && networkIsActive))
   }
 
   private fun releaseConnectionDecisionSemaphore() {
@@ -311,7 +302,7 @@ class IncomingMessageObserver(
   }
 
   private fun processReceipt(envelope: Envelope) {
-    val serviceId = ServiceId.parseOrNull(envelope.sourceServiceId)
+    val serviceId = ServiceId.parseOrNull(envelope.sourceServiceId, envelope.sourceServiceIdBinary)
     if (serviceId == null) {
       Log.w(TAG, "Invalid envelope sourceServiceId!")
       return
@@ -354,7 +345,7 @@ class IncomingMessageObserver(
 
       sleepTimer = if (!SignalStore.account.pushAvailable || SignalStore.internal.isWebsocketModeForced) AlarmSleepTimer(context) else UptimeSleepTimer()
 
-      canProcessMessages = !(RemoteConfig.restoreAfterRegistration && SignalStore.registration.restoreDecisionState.isDecisionPending)
+      canProcessMessages = !SignalStore.registration.restoreDecisionState.isDecisionPending
     }
 
     override fun run() {

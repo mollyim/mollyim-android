@@ -61,6 +61,8 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.ReactionRecord
 import org.thoughtcrime.securesms.database.model.StickerRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
+import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
+import org.thoughtcrime.securesms.database.model.databaseprotos.PollTerminate
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewOnceOpenJob
 import org.thoughtcrime.securesms.keyboard.KeyboardUtil
@@ -71,6 +73,7 @@ import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
+import org.thoughtcrime.securesms.polls.Poll
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewRecipient
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -161,6 +164,59 @@ class ConversationRepository(
         MessageId(messageRecord.id),
         emoji
       )
+    }.subscribeOn(Schedulers.io())
+  }
+
+  fun sendPoll(threadRecipient: Recipient, poll: Poll): Completable {
+    return Completable.create { emitter ->
+
+      val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(threadRecipient)
+      val message = OutgoingMessage.pollMessage(
+        threadRecipient = threadRecipient,
+        sentTimeMillis = System.currentTimeMillis(),
+        expiresIn = threadRecipient.expiresInSeconds.seconds.inWholeMilliseconds,
+        poll = poll.copy(authorId = Recipient.self().id.toLong()),
+        question = poll.question
+      )
+
+      Log.i(TAG, "Sending poll create to " + message.threadRecipient.id + ", thread: " + threadId)
+
+      MessageSender.sendPollAction(
+        AppDependencies.application,
+        message,
+        threadId,
+        MessageSender.SendType.SIGNAL,
+        null,
+        { emitter.onComplete() }
+      )
+    }.subscribeOn(Schedulers.io())
+  }
+
+  fun endPoll(pollId: Long): Completable {
+    return Completable.create { emitter ->
+      val poll = SignalDatabase.polls.getPollFromId(pollId)
+      val messageRecord = SignalDatabase.messages.getMessageRecord(poll!!.messageId)
+      val threadRecipient = SignalDatabase.threads.getRecipientForThreadId(messageRecord.threadId)!!
+      val pollSentTimestamp = messageRecord.dateSent
+
+      val message = OutgoingMessage.pollTerminateMessage(
+        threadRecipient = threadRecipient,
+        sentTimeMillis = System.currentTimeMillis(),
+        expiresIn = threadRecipient.expiresInSeconds.seconds.inWholeMilliseconds,
+        messageExtras = MessageExtras(pollTerminate = PollTerminate(question = poll.question, messageId = poll.messageId, targetTimestamp = pollSentTimestamp))
+      )
+
+      Log.i(TAG, "Sending poll terminate to " + message.threadRecipient.id + ", thread: " + messageRecord.threadId)
+
+      MessageSender.sendPollAction(
+        AppDependencies.application,
+        message,
+        messageRecord.threadId,
+        MessageSender.SendType.SIGNAL,
+        null
+      ) {
+        emitter.onComplete()
+      }
     }.subscribeOn(Schedulers.io())
   }
 
@@ -268,6 +324,13 @@ class ConversationRepository(
       } else {
         SignalDatabase.messages.getMessagePositionInConversation(threadId, details.second(), details.first())
       }
+    }.subscribeOn(Schedulers.io())
+  }
+
+  fun getMessagePosition(threadId: Long, messageId: Long): Single<Int> {
+    return Single.fromCallable {
+      val message = SignalDatabase.messages.getMessageRecord(messageId)
+      SignalDatabase.messages.getMessagePositionInConversation(threadId, message.dateReceived, message.fromRecipient.id)
     }.subscribeOn(Schedulers.io())
   }
 
@@ -505,7 +568,7 @@ class ConversationRepository(
       }
 
       if (messageRecord.isViewOnceMessage()) {
-        val attachment = TombstoneAttachment(MediaUtil.VIEW_ONCE, true)
+        val attachment = TombstoneAttachment.forQuote()
         slideDeck = SlideDeck()
         slideDeck.addSlide(MediaUtil.getSlideForAttachment(attachment))
       }

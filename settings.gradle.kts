@@ -16,7 +16,6 @@ dependencyResolutionManagement {
         includeGroupByRegex("androidx?(\\..*)?")
       }
     }
-    mavenCentral()
     mavenLocal {
       content {
         includeGroup("im.molly")
@@ -24,27 +23,16 @@ dependencyResolutionManagement {
       }
     }
     maven {
-      url = uri("https://raw.githubusercontent.com/mollyim/maven/master/argon2/releases/")
-      content {
-        includeModule("im.molly", "argon2")
-      }
-    }
-    maven {
-      url = uri("https://raw.githubusercontent.com/mollyim/maven/master/ringrtc/releases/")
+      url = uri("https://dl.cloudsmith.io/public/mollyim/ringrtc/maven/")
       content {
         includeModule("im.molly", "ringrtc-android")
       }
     }
     maven {
-      url = uri("https://raw.githubusercontent.com/mollyim/maven/master/native-utils/releases/")
+      url = uri("https://dl.cloudsmith.io/public/mollyim/libsignal/maven/")
       content {
-        includeModule("im.molly", "native-utils")
-      }
-    }
-    maven {
-      url = uri("https://raw.githubusercontent.com/mollyim/maven/master/glide-webp-decoder/releases/")
-      content {
-        includeModule("im.molly", "glide-webp-decoder")
+        includeModule("im.molly", "libsignal-client")
+        includeModule("im.molly", "libsignal-android")
       }
     }
     maven {
@@ -59,6 +47,7 @@ dependencyResolutionManagement {
         includeModule("org.signal", "aesgcmprovider")
       }
     }
+    mavenCentral()
   }
   versionCatalogs {
     // libs.versions.toml is automatically registered.
@@ -77,8 +66,8 @@ if (libsignalClientPath is String) {
   includeBuild(rootDir.resolve(libsignalClientPath + "/java")) {
     name = "libsignal-client"
     dependencySubstitution {
-      substitute(module("org.signal:libsignal-client")).using(project(":client"))
-      substitute(module("org.signal:libsignal-android")).using(project(":android"))
+      substitute(module("im.molly:libsignal-client")).using(project(":client"))
+      substitute(module("im.molly:libsignal-android")).using(project(":android"))
     }
   }
 }

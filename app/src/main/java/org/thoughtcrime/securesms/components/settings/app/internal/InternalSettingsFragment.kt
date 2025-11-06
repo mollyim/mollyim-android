@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import org.signal.core.util.AppUtil
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.concurrent.SignalExecutors
@@ -19,6 +21,7 @@ import org.signal.core.util.requireString
 import org.signal.ringrtc.CallManager
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
@@ -86,6 +89,12 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     scrollToPosition = SignalStore.internal.lastScrollPosition
+
+    setFragmentResultListener(CallQualityBottomSheetFragment.REQUEST_KEY) { _, bundle ->
+      if (bundle.getBoolean(CallQualityBottomSheetFragment.REQUEST_KEY, false)) {
+        Snackbar.make(requireView(), R.string.CallQualitySheet__thanks_for_your_feedback, Snackbar.LENGTH_SHORT).show()
+      }
+    }
   }
 
   override fun bindAdapter(adapter: MappingAdapter) {
@@ -170,11 +179,11 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       switchPref(
         isEnabled = state.largeScreenUi,
-        title = DSLSettingsText.from("Force split pane UI on landscape phones."),
+        title = DSLSettingsText.from("Force split pane UI on phones."),
         summary = DSLSettingsText.from("This setting requires split pane UI to be enabled."),
-        isChecked = state.forceSplitPaneOnCompactLandscape,
+        isChecked = state.forceSplitPane,
         onClick = {
-          viewModel.setForceSplitPaneOnCompactLandscape(!state.forceSplitPaneOnCompactLandscape)
+          viewModel.setForceSplitPane(!state.forceSplitPane)
         }
       )
 
@@ -209,6 +218,14 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         summary = DSLSettingsText.from("Quickly test various SVR options and error conditions."),
         onClick = {
           findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToInternalSvrPlaygroundFragment())
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Data Seeding Playground"),
+        summary = DSLSettingsText.from("Seed conversations with media files from a folder."),
+        onClick = {
+          findNavController().safeNavigate(InternalSettingsFragmentDirections.actionInternalSettingsFragmentToDataSeedingPlaygroundFragment())
         }
       )
 
@@ -542,6 +559,13 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         isChecked = state.newCallingUi,
         onClick = {
           viewModel.setUseNewCallingUi(!state.newCallingUi)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Display Call Quality Survey UX"),
+        onClick = {
+          CallQualityBottomSheetFragment().show(parentFragmentManager, null)
         }
       )
 
@@ -904,6 +928,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   private fun refreshRemoteValues() {
     Toast.makeText(context, "Running remote config refresh, app will restart after completion.", Toast.LENGTH_LONG).show()
     SignalExecutors.BOUNDED.execute {
+      SignalStore.remoteConfig.eTag = ""
       val result: Optional<JobTracker.JobState> = AppDependencies.jobManager.runSynchronously(RemoteConfigRefreshJob(), TimeUnit.SECONDS.toMillis(10))
 
       if (result.isPresent && result.get() == JobTracker.JobState.SUCCESS) {

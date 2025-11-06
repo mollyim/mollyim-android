@@ -40,6 +40,8 @@ import org.whispersystems.signalservice.api.push.ServiceId.ACI;
 import java.util.Arrays;
 import java.util.Locale;
 
+import static org.thoughtcrime.securesms.window.WindowSizeClassExtensionsKt.getWindowSizeClass;
+
 public class LogSectionSystemInfo implements LogSection {
 
   @Override
@@ -63,6 +65,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Screen            : ").append(getScreenResolution(context)).append(", ")
                                       .append(ScreenDensity.get(context)).append(", ")
                                       .append(getScreenRefreshRate(context)).append("\n");
+    builder.append("WindowSizeClass   : ").append(locked ? "Unknown" : getWindowSizeClass(context.getResources())).append("\n");
     builder.append("Font Scale        : ").append(context.getResources().getConfiguration().fontScale).append("\n");
     builder.append("Animation Scale   : ").append(ContextUtil.getAnimationScale(context)).append("\n");
     builder.append("Android           : ").append(Build.VERSION.RELEASE).append(", API ")

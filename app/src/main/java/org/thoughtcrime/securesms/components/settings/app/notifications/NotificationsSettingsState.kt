@@ -8,12 +8,12 @@ data class NotificationsSettingsState(
   val callNotificationsState: CallNotificationsState,
   val notifyWhileLocked: Boolean,
   val canEnableNotifyWhileLocked: Boolean,
-  val notifyWhenContactJoinsSignal: Boolean,
   val isLinkedDevice: Boolean,
   val preferredNotificationMethod: NotificationDeliveryMethod,
   val playServicesErrorCode: Int?,
   val canReceiveFcm: Boolean,
-  val canReceiveUnifiedPush: Boolean
+  val canReceiveUnifiedPush: Boolean,
+  val notifyWhenContactJoinsSignal: Boolean
 )
 
 data class MessageNotificationsState(

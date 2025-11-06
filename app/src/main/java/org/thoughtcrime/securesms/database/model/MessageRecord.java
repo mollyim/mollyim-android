@@ -65,6 +65,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.GroupUtil;
+import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.SignalE164Util;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
@@ -203,17 +204,17 @@ public abstract class MessageRecord extends DisplayRecord {
     } else if (isGroupQuit()) {
       return fromRecipient(getFromRecipient(), r -> context.getString(R.string.ConversationItem_group_action_left, r.getDisplayName(context)), Glyph.LEAVE);
     } else if (isIncomingAudioCall()) {
-      return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_incoming_voice_call), getCallDateString(context)), Glyph.PHONE);
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_incoming_voice_call), getCallDateString(context)), Glyph.PHONE);
     } else if (isIncomingVideoCall()) {
-      return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_incoming_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA);
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_incoming_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA);
     } else if (isOutgoingAudioCall()) {
-      return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_outgoing_voice_call), getCallDateString(context)), Glyph.PHONE);
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_outgoing_voice_call), getCallDateString(context)), Glyph.PHONE);
     } else if (isOutgoingVideoCall()) {
-      return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_outgoing_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA);
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_outgoing_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA);
     } else if (isMissedAudioCall()) {
-      return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_voice_call), getCallDateString(context)), Glyph.PHONE, ContextCompat.getColor(context, R.color.core_red_shade), ContextCompat.getColor(context, R.color.core_red));
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_voice_call), getCallDateString(context)), Glyph.PHONE, ContextCompat.getColor(context, R.color.core_red_shade), ContextCompat.getColor(context, R.color.core_red));
     } else if (isMissedVideoCall()) {
-      return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA, ContextCompat.getColor(context, R.color.core_red_shade), ContextCompat.getColor(context, R.color.core_red));
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA, ContextCompat.getColor(context, R.color.core_red_shade), ContextCompat.getColor(context, R.color.core_red));
     } else if (isGroupCall()) {
       return getGroupCallUpdateDescription(context, getBody(), true);
     } else if (isJoined()) {
@@ -291,6 +292,11 @@ public abstract class MessageRecord extends DisplayRecord {
       return staticUpdateDescription(context.getString(isGroupV2() ? R.string.MessageRecord_you_blocked_this_group : R.string.MessageRecord_you_blocked_this_person), Glyph.BLOCK);
     } else if (isUnblocked()) {
       return staticUpdateDescription(context.getString(isGroupV2() ? R.string.MessageRecord_you_unblocked_this_group : R.string.MessageRecord_you_unblocked_this_person) , Glyph.THREAD);
+    } else if (isUnsupported()) {
+      return staticUpdateDescription(context.getString(R.string.MessageRecord_unsupported_feature, getFromRecipient().getDisplayName(context)), Glyph.ERROR);
+    } else if (MessageRecordUtil.hasPollTerminate(this)) {
+      String creator = getFromRecipient().isSelf() ? context.getString(R.string.MessageRecord_you) : getFromRecipient().getDisplayName(context);
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_ended_the_poll, creator, messageExtras.pollTerminate.question), Glyph.POLL);
     }
 
     return null;
@@ -472,6 +478,18 @@ public abstract class MessageRecord extends DisplayRecord {
                                                                       Glyph glyph)
   {
     return UpdateDescription.staticDescription(string, glyph);
+  }
+
+  protected static @NonNull UpdateDescription staticUpdateDescriptionWithExpiration(@NonNull String string,
+                                                                                    Glyph glyph,
+                                                                                    @ColorInt int lightTint,
+                                                                                    @ColorInt int darkTint)
+  {
+    return UpdateDescription.staticDescriptionWithExpiration(string, glyph, lightTint, darkTint);
+  }
+
+  protected static @NonNull UpdateDescription staticUpdateDescriptionWithExpiration(@NonNull String string, Glyph glyph) {
+    return staticUpdateDescriptionWithExpiration(string, glyph, 0, 0);
   }
 
   protected static @NonNull UpdateDescription staticUpdateDescription(@NonNull String string,
@@ -730,7 +748,7 @@ public abstract class MessageRecord extends DisplayRecord {
            isProfileChange() || isGroupV1MigrationEvent() || isChatSessionRefresh() || isBadDecryptType() ||
            isChangeNumber() || isReleaseChannelDonationRequest() || isThreadMergeEventType() || isSmsExportType() || isSessionSwitchoverEventType() ||
            isPaymentsRequestToActivate() || isPaymentsActivated() || isReportedSpam() || isMessageRequestAccepted() ||
-           isBlocked() || isUnblocked();
+           isBlocked() || isUnblocked() || isUnsupported() || isPollTerminate();
   }
 
   public boolean isMediaPending() {

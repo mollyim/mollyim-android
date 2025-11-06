@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.net
 
 import okhttp3.Dns
+import org.signal.libsignal.net.Network
 import java.io.IOException
 import java.net.InetAddress
 import java.net.InetSocketAddress
@@ -64,6 +65,43 @@ object Networking {
     override fun connectFailed(uri: URI?, sa: SocketAddress?, ioe: IOException?) =
       systemDefault.connectFailed(uri, sa, ioe)
   }
+
+  fun configureLibsignalProxy(network: Network, signalUrl: String) {
+    // If networking is disabled globally, block new connections
+    if (!isEnabled) {
+      network.setInvalidProxy()
+      return
+    }
+
+    // Use explicit SOCKS proxy override if available
+    val currentProxy = proxy
+    if (currentProxy.type() == Proxy.Type.SOCKS) {
+      val (host, port) = currentProxy.toHostPort()!!
+      network.setProxy("socks5h", host, port, null, null)
+      return
+    }
+
+    // Resolve system proxy for the Signal URL
+    val systemProxy: Proxy? = runCatching {
+      ProxySelector.getDefault().select(URI.create(signalUrl)).firstOrNull()
+    }.getOrNull()
+
+    val (scheme, hostPort) = when (systemProxy?.type()) {
+      Proxy.Type.HTTP -> "http" to systemProxy.toHostPort()
+      Proxy.Type.SOCKS -> "socks5" to systemProxy.toHostPort()
+      else -> null to null
+    }
+
+    if (hostPort != null) {
+      val (host, port) = hostPort
+      network.setProxy(scheme, host, port, null, null)
+    } else {
+      network.clearProxy()
+    }
+  }
+
+  private fun Proxy.toHostPort(): Pair<String, Int>? =
+    (address() as? InetSocketAddress)?.let { it.hostString to it.port }
 
   @JvmStatic
   val dns: Dns = DnsProxyAware()

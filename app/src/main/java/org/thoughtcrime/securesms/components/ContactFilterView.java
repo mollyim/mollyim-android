@@ -25,8 +25,14 @@ import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
+/**
+ * A search input field for finding recipients.
+ *
+ * @deprecated Use the RecipientSearchBar composable instead.
+ */
+@Deprecated
 public final class ContactFilterView extends FrameLayout {
-  private   OnFilterChangedListener listener;
+  private OnFilterChangedListener listener;
 
   private final EditText        searchText;
   private final AnimatingToggle toggle;
@@ -140,6 +146,11 @@ public final class ContactFilterView extends FrameLayout {
 
   public void focusAndShowKeyboard() {
     ViewUtil.focusAndShowKeyboard(searchText);
+  }
+
+  public void setText(String text) {
+    searchText.setText(text);
+    searchText.setSelection(text.length());
   }
 
   public void clear() {

@@ -7,7 +7,6 @@ import okhttp3.OkHttpClient
 import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.concurrent.LatestValueObservable
-import org.signal.core.util.orNull
 import org.signal.core.util.resettableLazy
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
@@ -265,7 +264,7 @@ object AppDependencies {
 
   @JvmStatic
   val libsignalNetwork: Network
-    get() = networkModule.libsignalNetwork
+    get() = networkModule.libsignalNetwork()
 
   @JvmStatic
   val authWebSocket: SignalWebSocket.AuthenticatedWebSocket
@@ -382,16 +381,6 @@ object AppDependencies {
   @JvmStatic
   fun startNetwork() {
     networkModule.openConnections()
-  }
-
-  fun onSystemHttpProxyChange(host: String?, port: Int?): Boolean {
-    val currentSystemProxy = signalServiceNetworkAccess.getConfiguration().systemHttpProxy.orNull()
-    return if (currentSystemProxy?.host != host || currentSystemProxy?.port != port) {
-      resetNetwork(restartMessageObserver = false)
-      true
-    } else {
-      false
-    }
   }
 
   interface Provider {

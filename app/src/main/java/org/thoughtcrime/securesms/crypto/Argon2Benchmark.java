@@ -88,6 +88,9 @@ public class Argon2Benchmark {
           memory *= 16;
         } else {
           long val = memory / ms * BENCH_MIN_MS;
+          if (val < 8192) {
+            val = 8192;
+          }
           if (memory == val) {
             break;
           }

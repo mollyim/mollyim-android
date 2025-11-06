@@ -197,28 +197,28 @@ class Recipient(
   val isMmsGroup: Boolean
     get() {
       val groupId = resolved.groupIdValue
-      return groupId != null && groupId.isMms()
+      return groupId != null && groupId.isMms
     }
 
   /** Whether the recipient represents a Signal group. */
   val isPushGroup: Boolean
     get() {
       val groupId = resolved.groupIdValue
-      return groupId != null && groupId.isPush()
+      return groupId != null && groupId.isPush
     }
 
   /** Whether the recipient represents a V1 Signal group. These types of groups were deprecated in 2020. */
   val isPushV1Group: Boolean
     get() {
       val groupId = resolved.groupIdValue
-      return groupId != null && groupId.isV1()
+      return groupId != null && groupId.isV1
     }
 
   /** Whether the recipient represents a V2 Signal group. */
   val isPushV2Group: Boolean
     get() {
       val groupId = resolved.groupIdValue
-      return groupId != null && groupId.isV2()
+      return groupId != null && groupId.isV2
     }
 
   /** Whether the recipient represents a distribution list (a specific list of people to send a story to). */
@@ -326,10 +326,6 @@ class Recipient(
 
   /** The notification channel, if both set and supported by the system. Otherwise null. */
   val notificationChannel: String? = if (!NotificationChannels.supported()) null else notificationChannelValue
-
-  /** The user's capability to handle the new storage record encryption scheme. */
-  val storageServiceEncryptionV2Capability: Capability
-    get() = if (SignalStore.internal.forceSsre2Capability) Capability.SUPPORTED else capabilities.storageServiceEncryptionV2
 
   /** The state around whether we can send sealed sender to this user. */
   val sealedSenderAccessMode: SealedSenderAccessMode = if (pni.isPresent && pni == serviceId) {

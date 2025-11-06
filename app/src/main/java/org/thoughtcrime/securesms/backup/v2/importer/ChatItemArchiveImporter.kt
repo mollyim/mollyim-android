@@ -59,21 +59,23 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.database.model.databaseprotos.GV2UpdateDescription
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
+import org.thoughtcrime.securesms.database.model.databaseprotos.PollTerminate
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails
 import org.thoughtcrime.securesms.database.model.databaseprotos.SessionSwitchoverEvent
 import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mms.QuoteModel
+import org.thoughtcrime.securesms.polls.Voter
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.thoughtcrime.securesms.util.JsonUtils
-import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageUtil
 import org.whispersystems.signalservice.api.push.ServiceId
 import org.whispersystems.signalservice.api.util.UuidUtil
 import org.whispersystems.signalservice.internal.push.DataMessage
 import java.math.BigInteger
+import java.sql.SQLException
 import java.util.Optional
 import java.util.UUID
 import org.thoughtcrime.securesms.backup.v2.proto.GiftBadge as BackupGiftBadge
@@ -216,12 +218,17 @@ class ChatItemArchiveImporter(
     }
 
     var messageInsertIndex = 0
-    SqlUtil.buildBulkInsert(MessageTable.TABLE_NAME, MESSAGE_COLUMNS, buffer.messages.map { it.contentValues }).forEach { query ->
-      db.rawQuery("${query.where} RETURNING ${MessageTable.ID}", query.whereArgs).forEach { cursor ->
-        val finalMessageId = cursor.requireLong(MessageTable.ID)
-        val relatedInsert = buffer.messages[messageInsertIndex++]
-        relatedInsert.followUp?.invoke(finalMessageId)
+    try {
+      SqlUtil.buildBulkInsert(MessageTable.TABLE_NAME, MESSAGE_COLUMNS, buffer.messages.map { it.contentValues }, onConflict = "IGNORE").forEach { query ->
+        db.rawQuery("${query.where} RETURNING ${MessageTable.ID}", query.whereArgs).forEach { cursor ->
+          val finalMessageId = cursor.requireLong(MessageTable.ID)
+          val relatedInsert = buffer.messages[messageInsertIndex++]
+          relatedInsert.followUp?.invoke(finalMessageId)
+        }
       }
+    } catch (e: SQLException) {
+      Log.w(TAG, "Failed to bulk-insert message! Trying one at at time.", e)
+      performIndividualMessageInserts(buffer.messages)
     }
 
     SqlUtil.buildBulkInsert(ReactionTable.TABLE_NAME, REACTION_COLUMNS, buffer.reactions).forEach {
@@ -237,6 +244,18 @@ class ChatItemArchiveImporter(
     buffer.reset()
 
     return true
+  }
+
+  private fun performIndividualMessageInserts(messageInserts: List<MessageInsert>) {
+    for (message in messageInserts) {
+      val values = message.contentValues
+      try {
+        db.insert(MessageTable.TABLE_NAME, SQLiteDatabase.CONFLICT_IGNORE, values)
+        message.followUp?.invoke(messageId - 1)
+      } catch (e: SQLException) {
+        Log.w(TAG, "Failed to insert message with timestamp ${message.contentValues.get(MessageTable.DATE_SENT)}. Must skip.", e)
+      }
+    }
   }
 
   private fun ChatItem.toMessageInsert(fromRecipientId: RecipientId, chatRecipientId: RecipientId, threadId: Long): MessageInsert {
@@ -295,6 +314,21 @@ class ChatItemArchiveImporter(
             CallTable.READ to CallTable.ReadState.serialize(CallTable.ReadState.READ)
           )
           db.insert(CallTable.TABLE_NAME, SQLiteDatabase.CONFLICT_IGNORE, values)
+        }
+      } else if (this.updateMessage.pollTerminate != null) {
+        followUps += { endPollMessageId ->
+          val pollMessageId = SignalDatabase.messages.getMessageFor(updateMessage.pollTerminate.targetSentTimestamp, fromRecipientId)?.id ?: -1
+          val pollId = SignalDatabase.polls.getPollId(pollMessageId)
+
+          val messageExtras = MessageExtras(pollTerminate = PollTerminate(question = updateMessage.pollTerminate.question, messageId = pollMessageId, targetTimestamp = updateMessage.pollTerminate.targetSentTimestamp))
+          db.update(MessageTable.TABLE_NAME)
+            .values(MessageTable.MESSAGE_EXTRAS to messageExtras.encode())
+            .where("${MessageTable.ID} = ?", endPollMessageId)
+            .run()
+
+          if (pollId != null) {
+            SignalDatabase.polls.endPoll(pollId = pollId, endingMessageId = endPollMessageId)
+          }
         }
       }
     }
@@ -436,6 +470,35 @@ class ChatItemArchiveImporter(
       }
     }
 
+    if (this.poll != null) {
+      contentValues.put(MessageTable.BODY, poll.question)
+      contentValues.put(MessageTable.VOTES_LAST_SEEN, System.currentTimeMillis())
+
+      followUps += { messageRowId ->
+        val pollId = SignalDatabase.polls.insertPoll(
+          question = poll.question,
+          allowMultipleVotes = poll.allowMultiple,
+          options = poll.options.map { it.option },
+          authorId = fromRecipientId.toLong(),
+          messageId = messageRowId
+        )
+
+        val localOptionIds = SignalDatabase.polls.getPollOptionIds(pollId)
+        poll.options.forEachIndexed { index, option ->
+          val localVoterIds = option.votes.map { importState.remoteToLocalRecipientId[it.voterId]?.toLong() }
+          val voteCounts = option.votes.map { it.voteCount }
+          val localVoters = localVoterIds.mapIndexedNotNull { index, id -> id?.let { Voter(id = id, voteCount = voteCounts[index]) } }
+          SignalDatabase.polls.addPollVotes(pollId = pollId, optionId = localOptionIds[index], voters = localVoters)
+        }
+
+        if (poll.hasEnded) {
+          // At this point, we don't know what message ended the poll. Instead, we set it to -1 to indicate that it
+          // is ended and will update endingMessageId when we process the poll terminate message (if it exists).
+          SignalDatabase.polls.endPoll(pollId = pollId, endingMessageId = -1)
+        }
+      }
+    }
+
     val followUp: ((Long) -> Unit)? = if (followUps.isNotEmpty()) {
       { messageId ->
         followUps.forEach { it(messageId) }
@@ -506,7 +569,7 @@ class ChatItemArchiveImporter(
     contentValues.put(MessageTable.FROM_RECIPIENT_ID, fromRecipientId.serialize())
     contentValues.put(MessageTable.TO_RECIPIENT_ID, toRecipientId.serialize())
     contentValues.put(MessageTable.THREAD_ID, threadId)
-    contentValues.put(MessageTable.DATE_RECEIVED, this.incoming?.dateReceived ?: this.dateSent)
+    contentValues.put(MessageTable.DATE_RECEIVED, this.incoming?.dateReceived ?: this.outgoing?.dateReceived?.takeUnless { it == 0L } ?: this.dateSent)
     contentValues.put(MessageTable.RECEIPT_TIMESTAMP, this.outgoing?.sendStatus?.maxOfOrNull { it.timestamp } ?: 0)
     contentValues.putNull(MessageTable.LATEST_REVISION_ID)
     contentValues.putNull(MessageTable.ORIGINAL_MESSAGE_ID)
@@ -573,6 +636,7 @@ class ChatItemArchiveImporter(
       this.stickerMessage != null -> this.stickerMessage.reactions
       this.viewOnceMessage != null -> this.viewOnceMessage.reactions
       this.directStoryReplyMessage != null -> this.directStoryReplyMessage.reactions
+      this.poll != null -> this.poll.reactions
       else -> emptyList()
     }
 
@@ -718,6 +782,9 @@ class ChatItemArchiveImporter(
         val messageExtras = MessageExtras(profileChangeDetails = profileChangeDetails).encode()
         put(MessageTable.MESSAGE_EXTRAS, messageExtras)
       }
+      updateMessage.pollTerminate != null -> {
+        typeFlags = MessageTypes.SPECIAL_TYPE_POLL_TERMINATE or (getAsLong(MessageTable.TYPE) and MessageTypes.BASE_TYPE_MASK.inv())
+      }
       updateMessage.sessionSwitchover != null -> {
         typeFlags = MessageTypes.SESSION_SWITCHOVER_TYPE or (getAsLong(MessageTable.TYPE) and MessageTypes.BASE_TYPE_MASK.inv())
         val sessionSwitchoverDetails = SessionSwitchoverEvent(e164 = updateMessage.sessionSwitchover.e164.toString()).encode()
@@ -831,6 +898,7 @@ class ChatItemArchiveImporter(
       Quote.Type.NORMAL -> QuoteModel.Type.NORMAL.code
       Quote.Type.GIFT_BADGE -> QuoteModel.Type.GIFT_BADGE.code
       Quote.Type.VIEW_ONCE -> QuoteModel.Type.NORMAL.code
+      Quote.Type.POLL -> QuoteModel.Type.POLL.code
     }
   }
 
@@ -885,8 +953,8 @@ class ChatItemArchiveImporter(
               else -> null
             }
           },
-          start = bodyRange.start ?: 0,
-          length = bodyRange.length ?: 0
+          start = bodyRange.start,
+          length = bodyRange.length
         )
       }
     )
@@ -900,7 +968,7 @@ class ChatItemArchiveImporter(
       this.read != null -> GroupReceiptTable.STATUS_READ
       this.viewed != null -> GroupReceiptTable.STATUS_VIEWED
       this.skipped != null -> GroupReceiptTable.STATUS_SKIPPED
-      this.failed != null -> GroupReceiptTable.STATUS_UNKNOWN
+      this.failed != null -> GroupReceiptTable.STATUS_FAILED
       else -> GroupReceiptTable.STATUS_UNKNOWN
     }
   }
@@ -916,11 +984,11 @@ class ChatItemArchiveImporter(
 
   private fun Quote.toLocalAttachments(): List<Attachment> {
     if (this.type == Quote.Type.VIEW_ONCE) {
-      return listOf(TombstoneAttachment(contentType = MediaUtil.VIEW_ONCE, quote = true))
+      return listOf(TombstoneAttachment.forQuote())
     }
 
-    return attachments.mapNotNull { attachment ->
-      val thumbnail = attachment.thumbnail?.toLocalAttachment(quote = true)
+    return this.attachments.mapNotNull { attachment ->
+      val thumbnail = attachment.thumbnail?.toLocalAttachment(quote = true, quoteTargetContentType = attachment.contentType)
 
       if (thumbnail != null) {
         return@mapNotNull thumbnail
@@ -967,7 +1035,7 @@ class ChatItemArchiveImporter(
     )
   }
 
-  private fun MessageAttachment.toLocalAttachment(quote: Boolean = false, contentType: String? = pointer?.contentType): Attachment? {
+  private fun MessageAttachment.toLocalAttachment(quote: Boolean = false, quoteTargetContentType: String? = null, contentType: String? = pointer?.contentType): Attachment? {
     return pointer?.toLocalAttachment(
       voiceNote = flag == MessageAttachment.Flag.VOICE_MESSAGE,
       borderless = flag == MessageAttachment.Flag.BORDERLESS,
@@ -976,7 +1044,8 @@ class ChatItemArchiveImporter(
       contentType = contentType,
       fileName = pointer.fileName,
       uuid = clientUuid,
-      quote = quote
+      quote = quote,
+      quoteTargetContentType = quoteTargetContentType
     )
   }
 
@@ -1036,8 +1105,7 @@ class ChatItemArchiveImporter(
 
   private class MessageInsert(
     val contentValues: ContentValues,
-    val followUp: ((Long) -> Unit)?,
-    val edits: List<MessageInsert>? = null
+    val followUp: ((Long) -> Unit)?
   )
 
   private class Buffer(

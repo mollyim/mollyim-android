@@ -15,6 +15,7 @@ import org.signal.core.util.logging.Log
 import org.signal.core.util.resettableLazy
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.crypto.storage.SignalServiceDataStoreImpl
 import org.thoughtcrime.securesms.groups.GroupsV2Authorization
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache
@@ -104,18 +105,22 @@ class NetworkDependenciesModule(
     provider.provideSignalServiceAccountManager(authWebSocket, accountApi, pushServiceSocket, groupsV2Operations)
   }
 
-  val libsignalNetwork: Network by lazy {
+  private val _libsignalNetwork: Network by lazy {
     provider.provideLibsignalNetwork(signalServiceNetworkAccess.getConfiguration())
   }
 
+  fun libsignalNetwork(): Network {
+    return _libsignalNetwork.also { Networking.configureLibsignalProxy(it, BuildConfig.SIGNAL_URL) }
+  }
+
   val authWebSocket: SignalWebSocket.AuthenticatedWebSocket by lazy {
-    provider.provideAuthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork }).also {
+    provider.provideAuthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork() }).also {
       disposables += it.state.subscribe { s -> webSocketStateSubject.onNext(s) }
     }
   }
 
   val unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket by lazy {
-    provider.provideUnauthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork })
+    provider.provideUnauthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork() })
   }
 
   val groupsV2Authorization: GroupsV2Authorization by lazy {
@@ -215,9 +220,8 @@ class NetworkDependenciesModule(
     provider.provideDonationsApi(authWebSocket, unauthWebSocket)
   }
 
-  val svrBApi: SvrBApi by lazy {
-    provider.provideSvrBApi(libsignalNetwork)
-  }
+  val svrBApi: SvrBApi
+    get() = provider.provideSvrBApi(libsignalNetwork())
 
   val okHttpClient: OkHttpClient by lazy {
     OkHttpClient.Builder()

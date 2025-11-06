@@ -21,7 +21,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: gradle
 
       - name: Extract version from source
         id: extract_version

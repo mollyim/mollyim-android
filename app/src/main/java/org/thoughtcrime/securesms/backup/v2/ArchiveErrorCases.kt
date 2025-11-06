@@ -119,6 +119,26 @@ object ExportSkips {
     return log(sentTimestamp, "Failed to parse thread merge event.")
   }
 
+  fun pollTerminateIsEmpty(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Poll terminate update was empty.")
+  }
+
+  fun invalidPollQuestion(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Poll question was invalid.")
+  }
+
+  fun invalidPollOption(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Poll option was invalid.")
+  }
+
+  fun individualChatUpdateInWrongTypeOfChat(sentTimestamp: Long): String {
+    return log(sentTimestamp, "A chat update that only makes sense for individual chats was found in a different kind of chat.")
+  }
+
+  fun callWithMissingRecipient(sentTimestamp: Long): String {
+    return log(sentTimestamp, "A call had a ringer with no matching exported Recipient.")
+  }
+
   private fun log(sentTimestamp: Long, message: String): String {
     return "[SKIP][$sentTimestamp] $message"
   }
@@ -175,7 +195,7 @@ object ExportOddities {
   }
 
   fun unreadableLongTextAttachment(sentTimestamp: Long): String {
-    return log(sentTimestamp, "Long text attachment was unreadable. Falling back to the known body with an attachment pointer.")
+    return log(sentTimestamp, "Long text attachment was unreadable. Dropping the pointer.")
   }
 
   fun unopenableLongTextAttachment(sentTimestamp: Long): String {
@@ -195,6 +215,10 @@ object ExportOddities {
  * These represent situations where we will skip importing a data frame due to the data being invalid.
  */
 object ImportSkips {
+  fun recipientWithoutId(): String {
+    return log(0, " No aci, pni, or e164 available for recipient")
+  }
+
   fun fromRecipientNotFound(sentTimestamp: Long): String {
     return log(sentTimestamp, "Failed to find the fromRecipient for the message.")
   }
@@ -217,6 +241,14 @@ object ImportSkips {
 
   fun notificationProfileIdNotFound(): String {
     return log(0, "Failed to parse notificationProfileId for the provided notification profile.")
+  }
+
+  fun failedToCreateChat(): String {
+    return log(0, "Failed to create a Chat. Likely a duplicate recipient was found. Keeping pre-existing data and skipping data in this frame.")
+  }
+
+  fun missingChatRecipient(chatId: Long): String {
+    return log(0, "Missing recipient for chat $chatId")
   }
 
   private fun log(sentTimestamp: Long, message: String): String {

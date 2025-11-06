@@ -29,7 +29,6 @@ import org.thoughtcrime.securesms.registration.ui.RegistrationActivity;
 import org.thoughtcrime.securesms.restore.RestoreActivity;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppStartup;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 public abstract class PassphraseRequiredActivity extends PassphraseActivity implements MasterSecretListener {
@@ -149,16 +148,15 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   private boolean userCanTransferOrRestore() {
     return !SignalStore.registration().isRegistrationComplete() &&
-           RemoteConfig.restoreAfterRegistration() &&
            RestoreDecisionStateUtil.isDecisionPending(SignalStore.registration().getRestoreDecisionState());
   }
 
   private boolean userMustCreateSignalPin() {
     return !SignalStore.registration().isRegistrationComplete() &&
            !SignalStore.svr().hasPin() &&
-           !SignalStore.account().isLinkedDevice() &&
            !SignalStore.svr().lastPinCreateFailed() &&
-           !SignalStore.svr().hasOptedOut();
+           !SignalStore.svr().hasOptedOut() &&
+           SignalStore.account().isPrimaryDevice();
   }
 
   private boolean userMustSetProfileName() {

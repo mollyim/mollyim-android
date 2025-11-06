@@ -3,12 +3,13 @@ package org.thoughtcrime.securesms.components.settings.app.notifications
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.UnifiedPushDistributor
 import im.molly.unifiedpush.model.MollySocket
-
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
@@ -18,13 +19,12 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference
 import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.livedata.Store
 
 class NotificationsSettingsViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
-  private val store = Store(getState())
+  private val store = MutableStateFlow(getState())
 
-  val state: LiveData<NotificationsSettingsState> = store.stateLiveData
+  val state: StateFlow<NotificationsSettingsState> = store
 
   init {
     if (NotificationChannels.supported()) {
@@ -103,13 +103,13 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     refresh()
   }
 
-  fun setNotifyWhileLocked(enabled: Boolean) {
-    TextSecurePreferences.setPassphraseLockNotificationsEnabled(AppDependencies.application, enabled)
+  fun setNotifyWhenContactJoinsSignal(enabled: Boolean) {
+    SignalStore.settings.isNotifyWhenContactJoinsSignal = enabled
     refresh()
   }
 
-  fun setNotifyWhenContactJoinsSignal(enabled: Boolean) {
-    SignalStore.settings.isNotifyWhenContactJoinsSignal = enabled
+  fun setNotifyWhileLocked(enabled: Boolean) {
+    TextSecurePreferences.setPassphraseLockNotificationsEnabled(AppDependencies.application, enabled)
     refresh()
   }
 
@@ -172,12 +172,12 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     ),
     notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(AppDependencies.application) && SignalStore.account.pushAvailable,
     canEnableNotifyWhileLocked = SignalStore.account.pushAvailable,
-    notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal,
     isLinkedDevice = SignalStore.account.isLinkedDevice,
     preferredNotificationMethod = SignalStore.settings.preferredNotificationMethod,
     playServicesErrorCode = currentState?.playServicesErrorCode,
     canReceiveFcm = SignalStore.account.canReceiveFcm,
-    canReceiveUnifiedPush = SignalStore.unifiedpush.isAvailableOrAirGapped
+    canReceiveUnifiedPush = SignalStore.unifiedpush.isAvailableOrAirGapped,
+    notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal
   )
 
   private fun canEnableNotifications(): Boolean {

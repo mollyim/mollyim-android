@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.window.core.layout.WindowHeightSizeClass
+import androidx.window.core.layout.WindowSizeClass
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -36,7 +38,7 @@ class InlineQueryResultsControllerV2(
   private var mentionFragment: MentionsPickerFragmentV2? = null
   private var previousResults: InlineQueryViewModelV2.Results? = null
   private var canShow: Boolean = false
-  private var isLandscape: Boolean = false
+  private var shouldHideForWindowSizeClass: Boolean = false
 
   init {
     lifecycleDisposable.bindTo(parentFragment.viewLifecycleOwner)
@@ -69,10 +71,10 @@ class InlineQueryResultsControllerV2(
     emojiPopup = null
   }
 
-  fun onOrientationChange(isLandscape: Boolean) {
-    this.isLandscape = isLandscape
+  fun onWindowSizeClassChanged(windowSizeClass: WindowSizeClass) {
+    this.shouldHideForWindowSizeClass = windowSizeClass.windowHeightSizeClass == WindowHeightSizeClass.COMPACT
 
-    if (isLandscape) {
+    if (shouldHideForWindowSizeClass) {
       dismiss()
     } else {
       updateList(previousResults ?: InlineQueryViewModelV2.None)
@@ -81,7 +83,7 @@ class InlineQueryResultsControllerV2(
 
   private fun updateList(results: InlineQueryViewModelV2.Results) {
     previousResults = results
-    if (results is InlineQueryViewModelV2.None || !canShow || isLandscape) {
+    if (results is InlineQueryViewModelV2.None || !canShow || shouldHideForWindowSizeClass) {
       dismiss()
     } else if (results is InlineQueryViewModelV2.EmojiResults) {
       showEmojiPopup(results)

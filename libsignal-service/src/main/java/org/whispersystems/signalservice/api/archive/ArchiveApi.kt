@@ -95,19 +95,21 @@ class ArchiveApi(
    * Ensures that you reserve backupIds for both messages and media on the service. This must be done before any other
    * backup-related calls. You only need to do it once, but repeated calls are safe.
    *
+   * Passing null for either key will skip reserving for that backup and not cost a rate limit permit.
+   *
    * PUT /v1/archives/backupid
    *
    * - 204: Success
    * - 400: Invalid credential
    * - 429: Rate-limited
    */
-  fun triggerBackupIdReservation(messageBackupKey: MessageBackupKey, mediaRootBackupKey: MediaRootBackupKey, aci: ACI): NetworkResult<Unit> {
-    val messageBackupRequestContext = BackupAuthCredentialRequestContext.create(messageBackupKey.value, aci.rawUuid)
-    val mediaBackupRequestContext = BackupAuthCredentialRequestContext.create(mediaRootBackupKey.value, aci.rawUuid)
+  fun triggerBackupIdReservation(messageBackupKey: MessageBackupKey?, mediaRootBackupKey: MediaRootBackupKey?, aci: ACI): NetworkResult<Unit> {
+    val messageBackupRequestContext = messageBackupKey?.let { BackupAuthCredentialRequestContext.create(messageBackupKey.value, aci.rawUuid) }
+    val mediaBackupRequestContext = mediaRootBackupKey?.let { BackupAuthCredentialRequestContext.create(mediaRootBackupKey.value, aci.rawUuid) }
 
     val request = WebSocketRequestMessage.put(
       "/v1/archives/backupid",
-      ArchiveSetBackupIdRequest(messageBackupRequestContext.request, mediaBackupRequestContext.request)
+      ArchiveSetBackupIdRequest(messageBackupRequestContext?.request, mediaBackupRequestContext?.request)
     )
 
     return NetworkResult.fromWebSocketRequest(authWebSocket, request)
@@ -267,7 +269,7 @@ class ArchiveApi(
 
       var cursor: String? = null
       do {
-        val response: ArchiveGetMediaItemsResponse = getArchiveMediaItemsPage(aci, archiveServiceAccess, 512, cursor).successOrThrow()
+        val response: ArchiveGetMediaItemsResponse = getArchiveMediaItemsPage(aci, archiveServiceAccess, 10_000, cursor).successOrThrow()
         mediaObjects += response.storedMediaObjects
         cursor = response.cursor
       } while (cursor != null)

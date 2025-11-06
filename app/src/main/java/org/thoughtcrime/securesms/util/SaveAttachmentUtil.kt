@@ -43,6 +43,10 @@ private typealias BatchOperationNameCache = HashMap<Uri, HashSet<String>>
 object SaveAttachmentUtil {
   private val TAG = Log.tag(SaveAttachmentUtil::class.java)
 
+  private val saveFolderName: String by lazy {
+    AppDependencies.application.getString(R.string.app_name)
+  }
+
   suspend fun saveAttachments(attachments: Set<SaveAttachment>): SaveAttachmentsResult {
     check(attachments.isNotEmpty()) { "must pass in at least one attachment" }
 
@@ -158,10 +162,10 @@ object SaveAttachmentUtil {
 
     if (Build.VERSION.SDK_INT > 28) {
       val relativePath = when {
-        contentType.startsWith("image/") -> Environment.DIRECTORY_PICTURES + "/Signal"
-        contentType.startsWith("video/") -> Environment.DIRECTORY_MOVIES + "/Signal"
-        contentType.startsWith("audio/") -> Environment.DIRECTORY_MUSIC + "/Signal"
-        else -> Environment.DIRECTORY_DOWNLOADS + "/Signal"
+        contentType.startsWith("image/") -> Environment.DIRECTORY_PICTURES + "/$saveFolderName"
+        contentType.startsWith("video/") -> Environment.DIRECTORY_MOVIES + "/$saveFolderName"
+        contentType.startsWith("audio/") -> Environment.DIRECTORY_MUSIC + "/$saveFolderName"
+        else -> Environment.DIRECTORY_DOWNLOADS + "/$saveFolderName"
       }
       contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)
     }
@@ -223,10 +227,10 @@ object SaveAttachmentUtil {
 
   private fun getExternalPathForType(contentType: String): String? {
     val storage: File? = when {
-      contentType.startsWith("video/") -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Signal")
-      contentType.startsWith("audio/") -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Signal")
-      contentType.startsWith("image/") -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Signal")
-      else -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "Signal")
+      contentType.startsWith("video/") -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), saveFolderName)
+      contentType.startsWith("audio/") -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), saveFolderName)
+      contentType.startsWith("image/") -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), saveFolderName)
+      else -> File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), saveFolderName)
     }
 
     return storage?.let { ensureExternalPath(storage) }?.absolutePath
