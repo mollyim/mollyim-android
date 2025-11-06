@@ -21,7 +21,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.signal.core.util.AppUtil
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
@@ -155,7 +154,11 @@ class RestoreActivity : BaseActivity() {
       .setTitle(R.string.RestoreActivity__no_longer_registered_title)
       .setMessage(R.string.RestoreActivity__no_longer_registered_message)
       .setCancelable(false)
-      .setPositiveButton(android.R.string.ok) { _, _ -> AppUtil.clearData(this) }
+      .setPositiveButton(android.R.string.ok) { _, _ ->
+        sharedViewModel.skipRestore()
+        startActivity(MainActivity.clearTop(this))
+        supportFinishAfterTransition()
+      }
       .show()
   }
 
