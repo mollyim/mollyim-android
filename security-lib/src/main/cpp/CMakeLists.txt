@@ -10,6 +10,7 @@ add_library(molly_security SHARED
     cache_operations.cpp
     memory_scrambler.cpp
     timing_obfuscation.cpp
+    kyber1024.cpp
     jni_bridge.cpp
 )
 
