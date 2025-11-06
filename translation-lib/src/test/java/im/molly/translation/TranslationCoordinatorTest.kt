@@ -48,21 +48,26 @@ class TranslationCoordinatorTest {
         mockNetworkClient = mockk(relaxed = true)
         mockCache = mockk(relaxed = true)
 
-        // Mock static getInstance methods
+        // Mock static getInstance methods and constructors
         mockkObject(TranslationEngine.Companion)
         every { TranslationEngine.getInstance(any()) } returns mockEngine
 
-        mockkObject(NetworkTranslationClient)
-        // Note: NetworkTranslationClient doesn't have getInstance, it's instantiated directly
+        // Mock constructors for classes instantiated directly
+        mockkConstructor(NetworkTranslationClient::class)
+        every { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) } coAnswers { networkResult }
+        every { anyConstructed<NetworkTranslationClient>().hasAvailableServers() } returns true
+        every { anyConstructed<NetworkTranslationClient>().startDiscovery() } just Runs
+        every { anyConstructed<NetworkTranslationClient>().stopDiscovery() } just Runs
+        every { anyConstructed<NetworkTranslationClient>().shutdown() } just Runs
 
-        mockkObject(TranslationCache.Companion)
-        every { TranslationCache.getInstance(any()) } returns mockCache
+        mockkConstructor(TranslationCache::class)
+        every { anyConstructed<TranslationCache>().getCached(any(), any(), any()) } returns null
+        every { anyConstructed<TranslationCache>().putCached(any(), any(), any(), any()) } just Runs
+        every { anyConstructed<TranslationCache>().clearCache() } just Runs
 
-        // Default mock behaviors
+        // Default mock behaviors for engine
         every { mockEngine.initialize(any()) } returns true
         every { mockEngine.isInitialized() } returns true
-        every { mockCache.get(any(), any(), any()) } returns null
-        every { mockCache.put(any(), any(), any(), any()) } just Runs
     }
 
     @After
@@ -74,8 +79,8 @@ class TranslationCoordinatorTest {
     fun `test NETWORK_FIRST strategy - network succeeds`() = runTest {
         // Setup
         every { mockEngine.translate(any(), any(), any()) } returns onDeviceResult
-        coEvery { mockNetworkClient.translateViaNetwork(any(), any(), any()) } returns networkResult
-        every { mockNetworkClient.hasAvailableServers() } returns true
+        coEvery { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) } returns networkResult
+        every { anyConstructed<NetworkTranslationClient>().hasAvailableServers() } returns true
 
         coordinator = TranslationCoordinator.getInstance(context)
         coordinator.initialize(
@@ -96,8 +101,8 @@ class TranslationCoordinatorTest {
     fun `test NETWORK_FIRST strategy - network fails, fallback to on-device`() = runTest {
         // Setup
         every { mockEngine.translate(any(), any(), any()) } returns onDeviceResult
-        coEvery { mockNetworkClient.translateViaNetwork(any(), any(), any()) } returns null
-        every { mockNetworkClient.hasAvailableServers() } returns false
+        coEvery { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) } returns null
+        every { anyConstructed<NetworkTranslationClient>().hasAvailableServers() } returns false
 
         coordinator = TranslationCoordinator.getInstance(context)
         coordinator.initialize(
@@ -135,14 +140,14 @@ class TranslationCoordinatorTest {
         assertFalse("Should mark as on-device translation", result?.usedNetwork == true)
 
         // Verify network was NOT called
-        coVerify(exactly = 0) { mockNetworkClient.translateViaNetwork(any(), any(), any()) }
+        coVerify(exactly = 0) { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) }
     }
 
     @Test
     fun `test ON_DEVICE_FIRST strategy - on-device fails, fallback to network`() = runTest {
         // Setup
         every { mockEngine.translate(any(), any(), any()) } returns null
-        coEvery { mockNetworkClient.translateViaNetwork(any(), any(), any()) } returns networkResult
+        coEvery { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) } returns networkResult
 
         coordinator = TranslationCoordinator.getInstance(context)
         coordinator.initialize(
@@ -163,7 +168,7 @@ class TranslationCoordinatorTest {
     fun `test ON_DEVICE_ONLY strategy - never uses network`() = runTest {
         // Setup
         every { mockEngine.translate(any(), any(), any()) } returns onDeviceResult
-        coEvery { mockNetworkClient.translateViaNetwork(any(), any(), any()) } returns networkResult
+        coEvery { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) } returns networkResult
 
         coordinator = TranslationCoordinator.getInstance(context)
         coordinator.initialize(
@@ -179,7 +184,7 @@ class TranslationCoordinatorTest {
         assertEquals("Should use on-device translation", onDeviceResult.translatedText, result?.translatedText)
 
         // Verify network was NEVER called
-        coVerify(exactly = 0) { mockNetworkClient.translateViaNetwork(any(), any(), any()) }
+        coVerify(exactly = 0) { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) }
     }
 
     @Test
@@ -200,7 +205,7 @@ class TranslationCoordinatorTest {
         assertNull("Result should be null when on-device fails in ON_DEVICE_ONLY mode", result)
 
         // Verify network was NEVER called even though on-device failed
-        coVerify(exactly = 0) { mockNetworkClient.translateViaNetwork(any(), any(), any()) }
+        coVerify(exactly = 0) { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) }
     }
 
     @Test
@@ -212,7 +217,7 @@ class TranslationCoordinatorTest {
             inferenceTimeUs = 0L,
             usedNetwork = false
         )
-        every { mockCache.get(testText, sourceLang, targetLang) } returns cachedResult
+        every { anyConstructed<TranslationCache>().getCached(testText, sourceLang, targetLang) } returns cachedResult
 
         coordinator = TranslationCoordinator.getInstance(context)
         coordinator.initialize(
@@ -228,7 +233,7 @@ class TranslationCoordinatorTest {
 
         // Verify no translation methods were called
         verify(exactly = 0) { mockEngine.translate(any(), any(), any()) }
-        coVerify(exactly = 0) { mockNetworkClient.translateViaNetwork(any(), any(), any()) }
+        coVerify(exactly = 0) { anyConstructed<NetworkTranslationClient>().translateViaNetwork(any(), any(), any()) }
     }
 
     @Test
@@ -247,7 +252,7 @@ class TranslationCoordinatorTest {
 
         // Verify cache was populated
         verify(exactly = 1) {
-            mockCache.put(testText, sourceLang, targetLang, onDeviceResult)
+            anyConstructed<TranslationCache>().putCached(testText, sourceLang, targetLang, onDeviceResult)
         }
     }
 
@@ -288,13 +293,13 @@ class TranslationCoordinatorTest {
         coordinator.setStrategy(TranslationCoordinator.TranslationStrategy.ON_DEVICE_ONLY)
 
         // Verify discovery was stopped
-        verify { mockNetworkClient.stopDiscovery() }
+        verify { anyConstructed<NetworkTranslationClient>().stopDiscovery() }
     }
 
     @Test
     fun `test availability checks`() = runTest {
         every { mockEngine.isInitialized() } returns true
-        every { mockNetworkClient.hasAvailableServers() } returns true
+        every { anyConstructed<NetworkTranslationClient>().hasAvailableServers() } returns true
 
         coordinator = TranslationCoordinator.getInstance(context)
         coordinator.initialize(

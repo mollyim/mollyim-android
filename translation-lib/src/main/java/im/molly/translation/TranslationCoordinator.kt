@@ -138,7 +138,7 @@ class TranslationCoordinator private constructor(private val context: Context) {
         }
 
         // Check cache first
-        val cached = translationCache.get(text, sourceLang, targetLang)
+        val cached = translationCache.getCached(text, sourceLang, targetLang)
         if (cached != null) {
             Log.d(TAG, "Translation cache hit")
             return cached
@@ -153,7 +153,7 @@ class TranslationCoordinator private constructor(private val context: Context) {
 
         // Cache successful result
         if (result != null) {
-            translationCache.put(text, sourceLang, targetLang, result)
+            translationCache.putCached(text, sourceLang, targetLang, result)
         }
 
         return result
@@ -286,7 +286,7 @@ class TranslationCoordinator private constructor(private val context: Context) {
      * Clear translation cache
      */
     fun clearCache() {
-        translationCache.clear()
+        translationCache.clearCache()
         Log.d(TAG, "Translation cache cleared")
     }
 
