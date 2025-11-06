@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Shield outline -->
+    <path
+        android:fillColor="@color/emma_tactical_green"
+        android:pathData="M12,1L3,5v6c0,5.55,3.84,10.74,9,12c5.16,-1.26,9,-6.45,9,-12V5L12,1z
+                         M12,21c-4.13,-1.04-7,-5.33-7,-10V6.3l7,-3.11l7,3.11V11c0,4.67,-2.87,8.96,-7,10z"/>
+
+    <!-- Warning symbol (triangle with exclamation) -->
+    <path
+        android:fillColor="@color/emma_tactical_green"
+        android:pathData="M12,7l-0.5,6h1L12,7z
+                         M12,15.5m-1,0a1,1 0,1,1 2,0a1,1 0,1,1 -2,0"/>
+</vector>

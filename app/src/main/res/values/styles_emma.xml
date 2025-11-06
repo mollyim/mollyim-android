@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- EMMA MIL-SPEC Theme -->
+    <style name="Theme.EMMA.MilSpec" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/emma_tactical_green</item>
+        <item name="colorPrimaryVariant">@color/emma_tactical_green_dim</item>
+        <item name="colorOnPrimary">@color/emma_black_primary</item>
+
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/emma_tactical_amber</item>
+        <item name="colorSecondaryVariant">@color/emma_tactical_amber</item>
+        <item name="colorOnSecondary">@color/emma_black_primary</item>
+
+        <!-- Background Colors -->
+        <item name="android:colorBackground">@color/emma_black_primary</item>
+        <item name="colorSurface">@color/emma_black_secondary</item>
+        <item name="colorOnBackground">@color/emma_text_primary</item>
+        <item name="colorOnSurface">@color/emma_text_primary</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/emma_black_primary</item>
+        <item name="android:navigationBarColor">@color/emma_black_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Text Appearance -->
+        <item name="android:textColorPrimary">@color/emma_text_primary</item>
+        <item name="android:textColorSecondary">@color/emma_text_secondary</item>
+        <item name="android:textColorTertiary">@color/emma_text_tertiary</item>
+
+        <!-- Window Attributes -->
+        <item name="android:windowBackground">@color/emma_black_primary</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="EMMA.Text.Mono" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/emma_text_tactical</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="EMMA.Text.Header" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/emma_text_primary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="EMMA.Text.Subheader" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/emma_text_secondary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <style name="EMMA.Text.ThreatLevel" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="EMMA.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/emma_card_bg</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">2dp</item>
+        <item name="strokeColor">@color/emma_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="EMMA.Card.Tactical">
+        <item name="strokeColor">@color/emma_tactical_green</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="EMMA.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/emma_button_primary</item>
+        <item name="android:textColor">@color/emma_black_primary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="cornerRadius">2dp</item>
+    </style>
+
+    <style name="EMMA.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/emma_tactical_green</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:textColor">@color/emma_tactical_green</item>
+        <item name="cornerRadius">2dp</item>
+    </style>
+
+    <style name="EMMA.Button.Danger">
+        <item name="android:backgroundTint">@color/emma_button_danger</item>
+        <item name="android:textColor">@color/emma_text_primary</item>
+    </style>
+
+    <!-- HUD/Indicator Styles -->
+    <style name="EMMA.HUD">
+        <item name="android:background">@color/emma_hud_bg</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="EMMA.ThreatIndicator">
+        <item name="android:background">@drawable/emma_threat_indicator_bg</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <!-- Switch/Toggle Styles -->
+    <style name="EMMA.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="thumbTint">@color/emma_tactical_green</item>
+        <item name="trackTint">@color/emma_grey_medium</item>
+    </style>
+
+    <!-- Divider Style -->
+    <style name="EMMA.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/emma_divider</item>
+    </style>
+</resources>
