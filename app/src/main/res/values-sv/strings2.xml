@@ -142,4 +142,17 @@
     <string name="UnifiedPushSettingsFragment__none_available">Ingen är tillgänglig</string>
     <string name="UnifiedPushSettingsFragment__distributor_app">Distributörsapp</string>
     <string name="UnifiedPushSettingsFragment__status">Status</string>
+    <string name="UnifiedPushSettingsFragment__tap_to_copy_to_clipboard">Klicka för att kopiera</string>
+    <string name="UnifiedPushSettingsFragment__server_parameters">Serverparametrar</string>
+    <string name="UnifiedPushSettingsFragment__account_id">Konto-ID</string>
+    <string name="UnifiedPushSettingsFragment__test_configuration">Testkonfiguration</string>
+    <string name="UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket">Klicka för att få en testnotis från MollySocket</string>
+    <string name="UnifiedPushSettingsFragment__a_test_notification_should_appear_in_a_few_moments">Snart borde en testnotis dyka upp …</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing">Saknar URL till MollySocket</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_pending">Behandlas</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_missing_endpoint">Väntar på svar från UnifiedPush-distributören</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_forbidden_endpoint">Denna slutpunkt är förbjuden av servern</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_no_distributor">Ingen UnifiedPush-distributör har installerats på enheten</string>
+    <string name="UnifiedPushSettingsFragment__status_summary_distributor_not_selected">Ingen distributörsapp har valts</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_hit">Du har fler än de tillåtna %d länkade enheterna. För att länka till din MollySocket-server, måste du först ta bort en enhet.</string>
 </resources>
