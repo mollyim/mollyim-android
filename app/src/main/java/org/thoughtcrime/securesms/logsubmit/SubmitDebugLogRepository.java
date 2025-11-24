@@ -102,7 +102,7 @@ public class SubmitDebugLogRepository {
     add(new LogSectionRemappedRecords());
     add(new LogSectionLogcat());
     add(new LogSectionLoggerHeader());
-    // MOLLY: Review default implementation of isInitialized() for new sections
+    // MOLLY: For new sections, override getContentLocked() if content must be visible while locked.
   }};
 
   private final Application     context;
@@ -392,10 +392,8 @@ public class SubmitDebugLogRepository {
     List<LogLine> out = new ArrayList<>();
     out.add(new SimpleLogLine(formatTitle(section.getTitle(), maxTitleLength), LogLine.Style.NONE, LogLine.Placeholder.NONE));
 
-    if (!section.isInitialized()) {
-      out.add(new SimpleLogLine("<not available>", LogLine.Style.INFO, LogLine.Placeholder.NONE));
-    } else if (section.hasContent()) {
-      CharSequence content = Scrubber.scrub(section.getContent(context));
+    if (section.hasContent()) {
+      CharSequence content = Scrubber.scrub(LogSection.resolveContent(context, section, KeyCachingService.isLocked()));
 
       List<LogLine> lines = Stream.of(Pattern.compile("\\n").split(content))
                                   .map(s -> new SimpleLogLine(s, LogStyleParser.parseStyle(s), LogStyleParser.parsePlaceholderType(s)))

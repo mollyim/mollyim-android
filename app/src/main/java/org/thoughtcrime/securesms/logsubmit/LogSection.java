@@ -4,8 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.service.KeyCachingService;
-
 import java.util.List;
 
 interface LogSection {
@@ -28,18 +26,15 @@ interface LogSection {
     return true;
   }
 
-  default boolean isInitialized() {
-    switch (getTitle()) {
-      case "SYSINFO":
-      case "POWER":
-      case "PERMISSIONS":
-      case "TRACE":
-      case "THREADS":
-      case "BLOCKED THREADS":
-      case "LOGCAT":
-        return true;
-      default:
-        return !KeyCachingService.isLocked();
+  default @NonNull CharSequence getContentLocked(@NonNull Context context) {
+    return "<not available>";
+  }
+
+  static CharSequence resolveContent(@NonNull Context context, LogSection section, boolean appLocked) {
+    if (appLocked) {
+      return section.getContentLocked(context);
+    } else {
+      return section.getContent(context);
     }
   }
 }

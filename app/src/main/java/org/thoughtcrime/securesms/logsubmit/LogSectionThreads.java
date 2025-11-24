@@ -28,4 +28,9 @@ public class LogSectionThreads implements LogSection {
 
     return builder;
   }
+
+  @Override
+  @NonNull public CharSequence getContentLocked(@NonNull Context context) {
+    return getContent(context);
+  }
 }
