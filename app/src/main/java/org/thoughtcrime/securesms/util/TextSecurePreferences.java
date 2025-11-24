@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera.CameraInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.Settings;
 
 import androidx.annotation.ArrayRes;
@@ -88,7 +87,7 @@ public class TextSecurePreferences {
   public  static final String DIRECT_CAPTURE_CAMERA_ID         = "pref_direct_capture_camera_id";
   public  static final String ALWAYS_RELAY_CALLS_PREF          = "pref_turn_only";
   public  static final String READ_RECEIPTS_PREF               = "pref_read_receipts";
-  public  static final String INCOGNITO_KEYBORAD_PREF          = "pref_incognito_keyboard";
+  public  static final String INCOGNITO_KEYBOARD_PREF          = "pref_incognito_keyboard";
   public  static final String UNAUTHORIZED_RECEIVED            = "pref_unauthorized_received";
   private static final String SUCCESSFUL_DIRECTORY_PREF        = "pref_successful_directory";
 
@@ -178,7 +177,7 @@ public class TextSecurePreferences {
   }
 
   private static final String[] booleanPreferencesToBackup = {SCREEN_SECURITY_PREF,
-                                                              INCOGNITO_KEYBORAD_PREF,
+                                                              INCOGNITO_KEYBOARD_PREF,
                                                               ALWAYS_RELAY_CALLS_PREF,
                                                               READ_RECEIPTS_PREF,
                                                               TYPING_INDICATORS,
@@ -560,7 +559,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean isIncognitoKeyboardEnabled(Context context) {
-    return getBooleanPreference(context, INCOGNITO_KEYBORAD_PREF, true);
+    return getBooleanPreference(context, INCOGNITO_KEYBOARD_PREF, true);
   }
 
   public static boolean isReadReceiptsEnabled(Context context) {
@@ -823,11 +822,7 @@ public class TextSecurePreferences {
 
   @Deprecated
   public static boolean isCallNotificationVibrateEnabled(Context context) {
-    boolean defaultValue = true;
-
-    if (Build.VERSION.SDK_INT >= 23) {
-      defaultValue = (Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1) == 1);
-    }
+    boolean defaultValue = (Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1) == 1);
 
     return getBooleanPreference(context, CALL_VIBRATE_PREF, defaultValue);
   }
@@ -1062,7 +1057,7 @@ public class TextSecurePreferences {
     AppDependencies.getGroupsV2Authorization().clear();
   }
 
-  private static SharedPreferences getSharedPreferences(Context context) {
+  public static SharedPreferences getSharedPreferences(Context context) {
     return SecurePreferenceManager.getSecurePreferences(context);
   }
 

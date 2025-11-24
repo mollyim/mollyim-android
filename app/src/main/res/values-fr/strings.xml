@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Enregistrer une phrase de récupération pour les paiements</string>
     <string name="ApplicationPreferencesActivity_record_phrase">Enregistrez la phrase</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Avant de désactiver votre code PIN, vous devez enregistrer la phrase de récupération qui vous permettra de récupérer votre compte de paiement.</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">Créer une nouvelle clé de récupération</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">Pour pouvoir désactiver votre code PIN, vous devez d\'abord créer et enregistrer une nouvelle clé de récupération.</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">Créer une clé</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -260,7 +266,7 @@
     <!-- Unknown people row info dialog message -->
     <string name="CallInfoView__before_joining_a_call">Avant de rejoindre un appel, seuls les noms de certaines personnes s’affichent : contacts de votre téléphone, utilisateurs faisant partie des mêmes groupes que vous ou avec qui vous avez discuté en privé. Les noms et les photos de tous les participants ne s’affichent qu’une fois que vous avez rejoint l’appel.</string>
     <!-- Unknown people row info dialog action to close the dialog -->
-    <string name="CallInfoView__got_it">J’ai compris</string>
+    <string name="CallInfoView__got_it">J\'ai compris</string>
 
     <!-- CameraFragment -->
     <!-- Toasted when user device does not support video recording -->
@@ -1385,11 +1391,16 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">OK</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Vous ne pouvez pas ajouter cet utilisateur à un groupe hérité.</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">Ajouter %1$s à \"%2$s\" ?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">Ajouter %1$s à \"%2$s\" ?</item>
-        <item quantity="other">Ajouter %3$d membres à \"%2$s\" ?</item>
+        <item quantity="one">Ajouter {2} à \"%2$s\" ?</item>
+        <item quantity="other">Ajouter %1$d membres à \"%2$s\" ?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">Ajouter</string>
     <string name="AddMembersActivity__add_members">Ajouter des membres</string>
 
@@ -2115,6 +2126,8 @@
     <string name="MessageRecord_unsupported_feature">Impossible de traiter et d\'afficher un message que vous a envoyé %1$s, car il utilise une nouvelle fonctionnalité de Signal.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s a arrêté le sondage : \"%2$s\"</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">Vous avez arrêté le sondage \"%1$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Accepter</string>
@@ -2430,6 +2443,12 @@
     <string name="WebRtcCallActivity__to_start_call">Pour passer ou rejoindre un appel :</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Pour prendre des vidéos :</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Appel Molly</string>
@@ -3360,6 +3379,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">Répondre sans vidéo</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">Changer de caméra</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">Sortie audio</string>
@@ -3417,9 +3439,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" ne correspond à aucun utilisateur Signal. Veuillez vérifier le nom d\'utilisateur et réessayer."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Inutile de vous ajouter au groupe</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">Le groupe a atteint sa taille maximale</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Les groupes Signal peuvent accueillir jusqu\'à %1$d membres.</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Les groupes Signal peuvent accueillir jusqu\'à %1$s membres.</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">Votre groupe a atteint la taille maximale recommandée</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Pour un fonctionnement optimal, les groupes Signal peuvent accueillir jusqu\'à %1$d membres. Si vous dépassez cette limite, l\'envoi et la réception des messages risquent de s\'en trouver ralentis.</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Pour un fonctionnement optimal, les groupes Signal peuvent accueillir jusqu\'à %1$s membres. Si vous dépassez cette limite, l\'envoi et la réception de messages risquent de s\'en trouver ralentis.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">%1$d membre</item>
         <item quantity="other">%1$d membres</item>
@@ -5184,11 +5206,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Ignorer</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">%1$d membre</item>
-        <item quantity="other">%1$d membres</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="one">%1$s membre</item>
@@ -5392,7 +5409,7 @@
     <!-- String alerting user that backup failed -->
     <string name="AppSettingsFragment__couldnt_complete_backup">Impossible de terminer la sauvegarde</string>
     <!-- String alerting user that backup redemption -->
-    <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Impossible de récupérer votre abonnement de sauvegarde</string>
+    <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">Impossible de récupérer votre abonnement aux sauvegardes</string>
     <!-- String alerting user that backup storage limit has been reached -->
     <string name="AppSettingsFragment__backup_storage_limit_reached">Espace de sauvegarde saturé</string>
     <!-- String displayed telling user to invite their friends to Signal -->
@@ -5918,11 +5935,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">Impossible de bloquer le contact</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s n\'utilise pas Signal.</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">\"%1$s\" ne correspond à aucun utilisateur Signal.</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">Ouvrir le menu</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s personne n\'utilise pas Signal</item>
         <item quantity="other">%1$s personnes n\'utilisent pas Signal</item>
     </plurals>
@@ -6100,7 +6117,6 @@
     <string name="BadgesOverviewFragment__featured_badge">Macaron affiché</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">Afficher les macarons sur le profil</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">Échec de la mise à jour du profil</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">Sélectionnez un macaron</string>
@@ -6284,7 +6300,7 @@
     <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
     <string name="DonationsError__something_went_wrong">Une erreur s\'est produite</string>
     <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
-    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">Impossible d\'afficher votre abonnement de sauvegarde. Veuillez contacter l\'assistance.</string>
+    <string name="DonationsError__your_backups_subscription_couldnt_be_displayed">Impossible d\'afficher votre abonnement aux sauvegardes. Veuillez contacter l\'assistance.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">Validation du macaron impossible.</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
@@ -7754,6 +7770,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Activez les sauvegardes sécurisées Signal</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Essayez les sauvegardes sécurisées Signal</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">Besoin de changer de téléphone ou de réinstaller Molly ? Vos contenus restent à portée de main.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -7890,7 +7908,7 @@
 
     <!-- BackupAlertBottomSheet -->
     <!-- Sheet title when media backups have been disabled -->
-    <string name="BackupAlertBottomSheet__your_backups_subscription_expired">Expiration de votre abonnement de sauvegarde</string>
+    <string name="BackupAlertBottomSheet__your_backups_subscription_expired">Expiration de votre abonnement aux sauvegardes</string>
     <!-- Sheet body part 1 when media backups have been disabled. Placeholder is the number of days until deletion. -->
     <plurals name="BackupAlertBottomSheet__your_backup_plan_has_expired">
         <item quantity="one">Votre mode de paiement actuel ne nous permet pas de traiter votre paiement et de renouveler votre forfait de sauvegarde. Vous disposez d\'un délai d\'%1$d jour pour récupérer les médias de votre sauvegarde. Passé ce délai, ils seront tous supprimés.</item>
@@ -7911,11 +7929,11 @@
     <!-- Sheet body part 2 when user does not have enough space to download their backup. -->
     <string name="BackupAlertBottomSheet__to_free_up_space_offload">Pour libérer de l\'espace, déplacez les applications inutilisées ou les médias volumineux vers la sauvegarde, ou supprimez-les.</string>
     <!-- Sheet title when user payment failed to process -->
-    <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Impossible de renouveler votre abonnement de sauvegarde</string>
+    <string name="BackupAlertBottomSheet__your_backups_subscription_failed_to_renew">Impossible de renouveler votre abonnement aux sauvegardes</string>
     <!-- Sheet body when user payment failed to process -->
     <string name="BackupAlertBottomSheet__check_to_make_sure_your_payment_method">Vérifiez que votre mode de paiement est à jour. Appuyez sur \"Gérer l\'abonnement\", puis sur \"Modes de paiement\" et sur \"Mettre à jour\".</string>
     <!-- Sheet title for when user falls out of grace period -->
-    <string name="BackupAlertBottomSheet__your_backups_subscription_has_expired">Expiration de votre abonnement de sauvegarde</string>
+    <string name="BackupAlertBottomSheet__your_backups_subscription_has_expired">Expiration de votre abonnement aux sauvegardes</string>
     <!-- Sheet body part 1 for when user falls out of grace period -->
     <string name="BackupAlertBottomSheet__your_subscription_couldnt_be_renewed">Impossible de renouveler votre abonnement avec votre mode de paiement actuel. Pour continuer de sauvegarder vos médias, vous devez disposer d\'un abonnement actif.</string>
     <!-- Sheet body part 2 for when user falls out of grace period -->
@@ -7968,7 +7986,7 @@
     <!-- Dialog title when a backup fails to be created -->
     <string name="BackupAlertBottomSheet__backup_failed">Échec de la sauvegarde</string>
     <!-- Dialog title when a backup redemption fails -->
-    <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Impossible de récupérer votre abonnement de sauvegarde</string>
+    <string name="BackupAlertBottomSheet__couldnt_redeem_your_backups_subscription">Impossible de récupérer votre abonnement aux sauvegardes</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it -->
     <string name="BackupAlertBottomSheet__an_error_occurred">Une erreur nous empêche de terminer la sauvegarde. Avant de réessayer, vérifiez que vous avez bien installé la dernière version de Signal. Si le problème persiste, contactez l\'assistance.</string>
     <!-- Dialog text for when a backup fails to be created and ways to fix it. Used for out of remote storage space error. -->
@@ -8034,6 +8052,12 @@
     <string name="BackupStatusRow__your_last_backup">Impossible de terminer votre dernière sauvegarde. Vérifiez que votre téléphone est connecté au Wi-Fi, puis appuyez sur \"Sauvegarder maintenant\" pour réessayer.</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">Impossible de terminer votre dernière sauvegarde. Avant de réessayer, vérifiez que vous avez bien installé la dernière version de Signal.</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">Le nombre de messages sauvegardés dépasse la limite de stockage. Veuillez supprimer certains messages, puis réessayer.</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">Les messages reçus ou envoyés avant le %1$s ne sont pas sauvegardés.</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">En savoir plus</string>
 
@@ -8497,6 +8521,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Créer une nouvelle clé de récupération</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">La création d\'une nouvelle clé n\'est nécessaire que si quelqu\'un connaît votre clé actuelle. Vous devrez réimporter votre sauvegarde (y compris vos médias). Si vous avez activé l\'option \"Optimiser l\'espace de stockage\", commencez par télécharger les médias déplacés vers la sauvegarde.</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Quitter la configuration des sauvegardes ?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Vous n\'avez pas terminé la configuration et n\'avez donc créé aucune sauvegarde. Vous pourrez activer les sauvegardes ultérieurement via les paramètres.</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Quitter la configuration</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8761,6 +8791,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Ignorer la restauration</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">Nombre maximal de clés atteint</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">Vous avez bien créé une nouvelle clé de récupération. Pour éviter les abus, Signal limite le nombre de clés que vous pouvez créer. Vous ne pourrez donc pas en créer d\'autre pendant 7 jours. Conservez votre clé en lieu sûr.</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">Impossible de créer une nouvelle clé</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">Vous avez créé un trop grand nombre de clés. Vous pourrez en créer une nouvelle dans 7 jours. Si vous craignez que quelqu\'un puisse accéder à votre sauvegarde, vous pouvez sélectionner l\'option \"Désactiver et supprimer la sauvegarde\".</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">OK</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">Fermer la zone de recherche</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8822,6 +8862,8 @@
     <string name="Poll__poll_question">Sondage : %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s a arrêté le sondage : \"%2$s\"</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">Vous avez arrêté le sondage \"%1$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s a répondu au sondage : \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8847,6 +8889,12 @@
     <string name="Poll__couldnt_end_poll">Impossible d\'arrêter le sondage</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">Veuillez vérifier votre connexion et réessayer.</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">Arrêter le sondage ?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">Les membres du groupe ne pourront plus voter.</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">En attente de connexion réseau…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Nouveau sondage</string>
     <!-- Section text to enter in a question for a poll  -->

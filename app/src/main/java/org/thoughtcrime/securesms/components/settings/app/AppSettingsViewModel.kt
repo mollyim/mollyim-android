@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -50,18 +49,13 @@ class AppSettingsViewModel : ViewModel() {
   }
 
   private fun getBackupFailureState(): BackupFailureState {
-    return if (BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx()) {
-      BackupFailureState.OUT_OF_STORAGE_SPACE
-    } else if (BackupRepository.shouldDisplayBackupFailedSettingsRow()) {
-      BackupFailureState.BACKUP_FAILED
-    } else if (BackupRepository.shouldDisplayCouldNotCompleteBackupSettingsRow()) {
-      BackupFailureState.COULD_NOT_COMPLETE_BACKUP
-    } else if (SignalStore.backup.subscriptionStateMismatchDetected) {
-      BackupFailureState.SUBSCRIPTION_STATE_MISMATCH
-    } else if (SignalStore.backup.hasBackupAlreadyRedeemedError) {
-      BackupFailureState.ALREADY_REDEEMED
-    } else {
-      BackupFailureState.NONE
+    return when {
+      !SignalStore.account.isRegistered || !SignalStore.backup.areBackupsEnabled -> BackupFailureState.NONE
+      SignalStore.backup.isNotEnoughRemoteStorageSpace -> BackupFailureState.OUT_OF_STORAGE_SPACE
+      SignalStore.backup.hasBackupCreationError -> BackupFailureState.COULD_NOT_COMPLETE_BACKUP
+      SignalStore.backup.subscriptionStateMismatchDetected -> BackupFailureState.SUBSCRIPTION_STATE_MISMATCH
+      SignalStore.backup.hasBackupAlreadyRedeemedError -> BackupFailureState.ALREADY_REDEEMED
+      else -> BackupFailureState.NONE
     }
   }
 }

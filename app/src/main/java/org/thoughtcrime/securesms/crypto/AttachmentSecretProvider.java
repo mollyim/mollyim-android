@@ -77,5 +77,4 @@ public class AttachmentSecretProvider {
     KeyStoreHelper.SealedData encryptedSecret = KeyStoreHelper.seal(attachmentSecret.serialize().getBytes());
     TextSecurePreferences.setAttachmentEncryptedSecret(context, encryptedSecret.serialize());
   }
-
 }

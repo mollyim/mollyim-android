@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Снимите фразу за опоравак за плаћања</string>
     <string name="ApplicationPreferencesActivity_record_phrase">Сними фразу</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Пре него што искључите PIN, морате да снимите фразу за опоравак за плаћања да бисте могли да повратите свој налог за плаћања.</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">Креирајте нови кључ за опоравак</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">Пре деактивирања PIN-а морате да креирате и сачувате нови кључ за опоравак.</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">Креирај кључ</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1385,11 +1391,16 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">Готово</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Ова особа се не може додати у старе групе.</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">Желите ли да додате корисника „%1$s“ у групу „%2$s“?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">Желите ли да додате корисника „%1$s“ у групу „%2$s“?</item>
-        <item quantity="other">Желите ли да додате њих %3$d у групу „%2$s“?</item>
+        <item quantity="one">Желите ли да додате корисника „{2}“ у групу „%2$s“?</item>
+        <item quantity="other">Желите ли да додате њих %1$d у групу „%2$s“?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">Додај</string>
     <string name="AddMembersActivity__add_members">Додајте чланове</string>
 
@@ -2115,6 +2126,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s вам је послао/ла поруку која не може бити обрађена нити приказана јер користи нову функционалност Signal-а.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s је прекинуо/-ла анкету „%2$s“</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">Прекинули сте анкету: „%1$s“</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Прихватам</string>
@@ -2430,6 +2443,12 @@
     <string name="WebRtcCallActivity__to_start_call">Да бисте започели позив или му се прикључили:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Да бисте активирали видео:</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Позив преко Molly-а</string>
@@ -3360,6 +3379,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">Јави се без видео приказа</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">Промените смер камере</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">Аудио излаз</string>
@@ -3417,9 +3439,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s није корисник Signal-а. Проверите корисничко име и пробајте поново."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Не морате да додајете себе у групу</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">Достигнута је максимална величина групе</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Максималан број чланова које Signal групе могу имати је %1$d.</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Максималан број чланова које Signal групе могу имати је %1$s.</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">Достигнуто је ограничење препорученог броја чланова</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Signal групе најбоље функционишу када број чланова не прелази %1$d. Ако додате још чланова, може доћи до кашњења у слању и примању порука.</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Signal групе најбоље функционишу када број чланова не прелази %1$s. Ако додате још чланова, може доћи до кашњења у слању и примању порука.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">Чланова: %1$d</item>
         <item quantity="other">Чланова: %1$d</item>
@@ -5184,11 +5206,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Прескочи</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">Чланова: %1$d</item>
-        <item quantity="other">Чланова: %1$d</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="one">Чланова: %1$s</item>
@@ -5918,11 +5935,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">Блокирање није успело</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s није корисник Signal-а</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s није корисник Signal-а</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">Отвори мени</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s није корисник Signal-а</item>
         <item quantity="other">%1$s нису корисници Signal-а</item>
     </plurals>
@@ -6100,7 +6117,6 @@
     <string name="BadgesOverviewFragment__featured_badge">Истакнута значка</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">Прикажите значке на профилу</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">Ажурирање профила није успело</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">Одаберите значку</string>
@@ -7754,6 +7770,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Укључите безбедне резервне копије Signal-а</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Испробајте Signal-ове безбедне резервне копије</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">Нека вам се сачувају поруке када набављате нови телефон или поново инсталирате Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8034,6 +8052,12 @@
     <string name="BackupStatusRow__your_last_backup">Последње креирање резервне копије није успело. Проверите да ли је ваш телефон повезан на Wi-Fi и додирните „Направи резервну копију“ да пробате поново.</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">Последње креирање резервне копије није успело. Проверите да ли користите најновију верзију Signal-а и пробајте поново.</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">Ваш број порука превазилази меморијско ограничење. Обришите неке поруке и пробајте поново.</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">Резервне копије се неће креирати за поруке послате или примљене пре овог датума: %1$s</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Сазнајте више</string>
 
@@ -8497,6 +8521,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Креирајте нови кључ за опоравак</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Креирање новог кључа је потребно само ако неко други зна ваш кључ. Мораћете поново да отпремите резервну копију, укључујући медије. Ако користите оптимизацију чувања мораћете прво да преузмете уклоњене медије.</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Желите ли да изађете из подешавања резервних копија?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Подешавање резервних копија није довршено и резервна копија није креирана. Прављење резервних копија можете дозволити у подешавањима.</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Изађи из подешавања резервне копије</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8761,6 +8791,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Прескочи враћање</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">Достигли сте максимални број кључева за опоравак</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">Успешно сте креирали нови кључ за опоравак, али да би се спречила злоупотреба, број нових кључева које можете да креирате је ограничен. У наредних 7 дана нећете моћи да креирате нови кључ за опоравак. Забележите кључ за опоравак на сигурном месту.</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">Креирање новог кључа није могуће</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">Дозвољени број нових кључева је истрошен. Моћи ћете да креирате нови кључ за опоравак за 7 дана. Ако верујете да неко може да приступи вашој резервној копији, можете да изаберете \"Искључи и избриши резервну копију\".</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">У реду</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">Затвори претрагу</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8822,6 +8862,8 @@
     <string name="Poll__poll_question">Анкета: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s је прекинуо/-ла анкету „%2$s“</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">Прекинули сте анкету: „%1$s“</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s је гласао/-ла у анкети „%2$s“</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8847,6 +8889,12 @@
     <string name="Poll__couldnt_end_poll">Прекидање анкете није успело</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">Проверите да ли сте повезани на интернет и пробајте поново.</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">Желите ли да прекинете анкету?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">Чланови групе више неће моћи да гласају у овој анкети.</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">Чека се мрежа…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Нова анкета</string>
     <!-- Section text to enter in a question for a poll  -->

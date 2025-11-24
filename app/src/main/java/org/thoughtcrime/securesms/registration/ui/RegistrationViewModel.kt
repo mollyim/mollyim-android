@@ -248,6 +248,18 @@ class RegistrationViewModel : ViewModel() {
     }
   }
 
+  fun clearPreviousRegistrationState() {
+    store.update {
+      it.copy(
+        sessionId = null,
+        captchaToken = null,
+        challengesRequested = emptyList(),
+        challengeInProgress = false,
+        fcmToken = null
+      )
+    }
+  }
+
   fun onBackupSuccessfullyRestored() {
     val recoveryPassword = SignalStore.svr.recoveryPassword
     store.update {
@@ -912,6 +924,10 @@ class RegistrationViewModel : ViewModel() {
     if (!remoteResult.reRegistration && SignalStore.registration.restoreDecisionState.isDecisionPending) {
       Log.v(TAG, "Not re-registration, and still pending restore decision, likely an account with no data to restore, skipping post register restore")
       SignalStore.registration.restoreDecisionState = RestoreDecisionState.NewAccount
+    }
+
+    if (remoteResult.reRegistration) {
+      SignalStore.backup.backupSecretRestoreRequired = true
     }
 
     if (reglockEnabled || SignalStore.account.restoredAccountEntropyPool) {

@@ -311,9 +311,11 @@ class SignalServiceNetworkAccess(context: Context) {
       SettingsValues.CensorshipCircumventionEnabled.ENABLED -> {
         censorshipConfiguration[countryCode] ?: defaultCensoredConfiguration
       }
+
       SettingsValues.CensorshipCircumventionEnabled.DISABLED -> {
         uncensoredConfiguration
       }
+
       SettingsValues.CensorshipCircumventionEnabled.DEFAULT -> {
         if (defaultCensoredCountryCodes.contains(countryCode)) {
           censorshipConfiguration[countryCode] ?: defaultCensoredConfiguration

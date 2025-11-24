@@ -37,7 +37,7 @@ import androidx.fragment.app.FragmentManager
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.DayNightPreviews
-import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
@@ -127,7 +127,7 @@ class TerminalDonationBottomSheet : ComposeBottomSheetDialogFragment() {
 @DayNightPreviews
 @Composable
 private fun DonationPaymentFailureBottomSheet() {
-  SignalTheme {
+  Previews.Preview {
     Surface {
       DonationPaymentFailureBottomSheet(
         badge = null,
@@ -225,7 +225,7 @@ private fun DonationPaymentFailureBottomSheet(
 @DayNightPreviews
 @Composable
 private fun DonationCompletedSheetContentPreview() {
-  SignalTheme {
+  Previews.Preview {
     Surface {
       DonationCompletedSheetContent(
         badge = null,

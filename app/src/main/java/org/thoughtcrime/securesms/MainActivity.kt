@@ -29,11 +29,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -67,6 +75,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -74,7 +84,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import im.molly.unifiedpush.UnifiedPushDistributor
-import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.compose.theme.colorAttribute
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getSerializableCompat
@@ -92,8 +101,11 @@ import org.thoughtcrime.securesms.components.compose.DeviceSpecificNotificationB
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity.Companion.manageSubscriptions
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayRepository
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
+import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.NewConversationActivity
 import org.thoughtcrime.securesms.conversation.v2.MotionEventRelay
@@ -126,7 +138,6 @@ import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarState
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
-import org.thoughtcrime.securesms.main.NavigationBarSpacerCompat
 import org.thoughtcrime.securesms.main.SnackbarState
 import org.thoughtcrime.securesms.main.callNavGraphBuilder
 import org.thoughtcrime.securesms.main.chatNavGraphBuilder
@@ -172,7 +183,7 @@ import org.thoughtcrime.securesms.window.isSplitPane
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 
-class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, MainNavigator.NavigatorProvider, Material3OnScrollHelperBinder, ConversationListFragment.Callback, CallLogFragment.Callback {
+class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, MainNavigator.NavigatorProvider, Material3OnScrollHelperBinder, ConversationListFragment.Callback, CallLogFragment.Callback, GooglePayComponent {
 
   companion object {
     private val TAG = Log.tag(MainActivity::class)
@@ -228,6 +239,9 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   private val mainBottomChromeCallback = BottomChromeCallback()
   private val megaphoneActionController = MainMegaphoneActionController()
   private val mainNavigationCallback = MainNavigationCallback()
+
+  override val googlePayRepository: GooglePayRepository by lazy { GooglePayRepository(this) }
+  override val googlePayResultPublisher: Subject<GooglePayComponent.GooglePayResult> = PublishSubject.create()
 
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
     return motionEventRelay.offer(ev) || super.dispatchTouchEvent(ev)
@@ -308,9 +322,10 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       }
 
       val isActionModeActive = mainToolbarState.mode == MainToolbarMode.ACTION_MODE
+      val isSearchModeActive = mainToolbarState.mode == MainToolbarMode.SEARCH
       val isNavigationRailVisible = mainToolbarState.mode != MainToolbarMode.SEARCH
       val isNavigationBarVisible = mainToolbarState.mode == MainToolbarMode.FULL
-      val isBackHandlerEnabled = mainToolbarState.destination != MainNavigationListLocation.CHATS && !isActionModeActive
+      val isBackHandlerEnabled = mainToolbarState.destination != MainNavigationListLocation.CHATS && !isActionModeActive && !isSearchModeActive
 
       BackHandler(enabled = isBackHandlerEnabled) {
         mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Secondary)
@@ -319,6 +334,10 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
       BackHandler(enabled = isActionModeActive) {
         toolbarCallback.onCloseActionModeClick()
+      }
+
+      BackHandler(enabled = isSearchModeActive) {
+        toolbarCallback.onCloseSearchClick()
       }
 
       val focusManager = LocalFocusManager.current
@@ -377,9 +396,16 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
         }
 
         LaunchedEffect(windowSizeClass) {
-          val anchor = anchors[paneAnchorIndex]
+          val index = when {
+            paneAnchorIndex < 0 -> 1
+            paneAnchorIndex > anchors.lastIndex -> anchors.lastIndex
+            else -> paneAnchorIndex
+          }
 
-          paneExpansionState.animateTo(anchor)
+          if (index in anchors.indices) {
+            val anchor = anchors[index]
+            paneExpansionState.animateTo(anchor)
+          }
         }
 
         val chatNavGraphState = ChatNavGraphState.remember(windowSizeClass)
@@ -511,7 +537,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
                 )
 
                 if (!windowSizeClass.isSplitPane()) {
-                  NavigationBarSpacerCompat()
+                  Spacer(Modifier.navigationBarsPadding())
                 }
               }
             }
@@ -715,12 +741,19 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
         SignalTheme.colors.colorSurface1
       }
 
-      val modifier = if (windowSizeClass.isSplitPane()) {
-        Modifier
-          .systemBarsPadding()
-          .displayCutoutPadding()
-      } else {
-        Modifier
+      val modifier = when {
+        windowSizeClass.isSplitPane() -> {
+          Modifier
+            .systemBarsPadding()
+            .displayCutoutPadding()
+        }
+
+        else ->
+          Modifier
+            .windowInsetsPadding(
+              WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)
+                .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
+            )
       }
 
       BoxWithConstraints(

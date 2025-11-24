@@ -49,9 +49,9 @@ import androidx.compose.ui.unit.sp
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.compose.RoundCheckbox
+import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.polls.PollOption
 import org.thoughtcrime.securesms.polls.PollRecord
@@ -161,7 +161,23 @@ private fun PollOption(
   val progressValue by animateFloatAsState(targetValue = progress, animationSpec = tween(durationMillis = 250))
 
   Row(
-    modifier = Modifier.padding(start = 12.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+    modifier = Modifier
+      .padding(start = 12.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+      .clickable(
+        onClick = {
+          if (!hasEnded) {
+            val added = option.voteState == VoteState.PENDING_ADD || option.voteState == VoteState.ADDED
+            if (VibrateUtil.isHapticFeedbackEnabled(context)) {
+              haptics.performHapticFeedback(if (added) HapticFeedbackType.ToggleOff else HapticFeedbackType.ToggleOn)
+            }
+            onToggleVote(option, !added)
+          }
+        },
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
+        onClickLabel = stringResource(R.string.SignalCheckbox_accessibility_on_click_label),
+        enabled = true
+      )
   ) {
     if (!hasEnded) {
       AnimatedContent(
@@ -176,21 +192,7 @@ private fun PollOption(
       ) { voteState ->
         when (voteState) {
           VoteState.PENDING_ADD -> {
-            Box(
-              modifier = Modifier
-                .clickable(
-                  onClick = {
-                    if (VibrateUtil.isHapticFeedbackEnabled(context)) {
-                      haptics.performHapticFeedback(HapticFeedbackType.ToggleOff)
-                    }
-                    onToggleVote(option, false)
-                  },
-                  interactionSource = remember { MutableInteractionSource() },
-                  indication = null,
-                  onClickLabel = stringResource(R.string.SignalCheckbox_accessibility_on_click_label),
-                  enabled = true
-                )
-            ) {
+            Box(modifier = Modifier) {
               CircularProgressIndicator(
                 modifier = Modifier.padding(top = 4.dp, end = 8.dp).size(24.dp),
                 strokeWidth = 1.5.dp,
@@ -204,25 +206,15 @@ private fun PollOption(
               )
             }
           }
+
           VoteState.PENDING_REMOVE -> {
             CircularProgressIndicator(
-              modifier = Modifier.padding(top = 4.dp, end = 8.dp).size(24.dp)
-                .clickable(
-                  onClick = {
-                    if (VibrateUtil.isHapticFeedbackEnabled(context)) {
-                      haptics.performHapticFeedback(HapticFeedbackType.ToggleOn)
-                    }
-                    onToggleVote(option, true)
-                  },
-                  interactionSource = remember { MutableInteractionSource() },
-                  indication = null,
-                  onClickLabel = stringResource(R.string.SignalCheckbox_accessibility_on_click_label),
-                  enabled = true
-                ),
+              modifier = Modifier.padding(top = 4.dp, end = 8.dp).size(24.dp),
               strokeWidth = 1.5.dp,
               color = pollColors.checkbox
             )
           }
+
           VoteState.ADDED,
           VoteState.REMOVED,
           VoteState.NONE -> {
@@ -244,7 +236,7 @@ private fun PollOption(
     }
 
     Column {
-      Row(verticalAlignment = Alignment.Bottom) {
+      Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
           text = option.text,
           style = MaterialTheme.typography.bodyLarge.copy(fontSize = fontSize.sp),
@@ -287,7 +279,7 @@ private fun PollOption(
             .fillMaxHeight()
             .background(
               color = pollColors.progress,
-              shape = if (progress == 1f) RoundedCornerShape(18.dp) else RoundedCornerShape(topStart = 18.dp, bottomStart = 18.dp)
+              shape = RoundedCornerShape(18.dp)
             )
         )
       }
@@ -333,7 +325,7 @@ private sealed interface PollColorsType {
         text = MaterialTheme.colorScheme.onSurface,
         caption = MaterialTheme.colorScheme.onSurfaceVariant,
         progress = MaterialTheme.colorScheme.primary,
-        progressBackground = SignalTheme.colors.colorTransparentInverse3,
+        progressBackground = if (DynamicTheme.isDarkTheme(LocalContext.current)) SignalTheme.colors.colorTransparent2 else SignalTheme.colors.colorTransparentInverse3,
         checkbox = MaterialTheme.colorScheme.outline,
         checkboxBackground = MaterialTheme.colorScheme.primary,
         button = MaterialTheme.colorScheme.onPrimaryContainer,

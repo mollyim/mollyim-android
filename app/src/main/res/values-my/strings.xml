@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">ငွေပေးချေမှု ပြန်လည်ရယူမည့် စာပုဒ်တိုကို မှတ်ထားပါ</string>
     <string name="ApplicationPreferencesActivity_record_phrase">စာပုဒ်တိုကို မှတ်ထားပါ</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">ပင်နံပါတ်ကို မပိတ်မီ ငွေပေးချေသည့် အကောင့်ကို ပြန်ရယူနိုင်ရန် ငွေပေးချေမှု ပြန်လည်ရယူသည့် စာပုဒ်တိုကို မှတ်ထားရပါမည်။</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">ပြန်လည်ရယူရေးကီးအသစ်တစ်ခု ဖန်တီးရန်</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">သင့် PIN ကို မပိတ်မီ ပြန်လည်ရယူရေးကီးအသစ်တစ်ခုကို ဖန်တီးပြီး မှတ်တမ်းတင်ရပါမည်။</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">ကီးအသစ် ဖန်တီးရန်</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1347,10 +1353,15 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">ပြီးပြီ</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">ဤပုဂ္ဂိုလ်အားအမွေအုပ်စုများထဲသို့ထည့်မရပါ။</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">\"%1$s\" ကို \"%2$s\" သို့ ထည့်မလား။</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="other">\"%2$s\" ထဲသို့ အဖွဲ့ဝင် %3$d ဦးကို ပေါင်းထည့်မည်လား။</item>
+        <item quantity="other">\"%2$s\" ထဲသို့ အဖွဲ့ဝင် %1$d ဦးကို ပေါင်းထည့်မည်လား။</item>
     </plurals>
+
     <string name="AddMembersActivity__add">ပေါင်းထည့်မယ်</string>
     <string name="AddMembersActivity__add_members">အဖွဲ့ဝင်များ ထည့်ပါ</string>
 
@@ -2055,6 +2066,8 @@
     <string name="MessageRecord_unsupported_feature">စီမံလုပ်ဆောင်ခြင်း သို့မဟုတ် ပြသခြင်း မပြုလုပ်နိုင်သော မက်ဆေ့ချ်တစ်စောင်ကို %1$s က သင့်ထံ ပို့ထားသည်၊ အကြောင်းမှာ Signal လုပ်ဆောင်ချက်အသစ်ကို သုံးသောကြောင့် ဖြစ်ပါသည်။</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$sသည် \"%2$s\" စစ်တမ်းကို အဆုံးသတ်ခဲ့သည်</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">သင်သည် \"%1$s\"စစ်တမ်းကို အဆုံးသတ်လိုက်သည်-</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">လက်ခံသည်</string>
@@ -2357,6 +2370,12 @@
     <string name="WebRtcCallActivity__to_start_call">ခေါ်ဆိုမှုတစ်ခု စတင်ရန် သို့မဟုတ် ပါဝင်ရန်-</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">သင့်ဗီဒီယိုကို ဖွင့်ရန်-</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Molly ခေါ်ဆိုမှု</string>
@@ -3259,6 +3278,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">ဗွီဒီယိုမပါဘဲ ဖြေဆိုမယ်</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">ကင်မရာ ဦးတည်ချက်ကို ပြောင်းရန်</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">အထွက်သံ</string>
@@ -3316,9 +3338,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s သည် Signal သုံးသူမဟုတ်ပါ။ သုံးစွဲသူအမည်ကို အပြည့်အဝ မှန်ကန်စွာ ဖြည့်ထားရန် သေချာစေပါ။"</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">သင်ကိုယ်တိုင် အဖွဲ့ထဲထည့်ရန် မလိုအပ်ပါ</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">အများဆုံးဆံ့နိုင်သော အဖွဲ့ဝင် အရေအတွက် ပြည့်ပါပြီ</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal အဖွဲ့များထဲတွင် အဖွဲ့ဝင် အများဆုံး %1$d ဦးဆံ့ပါသည်။</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Signal အဖွဲ့များထဲတွင် အဖွဲ့ဝင် အများဆုံး %1$s ဦးဆံ့ပါသည်။</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">အကြံပြုထားသော အဖွဲ့ဝင် အရေအတွက် အကန့်သတ် ပြည့်ပါပြီ</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Signal အဖွဲ့များသည် အဖွဲ့ဝင် %1$d ဦးထက် နည်းလျှင် အကောင်းဆုံး လုပ်ဆောင်နိုင်ပါသည်။​ ဒီထက်ပို၍ အဖွဲ့ဝင်များပေါင်းမိခဲ့လျှင် မက်ဆေ့ချ်များ ပေးပို့လက်ခံရာတွင် နှောင့်နှေးစေပါသည်။</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Signal အဖွဲ့များသည် အဖွဲ့ဝင် %1$s ဦးနှင့် အောက်ဆိုလျှင် အကောင်းဆုံး လုပ်ဆောင်နိုင်ပါသည်။ ယင်းထက်ပို၍ အဖွဲ့ဝင်များ ထပ်ပေါင်းလျှင် မက်ဆေ့ချ်များ ပေးပို့လက်ခံရာတွင် နှောင့်နှေးစေနိုင်ပါသည်။</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="other">%1$dအဖွဲ့ဝင်များ</item>
     </plurals>
@@ -5055,10 +5077,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">ကျော်မည်</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="other">မန်ဘာ %1$d ဦး</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="other">အဖွဲ့ဝင် %1$s ဦး</item>
@@ -5779,11 +5797,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ဘလော့ခ်ခြင်း မအောင်မြင်ပါ</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s သည် Signal သုံးစွဲသူ မဟုတ်ပါ</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s သည် Signal သုံးစွဲသူ မဟုတ်ပါ</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">မီနူးကို ဖွင့်ရန်</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="other">%1$s သည် Signal သုံးစွဲသူများ မဟုတ်ပါ</item>
     </plurals>
 
@@ -5954,7 +5972,6 @@
     <string name="BadgesOverviewFragment__featured_badge">အသားပေးထားသည့် ဘဲ့ဂျ်</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">ပရိုဖိုင်တွင် ဘဲ့ဂျ်များ ပြသရန်</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">ပရိုဖိုင် အပ်ဒိတ်လုပ်ရန် မအောင်မြင်ခဲ့ပါ</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">ဘဲ့ဂျ်တစ်ခု ရွေးချယ်ရန်</string>
@@ -7582,6 +7599,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Signal လုံခြုံရေးဘက်ခ်အပ်ကို ဖွင့်ပါ</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Signal လုံခြုံရေးဘက်ခ်အပ်ကို စမ်းကြည့်ပါ</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">ဖုန်းအသစ်တစ်ခုရသောအခါ သို့မဟုတ် Molly ကို ပြန်လည်ထည့်သွင်းသည့်အခါ မက်ဆေ့ချ်ဘယ်သောအခါမျှ မဆုံးရှုံးပါ။</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -7859,6 +7878,12 @@
     <string name="BackupStatusRow__your_last_backup">သင်၏နောက်ဆုံး ဘက်ခ်အပ်ကို မပြီးမြောက်နိုင်ပါ။ သင့်ဖုန်းကို Wi-Fi နှင့် ချိတ်ဆက်ထားကြောင်းသေချာစေပြီး ထပ်၍စမ်းကြည့်ရန် \"ယခုဘက်ခ်အပ်လုပ်မည်ကို\" နှိပ်ပါ။</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">သင်၏နောက်ဆုံး ဘက်ခ်အပ်ကို မပြီးမြောက်နိုင်ပါ။ Signal ၏ နောက်ဆုံးဗားရှင်းကို သင်အသုံးပြုနေကြောင်း သေချာစေပြီး ထပ်ကြိုးစားကြည့်ပါ။</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">သင့်လက်ရှိ မက်ဆေ့ချ်အရေအတွက်သည် သိုလှောင်မှုကန့်သတ်ချက်ထက် ကျော်လွန်နေပါသည်။ မက်ဆေ့ချ်အချို့ကိုဖျက်ပြီး ထပ်စမ်းကြည့်ပါ။</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">%1$s မတိုင်မီ ပေးပို့ သို့မဟုတ် လက်ခံထားသော မက်ဆေ့ချ်များကို ဘက်ခ်အပ်မလုပ်ထားပါ။</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">ပိုမိုလေ့လာရန်</string>
 
@@ -8315,6 +8340,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">ပြန်လည်ရယူရေးကီးအသစ်တစ်ခု ဖန်တီးရန်</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">သင့်ကီးကို အခြားသူတစ်ဦး သိရှိမှသာ ကီးအသစ်ဖန်တီးရန် လိုအပ်ပါသည်။ မီဒီယာ အပါအဝင် သင်၏ဘက်ခ်အပ်ကို ပြန်လည်အပ်လုဒ်လုပ်ရပါမည်။ အကယ်၍ သင်သည် \"ထားသိုမှု အကောင်းဆုံးချိန်ညှိရန်\" ကို အသုံးပြုနေပါက Offloaded မီဒီယာကို ဦးစွာ ဒေါင်းလုဒ်လုပ်ရပါမည်။</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">ဘက်ခ်အပ် စီစဥ်သတ်မှတ်ခြင်းမှ ထွက်မလား။</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">ဘက်ခ်အပ်များကို စီစဥ်သတ်မှတ်ခြင်း မပြီးသေး၍ ဘက်ခ်အပ်တစ်ခုမျှ ဖန်တီးထားခြင်းမရှိပါ။ \"ဆက်တင်\" တွင် ဘက်ခ်အပ်ကိုဖွင့်နိုင်သည်။</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ဘက်ခ်အပ် စီစဥ်သတ်မှတ်ခြင်းမှ ထွက်ပါမည်</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8577,6 +8608,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">ပြန်လည်ရယူခြင်းကို ကျော်မည်</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">ပြန်လည်ရယူရေးကီး ကန့်သတ်ချက် ပြည့်သွားပါပြီ</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">သင်သည် ပြန်လည်ရယူရေးကီးအသစ်တစ်ခုကို အောင်မြင်စွာဖန်တီးခဲ့ပြီးဖြစ်သော်လည်း အလွဲသုံးစားလုပ်ခြင်းကို တားဆီးရန်အတွက် သင်ဖန်တီးနိုင်သော ကီးအသစ်အရေအတွက်ကို ကန့်သတ်ထားသည်။ သင်သည် 7 ရက်အတွင်း နောက်ထပ်ကီးကို ဖန်တီးနိုင်မည်မဟုတ်ပါ။ သင်၏ ပြန်လည်ရယူရေးကီးကို ဘေးကင်းလုံခြုံသောနေရာတွင် သိမ်းဆည်းပါ။</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">ကီးအသစ် ဖန်တီး၍မရပါ</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">သင်ဖန်တီးနိုင်သော ကီးအသစ်အရေအတွက် ကုန်သွားပါပြီ။ သင်သည် 7 ရက်အတွင်း ပြန်လည်ရယူရေးကီးအသစ်ကို ဖန်တီးနိုင်မည်ဖြစ်သည်။ တစ်စုံတစ်ယောက်က သင်၏ဘက်ခ်အပ်ကို ဝင်ရောက်နိုင်မည် ထင်ပါက \"ဘက်ခ်အပ်ကို ပိတ်ပြီး ဖျက်ရန််\" ကို ရွေးချယ်နိုင်ပါသည်။</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">အိုကေ</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">ရှာဖွေမှုကို ပိတ်ပါ</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8636,6 +8677,8 @@
     <string name="Poll__poll_question">စစ်တမ်း- %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s သည် \"%2$s\" စစ်တမ်းကို အဆုံးသတ်ခဲ့သည်</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">သင်သည် \"%1$s\"စစ်တမ်းကို အဆုံးသတ်လိုက်သည်-</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s သည် \"%2$s\" စစ်တမ်းတွင် မဲပေးခဲ့သည်</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8660,6 +8703,12 @@
     <string name="Poll__couldnt_end_poll">စစ်တမ်းကို အဆုံးမသတ်နိုင်ပါ</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားကြည့်ပါ။</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">စစ်တမ်းကို အဆုံးသတ်မလား။</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">အဖွဲ့၀င်များသည် ဤစစ်တမ်းတွင် မဲပေးနိုင်တော့မည်မဟုတ်ပါ။</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">ကွန်ရက်ကို စောင့်နေသည်…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">စစ်တမ်းအသစ်</string>
     <!-- Section text to enter in a question for a poll  -->

@@ -2,6 +2,7 @@ plugins {
   id("signal-library")
   id("molly")
   alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -31,4 +32,5 @@ dependencies {
   api(libs.androidx.compose.ui.tooling.preview)
   debugApi(libs.androidx.compose.ui.tooling.core)
   api(libs.androidx.fragment.compose)
+  implementation(libs.kotlinx.serialization.json)
 }

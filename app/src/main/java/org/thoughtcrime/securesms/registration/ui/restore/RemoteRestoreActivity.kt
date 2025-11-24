@@ -45,6 +45,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -65,7 +66,6 @@ import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.bytes
 import org.thoughtcrime.securesms.BaseActivity
@@ -79,6 +79,7 @@ import org.thoughtcrime.securesms.components.contactsupport.ContactSupportCallba
 import org.thoughtcrime.securesms.components.contactsupport.ContactSupportDialog
 import org.thoughtcrime.securesms.components.contactsupport.ContactSupportViewModel
 import org.thoughtcrime.securesms.components.contactsupport.SendSupportEmailEffect
+import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
@@ -229,7 +230,8 @@ class RemoteRestoreActivity : BaseActivity() {
                 }
               },
               onDismiss = { showSkipRestoreWarning = false },
-              confirmColor = MaterialTheme.colorScheme.error
+              confirmColor = MaterialTheme.colorScheme.error,
+              properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
             )
           }
         }
@@ -684,7 +686,8 @@ fun TierRestoreFailedDialog(
       negative = stringResource(android.R.string.cancel),
       onPositive = onRetryRestore,
       onNeutral = onContactSupport,
-      onNegative = onCancel
+      onNegative = onCancel,
+      properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
     )
   } else {
     Dialogs.SimpleAlertDialog(

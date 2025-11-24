@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Gravar a frase de recuperação de pagamentos</string>
     <string name="ApplicationPreferencesActivity_record_phrase">Gravar frase</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Antes de desativar seu PIN, certifique-se de salvar sua frase de recuperação de pagamentos para garantir que você possa recuperar sua conta.</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">Crie uma nova chave de recuperação</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">Você precisa criar e registrar uma chave de recuperação nova antes de poder desativar seu PIN.</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">Criar chave</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1385,11 +1391,16 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">Pronto</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Essa pessoa não pode ser adicionada aos grupos de versões anteriores.</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">Adicionar \"%1$s\" em \"%2$s\"?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">Adicionar \"%1$s\" ao \"%2$s\"?</item>
-        <item quantity="other">Adicionar %3$d membros ao \"%2$s\"?</item>
+        <item quantity="one">Adicionar \"{2}\" ao \"%2$s\"?</item>
+        <item quantity="other">Adicionar %1$d membros ao \"%2$s\"?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">Adicionar</string>
     <string name="AddMembersActivity__add_members">Adicionar membros</string>
 
@@ -2115,6 +2126,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s enviou-lhe uma mensagem que não pode ser processada ou exibida porque usa um novo recurso do Signal.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s encerrou a enquete: \"%2$s\"</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">Você encerrou a enquete: \"%1$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Aceitar</string>
@@ -2430,6 +2443,12 @@
     <string name="WebRtcCallActivity__to_start_call">Para iniciar ou entrar em uma chamada:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Para ativar seu vídeo:</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Chamada Molly</string>
@@ -3360,6 +3379,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">Atender sem vídeo</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">Mudar a direção da câmera</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">Caixa de som</string>
@@ -3417,9 +3439,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" não é um usuário do Signal. Verifique o nome de usuário e tente novamente."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Você não precisa se adicionar ao grupo</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">O grupo chegou ao tamanho máximo</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Os grupos do Signal podem ter no máximo %1$d membros.</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Os grupos do Signal podem ter no máximo %1$s membros.</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">O limite recomendado de membros foi alcançado</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Os grupos do Signal têm melhor desempenho com %1$d membros ou menos. Adicionar mais membros causará atrasos no envio e recebimento de mensagens.</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Os grupos do Signal têm melhor desempenho com %1$s membros ou menos. Adicionar mais membros causará atrasos no envio e recebimento de mensagens.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">%1$d membro</item>
         <item quantity="other">%1$d membros</item>
@@ -5184,11 +5206,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Ignorar</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">%1$d membro</item>
-        <item quantity="other">%1$d membros</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="one">%1$s membro</item>
@@ -5918,11 +5935,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">Falha no bloqueio</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s não usa o Signal</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s não usa o Signal</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">Abrir menu</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s não é um usuário do Signal</item>
         <item quantity="other">%1$s não são usuários do Signal</item>
     </plurals>
@@ -6100,7 +6117,6 @@
     <string name="BadgesOverviewFragment__featured_badge">Selo em destaque</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">Mostrar selos no perfil</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">Falha ao atualizar o perfil</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">Escolher um selo</string>
@@ -7754,6 +7770,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Ativar backups seguros do Signal</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Experimente os Backups seguros do Signal</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">Nunca perca uma mensagem ao trocar de celular ou reinstalar o Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8034,6 +8052,12 @@
     <string name="BackupStatusRow__your_last_backup">Não foi possível concluir seu último backup. Confira se o seu telefone está conectado à rede Wi-Fi e toque em \"Fazer backup agora\" para tentar novamente.</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">Não foi possível concluir seu último backup. Confira se você está usando a versão mais recente do Signal e tente novamente.</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">O número de mensagens que você possui excede o limite de armazenamento. Apague algumas mensagens e tente novamente.</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">As mensagens enviadas ou recebidas antes de %1$s não estão sendo copiadas.</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Saiba mais</string>
 
@@ -8497,6 +8521,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Crie uma nova chave de recuperação</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Só é preciso criar uma nova chave se outra pessoa souber a sua chave. Você precisará reenviar seu backup, incluindo arquivos de mídia. Se você estiver usando a opção para economizar espaço de armazenamento, você terá que baixar os arquivos de mídia descarregados primeiro.</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Sair da configuração de backup?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Você não concluiu a configuração dos backups. Nenhum backup foi criado. Você pode habilitar os backups nas Configurações.</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Sair da configuração de backup</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8761,6 +8791,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Pular restauração</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">O limite de chaves de recuperação foi atingido</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">Nova chave de recuperação criada com sucesso. Para evitar uso indevido, há um limite de criação de chaves. Você não poderá criar outra por 7 dias. Guarde sua chave de recuperação em um local seguro. </string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">Não foi possível criar uma chave nova</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">Você atingiu o número máximo de novas chaves que pode criar.  Será possível gerar uma nova chave de recuperação em 7 dias. Se você acredita que alguém possa ter acesso ao seu backup, selecione “Desativar e excluir backup”. </string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">OK</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">Fechar pesquisa</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8822,6 +8862,8 @@
     <string name="Poll__poll_question">Enquete: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s encerrou a enquete: \"%2$s\"</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">Você encerrou a enquete: \"%1$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s votou na enquete: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8847,6 +8889,12 @@
     <string name="Poll__couldnt_end_poll">Não foi possível encerrar a enquete</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">Verifique a sua conexão e tente novamente.</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">Encerrar enquete?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">Os membros do grupo não poderão mais votar nesta enquete.</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">Esperando pela rede…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Nova enquete</string>
     <!-- Section text to enter in a question for a poll  -->

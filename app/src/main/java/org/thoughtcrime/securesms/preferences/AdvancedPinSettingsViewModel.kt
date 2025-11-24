@@ -14,17 +14,20 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.pin.SvrRepository
 
 class AdvancedPinSettingsViewModel : ViewModel() {
 
   enum class Dialog {
     NONE,
     REGISTRATION_LOCK,
+    ROTATE_AEP
   }
 
   enum class Event {
-    SHOW_OPT_OUT_DIALOG,
+    SHOW_BACKUPS_DISABLED_OPT_OUT_DIALOG,
     LAUNCH_PIN_CREATION_FLOW,
+    SHOW_PIN_DISABLED_SNACKBAR
   }
 
   private val internalDialog = MutableStateFlow(Dialog.NONE)
@@ -47,9 +50,12 @@ class AdvancedPinSettingsViewModel : ViewModel() {
       !enabled && hasRegistrationLock -> {
         internalDialog.value = Dialog.REGISTRATION_LOCK
       }
-      !enabled -> {
+      !enabled && SignalStore.backup.areBackupsEnabled -> {
+        internalDialog.value = Dialog.ROTATE_AEP
+      }
+      !enabled && !SignalStore.backup.areBackupsEnabled -> {
         dismissDialog()
-        emitEvent(Event.SHOW_OPT_OUT_DIALOG)
+        emitEvent(Event.SHOW_BACKUPS_DISABLED_OPT_OUT_DIALOG)
       }
       else -> {
         dismissDialog()
@@ -64,6 +70,14 @@ class AdvancedPinSettingsViewModel : ViewModel() {
 
   fun dismissDialog() {
     internalDialog.value = Dialog.NONE
+  }
+
+  fun onAepRotatedForPinDisable() {
+    internalDialog.value = Dialog.NONE
+    viewModelScope.launch {
+      SvrRepository.optOutOfPin(rotateAep = false)
+      emitEvent(Event.SHOW_PIN_DISABLED_SNACKBAR)
+    }
   }
 
   private fun emitEvent(event: Event) {

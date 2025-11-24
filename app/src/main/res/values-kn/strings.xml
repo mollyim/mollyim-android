@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">ಪಾವತಿಗಳನ್ನು ಮರೆಪಡೆಯುವ ಪದಗುಚ್ಛವನ್ನು ರೆಕಾರ್ಡ್‌ ಮಾಡಿ</string>
     <string name="ApplicationPreferencesActivity_record_phrase">ಪದಗುಚ್ಛವನ್ನು ರೆಕಾರ್ಡ್‌ ಮಾಡಿ</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">ನಿಮ್ಮ PIN ಅನ್ನು ನೀವು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುವ‌ ಮೊದಲು, ನಿಮ್ಮ ಪಾವತಿಗಳನ್ನು ಮರೆಪಡೆಯುವ ಪದಗುಚ್ಛವನ್ನು ರೆಕಾರ್ಡ್‌ ಮಾಡಿ ನಿಮ್ಮ ಪೇಮೆಂಟ್ಸ್ ಖಾತೆಯ ರಿಕವರಿ ಮಾಡುವುದನ್ನು ನೀವು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಬೇಕು.</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">ಹೊಸ ರಿಕವರಿ ಕೀ ರಚಿಸಿ</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">ನಿಮ್ಮ PIN ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುವ ಮೊದಲು ನೀವು ಹೊಸ ರಿಕವರಿ ಕೀ ರಚಿಸಿ, ದಾಖಲಿಸಿಕೊಳ್ಳಬೇಕು.</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">ಕೀ ರಚಿಸಿ</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1385,11 +1391,16 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">ಮುಗಿದಿದೆ</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">ಈ ವ್ಯಕ್ತಿಯನ್ನು ಹಳೆಯ ಗುಂಪುಗಳಿಗೆ ಸೇರಿಸಲಾಗುವುದಿಲ್ಲ.</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">\"%1$s\" \"%2$s\" ಗೆ ಸೇರಿಸುವುದೇ?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">\"%1$s\" ಅವರನ್ನು \"%2$s\" ಗೆ ಸೇರಿಸುವುದೇ?</item>
-        <item quantity="other">%3$d ಸದಸ್ಯರನ್ನು \"%2$s\" ಗೆ ಸೇರಿಸುವುದೇ?</item>
+        <item quantity="one">\"{2}\" ಅವರನ್ನು \"%2$s\" ಗೆ ಸೇರಿಸುವುದೇ?</item>
+        <item quantity="other">%1$d ಸದಸ್ಯರನ್ನು \"%2$s\" ಗೆ ಸೇರಿಸುವುದೇ?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">ಸೇರಿಸಿ</string>
     <string name="AddMembersActivity__add_members">ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ</string>
 
@@ -2115,6 +2126,8 @@
     <string name="MessageRecord_unsupported_feature">ಹೊಸ Signal ವೈಶಿಷ್ಟ್ಯವನ್ನು ಬಳಸುವುದರಿಂದ ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ಅಥವಾ ಪ್ರದರ್ಶಿಸಲು ಸಾಧ್ಯವಾಗದ ಸಂದೇಶವನ್ನು %1$s ನಿಮಗೆ ಕಳುಹಿಸಿದ್ದಾರೆ.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s ಈ ಸಮೀಕ್ಷೆಯನ್ನು ಕೊನೆಗೊಳಿಸಿದ್ದಾರೆ: \"%2$s\"</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">ನೀವು ಸಮೀಕ್ಷೆಯನ್ನು ಕೊನೆಗೊಳಿಸಿದ್ದೀರಿ: \"%1$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">ಒಪ್ಪಿಕೊಳ್ಳಿ</string>
@@ -2430,6 +2443,12 @@
     <string name="WebRtcCallActivity__to_start_call">ಕರೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು ಅಥವಾ ಸೇರಿಕೊಳ್ಳಲು:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು:</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Molly ಕರೆ</string>
@@ -3360,6 +3379,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">ವೀಡಿಯೊ ಇಲ್ಲದೇ ಉತ್ತರಿಸಿ</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">ಕ್ಯಾಮರಾ ದಿಕ್ಕನ್ನು ಬದಲಾಯಿಸಿ</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">ಆಡಿಯೊ ಔಟ್‌ಪುಟ್</string>
@@ -3417,9 +3439,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" Signal ಬಳಕೆದಾರರಲ್ಲ. ದಯವಿಟ್ಟು ಯೂಸರ್ ನೇಮ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">ಗ್ರೂಪ್‌ಗೆ ನಿಮ್ಮನ್ನು ನೀವು ಸೇರಿಸಬೇಕಿಲ್ಲ</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">ಗರಿಷ್ಠ ಗ್ರೂಪ್ ಗಾತ್ರ ತಲುಪಿದೆ</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal ಗ್ರೂಪ್‌ಗಳು ಗರಿಷ್ಠ %1$d ಸದಸ್ಯರನ್ನು ಹೊಂದಬಹುದು.</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Signal ಗ್ರೂಪ್‌ಗಳು ಗರಿಷ್ಠ %1$s ಸದಸ್ಯರನ್ನು ಹೊಂದಬಹುದು.</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">ಶಿಫಾರಸು ಮಾಡಿದ ಸದಸ್ಯ ಮಿತಿಯನ್ನು ತಲುಪಲಾಗಿದೆ</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Signal ಗ್ರೂಪ್‌ಗಳು %1$d ಅಥವಾ ಅದಕ್ಕೂ ಕಡಿಮೆ ಸದಸ್ಯರೊಂದಿಗೆ ಉತ್ತಮವಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತವೆ. ಹೆಚ್ಚು ಸದಸ್ಯರುಗಳನ್ನು ಸೇರಿಸಿದಂತೆ ಮೆಸೇಜ್‌ಗಳನ್ನು ಕಳುಹಿಸುವುದು ಮತ್ತು ಸ್ವೀಕರಿಸುವಲ್ಲಿ ವಿಳಂಬವಾಗುತ್ತದೆ.</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Signal ಗ್ರೂಪ್‌ಗಳು %1$s ಅಥವಾ ಅದಕ್ಕೂ ಕಡಿಮೆ ಸದಸ್ಯರೊಂದಿಗೆ ಉತ್ತಮವಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತವೆ. ಹೆಚ್ಚು ಸದಸ್ಯರುಗಳನ್ನು ಸೇರಿಸಿದಂತೆ ಮೆಸೇಜ್‌ಗಳನ್ನು ಕಳುಹಿಸುವುದು ಮತ್ತು ಸ್ವೀಕರಿಸುವಲ್ಲಿ ವಿಳಂಬವಾಗುತ್ತದೆ.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">%1$d ಸದಸ್ಯ</item>
         <item quantity="other">%1$d ಸದಸ್ಯರು</item>
@@ -5184,11 +5206,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">ಬಿಟ್ಟು ಮುಂದುವರಿಯಿರಿ</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">%1$d ಸದಸ್ಯ</item>
-        <item quantity="other">%1$d ಸದಸ್ಯರು</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="one">%1$s ಸದಸ್ಯ</item>
@@ -5918,11 +5935,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ನಿರ್ಬಂಧಿಸುವುದು ವಿಫಲವಾಗಿದೆ</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s ಅವರು Signal ಬಳಕೆದಾರರಲ್ಲ</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s ಅವರು Signal ಬಳಕೆದಾರರಲ್ಲ</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">ಮೆನು ತೆರೆಯಿರಿ</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s ಅವರು Signal ಬಳಕೆದಾರರಲ್ಲ</item>
         <item quantity="other">%1$s ಅವರು Signal ಬಳಕೆದಾರರಲ್ಲ</item>
     </plurals>
@@ -6100,7 +6117,6 @@
     <string name="BadgesOverviewFragment__featured_badge">ವೈಶಿಷ್ಟ್ಯಗೊಳಿಸಿದ ಬ್ಯಾಡ್ಜ್</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಬ್ಯಾಡ್ಜ್‌ಗಳನ್ನು ಪ್ರದರ್ಶಿಸಿ</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">ಪ್ರೊಫೈಲ್ ಅಪ್ಡೇಟ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">ಬ್ಯಾಡ್ಜ್ ಆಯ್ಕೆಮಾಡಿ</string>
@@ -7754,6 +7770,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Signal ಸುರಕ್ಷಿತ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Signal ಸುರಕ್ಷಿತ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಪ್ರಯತ್ನಿಸಿ</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">ನೀವು ಹೊಸ ಫೋನ್ ಅನ್ನು ಪಡೆದಾಗ ಅಥವಾ Molly ಅನ್ನು ಮರುಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದಾಗ ಎಂದಿಗೂ ಮೆಸೇಜ್ ಅನ್ನು ಕಳೆದುಕೊಳ್ಳಬೇಡಿ.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8034,6 +8052,12 @@
     <string name="BackupStatusRow__your_last_backup">ನಿಮ್ಮ ಮುಂಚಿನ ಬ್ಯಾಕಪ್ ಪೂರ್ತಿಯಾಗಿಲ್ಲ. ನಿಮ್ಮ ಫೋನ್ ವೈ-ಫೈಗೆ ಸಂಪರ್ಕಗೊಂಡಿದೆ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಲು \"ಈಗಲೇ ಬ್ಯಾಕಪ್ ಮಾಡಿ\" ಎಂಬುದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">ನಿಮ್ಮ ಮುಂಚಿನ ಬ್ಯಾಕಪ್ ಪೂರ್ತಿಯಾಗಿಲ್ಲ. ನೀವು Signal ನ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಹಾಗೂ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">ನಿಮ್ಮಲ್ಲಿರುವ ಮೆಸೇಜ್‌ಗಳ ಸಂಖ್ಯೆಯು ಸಂಗ್ರಹಣೆ ಮಿತಿಯನ್ನು ಮೀರಿದೆ. ಕೆಲವು ಮೆಸೇಜ್‌ಗಳನ್ನು ಅಳಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">%1$s ಗಿಂತ ಮೊದಲು ಕಳುಹಿಸಿದ ಅಥವಾ ಸ್ವೀಕರಿಸಿದ ಮೆಸೇಜ್‌ಗಳನ್ನು ಬ್ಯಾಕಪ್ ಮಾಡಲಾಗುತ್ತಿಲ್ಲ.</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ</string>
 
@@ -8497,6 +8521,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">ಹೊಸ ರಿಕವರಿ ಕೀ ರಚಿಸಿ</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">ನಿಮ್ಮ ಕೀ ಬೇರೆಯವರಿಗೆ ತಿಳಿದಿದ್ದರೆ ಮಾತ್ರ ಹೊಸ ಕೀ ರಚಿಸುವುದು ಅಗತ್ಯವಾಗಿರುತ್ತದೆ. ನೀವು ಮೀಡಿಯಾ ಸೇರಿದಂತೆ ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ಅನ್ನು ಮರು-ಅಪ್‌ಲೋಡ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ. ನೀವು \"ಸಂಗ್ರಹಣೆಯನ್ನು ಆಪ್ಟಿಮೈಜ್ ಮಾಡಿ\" ಆಯ್ಕೆಯನ್ನು ಬಳಸುತ್ತಿದ್ದರೆ ಆಫ್‌ಲೋಡ್ ಮಾಡಿದ ಮೀಡಿಯಾವನ್ನು ಮೊದಲು ಡೌನ್‌ಲೋಡ್ ಮಾಡಬೇಕು.</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">ಬ್ಯಾಕಪ್ ಸೆಟಪ್‌ನಿಂದ ನಿರ್ಗಮಿಸಬೇಕೇ?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">ನೀವು ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಸೆಟಪ್ ಮಾಡುವುದನ್ನು ಪೂರ್ಣಗೊಳಿಸಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ಬ್ಯಾಕಪ್ ಅನ್ನು ರಚಿಸಲಾಗಿಲ್ಲ. ನೀವು ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬಹುದು.</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ಬ್ಯಾಕಪ್ ಸೆಟಪ್‌ನಿಂದ ನಿರ್ಗಮಿಸಿ</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8761,6 +8791,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">ರಿಸ್ಟೋರ್ ಸ್ಕಿಪ್ ಮಾಡಿ</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">ರಿಕವರಿ ಕೀ ಮಿತಿಯನ್ನು ತಲುಪಲಾಗಿದೆ</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">ನೀವು ಹೊಸ ರಿಕವರಿ ಕೀಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಿದ್ದೀರಿ, ಆದರೆ ದುರುಪಯೋಗವನ್ನು ತಡೆಗಟ್ಟಲು ನೀವು ರಚಿಸಬಹುದಾದ ಹೊಸ ಕೀಗಳ ಸಂಖ್ಯೆ ಸೀಮಿತವಾಗಿದೆ. ನೀವು 7 ದಿನಗಳವರೆಗೆ ಇನ್ನೊಂದು ಕೀಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ. ನಿಮ್ಮ ರಿಕವರಿ ಕೀಯನ್ನು ಎಲ್ಲೋ ಒಂದು ಕಡೆ ಸುರಕ್ಷಿತ ಮತ್ತು ಭದ್ರವಾಗಿ ಸಂಗ್ರಹಿಸಿ.</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">ಹೊಸ ಕೀ ರಚಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">ನೀವು ರಚಿಸಬಹುದಾದ ಹೊಸ ಕೀಗಳ ಸಂಖ್ಯೆ ಮುಗಿದಿದೆ. ನೀವು 7 ದಿನಗಳಲ್ಲಿ ಹೊಸ ರಿಕವರಿ ಕೀಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ. ನಿಮ್ಮ ಬ್ಯಾಕಪ್ ಅನ್ನು ಯಾರಾದರೂ ಆ್ಯಕ್ಸೆಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಬಹುದು ಎಂದು ನೀವು ಭಾವಿಸಿದರೆ, ನೀವು \"ಬ್ಯಾಕಪ್ ಅನ್ನು ಆಫ್ ಮಾಡಿ ಮತ್ತು ಅಳಿಸಿ\" ಎಂಬುದನ್ನು ಆಯ್ಕೆ ಮಾಡಬಹುದು.</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">ಓಕೆ</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">ಹುಡುಕಾಟವನ್ನು ಮುಚ್ಚಿ</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8822,6 +8862,8 @@
     <string name="Poll__poll_question">ಸಮೀಕ್ಷೆ: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s ಈ ಸಮೀಕ್ಷೆಯನ್ನು ಕೊನೆಗೊಳಿಸಿದ್ದಾರೆ: \"%2$s\"</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">ನೀವು ಸಮೀಕ್ಷೆಯನ್ನು ಕೊನೆಗೊಳಿಸಿದ್ದೀರಿ: \"%1$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s ಈ ಸಮೀಕ್ಷೆಯಲ್ಲಿ ವೋಟ್ ಮಾಡಿದ್ದಾರೆ: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8847,6 +8889,12 @@
     <string name="Poll__couldnt_end_poll">ಸಮೀಕ್ಷೆ ಕೊನೆಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಹಾಗೂ ಇನ್ನೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">ಸಮೀಕ್ಷೆ ಕೊನೆಗೊಳಿಬೇಕೇ?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">ಗುಂಪಿನ ಸದಸ್ಯರು ಇನ್ನು ಮುಂದೆ ಈ ಸಮೀಕ್ಷೆಯಲ್ಲಿ ವೋಟ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">ನೆಟ್ ವರ್ಕ್ ಗೆ ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">ಹೊಸ ಸಮೀಕ್ಷೆ</string>
     <!-- Section text to enter in a question for a poll  -->

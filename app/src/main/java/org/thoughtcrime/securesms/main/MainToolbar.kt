@@ -186,7 +186,11 @@ fun MainToolbar(
             maxWidth.toPx()
           }
 
-          PrimaryToolbar(state, callback) {
+          PrimaryToolbar(
+            state = state,
+            callback = callback,
+            enabled = state.mode != MainToolbarMode.SEARCH
+          ) {
             revealOffset = Offset(it / maxWidth, 0.5f)
           }
 
@@ -336,6 +340,7 @@ private fun ArchiveToolbar(
 private fun PrimaryToolbar(
   state: MainToolbarState,
   callback: MainToolbarCallback,
+  enabled: Boolean = true,
   onSearchButtonPositioned: (Float) -> Unit
 ) {
   TopAppBar(
@@ -363,6 +368,7 @@ private fun PrimaryToolbar(
           modifier = Modifier
             .fillMaxSize()
             .clickable(
+              enabled = enabled,
               onClick = callback::onSettingsClick,
               interactionSource = interactionSource,
               indication = ripple(radius = 14.dp)

@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
@@ -30,7 +29,6 @@ import org.thoughtcrime.securesms.util.BackupUtil
 /**
  * Screen in account registration that provides rationales for the suggested runtime permissions.
  */
-@RequiresApi(23)
 class GrantPermissionsFragment : ComposeFragment() {
 
   companion object {

@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.recipients.PhoneNumber
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientRepository
+import org.thoughtcrime.securesms.recipients.ui.RecipientSelection
 
 class NewConversationViewModel : ViewModel() {
   companion object {
@@ -41,20 +42,22 @@ class NewConversationViewModel : ViewModel() {
     internalUiState.update { it.copy(searchQuery = query) }
   }
 
-  fun openConversation(recipientId: RecipientId) {
+  private fun openConversation(recipientId: RecipientId) {
     internalUiState.update { it.copy(pendingDestination = recipientId) }
   }
 
-  fun openConversation(id: RecipientId?, phone: PhoneNumber?) {
-    when {
-      id != null -> openConversation(recipientId = id)
-
-      SignalStore.account.isRegistered -> {
-        Log.d(TAG, "[openConversation] Missing recipientId: attempting to look up.")
-        resolveAndOpenConversation(phone!!)
+  fun openConversation(selection: RecipientSelection) {
+    when (selection) {
+      is RecipientSelection.WithId -> openConversation(recipientId = selection.id)
+      is RecipientSelection.WithIdAndPhone -> openConversation(recipientId = selection.id)
+      is RecipientSelection.WithPhone -> {
+        if (SignalStore.account.isRegistered) {
+          Log.d(TAG, "[openConversation] Missing recipientId: attempting to look up.")
+          resolveAndOpenConversation(selection.phone)
+        } else {
+          Log.w(TAG, "[openConversation] Cannot look up recipient: account not registered.")
+        }
       }
-
-      else -> Log.w(TAG, "[openConversation] Cannot look up recipient: account not registered.")
     }
   }
 
@@ -62,13 +65,11 @@ class NewConversationViewModel : ViewModel() {
     viewModelScope.launch {
       internalUiState.update { it.copy(isLookingUpRecipient = true) }
 
-      val lookupResult = withContext(Dispatchers.IO) {
-        RecipientRepository.lookupNewE164(inputE164 = phone.value)
-      }
+      when (val lookupResult = RecipientRepository.lookup(phone)) {
+        is RecipientRepository.PhoneLookupResult.Found -> {
+          internalUiState.update { it.copy(isLookingUpRecipient = false) }
 
-      when (lookupResult) {
-        is RecipientRepository.LookupResult.Success -> {
-          val recipient = Recipient.resolved(lookupResult.recipientId)
+          val recipient = lookupResult.recipient
           internalUiState.update { it.copy(isLookingUpRecipient = false) }
 
           if (recipient.isRegistered && recipient.hasServiceId) {
@@ -78,20 +79,11 @@ class NewConversationViewModel : ViewModel() {
           }
         }
 
-        is RecipientRepository.LookupResult.NotFound, is RecipientRepository.LookupResult.InvalidEntry -> {
+        is RecipientRepository.LookupResult.Failure -> {
           internalUiState.update {
             it.copy(
               isLookingUpRecipient = false,
-              userMessage = Info.RecipientNotSignalUser(phone)
-            )
-          }
-        }
-
-        is RecipientRepository.LookupResult.NetworkError -> {
-          internalUiState.update {
-            it.copy(
-              isLookingUpRecipient = false,
-              userMessage = Info.NetworkError
+              userMessage = Info.RecipientLookupFailed(failure = lookupResult)
             )
           }
         }
@@ -144,6 +136,10 @@ class NewConversationViewModel : ViewModel() {
   }
 
   fun refresh() {
+    if (internalUiState.value.isRefreshingContacts) {
+      return
+    }
+
     viewModelScope.launch {
       internalUiState.update { it.copy(isRefreshingContacts = true) }
 
@@ -173,9 +169,8 @@ data class NewConversationUiState(
     sealed interface Info : UserMessage {
       data class RecipientRemoved(val recipient: Recipient) : Info
       data class RecipientBlocked(val recipient: Recipient) : Info
-      data class RecipientNotSignalUser(val phone: PhoneNumber) : Info
+      data class RecipientLookupFailed(val failure: RecipientRepository.LookupResult.Failure) : Info
       data object UserAlreadyInAnotherCall : Info
-      data object NetworkError : Info
     }
 
     sealed interface Prompt : UserMessage {

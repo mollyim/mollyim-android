@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.DialogProperties
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import org.signal.core.ui.compose.Dialogs
@@ -72,7 +73,8 @@ class SelectManualRestoreMethodFragment : ComposeFragment() {
             findNavController().safeNavigate(SelectManualRestoreMethodFragmentDirections.goToEnterPhoneNumber(EnterPhoneNumberMode.NORMAL))
           },
           onDismiss = { showSkipRestoreWarning = false },
-          confirmColor = MaterialTheme.colorScheme.error
+          confirmColor = MaterialTheme.colorScheme.error,
+          properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
         )
       }
     }
@@ -81,6 +83,7 @@ class SelectManualRestoreMethodFragment : ComposeFragment() {
   private fun startRestoreMethod(method: RestoreMethod) {
     when (method) {
       RestoreMethod.FROM_SIGNAL_BACKUPS -> {
+        sharedViewModel.clearPreviousRegistrationState()
         sharedViewModel.intendToRestore(hasOldDevice = false, fromRemote = true)
         findNavController().safeNavigate(SelectManualRestoreMethodFragmentDirections.goToEnterPhoneNumber(EnterPhoneNumberMode.COLLECT_FOR_MANUAL_SIGNAL_BACKUPS_RESTORE))
       }

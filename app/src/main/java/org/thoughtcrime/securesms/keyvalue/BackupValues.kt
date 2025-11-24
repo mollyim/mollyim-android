@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import okio.withLock
+import org.signal.core.util.LongSerializer
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.RestoreState
@@ -67,7 +68,7 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_BACKUP_UPLOADED = "backup.backupUploaded"
     private const val KEY_SUBSCRIPTION_STATE_MISMATCH = "backup.subscriptionStateMismatch"
 
-    private const val KEY_BACKUP_FAIL = "backup.failed"
+    private const val KEY_BACKUP_CREATION_ERROR = "backup.creationError"
     private const val KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_TIME = "backup.failed.acknowledged.snooze.time"
     private const val KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_COUNT = "backup.failed.acknowledged.snooze.count"
     private const val KEY_BACKUP_FAIL_SHEET_SNOOZE_TIME = "backup.failed.sheet.snooze"
@@ -77,7 +78,6 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_NOT_ENOUGH_REMOTE_STORAGE_SPACE = "backup.not.enough.remote.storage.space"
     private const val KEY_NOT_ENOUGH_REMOTE_STORAGE_SPACE_DISPLAY_SHEET = "backup.not.enough.remote.storage.space.display.sheet"
     private const val KEY_MANUAL_NO_BACKUP_NOTIFIED = "backup.manual.no.backup.notified"
-    private const val KEY_VALIDATION_ERROR = "backup.validation.error"
 
     private const val KEY_USER_MANUALLY_SKIPPED_MEDIA_RESTORE = "backup.user.manually.skipped.media.restore"
     private const val KEY_BACKUP_EXPIRED_AND_DOWNGRADED = "backup.expired.and.downgraded"
@@ -92,8 +92,12 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_HAS_VERIFIED_BEFORE = "backup.has_verified_before"
 
     private const val KEY_NEXT_BACKUP_SECRET_DATA = "backup.next_backup_secret_data"
+    private const val KEY_BACKUP_SECRET_RESTORE_REQUIRED = "backup.backup_secret_restore_required"
 
     private const val KEY_RESTORING_VIA_QR = "backup.restore_via_qr"
+
+    private const val KEY_MESSAGE_CUTOFF_DURATION = "backup.message_cutoff_duration"
+    private const val KEY_LAST_USED_MESSAGE_CUTOFF_TIME = "backup.last_used_message_cutoff_time"
 
     private val cachedCdnCredentialsExpiresIn: Duration = 12.hours
 
@@ -258,8 +262,8 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
 
         if (storedValue != value) {
           clearNotEnoughRemoteStorageSpace()
-          clearMessageBackupFailure()
           clearMessageBackupFailureSheetWatermark()
+          backupCreationError = null
         }
 
         deletionState = DeletionState.NONE
@@ -301,10 +305,8 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   /** True if we believe we have successfully uploaded a backup, otherwise false. */
   var hasBackupBeenUploaded: Boolean by booleanValue(KEY_BACKUP_UPLOADED, false)
 
-  /** Set when we fail to validate a user's backup during the export process */
-  var hasValidationError: Boolean by booleanValue(KEY_VALIDATION_ERROR, false)
-
-  val hasBackupFailure: Boolean get() = getBoolean(KEY_BACKUP_FAIL, false)
+  val hasBackupCreationError: Boolean get() = backupCreationError != null
+  var backupCreationError: BackupCreationError? by enumValue(KEY_BACKUP_CREATION_ERROR, null, BackupCreationError.serializer)
   val nextBackupFailureSnoozeTime: Duration get() = getLong(KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_TIME, 0L).milliseconds
   val nextBackupFailureSheetSnoozeTime: Duration get() = getLong(KEY_BACKUP_FAIL_SHEET_SNOOZE_TIME, getNextBackupFailureSheetSnoozeTime(lastBackupTime.milliseconds).inWholeMilliseconds).milliseconds
 
@@ -340,11 +342,6 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
    */
   fun clearDownloadNotifierState() {
     backupDownloadNotifierState = null
-  }
-
-  fun internalSetBackupFailedErrorState() {
-    markMessageBackupFailure()
-    putLong(KEY_BACKUP_FAIL_SHEET_SNOOZE_TIME, 0)
   }
 
   /**
@@ -393,6 +390,9 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   /** The value from the last successful SVRB operation that must be passed to the next SVRB operation. */
   var nextBackupSecretData by nullableBlobValue(KEY_NEXT_BACKUP_SECRET_DATA, null)
 
+  /** True if user re-registered but did not restore SVRB secrets during registration, and should on backup. */
+  var backupSecretRestoreRequired by booleanValue(KEY_BACKUP_SECRET_RESTORE_REQUIRED, false)
+
   /** True if attempting to restore backup from quick restore/QR code */
   var restoringViaQr by booleanValue(KEY_RESTORING_VIA_QR, false)
 
@@ -421,6 +421,20 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
         .putInteger(KEY_ARCHIVE_ATTACHMENT_RECONCILIATION_ATTEMPTS, value)
         .apply()
     }
+
+  /**
+   * If set, this represents how far back we should backup messages. For instance, if the returned value is 1 year in milliseconds, you should back up
+   * every message within the last year. If unset, back up all messages. We only cutoff old messages for users whose backup is over the
+   * size limit, which is *extraordinarily* rare, so this value is almost always null.
+   */
+  var messageCuttoffDuration: Duration? by durationValue(KEY_MESSAGE_CUTOFF_DURATION, null)
+
+  /**
+   * The last threshold we used for backing up messages. Messages sent before this time were not included in the backup.
+   * A value of 0 indicates that we included all messages. We only cutoff old messages for users whose backup is over the
+   * size limit, which is *extraordinarily* rare, so this value is almost always 0.
+   */
+  var lastUsedMessageCutoffTime: Long by longValue(KEY_LAST_USED_MESSAGE_CUTOFF_TIME, 0)
 
   /**
    * When we are told by the server that we are out of storage space, we should show
@@ -454,9 +468,9 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
       .apply()
   }
 
-  fun markMessageBackupFailure() {
+  fun markBackupCreationFailed(error: BackupCreationError) {
     store.beginWrite()
-      .putBoolean(KEY_BACKUP_FAIL, true)
+      .putLong(KEY_BACKUP_CREATION_ERROR, error.value)
       .putLong(KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_TIME, System.currentTimeMillis())
       .putLong(KEY_BACKUP_FAIL_ACKNOWLEDGED_SNOOZE_COUNT, 0)
       .putLong(KEY_BACKUP_FAIL_SHEET_SNOOZE_TIME, System.currentTimeMillis())
@@ -464,7 +478,7 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   }
 
   fun updateMessageBackupFailureWatermark() {
-    if (!hasBackupFailure) {
+    if (!hasBackupCreationError) {
       return
     }
 
@@ -481,8 +495,8 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
       .apply()
   }
 
-  fun clearMessageBackupFailure() {
-    putBoolean(KEY_BACKUP_FAIL, false)
+  fun clearBackupCreationFailed() {
+    putLong(KEY_BACKUP_CREATION_ERROR, -1)
   }
 
   fun updateMessageBackupFailureSheetWatermark() {
@@ -582,5 +596,32 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
         putString(cdnKey, value?.let { JsonUtil.toJson(it) })
         putLong(cdnTimestampKey, System.currentTimeMillis())
       }
+  }
+
+  enum class BackupCreationError(val value: Long) {
+    /** A temporary failure, usually cause by poor network. */
+    TRANSIENT(1),
+
+    /** The validation of the backup file failed. This likely cannot be fixed without an app update. */
+    VALIDATION(2),
+
+    /** The backup file itself is too large. The only resolution would be for the user to delete some number of messages. */
+    BACKUP_FILE_TOO_LARGE(3),
+
+    /** We do not have enough space on the device to create the backup file. */
+    NOT_ENOUGH_DISK_SPACE(4);
+
+    companion object {
+
+      val serializer = object : LongSerializer<BackupCreationError?> {
+        override fun serialize(data: BackupCreationError?): Long {
+          return data?.value ?: -1
+        }
+
+        override fun deserialize(input: Long): BackupCreationError? {
+          return entries.firstOrNull { it.value == input }
+        }
+      }
+    }
   }
 }

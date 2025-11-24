@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">记下付款恢复短语</string>
     <string name="ApplicationPreferencesActivity_record_phrase">记下短语</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">在禁用 PIN 码之前，务必记下付款恢复短语，以确保可恢复您的付款帐户。</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">创建新的恢复密钥</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">在禁用密码之前，您必须创建和记录一个新的恢复密钥。</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">创建密钥</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1347,10 +1353,15 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">完成</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">此用户不能被添加到旧版群组中。</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">添加“%1$s”到“%2$s”？</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="other">将%3$d位成员添加到“%2$s”？</item>
+        <item quantity="other">将%1$d位成员添加到“%2$s”？</item>
     </plurals>
+
     <string name="AddMembersActivity__add">添加</string>
     <string name="AddMembersActivity__add_members">添加成员</string>
 
@@ -2055,6 +2066,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s 给您发送的消息无法处理或显示，因为它用到了新的 Signal 功能。</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s结束了投票：“%2$s”</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">您结束了投票：“%1$s”</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">接受</string>
@@ -2357,6 +2370,12 @@
     <string name="WebRtcCallActivity__to_start_call">如要发起或加入通话：</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">如要开启视频：</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Molly 通话</string>
@@ -3259,6 +3278,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">关视频接</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">切换镜头方向</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">音频输出</string>
@@ -3316,9 +3338,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"“%1$s”不是 Signal 用户，请检查用户名并重试。"</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">您不需要将自己添加到群组中</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">已达到群组人数上限</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal 群组最多可有 %1$d 个成员。</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Signal 群组最多可有 %1$s 个成员。</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">已达到建议成员数上限</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">成员不多于 %1$d 时 Signal 群组性能最佳。更多成员可造成消息接发延迟。</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">成员不多于 %1$s 时 Signal 群组性能最佳。更多成员可造成消息接发延迟。</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="other">%1$d 个成员</item>
     </plurals>
@@ -5055,10 +5077,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">跳过</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="other">%1$d 个成员</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="other">%1$s 位成员</item>
@@ -5779,11 +5797,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">屏蔽失败</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s不是 Signal 用户</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s不是 Signal 用户</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">打开菜单</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="other">%1$s不是 Signal 用户</item>
     </plurals>
 
@@ -5954,7 +5972,6 @@
     <string name="BadgesOverviewFragment__featured_badge">精选徽章</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">在个人资料中显示徽章</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">无法更新个人资料</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">选择一个徽章</string>
@@ -7582,6 +7599,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">打开 Signal 安全备份</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">试试 Signal 安全备份</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">无论您是更换手机还是重装 Molly，您的消息都不会丢失。</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -7859,6 +7878,12 @@
     <string name="BackupStatusRow__your_last_backup">您的上次备份无法完成。请确保您的手机已连接到 Wi-Fi，然后点击“立即备份”以重试。</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">您的上次备份无法完成。请确保您使用的是最新版本的 Signal，然后重试。</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">您的消息数量已超过存储限制。请删除部分消息，然后再试一次。</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">%1$s之前发送或接收的消息未备份。</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">了解详情</string>
 
@@ -8315,6 +8340,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">创建新的恢复密钥</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">创建新的密钥仅在他人知晓您的密钥时才有必要。您需要重新上传您的备份，包括媒体。如果您使用“优化存储”，您需要先下载卸载的媒体。</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">要退出备份设置吗？</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">您尚未完成备份设置，也未创建备份。您可以在“设置”中启用备份。</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">退出备份设置</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8577,6 +8608,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">跳过恢复</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">已达到恢复密钥上限</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">您已成功创建新的恢复密钥，但为了防止滥用，新密钥的创建次数是有限的。您在 7 天内将无法创建新密钥。请将您的恢复密钥保存在安全的地方。</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">无法创建新密钥</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">您已达到创建新密钥的次数上限。新的恢复密钥可在 7 天后创建。如果您认为有人可以访问您的备份，您可以选择“关闭并删除备份”。</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">好</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">关闭搜索</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8636,6 +8677,8 @@
     <string name="Poll__poll_question">投票：%1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s结束了投票：“%2$s”</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">您结束了投票：“%1$s”</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s参与了投票：“%2$s”</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8660,6 +8703,12 @@
     <string name="Poll__couldnt_end_poll">无法结束投票</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">请检查您的网络连接并重试。</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">要结束投票？</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">群组成员将无法再参与此投票。</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">正在等待网络连接…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">新投票</string>
     <!-- Section text to enter in a question for a poll  -->

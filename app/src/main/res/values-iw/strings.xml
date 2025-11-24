@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">תעד משפט השבה של תשלומים</string>
     <string name="ApplicationPreferencesActivity_record_phrase">תעד משפט</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">לפני שתוכל להשבית את ה־PIN שלך, אתה חייב לתעד את משפט ההשבה של התשלומים שלך כדי להבטיח שתוכל להשיב את חשבון התשלומים שלך.</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">יצירת מפתח שחזור חדש</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">יש ליצור ולתעד מפתח שחזור חדש לפני שתהיה לך אפשרות להשבית את קוד ה–PIN שלך.</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">יצירת מפתח</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1461,13 +1467,18 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">סיים</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">איש זה אינו יכול להתווסף אל קבוצות מיושנות.</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">להוסיף את \"%1$s\" אל \"%2$s\"?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">להוסיף את ״%1$s״ אל \"%2$s\"?</item>
-        <item quantity="two">להוסיף %3$d חברים אל \"%2$s\"?</item>
-        <item quantity="many">להוסיף %3$d חברים אל \"%2$s\"?</item>
-        <item quantity="other">להוסיף %3$d חברים אל \"%2$s\"?</item>
+        <item quantity="one">להוסיף את ״{2}״ אל \"%2$s\"?</item>
+        <item quantity="two">להוסיף %1$d חברים אל \"%2$s\"?</item>
+        <item quantity="many">להוסיף %1$d חברים אל \"%2$s\"?</item>
+        <item quantity="other">להוסיף %1$d חברים אל \"%2$s\"?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">הוסף</string>
     <string name="AddMembersActivity__add_members">הוסף חברי קבוצה</string>
 
@@ -2235,6 +2246,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s שלח לך הודעה שאינה יכולה להיות מעובדת או להיות מוצגת מאחר שהיא משתמשת במאפיין חדש של Signal.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s סיימ/ה את הסקר: ״%2$s״</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">סיימת את הסקר: ״%1$s״</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">אשר</string>
@@ -2576,6 +2589,12 @@
     <string name="WebRtcCallActivity__to_start_call">כדי להתחיל או להצטרף לשיחה:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">כדי להפעיל וידאו:</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Shrink local video</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Expand local video</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">שיחת Molly</string>
@@ -3562,6 +3581,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">ענה בלי וידאו</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">שינוי כיוון מצלמה</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">פלט שמע</string>
@@ -3619,9 +3641,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s לא משתמש/ת Signal. יש לבדוק את שם המשתמש ולנסות שוב."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">אתה לא צריך להוסיף את עצמך אל הקבוצה</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">גודל קבוצה מרבי הושג</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">קבוצות Signal יכולות להכיל מרב של %1$d חברי קבוצה.</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">קבוצות Signal יכולות להכיל מרב של %1$s חברי קבוצה.</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">מגבלה מומלצת של חברי קבוצה הושגה</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">קבוצות Signal מתפקדות בצורה הטובה ביותר עם %1$d חברי קבוצה או פחות. הוספת חברי קבוצה נוספים תגרום לעיכובים בשליחה ובקבלה של הודעות.</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">קבוצות Signal מתפקדות בצורה הטובה ביותר עם %1$s חברי קבוצה או פחות. הוספת חברי קבוצה נוספים תגרום לעיכובים בשליחה ובקבלה של הודעות.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">חבר קבוצה %1$d</item>
         <item quantity="two">%1$d חברי קבוצה</item>
@@ -5442,13 +5464,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">דלג</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">חבר קבוצה %1$d</item>
-        <item quantity="two">%1$d חברי קבוצה</item>
-        <item quantity="many">%1$d חברי קבוצה</item>
-        <item quantity="other">%1$d חברי קבוצה</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="one">חבר/ה %1$s</item>
@@ -6196,11 +6211,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">חסימה נכשלה</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s לא משתמש/ת ב–Signal</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s לא משתמש/ת ב–Signal</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">פתיחת תפריט</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s לא משתמש/ת ב–Signal</item>
         <item quantity="two">%1$s לא משתמשים ב–Signal</item>
         <item quantity="many">%1$s לא משתמשים ב–Signal</item>
@@ -6392,7 +6407,6 @@
     <string name="BadgesOverviewFragment__featured_badge">תג פרופיל</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">הצגת תגים בפרופיל שלי</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">נכשל בעדכון פרופיל</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">בחירת תג</string>
@@ -8098,6 +8112,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">הפעלת הגיבויים המאובטחים של Signal</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">כדאי לנסות: גיבויי Signal מאובטחים</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">ככה, לא מאבדים אף הודעה כשמחליפים טלפון או מתקינים מחדש את Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8384,6 +8400,12 @@
     <string name="BackupStatusRow__your_last_backup">לא ניתן היה להשלים את הגיבוי האחרון שלך. חשוב לוודא שהטלפון שלך מחובר ל–Wi–Fi וללחוץ ״לגבות כעת״ כדי לנסות שוב.</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">לא ניתן היה להשלים את הגיבוי האחרון שלך. כדאי לוודא שיש לך את הגרסה האחרונה של Signal ולנסות שוב.</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">מספר ההודעות שיש לך חורג ממגבלת האחסון. יש למחוק כמה הודעות ולנסות שוב.</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">הודעות שנשלחו או התקבלו לפני %1$s אינן מגובות.</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">Your backup couldn\'t be completed because you are low on storage space. Free up space on your device and try again.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">למידע נוסף</string>
 
@@ -8691,10 +8713,10 @@
     <string name="RemoteBackupsSettingsFragment__Waiting_for_internet_connection">ממתינים לחיבור אינטרנט…</string>
     <!-- Linear progress dialog text shown when processing messages for backup. First placeholder is completed count, second is approximate total count, third is percent completed. -->
     <plurals name="RemoteBackupsSettingsFragment__processing_messages_progress_text">
-        <item quantity="one">מעבדים %1$s מתוך הודעה %2$s (%%%3$d)</item>
-        <item quantity="two">מעבדים %1$s מתוך %2$s~ הודעות (%%%3$d)</item>
-        <item quantity="many">מעבדים %1$s מתוך %2$s~ הודעות (%%%3$d)</item>
-        <item quantity="other">מעבדים %1$s מתוך %2$s~ הודעות (%%%3$d)</item>
+        <item quantity="one">מעבדים %1$s מתוך הודעה %2$s (%3$d%%)</item>
+        <item quantity="two">מעבדים %1$s מתוך %2$s~ הודעות (%3$d%%)</item>
+        <item quantity="many">מעבדים %1$s מתוך %2$s~ הודעות (%3$d%%)</item>
+        <item quantity="other">מעבדים %1$s מתוך %2$s~ הודעות (%3$d%%)</item>
     </plurals>
     <!-- Displayed in row when backup is available for download and users subscription has expired. First placeholder is data size e.g. 12MB, second is days before expiration -->
     <string name="RemoteBackupsSettingsFragment__you_have_s_of_backup_data">יש לך %1$s של נתוני גיבוי שאינם נמצאים במכשיר זה. בלי מנוי בתשלום, לא ניתן להוריד מדיה.</string>
@@ -8861,6 +8883,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">יצירת מפתח שחזור חדש</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">יצירת מפתח חדש נחוצה רק אם מישהו אחר יודע את המפתח שלך. יהיה עליך להעלות מחדש את הגיבוי שלך, כולל המדיה. אם את/ה עושה שימוש ב״אופטימיזציה של אחסון״, יהיה עליך להוריד תחילה מדיה שנוקתה.</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">לצאת מהגדרת גיבוי?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">לא סיימת להגדיר גיבויים, ולא נוצר אף גיבוי. אפשר להפעיל גיבויים בהגדרות.</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">יציאה מהגדרת גיבוי</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9129,6 +9157,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">דילוג על שחזור</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">הגעת למגבלת מפתחות השחזור</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">יצרת בהצלחה מפתח שחזור חדש. כדי למנוע שימוש לרעה, מספר המפתחות החדשים שאפשר ליצור מוגבל. לא תהיה לך אפשרות ליצור מפתח שחזור נוסף למשך 7 ימים. יש לאחסן את מפתח הגיבוי במקום בטוח ומאובטח.</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">לא ניתן ליצור מפתח חדש</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">מיצית את מספר המפתחות החדשים שבאפשרותך ליצור. תהיה לך אפשרות ליצור מפתח שחזור חדש בעוד 7 ימים. אם נראה לך שלמישהו יש אפשרות לגשת לגיבוי שלך, אפשר לבחור באפשרות ״כיבוי ומחיקת גיבוי״.</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">אישור</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">סגירת חיפוש</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -9194,6 +9232,8 @@
     <string name="Poll__poll_question">סקר: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s סיימ/ה את הסקר: ״%2$s״</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">סיימת את הסקר: ״%1$s״</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s הצביע/ה בסקר: ״%2$s״</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -9221,6 +9261,12 @@
     <string name="Poll__couldnt_end_poll">לא ניתן היה לסיים את הסקר</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">כדאי לבדוק את החיבור שלך ולנסות שוב.</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">לסיים את הסקר?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">חברי קבוצה לא יוכלו יותר להצביע בסקר הזה.</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">בהמתנה לרשת…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">סקר חדש</string>
     <!-- Section text to enter in a question for a poll  -->
