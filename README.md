@@ -69,10 +69,12 @@ Here's how some key features work in different versions of the app:
 
 | Feature                           | Molly-FOSS       | Molly                | Signal               |
 | --------------------------------- | ---------------- | -------------------- | -------------------- |
-| Push notifications <sup>(1)</sup> | ✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket |
+| Push notifications <sup>(1)</sup> | ✔ WebSocket<br>✔ UnifiedPush<sup>(2)</sup> | ⚠ FCM<br>✔ WebSocket<br>✔ UnifiedPush<sup>(2)</sup> | ⚠ FCM<br>✔ WebSocket |
 | Location sharing                 | ✔ OpenStreetMap  | ⚠ Google Maps        | ⚠ Google Maps        |
 
 <sup>(1)</sup> You might need to turn off system-level battery restrictions for the app to receive messages when the app isn't open.
+<sup>(2)</sup> UnifiedPush is not supported on linked devices. See issue [#404](https://github.com/mollyim/mollyim-android/issues/404).
+
 
 ### UnifiedPush
 
