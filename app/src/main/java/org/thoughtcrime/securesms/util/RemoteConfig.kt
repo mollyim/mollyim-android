@@ -630,13 +630,7 @@ object RemoteConfig {
     inSeconds.seconds.inWholeMilliseconds
   }
 
-  val shareSelectionLimit: SelectionLimits by remoteValue(
-    key = "android.share.limit",
-    hotSwappable = true
-  ) { value ->
-    val limit = value.asInteger(5)
-    SelectionLimits(limit, limit)
-  }
+  val shareSelectionLimit: SelectionLimits = SelectionLimits.NO_LIMITS
 
   /** Whether or not to allow automatic session resets.  */
   @JvmStatic
