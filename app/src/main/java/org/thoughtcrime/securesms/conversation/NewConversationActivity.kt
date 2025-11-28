@@ -58,6 +58,7 @@ import org.thoughtcrime.securesms.recipients.ui.RecipientSelection
 import org.thoughtcrime.securesms.recipients.ui.findby.FindByActivity
 import org.thoughtcrime.securesms.recipients.ui.findby.FindByMode
 import org.thoughtcrime.securesms.util.CommunicationActions
+import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 
 /**
  * Allows the user to start a new conversation by selecting a recipient.
@@ -71,6 +72,18 @@ class NewConversationActivity : PassphraseRequiredActivity() {
         putExtra(Intent.EXTRA_TEXT, draftMessage)
       }
     }
+  }
+
+  private val theme = DynamicNoActionBarTheme()
+
+  override fun onPreCreate() {
+    super.onPreCreate()
+    theme.onCreate(this)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    theme.onResume(this)
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
