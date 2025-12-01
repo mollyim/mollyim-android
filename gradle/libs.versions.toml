@@ -32,6 +32,7 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"
 androidx-navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigation-safe-args-gradle-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+licensee = { id = "app.cash.licensee", version = "1.14.1" }
 
 [libraries]
 # Android Plugins

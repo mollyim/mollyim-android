@@ -3,6 +3,7 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlinx.serialization)
+  alias(libs.plugins.licensee)
   id("androidx.navigation.safeargs")
   id("kotlin-parcelize")
   id("com.squareup.wire")
@@ -580,6 +581,22 @@ dependencies {
   androidTestImplementation(testLibs.diff.utils)
 
   androidTestUtil(testLibs.androidx.test.orchestrator)
+}
+
+licensee {
+  allow("Apache-2.0")
+  allow("BSD-2-Clause")
+  allow("CC0-1.0")
+  allow("MIT")
+  allowDependency("im.molly", "native-utils", "1.0.0")
+  allowDependency("org.signal", "sqlcipher-android", "4.6.0-S1")
+  allowUrl("http://opensource.org/licenses/bsd-license.php")
+  allowUrl("https://www.gnu.org/licenses/agpl-3.0.html")
+  allowUrl("https://www.gnu.org/licenses/agpl-3.0.txt")
+  allowUrl("https://www.gnu.org/licenses/gpl-3.0.txt")
+  allowUrl("http://jsoup.org/license") {
+    because("MIT")
+  }
 }
 
 fun assertIsGitRepo() {
