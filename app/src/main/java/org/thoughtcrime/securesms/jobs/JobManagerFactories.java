@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.DeletionNotAwaitingMediaDownloadConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.DiskSpaceNotLowConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
@@ -422,6 +423,7 @@ public final class JobManagerFactories {
       put(DataRestoreConstraint.KEY,                             new DataRestoreConstraint.Factory());
       put(DecryptionsDrainedConstraint.KEY,                      new DecryptionsDrainedConstraint.Factory());
       put(DeletionNotAwaitingMediaDownloadConstraint.KEY,        new DeletionNotAwaitingMediaDownloadConstraint.Factory());
+      put(DiskSpaceNotLowConstraint.KEY,                         new DiskSpaceNotLowConstraint.Factory());
       put(MasterSecretConstraint.KEY,                            new MasterSecretConstraint.Factory(application));
       put(NetworkConstraint.KEY,                                 new NetworkConstraint.Factory(application));
       put(NotInCallConstraint.KEY,                               new NotInCallConstraint.Factory());

@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">पेमेंट रिकवरी फ़्रेज़ रिकॉर्ड करें</string>
     <string name="ApplicationPreferencesActivity_record_phrase">फ़्रेज़ रिकॉर्ड करें</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">पिन हटाने से पहले, आपको अपना पेमेंट रिकवरी फ़्रेज़ रिकॉर्ड करना होगा। यह पेमेंट खाते को रिकवर करने के लिए ज़रूरी है।</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">कोई नई \'रिकवरी की\' बनाएं</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">पिन बंद करने से पहले यह ज़रूरी है कि आप एक नई \'रिकवरी की\' बनाकर उसे कहीं सुरक्षित ढंग से नोट कर लें।</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">\'की\' बनाएं</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -404,7 +410,7 @@
 
     <!-- ConversationItem -->
     <string name="ConversationItem_error_not_sent_tap_for_details">नहीं भेजा गया, जानकारी के लिए टैप करें</string>
-    <string name="ConversationItem_error_partially_not_delivered">आंशिक रूप से भेजा गया, जानकारी के लिए टैप करें</string>
+    <string name="ConversationItem_error_partially_not_delivered">पूरी तरह नहीं भेजा जा सका, जानकारी के लिए टैप करें</string>
     <string name="ConversationItem_error_network_not_delivered">नहीं भेजा जा सका</string>
     <string name="ConversationItem_group_action_left">%1$s ने ग्रुप छोड़ दिया है।</string>
     <string name="ConversationItem_send_paused">भेजने की प्रक्रिया रुक गई है</string>
@@ -615,7 +621,7 @@
     <!-- Dialog title for block group link join requests -->
     <string name="ConversationFragment__block_request">अनुरोध ब्लॉक करना है?</string>
     <!-- Dialog message for block group link join requests -->
-    <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s इस ग्रुप लिंक के ज़रिए न तो ग्रुप में जुड़ पाएंगे और न ही जुड़ने का अनुरोध कर पाएंगे। इन्हें फिर भी मैन्युअल तरीके से ग्रुप में जोड़ा जा सकता है।</string>
+    <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s इस ग्रुप लिंक के ज़रिए न तो ग्रुप में जुड़ पाएंगे और न ही जुड़ने का अनुरोध कर पाएंगे। उन्हें सिर्फ़ मैन्युअल तरीके से ग्रुप में जोड़ा जा सकता है।</string>
     <!-- Dialog confirm block request button -->
     <string name="ConversationFragment__block_request_button">अनुरोध ब्लॉक करें</string>
     <!-- Dialog cancel block request button -->
@@ -1163,7 +1169,7 @@
     <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">इस डिवाइस पर Google Play सेवाएं काम नहीं करतीं। सिस्टम की बैटरी ऑप्टिमाइज़ेशन बंद करने के लिए टैप करें, ताकि Molly इनएक्टिव रहने पर भी आपको मैसेज मिल सके।</string>
 
     <!-- ExpiredBuildReminder -->
-    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly का यह वर्ज़न एक्सपायर हो गया है। मैसेज भेजने और पानेे के लिए इसे अभी अपडेट करें।</string>
+    <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Molly का यह वर्ज़न एक्सपायर हो गया है। मैसेज भेजने और पाने के लिए इसे अभी अपडेट करें।</string>
     <string name="ExpiredBuildReminder_update_now">अभी अपडेट करें</string>
 
     <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
@@ -1237,7 +1243,7 @@
     <string name="GroupsV1MigrationLearnMore_what_are_new_groups">नए ग्रुप क्या होते हैं?</string>
     <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">नए ग्रुप में @मेंशन और ग्रुप ऐडमिन जैसी सुविधाएं मौजूद हैं। आने वाले दिनों में इनमें और भी फ़ीचर जोड़े जाएंगे।</string>
     <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">अपग्रेड करने से पहले के सभी संदेश इतिहास और मीडिया को रख लिया गया है।</string>
-    <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">इस ग्रुप में फिर से जुड़ने के लिए इनवाइट स्वीकार करना ज़रूरी है। स्वीकार करने तक आपको ग्रुप के मैसेज नहीं मिलेंगे।</string>
+    <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">इस ग्रुप में वापस आने के लिए आपको नया इनवाइट स्वीकार करना पड़ेगा। इनवाइट स्वीकार करने तक आपको ग्रुप के मैसेज नहीं मिलेंगे।</string>
     <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
         <item quantity="one">इस ग्रुप में फिर से जुड़ने के लिए, इस सदस्य को इनवाइट स्वीकार करना होगा। स्वीकार करने तक उसे ग्रुप के मैसेज नहीं मिलेंगे:</item>
         <item quantity="other">इस ग्रुप में फिर से जुड़ने के लिए, इन सदस्यों को इनवाइट स्वीकार करना होगा। स्वीकार करने तक उन्हें ग्रुप के मैसेज नहीं मिलेंगे:</item>
@@ -1301,7 +1307,7 @@
     <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">इसके बाद, आपके पास इस ग्रुप में मैसेज भेजने या पाने की सुविधा मौजूद नहीं रहेगी।</string>
     <string name="LeaveGroupDialog_leave">छोड़ें</string>
     <string name="LeaveGroupDialog_choose_new_admin">नया ऐडमिन चुनें</string>
-    <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">ग्रुप छोड़ने से पहले, आपको इस ग्रुप के लिए कम से कम कोई एक ऐडमिन चुनना होगा।</string>
+    <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">ग्रुप छोड़ने से पहले, आपको इस ग्रुप के लिए कम से कम एक ऐडमिन चुनना होगा।</string>
     <string name="LeaveGroupDialog_choose_admin">ऐडमिन चुनें</string>
 
     <!-- LinkPreviewView -->
@@ -1385,11 +1391,16 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">हो गया</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">इस व्यक्ति को पुराने ग्रुप में नहीं जोड़ा जा सकता।</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">\'%1$s\' को \'%2$s\' में जोड़ना है?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">\"%1$s\" को \"%2$s\" में जोड़ना है?</item>
-        <item quantity="other">%3$d सदस्यों को \"%2$s\" में जोड़ना है?</item>
+        <item quantity="one">\"{2}\" को \"%2$s\" में जोड़ना है?</item>
+        <item quantity="other">%1$d सदस्यों को \"%2$s\" में जोड़ना है?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">जोड़ें</string>
     <string name="AddMembersActivity__add_members">सदस्य जोड़ें</string>
 
@@ -1915,11 +1926,11 @@
     <!-- GV2 invitation acceptance -->
     <string name="MessageRecord_you_accepted_invite">आपने ग्रुप में शामिल होने का इनवाइट स्वीकार कर लिया है।</string>
     <string name="MessageRecord_s_accepted_invite">%1$s ने ग्रुप में शामिल होने का इनवाइट स्वीकार कर लिया है।</string>
-    <string name="MessageRecord_you_added_invited_member_s">आपने इनवाइट भेजे गए सदस्य %1$s को जोड़ा है।</string>
-    <string name="MessageRecord_s_added_invited_member_s">%1$s ने इनवाइट भेजे गए सदस्य %2$s को जोड़ा है।</string>
+    <string name="MessageRecord_you_added_invited_member_s">आपने इनवाइट किए गए सदस्य %1$s को जोड़ा है।</string>
+    <string name="MessageRecord_s_added_invited_member_s">%1$s ने इनवाइट किए गए सदस्य %2$s को जोड़ा है।</string>
 
     <!-- GV2 title change -->
-    <string name="MessageRecord_you_changed_the_group_name_to_s">आपने ग्रुप का नाम बदल कर \'%1$s\' कर दिया है।</string>
+    <string name="MessageRecord_you_changed_the_group_name_to_s">आपने ग्रुप का नाम बदलकर \'%1$s\' कर दिया है।</string>
     <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s ने ग्रुप का नाम बदल कर \'%2$s\' कर दिया है।</string>
     <string name="MessageRecord_the_group_name_has_changed_to_s">ग्रुप का नाम बदल कर \'%1$s\' हो गया है।</string>
 
@@ -1990,7 +2001,7 @@
     <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s को ग्रुप में जुड़ने के आपके अनुरोध को स्वीकार किया।</string>
     <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s ने %2$s की मदद से ग्रुप में जुड़ने के अनुरोध को स्वीकार किया।</string>
     <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">आपने %1$s की मदद से ग्रुप में जुड़ने का निवेदन स्वीकार किया।</string>
-    <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">आपका ग्रुप से जुड़ने का अनुरोध स्वीकार किया गया।</string>
+    <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">ग्रुप से जुड़ने का आपका अनुरोध स्वीकार कर लिया गया है।</string>
     <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">%1$s के ज़रिए ग्रुप से जुड़ने का अनुरोध स्वीकार किया गया।</string>
 
     <!-- GV2 group link deny -->
@@ -2004,10 +2015,10 @@
     <!-- End of GV2 specific update messages -->
 
     <string name="MessageRecord_your_safety_number_with_s_has_changed">%1$s के साथ आपका सेफ़्टी नंबर बदल गया है।</string>
-    <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">आपने %1$s के साथ अपने सेफ़्टी नंबर वेरिफ़ाई किया है</string>
-    <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">आपने %1$s के साथ अपना सेफ़्टी नंबर दूसरे डिवाइस से वेरिफ़ाई किया है</string>
-    <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">आपने %1$s के साथ अपने सेफ़्टी नंबर को \'वेरिफ़ाई नहीं हुआ\' के तौर पर मार्क किया है</string>
-    <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">आपने %1$s के साथ अपने सेफ़्टी नंबर को दूसरे डिवाइस से \'वेरिफ़ाई नहीं हुआ\' के तौर पर मार्क किया है</string>
+    <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">आपने %1$s के साथ अपना सेफ़्टी नंबर वेरिफ़ाइड के तौर पर मार्क किया है</string>
+    <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">आपने दूसरे डिवाइस से %1$s के साथ अपना सेफ़्टी नंबर वेरिफ़ाइड के तौर पर मार्क किया है</string>
+    <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">आपने %1$s के साथ अपना सेफ़्टी नंबर \'वेरिफ़ाइड नहीं है\' के तौर पर मार्क किया है</string>
+    <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">आपने दूसरे डिवाइस से %1$s के साथ अपना सेफ़्टी नंबर \'वेरिफ़ाई नहीं है\' के तौर पर मार्क किया है</string>
     <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">%1$s का मैसेज डिलीवर नहीं हुआ</string>
     <string name="MessageRecord_s_changed_their_phone_number">%1$s ने अपना फ़ोन नंबर बदल लिया है।</string>
     <!-- Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost. -->
@@ -2115,6 +2126,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s ने आपको एक मैसेज भेजा है, जिसे दिखाया या प्रोसेस नहीं किया जा सकता क्योंकि इसमें Signal की एक नई सुविधा का इस्तेमाल किया गया है।</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s ने यह पोल खत्म कर दिया है: \"%2$s\"</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">आपने यह पोल खत्म कर दिया है: \"%1$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">स्वीकार करें</string>
@@ -2431,12 +2444,18 @@
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">अपना वीडियो सक्षम करने के लिए:</string>
 
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">लोकल वीडियो को छोटा करें</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">लोकल वीडियो को बड़ा करें</string>
+
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Molly कॉल</string>
     <string name="WebRtcCallView__signal_video_call">Molly वीडियो कॉल</string>
     <string name="WebRtcCallView__start_call">कॉल शुरू करें</string>
     <string name="WebRtcCallView__join_call">कॉल से जुड़ें</string>
-    <string name="WebRtcCallView__call_is_full">कॉल में जगह उपलब्ध नहीं है</string>
+    <string name="WebRtcCallView__call_is_full">कॉल में जगह नहीं है</string>
     <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">इस कॉल में ज़्यादा से ज़्यादा %1$d लोग हिस्सा ले सकते हैं। यह संख्या सीमा फ़िलहाल पूरी हो चुकी है। बाद में फिर से कोशिश करें।</string>
     <string name="WebRtcCallView__your_video_is_off">आपका वीडियो बंद है</string>
     <string name="WebRtcCallView__reconnecting">फिर से कनेक्ट हो रहा है…</string>
@@ -3360,6 +3379,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">वीडियो के बिना जवाब दें</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">कैमरे की दिशा बदलें</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">ऑडियो आउटपुट</string>
@@ -3417,9 +3439,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s Signal यूज़र नहीं हैं। कृपया यूज़रनेम देखें और फिर से कोशिश करें।"</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">आपको खुद को ग्रुप में जोड़ने की ज़रूरत नहीं है</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">ग्रुप साइज़ की अधिकतम सीमा पूरी हो गई है</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal के ग्रुप में अधिकतम %1$d सदस्य हो सकते हैं।</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Signal के ग्रुप में अधिकतम %1$s सदस्य हो सकते हैं।</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">इससे ज़्यादा सदस्यों को मैसेज नहीं भेजा जा सकता</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Signal के ग्रुप में अगर %1$d या उससे कम सदस्य हों, तो यह सबसे सही रहता है। इससे ज़्यादा सदस्य जोड़ने पर मैसेज भेजने या पाने में थोड़ी देरी हो सकती है।</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Signal के ग्रुप में अगर %1$s या उससे कम सदस्य हों, तो यह सबसे सही रहता है। इससे ज़्यादा सदस्य जोड़ने पर मैसेज भेजने या पाने में थोड़ी देरी हो सकती है।</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">%1$d सदस्य</item>
         <item quantity="other">%1$d सदस्य</item>
@@ -3503,7 +3525,7 @@
     <string name="ConversationUpdateItem_block_request">अनुरोध ब्लॉक करें</string>
     <!-- Text shown in conversation header that the account messaging the user does not have any groups in common with them -->
     <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">कोई साझा ग्रुप मौजूद नहीं है</string>
-    <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">इस ग्रुप में आपका कोई कॉन्टैक्ट मौजूद नहीं है। सावधानी के साथ अनुरोधों समीक्षा करें।</string>
+    <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">इस ग्रुप में आपका कोई कॉन्टैक्ट मौजूद नहीं है। सावधानी के साथ अनुरोधों की समीक्षा करें।</string>
     <string name="ConversationUpdateItem_view">देखें</string>
     <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">उन्हें मैसेज भेजने पर, %1$s में मैसेज अपने-आप गायब हो जाएगा।</string>
     <!-- Update item button text to show to boost a feature -->
@@ -5184,11 +5206,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">आगे बढ़ें</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">%1$d सदस्य</item>
-        <item quantity="other">%1$d सदस्य</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="one">%1$s सदस्य</item>
@@ -5789,7 +5806,7 @@
     <!-- BecomeASustainerMegaphone -->
     <string name="BecomeASustainerMegaphone__become_a_sustainer">सस्टेनर बनें</string>
     <!-- Displayed in the Become a Sustainer megaphone -->
-    <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal आप जैसे लोगों द्वारा संचालित है। दान करें और एक बैज पाएं।</string>
+    <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal आपके सहयोग से चलता है। आर्थिक योगदान दें और बैज पाएं।</string>
     <string name="BecomeASustainerMegaphone__not_now">अभी नहीं</string>
     <string name="BecomeASustainerMegaphone__donate">दान करें</string>
 
@@ -5918,11 +5935,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ब्लॉक नहीं हो पाया</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s एक Signal यूज़र नहीं है</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s एक Signal यूज़र नहीं है</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">मेन्यू खोलें</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s एक Signal यूज़र नहीं है</item>
         <item quantity="other">%1$s Signal यूज़र नहीं है</item>
     </plurals>
@@ -6100,7 +6117,6 @@
     <string name="BadgesOverviewFragment__featured_badge">फ़ीचर किया गया बैज</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">प्रोफ़ाइल पर बैज प्रदर्शित करें</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">प्रोफ़ाइल अपडेट नहीं हो सकी</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">एक बैज चुनें</string>
@@ -7754,6 +7770,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Signal सिक्योर बैकअप चालू करें</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Signal सिक्योर बैकअप आज़माएं</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">नया फ़ोन लेने पर या Molly को रीइंस्टॉल करने पर, कभी भी अपने संदेश न खोएँ।</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8034,6 +8052,12 @@
     <string name="BackupStatusRow__your_last_backup">आपका आखिरी बैकअप पूरा नहीं किया जा सका। पक्का करें कि आपका फ़ोन वाई-फ़ाई से कनेक्ट हो और फिर से कोशिश करने के लिए \"अभी बैकअप करें\" पर टैप करें।</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">आपका आखिरी बैकअप पूरा नहीं किया जा सका। पक्का करें कि आपके पास Signal का सबसे नया वर्ज़न हो और फिर से कोशिश करें।</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">आपके मैसेज की संख्या स्टोरेज की तय सीमा को पार कर गई है। कुछ मैसेज डिलीट करें और फिर से कोशिश करें।</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">%1$s से पहले भेजे गए या रिसीव किए गए मैसेज का बैकअप नहीं लिया जा रहा है।</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">आपका बैकअप पूरा नहीं हो सका, क्योंकि आपके स्टोरेज में स्पेस कम है। अपने डिवाइस में स्पेस खाली करें और फिर से कोशिश करें।</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">अधिक जानें</string>
 
@@ -8497,6 +8521,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">कोई नई \'रिकवरी की\' बनाएं</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">नई \'की\' बनाना सिर्फ़ तब ज़रूरी होता है, जब किसी और को आपकी नई ‘की’ की जानकारी हो। आपको अपना बैकअप फिर से अपलोड करना होगा, जिसमें मीडिया भी शामिल है। \"स्टोरेज ऑप्टिमाइज़ करें\" इस्तेमाल करने पर, आपको पहले ऑफ़लोड किया गया मीडिया डाउनलोड करना होगा।</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">बैकअप सेटअप से बाहर निकलना है?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">आपने बैकअप का सेटअप पूरा नहीं किया है, इसलिए अभी तक कोई बैकअप नहीं बन सका है। सेटिंग में जाकर बैकअप चालू किया जा सकता है।</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">बैकअप सेटअप से बाहर निकलें</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8761,6 +8791,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">रीस्टोर करना छोड़ें</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">\'रिकवरी की\' बदलने की तय संख्या पूरी हो चुकी है</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">आपने \'रिकवरी की\' बना ली है, लेकिन ध्यान दें, सुरक्षा कारणों से आपके पास सिर्फ़ सीमित संख्या में ही नई की बनाने का विकल्प मौजूद है। आपके पास अगले 7 दिनों तक नई \'की\' बनाने का विकल्प उपलब्ध नहीं रहेगा। अपनी \'रिकवरी की\' को कहीं सुरक्षित रूप में नोट कर लें।</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">नई \'की\' नहीं बनाई जा सकी</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">आपने नई \'की\' बनाने की तय संख्या पूरी कर ली है। अब आपको नई \'रिकवरी की\' बनाने के लिए 7 दिन इंतज़ार करना होगा। अगर आपको लगता है कि कोई व्यक्ति आपका बैकअप ऐक्सेस कर सकता है, तो आपके पास \"बैकअप बंद करें और डिलीट करें\" चुनने का विकल्प मौजूद है।</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">ठीक है</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">सर्च बंद करें</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8822,6 +8862,8 @@
     <string name="Poll__poll_question">पोल: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s ने यह पोल खत्म कर दिया है: \"%2$s\"</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">आपने यह पोल खत्म कर दिया है: \"%1$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s ने इस पोल में वोट दिया: \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8847,6 +8889,12 @@
     <string name="Poll__couldnt_end_poll">पोल खत्म नहीं हो पाया</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">अपना इंटरनेट कनेक्शन देखें और दोबारा कोशिश करें।</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">पोल खत्म करना है?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">ग्रुप के सदस्य अब इस पोल में वोट नहीं दे पाएंगे।</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">नेटवर्क का इंतज़ार किया जा रहा है…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">नया पोल</string>
     <!-- Section text to enter in a question for a poll  -->

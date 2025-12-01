@@ -28,6 +28,7 @@ import org.thoughtcrime.securesms.backup.proto.SqlStatement;
 import org.thoughtcrime.securesms.crypto.AttachmentSecret;
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
 import org.thoughtcrime.securesms.database.AttachmentTable;
+import org.thoughtcrime.securesms.database.BackupMediaSnapshotTable;
 import org.thoughtcrime.securesms.database.EmojiSearchTable;
 import org.thoughtcrime.securesms.database.GroupReceiptTable;
 import org.thoughtcrime.securesms.database.KeyValueDatabase;
@@ -100,7 +101,8 @@ public class FullBackupExporter extends FullBackupBase {
       AvatarPickerDatabase.TABLE_NAME,
       RemappedRecordTables.Recipients.TABLE_NAME,
       RemappedRecordTables.Threads.TABLE_NAME,
-      RemoteMegaphoneTable.TABLE_NAME
+      RemoteMegaphoneTable.TABLE_NAME,
+      BackupMediaSnapshotTable.TABLE_NAME
   );
 
   public static BackupEvent export(@NonNull Context context,

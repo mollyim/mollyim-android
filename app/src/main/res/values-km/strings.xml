@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">ថតឃ្លាសង្គ្រោះការទូទាត់</string>
     <string name="ApplicationPreferencesActivity_record_phrase">ថតឃ្លា</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">មុនពេលអ្នកអាចបិទលេខកូដ PIN របស់អ្នក អ្នកត្រូវរក្សាទុកឃ្លាស្តារការទូទាត់របស់អ្នក ដើម្បីប្រាកដថាអ្នកអាចស្តារគណនីទូទាត់របស់អ្នកបាន។</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">បង្កើតសោស្តារថ្មី</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">អ្នកត្រូវតែបង្កើត និងកត់ត្រាសោស្តារថ្មី មុនពេលអ្នកអាចបិទលេខកូដសម្ងាត់របស់អ្នក។</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">បង្កើតសោ</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -1347,10 +1353,15 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">បញ្ចប់</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">បុគ្គលនេះ មិនអាចបន្ថែមចូលក្រុមមុនបានទេ។</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">បន្ថែម \"%1$s\" ទៅ \"%2$s\"?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="other">បញ្ចូលសមាជិក %3$d នាក់ទៅ \"%2$s\"?</item>
+        <item quantity="other">បញ្ចូលសមាជិក %1$d នាក់ទៅ \"%2$s\"?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">បន្ថែម</string>
     <string name="AddMembersActivity__add_members">បន្ថែមសមាជិក</string>
 
@@ -2055,6 +2066,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s បានផ្ញើសារមួយ ដែលមិនអាចដំណើរការ ឬបង្ហាញបាន ព្រោះវាប្រើប្រាស់មុខងារថ្មីរបស់ Signal។</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s បានបញ្ចប់ការស្ទង់មតិ៖ \"%2$s\"</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">អ្នកបានបញ្ចប់ការស្ទង់មតិ៖ \"%1$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">យល់ព្រម</string>
@@ -2357,6 +2370,12 @@
     <string name="WebRtcCallActivity__to_start_call">ដើម្បីចាប់ផ្តើម ឬចូលរួមការហៅ៖</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">ដើម្បីបើកវីដេអូរបស់អ្នក៖</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">បង្រួមវីដេអូក្នុងឧបករណ៍</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">ពង្រីកវីដេអូក្នុងឧបករណ៍</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">ការហៅ Molly</string>
@@ -3259,6 +3278,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">ឆ្លើយដោយគ្មានវីដេអូ</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">ប្តូរទិសដៅកាមេរ៉ា</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">ការបញ្ចេញសំឡេង</string>
@@ -3316,9 +3338,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s មិនមែនជាអ្នកប្រើ Signal ទេ។ សូមពិនិត្យឈ្មោះអ្នកប្រើ រួចព្យាយាមម្តងទៀត។"</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">អ្នកមិនចាំបាច់បន្ថែមខ្លួនឯងចូលក្នុងក្រុមទេ</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">បានឈានដល់ទំហំក្រុមអតិបរមា</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">ក្រុម Signal អាចមានសមាជិកអតិបរមាចំនួន %1$d ។</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">ក្រុម Signal អាចមានសមាជិកអតិបរមាចំនួន %1$s ។</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">បានឈានដល់ដែនកំណត់សមាជិកដែលបានណែនាំ</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">ក្រុម Signal ដំណើរការល្អបំផុតជាមួយសមាជិក %1$d នាក់ ឬតិចជាងនេះ។ ការបន្ថែមសមាជិកច្រើន នឹងបណ្តាលឱ្យមានការពន្យារពេលការផ្ញើ និងទទួលសារ។</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">ក្រុម Signal ដំណើរការល្អបំផុតជាមួយសមាជិក %1$s នាក់ ឬតិចជាងនេះ។ ការបន្ថែមសមាជិកច្រើន នឹងបណ្តាលឱ្យមានការពន្យារពេលការផ្ញើ និងទទួលសារ។</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="other">សមាជិក %1$d នាក់</item>
     </plurals>
@@ -5055,10 +5077,6 @@
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">រំលង</string>
 
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="other">%1$d សមាជិក</item>
-    </plurals>
-
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
         <item quantity="other">សមាជិក %1$s នាក់</item>
@@ -5779,11 +5797,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ការទប់ស្កាត់មិនបានជោគជ័យទេ</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s មិនមែនជាអ្នកប្រើ Signal ទេ</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s មិនមែនជាអ្នកប្រើ Signal ទេ</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">បើកម៉ឺនុយ</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="other">%1$s មិនមែនជាអ្នកប្រើ Signal ទេ</item>
     </plurals>
 
@@ -5954,7 +5972,6 @@
     <string name="BadgesOverviewFragment__featured_badge">ស្លាកពិសេស</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">បង្ហាញស្លាកលើប្រូហ្វាល់</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">បរាជ័យធ្វើបច្ចុប្បន្នភាពគណនី</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">ជ្រើសរើសស្លាកមួយ</string>
@@ -7582,6 +7599,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">បើកការបម្រុងទុកសុវត្ថិភាព Signal</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">សាកល្បងការបម្រុងទុកសុវត្ថិភាព Signal</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">មិនបាត់បង់សារនៅពេលអ្នកមានទូរសព្ទថ្មី ឬដំឡើង Molly ឡើងវិញ។</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -7859,6 +7878,12 @@
     <string name="BackupStatusRow__your_last_backup">ការបម្រុងទុកចុងក្រោយរបស់អ្នកមិនអាចបញ្ចប់បានទេ។ ត្រូវប្រាកដថាទូរសព្ទរបស់អ្នកបានភ្ជាប់ Wi-Fi រួចចុច \"បម្រុងទុកឥឡូវនេះ\" ដើម្បីព្យាយាមម្តងទៀត។</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">ការបម្រុងទុកចុងក្រោយរបស់អ្នកមិនអាចបញ្ចប់បានទេ។ ត្រូវប្រាកដថាអ្នកកំពុងតែប្រើកំណែចុងក្រោយបំផុតរបស់ Signal រួចព្យាយាមម្តងទៀត។</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">ចំនួនសារដែលអ្នកមានលើសពីដែនកំណត់ផ្ទុកហើយ។ លុបសារមួយចំនួន ហើយព្យាយាមម្តងទៀត។</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">សារដែលបានផ្ញើ ឬទទួលមុន %1$s មិនត្រូវបានបម្រុងទុកទេ។</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">ការបម្រុងទុករបស់អ្នកមិនអាចបញ្ចប់បានទេ ដោយសារអ្នកមានទំហំផ្ទុកតិច។ បង្កើនទំហំផ្ទុកនៅលើឧបករណ៍របស់អ្នក ហើយព្យាយាមម្តងទៀត។</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">ស្វែងយល់បន្ថែម</string>
 
@@ -8315,6 +8340,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">បង្កើតសោស្តារថ្មី</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">ការបង្កើតសោថ្មីគឺចាំបាច់លុះត្រាតែមានអ្នកផ្សេងស្គាល់សោរបស់អ្នក។ អ្នកនឹងត្រូវផ្ទុកឡើងវិញនូវការបម្រុងទុករបស់អ្នក រួមទាំងមេឌៀផងដែរ។ ប្រសិនបើអ្នកកំពុងប្រើ \"បង្កើនប្រសិទ្ធភាពការផ្ទុក\" អ្នកនឹងត្រូវទាញយកមេឌៀដែលមិនបានផ្ទុកជាមុនសិន។</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">ចាកចេញពីការរៀបចំការបម្រុងទុក?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">អ្នកមិនទាន់បានបញ្ចប់ការរៀបចំការបម្រុងទុកទេ ហើយគ្មានការបម្រុងទុកណាមួយត្រូវបានបង្កើតឡើងទេ។ អ្នកអាចបើកការបម្រុងទុកនៅក្នុងការកំណត់។</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ចាកចេញពីការរៀបចំការបម្រុងទុក</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8577,6 +8608,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">រំលងការស្តារឡើងវិញ</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">សោស្តារបានដល់ចំនួនកំណត់ហើយ</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">អ្នកបានបង្កើតសោស្តារថ្មីដោយជោគជ័យ ប៉ុន្តែដើម្បីការពារការរំលោភបំពាន ចំនួនសោថ្មីដែលអ្នកអាចបង្កើតបានគឺមានកំណត់។ អ្នកនឹងមិនអាចបង្កើតសោមួយផ្សេងទៀតបានទេសម្រាប់រយៈពេល 7 ថ្ងៃ។ រក្សាទុកសោស្តាររបស់អ្នកនៅកន្លែងណាដែលមានសុវត្ថិភាព។</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">មិនអាចបង្កើតសោថ្មីបានទេ</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">ចំនួនសោថ្មីដែលអ្នកអាចបង្កើតបានគឺអស់ហើយ។ អ្នកនឹងអាចបង្កើតសោស្តារថ្មីក្នុងរយៈពេល 7 ថ្ងៃ។ ប្រសិនបើអ្នកជឿថានរណាម្នាក់អាចនឹងចូលប្រើការបម្រុងទុករបស់អ្នក អ្នកអាចជ្រើសរើស “បិទ និងលុបការបម្រុងទុក”។</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">យល់ព្រម</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">បិទការស្វែងរក</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8636,6 +8677,8 @@
     <string name="Poll__poll_question">ការស្ទង់មតិ៖ %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s បានបញ្ចប់ការស្ទង់មតិ៖ \"%2$s\"</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">អ្នកបានបញ្ចប់ការស្ទង់មតិ៖ \"%1$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s បានបោះឆ្នោតនៅក្នុងការស្ទង់មតិ៖ \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8660,6 +8703,12 @@
     <string name="Poll__couldnt_end_poll">មិនអាចបញ្ចប់ការស្ទង់មតិបានទេ</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">សូមពិនិត្យមើលសេវាអ៊ីនធឺណិតរបស់អ្នក រួចព្យាយាមម្តងទៀត។</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">បញ្ចប់ការស្ទង់មតិ?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">សមាជិកក្រុមនឹងមិនអាចបោះឆ្នោតនៅក្នុងការស្ទង់មតិនេះទៀតទេ។</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">កំពុងរង់ចាំបណ្តាញ…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">ការស្ទង់មតិថ្មី</string>
     <!-- Section text to enter in a question for a poll  -->

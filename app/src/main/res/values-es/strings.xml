@@ -57,6 +57,12 @@
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Registrar frase de recuperación de pagos</string>
     <string name="ApplicationPreferencesActivity_record_phrase">Registrar frase</string>
     <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Antes de desactivar tu PIN, debes registrar la frase de recuperación de tu cartera de pagos para asegurarte de que puedas recuperar tu cuenta de pagos si lo necesitas.</string>
+    <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">Crea una nueva clave de recuperación</string>
+    <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_body">Debes crear y registrar una nueva clave de recuperación para poder deshabilitar tu PIN.</string>
+    <!-- The confirmation button for a dialog letting the user know they have to rotate their recovery key if they want to disable PINs. If they click the button, they will be taken to a flow to rotate their key. -->
+    <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">Crear clave</string>
 
     <!-- NumericKeyboardView -->
   <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
@@ -670,9 +676,9 @@
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Consejos de seguridad</string>
     <!-- Dialog subtitle when showign tips for a 1:1 conversation -->
-    <string name="SafetyTips_subtitle_individual">Ten cuidado al aceptar solicitudes de mensajes de personas que no conoces. Presta atención a lo siguiente:</string>
+    <string name="SafetyTips_subtitle_individual">Ten cuidado al aceptar solicitudes de mensajes de personas que no conoces. Aquí hay algunas recomendaciones a tener en cuenta:</string>
     <!-- Dialog subtitle when showing tips for a group conversation -->
-    <string name="SafetyTips_subtitle_group">Revisa detenidamente esta solicitud. Ninguno de tus contactos o personas con las que chateas están en este grupo. Aquí hay algunas cosas a tener en cuenta:</string>
+    <string name="SafetyTips_subtitle_group">Revisa detenidamente esta solicitud. Ninguno de tus contactos o personas con las que chateas están en este grupo. Aquí hay algunas recomendaciones a tener en cuenta:</string>
     <!-- Button text to move to the previous tip-->
     <string name="SafetyTips_previous_tip">Anterior</string>
     <!-- Button text to move to the next tip -->
@@ -1164,10 +1170,10 @@
 
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Esta versión de Molly ha caducado. Actualízala ahora para seguir enviando y recibiendo mensajes.</string>
-    <string name="ExpiredBuildReminder_update_now">Actualizar ahora</string>
+    <string name="ExpiredBuildReminder_update_now">Actualizar ahora</string>
 
     <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
-    <string name="DeprecatedSdkBanner_body">Signal ya no funciona en este dispositivo. Para volver a usar Signal, debes actualizar tu dispositivo a una versión más nueva de Android o cambiarlo por un dispositivo más nuevo.</string>
+    <string name="DeprecatedSdkBanner_body">Signal ya no es compatible con este dispositivo. Para volver a usar Signal, debes actualizar tu dispositivo a una versión más nueva de Android o cambiarlo por un dispositivo más nuevo.</string>
 
     <!-- Title of notification telling users to update Signal -->
     <string name="DeprecatedNotificationJob_update_signal">Actualizar Molly</string>
@@ -1385,11 +1391,16 @@
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">Listo</string>
     <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">No se puede añadir a esta persona a grupos del sistema antiguo.</string>
-    <!-- Confirmation text when adding a member to a group. If one person is added, %1$s is their name. If multiple people are added, the total number is %3$d. %2$s is the name of the group -->
+
+    <!-- Confirmation text when adding one member to a group. %1$s is the member\'s name, %2$s is the group name. -->
+    <string name="AddMembersActivity__add_member_to_s">¿Añadir a %1$s a \"%2$s\"?</string>
+
+    <!-- Confirmation text when adding members to a group. %1$d is the number of members added. %2$s is the name of the group. -->
     <plurals name="AddMembersActivity__add_d_members_to_s">
-        <item quantity="one">¿Añadir a %1$s a \"%2$s\"?</item>
-        <item quantity="other">¿Añadir %3$d participantes a \"%2$s\"?</item>
+        <item quantity="one">¿Añadir a {2} a \"%2$s\"?</item>
+        <item quantity="other">¿Añadir %1$d participantes a \"%2$s\"?</item>
     </plurals>
+
     <string name="AddMembersActivity__add">Añadir</string>
     <string name="AddMembersActivity__add_members">Añadir participantes</string>
 
@@ -2115,6 +2126,8 @@
     <string name="MessageRecord_unsupported_feature">%1$s te ha enviado un mensaje que no se puede procesar ni mostrar porque usa una función nueva de Signal.</string>
     <!-- Update message shown when someone ends the poll. %1$s is the person who ended the poll and %2$s is the poll question. -->
     <string name="MessageRecord_ended_the_poll">%1$s ha finalizado la encuesta \"%2$s\"</string>
+    <!-- Update message shown when you end the poll. %1$s is the poll question. -->
+    <string name="MessageRecord_you_ended_the_poll">Has finalizado la encuesta \"%1$s\"</string>
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Aceptar</string>
@@ -2227,7 +2240,7 @@
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">No se puede escanear un código QR sin acceso a la cámara</string>
 
     <!-- OutdatedBuildReminder -->
-    <string name="OutdatedBuildReminder_update_now">Actualizar ahora</string>
+    <string name="OutdatedBuildReminder_update_now">Actualizar ahora</string>
     <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Esta versión de Molly caduca hoy. Actualiza a la versión más reciente.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
         <item quantity="one">Esta versión de Molly caduca mañana. Actualiza a la versión más reciente.</item>
@@ -2430,6 +2443,12 @@
     <string name="WebRtcCallActivity__to_start_call">Para iniciar o unirte a una llamada:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
     <string name="WebRtcCallActivity__to_enable_video">Para habilitar tu vídeo:</string>
+
+    <!-- MoveableLocalVideoRenderer -->
+    <!-- Content description for button to shrink local video from focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__shrink_local_video">Reducir vídeo local</string>
+    <!-- Content description for button to expand local video to focused/full-screen mode -->
+    <string name="MoveableLocalVideoRenderer__expand_local_video">Ampliar vídeo local</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Llamada de Molly</string>
@@ -3360,6 +3379,9 @@
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="WebRtcCallScreen__answer_without_video">Atender sin vídeo</string>
 
+    <!-- CallScreen -->
+    <string name="CallScreen__change_camera_direction">Cambiar cámara</string>
+
     <!-- WebRtcAudioOutputToggle -->
     <!-- Label for a dialog asking the user to switch the audio output device during a call -->
     <string name="WebRtcAudioOutputToggle__audio_output">Salida de audio</string>
@@ -3417,9 +3439,9 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s no usa Signal. Comprueba que el alias sea correcto e inténtalo de nuevo."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">No necesitas añadirte al grupo como participante</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">Se ha alcanzado el número máximo de participantes</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Los grupos de Signal permiten un máximo de %1$d participantes.</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Los grupos de Signal permiten un máximo de %1$s participantes.</string>
     <string name="ContactSelectionListFragment_recommended_member_limit_reached">Se ha alcanzado el límite recomendado de participantes</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Los grupos de Signal funcionan mejor con %1$d o menos participantes. Añadir más participantes causará retrasos para enviar y recibir mensajes.</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Los grupos de Signal funcionan mejor con %1$s o menos participantes. Añadir más participantes causará retrasos para enviar y recibir mensajes.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="one">%1$d participante</item>
         <item quantity="other">%1$d participantes</item>
@@ -4201,7 +4223,7 @@
     <!-- Alert dialog button to cancel -->
     <string name="PaymentsHomeFragment__cancel">Cancelar</string>
     <!-- Alert dialog button to update now -->
-    <string name="PaymentsHomeFragment__update_now">Actualizar ahora</string>
+    <string name="PaymentsHomeFragment__update_now">Actualizar ahora</string>
 
     <!-- GrantPermissionsFragment -->
     <!-- Displayed as a text-only action button at the bottom start of the screen -->
@@ -4770,7 +4792,7 @@
     <!-- Subtext below radio buttons when who can see my number is set to everybody -->
     <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">Tu número de teléfono será visible para las personas y los grupos a los que les envíes mensajes.</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
-    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Tu número de teléfono no será visible para nadie a menos que lo tenga guardado en los contactos de su teléfono.</string>
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Tu número de teléfono no será visible para nadie a menos que lo tenga guardado en su teléfono.</string>
     <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
     <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">Tu número de teléfono no será visible para nadie.</string>
     <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
@@ -4887,7 +4909,7 @@
     <string name="TransferOrRestoreFragment__restore_from_backup">Restaurar desde copia de seguridad</string>
     <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Restaura tus mensajes desde una copia de seguridad local. Si no los restauras ahora, no podrás hacerlo más tarde.</string>
     <string name="TransferOrRestoreFragment__restore_from_local_backup">Restaurar copia de seguridad local</string>
-    <string name="TransferOrRestoreFragment__restore_from_signal_backup">Restaurar copia de seguridad de Signal</string>
+    <string name="TransferOrRestoreFragment__restore_from_signal_backup">Desde Copias Seguras de Signal</string>
     <!-- Button label for more options -->
     <string name="TransferOrRestoreFragment__more_options">Más opciones</string>
 
@@ -5183,11 +5205,6 @@
 
     <!-- CreateGroupActivity -->
     <string name="CreateGroupActivity__skip">Omitir</string>
-
-    <plurals name="CreateGroupActivity__d_members">
-        <item quantity="one">%1$d participante</item>
-        <item quantity="other">%1$d participantes</item>
-    </plurals>
 
     <!-- Create group screen title displayed when there is at least one group member selected. The placeholder is the total number of group members. -->
     <plurals name="CreateGroupActivity__s_members">
@@ -5918,11 +5935,11 @@
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">No se ha podido bloquear</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
-    <string name="NewConversationActivity__s_is_not_a_signal_user">%1$s no usa Signal</string>
+    <string name="RecipientLookup_error__s_is_not_a_signal_user">%1$s no usa Signal</string>
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="NewConversationActivity__accessibility_open_top_bar_menu">Abrir menú</string>
     <!-- Error message shown in a dialog when trying to create a new group with non-signal users (e.g., unregistered or phone number only contacts) -->
-    <plurals name="CreateGroupActivity_not_signal_users">
+    <plurals name="RecipientLookup_error__not_signal_users">
         <item quantity="one">%1$s no usa Signal</item>
         <item quantity="other">%1$s no usan Signal</item>
     </plurals>
@@ -6100,7 +6117,6 @@
     <string name="BadgesOverviewFragment__featured_badge">Insignia en mi perfil</string>
     <string name="BadgesOverviewFragment__display_badges_on_profile">Mostrar insignias en mi perfil</string>
     <string name="BadgesOverviewFragment__failed_to_update_profile">No se ha podido actualizar tu perfil</string>
-
 
 
     <string name="SelectFeaturedBadgeFragment__select_a_badge">Selecciona una insignia</string>
@@ -6917,8 +6933,8 @@
     <string name="GiftFlowStartFragment__donate_for_a_friend">Donar en nombre de alguien más</string>
     <!-- Description text on start fragment for gifting a badge -->
     <plurals name="GiftFlowStartFragment__support_signal_by">
-        <item quantity="one">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. La persona que elijas recibirá una insignia para mostrar en su perfil durante %1$d día.</item>
-        <item quantity="other">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. La persona que elijas recibirá una insignia para mostrar en su perfil durante %1$d días.</item>
+        <item quantity="one">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. La persona que elijas recibirá una insignia para mostrar en su perfil durante %1$d día.</item>
+        <item quantity="other">Apoya a Signal haciendo una donación en nombre de un amigo o familiar que use Signal. La persona que elijas recibirá una insignia para mostrar en su perfil durante %1$d días.</item>
     </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">Siguiente</string>
@@ -7754,6 +7770,8 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Activar Copias Seguras de Signal</string>
+    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
+    <string name="TurnOnSignalBackups__title_beta">Prueba las Copias Seguras de Signal</string>
     <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">No perderás ningún mensaje si cambias de teléfono o vuelves a instalar Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
@@ -8034,6 +8052,12 @@
     <string name="BackupStatusRow__your_last_backup">No se ha podido completar tu última copia de seguridad. Asegúrate de que tu teléfono esté conectado a una red Wi-Fi y toca \"Iniciar copia\" para volver a intentarlo.</string>
     <!-- Text displayed when a backup could not be completed and to check that they are on the latest version of Signal -->
     <string name="BackupStatusRow__your_last_backup_latest_version">No se ha podido completar tu última copia de seguridad. Asegúrate de estar usando la última versión de Signal y vuelve a intentarlo.</string>
+    <!-- Text displayed when a backup file exceeds the storage limit during upload. -->
+    <string name="BackupStatusRow__backup_file_too_large">El número de mensajes que tienes supera el límite de almacenamiento. Elimina algunos mensajes y vuelve a intentarlo.</string>
+    <!-- Text displayed when we\'re not backing up all messages. The placeholder represents the cutoff date for the messages we\'re backing up. -->
+    <string name="BackupStatusRow__not_backing_up_old_messages">No se está haciendo copia de seguridad de los mensajes que has enviado o recibido antes del %1$s.</string>
+    <!-- Text displayed when we failed to create a backup because of low disk space. -->
+    <string name="BackupStatusRow__not_enough_disk_space">No se ha podido completar tu copia de seguridad porque tienes poco espacio de almacenamiento. Libera espacio en tu dispositivo y vuelve a intentarlo.</string>
     <!-- Text displayed in a row to learn more about why a backup failed -->
     <string name="BackupStatusRow__learn_more">Más información</string>
 
@@ -8497,6 +8521,12 @@
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Crea una nueva clave de recuperación</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Solo necesitas crear una clave nueva si otra persona sabe tu clave actual. Tendrás que volver a cargar tu copia de seguridad, incluidos los archivos multimedia. Si estás utilizando la función \"Optimizar almacenamiento\", primero deberás descargar los archivos que se han eliminado del dispositivo.</string>
+    <!-- Dialog title shown when user attempts to exit backup setup before completion -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">¿Salir de los ajustes de las copias de seguridad?</string>
+    <!-- Dialog body warning user that backup setup is incomplete -->
+    <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">No has terminado de configurar tus copias de seguridad y no se ha creado ninguna copia de seguridad. Puedes activar las copias de seguridad en Ajustes.</string>
+    <!-- Dialog confirmation button to exit backup setup -->
+    <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Salir de ajustes</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -8761,6 +8791,16 @@
     <!-- No backup to Restore tonal cta to skip restore -->
     <string name="NoBackupToRestore_skip_restore">Omitir restauración</string>
 
+    <!-- Dialog title when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_title">Se ha alcanzado el límite de claves de recuperación</string>
+    <!-- Dialog body when the recovery key change limit is reached -->
+    <string name="MessageBackupsKeyRecordScreen__limit_reached_body">Has creado correctamente una nueva clave de recuperación. Sin embargo, para evitar usos inadecuados, el número de claves nuevas que puedes crear es limitado. No podrás crear otra clave hasta dentro de 7 días. Guarda tu clave de recuperación en un lugar seguro y protegido.</string>
+    <!-- Dialog title when the recovery key change limit is exhausted and you cannot create a new key -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_title">No se puede crear una nueva clave</string>
+    <!-- Dialog body when the recovery key change limit is exhausted and you cannot create a new key. Placeholder is number of days remaining until they can create a new key. -->
+    <string name="MessageBackupsKeyRecordScreen__limit_exceeded_body">Has agotado la cantidad de claves nuevas que puedes crear. Podrás crear una nueva clave de recuperación en 7 días. Si crees que alguien puede acceder a tu copia de seguridad, puedes elegir \"Desactivar y eliminar copia de seguridad\".</string>
+    <!-- Button to acknowledge and dismiss dialog   -->
+    <string name="MessageBackupsKeyRecordScreen__ok">Aceptar</string>
     <!-- Accessibility label for close search button in MainToolbar -->
     <string name="MainToolbar__close_search_content_description">Cerrar búsqueda</string>
     <!-- Accessibility label for clear search query in MainToolbar -->
@@ -8822,6 +8862,8 @@
     <string name="Poll__poll_question">Encuesta: %1$s</string>
     <!-- Notification message sent when a poll ends. %1$s is the creator. %2$s is the question of the poll -->
     <string name="Poll__poll_end">%1$s ha finalizado la encuesta \"%2$s\"</string>
+    <!-- Thread body message when a poll ends. %1$s is the question of the poll -->
+    <string name="Poll__you_poll_end">Has finalizado la encuesta \"%1$s\"</string>
     <!-- Notification message sent when someone votes in the poll. %1$s is the voter. %2$s is the question of the poll -->
     <string name="Poll__poll_voted">%1$s ha votado en la encuesta \"%2$s\"</string>
     <!-- Option in settings to configure notifications for polls -->
@@ -8847,6 +8889,12 @@
     <string name="Poll__couldnt_end_poll">No se ha podido finalizar la encuesta</string>
     <!-- Dialog body when a poll fails to end and to try again -->
     <string name="Poll__check_connection">Comprueba tu conexión e inténtalo de nuevo.</string>
+    <!-- Dialog title when you go to end a poll -->
+    <string name="Poll__end_poll_title">¿Finalizar encuesta?</string>
+    <!-- Dialog body when you go to end a poll -->
+    <string name="Poll__end_poll_body">Los participantes del grupo ya no podrán votar en esta encuesta.</string>
+    <!-- Body used in dialog when we are waiting for network -->
+    <string name="Poll__waiting_for_network">Esperando red…</string>
     <!-- Header when creating a new poll -->
     <string name="CreatePollFragment__new_poll">Nueva encuesta</string>
     <!-- Section text to enter in a question for a poll  -->
@@ -8898,7 +8946,7 @@
     <!-- Label for text field where user describes their call quality issue -->
     <string name="CallQualitySomethingElseScreen__describe_your_issue">Describe tu problema</string>
     <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
-    <string name="CallQualitySomethingElseScreen__privacy_notice">Incluye cualquier detalle relevante sobre el problema. Garantizamos la privacidad de todo lo que compartas aquí. Solo se usará para ayudarnos a mejorar las llamadas en Signal.</string>
+    <string name="CallQualitySomethingElseScreen__privacy_notice">Incluye cualquier detalle relevante sobre el problema. Garantizamos la privacidad de toda la información que compartas aquí. Solo se usará para ayudarnos a mejorar las llamadas en Signal.</string>
     <!-- Button to save the call quality issue description -->
     <string name="CallQualitySomethingElseScreen__save">Guardar</string>
     <!-- Content description for the back navigation button -->

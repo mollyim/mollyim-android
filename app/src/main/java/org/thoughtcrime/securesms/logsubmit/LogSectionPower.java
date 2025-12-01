@@ -33,4 +33,9 @@ public class LogSectionPower implements LogSection {
                               .append("Lowest bucket : ").append(BucketInfo.bucketToString(info.getWorstBucket())).append("\n\n")
                               .append(info.getHistory());
   }
+
+  @Override
+  @NonNull public CharSequence getContentLocked(@NonNull Context context) {
+    return getContent(context);
+  }
 }

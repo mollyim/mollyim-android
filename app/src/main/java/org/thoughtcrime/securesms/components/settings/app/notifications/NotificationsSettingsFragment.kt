@@ -11,7 +11,6 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.launch
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -300,7 +299,6 @@ open class DefaultNotificationsSettingsCallbacks(
     viewModel.setMessageNotificationPrivacy(selection)
   }
 
-  @RequiresApi(23)
   override fun onTroubleshootNotificationsClick() {
     PromptBatterySaverDialogFragment.show(activity.supportFragmentManager)
   }

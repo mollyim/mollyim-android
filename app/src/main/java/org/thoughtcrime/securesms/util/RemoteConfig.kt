@@ -1153,7 +1153,7 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("polls")
   val polls: Boolean by remoteBoolean(
-    key = "android.polls",
+    key = "android.polls.2",
     defaultValue = false,
     hotSwappable = true
   )
@@ -1163,7 +1163,7 @@ object RemoteConfig {
   @get:JvmName("useBinaryId")
   val useBinaryId: Boolean by remoteBoolean(
     key = "android.useBinaryServiceId",
-    defaultValue = false,
+    defaultValue = Environment.IS_STAGING,
     hotSwappable = false
   )
 

@@ -18,4 +18,9 @@ public class LogSectionLogcat implements LogSection {
     CharSequence logs = AndroidLogger.getLogcatDump();
     return logs != null ? logs : "Failed to get logcat dump";
   }
+
+  @Override
+  @NonNull public CharSequence getContentLocked(@NonNull Context context) {
+    return getContent(context);
+  }
 }
