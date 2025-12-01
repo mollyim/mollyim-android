@@ -91,8 +91,6 @@ include(":donations")
 //include(":donations-app")
 include(":debuglogs-viewer")
 //include(":debuglogs-viewer-app")
-include(":spinner")
-//include(":spinner-app")
 include(":contacts")
 //include(":contacts-app")
 include(":qr")
@@ -120,9 +118,6 @@ project(":donations").projectDir = file("donations/lib")
 
 project(":debuglogs-viewer").projectDir = file("debuglogs-viewer/lib")
 //project(":debuglogs-viewer-app").projectDir = file("debuglogs-viewer/app")
-
-project(":spinner").projectDir = file("spinner/lib")
-//project(":spinner-app").projectDir = file("spinner/app")
 
 project(":contacts").projectDir = file("contacts/lib")
 //project(":contacts-app").projectDir = file("contacts/app")

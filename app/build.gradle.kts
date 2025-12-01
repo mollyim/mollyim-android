@@ -25,7 +25,6 @@ val selectableVariants = listOf(
   "prodGmsWebsiteDebug",
   "prodGmsWebsiteRelease",
   "prodGmsWebsiteInstrumentation",
-  "prodGmsWebsiteSpinner",
   "stagingFossWebsiteDebug",
   "stagingFossWebsiteRelease",
   "stagingGmsWebsiteDebug",
@@ -280,13 +279,6 @@ android {
       applicationIdSuffix = ".instrumentation"
 
       buildConfigField("String", "STRIPE_BASE_URL", "\"http://127.0.0.1:8080/stripe\"")
-    }
-
-    create("spinner") {
-      initWith(getByName("debug"))
-      isDefault = false
-      isMinifyEnabled = false
-      matchingFallbacks += "debug"
     }
   }
 
@@ -546,8 +538,6 @@ dependencies {
   }
 
   "gmsImplementation"(project(":billing"))
-
-  "spinnerImplementation"(project(":spinner"))
 
   "instrumentationImplementation"(libs.androidx.fragment.testing) {
     exclude(group = "androidx.test", module = "core")
