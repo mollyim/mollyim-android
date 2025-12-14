@@ -471,14 +471,18 @@ dependencies {
   implementation(libs.androidx.emoji2)
   implementation(libs.androidx.splashscreen)
   implementation(libs.androidx.webkit)
-  "gmsImplementation"(libs.firebase.messaging) {
+  implementation(libs.firebase.messaging) {
     exclude(group = "com.google.firebase", module = "firebase-core")
     exclude(group = "com.google.firebase", module = "firebase-analytics")
     exclude(group = "com.google.firebase", module = "firebase-measurement-connector")
+    exclude(group = "com.google.firebase", module = "firebase-iid-interop")
+    exclude(group = "com.google.android.gms", module = "play-services-base")
+    exclude(group = "com.google.android.gms", module = "play-services-basement")
+    exclude(group = "com.google.android.gms", module = "play-services-cloud-messaging")
+    exclude(group = "com.google.android.gms", module = "play-services-stats")
+    exclude(group = "com.google.android.gms", module = "play-services-tasks")
   }
-  "gmsImplementation"(libs.google.play.services.maps)
-  "gmsImplementation"(libs.google.play.services.auth)
-  "fossImplementation"(project(":libfakegms"))
+  implementation(project(":core-gms:cloud-messaging"))
   implementation(libs.bundles.media3)
   implementation(libs.conscrypt.android)
   implementation(libs.signal.aesgcmprovider)
@@ -515,21 +519,22 @@ dependencies {
   implementation(libs.accompanist.drawablepainter)
   implementation(libs.kotlin.stdlib.jdk8)
   implementation(libs.kotlin.reflect)
-  "gmsImplementation"(libs.kotlinx.coroutines.play.services)
+  implementation(libs.kotlinx.coroutines.play.services) {
+    exclude(group = "com.google.android.gms", module = "play-services-tasks")
+  }
   implementation(libs.kotlinx.coroutines.rx3)
   implementation(libs.jackson.module.kotlin)
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.rxdogtag)
   implementation(libs.androidx.credentials)
-  "gmsImplementation"(libs.androidx.credentials.compat)
   implementation(libs.kotlinx.serialization.json)
 
   implementation(project(":libnetcipher"))
   implementation(libs.molly.argon2) { artifact { type = "aar" } }
   implementation(libs.molly.native.utils)
   implementation(libs.gosimple.nbvcxz)
-  "fossImplementation"(libs.osmdroid.android)
+  implementation(libs.osmdroid.android)
   implementation(libs.unifiedpush.connector) {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
     exclude(group = "com.google.protobuf", module = "protobuf-java")
@@ -586,8 +591,12 @@ licensee {
   allow("BSD-2-Clause")
   allow("CC0-1.0")
   allow("MIT")
-  allowDependency("im.molly", "native-utils", "1.0.0")
-  allowDependency("org.signal", "sqlcipher-android", "4.6.0-S1")
+  allowDependency("im.molly", "native-utils", "1.0.0") {
+    because("AGPL-3.0-or-later")
+  }
+  allowDependency("org.signal", "sqlcipher-android", "4.6.0-S1") {
+    because("BSD-3-Clause")
+  }
   allowUrl("http://opensource.org/licenses/bsd-license.php")
   allowUrl("https://www.gnu.org/licenses/agpl-3.0.html")
   allowUrl("https://www.gnu.org/licenses/agpl-3.0.txt")

@@ -74,7 +74,11 @@ if (libsignalClientPath is String) {
 
 include(":app")
 include(":libsignal-service")
-include(":libfakegms")
+includeProject("core-gms:base", "core-gms/base")
+includeProject("core-gms:cloud-messaging", "core-gms/cloud-messaging")
+includeProject("core-gms:safeparcel", "core-gms/safeparcel")
+includeProject("core-gms:safeparcel-processor", "core-gms/safeparcel-processor")
+includeProject("core-gms:tasks", "core-gms/tasks")
 include(":libnetcipher")
 include(":lintchecks")
 include(":paging")
@@ -131,3 +135,9 @@ project(":registration").projectDir = file("registration/lib")
 //project(":registration-app").projectDir = file("registration/app")
 
 rootProject.name = "Molly"
+
+fun includeProject(projectName: String, projectRoot: String) {
+  val projectId = ":$projectName"
+  include(projectId)
+  project(projectId).projectDir = file(projectRoot)
+}

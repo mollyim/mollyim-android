@@ -225,7 +225,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addNonBlocking(this::initializeScheduledMessageManager)
               .addNonBlocking(PreKeysSyncJob::enqueueIfNeeded)
               .addNonBlocking(this::initializePeriodicTasks)
-              .addNonBlocking(this::initializeCircumvention)
               .addNonBlocking(this::initializeCleanup)
               .addNonBlocking(this::initializeGlideCodecs)
               .addNonBlocking(StorageSyncHelper::scheduleRoutineSync)
@@ -643,17 +642,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
       CallManager.initialize(this, new RingRtcLogger(), fieldTrials);
     } catch (UnsatisfiedLinkError e) {
       throw new AssertionError("Unable to load ringrtc library", e);
-    }
-  }
-
-  @WorkerThread
-  private void initializeCircumvention() {
-    if (AppDependencies.getSignalServiceNetworkAccess().isCensored()) {
-      try {
-        ProviderInstaller.installIfNeeded(ApplicationContext.this);
-      } catch (Throwable t) {
-        Log.w(TAG, t);
-      }
     }
   }
 

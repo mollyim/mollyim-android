@@ -9,15 +9,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.ActivityNavigator
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.registration.sms.SmsRetrieverReceiver
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 
@@ -30,12 +27,6 @@ class RegistrationActivity : PassphraseRequiredActivity() {
 
   private val dynamicTheme = DynamicNoActionBarTheme()
   val sharedViewModel: RegistrationViewModel by viewModels()
-
-  private var smsRetrieverReceiver: SmsRetrieverReceiver? = null
-
-  init {
-    lifecycle.addObserver(SmsRetrieverObserver())
-  }
 
   override fun onPreCreate() {
     super.onPreCreate()
@@ -69,18 +60,6 @@ class RegistrationActivity : PassphraseRequiredActivity() {
     startActivity(MainActivity.clearTop(this))
     finish()
     ActivityNavigator.applyPopAnimationsToPendingTransition(this)
-  }
-
-  private inner class SmsRetrieverObserver : DefaultLifecycleObserver {
-    override fun onCreate(owner: LifecycleOwner) {
-      smsRetrieverReceiver = SmsRetrieverReceiver(application)
-      smsRetrieverReceiver?.registerReceiver()
-    }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-      smsRetrieverReceiver?.unregisterReceiver()
-      smsRetrieverReceiver = null
-    }
   }
 
   companion object {

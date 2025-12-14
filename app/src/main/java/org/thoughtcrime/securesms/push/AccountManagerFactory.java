@@ -5,9 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
-import com.google.android.gms.security.ProviderInstaller;
-
-import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -45,16 +42,6 @@ public class AccountManagerFactory {
                                                                     int deviceId,
                                                                     @NonNull String password)
   {
-    if (new SignalServiceNetworkAccess(context).isCensored(e164)) {
-      SignalExecutors.BOUNDED.execute(() -> {
-        try {
-          ProviderInstaller.installIfNeeded(context);
-        } catch (Throwable t) {
-          Log.w(TAG, t);
-        }
-      });
-    }
-
     return SignalServiceAccountManager.createWithStaticCredentials(
         AppDependencies.getSignalServiceNetworkAccess().getConfiguration(e164),
         null,

@@ -29,8 +29,6 @@ import androidx.lifecycle.map
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.i18n.phonenumbers.AsYouTypeFormatter
@@ -353,7 +351,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       }
 
       EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE -> {
-        GoogleApiAvailability.getInstance().getErrorDialog(requireActivity(), ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED, 0)?.show()
       }
 
       EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT -> {
