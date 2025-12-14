@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe
 
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.wallet.PaymentData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -11,7 +10,6 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
-import org.signal.donations.GooglePayPaymentSource
 import org.signal.donations.InAppPaymentType
 import org.signal.donations.PaymentSource
 import org.signal.donations.PaymentSourceType
@@ -93,11 +91,6 @@ class StripePaymentInProgressViewModel : ViewModel() {
 
   private fun resolvePaymentSourceProvider(errorSource: DonationErrorSource): PaymentSourceProvider {
     return when (val data = stripePaymentData) {
-      is StripePaymentData.GooglePay -> PaymentSourceProvider(
-        PaymentSourceType.Stripe.GooglePay,
-        Single.just<PaymentSource>(GooglePayPaymentSource(data.paymentData)).doAfterTerminate { clearPaymentInformation() }
-      )
-
       is StripePaymentData.CreditCard -> PaymentSourceProvider(
         PaymentSourceType.Stripe.CreditCard,
         StripeRepository.createCreditCardPaymentSource(errorSource, data.cardData).doAfterTerminate { clearPaymentInformation() }
@@ -115,11 +108,6 @@ class StripePaymentInProgressViewModel : ViewModel() {
 
       else -> error("This should never happen.")
     }
-  }
-
-  fun providePaymentData(paymentData: PaymentData) {
-    requireNoPaymentInformation()
-    this.stripePaymentData = StripePaymentData.GooglePay(paymentData)
   }
 
   fun provideCardData(cardData: StripeApi.CardData) {
@@ -204,7 +192,6 @@ class StripePaymentInProgressViewModel : ViewModel() {
   )
 
   private sealed interface StripePaymentData {
-    class GooglePay(val paymentData: PaymentData) : StripePaymentData
     class CreditCard(val cardData: StripeApi.CardData) : StripePaymentData
     class SEPADebit(val sepaDebitData: StripeApi.SEPADebitData) : StripePaymentData
     class IDEAL(val idealData: StripeApi.IDEALData) : StripePaymentData

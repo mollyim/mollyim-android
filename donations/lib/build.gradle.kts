@@ -35,7 +35,5 @@ dependencies {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
 
-  "gmsApi"(libs.google.play.services.wallet)
-  "fossApi"(project(":libfakegms"))
   api(libs.square.okhttp3)
 }

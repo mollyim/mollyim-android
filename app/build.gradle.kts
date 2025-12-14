@@ -538,8 +538,6 @@ dependencies {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
   }
 
-  "gmsImplementation"(project(":billing"))
-
   "instrumentationImplementation"(libs.androidx.fragment.testing) {
     exclude(group = "androidx.test", module = "core")
   }

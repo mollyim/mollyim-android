@@ -100,7 +100,6 @@ include(":photoview")
 include(":core-ui")
 include(":video")
 //include(":video-app")
-include(":billing")
 include(":registration")
 //include(":registration-app")
 
