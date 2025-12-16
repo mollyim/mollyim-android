@@ -472,9 +472,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
   private void cleanCacheDir() {
     SignalExecutors.BOUNDED.execute(() -> {
-      if (BuildConfig.USE_OSM) {
-        FileUtils.deleteDirectoryContents(StorageUtil.getTileCacheDirectory(this));
-      }
+      FileUtils.deleteDirectoryContents(StorageUtil.getTileCacheDirectory(this));
     });
   }
 

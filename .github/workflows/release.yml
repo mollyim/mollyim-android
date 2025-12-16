@@ -68,7 +68,6 @@ jobs:
           PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
           BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
           FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
-          MAPS_API_KEY: ${{ vars.CI_MAPS_API_KEY }}
 
       - name: Extract signing keys
         if: "env.HAVE_KEYSTORE == 'true'"

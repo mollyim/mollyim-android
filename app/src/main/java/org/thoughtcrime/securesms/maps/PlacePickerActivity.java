@@ -98,13 +98,15 @@ public final class PlacePickerActivity extends AppCompatActivity {
     View markerImage = findViewById(R.id.marker_image_view);
     View fab         = findViewById(R.id.place_chosen_button);
 
-    if (BuildConfig.USE_OSM) {
-      findViewById(R.id.map_type_overlay).setVisibility(View.GONE);
-    } else {
-      findViewById(R.id.btnMapTypeNormal).setOnClickListener(v -> handleMapType("normal"));
-      findViewById(R.id.btnMapTypeSatellite).setOnClickListener(v -> handleMapType("satellite"));
-      findViewById(R.id.btnMapTypeTerrain).setOnClickListener(v -> handleMapType("terrain"));
-    }
+    // MOLLY: TODO
+    // if (BuildConfig.USE_OSM) {
+    //   findViewById(R.id.map_type_overlay).setVisibility(View.GONE);
+    // } else {
+    //   findViewById(R.id.btnMapTypeNormal).setOnClickListener(v -> handleMapType("normal"));
+    //   findViewById(R.id.btnMapTypeSatellite).setOnClickListener(v -> handleMapType("satellite"));
+    //   findViewById(R.id.btnMapTypeTerrain).setOnClickListener(v -> handleMapType("terrain"));
+    // }
+    findViewById(R.id.map_type_overlay).setVisibility(View.GONE);
 
     ViewCompat.setBackgroundTintList(fab, ColorStateList.valueOf(getIntent().getIntExtra(KEY_CHAT_COLOR, Color.RED)));
     fab.setOnClickListener(v -> finishWithAddress());

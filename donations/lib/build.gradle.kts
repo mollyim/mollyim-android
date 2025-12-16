@@ -9,19 +9,6 @@ android {
   buildFeatures {
     buildConfig = true
   }
-
-  flavorDimensions += "license"
-
-  productFlavors {
-    create("gms") {
-      dimension = "license"
-      isDefault = true
-    }
-
-    create("foss") {
-      dimension = "license"
-    }
-  }
 }
 
 dependencies {

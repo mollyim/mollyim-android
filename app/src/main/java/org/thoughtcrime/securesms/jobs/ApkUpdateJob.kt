@@ -62,7 +62,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
 
   @Throws(IOException::class)
   public override fun onRun() {
-    if (!BuildConfig.MANAGES_MOLLY_UPDATES || !TextSecurePreferences.isUpdateApkEnabled(context)) {
+    if (!BuildConfig.MANAGE_MOLLY_UPDATES || !TextSecurePreferences.isUpdateApkEnabled(context)) {
       Log.i(TAG, "In-app updater disabled! Exiting.")
       return
     }
