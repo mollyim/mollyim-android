@@ -299,7 +299,6 @@ android {
       dimension = "license"
       isDefault = true
       manifestPlaceholders["mapsApiKey"] = mapsApiKey
-      buildConfigField("boolean", "USE_PLAY_SERVICES", "true")
       buildConfigField("boolean", "USE_OSM", "false")
       buildConfigField("String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\"")
     }
@@ -307,7 +306,6 @@ android {
     create("foss") {
       dimension = "license"
       versionNameSuffix = "-FOSS"
-      buildConfigField("boolean", "USE_PLAY_SERVICES", "false")
       buildConfigField("boolean", "USE_OSM", "true")
       buildConfigField("String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\"")
     }

@@ -11,7 +11,6 @@ import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mms.SentMediaQuality;
@@ -527,11 +526,9 @@ public final class SettingsValues extends SignalStoreValues {
           getString(MOLLY_NOTIFICATION_METHOD, NotificationDeliveryMethod.FCM.serialize())
       );
     } else {
-      method = SignalStore.account().isFcmEnabled() ? NotificationDeliveryMethod.FCM
-                                                    : NotificationDeliveryMethod.WEBSOCKET;
-    }
-    if (!BuildConfig.USE_PLAY_SERVICES && method == NotificationDeliveryMethod.FCM) {
-      return NotificationDeliveryMethod.WEBSOCKET;
+      boolean fcmEnabled = SignalStore.account().isFcmEnabled();
+      method = fcmEnabled ? NotificationDeliveryMethod.FCM
+                          : NotificationDeliveryMethod.WEBSOCKET;
     }
     return method;
   }

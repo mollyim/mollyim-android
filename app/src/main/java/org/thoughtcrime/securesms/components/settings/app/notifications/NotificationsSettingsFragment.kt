@@ -59,7 +59,6 @@ import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.Texts
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRoute
@@ -73,7 +72,6 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.RingtoneUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -369,13 +367,11 @@ open class DefaultNotificationsSettingsCallbacks(
 
   override fun onPlayServicesError(errorCode: Int) {
     val causeId = when (errorCode) {
-      ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED -> {
-        if (PlayServicesUtil.isGooglePlayPackageEnabled(activity)) {
-          R.string.RegistrationActivity_google_play_services_is_updating_or_unavailable
-        } else {
-          R.string.NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled
-        }
-      }
+      ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ->
+        R.string.NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated
+
+      ConnectionResult.SERVICE_UPDATING ->
+        R.string.RegistrationActivity_google_play_services_is_updating_or_unavailable
 
       else -> R.string.NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled
     }
@@ -704,7 +700,7 @@ fun NotificationsSettingsScreen(
 
       val notificationMethods = NotificationDeliveryMethod.entries.filter { method ->
         when (method) {
-          NotificationDeliveryMethod.FCM -> BuildConfig.USE_PLAY_SERVICES
+          NotificationDeliveryMethod.FCM -> true
           NotificationDeliveryMethod.WEBSOCKET -> true
           NotificationDeliveryMethod.UNIFIEDPUSH -> !state.isLinkedDevice
         }

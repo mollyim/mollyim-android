@@ -30,7 +30,6 @@ import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.security.ProviderInstaller;
 
 import org.conscrypt.ConscryptSignal;
 import org.greenrobot.eventbus.EventBus;
@@ -529,7 +528,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
     boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
     boolean unifiedPushEnabled = SignalStore.unifiedpush().isEnabled();
 
-    if (method != NotificationDeliveryMethod.FCM || !BuildConfig.USE_PLAY_SERVICES) {
+    if (method != NotificationDeliveryMethod.FCM) {
       if (fcmEnabled) {
         Log.i(TAG, "Play Services not allowed. Disabling FCM.");
         updateFcmStatus(false);
