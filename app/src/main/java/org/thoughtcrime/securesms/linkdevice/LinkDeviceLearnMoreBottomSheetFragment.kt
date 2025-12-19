@@ -117,7 +117,7 @@ private fun LinkedDeviceInformationRow(
 @DayNightPreviews
 @Composable
 fun LearnMorePreview() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     LearnMoreSheet()
   }
 }

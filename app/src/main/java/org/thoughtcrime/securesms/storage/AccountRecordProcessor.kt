@@ -138,6 +138,7 @@ class AccountRecordProcessor(
       username = remote.proto.username
       usernameLink = remote.proto.usernameLink
       notificationProfileManualOverride = remote.proto.notificationProfileManualOverride
+      backupTier = local.proto.backupTier ?: remote.proto.backupTier
       avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())

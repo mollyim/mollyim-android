@@ -438,7 +438,7 @@ private fun rememberSecondaryAction(
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewGeneric() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.CouldNotCompleteBackup(daysSinceLastBackup = 7)
     val primaryActionButtonState = rememberPrimaryAction(backupAlert) { }
     val secondaryActionButtonState = rememberSecondaryAction(backupAlert) { }
@@ -450,7 +450,7 @@ private fun BackupAlertSheetContentPreviewGeneric() {
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewPayment() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.FailedToRenew
     val primaryActionButtonState = rememberPrimaryAction(backupAlert) { }
     val secondaryActionButtonState = rememberSecondaryAction(backupAlert) { }
@@ -462,7 +462,7 @@ private fun BackupAlertSheetContentPreviewPayment() {
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewDelete() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.DownloadYourBackupData(
       isLastDay = false,
       formattedSize = "2.3MB"
@@ -477,7 +477,7 @@ private fun BackupAlertSheetContentPreviewDelete() {
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewDiskFull() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.DiskFull(requiredSpace = "12GB")
     val primaryActionButtonState = rememberPrimaryAction(backupAlert) { }
     val secondaryActionButtonState = rememberSecondaryAction(backupAlert) { }
@@ -489,7 +489,7 @@ private fun BackupAlertSheetContentPreviewDiskFull() {
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewBackupFailed() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.BackupFailed
     val primaryActionButtonState = rememberPrimaryAction(backupAlert) { }
     val secondaryActionButtonState = rememberSecondaryAction(backupAlert) { }
@@ -501,7 +501,7 @@ private fun BackupAlertSheetContentPreviewBackupFailed() {
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewCouldNotRedeemBackup() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.CouldNotRedeemBackup
     val primaryActionButtonState = rememberPrimaryAction(backupAlert) { }
     val secondaryActionButtonState = rememberSecondaryAction(backupAlert) { }
@@ -513,7 +513,7 @@ private fun BackupAlertSheetContentPreviewCouldNotRedeemBackup() {
 @DayNightPreviews
 @Composable
 private fun BackupAlertSheetContentPreviewSubscriptionExpired() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     val backupAlert = BackupAlert.ExpiredAndDowngraded
     val primaryActionButtonState = rememberPrimaryAction(backupAlert) { }
     val secondaryActionButtonState = rememberSecondaryAction(backupAlert) { }

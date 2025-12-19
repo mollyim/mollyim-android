@@ -8,8 +8,9 @@ package org.thoughtcrime.securesms.backup.v2.processor
 import android.content.Context
 import okio.ByteString.Companion.EMPTY
 import okio.ByteString.Companion.toByteString
-import org.signal.core.util.isNotNullOrBlank
+import org.signal.core.util.UuidUtil
 import org.signal.core.util.logging.Log
+import org.signal.core.util.toByteArray
 import org.signal.libsignal.zkgroup.backups.BackupLevel
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.backup.v2.ExportState
@@ -41,6 +42,7 @@ import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.ProfileUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -49,8 +51,6 @@ import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId.AppleIAPOriginalTransactionId
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId.GooglePlayBillingPurchaseToken
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
-import org.whispersystems.signalservice.api.util.UuidUtil
-import org.whispersystems.signalservice.api.util.toByteArray
 import java.util.Currency
 
 /**
@@ -79,6 +79,8 @@ object AccountDataArchiveProcessor {
     val mobileAutoDownload = TextSecurePreferences.getMobileMediaDownloadAllowed(context)
     val wifiAutoDownload = TextSecurePreferences.getWifiMediaDownloadAllowed(context)
 
+    val username = selfRecord.username?.takeIf { it.isValidUsername() }
+
     emitter.emit(
       Frame(
         account = AccountData(
@@ -87,8 +89,8 @@ object AccountDataArchiveProcessor {
           familyName = selfRecord.signalProfileName.familyName,
           avatarUrlPath = selfRecord.signalProfileAvatar ?: "",
           svrPin = SignalStore.svr.pin ?: "",
-          username = selfRecord.username?.takeIf { it.isValidUsername() },
-          usernameLink = if (selfRecord.username.isNotNullOrBlank() && signalStore.accountValues.usernameLink != null) {
+          username = username,
+          usernameLink = if (username != null && signalStore.accountValues.usernameLink != null) {
             AccountData.UsernameLink(
               entropy = signalStore.accountValues.usernameLink?.entropy?.toByteString() ?: EMPTY,
               serverId = signalStore.accountValues.usernameLink?.serverId?.toByteArray()?.toByteString() ?: EMPTY,
@@ -102,6 +104,7 @@ object AccountDataArchiveProcessor {
             typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(context),
             readReceipts = TextSecurePreferences.isReadReceiptsEnabled(context),
             sealedSenderIndicators = TextSecurePreferences.isShowUnidentifiedDeliveryIndicatorsEnabled(context),
+            allowSealedSenderFromAnyone = TextSecurePreferences.isUniversalUnidentifiedAccess(context),
             linkPreviews = signalStore.settingsValues.isLinkPreviewsEnabled,
             notDiscoverableByPhoneNumber = signalStore.phoneNumberPrivacyValues.phoneNumberDiscoverabilityMode == PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE,
             phoneNumberSharingMode = signalStore.phoneNumberPrivacyValues.phoneNumberSharingMode.toRemotePhoneNumberSharingMode(),
@@ -142,7 +145,7 @@ object AccountDataArchiveProcessor {
             useSystemEmoji = signalStore.settingsValues.isPreferSystemEmoji,
             screenshotSecurity = TextSecurePreferences.isScreenSecurityEnabled(context),
             navigationBarSize = signalStore.settingsValues.useCompactNavigationBar.toRemoteNavigationBarSize()
-          ),
+          ).takeUnless { Environment.IS_INSTRUMENTATION && SignalStore.backup.importedEmptyAndroidSettings },
           bioText = selfRecord.about ?: "",
           bioEmoji = selfRecord.aboutEmoji ?: ""
         )
@@ -168,7 +171,9 @@ object AccountDataArchiveProcessor {
     if (accountData.androidSpecificSettings != null) {
       SignalStore.settings.isPreferSystemEmoji = accountData.androidSpecificSettings.useSystemEmoji
       TextSecurePreferences.setScreenSecurityEnabled(context, accountData.androidSpecificSettings.screenshotSecurity)
-      SignalStore.settings.setUseCompactNavigationBar(accountData.androidSpecificSettings.navigationBarSize.toLocalNavigationBarSize())
+      SignalStore.settings.useCompactNavigationBar = accountData.androidSpecificSettings.navigationBarSize.toLocalNavigationBarSize()
+    } else if (Environment.IS_INSTRUMENTATION) {
+      SignalStore.backup.importedEmptyAndroidSettings = true
     }
 
     if (accountData.bioText.isNotBlank() || accountData.bioEmoji.isNotBlank()) {
@@ -260,11 +265,11 @@ object AccountDataArchiveProcessor {
     SignalStore.settings.setCallDataMode(settings.callsUseLessDataSetting.toLocalCallDataMode())
 
     if (settings.autoDownloadSettings != null) {
-      val mobileDownloadSet = settings.autoDownloadSettings.toLocalAutoDownloadSet(AccountData.AutoDownloadSettings.AutoDownloadOption.WIFI_AND_CELLULAR)
-      val wifiDownloadSet = settings.autoDownloadSettings.toLocalAutoDownloadSet(AccountData.AutoDownloadSettings.AutoDownloadOption.WIFI)
+      val mobileAndWifiDownloadSet = settings.autoDownloadSettings.toLocalAutoDownloadSet(AccountData.AutoDownloadSettings.AutoDownloadOption.WIFI_AND_CELLULAR)
+      val wifiDownloadSet = mobileAndWifiDownloadSet + settings.autoDownloadSettings.toLocalAutoDownloadSet(AccountData.AutoDownloadSettings.AutoDownloadOption.WIFI)
 
       SecurePreferenceManager.getSecurePreferences(context).edit().apply {
-        putStringSet(TextSecurePreferences.MEDIA_DOWNLOAD_MOBILE_PREF, mobileDownloadSet)
+        putStringSet(TextSecurePreferences.MEDIA_DOWNLOAD_MOBILE_PREF, mobileAndWifiDownloadSet)
         putStringSet(TextSecurePreferences.MEDIA_DOWNLOAD_WIFI_PREF, wifiDownloadSet)
         apply()
       }

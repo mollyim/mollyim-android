@@ -1107,13 +1107,6 @@ object RemoteConfig {
     hotSwappable = false
   )
 
-  /** Whether to allow different WindowSizeClasses to be used to determine screen layout */
-  val largeScreenUi: Boolean by remoteBoolean(
-    key = "android.largeScreenUI.2",
-    hotSwappable = false,
-    defaultValue = false
-  )
-
   @JvmStatic
   @get:JvmName("useMessageSendRestFallback")
   val useMessageSendRestFallback: Boolean by remoteBoolean(
@@ -1172,6 +1165,54 @@ object RemoteConfig {
   val receivePolls: Boolean by remoteBoolean(
     key = "android.receivePolls",
     defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("backupsBetaMegaphone")
+  val backupsBetaMegaphone: Boolean by remoteBoolean(
+    key = "android.backupsBetaMegaphone",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("pinLimit")
+  val pinLimit: Int by remoteInt(
+    key = "global.pinnedMessageLimit",
+    defaultValue = 3,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("receivePinnedMessages")
+  val receivePinnedMessages: Boolean by remoteBoolean(
+    key = "android.receivePinnedMessages",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("sendPinnedMessages")
+  val sendPinnedMessages: Boolean by remoteBoolean(
+    key = "android.sendPinnedMessages",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("callQualitySurvey")
+  val callQualitySurvey: Boolean by remoteBoolean(
+    key = "android.callQualitySurvey.4",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("callQualitySurveyPPM")
+  val callQualitySurveyPPM: String by remoteString(
+    key = "android.callQualitySurveyPPM",
+    defaultValue = "*:10000",
     hotSwappable = true
   )
   // endregion

@@ -49,8 +49,9 @@ import org.signal.core.util.ThreadUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.concurrent.SignalExecutors
+import org.signal.core.util.isInMultiWindowModeCompat
 import org.signal.core.util.logging.Log
-import org.signal.ringrtc.GroupCall
+import org.signal.ringrtc.CallManager
 import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
@@ -295,7 +296,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       requestNewSizesThrottle.clear()
     }
 
-    if (!isChangingConfigurations) {
+    if (!isChangingConfigurations && !isInMultiWindowModeCompat()) {
       AppDependencies.signalCallManager.setEnableVideo(false)
     }
 
@@ -411,7 +412,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       WebRtcViewModel.State.CALL_RINGING -> handleCallRinging()
       WebRtcViewModel.State.CALL_BUSY -> handleCallBusy()
       WebRtcViewModel.State.CALL_DISCONNECTED -> {
-        if (event.groupCallEndReason == GroupCall.GroupCallEndReason.HAS_MAX_DEVICES) {
+        if (event.groupCallEndReason == CallManager.CallEndReason.HAS_MAX_DEVICES) {
           handleGroupCallHasMaxDevices(event.recipient)
         } else {
           handleTerminate(event.recipient, HangupMessage.Type.NORMAL)

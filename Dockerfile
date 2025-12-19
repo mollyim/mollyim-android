@@ -24,7 +24,7 @@ RUN sdkmanager "platform-tools"
 
 ARG NDK_VERSION=28.0.13004108
 ARG BUILD_TOOLS_VERSION=35.0.0
-ARG COMPILE_SDK_VERSION=android-35
+ARG COMPILE_SDK_VERSION=android-36
 
 RUN sdkmanager "ndk;${NDK_VERSION}"
 RUN sdkmanager "platforms;${COMPILE_SDK_VERSION}"

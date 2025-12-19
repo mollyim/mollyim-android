@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.database.helpers.migration
 
 import android.app.Application
+import org.signal.core.models.ServiceId
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToSingleObject
@@ -14,7 +15,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
-import org.whispersystems.signalservice.api.push.ServiceId
 import java.io.IOException
 
 /**
