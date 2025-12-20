@@ -72,71 +72,35 @@ if (libsignalClientPath is String) {
   }
 }
 
-include(":app")
-include(":libsignal-service")
+includeProject("app")
+includeProject("libsignal-service")
 includeProject("core-gms:base", "core-gms/base")
 includeProject("core-gms:cloud-messaging", "core-gms/cloud-messaging")
 includeProject("core-gms:safeparcel", "core-gms/safeparcel")
 includeProject("core-gms:safeparcel-processor", "core-gms/safeparcel-processor")
 includeProject("core-gms:tasks", "core-gms/tasks")
-include(":libnetcipher")
-include(":lintchecks")
-include(":paging")
-//include(":paging-app")
-include(":core-util")
-include(":core-util-jvm")
-include(":core-models")
-include(":glide-config")
-include(":device-transfer")
-//include(":device-transfer-app")
-include(":image-editor")
-//include(":image-editor-app")
-include(":donations")
-//include(":donations-app")
-include(":debuglogs-viewer")
-//include(":debuglogs-viewer-app")
-include(":contacts")
-//include(":contacts-app")
-include(":qr")
-//include(":qr-app")
-include(":sticky-header-grid")
-include(":photoview")
-include(":core-ui")
-include(":video")
-//include(":video-app")
-include(":registration")
-//include(":registration-app")
-
-project(":paging").projectDir = file("paging/lib")
-//project(":paging-app").projectDir = file("paging/app")
-
-project(":device-transfer").projectDir = file("device-transfer/lib")
-//project(":device-transfer-app").projectDir = file("device-transfer/app")
-
-project(":image-editor").projectDir = file("image-editor/lib")
-//project(":image-editor-app").projectDir = file("image-editor/app")
-
-project(":donations").projectDir = file("donations/lib")
-//project(":donations-app").projectDir = file("donations/app")
-
-project(":debuglogs-viewer").projectDir = file("debuglogs-viewer/lib")
-//project(":debuglogs-viewer-app").projectDir = file("debuglogs-viewer/app")
-
-project(":contacts").projectDir = file("contacts/lib")
-//project(":contacts-app").projectDir = file("contacts/app")
-
-project(":qr").projectDir = file("qr/lib")
-//project(":qr-app").projectDir = file("qr/app")
-
-project(":video").projectDir = file("video/lib")
-//project(":video-app").projectDir = file("video/app")
-
-project(":registration").projectDir = file("registration/lib")
-//project(":registration-app").projectDir = file("registration/app")
+includeProject("libnetcipher")
+includeProject("lintchecks")
+includeProject("paging", "paging/lib")
+includeProject("core-util")
+includeProject("core-util-jvm")
+includeProject("core-models")
+includeProject("glide-config")
+includeProject("device-transfer", "device-transfer/lib")
+includeProject("image-editor", "image-editor/lib")
+includeProject("donations", "donations/lib")
+includeProject("debuglogs-viewer", "debuglogs-viewer/lib")
+includeProject("contacts", "contacts/lib")
+includeProject("qr", "qr/lib")
+includeProject("sticky-header-grid")
+includeProject("photoview")
+includeProject("core-ui")
+includeProject("video", "video/lib")
+includeProject("registration", "registration/lib")
 
 rootProject.name = "Molly"
 
-fun includeProject(projectName: String, projectRoot: String) {
+fun includeProject(projectName: String, projectRoot: String = projectName) {
   val projectId = ":$projectName"
   include(projectId)
   project(projectId).projectDir = file(projectRoot)
