@@ -11,7 +11,6 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
-import com.google.android.gms.wallet.PaymentData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
@@ -24,11 +23,8 @@ import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.logging.Log
-import org.signal.donations.GooglePayApi
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
-import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppDonations
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository.toPaymentSourceType
@@ -43,7 +39,6 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.errors.Do
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
-import org.thoughtcrime.securesms.util.fragments.requireListener
 
 /**
  * Abstracts out some common UI-level interactions between gift flow and normal donate flow.
@@ -58,7 +53,6 @@ class InAppPaymentCheckoutDelegate(
     private val TAG = Log.tag(InAppPaymentCheckoutDelegate::class.java)
   }
 
-  private val googlePayComponent: GooglePayComponent by lazy { fragment.requireListener() }
   private val disposables = LifecycleDisposable()
   private val viewModel: DonationCheckoutViewModel by fragment.viewModels()
 
@@ -73,7 +67,6 @@ class InAppPaymentCheckoutDelegate(
 
   override fun onCreate(owner: LifecycleOwner) {
     disposables.bindTo(fragment.viewLifecycleOwner)
-    registerGooglePayCallback()
 
     fragment.setFragmentResultListener(StripePaymentInProgressFragment.REQUEST_KEY) { _, bundle ->
       val result: InAppPaymentProcessorActionResult = bundle.getParcelableCompat(StripePaymentInProgressFragment.REQUEST_KEY, InAppPaymentProcessorActionResult::class.java)!!
@@ -104,7 +97,7 @@ class InAppPaymentCheckoutDelegate(
   fun handleGatewaySelectionResponse(inAppPayment: InAppPaymentTable.InAppPayment) {
     if (InAppDonations.isDonationsPaymentSourceAvailable(inAppPayment.data.paymentMethodType.toPaymentSourceType(), inAppPayment.type)) {
       when (inAppPayment.data.paymentMethodType) {
-        InAppPaymentData.PaymentMethodType.GOOGLE_PAY -> launchGooglePay(inAppPayment)
+        InAppPaymentData.PaymentMethodType.GOOGLE_PAY -> Unit
         InAppPaymentData.PaymentMethodType.PAYPAL -> launchPayPal(inAppPayment)
         InAppPaymentData.PaymentMethodType.CARD -> launchCreditCard(inAppPayment)
         InAppPaymentData.PaymentMethodType.SEPA_DEBIT -> launchBankTransfer(inAppPayment)
@@ -162,15 +155,6 @@ class InAppPaymentCheckoutDelegate(
     callback.navigateToPayPalPaymentInProgress(inAppPayment)
   }
 
-  private fun launchGooglePay(inAppPayment: InAppPaymentTable.InAppPayment) {
-    viewModel.provideGatewayRequestForGooglePay(inAppPayment)
-    googlePayComponent.googlePayRepository.requestTokenFromGooglePay(
-      price = inAppPayment.data.amount!!.toFiatMoney(),
-      label = InAppDonations.resolveLabel(fragment.requireContext(), inAppPayment.type, inAppPayment.data.level),
-      requestCode = InAppPaymentsRepository.getGooglePayRequestCode(inAppPayment.type)
-    )
-  }
-
   private fun launchCreditCard(inAppPayment: InAppPaymentTable.InAppPayment) {
     callback.navigateToCreditCardForm(inAppPayment)
   }
@@ -180,50 +164,6 @@ class InAppPaymentCheckoutDelegate(
       callback.navigateToIdealDetailsFragment(inAppPayment)
     } else {
       callback.navigateToBankTransferMandate(inAppPayment)
-    }
-  }
-
-  private fun registerGooglePayCallback() {
-    disposables += googlePayComponent.googlePayResultPublisher.subscribeBy(
-      onNext = { paymentResult ->
-        viewModel.consumeGatewayRequestForGooglePay()?.let {
-          googlePayComponent.googlePayRepository.onActivityResult(
-            paymentResult.requestCode,
-            paymentResult.resultCode,
-            paymentResult.data,
-            paymentResult.requestCode,
-            GooglePayRequestCallback(it)
-          )
-        }
-      }
-    )
-  }
-
-  inner class GooglePayRequestCallback(private val inAppPayment: InAppPaymentTable.InAppPayment) : GooglePayApi.PaymentRequestCallback {
-    override fun onSuccess(paymentData: PaymentData) {
-      Log.d(TAG, "Successfully retrieved payment data from Google Pay", true)
-      stripePaymentViewModel.providePaymentData(paymentData)
-      callback.navigateToStripePaymentInProgress(inAppPayment)
-    }
-
-    override fun onError(googlePayException: GooglePayApi.GooglePayException) {
-      Log.w(TAG, "Failed to retrieve payment data from Google Pay", googlePayException, true)
-
-      InAppPaymentsRepository.updateInAppPayment(
-        inAppPayment.copy(
-          notified = false,
-          state = InAppPaymentTable.State.END,
-          data = inAppPayment.data.copy(
-            error = InAppPaymentData.Error(
-              type = InAppPaymentData.Error.Type.GOOGLE_PAY_REQUEST_TOKEN
-            )
-          )
-        )
-      ).subscribe()
-    }
-
-    override fun onCancelled() {
-      Log.d(TAG, "Cancelled Google Pay.", true)
     }
   }
 

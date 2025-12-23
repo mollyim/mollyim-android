@@ -112,21 +112,11 @@
                  android:networkSecurityConfig="@xml/network_security_config"
                  tools:replace="android:networkSecurityConfig">
 
-    <!-- MOLLY: GMS and Google Maps stuff moved to gms/AndroidManifest.xml -->
-
-    <activity
-        android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity"
-        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-        android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-        android:exported="false" />
-
-    <activity
-        android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
-        android:theme="@style/TextSecure.DialogActivity"
-        android:exported="false" />
-
     <meta-data android:name="android.supports_size_changes"
                android:value="true" />
+
+    <meta-data android:name="com.google.android.gms.version"
+               android:value="@integer/google_play_services_version" />
 
     <meta-data android:name="com.google.android.gms.car.application"
                android:resource="@xml/automotive_app_desc" />
@@ -140,6 +130,15 @@
     <meta-data
         android:name="android.telephony.PROPERTY_SATELLITE_DATA_OPTIMIZED"
         android:value="org.thoughtcrime.securesms" />
+
+    <activity android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+              android:exported="false" />
+
+    <activity android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
+              android:theme="@style/TextSecure.DialogActivity"
+              android:exported="false" />
 
     <activity android:name=".components.webrtc.v2.WebRtcCallActivity"
               android:theme="@style/TextSecure.DarkTheme.WebRTCCall"
@@ -1202,7 +1201,11 @@
         android:foregroundServiceType="remoteMessaging"
         android:exported="false"/>
 
-    <!-- MOLLY: FcmReceiveService moved to gms/AndroidManifest.xml -->
+    <service android:name=".gcm.FcmReceiveService" android:exported="true">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+    </service>
 
     <service
         android:name=".service.WipeMemoryService"

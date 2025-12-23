@@ -84,13 +84,17 @@ public class FcmRefreshJob extends BaseJob {
   }
 
   @Override
-  public void onRun() throws Exception {
-    String oldToken = SignalStore.account().getFcmToken();
-
+  public void onRun() throws IOException, RetryLaterException {
     if (!SignalStore.account().isFcmEnabled()) {
-      if (oldToken != null) {
+      boolean wasFcmTokenSet = SignalStore.account().getFcmTokenLastSetTime() > 0;
+      if (wasFcmTokenSet) {
         Log.i(TAG, "FCM is disabled: clearing existing token...");
-        NetworkResultUtil.toBasicLegacy(SignalNetwork.account().clearFcmToken());
+        try {
+          NetworkResultUtil.toBasicLegacy(SignalNetwork.account().clearFcmToken());
+        } finally {
+          SignalStore.account().invalidateFcmToken();
+          FcmUtil.deleteFirebaseInstallationId(context);
+        }
         SignalStore.account().setFcmToken(null);
       }
       return;
@@ -99,14 +103,15 @@ public class FcmRefreshJob extends BaseJob {
     Log.i(TAG, "Reregistering FCM...");
 
     int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
+    Log.i(TAG, "Play Services availability status: " + result);
 
-    if (result != ConnectionResult.SUCCESS) {
-      notifyFcmFailure(result);
-    } else {
-      Optional<String> token = FcmUtil.getToken(context);
+    if (result == ConnectionResult.SUCCESS) {
+      Optional<String> token = FcmUtil.getTokenWithoutAvailCheck(context);
 
       if (token.isPresent()) {
         cancelFcmFailureNotification(context);
+
+        String oldToken = SignalStore.account().getFcmToken();
 
         if (!token.get().equals(oldToken)) {
           int oldLength = oldToken != null ? oldToken.length() : -1;
@@ -123,6 +128,11 @@ public class FcmRefreshJob extends BaseJob {
       } else {
         throw new RetryLaterException(new IOException("Failed to retrieve a token."));
       }
+    } else if (result == ConnectionResult.SERVICE_UPDATING) {
+      throw new RetryLaterException();
+    } else {
+      SignalStore.account().invalidateFcmToken();
+      notifyFcmFailure(result);
     }
 
     EventBus.getDefault().post(PushServiceEvent.INSTANCE);

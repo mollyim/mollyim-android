@@ -30,7 +30,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.i18n.phonenumbers.AsYouTypeFormatter
@@ -41,7 +41,6 @@ import org.signal.core.util.ThreadUtil
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -65,7 +64,6 @@ import org.thoughtcrime.securesms.registration.ui.toE164
 import org.thoughtcrime.securesms.registration.util.CountryPrefix
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.Dialogs
-import org.thoughtcrime.securesms.util.PlayServicesUtil
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.SupportEmailUtil
@@ -348,14 +346,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
         }
       }
 
-      EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING -> {
-        handlePromptForNoPlayServices()
-      }
-
-      EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE -> {
-        GoogleApiAvailability.getInstance().getErrorDialog(requireActivity(), ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED, 0)?.show()
-      }
-
       EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT -> {
         MaterialAlertDialogBuilder(requireContext()).apply {
           setTitle(R.string.RegistrationActivity_play_services_error)
@@ -611,32 +601,12 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
   }
 
   private fun validateFcmStatus(context: Context): Boolean {
-    val fcmStatus = PlayServicesUtil.getPlayServicesStatus(context)
+    val fcmStatus = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
     Log.d(TAG, "Got $fcmStatus for Play Services status.")
-    when (fcmStatus) {
-      PlayServicesUtil.PlayServicesStatus.SUCCESS -> {
-        return true
-      }
-
-      PlayServicesUtil.PlayServicesStatus.DISABLED -> {
-        return false
-      }
-
-      PlayServicesUtil.PlayServicesStatus.MISSING -> {
-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING)
-        return false
-      }
-
-      PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE -> {
-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE)
-        return false
-      }
-
-      PlayServicesUtil.PlayServicesStatus.TRANSIENT_ERROR -> {
-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
-        return false
-      }
+    if (fcmStatus == ConnectionResult.SERVICE_UPDATING) {
+      fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
     }
+    return fcmStatus == ConnectionResult.SUCCESS
   }
 
   private fun handleConfirmNumberDialogCanceled() {
@@ -665,35 +635,11 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       setMessage(message)
       setPositiveButton(android.R.string.ok) { _, _ ->
         Log.d(TAG, "User confirmed number.")
-        if (missingFcmConsentRequired && BuildConfig.USE_PLAY_SERVICES) {
-          handlePromptForNoPlayServices()
-        } else {
-          sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
-        }
+        sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
       }
       setNegativeButton(R.string.RegistrationActivity_edit_number) { _, _ -> handleConfirmNumberDialogCanceled() }
       setOnCancelListener { _ -> handleConfirmNumberDialogCanceled() }
     }.show()
-  }
-
-  private fun handlePromptForNoPlayServices() {
-    val context = activity
-
-    if (context != null) {
-      Log.d(TAG, "Device does not have Play Services, showing consent dialog.")
-      MaterialAlertDialogBuilder(context).apply {
-        setTitle(R.string.RegistrationActivity_missing_google_play_services)
-        setMessage(R.string.RegistrationActivity_this_device_is_missing_google_play_services)
-        setPositiveButton(R.string.RegistrationActivity_i_understand) { _, _ ->
-          Log.d(TAG, "User confirmed number.")
-          sharedViewModel.onUserConfirmedPhoneNumber(AppDependencies.application)
-        }
-        setNegativeButton(android.R.string.cancel, null)
-        setOnCancelListener { fragmentViewModel.clearError() }
-        setOnDismissListener { fragmentViewModel.clearError() }
-        show()
-      }
-    }
   }
 
   private fun moveToEnterPinScreen() {

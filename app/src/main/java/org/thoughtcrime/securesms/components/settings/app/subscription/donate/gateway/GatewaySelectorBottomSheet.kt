@@ -20,8 +20,6 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.NO_TINT
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
-import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
-import org.thoughtcrime.securesms.components.settings.app.subscription.models.GooglePayButton
 import org.thoughtcrime.securesms.components.settings.app.subscription.models.PayPalButton
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.models.IndeterminateLoadingCircle
@@ -30,7 +28,6 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.payments.currency.CurrencyUtil
 import org.thoughtcrime.securesms.util.ThemeUtil
-import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.viewModel
 
 /**
@@ -43,12 +40,11 @@ class GatewaySelectorBottomSheet : DSLSettingsBottomSheetFragment() {
   private val args: GatewaySelectorBottomSheetArgs by navArgs()
 
   private val viewModel: GatewaySelectorViewModel by viewModel {
-    GatewaySelectorViewModel(args, requireListener<GooglePayComponent>().googlePayRepository)
+    GatewaySelectorViewModel(args)
   }
 
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
     BadgeDisplay112.register(adapter)
-    GooglePayButton.register(adapter)
     PayPalButton.register(adapter)
     IndeterminateLoadingCircle.register(adapter)
 
@@ -103,20 +99,7 @@ class GatewaySelectorBottomSheet : DSLSettingsBottomSheetFragment() {
 
   private fun DSLConfiguration.renderGooglePayButton(state: GatewaySelectorState.Ready) {
     if (state.isGooglePayAvailable) {
-      space(16.dp)
-
-      customPref(
-        GooglePayButton.Model(
-          isEnabled = true,
-          onClick = {
-            lifecycleDisposable += viewModel.updateInAppPaymentMethod(InAppPaymentData.PaymentMethodType.GOOGLE_PAY)
-              .subscribeBy {
-                findNavController().popBackStack()
-                setFragmentResult(REQUEST_KEY, bundleOf(REQUEST_KEY to it))
-              }
-          }
-        )
-      )
+      // MOLLY: No-op
     }
   }
 

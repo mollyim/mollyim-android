@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.extra
-
 plugins {
   `kotlin-dsl`
 }

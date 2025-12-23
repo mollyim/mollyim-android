@@ -20,6 +20,6 @@ data class EnterPhoneNumberState(
   val country: Country? = null
 ) {
   enum class Error {
-    NONE, INVALID_PHONE_NUMBER, PLAY_SERVICES_MISSING, PLAY_SERVICES_NEEDS_UPDATE, PLAY_SERVICES_TRANSIENT
+    NONE, INVALID_PHONE_NUMBER, PLAY_SERVICES_TRANSIENT
   }
 }

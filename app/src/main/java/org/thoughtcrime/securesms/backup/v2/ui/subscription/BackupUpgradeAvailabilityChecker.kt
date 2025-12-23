@@ -21,16 +21,6 @@ object BackupUpgradeAvailabilityChecker {
   suspend fun isUpgradeAvailable(
     context: Context
   ): Boolean {
-    val googlePlayServicesCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
-    val googlePlayServicesAvailability = GooglePlayServicesAvailability.fromCode(googlePlayServicesCode)
-
-    return when (googlePlayServicesAvailability) {
-      GooglePlayServicesAvailability.UNKNOWN, GooglePlayServicesAvailability.SERVICE_MISSING, GooglePlayServicesAvailability.SERVICE_DISABLED, GooglePlayServicesAvailability.SERVICE_INVALID -> false
-      GooglePlayServicesAvailability.SERVICE_VERSION_UPDATE_REQUIRED, GooglePlayServicesAvailability.SERVICE_UPDATING -> true
-      GooglePlayServicesAvailability.SUCCESS -> {
-        val billingResponseCode = AppDependencies.billingApi.getApiAvailability()
-        billingResponseCode.isSuccess
-      }
-    }
+    return false
   }
 }

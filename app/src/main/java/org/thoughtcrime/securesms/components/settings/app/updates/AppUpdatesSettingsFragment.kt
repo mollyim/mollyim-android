@@ -96,7 +96,7 @@ private fun AppUpdatesSettingsScreen(
         .padding(paddingValues)
         .then(rememberStatusBarColorNestedScrollModifier())
     ) {
-      if (!BuildConfig.MANAGES_MOLLY_UPDATES) {
+      if (!BuildConfig.MANAGE_MOLLY_UPDATES) {
         item {
           Rows.TextRow(
             text = {
@@ -117,7 +117,7 @@ private fun AppUpdatesSettingsScreen(
         )
       }
 
-      if (BuildConfig.MANAGES_MOLLY_UPDATES) {
+      if (BuildConfig.MANAGE_MOLLY_UPDATES) {
         item {
           Rows.ToggleRow(
             checked = state.autoUpdateEnabled,

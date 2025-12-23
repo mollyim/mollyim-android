@@ -406,6 +406,10 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   val pushAvailable: Boolean
     get() = canReceiveFcm || SignalStore.unifiedpush.isAvailableOrAirGapped
 
+  fun invalidateFcmToken() {
+    putInteger(KEY_FCM_TOKEN_VERSION, 0)
+  }
+
   /** The FCM token, which allows the server to send us FCM messages. */
   var fcmToken: String?
     get() {
@@ -419,8 +423,8 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     set(value) {
       store.beginWrite()
         .putString(KEY_FCM_TOKEN, value)
-        .putInteger(KEY_FCM_TOKEN_VERSION, Util.getSignalCanonicalVersionCode())
-        .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, System.currentTimeMillis())
+        .putInteger(KEY_FCM_TOKEN_VERSION, if (value == null) 0 else Util.getSignalCanonicalVersionCode())
+        .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, if (value == null) 0 else System.currentTimeMillis())
         .apply()
     }
 

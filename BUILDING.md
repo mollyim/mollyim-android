@@ -90,22 +90,19 @@ The built APKs will be available in the `output/apk` directory. Make sure to [si
 
 ## Build Customization
 
-| Environment Variable  | Default Value       | Description                                      |
-|-----------------------|---------------------|--------------------------------------------------|
-| `CI_APP_TITLE`        | Molly               | App title as shown in the UI                     |
-| `CI_APP_FILENAME`     | Molly               | Base filename for APKs and backups               |
-| `CI_PACKAGE_ID`       | im.molly.app        | Application ID (change as needed)                |
-| `CI_BUILD_VARIANTS`   | prod(Gms\|Foss)     | Regex pattern for building different flavors (must match one of the build flavors) |
-| `CI_FORCE_INTERNAL_USER_FLAG` | false       | Enable internal testing extensions               |
-| `CI_MAPS_API_KEY`     | AIza...ftB4         | Google Maps API key (use your own)               |
+| Environment Variable  | Default Value | Description                                      |
+|-----------------------|---------------|--------------------------------------------------|
+| `CI_APP_TITLE`        | Molly         | App title as shown in the UI                     |
+| `CI_APP_FILENAME`     | Molly         | Base filename for APKs and backups               |
+| `CI_PACKAGE_ID`       | im.molly.app  | Application ID (change as needed)                |
+| `CI_BUILD_VARIANTS`   | prod          | Regex pattern for building different flavors (must match one of the build flavors) |
+| `CI_FORCE_INTERNAL_USER_FLAG` | false | Enable internal testing extensions               |
 
 ## Build Flavors
 
-- `prodGmsWebsiteRelease`: Production version of Molly
-- `prodFossWebsiteRelease`: Production version of Molly-FOSS
-- `prodFossStoreRelease`: Production version of Molly-FOSS but without in-app updater
-- `stagingGmsWebsiteRelease`: Testing version of Molly for Signal staging network
-- `stagingFossWebsiteRelease`: Testing version of Molly-FOSS for Signal staging network
+- `prodWebsiteRelease`: Production version of Molly
+- `prodStoreRelease`: Production version of Molly but without in-app updater
+- `stagingWebsiteRelease`: Testing version of Molly for Signal staging network
 
 ## Signing the APKs
 

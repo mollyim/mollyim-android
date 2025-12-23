@@ -547,24 +547,6 @@ class StripeApi(
     )
   }
 
-  class Gateway(private val configuration: Configuration) : GooglePayApi.Gateway {
-    override fun getTokenizationSpecificationParameters(): Map<String, String> {
-      return mapOf(
-        "gateway" to "stripe",
-        "stripe:version" to configuration.version,
-        "stripe:publishableKey" to configuration.publishableKey
-      )
-    }
-
-    override val allowedCardNetworks: List<String> = listOf(
-      "AMEX",
-      "DISCOVER",
-      "JCB",
-      "MASTERCARD",
-      "VISA"
-    )
-  }
-
   data class Configuration(
     val publishableKey: String,
     val baseUrl: String = "https://api.stripe.com/v1",

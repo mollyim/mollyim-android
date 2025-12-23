@@ -30,7 +30,6 @@ import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.security.ProviderInstaller;
 
 import org.conscrypt.ConscryptSignal;
 import org.greenrobot.eventbus.EventBus;
@@ -225,7 +224,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addNonBlocking(this::initializeScheduledMessageManager)
               .addNonBlocking(PreKeysSyncJob::enqueueIfNeeded)
               .addNonBlocking(this::initializePeriodicTasks)
-              .addNonBlocking(this::initializeCircumvention)
               .addNonBlocking(this::initializeCleanup)
               .addNonBlocking(this::initializeGlideCodecs)
               .addNonBlocking(StorageSyncHelper::scheduleRoutineSync)
@@ -474,9 +472,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
   private void cleanCacheDir() {
     SignalExecutors.BOUNDED.execute(() -> {
-      if (BuildConfig.USE_OSM) {
-        FileUtils.deleteDirectoryContents(StorageUtil.getTileCacheDirectory(this));
-      }
+      FileUtils.deleteDirectoryContents(StorageUtil.getTileCacheDirectory(this));
     });
   }
 
@@ -530,7 +526,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
     boolean fcmEnabled         = SignalStore.account().isFcmEnabled();
     boolean unifiedPushEnabled = SignalStore.unifiedpush().isEnabled();
 
-    if (method != NotificationDeliveryMethod.FCM || !BuildConfig.USE_PLAY_SERVICES) {
+    if (method != NotificationDeliveryMethod.FCM) {
       if (fcmEnabled) {
         Log.i(TAG, "Play Services not allowed. Disabling FCM.");
         updateFcmStatus(false);
@@ -643,17 +639,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
       CallManager.initialize(this, new RingRtcLogger(), fieldTrials);
     } catch (UnsatisfiedLinkError e) {
       throw new AssertionError("Unable to load ringrtc library", e);
-    }
-  }
-
-  @WorkerThread
-  private void initializeCircumvention() {
-    if (AppDependencies.getSignalServiceNetworkAccess().isCensored()) {
-      try {
-        ProviderInstaller.installIfNeeded(ApplicationContext.this);
-      } catch (Throwable t) {
-        Log.w(TAG, t);
-      }
     }
   }
 
