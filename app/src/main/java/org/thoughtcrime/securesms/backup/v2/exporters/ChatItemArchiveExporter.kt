@@ -14,6 +14,7 @@ import org.signal.core.util.EventTimer
 import org.signal.core.util.Hex
 import org.signal.core.util.ParallelEventTimer
 import org.signal.core.util.StringUtil
+import org.signal.core.util.UuidUtil
 import org.signal.core.util.bytes
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.emptyIfNull
@@ -31,6 +32,7 @@ import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireLongOrNull
 import org.signal.core.util.requireString
+import org.signal.core.util.toByteArray
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.ExportOddities
@@ -97,8 +99,6 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.mb
-import org.whispersystems.signalservice.api.util.UuidUtil
-import org.whispersystems.signalservice.api.util.toByteArray
 import java.io.Closeable
 import java.io.IOException
 import java.util.LinkedList
@@ -178,7 +178,7 @@ class ChatItemArchiveExporter(
       val builder = record.toBasicChatItemBuilder(selfRecipientId, extraData.groupReceiptsById[id], exportState, backupStartTime)
       transformTimer.emit("basic")
 
-      if (builder == null) {
+      if (builder == null || builder.authorId == exportState.releaseNoteRecipientId) {
         continue
       }
 
@@ -306,7 +306,7 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isThreadMergeType(record.type) -> {
-          builder.updateMessage = record.toRemoteThreadMergeUpdate(record.dateSent)?.takeIf { exportState.recipientIdToAci[builder.authorId] != null } ?: continue
+          builder.updateMessage = record.toRemoteThreadMergeUpdate(record.dateSent)?.takeIf { builder.authorIsAciContact(exportState) } ?: continue
           transformTimer.emit("thread-merge")
         }
 
@@ -384,6 +384,11 @@ class ChatItemArchiveExporter(
         }
 
         extraData.pollsById[record.id] != null -> {
+          if (exportState.threadIdToRecipientId[builder.chatId] !in exportState.groupRecipientIds) {
+            Log.w(TAG, ExportSkips.pollNotInGroupChat(record.dateSent))
+            continue
+          }
+
           val poll = extraData.pollsById[record.id]!!
           if (poll.question.isEmpty() || poll.question.length > MAX_POLL_CHARACTER_LENGTH) {
             Log.w(TAG, ExportSkips.invalidPollQuestion(record.dateSent))
@@ -1318,6 +1323,10 @@ private fun BackupMessageRecord.toRemoteSendStatus(isGroupThread: Boolean, group
     return emptyList()
   }
 
+  if (this.toRecipientId == exportState.releaseNoteRecipientId) {
+    return emptyList()
+  }
+
   val statusBuilder = SendStatus.Builder()
     .recipientId(this.toRecipientId)
     .timestamp(max(this.receiptTimestamp, 0))
@@ -1376,6 +1385,7 @@ private fun List<GroupReceiptTable.GroupReceiptInfo>?.toRemoteSendStatus(message
 
   return this
     .filter { exportState.recipientIds.contains(it.recipientId.toLong()) }
+    .filterNot { it.recipientId.toLong() == exportState.releaseNoteRecipientId }
     .map {
       val statusBuilder = SendStatus.Builder()
         .recipientId(it.recipientId.toLong())
@@ -1562,6 +1572,11 @@ private fun ChatItem.validateChatItem(exportState: ExportState, selfRecipientId:
     return null
   }
 
+  if (this.outgoing != null && exportState.releaseNoteRecipientId != null && exportState.threadIdToRecipientId[this.chatId] == exportState.releaseNoteRecipientId) {
+    Log.w(TAG, ExportSkips.outgoingMessageToReleaseNotesChat(this.dateSent))
+    return null
+  }
+
   return this
 }
 
@@ -1637,6 +1652,10 @@ private fun ChatItem.withDowngradeVoiceNotes(): ChatItem {
       }
     )
   )
+}
+
+private fun ChatItem.Builder.authorIsAciContact(exportState: ExportState): Boolean {
+  return exportState.recipientIdToAci[this.authorId] != null && this.authorId != exportState.selfRecipientId.toLong() && this.authorId != exportState.releaseNoteRecipientId
 }
 
 private fun Cursor.toBackupMessageRecord(pastIds: Set<Long>, backupStartTime: Long): BackupMessageRecord? {

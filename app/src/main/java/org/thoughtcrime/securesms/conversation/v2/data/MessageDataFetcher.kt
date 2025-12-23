@@ -6,6 +6,7 @@
 package org.thoughtcrime.securesms.conversation.v2.data
 
 import androidx.annotation.WorkerThread
+import org.signal.core.util.UuidUtil
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.roundedString
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment

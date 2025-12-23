@@ -19,6 +19,7 @@ import org.signal.core.util.readToList
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireString
 import org.signal.ringrtc.CallManager
+import org.signal.storageservice.protos.calls.quality.SubmitCallQualitySurveyRequest
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
@@ -54,6 +55,7 @@ import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
+import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -551,9 +553,11 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       )
 
       clickPref(
-        title = DSLSettingsText.from("Display Call Quality Survey UX"),
+        title = DSLSettingsText.from("Display call quality survey"),
         onClick = {
-          CallQualityBottomSheetFragment().show(parentFragmentManager, null)
+          CallQualityBottomSheetFragment
+            .create(SubmitCallQualitySurveyRequest())
+            .show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
         }
       )
 

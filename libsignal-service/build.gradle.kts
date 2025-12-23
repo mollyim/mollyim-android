@@ -87,6 +87,7 @@ dependencies {
   implementation(libs.kotlinx.coroutines.core.jvm)
 
   implementation(project(":core-util-jvm"))
+  implementation(project(":core-models"))
 
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.assertk)

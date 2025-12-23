@@ -220,7 +220,7 @@ private val darkColorScheme = darkColorScheme(
 @Composable
 fun SignalTheme(
   isDarkMode: Boolean = LocalConfiguration.current.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES,
-  incognitoKeyboardEnabled: Boolean,
+  incognitoKeyboardEnabled: Boolean = false,
   useDynamicColors: Boolean? = null,
   content: @Composable () -> Unit
 ) {

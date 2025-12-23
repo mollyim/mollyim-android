@@ -282,6 +282,7 @@ public class IndividualSendJob extends PushSendJob {
       SignalServiceDataMessage.GiftBadge         giftBadge          = getGiftBadgeFor(message);
       SignalServiceDataMessage.Payment           payment            = null;
       List<BodyRange>                            bodyRanges         = getBodyRanges(message);
+      SignalServiceDataMessage.PinnedMessage     pinnedMessage      = getPinnedMessage(message);
       SignalServiceDataMessage.Builder mediaMessageBuilder = SignalServiceDataMessage.newBuilder()
                                                                                      .withBody(message.getBody())
                                                                                      .withAttachments(serviceAttachments)
@@ -297,7 +298,8 @@ public class IndividualSendJob extends PushSendJob {
                                                                                      .asExpirationUpdate(message.isExpirationUpdate())
                                                                                      .asEndSessionMessage(message.isEndSession())
                                                                                      .withPayment(payment)
-                                                                                     .withBodyRanges(bodyRanges);
+                                                                                     .withBodyRanges(bodyRanges)
+                                                                                     .withPinnedMessage(pinnedMessage);
 
       if (message.getParentStoryId() != null) {
         try {

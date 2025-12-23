@@ -97,7 +97,7 @@ fun EducationSheet(onClick: (Boolean) -> Unit) {
 @DayNightPreviews
 @Composable
 fun EducationSheetPreview() {
-  Previews.BottomSheetPreview {
+  Previews.BottomSheetContentPreview {
     EducationSheet(onClick = {})
   }
 }

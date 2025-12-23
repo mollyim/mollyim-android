@@ -9,8 +9,8 @@ plugins {
   id("molly")
 }
 
-val canonicalVersionCode = 1625
-val canonicalVersionName = "7.66.5"
+val canonicalVersionCode = 1633
+val canonicalVersionName = "7.68.5"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -431,6 +431,7 @@ dependencies {
   implementation(project(":sticky-header-grid"))
   implementation(project(":photoview"))
   implementation(project(":core-ui"))
+  implementation(project(":core-models"))
 
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.androidx.appcompat) {

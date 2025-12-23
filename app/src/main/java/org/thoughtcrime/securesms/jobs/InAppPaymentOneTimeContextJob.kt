@@ -184,7 +184,8 @@ class InAppPaymentOneTimeContextJob private constructor(
         throw IOException("Could not validate credential.")
       }
     } else {
-      info("Encountered a retryable error", serviceResponse.executionError.orNull())
+      warning("Encountered a retryable error", serviceResponse.executionError.orNull())
+      throw InAppPaymentRetryException(serviceResponse.executionError.orNull())
     }
   }
 
