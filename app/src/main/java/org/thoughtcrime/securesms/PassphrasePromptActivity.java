@@ -50,6 +50,7 @@ import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
@@ -321,8 +322,13 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     setExcludeFromRecents(false);
   }
 
+  private void onSuccessfulDuressPassphrase(MasterSecret masterSecret) {
+    // Wipe the app data
+    ServiceUtil.getActivityManager(AppDependencies.getApplication()).clearApplicationUserData();
+  }
+
   @SuppressLint("StaticFieldLeak")
-  private class SetMasterSecretTask extends AsyncTask<Void, Float, MasterSecret> {
+  private class SetMasterSecretTask extends AsyncTask<Void, Float, SetMasterSecretResult> {
 
     private final char[] passphrase;
 
@@ -338,10 +344,25 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     }
 
     @Override
-    protected MasterSecret doInBackground(Void... voids) {
+    protected SetMasterSecretResult doInBackground(Void... voids) {
       progressTimer.start();
 
       MasterSecret masterSecret = null;
+
+      boolean isDuressCodeEnabled = MasterSecretUtil.isDuressCodeInitialized(PassphrasePromptActivity.this);
+      if (isDuressCodeEnabled) {
+        try {
+          masterSecret = MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase, true);
+        } catch (Exception e) {
+          // Nothing
+        }
+      }
+      if (masterSecret != null) {
+        Arrays.fill(passphrase, (char) 0);
+        progressTimer.cancel();
+        return new SetMasterSecretResult(masterSecret, true);
+      }
+
       try {
         masterSecret = MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase);
       } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
@@ -351,7 +372,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       Arrays.fill(passphrase, (char) 0);
       progressTimer.cancel();
 
-      return masterSecret;
+      return new SetMasterSecretResult(masterSecret, false);
     }
 
     @Override
@@ -360,9 +381,14 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     }
 
     @Override
-    protected void onPostExecute(MasterSecret masterSecret) {
+    protected void onPostExecute(SetMasterSecretResult masterSecretResult) {
+      MasterSecret masterSecret = masterSecretResult.getMasterSecret();
       if (masterSecret != null) {
-        onSuccessfulPassphrase(masterSecret);
+        if (masterSecretResult.isDuress()) {
+          onSuccessfulDuressPassphrase(masterSecret);
+        } else {
+          onSuccessfulPassphrase(masterSecret);
+        }
       } else {
         showProgress(0f);
         showFailureAndEnableInput(true);
@@ -383,6 +409,24 @@ public class PassphrasePromptActivity extends PassphraseActivity {
           publishProgress(1f);
         }
       };
+    }
+  }
+
+  private class SetMasterSecretResult {
+    private final MasterSecret mMasterSecret;
+    private final boolean      mIsDuress;
+
+    protected SetMasterSecretResult(MasterSecret masterSecret, boolean isDuress) {
+      this.mMasterSecret = masterSecret;
+      this.mIsDuress = isDuress;
+    }
+
+    private MasterSecret getMasterSecret() {
+      return mMasterSecret;
+    }
+
+    private boolean isDuress() {
+      return mIsDuress;
     }
   }
 }
