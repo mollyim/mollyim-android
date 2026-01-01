@@ -88,12 +88,17 @@ class NetworkConnectionListener(
       connectivityManager.unregisterNetworkCallback(this)
     }
 
-    private fun connectivityChanged(): NetworkState? {
+    private fun connectivityChangedLocked(): NetworkState? {
       val newState = networks.bestNetworkState()
-      val hasChanged = newState != connectionState
-      return if (hasChanged) {
+      val oldState = connectionState
+
+      return if (newState != oldState) {
         connectionState = newState
-        Log.v(TAG, "Network state changed -> $newState")
+        if (oldState == null) {
+          Log.v(TAG, "Network state initialized -> $newState")
+        } else {
+          Log.v(TAG, "Network state changed: $oldState -> $newState")
+        }
         newState
       } else null
     }
@@ -113,7 +118,7 @@ class NetworkConnectionListener(
           if (network != null) {
             networks[network] = state
           }
-          connectivityChanged()
+          connectivityChangedLocked()
         } else {
           Log.v(TAG, "Initial state skipped; already set: $connectionState")
           null
@@ -133,7 +138,7 @@ class NetworkConnectionListener(
         )
         val state = existing.copy(httpProxy = httpProxy)
         networks[network] = state
-        connectivityChanged()
+        connectivityChangedLocked()
       }
 
       maybeNew?.dispatch()
@@ -149,7 +154,7 @@ class NetworkConnectionListener(
         )
         val state = existing.copy(validated = validated)
         networks[network] = state
-        connectivityChanged()
+        connectivityChangedLocked()
       }
 
       maybeNew?.dispatch()
@@ -159,7 +164,7 @@ class NetworkConnectionListener(
       Log.d(TAG, "NetworkCallback onLost($network)")
       val maybeNew = synchronized(this) {
         networks.remove(network)
-        connectivityChanged()
+        connectivityChangedLocked()
       }
 
       maybeNew?.dispatch()
