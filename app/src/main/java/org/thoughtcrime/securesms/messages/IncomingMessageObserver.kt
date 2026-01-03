@@ -181,7 +181,7 @@ class IncomingMessageObserver(
   }
 
   private fun onAppForegrounded() {
-    BackgroundService.start(context)
+    ProcessLifetimeHintService.start(context)
     appState = appState.copy(isForeground = true)
     releaseConnectionDecisionSemaphore()
   }
@@ -441,7 +441,7 @@ class IncomingMessageObserver(
           }
 
           if (!appState.isForeground) {
-            BackgroundService.stop(context)
+            ProcessLifetimeHintService.stop(context)
           }
         } catch (e: Throwable) {
           attempts++
@@ -509,7 +509,7 @@ class IncomingMessageObserver(
   /**
    * A service that exists just to encourage the system to keep our process alive a little longer.
    */
-  class BackgroundService : Service() {
+  class ProcessLifetimeHintService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -524,14 +524,14 @@ class IncomingMessageObserver(
     companion object {
       fun start(context: Context) {
         try {
-          context.startService(Intent(context, BackgroundService::class.java))
+          context.startService(Intent(context, ProcessLifetimeHintService::class.java))
         } catch (e: Exception) {
           Log.w(TAG, "Failed to start background service.", e)
         }
       }
 
       fun stop(context: Context) {
-        context.stopService(Intent(context, BackgroundService::class.java))
+        context.stopService(Intent(context, ProcessLifetimeHintService::class.java))
       }
     }
   }

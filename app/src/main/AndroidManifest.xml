@@ -1127,7 +1127,7 @@
 
     <service
         android:enabled="true"
-        android:name=".messages.IncomingMessageObserver$BackgroundService"
+        android:name=".messages.IncomingMessageObserver$ProcessLifetimeHintService"
         android:exported="false"/>
 
     <service
