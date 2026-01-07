@@ -52,7 +52,6 @@ import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.isInMultiWindowModeCompat
 import org.signal.core.util.logging.Log
 import org.signal.ringrtc.CallManager
-import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.sensors.Orientation
@@ -88,7 +87,6 @@ import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ThrottledDebouncer
 import org.thoughtcrime.securesms.util.VibrateUtil
@@ -227,7 +225,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     super.onResume()
     theme.onResume(this)
 
-    initializeScreenshotSecurity()
+    // MOLLY: Screen security is already initialized by BaseActivity.onResume()
 
     if (!EventBus.getDefault().isRegistered(this)) {
       EventBus.getDefault().register(this)
@@ -988,14 +986,6 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       callScreen.showSpeakerViewHint()
     } else {
       callScreen.hideSpeakerViewHint()
-    }
-  }
-
-  private fun initializeScreenshotSecurity() {
-    if (TextSecurePreferences.isScreenSecurityEnabled(this)) {
-      window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-    } else {
-      window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
   }
 

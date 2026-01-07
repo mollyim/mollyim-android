@@ -325,6 +325,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   private fun setBiometricScreenLock(enabled: Boolean) {
     viewModel.setBiometricScreenLock(enabled)
+    (activity as PassphraseActivity).blockRecentAppsScreenshot(enabled)
     WindowUtil.initializeScreenshotSecurity(requireContext(), requireActivity().window)
   }
 

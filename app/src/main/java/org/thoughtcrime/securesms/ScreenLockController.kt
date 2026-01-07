@@ -40,11 +40,12 @@ object ScreenLockController {
   @JvmStatic
   fun unBlankScreen() = setAllViewsWithContentHidden(false)
 
-  // Cannot set FLAG_SECURE only at onPause() due to a bug in gesture navigation:
-  // https://issuetracker.google.com/issues/123205795
+  // FLAG_SECURE cannot be applied only in onPause() due to a gesture navigation bug
+  // that leaks content in the recents view before authentication (b/123205795).
+  // On API 33+ recents screenshots are controlled via setRecentsScreenshotEnabled().
   @JvmStatic
   val alwaysSetSecureFlagOnResume: Boolean
-    get() = autoLock
+    get() = autoLock && Build.VERSION.SDK_INT < 33
 
   @JvmStatic
   fun shouldLockScreenAtStart(): Boolean {

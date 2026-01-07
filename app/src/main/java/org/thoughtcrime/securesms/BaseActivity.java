@@ -44,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     AppStartup.getInstance().onCriticalRenderEventStart();
     logEvent("onCreate()");
     super.onCreate(savedInstanceState);
+    blockRecentAppsScreenshot(ScreenLockController.getAutoLock());
     AppStartup.getInstance().onCriticalRenderEventEnd();
   }
 
@@ -51,15 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     WindowUtil.initializeScreenshotSecurity(this, getWindow());
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-
-    if (getWindow() != null && ScreenLockController.getAutoLock()) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    }
   }
 
   @Override
@@ -109,6 +101,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   public boolean useScreenLock() {
     return true;
+  }
+
+  public void blockRecentAppsScreenshot(boolean block) {
+    if (Build.VERSION.SDK_INT >= 33) {
+      setRecentsScreenshotEnabled(!block);
+    }
   }
 
   @Override
