@@ -42,6 +42,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.withStateAtLeast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.common.ConnectionResult
@@ -206,7 +207,11 @@ open class DefaultNotificationsSettingsCallbacks(
         // we try to fall back to the first we found.
         viewModel.selectFirstDistributor()
       }
-      appSettingsRouter.navigateTo(AppSettingsRoute.NotificationsRoute.UnifiedPushSettings)
+      activity.lifecycleScope.launch {
+        activity.lifecycle.withStateAtLeast(Lifecycle.State.RESUMED) {
+          onNavigationUnifiedPushSettings()
+        }
+      }
     }
   )
 
