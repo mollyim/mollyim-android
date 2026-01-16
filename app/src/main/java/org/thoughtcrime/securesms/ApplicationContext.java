@@ -552,6 +552,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
     } else if (!fcmEnabled) {
       Log.i(TAG, "FCM preferred. Updating to use FCM.");
       updateFcmStatus(true);
+      updateUnifiedPushStatus(false);
     } else {
       long lastSetTime = SignalStore.account().getFcmTokenLastSetTime();
       long nextSetTime = lastSetTime + TimeUnit.HOURS.toMillis(6);
