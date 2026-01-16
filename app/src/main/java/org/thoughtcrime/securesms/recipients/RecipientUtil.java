@@ -130,7 +130,7 @@ public class RecipientUtil {
   }
 
   public static Optional<Integer> getSubDeviceCount(@NonNull Context context, @NonNull Recipient recipient) {
-    if (!recipient.isRegistered() || recipient.isGroup()) {
+    if (!recipient.isRegistered() || recipient.isGroup() || recipient.isSelf()) {
       return Optional.empty();
     }
     try {
