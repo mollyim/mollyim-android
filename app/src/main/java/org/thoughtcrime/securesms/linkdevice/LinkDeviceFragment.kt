@@ -450,7 +450,7 @@ fun DeviceListScreen(
         )
       } else {
         state.devices.forEach { device ->
-          DeviceRow(device, onDeviceSelectedForRemoval, onEditDevice)
+          DeviceRow(device, onDeviceSelectedForRemoval, onEditDevice, canLinkDevices = state.canLinkDevices)
         }
       }
     }
@@ -494,7 +494,7 @@ fun DeviceListScreen(
 }
 
 @Composable
-fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice: (Device) -> Unit) {
+fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice: (Device) -> Unit, canLinkDevices: Boolean) {
   val titleString = if (device.name.isNullOrEmpty()) stringResource(R.string.DeviceListItem_unnamed_device) else device.name
   val linkedDate = device.createdMillis?.let { DateUtils.getDayPrecisionTimeSpanString(LocalContext.current, Locale.getDefault(), device.createdMillis) }
   val lastActive = DateUtils.getDayPrecisionTimeSpanString(LocalContext.current, Locale.getDefault(), device.lastSeenMillis)
@@ -559,6 +559,7 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
               )
             }
           },
+          enabled = canLinkDevices,
           onClick = {
             setDeviceToRemove(device)
             controller.hide()
@@ -583,7 +584,7 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
               )
             }
           },
-          enabled = device.canRename,
+          enabled = device.canRename && canLinkDevices,
           onClick = {
             onEditDevice(device)
             controller.hide()
