@@ -68,7 +68,7 @@ import java.util.concurrent.TimeUnit;
 public class Util {
   private static final String TAG = Log.tag(Util.class);
 
-  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(1000);
+  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(180);
 
   public static final String COPY_LABEL = "text\u00AD";
 
