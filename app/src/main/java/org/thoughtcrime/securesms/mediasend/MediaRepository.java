@@ -56,6 +56,8 @@ public class MediaRepository {
   private static final String TAG    = Log.tag(MediaRepository.class);
   private static final String CAMERA = "Camera";
 
+  private static final int MAX_MEDIA_ITEMS = 5_000;
+
   /**
    * Retrieves a list of folders that contain media.
    */
@@ -270,7 +272,7 @@ public class MediaRepository {
     }
 
     try (Cursor cursor = context.getContentResolver().query(contentUri, projection, selection, selectionArgs, sortBy)) {
-      while (cursor != null && cursor.moveToNext()) {
+      while (cursor != null && cursor.moveToNext() && media.size() < MAX_MEDIA_ITEMS) {
         long   rowId       = cursor.getLong(cursor.getColumnIndexOrThrow(projection[0]));
         Uri    uri         = ContentUris.withAppendedId(contentUri, rowId);
         String mimetype    = cursor.getString(cursor.getColumnIndexOrThrow(Images.Media.MIME_TYPE));
