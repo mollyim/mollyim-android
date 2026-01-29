@@ -55,6 +55,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.EmptyMegaphoneActionController
 import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * The onboarding megaphone (list of cards)
@@ -144,7 +145,7 @@ private fun OnboardingMegaphoneListItem(
       ) {
         Icon(
           imageVector = SignalIcons.X.imageVector,
-          tint = colorResource(R.color.signal_light_colorOutline),
+          tint = colorResource(CoreUiR.color.signal_light_colorOutline),
           contentDescription = stringResource(R.string.Material3SearchToolbar__close)
         )
       }
@@ -159,7 +160,7 @@ private fun OnboardingMegaphoneListItem(
         Icon(
           imageVector = ImageVector.vectorResource(onboardingListItem.icon),
           contentDescription = null,
-          tint = colorResource(R.color.signal_light_colorOnSurface),
+          tint = colorResource(CoreUiR.color.signal_light_colorOnSurface),
           modifier = Modifier.size(24.dp)
         )
 
@@ -168,7 +169,7 @@ private fun OnboardingMegaphoneListItem(
           style = MaterialTheme.typography.labelMedium,
           textAlign = TextAlign.Center,
           maxLines = 2,
-          color = colorResource(R.color.signal_light_colorOnSurface),
+          color = colorResource(CoreUiR.color.signal_light_colorOnSurface),
           overflow = TextOverflow.Ellipsis,
           modifier = Modifier.padding(horizontal = 8.dp)
         )

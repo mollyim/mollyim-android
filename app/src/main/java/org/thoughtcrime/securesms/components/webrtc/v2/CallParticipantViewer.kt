@@ -65,6 +65,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.rememberRecipientField
 import org.thoughtcrime.securesms.ringrtc.CameraState
 import org.webrtc.RendererCommon
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Displays a remote participant (or local participant in pre-join screen).
@@ -599,7 +600,7 @@ private fun RaiseHandIndicator(
   Row(
     modifier = modifier
       .background(
-        color = colorResource(R.color.signal_light_colorSurface),
+        color = colorResource(CoreUiR.color.signal_light_colorSurface),
         shape = RoundedCornerShape(percent = 50)
       ),
     verticalAlignment = Alignment.CenterVertically
@@ -614,7 +615,7 @@ private fun RaiseHandIndicator(
     if (name.isNotBlank()) {
       Text(
         text = name,
-        color = colorResource(R.color.signal_light_colorOnSurface),
+        color = colorResource(CoreUiR.color.signal_light_colorOnSurface),
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier.padding(end = 12.dp)
       )

@@ -276,7 +276,7 @@ public class KeyCachingService extends Service {
     builder.setContentTitle(getString(R.string.KeyCachingService_passphrase_cached));
     builder.setContentText(getString(R.string.KeyCachingService_signal_passphrase_cached));
     builder.setSmallIcon(R.drawable.ic_notification_unlocked);
-    builder.setColor(ContextCompat.getColor(this, R.color.signal_light_colorSecondary));
+    builder.setColor(ContextCompat.getColor(this, org.signal.core.ui.R.color.signal_light_colorSecondary));
     builder.setWhen(0);
     builder.setPriority(Notification.PRIORITY_MIN);
     builder.setOngoing(true);

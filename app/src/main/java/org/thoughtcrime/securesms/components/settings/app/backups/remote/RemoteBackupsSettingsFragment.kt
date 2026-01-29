@@ -1153,7 +1153,7 @@ private fun CallToActionButton(
     enabled = enabled,
     colors = ButtonDefaults.filledTonalButtonColors().copy(
       containerColor = SignalTheme.colors.colorTransparent5,
-      contentColor = colorResource(R.color.signal_light_colorOnSurface)
+      contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
     ),
     modifier = Modifier.padding(top = 12.dp)
   ) {
@@ -1210,7 +1210,7 @@ private fun RedemptionErrorAlert(
       .padding(top = 8.dp, bottom = 4.dp)
       .border(
         width = 1.dp,
-        color = colorResource(R.color.signal_colorOutline_38),
+        color = colorResource(CoreUiR.color.signal_colorOutline_38),
         shape = RoundedCornerShape(12.dp)
       )
       .padding(vertical = 16.dp)
@@ -1366,7 +1366,7 @@ private fun SubscriptionNotFoundCard(
         onClick = onRenewClick,
         colors = ButtonDefaults.filledTonalButtonColors().copy(
           containerColor = SignalTheme.colors.colorTransparent5,
-          contentColor = colorResource(R.color.signal_light_colorOnSurface)
+          contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
         ),
         modifier = Modifier
           .padding(top = 24.dp)
@@ -1382,7 +1382,7 @@ private fun SubscriptionNotFoundCard(
         enabled = isRenewEnabled,
         colors = ButtonDefaults.filledTonalButtonColors().copy(
           containerColor = SignalTheme.colors.colorTransparent5,
-          contentColor = colorResource(R.color.signal_light_colorOnSurface)
+          contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
         ),
         modifier = Modifier
           .padding(top = 24.dp)

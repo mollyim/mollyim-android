@@ -38,6 +38,7 @@ import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import java.nio.charset.Charset
 import java.util.Locale
+import org.signal.core.ui.R as CoreUiR
 
 class SafetyNumberQrView : ConstraintLayout {
 
@@ -109,10 +110,10 @@ class SafetyNumberQrView : ConstraintLayout {
 
     clipToOutline = true
 
-    ImageViewCompat.setImageTintList(shareButton, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.signal_dark_colorOnSurface)))
+    ImageViewCompat.setImageTintList(shareButton, ColorStateList.valueOf(ContextCompat.getColor(context, CoreUiR.color.signal_dark_colorOnSurface)))
     setBackgroundColor(ContextCompat.getColor(context, R.color.safety_number_card_blue))
     codes.forEach {
-      it.setTextColor(ContextCompat.getColor(context, R.color.signal_light_colorOnPrimary))
+      it.setTextColor(ContextCompat.getColor(context, CoreUiR.color.signal_light_colorOnPrimary))
     }
   }
 

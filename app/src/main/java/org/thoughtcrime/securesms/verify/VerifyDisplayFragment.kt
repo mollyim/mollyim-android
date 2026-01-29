@@ -81,7 +81,7 @@ class VerifyDisplayFragment : Fragment() {
 
     binding.caption.text = getString(R.string.verify_display_fragment__auto_verify_not_available)
     binding.caption.setLink(getString(R.string.verify_display_fragment__link))
-    binding.caption.setLinkColor(ContextCompat.getColor(requireContext(), R.color.signal_colorPrimary))
+    binding.caption.setLinkColor(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorPrimary))
 
     viewModel.getAutomaticVerification().observe(viewLifecycleOwner) { status ->
       updateStatus(status)
@@ -125,13 +125,13 @@ class VerifyDisplayFragment : Fragment() {
       AutomaticVerificationStatus.UNAVAILABLE_PERMANENT -> {
         binding.autoVerifyText.text = getString(R.string.verify_display_fragment__encryption_unavailable)
         binding.autoVerifyIcon.setImageResource(CoreUiR.drawable.symbol_info_24)
-        ImageViewCompat.setImageTintList(binding.autoVerifyIcon, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant)))
+        ImageViewCompat.setImageTintList(binding.autoVerifyIcon, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant)))
         binding.autoVerifyMore.visible = true
       }
       AutomaticVerificationStatus.UNAVAILABLE_TEMPORARY -> {
         binding.autoVerifyText.text = getString(R.string.verify_display_fragment__encryption_unavailable)
         binding.autoVerifyIcon.setImageResource(CoreUiR.drawable.symbol_info_24)
-        ImageViewCompat.setImageTintList(binding.autoVerifyIcon, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurfaceVariant)))
+        ImageViewCompat.setImageTintList(binding.autoVerifyIcon, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant)))
         binding.autoVerifyMore.visible = true
       }
       AutomaticVerificationStatus.VERIFIED -> {
@@ -298,7 +298,7 @@ class VerifyDisplayFragment : Fragment() {
   private fun setRecipientText(recipient: Recipient) {
     binding.description.text = getString(R.string.verify_display_fragment__pnp_verify_safety_numbers_explanation_with_s, recipient.getDisplayName(requireContext()))
     binding.description.setLink("https://signal.org/redirect/safety-numbers")
-    binding.description.setLinkColor(ContextCompat.getColor(requireContext(), R.color.signal_colorPrimary))
+    binding.description.setLinkColor(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorPrimary))
   }
 
   private fun updateVerifyButton(verified: Boolean, update: Boolean) {

@@ -22,6 +22,7 @@ import org.signal.core.ui.compose.NightPreview
 import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Popup shown to hint the user that they can swipe to view screen share.
@@ -45,13 +46,13 @@ fun SwipeToSpeakerHintPopup(
       Icon(
         imageVector = ImageVector.vectorResource(id = R.drawable.symbol_arrow_down_24),
         contentDescription = null,
-        tint = colorResource(R.color.signal_light_colorOnSecondaryContainer),
+        tint = colorResource(CoreUiR.color.signal_light_colorOnSecondaryContainer),
         modifier = Modifier.size(24.dp)
       )
 
       Text(
         text = stringResource(R.string.CallToastPopupWindow__swipe_to_view_screen_share),
-        color = colorResource(R.color.signal_light_colorOnSecondaryContainer),
+        color = colorResource(CoreUiR.color.signal_light_colorOnSecondaryContainer),
         modifier = Modifier.padding(start = 8.dp)
       )
     }

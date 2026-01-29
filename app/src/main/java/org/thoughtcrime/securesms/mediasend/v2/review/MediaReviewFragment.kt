@@ -70,6 +70,7 @@ import java.io.IOException
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Allows the user to view and edit selected media.
@@ -503,7 +504,7 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
     val sendButtonBackgroundTint = when {
       !enabled -> ContextCompat.getColor(requireContext(), R.color.core_grey_50)
       recipient != null -> recipient.chatColors.asSingleColor()
-      sendType.usesSignalTransport -> ContextCompat.getColor(requireContext(), R.color.signal_colorOnSecondaryContainer)
+      sendType.usesSignalTransport -> ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSecondaryContainer)
       else -> ContextCompat.getColor(requireContext(), R.color.core_grey_50)
     }
 
@@ -513,9 +514,9 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
     }
 
     val sendButtonForegroundTint = when {
-      !enabled -> ContextCompat.getColor(requireContext(), R.color.signal_colorSecondaryContainer)
-      recipient != null -> ContextCompat.getColor(requireContext(), R.color.signal_colorOnCustom)
-      else -> ContextCompat.getColor(requireContext(), R.color.signal_colorSecondaryContainer)
+      !enabled -> ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorSecondaryContainer)
+      recipient != null -> ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnCustom)
+      else -> ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorSecondaryContainer)
     }
 
     sendButton.setImageDrawable(sendButtonForegroundDrawable)

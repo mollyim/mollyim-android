@@ -21,6 +21,7 @@ import org.signal.core.ui.compose.NightPreview
 import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Popup shown when a user is remotely muted during a call.
@@ -44,13 +45,13 @@ fun RemoteMuteToastPopup(
       Icon(
         imageVector = ImageVector.vectorResource(id = R.drawable.ic_mic_off_solid_18),
         contentDescription = null,
-        tint = colorResource(R.color.signal_light_colorOnSecondaryContainer),
+        tint = colorResource(CoreUiR.color.signal_light_colorOnSecondaryContainer),
         modifier = Modifier.size(18.dp)
       )
 
       Text(
         text = message ?: "",
-        color = colorResource(R.color.signal_light_colorOnSecondaryContainer),
+        color = colorResource(CoreUiR.color.signal_light_colorOnSecondaryContainer),
         modifier = Modifier.padding(start = 8.dp)
       )
     }

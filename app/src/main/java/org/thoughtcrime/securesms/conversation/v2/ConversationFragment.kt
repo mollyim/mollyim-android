@@ -1549,6 +1549,12 @@ class ConversationFragment :
   private fun updateNavigationIconForNormal(isFullScreenPane: Boolean) {
     if (!resources.getWindowSizeClass().isSplitPane() || isFullScreenPane) {
       binding.toolbar.setNavigationIcon(CoreUiR.drawable.symbol_arrow_start_24)
+      binding.toolbar.navigationIcon?.setTint(
+        ContextCompat.getColor(
+          requireContext(),
+          if (viewModel.wallpaperSnapshot != null) CoreUiR.color.signal_colorNeutralInverse else CoreUiR.color.signal_colorOnSurface
+        )
+      )
       binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button)
       binding.toolbar.setNavigationOnClickListener {
         binding.root.hideKeyboard(composeText)
@@ -1631,14 +1637,15 @@ class ConversationFragment :
     val toolbarTint = ContextCompat.getColor(
       requireContext(),
       if (chatWallpaper != null) {
-        R.color.signal_colorNeutralInverse
+        CoreUiR.color.signal_colorNeutralInverse
       } else {
-        R.color.signal_colorOnSurface
+        CoreUiR.color.signal_colorOnSurface
       }
     )
 
     binding.toolbar.setTitleTextColor(toolbarTint)
     binding.toolbar.setActionItemTint(toolbarTint)
+    binding.toolbar.navigationIcon?.setTint(toolbarTint)
 
     val wallpaperEnabled = chatWallpaper != null
     binding.conversationWallpaper.visible = wallpaperEnabled
@@ -1660,7 +1667,7 @@ class ConversationFragment :
     binding.scrollDateHeader.setTextColor(
       ContextCompat.getColor(
         requireContext(),
-        if (wallpaperEnabled) R.color.sticky_header_foreground_wallpaper else R.color.signal_colorOnSurfaceVariant
+        if (wallpaperEnabled) R.color.sticky_header_foreground_wallpaper else CoreUiR.color.signal_colorOnSurfaceVariant
       )
     )
 
@@ -1673,7 +1680,7 @@ class ConversationFragment :
     val navColor = if (chatWallpaper != null) {
       R.color.conversation_navigation_wallpaper
     } else {
-      R.color.signal_colorBackground
+      CoreUiR.color.signal_colorBackground
     }
 
     binding.navBar.setBackgroundColor(ContextCompat.getColor(requireContext(), navColor))
@@ -3854,9 +3861,9 @@ class ConversationFragment :
       val toolbarTextAndIconColor = ContextCompat.getColor(
         requireContext(),
         if (viewModel.wallpaperSnapshot != null) {
-          R.color.signal_colorNeutralInverse
+          CoreUiR.color.signal_colorNeutralInverse
         } else {
-          R.color.signal_colorOnSurface
+          CoreUiR.color.signal_colorOnSurface
         }
       )
 

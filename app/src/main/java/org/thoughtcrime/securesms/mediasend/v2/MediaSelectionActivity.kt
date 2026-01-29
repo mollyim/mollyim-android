@@ -52,6 +52,7 @@ import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.visible
+import org.signal.core.ui.R as CoreUiR
 
 class MediaSelectionActivity :
   PassphraseRequiredActivity(),
@@ -207,8 +208,8 @@ class MediaSelectionActivity :
   }
 
   private fun animateTextStyling(selectedSwitch: TextView, unselectedSwitch: TextView, duration: Long) {
-    val offTextColor = ContextCompat.getColor(this, R.color.signal_colorOnSurface)
-    val onTextColor = ContextCompat.getColor(this, R.color.signal_colorSecondaryContainer)
+    val offTextColor = ContextCompat.getColor(this, CoreUiR.color.signal_colorOnSurface)
+    val onTextColor = ContextCompat.getColor(this, CoreUiR.color.signal_colorSecondaryContainer)
 
     animateInShadowLayerValueAnimator?.cancel()
     animateInTextColorValueAnimator?.cancel()

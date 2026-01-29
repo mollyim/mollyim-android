@@ -222,8 +222,8 @@ class ConversationSettingsFragment : DSLSettingsFragment(
   override fun getMaterial3OnScrollHelper(toolbar: Toolbar?): Material3OnScrollHelper {
     return object : Material3OnScrollHelper(activity = requireActivity(), views = listOf(toolbar!!), lifecycleOwner = viewLifecycleOwner) {
       override val inactiveColorSet = ColorSet(
-        toolbarColorRes = R.color.signal_colorBackground_0,
-        statusBarColorRes = R.color.signal_colorBackground
+        toolbarColorRes = CoreUiR.color.signal_colorBackground_0,
+        statusBarColorRes = CoreUiR.color.signal_colorBackground
       )
     }
   }

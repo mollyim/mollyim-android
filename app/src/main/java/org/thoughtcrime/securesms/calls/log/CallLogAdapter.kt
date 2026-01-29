@@ -267,7 +267,7 @@ class CallLogAdapter(
       TextViewCompat.setCompoundDrawableTintList(
         binding.callInfo,
         ColorStateList.valueOf(
-          ContextCompat.getColor(context, R.color.signal_colorOnSurfaceVariant)
+          ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant)
         )
       )
 
@@ -374,9 +374,9 @@ class CallLogAdapter(
       val color = ContextCompat.getColor(
         context,
         if (call.record.isDisplayedAsMissedCallInUi) {
-          R.color.signal_colorError
+          CoreUiR.color.signal_colorError
         } else {
-          R.color.signal_colorOnSurfaceVariant
+          CoreUiR.color.signal_colorOnSurfaceVariant
         }
       )
 

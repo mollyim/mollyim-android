@@ -78,6 +78,7 @@ import org.thoughtcrime.securesms.util.visible
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
+import org.signal.core.ui.R as CoreUiR
 
 class MediaPreviewV2Fragment :
   LoggingFragment(R.layout.fragment_media_preview_v2),
@@ -480,7 +481,7 @@ class MediaPreviewV2Fragment :
     }
     val builder = SpannableStringBuilder(text)
 
-    val onSurfaceColor = ContextCompat.getColor(requireContext(), R.color.signal_colorOnSurface)
+    val onSurfaceColor = ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurface)
     val chevron = ContextUtil.requireDrawable(requireContext(), R.drawable.ic_chevron_end_24)
     chevron.colorFilter = PorterDuffColorFilter(onSurfaceColor, PorterDuff.Mode.SRC_IN)
 

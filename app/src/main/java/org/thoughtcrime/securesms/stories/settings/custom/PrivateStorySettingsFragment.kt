@@ -50,6 +50,7 @@ import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.whispersystems.signalservice.api.push.DistributionId
 import java.util.UUID
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Settings fragment for private stories.
@@ -195,7 +196,7 @@ private fun PrivateStorySettingsScreen(
         item {
           Rows.TextRow(
             text = stringResource(R.string.PrivateStorySettingsFragment__delete_custom_story),
-            foregroundTint = colorResource(R.color.signal_colorError),
+            foregroundTint = colorResource(CoreUiR.color.signal_colorError),
             onClick = { callback.onDeleteStoryClick(state.privateStory.name) }
           )
         }

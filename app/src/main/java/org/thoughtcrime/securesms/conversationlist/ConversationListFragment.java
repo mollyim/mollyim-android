@@ -1740,7 +1740,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
         if (absoluteDx > 0) {
           if (archiveDrawable == null) {
             archiveDrawable = Objects.requireNonNull(AppCompatResources.getDrawable(requireContext(), getArchiveIconRes()));
-            archiveDrawable.setColorFilter(new SimpleColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_colorOnPrimary)));
+            archiveDrawable.setColorFilter(new SimpleColorFilter(ContextCompat.getColor(requireContext(), org.signal.core.ui.R.color.signal_colorOnPrimary)));
             archiveDrawable.setBounds(0, 0, archiveDrawable.getIntrinsicWidth(), archiveDrawable.getIntrinsicHeight());
           }
 
