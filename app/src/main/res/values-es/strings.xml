@@ -2753,8 +2753,8 @@
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Servicios de Google Play se está actualizando o está temporalmente no disponible. Inténtalo de nuevo.</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal is a 501c3 nonprofit\nTerms &amp; Privacy Policy</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal necesita acceso a tus contactos y archivos multimedia para ayudarte a conectar y chatear con otras personas. Tu lista de contactos se carga a través de un método privado para encontrar contactos de Signal. La lista está cifrada de extremo a extremo y nunca es visible para el servicio de Signal.</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal necesita acceso a tus contactos para ayudarte a conectar con otras personas. Tu lista de contactos se carga a través de un método privado para encontrar contactos de Signal. La lista está cifrada de extremo a extremo y no es visible para el servicio de Signal.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal necesita acceso a tus contactos y archivos multimedia para ayudarte a conectar y chatear con otras personas. Tu lista de contactos se carga a través de un método de búsqueda privada para encontrar contactos de Signal. La lista está cifrada de extremo a extremo y nunca es visible para el servicio de Signal.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal necesita acceso a tus contactos para ayudarte a conectar con otras personas. Tu lista de contactos se carga a través de un método de búsqueda privada para encontrar contactos de Signal. La lista está cifrada de extremo a extremo y no es visible para el servicio de Signal.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Has intentado registrar este número demasiadas veces. Inténtalo de nuevo más tarde.</string>
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
     <string name="RegistrationActivity_rate_limited_to_try_again">Has hecho demasiados intentos para registrar este número. Inténtalo de nuevo en %1$s.</string>
@@ -4637,11 +4637,11 @@
     <string name="reminder_header_service_outage_text">Signal está teniendo dificultades técnicas. Estamos trabajando para restablecer el servicio lo antes posible.</string>
     <string name="reminder_header_progress">%1$d %%</string>
     <!-- Body text of a banner that will show at the top of the chat list when we temporarily cannot process the user\'s contacts -->
-    <string name="reminder_cds_warning_body">La función de descubrimiento privado de contactos de Signal temporalmente no puede procesar los contactos de tu teléfono.</string>
+    <string name="reminder_cds_warning_body">La función de búsqueda privada de contactos de Signal temporalmente no puede procesar los contactos de tu teléfono.</string>
     <!-- Label for a button in a banner to learn more about why we temporarily can\'t process the user\'s contacts -->
     <string name="reminder_cds_warning_learn_more">Más información</string>
     <!-- Body text of a banner that will show at the top of the chat list when the user has so many contacts that we cannot ever process them -->
-    <string name="reminder_cds_permanent_error_body">La función de descubrimiento privado de contactos de Signal no puede procesar los contactos de tu teléfono.</string>
+    <string name="reminder_cds_permanent_error_body">La función de búsqueda privada de contactos de Signal no puede procesar los contactos de tu teléfono.</string>
     <!-- Label for a button in a banner to learn more about why we cannot process the user\'s contacts -->
     <string name="reminder_cds_permanent_error_learn_more">Más información</string>
 
@@ -6209,7 +6209,7 @@
     <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">No se ha podido actualizar tu perfil</string>
 
     <!-- Displayed on primary button in the bottom sheet as a call-to-action to launch into the donation flow -->
-    <string name="ViewBadgeBottomSheetDialogFragment__donate_now">Donate</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__donate_now">Donar</string>
     <!-- Title of a page in the bottom sheet. Placeholder is a user\'s short-name -->
     <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s apoya a Signal</string>
     <!-- Description of a page in the bottom sheet of a monthly badge. Placeholder is a user\'s short-name -->
@@ -8124,9 +8124,9 @@
     <!-- Status subtitle for banner when restoring media. Placeholders are size already restored and total size to restore. e.g., 4.5MB of 100MB -->
     <string name="BackupStatus__status_size_of_size">%1$s de %2$s</string>
     <!-- Label for a context menu item that, when pressed, will hide a banner so it will no longer be shown. -->
-    <string name="BackupStatus__hide">Hide</string>
+    <string name="BackupStatus__hide">Ocultar</string>
     <!-- Label for a context menu item that, when pressed, will cancel the ongoing backup. -->
-    <string name="BackupStatus__cancel_upload">Cancel backup</string>
+    <string name="BackupStatus__cancel_upload">Cancelar copia de seguridad</string>
 
     <!-- BackupStatusRow -->
     <!-- Content description for x icon at the end of the linear progress indicator -->
@@ -8174,7 +8174,7 @@
     <!-- Body of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
     <string name="CancelBackupDialog_body">Canceling your backup will not delete your backup. You can resume your backup at any time from Backup Settings.</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will confirm canceling the currently-running backup (future backups are unaffected). -->
-    <string name="CancelBackupDialog_cancel_action">Cancel backup</string>
+    <string name="CancelBackupDialog_cancel_action">Cancelar copia de seguridad</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will continue the backup rather than cancel it. -->
     <string name="CancelBackupDialog_continue_action">Continue backup</string>
 

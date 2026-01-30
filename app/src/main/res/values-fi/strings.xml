@@ -6209,7 +6209,7 @@
     <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Profiilin päivitys epäonnistui</string>
 
     <!-- Displayed on primary button in the bottom sheet as a call-to-action to launch into the donation flow -->
-    <string name="ViewBadgeBottomSheetDialogFragment__donate_now">Donate</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__donate_now">Lahjoita</string>
     <!-- Title of a page in the bottom sheet. Placeholder is a user\'s short-name -->
     <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s tukee Signalia</string>
     <!-- Description of a page in the bottom sheet of a monthly badge. Placeholder is a user\'s short-name -->
@@ -8124,9 +8124,9 @@
     <!-- Status subtitle for banner when restoring media. Placeholders are size already restored and total size to restore. e.g., 4.5MB of 100MB -->
     <string name="BackupStatus__status_size_of_size">%1$s / %2$s</string>
     <!-- Label for a context menu item that, when pressed, will hide a banner so it will no longer be shown. -->
-    <string name="BackupStatus__hide">Hide</string>
+    <string name="BackupStatus__hide">Piilota</string>
     <!-- Label for a context menu item that, when pressed, will cancel the ongoing backup. -->
-    <string name="BackupStatus__cancel_upload">Cancel backup</string>
+    <string name="BackupStatus__cancel_upload">Peruuta varmuuskopiointi</string>
 
     <!-- BackupStatusRow -->
     <!-- Content description for x icon at the end of the linear progress indicator -->
@@ -8174,7 +8174,7 @@
     <!-- Body of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
     <string name="CancelBackupDialog_body">Canceling your backup will not delete your backup. You can resume your backup at any time from Backup Settings.</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will confirm canceling the currently-running backup (future backups are unaffected). -->
-    <string name="CancelBackupDialog_cancel_action">Cancel backup</string>
+    <string name="CancelBackupDialog_cancel_action">Peruuta varmuuskopiointi</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will continue the backup rather than cancel it. -->
     <string name="CancelBackupDialog_continue_action">Continue backup</string>
 

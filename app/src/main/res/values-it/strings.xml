@@ -567,8 +567,8 @@
 
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
-        <item quantity="one">%1$d messaggio non letto</item>
-        <item quantity="other">%1$d messaggi non letti</item>
+        <item quantity="one">%1$d messaggio da leggere</item>
+        <item quantity="other">%1$d messaggi da leggere</item>
     </plurals>
 
     <!-- ConversationFragment -->
@@ -5651,7 +5651,7 @@
     <!-- Name of a chat folder that contains all chats that currently have unread messages -->
     <string name="ChatFoldersFragment__unread">Da leggere</string>
     <!-- Description of the suggested unread chat folder -->
-    <string name="ChatFoldersFragment__unread_messages">Messaggi non letti da tutte le chat</string>
+    <string name="ChatFoldersFragment__unread_messages">Messaggi da leggere in tutte le chat</string>
     <!-- Name of a chat folder that contains all 1:1 (individual) chats -->
     <string name="ChatFoldersFragment__one_on_one_chats">Chat individuali</string>
     <!-- Description of the suggested 1:1 chat folder -->
@@ -5710,7 +5710,7 @@
     <!-- Toggle switch for folder to show unread chats -->
     <string name="CreateFoldersFragment__only_show_unread_chats">Mostra solo chat non lette</string>
     <!-- Explanation of unread toggle option -->
-    <string name="CreateFoldersFragment__when_enabled_only_chats">Se attivi questa opzione, in questa cartella vedrai solo chat con messaggi non letti.</string>
+    <string name="CreateFoldersFragment__when_enabled_only_chats">Se attivi questa opzione, in questa cartella vedrai solo chat con messaggi da leggere.</string>
     <!-- Toggle switch to display muted chats in chat folders -->
     <string name="CreateFoldersFragment__include_muted_chats">Includi chat silenziate</string>
     <!-- Button text to create a folder -->
@@ -6209,7 +6209,7 @@
     <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Impossibile aggiornare il profilo</string>
 
     <!-- Displayed on primary button in the bottom sheet as a call-to-action to launch into the donation flow -->
-    <string name="ViewBadgeBottomSheetDialogFragment__donate_now">Donate</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__donate_now">Dona</string>
     <!-- Title of a page in the bottom sheet. Placeholder is a user\'s short-name -->
     <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s supporta Signal</string>
     <!-- Description of a page in the bottom sheet of a monthly badge. Placeholder is a user\'s short-name -->
@@ -8124,9 +8124,9 @@
     <!-- Status subtitle for banner when restoring media. Placeholders are size already restored and total size to restore. e.g., 4.5MB of 100MB -->
     <string name="BackupStatus__status_size_of_size">%1$s di %2$s</string>
     <!-- Label for a context menu item that, when pressed, will hide a banner so it will no longer be shown. -->
-    <string name="BackupStatus__hide">Hide</string>
+    <string name="BackupStatus__hide">Nascondi</string>
     <!-- Label for a context menu item that, when pressed, will cancel the ongoing backup. -->
-    <string name="BackupStatus__cancel_upload">Cancel backup</string>
+    <string name="BackupStatus__cancel_upload">Annulla backup</string>
 
     <!-- BackupStatusRow -->
     <!-- Content description for x icon at the end of the linear progress indicator -->
@@ -8174,7 +8174,7 @@
     <!-- Body of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
     <string name="CancelBackupDialog_body">Canceling your backup will not delete your backup. You can resume your backup at any time from Backup Settings.</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will confirm canceling the currently-running backup (future backups are unaffected). -->
-    <string name="CancelBackupDialog_cancel_action">Cancel backup</string>
+    <string name="CancelBackupDialog_cancel_action">Annulla backup</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will continue the backup rather than cancel it. -->
     <string name="CancelBackupDialog_continue_action">Continue backup</string>
 
