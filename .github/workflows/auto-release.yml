@@ -1,0 +1,122 @@
+name: Auto-Release from Molly
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:      # Keep manual trigger option
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check-and-merge:
+    name: Check and merge new Molly release
+    runs-on: ubuntu-22.04
+    outputs:
+      should-release: ${{ steps.check.outputs.should-release }}
+      version: ${{ steps.check.outputs.version }}
+      molly-version: ${{ steps.check.outputs.molly-version }}
+      merge-success: ${{ steps.merge.outputs.merge-success }}
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for merging
+      
+      - name: Check for new Molly release
+        id: check
+        run: |
+          echo "Fetching latest Molly release..."
+          MOLLY_VERSION=$(gh release list -R mollyim/mollyim-android -L 1 --json tagName -q '.[0].tagName')
+          echo "Latest Molly version: $MOLLY_VERSION"
+          
+          echo "Polly will use same tag: $MOLLY_VERSION"
+          
+          # Check if we already released this version
+          if gh release view "$MOLLY_VERSION" -R ${{ github.repository }} 2>/dev/null; then
+            echo "Release $MOLLY_VERSION already exists, skipping"
+            echo "should-release=false" >> $GITHUB_OUTPUT
+          else
+            echo "New release needed: $MOLLY_VERSION"
+            echo "should-release=true" >> $GITHUB_OUTPUT
+            echo "version=$MOLLY_VERSION" >> $GITHUB_OUTPUT
+            echo "molly-version=$MOLLY_VERSION" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Try to merge new Molly release
+        id: merge
+        if: steps.check.outputs.should-release == 'true'
+        run: |
+          MOLLY_VERSION="${{ steps.check.outputs.molly-version }}"
+          POLLY_TAG="${{ steps.check.outputs.version }}"
+          
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add Molly remote if not exists
+          git remote add molly https://github.com/mollyim/mollyim-android.git 2>/dev/null || true
+          git fetch molly --tags --force
+          
+          # Delete local branch if exists from previous run
+          git branch -D "auto-merge-${MOLLY_VERSION}" 2>/dev/null || true
+          
+          # Delete remote branch if exists from previous run
+          git push origin --delete "auto-merge-${MOLLY_VERSION}" 2>/dev/null || true
+          
+          # Create merge branch
+          git checkout -b "auto-merge-${MOLLY_VERSION}"
+          
+          # Try to merge
+          echo "Attempting to merge ${MOLLY_VERSION}..."
+          if git merge "tags/${MOLLY_VERSION}" --no-edit -m "Auto-merge Molly ${MOLLY_VERSION}"; then
+            echo "✅ Clean merge successful!"
+            
+            # Push merge commit
+            git push origin "auto-merge-${MOLLY_VERSION}"
+            
+            # Create and push tag (force if exists from previous failed run)
+            git tag -f "$POLLY_TAG"
+            git push -f origin "$POLLY_TAG"
+            
+            echo "merge-success=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Merge conflict detected!"
+            git merge --abort
+            
+            # Create issue for manual resolution
+            ISSUE_BODY="Automatic merge of Molly ${MOLLY_VERSION} failed due to conflicts.
+
+            **Required action:**
+            1. Manually merge: \`git fetch molly && git merge tags/${MOLLY_VERSION}\`
+            2. Resolve conflicts
+            3. Push the merge commit
+            4. Create tag: \`git tag ${POLLY_TAG} && git push origin ${POLLY_TAG}\`
+
+            **Branch created:** \`auto-merge-${MOLLY_VERSION}\`
+
+            The release workflow will automatically trigger once the tag is pushed."
+            
+            gh issue create \
+              --title "🚨 Merge conflict: ${MOLLY_VERSION}" \
+              --body "$ISSUE_BODY" \
+              --label "merge-conflict" \
+              --assignee "lone-cloud"
+            
+            echo "merge-success=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  trigger-release:
+    name: Trigger release build
+    needs: check-and-merge
+    if: needs.check-and-merge.outputs.should-release == 'true' && needs.check-and-merge.outputs.merge-success == 'true'
+    uses: ./.github/workflows/release.yml
+    with:
+      version: ${{ needs.check-and-merge.outputs.version }}
+    secrets: inherit

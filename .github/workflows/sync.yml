@@ -1,30 +1,86 @@
-name: Sync Upstream
+name: Sync Molly Upstream
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 */6 * * *'  # Check every 6 hours for new Molly releases
 
 jobs:
   sync:
-    name: Sync
-    if: "github.repository_owner == 'mollyim'"
+    name: Sync Molly
     runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: upstream
           fetch-depth: 0
           token: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
 
-      - name: Fetch and merge upstream
+      - name: Configure Git
         run: |
-          git remote add upstream https://github.com/signalapp/Signal-Android.git
-          git fetch upstream
-          git merge --ff-only upstream/main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Push changes
+      - name: Add Molly upstream remote
         run: |
-          git push origin upstream
-          git tag | grep -xP 'v\d+(?:\.\d+){2,3}' | xargs -r git push origin
+          git remote add molly https://github.com/mollyim/mollyim-android.git || true
+          git fetch molly --tags || true
+
+      - name: Check for new Molly tags
+        id: check_new_tag
+        run: |
+          # Get the latest Molly tag
+          latest_molly_tag=$(git tag -l --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$' | head -1)
+          
+          # Get our latest tag
+          our_latest_tag=$(git tag -l --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+-[0-9]+-minimalist$' | head -1 | sed 's/-minimalist$//')
+          
+          echo "Latest Molly tag: $latest_molly_tag"
+          echo "Our latest base tag: $our_latest_tag"
+          
+          if [ "$latest_molly_tag" != "$our_latest_tag" ]; then
+            echo "new_tag=$latest_molly_tag" >> $GITHUB_OUTPUT
+            echo "has_new_tag=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_new_tag=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Rebase on new Molly tag
+        if: steps.check_new_tag.outputs.has_new_tag == 'true'
+        run: |
+          NEW_TAG="${{ steps.check_new_tag.outputs.new_tag }}"
+          
+          # Delete remote branch if it exists from previous run
+          git push origin --delete "rebase-${NEW_TAG}" 2>/dev/null || true
+          
+          # Create a new branch for the rebase
+          git checkout -b "rebase-${NEW_TAG}"
+          
+          # Rebase our changes on top of the new Molly tag
+          git rebase "$NEW_TAG" || {
+            echo "Rebase failed. Manual intervention required."
+            git rebase --abort
+            exit 1
+          }
+          
+          # Tag the new version
+          git tag "${NEW_TAG}-minimalist"
+          
+          # Push the new branch and tag (force push in case of retry)
+          git push -f origin "rebase-${NEW_TAG}"
+          git push origin "${NEW_TAG}-minimalist"
+
+      - name: Create Pull Request
+        if: steps.check_new_tag.outputs.has_new_tag == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_TAG="${{ steps.check_new_tag.outputs.new_tag }}"
+          gh pr create \
+            --base main \
+            --head "rebase-${NEW_TAG}" \
+            --title "Rebase on Molly ${NEW_TAG}" \
+            --body "Automated rebase on Molly release ${NEW_TAG}
+
+          Please review the changes and merge if successful." \
+            --label automated,upstream-sync || echo "PR may already exist"

@@ -15,7 +15,7 @@ permissions:
 
 env:
   TAG_REF: "${{ github.event.inputs.version || github.event.release.tag_name }}"
-  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
+  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'mini.env' }}
 
 jobs:
   build:
