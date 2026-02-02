@@ -17,8 +17,6 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,15 +24,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -47,14 +42,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.window.core.layout.WindowSizeClass
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.AllNightPreviews
@@ -75,8 +69,10 @@ import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.ringrtc.CameraState
+import org.thoughtcrime.securesms.service.webrtc.PendingParticipantCollection
 import kotlin.math.max
 import kotlin.math.round
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 private const val DRAG_HANDLE_HEIGHT = 22
@@ -93,6 +89,7 @@ fun CallScreen(
   webRtcCallState: WebRtcViewModel.State,
   isRemoteVideoOffer: Boolean,
   isInPipMode: Boolean,
+  savedLocalParticipantLandscape: Boolean = false,
   callScreenState: CallScreenState,
   callControlsState: CallControlsState,
   callScreenController: CallScreenController = CallScreenController.rememberCallScreenController(
@@ -118,7 +115,10 @@ fun CallScreen(
   onLocalPictureInPictureClicked: () -> Unit,
   onLocalPictureInPictureFocusClicked: () -> Unit,
   onControlsToggled: (Boolean) -> Unit,
-  onCallScreenDialogDismissed: () -> Unit = {}
+  onCallScreenDialogDismissed: () -> Unit = {},
+  onWifiToCellularPopupDismissed: () -> Unit = {},
+  onSwipeToSpeakerHintDismissed: () -> Unit = {},
+  onRemoteMuteToastDismissed: () -> Unit = {}
 ) {
   if (webRtcCallState == WebRtcViewModel.State.CALL_INCOMING) {
     IncomingCallScreen(
@@ -133,8 +133,10 @@ fun CallScreen(
 
   if (isInPipMode) {
     PictureInPictureCallScreen(
+      localParticipant = localParticipant,
+      pendingParticipantsCount = callScreenState.pendingParticipantsState?.pendingParticipantCollection?.getUnresolvedPendingParticipants()?.size ?: 0,
       callParticipantsPagerState = callParticipantsPagerState,
-      callScreenController = callScreenController
+      savedLocalParticipantLandscape = savedLocalParticipantLandscape
     )
 
     return
@@ -162,6 +164,15 @@ fun CallScreen(
 
   additionalActionsPopupState.display = callScreenState.displayAdditionalActionsDialog
 
+  val hideSheet by rememberUpdatedState(newValue = scaffoldState.bottomSheetState.currentValue == SheetValue.PartiallyExpanded && !callControlsState.skipHiddenState && !callScreenState.isDisplayingControlMenu())
+  LaunchedEffect(callScreenController.restartTimerRequests, hideSheet) {
+    if (hideSheet) {
+      delay(5.seconds)
+      scaffoldState.bottomSheetState.hide()
+      onControlsToggled(false)
+    }
+  }
+
   BoxWithConstraints {
     val maxHeight = constraints.maxHeight
     val maxSheetHeight = round(constraints.maxHeight * 0.66f)
@@ -174,7 +185,8 @@ fun CallScreen(
       sheetDragHandle = null,
       sheetPeekHeight = peekHeight.dp,
       sheetContainerColor = SignalTheme.colors.colorSurface1,
-      sheetMaxWidth = 540.dp,
+      containerColor = Color.Black,
+      sheetMaxWidth = CallScreenMetrics.SheetMaxWidth,
       sheetContent = {
         BottomSheets.Handle(modifier = Modifier.align(Alignment.CenterHorizontally))
 
@@ -232,69 +244,6 @@ fun CallScreen(
         label = "animate-as-state"
       )
 
-      // Self-pip bottom inset should be based off of:
-      // A. The container width
-      // B. The sheet width
-      // A - B / 2 gives you the gutter width.
-      // If the pip in its current state would be bigger than the gutter width (accounting for padding)
-      // then we need to apply the inset.
-
-      val selfPipHorizontalPadding = 32.dp
-      val shouldNotApplyBottomPaddingToViewPort = currentWindowAdaptiveInfo().windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
-      val selfPipBottomInset: Dp = if (shouldNotApplyBottomPaddingToViewPort && localRenderState != WebRtcLocalRenderState.SMALLER_RECTANGLE) {
-        val containerWidth = maxWidth
-        val sheetWidth = BottomSheetDefaults.SheetMaxWidth
-        val widthOfPip = rememberSelfPipSize(localRenderState).width
-
-        if (containerWidth <= sheetWidth) {
-          padding
-        } else {
-          val spaceRemaining: Dp = (containerWidth - sheetWidth) / 2f - selfPipHorizontalPadding
-
-          if (spaceRemaining > widthOfPip) {
-            0.dp
-          } else {
-            padding
-          }
-        }
-      } else {
-        0.dp
-      }
-
-      // Reactions/raised hands need bottom inset to stay above the bottom sheet,
-      // UNLESS the overflow row is present (portrait + large group call), in which case
-      // the reactions sit above the overflow row naturally.
-      val isPortrait = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
-      val hasOverflowRow = isPortrait && overflowParticipants.size > 1
-      val reactionsAndRaisesHandBottomInset = if (shouldNotApplyBottomPaddingToViewPort && !hasOverflowRow) {
-        padding
-      } else {
-        0.dp
-      }
-
-      Viewport(
-        localParticipant = localParticipant,
-        localRenderState = localRenderState,
-        webRtcCallState = webRtcCallState,
-        callParticipantsPagerState = callParticipantsPagerState,
-        overflowParticipants = overflowParticipants,
-        scaffoldState = scaffoldState,
-        callControlsState = callControlsState,
-        callScreenState = callScreenState,
-        onPipClick = onLocalPictureInPictureClicked,
-        onPipFocusClick = onLocalPictureInPictureFocusClicked,
-        onControlsToggled = onControlsToggled,
-        callScreenController = callScreenController,
-        onToggleCameraDirection = callScreenControlsListener::onCameraDirectionChanged,
-        selfPipBottomInset = selfPipBottomInset,
-        modifier = if (shouldNotApplyBottomPaddingToViewPort) {
-          Modifier
-        } else Modifier.padding(bottom = padding),
-        reactions = reactions,
-        raiseHandSnackbar = raiseHandSnackbar,
-        reactionsAndRaisesHandBottomInset = reactionsAndRaisesHandBottomInset
-      )
-
       val onCallInfoClick: () -> Unit = {
         scope.launch {
           if (scaffoldState.bottomSheetState.currentValue == SheetValue.Expanded) {
@@ -305,46 +254,8 @@ fun CallScreen(
         }
       }
 
-      if (webRtcCallState.isPassedPreJoin) {
-        AnimatedVisibility(
-          visible = scaffoldState.bottomSheetState.targetValue != SheetValue.Hidden,
-          enter = fadeIn(),
-          exit = fadeOut()
-        ) {
-          CallScreenTopBar(
-            callRecipient = callRecipient,
-            callStatus = callScreenState.callStatus,
-            onNavigationClick = onNavigationClick,
-            onCallInfoClick = onCallInfoClick,
-            modifier = Modifier.padding(bottom = padding)
-          )
-        }
-      } else {
-        CallScreenPreJoinOverlay(
-          callRecipient = callRecipient,
-          callStatus = callScreenState.callStatus,
-          onNavigationClick = onNavigationClick,
-          onCallInfoClick = onCallInfoClick,
-          onCameraToggleClick = callScreenControlsListener::onCameraDirectionChanged,
-          isLocalVideoEnabled = localParticipant.isVideoEnabled,
-          isMoreThanOneCameraAvailable = localParticipant.isMoreThanOneCameraAvailable,
-          modifier = Modifier.padding(bottom = padding)
-        )
-      }
-
-      // This content lives "above" the controls sheet and includes raised hands, status updates, etc.
-      Box(
-        modifier = Modifier
-          .fillMaxSize()
-          .padding(bottom = padding)
-      ) {
-        AnimatedCallStateUpdate(
-          callControlsChange = callScreenState.callControlsChange,
-          modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .padding(bottom = 20.dp)
-        )
-
+      @Composable
+      fun PendingParticipantsInternal(modifier: Modifier = Modifier) {
         val state = remember(callScreenState.pendingParticipantsState) {
           callScreenState.pendingParticipantsState
         }
@@ -352,111 +263,55 @@ fun CallScreen(
         if (state != null) {
           PendingParticipants(
             pendingParticipantsState = state,
-            pendingParticipantsListener = pendingParticipantsListener
-          )
-        }
-
-        if (callScreenState.isParticipantUpdatePopupEnabled) {
-          CallParticipantUpdatePopup(
-            controller = callParticipantUpdatePopupController,
+            pendingParticipantsListener = pendingParticipantsListener,
             modifier = Modifier
-              .statusBarsPadding()
               .fillMaxWidth()
+              .then(modifier)
           )
         }
       }
-    }
-  }
 
-  CallScreenDialog(callScreenDialogType, onCallScreenDialogDismissed)
-}
+      if (webRtcCallState.isPreJoinOrNetworkUnavailable ||
+        webRtcCallState == WebRtcViewModel.State.CALL_OUTGOING ||
+        webRtcCallState == WebRtcViewModel.State.CALL_RINGING ||
+        (webRtcCallState.inOngoingCall && callParticipantsPagerState.callParticipants.isEmpty())
+      ) {
+        if (localParticipant.isVideoEnabled) {
+          LargeLocalVideoRenderer(
+            localParticipant = localParticipant
+          )
+        }
 
-@Composable
-private fun ReactionsAndRaiseHand(
-  reactions: List<GroupCallReactionEvent>,
-  raiseHandSnackbar: @Composable (Modifier) -> Unit,
-  modifier: Modifier = Modifier
-) {
-  Column(
-    modifier = modifier
-      .fillMaxSize()
-      .padding(bottom = 20.dp)
-  ) {
-    CallScreenReactionsContainer(
-      reactions = reactions,
-      modifier = Modifier.weight(1f)
-    )
-
-    raiseHandSnackbar(
-      Modifier
-    )
-  }
-}
-
-/**
- * Primary 'viewport' which will either render content above or behind the controls depending on
- * whether we are in landscape or portrait.
- */
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun Viewport(
-  localParticipant: CallParticipant,
-  localRenderState: WebRtcLocalRenderState,
-  webRtcCallState: WebRtcViewModel.State,
-  callParticipantsPagerState: CallParticipantsPagerState,
-  overflowParticipants: List<CallParticipant>,
-  scaffoldState: BottomSheetScaffoldState,
-  callControlsState: CallControlsState,
-  callScreenState: CallScreenState,
-  callScreenController: CallScreenController,
-  reactions: List<GroupCallReactionEvent>,
-  raiseHandSnackbar: @Composable (Modifier) -> Unit,
-  onPipClick: () -> Unit,
-  onPipFocusClick: () -> Unit,
-  onControlsToggled: (Boolean) -> Unit,
-  onToggleCameraDirection: () -> Unit,
-  selfPipBottomInset: Dp,
-  reactionsAndRaisesHandBottomInset: Dp,
-  modifier: Modifier = Modifier
-) {
-  val isEmptyOngoingCall = webRtcCallState.inOngoingCall && callParticipantsPagerState.callParticipants.isEmpty()
-  if (webRtcCallState.isPreJoinOrNetworkUnavailable || isEmptyOngoingCall) {
-    if (localParticipant.isVideoEnabled) {
-      LargeLocalVideoRenderer(
-        localParticipant = localParticipant,
-        modifier = modifier
-      )
-    }
-
-    return
-  }
-
-  val isLargeGroupCall = overflowParticipants.size > 1
-  if (webRtcCallState.isPassedPreJoin) {
-    val isPortrait = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
-    val scope = rememberCoroutineScope()
-
-    val hideSheet by rememberUpdatedState(newValue = scaffoldState.bottomSheetState.currentValue == SheetValue.PartiallyExpanded && !callControlsState.skipHiddenState && !callScreenState.isDisplayingControlMenu())
-    LaunchedEffect(callScreenController.restartTimerRequests, hideSheet) {
-      if (hideSheet) {
-        delay(5.seconds)
-        scaffoldState.bottomSheetState.hide()
-        onControlsToggled(false)
-      }
-    }
-
-    val callScreenMetrics = rememberCallScreenMetrics()
-    BlurContainer(
-      isBlurred = localRenderState == WebRtcLocalRenderState.FOCUSED,
-      modifier = modifier.fillMaxWidth()
-    ) {
-      Row(modifier = Modifier.fillMaxSize()) {
-        Column(
-          modifier = Modifier.weight(1f)
-        ) {
-          Box(
-            modifier = Modifier.fillMaxWidth().weight(1f)
-          ) {
+        if (webRtcCallState.isPreJoinOrNetworkUnavailable) {
+          CallScreenPreJoinOverlay(
+            callRecipient = callRecipient,
+            callStatus = callScreenState.callStatus,
+            localParticipant = localParticipant,
+            onNavigationClick = onNavigationClick,
+            onCallInfoClick = onCallInfoClick,
+            onCameraToggleClick = callScreenControlsListener::onCameraDirectionChanged,
+            isLocalVideoEnabled = localParticipant.isVideoEnabled,
+            isMoreThanOneCameraAvailable = localParticipant.isMoreThanOneCameraAvailable,
+            bottomSheetPadding = padding
+          )
+        } else {
+          CallScreenJoiningOverlay(
+            callRecipient = callRecipient,
+            callStatus = callScreenState.callStatus,
+            localParticipant = localParticipant,
+            isLocalVideoEnabled = localParticipant.isVideoEnabled,
+            isMoreThanOneCameraAvailable = localParticipant.isMoreThanOneCameraAvailable,
+            isWaitingToBeLetIn = callScreenState.isWaitingToBeLetIn,
+            bottomSheetPadding = padding,
+            onNavigationClick = onNavigationClick,
+            onCallInfoClick = onCallInfoClick,
+            onCameraToggleClick = callScreenControlsListener::onCameraDirectionChanged,
+            pendingParticipantsSlot = ::PendingParticipantsInternal
+          )
+        }
+      } else if (webRtcCallState.isPassedPreJoin) {
+        CallElementsLayout(
+          callGridSlot = {
             CallParticipantsPager(
               callParticipantsPagerState = callParticipantsPagerState,
               pagerState = callScreenController.callParticipantsVerticalPagerState,
@@ -471,56 +326,138 @@ private fun Viewport(
                   enabled = !callControlsState.skipHiddenState
                 )
             )
-
-            ReactionsAndRaiseHand(
-              reactions = reactions,
-              raiseHandSnackbar = raiseHandSnackbar,
-              modifier = Modifier.padding(bottom = reactionsAndRaisesHandBottomInset)
+          },
+          pictureInPictureSlot = {
+            MoveableLocalVideoRenderer(
+              localParticipant = localParticipant,
+              localRenderState = localRenderState,
+              savedLocalParticipantLandscape = savedLocalParticipantLandscape,
+              onClick = onLocalPictureInPictureClicked,
+              onToggleCameraDirectionClick = callScreenControlsListener::onCameraDirectionChanged,
+              onFocusLocalParticipantClick = onLocalPictureInPictureFocusClicked,
+              modifier = Modifier.fillMaxSize()
             )
-          }
-
-          if (isPortrait && isLargeGroupCall) {
-            Row {
-              CallParticipantsOverflow(
-                lineType = LayoutStrategyLineType.ROW,
-                overflowParticipants = overflowParticipants,
-                modifier = Modifier
-                  .padding(vertical = 16.dp)
-                  .height(callScreenMetrics.overflowParticipantRendererSize)
+          },
+          reactionsSlot = {
+            CallScreenReactionsContainer(
+              reactions = reactions,
+              modifier = Modifier.fillMaxSize()
+            )
+          },
+          raiseHandSlot = {
+            Box(
+              modifier = Modifier.fillMaxWidth(),
+              contentAlignment = Alignment.CenterEnd
+            ) {
+              raiseHandSnackbar(
+                Modifier.padding(bottom = 16.dp)
               )
             }
-          }
-        }
+          },
+          callLinkBarSlot = {
+            PendingParticipantsInternal(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp))
+          },
+          callOverflowSlot = {
+            val metrics = rememberCallScreenMetrics()
+            if (overflowParticipants.isNotEmpty()) {
+              val lineType = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                LayoutStrategyLineType.COLUMN
+              } else {
+                LayoutStrategyLineType.ROW
+              }
 
-        if (!isPortrait && isLargeGroupCall) {
-          Column {
-            CallParticipantsOverflow(
-              lineType = LayoutStrategyLineType.COLUMN,
-              overflowParticipants = overflowParticipants,
-              modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .width(callScreenMetrics.overflowParticipantRendererSize)
-            )
-          }
+              CallParticipantsOverflow(
+                lineType = lineType,
+                overflowParticipants = overflowParticipants,
+                modifier = when (lineType) {
+                  LayoutStrategyLineType.COLUMN ->
+                    Modifier
+                      .padding(horizontal = 16.dp)
+                      .width(metrics.overflowParticipantRendererSize)
+
+                  LayoutStrategyLineType.ROW ->
+                    Modifier
+                      .padding(vertical = 16.dp)
+                      .height(metrics.overflowParticipantRendererSize)
+                }
+              )
+            }
+          },
+          bottomInset = padding,
+          bottomSheetWidth = CallScreenMetrics.SheetMaxWidth,
+          localRenderState = localRenderState,
+          modifier = Modifier.fillMaxSize()
+        )
+
+        AnimatedVisibility(
+          visible = scaffoldState.bottomSheetState.targetValue != SheetValue.Hidden,
+          enter = fadeIn(),
+          exit = fadeOut()
+        ) {
+          CallScreenTopBar(
+            callRecipient = callRecipient,
+            callStatus = callScreenState.callStatus,
+            onNavigationClick = onNavigationClick,
+            onCallInfoClick = onCallInfoClick,
+            modifier = Modifier.padding(bottom = padding)
+          )
         }
+      }
+
+      Box(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(bottom = padding)
+      ) {
+        AnimatedCallStateUpdate(
+          callControlsChange = callScreenState.callControlsChange,
+          modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .padding(bottom = 20.dp)
+        )
       }
     }
   }
 
-  if (webRtcCallState.inOngoingCall) {
-    MoveableLocalVideoRenderer(
-      localParticipant = localParticipant,
-      localRenderState = localRenderState,
-      onClick = onPipClick,
-      onToggleCameraDirectionClick = onToggleCameraDirection,
-      onFocusLocalParticipantClick = onPipFocusClick,
-      modifier = modifier.padding(bottom = selfPipBottomInset)
+  if (callScreenState.isParticipantUpdatePopupEnabled) {
+    CallParticipantUpdatePopup(
+      controller = callParticipantUpdatePopupController,
+      modifier = Modifier
+        .statusBarsPadding()
+        .fillMaxWidth()
     )
   }
+
+  WifiToCellularPopup(
+    visible = callScreenState.displayWifiToCellularPopup,
+    onDismiss = onWifiToCellularPopupDismissed,
+    modifier = Modifier
+      .statusBarsPadding()
+      .fillMaxWidth()
+  )
+
+  SwipeToSpeakerHintPopup(
+    visible = callScreenState.displaySwipeToSpeakerHint,
+    onDismiss = onSwipeToSpeakerHintDismissed,
+    modifier = Modifier
+      .statusBarsPadding()
+      .fillMaxWidth()
+  )
+
+  RemoteMuteToastPopup(
+    message = callScreenState.remoteMuteToastMessage,
+    onDismiss = onRemoteMuteToastDismissed,
+    modifier = Modifier
+      .statusBarsPadding()
+      .fillMaxWidth()
+  )
+
+  CallScreenDialog(callScreenDialogType, onCallScreenDialogDismissed)
 }
 
 /**
  * Full-screen local video renderer displayed when the user is in pre-call state.
+ * Audio indicator is handled by the overlay composables.
  */
 @Composable
 private fun LargeLocalVideoRenderer(
@@ -531,6 +468,8 @@ private fun LargeLocalVideoRenderer(
     participant = localParticipant,
     renderInPip = false,
     raiseHandAllowed = false,
+    mirrorVideo = localParticipant.cameraDirection == CameraState.Direction.FRONT,
+    showAudioIndicator = false,
     onInfoMoreInfoClick = null,
     modifier = modifier
       .fillMaxSize()
@@ -590,7 +529,20 @@ private fun CallScreenPreview() {
       isRemoteVideoOffer = false,
       isInPipMode = false,
       callScreenState = CallScreenState(
-        callStatus = "Connecting..."
+        callStatus = "Connecting...",
+        pendingParticipantsState = PendingParticipantsState(
+          pendingParticipantCollection = PendingParticipantCollection(
+            participantMap = mapOf(
+              RecipientId.from(2) to PendingParticipantCollection.Entry(
+                recipient = Recipient(id = RecipientId.from(2L), isResolving = false, systemContactName = "Miles Morales"),
+                state = PendingParticipantCollection.State.PENDING,
+                stateChangeAt = System.currentTimeMillis().milliseconds,
+                denialCount = 0
+              )
+            )
+          ),
+          isInPipMode = false
+        )
       ),
       callControlsState = CallControlsState(
         displayMicToggle = true,

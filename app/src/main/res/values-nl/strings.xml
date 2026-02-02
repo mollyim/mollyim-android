@@ -408,7 +408,7 @@
     <string name="ContactShareEditActivity_type_work">Werk</string>
     <string name="ContactShareEditActivity_type_missing">Anders</string>
     <string name="ContactShareEditActivity_invalid_contact">Het geselecteerde contact was ongeldig</string>
-    <!-- Content descrption for name edit button on contact share edit activity -->
+    <!-- Content description for name edit button on contact share edit activity -->
     <string name="ContactShareEditActivity__edit_name">Naam bewerken</string>
     <!-- Content description for user avatar in edit activity -->
     <string name="ContactShareEditActivity__avatar">Profielfoto</string>
@@ -690,7 +690,7 @@
     <!-- Dialog title when replacing the oldest pin -->
     <string name="ConversationFragment__replace_title">Oudste vastgezette bericht vervangen?</string>
     <!-- Dialog body when replacing the oldest pin -->
-    <string name="ConversationFragment__replace_body">Je oudste vastgezette bericht wordt vervangen door het nieuwe bericht</string>
+    <string name="ConversationFragment__replace_body">Je oudste vastgezette bericht wordt vervangen door het nieuwe bericht.</string>
     <!-- Dialog button when replacing the oldest pin -->
     <string name="ConversationFragment__replace">Vervangen</string>
 
@@ -965,6 +965,11 @@
     <!-- DateUtils -->
     <string name="DateUtils_just_now">Nu</string>
     <string name="DateUtils_minutes_ago">%1$d min</string>
+    <!-- Content description when describing how many minutes ago something has happened -->
+    <plurals name="DateUtils_minutes_ago_content_description">
+        <item quantity="one">%1$d minuut</item>
+        <item quantity="other">%1$d minuten</item>
+    </plurals>
     <string name="DateUtils_today">Vandaag</string>
     <string name="DateUtils_yesterday">Gisteren</string>
     <!-- When scheduling a message, %1$s replaced with either today, tonight, or tomorrow. %2$s replaced with the time. e.g. Tonight at 9:00pm -->
@@ -1630,6 +1635,8 @@
     <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Kan niet lid worden van de groep, probeer het later nog eens</string>
     <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Er is een netwerkfout opgetreden.</string>
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Deze groepslink is niet actief</string>
+    <!-- Toast message shown when trying to join a group by link but the group is full -->
+    <string name="GroupJoinBottomSheetDialogFragment_group_limit_reached">Groepslimiet bereikt, kan niet deelnemen aan groep</string>
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Kan niet lid worden van de groep</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
@@ -2553,7 +2560,7 @@
     <!-- Alert message indicating that a remote user remotely muted another remote user. First placeholder is the muters display name, second is the display name of the person muted. -->
     <string name="WebRtcCallView__s_remotely_muted_s">%1$s heeft %2$s gedempt.</string>
     <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
-    <string name="WebRtcCallView__you_muted_yourself">Je hebt jezelf op een ander apparaat gedempt.</string>
+    <string name="WebRtcCallView__you_muted_yourself">Je hebt jezelf vanaf een ander apparaat gedempt.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Er is een UI-fout opgetreden. Meld deze fout aan de ontwikkelaars.</string>
@@ -2691,6 +2698,12 @@
     <!-- SwitchCameraButton -->
     <!-- Content description for the button that switches between front and back camera during a call -->
     <string name="SwitchCameraButton__switch_camera_direction">Wisselen tussen voor- en achtercamera</string>
+
+    <!-- CallQualityDiagnosticsScreen -->
+    <!-- Title for the call quality diagnostics screen -->
+    <string name="CallQualityDiagnosticsScreen__diagnostic_information">Diagnostische informatie</string>
+    <!-- Content description for the close/back navigation button -->
+    <string name="CallQualityDiagnosticsScreen__close">Sluiten</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Veeg om gedeeld scherm weer te geven</string>
@@ -3801,6 +3814,15 @@
     <string name="verify_display_fragment__mark_as_verified">Als geverifieerd markeren</string>
     <string name="verify_display_fragment__clear_verification">Verificatie ongedaan maken</string>
 
+    <!-- Title for auto verification education sheet -->
+    <string name="VerifyAutomaticallyEducationSheet__title">Signal verifieert end-to-end encryptie nu automatisch</string>
+    <!-- Body for auto verification education sheet -->
+    <string name="VerifyAutomaticallyEducationSheet__body">Wanneer je een veiligheidsnummer verifieert, zal Molly automatisch bevestigen of de verbinding veilig is met behulp van een proces dat sleuteltransparantie heet. Je kunt nog steeds handmatig verbindingen verifiëren met een QR-code of een nummer.</string>
+    <!-- Button to learn more about automatic verification -->
+    <string name="VerifyAutomaticallyEducationSheet__learn_more">Meer informatie</string>
+    <!-- Button to go to verification page -->
+    <string name="VerifyAutomaticallyEducationSheet__verify">Verifiëren</string>
+
     <!-- verity_scan_fragment -->
     <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Scan de QR-code op het apparaat van je contact.</string>
 
@@ -4174,6 +4196,8 @@
     <string name="preferences_normal">Normaal</string>
     <!-- Preference summary for compact navigation bar size -->
     <string name="preferences_compact">Compact</string>
+    <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
+    <string name="preferences_language_change_confirmation_message">De app wordt opnieuw opgestart om de nieuwe taalinstelling toe te passen.</string>
 
 
     <string name="configurable_single_select__customize_option">Instelling personaliseren</string>
@@ -6487,7 +6511,7 @@
     <!-- Button use to permanently delete a notification profile -->
     <string name="NotificationProfileDetails__delete_profile">Meldingsprofiel verwijderen</string>
     <!-- Snakbar message shown when removing a recipient from a profile -->
-    <string name="NotificationProfileDetails__s_removed">‘%1$s’ verwijderd.</string>
+    <string name="NotificationProfileDetails__s_removed">%1$s verwijderd.</string>
     <!-- Snackbar button text that will undo the recipient remove -->
     <string name="NotificationProfileDetails__undo">Ongedaan maken</string>
     <!-- Dialog message shown to confirm deleting a profile -->
@@ -8442,6 +8466,14 @@
     <!-- Button label to open storage management screen -->
     <string name="RemoteBackupsSettingsFragment__manage_storage">Opslag beheren</string>
 
+    <!-- ReadyToTransferBottomSheet -->
+    <!-- Title for a bottom sheet letting people know that they can transfer their back to their new device  -->
+    <string name="RemoteBackupsSettingsFragment__ready_to_transfer">Klaar om over te zetten</string>
+    <!-- Body for bottom sheet telling the user to scan a QR code to continue transferring their backup to a new device -->
+    <string name="RemoteBackupsSettingsFragment__use_this_device_to_scan_qr">Gebruik dit apparaat om de QR-code te scannen die wordt weergegeven op het apparaat waarnaar je wilt overzetten</string>
+    <!-- Button label to open QR scanner to scan a device and transfer a backup -->
+    <string name="RemoteBackupsSettingsFragment__scan_qr_code">QR-code scannen</string>
+
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
     <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Download je back-up vandaag nog</string>
@@ -8799,6 +8831,19 @@
     <!-- Old device Transfer account bottom sheet dialog body -->
     <string name="TransferAccount_continue_on_your_other_device_details">Ga op je andere apparaat door met het overzetten van je account.</string>
 
+    <!-- Prepare Device screen title for quick restore flow -->
+    <string name="PrepareDevice_title">Je apparaat klaarmaken</string>
+    <!-- Prepare Device screen body text explaining backup recommendation -->
+    <string name="PrepareDevice_body">Back up now before transferring. You may have received messages that haven\'t been backed up yet.</string>
+    <!-- Prepare Device screen last backup text format, %1$s is the date and %2$s is the time -->
+    <string name="PrepareDevice_last_backup">De laatste back-up is gemaakt op %1$s om %2$s.</string>
+    <!-- Prepare Device screen back up now button -->
+    <string name="PrepareDevice_back_up_now">Nu back-up maken</string>
+    <!-- Prepare Device screen skip and continue button -->
+    <string name="PrepareDevice_skip_and_continue">Overslaan en doorgaan</string>
+    <!-- A string describing the last time the user\'s backup was made. The placeholder represents a date-time. An example would be "Your last backup was made on July 18, 2025 at 9:00am." -->
+    <string name="PrepareDevice_last_backup_description">Your last backup was made %1$s. </string>
+
     <!-- Restore Complete bottom sheet dialog title -->
     <string name="RestoreCompleteBottomSheet_restore_complete">Voltooi het overzetten op je andere apparaat</string>
     <!-- Restore Complete bottom sheet dialog message -->
@@ -8924,7 +8969,7 @@
     <!-- Dialog title when you go to end a poll -->
     <string name="Poll__end_poll_title">Peiling beëindigen?</string>
     <!-- Dialog body when you go to end a poll -->
-    <string name="Poll__end_poll_body">Groepsleden kunnen niet meer stemmen in deze peiling.</string>
+    <string name="Poll__end_poll_body">Leden van deze chat kunnen niet meer stemmen in deze peiling.</string>
     <!-- Body used in dialog when we are waiting for network -->
     <string name="Poll__waiting_for_network">Wachten op netwerk…</string>
     <!-- Header when creating a new poll -->
@@ -8981,7 +9026,7 @@
 
     <!-- CallQualitySomethingElseScreen -->
     <!-- Title for the "Something else" call quality issue screen -->
-    <string name="CallQualitySomethingElseScreen__title">Iets anders</string>
+    <string name="CallQualitySomethingElseScreen__title">Beschrijf het probleem</string>
     <!-- Label for text field where user describes their call quality issue -->
     <string name="CallQualitySomethingElseScreen__describe_your_issue">Beschrijf het probleem</string>
     <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
@@ -9011,11 +9056,15 @@
     <!-- Title asking user to help improve Signal -->
     <string name="CallQualitySheet__help_us_improve">Help ons te verbeteren</string>
     <!-- First part of description explaining diagnostics help improve call quality -->
-    <string name="CallQualitySheet__help_us_improve_description_prefix">Als je je diagnostische gegevens deelt, kunnen we de oproepkwaliteit verbeteren. Je kunt </string>
+    <string name="CallQualitySheet__help_us_improve_description_prefix">Door te versturen ontvangen we jouw feedback samen met</string>
+    <!-- Clickable text to launch diagnostic fragment -->
+    <string name="CallQualitySheet__diagnostic_information_about_your_call">diagnostische informatie over je oproep</string>
+    <!-- End of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix">Optioneel kun je een foutopsporingslog delen om ons te helpen de gesprekskwaliteit te verbeteren.</string>
+    <!-- Text explaining the debug log -->
+    <string name="CallQualitySheet__information_shared_with_us">De gegevens die je met ons deelt, bevatten app-informatie op laag niveau en geven geen informatie over de inhoud van je oproepen.</string>
     <!-- Link text to view debug log -->
-    <string name="CallQualitySheet__view_your_debug_log">je foutopsporingslog bekijken</string>
-    <!-- Last part of description about viewing debug log before submitting -->
-    <string name="CallQualitySheet__help_us_improve_description_suffix"> voordat je het indient.</string>
+    <string name="CallQualitySheet__view_debug_log">Foutopsporingslog bekijken</string>
     <!-- Toggle label for sharing debug log -->
     <string name="CallQualitySheet__share_debug_log">Foutopsporingslog delen</string>
     <!-- Privacy notice explaining what debug logs contain and why they are helpful -->

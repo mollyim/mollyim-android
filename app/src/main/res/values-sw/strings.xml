@@ -408,7 +408,7 @@
     <string name="ContactShareEditActivity_type_work">Kazi</string>
     <string name="ContactShareEditActivity_type_missing">ingine</string>
     <string name="ContactShareEditActivity_invalid_contact">Mawasilianao yaliyochaguliwa sio sahihi</string>
-    <!-- Content descrption for name edit button on contact share edit activity -->
+    <!-- Content description for name edit button on contact share edit activity -->
     <string name="ContactShareEditActivity__edit_name">Hariri jina</string>
     <!-- Content description for user avatar in edit activity -->
     <string name="ContactShareEditActivity__avatar">Avatar</string>
@@ -965,6 +965,11 @@
     <!-- DateUtils -->
     <string name="DateUtils_just_now">Sasa</string>
     <string name="DateUtils_minutes_ago">d %1$d</string>
+    <!-- Content description when describing how many minutes ago something has happened -->
+    <plurals name="DateUtils_minutes_ago_content_description">
+        <item quantity="one">dakika 1%1$d</item>
+        <item quantity="other">dakika %1$d</item>
+    </plurals>
     <string name="DateUtils_today">Leo</string>
     <string name="DateUtils_yesterday">Jana</string>
     <!-- When scheduling a message, %1$s replaced with either today, tonight, or tomorrow. %2$s replaced with the time. e.g. Tonight at 9:00pm -->
@@ -1630,6 +1635,8 @@
     <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Hujaweza kujiunga na kikundi. Jaribu tena baadaye.</string>
     <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Imekumbana na hitilafu ya mtandao.</string>
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Kiungo hiki cha kikundi hakifanyi kazi</string>
+    <!-- Toast message shown when trying to join a group by link but the group is full -->
+    <string name="GroupJoinBottomSheetDialogFragment_group_limit_reached">Ukomo wa kikundi umefikiwa, umeshindwa kujiunga na kikundi</string>
     <!-- Title shown when there was an known issue getting group information from a group link -->
     <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Huwezi kujiunga kwenye kikundi</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
@@ -2691,6 +2698,12 @@
     <!-- SwitchCameraButton -->
     <!-- Content description for the button that switches between front and back camera during a call -->
     <string name="SwitchCameraButton__switch_camera_direction">Badilisha mwelekeo wa kamera</string>
+
+    <!-- CallQualityDiagnosticsScreen -->
+    <!-- Title for the call quality diagnostics screen -->
+    <string name="CallQualityDiagnosticsScreen__diagnostic_information">Taarifa ya uchunguzi</string>
+    <!-- Content description for the close/back navigation button -->
+    <string name="CallQualityDiagnosticsScreen__close">Funga</string>
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Telezesha kidole ili uone skrini ya kushiriki</string>
@@ -3801,6 +3814,15 @@
     <string name="verify_display_fragment__mark_as_verified">Weka alama kuwa imedhibitishwa</string>
     <string name="verify_display_fragment__clear_verification">Futa uthibitishwaji</string>
 
+    <!-- Title for auto verification education sheet -->
+    <string name="VerifyAutomaticallyEducationSheet__title">Signal sasa huthibitisha kiotomatiki usimbaji fiche wa mwanzo hadi mwisho</string>
+    <!-- Body for auto verification education sheet -->
+    <string name="VerifyAutomaticallyEducationSheet__body">Unapothibitisha namba ya usalama, Molly itathibitisha kiotomatiki iwapo muunganisho ni salama kwa kutumia mchakato unaoitwa uwazi katika funguo. Bado unaweza kuthibitisha miunganisho mwenyewe kwa kutumia code ya QR au namba.</string>
+    <!-- Button to learn more about automatic verification -->
+    <string name="VerifyAutomaticallyEducationSheet__learn_more">Jifunze zaidi</string>
+    <!-- Button to go to verification page -->
+    <string name="VerifyAutomaticallyEducationSheet__verify">Thibitisha</string>
+
     <!-- verity_scan_fragment -->
     <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Skani msimbo wa QR uliopo kwenye kifaa cha mwasiliani wako.</string>
 
@@ -4174,6 +4196,8 @@
     <string name="preferences_normal">Kawaida</string>
     <!-- Preference summary for compact navigation bar size -->
     <string name="preferences_compact">Ndogo</string>
+    <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
+    <string name="preferences_language_change_confirmation_message">Programu itazima kisha ianze upya ili uweze kutumia mipangilio mipya ya lugha.</string>
 
 
     <string name="configurable_single_select__customize_option">Badilisha chaguo likufae</string>
@@ -6218,7 +6242,7 @@
     <!-- Preference heading for other ways to donate -->
     <string name="ManageDonationsFragment__other_ways_to_give">Namna nyingine za kutoa</string>
     <!-- Preference label to launch badge gifting -->
-    <string name="ManageDonationsFragment__donate_for_a_friend">Mchangie Rafiki</string>
+    <string name="ManageDonationsFragment__donate_for_a_friend">Mchangie rafiki</string>
     <!-- Dialog title shown when a donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet -->
     <string name="ManageDonationsFragment__couldnt_confirm_donation">Haijaweza kuthibitisha mchango</string>
     <!-- Dialog message shown when a monthly donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
@@ -8442,6 +8466,14 @@
     <!-- Button label to open storage management screen -->
     <string name="RemoteBackupsSettingsFragment__manage_storage">Dhibiti hifadhi</string>
 
+    <!-- ReadyToTransferBottomSheet -->
+    <!-- Title for a bottom sheet letting people know that they can transfer their back to their new device  -->
+    <string name="RemoteBackupsSettingsFragment__ready_to_transfer">Ready to transfer</string>
+    <!-- Body for bottom sheet telling the user to scan a QR code to continue transferring their backup to a new device -->
+    <string name="RemoteBackupsSettingsFragment__use_this_device_to_scan_qr">Tumia kifaa hiki kuchanganua Code ya QR kwenye kifaa unachotaka kuhamishia</string>
+    <!-- Button label to open QR scanner to scan a device and transfer a backup -->
+    <string name="RemoteBackupsSettingsFragment__scan_qr_code">Skani code ya QR</string>
+
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
     <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Pakua data yako ya hifadhi nakala leo</string>
@@ -8799,6 +8831,19 @@
     <!-- Old device Transfer account bottom sheet dialog body -->
     <string name="TransferAccount_continue_on_your_other_device_details">Endelea kuhamisha akaunti yako kwenye kifaa chako kingine.</string>
 
+    <!-- Prepare Device screen title for quick restore flow -->
+    <string name="PrepareDevice_title">Getting your device ready</string>
+    <!-- Prepare Device screen body text explaining backup recommendation -->
+    <string name="PrepareDevice_body">Back up now before transferring. You may have received messages that haven\'t been backed up yet.</string>
+    <!-- Prepare Device screen last backup text format, %1$s is the date and %2$s is the time -->
+    <string name="PrepareDevice_last_backup">Chelezo yako ya mwisho ilifanywa tarehe %1$s saa %2$s.</string>
+    <!-- Prepare Device screen back up now button -->
+    <string name="PrepareDevice_back_up_now">Hifadhi nakala rudufu Sasa</string>
+    <!-- Prepare Device screen skip and continue button -->
+    <string name="PrepareDevice_skip_and_continue">Skip and continue</string>
+    <!-- A string describing the last time the user\'s backup was made. The placeholder represents a date-time. An example would be "Your last backup was made on July 18, 2025 at 9:00am." -->
+    <string name="PrepareDevice_last_backup_description">Your last backup was made %1$s. </string>
+
     <!-- Restore Complete bottom sheet dialog title -->
     <string name="RestoreCompleteBottomSheet_restore_complete">Malizia kwenye kifaa chako kingine</string>
     <!-- Restore Complete bottom sheet dialog message -->
@@ -8924,7 +8969,7 @@
     <!-- Dialog title when you go to end a poll -->
     <string name="Poll__end_poll_title">Kamilisha upigaji wa kura za maoni?</string>
     <!-- Dialog body when you go to end a poll -->
-    <string name="Poll__end_poll_body">Wanachama wa kikundi hawataweza tena kupiga kura katika kura hizi za maoni.</string>
+    <string name="Poll__end_poll_body">Wanachama wa gumzo hili hawataweza tena kupiga kura ya maoni.</string>
     <!-- Body used in dialog when we are waiting for network -->
     <string name="Poll__waiting_for_network">Inasubiri mtandao…</string>
     <!-- Header when creating a new poll -->
@@ -8981,7 +9026,7 @@
 
     <!-- CallQualitySomethingElseScreen -->
     <!-- Title for the "Something else" call quality issue screen -->
-    <string name="CallQualitySomethingElseScreen__title">Kitu kingine</string>
+    <string name="CallQualitySomethingElseScreen__title">Elezea tatizo</string>
     <!-- Label for text field where user describes their call quality issue -->
     <string name="CallQualitySomethingElseScreen__describe_your_issue">Elezea tatizo lako</string>
     <!-- Privacy notice explaining that issue details will be kept private and used to improve Signal calls -->
@@ -9011,11 +9056,15 @@
     <!-- Title asking user to help improve Signal -->
     <string name="CallQualitySheet__help_us_improve">Tusaidie kuboresha</string>
     <!-- First part of description explaining diagnostics help improve call quality -->
-    <string name="CallQualitySheet__help_us_improve_description_prefix">Kukutumia taarifa zako za uchunguzi hutusaidia kuboresha ubora wa simu. Unaweza </string>
+    <string name="CallQualitySheet__help_us_improve_description_prefix">Kitendo cha kuwasilisha kutatuma maoni yako pamoja na</string>
+    <!-- Clickable text to launch diagnostic fragment -->
+    <string name="CallQualitySheet__diagnostic_information_about_your_call">taarifa ya uchunguzi kuhusu simu yako</string>
+    <!-- End of description explaining diagnostics help improve call quality -->
+    <string name="CallQualitySheet__help_us_improve_description_suffix">Unaweza kututumia kwa hiari faili la rekebisho ili kutusaidia kuboresha ubora wa simu.</string>
+    <!-- Text explaining the debug log -->
+    <string name="CallQualitySheet__information_shared_with_us">Taarifa unazotutumia zina kiwango cha chini cha taarifa za programu na hazijumuishi maudhui ya simu zako.</string>
     <!-- Link text to view debug log -->
-    <string name="CallQualitySheet__view_your_debug_log">tazama faili la rekebisho</string>
-    <!-- Last part of description about viewing debug log before submitting -->
-    <string name="CallQualitySheet__help_us_improve_description_suffix"> kabla ya kuwasilisha.</string>
+    <string name="CallQualitySheet__view_debug_log">Tazama faili la rekebisho</string>
     <!-- Toggle label for sharing debug log -->
     <string name="CallQualitySheet__share_debug_log">Kutuma faili la rekebisho</string>
     <!-- Privacy notice explaining what debug logs contain and why they are helpful -->

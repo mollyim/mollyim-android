@@ -33,8 +33,6 @@ tasks.withType<Wrapper> {
   distributionType = Wrapper.DistributionType.ALL
 }
 
-apply(from = "$rootDir/constants.gradle.kts")
-
 allprojects {
   tasks.withType<AbstractArchiveTask>().configureEach {
     isPreserveFileTimestamps = false

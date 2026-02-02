@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.material3.SnackbarDuration
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +21,7 @@ import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.kotlin.Flowables
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.Snackbars
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.addTo
@@ -36,6 +36,7 @@ import org.thoughtcrime.securesms.components.ScrollToPositionDelegate
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsActivity
+import org.thoughtcrime.securesms.components.snackbars.SnackbarState
 import org.thoughtcrime.securesms.conversation.ConversationUpdateTick
 import org.thoughtcrime.securesms.conversation.SignalBottomActionBarController
 import org.thoughtcrime.securesms.conversation.v2.ConversationDialogs
@@ -50,10 +51,10 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
 import org.thoughtcrime.securesms.main.MainNavigationListLocation
 import org.thoughtcrime.securesms.main.MainNavigationViewModel
+import org.thoughtcrime.securesms.main.MainSnackbarHostKey
 import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
-import org.thoughtcrime.securesms.main.SnackbarState
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -346,9 +347,10 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
 
   override fun onStartAudioCallClicked(recipient: Recipient) {
     CommunicationActions.startVoiceCall(this, recipient) {
-      mainNavigationViewModel.setSnackbar(
+      mainNavigationViewModel.snackbarRegistry.emit(
         SnackbarState(
-          getString(R.string.CommunicationActions__you_are_already_in_a_call)
+          getString(R.string.CommunicationActions__you_are_already_in_a_call),
+          hostKey = MainSnackbarHostKey.MainChrome
         )
       )
     }
@@ -357,9 +359,10 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
   override fun onStartVideoCallClicked(recipient: Recipient, canUserBeginCall: Boolean) {
     if (canUserBeginCall) {
       CommunicationActions.startVideoCall(this, recipient) {
-        mainNavigationViewModel.setSnackbar(
+        mainNavigationViewModel.snackbarRegistry.emit(
           SnackbarState(
-            getString(R.string.CommunicationActions__you_are_already_in_a_call)
+            getString(R.string.CommunicationActions__you_are_already_in_a_call),
+            hostKey = MainSnackbarHostKey.MainChrome
           )
         )
       }
@@ -452,10 +455,11 @@ class CallLogFragment : Fragment(R.layout.call_log_fragment), CallLogAdapter.Cal
           }
 
           CallLogDeletionResult.Success -> {
-            mainNavigationViewModel.setSnackbar(
+            mainNavigationViewModel.snackbarRegistry.emit(
               SnackbarState(
                 message = snackbarMessage,
-                duration = SnackbarDuration.Short
+                duration = Snackbars.Duration.SHORT,
+                hostKey = MainSnackbarHostKey.MainChrome
               )
             )
           }

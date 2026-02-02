@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.signal.core.ui.compose.DayNightPreviews
@@ -137,9 +139,17 @@ private fun AppUpdatesSettingsScreen(
         }
 
         item {
+          val (relTime, relTimeAccessible) = rememberCheckTime(state.lastCheckedTime)
+          val label = stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, relTime)
+          val contentDesc = relTimeAccessible?.let {
+            stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, it)
+          }
           Rows.TextRow(
             text = stringResource(R.string.EnableAppUpdatesMegaphone_check_for_updates),
-            label = stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, rememberCheckTime(state.lastCheckedTime)),
+            label = label,
+            modifier = Modifier.semantics {
+              contentDescription = contentDesc ?: label
+            },
             enabled = state.autoUpdateEnabled,
             onClick = callbacks::onCheckForUpdatesClick
           )
@@ -150,13 +160,14 @@ private fun AppUpdatesSettingsScreen(
 }
 
 @Composable
-private fun rememberCheckTime(timestamp: Long): String {
+private fun rememberCheckTime(timestamp: Long): Pair<String, String?> {
   val context = LocalContext.current
   return remember(timestamp) {
     if (timestamp > 0) {
       DateUtils.getExtendedRelativeTimeSpanString(context, Locale.getDefault(), timestamp)
     } else {
-      context.getString(R.string.preferences__never)
+      val never = context.getString(R.string.preferences__never)
+      Pair(never, null)
     }
   }
 }

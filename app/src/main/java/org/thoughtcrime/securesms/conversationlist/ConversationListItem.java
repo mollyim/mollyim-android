@@ -98,6 +98,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import kotlin.Pair;
 
 import static org.thoughtcrime.securesms.database.model.LiveUpdateMessage.recipientToStringAsync;
 
@@ -271,8 +272,9 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
                                                                                    : R.attr.signal_text_primary));
 
       updateDateView = () -> {
-        CharSequence date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, thread.getDate());
-        dateView.setText(date);
+        Pair<String, String> date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, thread.getDate());
+        dateView.setText(date.getFirst());
+        dateView.setContentDescription(date.getSecond());
       };
 
       updateDateView.run();
@@ -319,7 +321,11 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     fromView.setText(recipient.get(), recipient.get().getDisplayName(getContext()), null, false);
     setSubjectViewText(SearchUtil.getHighlightedSpan(locale, searchStyleFactory, messageResult.getBodySnippet(), highlightSubstring, SearchUtil.MATCH_ALL));
 
-    updateDateView = () -> dateView.setText(DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, messageResult.getReceivedTimestampMs()));
+    updateDateView = () -> {
+      Pair<String, String> date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, messageResult.getReceivedTimestampMs());
+      dateView.setText(date.getFirst());
+      dateView.setContentDescription(date.getSecond());
+    };
 
     updateDateView.run();
     archivedView.setVisibility(GONE);
@@ -354,7 +360,9 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
 
     updateDateView = () -> {
       if (groupWithMembers.getDate() > 0) {
-        dateView.setText(DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, groupWithMembers.getDate()));
+        Pair<String, String> date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, groupWithMembers.getDate());
+        dateView.setText(date.getFirst());
+        dateView.setContentDescription(date.getSecond());
       } else {
         dateView.setText("");
       }
@@ -516,7 +524,8 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
                thread.isOutgoingVideoCall() ||
                thread.isVerificationStatusChange() ||
                thread.isScheduledMessage() ||
-               thread.getRecipient().isBlocked())
+               thread.getRecipient().isBlocked() ||
+               MessageTypes.isPinnedMessageUpdate(thread.getType()))
     {
       deliveryStatusIndicator.setNone();
       alertView.setNone();
@@ -798,14 +807,18 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
   }
 
   private static @NonNull LiveData<SpannableString> emphasisAdded(@NonNull Context context, @NonNull UpdateDescription description, @ColorInt int defaultTint) {
-    return emphasisAdded(LiveUpdateMessage.fromMessageDescription(context, description, defaultTint, false));
+    return emphasisAdded(LiveUpdateMessage.fromMessageDescription(context, description, defaultTint, false), description.getGlyph() != null);
   }
 
   private static @NonNull LiveData<SpannableString> emphasisAdded(@NonNull LiveData<SpannableString> description) {
+    return emphasisAdded(description, false);
+  }
+
+  private static @NonNull LiveData<SpannableString> emphasisAdded(@NonNull LiveData<SpannableString> description, boolean hasGlyph) {
     return Transformations.map(description, sequence -> {
       SpannableString spannable = new SpannableString(sequence);
       spannable.setSpan(new StyleSpan(Typeface.ITALIC),
-                        0,
+                        hasGlyph ? 1 : 0,
                         sequence.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
       return spannable;

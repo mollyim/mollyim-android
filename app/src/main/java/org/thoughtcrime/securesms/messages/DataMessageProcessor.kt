@@ -119,6 +119,7 @@ import kotlin.time.Duration.Companion.seconds
 object DataMessageProcessor {
 
   private const val BODY_RANGE_PROCESSING_LIMIT = 250
+  private const val POLL_QUESTION_CHARACTER_LIMIT = 200
   private const val POLL_CHARACTER_LIMIT = 100
   private const val POLL_OPTIONS_LIMIT = 10
 
@@ -873,12 +874,12 @@ object DataMessageProcessor {
           val downloadJobs: List<AttachmentDownloadJob> = insertResult.insertedAttachments.mapNotNull { (attachment, attachmentId) ->
             if (attachment.isSticker) {
               if (attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE) {
-                AttachmentDownloadJob(insertResult.messageId, attachmentId, true)
+                AttachmentDownloadJob(messageId = insertResult.messageId, attachmentId = attachmentId, forceDownload = true)
               } else {
                 null
               }
             } else {
-              AttachmentDownloadJob(insertResult.messageId, attachmentId, false)
+              AttachmentDownloadJob(messageId = insertResult.messageId, attachmentId = attachmentId, forceDownload = false)
             }
           }
           AppDependencies.jobManager.addAll(downloadJobs)
@@ -978,28 +979,23 @@ object DataMessageProcessor {
     groupId: GroupId.V2?,
     receivedTime: Long
   ): InsertResult? {
-    if (!RemoteConfig.receivePolls) {
-      log(envelope.timestamp!!, "Poll creation not allowed due to remote config.")
-      return null
-    }
-
     log(envelope.timestamp!!, "Handle poll creation")
     val poll: DataMessage.PollCreate = message.pollCreate!!
 
     handlePossibleExpirationUpdate(envelope, metadata, senderRecipient, threadRecipient, groupId, message.expireTimerDuration, message.expireTimerVersion, receivedTime)
 
-    if (groupId == null) {
-      warn(envelope.timestamp!!, "[handlePollCreate] Polls can only be sent to groups. author: $senderRecipient")
+    if (groupId != null) {
+      val groupRecord = SignalDatabase.groups.getGroup(groupId).orNull()
+      if (groupRecord != null && !groupRecord.members.contains(senderRecipient.id)) {
+        warn(envelope.timestamp!!, "[handlePollCreate] Poll author is not in the group. author $senderRecipient")
+        return null
+      }
+    } else if (senderRecipient.id != threadRecipient.id && senderRecipient.id != Recipient.self().id) {
+      warn(envelope.timestamp!!, "[handlePollCreate] Sender is not a part of the 1:1 thread!")
       return null
     }
 
-    val groupRecord = SignalDatabase.groups.getGroup(groupId).orNull()
-    if (groupRecord == null || !groupRecord.members.contains(senderRecipient.id)) {
-      warn(envelope.timestamp!!, "[handlePollCreate] Poll author is not in the group. author $senderRecipient")
-      return null
-    }
-
-    if (poll.question == null || poll.question!!.isEmpty() || poll.question!!.length > POLL_CHARACTER_LIMIT) {
+    if (poll.question == null || poll.question!!.isEmpty() || poll.question!!.length > POLL_QUESTION_CHARACTER_LIMIT) {
       warn(envelope.timestamp!!, "[handlePollCreate] Poll question is invalid.")
       return null
     }
@@ -1048,11 +1044,6 @@ object DataMessageProcessor {
     groupId: GroupId.V2?,
     receivedTime: Long
   ): InsertResult? {
-    if (!RemoteConfig.receivePolls) {
-      log(envelope.timestamp!!, "Poll terminate not allowed due to remote config.")
-      return null
-    }
-
     val pollTerminate: DataMessage.PollTerminate = message.pollTerminate!!
     val targetSentTimestamp = pollTerminate.targetSentTimestamp!!
 
@@ -1101,11 +1092,6 @@ object DataMessageProcessor {
     senderRecipient: Recipient,
     earlyMessageCacheEntry: EarlyMessageCacheEntry?
   ): MessageId? {
-    if (!RemoteConfig.receivePolls) {
-      log(envelope.timestamp!!, "Poll vote not allowed due to remote config.")
-      return null
-    }
-
     val pollVote: DataMessage.PollVote = message.pollVote!!
     val targetSentTimestamp = pollVote.targetSentTimestamp!!
 
@@ -1253,6 +1239,9 @@ object DataMessageProcessor {
 
     return if (insertResult != null) {
       log(envelope.timestamp!!, "Inserted a pinned message update at ${insertResult.messageId}")
+      if (duration != MessageTable.PIN_FOREVER) {
+        AppDependencies.pinnedMessageManager.scheduleIfNecessary()
+      }
       insertResult
     } else {
       null
@@ -1486,13 +1475,11 @@ object DataMessageProcessor {
     }
 
     val groupRecord = SignalDatabase.groups.getGroup(targetThread.recipient.id).orNull()
-    if (groupRecord == null) {
-      warn(envelope.timestamp!!, "[handlePollValidation] Target thread needs to be a group. timestamp: $targetSentTimestamp  author: ${targetAuthor.id}")
-      return null
-    }
-
-    if (!groupRecord.members.contains(senderRecipient.id)) {
+    if (groupRecord != null && !groupRecord.members.contains(senderRecipient.id)) {
       warn(envelope.timestamp!!, "[handlePollValidation] Sender is not in the group. timestamp: $targetSentTimestamp author: ${targetAuthor.id}")
+      return null
+    } else if (groupRecord == null && senderRecipient.id != targetThread.recipient.id && senderRecipient.id != Recipient.self().id) {
+      warn(envelope.timestamp!!, "[handlePollValidation] Sender is not a part of the 1:1 thread!")
       return null
     }
 

@@ -96,6 +96,7 @@ import org.whispersystems.signalservice.internal.push.AuthCredentials
 import org.whispersystems.signalservice.internal.push.ProvisionMessage
 import org.whispersystems.signalservice.internal.push.SyncMessage
 import java.io.IOException
+import java.net.ProtocolException
 import java.nio.charset.StandardCharsets
 import kotlin.jvm.optionals.getOrNull
 import kotlin.math.max
@@ -677,6 +678,14 @@ class RegistrationViewModel : ViewModel() {
           Log.w(TAG, "SVR has no data for these credentials. Aborting skip SMS flow.", noData)
           updateSvrTriesRemaining(0)
           setUserSkippedReRegisterFlow(true)
+        } catch (ioe: IOException) {
+          if (ioe.cause is ProtocolException) {
+            Log.w(TAG, "Network error attempting to communicate with SVR, likely web socket http protocol exception. Skipping re-reg", ioe)
+            setUserSkippedReRegisterFlow(true)
+          } else {
+            Log.w(TAG, "Network error attempting to communicate with SVR.", ioe)
+            handleGenericError(ioe)
+          }
         }
       }
       return
@@ -963,8 +972,8 @@ class RegistrationViewModel : ViewModel() {
     SignalStore.registration.restoreDecisionState = RestoreDecisionState.Start
   }
 
-  fun intendToRestore(hasOldDevice: Boolean, fromRemote: Boolean? = null) {
-    SignalStore.registration.restoreDecisionState = RestoreDecisionState.intendToRestore(hasOldDevice, fromRemote)
+  fun intendToRestore(hasOldDevice: Boolean, fromRemote: Boolean? = null, fromLocalV2: Boolean? = null) {
+    SignalStore.registration.restoreDecisionState = RestoreDecisionState.intendToRestore(hasOldDevice, fromRemote, fromLocalV2)
   }
 
   fun skipRestore() {

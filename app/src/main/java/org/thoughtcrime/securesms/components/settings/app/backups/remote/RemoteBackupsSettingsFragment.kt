@@ -37,11 +37,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -49,6 +51,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -71,6 +74,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
@@ -113,6 +117,7 @@ import org.thoughtcrime.securesms.compose.StatusBarColorNestedScrollConnection
 import org.thoughtcrime.securesms.help.HelpFragment
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
+import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.DateUtils
@@ -186,7 +191,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onBackupNowClick() {
-      viewModel.onBackupNowClick()
+      viewModel.onBackupNowClick(args.forQuickRestore)
     }
 
     override fun onTurnOffAndDeleteBackupsClick() {
@@ -295,6 +300,10 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     override fun onFreeTierBackupSizeLearnMore() {
       CommunicationActions.openBrowserLink(requireContext(), "https://support.signal.org/hc/articles/9708267671322")
     }
+
+    override fun onTransferScanQrCodeClick() {
+      startActivity(MediaSelectionActivity.camera(context!!))
+    }
   }
 
   private fun displayBackupKey() {
@@ -400,6 +409,7 @@ private interface ContentCallbacks {
   fun onIncludeDebuglogClick(newState: Boolean) = Unit
   fun onMediaBackupSizeClick() = Unit
   fun onFreeTierBackupSizeLearnMore() = Unit
+  fun onTransferScanQrCodeClick() = Unit
 
   object Empty : ContentCallbacks
 }
@@ -668,6 +678,13 @@ private fun RemoteBackupsSettingsContent(
         onDismiss = contentCallbacks::onDialogDismissed
       )
     }
+
+    RemoteBackupsSettingsState.Dialog.READY_TO_TRANSFER -> {
+      ReadyToTransferBottomSheet(
+        onScanQrCodeClick = contentCallbacks::onTransferScanQrCodeClick,
+        onDismiss = contentCallbacks::onDialogDismissed
+      )
+    }
   }
 
   val snackbarMessageId = remember(state.snackbar) {
@@ -878,17 +895,6 @@ private fun LazyListScope.appendBackupDetailsItems(
     Texts.SectionHeader(text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_details))
   }
 
-  if (state.backupMediaDetails != null) {
-    item {
-      Column(modifier = Modifier.horizontalGutters()) {
-        Text("[Internal Only] Backup Media Details")
-        Text("Awaiting Restore: ${state.backupMediaDetails.awaitingRestore.toUnitString()}")
-        Text("Offloaded: ${state.backupMediaDetails.offloaded.toUnitString()}")
-        Text("Last Proto Size: ${state.backupMediaDetails.protoFileSize.toUnitString()}")
-      }
-    }
-  }
-
   if (state.backupCreationError != null) {
     item {
       BackupCreateErrorRow(
@@ -914,12 +920,6 @@ private fun LazyListScope.appendBackupDetailsItems(
           onDownloadClick = contentCallbacks::onStartMediaRestore
         )
       }
-    }
-  }
-
-  if (state.includeDebuglog != null) {
-    item {
-      IncludeDebuglogRow(state.includeDebuglog) { contentCallbacks.onIncludeDebuglogClick(it) }
     }
   }
 
@@ -989,6 +989,29 @@ private fun LazyListScope.appendBackupDetailsItems(
       onClick = contentCallbacks::onViewBackupKeyClick,
       enabled = state.canViewBackupKey
     )
+  }
+
+  if (state.internalUser) {
+    item {
+      Texts.SectionHeader(text = "INTERNAL ONLY")
+    }
+
+    if (state.includeDebuglog != null) {
+      item {
+        IncludeDebuglogRow(state.includeDebuglog) { contentCallbacks.onIncludeDebuglogClick(it) }
+      }
+    }
+
+    if (state.backupMediaDetails != null) {
+      item {
+        Column(modifier = Modifier.horizontalGutters()) {
+          Text("Backup Media Details")
+          Text("Awaiting Restore: ${state.backupMediaDetails.awaitingRestore.toUnitString()}")
+          Text("Offloaded: ${state.backupMediaDetails.offloaded.toUnitString()}")
+          Text("Last Proto Size: ${state.backupMediaDetails.protoFileSize.toUnitString()}")
+        }
+      }
+    }
   }
 
   item {
@@ -1526,7 +1549,7 @@ private fun IncludeDebuglogRow(
 ) {
   Rows.ToggleRow(
     checked = enabled,
-    text = "[INTERNAL ONLY] Include debuglog?",
+    text = "Include debuglog?",
     label = "If enabled, we will capture a debuglog and include it in the backup file.",
     onCheckChanged = onToggle
   )
@@ -1699,6 +1722,90 @@ private fun ResumeRestoreOverCellularDialog(
   )
 }
 
+/**
+ * Bottom sheet displayed when the device is ready to transfer data to a new device.
+ * Shows a QR code illustration and prompts the user to scan the QR code on the target device.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ReadyToTransferBottomSheet(
+  onScanQrCodeClick: () -> Unit = {},
+  onDismiss: () -> Unit = {}
+) {
+  val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+  ModalBottomSheet(
+    sheetState = sheetState,
+    onDismissRequest = onDismiss,
+    dragHandle = { BottomSheets.Handle() }
+  ) {
+    ReadyToTransferContent(
+      onScanQrCodeClick = onScanQrCodeClick,
+      onCancelClick = onDismiss
+    )
+  }
+}
+
+@Composable
+private fun ReadyToTransferContent(
+  onScanQrCodeClick: () -> Unit = {},
+  onCancelClick: () -> Unit = {}
+) {
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(bottom = 40.dp)
+  ) {
+    Spacer(modifier = Modifier.size(16.dp))
+
+    Image(
+      painter = painterResource(R.drawable.illustration_scan_qr_transfer),
+      contentDescription = null,
+      modifier = Modifier.size(192.dp)
+    )
+
+    Spacer(modifier = Modifier.size(24.dp))
+
+    Text(
+      text = stringResource(R.string.RemoteBackupsSettingsFragment__ready_to_transfer),
+      style = MaterialTheme.typography.titleLarge,
+      textAlign = TextAlign.Center,
+      modifier = Modifier.horizontalGutters()
+    )
+
+    Spacer(modifier = Modifier.size(8.dp))
+
+    Text(
+      text = stringResource(R.string.RemoteBackupsSettingsFragment__use_this_device_to_scan_qr),
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurfaceVariant,
+      textAlign = TextAlign.Center,
+      modifier = Modifier.horizontalGutters()
+    )
+
+    Spacer(modifier = Modifier.size(36.dp))
+
+    Buttons.LargeTonal(
+      onClick = onScanQrCodeClick,
+      modifier = Modifier
+        .defaultMinSize(minWidth = 220.dp)
+    ) {
+      Text(text = stringResource(R.string.RemoteBackupsSettingsFragment__scan_qr_code))
+    }
+
+    TextButton(
+      onClick = onCancelClick,
+      modifier = Modifier.padding(top = 8.dp)
+    ) {
+      Text(
+        text = stringResource(android.R.string.cancel),
+        color = MaterialTheme.colorScheme.primary
+      )
+    }
+  }
+}
+
 @Composable
 private fun BackupReadyToDownloadRow(
   ready: BackupRestoreState.Ready,
@@ -1781,6 +1888,7 @@ private fun RemoteBackupsSettingsInternalUserContentPreview() {
         ),
         hasRedemptionError = false,
         isOutOfStorageSpace = false,
+        internalUser = true,
         includeDebuglog = true
       ),
       statusBarColorNestedScrollConnection = null,
@@ -2153,6 +2261,14 @@ private fun SkipDownloadDialogPreview() {
     SkipDownloadDialog(
       renewalTime = System.currentTimeMillis().milliseconds + 30.days
     )
+  }
+}
+
+@DayNightPreviews
+@Composable
+private fun ReadyToTransferContentPreview() {
+  Previews.BottomSheetPreview {
+    ReadyToTransferContent()
   }
 }
 
