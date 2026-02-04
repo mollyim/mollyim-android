@@ -95,8 +95,6 @@ import org.thoughtcrime.securesms.calls.links.details.CallLinkDetailsActivity
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.calls.log.CallLogFragment
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
-import org.thoughtcrime.securesms.calls.quality.CallQuality
-import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.compose.DeviceSpecificNotificationBottomSheet
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
@@ -306,22 +304,6 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               BackupMediaRestoreService.start(this@MainActivity, resources.getString(R.string.BackupStatus__restoring_media))
             }
         }
-      }
-    }
-
-    supportFragmentManager.setFragmentResultListener(
-      CallQualityBottomSheetFragment.REQUEST_KEY,
-      this
-    ) { _, bundle ->
-      if (bundle.getBoolean(CallQualityBottomSheetFragment.REQUEST_KEY, false)) {
-        mainNavigationViewModel.snackbarRegistry.emit(
-          SnackbarState(
-            message = getString(R.string.CallQualitySheet__thanks_for_your_feedback),
-            duration = Snackbars.Duration.SHORT,
-            hostKey = MainSnackbarHostKey.Chat,
-            fallbackKey = MainSnackbarHostKey.MainChrome
-          )
-        )
       }
     }
 
@@ -855,10 +837,6 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
     vitalsViewModel.checkSlowNotificationHeuristics()
     mainNavigationViewModel.refreshNavigationBarState()
-
-    CallQuality.consumeQualityRequest()?.let {
-      CallQualityBottomSheetFragment.create(it).show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
-    }
   }
 
   override fun onStop() {

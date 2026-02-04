@@ -35,7 +35,6 @@ import org.signal.ringrtc.NetworkRoute;
 import org.signal.ringrtc.PeekInfo;
 import org.signal.ringrtc.Remote;
 import org.signal.storageservice.storage.protos.groups.ExternalGroupCredential;
-import org.thoughtcrime.securesms.calls.quality.CallQuality;
 import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.CallLinkTable;
@@ -628,8 +627,6 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
         CameraState cameraState          = s.getLocalDeviceState().getCameraState();
         boolean     isLocalVideoEnabled  = cameraState.isEnabled() && cameraState.getCameraCount() > 0;
-
-        CallQuality.handleOneToOneCallSummary(summary, hasRemoteVideoContent || isLocalVideoEnabled);
       }
 
       switch (reason) {
@@ -1049,7 +1046,6 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
   @Override
   public void onEnded(@NonNull GroupCall groupCall, @NonNull CallManager.CallEndReason reason, @NonNull CallSummary summary) {
-    CallQuality.handleGroupCallSummary(summary, groupCall.getKind());
     process((s, p) -> p.handleGroupCallEnded(s, groupCall.hashCode(), reason));
   }
 
