@@ -82,10 +82,6 @@ public final class LocaleRemoteConfig {
     return isEnabledPartsPerMillion(RemoteConfig.DEVICE_SPECIFIC_NOTIFICATION_CONFIG, DeviceSpecificNotificationConfig.getCurrentConfig().getLocalePercent());
   }
 
-  public static long  getCallQualitySurveyPartsPerMillion() {
-    return getPartsPerMillion(RemoteConfig.callQualitySurveyPPM());
-  }
-
   /**
    * Parses a comma-separated list of country codes and area codes to check if self's e164 starts with
    * one of them. For example, "33,1555" will return turn for e164's that start with 33 or look like 1-555-xxx-xxx.
