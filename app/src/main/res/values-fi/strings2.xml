@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preferences__enable_debug_log">Virheenkorjausloki</string>
+    <string name="preferences__enable_debug_log">Ota virheenkorjausloki käyttöön</string>
     <string name="AppProtectionPreferenceFragment_instant">Välittömästi</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Avaimia luodaan. Tämä saattaa kestää hetken…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Valitse tunnuslause, jota käytetään tietojen salaamiseen paikallisesti.\n\nTämän pitäisi olla vahva tunnuslause.</string>
@@ -11,12 +11,12 @@
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Vaaditaanko tunnuslause Mollyn lukituksen avaamiseksi?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Voit nyt asettaa tunnuslauseen tietokannan salaamista varten. Ennen kuin se on syötetty, Molly ei voi vastaanottaa ilmoituksia tai puheluita. Tämä auttaa suojaamaan kadonneiden tai varastettujen laitteiden tietoja.</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Poistaminen käynnissä</string>
-    <string name="preferences__passphrase_changed">Tunnuslause muuttunut</string>
+    <string name="preferences__passphrase_changed">Tunnuslause vaihdettu</string>
     <string name="preferences__device_lock_timeout">Laitteen lukituksen aikakatkaisu</string>
     <string name="preferences__automatic_lockdown">Automaattinen lukitus</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">Mollyn tietokannan suojaaminen tunnuslauseella</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Suojaa Mollyn tietokanta tunnuslauseella</string>
     <string name="preferences__passphrase_lock">Tietokannan salaus</string>
-    <string name="arrays__on_inactivity_timeout">Jos viedät tietyn ajan avaamatta laitteesi lukitusta</string>
+    <string name="arrays__on_inactivity_timeout">Jos vietät tietyn ajan avaamatta laitteesi lukitusta</string>
     <string name="BlockUnblockDialog_block_and_delete">Estä ja poista</string>
     <string name="RegistrationActivity_network_settings">Verkkoasetukset</string>
     <string name="DonateMegaphone_molly_is_free_software">Molly on vapaa ohjelmisto</string>
@@ -61,10 +61,10 @@
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Poistetut yhteystiedot voivat edelleen soittaa sekä lähettää sinulle viestejä, ellei niitä ole myös estetty.</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly ei saa yhteyttä ilman Orbotia, jota ei ole asennettu tähän laitteeseen.</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Kelvollinen porttinumero on välillä 0–65535</string>
-    <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s ei ole rekisteröitynyt Signaliin</string>
+    <string name="NewConversationActivity__s_is_not_registered_with_signal">%1$s ei ole rekisteröitynyt Signal:in</string>
     <string name="TimeDurationPickerDialog_single_letter_second_abbreviation">s</string>
     <string name="RegistrationActivity_device_name_description">Laitteen nimi</string>
-    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Vahvista olevasi sinä käyttäksesi Mollya</string>
+    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Vahvista olevasi sinä käyttääksesi Mollya</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Ei biometrisiä ominaisuuksia saatavilla tällä laitteella</string>
     <string name="DeviceListItem_device_d">Laite no. %d</string>
     <string name="RegistrationActivity_enter_a_name_for_this_device">Anna nimi tälle laitteelle</string>
@@ -92,7 +92,7 @@
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Määritä biometriset tietosi ensin Android-asetuksissa</string>
     <string name="preferences_network__tunnels_network_traffic">Tunneloi verkkoliikennettä</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Keskustelusi %1$s:n kanssa poistetaan ja %1$s poistetaan laitteesi yhteystiedoista.</string>
-    <string name="NetworkPreferenceFragment_missing_orbot_app">Puuttuva Orbot-sovellus</string>
+    <string name="NetworkPreferenceFragment_missing_orbot_app">Orbot-sovellus puuttuu</string>
     <string name="ApplicationPreferencesActivity_network_summary">Välityspalvelin %1$s</string>
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly tarvitsee yhteystietoluvan auttaakseen sinua löytämään ystäväsi. Yhteystietosi ladataan Signalin yksityisen yhteystietojen etsinnän avulla, mikä tarkoittaa, että ne ovat päästä-päähän-salattuja, eivätkä koskaan näy Signal-palvelulle.</string>
     <string name="DeviceListItem_primary">Ensisijainen</string>
@@ -102,9 +102,9 @@
     <string name="NotificationsSettingsFragment__new_activity_while_locked">Uusi toiminta ollessa lukittuna</string>
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Vastaanota ilmoituksia viesteistä tai vastaamattomista puheluista, kun sovellus on lukittu.</string>
     <string name="AppUpdatesSettingsFragment__last_checked_s">Viimeksi tarkistettu: %s</string>
-    <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Android-laitteille: käy kohteessa %s asentaaksesi Mollyn.</string>
-    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Ei voi rekisteröityä Play Services:llä</string>
-    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Vaihda vaihtoehtoiseen työntöpalveluun kohdassa Asetukset &gt; Ilmoitukset tai korjaa vika Play Services:ssä.</string>
+    <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Android-laitteille: käy kohteessa %s asentaaksesi Molly.</string>
+    <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Ei voi rekisteröityä Play Palveluilla</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Vaihda vaihtoehtoiseen työntöpalveluun kohdassa Asetukset &gt; Ilmoitukset tai korjaa vika Play Palveluissa.</string>
     <string name="NotificationsSettingsFragment__delivery_service">Toimituspalvelu</string>
     <string name="NotificationsSettingsFragment__mollysocket_server">MollySocket-palvelin</string>
     <string name="LinkDeviceFragment__use_molly_on_another_devices">Käytä Mollya toisessa laitteessa. Viestisi synkronoidaan linkitettyihin laitteisiin.</string>
@@ -116,14 +116,14 @@
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">Viestit ovat yksityisiä kaikilla linkitetyillä laitteilla.</string>
     <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">Työntöilmoituksiin rekisteröitymisessä tapahtui virhe. %s</string>
     <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Valitse haluamasi palvelu työntöilmoituksia varten. Jos sitä ei ole saatavilla, sovellus käyttää automaattisesti WebSocketia varmistaakseen, että ilmoitukset toimitetaan.</string>
-    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Tarkista, onko Google Play Services asennettu ja otettu käyttöön, tai vaihda vaihtoehtoiseen työntöpalveluun.</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Tarkista, onko Google Play Palvelut asennettu ja otettu käyttöön, tai vaihda vaihtoehtoiseen työntöpalveluun.</string>
     <string name="NotificationsSettingsFragment__push_notifications">Työntöilmoitukset</string>
     <string name="preferences_appearance__navigation_bar">Navigointipalkki</string>
     <string name="AccountSettingsFragment_pin_settings_cannot_be_changed_from_a_linked_device">PIN-asetuksia ei voi muuttaa linkitetyltä laitteelta</string>
     <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Lisää laitteesi yhteystietoihin</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lukitse pääsy Mollyyn sormenjäljellä tai kasvojentunnistuksella</string>
     <string name="NetworkPreferenceFragment_get_orbot">Hanki Orbot</string>
-    <string name="NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server">Käyttääksesi UnifiedPush:a, tarvitset pääsyn MollySocket-palvelimeen Signal-tilisi linkittämiseksi.\n\nAloita skannaamalla palvelimesi toimittama QR-koodi.</string>
+    <string name="NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server">Käyttääksesi UnifiedPushia, tarvitset pääsyn MollySocket-palvelimeen Signal-tilisi linkittämiseksi.\n\nAloita skannaamalla palvelimesi toimittama QR-koodi.</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Jos laitteesi ei pysty skannaamaan QR-koodia, voit syöttää QR-koodiin koodatun linkin manuaalisesti.</string>
     <string name="RegistrationActivity_link_timeout">Aikakatkaisu ensisijaista laitetta odotettaessa. Valmistele laitteesi skannaamaan QR-koodi ja yritä sitten uudelleen</string>
     <string name="RegistrationActivity_provider_declined">Palveluntarjoaja on kieltäytynyt lähettämästä sinulle vahvistuskoodia, todennäköisesti petostentorjuntasääntöjen vuoksi.</string>
@@ -144,7 +144,7 @@
     <string name="UnifiedPushSettingsFragment__status_summary_no_distributor">UnifiedPush-jakelijaa ei ole asennettu</string>
     <string name="UnifiedPushSettingsFragment__status_summary_distributor_not_selected">Jakelijasovellusta ei ole valittu</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_device_limit_hit">Olet saavuttanut %d linkitettyjen laitteiden rajan. Jos haluat linkittää MollySocket-palvelimesi, poista ensin laite.</string>
-    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_password">Rekisteröityminen MollySocketilla ei ole enää voimassa. Poista linkitetty laite ja yritä rekisteröityä uudelleen.</string>
+    <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_password">Rekisteröitymisesi MollySocketilla ei ole enää voimassa. Poista linkitetty laite ja yritä rekisteröityä uudelleen.</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_uuid">MollySocket-palvelin hylkäsi tilisi. Tarkista sallitut UUID-tunnukset palvelimen kokoonpanosta.</string>
     <string name="MollySocketLink_scan_the_qr_code">Skannaa MollySocket-palvelimesi etusivulla tai konsolissa näkyvä QR-koodi.</string>
     <string name="MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code">Yritä skannata toinen kuva, joka sisältää MollySocket QR-koodin.</string>
@@ -153,11 +153,11 @@
     <string name="UnifiedPushSettingsFragment__mollysocket_server">MollySocket-palvelin</string>
     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Ilmaraotettu</string>
     <string name="IncomingMessageObserver_websocket_service">WebSocket-palvelu</string>
-    <string name="UnifiedPushNotificationBuilder__endpoint_changed_air_gapped">UnifiedPush-päätepisteesi on muuttunut. Sinun on päivitettävä yhteytesi MollySocketilla.</string>
+    <string name="UnifiedPushNotificationBuilder__endpoint_changed_air_gapped">UnifiedPush-päätepisteesi on muuttunut. Sinun on päivitettävä yhteytesi MollySocketissa.</string>
     <string name="UnifiedPushSettingsFragment__status_summary_air_gapped_pending">Odotetaan vahvistusta MollySocket-palvelimelta</string>
     <string name="UnifiedPushSettingsFragment__none_available">Ei yhtään saatavilla</string>
     <string name="UnifiedPushSettingsFragment__status_summary_linked_device_error">Linkitettyä laitetta ei voi luoda</string>
-    <string name="UnifiedPushSettingsFragment__distributor_app">Sovelluksen jakelija</string>
+    <string name="UnifiedPushSettingsFragment__distributor_app">Jakelijasovellus</string>
     <string name="UnifiedPushSettingsFragment__tap_to_copy_to_clipboard">Napauta kopioidaksesi leikepöydälle</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_endpoint">MollySocket-palvelin hylkäsi työntöpalvelimesi. Tarkista sallitut päätepisteet palvelimen kokoonpanosta.</string>
     <string name="UnifiedPushNotificationBuilder__registration_failed">Rekisteröityminen UnifiedPush-jakelijallasi epäonnistui. Tämä voi johtua verkkoviasta tai jakelijan puuttuvasta vaatimuksesta.</string>
@@ -168,4 +168,5 @@
     <string name="preferences__follow_system">Järjestelmän mukaan</string>
     <string name="preferences_appearance__dynamic_colors">Dynaamiset värit</string>
     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Käytä järjestelmän värejä sovelluksen teemassa</string>
+    <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Tälle laitteelle asennettu Google Play Palveluiden versio on vanhentunut.</string>
 </resources>
