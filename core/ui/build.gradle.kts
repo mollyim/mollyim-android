@@ -37,4 +37,8 @@ dependencies {
   api(libs.androidx.fragment.compose)
   implementation(libs.kotlinx.serialization.json)
   api(libs.google.zxing.core)
+
+  // MOLLY: Add Material Components library for XML theme color attributes
+  implementation(libs.material.material)
+  implementation(libs.androidx.constraintlayout)
 }

@@ -415,7 +415,6 @@ dependencies {
   implementation(libs.androidx.window.window)
   implementation(libs.androidx.window.java)
   implementation(libs.androidx.recyclerview)
-  implementation(libs.material.material)
   implementation(libs.androidx.legacy.support)
   implementation(libs.androidx.preference)
   implementation(libs.androidx.legacy.preference)
