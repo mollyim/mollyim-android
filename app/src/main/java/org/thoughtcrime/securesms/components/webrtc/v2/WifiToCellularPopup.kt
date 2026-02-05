@@ -19,6 +19,7 @@ import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.VibrateUtil
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 private const val VIBRATE_DURATION_MS = 50
 
@@ -48,7 +49,7 @@ fun WifiToCellularPopup(
   ) {
     Text(
       text = stringResource(R.string.WifiToCellularPopupWindow__weak_wifi_switched_to_cellular),
-      color = colorResource(R.color.signal_light_colorOnSecondaryContainer),
+      color = colorResource(CoreUiR.color.signal_light_colorOnSecondaryContainer),
       modifier = Modifier.padding(horizontal = 24.dp, vertical = 14.dp)
     )
   }

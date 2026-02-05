@@ -67,7 +67,7 @@ class ManageDonationsFragment :
 
   private val supportTechSummary: CharSequence by lazy {
     SpannableStringBuilder(SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant), requireContext().getString(R.string.DonateToSignalFragment__private_messaging)))
-      .append(" ")
+      .append("\n")
       .append(
         SpanUtil.readMore(requireContext(), ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorPrimary)) {
           findNavController().safeNavigate(ManageDonationsFragmentDirections.actionManageDonationsFragmentToSubscribeLearnMoreBottomSheetDialog())

@@ -66,13 +66,13 @@ fun CallAudioToggleButton(
   val containerColor = if (currentOutput == WebRtcAudioOutput.HANDSET || allOutputs.size >= SHOW_PICKER_THRESHOLD) {
     MaterialTheme.colorScheme.secondaryContainer
   } else {
-    colorResource(id = R.color.signal_light_colorSecondaryContainer)
+    colorResource(id = CoreUiR.color.signal_light_colorSecondaryContainer)
   }
 
   val contentColor = if (currentOutput == WebRtcAudioOutput.HANDSET || allOutputs.size >= SHOW_PICKER_THRESHOLD) {
-    colorResource(id = R.color.signal_light_colorOnPrimary)
+    colorResource(id = CoreUiR.color.signal_light_colorOnPrimary)
   } else {
-    colorResource(id = R.color.signal_light_colorOnSecondaryContainer)
+    colorResource(id = CoreUiR.color.signal_light_colorOnSecondaryContainer)
   }
 
   IconButtons.IconButton(

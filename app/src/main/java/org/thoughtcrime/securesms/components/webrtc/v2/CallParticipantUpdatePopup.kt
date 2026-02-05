@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Popup which displays at the top of the screen as people enter and leave the call. Only displayed in group calls.
@@ -134,7 +135,7 @@ private fun PopupContent(
 
     Text(
       text = description,
-      color = colorResource(R.color.signal_light_colorOnSecondaryContainer),
+      color = colorResource(CoreUiR.color.signal_light_colorOnSecondaryContainer),
       modifier = Modifier
         .padding(vertical = 14.dp)
         .padding(start = 10.dp, end = 24.dp)

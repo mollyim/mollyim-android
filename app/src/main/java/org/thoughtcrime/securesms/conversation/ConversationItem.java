@@ -932,7 +932,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
         }
       } else {
         audioViewStub.get().setTint(getContext().getResources().getColor(R.color.conversation_item_outgoing_audio_foreground_tint));
-        audioViewStub.get().setProgressAndPlayBackgroundTint(getContext().getResources().getColor(R.color.signal_colorTransparent2));
+        audioViewStub.get().setProgressAndPlayBackgroundTint(getContext().getResources().getColor(org.signal.core.ui.R.color.signal_colorTransparent2));
       }
     }
   }
@@ -1214,8 +1214,8 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       CallLinks.CallLinkParseResult callLinkParseResult = CallLinks.isCallLink(linkPreview.getUrl()) ? CallLinks.parseUrl(linkPreview.getUrl()) : null;
       if (callLinkParseResult != null) {
         joinCallLinkStub.setVisibility(View.VISIBLE);
-        joinCallLinkStub.get().setTextColor(ThemeUtil.getThemedColor(context, messageRecord.isOutgoing() ? R.color.signal_light_colorOnPrimary : com.google.android.material.R.attr.colorOnPrimaryContainer));
-        joinCallLinkStub.get().setBackgroundColor(ThemeUtil.getThemedColor(context, messageRecord.isOutgoing() ? R.color.signal_light_colorTransparent2 : com.google.android.material.R.attr.colorOnPrimary));
+        joinCallLinkStub.get().setTextColor(ThemeUtil.getThemedColor(context, messageRecord.isOutgoing() ? org.signal.core.ui.R.color.signal_light_colorOnPrimary : com.google.android.material.R.attr.colorOnPrimaryContainer));
+        joinCallLinkStub.get().setBackgroundColor(ThemeUtil.getThemedColor(context, messageRecord.isOutgoing() ? org.signal.core.ui.R.color.signal_light_colorTransparent2 : com.google.android.material.R.attr.colorOnPrimary));
         joinCallLinkStub.get().setOnClickListener(v -> {
           if (eventListener != null) {
             eventListener.onJoinCallLink(callLinkParseResult.getRootKey(), callLinkParseResult.getEpoch());

@@ -29,9 +29,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.thoughtcrime.securesms.R
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Common popup container for call screen notifications that slide in from the top.
@@ -83,7 +83,7 @@ fun CallScreenPopup(
         .wrapContentSize()
         .padding(start = 12.dp, top = 30.dp, end = 12.dp)
         .background(
-          color = colorResource(R.color.signal_light_colorSecondaryContainer),
+          color = colorResource(CoreUiR.color.signal_light_colorSecondaryContainer),
           shape = RoundedCornerShape(percent = 50)
         )
         .clickable(

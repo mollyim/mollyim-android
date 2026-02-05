@@ -159,7 +159,7 @@ private fun InfoPill(
     horizontalArrangement = spacedBy(4.dp),
     verticalAlignment = Alignment.CenterVertically,
     modifier = modifier
-      .background(color = colorResource(R.color.molly_surface_container_high_dark), shape = RoundedCornerShape(percent = 50))
+      .background(color = colorResource(org.signal.core.ui.R.color.molly_surface_container_high_dark), shape = RoundedCornerShape(percent = 50))
       .padding(horizontal = 12.dp, vertical = 6.dp)
   ) {
     Icon(

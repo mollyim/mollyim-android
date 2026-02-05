@@ -109,6 +109,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import org.signal.core.ui.R as CoreUiR
 
 class StoryViewerPageFragment :
   Fragment(R.layout.stories_viewer_fragment_page),
@@ -1117,7 +1118,7 @@ class StoryViewerPageFragment :
           indicatorSize = 18.dp
           indicatorInset = 2.dp
           trackColor = ContextCompat.getColor(requireContext(), R.color.transparent_white_40)
-          indicatorColors = intArrayOf(ContextCompat.getColor(requireContext(), R.color.signal_dark_colorNeutralInverse))
+          indicatorColors = intArrayOf(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_dark_colorNeutralInverse))
           trackThickness = 2.dp
         }
       ).apply {

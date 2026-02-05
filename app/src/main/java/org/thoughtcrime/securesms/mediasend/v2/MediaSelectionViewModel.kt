@@ -198,10 +198,18 @@ class MediaSelectionViewModel(
                     video.uri to VideoTrimData(true, duration, 0, maxDuration)
                   }
                 }
+
+              val updatedCameraFirstCapture = if (it.cameraFirstCapture != null) {
+                filterResult.filteredMedia.find { filtered -> filtered.uri == it.cameraFirstCapture.uri }
+              } else {
+                null
+              }
+
               it.copy(
                 selectedMedia = filterResult.filteredMedia,
                 focusedMedia = it.focusedMedia ?: filterResult.filteredMedia.first(),
-                editorStateMap = it.editorStateMap + initializedVideoEditorStates
+                editorStateMap = it.editorStateMap + initializedVideoEditorStates,
+                cameraFirstCapture = updatedCameraFirstCapture ?: it.cameraFirstCapture
               )
             }
 

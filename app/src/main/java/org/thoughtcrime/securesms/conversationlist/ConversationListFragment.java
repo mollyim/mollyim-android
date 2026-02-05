@@ -52,7 +52,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.window.core.layout.WindowHeightSizeClass;
 
 import com.airbnb.lottie.SimpleColorFilter;
 import com.annimon.stream.Stream;
@@ -76,6 +75,7 @@ import org.thoughtcrime.securesms.MainFragment;
 import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.backup.ArchiveUploadProgress;
 import org.thoughtcrime.securesms.backup.RestoreState;
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress;
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgressState;
@@ -84,12 +84,13 @@ import org.thoughtcrime.securesms.backup.v2.ui.BackupAlertBottomSheet;
 import org.thoughtcrime.securesms.backup.v2.ui.BackupAlertDelegate;
 import org.thoughtcrime.securesms.banner.Banner;
 import org.thoughtcrime.securesms.banner.BannerManager;
+import org.thoughtcrime.securesms.banner.banners.ArchiveUploadStatusBanner;
 import org.thoughtcrime.securesms.banner.banners.CdsPermanentErrorBanner;
 import org.thoughtcrime.securesms.banner.banners.CdsTemporaryErrorBanner;
 import org.thoughtcrime.securesms.banner.banners.DeprecatedBuildBanner;
 import org.thoughtcrime.securesms.banner.banners.DeprecatedSdkBanner;
 import org.thoughtcrime.securesms.banner.banners.DozeBanner;
-import org.thoughtcrime.securesms.banner.banners.MediaRestoreProgressBanner;
+import org.thoughtcrime.securesms.banner.banners.ArchiveRestoreStatusBanner;
 import org.thoughtcrime.securesms.banner.banners.OutdatedBuildBanner;
 import org.thoughtcrime.securesms.banner.banners.ServiceOutageBanner;
 import org.thoughtcrime.securesms.banner.banners.UnauthorizedBanner;
@@ -133,7 +134,6 @@ import org.thoughtcrime.securesms.main.MainSnackbarHostKey;
 import org.thoughtcrime.securesms.main.MainToolbarMode;
 import org.thoughtcrime.securesms.main.MainToolbarViewModel;
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder;
-import org.thoughtcrime.securesms.megaphone.Megaphones;
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.profiles.manage.UsernameEditFragment;
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
@@ -149,13 +149,12 @@ import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter;
-import org.thoughtcrime.securesms.components.SignalProgressDialog;
 import org.thoughtcrime.securesms.util.views.Stub;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
+import org.thoughtcrime.securesms.window.WindowSizeClassExtensionsKt;
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
 
 import java.lang.ref.WeakReference;
@@ -310,7 +309,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
 
     searchAdapter = contactSearchMediator.getAdapter();
 
-    if (getWindowSizeClass(getResources()).getWindowHeightSizeClass() == WindowHeightSizeClass.COMPACT) {
+    if (WindowSizeClassExtensionsKt.isHeightCompact(getWindowSizeClass(getResources()))) {
       ViewUtil.setBottomMargin(bottomActionBar, ViewUtil.getNavigationBarHeight(bottomActionBar));
     }
 
@@ -388,7 +387,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
     initializeVoiceNotePlayer();
     initializeBanners();
     maybeScheduleRefreshProfileJob();
-    ConversationListFragmentExtensionsKt.listenToEventBusWhileResumed(this, mainNavigationViewModel .getDetailLocation());
+    ConversationListFragmentExtensionsKt.listenToEventBusWhileResumed(this, mainNavigationViewModel.getDetailLocation());
 
     String query = contactSearchMediator.getFilter();
     if (query != null) {
@@ -702,7 +701,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
           }
           return Unit.INSTANCE;
         }),
-        new MediaRestoreProgressBanner(new MediaRestoreProgressBanner.RestoreProgressBannerListener() {
+        new ArchiveRestoreStatusBanner(new ArchiveRestoreStatusBanner.RestoreProgressBannerListener() {
           @Override
           public void onBannerClick() {
             startActivity(AppSettingsActivity.backupsSettings(requireContext()));
@@ -729,6 +728,30 @@ public class ConversationListFragment extends MainFragment implements Conversati
 
           @Override
           public void onDismissComplete() {
+            bannerManager.updateContent(bannerView.get());
+          }
+        }),
+        new ArchiveUploadStatusBanner(new ArchiveUploadStatusBanner.UploadProgressBannerListener() {
+          @Override
+          public void onBannerClick() {
+            startActivity(AppSettingsActivity.remoteBackups(requireContext()));
+          }
+
+          @Override
+          public void onCancelClicked() {
+            new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.CancelBackupDialog_title)
+                .setMessage(R.string.CancelBackupDialog_body)
+                .setNegativeButton(R.string.CancelBackupDialog_continue_action, null)
+                .setPositiveButton(R.string.CancelBackupDialog_cancel_action, (d, w) -> {
+                  ArchiveUploadProgress.INSTANCE.cancel();
+                  bannerManager.updateContent(bannerView.get());
+                })
+                .show();
+          }
+
+          @Override
+          public void onHidden() {
             bannerManager.updateContent(bannerView.get());
           }
         })
@@ -1225,7 +1248,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
       }
     }
 
-    items.add(new ActionItem(R.drawable.symbol_check_circle_24, getString(R.string.ConversationListFragment_select), () -> {
+    items.add(new ActionItem(org.signal.core.ui.R.drawable.symbol_check_circle_24, getString(R.string.ConversationListFragment_select), () -> {
       viewModel.startSelection(conversation);
       startActionMode();
     }));
@@ -1246,7 +1269,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
       items.add(new ActionItem(R.drawable.symbol_archive_24, getResources().getString(R.string.ConversationListFragment_archive), () -> handleArchive(id)));
     }
 
-    items.add(new ActionItem(R.drawable.symbol_trash_24, getResources().getString(R.string.ConversationListFragment_delete), () -> handleDelete(id)));
+    items.add(new ActionItem(org.signal.core.ui.R.drawable.symbol_trash_24, getResources().getString(R.string.ConversationListFragment_delete), () -> handleDelete(id)));
 
     activeContextMenu = new SignalContextMenu.Builder(view, list)
         .offsetX(ViewUtil.dpToPx(12))
@@ -1353,7 +1376,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
       items.add(new ActionItem(R.drawable.symbol_archive_24, getResources().getString(R.string.ConversationListFragment_archive), () -> handleArchive(selectionIds)));
     }
 
-    items.add(new ActionItem(R.drawable.symbol_trash_24, getResources().getString(R.string.ConversationListFragment_delete), () -> handleDelete(selectionIds)));
+    items.add(new ActionItem(org.signal.core.ui.R.drawable.symbol_trash_24, getResources().getString(R.string.ConversationListFragment_delete), () -> handleDelete(selectionIds)));
 
     if (hasUnmuted) {
       items.add(new ActionItem(R.drawable.symbol_bell_slash_24, getResources().getString(R.string.ConversationListFragment_mute), () -> handleMute(viewModel.currentSelectedConversations())));
@@ -1361,7 +1384,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
       items.add(new ActionItem(R.drawable.symbol_bell_24, getResources().getString(R.string.ConversationListFragment_unmute), () -> handleUnmute(viewModel.currentSelectedConversations())));
     }
 
-    items.add(new ActionItem(R.drawable.symbol_check_circle_24, getString(R.string.ConversationListFragment_select_all), viewModel::onSelectAllClick));
+    items.add(new ActionItem(org.signal.core.ui.R.drawable.symbol_check_circle_24, getString(R.string.ConversationListFragment_select_all), viewModel::onSelectAllClick));
 
     if (!isArchived()) {
       items.add(new ActionItem(R.drawable.symbol_folder_add, getString(R.string.ConversationListFragment_add_to_folder), () -> {

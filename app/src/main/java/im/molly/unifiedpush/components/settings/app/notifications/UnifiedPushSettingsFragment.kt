@@ -95,7 +95,7 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         clickPref(
           title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
           summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_copy_to_clipboard)),
-          iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
+          iconEnd = DSLSettingsIcon.from(org.signal.core.ui.R.drawable.symbol_copy_android_24),
           isEnabled = parameters.isNotEmpty(),
           onClick = {
             writeTextToClipboard(requireContext(), "Server parameters", parameters)
@@ -107,7 +107,7 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         clickPref(
           title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__account_id)),
           summary = DSLSettingsText.from(aciOrUnknown),
-          iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
+          iconEnd = DSLSettingsIcon.from(org.signal.core.ui.R.drawable.symbol_copy_android_24),
           onClick = {
             writeTextToClipboard(requireContext(), "Account ID", aciOrUnknown)
           },

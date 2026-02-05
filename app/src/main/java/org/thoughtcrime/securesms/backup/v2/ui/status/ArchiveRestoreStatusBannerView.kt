@@ -37,12 +37,14 @@ import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.util.mebiBytes
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.RestoreState
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgressState
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgressState.RestoreStatus
 import org.thoughtcrime.securesms.backup.v2.ui.BackupsIconColors
+import org.signal.core.ui.R as CoreUiR
 
 private const val NONE = -1
 
@@ -52,7 +54,7 @@ private const val NONE = -1
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BackupStatusBanner(
+fun ArchiveRestoreStatusBanner(
   data: ArchiveRestoreProgressState,
   onBannerClick: () -> Unit = {},
   onActionClick: (ArchiveRestoreProgressState) -> Unit = {},
@@ -136,7 +138,7 @@ fun BackupStatusBanner(
       val interactionSource = remember { MutableInteractionSource() }
 
       Icon(
-        painter = painterResource(id = R.drawable.symbol_x_24),
+        painter = SignalIcons.X.painter,
         contentDescription = stringResource(R.string.Material3SearchToolbar__close),
         tint = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier
@@ -164,14 +166,14 @@ private fun ArchiveRestoreProgressState.iconResource(): Int {
         RestoreStatus.LOW_BATTERY -> R.drawable.symbol_backup_light
 
         RestoreStatus.NOT_ENOUGH_DISK_SPACE -> R.drawable.symbol_backup_error_24
-        RestoreStatus.FINISHED -> R.drawable.symbol_check_circle_24
+        RestoreStatus.FINISHED -> CoreUiR.drawable.symbol_check_circle_24
         RestoreStatus.NONE -> throw IllegalStateException()
       }
     }
 
     RestoreState.NONE -> {
       if (this.restoreStatus == RestoreStatus.FINISHED) {
-        R.drawable.symbol_check_circle_24
+        CoreUiR.drawable.symbol_check_circle_24
       } else {
         throw IllegalStateException()
       }
@@ -311,46 +313,46 @@ private fun ArchiveRestoreProgressState.actionResource(): Int {
 
 @DayNightPreviews
 @Composable
-fun BackupStatusBannerPreview() {
+private fun ArchiveRestoreStatusBannerPreview() {
   Previews.Preview {
     Column {
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.RESTORING_MEDIA, restoreStatus = RestoreStatus.RESTORING, remainingRestoreSize = 800.mebiBytes, totalRestoreSize = 1024.mebiBytes)
       )
 
       HorizontalDivider()
 
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.CALCULATING_MEDIA, restoreStatus = RestoreStatus.RESTORING, remainingRestoreSize = 1024.mebiBytes, totalRestoreSize = 1024.mebiBytes)
       )
 
       HorizontalDivider()
 
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.CANCELING_MEDIA, restoreStatus = RestoreStatus.RESTORING, remainingRestoreSize = 200.mebiBytes, totalRestoreSize = 1024.mebiBytes)
       )
 
       HorizontalDivider()
 
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.RESTORING_MEDIA, restoreStatus = RestoreStatus.WAITING_FOR_WIFI, remainingRestoreSize = 800.mebiBytes, totalRestoreSize = 1024.mebiBytes)
       )
 
       HorizontalDivider()
 
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.RESTORING_MEDIA, restoreStatus = RestoreStatus.WAITING_FOR_INTERNET, remainingRestoreSize = 800.mebiBytes, totalRestoreSize = 1024.mebiBytes)
       )
 
       HorizontalDivider()
 
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.NONE, restoreStatus = RestoreStatus.FINISHED, remainingRestoreSize = 0.mebiBytes, totalRestoreSize = 0.mebiBytes, totalToRestoreThisRun = 1024.mebiBytes)
       )
 
       HorizontalDivider()
 
-      BackupStatusBanner(
+      ArchiveRestoreStatusBanner(
         data = ArchiveRestoreProgressState(restoreState = RestoreState.RESTORING_MEDIA, restoreStatus = RestoreStatus.NOT_ENOUGH_DISK_SPACE, remainingRestoreSize = 500.mebiBytes, totalRestoreSize = 1024.mebiBytes)
       )
     }

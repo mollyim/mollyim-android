@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.IconButtons
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
@@ -56,6 +57,7 @@ import org.thoughtcrime.securesms.main.EmptyMegaphoneActionController
 import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
 import org.thoughtcrime.securesms.stories.settings.story.StoriesPrivacySettingsRepository
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * The onboarding megaphone (list of cards)
@@ -144,8 +146,8 @@ private fun OnboardingMegaphoneListItem(
         modifier = Modifier.align(Alignment.TopEnd)
       ) {
         Icon(
-          imageVector = ImageVector.vectorResource(R.drawable.symbol_x_24),
-          tint = colorResource(R.color.signal_light_colorOutline),
+          imageVector = SignalIcons.X.imageVector,
+          tint = colorResource(CoreUiR.color.signal_light_colorOutline),
           contentDescription = stringResource(R.string.Material3SearchToolbar__close)
         )
       }
@@ -160,7 +162,7 @@ private fun OnboardingMegaphoneListItem(
         Icon(
           imageVector = ImageVector.vectorResource(onboardingListItem.icon),
           contentDescription = null,
-          tint = colorResource(R.color.signal_light_colorOnSurface),
+          tint = colorResource(CoreUiR.color.signal_light_colorOnSurface),
           modifier = Modifier.size(24.dp)
         )
 
@@ -169,7 +171,7 @@ private fun OnboardingMegaphoneListItem(
           style = MaterialTheme.typography.labelMedium,
           textAlign = TextAlign.Center,
           maxLines = 2,
-          color = colorResource(R.color.signal_light_colorOnSurface),
+          color = colorResource(CoreUiR.color.signal_light_colorOnSurface),
           overflow = TextOverflow.Ellipsis,
           modifier = Modifier.padding(horizontal = 8.dp)
         )

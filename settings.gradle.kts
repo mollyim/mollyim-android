@@ -92,7 +92,7 @@ include(":core-gms:tasks")
 // Lib modules
 include(":lib:libsignal-service")
 include(":lib:netcipher")
-include(":lib:glide-config")
+include(":lib:glide")
 include(":lib:photoview")
 include(":lib:sticky-header-grid")
 include(":lib:paging")

@@ -26,12 +26,10 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
@@ -52,6 +50,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Rows.TextAndLabel
 import org.signal.core.ui.compose.Scaffolds
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.R
@@ -203,7 +202,7 @@ private fun AppSettingsContent(
   Scaffolds.Settings(
     title = stringResource(R.string.text_secure_normal__menu_settings),
     navigationContentDescription = stringResource(R.string.CallScreenTopBar__go_back),
-    navigationIcon = ImageVector.vectorResource(R.drawable.symbol_arrow_start_24),
+    navigationIcon = SignalIcons.ArrowStart.imageVector,
     onNavigationClick = callbacks::onNavigationClick
   ) { contentPadding ->
     Column(
@@ -275,7 +274,7 @@ private fun AppSettingsContent(
 
               Rows.TextRow(
                 text = stringResource(R.string.AppSettingsFragment__backup_storage_limit_reached),
-                icon = ImageVector.vectorResource(R.drawable.symbol_error_circle_fill_24),
+                icon = SignalIcons.ErrorCircle.imageVector,
                 iconTint = MaterialTheme.colorScheme.error,
                 onClick = {
                   callbacks.navigate(AppSettingsRoute.BackupsRoute.Remote())
@@ -373,7 +372,7 @@ private fun AppSettingsContent(
         item {
           Rows.TextRow(
             text = stringResource(R.string.preferences__privacy),
-            icon = painterResource(R.drawable.symbol_lock_24),
+            icon = SignalIcons.Lock.painter,
             onClick = {
               callbacks.navigate(AppSettingsRoute.PrivacyRoute.Privacy)
             },
@@ -399,7 +398,7 @@ private fun AppSettingsContent(
             },
             icon = {
               Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.symbol_backup_24),
+                imageVector = SignalIcons.Backup.imageVector,
                 contentDescription = stringResource(R.string.preferences_chats__backups),
                 tint = MaterialTheme.colorScheme.onSurface
               )
@@ -490,7 +489,7 @@ private fun BackupsWarningRow(
     icon = {
       Box {
         Icon(
-          imageVector = ImageVector.vectorResource(R.drawable.symbol_backup_24),
+          imageVector = SignalIcons.Backup.imageVector,
           tint = MaterialTheme.colorScheme.onSurface,
           contentDescription = null
         )
@@ -605,7 +604,7 @@ private fun BioRow(
         )
       ) {
         Icon(
-          painter = painterResource(R.drawable.symbol_qrcode_24),
+          painter = SignalIcons.QrCode.painter,
           contentDescription = null,
           modifier = Modifier.size(20.dp)
         )

@@ -52,19 +52,20 @@ import androidx.compose.ui.viewinterop.AndroidView
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.NightPreview
 import org.signal.core.ui.compose.Previews
+import org.signal.glide.compose.GlideImage
+import org.signal.glide.compose.GlideImageScaleType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
 import org.thoughtcrime.securesms.components.emoji.EmojiTextView
 import org.thoughtcrime.securesms.components.settings.app.subscription.BadgeImageLarge
 import org.thoughtcrime.securesms.components.webrtc.TextureViewRenderer
-import org.thoughtcrime.securesms.compose.GlideImage
-import org.thoughtcrime.securesms.compose.GlideImageScaleType
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto
 import org.thoughtcrime.securesms.events.CallParticipant
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.rememberRecipientField
 import org.thoughtcrime.securesms.ringrtc.CameraState
 import org.webrtc.RendererCommon
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Displays a remote participant (or local participant in pre-join screen).
@@ -599,7 +600,7 @@ private fun RaiseHandIndicator(
   Row(
     modifier = modifier
       .background(
-        color = colorResource(R.color.signal_light_colorSurface),
+        color = colorResource(CoreUiR.color.signal_light_colorSurface),
         shape = RoundedCornerShape(percent = 50)
       ),
     verticalAlignment = Alignment.CenterVertically
@@ -614,7 +615,7 @@ private fun RaiseHandIndicator(
     if (name.isNotBlank()) {
       Text(
         text = name,
-        color = colorResource(R.color.signal_light_colorOnSurface),
+        color = colorResource(CoreUiR.color.signal_light_colorOnSurface),
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier.padding(end = 12.dp)
       )

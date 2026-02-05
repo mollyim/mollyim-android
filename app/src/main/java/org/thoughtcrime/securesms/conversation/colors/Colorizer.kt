@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.ThemeUtil
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Helper class for all things ChatColors.
@@ -44,7 +45,7 @@ class Colorizer {
   @ColorInt
   fun getIncomingBodyTextColor(context: Context, hasWallpaper: Boolean): Int {
     return if (hasWallpaper) {
-      ContextCompat.getColor(context, R.color.signal_colorNeutralInverse)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralInverse)
     } else {
       ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurface)
     }
@@ -53,7 +54,7 @@ class Colorizer {
   @ColorInt
   fun getIncomingFooterTextColor(context: Context, hasWallpaper: Boolean): Int {
     return if (hasWallpaper) {
-      ContextCompat.getColor(context, R.color.signal_colorNeutralVariantInverse)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
     } else {
       ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant)
     }
@@ -62,7 +63,7 @@ class Colorizer {
   @ColorInt
   fun getIncomingFooterIconColor(context: Context, hasWallpaper: Boolean): Int {
     return if (hasWallpaper) {
-      ContextCompat.getColor(context, R.color.signal_colorNeutralVariantInverse)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
     } else {
       ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant)
     }
