@@ -2231,7 +2231,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
   fun markAsRemoteDelete(targetMessage: MessageRecord) {
     writableDatabase.withinTransaction { db ->
-      if (targetMessage.isEditMessage) {
+      val hasRevision = (targetMessage as? MmsMessageRecord)?.latestRevisionId?.id != null
+      if (hasRevision || targetMessage.isEditMessage) {
         val latestRevisionId = (targetMessage as? MmsMessageRecord)?.latestRevisionId?.id ?: targetMessage.id
         markAsRemoteDeleteInternal(latestRevisionId)
         getPreviousEditIds(latestRevisionId).map { id ->
@@ -2833,7 +2834,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       retrieved.type == MessageType.IDENTITY_VERIFIED ||
       retrieved.type == MessageType.IDENTITY_UPDATE
 
-    val read = silent || retrieved.type == MessageType.EXPIRATION_UPDATE || MessageTypes.isPinnedMessageUpdate(type)
+    val read = silent || retrieved.type == MessageType.EXPIRATION_UPDATE
 
     val contentValues = contentValuesOf(
       DATE_SENT to retrieved.sentTimeMillis,
@@ -2892,6 +2893,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         .readToSingleInt(0)
 
       contentValues.put(NOTIFIED, notified.toInt())
+    } else if (MessageTypes.isPinnedMessageUpdate(type)) {
+      contentValues.put(NOTIFIED, 1)
     }
 
     val updateThread = retrieved.storyType === StoryType.NONE && !silent
@@ -3716,6 +3719,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       notifyStickerListeners()
       notifyStickerPackListeners()
       OptimizeMessageSearchIndexJob.enqueue()
+
+      if (updateThread) {
+        notifyConversationListListeners()
+      }
     }
 
     return threadDeleted
@@ -4767,10 +4774,11 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun getUnreadCount(threadId: Long): Int {
+    val pinnedMessageClause = "($TYPE & ${MessageTypes.SPECIAL_TYPES_MASK}) != ${MessageTypes.SPECIAL_TYPE_PINNED_MESSAGE}"
     return readableDatabase
       .select("COUNT(*)")
       .from("$TABLE_NAME INDEXED BY $INDEX_THREAD_UNREAD_COUNT")
-      .where("$THREAD_ID = $threadId AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $ORIGINAL_MESSAGE_ID IS NULL AND $SCHEDULED_DATE = -1 AND $READ = 0")
+      .where("$THREAD_ID = $threadId AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $ORIGINAL_MESSAGE_ID IS NULL AND $SCHEDULED_DATE = -1 AND $READ = 0 AND $pinnedMessageClause")
       .run()
       .readToSingleInt()
   }

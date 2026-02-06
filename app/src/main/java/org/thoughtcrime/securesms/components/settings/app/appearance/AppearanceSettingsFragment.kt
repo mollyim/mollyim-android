@@ -9,18 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.integerArrayResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.appearance.navbar.ChooseNavigationBarStyleFragment
@@ -62,7 +62,11 @@ class AppearanceSettingsFragment : ComposeFragment() {
     }
 
     override fun onLanguageSelected(selection: String) {
-      viewModel.setLanguage(selection)
+      MaterialAlertDialogBuilder(requireContext())
+        .setMessage(R.string.preferences_language_change_confirmation_message)
+        .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.setLanguage(selection) }
+        .setNegativeButton(android.R.string.cancel, null)
+        .show()
     }
 
     override fun onThemeSelected(selection: String, useDynamicColors: Boolean) {
@@ -107,7 +111,7 @@ private fun AppearanceSettingsScreen(
   Scaffolds.Settings(
     title = stringResource(R.string.preferences__appearance),
     onNavigationClick = callbacks::onNavigationClick,
-    navigationIcon = ImageVector.vectorResource(R.drawable.symbol_arrow_start_24)
+    navigationIcon = SignalIcons.ArrowStart.imageVector
   ) { paddingValues ->
     LazyColumn(
       modifier = Modifier

@@ -768,7 +768,7 @@ public class TextSecurePreferences {
   }
 
   public static void setLanguage(Context context, String language) {
-    setStringPreference(context, LANGUAGE_PREF, language);
+    getSharedPreferences(context).edit().putString(LANGUAGE_PREF, language).commit();
   }
 
   public static boolean hasPromptedPushRegistration(Context context) {

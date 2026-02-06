@@ -8,6 +8,3 @@ buildscript {
     mavenCentral()
   }
 }
-
-apply(from = "${rootDir}/../constants.gradle.kts")
-

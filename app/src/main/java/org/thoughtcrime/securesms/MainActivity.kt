@@ -43,7 +43,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
@@ -51,6 +50,7 @@ import androidx.compose.material3.adaptive.layout.PaneExpansionAnchor
 import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.rememberPaneExpansionState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -70,6 +70,7 @@ import androidx.fragment.compose.rememberFragmentState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
@@ -82,6 +83,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import im.molly.unifiedpush.UnifiedPushDistributor
+import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.theme.colorAttribute
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getSerializableCompat
@@ -93,12 +95,13 @@ import org.thoughtcrime.securesms.calls.links.details.CallLinkDetailsActivity
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.calls.log.CallLogFragment
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
-import org.thoughtcrime.securesms.calls.quality.CallQuality
-import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.compose.DeviceSpecificNotificationBottomSheet
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment
+import org.thoughtcrime.securesms.components.snackbars.LocalSnackbarStateConsumerRegistry
+import org.thoughtcrime.securesms.components.snackbars.SnackbarHostKey
+import org.thoughtcrime.securesms.components.snackbars.SnackbarState
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.compose.SignalTheme
@@ -129,13 +132,13 @@ import org.thoughtcrime.securesms.main.MainNavigationListLocation
 import org.thoughtcrime.securesms.main.MainNavigationRail
 import org.thoughtcrime.securesms.main.MainNavigationViewModel
 import org.thoughtcrime.securesms.main.MainSnackbar
+import org.thoughtcrime.securesms.main.MainSnackbarHostKey
 import org.thoughtcrime.securesms.main.MainToolbar
 import org.thoughtcrime.securesms.main.MainToolbarCallback
 import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarState
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
-import org.thoughtcrime.securesms.main.SnackbarState
 import org.thoughtcrime.securesms.main.callNavGraphBuilder
 import org.thoughtcrime.securesms.main.chatNavGraphBuilder
 import org.thoughtcrime.securesms.main.navigateToDetailLocation
@@ -179,6 +182,7 @@ import org.thoughtcrime.securesms.window.NavigationType
 import org.thoughtcrime.securesms.window.isSplitPane
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+import org.signal.core.ui.R as CoreUiR
 
 class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, MainNavigator.NavigatorProvider, Material3OnScrollHelperBinder, ConversationListFragment.Callback, CallLogFragment.Callback {
 
@@ -211,7 +215,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
   private val mainNavigationViewModel: MainNavigationViewModel by viewModel {
     val startingTab = intent.extras?.getSerializableCompat(KEY_STARTING_TAB, MainNavigationListLocation::class.java)
-    MainNavigationViewModel(startingTab ?: MainNavigationListLocation.CHATS)
+    MainNavigationViewModel(it.createSavedStateHandle(), startingTab ?: MainNavigationListLocation.CHATS)
   }
 
   private val vitalsViewModel: VitalsViewModel by viewModel {
@@ -243,6 +247,12 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
   @OptIn(ExperimentalMaterial3AdaptiveApi::class)
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    if (!isTaskRoot && intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN == intent.action) {
+      Log.w(TAG, "Duplicate launcher intent received, finishing duplicate instance.")
+      finish()
+      return
+    }
+
     AppStartup.getInstance().onCriticalRenderEventStart()
 
     enableEdgeToEdge(
@@ -298,24 +308,9 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       }
     }
 
-    supportFragmentManager.setFragmentResultListener(
-      CallQualityBottomSheetFragment.REQUEST_KEY,
-      this
-    ) { _, bundle ->
-      if (bundle.getBoolean(CallQualityBottomSheetFragment.REQUEST_KEY, false)) {
-        mainNavigationViewModel.setSnackbar(
-          SnackbarState(
-            message = getString(R.string.CallQualitySheet__thanks_for_your_feedback),
-            duration = SnackbarDuration.Short
-          )
-        )
-      }
-    }
-
     shareDataTimestampViewModel.setTimestampFromActivityCreation(savedInstanceState, intent)
 
     setContent {
-      val snackbar by mainNavigationViewModel.snackbar.collectAsStateWithLifecycle()
       val mainToolbarState by toolbarViewModel.state.collectAsStateWithLifecycle()
       val megaphone by mainNavigationViewModel.megaphone.collectAsStateWithLifecycle()
       val mainNavigationState by mainNavigationViewModel.mainNavigationState.collectAsStateWithLifecycle()
@@ -355,10 +350,9 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
         }
       }
 
-      val mainBottomChromeState = remember(mainToolbarState.destination, snackbar, mainToolbarState.mode, megaphone) {
+      val mainBottomChromeState = remember(mainToolbarState.destination, mainToolbarState.mode, megaphone) {
         MainBottomChromeState(
           destination = mainToolbarState.destination,
-          snackbarState = snackbar,
           mainToolbarMode = mainToolbarState.mode,
           megaphoneState = MainMegaphoneState(
             megaphone = megaphone,
@@ -535,7 +529,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
           snackbarHost = {
             if (wrappedNavigator.scaffoldValue.primary == PaneAdaptedValue.Expanded) {
               MainSnackbar(
-                snackbarState = snackbar,
+                hostKey = SnackbarHostKey.Global,
                 onDismissed = mainBottomChromeCallback::onSnackbarDismissed,
                 modifier = Modifier.navigationBarsPadding()
               )
@@ -751,34 +745,36 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   private fun MainContainer(content: @Composable BoxWithConstraintsScope.() -> Unit) {
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
-    SignalTheme(isDarkMode = DynamicTheme.isDarkTheme(this)) {
-      val backgroundColor = if (!windowSizeClass.isSplitPane()) {
-        MaterialTheme.colorScheme.surface
-      } else {
-        SignalTheme.colors.colorSurface1
-      }
-
-      val modifier = when {
-        windowSizeClass.isSplitPane() -> {
-          Modifier
-            .systemBarsPadding()
-            .displayCutoutPadding()
+    CompositionLocalProvider(LocalSnackbarStateConsumerRegistry provides mainNavigationViewModel.snackbarRegistry) {
+      SignalTheme(isDarkMode = DynamicTheme.isDarkTheme(this)) {
+        val backgroundColor = if (!windowSizeClass.isSplitPane()) {
+          MaterialTheme.colorScheme.surface
+        } else {
+          SignalTheme.colors.colorSurface1
         }
 
-        else ->
-          Modifier
-            .windowInsetsPadding(
-              WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)
-                .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
-            )
-      }
+        val modifier = when {
+          windowSizeClass.isSplitPane() -> {
+            Modifier
+              .systemBarsPadding()
+              .displayCutoutPadding()
+          }
 
-      BoxWithConstraints(
-        modifier = Modifier
-          .background(color = backgroundColor)
-          .then(modifier)
-      ) {
-        content()
+          else ->
+            Modifier
+              .windowInsetsPadding(
+                WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)
+                  .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
+              )
+        }
+
+        BoxWithConstraints(
+          modifier = Modifier
+            .background(color = backgroundColor)
+            .then(modifier)
+        ) {
+          content()
+        }
       }
     }
   }
@@ -842,10 +838,6 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
     vitalsViewModel.checkSlowNotificationHeuristics()
     mainNavigationViewModel.refreshNavigationBarState()
-
-    CallQuality.consumeQualityRequest()?.let {
-      CallQualityBottomSheetFragment.create(it).show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
-    }
   }
 
   override fun onStop() {
@@ -864,24 +856,26 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     }
 
     if (resultCode == RESULT_OK && requestCode == CreateSvrPinActivity.REQUEST_NEW_PIN) {
-      mainNavigationViewModel.setSnackbar(SnackbarState(message = getString(R.string.ConfirmKbsPinFragment__pin_created)))
+      mainNavigationViewModel.snackbarRegistry.emit(SnackbarState(message = getString(R.string.ConfirmKbsPinFragment__pin_created), hostKey = MainSnackbarHostKey.MainChrome))
       mainNavigationViewModel.onMegaphoneCompleted(Megaphones.Event.PINS_FOR_ALL)
     }
 
     if (resultCode == RESULT_OK && requestCode == UsernameEditFragment.REQUEST_CODE) {
       val snackbarString = getString(R.string.ConversationListFragment_username_recovered_toast, SignalStore.account.username)
-      mainNavigationViewModel.setSnackbar(
+      mainNavigationViewModel.snackbarRegistry.emit(
         SnackbarState(
-          message = snackbarString
+          message = snackbarString,
+          hostKey = MainSnackbarHostKey.MainChrome
         )
       )
     }
 
     if (resultCode == RESULT_OK && requestCode == VerifyBackupKeyActivity.REQUEST_CODE) {
-      mainNavigationViewModel.setSnackbar(
+      mainNavigationViewModel.snackbarRegistry.emit(
         SnackbarState(
           message = getString(R.string.VerifyBackupKey__backup_key_correct),
-          duration = SnackbarDuration.Short
+          duration = Snackbars.Duration.SHORT,
+          hostKey = MainSnackbarHostKey.MainChrome
         )
       )
       mainNavigationViewModel.onMegaphoneSnoozed(Megaphones.Event.VERIFY_BACKUP_KEY)
@@ -968,6 +962,8 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     if (ConversationIntents.isConversationIntent(intent)) {
       mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS)
       mainNavigationViewModel.goTo(MainNavigationDetailLocation.Chats.Conversation(ConversationIntents.readArgsFromBundle(intent.extras!!)))
+      intent.action = null
+      setIntent(intent)
     }
   }
 
@@ -1000,7 +996,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   }
 
   private fun updateNotificationProfileStatus(notificationProfiles: List<NotificationProfile>) {
-    val activeProfile = NotificationProfiles.getActiveProfile(notificationProfiles)
+    val activeProfile = NotificationProfiles.getActiveProfile(profiles = notificationProfiles, shouldSync = true)
     if (activeProfile != null) {
       if (activeProfile.id != SignalStore.notificationProfile.lastProfilePopup) {
         val view = findViewById<ViewGroup>(android.R.id.content)
@@ -1056,7 +1052,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       Permissions.with(this@MainActivity)
         .request(Manifest.permission.CAMERA)
         .ifNecessary()
-        .withRationaleDialog(getString(R.string.CameraXFragment_allow_access_camera), getString(R.string.CameraXFragment_to_capture_photos_and_video_allow_camera), R.drawable.symbol_camera_24)
+        .withRationaleDialog(getString(R.string.CameraXFragment_allow_access_camera), getString(R.string.CameraXFragment_to_capture_photos_and_video_allow_camera), CoreUiR.drawable.symbol_camera_24)
         .withPermanentDenialDialog(
           getString(R.string.CameraXFragment_signal_needs_camera_access_capture_photos),
           null,
@@ -1170,9 +1166,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       mainNavigationViewModel.onMegaphoneVisible(megaphone)
     }
 
-    override fun onSnackbarDismissed() {
-      mainNavigationViewModel.setSnackbar(null)
-    }
+    override fun onSnackbarDismissed() = Unit
   }
 
   inner class MainMegaphoneActionController : MegaphoneActionController {
@@ -1185,9 +1179,10 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     }
 
     override fun onMegaphoneToastRequested(string: String) {
-      mainNavigationViewModel.setSnackbar(
+      mainNavigationViewModel.snackbarRegistry.emit(
         SnackbarState(
-          message = string
+          message = string,
+          hostKey = MainSnackbarHostKey.MainChrome
         )
       )
     }

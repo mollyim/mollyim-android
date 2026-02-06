@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import org.signal.core.util.AppUtil
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.concurrent.SignalExecutors
@@ -19,10 +17,8 @@ import org.signal.core.util.readToList
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireString
 import org.signal.ringrtc.CallManager
-import org.signal.storageservice.protos.calls.quality.SubmitCallQualitySurveyRequest
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
@@ -55,7 +51,6 @@ import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -91,12 +86,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     scrollToPosition = SignalStore.internal.lastScrollPosition
-
-    setFragmentResultListener(CallQualityBottomSheetFragment.REQUEST_KEY) { _, bundle ->
-      if (bundle.getBoolean(CallQualityBottomSheetFragment.REQUEST_KEY, false)) {
-        Snackbar.make(requireView(), R.string.CallQualitySheet__thanks_for_your_feedback, Snackbar.LENGTH_SHORT).show()
-      }
-    }
   }
 
   override fun bindAdapter(adapter: MappingAdapter) {
@@ -543,23 +532,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
 
       sectionHeaderPref(DSLSettingsText.from("Calling options"))
-
-      switchPref(
-        title = DSLSettingsText.from("Use new calling UI"),
-        isChecked = state.newCallingUi,
-        onClick = {
-          viewModel.setUseNewCallingUi(!state.newCallingUi)
-        }
-      )
-
-      clickPref(
-        title = DSLSettingsText.from("Display call quality survey"),
-        onClick = {
-          CallQualityBottomSheetFragment
-            .create(SubmitCallQualitySurveyRequest())
-            .show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
-        }
-      )
 
       radioListPref(
         title = DSLSettingsText.from("Bandwidth mode"),

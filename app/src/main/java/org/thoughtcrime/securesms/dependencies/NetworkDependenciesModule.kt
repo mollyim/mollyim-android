@@ -241,10 +241,11 @@ class NetworkDependenciesModule(
 
       sslContext.init(null, trustManagers, null)
 
-      baseClient.newBuilder()
+      val builder = baseClient.newBuilder()
         .sslSocketFactory(Tls12SocketFactory(sslContext.socketFactory), trustManagers[0] as X509TrustManager)
         .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
-        .build()
+
+      builder.build()
     } catch (e: NoSuchAlgorithmException) {
       throw AssertionError(e)
     } catch (e: KeyManagementException) {

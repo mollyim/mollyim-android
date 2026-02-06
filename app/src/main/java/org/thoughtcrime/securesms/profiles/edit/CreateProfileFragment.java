@@ -33,7 +33,7 @@ import org.thoughtcrime.securesms.databinding.CreateProfileFragmentBinding;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.mediasend.Media;
+import org.signal.core.models.media.Media;
 import org.thoughtcrime.securesms.profiles.edit.pnp.WhoCanFindMeByPhoneNumberFragment;
 import org.thoughtcrime.securesms.profiles.manage.EditProfileNameFragment;
 import org.thoughtcrime.securesms.providers.BlobProvider;
@@ -296,7 +296,7 @@ public class CreateProfileFragment extends LoggingFragment {
         binding.whoCanFindMeDescription.setText(R.string.PhoneNumberPrivacy_everyone);
         break;
       case NOT_DISCOVERABLE:
-        binding.whoCanFindMeIcon.setImageResource(R.drawable.symbol_lock_24);
+        binding.whoCanFindMeIcon.setImageResource(org.signal.core.ui.R.drawable.symbol_lock_24);
         binding.whoCanFindMeDescription.setText(R.string.PhoneNumberPrivacy_nobody);
         break;
     }

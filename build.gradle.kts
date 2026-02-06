@@ -24,7 +24,7 @@ buildscript {
       exclude(group = "io.outfoxx", module = "swiftpoet")
     }
     classpath(libs.androidx.benchmark.gradle.plugin)
-    classpath(files("$rootDir/wire-handler/wire-handler-1.0.0.jar"))
+    // MOLLY: wire-handler factory now in buildSrc, no manual classpath needed
     classpath(libs.com.google.devtools.ksp.gradle.plugin)
   }
 }
@@ -32,8 +32,6 @@ buildscript {
 tasks.withType<Wrapper> {
   distributionType = Wrapper.DistributionType.ALL
 }
-
-apply(from = "$rootDir/constants.gradle.kts")
 
 allprojects {
   tasks.withType<AbstractArchiveTask>().configureEach {

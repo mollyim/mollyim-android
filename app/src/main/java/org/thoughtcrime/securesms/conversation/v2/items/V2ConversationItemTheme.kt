@@ -37,7 +37,7 @@ class V2ConversationItemTheme(
     conversationMessage: ConversationMessage
   ): Int {
     if (conversationMessage.messageRecord.isThumbnailAtBottomOfBubble(context)) {
-      return ContextCompat.getColor(context, R.color.signal_colorOnCustom)
+      return ContextCompat.getColor(context, org.signal.core.ui.R.color.signal_colorOnCustom)
     }
 
     if (conversationMessage.messageRecord.isOutgoing && conversationMessage.messageRecord.hasNoBubble(context) && !conversationContext.hasWallpaper()) {

@@ -40,10 +40,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -56,6 +54,7 @@ import kotlinx.collections.immutable.toImmutableList
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.appearance.appicon.util.AppIconPreset
@@ -78,7 +77,7 @@ class AppIconSelectionFragment : ComposeFragment() {
       onNavigationClick = {
         findNavController().popBackStack()
       },
-      navigationIcon = ImageVector.vectorResource(id = R.drawable.symbol_arrow_start_24),
+      navigationIcon = SignalIcons.ArrowStart.imageVector,
       navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close)
     ) { contentPadding: PaddingValues ->
       IconSelectionScreen(appIconUtility.currentAppIcon, ::updateAppIcon, ::openLearnMore, Modifier.padding(contentPadding))

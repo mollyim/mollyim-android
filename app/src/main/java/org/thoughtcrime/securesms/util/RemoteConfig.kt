@@ -1092,14 +1092,6 @@ object RemoteConfig {
   )
 
   @JvmStatic
-  @get:JvmName("newCallUi")
-  val newCallUi: Boolean by remoteBoolean(
-    key = "android.newCallUi",
-    defaultValue = false,
-    hotSwappable = false
-  )
-
-  @JvmStatic
   @get:JvmName("useHevcEncoder")
   val useHevcEncoder: Boolean by remoteBoolean(
     key = "android.useHevcEncoder",
@@ -1143,14 +1135,6 @@ object RemoteConfig {
     hotSwappable = true
   )
 
-  @JvmStatic
-  @get:JvmName("polls")
-  val polls: Boolean by remoteBoolean(
-    key = "android.polls.2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
   /** Whether or not to send over binary service ids (alongside string service ids). */
   @JvmStatic
   @get:JvmName("useBinaryId")
@@ -1161,17 +1145,9 @@ object RemoteConfig {
   )
 
   @JvmStatic
-  @get:JvmName("receivePolls")
-  val receivePolls: Boolean by remoteBoolean(
-    key = "android.receivePolls",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  @JvmStatic
   @get:JvmName("backupsBetaMegaphone")
   val backupsBetaMegaphone: Boolean by remoteBoolean(
-    key = "android.backupsBetaMegaphone",
+    key = "android.backupsBetaMegaphone.2",
     defaultValue = false,
     hotSwappable = true
   )
@@ -1187,7 +1163,7 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("receivePinnedMessages")
   val receivePinnedMessages: Boolean by remoteBoolean(
-    key = "android.receivePinnedMessages",
+    key = "android.receivePinnedMessages.2",
     defaultValue = false,
     hotSwappable = true
   )
@@ -1195,25 +1171,33 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("sendPinnedMessages")
   val sendPinnedMessages: Boolean by remoteBoolean(
-    key = "android.sendPinnedMessages",
+    key = "android.sendPinnedMessages.2",
     defaultValue = false,
     hotSwappable = true
   )
 
+  /**
+   * Whether or not to allow 1:1 polls and a higher character limit for questions
+   */
   @JvmStatic
-  @get:JvmName("callQualitySurvey")
-  val callQualitySurvey: Boolean by remoteBoolean(
-    key = "android.callQualitySurvey.4",
+  @get:JvmName("pollsV2")
+  val pollsV2: Boolean by remoteBoolean(
+    key = "android.pollsV2",
     defaultValue = false,
     hotSwappable = true
   )
 
+  /**
+   * Whether or not to show any UI related to key transparency
+   */
   @JvmStatic
-  @get:JvmName("callQualitySurveyPPM")
-  val callQualitySurveyPPM: String by remoteString(
-    key = "android.callQualitySurveyPPM",
-    defaultValue = "*:10000",
+  @get:JvmName("keyTransparency")
+  val keyTransparency: Boolean by remoteBoolean(
+    key = "android.keyTransparency",
+    active = false,
+    defaultValue = false,
     hotSwappable = true
   )
+
   // endregion
 }

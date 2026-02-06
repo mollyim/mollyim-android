@@ -135,12 +135,16 @@ object ExportSkips {
     return log(sentTimestamp, "Poll option was invalid.")
   }
 
-  fun pollNotInGroupChat(sentTimestamp: Long): String {
-    return log(sentTimestamp, "Poll was not in a group chat.")
+  fun pinMessageIsInvalid(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Pin message update was invalid.")
   }
 
   fun individualChatUpdateInWrongTypeOfChat(sentTimestamp: Long): String {
     return log(sentTimestamp, "A chat update that only makes sense for individual chats was found in a different kind of chat.")
+  }
+
+  fun groupChatUpdateInWrongTypeOfChat(sentTimestamp: Long): String {
+    return log(sentTimestamp, "A chat update that only makes sense for group chats was found in a different kind of chat.")
   }
 
   fun individualChatUpdateNotAuthoredBySelf(sentTimestamp: Long): String {
@@ -161,6 +165,10 @@ object ExportSkips {
 
   fun duplicateRecipientId(recipientId: Long): String {
     return log(0, "Tried to export multiple recipients with RecipientId::$recipientId")
+  }
+
+  fun invalidE164InSessionSwitchover(sentTimestamp: Long): String {
+    return log(sentTimestamp, "Invalid e164 in sessions switchover event. Exporting an empty event.")
   }
 
   private fun log(sentTimestamp: Long, message: String): String {
@@ -208,10 +216,6 @@ object ExportOddities {
 
   fun emptyQuote(sentTimestamp: Long): String {
     return log(sentTimestamp, "Quote had no text or attachments. Removing it.")
-  }
-
-  fun invalidE164InSessionSwitchover(sentTimestamp: Long): String {
-    return log(sentTimestamp, "Invalid e164 in sessions switchover event. Exporting an empty event.")
   }
 
   fun undownloadedLongTextAttachment(sentTimestamp: Long): String {

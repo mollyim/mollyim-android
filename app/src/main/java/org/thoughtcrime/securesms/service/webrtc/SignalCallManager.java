@@ -34,8 +34,7 @@ import org.signal.ringrtc.HttpHeader;
 import org.signal.ringrtc.NetworkRoute;
 import org.signal.ringrtc.PeekInfo;
 import org.signal.ringrtc.Remote;
-import org.signal.storageservice.protos.groups.GroupExternalCredential;
-import org.thoughtcrime.securesms.calls.quality.CallQuality;
+import org.signal.storageservice.storage.protos.groups.ExternalGroupCredential;
 import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.CallLinkTable;
@@ -94,6 +93,7 @@ import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserExce
 import org.whispersystems.signalservice.internal.push.SyncMessage;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -360,6 +360,10 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     process((s, p) -> p.handleAudioDeviceChanged(s, activeDevice, availableDevices));
   }
 
+  public void onAudioDeviceChangeFailed() {
+    process((s, p) -> p.handleAudioDeviceChangeFailed(s));
+  }
+
   public void onBluetoothPermissionDenied() {
     process((s, p) -> p.handleBluetoothPermissionDenied(s));
   }
@@ -467,7 +471,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       try {
         Recipient               group      = Recipient.resolved(id);
         GroupId.V2              groupId    = group.requireGroupId().requireV2();
-        GroupExternalCredential credential = GroupManager.getGroupExternalCredential(context, groupId);
+        ExternalGroupCredential credential = GroupManager.getExternalGroupCredential(context, groupId);
 
         List<GroupCall.GroupMemberInfo> members = Stream.of(GroupManager.getUuidCipherTexts(context, groupId))
                                                         .map(entry -> new GroupCall.GroupMemberInfo(entry.getKey(), entry.getValue().serialize()))
@@ -508,7 +512,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       try {
         Recipient               group      = Recipient.resolved(info.getRecipientId());
         GroupId.V2              groupId    = group.requireGroupId().requireV2();
-        GroupExternalCredential credential = GroupManager.getGroupExternalCredential(context, groupId);
+        ExternalGroupCredential credential = GroupManager.getExternalGroupCredential(context, groupId);
 
         List<GroupCall.GroupMemberInfo> members = GroupManager.getUuidCipherTexts(context, groupId)
                                                               .entrySet()
@@ -529,7 +533,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   void requestGroupMembershipToken(@NonNull GroupId.V2 groupId, int groupCallHashCode) {
     networkExecutor.execute(() -> {
       try {
-        GroupExternalCredential credential = GroupManager.getGroupExternalCredential(context, groupId);
+        ExternalGroupCredential credential = GroupManager.getExternalGroupCredential(context, groupId);
         process((s, p) -> p.handleGroupMembershipProofResponse(s, groupCallHashCode, credential.token.getBytes(Charsets.UTF_8)));
       } catch (IOException e) {
         Log.w(TAG, "Unable to get group membership proof from service", e);
@@ -623,8 +627,6 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
         CameraState cameraState          = s.getLocalDeviceState().getCameraState();
         boolean     isLocalVideoEnabled  = cameraState.isEnabled() && cameraState.getCameraCount() > 0;
-
-        CallQuality.handleOneToOneCallSummary(summary, hasRemoteVideoContent || isLocalVideoEnabled);
       }
 
       switch (reason) {
@@ -934,6 +936,11 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   @Override
+  public void onSendCallMessageToAdhocGroup(@NonNull byte[] message, @NonNull CallManager.CallMessageUrgency urgency, Instant expiration, @NonNull Map<UUID, byte[]> recipientsToEndorsements) {
+    Log.w(TAG, "onSendCallMessageToAdhocGroup(): not handled yet!");
+  }
+
+  @Override
   public void onSendHttpRequest(long requestId, @NonNull String url, @NonNull CallManager.HttpMethod httpMethod, @Nullable List<HttpHeader> headers, @Nullable byte[] body) {
     if (callManager == null) {
       Log.w(TAG, "Unable to send http request, call manager is not initialized");
@@ -1039,7 +1046,6 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
   @Override
   public void onEnded(@NonNull GroupCall groupCall, @NonNull CallManager.CallEndReason reason, @NonNull CallSummary summary) {
-    CallQuality.handleGroupCallSummary(summary, groupCall.getKind());
     process((s, p) -> p.handleGroupCallEnded(s, groupCall.hashCode(), reason));
   }
 

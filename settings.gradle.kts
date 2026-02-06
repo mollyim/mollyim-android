@@ -72,36 +72,42 @@ if (libsignalClientPath is String) {
   }
 }
 
-includeProject("app")
-includeProject("libsignal-service")
-includeProject("core-gms:base", "core-gms/base")
-includeProject("core-gms:cloud-messaging", "core-gms/cloud-messaging")
-includeProject("core-gms:safeparcel", "core-gms/safeparcel")
-includeProject("core-gms:safeparcel-processor", "core-gms/safeparcel-processor")
-includeProject("core-gms:tasks", "core-gms/tasks")
-includeProject("libnetcipher")
-includeProject("lintchecks")
-includeProject("paging", "paging/lib")
-includeProject("core-util")
-includeProject("core-util-jvm")
-includeProject("core-models")
-includeProject("glide-config")
-includeProject("device-transfer", "device-transfer/lib")
-includeProject("image-editor", "image-editor/lib")
-includeProject("donations", "donations/lib")
-includeProject("debuglogs-viewer", "debuglogs-viewer/lib")
-includeProject("contacts", "contacts/lib")
-includeProject("qr", "qr/lib")
-includeProject("sticky-header-grid")
-includeProject("photoview")
-includeProject("core-ui")
-includeProject("video", "video/lib")
-includeProject("registration", "registration/lib")
+// Main app
+include(":app")
+
+// Core modules
+include(":core:util")
+include(":core:util-jvm")
+include(":core:models")
+include(":core:models-jvm")
+include(":core:ui")
+
+// FOSS GMS modules
+include(":core-gms:base")
+include(":core-gms:cloud-messaging")
+include(":core-gms:safeparcel")
+include(":core-gms:safeparcel-processor")
+include(":core-gms:tasks")
+
+// Lib modules
+include(":lib:libsignal-service")
+include(":lib:netcipher")
+include(":lib:glide")
+include(":lib:photoview")
+include(":lib:sticky-header-grid")
+include(":lib:paging")
+include(":lib:device-transfer")
+include(":lib:donations")
+include(":lib:contacts")
+include(":lib:qr")
+include(":lib:video")
+include(":lib:image-editor")
+include(":lib:debuglogs-viewer")
+
+// Feature modules
+include(":feature:registration")
+
+// Testing/Lint modules
+include(":lintchecks")
 
 rootProject.name = "Molly"
-
-fun includeProject(projectName: String, projectRoot: String = projectName) {
-  val projectId = ":$projectName"
-  include(projectId)
-  project(projectId).projectDir = file(projectRoot)
-}

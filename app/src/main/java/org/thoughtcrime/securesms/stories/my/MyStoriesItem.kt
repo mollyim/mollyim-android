@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.visible
 import java.util.Locale
+import org.signal.core.ui.R as CoreUiR
 
 object MyStoriesItem {
 
@@ -176,9 +177,11 @@ object MyStoriesItem {
         viewCount.setText(R.string.StoriesLandingItem__partially_sent)
         date.setText(R.string.StoriesLandingItem__tap_to_retry)
       } else {
+        val (dateString, dateContentDescription) = DateUtils.getBriefRelativeTimeSpanString(context, Locale.getDefault(), model.distributionStory.messageRecord.dateSent)
         errorIndicator.visible = false
         date.visible = true
-        date.text = DateUtils.getBriefRelativeTimeSpanString(context, Locale.getDefault(), model.distributionStory.messageRecord.dateSent)
+        date.text = dateString
+        date.contentDescription = dateContentDescription
       }
     }
 
@@ -189,10 +192,10 @@ object MyStoriesItem {
         .offsetY(DimensionUnit.DP.toPixels(12f).toInt())
         .show(
           listOf(
-            ActionItem(R.drawable.symbol_trash_24, context.getString(R.string.delete)) { model.onDeleteClick(model) },
-            ActionItem(R.drawable.symbol_forward_24, context.getString(R.string.MyStories_forward)) { model.onForwardClick(model) },
-            ActionItem(R.drawable.symbol_share_android_24, context.getString(R.string.StoriesLandingItem__share)) { model.onShareClick(model) },
-            ActionItem(R.drawable.symbol_info_24, context.getString(R.string.StoriesLandingItem__info)) { model.onInfoClick(model, storyPreview) }
+            ActionItem(CoreUiR.drawable.symbol_trash_24, context.getString(R.string.delete)) { model.onDeleteClick(model) },
+            ActionItem(CoreUiR.drawable.symbol_forward_24, context.getString(R.string.MyStories_forward)) { model.onForwardClick(model) },
+            ActionItem(CoreUiR.drawable.symbol_share_android_24, context.getString(R.string.StoriesLandingItem__share)) { model.onShareClick(model) },
+            ActionItem(CoreUiR.drawable.symbol_info_24, context.getString(R.string.StoriesLandingItem__info)) { model.onInfoClick(model, storyPreview) }
           )
         )
     }

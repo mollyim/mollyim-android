@@ -13,16 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
+import org.signal.core.ui.compose.SignalIcons
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
@@ -88,7 +89,7 @@ private fun AppUpdatesSettingsScreen(
   Scaffolds.Settings(
     title = stringResource(R.string.preferences_app_updates__title),
     onNavigationClick = callbacks::onNavigationClick,
-    navigationIcon = ImageVector.vectorResource(R.drawable.symbol_arrow_start_24)
+    navigationIcon = SignalIcons.ArrowStart.imageVector
   ) { paddingValues ->
 
     LazyColumn(
@@ -137,9 +138,17 @@ private fun AppUpdatesSettingsScreen(
         }
 
         item {
+          val (relTime, relTimeAccessible) = rememberCheckTime(state.lastCheckedTime)
+          val label = stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, relTime)
+          val contentDesc = relTimeAccessible?.let {
+            stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, it)
+          }
           Rows.TextRow(
             text = stringResource(R.string.EnableAppUpdatesMegaphone_check_for_updates),
-            label = stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, rememberCheckTime(state.lastCheckedTime)),
+            label = label,
+            modifier = Modifier.semantics {
+              contentDescription = contentDesc ?: label
+            },
             enabled = state.autoUpdateEnabled,
             onClick = callbacks::onCheckForUpdatesClick
           )
@@ -150,13 +159,14 @@ private fun AppUpdatesSettingsScreen(
 }
 
 @Composable
-private fun rememberCheckTime(timestamp: Long): String {
+private fun rememberCheckTime(timestamp: Long): Pair<String, String?> {
   val context = LocalContext.current
   return remember(timestamp) {
     if (timestamp > 0) {
       DateUtils.getExtendedRelativeTimeSpanString(context, Locale.getDefault(), timestamp)
     } else {
-      context.getString(R.string.preferences__never)
+      val never = context.getString(R.string.preferences__never)
+      Pair(never, null)
     }
   }
 }
