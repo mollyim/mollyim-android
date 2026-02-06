@@ -83,15 +83,16 @@ class IncomingMessageObserver(
   private val decryptionDrainedListeners: MutableList<Runnable> = CopyOnWriteArrayList()
 
   @Volatile
-  private var networkIsActive = true
+  private var networkIsActive: Boolean? = null
 
   private val connectionDecisionSemaphore = Semaphore(0)
-  private val networkConnectionListener = NetworkConnectionListener(
+  private val internetConnectivityMonitor = InternetConnectivityMonitor(
     connectivityManager = ServiceUtil.getConnectivityManager(context),
-    onNetworkChange = { state ->
-      // MOLLY: Accessing libsignalNetwork applies proxy configuration on access
-      AppDependencies.libsignalNetwork.onNetworkChange()
-      if (state.isReady) {
+    onReachabilityChanged = { connectivityState ->
+      if (networkIsActive != null) {
+        AppDependencies.libsignalNetwork.onNetworkChange()
+      }
+      if (connectivityState.hasInternet) {
         networkIsActive = true
       } else {
         Log.w(TAG, "Lost network connection. Resetting the drained state.")
@@ -103,6 +104,7 @@ class IncomingMessageObserver(
       }
       releaseConnectionDecisionSemaphore()
     },
+    // MOLLY: Accessing libsignalNetwork applies proxy configuration on access
   )
 
   private val messageContentProcessor = MessageContentProcessor(context)
@@ -142,7 +144,7 @@ class IncomingMessageObserver(
       }
     })
 
-    networkConnectionListener.register()
+    internetConnectivityMonitor.register()
 
     webSocketStateDisposable = authWebSocket
       .state
@@ -200,7 +202,7 @@ class IncomingMessageObserver(
 
     val registered = SignalStore.account.isRegistered
     val pushAvailable = SignalStore.account.pushAvailable
-    val hasNetwork = networkIsActive
+    val hasNetwork = networkIsActive ?: false
     val hasProxy = AppDependencies.networkManager.isProxyEnabled
     val forceWebsocket = SignalStore.internal.isWebsocketModeForced
     val websocketAlreadyOpen = isConnectionAvailable()
@@ -217,7 +219,7 @@ class IncomingMessageObserver(
   }
 
   private fun isConnectionAvailable(): Boolean {
-    return SignalStore.account.isRegistered && (authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && networkIsActive))
+    return SignalStore.account.isRegistered && (authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && networkIsActive ?: true))
   }
 
   private fun releaseConnectionDecisionSemaphore() {
@@ -235,7 +237,7 @@ class IncomingMessageObserver(
 
   fun terminate() {
     Log.w(TAG, "Termination! ${this.hashCode()}", Throwable())
-    networkConnectionListener.unregister()
+    internetConnectivityMonitor.unregister()
     webSocketStateDisposable.dispose()
     terminated = true
     authWebSocket.disconnect()
