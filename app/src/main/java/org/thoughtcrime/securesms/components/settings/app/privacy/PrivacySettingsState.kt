@@ -11,5 +11,6 @@ data class PrivacySettingsState(
   val biometricScreenLock: Boolean,
   val screenSecurity: Boolean,
   val incognitoKeyboard: Boolean,
-  val universalExpireTimer: Int
+  val universalExpireTimer: Int,
+  val hasDuressCode: Boolean,
 )

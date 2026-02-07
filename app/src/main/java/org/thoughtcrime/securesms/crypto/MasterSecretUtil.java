@@ -62,22 +62,52 @@ public class MasterSecretUtil {
   private static final String PREFERENCES_NAME = "MasterKeys";
 
   private static final String KEY_ALIAS_DEFAULT = "MollySecret";
+  private static final String KEY_KEYSTORE_ALIAS = "keystore_alias";
+  private static final String KEY_PASSPHRASE_SALT = "passphrase_salt";
+  private static final String KEY_KDF_PARAMETERS = "kdf_parameters";
+  private static final String KEY_KDF_ELAPSED = "kdf_elapsed";
+  private static final String KEY_MASTER_SECRET = "master_secret";
+  private static final String KEY_ENCRYPTION_IV = "encryption_iv";
+  private static final String KEY_KEYSTORE_INITIALIZED = "keystore_initialized";
+  private static final String KEY_PASSPHRASE_INITIALIZED = "passphrase_initialized";
+
+  private static final String KEY_DURESS_ALIAS_DEFAULT = "MollyDuressSecret";
+  private static final String KEY_DURESS_KEYSTORE_ALIAS = "duress_keystore_alias";
+  private static final String KEY_DURESS_PASSPHRASE_SALT = "duress_passphrase_salt";
+  private static final String KEY_DURESS_KDF_PARAMETERS = "duress_kdf_parameters";
+  private static final String KEY_DURESS_KDF_ELAPSED = "duress_kdf_elapsed";
+  private static final String KEY_DURESS_MASTER_SECRET = "duress_master_secret";
+  private static final String KEY_DURESS_ENCRYPTION_IV = "duress_encryption_iv";
+  private static final String KEY_DURESS_KEYSTORE_INITIALIZED = "duress_keystore_initialized";
+  private static final String KEY_DURESS_PASSPHRASE_INITIALIZED = "duress_passphrase_initialized";
 
   private static final String ASYMMETRIC_LOCAL_PUBLIC_DJB   = "asymmetric_master_secret_curve25519_public";
   private static final String ASYMMETRIC_LOCAL_PRIVATE_DJB  = "asymmetric_master_secret_curve25519_private";
 
   private static void changeMasterSecretPassphrase(Context context,
                                                    MasterSecret masterSecret,
-                                                   char[] newPassphrase)
+                                                   char[] newPassphrase) {
+    changeMasterSecretPassphrase(context, masterSecret, newPassphrase, false /* isDuress */);
+  }
+
+  private static void changeMasterSecretPassphrase(Context context,
+                                                   MasterSecret masterSecret,
+                                                   char[] newPassphrase,
+                                                   boolean isDuress)
   {
     SharedPreferences.Editor prefs = getSharedPreferences(context).edit();
 
     String keyStoreAlias = null;
-    String savedKeyStoreAlias = retrieve(context, "keystore_alias", KEY_ALIAS_DEFAULT);
+    String savedKeyStoreAlias = null;
+    if (isDuress) {
+      savedKeyStoreAlias = retrieve(context, KEY_DURESS_KEYSTORE_ALIAS,KEY_DURESS_ALIAS_DEFAULT);
+    } else {
+      savedKeyStoreAlias = retrieve(context, KEY_KEYSTORE_ALIAS, KEY_ALIAS_DEFAULT);
+    }
 
     SecureSecretKeySpec secretKey;
 
-    if (isUnencryptedPassphrase(newPassphrase)) {
+    if (!isDuress && isUnencryptedPassphrase(newPassphrase)) {
       secretKey = getUnencryptedKey();
     } else {
       PassphraseBasedKdf kdf = new PassphraseBasedKdf();
@@ -91,9 +121,12 @@ public class MasterSecretUtil {
 
       byte[] passphraseSalt = generateSalt();
 
-      prefs.putString("passphrase_salt", Base64.encodeWithPadding(passphraseSalt));
-      prefs.putString("kdf_parameters", kdf.getParameters());
-      prefs.putLong("kdf_elapsed", kdf.getElapsedTimeMillis());
+      String keyPassPhraseSalt = isDuress ? KEY_DURESS_PASSPHRASE_SALT : KEY_PASSPHRASE_SALT;
+      String keyKdfParameters = isDuress ? KEY_DURESS_KDF_PARAMETERS : KEY_KDF_PARAMETERS;
+      String keyKdfElapsed = isDuress ? KEY_DURESS_KDF_ELAPSED : KEY_KDF_ELAPSED;
+      prefs.putString(keyPassPhraseSalt, Base64.encodeWithPadding(passphraseSalt));
+      prefs.putString(keyKdfParameters, kdf.getParameters());
+      prefs.putLong(keyKdfElapsed, kdf.getElapsedTimeMillis());
 
       secretKey = kdf.deriveKey(newPassphrase, passphraseSalt);
     }
@@ -106,11 +139,16 @@ public class MasterSecretUtil {
     Arrays.fill(combinedSecrets, (byte) 0);
     secretKey.destroy();
 
-    prefs.putString("encryption_iv", Base64.encodeWithPadding(encryptionIV));
-    prefs.putString("master_secret", Base64.encodeWithPadding(encryptedMasterSecret));
-    prefs.putBoolean("passphrase_initialized", true);
-    prefs.putBoolean("keystore_initialized", keyStoreAlias != null);
-    prefs.putString("keystore_alias", keyStoreAlias);
+    String keyEncryptionIv = isDuress ? KEY_DURESS_ENCRYPTION_IV : KEY_ENCRYPTION_IV;
+    String keyMasterSecret = isDuress ? KEY_DURESS_MASTER_SECRET : KEY_MASTER_SECRET;
+    String keyPassphraseInitialized = isDuress ? KEY_DURESS_PASSPHRASE_INITIALIZED : KEY_PASSPHRASE_INITIALIZED;
+    String keyKeystoreInitialized = isDuress ? KEY_DURESS_KEYSTORE_INITIALIZED : KEY_KEYSTORE_INITIALIZED;
+    String keyKeystoreAlias = isDuress ? KEY_DURESS_KEYSTORE_ALIAS : KEY_KEYSTORE_ALIAS;
+    prefs.putString(keyEncryptionIv, Base64.encodeWithPadding(encryptionIV));
+    prefs.putString(keyMasterSecret, Base64.encodeWithPadding(encryptedMasterSecret));
+    prefs.putBoolean(keyPassphraseInitialized, true);
+    prefs.putBoolean(keyKeystoreInitialized, keyStoreAlias != null);
+    prefs.putString(keyKeystoreAlias, keyStoreAlias);
 
     if (!prefs.commit()) {
       throw new AssertionError("failed to save preferences in MasterSecretUtil");
@@ -133,23 +171,39 @@ public class MasterSecretUtil {
   }
 
   public static MasterSecret getMasterSecret(Context context, char[] passphrase)
+      throws InvalidPassphraseException, UnrecoverableKeyException {
+    return getMasterSecret(context, passphrase, false);
+  }
+
+  public static MasterSecret getMasterSecret(Context context, char[] passphrase, boolean isDuress)
       throws InvalidPassphraseException, UnrecoverableKeyException
   {
     SecureSecretKeySpec secretKey;
 
-    byte[]  passphraseSalt        = retrieve(context, "passphrase_salt");
-    String  serializedParams      = retrieve(context, "kdf_parameters", "");
-    byte[]  encryptedMasterSecret = retrieve(context, "master_secret");
-    byte[]  encryptionIV          = retrieve(context, "encryption_iv");
-    boolean hasKeyStoreSecret     = retrieve(context, "keystore_initialized", false);
-    String  keyStoreAlias         = retrieve(context, "keystore_alias", KEY_ALIAS_DEFAULT);
+    String keyPassphraseSalt = isDuress ? KEY_DURESS_PASSPHRASE_SALT : KEY_PASSPHRASE_SALT;
+    String keyKdfParams = isDuress ? KEY_DURESS_KDF_PARAMETERS : KEY_KDF_PARAMETERS;
+    String keyMasterSecret = isDuress ? KEY_DURESS_MASTER_SECRET : KEY_MASTER_SECRET;
+    String keyEncryptionIv = isDuress ? KEY_DURESS_ENCRYPTION_IV : KEY_ENCRYPTION_IV;
+    String keyKeystoreInitialized = isDuress ? KEY_DURESS_KEYSTORE_INITIALIZED : KEY_KEYSTORE_INITIALIZED;
+    String keyKeystoreAlias = isDuress ? KEY_DURESS_KEYSTORE_ALIAS : KEY_KEYSTORE_ALIAS;
+    String defaultKeyAlias = isDuress ? KEY_DURESS_ALIAS_DEFAULT : KEY_ALIAS_DEFAULT;
+    byte[]  passphraseSalt        = retrieve(context, keyPassphraseSalt);
+    String  serializedParams      = retrieve(context, keyKdfParams, "");
+    byte[]  encryptedMasterSecret = retrieve(context, keyMasterSecret);
+    byte[]  encryptionIV          = retrieve(context, keyEncryptionIv);
+    boolean hasKeyStoreSecret     = retrieve(context, keyKeystoreInitialized, false);
+    String  keyStoreAlias         = retrieve(context, keyKeystoreAlias, defaultKeyAlias);
 
-    if (isUnencryptedPassphrase(passphrase)) {
+    if (!isDuress && isUnencryptedPassphrase(passphrase)) {
       secretKey = getUnencryptedKey();
     } else {
       PassphraseBasedKdf kdf = new PassphraseBasedKdf();
 
-      kdf.setParameters(serializedParams);
+      try {
+        kdf.setParameters(serializedParams);
+      } catch (Exception e) {
+        // Nothing.
+      }
 
       if (hasKeyStoreSecret) {
         try {
@@ -174,7 +228,7 @@ public class MasterSecretUtil {
       Arrays.fill(encryptionSecret, (byte) 0);
       Arrays.fill(macSecret, (byte) 0);
 
-      if (!hasKeyStoreSecret && !isUnencryptedPassphrase(passphrase)) {
+      if (!isDuress && !hasKeyStoreSecret && !isUnencryptedPassphrase(passphrase)) {
         // OS upgraded to API 23 or above
         Log.i(TAG, "KeyStore is available. Forcing master secret re-encryption to use it.");
         changeMasterSecretPassphrase(context, masterSecret, passphrase);
@@ -222,6 +276,9 @@ public class MasterSecretUtil {
   }
 
   public static MasterSecret generateMasterSecret(Context context, char[] passphrase) {
+    return generateMasterSecret(context, passphrase, false);
+  }
+  public static MasterSecret generateMasterSecret(Context context, char[] passphrase, boolean isDuress) {
     byte[]       encryptionSecret = generateEncryptionSecret();
     byte[]       macSecret        = generateMacSecret();
     MasterSecret masterSecret     = new MasterSecret(encryptionSecret, macSecret);
@@ -229,7 +286,7 @@ public class MasterSecretUtil {
     Arrays.fill(encryptionSecret, (byte) 0x00);
     Arrays.fill(macSecret, (byte)0x00);
 
-    changeMasterSecretPassphrase(context, masterSecret, passphrase);
+    changeMasterSecretPassphrase(context, masterSecret, passphrase, isDuress);
 
     return masterSecret;
   }
@@ -262,15 +319,25 @@ public class MasterSecretUtil {
   }
 
   public static long getKdfElapsedTimeMillis(Context context) {
-    return retrieve(context, "kdf_elapsed", 0);
+    return retrieve(context, KEY_KDF_ELAPSED, 0);
   }
 
   public static boolean isPassphraseInitialized(Context context) {
-    return retrieve(context, "passphrase_initialized", false);
+    return retrieve(context, KEY_PASSPHRASE_INITIALIZED, false);
+  }
+
+  public static boolean isDuressCodeInitialized(Context context) {
+    return retrieve(context, KEY_DURESS_PASSPHRASE_INITIALIZED, false);
+  }
+
+  public static void setDuressCodeInitialized(Context context, boolean value) {
+    SharedPreferences.Editor prefs = getSharedPreferences(context).edit();
+    prefs.putBoolean(KEY_DURESS_PASSPHRASE_INITIALIZED, value);
+    prefs.commit();
   }
 
   public static boolean isKeyStoreInitialized(Context context) {
-    return retrieve(context, "keystore_initialized", false);
+    return retrieve(context, KEY_KEYSTORE_INITIALIZED, false);
   }
 
   public static char[] getUnencryptedPassphrase() {

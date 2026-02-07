@@ -152,6 +152,42 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         }
       )
 
+      switchPref(
+        title = DSLSettingsText.from(R.string.preferences__duress_code),
+        summary = DSLSettingsText.from(R.string.preferences__duress_code_summary),
+        isEnabled = state.passphraseLock,
+        isChecked = state.hasDuressCode,
+        onToggle = { isChecked ->
+          if (isChecked) {
+            val dialog = ChangePassphraseDialogFragment.newInstance(ChangePassphraseDialogFragment.MODE_DURESS_SET)
+            dialog.setMasterSecretChangedListener { masterSecret ->
+              viewModel.setDuressCodeEnabled(isChecked)
+            }
+            dialog.show(parentFragmentManager, "ChangePassphraseDialogFragment")
+          } else {
+            viewModel.setDuressCodeEnabled(false)
+          }
+          false
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__change_duress_code),
+        isEnabled = state.passphraseLock && state.hasDuressCode,
+        onClick = {
+          val dialog = ChangePassphraseDialogFragment.newInstance(ChangePassphraseDialogFragment.MODE_DURESS_SET)
+          dialog.setMasterSecretChangedListener { masterSecret ->
+            masterSecret.close()
+            Toast.makeText(
+              activity,
+              R.string.preferences__duress_code_changed,
+              Toast.LENGTH_LONG
+            ).show()
+          }
+          dialog.show(parentFragmentManager, "ChangePassphraseDialogFragment")
+        }
+      )
+
       multiSelectPref(
         title = DSLSettingsText.from(R.string.preferences__automatic_lockdown),
         listItems = passphraseLockTriggerLabels,
