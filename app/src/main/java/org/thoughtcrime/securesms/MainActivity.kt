@@ -21,6 +21,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -66,7 +67,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import im.molly.unifiedpush.UnifiedPushDistributor
+import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -126,8 +127,10 @@ import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSh
 import org.thoughtcrime.securesms.conversationlist.RestoreCompleteBottomSheetDialog
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies.jobManager
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
+import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
 import org.thoughtcrime.securesms.main.EmptyDetailScreen
@@ -238,6 +241,14 @@ class MainActivity :
   }
 
   private val openSettings: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
+
+  private val pickUnifiedPushDistrib: ActivityResultLauncher<Unit> = registerForActivityResult(UnifiedPushDefaultDistributorLinkActivity.Contract(useDefault = false)) { success ->
+    if (success == true) {
+      jobManager.add(UnifiedPushRefreshJob())
+    } else {
+      Log.w(TAG, "Couldn't select new distributor")
+    }
+  }
 
   private val toolbarViewModel: MainToolbarViewModel by viewModels()
   private val toolbarCallback = ToolbarCallback()
@@ -842,7 +853,7 @@ class MainActivity :
   private fun presentVitalsState(state: VitalsViewModel.State) {
     when (state) {
       VitalsViewModel.State.NONE -> Unit
-      VitalsViewModel.State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG -> UnifiedPushDistributor.showSelectDistributorDialog(this)
+      VitalsViewModel.State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG -> pickUnifiedPushDistrib.launch()
       VitalsViewModel.State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG -> DeviceSpecificNotificationBottomSheet.show(supportFragmentManager)
       VitalsViewModel.State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG -> PromptBatterySaverDialogFragment.show(supportFragmentManager)
     }
