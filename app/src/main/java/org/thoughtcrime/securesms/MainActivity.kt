@@ -22,6 +22,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -76,13 +77,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import androidx.window.core.layout.WindowSizeClass
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import im.molly.unifiedpush.UnifiedPushDistributor
 import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.theme.colorAttribute
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -115,8 +116,10 @@ import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSh
 import org.thoughtcrime.securesms.conversationlist.RestoreCompleteBottomSheetDialog
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies.jobManager
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
+import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
 import org.thoughtcrime.securesms.main.ChatNavGraphState
@@ -225,6 +228,14 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   private val openSettings: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
     if (result.resultCode == RESULT_CONFIG_CHANGED) {
       recreate()
+    }
+  }
+
+  private val pickUnifiedPushDistrib: ActivityResultLauncher<Unit> = registerForActivityResult(UnifiedPushDefaultDistributorLinkActivity.Contract(useDefault = false)) { success ->
+    if (success == true) {
+      jobManager.add(UnifiedPushRefreshJob())
+    } else {
+      Log.w(TAG, "Couldn't select new distributor")
     }
   }
 
@@ -952,7 +963,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   private fun presentVitalsState(state: VitalsViewModel.State) {
     when (state) {
       VitalsViewModel.State.NONE -> Unit
-      VitalsViewModel.State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG -> UnifiedPushDistributor.showSelectDistributorDialog(this)
+      VitalsViewModel.State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG -> pickUnifiedPushDistrib.launch()
       VitalsViewModel.State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG -> DeviceSpecificNotificationBottomSheet.show(supportFragmentManager)
       VitalsViewModel.State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG -> PromptBatterySaverDialogFragment.show(supportFragmentManager)
     }

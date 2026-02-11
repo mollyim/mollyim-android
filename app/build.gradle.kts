@@ -520,9 +520,6 @@ dependencies {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
-  implementation(libs.unifiedpush.connector.ui) {
-    exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
-  }
 
   "instrumentationImplementation"(libs.androidx.fragment.testing) {
     exclude(group = "androidx.test", module = "core")

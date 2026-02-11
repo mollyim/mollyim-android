@@ -93,6 +93,18 @@ class NotificationsSettingsFragment : ComposeFragment() {
 
   private lateinit var callbacks: DefaultNotificationsSettingsCallbacks
 
+  private val linkDefaultDistributorLauncher: ActivityResultLauncher<Unit> =
+    registerForActivityResult(UnifiedPushDefaultDistributorLinkActivity.Contract(useDefault = true)) { success ->
+      if (success != true) {
+        // If there are no distributors or
+        // if there are multiple distributors installed, but none of them follow the last
+        // specifications,
+        // we try to fall back to the first we found.
+        viewModel.selectFirstDistributor()
+      }
+      navigateToUnifiedPushSettings()
+    }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
