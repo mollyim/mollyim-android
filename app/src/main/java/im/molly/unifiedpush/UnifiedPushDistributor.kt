@@ -8,12 +8,12 @@ object UnifiedPushDistributor {
 
   @JvmStatic
   fun registerApp(vapid: String?) {
-    UnifiedPush.registerApp(AppDependencies.application, vapid = vapid)
+    UnifiedPush.register(AppDependencies.application, vapid = vapid)
   }
 
   @JvmStatic
   fun unregisterApp() {
-    UnifiedPush.unregisterApp(AppDependencies.application)
+    UnifiedPush.unregister(AppDependencies.application)
     // MessagingReceiver.onUnregistered won't be called after the unregistration request
     SignalStore.unifiedpush.endpoint = null
   }
