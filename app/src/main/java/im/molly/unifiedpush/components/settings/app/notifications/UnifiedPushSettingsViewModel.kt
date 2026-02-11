@@ -3,16 +3,14 @@ package im.molly.unifiedpush.components.settings.app.notifications
 import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.model.MollySocket
-import org.signal.core.util.ThreadUtil
-import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.keyvalue.UnifiedPushValues
 import org.thoughtcrime.securesms.util.livedata.Store
 import org.unifiedpush.android.connector.UnifiedPush
 
@@ -80,12 +78,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   }
 
   fun setMollySocket(mollySocket: MollySocket) {
-    SignalStore.unifiedpush.apply {
-      airGapped = mollySocket is MollySocket.AirGapped
-      lastReceivedTime = 0
-      mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
-      mollySocketVapid = mollySocket.vapid
-    }
+    SignalStore.unifiedpush.updateMollySocket(mollySocket)
     refresh()
     updateRegistration()
   }
@@ -100,4 +93,19 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       return requireNotNull(modelClass.cast(UnifiedPushSettingsViewModel(application)))
     }
   }
+}
+
+fun UnifiedPushValues.updateMollySocket(mollySocket: MollySocket) {
+  airGapped = mollySocket is MollySocket.AirGapped
+  mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
+
+  val changed = vapidPublicKey != mollySocket.vapid
+  vapidPublicKey = mollySocket.vapid
+
+  if (changed) {
+    vapidKeySynced = false
+    endpoint = null
+  }
+
+  lastReceivedTime = 0
 }

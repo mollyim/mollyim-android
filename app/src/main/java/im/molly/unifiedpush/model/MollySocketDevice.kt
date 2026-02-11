@@ -9,16 +9,25 @@ data class MollySocketDevice(
   }
 }
 
+enum class LinkStatus {
+  LINKED,
+  NOT_LINKED,
+  UNKNOWN,
+}
+
 enum class RegistrationStatus(val value: Int) {
   UNKNOWN(0),
   PENDING(1),
   REGISTERED(2),
   BAD_RESPONSE(3),
   SERVER_ERROR(4),
+
   /** The UUID is forbidden by the config of MollySocket */
   FORBIDDEN_UUID(5),
+
   /** The endpoint is forbidden by the config of MollySocket */
   FORBIDDEN_ENDPOINT(6),
+
   /** The account+password doesn't work anymore, and returns forbidden by Signal server */
   FORBIDDEN_PASSWORD(7);
 
@@ -29,7 +38,7 @@ enum class RegistrationStatus(val value: Int) {
   }
 }
 
-fun ConnectionResult?.toRegistrationStatus():RegistrationStatus = when (this) {
+fun ConnectionResult?.toRegistrationStatus(): RegistrationStatus = when (this) {
   ConnectionResult.OK -> RegistrationStatus.REGISTERED
   ConnectionResult.INTERNAL_ERROR -> RegistrationStatus.SERVER_ERROR
   ConnectionResult.FORBIDDEN -> RegistrationStatus.FORBIDDEN_PASSWORD

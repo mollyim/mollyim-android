@@ -1,9 +1,9 @@
 package org.thoughtcrime.securesms.jobs
 
 import im.molly.unifiedpush.MollySocketRepository
-import im.molly.unifiedpush.MollySocketRepository.isLinked
 import im.molly.unifiedpush.UnifiedPushDistributor
 import im.molly.unifiedpush.UnifiedPushNotificationBuilder
+import im.molly.unifiedpush.model.LinkStatus
 import im.molly.unifiedpush.model.RegistrationStatus
 import im.molly.unifiedpush.model.toRegistrationStatus
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -23,6 +23,11 @@ import java.util.concurrent.TimeUnit
 /**
  * Handles UnifiedPush registration and ensures the MollySocket status is up-to-date.
  * Unregisters if the account is not registered or UnifiedPush is disabled.
+ *
+ * @param testPing Send a ping notification with the registration.
+ *   Used during first registration to a new MollySocket server.
+ * @param fromNewEndpoint Avoid registration cycle: if the Job is run from
+ *   the receiver "onNewEndpoint", it will not register to the distributor.
  */
 class UnifiedPushRefreshJob private constructor(
   private val testPing: Boolean,
@@ -60,8 +65,9 @@ class UnifiedPushRefreshJob private constructor(
     }
 
     try {
-      val newStatus = checkRegistrationStatus()
+      validateMollySocketDevice()
 
+      val newStatus = checkRegistrationStatus()
       if (currentStatus == newStatus) {
         Log.d(TAG, "Registration status unchanged.")
       } else {
@@ -100,15 +106,13 @@ class UnifiedPushRefreshJob private constructor(
     val airGapped = SignalStore.unifiedpush.airGapped
     val mollySocketUrl = SignalStore.unifiedpush.mollySocketUrl?.toHttpUrlOrNull()
     val lastReceivedTime = SignalStore.unifiedpush.lastReceivedTime
-    val vapid = SignalStore.unifiedpush.mollySocketVapid
+    val vapid = SignalStore.unifiedpush.vapidPublicKey
 
     Log.d(TAG, "Last notification received at: $lastReceivedTime")
 
-    SignalStore.unifiedpush.device?.let { device ->
-      if (!device.isLinked()) {
-        Log.w(TAG, "$device no longer linked, will be recreated.")
-        SignalStore.unifiedpush.device = null
-      }
+    if (vapid == null) {
+      Log.e(TAG, "Missing VAPID public key.")
+      return RegistrationStatus.PENDING
     }
 
     if (!fromNewEndpoint) {
@@ -126,9 +130,10 @@ class UnifiedPushRefreshJob private constructor(
     }
 
     val device = SignalStore.unifiedpush.device ?: try {
-      MollySocketRepository.createDevice().also { device ->
-        SignalStore.unifiedpush.device = device
-        Log.d(TAG, "Created new MollySocket device: $device")
+      MollySocketRepository.createDevice().also { newDevice ->
+        SignalStore.unifiedpush.device = newDevice
+        SignalStore.unifiedpush.vapidKeySynced = true
+        Log.d(TAG, "Created new MollySocket device: $newDevice")
       }
     } catch (e: DeviceLimitExceededException) {
       Log.e(TAG, "Device limit exceeded: ${e.max} total devices already.")
@@ -158,6 +163,34 @@ class UnifiedPushRefreshJob private constructor(
     Log.d(TAG, "Registration result: $result")
 
     return result.toRegistrationStatus()
+  }
+
+  @Throws(IOException::class)
+  private fun validateMollySocketDevice() {
+    val device = SignalStore.unifiedpush.device ?: return
+    val vapidSynced = SignalStore.unifiedpush.vapidKeySynced
+
+    when (MollySocketRepository.getDeviceStatus(device)) {
+      LinkStatus.LINKED -> {
+        if (!vapidSynced) {
+          Log.w(TAG, "VAPID key mismatch, will unregister previous linked $device.")
+          MollySocketRepository.removeDevice(device)
+          SignalStore.unifiedpush.device = null
+        }
+      }
+
+      LinkStatus.NOT_LINKED -> {
+        Log.w(TAG, "$device no longer linked, will be recreated.")
+        SignalStore.unifiedpush.device = null
+      }
+
+      LinkStatus.UNKNOWN -> {
+        if (!vapidSynced) {
+          throw IOException("VAPID key mismatch, but cannot determine $device link status.")
+        }
+        // Optimistically assume the device is linked
+      }
+    }
   }
 
   override fun onFailure() = Unit
