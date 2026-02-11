@@ -31,13 +31,11 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   }
 
   private fun getState(): UnifiedPushSettingsState {
-    val distributorIds = UnifiedPush.getDistributors(application)
+    val nDistributors = UnifiedPush.getDistributors(application).size
     val saved = UnifiedPush.getSavedDistributor(application)
     val ack = saved != null && UnifiedPush.getAckDistributor(application) == saved
 
-    val selected = distributorIds.indexOfFirst { it == saved }
-
-    val distributors = distributorIds.map { appId ->
+    val selected = saved?.let { appId ->
       val name = try {
         val ai = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
           application.packageManager.getApplicationInfo(
@@ -53,7 +51,7 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
 
       Distributor(
         applicationId = appId,
-        name = name,
+        name = name
       )
     }
 
@@ -64,19 +62,12 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
       device = SignalStore.unifiedpush.device,
       aci = SignalStore.account.aci?.toString(),
       registrationStatus = SignalStore.unifiedpush.registrationStatus,
-      distributors = distributors,
+      nDistributors = nDistributors,
       selected = selected,
       selectedNotAck = !ack,
       endpoint = SignalStore.unifiedpush.endpoint,
       mollySocketUrl = mollySocketUrl,
     )
-  }
-
-  fun setUnifiedPushDistributor(distributor: String) {
-    SignalStore.unifiedpush.endpoint = null
-    UnifiedPush.saveDistributor(application, distributor)
-    refresh()
-    updateRegistration()
   }
 
   fun setMollySocket(mollySocket: MollySocket) {

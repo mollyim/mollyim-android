@@ -6,17 +6,21 @@ import androidx.activity.result.launch
 import androidx.annotation.StringRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
 import im.molly.unifiedpush.model.RegistrationStatus
 import org.signal.core.util.eventbus.EventBus
 import org.signal.core.util.eventbus.RestartableSubscription
 import org.signal.core.util.eventbus.ThreadMode
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.dependencies.AppDependencies.jobManager
 import org.thoughtcrime.securesms.events.PushServiceEvent
+import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 
 class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDeliveryMethod__unifiedpush) {
@@ -33,6 +37,15 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
     registerForActivityResult(MollySocketQrScannerActivity.Contract()) { mollySocket ->
       if (mollySocket != null) {
         viewModel.setMollySocket(mollySocket)
+      }
+    }
+
+  private val pickDistributor: ActivityResultLauncher<Unit> =
+    registerForActivityResult(UnifiedPushDefaultDistributorLinkActivity.Contract(useDefault = false)) { success ->
+      if (success == true) {
+        jobManager.add(UnifiedPushRefreshJob())
+      } else {
+        Log.w(TAG, "Couldn't select new distributor")
       }
     }
 
@@ -71,19 +84,16 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         },
       )
 
-      if (state.distributors.isEmpty()) {
+      if (state.nDistributors < 0) {
         textPref(
           title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__distributor_app),
           summary = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__none_available)
         )
       } else {
-        radioListPref(
+        clickPref(
           title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__distributor_app),
-          listItems = state.distributors.map { it.name }.toTypedArray(),
-          selected = state.selected,
-          onSelected = {
-            viewModel.setUnifiedPushDistributor(state.distributors[it].applicationId)
-          },
+          summary = DSLSettingsText.from(state.selected?.name ?: ""),
+          onClick = { pickDistributor.launch() }
         )
       }
 
@@ -127,8 +137,8 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
   @StringRes
   private fun getStatusSummary(state: UnifiedPushSettingsState): Int {
     return when {
-      state.distributors.isEmpty() -> R.string.UnifiedPushSettingsFragment__status_summary_no_distributor
-      state.selected == -1 -> R.string.UnifiedPushSettingsFragment__status_summary_distributor_not_selected
+      state.nDistributors < 1 -> R.string.UnifiedPushSettingsFragment__status_summary_no_distributor
+      state.selected == null -> R.string.UnifiedPushSettingsFragment__status_summary_distributor_not_selected
       state.selectedNotAck -> R.string.UnifiedPushSettingsFragment__status_summary_missing_endpoint
       state.endpoint == null -> R.string.UnifiedPushSettingsFragment__status_summary_missing_endpoint
       state.mollySocketUrl == null && !state.airGapped -> R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing
@@ -158,5 +168,8 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         RegistrationStatus.FORBIDDEN_ENDPOINT -> R.string.UnifiedPushSettingsFragment__status_summary_forbidden_endpoint
       }
     }
+  }
+  companion object {
+    private val TAG = Log.tag(UnifiedPushSettingsFragment::class.java)
   }
 }
