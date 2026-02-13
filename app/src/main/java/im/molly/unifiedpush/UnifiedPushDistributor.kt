@@ -2,6 +2,7 @@ package im.molly.unifiedpush
 
 import android.content.Context
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.ui.SelectDistributorDialogsBuilder
 import org.unifiedpush.android.connector.ui.UnifiedPushFunctions
@@ -16,6 +17,8 @@ object UnifiedPushDistributor {
   @JvmStatic
   fun unregisterApp() {
     UnifiedPush.unregisterApp(AppDependencies.application)
+    // MessagingReceiver.onUnregistered won't be called after the unregistration request
+    SignalStore.unifiedpush.endpoint = null
   }
 
   fun selectFirstDistributor() {
