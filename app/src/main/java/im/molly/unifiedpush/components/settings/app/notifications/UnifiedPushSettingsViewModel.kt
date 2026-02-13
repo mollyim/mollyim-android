@@ -1,6 +1,7 @@
 package im.molly.unifiedpush.components.settings.app.notifications
 
 import android.app.Application
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.lifecycle.LiveData
@@ -11,6 +12,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.UnifiedPushValues
+import org.thoughtcrime.securesms.util.Util.writeTextToClipboard
 import org.thoughtcrime.securesms.util.livedata.Store
 import org.unifiedpush.android.connector.UnifiedPush
 
@@ -86,6 +88,16 @@ class UnifiedPushSettingsViewModel(private val application: Application) : ViewM
   fun pingMollySocket() {
     refresh()
     updateRegistration(pingOnRegister = true)
+  }
+
+  fun copyParamsToClipboard(context: Context) {
+    val parameters = state.value?.serverParameters ?: ""
+    writeTextToClipboard(context, "Server parameters", parameters)
+  }
+
+  fun copyAciToClipboard(context: Context) {
+    val aci = state.value?.aci ?: ""
+    writeTextToClipboard(context, "Account ID", aci)
   }
 
   class Factory(private val application: Application) : ViewModelProvider.Factory {
