@@ -4,6 +4,7 @@ import im.molly.unifiedpush.MollySocketRepository
 import im.molly.unifiedpush.UnifiedPushDistributor
 import im.molly.unifiedpush.UnifiedPushNotificationBuilder
 import im.molly.unifiedpush.model.LinkStatus
+import im.molly.unifiedpush.model.MollySocketDevice
 import im.molly.unifiedpush.model.RegistrationStatus
 import im.molly.unifiedpush.model.toRegistrationStatus
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -59,8 +60,14 @@ class UnifiedPushRefreshJob private constructor(
 
     Log.d(TAG, "Current registration status: $currentStatus")
 
-    if (!hasAccount || !enabled) {
+    if (!hasAccount) {
+      Log.w(TAG, "User is not registered. Skipping.")
+      return
+    }
+
+    if (!enabled) {
       Log.d(TAG, "UnifiedPush is disabled.")
+      cleanupMollySocketDevice()
       return
     }
 
@@ -173,24 +180,52 @@ class UnifiedPushRefreshJob private constructor(
     when (MollySocketRepository.getDeviceStatus(device)) {
       LinkStatus.LINKED -> {
         if (!vapidSynced) {
-          Log.w(TAG, "VAPID key mismatch, will unregister previous linked $device.")
-          MollySocketRepository.removeDevice(device)
-          SignalStore.unifiedpush.device = null
+          Log.w(TAG, "VAPID key mismatch, will remove previous linked $device.")
+          removeAndClearDevice(device)
         }
       }
 
       LinkStatus.NOT_LINKED -> {
         Log.w(TAG, "$device no longer linked, will be recreated.")
-        SignalStore.unifiedpush.device = null
+        clearDevice()
       }
 
       LinkStatus.UNKNOWN -> {
         if (!vapidSynced) {
           throw IOException("VAPID key mismatch, but cannot determine $device link status.")
         }
-        // Optimistically assume the device is linked
+        return // Optimistically assume the device is linked
       }
     }
+  }
+
+  @Throws(IOException::class)
+  private fun cleanupMollySocketDevice() {
+    if (SignalStore.unifiedpush.airGapped) {
+      Log.d(TAG, "MollySocket is air-gapped, cleanup skipped.")
+      return
+    }
+
+    val device = SignalStore.unifiedpush.device ?: return
+    Log.d(TAG, "Cleaning up non-air-gapped $device...")
+
+    when (MollySocketRepository.getDeviceStatus(device)) {
+      LinkStatus.LINKED -> removeAndClearDevice(device)
+      LinkStatus.NOT_LINKED -> clearDevice()
+      LinkStatus.UNKNOWN -> {
+        throw IOException("Cannot determine $device link status during cleanup.")
+      }
+    }
+  }
+
+  @Throws(IOException::class)
+  private fun removeAndClearDevice(device: MollySocketDevice) {
+    MollySocketRepository.removeDevice(device)
+    clearDevice()
+  }
+
+  private fun clearDevice() {
+    SignalStore.unifiedpush.device = null
   }
 
   override fun onFailure() = Unit
