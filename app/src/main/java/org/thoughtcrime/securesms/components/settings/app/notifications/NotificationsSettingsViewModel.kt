@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.UnifiedPushDistributor
+import im.molly.unifiedpush.components.settings.app.notifications.updateMollySocket
 import im.molly.unifiedpush.model.MollySocket
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -126,12 +127,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
   }
 
   fun initializeMollySocket(mollySocket: MollySocket) {
-    SignalStore.unifiedpush.apply {
-      airGapped = mollySocket is MollySocket.AirGapped
-      lastReceivedTime = 0
-      mollySocketUrl = (mollySocket as? MollySocket.WebServer)?.url
-      mollySocketVapid = mollySocket.vapid
-    }
+    SignalStore.unifiedpush.updateMollySocket(mollySocket)
   }
 
   fun setPlayServicesErrorCode(errorCode: Int?) {

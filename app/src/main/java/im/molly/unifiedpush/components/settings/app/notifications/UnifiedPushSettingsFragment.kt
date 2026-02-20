@@ -90,15 +90,13 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
       dividerPref()
 
       if (state.airGapped) {
-        val parameters = getServerParameters(state) ?: ""
-
         clickPref(
           title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
           summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_copy_to_clipboard)),
           iconEnd = DSLSettingsIcon.from(org.signal.core.ui.R.drawable.symbol_copy_android_24),
-          isEnabled = parameters.isNotEmpty(),
+          isEnabled = state.serverParameters != null,
           onClick = {
-            writeTextToClipboard(requireContext(), "Server parameters", parameters)
+            viewModel.copyParamsToClipboard(requireContext())
           },
         )
       } else {
@@ -108,8 +106,9 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
           title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__account_id)),
           summary = DSLSettingsText.from(aciOrUnknown),
           iconEnd = DSLSettingsIcon.from(org.signal.core.ui.R.drawable.symbol_copy_android_24),
+          isEnabled = state.aci != null,
           onClick = {
-            writeTextToClipboard(requireContext(), "Account ID", aciOrUnknown)
+            viewModel.copyAciToClipboard(requireContext())
           },
         )
 
@@ -123,13 +122,6 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         )
       }
     }
-  }
-
-  private fun getServerParameters(state: UnifiedPushSettingsState): String? {
-    val aci = state.aci ?: return null
-    val device = state.device ?: return null
-    val endpoint = state.endpoint ?: return null
-    return "connection add $aci ${device.deviceId} ${device.password} $endpoint"
   }
 
   @StringRes

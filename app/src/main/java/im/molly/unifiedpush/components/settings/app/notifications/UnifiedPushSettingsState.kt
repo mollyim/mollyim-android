@@ -18,4 +18,11 @@ data class UnifiedPushSettingsState(
   val selectedNotAck: Boolean,
   val endpoint: String?,
   val mollySocketUrl: String?,
-)
+) {
+  val serverParameters: String?
+    get() {
+      return if (aci != null && device != null && endpoint != null) {
+        "connection add $aci ${device.deviceId} ${device.password} $endpoint"
+      } else null
+    }
+}
