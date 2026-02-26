@@ -314,8 +314,22 @@
     <string name="CameraXFragment_to_capture_videos">Aby nagrywać wideo z dźwiękiem:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
     <string name="CameraXFragment_to_scan_qr_codes">Aby skanować kody QR:</string>
+    <!-- Error message shown when we try to take a photo, but fail -->
+    <string name="CameraXFragment_photo_capture_failed">Nie udało się zrobić zdjęcia. Spróbuj ponownie.</string>
+    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
+    <string name="CameraXFragment_photo_processing_failed">Nie udało się przetworzyć zdjęcia. Spróbuj ponownie.</string>
+    <!-- Accessibility label for the switch camera button -->
+    <string name="CameraXFragment_switch_camera">Przełącz aparat</string>
+    <!-- Accessibility label for flash button when flash is off -->
+    <string name="CameraXFragment_flash_off">Lampa błyskowa wyłączona</string>
+    <!-- Accessibility label for flash button when flash is on -->
+    <string name="CameraXFragment_flash_on">Lampa błyskowa włączona</string>
+    <!-- Accessibility label for flash button when flash is set to auto -->
+    <string name="CameraXFragment_flash_auto">Automatyczna lampa błyskowa</string>
+    <!-- Accessibility label for the send button in media selection -->
+    <string name="CameraXFragment_send">Udostępnij</string>
 
-    <!-- CameraContacts -->
+<!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Ostatnie kontakty</string>
     <string name="CameraContacts_signal_contacts">Kontakty Signal</string>
     <string name="CameraContacts_signal_groups">Grupy Signal</string>
@@ -625,7 +639,7 @@
     <string name="ConversationFragment_delete">Usuń</string>
     <!-- Dialog button for deleting one or more note-to-self messages on all linked devices. -->
     <string name="ConversationFragment_delete_everywhere">Usuń wszędzie</string>
-    <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Wiadomość zostanie usunięta u wszystkich osób na tym czacie, pod warunkiem że mają najnowszą wersję aplikacji Signal. Wyświetli się u nich informacja, że wiadomość została przez Ciebie usunięta.</string>
+    <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Wiadomość zostanie usunięta u wszystkich osób w tym czacie, pod warunkiem że mają najnowszą wersję aplikacji Signal. Wyświetli się u nich informacja, że wiadomość została przez Ciebie usunięta.</string>
     <string name="ConversationFragment_quoted_message_not_found">Nie znaleziono oryginalnej wiadomości</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Oryginalna wiadomość nie jest już dostępna</string>
     <string name="ConversationFragment_failed_to_open_message">Nie udało się otworzyć wiadomości</string>
@@ -743,7 +757,7 @@
     <!-- Title of tip 4 -->
     <string name="SafetyTips_tip4_title">Fałszywe konta firm i instytucji</string>
     <!-- Message of tip 4 -->
-    <string name="SafetyTips_tip4_message">Zachowaj ostrożność, jeśli rzekomo kontaktuje się z Tobą urząd lub firma. Wiadomości, których nadawcami mieliby być kurierzy, instytucje podatkowe itp., mogą być spamem.</string>
+    <string name="SafetyTips_tip4_message">Zachowaj ostrożność, jeśli rzekomo kontaktuje się z Tobą urząd lub firma. Wiadomości, których nadawcami mieliby być kurierzy, urzędy podatkowe itp., mogą być spamem.</string>
 
     <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
     <string name="ProfileNameBottomSheet__profile_names_on_signal">%1$s Signal podaje osoba, do której należy dane konto.</string>
@@ -873,7 +887,7 @@
     <!-- Title for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
     <string name="RelinkDevicesReminderFragment__relink_your_devices">Połącz urządzenia ponownie</string>
     <!-- Description for a reminder bottom sheet to users who have re-registered that they need to go back to re-link their devices. -->
-    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Gdy to urządzenie zostało wyrejestrowane, zostały od niego odłączone inne dodane przez Ciebie urządzenia. Aby połączyć je ponownie, przejdź do ustawień.</string>
+    <string name="RelinkDevicesReminderFragment__the_devices_you_added_were_unlinked">Gdy to urządzenie zostało wyrejestrowane, zostały od niego odłączone inne dodane przez Ciebie urządzenia. Możesz połączyć je ponownie w ustawieniach.</string>
     <!-- Button label for the re-link devices bottom sheet reminder to navigate to the Devices page in the settings. -->
     <string name="RelinkDevicesReminderFragment__open_settings">Przejdź do ustawień</string>
     <!-- Button label for the re-link devices bottom sheet reminder to dismiss the pop up. -->
@@ -977,7 +991,7 @@
     <string name="BackupsPreferenceFragment__backup_time">Pora tworzenia kopii zapasowej</string>
     <string name="BackupsPreferenceFragment__verify_backup_passphrase">Potwierdź hasło do kopii zapasowej</string>
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Sprawdź swoje hasło do kopii zapasowej i upewnij się, że jest prawidłowe</string>
-    <string name="BackupsPreferenceFragment__turn_on">Włącz</string>
+    <string name="BackupsPreferenceFragment__turn_on">Włącz kopie zapasowe</string>
     <string name="BackupsPreferenceFragment__turn_off">Wyłącz</string>
     <string name="BackupsPreferenceFragment__to_restore_a_backup">"Aby przywrócić kopię zapasową, zainstaluj Molly ponownie. Otwórz aplikację i dotknij opcji „Przywróć kopię zapasową”, a następnie wybierz folder, w którym znajduje się kopia. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Dowiedz się więcej</string>
@@ -1043,7 +1057,7 @@
     <!-- Title for dialog explaining to users how the scheduled messages work -->
     <string name="ScheduleMessageFTUXBottomSheet__title">Zaplanowane wiadomości</string>
     <!-- Disclaimer text for scheduled messages explaining to users that the scheduled messages will only send if connected to the internet -->
-    <string name="ScheduleMessageFTUXBottomSheet__disclaimer">Jeśli masz zaplanowaną wiadomość, upewnij się, że w momencie planowanej wysyłki Twoje urządzenie będzie włączone i połączone z internetem. W innym przypadku wiadomość zostanie wysłana, gdy urządzenie z powrotem połączy się z internetem.</string>
+    <string name="ScheduleMessageFTUXBottomSheet__disclaimer">Jeśli masz zaplanowaną wiadomość, w momencie planowanej wysyłki Twoje urządzenie musi być włączone i połączone z internetem. W przeciwnym razie wiadomość zostanie wysłana, gdy urządzenie z powrotem połączy się z internetem.</string>
     <!-- Confirmation button text acknowledging the user understands the disclaimer -->
     <string name="ScheduleMessageFTUXBottomSheet__okay">OK</string>
     <!-- Title for dialog asking users to allow alarm permissions for scheduled messages -->
@@ -1059,9 +1073,9 @@
     <!-- Disclaimer in message scheduling dialog. %1$s replaced with a GMT offset (e.g. GMT-05:00), and %2$s is replaced with the time zone name (e.g. Eastern Standard Time) -->
     <string name="ScheduleMessageTimePickerBottomSheet__timezone_disclaimer">Strefa czasowa: %2$s (%1$s)</string>
     <!-- Warning dialog message text shown when select time for scheduled send is in the past resulting in an immediate send if scheduled. -->
-    <string name="ScheduleMessageTimePickerBottomSheet__select_time_in_past_dialog_warning">Wybrany czas już minął. Jeśli go nie zmienisz, wiadomość zostanie wysłana od razu.</string>
+    <string name="ScheduleMessageTimePickerBottomSheet__select_time_in_past_dialog_warning">Wybrany czas już minął. Jeśli nie wybierzesz innego, wiadomość zostanie wysłana od razu.</string>
     <!-- Positive button text for warning dialog shown when scheduled send is in the past -->
-    <string name="ScheduleMessageTimePickerBottomSheet__select_time_in_past_dialog_positive_button">Wyślij teraz</string>
+    <string name="ScheduleMessageTimePickerBottomSheet__select_time_in_past_dialog_positive_button">Wyślij od razu</string>
 
     <!-- Context menu option to send a scheduled message now -->
     <string name="ScheduledMessagesBottomSheet_menu_send_now">Wyślij teraz</string>
@@ -1426,7 +1440,7 @@
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title">Zauważyliśmy opóźnienie w powiadomieniach. Przesłać dziennik debugowania?</string>
     <!-- Message for dialog asking user to submit logs for debugging a crash -->
-    <string name="PromptLogsSlowNotificationsDialog__message">Dzienniki debugowania ułatwiają namierzenie i naprawę błędu. Nie zawierają danych umożliwiających identyfikację.</string>
+    <string name="PromptLogsSlowNotificationsDialog__message">Dzienniki debugowania ułatwiają nam namierzenie i naprawę błędu. Nie zawierają danych umożliwiających identyfikację.</string>
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
     <string name="PromptLogsSlowNotificationsDialog__title_crash">W aplikacji Molly wystąpił błąd. Przesłać dziennik debugowania?</string>
     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
@@ -1659,7 +1673,7 @@
     <!-- Displayed above the conversation list when a user needs to address an issue with their username link -->
     <string name="UsernameOutOfSyncReminder__link_corrupt">Coś poszło nie tak z kodem QR i linkiem do udostępniania Twojej nazwy użytkownika. Przestały działać. Utwórz nowy link, aby udostępniać go innym.</string>
     <!-- Action text to navigate user to manually fix the issue with their username -->
-    <string name="UsernameOutOfSyncReminder__fix_now">Napraw błąd teraz</string>
+    <string name="UsernameOutOfSyncReminder__fix_now">Napraw teraz</string>
 
 
     <!-- ManageRecipientActivity -->
@@ -2719,6 +2733,8 @@
     <string name="WebRtcCallView__s_remotely_muted_s">%1$s wycisza tę osobę: %2$s.</string>
     <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
     <string name="WebRtcCallView__you_muted_yourself">Wyciszasz siebie na innym urządzeniu.</string>
+    <!-- Toast message shown when user is auto-muted because they are joining a large group call. -->
+    <string name="WebRtcCallView__youve_been_muted_large_group">You\'ve been muted because this call has many participants.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Wystąpił błąd interfejsu. Prosimy o zgłoszenie tego błędu twórcom aplikacji.</string>
@@ -2926,8 +2942,6 @@
     <string name="RegistrationActivity_i_understand">Rozumiem</string>
     <string name="RegistrationActivity_play_services_error">Błąd Usług Play</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Usługi Google Play są aktualizowane lub czasowo niedostępne. Spróbuj ponownie.</string>
-    <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
-    <string name="RegistrationActivity_terms_and_privacy">Signal is a 501c3 nonprofit\nTerms &amp; Privacy Policy</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Aby ułatwić Ci komunikację ze znajomymi oraz wysyłanie wiadomości, Signal potrzebuje dostępu do Twoich kontaktów i multimediów. Twoje kontakty będą przesyłane do aplikacji za pomocą bezpiecznej funkcji wykrywania kontaktów, a więc będą szyfrowane metodą end-to-end i niewidoczne dla usługi Signal.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Aby ułatwić Ci komunikację ze znajomymi, Signal potrzebuje dostępu do Twoich kontaktów. Twoje kontakty będą przesyłane do aplikacji za pomocą bezpiecznej funkcji wykrywania kontaktów, a więc będą szyfrowane metodą end-to-end i niewidoczne dla usługi Signal.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Zbyt wiele prób rejestracji tego numeru. Spróbuj ponownie później.</string>
@@ -2962,8 +2976,6 @@
     <!-- Dialog button to cancel the pending action and return to the previous state. -->
     <string name="RegistrationActivity_cancel">Anuluj</string>
     <string name="RegistrationActivity_next">Dalej</string>
-    <string name="RegistrationActivity_continue">Kontynuuj</string>
-    <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Prywatność, gdziekolwiek jesteś.\nSwoboda w każdej wiadomości.</string>
     <!-- Title of registration screen when asking for the users phone number -->
     <string name="RegistrationActivity_phone_number">Numer telefonu</string>
     <!-- Subtitle of registration screen when asking for the users phone number -->
@@ -4039,40 +4051,54 @@
     <string name="verify_display_fragment__mark_as_verified">Oznacz jako zweryfikowany</string>
     <string name="verify_display_fragment__clear_verification">Cofnij weryfikację</string>
     <!-- Header title for automatic key verification -->
-    <string name="verify_display_fragment__automatic">Automatic Key Verification</string>
+    <string name="verify_display_fragment__automatic">Automatyczna weryfikacja kluczy</string>
     <!-- Button text to verify automatically    -->
-    <string name="verify_display_fragment__verify_automatic">Verify automatically</string>
+    <string name="verify_display_fragment__verify_automatic">Zweryfikuj automatycznie</string>
     <!-- Loading text when verifying -->
-    <string name="verify_display_fragment__verifying">Verifying encryption…</string>
+    <string name="verify_display_fragment__verifying">Weryfikowanie szyfrowania…</string>
     <!-- Success text shown when encryption is verified -->
-    <string name="verify_display_fragment__encryption_verified">Encryption verified</string>
+    <string name="verify_display_fragment__encryption_verified">Szyfrowanie zweryfikowane</string>
     <!-- Text shown when verification fails -->
-    <string name="verify_display_fragment__encryption_unavailable">Auto-verification unavailable</string>
+    <string name="verify_display_fragment__encryption_unavailable">Automatyczna weryfikacja niedostępna</string>
     <!-- Caption text explaining more about automatic verification   -->
-    <string name="verify_display_fragment__auto_verify_not_available">Auto-verification is not available for all chats.</string>
-  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__link" translatable="false">https://signal.org/redirect/safety-numbers</string> -->
+    <string name="verify_display_fragment__auto_verify_not_available">W niektórych czatach automatyczna weryfikacja jest niedostępna.</string>
+  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__link" translatable="false">https://support.signal.org/hc/articles/10223569377562</string> -->
 
     <!-- Bottom sheet title when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_success">Encryption was auto-verified for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_success">Szyfrowanie w tym czacie zostało zweryfikowane automatycznie</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For contacts you’re connected to by phone number, Molly can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">W przypadku osób, z którymi kontakt został nawiązany za pomocą numeru telefonu, Molly może automatycznie potwierdzić, czy połączenie jest bezpieczne – robi to za pomocą mechanizmu przejrzystości kluczy. Jeśli chcesz mieć absolutną pewność, że komunikujesz się z właściwą osobą, możesz dodatkowo sprawdzić szyfrowanie end-to-end ręcznie. W tym celu porównaj Wasze numery bezpieczeństwa z poprzedniego ekranu lub zeskanuj kod QR z urządzenia kontaktu.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is no longer available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">W tym czacie automatyczna weryfikacja nie jest już dostępna</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly can no longer automatically verify the encryption for this chat. This is likely because %1$s changed their phone number. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly nie może już automatycznie weryfikować szyfrowania w tym czacie – prawdopodobnie dlatego, że %1$s ma nowy numer telefonu. Sprawdź szyfrowanie end-to-end ręcznie. W tym celu porównaj Wasze numery bezpieczeństwa z poprzedniego ekranu lub zeskanuj kod QR z urządzenia kontaktu.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_unavailable">Auto-verification not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_unavailable">W tym czacie automatyczna weryfikacja jest niedostępna</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_unavailable">Molly can only automatically verify the encryption in chats where you’re connected to someone via a phone number. If the chat was started with a username or a group in common, verify end-to-end encryption by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_unavailable">Molly może automatycznie weryfikować szyfrowanie wyłącznie w przypadku tych osób, z którym kontakt nawiązano przez numer telefonu. Jeżeli kontakt został nawiązany przez nazwę użytkownika lub wspólną grupę, szyfrowanie end-to-end możesz zweryfikować ręcznie. W tym celu porównaj Wasze numery bezpieczeństwa z poprzedniego ekranu lub zeskanuj kod QR z urządzenia kontaktu.</string>
 
     <!-- Title for auto verification education sheet -->
-    <string name="VerifyAutomaticallyEducationSheet__title">Automatyczna weryfikacja szyfrowania end-to-end</string>
+    <string name="VerifyAutomaticallyEducationSheet__title">Molly może teraz automatycznie weryfikować szyfrowanie</string>
     <!-- Body for auto verification education sheet -->
-    <string name="VerifyAutomaticallyEducationSheet__body">Od teraz, gdy weryfikujesz kontakt za pomocą numeru bezpieczeństwa, aplikacja Molly automatycznie potwierdza, czy połączenie jest bezpieczne. Korzysta w tym celu z tak zwanego mechanizmu przejrzystości kluczy. Nadal możesz weryfikować kontakty ręcznie – za pomocą kodu QR lub numeru.</string>
+    <string name="VerifyAutomaticallyEducationSheet__body">W przypadku osób, z którymi kontakt został nawiązany za pomocą numeru telefonu, Molly może automatycznie potwierdzić, czy połączenie jest bezpieczne – robi to za pomocą mechanizmu przejrzystości kluczy. Jeśli chcesz mieć absolutną pewność, że komunikujesz się z właściwą osobą, możesz dodatkowo weryfikować kontakty ręcznie za pomocą kodu QR lub numeru bezpieczeństwa.</string>
     <!-- Button to learn more about automatic verification -->
     <string name="VerifyAutomaticallyEducationSheet__learn_more">Dowiedz się więcej</string>
     <!-- Button to go to verification page -->
-    <string name="VerifyAutomaticallyEducationSheet__verify">Zweryfikuj</string>
+    <string name="VerifyAutomaticallyEducationSheet__continue">Kontynuuj</string>
+
+    <!-- Title for bottom sheet when self verification fails -->
+    <string name="SelfVerificationFailureSheet__title">Automatyczna weryfikacja kluczy jest obecnie niedostępna na Twoim urządzeniu. Przesłać dziennik debugowania?</string>
+    <!-- Body for bottom sheet when self verification fails -->
+    <string name="SelfVerificationFailureSheet__body">Dzienniki debugowania ułatwiają nam namierzenie i naprawę błędu. Nie zawierają danych umożliwiających identyfikację.</string>
+    <!-- Button to decline submitting logs -->
+    <string name="SelfVerificationFailureSheet__no_thanks">Nie przesyłaj</string>
+    <!-- Button to submit logs -->
+    <string name="SelfVerificationFailureSheet__submit">Prześlij</string>
+    <!-- Email subject line when submitting logs following a verification failure -->
+    <string name="SelfVerificationFailureSheet__email_subject">Nieudana automatyczna weryfikacja kluczy</string>
+  <!-- Removed by excludeNonTranslatables <string name="SelfVerificationFailureSheet__email_filter" translatable="false">AutomaticKeyVerificationFailure</string> -->
+    <!-- Link to learn more about debug logs -->
+    <string name="SelfVerificationFailureSheet__learn_more">Dowiedz się więcej</string>
 
     <!-- verity_scan_fragment -->
     <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Zeskanuj kod QR na urządzeniu swojego kontaktu.</string>
@@ -4455,6 +4481,10 @@
     <string name="preferences_compact">Kompaktowy</string>
     <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
     <string name="preferences_language_change_confirmation_message">Aby zastosować nowe ustawienie języka, aplikacja uruchomi się ponownie.</string>
+    <!-- Preference title for automatic key verification -->
+    <string name="preferences_automatic_key_verification">Automatyczna weryfikacja kluczy</string>
+    <!-- Preference summary for automatic key verification -->
+    <string name="preferences_automatic_key_verification_body">Gdy ta opcja jest włączona, Molly w miarę możliwości automatycznie weryfikuje szyfrowanie czatów prywatnych.</string>
 
 
     <string name="configurable_single_select__customize_option">Dostosuj opcję</string>
@@ -4531,43 +4561,7 @@
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">Zaktualizuj teraz</string>
 
-    <!-- GrantPermissionsFragment -->
-    <!-- Displayed as a text-only action button at the bottom start of the screen -->
-    <string name="GrantPermissionsFragment__not_now">Nie teraz</string>
-    <!-- Displayed as an action button at the bottom end of the screen -->
-    <string name="GrantPermissionsFragment__next">Dalej</string>
-    <!-- Displayed as a title at the top of the screen -->
-    <string name="GrantPermissionsFragment__allow_permissions">Włącz uprawnienia</string>
-    <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Aby ułatwić Ci komunikację ze znajomymi osobami, Molly potrzebuje tych uprawnień. </string>
-    <!-- Notifications permission row title -->
-    <string name="GrantPermissionsFragment__notifications">Powiadomienia</string>
-    <!-- Notifications permission row description -->
-    <string name="GrantPermissionsFragment__get_notified_when">Otrzymuj powiadomienia o nowych wiadomościach.</string>
-    <!-- Contacts permission row title -->
-    <string name="GrantPermissionsFragment__contacts">Kontakty</string>
-    <!-- Contacts permission row description -->
-    <string name="GrantPermissionsFragment__find_people_you_know">Znajdź w aplikacji znajome osoby. Twoje kontakty są szyfrowane i nieczytelne dla usługi Signal.</string>
-    <!-- Phone calls permission row title -->
-    <string name="GrantPermissionsFragment__phone_calls">Połączenia telefoniczne</string>
-    <!-- Phone calls permission row description -->
-    <string name="GrantPermissionsFragment__make_registering_easier">Ułatw sobie rejestrację i zyskaj dodatkowe funkcje połączeń.</string>
-    <!-- Storage permission row title -->
-    <string name="GrantPermissionsFragment__storage">Pamięć</string>
-    <!-- Storage permission row description -->
-    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Wysyłaj zdjęcia, filmy i inne pliki ze swojego urządzenia.</string>
 
-    <!-- PermissionDeniedBottomSheet -->
-    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
-    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Wybierz opcję „Ustawienia” poniżej</string>
-    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Włącz uprawnienie</string>
-    <!-- Sheet describing step 2 on how to give permissions by tapping permissions in their settings -->
-    <string name="PermissionDeniedBottomSheet__2_tap_permissions">2. Wybierz opcję „Uprawnienia”</string>
-    <!-- Sheet describing step 3 on how to give permissions for photos and videos in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__3_allow_permission">3. %1$s Włącz uprawnienie do zdjęć i filmów</string>
-    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
-    <string name="PermissionDeniedBottomSheet__settings">Ustawienia</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -5039,9 +5033,6 @@
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Wczytywanie…</string>
     <string name="CallNotificationBuilder_connecting">Łączenie…</string>
-    <string name="Permissions_permission_required">Wymagane uprawnienie</string>
-    <string name="Permissions_continue">Kontynuuj</string>
-    <string name="Permissions_not_now">Nie teraz</string>
     <string name="SQLCipherMigrationHelper_migrating_signal_database">Przenoszenie bazy danych Signal</string>
     <string name="enter_backup_passphrase_dialog__backup_passphrase">Hasło do kopii zapasowej</string>
     <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Kopia zapasowa zostanie zapisana w pamięci zewnętrznej i zaszyfrowana za pomocą hasła podanego poniżej. Będzie ono konieczne do przywrócenia kopii zapasowej.</string>
@@ -5050,8 +5041,6 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Hasło zostało przeze mnie zapisane. Bez niego nie uda mi się przywrócić kopii zapasowej.</string>
     <string name="registration_activity__restore_backup">Przywróć kopię zapasową</string>
     <string name="registration_activity__transfer_or_restore_account">Przenieś lub przywróć konto</string>
-    <!-- Screen title for restoring or transfering account -->
-    <string name="registration_activity__restore_or_transfer">Przywróć lub przenieś</string>
     <string name="registration_activity__transfer_account">Przenieś konto</string>
     <string name="registration_activity__skip">Pomiń</string>
     <!-- Text label button to skip restoring -->
@@ -5165,14 +5154,7 @@
     <string name="RegistrationActivity_error_connecting_to_service">Podczas łączenia z usługą wystąpił błąd</string>
     <string name="preferences_chats__backups">Kopie zapasowe</string>
 
-    <!-- Button label to indicate that a feature is in beta mode -->
-    <string name="Beta__beta_title">Beta</string>
-    <!-- Content description for info icon -->
-    <string name="Beta__info">Informacje</string>
-    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
-    <string name="Beta__this_is_beta">Jest to funkcja w wersji beta – wciąż pracujemy nad jej ulepszeniem.</string>
-
-    <!-- Title text shown when Signal is locked and needs to be unlocked -->
+<!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Odblokuj Molly</string>
     <!-- Description text explaining how to unlock Signal -->
     <string name="prompt_passphrase_activity__use_your_android_device">Aby odblokować Molly, użyj tej samej metody, którą odblokowujesz to urządzenie z Androidem.</string>
@@ -5425,8 +5407,6 @@
     <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">Nadawca: %1$s, odbiorca: %2$s</string>
 
-    <!-- StorageUtil -->
-    <string name="StorageUtil__s_s">%1$s/%2$s</string>
     <string name="BlockedUsersActivity__s_has_been_blocked">Zablokowano tę osobę: %1$s.</string>
     <string name="BlockedUsersActivity__failed_to_block_s">Nie udało się zablokować tej osoby: %1$s</string>
     <string name="BlockedUsersActivity__s_has_been_unblocked">Odblokowano tę osobę: %1$s.</string>
@@ -6092,7 +6072,7 @@
     <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Oprogramowanie udostępniane na licencji GNU AGPLv3</string>
     <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
-    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal is a 501c3 nonprofit</string>
+    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal to organizacja non profit</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">Jakość multimediów</string>
@@ -6229,6 +6209,8 @@
     <string name="ConversationSettingsFragment__permissions">Uprawnienia</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Prośby o przyjęcie i zaproszenia</string>
     <string name="ConversationSettingsFragment__group_link">Link do grupy</string>
+    <!-- Label for button that opens the group member label permissions screen. -->
+    <string name="ConversationSettingsFragment__group_member_label">Rola w grupie</string>
     <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">Dodaj jako kontakt</string>
     <string name="ConversationSettingsFragment__unmute">Wyłącz wyciszenie</string>
@@ -6526,15 +6508,15 @@
     <string name="Subscription__expires_s">Wygasa %1$s</string>
 
     <!-- Title of learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">As an independent nonprofit, Signal is committed to private messaging and calls. No ads, no trackers, no surveillance. Donate today to support Signal.</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">Jako niezależna organizacja non profit stawiamy na poufność wiadomości i połączeń. Bez reklam, bez śledzenia, bez inwigilacji. Wpłać darowiznę i wesprzyj Signal.</string>
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__private_messaging">No ads, no trackers, no surveillance. Donate today to support Signal.</string>
     <!-- Second small text blurb on learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__donate_and_get_badge">Get an optional badge on your profile when you donate</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__donate_and_get_badge">W zamian za darowiznę otrzymasz specjalną odznakę w swoim profilu</string>
     <!-- Third small text blurb on learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_privacy_is_our_mission">Your privacy is our mission</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_privacy_is_our_mission">Twoja prywatność jest naszą misją</string>
     <!-- Fourth small text blurb on learn more sheet. Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_501c3">Signal is a 501c3 nonprofit. US donations are tax deductible.</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_501c3">Signal to organizacja non profit</string>
 
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Dziękujemy Ci za wsparcie!</string>
     <!-- Subtext underneath the dialog title on the thanks sheet -->
@@ -7602,11 +7584,11 @@
 
     <!-- DonateToSignalFragment -->
     <!-- Title below avatar -->
-    <string name="DonateToSignalFragment__privacy_over_profit">Proudly Nonprofit</string>
+    <string name="DonateToSignalFragment__privacy_over_profit">Jesteśmy non profit</string>
     <!-- Continue button label -->
     <string name="DonateToSignalFragment__continue">Kontynuuj</string>
     <!-- Description below title -->
-    <string name="DonateToSignalFragment__private_messaging">Donate to support private messaging. Keep Signal independent and ad-free.</string>
+    <string name="DonateToSignalFragment__private_messaging">Wpłać darowiznę i wesprzyj nasz prywatny komunikator. To właśnie dzięki darowiznom aplikacja Signal pozostaje niezależna i nie wyświetla reklam.</string>
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">Darowizna oczekuje na realizację</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
@@ -8201,9 +8183,7 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Włącz bezpieczne kopie zapasowe Signal</string>
-    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
-    <string name="TurnOnSignalBackups__title_beta">Wypróbuj bezpieczne kopie zapasowe Signal</string>
-    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+<!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">Dzięki temu nie stracisz wiadomości nawet po zmianie telefonu czy ponownej instalacji aplikacji Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
     <string name="TurnOnSignalBackups__turn_on">Włącz</string>
@@ -8211,6 +8191,18 @@
     <string name="TurnOnSignalBackups__not_now">Nie teraz</string>
     <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
     <string name="TurnOnSignalBackups__toast_not_now">Możesz włączyć kopie zapasowe w sekcji „Ustawienia”</string>
+
+    <!-- Title of a megaphone shown to prompt the user to upgrade to the new local backups type -->
+    <string name="UseNewOnDeviceBackups__title">Nowe lokalne kopie zapasowe</string>
+    <!-- Body of a megaphone shown to prompt the user to upgrade to the new local backups type -->
+    <string name="UseNewOnDeviceBackups__body">Teraz lokalne kopie zapasowe zapisują się szybciej i zużywają mniej danych.</string>
+    <!-- Button of a megaphone that will take the user to the upgrade flow -->
+    <string name="UseNewOnDeviceBackups__upgrade">Zaktualizuj</string>
+    <!-- Button of a megaphone that will snooze the reminder to upgrade to the new local backups type -->
+    <string name="UseNewOnDeviceBackups__not_now">Nie teraz</string>
+
+    <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
+    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Aby przywrócić kopię zapasową, zainstaluj Molly ponownie. Otwórz aplikację i wybierz opcję „Przywróć kopię zapasową”, a następnie wskaż folder z plikiem kopii zapasowej."</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Zweryfikuj kod odzyskiwania</string>
@@ -8437,6 +8429,12 @@
     <!-- Backup redemption error sheet bullet point 2 -->
     <string name="BackupAlertBottomSheet__have_too_many_devices_using_the_same_subscription">Korzystasz z usługi na zbyt wielu urządzeniach.</string>
 
+    <!-- OnDeviceBackupsFragment -->
+    <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
+    <string name="OnDeviceBackupsFragment__backup_key_updated">Kod kopii zapasowej zaktualizowany</string>
+    <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
+    <string name="OnDeviceBackupsFragment__directory_selected">Wybrany folder: %1$s</string>
+
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
     <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Aby przywrócić multimedia, zwolnij %1$s miejsca.</string>
@@ -8454,13 +8452,13 @@
     <string name="BackupStatus__resume">Wznów</string>
 
     <!-- Status subtitle for banner when we are creating a backup file -->
-    <string name="BackupStatus__status_creating_backup">Creating backup…</string>
+    <string name="BackupStatus__status_creating_backup">Tworzenie kopii zapasowej…</string>
     <!-- Status title for banner when user is actively uploading backup data -->
-    <string name="BackupStatus__uploading_backup">Uploading backup</string>
+    <string name="BackupStatus__uploading_backup">Przesyłanie kopii zapasowej</string>
     <!-- Status title for banner when user is temporarily unable to upload a backup -->
-    <string name="BackupStatus__upload_paused">Backup paused</string>
+    <string name="BackupStatus__upload_paused">Kopia zapasowa wstrzymana</string>
     <!-- Status title for banner when user has finished creating a backup -->
-    <string name="BackupStatus__upload_complete">Backup complete</string>
+    <string name="BackupStatus__upload_complete">Kopia zapasowa utworzona</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Czekamy na Wi-Fi…</string>
@@ -8517,13 +8515,13 @@
     <string name="ResumeRestoreCellular_resume_using_cellular_message">Przywracanie multimediów przy użyciu sieci komórkowej może spowodować naliczenie opłat za transmisję danych. Przywracanie wznowi się automatycznie, gdy połączysz się z siecią Wi-Fi.</string>
 
     <!-- Title of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
-    <string name="CancelBackupDialog_title">Cancel backup?</string>
+    <string name="CancelBackupDialog_title">Anulować tworzenie kopii zapasowej?</string>
     <!-- Body of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
-    <string name="CancelBackupDialog_body">Canceling your backup will not delete your backup. You can resume your backup at any time from Backup Settings.</string>
+    <string name="CancelBackupDialog_body">Anulowanie nie spowoduje usunięcia Twojej kopii zapasowej. Możesz wznowić jej tworzenie w dowolnym momencie w ustawieniach kopii zapasowych.</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will confirm canceling the currently-running backup (future backups are unaffected). -->
     <string name="CancelBackupDialog_cancel_action">Anuluj kopię zapasową</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will continue the backup rather than cancel it. -->
-    <string name="CancelBackupDialog_continue_action">Continue backup</string>
+    <string name="CancelBackupDialog_continue_action">Kontynuuj</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8891,6 +8889,29 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">Zeskanuj kod QR</string>
 
+    <!-- OnDeviceBackupsImprovementsScreen -->
+    <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
+    <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">Ulepszyliśmy lokalne kopie zapasowe</string>
+    <!-- Subtitle describing that the backup will be upgraded to a new format with a new recovery key -->
+    <string name="OnDeviceBackupsImprovementsScreen__your_on_device_backup_will_be_upgraded">Twoja lokalna kopia zapasowa zostanie zaktualizowana do nowego formatu i otrzyma nowy kod odzyskiwania</string>
+    <!-- Feature description explaining backups are faster and use less data -->
+    <string name="OnDeviceBackupsImprovementsScreen__backups_now_save_faster">Kopie zapasowe będą się zapisywać szybciej i zużywać mniej danych</string>
+    <!-- Feature description explaining backups will be saved as a folder with many files -->
+    <string name="OnDeviceBackupsImprovementsScreen__your_backup_will_be_saved_as_a_folder">Kopie zapasowe będą się zapisywać jako folder z wieloma plikami</string>
+    <!-- Feature description explaining backups remain end-to-end encrypted -->
+    <string name="OnDeviceBackupsImprovementsScreen__all_backups_remain_end_to_end_encrypted">Wszystkie kopie zapasowe będą nadal szyfrowane metodą end-to-end</string>
+    <!-- Button text to continue to the next step -->
+    <string name="OnDeviceBackupsImprovementsScreen__continue">Kontynuuj</string>
+
+    <!-- OnDeviceBackupsSettingsScreen -->
+    <!-- Card text prompting user to update to a new recovery key for faster backups -->
+    <string name="OnDeviceBackupsSettingsScreen__update_to_a_new_recovery_key">Zaktualizuj kod odzyskiwania, aby szybciej zapisywać kopie zapasowe</string>
+    <!-- Button text to update to a new recovery key -->
+    <string name="OnDeviceBackupsSettingsScreen__update">Zaktualizuj</string>
+
+    <!-- UnifiedOnDeviceBackupsSettingsScreen -->
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">Wyświetl kod kopii zapasowej</string>
+
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
     <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Pobierz kopię zapasową jeszcze dziś</string>
@@ -8944,12 +8965,32 @@
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Kod odzyskiwania</string>
+    <!-- Screen headline shown when upgrading on-device backups to a new recovery key. -->
+    <string name="MessageBackupsKeyEducationScreen__your_new_recovery_key">Twój nowy kod odzyskiwania</string>
+    <!-- Screen headline shown when the user already has an on-device recovery key set. -->
+    <string name="MessageBackupsKeyEducationScreen__your_recovery_key">Twój kod odzyskiwania</string>
     <!-- Screen body part 1 -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Kod odzyskiwania to sekwencja 64 znaków potrzebna do przywrócenia kopii zapasowej.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__store_your_recovery">Przechowuj kod odzyskiwania w bezpiecznym miejscu (takim jak menedżer haseł) i nikomu go nie podawaj.</string>
     <!-- Screen body part 3 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">Jeśli zgubisz ten kod, stracisz możliwość przywrócenia historii wiadomości.</string>
+    <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 1). -->
+    <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description">Kod odzyskiwania to sekwencja 64 znaków potrzebna do przywrócenia wszystkich rodzajów kopii zapasowej.</string>
+    <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
+    <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">Tym kodem zostanie zastąpiony Twój kod do lokalnej kopii zapasowej.</string>
+    <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Kod kopii zapasowej, składający się z 64 znaków, umożliwi Ci przywrócenie kopii zapasowych po ponownej instalacji aplikacji Signal.</string>
+    <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">To ten sam kod, co kod do lokalnej kopii zapasowej.</string>
+    <!-- Label shown above a list of actions that the recovery key can be used for. -->
+    <string name="MessageBackupsKeyEducationScreen__use_this_key_to">Użyj tego kodu, aby:</string>
+    <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
+    <string name="MessageBackupsKeyEducationScreen__restore_on_device_backup">Przywrócić lokalną kopię zapasową</string>
+    <!-- Row label indicating that the recovery key can be used to restore a Signal Secure Backup. -->
+    <string name="MessageBackupsKeyEducationScreen__restore_a_signal_secure_backup">Przywrócić bezpieczną kopię zapasową Signal</string>
+    <!-- Row label indicating that the recovery key can be used to restore a Signal Secure Backup. -->
+    <string name="MessageBackupsKeyEducationScreen__restore_your_signal_secure_backup">Przywrócić bezpieczną kopię zapasową Signal</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__view_recovery_key">Wyświetl kod odzyskiwania</string>
 
@@ -8958,6 +8999,8 @@
     <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Zapisz swój kod odzyskiwania</string>
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Ten kod będzie potrzebny do odzyskania konta i danych. Przechowuj go w bezpiecznym miejscu. Jeśli go zgubisz, stracisz możliwość przywrócenia konta.</string>
+    <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">To ten sam kod, co kod do lokalnej kopii zapasowej. Będzie potrzebny do odzyskania konta i danych.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Skopiuj do schowka</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9561,6 +9604,22 @@
     <string name="PinnedMessage__couldnt_unpin_all">Nie udało się odpiąć wiadomości</string>
     <!-- Dialog body when failing to pin a message -->
     <string name="PinnedMessage__check_connection">Sprawdź połączenie z internetem i spróbuj ponownie.</string>
+
+    <!-- Group member label screen title. -->
+    <string name="GroupMemberLabel__title">Rola w grupie</string>
+    <!-- Group member label text field placeholder. -->
+    <string name="GroupMemberLabel__label_text_placeholder">Podaj swoją rolę</string>
+    <!-- Group member label preview section header. -->
+    <string name="GroupMemberLabel__preview_section_header">Podgląd</string>
+    <!-- Group member label save button label. -->
+    <string name="GroupMemberLabel__save">Zapisz</string>
+    <!-- Accessibility label for the button to open the group member label emoji picker. -->
+    <string name="GroupMemberLabel__accessibility_select_emoji">Wybierz emoji</string>
+    <!-- Accessibility label for the group member label close screen button. -->
+    <string name="GroupMemberLabel__accessibility_close_screen">Zamknij ekran</string>
+    <!-- Accessibility label for the group member label text field clear button. -->
+    <string name="GroupMemberLabel__accessibility_clear_label">Wyczyść pole</string>
+    <string name="GroupMemberLabel__description">Podaj swoją rolę w grupie, aby się przedstawić lub określić funkcję, jaką pełnisz. Rola będzie widoczna tylko dla osób w tej grupie.</string>
 
     <!-- EOF -->
 </resources>

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import org.signal.core.util.logging.Log
-import org.signal.ringrtc.CallLinkEpoch
 import org.signal.ringrtc.CallLinkRootKey
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.FullScreenDialogFragment
@@ -110,7 +109,7 @@ class MessageDetailsFragment : FullScreenDialogFragment(), MessageDetailsAdapter
   private fun initializeVideoPlayer(view: View) {
     val videoContainer = view.findViewById<FrameLayout>(R.id.video_container)
     val recyclerView = view.findViewById<RecyclerView>(R.id.message_details_list)
-    val holders = GiphyMp4ProjectionPlayerHolder.injectVideoViews(requireContext(), lifecycle, videoContainer, 1)
+    val holders = GiphyMp4ProjectionPlayerHolder.injectVideoViews(requireContext(), viewLifecycleOwner.lifecycle, videoContainer, 1)
     val callback = GiphyMp4ProjectionRecycler(holders)
 
     GiphyMp4PlaybackController.attach(recyclerView, callback, 1)
@@ -346,7 +345,7 @@ class MessageDetailsFragment : FullScreenDialogFragment(), MessageDetailsAdapter
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 
-  override fun onJoinCallLink(callLinkRootKey: CallLinkRootKey, callLinkEpoch: CallLinkEpoch?) {
+  override fun onJoinCallLink(callLinkRootKey: CallLinkRootKey) {
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 

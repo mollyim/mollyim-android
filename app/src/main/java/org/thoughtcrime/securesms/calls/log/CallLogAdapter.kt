@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.widget.TextViewCompat
 import com.bumptech.glide.Glide
+import org.signal.core.ui.util.ThemeUtil
 import com.google.android.material.R as MaterialR
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.database.CallTable
@@ -19,7 +20,6 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.SearchUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingViewHolder
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
@@ -256,7 +256,7 @@ class CallLogAdapter(
 
       binding.callRecipientName.text = SearchUtil.getHighlightedSpan(
         Locale.getDefault(),
-        { arrayOf(TextAppearanceSpan(context, R.style.Signal_Text_TitleSmall)) },
+        { arrayOf(TextAppearanceSpan(context, CoreUiR.style.Signal_Text_TitleSmall)) },
         callLinkName,
         model.callLink.searchQuery,
         SearchUtil.MATCH_ALL
@@ -336,7 +336,7 @@ class CallLogAdapter(
       binding.callRecipientName.text = if (searchQuery != null) {
         SearchUtil.getHighlightedSpan(
           Locale.getDefault(),
-          { arrayOf(TextAppearanceSpan(context, R.style.Signal_Text_TitleSmall)) },
+          { arrayOf(TextAppearanceSpan(context, CoreUiR.style.Signal_Text_TitleSmall)) },
           recipient.getDisplayName(context),
           searchQuery,
           SearchUtil.MATCH_ALL

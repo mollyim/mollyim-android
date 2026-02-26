@@ -310,8 +310,22 @@
     <string name="CameraXFragment_to_capture_videos">Да бисте могли да снимате видео са звуком:</string>
     <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
     <string name="CameraXFragment_to_scan_qr_codes">Да бисте могли да скенирате QR кодове:</string>
+    <!-- Error message shown when we try to take a photo, but fail -->
+    <string name="CameraXFragment_photo_capture_failed">Снимање фотографије није успело. Пробајте поново.</string>
+    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
+    <string name="CameraXFragment_photo_processing_failed">Обрада фотографије није успела. Пробајте поново.</string>
+    <!-- Accessibility label for the switch camera button -->
+    <string name="CameraXFragment_switch_camera">Промени камеру</string>
+    <!-- Accessibility label for flash button when flash is off -->
+    <string name="CameraXFragment_flash_off">Искључен блиц</string>
+    <!-- Accessibility label for flash button when flash is on -->
+    <string name="CameraXFragment_flash_on">Укључен блиц</string>
+    <!-- Accessibility label for flash button when flash is set to auto -->
+    <string name="CameraXFragment_flash_auto">Аутоматско укључивање блица</string>
+    <!-- Accessibility label for the send button in media selection -->
+    <string name="CameraXFragment_send">Пошаљи</string>
 
-    <!-- CameraContacts -->
+<!-- CameraContacts -->
     <string name="CameraContacts_recent_contacts">Недавни контакти</string>
     <string name="CameraContacts_signal_contacts">Контакти на Signal-у</string>
     <string name="CameraContacts_signal_groups">Signal групе</string>
@@ -937,7 +951,7 @@
     <string name="BackupsPreferenceFragment__backup_time">Време креирања резервне копије</string>
     <string name="BackupsPreferenceFragment__verify_backup_passphrase">Потврдите приступну фразу за резервне копије</string>
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Испробајте приступну фразу за резервне копије и проверите да ли се подудара</string>
-    <string name="BackupsPreferenceFragment__turn_on">Укључи</string>
+    <string name="BackupsPreferenceFragment__turn_on">Укључи резервне копије</string>
     <string name="BackupsPreferenceFragment__turn_off">Искључи</string>
     <string name="BackupsPreferenceFragment__to_restore_a_backup">"Да бисте вратили садржај из резервне копије, инсталирајте нову копију Molly-а. Отворите апликацију и додирните „Врати резервну копију“, а затим пронађите фајл резервне копије. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Сазнајте више</string>
@@ -2561,6 +2575,8 @@
     <string name="WebRtcCallView__s_remotely_muted_s">%1$s је искључио/-ла звук корисника %2$s.</string>
     <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
     <string name="WebRtcCallView__you_muted_yourself">Искључили сте свој звук на другом уређају.</string>
+    <!-- Toast message shown when user is auto-muted because they are joining a large group call. -->
+    <string name="WebRtcCallView__youve_been_muted_large_group">You\'ve been muted because this call has many participants.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Десила се грешка у корсничком интерфејсу. Молимо да пријавите ову грешку програмерима.</string>
@@ -2748,8 +2764,6 @@
     <string name="RegistrationActivity_i_understand">Разумем</string>
     <string name="RegistrationActivity_play_services_error">Грешка у Play сервисима</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play сервиси се ажурирају или су привремено недоступни. Пробајте поново касније.</string>
-    <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
-    <string name="RegistrationActivity_terms_and_privacy">Signal is a 501c3 nonprofit\nTerms &amp; Privacy Policy</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-у је потребна дозвола за приступ контактима и медијима да бисте се лакше повезали са пријатељима и слали поруке. Ваши контакти се отпремају помоћу Signal-овог приватног откривања контаката, што значи да су потпуно шифровани и никада нису видљиви Signal-овом сервису.</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-у је потребна дозвола за приступ контактима да бисте се лакше повезали са пријатељима. Ваши контакти се отпремају помоћу Signal-овог приватног откривања контаката, што значи да су потпуно шифровани и никада нису видљиви Signal сервису.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Превише пута сте покушали да региструјете овај број. Пробајте поново касније.</string>
@@ -2782,8 +2796,6 @@
     <!-- Dialog button to cancel the pending action and return to the previous state. -->
     <string name="RegistrationActivity_cancel">Откажи</string>
     <string name="RegistrationActivity_next">Следеће</string>
-    <string name="RegistrationActivity_continue">Настави</string>
-    <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Чувајте приватност где год да се налазите.\nБудите то што јесте у свакој поруци.</string>
     <!-- Title of registration screen when asking for the users phone number -->
     <string name="RegistrationActivity_phone_number">Број телефона</string>
     <!-- Subtitle of registration screen when asking for the users phone number -->
@@ -3815,40 +3827,54 @@
     <string name="verify_display_fragment__mark_as_verified">Означи као верификовано</string>
     <string name="verify_display_fragment__clear_verification">Избриши верификацију</string>
     <!-- Header title for automatic key verification -->
-    <string name="verify_display_fragment__automatic">Automatic Key Verification</string>
+    <string name="verify_display_fragment__automatic">Аутоматска верификација кључа</string>
     <!-- Button text to verify automatically    -->
-    <string name="verify_display_fragment__verify_automatic">Verify automatically</string>
+    <string name="verify_display_fragment__verify_automatic">Аутоматски верификуј</string>
     <!-- Loading text when verifying -->
-    <string name="verify_display_fragment__verifying">Verifying encryption…</string>
+    <string name="verify_display_fragment__verifying">Верификацја шифровања…</string>
     <!-- Success text shown when encryption is verified -->
-    <string name="verify_display_fragment__encryption_verified">Encryption verified</string>
+    <string name="verify_display_fragment__encryption_verified">Шифровање је верификовано</string>
     <!-- Text shown when verification fails -->
-    <string name="verify_display_fragment__encryption_unavailable">Auto-verification unavailable</string>
+    <string name="verify_display_fragment__encryption_unavailable">Аутоматска верификација није доступна</string>
     <!-- Caption text explaining more about automatic verification   -->
-    <string name="verify_display_fragment__auto_verify_not_available">Auto-verification is not available for all chats.</string>
-  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__link" translatable="false">https://signal.org/redirect/safety-numbers</string> -->
+    <string name="verify_display_fragment__auto_verify_not_available">Аутоматска верификација није доступна за сва ћаскања.</string>
+  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__link" translatable="false">https://support.signal.org/hc/articles/10223569377562</string> -->
 
     <!-- Bottom sheet title when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_success">Encryption was auto-verified for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_success">Шифровање је аутоматски верификовано за ово ћаскање</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For contacts you’re connected to by phone number, Molly can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">За контакте с којима сте повезани преко броја телефона, Molly може аутоматски да потврди да ли је веза сигурна помоћу процеса који се зове транспарентност кључева. Ради додатне безбедности, потпуно шифровање може се верификовати упоређивањем бројева са претходног екрана или скенирањем кода на уређају другог корисника.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is no longer available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Аутоматска верификација више није доступна за ово ћаскање</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly can no longer automatically verify the encryption for this chat. This is likely because %1$s changed their phone number. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly више не може аутоматски да верификује шифровање за ово ћаскање. Разлог је вероватно тај што је корисник %1$s променио број телефона. Потпуно шифровање може се верификовати упоређивањем бројева са претходног екрана или скенирањем кода на уређају тог корисника.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_unavailable">Auto-verification not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_unavailable">Аутоматска верификација није доступна за ово ћаскање</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_unavailable">Molly can only automatically verify the encryption in chats where you’re connected to someone via a phone number. If the chat was started with a username or a group in common, verify end-to-end encryption by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_unavailable">Molly може аутоматски да верификује шифровање само у оним ћаскањима где су корисници повезани преко броја телефона. Ако је ћаскање започето преко корисничког имена или заједничке групе, потпуно шифровање може се верификовати упоређивањем бројева са претходног екрана или скенирањем кода на уређају другог корисника.</string>
 
     <!-- Title for auto verification education sheet -->
-    <string name="VerifyAutomaticallyEducationSheet__title">Molly сада аутоматски потврђује свеобухватно шифровање</string>
+    <string name="VerifyAutomaticallyEducationSheet__title">Molly сада може аутоматски да потврђује шифровање</string>
     <!-- Body for auto verification education sheet -->
-    <string name="VerifyAutomaticallyEducationSheet__body">Када потврдите сигурносни број, Molly ће аутоматски потврдити да ли је веза сигурна помоћу процеса који се зове транспарентност кључева. Везе и даље можете ручно потврдити помоћу QR кода или броја.</string>
+    <string name="VerifyAutomaticallyEducationSheet__body">За контакте с којима сте повезани преко броја телефона, Molly може аутоматски да потврди да ли је веза сигурна помоћу процеса који се зове транспарентност кључева. Ради додатне безбедности, везе и даље можете потврђивати ручно, помоћу QR кода или сигурносног броја.</string>
     <!-- Button to learn more about automatic verification -->
     <string name="VerifyAutomaticallyEducationSheet__learn_more">Сазнајте више</string>
     <!-- Button to go to verification page -->
-    <string name="VerifyAutomaticallyEducationSheet__verify">Верификуј</string>
+    <string name="VerifyAutomaticallyEducationSheet__continue">Настави</string>
+
+    <!-- Title for bottom sheet when self verification fails -->
+    <string name="SelfVerificationFailureSheet__title">Аутоматска потврда кључа тренутно је онемогућена за ваш уређај. Желите ли да пошаљете извештај о грешкама?</string>
+    <!-- Body for bottom sheet when self verification fails -->
+    <string name="SelfVerificationFailureSheet__body">Извештаји о грешкама нам помажу да откријемо и решимо проблем и они не садрже информације на основу којих можете бити идентификовани.</string>
+    <!-- Button to decline submitting logs -->
+    <string name="SelfVerificationFailureSheet__no_thanks">Не, хвала</string>
+    <!-- Button to submit logs -->
+    <string name="SelfVerificationFailureSheet__submit">Пошаљи</string>
+    <!-- Email subject line when submitting logs following a verification failure -->
+    <string name="SelfVerificationFailureSheet__email_subject">Неуспешна аутоматска потврда кључа</string>
+  <!-- Removed by excludeNonTranslatables <string name="SelfVerificationFailureSheet__email_filter" translatable="false">AutomaticKeyVerificationFailure</string> -->
+    <!-- Link to learn more about debug logs -->
+    <string name="SelfVerificationFailureSheet__learn_more">Сазнајте више</string>
 
     <!-- verity_scan_fragment -->
     <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Скенирајте QR код приказан на уређају вашег контакта.</string>
@@ -4225,6 +4251,10 @@
     <string name="preferences_compact">Компактно</string>
     <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
     <string name="preferences_language_change_confirmation_message">Апликација ће се поново покренути да би се применило ново подешавање језика.</string>
+    <!-- Preference title for automatic key verification -->
+    <string name="preferences_automatic_key_verification">Аутоматска верификација кључа</string>
+    <!-- Preference summary for automatic key verification -->
+    <string name="preferences_automatic_key_verification_body">Када је та опција омогућена, Molly ће покушати да аутоматски потврди шифровање ћаскања један на један.</string>
 
 
     <string name="configurable_single_select__customize_option">Прилагодите опцију</string>
@@ -4301,43 +4331,7 @@
     <!-- Alert dialog button to update now -->
     <string name="PaymentsHomeFragment__update_now">Ажурирај сада</string>
 
-    <!-- GrantPermissionsFragment -->
-    <!-- Displayed as a text-only action button at the bottom start of the screen -->
-    <string name="GrantPermissionsFragment__not_now">Не сада</string>
-    <!-- Displayed as an action button at the bottom end of the screen -->
-    <string name="GrantPermissionsFragment__next">Следеће</string>
-    <!-- Displayed as a title at the top of the screen -->
-    <string name="GrantPermissionsFragment__allow_permissions">Дозволе</string>
-    <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Да бисте могли да шаљете поруке људима које знате, Molly ће затражити ове дозволе. </string>
-    <!-- Notifications permission row title -->
-    <string name="GrantPermissionsFragment__notifications">Обавештења</string>
-    <!-- Notifications permission row description -->
-    <string name="GrantPermissionsFragment__get_notified_when">Добијајте обавештења када вам стигну нове поруке.</string>
-    <!-- Contacts permission row title -->
-    <string name="GrantPermissionsFragment__contacts">Контакти</string>
-    <!-- Contacts permission row description -->
-    <string name="GrantPermissionsFragment__find_people_you_know">Нађите људе које знате. Ваши контакти су шифровани и нису видљиви услузи Signal.</string>
-    <!-- Phone calls permission row title -->
-    <string name="GrantPermissionsFragment__phone_calls">Телефонски позиви</string>
-    <!-- Phone calls permission row description -->
-    <string name="GrantPermissionsFragment__make_registering_easier">Олакшајте регистрацију и омогућите додатне функционалности за позиве.</string>
-    <!-- Storage permission row title -->
-    <string name="GrantPermissionsFragment__storage">Меморијски простор</string>
-    <!-- Storage permission row description -->
-    <string name="GrantPermissionsFragment__send_photos_videos_and_files">Шаљите слике, видео и фајлове са свог уређаја.</string>
 
-    <!-- PermissionDeniedBottomSheet -->
-    <!-- Sheet describing step 1 on how to give permissions by opening settings -->
-    <string name="PermissionDeniedBottomSheet__1_tap_settings_below">1. Додирните „Подешавања“ у наставку</string>
-    <!-- Sheet describing step 2 on how to give permissions by checking the permissions button in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__2_allow_permission">2. %1$s Дозволите приступ</string>
-    <!-- Sheet describing step 2 on how to give permissions by tapping permissions in their settings -->
-    <string name="PermissionDeniedBottomSheet__2_tap_permissions">2. Додирните „Дозволе“</string>
-    <!-- Sheet describing step 3 on how to give permissions for photos and videos in settings where %s will be replaced with an image of a checked button -->
-    <string name="PermissionDeniedBottomSheet__3_allow_permission">3. %1$s Активирајте дозволу „Слике и видео-записи“</string>
-    <!-- Label for button at the bottom of the sheet which opens the system permission settings -->
-    <string name="PermissionDeniedBottomSheet__settings">Подешавања</string>
 
     <!-- PaymentsSecuritySetupFragment -->
     <!-- Toolbar title -->
@@ -4791,9 +4785,6 @@
     <!-- transport_selection_list_item -->
     <string name="ConversationListFragment_loading">Учитавање…</string>
     <string name="CallNotificationBuilder_connecting">Повезивање…</string>
-    <string name="Permissions_permission_required">Потребна је дозвола</string>
-    <string name="Permissions_continue">Настави</string>
-    <string name="Permissions_not_now">Не сада</string>
     <string name="SQLCipherMigrationHelper_migrating_signal_database">Мигрирање базе података Signal-a</string>
     <string name="enter_backup_passphrase_dialog__backup_passphrase">Приступна фраза за резервне копије</string>
     <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Резервне копије ће бити сачуване у спољној меморији и шифроване приступном фразом у наставку. Морате имати ову приступну фразу да бисте могли да вратите резервну копију.</string>
@@ -4802,8 +4793,6 @@
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Записао/ла сам ову приступну фразу. Без ње нећу моћи да вратим резервну копију.</string>
     <string name="registration_activity__restore_backup">Врати резервну копију</string>
     <string name="registration_activity__transfer_or_restore_account">Пренесите или вратите налог</string>
-    <!-- Screen title for restoring or transfering account -->
-    <string name="registration_activity__restore_or_transfer">Врати или пренеси</string>
     <string name="registration_activity__transfer_account">Пренесите налог</string>
     <string name="registration_activity__skip">Прескочи</string>
     <!-- Text label button to skip restoring -->
@@ -4917,14 +4906,7 @@
     <string name="RegistrationActivity_error_connecting_to_service">Грешка приликом повезивања са услугом</string>
     <string name="preferences_chats__backups">Резервне копије</string>
 
-    <!-- Button label to indicate that a feature is in beta mode -->
-    <string name="Beta__beta_title">Beta</string>
-    <!-- Content description for info icon -->
-    <string name="Beta__info">Информације</string>
-    <!-- Text in header describing that the feature is a beta feature and prone to frequent changes -->
-    <string name="Beta__this_is_beta">Ово је бета функционалност и временом ће се побољшавати.</string>
-
-    <!-- Title text shown when Signal is locked and needs to be unlocked -->
+<!-- Title text shown when Signal is locked and needs to be unlocked -->
     <string name="prompt_passphrase_activity__unlock_signal">Откључајте Molly</string>
     <!-- Description text explaining how to unlock Signal -->
     <string name="prompt_passphrase_activity__use_your_android_device">Користите подешавања за закључавање на Android уређају да откључате Molly.</string>
@@ -5177,8 +5159,6 @@
     <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s за: %2$s</string>
 
-    <!-- StorageUtil -->
-    <string name="StorageUtil__s_s">%1$s/%2$s</string>
     <string name="BlockedUsersActivity__s_has_been_blocked">„%1$s“ је блокиран(а)</string>
     <string name="BlockedUsersActivity__failed_to_block_s">Блокирање корисника %1$s није успело</string>
     <string name="BlockedUsersActivity__s_has_been_unblocked">Корисник „%1$s“ је одблокиран.</string>
@@ -5818,7 +5798,7 @@
     <string name="HelpFragment__copyright_signal_messenger">Ауторска права Molly Messenger</string>
     <string name="HelpFragment__licenced_under_the_agplv3">Лиценцирано под бројем GNU AGPLv3</string>
     <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
-    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal is a 501c3 nonprofit</string>
+    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal је непрофитна организација</string>
 
     <!-- DataAndStorageSettingsFragment -->
     <string name="DataAndStorageSettingsFragment__media_quality">Квалитет медија</string>
@@ -5951,6 +5931,8 @@
     <string name="ConversationSettingsFragment__permissions">Дозволе</string>
     <string name="ConversationSettingsFragment__requests_and_invites">Захтеви и позивнице</string>
     <string name="ConversationSettingsFragment__group_link">Линк за групу</string>
+    <!-- Label for button that opens the group member label permissions screen. -->
+    <string name="ConversationSettingsFragment__group_member_label">Ознака члана</string>
     <!-- Option in conversation settings to add a user as a contact -->
     <string name="ConversationSettingsFragment__add_as_a_contact">Додај у контакте</string>
     <string name="ConversationSettingsFragment__unmute">Укључи обавештења</string>
@@ -6234,15 +6216,15 @@
     <string name="Subscription__expires_s">Истиче на дан %1$s</string>
 
     <!-- Title of learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">As an independent nonprofit, Signal is committed to private messaging and calls. No ads, no trackers, no surveillance. Donate today to support Signal.</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">Као независна непрофитна организација, Signal гарантује приватност порука и позива. Без огласа, без праћења, без надзора. Донирајте данас да подржите Signal.</string>
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__private_messaging">No ads, no trackers, no surveillance. Donate today to support Signal.</string>
     <!-- Second small text blurb on learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__donate_and_get_badge">Get an optional badge on your profile when you donate</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__donate_and_get_badge">Донирањем ћете добити значку коју ћете моћи да прикажете на профилу</string>
     <!-- Third small text blurb on learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_privacy_is_our_mission">Your privacy is our mission</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_privacy_is_our_mission">Ваша приватност је наша мисија</string>
     <!-- Fourth small text blurb on learn more sheet. Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_501c3">Signal is a 501c3 nonprofit. US donations are tax deductible.</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_501c3">Signal је непрофитна организација.</string>
 
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Хвала вам на подршци!</string>
     <!-- Subtext underneath the dialog title on the thanks sheet -->
@@ -7272,11 +7254,11 @@
 
     <!-- DonateToSignalFragment -->
     <!-- Title below avatar -->
-    <string name="DonateToSignalFragment__privacy_over_profit">Proudly Nonprofit</string>
+    <string name="DonateToSignalFragment__privacy_over_profit">Поносно непрофитна организација</string>
     <!-- Continue button label -->
     <string name="DonateToSignalFragment__continue">Nastavi</string>
     <!-- Description below title -->
-    <string name="DonateToSignalFragment__private_messaging">Donate to support private messaging. Keep Signal independent and ad-free.</string>
+    <string name="DonateToSignalFragment__private_messaging">Донирајте у знак подршке приватности порука. Допринесите томе да Signal остане независтан и без реклама.</string>
     <!-- Dialog title when a user tries to donate while they already have a pending donation. -->
     <string name="DonateToSignalFragment__you_have_a_donation_pending">Већ имате донацију на чекању</string>
     <!-- Dialog body when a user tries to donate while they already have a pending monthly donation. -->
@@ -7857,9 +7839,7 @@
 
     <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__title">Укључите безбедне резервне копије Signal-а</string>
-    <!-- Title of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups. Special string for the beta period. -->
-    <string name="TurnOnSignalBackups__title_beta">Испробајте Signal-ове безбедне резервне копије</string>
-    <!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
+<!-- Body of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups -->
     <string name="TurnOnSignalBackups__body">Нека вам се сачувају поруке када набављате нови телефон или поново инсталирате Molly.</string>
     <!-- Button of a megaphone shown at the bottom of the chat list to prompt the user to enable message backups that will take the user to the flow to enable backups -->
     <string name="TurnOnSignalBackups__turn_on">Укључи</string>
@@ -7867,6 +7847,18 @@
     <string name="TurnOnSignalBackups__not_now">Не сада</string>
     <!-- Text for a "toast" that pops up at the bottom of the user\'s screen after they respond "not now" to a prompt asking them to enable backups -->
     <string name="TurnOnSignalBackups__toast_not_now">Прављење резервних копија можете дозволити у подешавањима</string>
+
+    <!-- Title of a megaphone shown to prompt the user to upgrade to the new local backups type -->
+    <string name="UseNewOnDeviceBackups__title">Користите нове резервне копије на уређају</string>
+    <!-- Body of a megaphone shown to prompt the user to upgrade to the new local backups type -->
+    <string name="UseNewOnDeviceBackups__body">Резервне копије на уређају сада се брже чувају и користе мање података.</string>
+    <!-- Button of a megaphone that will take the user to the upgrade flow -->
+    <string name="UseNewOnDeviceBackups__upgrade">Ажурирај</string>
+    <!-- Button of a megaphone that will snooze the reminder to upgrade to the new local backups type -->
+    <string name="UseNewOnDeviceBackups__not_now">Не сада</string>
+
+    <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
+    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Да бисте вратили садржај из резервне копије, инсталирајте нову копију Molly-а. Отворите апликацију и додирните „Врати резервну копију“, а затим пронађите фолдер резервне копије."</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Провера кључа за опоравак</string>
@@ -8087,6 +8079,12 @@
     <!-- Backup redemption error sheet bullet point 2 -->
     <string name="BackupAlertBottomSheet__have_too_many_devices_using_the_same_subscription">Имате превише уређаја који користе исту претплату.</string>
 
+    <!-- OnDeviceBackupsFragment -->
+    <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
+    <string name="OnDeviceBackupsFragment__backup_key_updated">Кључ за резервне копије је ажуриран</string>
+    <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
+    <string name="OnDeviceBackupsFragment__directory_selected">Изабран је директоријум: %1$s</string>
+
     <!-- BackupStatus -->
     <!-- Status title when user does not have enough free space to download their media. Placeholder is required disk space. -->
     <string name="BackupStatus__free_up_s_of_space_to_download_your_media">Ослободите %1$s меморијског простора да бисте вратили медије.</string>
@@ -8104,13 +8102,13 @@
     <string name="BackupStatus__resume">Настави</string>
 
     <!-- Status subtitle for banner when we are creating a backup file -->
-    <string name="BackupStatus__status_creating_backup">Creating backup…</string>
+    <string name="BackupStatus__status_creating_backup">Креирање резервне копије…</string>
     <!-- Status title for banner when user is actively uploading backup data -->
-    <string name="BackupStatus__uploading_backup">Uploading backup</string>
+    <string name="BackupStatus__uploading_backup">Резервна копија се отпрема</string>
     <!-- Status title for banner when user is temporarily unable to upload a backup -->
-    <string name="BackupStatus__upload_paused">Backup paused</string>
+    <string name="BackupStatus__upload_paused">Креирање резервне копије је паузирано</string>
     <!-- Status title for banner when user has finished creating a backup -->
-    <string name="BackupStatus__upload_complete">Backup complete</string>
+    <string name="BackupStatus__upload_complete">Креирање резервне копије је завршено</string>
 
     <!-- Status subtitle for banner when restoring media pauses for Wi-Fi -->
     <string name="BackupStatus__status_waiting_for_wifi">Чекамо Wi-Fi…</string>
@@ -8167,13 +8165,13 @@
     <string name="ResumeRestoreCellular_resume_using_cellular_message">Ако враћате медије преко мобилног интернета, можете имати трошкове мобилног интернета. Можете да се повежете на Wi-Fi мрежу да бисте аутоматски наставили.</string>
 
     <!-- Title of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
-    <string name="CancelBackupDialog_title">Cancel backup?</string>
+    <string name="CancelBackupDialog_title">Прекини креирање резервне копије?</string>
     <!-- Body of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
-    <string name="CancelBackupDialog_body">Canceling your backup will not delete your backup. You can resume your backup at any time from Backup Settings.</string>
+    <string name="CancelBackupDialog_body">Отказивањем креирања резервне копије нећете обрисати резервну копију. Можете наставити са креирањем резервне копије у било ком тренутку у одељку „Поставке резервних копија“.</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will confirm canceling the currently-running backup (future backups are unaffected). -->
     <string name="CancelBackupDialog_cancel_action">Прекини креирање резервне копије</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will continue the backup rather than cancel it. -->
-    <string name="CancelBackupDialog_continue_action">Continue backup</string>
+    <string name="CancelBackupDialog_continue_action">Настави са креирањем резервне копије</string>
 
     <!-- BackupsTypeSettingsFragment -->
     <!-- Displayed as the user\'s payment method as a label in a preference row -->
@@ -8527,6 +8525,29 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">Скенирајте QR кôд</string>
 
+    <!-- OnDeviceBackupsImprovementsScreen -->
+    <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
+    <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">Побољшања резервних копија на уређају</string>
+    <!-- Subtitle describing that the backup will be upgraded to a new format with a new recovery key -->
+    <string name="OnDeviceBackupsImprovementsScreen__your_on_device_backup_will_be_upgraded">Прављење резервних копија на вашем уређају биће надограђено на нови формат који користи нови кључ за опоравак</string>
+    <!-- Feature description explaining backups are faster and use less data -->
+    <string name="OnDeviceBackupsImprovementsScreen__backups_now_save_faster">Резервне копије сада се брже чувају и користе мање података</string>
+    <!-- Feature description explaining backups will be saved as a folder with many files -->
+    <string name="OnDeviceBackupsImprovementsScreen__your_backup_will_be_saved_as_a_folder">Ваша резервна копија биће сачувана у форми фолдера с мноштвом фајлова</string>
+    <!-- Feature description explaining backups remain end-to-end encrypted -->
+    <string name="OnDeviceBackupsImprovementsScreen__all_backups_remain_end_to_end_encrypted">Све резервне копије остаће потпуно шифроване</string>
+    <!-- Button text to continue to the next step -->
+    <string name="OnDeviceBackupsImprovementsScreen__continue">Настави</string>
+
+    <!-- OnDeviceBackupsSettingsScreen -->
+    <!-- Card text prompting user to update to a new recovery key for faster backups -->
+    <string name="OnDeviceBackupsSettingsScreen__update_to_a_new_recovery_key">Ажурирајте за нови кључ за опоравак ради бржег чувања резервних копија</string>
+    <!-- Button text to update to a new recovery key -->
+    <string name="OnDeviceBackupsSettingsScreen__update">Ажурирај</string>
+
+    <!-- UnifiedOnDeviceBackupsSettingsScreen -->
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">Прикажи кључ за резервне копије</string>
+
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
     <string name="DownloadYourBackupTodayDialog__download_your_backup_today">Преузмите резервну копију данас</string>
@@ -8580,12 +8601,32 @@
     <!-- MessageBackupsKeyEducationScreen -->
     <!-- Screen headline -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key">Кључ за опоравак</string>
+    <!-- Screen headline shown when upgrading on-device backups to a new recovery key. -->
+    <string name="MessageBackupsKeyEducationScreen__your_new_recovery_key">Ваш нови кључ за опоравак</string>
+    <!-- Screen headline shown when the user already has an on-device recovery key set. -->
+    <string name="MessageBackupsKeyEducationScreen__your_recovery_key">Ваш кључ за опоравак</string>
     <!-- Screen body part 1 -->
     <string name="MessageBackupsKeyEducationScreen__your_backup_key_is_a">Ваш кључ за опоравак је 64-цифрена шифра која вам је потребна за враћање резервне копије.</string>
     <!-- Screen body part 2 -->
     <string name="MessageBackupsKeyEducationScreen__store_your_recovery">Чувајте кључ за опоравак на безбедном месту, попут безбедног менаџера лозинки, и не делите га ни са ким.</string>
     <!-- Screen body part 3 -->
     <string name="MessageBackupsKeyEducationScreen__if_you_lose_it">Ако га изгубите, нећете моћи да вратите поруке.</string>
+    <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 1). -->
+    <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description">Кључ за резервне копије је шифра од 64 знака која вам омогућава да вратите све врсте резервних копија.</string>
+    <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
+    <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">Овај кључ замениће кључ за резервне копије на вашем уређају.</string>
+    <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Кључ за резервне копије је шифра од 64 знака која вам омогућава да вратите резервну копију када поново инсталирате Signal.</string>
+    <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Исти је као и кључ за резервне копије на вашем уређају.</string>
+    <!-- Label shown above a list of actions that the recovery key can be used for. -->
+    <string name="MessageBackupsKeyEducationScreen__use_this_key_to">Употребите овај кључ за:</string>
+    <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
+    <string name="MessageBackupsKeyEducationScreen__restore_on_device_backup">Враћање безбедне резервне копије на уређају</string>
+    <!-- Row label indicating that the recovery key can be used to restore a Signal Secure Backup. -->
+    <string name="MessageBackupsKeyEducationScreen__restore_a_signal_secure_backup">Враћање безбедне резервне копије на Signal-у</string>
+    <!-- Row label indicating that the recovery key can be used to restore a Signal Secure Backup. -->
+    <string name="MessageBackupsKeyEducationScreen__restore_your_signal_secure_backup">Враћање безбедне резервне копије на Signal-у</string>
     <!-- Action button label -->
     <string name="MessageBackupsKeyEducationScreen__view_recovery_key">Прикажи кључ за опоравак</string>
 
@@ -8594,6 +8635,8 @@
     <string name="MessageBackupsKeyRecordScreen__record_your_backup_key">Снимите кључ за опоравак</string>
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Овај кључ је потребан за враћање вашег налога и података. Чувајте овај кључ негде на сигурном. Ако га изгубите, нећете моћи да повратите свој налог.</string>
+    <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">Исти је као и кључ за резервне копије на вашем уређају. Неопходан је за враћање вашег налога и података.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Копирај</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9187,6 +9230,22 @@
     <string name="PinnedMessage__couldnt_unpin_all">Откачињање порука није успело</string>
     <!-- Dialog body when failing to pin a message -->
     <string name="PinnedMessage__check_connection">Проверите да ли сте повезани на интернет и пробајте поново.</string>
+
+    <!-- Group member label screen title. -->
+    <string name="GroupMemberLabel__title">Ознака члана</string>
+    <!-- Group member label text field placeholder. -->
+    <string name="GroupMemberLabel__label_text_placeholder">Додај своју ознаку</string>
+    <!-- Group member label preview section header. -->
+    <string name="GroupMemberLabel__preview_section_header">Приказ</string>
+    <!-- Group member label save button label. -->
+    <string name="GroupMemberLabel__save">Сачувај</string>
+    <!-- Accessibility label for the button to open the group member label emoji picker. -->
+    <string name="GroupMemberLabel__accessibility_select_emoji">Изабери емоџи</string>
+    <!-- Accessibility label for the group member label close screen button. -->
+    <string name="GroupMemberLabel__accessibility_close_screen">Затвори екран</string>
+    <!-- Accessibility label for the group member label text field clear button. -->
+    <string name="GroupMemberLabel__accessibility_clear_label">Уклони ознаку</string>
+    <string name="GroupMemberLabel__description">Поставите ознаку члана да опишете себе или своју улогу у овој групи. Ознаке се виде само унутар ове групе.</string>
 
     <!-- EOF -->
 </resources>

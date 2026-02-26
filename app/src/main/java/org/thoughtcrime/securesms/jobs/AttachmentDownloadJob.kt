@@ -10,6 +10,7 @@ import okio.buffer
 import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.Base64
 import org.signal.core.util.Hex
+import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.InvalidMacException
 import org.signal.libsignal.protocol.InvalidMessageException
@@ -36,7 +37,6 @@ import org.thoughtcrime.securesms.s3.S3
 import org.thoughtcrime.securesms.transport.RetryLaterException
 import org.thoughtcrime.securesms.util.AttachmentUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream.IntegrityCheck
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
@@ -116,9 +116,19 @@ class AttachmentDownloadJob private constructor(
           }
         }
 
-        AttachmentTable.TRANSFER_PROGRESS_STARTED,
+        AttachmentTable.TRANSFER_PROGRESS_STARTED -> {
+          Log.i(TAG, "${databaseAttachment.attachmentId} is in started state, enqueueing force download in case existing job is constraint-blocked")
+          val downloadJob = AttachmentDownloadJob(
+            messageId = databaseAttachment.mmsId,
+            attachmentId = databaseAttachment.attachmentId,
+            forceDownload = true
+          )
+          AppDependencies.jobManager.add(downloadJob)
+          downloadJob.id
+        }
+
         AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE -> {
-          Log.d(TAG, "${databaseAttachment.attachmentId} is downloading or permanently failed, transferState: $transferState")
+          Log.d(TAG, "${databaseAttachment.attachmentId} is permanently failed, transferState: $transferState")
           null
         }
 
@@ -137,6 +147,7 @@ class AttachmentDownloadJob private constructor(
       .maybeApplyNotInCallConstraint(forceDownload)
       .setLifespan(TimeUnit.DAYS.toMillis(1))
       .setMaxAttempts(Parameters.UNLIMITED)
+      .setQueuePriority(if (forceDownload) Parameters.PRIORITY_HIGH else Parameters.PRIORITY_DEFAULT)
       .build(),
     messageId,
     attachmentId,

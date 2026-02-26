@@ -83,11 +83,17 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import im.molly.unifiedpush.UnifiedPushDistributor
+import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.compose.Snackbars
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.compose.theme.colorAttribute
+import org.signal.core.ui.isSplitPane
+import org.signal.core.ui.permissions.Permissions
+import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getSerializableCompat
 import org.signal.core.util.logging.Log
+import org.signal.mediasend.MediaSendActivityContract
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.backup.v2.ui.verify.VerifyBackupKeyActivity
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar.show
@@ -104,7 +110,6 @@ import org.thoughtcrime.securesms.components.snackbars.SnackbarHostKey
 import org.thoughtcrime.securesms.components.snackbars.SnackbarState
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
-import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.NewConversationActivity
 import org.thoughtcrime.securesms.conversation.v2.MotionEventRelay
@@ -155,7 +160,6 @@ import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
 import org.thoughtcrime.securesms.notifications.VitalsViewModel
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles
-import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.profiles.manage.UsernameEditFragment
 import org.thoughtcrime.securesms.service.BackupMediaRestoreService
 import org.thoughtcrime.securesms.service.KeyCachingService
@@ -164,7 +168,6 @@ import org.thoughtcrime.securesms.stories.landing.StoriesLandingFragment
 import org.thoughtcrime.securesms.stories.settings.StorySettingsActivity
 import org.thoughtcrime.securesms.util.AppForegroundObserver
 import org.thoughtcrime.securesms.util.AppStartup
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
@@ -172,14 +175,12 @@ import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
 import org.thoughtcrime.securesms.util.SplashScreenUtil
 import org.thoughtcrime.securesms.util.TopToastPopup
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.viewModel
 import org.thoughtcrime.securesms.window.AppPaneDragHandle
 import org.thoughtcrime.securesms.window.AppScaffold
 import org.thoughtcrime.securesms.window.AppScaffoldAnimationStateFactory
 import org.thoughtcrime.securesms.window.AppScaffoldNavigator
 import org.thoughtcrime.securesms.window.NavigationType
-import org.thoughtcrime.securesms.window.isSplitPane
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.signal.core.ui.R as CoreUiR
@@ -241,6 +242,8 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   private val megaphoneActionController = MainMegaphoneActionController()
   private val mainNavigationCallback = MainNavigationCallback()
 
+  private lateinit var mediaActivityLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
+
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
     return motionEventRelay.offer(ev) || super.dispatchTouchEvent(ev)
   }
@@ -265,6 +268,8 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
     super.onCreate(savedInstanceState, ready)
     navigator = MainNavigator(this, mainNavigationViewModel)
+
+    mediaActivityLauncher = registerForActivityResult(MediaSendActivityContract()) { }
 
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
@@ -746,7 +751,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
     CompositionLocalProvider(LocalSnackbarStateConsumerRegistry provides mainNavigationViewModel.snackbarRegistry) {
-      SignalTheme(isDarkMode = DynamicTheme.isDarkTheme(this)) {
+      SignalTheme {
         val backgroundColor = if (!windowSizeClass.isSplitPane()) {
           MaterialTheme.colorScheme.surface
         } else {
@@ -1035,15 +1040,23 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
   private fun onCameraClick(destination: MainNavigationListLocation, isForQuickRestore: Boolean) {
     val onGranted = {
-      val intent = if (isForQuickRestore) {
-        MediaSelectionActivity.cameraForQuickRestore(context = this@MainActivity)
+      if (isForQuickRestore) {
+        startActivity(MediaSelectionActivity.cameraForQuickRestore(context = this@MainActivity))
+      } else if (SignalStore.internal.useNewMediaActivity) {
+        mediaActivityLauncher.launch(
+          MediaSendActivityContract.Args(
+            isCameraFirst = false,
+            isStory = destination == MainNavigationListLocation.STORIES
+          )
+        )
       } else {
-        MediaSelectionActivity.camera(
-          context = this@MainActivity,
-          isStory = destination == MainNavigationListLocation.STORIES
+        startActivity(
+          MediaSelectionActivity.camera(
+            context = this@MainActivity,
+            isStory = destination == MainNavigationListLocation.STORIES
+          )
         )
       }
-      startActivity(intent)
     }
 
     if (CameraXUtil.isSupported()) {

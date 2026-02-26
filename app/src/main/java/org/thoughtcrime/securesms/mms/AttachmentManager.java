@@ -36,11 +36,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.ListenableFuture.Listener;
 import org.signal.core.util.concurrent.SettableFuture;
 import org.signal.core.util.logging.Log;
+import org.signal.core.ui.view.Stub;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AudioView;
 import org.thoughtcrime.securesms.components.DocumentView;
@@ -57,8 +59,8 @@ import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory;
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewCache;
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Fragment;
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity;
-import org.thoughtcrime.securesms.permissions.PermissionCompat;
-import org.thoughtcrime.securesms.permissions.Permissions;
+import org.signal.core.util.permissions.PermissionCompat;
+import org.signal.core.ui.permissions.Permissions;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.providers.DeprecatedPersistentBlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -66,10 +68,8 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
-import org.thoughtcrime.securesms.util.views.Stub;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -84,9 +84,9 @@ public class AttachmentManager {
 
   private final static String TAG = Log.tag(AttachmentManager.class);
 
-  private final @NonNull Context                    context;
-  private final @NonNull Stub<View>                 attachmentViewStub;
-  private final @NonNull AttachmentListener         attachmentListener;
+  private final @NonNull Context            context;
+  private final @NonNull Stub<View>         attachmentViewStub;
+  private final @NonNull AttachmentListener attachmentListener;
 
   private RemovableEditableMediaView removableMediaView;
   private ThumbnailView              thumbnail;
@@ -206,11 +206,11 @@ public class AttachmentManager {
     future.addListener(new AssertedSuccessListener<Bitmap>() {
       @Override
       public void onSuccess(@NonNull Bitmap result) {
-        byte[]        blob          = BitmapUtil.toByteArray(result);
-        Uri           uri           = BlobProvider.getInstance()
-                                                  .forData(blob)
-                                                  .withMimeType(MediaUtil.IMAGE_JPEG)
-                                                  .createForSingleSessionInMemory();
+        byte[] blob = BitmapUtil.toByteArray(result);
+        Uri uri = BlobProvider.getInstance()
+                              .forData(blob)
+                              .withMimeType(MediaUtil.IMAGE_JPEG)
+                              .createForSingleSessionInMemory();
         LocationSlide locationSlide = new LocationSlide(context, uri, blob.length, place);
 
         ThreadUtil.runOnMain(() -> {
@@ -388,6 +388,7 @@ public class AttachmentManager {
 
   public interface AttachmentListener {
     void onAttachmentChanged();
+
     void onLocationRemoved();
   }
 

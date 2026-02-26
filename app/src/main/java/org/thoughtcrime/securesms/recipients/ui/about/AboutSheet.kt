@@ -40,6 +40,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.os.bundleOf
 import androidx.core.widget.TextViewCompat
 import org.signal.core.ui.compose.BottomSheets
+import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
@@ -49,7 +50,6 @@ import org.thoughtcrime.securesms.AvatarPreviewActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
 import org.thoughtcrime.securesms.components.emoji.EmojiTextView
-import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.conversation.v2.UnverifiedProfileNameBottomSheet
 import org.thoughtcrime.securesms.groups.ui.incommon.GroupsInCommonActivity
 import org.thoughtcrime.securesms.nicknames.ViewNoteSheet
@@ -58,6 +58,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.settings.my.SignalConnectionsBottomSheetDialogFragment
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.viewModel
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Displays all relevant context you know for a given user on the sheet.
@@ -227,7 +228,7 @@ private fun Content(
             AndroidView(factory = ::EmojiTextView) {
               it.text = model.about
 
-              TextViewCompat.setTextAppearance(it, R.style.Signal_Text_BodyLarge)
+              TextViewCompat.setTextAppearance(it, CoreUiR.style.Signal_Text_BodyLarge)
 
               it.setTextColor(textColor.toArgb())
             }

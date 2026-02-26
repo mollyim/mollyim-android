@@ -16,6 +16,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.models.media.Media
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.Result
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.addTo
@@ -41,7 +42,6 @@ import org.thoughtcrime.securesms.sharing.MultiShareSender.MultiShareSendResultC
 import org.thoughtcrime.securesms.sharing.interstitial.ShareInterstitialActivity
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.visible
 import java.util.concurrent.TimeUnit
 import org.signal.core.ui.R as CoreUiR

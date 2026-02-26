@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.R as MaterialR
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
 import org.thoughtcrime.securesms.R
@@ -19,8 +20,8 @@ import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
 import org.thoughtcrime.securesms.stories.settings.custom.PrivateStoryItem
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Displays who can see a group story and gives the user an option to remove it.
@@ -86,7 +87,7 @@ class GroupStorySettingsFragment : DSLSettingsFragment(menuId = R.menu.story_gro
       textPref(
         title = DSLSettingsText.from(
           getString(R.string.GroupStorySettingsFragment__members_of_the_group_s, state.name),
-          DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
+          DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
           DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
         )
       )

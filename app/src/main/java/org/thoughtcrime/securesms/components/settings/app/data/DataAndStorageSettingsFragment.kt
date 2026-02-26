@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
@@ -23,7 +24,6 @@ import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
 import org.signal.core.util.bytes
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.mms.SentMediaQuality
 import org.thoughtcrime.securesms.util.SecurePreferenceManager

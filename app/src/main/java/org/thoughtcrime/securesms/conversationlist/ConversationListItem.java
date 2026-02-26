@@ -47,6 +47,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.makeramen.roundedimageview.RoundedDrawable;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.StringUtil;
 import org.signal.core.util.logging.Log;
@@ -73,7 +74,7 @@ import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.database.model.UpdateDescription;
 import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
 import org.thoughtcrime.securesms.glide.targets.GlideLiveDataTarget;
-import org.thoughtcrime.securesms.mms.DecryptableUri;
+import org.signal.glide.decryptableuri.DecryptableUri;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -85,8 +86,7 @@ import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.SearchUtil;
 import org.thoughtcrime.securesms.util.SignalE164Util;
 import org.thoughtcrime.securesms.util.SpanUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 
 import java.util.List;
@@ -663,12 +663,12 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
       String time = ExpirationUtil.getExpirationDisplayValue(context, seconds);
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_disappearing_message_time_updated_to_s, time), Glyph.TIMER, defaultTint);
     } else if (MessageTypes.isIdentityUpdate(thread.getType())) {
-      return emphasisAdded(recipientToStringAsync(thread.getRecipient().getId(), r -> {
-        if (r.isGroup()) {
-          return new SpannableString(context.getString(R.string.ThreadRecord_safety_number_changed));
-        } else {
-          return new SpannableString(context.getString(R.string.ThreadRecord_your_safety_number_with_s_has_changed, r.getDisplayName(context)));
-        }
+      RecipientId individualRecipientId = thread.getIndividualRecipientId();
+      if (individualRecipientId.isUnknown() || !thread.getRecipient().isGroup()) {
+        return emphasisAdded(context, context.getString(R.string.ThreadRecord_safety_number_changed), defaultTint);
+      }
+      return emphasisAdded(recipientToStringAsync(individualRecipientId, r -> {
+        return new SpannableString(context.getString(R.string.ThreadRecord_your_safety_number_with_s_has_changed, r.getDisplayName(context)));
       }));
     } else if (MessageTypes.isIdentityVerified(thread.getType())) {
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_you_marked_verified), defaultTint);

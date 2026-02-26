@@ -22,11 +22,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.StringUtil;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 
 public class BiometricDialogFragment extends DialogFragment {
 

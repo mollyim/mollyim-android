@@ -4,7 +4,7 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import org.thoughtcrime.securesms.util.ThemeUtil
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 
 /**

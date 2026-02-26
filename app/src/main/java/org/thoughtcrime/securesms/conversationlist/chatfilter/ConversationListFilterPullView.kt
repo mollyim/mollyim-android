@@ -15,11 +15,11 @@ import androidx.core.os.bundleOf
 import androidx.core.view.doOnNextLayout
 import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.getParcelableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener
 import org.thoughtcrime.securesms.databinding.ConversationListFilterPullViewBinding
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.VibrateUtil
 import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.doOnEachLayout

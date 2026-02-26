@@ -25,6 +25,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Dividers
@@ -33,7 +34,6 @@ import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.Texts
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore

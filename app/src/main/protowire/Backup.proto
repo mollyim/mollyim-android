@@ -134,6 +134,7 @@ message AccountData {
     AppTheme appTheme = 28;  // If unset, treat the same as "Unknown" case
     CallsUseLessDataSetting callsUseLessDataSetting = 29;  // If unset, treat the same as "Unknown" case
     bool allowSealedSenderFromAnyone = 30;
+    bool allowAutomaticKeyVerification = 31;
   }
 
   message SubscriberData {
@@ -180,6 +181,7 @@ message AccountData {
   AndroidSpecificSettings androidSpecificSettings = 12;
   string bioText = 13;
   string bioEmoji = 14;
+  optional bytes keyTransparencyData = 15;
 }
 
 message Recipient {
@@ -268,6 +270,7 @@ message Contact {
   string systemFamilyName = 19;
   string systemNickname = 20;
   optional AvatarColor avatarColor = 21;
+  optional bytes keyTransparencyData = 22;
 }
 
 message Group {
@@ -328,6 +331,8 @@ message Group {
     reserved /*profileKey*/ 3; // This field is ignored in Backups, in favor of Contact frames for members
     reserved /*presentation*/ 4; // This field is deprecated in the context of static group state
     uint32 joinedAtVersion = 5;
+    string labelEmoji = 6;
+    string labelString = 7;
   }
 
   message MemberPendingProfileKey {
@@ -402,7 +407,7 @@ message CallLink {
   string name = 3;
   Restrictions restrictions = 4;
   uint64 expirationMs = 5;
-  optional bytes epoch = 6; // May be absent/empty for older links
+  reserved /*epoch*/ 6;
 }
 
 message AdHocCall {

@@ -31,13 +31,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.ui.view.Stub;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.snackbars.SnackbarState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.main.MainNavigationListLocation;
 import org.thoughtcrime.securesms.main.MainSnackbarHostKey;
 import org.thoughtcrime.securesms.util.ConversationUtil;
-import org.thoughtcrime.securesms.util.views.Stub;
 
 import java.util.Set;
 
@@ -71,7 +71,7 @@ public class ConversationListArchiveFragment extends ConversationListFragment
 
     lifecycleDisposable.bindTo(getViewLifecycleOwner());
 
-    coordinator = view.findViewById(R.id.coordinator);
+    coordinator = view.findViewById(org.signal.core.ui.R.id.coordinator);
     list        = view.findViewById(R.id.list);
     emptyState  = new Stub<>(view.findViewById(R.id.empty_state));
     foldersList = view.findViewById(R.id.chat_folder_list);

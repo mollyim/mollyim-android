@@ -22,13 +22,14 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CallState;
+import org.thoughtcrime.securesms.ringrtc.Camera;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.webrtc.state.CallSetupState;
 import org.thoughtcrime.securesms.service.webrtc.state.VideoState;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.NetworkUtil;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.webrtc.locks.LockManager;
 import org.webrtc.PeerConnection;
 
@@ -134,6 +135,17 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
 
     Log.i(TAG, "handleAcceptCall(): call_id: " + activePeer.getCallId());
 
+    Camera camera = currentState.getVideoState().requireCamera();
+    camera.setVanitySink(null);
+
+    if (!answerWithVideo && currentState.getLocalDeviceState().getCameraState().isEnabled()) {
+      camera.setEnabled(false);
+      currentState = currentState.builder()
+                                 .changeLocalDeviceState()
+                                 .cameraState(camera.getCameraState())
+                                 .build();
+    }
+
     currentState = currentState.builder()
                                .changeCallSetupState(activePeer.getCallId())
                                .acceptWithVideo(answerWithVideo)
@@ -158,6 +170,11 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
 
     Log.i(TAG, "handleDenyCall():");
 
+    Camera camera = currentState.getVideoState().getCamera();
+    if (camera != null) {
+      camera.setVanitySink(null);
+    }
+
     webRtcInteractor.sendNotAcceptedCallEventSyncMessage(activePeer,
                                                          false,
                                                          currentState.getCallSetupState(activePeer).isRemoteVideoOffer());
@@ -169,6 +186,43 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
     } catch (CallException e) {
       return callFailure(currentState, "hangup() failed: ", e);
     }
+  }
+
+  @Override
+  protected @NonNull WebRtcServiceState handleSetIncomingRingingVanity(@NonNull WebRtcServiceState currentState, boolean enabled) {
+    RemotePeer activePeer = currentState.getCallInfoState().requireActivePeer();
+    boolean    isVideoOffer = currentState.getCallSetupState(activePeer).isRemoteVideoOffer();
+
+    if (!isVideoOffer) {
+      return currentState;
+    }
+
+    boolean cameraAlreadyEnabled = currentState.getLocalDeviceState().getCameraState().isEnabled();
+
+    if (enabled && cameraAlreadyEnabled) {
+      return currentState;
+    }
+
+    if (!enabled && !cameraAlreadyEnabled) {
+      return currentState;
+    }
+
+    Camera camera = currentState.getVideoState().requireCamera();
+
+    if (enabled) {
+      Log.i(TAG, "handleSetIncomingRingingVanity(): enabling vanity camera");
+      camera.setVanitySink(currentState.getVideoState().requireLocalSink());
+      camera.setEnabled(true);
+    } else {
+      Log.i(TAG, "handleSetIncomingRingingVanity(): disabling vanity camera");
+      camera.setVanitySink(null);
+      camera.setEnabled(false);
+    }
+
+    return currentState.builder()
+                       .changeLocalDeviceState()
+                       .cameraState(camera.getCameraState())
+                       .build();
   }
 
   protected @NonNull WebRtcServiceState handleLocalRinging(@NonNull WebRtcServiceState currentState, @NonNull RemotePeer remotePeer) {

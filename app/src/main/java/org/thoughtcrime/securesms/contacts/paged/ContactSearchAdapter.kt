@@ -12,6 +12,7 @@ import com.google.android.material.button.MaterialButton
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.BreakIteratorCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.fallback.FallbackAvatar
@@ -30,7 +31,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel

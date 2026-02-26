@@ -24,15 +24,14 @@ import org.thoughtcrime.securesms.R;
 import org.signal.core.models.media.Media;
 import org.signal.core.models.media.MediaFolder;
 import org.signal.core.models.media.TransformProperties;
-import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.signal.core.util.SqlUtil;
 import org.signal.core.util.Stopwatch;
-import org.thoughtcrime.securesms.util.StorageUtil;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.ui.util.StorageUtil;
+import org.signal.core.util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +46,7 @@ import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import kotlin.collections.MapsKt;
 
 /**
  * Handles the retrieval of media present on the user's device.
@@ -283,7 +283,7 @@ public class MediaRepository {
         long   size        = cursor.getLong(cursor.getColumnIndexOrThrow(Images.Media.SIZE));
         long   duration    = !isImage ? cursor.getInt(cursor.getColumnIndexOrThrow(Video.Media.DURATION)) : 0;
 
-        media.add(fixMimeType(context, new Media(uri, mimetype, date, width, height, size, duration, false, false, bucketId, null, TransformProperties.forSentMediaQuality(SignalStore.settings().getSentMediaQuality().getCode()), null)));
+        media.add(fixMimeType(context, new Media(uri, mimetype, date, width, height, size, duration, false, false, bucketId, null, TransformProperties.forSentMediaQuality(SignalStore.settings().getSentMediaQuality().code), null)));
       }
     }
 

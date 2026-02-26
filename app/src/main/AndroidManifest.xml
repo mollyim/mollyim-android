@@ -456,6 +456,15 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
 
         <activity
+            android:name="org.signal.mediasend.MediaSendActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
+
+        <activity
             android:name=".conversation.mutiselect.forward.MultiselectForwardActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
@@ -1226,6 +1235,11 @@
             android:foregroundServiceType="remoteMessaging" />
 
         <service
+            android:name=".service.WipeMemoryService"
+            android:exported="false"
+            android:foregroundServiceType="remoteMessaging" />
+
+        <service
             android:name=".messages.IncomingMessageObserver$ForegroundService"
             android:enabled="true"
             android:exported="false"
@@ -1346,9 +1360,8 @@
             android:foregroundServiceType="dataSync|microphone|camera" />
 
         <service
-            android:name=".service.WipeMemoryService"
-            android:exported="false"
-            android:foregroundServiceType="remoteMessaging" />
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+            tools:node="remove" />
 
         <!-- ======================================= -->
         <!-- Receivers                               -->
@@ -1400,7 +1413,7 @@
             android:exported="false" />
 
         <receiver
-            android:name=".payments.backup.phrase.ClearClipboardAlarmReceiver"
+            android:name="org.signal.core.util.ClearClipboardAlarmReceiver"
             android:exported="false" />
 
         <receiver

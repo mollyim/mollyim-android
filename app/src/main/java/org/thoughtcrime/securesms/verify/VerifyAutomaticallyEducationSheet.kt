@@ -19,14 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentManager
+import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.BottomSheetUtil
+import org.thoughtcrime.securesms.util.CommunicationActions
 
 /**
  * Education sheet explaining that conversations now have auto verification
@@ -51,8 +52,12 @@ class VerifyAutomaticallyEducationSheet : ComposeBottomSheetDialogFragment() {
   @Composable
   override fun SheetContent() {
     VerifyEducationSheet(
-      onVerify = {}, // TODO(michelle): Plug in to verify fragment
-      onLearnMore = {} // TODO(michelle): Update with support url
+      onVerify = {
+        dismissAllowingStateLoss()
+      },
+      onLearnMore = {
+        CommunicationActions.openBrowserLink(requireContext(), getString(R.string.verify_display_fragment__link))
+      }
     )
   }
 }
@@ -105,7 +110,7 @@ fun VerifyEducationSheet(
       Buttons.LargeTonal(
         onClick = onVerify
       ) {
-        Text(stringResource(id = R.string.VerifyAutomaticallyEducationSheet__verify))
+        Text(stringResource(id = R.string.VerifyAutomaticallyEducationSheet__continue))
       }
     }
   }

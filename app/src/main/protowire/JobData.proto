@@ -258,3 +258,7 @@ message UnpinJobData {
   repeated uint64 recipients = 2;
   uint32 initialRecipientCount = 3;
 }
+
+message CheckKeyTransparencyJobData{
+  bool showFailure = 1;
+}

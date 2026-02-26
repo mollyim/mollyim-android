@@ -50,7 +50,7 @@ import org.thoughtcrime.securesms.stories.Stories;
 import org.signal.core.util.Base64;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.MessageUtil;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -354,7 +354,7 @@ public final class MultiShareSender {
   private static Slide ensureDefaultQuality(@NonNull Context context, @NonNull ImageSlide imageSlide) {
     Attachment attachment = imageSlide.asAttachment();
     final TransformProperties transformProperties = attachment.transformProperties;
-    if (transformProperties != null && transformProperties.sentMediaQuality == SentMediaQuality.HIGH.getCode()) {
+    if (transformProperties != null && transformProperties.sentMediaQuality == SentMediaQuality.HIGH.code) {
       return new ImageSlide(
           context,
           attachment.getUri(),
@@ -445,7 +445,12 @@ public final class MultiShareSender {
       slideDeck.addSlide(new StickerSlide(context, multiShareArgs.getDataUri(), 0, multiShareArgs.getStickerLocator(), multiShareArgs.getDataType()));
     } else if (!multiShareArgs.getMedia().isEmpty()) {
       for (Media media : multiShareArgs.getMedia()) {
-        Slide slide = SlideFactory.getSlide(context, media.getContentType(), media.getUri(), media.getWidth(), media.getHeight(), media.getTransformProperties());
+        Slide slide;
+        if (media.isBorderless() && MediaUtil.isImageType(media.getContentType())) {
+          slide = new ImageSlide(context, media.getUri(), media.getContentType(), media.getSize(), media.getWidth(), media.getHeight(), true, media.getCaption(), null, media.getTransformProperties());
+        } else {
+          slide = SlideFactory.getSlide(context, media.getContentType(), media.getUri(), media.getWidth(), media.getHeight(), media.getTransformProperties());
+        }
         if (slide != null) {
           slideDeck.addSlide(slide);
         } else {

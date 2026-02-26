@@ -11,8 +11,8 @@ plugins {
   id("signal-locales")
 }
 
-val canonicalVersionCode = 1644
-val canonicalVersionName = "7.72.2"
+val canonicalVersionCode = 1654
+val canonicalVersionName = "8.0.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1
@@ -138,7 +138,8 @@ android {
         "META-INF/LICENSE-notice.md",
         "META-INF/proguard/androidx-annotations.pro",
         "**/*.dylib",
-        "**/*.dll"
+        "**/*.dll",
+        "**/*.proto"
       )
     }
   }
@@ -181,7 +182,7 @@ android {
     vectorDrawables.useSupportLibrary = true
 
     // MOLLY: BUILD_TIMESTAMP may be zero in debug builds.
-    buildConfigField("long", "BUILD_OR_ZERO_TIMESTAMP", getLastCommitTimestamp() + "L")
+    buildConfigField("long", "BUILD_TIMESTAMP_OR_ZERO", getLastCommitTimestamp() + "L")
     buildConfigField("String", "GIT_HASH", "\"${getGitHash()}\"")
     // MOLLY: Ensure to add any new URLs to SignalServiceNetworkAccess.HOSTNAMES list
     buildConfigField("String", "SIGNAL_URL", "\"https://chat.signal.org\"")
@@ -219,7 +220,7 @@ android {
     buildConfigField("String", "STRIPE_BASE_URL", "\"https://api.stripe.com/v1\"")
     buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_live_6cmGZopuTsV8novGgJJW9JpC00vLIgtQ1D\"")
     buildConfigField("boolean", "TRACING_ENABLED", "false")
-    buildConfigField("boolean", "USE_STRING_ID", "true")
+    buildConfigField("boolean", "USE_STRING_ID", "false")
 
     ndk {
       //noinspection ChromeOsAbiSupport
@@ -258,7 +259,7 @@ android {
         "proguard/proguard.cfg"
       )
 
-      buildConfigField("long", "BUILD_OR_ZERO_TIMESTAMP", "0L")
+      buildConfigField("long", "BUILD_TIMESTAMP_OR_ZERO", "0L")
       buildConfigField("String", "GIT_HASH", "\"abc123def456\"")
     }
 
@@ -321,7 +322,6 @@ android {
       buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\"")
       buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.STAGING")
       buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.DEBUG")
-      buildConfigField("boolean", "USE_STRING_ID", "false")
       buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\"")
     }
   }
@@ -331,6 +331,7 @@ android {
     baseline = file("lint-baseline.xml")
     ignoreWarnings = true
     quiet = true
+    lintConfig = rootProject.file("lint.xml")
   }
 
   androidComponents {
@@ -402,9 +403,12 @@ dependencies {
   implementation(project(":lib:qr"))
   implementation(project(":lib:sticky-header-grid"))
   implementation(project(":lib:photoview"))
+  implementation(project(":lib:blurhash"))
   implementation(project(":core:ui"))
   implementation(project(":core:models"))
   implementation(project(":core:models-jvm"))
+  implementation(project(":feature:camera"))
+  implementation(project(":feature:registration"))
 
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.androidx.appcompat) {
@@ -510,6 +514,8 @@ dependencies {
   implementation(libs.rxdogtag)
   implementation(libs.androidx.credentials)
   implementation(libs.kotlinx.serialization.json)
+
+  implementation(project(":feature:media-send"))
 
   implementation(project(":lib:netcipher"))
   implementation(libs.molly.argon2) { artifact { type = "aar" } }

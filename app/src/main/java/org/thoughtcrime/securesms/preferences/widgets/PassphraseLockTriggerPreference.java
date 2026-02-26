@@ -1,7 +1,8 @@
 package org.thoughtcrime.securesms.preferences.widgets;
 
 import androidx.annotation.NonNull;
-import org.thoughtcrime.securesms.util.Util;
+
+import org.signal.core.util.Util;
 
 import java.util.Set;
 

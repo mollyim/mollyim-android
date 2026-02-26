@@ -5,6 +5,7 @@ import android.media.MediaCodecInfo;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.Surface;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,8 @@ final class VideoTrackConverter {
     private static final String MEDIA_FORMAT_KEY_DISPLAY_HEIGHT = "display-height";
 
     private static final float FRAME_RATE_TOLERANCE = 0.05f; // tolerance for transcoding VFR -> CFR
+
+    private static final String VENDOR_DOLBY_CODEC_TRANSFER_PARAMKEY = "vendor.dolby.codec.transfer.value";
 
     private final long mTimeFrom;
     private final long mTimeTo;
@@ -147,35 +150,15 @@ final class VideoTrackConverter {
             outputHeightRotated = outputHeight;
         }
 
-        final ColorInfo colorInfo = preDecodeColorInfo(mVideoExtractor, inputVideoFormat);
-        // IMPORTANT: reset extractor after probing
-        mVideoExtractor.unselectTrack(videoInputTrack);
-        mVideoExtractor.selectTrack(videoInputTrack);
-        mVideoExtractor.seekTo(0, MediaExtractor.SEEK_TO_CLOSEST_SYNC);
         final MediaFormat outputVideoFormat = MediaFormat.createVideoFormat(videoCodec, outputWidthRotated, outputHeightRotated);
 
         // Set some properties. Failing to specify some of these can cause the MediaCodec
         // configure() call to throw an unhelpful exception.
-
-        // Apply extracted color info to encoder
-        if (colorInfo.colorStandard != null) {
-            outputVideoFormat.setInteger(MediaFormat.KEY_COLOR_STANDARD, colorInfo.colorStandard);
-        }
-        if (colorInfo.colorTransfer != null) {
-            outputVideoFormat.setInteger(MediaFormat.KEY_COLOR_TRANSFER, colorInfo.colorTransfer);
-        }
-        if (colorInfo.colorRange != null) {
-            outputVideoFormat.setInteger(MediaFormat.KEY_COLOR_RANGE, colorInfo.colorRange);
-        }
-
         outputVideoFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface);
         outputVideoFormat.setInteger(MediaFormat.KEY_BIT_RATE, videoBitrate);
         outputVideoFormat.setInteger(MediaFormat.KEY_BITRATE_MODE, MediaCodecInfo.EncoderCapabilities.BITRATE_MODE_CBR);
         outputVideoFormat.setInteger(MediaFormat.KEY_FRAME_RATE, OUTPUT_VIDEO_FRAME_RATE);
         outputVideoFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, OUTPUT_VIDEO_IFRAME_INTERVAL);
-        if (Build.VERSION.SDK_INT >= 31 && isHdr(inputVideoFormat)) {
-            outputVideoFormat.setInteger(MediaFormat.KEY_COLOR_TRANSFER_REQUEST, MediaFormat.COLOR_TRANSFER_SDR_VIDEO);
-        }
         if (VERBOSE) Log.d(TAG, "video format: " + outputVideoFormat);
 
         // Create a MediaCodec for the desired codec, then configure it as an encoder with
@@ -201,82 +184,6 @@ final class VideoTrackConverter {
         if (mTimeFrom > 0) {
             mVideoExtractor.seekTo(mTimeFrom * 1000, MediaExtractor.SEEK_TO_PREVIOUS_SYNC);
             Log.i(TAG, "Seek video:" + mTimeFrom + " " + mVideoExtractor.getSampleTime());
-        }
-    }
-
-  private ColorInfo preDecodeColorInfo(MediaExtractor extractor, MediaFormat inputFormat) throws IOException {
-    MediaCodec decoder = MediaCodec.createDecoderByType(inputFormat.getString(MediaFormat.KEY_MIME));
-    decoder.configure(inputFormat, null, null, 0);
-    decoder.start();
-
-    MediaCodec.BufferInfo info = new MediaCodec.BufferInfo();
-    boolean outputFormatKnown = false;
-    Integer colorStandard = null, colorTransfer = null, colorRange = null;
-
-    boolean inputDone = false;
-
-    while (!outputFormatKnown) {
-
-      // ---- FEED INPUT ----
-      if (!inputDone) {
-        int inIndex = decoder.dequeueInputBuffer(20000);
-        if (inIndex >= 0) {
-          ByteBuffer inputBuffer = decoder.getInputBuffer(inIndex);
-          int sampleSize = extractor.readSampleData(inputBuffer, 0);
-
-          if (sampleSize < 0) {
-            decoder.queueInputBuffer(
-                inIndex, 0, 0, 0, MediaCodec.BUFFER_FLAG_END_OF_STREAM
-            );
-            inputDone = true;
-          } else {
-            long pts = extractor.getSampleTime();
-            decoder.queueInputBuffer(inIndex, 0, sampleSize, pts, 0);
-            extractor.advance();
-          }
-        }
-      }
-
-      // ---- DRAIN OUTPUT ----
-      int outIndex = decoder.dequeueOutputBuffer(info, 20000);
-
-      if (outIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
-        MediaFormat fmt = decoder.getOutputFormat();
-        if (fmt.containsKey(MediaFormat.KEY_COLOR_STANDARD))
-          colorStandard = fmt.getInteger(MediaFormat.KEY_COLOR_STANDARD);
-        if (fmt.containsKey(MediaFormat.KEY_COLOR_TRANSFER))
-          colorTransfer = fmt.getInteger(MediaFormat.KEY_COLOR_TRANSFER);
-        if (fmt.containsKey(MediaFormat.KEY_COLOR_RANGE))
-          colorRange = fmt.getInteger(MediaFormat.KEY_COLOR_RANGE);
-        outputFormatKnown = true;
-      } else if (outIndex >= 0) {
-        // We won't render, but must release output buffers
-        decoder.releaseOutputBuffer(outIndex, false);
-      }
-
-      // If EOS reached and still no format → decoder doesn’t provide it
-      if (inputDone && outIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {
-        break;
-      }
-    }
-
-    decoder.stop();
-    decoder.release();
-
-    return new ColorInfo(colorStandard, colorTransfer, colorRange);
-  }
-
-
-  private boolean isHdr(MediaFormat inputVideoFormat) {
-        if (Build.VERSION.SDK_INT < 24) {
-            return false;
-        }
-        try {
-            final int colorInfo = inputVideoFormat.getInteger(MediaFormat.KEY_COLOR_TRANSFER);
-            return colorInfo == MediaFormat.COLOR_TRANSFER_ST2084 || colorInfo == MediaFormat.COLOR_TRANSFER_HLG;
-        } catch (NullPointerException npe) {
-            // color transfer key does not exist, no color data supplied
-            return false;
         }
     }
 
@@ -573,8 +480,28 @@ final class VideoTrackConverter {
             final @NonNull Surface surface) {
         final Pair<MediaCodec, MediaFormat> decoderPair = MediaCodecCompat.findDecoder(inputFormat);
         final MediaCodec                    decoder     = decoderPair.getFirst();
+
+        // For HDR video, request SDR tone-mapping from the decoder. Only do this for HDR content
+        // (PQ or HLG transfer), as some hardware decoders (e.g. Qualcomm HEVC) crash when this is
+        // set on non-HDR video.
+        final boolean isHdr = MediaCodecCompat.isHdrVideo(decoderPair.getSecond());
+        if (Build.VERSION.SDK_INT >= 31 && isHdr) {
+          decoderPair.getSecond().setInteger(MediaFormat.KEY_COLOR_TRANSFER_REQUEST, MediaFormat.COLOR_TRANSFER_SDR_VIDEO);
+        }
         decoder.configure(decoderPair.getSecond(), surface, null, 0);
         decoder.start();
+        if (Build.VERSION.SDK_INT >= 31 && isHdr) {
+          try {
+            MediaCodec.ParameterDescriptor descriptor = decoder.getParameterDescriptor(VENDOR_DOLBY_CODEC_TRANSFER_PARAMKEY);
+            if (descriptor != null) {
+              Bundle transferBundle = new Bundle();
+              transferBundle.putString(VENDOR_DOLBY_CODEC_TRANSFER_PARAMKEY, "transfer.sdr.normal");
+              decoder.setParameters(transferBundle);
+            }
+          } catch (IllegalStateException e) {
+            Log.w(TAG, "Failed to set Dolby Vision transfer parameter", e);
+          }
+        }
         return decoder;
     }
 
@@ -625,16 +552,5 @@ final class VideoTrackConverter {
         return MediaConverter.getMimeTypeFor(format).startsWith("video/");
     }
 
-    private class ColorInfo {
-        public final Integer colorStandard;
-        public final Integer colorTransfer;
-        public final Integer colorRange;
-
-        public ColorInfo(Integer colorSpace, Integer transfer, Integer primaries) {
-          this.colorStandard = colorSpace;
-          this.colorTransfer = transfer;
-          this.colorRange    = primaries;
-        }
-    }
 }
 

@@ -58,6 +58,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
@@ -67,6 +68,7 @@ import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.TextFields.TextField
 import org.signal.core.util.Base64
 import org.signal.core.util.Hex
+import org.signal.core.util.Util
 import org.signal.core.util.getLength
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
@@ -74,7 +76,6 @@ import org.thoughtcrime.securesms.backup.v2.ui.BackupAlert
 import org.thoughtcrime.securesms.backup.v2.ui.BackupAlertBottomSheet
 import org.thoughtcrime.securesms.components.settings.app.internal.backup.InternalBackupPlaygroundViewModel.DialogState
 import org.thoughtcrime.securesms.components.settings.app.internal.backup.InternalBackupPlaygroundViewModel.ScreenState
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.ArchiveAttachmentBackfillJob
 import org.thoughtcrime.securesms.jobs.ArchiveAttachmentReconciliationJob
@@ -84,7 +85,6 @@ import org.thoughtcrime.securesms.jobs.LocalBackupJob
 import org.thoughtcrime.securesms.keyvalue.BackupValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.registration.ui.restore.local.InternalNewLocalRestoreActivity
-import org.thoughtcrime.securesms.util.Util
 
 class InternalBackupPlaygroundFragment : ComposeFragment() {
 

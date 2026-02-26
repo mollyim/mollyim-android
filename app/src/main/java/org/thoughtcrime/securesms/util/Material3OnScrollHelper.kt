@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import com.google.android.material.appbar.AppBarLayout
-import org.thoughtcrime.securesms.util.views.Stub
+import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.view.Stub
 
 /**
  * Sets the view's isActivated state when the content of the attached recycler can scroll up.

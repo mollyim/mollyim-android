@@ -55,11 +55,11 @@ import org.signal.core.ui.compose.AllNightPreviews
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.TriggerAlignedPopupState
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.DimensionUnit
 import org.thoughtcrime.securesms.components.emoji.EmojiStrings
 import org.thoughtcrime.securesms.components.webrtc.WebRtcLocalRenderState
 import org.thoughtcrime.securesms.components.webrtc.controls.RaiseHandSnackbar
-import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsPalette
 import org.thoughtcrime.securesms.events.CallParticipant
 import org.thoughtcrime.securesms.events.CallParticipantId
@@ -125,7 +125,8 @@ fun CallScreen(
       callRecipient = callRecipient,
       isVideoCall = isRemoteVideoOffer,
       callStatus = callScreenState.callStatus,
-      callScreenControlsListener = callScreenControlsListener
+      callScreenControlsListener = callScreenControlsListener,
+      localParticipant = localParticipant
     )
 
     return
@@ -380,6 +381,15 @@ fun CallScreen(
                       .padding(vertical = 16.dp)
                       .height(metrics.overflowParticipantRendererSize)
                 }
+              )
+            }
+          },
+          audioIndicatorSlot = {
+            if (callParticipantsPagerState.callParticipants.size == 1) {
+              val participant = callParticipantsPagerState.callParticipants.first()
+              ParticipantAudioIndicator(
+                participant = participant,
+                selfPipMode = SelfPipMode.NOT_SELF_PIP
               )
             }
           },

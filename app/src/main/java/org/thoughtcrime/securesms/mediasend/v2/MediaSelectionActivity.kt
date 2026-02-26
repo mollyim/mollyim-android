@@ -24,6 +24,7 @@ import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.signal.core.models.media.Media
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.BreakIteratorCompat
 import org.signal.core.util.OVERRIDE_TRANSITION_CLOSE_COMPAT
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -51,7 +52,6 @@ import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.FullscreenHelper
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.visible

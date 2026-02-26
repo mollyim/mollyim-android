@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.manage
 import android.text.method.LinkMovementMethod
 import android.widget.ProgressBar
 import android.widget.TextView
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.money.FiatMoney
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
@@ -12,7 +13,6 @@ import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.subscription.Subscription
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingViewHolder
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter

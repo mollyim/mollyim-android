@@ -10,6 +10,7 @@ import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.BidiUtil;
 import org.signal.storageservice.storage.protos.groups.AccessControl;
 import org.signal.storageservice.storage.protos.groups.Member;
@@ -64,7 +65,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.SpanUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.signal.core.models.ServiceId;
 import org.whispersystems.signalservice.api.push.ServiceIds;

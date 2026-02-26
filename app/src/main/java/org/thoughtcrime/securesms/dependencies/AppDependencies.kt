@@ -4,14 +4,19 @@ import android.annotation.SuppressLint
 import android.app.Application
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
+import org.signal.core.ui.CoreUiDependencies
+import org.signal.core.util.CoreUtilDependencies
 import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.concurrent.LatestValueObservable
 import org.signal.core.util.resettableLazy
+import org.signal.glide.SignalGlideDependencies
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
+import org.signal.mediasend.MediaSendDependencies
 import org.thoughtcrime.securesms.ApplicationContext
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
 import org.thoughtcrime.securesms.crypto.storage.SignalServiceDataStoreImpl
@@ -95,6 +100,17 @@ object AppDependencies {
 
     _application = application
     AppDependencies.provider = provider
+
+    CoreUtilDependencies.init(
+      application,
+      CoreUtilDependenciesProvider,
+      CoreUtilDependencies.BuildInfo(
+        buildTimestamp = BuildConfig.BUILD_TIMESTAMP_OR_ZERO.takeUnless { it == 0L }
+      )
+    )
+    CoreUiDependencies.init(application, CoreUiDependenciesProvider)
+    SignalGlideDependencies.init(application, SignalGlideDependenciesProvider)
+    MediaSendDependencies.init(application, MediaSendDependenciesProvider)
   }
 
   @JvmStatic
@@ -362,6 +378,9 @@ object AppDependencies {
   val donationsApi: DonationsApi
     get() = networkModule.donationsApi
 
+  val keyTransparencyApi: KeyTransparencyApi
+    get() = networkModule.keyTransparencyApi
+
   @JvmStatic
   val okHttpClient: OkHttpClient
     get() = networkModule.okHttpClient
@@ -448,5 +467,6 @@ object AppDependencies {
     fun provideRemoteConfigApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, pushServiceSocket: PushServiceSocket): RemoteConfigApi
     fun provideDonationsApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): DonationsApi
     fun provideSvrBApi(libSignalNetwork: Network): SvrBApi
+    fun provideKeyTransparencyApi(unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): KeyTransparencyApi
   }
 }

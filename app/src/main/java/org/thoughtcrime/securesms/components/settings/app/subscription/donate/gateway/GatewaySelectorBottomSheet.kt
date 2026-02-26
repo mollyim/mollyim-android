@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.R as MaterialR
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
 import org.signal.donations.InAppPaymentType
@@ -27,7 +28,6 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.payments.currency.CurrencyUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.viewModel
 import org.signal.core.ui.R as CoreUiR
 

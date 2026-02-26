@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversationlist.chatfilter.ConversationFilterRequest
@@ -19,7 +20,6 @@ import org.thoughtcrime.securesms.stories.settings.my.MyStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.privacy.ChooseInitialMyStoryMembershipBottomSheetDialogFragment
 import org.thoughtcrime.securesms.util.Debouncer
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 import java.util.concurrent.TimeUnit
@@ -42,6 +42,7 @@ class ContactSearchMediator(
   private val fragment: Fragment,
   private val fixedContacts: Set<ContactSearchKey> = setOf(),
   selectionLimits: SelectionLimits,
+  private val isMultiSelect: Boolean = true,
   displayOptions: ContactSearchAdapter.DisplayOptions,
   mapStateToConfiguration: (ContactSearchState) -> ContactSearchConfiguration,
   private val callbacks: Callbacks = SimpleCallbacks(),
@@ -60,6 +61,7 @@ class ContactSearchMediator(
     fragment,
     ContactSearchViewModel.Factory(
       selectionLimits = selectionLimits,
+      isMultiSelect = isMultiSelect,
       repository = ContactSearchRepository(),
       performSafetyNumberChecks = performSafetyNumberChecks,
       arbitraryRepository = arbitraryRepository,

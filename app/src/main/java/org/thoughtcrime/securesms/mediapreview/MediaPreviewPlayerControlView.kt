@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.model.KeyPath
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.MediaUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.visible
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds

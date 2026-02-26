@@ -11,6 +11,7 @@ import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.BidiUtil
+import org.signal.core.util.Util
 import org.signal.core.util.UuidUtil
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
@@ -49,7 +50,6 @@ import org.thoughtcrime.securesms.recipients.Recipient.Companion.external
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.UsernameUtil.isValidUsernameForSearch
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.util.OptionalUtil
@@ -120,7 +120,8 @@ class Recipient(
   private val groupRecord: Optional<GroupRecord> = Optional.empty(),
   val phoneNumberSharing: PhoneNumberSharingState = PhoneNumberSharingState.UNKNOWN,
   val nickname: ProfileName = ProfileName.EMPTY,
-  val note: String? = null
+  val note: String? = null,
+  val keyTransparencyData: ByteArray? = null
 ) {
 
   /** The recipient's [ServiceId], which could be either an [ACI] or [PNI]. */
@@ -808,7 +809,6 @@ class Recipient(
       profileAvatar == other.profileAvatar &&
       notificationChannelValue == other.notificationChannelValue &&
       sealedSenderAccessModeValue == other.sealedSenderAccessModeValue &&
-      storageId.contentEquals(other.storageId) &&
       mentionSetting == other.mentionSetting &&
       wallpaperValue == other.wallpaperValue &&
       chatColorsValue == other.chatColorsValue &&
@@ -822,7 +822,8 @@ class Recipient(
       callLinkRoomId == other.callLinkRoomId &&
       phoneNumberSharing == other.phoneNumberSharing &&
       nickname == other.nickname &&
-      note == other.note
+      note == other.note &&
+      keyTransparencyData.contentEquals(other.keyTransparencyData)
   }
 
   override fun equals(other: Any?): Boolean {

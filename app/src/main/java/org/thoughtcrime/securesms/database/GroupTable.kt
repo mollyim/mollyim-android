@@ -659,7 +659,7 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) :
     val membershipValues = mutableListOf<ContentValues>()
     val groupRecipientId = recipients.getOrInsertFromGroupId(groupId)
     val members: List<RecipientId> = memberCollection.toSet().sorted()
-    var groupMembers: List<RecipientId> = members
+    var groupMembers: Collection<RecipientId> = members
 
     val values = ContentValues()
 
@@ -815,7 +815,7 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) :
     val groupMembers = getV2GroupMembers(decryptedGroup, true)
     var groupSendEndorsementRecords: GroupSendEndorsementRecords? = receivedGroupSendEndorsements?.toGroupSendEndorsementRecords() ?: getGroupSendEndorsements(groupId)
 
-    val addedMembers: List<RecipientId> = if (existingGroup.isPresent && existingGroup.get().isV2Group) {
+    val addedMembers: Collection<RecipientId> = if (existingGroup.isPresent && existingGroup.get().isV2Group) {
       val change = GroupChangeReconstruct.reconstructGroupChange(existingGroup.get().requireV2GroupProperties().decryptedGroup, decryptedGroup)
       val removed: List<ServiceId> = DecryptedGroupUtil.removedMembersServiceIdList(change)
 
@@ -1278,11 +1278,28 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) :
      * Gets the member label for a specific member in the group, or null if the member is not found.
      */
     fun memberLabel(aci: ACI): MemberLabel? {
-      return decryptedGroup
+      val member = decryptedGroup
         .members
         .findMemberByAci(aci)
         .orNull()
-        ?.let { member -> MemberLabel(member.labelEmoji, member.labelString) }
+
+      return if (member != null && member.labelString.isNotBlank()) {
+        MemberLabel(member.labelEmoji, member.labelString)
+      } else {
+        null
+      }
+    }
+
+    /**
+     * Gets all member labels in the group. Only includes members that have a non-blank label.
+     */
+    fun memberLabelsByAci(): Map<ACI, MemberLabel> = buildMap {
+      decryptedGroup.members.forEach { member ->
+        if (member.labelString.isNotBlank()) {
+          val aci = ACI.parseOrNull(member.aciBytes) ?: return@forEach
+          put(aci, MemberLabel(member.labelEmoji, member.labelString))
+        }
+      }
     }
   }
 
@@ -1403,7 +1420,7 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) :
       .toMutableList()
   }
 
-  private fun getV2GroupMembers(decryptedGroup: DecryptedGroup, shouldRetry: Boolean): List<RecipientId> {
+  private fun getV2GroupMembers(decryptedGroup: DecryptedGroup, shouldRetry: Boolean): Set<RecipientId> {
     val ids: List<RecipientId> = decryptedGroup.members.toAciList().toRecipientIds()
 
     return if (RemappedRecords.getInstance().areAnyRemapped(ids)) {
@@ -1416,7 +1433,7 @@ class GroupTable(context: Context?, databaseHelper: SignalDatabase?) :
         throw IllegalStateException("Remapped records in group membership!")
       }
     } else {
-      ids
+      ids.toSet()
     }
   }
 

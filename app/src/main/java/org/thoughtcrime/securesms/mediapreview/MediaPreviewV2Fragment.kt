@@ -40,10 +40,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.signal.core.models.media.Media
+import org.signal.core.ui.logging.LoggingFragment
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.addTo
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.LoggingFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.AttachmentSaver
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
@@ -55,6 +56,7 @@ import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectFor
 import org.thoughtcrime.securesms.database.DatabaseObserver
 import org.thoughtcrime.securesms.database.MediaTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.databinding.FragmentMediaPreviewV2Binding
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mediapreview.caption.ExpandingCaptionView
@@ -72,12 +74,12 @@ import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
 import org.thoughtcrime.securesms.util.SaveAttachmentUtil
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
+import org.signal.core.ui.R as CoreUiR
 
 class MediaPreviewV2Fragment :
   LoggingFragment(R.layout.fragment_media_preview_v2),
@@ -164,8 +166,8 @@ class MediaPreviewV2Fragment :
       requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
-    toolbar.setTitleTextAppearance(requireContext(), R.style.Signal_Text_TitleMedium)
-    toolbar.setSubtitleTextAppearance(requireContext(), R.style.Signal_Text_BodyMedium)
+    toolbar.setTitleTextAppearance(requireContext(), CoreUiR.style.Signal_Text_TitleMedium)
+    toolbar.setSubtitleTextAppearance(requireContext(), CoreUiR.style.Signal_Text_BodyMedium)
     (binding.toolbar.menu as? MenuBuilder)?.setOptionalIconsVisible(true)
     binding.toolbar.inflateMenu(R.menu.media_preview)
   }
@@ -612,13 +614,23 @@ class MediaPreviewV2Fragment :
       return
     }
 
+    val messageRecord = SignalDatabase.messages.getMessageRecord(attachment.mmsId)
+    val isNoteToSelf = messageRecord.isOutgoing && messageRecord.toRecipient.isSelf
+
     MaterialAlertDialogBuilder(requireContext()).apply {
       setIcon(R.drawable.symbol_error_triangle_fill_24)
       setTitle(R.string.MediaPreviewActivity_media_delete_confirmation_title)
       setMessage(R.string.MediaPreviewActivity_media_delete_confirmation_message)
       setCancelable(true)
       setNegativeButton(android.R.string.cancel, null)
-      setPositiveButton(R.string.ConversationFragment_delete_for_me) { _, _ ->
+
+      val deleteButtonLabel = if (isNoteToSelf) {
+        R.string.ConversationFragment_delete
+      } else {
+        R.string.ConversationFragment_delete_for_me
+      }
+
+      setPositiveButton(deleteButtonLabel) { _, _ ->
         lifecycleDisposable += viewModel.localDelete(requireContext(), attachment)
           .observeOn(AndroidSchedulers.mainThread())
           .subscribeBy(
@@ -633,7 +645,7 @@ class MediaPreviewV2Fragment :
           )
       }
 
-      if (canRemotelyDelete(attachment)) {
+      if (canRemotelyDelete(attachment, messageRecord) && !isNoteToSelf) {
         setNeutralButton(R.string.ConversationFragment_delete_for_everyone) { _, _ ->
           lifecycleDisposable += viewModel.remoteDelete(attachment)
             .observeOn(AndroidSchedulers.mainThread())
@@ -652,10 +664,10 @@ class MediaPreviewV2Fragment :
     }.show()
   }
 
-  private fun canRemotelyDelete(attachment: DatabaseAttachment): Boolean {
+  private fun canRemotelyDelete(attachment: DatabaseAttachment, messageRecord: MessageRecord): Boolean {
     val mmsId = attachment.mmsId
     val attachmentCount = SignalDatabase.attachments.getAttachmentsForMessage(mmsId).size
-    return attachmentCount <= 1 && MessageConstraintsUtil.isValidRemoteDeleteSend(listOf(SignalDatabase.messages.getMessageRecord(mmsId)), System.currentTimeMillis())
+    return attachmentCount <= 1 && MessageConstraintsUtil.isValidRemoteDeleteSend(listOf(messageRecord), System.currentTimeMillis())
   }
 
   private fun editMediaItem(currentItem: MediaTable.MediaRecord) {

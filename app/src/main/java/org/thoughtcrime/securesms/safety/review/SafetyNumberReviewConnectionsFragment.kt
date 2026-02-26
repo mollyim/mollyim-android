@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import org.signal.core.ui.util.ThemeUtil
 import com.google.android.material.R as MaterialR
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
@@ -20,9 +21,9 @@ import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheetViewModel
 import org.thoughtcrime.securesms.safety.SafetyNumberBucket
 import org.thoughtcrime.securesms.safety.SafetyNumberBucketRowItem
 import org.thoughtcrime.securesms.safety.SafetyNumberRecipientRowItem
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.verify.VerifyIdentityFragment
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Full-screen fragment which displays the list of users who have safety number changes.
@@ -60,7 +61,7 @@ class SafetyNumberReviewConnectionsFragment : DSLSettingsFragment(
       textPref(
         title = DSLSettingsText.from(
           resources.getQuantityString(R.plurals.SafetyNumberReviewConnectionsFragment__d_recipients_may_have, recipientCount, recipientCount),
-          DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
+          DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
           DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
         )
       )

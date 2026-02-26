@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.color.DynamicColors;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.keyvalue.SettingsValues.Theme;

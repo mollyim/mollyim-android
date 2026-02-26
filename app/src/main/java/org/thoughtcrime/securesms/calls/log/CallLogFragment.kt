@@ -21,7 +21,10 @@ import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.kotlin.Flowables
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.launch
+import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.compose.Snackbars
+import org.signal.core.ui.getWindowSizeClass
+import org.signal.core.ui.isSplitPane
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.addTo
@@ -56,14 +59,11 @@ import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.doAfterNextLayout
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.visible
-import org.thoughtcrime.securesms.window.getWindowSizeClass
-import org.thoughtcrime.securesms.window.isSplitPane
 import java.util.Objects
 import org.signal.core.ui.R as CoreUiR
 

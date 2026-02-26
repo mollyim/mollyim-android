@@ -14,7 +14,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.Velocity
 import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import org.thoughtcrime.securesms.util.ThemeUtil
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import kotlin.math.abs
 

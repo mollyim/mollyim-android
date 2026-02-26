@@ -44,7 +44,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DateUtils;
-import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -136,6 +135,7 @@ public final class Megaphones {
       put(Event.PNP_LAUNCH, shouldShowPnpLaunchMegaphone() ? ALWAYS : NEVER);
       put(Event.TURN_ON_SIGNAL_BACKUPS, shouldShowTurnOnBackupsMegaphone(context) ? new RecurringSchedule(TimeUnit.DAYS.toMillis(30), TimeUnit.DAYS.toMillis(90)) : NEVER);
       put(Event.VERIFY_BACKUP_KEY, new VerifyBackupKeyReminderSchedule());
+      put(Event.USE_NEW_ON_DEVICE_BACKUPS, shouldShowUseNewOnDeviceBackupsMegaphone() ? ALWAYS : NEVER);
     }};
   }
 
@@ -193,6 +193,8 @@ public final class Megaphones {
         return buildTurnOnSignalBackupsMegaphone();
       case VERIFY_BACKUP_KEY:
         return buildVerifyBackupKeyMegaphone();
+      case USE_NEW_ON_DEVICE_BACKUPS:
+        return buildUseNewOnDeviceBackupsMegaphone();
       default:
         throw new IllegalArgumentException("Event not handled!");
     }
@@ -444,6 +446,13 @@ public final class Megaphones {
            VersionTracker.getDaysSinceFirstInstalled(context) > 0;
   }
 
+  private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {
+    long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(event, records);
+
+    return timeSinceLastDonatePrompt > MIN_TIME_BETWEEN_DONATE_MEGAPHONES &&
+           VersionTracker.getDaysSinceFirstInstalled(context) >= 7;
+  }
+
   public static @NonNull Megaphone buildSetUpYourUsernameMegaphone(@NonNull Context context) {
     return new Megaphone.Builder(Event.SET_UP_YOUR_USERNAME, Megaphone.Style.BASIC)
         .setTitle(R.string.NewWaysToConnectDialogFragment__new_ways_to_connect)
@@ -536,11 +545,21 @@ public final class Megaphones {
     return builder.build();
   }
 
-  private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {
-    long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(event, records);
+  public static @NonNull Megaphone buildUseNewOnDeviceBackupsMegaphone() {
+    return new Megaphone.Builder(Event.USE_NEW_ON_DEVICE_BACKUPS, Megaphone.Style.BASIC)
+        .setImage(R.drawable.backups_megaphone_image)
+        .setTitle(R.string.UseNewOnDeviceBackups__title)
+        .setBody(R.string.UseNewOnDeviceBackups__body)
+        .setActionButton(R.string.UseNewOnDeviceBackups__upgrade, (megaphone, controller) -> {
+          Intent intent = AppSettingsActivity.upgradeLocalBackups(controller.getMegaphoneActivity());
 
-    return timeSinceLastDonatePrompt > MIN_TIME_BETWEEN_DONATE_MEGAPHONES &&
-           VersionTracker.getDaysSinceFirstInstalled(context) >= 7;
+          controller.onMegaphoneNavigationRequested(intent);
+          controller.onMegaphoneSnooze(Event.USE_NEW_ON_DEVICE_BACKUPS);
+        })
+        .setSecondaryButton(R.string.UseNewOnDeviceBackups__not_now, (megaphone, controller) -> {
+          controller.onMegaphoneSnooze(Event.USE_NEW_ON_DEVICE_BACKUPS);
+        })
+        .build();
   }
 
   private static boolean shouldShowOnboardingMegaphone(@NonNull Context context) {
@@ -623,6 +642,10 @@ public final class Megaphones {
     return VersionTracker.getDaysSinceFirstInstalled(context) > 7;
   }
 
+  private static boolean shouldShowUseNewOnDeviceBackupsMegaphone() {
+    return RemoteConfig.unifiedLocalBackups() && SignalStore.settings().isBackupEnabled();
+  }
+
   private static boolean shouldShowGrantFullScreenIntentPermission(@NonNull Context context) {
     return Build.VERSION.SDK_INT >= 34 && !NotificationManagerCompat.from(context).canUseFullScreenIntent();
   }
@@ -674,7 +697,8 @@ public final class Megaphones {
     GRANT_FULL_SCREEN_INTENT("grant_full_screen_intent"),
     NEW_LINKED_DEVICE("new_linked_device"),
     TURN_ON_SIGNAL_BACKUPS("turn_on_signal_backups"),
-    VERIFY_BACKUP_KEY("verify_backup_key");
+    VERIFY_BACKUP_KEY("verify_backup_key"),
+    USE_NEW_ON_DEVICE_BACKUPS("use_new_on_device_backups");
 
     private final String key;
 

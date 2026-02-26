@@ -3,23 +3,27 @@ package org.thoughtcrime.securesms.components.settings.conversation.preferences
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.components.AvatarImageView
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
+import org.thoughtcrime.securesms.groups.memberlabel.MemberLabelPillView
+import org.thoughtcrime.securesms.groups.memberlabel.StyledMemberLabel
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.visible
 
 /**
- * Renders a Recipient as a row item with an icon, avatar, status, and admin state
+ * Renders a Recipient as a row item with an icon, avatar, label/status, and admin state.
  */
 object RecipientPreference {
 
@@ -30,6 +34,7 @@ object RecipientPreference {
   class Model(
     val recipient: Recipient,
     val isAdmin: Boolean = false,
+    val memberLabel: StyledMemberLabel? = null,
     val lifecycleOwner: LifecycleOwner? = null,
     val onClick: (() -> Unit)? = null
   ) : PreferenceModel<Model>() {
@@ -40,7 +45,8 @@ object RecipientPreference {
     override fun areContentsTheSame(newItem: Model): Boolean {
       return super.areContentsTheSame(newItem) &&
         recipient.hasSameContent(newItem.recipient) &&
-        isAdmin == newItem.isAdmin
+        isAdmin == newItem.isAdmin &&
+        memberLabel == newItem.memberLabel
     }
   }
 
@@ -48,15 +54,14 @@ object RecipientPreference {
     private val avatar: AvatarImageView = itemView.findViewById(R.id.recipient_avatar)
     private val name: TextView = itemView.findViewById(R.id.recipient_name)
     private val about: TextView? = itemView.findViewById(R.id.recipient_about)
+    private val memberLabelView: MemberLabelPillView? = itemView.findViewById(R.id.recipient_member_label)
     private val admin: View? = itemView.findViewById(R.id.admin)
     private val badge: BadgeImageView = itemView.findViewById(R.id.recipient_badge)
 
     private var recipient: Recipient? = null
 
-    private val recipientObserver = object : Observer<Recipient> {
-      override fun onChanged(recipient: Recipient) {
-        onRecipientChanged(recipient)
-      }
+    private val recipientObserver = Observer<Recipient> { recipient ->
+      onRecipientChanged(recipient)
     }
 
     override fun bind(model: Model) {
@@ -68,8 +73,9 @@ object RecipientPreference {
 
       if (model.lifecycleOwner != null) {
         observeRecipient(model.lifecycleOwner, model.recipient)
+        model.memberLabel?.let(::showMemberLabel)
       } else {
-        onRecipientChanged(model.recipient)
+        onRecipientChanged(model.recipient, model.memberLabel)
       }
 
       admin?.visible = model.isAdmin
@@ -79,7 +85,7 @@ object RecipientPreference {
       unbind()
     }
 
-    private fun onRecipientChanged(recipient: Recipient) {
+    private fun onRecipientChanged(recipient: Recipient, memberLabel: StyledMemberLabel? = null) {
       avatar.setRecipient(recipient)
       badge.setBadgeFromRecipient(recipient)
       name.text = if (recipient.isSelf) {
@@ -97,13 +103,34 @@ object RecipientPreference {
         }
       }
 
-      val aboutText = recipient.combinedAboutAndEmoji
-      if (aboutText.isNullOrEmpty()) {
-        about?.visibility = View.GONE
-      } else {
-        about?.text = recipient.combinedAboutAndEmoji
-        about?.visibility = View.VISIBLE
+      when {
+        memberLabel != null -> showMemberLabel(memberLabel)
+
+        !recipient.combinedAboutAndEmoji.isNullOrEmpty() -> {
+          about?.text = recipient.combinedAboutAndEmoji
+          about?.visible = true
+          memberLabelView?.visible = false
+        }
+
+        else -> {
+          memberLabelView?.visible = false
+          about?.visible = false
+        }
       }
+    }
+
+    private fun showMemberLabel(styledLabel: StyledMemberLabel) {
+      memberLabelView?.apply {
+        style = MemberLabelPillView.Style(
+          horizontalPadding = 8.dp,
+          verticalPadding = 2.dp,
+          textStyle = { MaterialTheme.typography.labelSmall }
+        )
+        setLabel(styledLabel.label, styledLabel.tintColor)
+        visible = true
+      }
+
+      about?.visible = false
     }
 
     private fun observeRecipient(lifecycleOwner: LifecycleOwner?, recipient: Recipient?) {

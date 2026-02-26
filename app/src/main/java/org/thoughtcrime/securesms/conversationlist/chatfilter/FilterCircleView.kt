@@ -13,8 +13,8 @@ import android.view.animation.OvershootInterpolator
 import androidx.annotation.Px
 import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.dp
-import org.thoughtcrime.securesms.util.ThemeUtil
 import kotlin.math.max
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds

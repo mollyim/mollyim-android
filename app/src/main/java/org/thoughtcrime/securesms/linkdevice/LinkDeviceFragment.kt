@@ -57,6 +57,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Dividers
@@ -69,7 +70,6 @@ import org.thoughtcrime.securesms.BiometricDeviceAuthentication
 import org.thoughtcrime.securesms.BiometricDeviceLockContract
 import org.thoughtcrime.securesms.DevicePinAuthEducationSheet
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.linkdevice.LinkDeviceSettingsState.DialogState
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.DateUtils
@@ -449,7 +449,7 @@ fun DeviceListScreen(
         )
       } else {
         state.devices.forEach { device ->
-          DeviceRow(device, onDeviceSelectedForRemoval, onEditDevice, canLinkDevices = state.canLinkDevices)
+          DeviceRow(device, state.isInternalUser, onDeviceSelectedForRemoval, onEditDevice, canLinkDevices = state.canLinkDevices)
         }
       }
     }
@@ -493,7 +493,7 @@ fun DeviceListScreen(
 }
 
 @Composable
-fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice: (Device) -> Unit, canLinkDevices: Boolean) {
+fun DeviceRow(device: Device, isInternalUser: Boolean, setDeviceToRemove: (Device) -> Unit, onEditDevice: (Device) -> Unit, canLinkDevices: Boolean) {
   val titleString = if (device.name.isNullOrEmpty()) stringResource(R.string.DeviceListItem_unnamed_device) else device.name
   val linkedDate = device.createdMillis?.let { DateUtils.getDayPrecisionTimeSpanString(LocalContext.current, Locale.getDefault(), device.createdMillis) }
   val lastActive = DateUtils.getDayPrecisionTimeSpanString(LocalContext.current, Locale.getDefault(), device.lastSeenMillis)
@@ -524,6 +524,9 @@ fun DeviceRow(device: Device, setDeviceToRemove: (Device) -> Unit, onEditDevice:
         .weight(1f)
     ) {
       Text(text = titleString, style = MaterialTheme.typography.bodyLarge)
+      if (isInternalUser) {
+        Text("[Internal] DeviceId: ${device.id}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+      }
       if (linkedDate != null) {
         Text(stringResource(R.string.DeviceListItem_linked_s, linkedDate), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
       }

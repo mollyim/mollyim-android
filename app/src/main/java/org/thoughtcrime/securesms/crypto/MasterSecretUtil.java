@@ -32,7 +32,7 @@ import org.signal.libsignal.protocol.ecc.ECKeyPair;
 import org.signal.libsignal.protocol.ecc.ECPrivateKey;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
 import org.signal.core.util.Base64;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -84,7 +84,7 @@ public class MasterSecretUtil {
 
       System.gc();
 
-      kdf.findParameters(Util.getAvailMemory(context) / 2);
+      kdf.findParameters(Util.getSystemAvailableMemory(context) / 2);
 
       keyStoreAlias = UUID.randomUUID().toString();
       kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac(keyStoreAlias, hasStrongBox(context)));

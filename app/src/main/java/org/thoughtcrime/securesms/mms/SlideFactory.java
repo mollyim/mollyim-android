@@ -10,14 +10,12 @@ import kotlin.Pair;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.blurhash.BlurHash;
+import org.signal.blurhash.BlurHash;
 import org.signal.core.models.media.TransformProperties;
-import org.thoughtcrime.securesms.database.AttachmentTable;
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.util.MediaUtil;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * SlideFactory encapsulates logic related to constructing slides from a set of paramaeters as defined
@@ -173,7 +171,7 @@ public final class SlideFactory {
       case IMAGE:    return new ImageSlide(context, uri, mimeType, dataSize, width, height, false, null, blurHash, transformProperties);
       case GIF:      return new GifSlide(context, uri, dataSize, width, height);
       case AUDIO:    return new AudioSlide(context, uri, dataSize, false);
-      case VIDEO:    return new VideoSlide(context, uri, dataSize, gif, null, TransformProperties.forSentMediaQuality(transformProperties != null ? transformProperties.sentMediaQuality : SentMediaQuality.STANDARD.getCode()));
+      case VIDEO:    return new VideoSlide(context, uri, dataSize, gif, null, TransformProperties.forSentMediaQuality(transformProperties != null ? transformProperties.sentMediaQuality : SentMediaQuality.STANDARD.code));
       case VCARD:
       case DOCUMENT: return new DocumentSlide(context, uri, mimeType, dataSize, fileName);
       default:       throw  new AssertionError("unrecognized enum");

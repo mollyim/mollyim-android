@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 
