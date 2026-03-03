@@ -46,6 +46,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
+import im.molly.unifiedpush.components.settings.app.notifications.MollySocketProvisioningQrActivity
 import im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -219,11 +220,30 @@ open class DefaultNotificationsSettingsCallbacks(
     callback = { mollySocket ->
       if (mollySocket != null) {
         viewModel.initializeMollySocket(mollySocket)
-        viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
-        linkDefaultDistributorLauncher.launch()
+        if (viewModel.state.value.isLinkedDevice) {
+          launchLinkedDeviceProvisioning()
+        } else {
+          viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
+          linkDefaultDistributorLauncher.launch()
+        }
       }
     }
   )
+
+  private val provisionLinkedDeviceLauncher: ActivityResultLauncher<Unit> = activityResultRegisterer.registerForActivityResult(
+    contract = MollySocketProvisioningQrActivity.Contract(),
+    callback = { device ->
+      if (device != null) {
+        viewModel.initializeMollySocketDevice(device)
+        viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
+        linkDefaultDistributorLauncher.launch(Unit)
+      }
+    }
+  )
+
+  private fun launchLinkedDeviceProvisioning() {
+    provisionLinkedDeviceLauncher.launch(Unit)
+  }
 
   override fun onTurnOnNotificationsActionClick() {
     TurnOnNotificationsBottomSheet.turnOnSystemNotificationsFragment(activity).show(activity.supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
@@ -706,7 +726,7 @@ fun NotificationsSettingsScreen(
         when (method) {
           NotificationDeliveryMethod.FCM -> true
           NotificationDeliveryMethod.WEBSOCKET -> true
-          NotificationDeliveryMethod.UNIFIEDPUSH -> !state.isLinkedDevice
+          NotificationDeliveryMethod.UNIFIEDPUSH -> true
         }
       }
 
@@ -741,14 +761,12 @@ fun NotificationsSettingsScreen(
         )
       }
 
-      if (!state.isLinkedDevice) {
-        item {
-          Rows.TextRow(
-            text = stringResource(R.string.NotificationsSettingsFragment__configure_unifiedpush),
-            enabled = state.preferredNotificationMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
-            onClick = callbacks::onNavigationUnifiedPushSettings
-          )
-        }
+      item {
+        Rows.TextRow(
+          text = stringResource(R.string.NotificationsSettingsFragment__configure_unifiedpush),
+          enabled = state.preferredNotificationMethod == NotificationDeliveryMethod.UNIFIEDPUSH,
+          onClick = callbacks::onNavigationUnifiedPushSettings
+        )
       }
     }
   }

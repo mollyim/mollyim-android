@@ -532,10 +532,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
         Log.d(TAG, "FCM is already disabled.");
       }
       if (method == NotificationDeliveryMethod.UNIFIEDPUSH) {
-        if (SignalStore.account().isLinkedDevice()) {
-          Log.i(TAG, "UnifiedPush not supported in linked devices.");
-          updateUnifiedPushStatus(false);
-        } else if (!unifiedPushEnabled) {
+        if (!unifiedPushEnabled) {
           Log.i(TAG, "Switching to UnifiedPush.");
           updateUnifiedPushStatus(true);
         } else {

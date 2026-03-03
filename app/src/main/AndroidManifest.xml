@@ -894,6 +894,12 @@
             android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <activity
+            android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketProvisioningQrActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+
+        <activity
             android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
             android:exported="false"
             android:theme="@style/TextSecure.DialogActivity" />
