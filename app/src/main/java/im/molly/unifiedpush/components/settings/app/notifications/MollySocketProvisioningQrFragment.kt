@@ -127,14 +127,14 @@ private fun MollySocketProvisioningQrScreen(
       onRetry = onRetry
     )
 
-    if (state.hasProvisioningError || error != null) {
+    if (state.isRegistering) {
+      Dialogs.IndeterminateProgressDialog()
+    } else if (state.hasProvisioningError || error != null) {
       Dialogs.SimpleMessageDialog(
         message = error ?: stringResource(R.string.RestoreViaQr_qr_code_error),
         onDismiss = onRetry,
         dismiss = stringResource(android.R.string.ok)
       )
-    } else if (state.isRegistering) {
-      Dialogs.IndeterminateProgressDialog()
     }
   }
 }
