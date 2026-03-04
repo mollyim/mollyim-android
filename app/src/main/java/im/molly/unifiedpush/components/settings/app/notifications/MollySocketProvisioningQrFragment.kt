@@ -57,12 +57,16 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCode
 import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.SignalTheme
+import org.thoughtcrime.securesms.registration.ui.link.LinkProvisioningQrContract
+import org.thoughtcrime.securesms.registration.ui.link.LinkProvisioningState
 import org.thoughtcrime.securesms.registration.ui.link.RegisterLinkDeviceQrViewModel
 import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
 
 class MollySocketProvisioningQrFragment : ComposeFragment() {
 
   private val viewModel: RegisterLinkDeviceQrViewModel by activityViewModels()
+  private val provisioning: LinkProvisioningQrContract
+    get() = viewModel
   private val deviceError = MutableStateFlow<String?>(null)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,8 +84,8 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        viewModel
-          .state
+        provisioning
+          .provisioningState
           .mapNotNull { it.provisionMessage?.provisioningCode }
           .distinctUntilChanged()
           .collect { verificationCode ->
@@ -101,7 +105,7 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
 
   @Composable
   override fun FragmentContent() {
-    val state by viewModel.state.collectAsState()
+    val state by provisioning.provisioningState.collectAsState()
     val error by deviceError.collectAsState()
 
     MollySocketProvisioningQrScreen(
@@ -110,7 +114,7 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
       error = error,
       onRetry = {
         deviceError.value = null
-        viewModel.clearErrors()
+        provisioning.clearProvisioningError()
       }
     )
   }
@@ -124,7 +128,7 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun MollySocketProvisioningQrScreen(
-  state: RegisterLinkDeviceQrViewModel.RegisterLinkDeviceState,
+  state: LinkProvisioningState,
   error: String?,
   onCancel: () -> Unit,
   onRetry: () -> Unit,
@@ -225,7 +229,7 @@ private fun MollySocketProvisioningQrScreen(
       }
     }
 
-    if (state.showProvisioningError || error != null) {
+    if (state.hasProvisioningError || error != null) {
       Dialogs.SimpleMessageDialog(
         message = error ?: stringResource(R.string.RestoreViaQr_qr_code_error),
         onDismiss = onRetry,
