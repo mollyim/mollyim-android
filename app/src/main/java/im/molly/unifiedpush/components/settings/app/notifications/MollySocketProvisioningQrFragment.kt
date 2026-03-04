@@ -67,14 +67,15 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
           .mapNotNull { it.provisionMessage?.provisioningCode }
           .distinctUntilChanged()
           .collect { verificationCode ->
-            withContext(Dispatchers.IO) {
+            val result = withContext(Dispatchers.IO) {
               runCatching {
                 MollySocketRepository.createDeviceFromVerificationCode(verificationCode)
-              }.onSuccess { device ->
-                finishWithDevice(device)
-              }.onFailure { throwable ->
-                deviceError.value = throwable.message ?: "Unable to create linked credential."
               }
+            }
+            result.onSuccess { device ->
+              finishWithDevice(device)
+            }.onFailure { throwable ->
+              deviceError.value = throwable.message ?: "Unable to create linked credential."
             }
           }
       }
@@ -127,14 +128,14 @@ private fun MollySocketProvisioningQrScreen(
       onRetry = onRetry
     )
 
-    if (state.isRegistering) {
-      Dialogs.IndeterminateProgressDialog()
-    } else if (state.hasProvisioningError || error != null) {
+    if (state.hasProvisioningError || error != null) {
       Dialogs.SimpleMessageDialog(
         message = error ?: stringResource(R.string.RestoreViaQr_qr_code_error),
         onDismiss = onRetry,
         dismiss = stringResource(android.R.string.ok)
       )
+    } else if (state.isRegistering) {
+      Dialogs.IndeterminateProgressDialog()
     }
   }
 }
