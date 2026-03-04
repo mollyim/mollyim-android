@@ -15,6 +15,8 @@ import org.thoughtcrime.securesms.R;
 
 import java.util.Locale;
 
+import im.molly.app.base.ApkInfo;
+
 public final class SupportEmailUtil {
 
   private SupportEmailUtil() { }
@@ -77,7 +79,7 @@ public final class SupportEmailUtil {
   }
 
   private static CharSequence getSignalVersion() {
-    return BuildConfig.VERSION_NAME;
+    return ApkInfo.versionName;
   }
 
   private static CharSequence getSignalPackage(@NonNull Context context) {

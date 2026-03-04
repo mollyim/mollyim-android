@@ -19,6 +19,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import im.molly.app.base.ApkInfo
 import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
@@ -114,7 +115,7 @@ private fun AppUpdatesSettingsScreen(
       item {
         Rows.TextRow(
           text = stringResource(R.string.HelpSettingsFragment__version),
-          label = BuildConfig.VERSION_NAME,
+          label = ApkInfo.versionName,
         )
       }
 

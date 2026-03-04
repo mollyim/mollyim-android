@@ -5,8 +5,10 @@
 
 package im.molly.app.base
 
+import android.annotation.SuppressLint
 import org.thoughtcrime.securesms.BuildConfig
 
+@SuppressLint("VersionNameUsage")
 object ApkInfo {
   const val versionName = BuildConfig.VERSION_NAME
   const val versionCode = BuildConfig.VERSION_CODE
