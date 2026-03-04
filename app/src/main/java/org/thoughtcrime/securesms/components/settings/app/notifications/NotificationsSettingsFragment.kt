@@ -236,13 +236,13 @@ open class DefaultNotificationsSettingsCallbacks(
       if (device != null) {
         viewModel.initializeMollySocketDevice(device)
         viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
-        linkDefaultDistributorLauncher.launch(Unit)
+        linkDefaultDistributorLauncher.launch()
       }
     }
   )
 
   private fun launchLinkedDeviceProvisioning() {
-    provisionLinkedDeviceLauncher.launch(Unit)
+    provisionLinkedDeviceLauncher.launch()
   }
 
   override fun onTurnOnNotificationsActionClick() {

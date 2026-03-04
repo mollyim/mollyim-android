@@ -34,7 +34,6 @@ import kotlinx.coroutines.withContext
 import org.signal.core.ui.compose.Dialogs
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.ComposeFragment
-import org.thoughtcrime.securesms.registration.ui.link.LinkProvisioningQrContract
 import org.thoughtcrime.securesms.registration.ui.link.LinkProvisioningQrSection
 import org.thoughtcrime.securesms.registration.ui.link.LinkProvisioningState
 import org.thoughtcrime.securesms.registration.ui.link.RegisterLinkDeviceQrViewModel
@@ -43,8 +42,6 @@ import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
 class MollySocketProvisioningQrFragment : ComposeFragment() {
 
   private val viewModel: RegisterLinkDeviceQrViewModel by activityViewModels()
-  private val provisioning: LinkProvisioningQrContract
-    get() = viewModel
   private val deviceError = MutableStateFlow<String?>(null)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +59,7 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        provisioning
+        viewModel
           .provisioningState
           .mapNotNull { it.provisionMessage?.provisioningCode }
           .distinctUntilChanged()
@@ -84,7 +81,7 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
 
   @Composable
   override fun FragmentContent() {
-    val state by provisioning.provisioningState.collectAsState()
+    val state by viewModel.provisioningState.collectAsState()
     val error by deviceError.collectAsState()
 
     MollySocketProvisioningQrScreen(
@@ -93,7 +90,7 @@ class MollySocketProvisioningQrFragment : ComposeFragment() {
       error = error,
       onRetry = {
         deviceError.value = null
-        provisioning.clearProvisioningError()
+        viewModel.clearProvisioningError()
       }
     )
   }
