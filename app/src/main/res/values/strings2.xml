@@ -166,6 +166,7 @@
     <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_uuid">Your account was refused by the MollySocket server. Please check the allowed UUIDs in the server configuration.</string>
     <string name="UnifiedPushNotificationBuilder__mollysocket_forbidden_endpoint">Your push server was refused by the MollySocket server. Please check the permitted endpoints in the server configuration.</string>
     <string name="UnifiedPushNotificationBuilder__registration_failed">Registration with your UnifiedPush distributor failed. This could be due to a network issue or a missing requirement from your distributor.</string>
+    <string name="UnifiedPushNotificationBuilder__linked_device_reprovision_required">Your MollySocket credentials are no longer valid. Please re-provision UnifiedPush in notification settings.</string>
     <string name="UnifiedPushNotificationBuilder__this_is_a_test_notification">This is a test notification from the MollySocket server.</string>
     <string name="NotificationDeliveryMethod__unifiedpush" translatable="false">UnifiedPush</string>
     <string name="NotificationDeliveryMethod__fcm" translatable="false">FCM (Google Play Services)</string>
