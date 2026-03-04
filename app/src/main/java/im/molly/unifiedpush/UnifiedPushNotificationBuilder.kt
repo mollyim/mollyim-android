@@ -65,6 +65,10 @@ class UnifiedPushNotificationBuilder(val context: Context) {
     notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__mollysocket_forbidden_password))
   }
 
+  fun setNotificationLinkedDeviceReProvisionRequired() {
+    notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__linked_device_reprovision_required))
+  }
+
   fun setNotificationEndpointChangedAirGapped() {
     notify(NOTIFICATION_ID, context.getString(R.string.UnifiedPushNotificationBuilder__endpoint_changed_air_gapped))
   }

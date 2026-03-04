@@ -136,7 +136,11 @@ class UnifiedPushRefreshJob private constructor(
       return RegistrationStatus.PENDING
     }
 
-    val device = SignalStore.unifiedpush.device ?: try {
+    val device = SignalStore.unifiedpush.device ?: if (SignalStore.account.isLinkedDevice) {
+      Log.w(TAG, "Linked device cannot auto-create MollySocket device, re-provisioning required.")
+      UnifiedPushNotificationBuilder(context).setNotificationLinkedDeviceReProvisionRequired()
+      return RegistrationStatus.PENDING
+    } else try {
       MollySocketRepository.createDevice().also { newDevice ->
         SignalStore.unifiedpush.device = newDevice
         SignalStore.unifiedpush.vapidKeySynced = true

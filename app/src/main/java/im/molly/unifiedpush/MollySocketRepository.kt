@@ -42,8 +42,15 @@ object MollySocketRepository {
   fun createDevice(): MollySocketDevice {
     Log.d(TAG, "Creating device for MollySocket")
 
+    val fetchResult = AppDependencies.linkDeviceApi.getDeviceVerificationCode()
+    val verificationCode = fetchResult.successOrThrow()
+    return createDeviceFromVerificationCode(verificationCode.verificationCode)
+  }
+
+  @Throws(IOException::class, DeviceLimitExceededException::class)
+  fun createDeviceFromVerificationCode(verificationCode: String): MollySocketDevice {
     val password = Util.getSecret(18)
-    val deviceId = verifyNewDevice(password)
+    val deviceId = verifyNewDevice(password = password, verificationCode = verificationCode)
 
     return MollySocketDevice(
       deviceId = deviceId,
@@ -52,10 +59,7 @@ object MollySocketRepository {
   }
 
   @Throws(IOException::class, DeviceLimitExceededException::class)
-  private fun verifyNewDevice(password: String): Int {
-    val fetchResult = AppDependencies.linkDeviceApi.getDeviceVerificationCode()
-    val verificationCode = fetchResult.successOrThrow()
-
+  private fun verifyNewDevice(password: String, verificationCode: String): Int {
     val registrationId = KeyHelper.generateRegistrationId(false)
     val encryptedDeviceName = DeviceNameCipher.encryptDeviceName(
       DEVICE_NAME.toByteArray(), SignalStore.account.aciIdentityKey
@@ -83,7 +87,7 @@ object MollySocketRepository {
     val accountManager = AccountManagerFactory.getInstance().createForDeviceLink(AppDependencies.application, password)
 
     return accountManager.finishNewDeviceRegistration(
-      verificationCode.verificationCode,
+      verificationCode,
       accountAttributes,
       aciPreKeyCollection, pniPreKeyCollection,
       null

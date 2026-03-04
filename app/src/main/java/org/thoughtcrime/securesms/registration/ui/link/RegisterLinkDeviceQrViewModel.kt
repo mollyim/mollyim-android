@@ -11,7 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -28,7 +31,7 @@ import java.io.Closeable
  * Handles creating and maintaining a provisioning websocket in the pursuit
  * of adding this device as a linked device.
  */
-class RegisterLinkDeviceQrViewModel : ViewModel() {
+class RegisterLinkDeviceQrViewModel : ViewModel(), LinkProvisioningQrContract {
 
   companion object {
     private val TAG = Log.tag(RegisterLinkDeviceQrViewModel::class)
@@ -37,6 +40,20 @@ class RegisterLinkDeviceQrViewModel : ViewModel() {
   private val store: MutableStateFlow<RegisterLinkDeviceState> = MutableStateFlow(RegisterLinkDeviceState())
 
   val state: StateFlow<RegisterLinkDeviceState> = store
+  override val provisioningState: StateFlow<LinkProvisioningState> = store
+    .map {
+      LinkProvisioningState(
+        isRegistering = it.isRegistering,
+        qrState = it.qrState,
+        provisionMessage = it.provisionMessage,
+        hasProvisioningError = it.showProvisioningError
+      )
+    }
+    .stateIn(
+      scope = viewModelScope,
+      started = SharingStarted.Eagerly,
+      initialValue = LinkProvisioningState()
+    )
 
   private var socketHandles: MutableList<Closeable> = mutableListOf()
   private var startNewSocketJob: Job? = null
@@ -49,8 +66,15 @@ class RegisterLinkDeviceQrViewModel : ViewModel() {
     shutdown()
   }
 
-  fun restartProvisioningSocket() {
+  override fun restartProvisioningSocket() {
     shutdown()
+
+    store.update {
+      it.copy(
+        isRegistering = false,
+        provisionMessage = null
+      )
+    }
 
     startNewSocket()
 
@@ -152,6 +176,10 @@ class RegisterLinkDeviceQrViewModel : ViewModel() {
     }
 
     restartProvisioningSocket()
+  }
+
+  override fun clearProvisioningError() {
+    clearErrors()
   }
 
   fun setRegisterAsLinkedDeviceError(result: RegisterLinkDeviceResult) {
