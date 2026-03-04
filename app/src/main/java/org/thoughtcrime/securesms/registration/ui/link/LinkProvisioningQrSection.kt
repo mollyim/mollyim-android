@@ -37,6 +37,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.DayNightPreviews
+import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.horizontalGutters
 import org.thoughtcrime.securesms.R
@@ -180,4 +182,13 @@ private fun InstructionRow(
   }
 }
 
-
+@DayNightPreviews
+@Composable
+private fun InstructionRowPreview() {
+  Previews.Preview {
+    InstructionRow(
+      icon = SignalIcons.Phone.painter,
+      instruction = "Instruction!"
+    )
+  }
+}
