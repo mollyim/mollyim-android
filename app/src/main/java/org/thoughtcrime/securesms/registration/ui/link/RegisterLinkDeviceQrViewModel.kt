@@ -66,7 +66,7 @@ class RegisterLinkDeviceQrViewModel : ViewModel(), LinkProvisioningQrContract {
     shutdown()
   }
 
-  fun restartProvisioningSocket() {
+  override fun restartProvisioningSocket() {
     shutdown()
 
     store.update {
