@@ -2283,10 +2283,10 @@
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Passez à la dernière version de Signal</string>
-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Cette version de Molly arrive à expiration aujourd\'hui. Passez à dernière la version.</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Cette version de Molly arrive à expiration aujourd\'hui. Passez à la dernière version.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="one">Cette version de Molly arrivera à expiration demain. Passez à dernière la version.</item>
-        <item quantity="other">Cette version de Molly arrivera à expiration dans %1$d jours. Passez à dernière la version.</item>
+        <item quantity="one">Cette version de Molly arrivera à expiration demain. Passez à la dernière version.</item>
+        <item quantity="other">Cette version de Molly arrivera à expiration dans %1$d jours. Passez à la dernière version.</item>
     </plurals>
 
     <!-- PassphrasePromptActivity -->
@@ -2576,7 +2576,7 @@
     <!-- Alert message indicating that the local user joined a call on a second device and muted this one from the other one. -->
     <string name="WebRtcCallView__you_muted_yourself">Vous vous êtes mis en sourdine depuis un autre appareil.</string>
     <!-- Toast message shown when user is auto-muted because they are joining a large group call. -->
-    <string name="WebRtcCallView__youve_been_muted_large_group">You\'ve been muted because this call has many participants.</string>
+    <string name="WebRtcCallView__youve_been_muted_large_group">Votre micro a été coupé, car cet appel compte un grand nombre de participants.</string>
 
     <!-- Error message when the developer added a button in the wrong place. -->
     <string name="WebRtcAudioOutputToggleButton_fragment_activity_error">Erreur d’interface utilisateur. Veuillez signaler cette erreur aux développeurs.</string>
@@ -5138,7 +5138,7 @@
     <string name="GroupsLearnMore_what_are_legacy_groups">Les groupes hérités, qu\'est-ce que c\'est ?</string>
     <string name="GroupsLearnMore_paragraph_1">Les groupes hérités sont d\'anciens groupes incompatibles avec les fonctionnalités des nouveaux groupes – par exemple, les admins ou la description des actualités du groupe.</string>
     <string name="GroupsLearnMore_can_i_upgrade_a_legacy_group">Puis-je convertir un groupe hérité en nouveau groupe ?</string>
-    <string name="GroupsLearnMore_paragraph_2">Les groupes hérités ne peuvent pas encore être convertis en nouveaux groupes. Cependant, vous pouvez créer un nouveau groupe qui accueille les mêmes membres, pour peu qu\'ils utilisent la dernière la version de Signal.</string>
+    <string name="GroupsLearnMore_paragraph_2">Les groupes hérités ne peuvent pas encore être convertis en nouveaux groupes. Cependant, vous pouvez créer un nouveau groupe qui accueille les mêmes membres, pour peu qu\'ils utilisent la dernière version de Signal.</string>
     <string name="GroupsLearnMore_paragraph_3">Signal vous permettra bientôt de convertir les groupes hérités.</string>
 
     <!-- GroupLinkBottomSheetDialogFragment -->
@@ -9234,7 +9234,7 @@
     <!-- Group member label screen title. -->
     <string name="GroupMemberLabel__title">Étiquette de membre</string>
     <!-- Group member label text field placeholder. -->
-    <string name="GroupMemberLabel__label_text_placeholder">Ajoutez une étiquette</string>
+    <string name="GroupMemberLabel__label_text_placeholder">Créez votre étiquette</string>
     <!-- Group member label preview section header. -->
     <string name="GroupMemberLabel__preview_section_header">Aperçu</string>
     <!-- Group member label save button label. -->

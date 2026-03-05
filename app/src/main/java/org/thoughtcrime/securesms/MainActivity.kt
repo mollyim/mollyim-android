@@ -97,7 +97,6 @@ import org.signal.mediasend.MediaSendActivityContract
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.backup.v2.ui.verify.VerifyBackupKeyActivity
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar.show
-import org.thoughtcrime.securesms.calls.links.details.CallLinkDetailsActivity
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.calls.log.CallLogFragment
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
@@ -133,6 +132,7 @@ import org.thoughtcrime.securesms.main.MainContentLayoutData
 import org.thoughtcrime.securesms.main.MainMegaphoneState
 import org.thoughtcrime.securesms.main.MainNavigationBar
 import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
+import org.thoughtcrime.securesms.main.MainNavigationDetailLocationEffect
 import org.thoughtcrime.securesms.main.MainNavigationListLocation
 import org.thoughtcrime.securesms.main.MainNavigationRail
 import org.thoughtcrime.securesms.main.MainNavigationViewModel
@@ -149,7 +149,6 @@ import org.thoughtcrime.securesms.main.chatNavGraphBuilder
 import org.thoughtcrime.securesms.main.navigateToDetailLocation
 import org.thoughtcrime.securesms.main.rememberDetailNavHostController
 import org.thoughtcrime.securesms.main.rememberFocusRequester
-import org.thoughtcrime.securesms.main.rememberMainNavigationDetailLocation
 import org.thoughtcrime.securesms.main.storiesNavGraphBuilder
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
@@ -417,7 +416,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
         val chatNavGraphState = ChatNavGraphState.remember(windowSizeClass)
         val mutableInteractionSource = remember { MutableInteractionSource() }
-        val mainNavigationDetailLocation by rememberMainNavigationDetailLocation(mainNavigationViewModel, chatNavGraphState::writeGraphicsLayerToBitmap)
+        MainNavigationDetailLocationEffect(mainNavigationViewModel, chatNavGraphState::writeGraphicsLayerToBitmap)
 
         val chatsNavHostController = rememberDetailNavHostController(
           onRequestFocus = rememberFocusRequester(
@@ -447,25 +446,33 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
           storiesNavGraphBuilder()
         }
 
-        LaunchedEffect(mainNavigationDetailLocation) {
-          mainNavigationViewModel.clearEarlyDetailLocation()
-          when (mainNavigationDetailLocation) {
-            is MainNavigationDetailLocation.Empty -> {
-              when (mainNavigationState.currentListLocation) {
-                MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> chatsNavHostController
-                MainNavigationListLocation.CALLS -> callsNavHostController
-                MainNavigationListLocation.STORIES -> storiesNavHostController
-              }.navigateToDetailLocation(mainNavigationDetailLocation)
-            }
+        LaunchedEffect(Unit) {
+          suspend fun navigateToLocation(location: MainNavigationDetailLocation) {
+            when (location) {
+              is MainNavigationDetailLocation.Empty -> {
+                when (mainNavigationState.currentListLocation) {
+                  MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> chatsNavHostController
+                  MainNavigationListLocation.CALLS -> callsNavHostController
+                  MainNavigationListLocation.STORIES -> storiesNavHostController
+                }.navigateToDetailLocation(location)
+              }
 
-            is MainNavigationDetailLocation.Chats -> {
-              chatNavGraphState.writeGraphicsLayerToBitmap()
-              chatsNavHostController.navigateToDetailLocation(mainNavigationDetailLocation)
-            }
+              is MainNavigationDetailLocation.Chats -> {
+                if (location is MainNavigationDetailLocation.Chats.Conversation) {
+                  chatNavGraphState.writeGraphicsLayerToBitmap()
+                }
+                chatsNavHostController.navigateToDetailLocation(location)
+              }
 
-            is MainNavigationDetailLocation.Calls -> callsNavHostController.navigateToDetailLocation(mainNavigationDetailLocation)
-            is MainNavigationDetailLocation.Stories -> storiesNavHostController.navigateToDetailLocation(mainNavigationDetailLocation)
+              is MainNavigationDetailLocation.Calls -> callsNavHostController.navigateToDetailLocation(location)
+              is MainNavigationDetailLocation.Stories -> storiesNavHostController.navigateToDetailLocation(location)
+            }
           }
+
+          mainNavigationViewModel.earlyNavigationDetailLocationRequested?.let { navigateToLocation(it) }
+          mainNavigationViewModel.clearEarlyDetailLocation()
+
+          mainNavigationViewModel.detailLocation.collect { navigateToLocation(it) }
         }
 
         val scope = rememberCoroutineScope()
@@ -722,27 +729,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     val coroutine = rememberCoroutineScope()
 
     return remember(scaffoldNavigator, coroutine) {
-      mainNavigationViewModel.wrapNavigator(coroutine, scaffoldNavigator) { detailLocation ->
-        when (detailLocation) {
-          is MainNavigationDetailLocation.Chats.Conversation -> {
-            startActivity(
-              ConversationIntents.createBuilderSync(this, detailLocation.conversationArgs.recipientId, detailLocation.conversationArgs.threadId)
-                .withArgs(detailLocation.conversationArgs)
-                .build()
-            )
-          }
-
-          is MainNavigationDetailLocation.Calls.CallLinks.CallLinkDetails -> {
-            startActivity(CallLinkDetailsActivity.createIntent(this, detailLocation.callLinkRoomId))
-          }
-
-          is MainNavigationDetailLocation.Calls.CallLinks.EditCallLinkName -> {
-            error("Unexpected subroute EditCallLinkName.")
-          }
-
-          MainNavigationDetailLocation.Empty -> Unit
-        }
-      }
+      mainNavigationViewModel.wrapNavigator(coroutine, scaffoldNavigator)
     }
   }
 
