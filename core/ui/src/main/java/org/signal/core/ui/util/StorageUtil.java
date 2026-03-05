@@ -44,43 +44,11 @@ public class StorageUtil {
     return backups;
   }
 
-  public static File getOrCreateBackupV2Directory() throws NoExternalStorageException {
-    File storage = Environment.getExternalStorageDirectory();
-
-    if (!storage.canWrite()) {
-      throw new NoExternalStorageException();
-    }
-
-    File backups = getBackupV2Directory();
-
-    if (!backups.exists()) {
-      if (!backups.mkdirs()) {
-        throw new NoExternalStorageException("Unable to create backup directory...");
-      }
-    }
-
-    return backups;
-  }
-
   public static File getBackupDirectory() throws NoExternalStorageException {
     File storage = Environment.getExternalStorageDirectory();
-    File signal  = new File(storage, getBackupDirectoryName());
-    return new File(signal, "Backups");
-  }
-
-  public static File getBackupV2Directory() throws NoExternalStorageException {
-    File storage = Environment.getExternalStorageDirectory();
-    return new File(storage, getBackupDirectoryName());
-  }
-
-  private static String getBackupDirectoryName() {
-    return AppDependencies.getApplication()
-                          .getString(R.string.app_name)
-                          .replace(" Staging", ".staging");
-  }
-
-  public static File getTileCacheDirectory(@NonNull Context context) {
-    return new File(context.getCacheDir(), "tiles");
+    File signal  = new File(storage, CoreUiDependencies.INSTANCE.getBackupBaseDirName());
+    File backups = new File(signal, "Backups");
+    return backups;
   }
 
   @RequiresApi(24)

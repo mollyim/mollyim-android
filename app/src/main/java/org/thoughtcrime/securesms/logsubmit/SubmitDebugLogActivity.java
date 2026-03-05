@@ -31,12 +31,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.signal.core.util.ThreadUtil;
 import org.signal.debuglogsviewer.DebugLogsViewer;
 import org.thoughtcrime.securesms.BaseActivity;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar;
 import org.thoughtcrime.securesms.components.ProgressCard;
 import org.thoughtcrime.securesms.components.SearchView;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
@@ -314,7 +314,7 @@ public class SubmitDebugLogActivity extends BaseActivity {
     Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
     intent.addCategory(Intent.CATEGORY_OPENABLE);
     intent.setType("application/zip");
-    intent.putExtra(Intent.EXTRA_TITLE, BuildConfig.BACKUP_FILENAME + "-log-" + System.currentTimeMillis() + ".zip");
+    intent.putExtra(Intent.EXTRA_TITLE, BackupUtil.getBackupFilenamePrefix() + "-log-" + System.currentTimeMillis() + ".zip");
 
     startActivityForResult(intent, CODE_SAVE);
   }

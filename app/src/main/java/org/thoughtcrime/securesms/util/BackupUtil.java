@@ -207,6 +207,14 @@ public class BackupUtil {
     return backups;
   }
 
+  public static String getBackupBaseDirName() {
+    return BuildConfig.BACKUP_BASE_NAME;
+  }
+
+  public static String getBackupFilenamePrefix() {
+    return BuildConfig.BACKUP_BASE_NAME.toLowerCase(Locale.ROOT);
+  }
+
   private static boolean hasBackupExtension(String fileName) {
     return fileName != null && fileName.endsWith(".backup");
   }
@@ -285,10 +293,11 @@ public class BackupUtil {
   }
 
   private static long getBackupTimestamp(@Nullable String backupName) {
+    final String prefix = getBackupFilenamePrefix();
     if (backupName != null &&
-        backupName.startsWith(BuildConfig.BACKUP_FILENAME) &&
+        backupName.startsWith(prefix) &&
         backupName.endsWith(".backup")) {
-      String ts = backupName.substring(BuildConfig.BACKUP_FILENAME.length(),
+      String ts = backupName.substring(prefix.length(),
                                        backupName.length() - ".backup".length());
       String[] parts = ts.split("\\-");
 

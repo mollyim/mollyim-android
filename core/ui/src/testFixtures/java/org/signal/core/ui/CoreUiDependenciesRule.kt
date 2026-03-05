@@ -23,7 +23,7 @@ class CoreUiDependenciesRule(
   private class Provider(
     val isIncognitoKeyboardEnabled: Boolean
   ) : CoreUiDependencies.Provider {
-    override fun providePackageId(): String = "org.thoughtcrime.securesms"
+    override fun provideBackupBaseDirName(): String = "Test"
     override fun provideIsIncognitoKeyboardEnabled(): Boolean = isIncognitoKeyboardEnabled
     override fun provideIsScreenSecurityEnabled(): Boolean = false
     override fun provideForceSplitPane(): Boolean = false

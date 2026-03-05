@@ -175,7 +175,7 @@ android {
 
     buildConfigField("String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\"")
     buildConfigField("String", "SIGNAL_CANONICAL_VERSION_NAME", "\"$canonicalVersionName\"")
-    buildConfigField("String", "BACKUP_FILENAME", "\"${baseAppFileName.lowercase()}\"")
+    buildConfigField("String", "BACKUP_BASE_NAME", "\"$baseAppFileName\"")
     buildConfigField("boolean", "FORCE_INTERNAL_USER_FLAG", forceInternalUserFlag)
     buildConfigField("String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\"")
 
@@ -304,6 +304,7 @@ android {
       applicationIdSuffix = ".staging"
 
       buildConfigField("String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms.staging\"")
+      buildConfigField("String", "BACKUP_BASE_NAME", "\"$baseAppFileName-staging\"")
 
       buildConfigField("String", "SIGNAL_URL", "\"https://chat.staging.signal.org\"")
       buildConfigField("String", "STORAGE_URL", "\"https://storage-staging.signal.org\"")
