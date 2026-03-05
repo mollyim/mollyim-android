@@ -579,6 +579,7 @@ licensee {
   allow("BSD-2-Clause")
   allow("CC0-1.0")
   allow("MIT")
+  allow("EPL-1.0")
   allowDependency("im.molly", "native-utils", "1.0.0") {
     because("AGPL-3.0-or-later")
   }
