@@ -17,7 +17,7 @@ object MediaSendDependencies {
 
   @Synchronized
   fun init(application: Application, provider: Provider) {
-    if (this::_application.isInitialized || this::_provider.isInitialized) {
+    if (this::_provider.isInitialized) {
       return
     }
 

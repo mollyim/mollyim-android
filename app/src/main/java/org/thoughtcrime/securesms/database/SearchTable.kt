@@ -321,7 +321,7 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
       // There are specific error recovery paths where this is run inside of database initialization, before the job manager is initialized
       if (!AppDependencies.isInitialized) {
-        AppDependencies.init(context as Application, ApplicationDependencyProvider(context))
+        AppDependencies.init(ApplicationDependencyProvider(context as Application))
       }
 
       RebuildMessageSearchIndexJob.enqueue()

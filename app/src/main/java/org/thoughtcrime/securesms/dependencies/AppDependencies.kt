@@ -1,7 +1,7 @@
 package org.thoughtcrime.securesms.dependencies
 
-import android.annotation.SuppressLint
 import android.app.Application
+import im.molly.app.base.ApplicationInstance
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
 import org.signal.core.ui.CoreUiDependencies
@@ -15,7 +15,6 @@ import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
 import org.signal.mediasend.MediaSendDependencies
-import org.thoughtcrime.securesms.ApplicationContext
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
@@ -85,22 +84,24 @@ import java.util.function.Supplier
  * All future application-scoped singletons should be written as normal objects, then placed here
  * to manage their singleton-ness.
  */
-@SuppressLint("StaticFieldLeak")
 object AppDependencies {
-  // MOLLY: Ensure the app instance is always available for non-test runs, even before init() is called
-  private var _application: Application? = ApplicationContext.getInstance()
+
   private lateinit var provider: Provider
 
   @JvmStatic
   @Synchronized
-  fun init(application: Application, provider: Provider) {
-    if (isInitialized) {
+  fun init(provider: Provider) {
+    if (this::provider.isInitialized) {
       return
     }
 
-    _application = application
     AppDependencies.provider = provider
+    installDependencyProviders()
+  }
 
+  @JvmStatic
+  @Synchronized
+  fun installDependencyProviders() {
     CoreUtilDependencies.init(
       application,
       CoreUtilDependenciesProvider,
@@ -119,7 +120,8 @@ object AppDependencies {
 
   @JvmStatic
   val application: Application
-    get() = _application!!
+    // MOLLY: Ensure the app instance is always available for non-test runs, even before init() is called
+    get() = ApplicationInstance.get()
 
   @JvmStatic
   val recipientCache: LiveRecipientCache by lazy {

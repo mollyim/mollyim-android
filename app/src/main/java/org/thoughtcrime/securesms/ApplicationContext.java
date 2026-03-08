@@ -135,6 +135,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import im.molly.app.base.ApkInfo;
+import im.molly.app.base.ApplicationInstance;
 import im.molly.unifiedpush.UnifiedPushDistributor;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
@@ -154,15 +155,13 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
   private static final String TAG = Log.tag(ApplicationContext.class);
 
-  private static ApplicationContext instance;
+  public static ApplicationContext getInstance(Context context) {
+    return (ApplicationContext) context.getApplicationContext();
+  }
 
   public ApplicationContext() {
     super();
-    instance = this;
-  }
-
-  public static @NonNull ApplicationContext getInstance() {
-    return instance;
+    ApplicationInstance.set(this);
   }
 
   private volatile boolean isAppInitialized;
@@ -178,6 +177,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
     EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     DynamicTheme.setDefaultDayNightMode(this);
     ScreenLockController.enableAutoLock(TextSecurePreferences.isBiometricScreenLockEnabled(this));
+    AppDependencies.installDependencyProviders();
 
     initializePassphraseLock();
     cleanCacheDir();
@@ -482,7 +482,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
   void initializeAppDependencies() {
     if (!AppDependencies.isInitialized()) {
       Log.i(TAG, "Initializing AppDependencies.");
-      AppDependencies.init(this, new ApplicationDependencyProvider(this));
+      AppDependencies.init(new ApplicationDependencyProvider(this));
     }
     AppForegroundObserver.begin();
   }

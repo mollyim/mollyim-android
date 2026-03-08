@@ -124,7 +124,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
   fun setPreferredNotificationMethod(method: NotificationDeliveryMethod) {
     SignalStore.settings.preferredNotificationMethod = method
     TextSecurePreferences.setPromptedOptimizeDoze(AppDependencies.application, false)
-    ApplicationContext.getInstance().updatePushNotificationServices()
+    ApplicationContext.getInstance(AppDependencies.application).updatePushNotificationServices()
     AppDependencies.resetNetwork(true)
     refresh()
   }
