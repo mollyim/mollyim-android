@@ -13,8 +13,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.signal.benchmark.setup.Generator
 import org.signal.benchmark.setup.Harness
+import org.signal.benchmark.setup.OtherClient
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.TestDbUtils
+import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.whispersystems.signalservice.internal.push.Envelope
 import org.whispersystems.signalservice.internal.websocket.BenchmarkWebSocketConnection
 import org.whispersystems.signalservice.internal.websocket.WebSocketRequestMessage
@@ -45,9 +50,18 @@ class BenchmarkCommandReceiver : BroadcastReceiver() {
     when (command) {
       "individual-send" -> handlePrepareIndividualSend()
       "group-send" -> handlePrepareGroupSend()
+      "group-delivery-receipt" -> handlePrepareGroupReceipts { client, timestamps -> client.generateInboundDeliveryReceipts(timestamps) }
+      "group-read-receipt" -> handlePrepareGroupReceipts { client, timestamps -> client.generateInboundReadReceipts(timestamps) }
       "release-messages" -> {
-        BenchmarkWebSocketConnection.authInstance.startWholeBatchTrace = true
-        BenchmarkWebSocketConnection.authInstance.releaseMessages()
+        BenchmarkWebSocketConnection.startWholeBatchTrace()
+        BenchmarkWebSocketConnection.releaseMessages()
+      }
+      "delete-thread" -> {
+        val pendingResult = goAsync()
+        Thread {
+          handleDeleteThread()
+          pendingResult.finish()
+        }.start()
       }
       else -> Log.w(TAG, "Unknown command: $command")
     }
@@ -61,25 +75,23 @@ class BenchmarkCommandReceiver : BroadcastReceiver() {
 
     runBlocking {
       launch(Dispatchers.IO) {
-        BenchmarkWebSocketConnection.authInstance.run {
-          Log.i(TAG, "Sending initial message form Bob to establish session.")
-          addPendingMessages(listOf(encryptedEnvelope.toWebSocketPayload()))
-          releaseMessages()
+        Log.i(TAG, "Sending initial message form Bob to establish session.")
+        BenchmarkWebSocketConnection.addPendingMessages(listOf(encryptedEnvelope.toWebSocketPayload()))
+        BenchmarkWebSocketConnection.releaseMessages()
 
-          // Sleep briefly to let the message be processed.
-          ThreadUtil.sleep(100)
-        }
+        // Sleep briefly to let the message be processed.
+        ThreadUtil.sleep(1000)
       }
     }
 
     // Have Bob generate N messages that will be received by Alice
-    val messageCount = 100
+    val messageCount = 500
     val envelopes = client.generateInboundEnvelopes(messageCount)
 
     val messages = envelopes.map { e -> e.toWebSocketPayload() }
 
-    BenchmarkWebSocketConnection.authInstance.addPendingMessages(messages)
-    BenchmarkWebSocketConnection.authInstance.addQueueEmptyMessage()
+    BenchmarkWebSocketConnection.addPendingMessages(messages)
+    BenchmarkWebSocketConnection.addQueueEmptyMessage()
   }
 
   private fun handlePrepareGroupSend() {
@@ -90,27 +102,92 @@ class BenchmarkCommandReceiver : BroadcastReceiver() {
 
     runBlocking {
       launch(Dispatchers.IO) {
-        BenchmarkWebSocketConnection.authInstance.run {
-          Log.i(TAG, "Sending initial group messages from client to establish sessions.")
-          addPendingMessages(encryptedEnvelopes.map { it.toWebSocketPayload() })
-          releaseMessages()
+        Log.i(TAG, "Sending initial group messages from client to establish sessions.")
+        BenchmarkWebSocketConnection.addPendingMessages(encryptedEnvelopes.map { it.toWebSocketPayload() })
+        BenchmarkWebSocketConnection.releaseMessages()
 
-          // Sleep briefly to let the messages be processed.
-          ThreadUtil.sleep(1000)
-        }
+        // Sleep briefly to let the messages be processed.
+        ThreadUtil.sleep(1000)
       }
     }
 
     // Have clients generate N group messages that will be received by Alice
-    clients.forEach { client ->
+    val allClientMessages = clients.map { client ->
       val messageCount = 100
       val envelopes = client.generateInboundGroupEnvelopes(messageCount, Harness.groupMasterKey)
-
-      val messages = envelopes.map { e -> e.toWebSocketPayload() }
-
-      BenchmarkWebSocketConnection.authInstance.addPendingMessages(messages)
+      envelopes.map { e -> e.toWebSocketPayload() }
     }
-    BenchmarkWebSocketConnection.authInstance.addQueueEmptyMessage()
+
+    BenchmarkWebSocketConnection.addPendingMessages(interleave(allClientMessages))
+    BenchmarkWebSocketConnection.addQueueEmptyMessage()
+  }
+
+  private fun handlePrepareGroupReceipts(generateReceipts: (OtherClient, List<Long>) -> List<Envelope>) {
+    val clients = Harness.otherClients.take(5)
+
+    establishGroupSessions(clients)
+
+    val timestamps = getOutgoingGroupMessageTimestamps()
+    Log.i(TAG, "Found ${timestamps.size} outgoing message timestamps for receipts")
+
+    val allClientEnvelopes = clients.map { client ->
+      generateReceipts(client, timestamps).map { it.toWebSocketPayload() }
+    }
+
+    BenchmarkWebSocketConnection.addPendingMessages(interleave(allClientEnvelopes))
+    BenchmarkWebSocketConnection.addQueueEmptyMessage()
+  }
+
+  private fun establishGroupSessions(clients: List<OtherClient>) {
+    val encryptedEnvelopes = clients.map { it.encrypt(Generator.encryptedTextMessage(System.currentTimeMillis(), groupMasterKey = Harness.groupMasterKey)) }
+
+    runBlocking {
+      launch(Dispatchers.IO) {
+        Log.i(TAG, "Sending initial group messages from clients to establish sessions.")
+        BenchmarkWebSocketConnection.addPendingMessages(encryptedEnvelopes.map { it.toWebSocketPayload() })
+        BenchmarkWebSocketConnection.releaseMessages()
+        ThreadUtil.sleep(1000)
+      }
+    }
+  }
+
+  private fun handleDeleteThread() {
+    val threadId = SignalDatabase.threads.getRecentConversationList(1, false, false).use { cursor ->
+      if (cursor.moveToFirst()) {
+        cursor.getLong(cursor.getColumnIndexOrThrow("_id"))
+      } else {
+        Log.w(TAG, "No active threads found for deletion benchmark")
+        return
+      }
+    }
+    Log.i(TAG, "Deleting thread $threadId")
+    SignalDatabase.threads.deleteConversation(threadId, syncThreadDelete = false)
+    Log.i(TAG, "Thread $threadId deleted")
+  }
+
+  private fun getOutgoingGroupMessageTimestamps(): List<Long> {
+    val groupId = GroupId.v2(Harness.groupMasterKey)
+    val groupRecipient = Recipient.externalGroupExact(groupId)
+    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(groupRecipient)
+    val selfId = Recipient.self().id.toLong()
+    return TestDbUtils.getOutgoingMessageTimestamps(threadId, selfId)
+  }
+
+  /**
+   * Interleaves lists so that items from different lists alternate:
+   * [[a1, a2], [b1, b2], [c1, c2]] -> [a1, b1, c1, a2, b2, c2]
+   */
+  private fun <T> interleave(lists: List<List<T>>): List<T> {
+    val result = mutableListOf<T>()
+    val maxSize = lists.maxOf { it.size }
+    for (i in 0 until maxSize) {
+      for (list in lists) {
+        if (i < list.size) {
+          result += list[i]
+        }
+      }
+    }
+    return result
   }
 
   private fun Envelope.toWebSocketPayload(): WebSocketRequestMessage {

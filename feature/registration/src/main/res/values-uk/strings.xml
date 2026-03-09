@@ -33,6 +33,16 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Надсилайте фото, відео й файли зі свого пристрою.</string>
 
+    <!-- PhoneNumberEntryScreen -->
+    <!-- Title of registration screen when asking for the users phone number -->
+    <string name="RegistrationActivity_phone_number">Номер телефону</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">Ви отримаєте код підтвердження. Може стягуватися плата згідно з тарифами оператора.</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">Оберіть країну</string>
+    <string name="RegistrationActivity_phone_number_description">Номер телефону</string>
+    <string name="RegistrationActivity_next">Далі</string>
+
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
     <string name="CountryCodeSelectScreen__your_country">Ваша країна</string>
@@ -42,4 +52,36 @@
     <string name="CountryCodeSelectScreen__search_by">Пошук країни або коду</string>
     <!-- Fallback text for countries with no name -->
     <string name="CountryCodeSelectScreen__unknown_country">Невідома країна</string>
+
+    <!-- VerificationCodeScreen -->
+    <!-- Title of the verification code entry screen -->
+    <string name="VerificationCodeScreen__verification_code">Код підтвердження</string>
+    <!-- Subtitle explaining where the code was sent. Placeholder is the phone number -->
+    <string name="VerificationCodeScreen__enter_the_code_we_sent_to_s">Введіть код, який ми надіслали на %1$s</string>
+    <!-- Button text for wrong number action -->
+    <string name="VerificationCodeScreen__wrong_number">Неправильний номер?</string>
+    <!-- Button text for resend SMS action -->
+    <string name="VerificationCodeScreen__resend_code">Надішліть код ще раз</string>
+    <!-- Button text for call me action -->
+    <string name="VerificationCodeScreen__call_me_instead">Подзвоніть мені</string>
+    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__call_me_available_in">Подзвоніть мені (%1$02d:%2$02d)</string>
+    <!-- Toast shown when the user enters an incorrect verification code -->
+    <string name="VerificationCodeScreen__incorrect_code">Неправильний код</string>
+    <!-- Snackbar shown when there is a network error -->
+    <string name="VerificationCodeScreen__network_error">Не вдається під\'єднатися. Перевірте з\'єднання з мережею і спробуйте знову.</string>
+    <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Забагато спроб. Спробуйте ще раз через %1$s.</string>
+    <!-- Snackbar shown for generic/unknown errors -->
+    <string name="VerificationCodeScreen__an_unexpected_error_occurred">Сталася неочікувана помилка. Спробуйте ще раз.</string>
+    <!-- Snackbar shown when the SMS provider has an error -->
+    <string name="VerificationCodeScreen__sms_provider_error">Не вдалося надіслати ваш код підтвердження. Будь ласка, спробуйте ще раз.</string>
+    <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
+    <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Не вдалося надіслати код обраним способом. Будь ласка, оберіть інший.</string>
+    <!-- Snackbar shown for registration errors -->
+    <string name="VerificationCodeScreen__registration_error">Помилка реєстрації. Будь ласка, спробуйте ще раз.</string>
+    <!-- Button text for having trouble with verification -->
+    <string name="VerificationCodeScreen__having_trouble">Виникли проблеми?</string>
 </resources>

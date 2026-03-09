@@ -33,6 +33,16 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Sūtiet fotoattēlus, videoklipus un failus no savas ierīces.</string>
 
+    <!-- PhoneNumberEntryScreen -->
+    <!-- Title of registration screen when asking for the users phone number -->
+    <string name="RegistrationActivity_phone_number">Tālruņa numurs</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">Jūs saņemsiet verifikācijas kodu. Var tikt piemēroti mobilā operatora tarifi.</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">Izvēlieties valsti</string>
+    <string name="RegistrationActivity_phone_number_description">Tālruņa numurs</string>
+    <string name="RegistrationActivity_next">Tālāk</string>
+
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
     <string name="CountryCodeSelectScreen__your_country">Jūsu valsts</string>
@@ -42,4 +52,36 @@
     <string name="CountryCodeSelectScreen__search_by">Meklējiet pēc nosaukuma vai valsts koda</string>
     <!-- Fallback text for countries with no name -->
     <string name="CountryCodeSelectScreen__unknown_country">Nezināma valsts</string>
+
+    <!-- VerificationCodeScreen -->
+    <!-- Title of the verification code entry screen -->
+    <string name="VerificationCodeScreen__verification_code">Verifikācijas kods</string>
+    <!-- Subtitle explaining where the code was sent. Placeholder is the phone number -->
+    <string name="VerificationCodeScreen__enter_the_code_we_sent_to_s">Ievadiet kodu, kuru nosūtījām uz %1$s</string>
+    <!-- Button text for wrong number action -->
+    <string name="VerificationCodeScreen__wrong_number">Vai nepareizs numurs?</string>
+    <!-- Button text for resend SMS action -->
+    <string name="VerificationCodeScreen__resend_code">Saņemt kodu vēlreiz</string>
+    <!-- Button text for call me action -->
+    <string name="VerificationCodeScreen__call_me_instead">Tā vietā piezvaniet man</string>
+    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__call_me_available_in">Piezvaniet man (%1$02d.%2$02d)</string>
+    <!-- Toast shown when the user enters an incorrect verification code -->
+    <string name="VerificationCodeScreen__incorrect_code">Nepareizs kods</string>
+    <!-- Snackbar shown when there is a network error -->
+    <string name="VerificationCodeScreen__network_error">Nevar izveidot savienojumu. Lūdzu, pārbaudiet savu tīklu un mēģiniet vēlreiz.</string>
+    <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Pārāk daudz mēģinājumu. Mēģiniet vēlreiz pēc %1$s.</string>
+    <!-- Snackbar shown for generic/unknown errors -->
+    <string name="VerificationCodeScreen__an_unexpected_error_occurred">Radās neparedzēta kļūda. Lūdzu, mēģiniet vēlreiz.</string>
+    <!-- Snackbar shown when the SMS provider has an error -->
+    <string name="VerificationCodeScreen__sms_provider_error">Sūtot verifikācijas kodu, radās problēma. Lūdzu, mēģiniet vēlreiz.</string>
+    <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
+    <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Neizdevās nosūtīt kodu, izmantojot izvēlēto metodi. Lūdzu, mēģiniet citu iespēju.</string>
+    <!-- Snackbar shown for registration errors -->
+    <string name="VerificationCodeScreen__registration_error">Reģistrācija neizdevās. Lūdzu, mēģiniet vēlreiz.</string>
+    <!-- Button text for having trouble with verification -->
+    <string name="VerificationCodeScreen__having_trouble">Radušās problēmas?</string>
 </resources>

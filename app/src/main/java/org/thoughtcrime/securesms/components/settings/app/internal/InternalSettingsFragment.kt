@@ -158,6 +158,16 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
           promptUserForSentTimestamp()
         }
       )
+
+      switchPref(
+        title = DSLSettingsText.from("Disable internal user flag"),
+        summary = DSLSettingsText.from("Experience life as a non-internal user. Force-stop the app to be an internal user again."),
+        isChecked = state.disableInternalUser,
+        onClick = {
+          viewModel.setDisableInternalUser(!state.disableInternalUser)
+        }
+      )
+
       dividerPref()
 
       sectionHeaderPref(DSLSettingsText.from("App UI"))
@@ -730,6 +740,13 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         title = DSLSettingsText.from("Add sample note"),
         onClick = {
           viewModel.addSampleReleaseNote()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from("Add remote backups note"),
+        onClick = {
+          viewModel.addSampleReleaseNote("remote_backups")
         }
       )
 

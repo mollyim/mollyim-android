@@ -287,9 +287,6 @@ class ManageDonationsFragment :
           subscriberRequiresCancel = state.subscriberRequiresCancel,
           onRowClick = {
             launcher.launch(InAppPaymentType.RECURRING_DONATION)
-          },
-          onPendingClick = {
-            displayPendingDialog(it)
           }
         )
       )
@@ -310,7 +307,6 @@ class ManageDonationsFragment :
           onContactSupport = {},
           activeSubscription = null,
           subscriberRequiresCancel = state.subscriberRequiresCancel,
-          onPendingClick = {},
           onRowClick = {}
         )
       )

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import im.molly.app.base.ApkInfo
@@ -93,6 +94,7 @@ class LogSectionSystemInfo : LogSection {
       Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL?.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
       App               : ${getAppInfo(context)}
       Package           : ${BuildConfig.APPLICATION_ID} (${getSigningString(context)})
+      FullScreenIntents : ${NotificationManagerCompat.from(context).canUseFullScreenIntent()}
     """.trimIndent()
   }
 

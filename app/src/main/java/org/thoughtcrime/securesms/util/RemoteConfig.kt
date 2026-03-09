@@ -11,7 +11,6 @@ import org.signal.core.util.gibiBytes
 import org.signal.core.util.kibiBytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.mebiBytes
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.SelectionLimits
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
@@ -82,6 +81,14 @@ object RemoteConfig {
   @VisibleForTesting
   var initialized: Boolean = false
   private val initLock: ReentrantLock = ReentrantLock()
+
+  /** Solely for fixing an issue with the internalUser flag */
+  @VisibleForTesting
+  var underTest: Boolean = false
+
+  @JvmStatic
+  @Volatile
+  var internalUserDisabled: Boolean = false
 
   @JvmStatic
   fun init() {
@@ -587,7 +594,17 @@ object RemoteConfig {
   /** Whether or not the user is an 'internal' one, which activates certain developer tools. */
   @JvmStatic
   @get:JvmName("internalUser")
-  val internalUser: Boolean = Environment.IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
+  val internalUser: Boolean by remoteValue(
+    key = "android.internalUser",
+    hotSwappable = true
+  ) { value ->
+    when {
+      internalUserDisabled -> false
+      underTest -> value.asBoolean(false)
+      Environment.isInternal() -> true
+      else -> value.asBoolean(false)
+    }
+  }
 
   /** The raw client expiration JSON string.  */
   @JvmStatic
@@ -793,14 +810,14 @@ object RemoteConfig {
 
   /** A comma-separated list of manufacturers that should *not* use CameraX.  */
   val cameraXModelBlocklist: String by remoteString(
-    key = "android.cameraXModelBlockList.2",
+    key = "android.cameraXModelBlockList.3",
     defaultValue = "",
     hotSwappable = true
   )
 
   /** A comma-separated list of manufacturers that should *not* use CameraX mixed mode.  */
   val cameraXMixedModelBlocklist: String by remoteString(
-    key = "android.cameraXMixedModelBlockList",
+    key = "android.cameraXMixedModelBlockList.2",
     defaultValue = "",
     hotSwappable = false
   )
@@ -1199,17 +1216,6 @@ object RemoteConfig {
   )
 
   /**
-   * Whether or not the new UX for unified local backups is enabled
-   */
-  @JvmStatic
-  @get:JvmName("unifiedLocalBackups")
-  val unifiedLocalBackups: Boolean by remoteBoolean(
-    key = "android.unifiedLocalBackups",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Whether to receive and display group member labels.
    */
   val receiveMemberLabels: Boolean by remoteBoolean(
@@ -1224,10 +1230,53 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("sendMemberLabels")
   val sendMemberLabels: Boolean by remoteBoolean(
-    key = "android.sendMemberLabels",
+    key = "android.sendMemberLabels.3",
     defaultValue = false,
     hotSwappable = true
   )
 
+  /**
+   * Whether or not to receive admin delete messages.
+   */
+  @JvmStatic
+  @get:JvmName("receiveAdminDelete")
+  val receiveAdminDelete: Boolean by remoteBoolean(
+    key = "android.receiveAdminDelete.2",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  /**
+   * Whether or not to send admin delete messages.
+   */
+  @JvmStatic
+  @get:JvmName("sendAdminDelete")
+  val sendAdminDelete: Boolean by remoteBoolean(
+    key = "android.sendAdminDelete",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  /**
+   * Maximum time that passes where a message can still be regularly deleted
+   */
+  @JvmStatic
+  @get:JvmName("regularDeleteThreshold")
+  val regularDeleteThreshold: Long by remoteLong(
+    key = "global.normalDeleteMaxAgeInSeconds",
+    defaultValue = 1.days.inWholeSeconds,
+    hotSwappable = true
+  )
+
+  /**
+   * Maximum time that passes where a message can still be deleted by an admin
+   */
+  @JvmStatic
+  @get:JvmName("adminDeleteThreshold")
+  val adminDeleteThreshold: Long by remoteLong(
+    key = "global.adminDeleteMaxAgeInSeconds",
+    defaultValue = 1.days.inWholeSeconds,
+    hotSwappable = true
+  )
   // endregion
 }

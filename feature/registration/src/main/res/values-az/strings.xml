@@ -33,6 +33,16 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Cihazınızdan şəkillər, videolar və fayllar göndərin.</string>
 
+    <!-- PhoneNumberEntryScreen -->
+    <!-- Title of registration screen when asking for the users phone number -->
+    <string name="RegistrationActivity_phone_number">Telefon nömrəsi</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">Bir təsdiqləmə kodu alacaqsınız. Operatorunuz buna görə xidmət haqqı bilər.</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">Bir ölkə seçin</string>
+    <string name="RegistrationActivity_phone_number_description">Telefon nömrəsi</string>
+    <string name="RegistrationActivity_next">Növbəti</string>
+
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
     <string name="CountryCodeSelectScreen__your_country">Ölkəniz</string>
@@ -42,4 +52,36 @@
     <string name="CountryCodeSelectScreen__search_by">Ad və ya ölkə kodu ilə axtarın</string>
     <!-- Fallback text for countries with no name -->
     <string name="CountryCodeSelectScreen__unknown_country">Naməlum ölkə</string>
+
+    <!-- VerificationCodeScreen -->
+    <!-- Title of the verification code entry screen -->
+    <string name="VerificationCodeScreen__verification_code">Təsdiqləmə kodu</string>
+    <!-- Subtitle explaining where the code was sent. Placeholder is the phone number -->
+    <string name="VerificationCodeScreen__enter_the_code_we_sent_to_s">%1$s nömrəsinə göndərdiyimiz kodu daxil edin</string>
+    <!-- Button text for wrong number action -->
+    <string name="VerificationCodeScreen__wrong_number">Şifrə səhvdir?</string>
+    <!-- Button text for resend SMS action -->
+    <string name="VerificationCodeScreen__resend_code">Kodu yenidən göndər</string>
+    <!-- Button text for call me action -->
+    <string name="VerificationCodeScreen__call_me_instead">Bunun əvəzinə mənə zəng et</string>
+    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__call_me_available_in">Mənə zəng et (%1$02d:%2$02d)</string>
+    <!-- Toast shown when the user enters an incorrect verification code -->
+    <string name="VerificationCodeScreen__incorrect_code">Yanlış kod</string>
+    <!-- Snackbar shown when there is a network error -->
+    <string name="VerificationCodeScreen__network_error">Qoşulmaq mümkün olmadı. Şəbəkəni yoxlayıb, yenidən cəhd edin.</string>
+    <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Həddən artıq cəhd. %1$s ərzində yenidən cəhd edin.</string>
+    <!-- Snackbar shown for generic/unknown errors -->
+    <string name="VerificationCodeScreen__an_unexpected_error_occurred">Gözlənilməz bir xəta baş verdi. Yenidən cəhd edin.</string>
+    <!-- Snackbar shown when the SMS provider has an error -->
+    <string name="VerificationCodeScreen__sms_provider_error">Təsdiq kodunuz göndərilərkən problem baş verdi. Yenidən cəhd edin.</string>
+    <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
+    <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Kodu seçilmiş metodla göndərmək mümkün olmadı. Başqa bir seçimlə cəhd edin.</string>
+    <!-- Snackbar shown for registration errors -->
+    <string name="VerificationCodeScreen__registration_error">Qeydiyyatdan keçmək baş tutmadı. Yenidən cəhd edin.</string>
+    <!-- Button text for having trouble with verification -->
+    <string name="VerificationCodeScreen__having_trouble">Çətinlik çəkirsiniz?</string>
 </resources>

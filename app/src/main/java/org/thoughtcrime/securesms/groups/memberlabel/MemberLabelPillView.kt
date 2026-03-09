@@ -9,7 +9,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,10 +53,11 @@ class MemberLabelPillView : AbstractComposeView {
     memberLabel?.let { label ->
       MemberLabelPill(
         emoji = label.emoji,
-        text = label.text,
+        text = label.displayText,
         tintColor = tintColor,
         modifier = Modifier.padding(horizontal = style.horizontalPadding, vertical = style.verticalPadding),
-        textStyle = style.textStyle()
+        textStyle = style.textStyle(),
+        maxLines = style.maxLines
       )
     }
   }
@@ -65,6 +65,19 @@ class MemberLabelPillView : AbstractComposeView {
   data class Style(
     val horizontalPadding: Dp = 12.dp,
     val verticalPadding: Dp = 2.dp,
-    val textStyle: @Composable () -> TextStyle = { MaterialTheme.typography.bodyLarge }
-  )
+    val textStyle: @Composable () -> TextStyle = { MemberLabelPill.textStyleNormal },
+    val maxLines: Int = 1
+  ) {
+    companion object {
+      @JvmField
+      val Normal = Style()
+
+      @JvmField
+      val Compact = Style(
+        horizontalPadding = 8.dp,
+        verticalPadding = 2.dp,
+        textStyle = { MemberLabelPill.textStyleCompact }
+      )
+    }
+  }
 }

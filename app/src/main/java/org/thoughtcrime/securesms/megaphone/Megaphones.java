@@ -44,6 +44,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DateUtils;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -133,9 +134,9 @@ public final class Megaphones {
       // Feature-introduction megaphones should *probably* be added below this divider
       put(Event.ADD_A_PROFILE_PHOTO, shouldShowAddAProfilePhotoMegaphone(context) ? ALWAYS : NEVER);
       put(Event.PNP_LAUNCH, shouldShowPnpLaunchMegaphone() ? ALWAYS : NEVER);
-      put(Event.TURN_ON_SIGNAL_BACKUPS, shouldShowTurnOnBackupsMegaphone(context) ? new RecurringSchedule(TimeUnit.DAYS.toMillis(30), TimeUnit.DAYS.toMillis(90)) : NEVER);
+      put(Event.BACKUPS_GENERIC_UPSELL, shouldShowGenericBackupsMegaphone(context) ? ALWAYS : NEVER);
       put(Event.VERIFY_BACKUP_KEY, new VerifyBackupKeyReminderSchedule());
-      put(Event.USE_NEW_ON_DEVICE_BACKUPS, shouldShowUseNewOnDeviceBackupsMegaphone() ? ALWAYS : NEVER);
+      put(Event.USE_NEW_ON_DEVICE_BACKUPS, shouldShowUseNewOnDeviceBackupsMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(14)) : NEVER);
     }};
   }
 
@@ -189,8 +190,8 @@ public final class Megaphones {
         return buildPnpLaunchMegaphone();
       case NEW_LINKED_DEVICE:
         return buildNewLinkedDeviceMegaphone(context);
-      case TURN_ON_SIGNAL_BACKUPS:
-        return buildTurnOnSignalBackupsMegaphone();
+      case BACKUPS_GENERIC_UPSELL:
+        return buildBackupGenericUpsellMegaphone();
       case VERIFY_BACKUP_KEY:
         return buildVerifyBackupKeyMegaphone();
       case USE_NEW_ON_DEVICE_BACKUPS:
@@ -505,8 +506,8 @@ public final class Megaphones {
         .build();
   }
 
-  public static @NonNull Megaphone buildTurnOnSignalBackupsMegaphone() {
-    return new Megaphone.Builder(Event.TURN_ON_SIGNAL_BACKUPS, Megaphone.Style.BASIC)
+  public static @NonNull Megaphone buildBackupGenericUpsellMegaphone() {
+    return new Megaphone.Builder(Event.BACKUPS_GENERIC_UPSELL, Megaphone.Style.BASIC)
         .setImage(R.drawable.backups_megaphone_image)
         .setTitle(R.string.preferences_chats__backups)
         .setBody(R.string.TurnOnSignalBackups__body)
@@ -514,11 +515,11 @@ public final class Megaphones {
           Intent intent = AppSettingsActivity.backupsSettings(controller.getMegaphoneActivity());
 
           controller.onMegaphoneNavigationRequested(intent);
-          controller.onMegaphoneSnooze(Event.TURN_ON_SIGNAL_BACKUPS);
+          controller.onMegaphoneSnooze(Event.BACKUPS_GENERIC_UPSELL);
         })
         .setSecondaryButton(R.string.TurnOnSignalBackups__not_now, (megaphone, controller) -> {
           controller.onMegaphoneToastRequested(controller.getMegaphoneActivity().getString(R.string.TurnOnSignalBackups__toast_not_now));
-          controller.onMegaphoneSnooze(Event.TURN_ON_SIGNAL_BACKUPS);
+          controller.onMegaphoneSnooze(Event.BACKUPS_GENERIC_UPSELL);
         })
         .build();
   }
@@ -630,7 +631,7 @@ public final class Megaphones {
     return SignalStore.account().isPrimaryDevice() && TextUtils.isEmpty(SignalStore.account().getUsername()) && !SignalStore.uiHints().hasCompletedUsernameOnboarding();
   }
 
-  private static boolean shouldShowTurnOnBackupsMegaphone(@NonNull Context context) {
+  private static boolean shouldShowGenericBackupsMegaphone(@NonNull Context context) {
     if (SignalStore.backup().getLatestBackupTier() != null || SignalStore.settings().isBackupEnabled()) {
       return false;
     }
@@ -643,7 +644,7 @@ public final class Megaphones {
   }
 
   private static boolean shouldShowUseNewOnDeviceBackupsMegaphone() {
-    return RemoteConfig.unifiedLocalBackups() && SignalStore.settings().isBackupEnabled();
+    return Environment.Backups.isNewFormatSupportedForLocalBackup() && SignalStore.settings().isBackupEnabled();
   }
 
   private static boolean shouldShowGrantFullScreenIntentPermission(@NonNull Context context) {
@@ -696,7 +697,7 @@ public final class Megaphones {
     PNP_LAUNCH("pnp_launch"),
     GRANT_FULL_SCREEN_INTENT("grant_full_screen_intent"),
     NEW_LINKED_DEVICE("new_linked_device"),
-    TURN_ON_SIGNAL_BACKUPS("turn_on_signal_backups"),
+    BACKUPS_GENERIC_UPSELL("turn_on_signal_backups"),
     VERIFY_BACKUP_KEY("verify_backup_key"),
     USE_NEW_ON_DEVICE_BACKUPS("use_new_on_device_backups");
 

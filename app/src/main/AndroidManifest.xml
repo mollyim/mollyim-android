@@ -721,7 +721,7 @@
             android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <activity
-            android:name=".registration.ui.restore.local.InternalNewLocalRestoreActivity"
+            android:name=".registration.ui.restore.local.RestoreLocalBackupActivity"
             android:exported="false"
             android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
@@ -906,6 +906,11 @@
             android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
             android:exported="false"
             android:theme="@style/TextSecure.DialogActivity" />
+
+        <activity
+            android:name=".groups.memberlabel.MemberLabelActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <!-- ======================================= -->
         <!-- Activity Aliases                        -->

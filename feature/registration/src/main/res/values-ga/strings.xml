@@ -33,6 +33,16 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">Seol grianghraif, físeáin agus comhaid ó do ghléas.</string>
 
+    <!-- PhoneNumberEntryScreen -->
+    <!-- Title of registration screen when asking for the users phone number -->
+    <string name="RegistrationActivity_phone_number">Uimhir ghutháin</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">Gheobhaidh tú cód fíoraithe. D\'fhéadfadh do sholáthraí seirbhíse táillí a ghearradh ort.</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">Roghnaigh tír</string>
+    <string name="RegistrationActivity_phone_number_description">Uimhir ghutháin</string>
+    <string name="RegistrationActivity_next">Ar aghaidh</string>
+
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
     <string name="CountryCodeSelectScreen__your_country">Do thír</string>
@@ -42,4 +52,36 @@
     <string name="CountryCodeSelectScreen__search_by">Cuardaigh de réir ainm nó uimhreach</string>
     <!-- Fallback text for countries with no name -->
     <string name="CountryCodeSelectScreen__unknown_country">Tír anaithnid</string>
+
+    <!-- VerificationCodeScreen -->
+    <!-- Title of the verification code entry screen -->
+    <string name="VerificationCodeScreen__verification_code">Cód fíoraithe</string>
+    <!-- Subtitle explaining where the code was sent. Placeholder is the phone number -->
+    <string name="VerificationCodeScreen__enter_the_code_we_sent_to_s">Cuir isteach an cód a sheolamar chuig %1$s</string>
+    <!-- Button text for wrong number action -->
+    <string name="VerificationCodeScreen__wrong_number">Uimhir mhícheart?</string>
+    <!-- Button text for resend SMS action -->
+    <string name="VerificationCodeScreen__resend_code">Athsheol Cód</string>
+    <!-- Button text for call me action -->
+    <string name="VerificationCodeScreen__call_me_instead">Glaoigh orm ina ionad sin</string>
+    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__call_me_available_in">Glaoigh orm (%1$02d:%2$02d)</string>
+    <!-- Toast shown when the user enters an incorrect verification code -->
+    <string name="VerificationCodeScreen__incorrect_code">Cód mícheart</string>
+    <!-- Snackbar shown when there is a network error -->
+    <string name="VerificationCodeScreen__network_error">Nascadh dodhéanta. Seiceáil do líonra agus triail arís.</string>
+    <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">An iomarca iarrachtaí. Triail arís i gceann %1$s.</string>
+    <!-- Snackbar shown for generic/unknown errors -->
+    <string name="VerificationCodeScreen__an_unexpected_error_occurred">Tharla earráid gan choinne. Triail arís.</string>
+    <!-- Snackbar shown when the SMS provider has an error -->
+    <string name="VerificationCodeScreen__sms_provider_error">Bhí fadhb ann le seoladh do chóid fíoraithe. Triail arís.</string>
+    <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
+    <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Níorbh fhéidir an cód a sheoladh tríd an modh roghnaithe. Triail rogha eile.</string>
+    <!-- Snackbar shown for registration errors -->
+    <string name="VerificationCodeScreen__registration_error">Theip ar chlárú. Triail arís.</string>
+    <!-- Button text for having trouble with verification -->
+    <string name="VerificationCodeScreen__having_trouble">Deacracht agat?</string>
 </resources>

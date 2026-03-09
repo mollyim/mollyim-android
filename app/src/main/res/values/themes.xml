@@ -353,6 +353,10 @@
         <item name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</item>
         <item name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</item>
         <item name="quote_view_foreground_outgoing_normal">?attr/colorOnSurface</item>
+        <item name="quote_view_label_background_incoming_normal">@color/signal_colorOnSurface_8</item>
+        <item name="quote_view_label_background_incoming_wallpaper">@color/signal_colorOnSurface_8</item>
+        <item name="quote_view_label_background_outgoing_normal">@color/transparent_white_36</item>
+        <item name="quote_view_label_background_outgoing_wallpaper">@color/transparent_white_36</item>
         <item name="react_with_any_background">?attr/colorSurfaceContainerLow</item>
         <item name="react_with_any_search_background">?attr/conversation_compose_background</item>
         <item name="react_with_any_search_hint">?attr/colorOnSurfaceVariant</item>
@@ -523,6 +527,10 @@
         <item name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</item>
         <item name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</item>
         <item name="quote_view_foreground_outgoing_normal">?attr/colorOnSurfaceInverse</item>
+        <item name="quote_view_label_background_incoming_normal">@color/transparent_white_20</item>
+        <item name="quote_view_label_background_incoming_wallpaper">@color/transparent_white_20</item>
+        <item name="quote_view_label_background_outgoing_normal">@color/transparent_white_20</item>
+        <item name="quote_view_label_background_outgoing_wallpaper">@color/transparent_white_20</item>
         <item name="react_with_any_background">?attr/colorSurfaceContainerLow</item>
         <item name="react_with_any_search_background">?attr/conversation_compose_background</item>
         <item name="react_with_any_search_hint">?attr/colorOnSurfaceVariant</item>

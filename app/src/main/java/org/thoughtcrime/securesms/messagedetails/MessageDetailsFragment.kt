@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.conversation.ConversationItem
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.conversation.colors.Colorizer
+import org.thoughtcrime.securesms.conversation.colors.ColorizerV2
 import org.thoughtcrime.securesms.conversation.colors.RecyclerViewColorizer
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart
 import org.thoughtcrime.securesms.conversation.ui.edit.EditMessageHistoryDialog.Companion.show
@@ -44,7 +45,7 @@ import org.thoughtcrime.securesms.polls.PollOption
 import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet.forMessageRecord
+import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet.forOutgoingMessageRecord
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
 import org.thoughtcrime.securesms.util.fragments.requireListener
@@ -81,7 +82,7 @@ class MessageDetailsFragment : Fragment(), MessageDetailsAdapter.Callbacks {
     val list = view.findViewById<RecyclerView>(R.id.message_details_list)
     val toolbarShadow = view.findViewById<View>(R.id.toolbar_shadow)
 
-    colorizer = Colorizer()
+    colorizer = ColorizerV2()
     adapter = MessageDetailsAdapter(viewLifecycleOwner, requestManager, colorizer, this)
     recyclerViewColorizer = RecyclerViewColorizer(list)
 
@@ -152,7 +153,7 @@ class MessageDetailsFragment : Fragment(), MessageDetailsAdapter.Callbacks {
   }
 
   override fun onErrorClicked(messageRecord: MessageRecord) {
-    forMessageRecord(requireContext(), messageRecord)
+    forOutgoingMessageRecord(requireContext(), messageRecord)
       .show(childFragmentManager)
   }
 

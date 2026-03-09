@@ -33,6 +33,16 @@
     <!-- Storage permission row description -->
     <string name="GrantPermissionsFragment__send_photos_videos_and_files">ផ្ញើរូបថត វីដេអូ និងឯកសារពីឧបករណ៍របស់អ្នក។</string>
 
+    <!-- PhoneNumberEntryScreen -->
+    <!-- Title of registration screen when asking for the users phone number -->
+    <string name="RegistrationActivity_phone_number">លេខទូរសព្ទ</string>
+    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">អ្នកនឹងទទួលបានលេខកូដផ្ទៀងផ្ទាត់។ អាចនឹងមានការគិតប្រាក់ពីក្រុមហ៊ុនសេវាទូរសព្ទ។</string>
+    <!-- Hint text to select a country -->
+    <string name="RegistrationActivity_select_a_country">ជ្រើសរើសប្រទេសមួយ</string>
+    <string name="RegistrationActivity_phone_number_description">លេខទូរសព្ទ</string>
+    <string name="RegistrationActivity_next">បន្ទាប់</string>
+
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
     <string name="CountryCodeSelectScreen__your_country">ប្រទេសរបស់អ្នក</string>
@@ -42,4 +52,36 @@
     <string name="CountryCodeSelectScreen__search_by">ស្វែងរកតាមឈ្មោះ ឬលេខកូដប្រទេស</string>
     <!-- Fallback text for countries with no name -->
     <string name="CountryCodeSelectScreen__unknown_country">ប្រទេសមិនស្គាល់</string>
+
+    <!-- VerificationCodeScreen -->
+    <!-- Title of the verification code entry screen -->
+    <string name="VerificationCodeScreen__verification_code">លេខកូដផ្ទៀងផ្ទាត់</string>
+    <!-- Subtitle explaining where the code was sent. Placeholder is the phone number -->
+    <string name="VerificationCodeScreen__enter_the_code_we_sent_to_s">បញ្ចូលលេខកូដដែលយើងបានផ្ញើទៅ %1$s</string>
+    <!-- Button text for wrong number action -->
+    <string name="VerificationCodeScreen__wrong_number">ខុសលេខ?</string>
+    <!-- Button text for resend SMS action -->
+    <string name="VerificationCodeScreen__resend_code">ផ្ញើកូដម្តងទៀត</string>
+    <!-- Button text for call me action -->
+    <string name="VerificationCodeScreen__call_me_instead">ហៅទូរសព្ទមកខ្ញុំជំនួសវិញ</string>
+    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__call_me_available_in">ហៅមកខ្ញុំ (%1$02d:%2$02d)</string>
+    <!-- Toast shown when the user enters an incorrect verification code -->
+    <string name="VerificationCodeScreen__incorrect_code">លេខកូដមិនត្រឹមត្រូវ</string>
+    <!-- Snackbar shown when there is a network error -->
+    <string name="VerificationCodeScreen__network_error">មិនអាចភ្ជាប់បានទេ។ សូមពិនិត្យមើលបណ្តាញរបស់អ្នក ហើយព្យាយាមម្តងទៀត។</string>
+    <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">ព្យាយាមច្រើនដងពេក។ ព្យាយាមម្តងទៀតក្នុងរយៈពេល %1$s។</string>
+    <!-- Snackbar shown for generic/unknown errors -->
+    <string name="VerificationCodeScreen__an_unexpected_error_occurred">បញ្ហាមួយដែលមិនបានរំពឹងទុកបានកើតឡើង។ សូមព្យាយាមម្តងទៀត។</string>
+    <!-- Snackbar shown when the SMS provider has an error -->
+    <string name="VerificationCodeScreen__sms_provider_error">មានបញ្ហាក្នុងការផ្ញើលេខកូដផ្ទៀងផ្ទាត់របស់អ្នក។ សូមព្យាយាមម្តងទៀត។</string>
+    <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
+    <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">មិនអាចផ្ញើលេខកូដតាមវិធីដែលបានជ្រើសរើសទេ។ សូមសាកល្បងជម្រើសផ្សេងទៀត។</string>
+    <!-- Snackbar shown for registration errors -->
+    <string name="VerificationCodeScreen__registration_error">ការចុះឈ្មោះមិនបានជោគជ័យទេ។ សូមព្យាយាមម្តងទៀត។</string>
+    <!-- Button text for having trouble with verification -->
+    <string name="VerificationCodeScreen__having_trouble">កំពុងមានបញ្ហា?</string>
 </resources>

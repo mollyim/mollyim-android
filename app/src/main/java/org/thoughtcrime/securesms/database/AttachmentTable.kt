@@ -705,6 +705,17 @@ class AttachmentTable(
       }
   }
 
+  /**
+   * This is "approximate" because it doesn't account for things like duplicates. Only useful as a heuristic.
+   */
+  fun getApproximateTotalMediaSize(): Long {
+    return readableDatabase
+      .select("SUM($DATA_SIZE)")
+      .from(TABLE_NAME)
+      .run()
+      .readToSingleLong(0L)
+  }
+
   fun getOptimizedMediaAttachmentSize(): Long {
     return readableDatabase
       .select("SUM($DATA_SIZE)")
@@ -2098,11 +2109,14 @@ class AttachmentTable(
       val contentValues = contentValuesOf(
         DATA_SIZE to newDataFileInfo.length,
         CONTENT_TYPE to mediaStream.mimeType,
-        WIDTH to mediaStream.width,
-        HEIGHT to mediaStream.height,
         DATA_FILE to newDataFileInfo.file.absolutePath,
         DATA_RANDOM to newDataFileInfo.random
       )
+
+      if (mediaStream.width > 0 && mediaStream.height > 0) {
+        contentValues.put(WIDTH, mediaStream.width)
+        contentValues.put(HEIGHT, mediaStream.height)
+      }
 
       val updateCount = db.update(TABLE_NAME)
         .values(contentValues)
