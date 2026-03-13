@@ -22,9 +22,6 @@ jobs:
     name: Build new
     runs-on: ubuntu-22.04
 
-    env:
-      GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
-
     steps:
       - uses: actions/checkout@v4
         with:

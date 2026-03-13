@@ -30,11 +30,13 @@ RUN sdkmanager "ndk;${NDK_VERSION}"
 RUN sdkmanager "platforms;${COMPILE_SDK_VERSION}"
 RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}"
 
+ENV GRADLE_RO_DEP_CACHE=/.gradle-ro-cache
+
 COPY gradlew /molly/
 COPY gradle /molly/gradle/
 RUN /molly/gradlew --version
 
-ENV GRADLE_RO_DEP_CACHE=/.gradle-ro-cache
+COPY gradle.properties.docker /root/.gradle/gradle.properties
 
 COPY . /molly/
 WORKDIR /molly

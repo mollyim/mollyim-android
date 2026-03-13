@@ -3,12 +3,11 @@ services:
     image: reproducible-molly
     build:
       context: ..
-    command: :app:assembleRelease :app:bundleRelease --no-daemon
+    command: :app:assembleRelease :app:bundleRelease
     volumes:
       - ./certs:/molly/app/certs:ro
       - ./outputs:/molly/app/build/outputs
     environment:
-      - GRADLE_OPTS
       - CI_APP_TITLE
       - CI_APP_FILENAME
       - CI_PACKAGE_ID
