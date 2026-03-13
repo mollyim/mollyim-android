@@ -333,6 +333,13 @@ android {
     ignoreWarnings = true
     quiet = true
     lintConfig = rootProject.file("lint.xml")
+    if (ciEnabled) {
+      // MOLLY: disable slow "newer dependency available" lint checks; versions are pinned.
+      disable += setOf(
+        "GradleDependency",
+        "NewerVersionAvailable"
+      )
+    }
   }
 
   androidComponents {
