@@ -22,7 +22,7 @@ jobs:
   build:
     name: Build
     if: "github.event.base_ref != 'refs/heads/upstream'"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -113,7 +113,7 @@ jobs:
   prepare_release:
     name: Prepare release
     if: "github.event.base_ref != 'refs/heads/upstream'"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
 
     steps:
       - uses: actions/checkout@v4
@@ -139,7 +139,7 @@ jobs:
 
   upload:
     name: Upload
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     needs:
       - build
       - prepare_release

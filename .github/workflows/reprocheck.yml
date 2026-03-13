@@ -20,7 +20,7 @@ env:
 jobs:
   build:
     name: Build new
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
 
   download:
     name: Download original
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     outputs:
       apks: "${{ steps.set.outputs.apks }}"
 
@@ -99,7 +99,7 @@ jobs:
 
   compare:
     name: Compare
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     needs:
       - build
       - download
