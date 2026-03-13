@@ -1,17 +1,12 @@
-pluginManagement {
-  repositories {
-    google()
-    mavenCentral()
-    gradlePluginPortal()
-  }
-}
-
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
-    google()
+    google {
+      content {
+        includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
+      }
+    }
     mavenCentral()
-    gradlePluginPortal()
   }
   versionCatalogs {
     create("libs") {

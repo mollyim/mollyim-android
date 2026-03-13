@@ -9,7 +9,11 @@ plugins {
 
 buildscript {
   repositories {
-    google()
+    google {
+      content {
+        includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
+      }
+    }
     mavenCentral()
   }
 
