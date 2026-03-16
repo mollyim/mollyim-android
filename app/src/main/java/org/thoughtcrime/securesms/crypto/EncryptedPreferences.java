@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.Base64;
+import org.signal.core.util.LRUCache;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.util.LRUCache;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

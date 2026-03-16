@@ -155,6 +155,11 @@ import org.thoughtcrime.securesms.database.helpers.migration.V296_RemovePollVote
 import org.thoughtcrime.securesms.database.helpers.migration.V297_AddPinnedMessageColumns
 import org.thoughtcrime.securesms.database.helpers.migration.V298_DoNotBackupReleaseNotes
 import org.thoughtcrime.securesms.database.helpers.migration.V299_AddAttachmentMetadataTable
+import org.thoughtcrime.securesms.database.helpers.migration.V300_AddKeyTransparencyColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V301_RemoveCallLinkEpoch
+import org.thoughtcrime.securesms.database.helpers.migration.V302_AddDeletedByColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V303_CaseInsensitiveUsernames
+import org.thoughtcrime.securesms.database.helpers.migration.V304_CallAndReplyNotificationSettings
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -313,10 +318,15 @@ object SignalDatabaseMigrations {
     296 to V296_RemovePollVoteConstraint,
     297 to V297_AddPinnedMessageColumns,
     298 to V298_DoNotBackupReleaseNotes,
-    299 to V299_AddAttachmentMetadataTable
+    299 to V299_AddAttachmentMetadataTable,
+    300 to V300_AddKeyTransparencyColumn,
+    301 to V301_RemoveCallLinkEpoch,
+    302 to V302_AddDeletedByColumn,
+    303 to V303_CaseInsensitiveUsernames,
+    304 to V304_CallAndReplyNotificationSettings
   )
 
-  const val DATABASE_VERSION = 299
+  const val DATABASE_VERSION = 304
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(

@@ -46,14 +46,22 @@ class PhoneNumberEntryViewModel(
   val state = _state
     .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
     .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.Eagerly, PhoneNumberEntryState())
+    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PhoneNumberEntryState())
+
+  init {
+    viewModelScope.launch {
+      _state.value = state.value.copy(
+        restoredSvrCredentials = repository.getRestoredSvrCredentials()
+      )
+    }
+  }
 
   fun onEvent(event: PhoneNumberEntryScreenEvents) {
     viewModelScope.launch {
       val stateEmitter: (PhoneNumberEntryState) -> Unit = { state ->
         _state.value = state
       }
-      applyEvent(_state.value, event, stateEmitter, parentEventEmitter)
+      applyEvent(state.value, event, stateEmitter, parentEventEmitter)
     }
   }
 
@@ -63,14 +71,17 @@ class PhoneNumberEntryViewModel(
       is PhoneNumberEntryScreenEvents.CountryCodeChanged -> {
         stateEmitter(applyCountryCodeChanged(state, event.value))
       }
+      is PhoneNumberEntryScreenEvents.CountrySelected -> {
+        stateEmitter(applyCountrySelected(state, event.countryCode, event.regionCode, event.countryName, event.countryEmoji))
+      }
       is PhoneNumberEntryScreenEvents.PhoneNumberChanged -> {
         stateEmitter(applyPhoneNumberChanged(state, event.value))
       }
       is PhoneNumberEntryScreenEvents.PhoneNumberSubmitted -> {
-        var localState = state.copy(showFullScreenSpinner = true)
+        var localState = state.copy(showSpinner = true)
         stateEmitter(localState)
         localState = applyPhoneNumberSubmitted(localState, parentEventEmitter)
-        stateEmitter(localState.copy(showFullScreenSpinner = false))
+        stateEmitter(localState.copy(showSpinner = false))
       }
       is PhoneNumberEntryScreenEvents.CountryPicker -> {
         state.also { parentEventEmitter.navigateTo(RegistrationRoute.CountryCodePicker) }
@@ -86,7 +97,28 @@ class PhoneNumberEntryViewModel(
 
   @VisibleForTesting
   fun applyParentState(state: PhoneNumberEntryState, parentState: RegistrationFlowState): PhoneNumberEntryState {
-    return state.copy(sessionMetadata = parentState.sessionMetadata)
+    return state.copy(
+      sessionE164 = parentState.sessionE164,
+      sessionMetadata = parentState.sessionMetadata,
+      preExistingRegistrationData = parentState.preExistingRegistrationData,
+      restoredSvrCredentials = state.restoredSvrCredentials.takeUnless { parentState.doNotAttemptRecoveryPassword } ?: emptyList()
+    )
+  }
+
+  private fun applyCountrySelected(state: PhoneNumberEntryState, countryCode: Int, regionCode: String, countryName: String, countryEmoji: String): PhoneNumberEntryState {
+    val countryCodeStr = countryCode.toString()
+    if (countryCodeStr == state.countryCode && regionCode == state.regionCode) return state
+
+    formatter = phoneNumberUtil.getAsYouTypeFormatter(regionCode)
+    val formattedNumber = formatNumber(state.nationalNumber)
+
+    return state.copy(
+      countryCode = countryCodeStr,
+      regionCode = regionCode,
+      countryName = countryName,
+      countryEmoji = countryEmoji,
+      formattedNumber = formattedNumber
+    )
   }
 
   private fun applyCountryCodeChanged(state: PhoneNumberEntryState, countryCode: String): PhoneNumberEntryState {
@@ -122,15 +154,6 @@ class PhoneNumberEntryViewModel(
     )
   }
 
-  private fun formatNumber(nationalNumber: String): String {
-    formatter.clear()
-    var result = ""
-    for (digit in nationalNumber) {
-      result = formatter.inputDigit(digit)
-    }
-    return result
-  }
-
   private suspend fun applyPhoneNumberSubmitted(
     inputState: PhoneNumberEntryState,
     parentEventEmitter: (RegistrationFlowEvent) -> Unit
@@ -138,7 +161,112 @@ class PhoneNumberEntryViewModel(
     val e164 = "+${inputState.countryCode}${inputState.nationalNumber}"
     var state = inputState.copy()
 
-    // TODO Consider that someone may back into this screen and change the number, requiring us to create a new session.
+    // If we're re-registering for the same number we used to be registered for, we should try to skip right to registration
+    if (state.preExistingRegistrationData?.e164 == e164) {
+      val masterKey = state.preExistingRegistrationData.aep.deriveMasterKey()
+      val recoveryPassword = masterKey.deriveRegistrationRecoveryPassword()
+      val registrationLock = masterKey.deriveRegistrationLock().takeIf { state.preExistingRegistrationData.registrationLockEnabled }
+
+      when (val registerResult = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, registrationLock, skipDeviceTransfer = true, state.preExistingRegistrationData)) {
+        is NetworkController.RegistrationNetworkResult.Success -> {
+          Log.i(TAG, "[Register] Successfully re-registered using RRP from pre-existing data.")
+          val (response, keyMaterial) = registerResult.data
+
+          parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+
+          if (response.storageCapable) {
+            parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+          } else {
+            parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+          }
+          return state
+        }
+        is NetworkController.RegistrationNetworkResult.Failure -> {
+          when (registerResult.error) {
+            is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
+              Log.w(TAG, "[Register] Got told that our session could not be found when registering with RRP. We should never get into this state. Resetting.")
+              parentEventEmitter(RegistrationFlowEvent.ResetState)
+              return state
+            }
+            is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
+              Log.w(TAG, "[Register] Got told a device transfer is possible. We should never get into this state. Resetting.")
+              parentEventEmitter(RegistrationFlowEvent.ResetState)
+              return state
+            }
+            is NetworkController.RegisterAccountError.RegistrationLock -> {
+              Log.w(TAG, "[Register] Reglocked. This implies that the user still had reglock enabled despite the pre-existing data not thinking it was.")
+              parentEventEmitter.navigateTo(
+                RegistrationRoute.PinEntryForRegistrationLock(
+                  timeRemaining = registerResult.error.data.timeRemaining,
+                  svrCredentials = registerResult.error.data.svr2Credentials
+                )
+              )
+              return state
+            }
+            is NetworkController.RegisterAccountError.RateLimited -> {
+              Log.w(TAG, "[Register] Rate limited (retryAfter: ${registerResult.error.retryAfter}).")
+              return state.copy(oneTimeEvent = OneTimeEvent.RateLimited(registerResult.error.retryAfter))
+            }
+            is NetworkController.RegisterAccountError.InvalidRequest -> {
+              Log.w(TAG, "[Register] Invalid request when registering account with RRP. Ditching pre-existing data and continuing with session creation. Message: ${registerResult.error.message}")
+              parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
+              state = state.copy(preExistingRegistrationData = null)
+            }
+            is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
+              Log.w(TAG, "[Register] Registration recovery password incorrect. Ditching pre-existing data and continuing with session creation. Message: ${registerResult.error.message}")
+              parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
+              state = state.copy(preExistingRegistrationData = null)
+            }
+          }
+        }
+        is NetworkController.RegistrationNetworkResult.NetworkError -> {
+          Log.w(TAG, "[Register] Network error.", registerResult.exception)
+          return state.copy(oneTimeEvent = OneTimeEvent.NetworkError)
+        }
+        is NetworkController.RegistrationNetworkResult.ApplicationError -> {
+          Log.w(TAG, "[Register] Unknown error when registering account.", registerResult.exception)
+          return state.copy(oneTimeEvent = OneTimeEvent.UnknownError)
+        }
+      }
+    }
+
+    // Detect if we have valid SVR credentials for the current number. If so, we can go right to the PIN entry screen.
+    // If they successfully restore the master key at that screen, we can use that to build the RRP and register without SMS.
+    if (state.restoredSvrCredentials.isNotEmpty()) {
+      when (val result = repository.checkSvrCredentials(e164, state.restoredSvrCredentials)) {
+        is NetworkController.RegistrationNetworkResult.Success -> {
+          Log.i(TAG, "[CheckSVRCredentials] Successfully validated credentials for $e164.")
+          val credential = result.data.validCredential
+          if (credential != null) {
+            parentEventEmitter(RegistrationFlowEvent.E164Chosen(e164))
+            parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSmsBypass(credential))
+            return state
+          }
+        }
+        is NetworkController.RegistrationNetworkResult.NetworkError -> {
+          Log.w(TAG, "[CheckSVRCredentials] Network error. Ignoring error and continuing without RRP.", result.exception)
+        }
+        is NetworkController.RegistrationNetworkResult.ApplicationError -> {
+          Log.w(TAG, "[CheckSVRCredentials] Application error. Ignoring error and continuing without RRP.", result.exception)
+        }
+        is NetworkController.RegistrationNetworkResult.Failure -> {
+          when (result.error) {
+            is NetworkController.CheckSvrCredentialsError.InvalidRequest -> {
+              Log.w(TAG, "[CheckSVRCredentials] Invalid request. Ignoring error and continuing without RRP. Message: ${result.error.message}")
+            }
+
+            NetworkController.CheckSvrCredentialsError.Unauthorized -> {
+              Log.w(TAG, "[CheckSVRCredentials] Unauthorized. Ignoring error and continuing without RRP.")
+            }
+          }
+        }
+      }
+    }
+
+    // Detect if someone backed into this screen and entered a different number
+    if (state.sessionE164 != null && state.sessionE164 != e164) {
+      state = state.copy(sessionMetadata = null)
+    }
 
     var sessionMetadata: NetworkController.SessionMetadata = state.sessionMetadata ?: when (val response = this@PhoneNumberEntryViewModel.repository.createSession(e164)) {
       is NetworkController.RegistrationNetworkResult.Success<NetworkController.SessionMetadata> -> {
@@ -320,7 +448,8 @@ class PhoneNumberEntryViewModel(
             state
           }
           is NetworkController.RequestVerificationCodeError.MissingRequestInformationOrAlreadyVerified -> {
-            TODO()
+            // TODO [registration] - Error handling not implemented
+            throw NotImplementedError()
           }
           is NetworkController.RequestVerificationCodeError.SessionNotFound -> {
             parentEventEmitter(RegistrationFlowEvent.ResetState)
@@ -344,6 +473,15 @@ class PhoneNumberEntryViewModel(
 
     parentEventEmitter.navigateTo(RegistrationRoute.VerificationCodeEntry(sessionMetadata, e164))
     return state
+  }
+
+  private fun formatNumber(nationalNumber: String): String {
+    formatter.clear()
+    var result = ""
+    for (digit in nationalNumber) {
+      result = formatter.inputDigit(digit)
+    }
+    return result
   }
 
   class Factory(

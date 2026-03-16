@@ -70,6 +70,7 @@ public final class SettingsValues extends SignalStoreValues {
   private static final String KEEP_MUTED_CHATS_ARCHIVED               = "settings.keepMutedChatsArchived";
   private static final String USE_COMPACT_NAVIGATION_BAR              = "settings.useCompactNavigationBar";
   private static final String THREAD_TRIM_SYNC_TO_LINKED_DEVICES      = "settings.storage.syncThreadTrimDeletes";
+  private static final String AUTOMATIC_VERIFICATION_ENABLED          = "settings.automatic.verification.enabled";
   private static final String MOLLY_NOTIFICATION_METHOD               = "molly.notificationMethod";
 
   public static final int BACKUP_DEFAULT_HOUR   = 2;
@@ -487,11 +488,11 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public void setSentMediaQuality(@NonNull SentMediaQuality sentMediaQuality) {
-    putInteger(SENT_MEDIA_QUALITY, sentMediaQuality.getCode());
+    putInteger(SENT_MEDIA_QUALITY, sentMediaQuality.code);
   }
 
   public @NonNull SentMediaQuality getSentMediaQuality() {
-    return SentMediaQuality.fromCode(getInteger(SENT_MEDIA_QUALITY, SentMediaQuality.STANDARD.getCode()));
+    return SentMediaQuality.fromCode(getInteger(SENT_MEDIA_QUALITY, SentMediaQuality.STANDARD.code));
   }
 
   public @NonNull CensorshipCircumventionEnabled getCensorshipCircumventionEnabled() {
@@ -535,6 +536,14 @@ public final class SettingsValues extends SignalStoreValues {
 
   public void setPreferredNotificationMethod(NotificationDeliveryMethod method) {
     putString(MOLLY_NOTIFICATION_METHOD, method.serialize());
+  }
+
+  public boolean getAutomaticVerificationEnabled() {
+    return getBoolean(AUTOMATIC_VERIFICATION_ENABLED, true);
+  }
+
+  public void setAutomaticVerificationEnabled(boolean enabled) {
+    putBoolean(AUTOMATIC_VERIFICATION_ENABLED, enabled);
   }
 
   private @Nullable Uri getUri(@NonNull String key) {

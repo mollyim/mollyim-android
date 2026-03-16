@@ -21,10 +21,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 
 /**
  * Class for creating simple tooltips to show throughout the app. Utilizes a popup window so you

@@ -5,13 +5,13 @@
 
 package org.thoughtcrime.securesms.jobs
 
+import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.remoteconfig.RemoteConfigResult
 import kotlin.time.Duration.Companion.days
@@ -62,10 +62,10 @@ class BuildExpirationConfirmationJob private constructor(params: Parameters) : J
         SignalStore.misc.setLastKnownServerTime(serverTimeMs, System.currentTimeMillis())
 
         if (Util.getTimeUntilBuildExpiry(serverTimeMs) <= 0) {
-          Log.w(TAG, "Build confirmed expired! Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_OR_ZERO_TIMESTAMP}, Time since expiry: ${serverTimeMs - BuildConfig.BUILD_OR_ZERO_TIMESTAMP}", true)
+          Log.w(TAG, "Build confirmed expired! Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_TIMESTAMP_OR_ZERO}, Time since expiry: ${serverTimeMs - BuildConfig.BUILD_TIMESTAMP_OR_ZERO}", true)
           SignalStore.misc.isClientDeprecated = true
         } else {
-          Log.w(TAG, "Build not actually expired! Likely bad local clock. Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_OR_ZERO_TIMESTAMP}")
+          Log.w(TAG, "Build not actually expired! Likely bad local clock. Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_TIMESTAMP_OR_ZERO}")
         }
         Result.success()
       }

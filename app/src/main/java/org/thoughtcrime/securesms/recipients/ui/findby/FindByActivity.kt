@@ -68,12 +68,12 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.TextFields
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.E164Util
 import org.signal.core.util.getParcelableExtraCompat
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.UsernameQrScannerActivity
-import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.invites.InviteActions
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberVisualTransformation
 import org.thoughtcrime.securesms.recipients.RecipientId
@@ -356,6 +356,9 @@ private fun Content(
       ),
       shape = RoundedCornerShape(32.dp),
       colors = TextFieldDefaults.colors(
+        unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
         unfocusedIndicatorColor = Color.Transparent,
         focusedIndicatorColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent,

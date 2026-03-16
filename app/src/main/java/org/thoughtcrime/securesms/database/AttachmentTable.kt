@@ -28,12 +28,15 @@ import com.bumptech.glide.Glide
 import okio.ByteString.Companion.toByteString
 import org.json.JSONArray
 import org.json.JSONException
+import org.signal.blurhash.BlurHash
 import org.signal.core.models.backup.MediaId
 import org.signal.core.models.backup.MediaName
 import org.signal.core.models.media.TransformProperties
+import org.signal.core.ui.util.StorageUtil
 import org.signal.core.util.Base64
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.ThreadUtil
+import org.signal.core.util.Util
 import org.signal.core.util.UuidUtil
 import org.signal.core.util.copyTo
 import org.signal.core.util.count
@@ -64,6 +67,7 @@ import org.signal.core.util.select
 import org.signal.core.util.toInt
 import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
+import org.signal.glide.decryptableuri.DecryptableUri
 import org.thoughtcrime.securesms.attachments.ArchivedAttachment
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.AttachmentId
@@ -76,7 +80,6 @@ import org.thoughtcrime.securesms.audio.AudioHash
 import org.thoughtcrime.securesms.backup.v2.ArchivedMediaObject
 import org.thoughtcrime.securesms.backup.v2.exporters.ChatItemArchiveExporter
 import org.thoughtcrime.securesms.backup.v2.proto.BackupDebugInfo
-import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream
@@ -101,7 +104,6 @@ import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob
 import org.thoughtcrime.securesms.jobs.GenerateAudioWaveFormJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.mms.DecryptableUri
 import org.thoughtcrime.securesms.mms.MediaStream
 import org.thoughtcrime.securesms.mms.MmsException
 import org.thoughtcrime.securesms.mms.PartAuthority
@@ -112,8 +114,6 @@ import org.thoughtcrime.securesms.util.ImageCompressionUtil
 import org.thoughtcrime.securesms.util.JsonUtils.SaneJSONObject
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.StorageUtil
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.video.EncryptedMediaDataSource
 import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
@@ -703,6 +703,17 @@ class AttachmentTable(
 
         serverEncryptedSize
       }
+  }
+
+  /**
+   * This is "approximate" because it doesn't account for things like duplicates. Only useful as a heuristic.
+   */
+  fun getApproximateTotalMediaSize(): Long {
+    return readableDatabase
+      .select("SUM($DATA_SIZE)")
+      .from(TABLE_NAME)
+      .run()
+      .readToSingleLong(0L)
   }
 
   fun getOptimizedMediaAttachmentSize(): Long {
@@ -1965,6 +1976,7 @@ class AttachmentTable(
 
       Log.d(TAG, "[updateMessageId] Updated $updatedCount out of $attachmentIdSize ids.")
     }
+    AppDependencies.databaseObserver.notifyMessageUpdateObservers(MessageId(mmsId))
   }
 
   fun createRemoteKeyIfNecessary(attachmentId: AttachmentId) {
@@ -2097,11 +2109,14 @@ class AttachmentTable(
       val contentValues = contentValuesOf(
         DATA_SIZE to newDataFileInfo.length,
         CONTENT_TYPE to mediaStream.mimeType,
-        WIDTH to mediaStream.width,
-        HEIGHT to mediaStream.height,
         DATA_FILE to newDataFileInfo.file.absolutePath,
         DATA_RANDOM to newDataFileInfo.random
       )
+
+      if (mediaStream.width > 0 && mediaStream.height > 0) {
+        contentValues.put(WIDTH, mediaStream.width)
+        contentValues.put(HEIGHT, mediaStream.height)
+      }
 
       val updateCount = db.update(TABLE_NAME)
         .values(contentValues)

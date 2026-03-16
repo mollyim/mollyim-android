@@ -29,15 +29,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
@@ -50,12 +53,11 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
-import org.thoughtcrime.securesms.components.compose.TextWithBetaLabel
 import org.thoughtcrime.securesms.components.settings.app.subscription.MessageBackupsCheckoutLauncher.createBackupsCheckoutLauncher
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.DateUtils
+import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.math.BigDecimal
 import java.util.Currency
@@ -101,8 +103,13 @@ class BackupsSettingsFragment : ComposeFragment() {
           }
         }
       },
-      onOnDeviceBackupsRowClick = { findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_backupsPreferenceFragment) },
-      onNewOnDeviceBackupsRowClick = { findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_internalLocalBackupFragment) },
+      onOnDeviceBackupsRowClick = {
+        if (SignalStore.backup.newLocalBackupsEnabled || (Environment.Backups.isNewFormatSupportedForLocalBackup() && !SignalStore.settings.isBackupEnabled)) {
+          findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_localBackupsFragment)
+        } else {
+          findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_backupsPreferenceFragment)
+        }
+      },
       onBackupTierInternalOverrideChanged = { viewModel.onBackupTierInternalOverrideChanged(it) }
     )
   }
@@ -114,7 +121,6 @@ private fun BackupsSettingsContent(
   onNavigationClick: () -> Unit = {},
   onBackupsRowClick: () -> Unit = {},
   onOnDeviceBackupsRowClick: () -> Unit = {},
-  onNewOnDeviceBackupsRowClick: () -> Unit = {},
   onBackupTierInternalOverrideChanged: (MessageBackupTier?) -> Unit = {}
 ) {
   Scaffolds.Settings(
@@ -230,19 +236,10 @@ private fun BackupsSettingsContent(
       item {
         Rows.TextRow(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__on_device_backups),
+          icon = ImageVector.vectorResource(R.drawable.symbol_device_phone_24),
           label = stringResource(R.string.RemoteBackupsSettingsFragment__save_your_backups_to),
           onClick = onOnDeviceBackupsRowClick
         )
-      }
-
-      if (backupsSettingsState.showNewLocalBackup) {
-        item {
-          Rows.TextRow(
-            text = "INTERNAL ONLY - New Local Backup",
-            label = "Use new local backup format",
-            onClick = onNewOnDeviceBackupsRowClick
-          )
-        }
       }
     }
   }
@@ -277,9 +274,9 @@ private fun NeverEnabledBackupsRow(
     },
     text = {
       Column {
-        TextWithBetaLabel(
+        Text(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
-          textStyle = MaterialTheme.typography.bodyLarge
+          style = MaterialTheme.typography.bodyLarge
         )
 
         Text(
@@ -323,9 +320,9 @@ private fun InactiveBackupsRow(
   Rows.TextRow(
     text = {
       Column {
-        TextWithBetaLabel(
+        Text(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
-          textStyle = MaterialTheme.typography.bodyLarge
+          style = MaterialTheme.typography.bodyLarge
         )
 
         Text(
@@ -369,9 +366,9 @@ private fun NotFoundBackupRow(
     },
     text = {
       Column {
-        TextWithBetaLabel(
+        Text(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
-          textStyle = MaterialTheme.typography.bodyLarge
+          style = MaterialTheme.typography.bodyLarge
         )
 
         Text(
@@ -404,9 +401,9 @@ private fun PendingBackupRow(
     },
     text = {
       Column {
-        TextWithBetaLabel(
+        Text(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
-          textStyle = MaterialTheme.typography.bodyLarge
+          style = MaterialTheme.typography.bodyLarge
         )
 
         Text(
@@ -455,9 +452,9 @@ private fun LocalStoreBackupRow(
     },
     text = {
       Column {
-        TextWithBetaLabel(
+        Text(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
-          textStyle = MaterialTheme.typography.bodyLarge
+          style = MaterialTheme.typography.bodyLarge
         )
 
         val tierText = when (backupState.tier) {
@@ -500,9 +497,9 @@ private fun ActiveBackupsRow(
     },
     text = {
       Column {
-        TextWithBetaLabel(
+        Text(
           text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
-          textStyle = MaterialTheme.typography.bodyLarge
+          style = MaterialTheme.typography.bodyLarge
         )
 
         when (val type = backupState.messageBackupsType) {

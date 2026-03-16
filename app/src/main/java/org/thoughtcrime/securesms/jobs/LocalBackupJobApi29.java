@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.Stopwatch;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupEvent;
 import org.thoughtcrime.securesms.backup.BackupFileIOError;
@@ -104,7 +103,7 @@ public final class LocalBackupJobApi29 extends BaseJob {
       String       backupPassword  = BackupPassphrase.get(context);
       DocumentFile backupDirectory = DocumentFile.fromTreeUri(context, backupDirectoryUri);
       String       timestamp       = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US).format(new Date());
-      String       fileName        = String.format("%s-%s.backup", BuildConfig.BACKUP_FILENAME, timestamp);
+      String       fileName        = String.format("%s-%s.backup", BackupUtil.getBackupFilenamePrefix(), timestamp);
 
       if (backupDirectory == null || !backupDirectory.canWrite()) {
         BackupFileIOError.ACCESS_ERROR.postNotification(context);

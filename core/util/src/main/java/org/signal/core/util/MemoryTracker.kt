@@ -138,6 +138,10 @@ object MemoryTracker {
   ) {
     val usedBytes: Long
       get() = totalBytes - freeBytes
+
+    /** The number of bytes available above the low-memory threshold. */
+    val systemAvailableBytes
+      get() = freeBytes - lowMemoryThreshold
   }
 
   data class DetailedMemoryStats(

@@ -27,6 +27,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getParcelableArrayListCompat
 import org.signal.core.util.getParcelableCompat
@@ -57,7 +58,6 @@ import org.thoughtcrime.securesms.stories.Stories.getHeaderAction
 import org.thoughtcrime.securesms.stories.settings.create.CreateStoryFlowDialogFragment
 import org.thoughtcrime.securesms.stories.settings.create.CreateStoryWithViewersFragment
 import org.thoughtcrime.securesms.stories.settings.privacy.ChooseInitialMyStoryMembershipBottomSheetDialogFragment
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.ViewUtil
@@ -123,16 +123,17 @@ class MultiselectForwardFragment :
 
     contactSearchRecycler = view.findViewById(R.id.contact_selection_list)
     contactSearchMediator = ContactSearchMediator(
-      this,
-      emptySet(),
-      RemoteConfig.shareSelectionLimit,
-      ContactSearchAdapter.DisplayOptions(
+      fragment = this,
+      fixedContacts = emptySet(),
+      selectionLimits = RemoteConfig.shareSelectionLimit,
+      isMultiSelect = !args.selectSingleRecipient,
+      displayOptions = ContactSearchAdapter.DisplayOptions(
         displayCheckBox = !args.selectSingleRecipient,
         displaySecondaryInformation = ContactSearchAdapter.DisplaySecondaryInformation.NEVER,
         displayStoryRing = true
       ),
-      this::getConfiguration,
-      object : ContactSearchMediator.SimpleCallbacks() {
+      mapStateToConfiguration = this::getConfiguration,
+      callbacks = object : ContactSearchMediator.SimpleCallbacks() {
         override fun onBeforeContactsSelected(view: View?, contactSearchKeys: Set<ContactSearchKey>): Set<ContactSearchKey> {
           val filtered: Set<ContactSearchKey> = filterContacts(view, contactSearchKeys)
           Log.d(TAG, "onBeforeContactsSelected() Attempting to select: ${contactSearchKeys.map { it.toString() }}, Filtered selection: ${filtered.map { it.toString() } }")

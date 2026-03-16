@@ -85,7 +85,7 @@ class AvatarProvider : BaseContentProvider() {
 
     if (!AppDependencies.isInitialized) {
       Log.i(TAG, "Initializing AppDependencies.")
-      AppDependencies.init(application, ApplicationDependencyProvider(application))
+      AppDependencies.init(ApplicationDependencyProvider(application))
     }
 
     return application

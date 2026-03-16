@@ -11,16 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import org.signal.core.ui.BottomSheetUtil
+import org.signal.core.ui.FixedRoundedCornerBottomSheetDialogFragment
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.databinding.PromptBatterySaverBottomSheetBinding
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.LocalMetrics
 import org.thoughtcrime.securesms.util.PowerManagerCompat
-import org.thoughtcrime.securesms.util.ThemeUtil
 
 class PromptBatterySaverDialogFragment : FixedRoundedCornerBottomSheetDialogFragment() {
 

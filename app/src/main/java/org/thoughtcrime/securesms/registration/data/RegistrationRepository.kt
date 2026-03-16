@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.LocalRegistratio
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.gcm.FcmUtil
 import org.thoughtcrime.securesms.jobmanager.runJobBlocking
+import org.thoughtcrime.securesms.jobs.CheckKeyTransparencyJob
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
@@ -238,6 +239,9 @@ object RegistrationRepository {
 
     AppDependencies.resetNetwork(restartMessageObserver = true)
     PreKeysSyncJob.enqueue()
+
+    recipientTable.clearSelfKeyTransparencyData()
+    CheckKeyTransparencyJob.enqueueIfNecessary(addDelay = true)
 
     val jobManager = AppDependencies.jobManager
 

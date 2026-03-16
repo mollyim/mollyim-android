@@ -5,11 +5,11 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import org.signal.core.ui.util.ThemeUtil
 import com.google.android.material.R as MaterialR
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderContextMenu
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderRecord
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder

@@ -15,7 +15,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.OutgoingMessage;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +34,7 @@ public abstract class SendJob extends BaseJob {
   public final void onRun() throws Exception {
     if (SignalStore.misc().isClientDeprecated()) {
       throw new TextSecureExpiredException(String.format("TextSecure expired (build %d, now %d)",
-                                                         BuildConfig.BUILD_OR_ZERO_TIMESTAMP,
+                                                         BuildConfig.BUILD_TIMESTAMP_OR_ZERO,
                                                          System.currentTimeMillis()));
     }
 

@@ -37,6 +37,8 @@ import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Snackbars
+import org.signal.core.ui.isSplitPane
+import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.ringrtc.CallLinkState.Restrictions
 import org.thoughtcrime.securesms.R
@@ -53,8 +55,6 @@ import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
 import org.thoughtcrime.securesms.service.webrtc.links.SignalCallLinkState
 import org.thoughtcrime.securesms.sharing.v2.ShareActivity
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.Util
-import org.thoughtcrime.securesms.window.isSplitPane
 import java.time.Instant
 
 @Composable
@@ -119,7 +119,7 @@ class DefaultCallLinkDetailsCallback(
   override fun onShareClicked() {
     val mimeType = Intent.normalizeMimeType("text/plain")
     val shareIntent = ShareCompat.IntentBuilder(activity)
-      .setText(CallLinks.url(viewModel.rootKeySnapshot, viewModel.epochSnapshot))
+      .setText(CallLinks.url(viewModel.rootKeySnapshot))
       .setType(mimeType)
       .createChooserIntent()
 
@@ -131,7 +131,7 @@ class DefaultCallLinkDetailsCallback(
   }
 
   override fun onCopyClicked() {
-    Util.copyToClipboard(activity, CallLinks.url(viewModel.rootKeySnapshot, viewModel.epochSnapshot))
+    Util.copyToClipboard(activity, CallLinks.url(viewModel.rootKeySnapshot))
     Toast.makeText(activity, R.string.CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard, Toast.LENGTH_LONG).show()
   }
 
@@ -139,7 +139,7 @@ class DefaultCallLinkDetailsCallback(
     activity.startActivity(
       ShareActivity.sendSimpleText(
         activity,
-        activity.getString(R.string.CreateCallLink__use_this_link_to_join_a_signal_call, CallLinks.url(viewModel.rootKeySnapshot, viewModel.epochSnapshot))
+        activity.getString(R.string.CreateCallLink__use_this_link_to_join_a_signal_call, CallLinks.url(viewModel.rootKeySnapshot))
       )
     )
   }
@@ -324,7 +324,6 @@ private fun CallLinkDetailsScreenPreview() {
   val callLink = remember {
     val credentials = CallLinkCredentials(
       byteArrayOf(1, 2, 3, 4),
-      byteArrayOf(0, 1, 2, 3),
       byteArrayOf(3, 4, 5, 6)
     )
     CallLinkTable.CallLink(

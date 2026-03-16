@@ -15,7 +15,7 @@ import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.VersionTracker;
 
 import java.util.LinkedHashMap;
@@ -181,9 +181,11 @@ public class ApplicationMigrations {
     static final int AEP_ROTATE_FIX                = 148;
     static final int ATTACHMENT_HASH_BACKFILL_2    = 149;
     static final int SVR2_ENCLAVE_UPDATE_5         = 150;
+    static final int STICKER_PACK_ADDITION_2       = 151;
+    static final int DELETED_BY_DB_MIGRATION       = 152;
   }
 
-  public static final int CURRENT_VERSION = 150;
+  public static final int CURRENT_VERSION = 152;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -820,6 +822,14 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.SVR2_ENCLAVE_UPDATE_5) {
       jobs.put(Version.SVR2_ENCLAVE_UPDATE_5, new Svr2MirrorMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.STICKER_PACK_ADDITION_2) {
+      jobs.put(Version.STICKER_PACK_ADDITION_2, new StickerPackAddition2MigrationJob());
+    }
+
+    if (lastSeenVersion < Version.DELETED_BY_DB_MIGRATION) {
+      jobs.put(Version.DELETED_BY_DB_MIGRATION, new DatabaseMigrationJob());
     }
 
     return jobs;

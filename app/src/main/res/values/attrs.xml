@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="theme_type" format="string"/>
-
     <attr name="search_view_style" format="reference" />
 
     <attr name="circularProgressMaterialButtonStyle" format="reference" />
@@ -81,6 +79,10 @@
     <attr name="quote_view_background_outgoing_normal" format="color" />
     <attr name="quote_view_bar_outgoing_normal" format="color" />
     <attr name="quote_view_foreground_outgoing_normal" format="color" />
+    <attr name="quote_view_label_background_incoming_normal" format="color" />
+    <attr name="quote_view_label_background_incoming_wallpaper" format="color" />
+    <attr name="quote_view_label_background_outgoing_normal" format="color" />
+    <attr name="quote_view_label_background_outgoing_wallpaper" format="color" />
     <attr name="react_with_any_background" format="color" />
     <attr name="react_with_any_search_background" format="color" />
     <attr name="react_with_any_search_hint" format="color" />

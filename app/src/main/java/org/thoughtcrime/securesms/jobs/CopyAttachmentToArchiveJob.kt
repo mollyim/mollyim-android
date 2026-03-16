@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.v2.ArchiveDatabaseExecutor
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
+import org.thoughtcrime.securesms.backup.v2.hadIntegrityCheckPerformed
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -133,6 +134,12 @@ class CopyAttachmentToArchiveJob private constructor(private val attachmentId: A
       return Result.success()
     }
 
+    if (!attachment.hadIntegrityCheckPerformed()) {
+      Log.w(TAG, "[$attachmentId]$mediaIdLog Attachment has not had its integrity check performed yet (transferState: ${attachment.transferState}). Resetting transfer state to none and skipping.")
+      setArchiveTransferStateWithDelayedNotification(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
+      return Result.success()
+    }
+
     if (attachment.cdn !in ALLOWED_SOURCE_CDNS) {
       Log.i(TAG, "[$attachmentId]$mediaIdLog Attachment CDN (${attachment.cdn}) is not in allowed source CDNs. Enqueueing an upload job instead.")
       setArchiveTransferStateWithDelayedNotification(attachmentId, AttachmentTable.ArchiveTransferState.NONE)
@@ -201,6 +208,10 @@ class CopyAttachmentToArchiveJob private constructor(private val attachmentId: A
             ArchiveAttachmentReconciliationJob.enqueueIfRetryAllowed(forced = true)
 
             Result.retry(defaultBackoff())
+          }
+          429 -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Rate limit exceeded. Retrying.")
+            Result.retry(archiveResult.retryAfter()?.inWholeMilliseconds ?: defaultBackoff())
           }
           else -> {
             Log.w(TAG, "[$attachmentId]$mediaIdLog Got back a non-2xx status code: ${archiveResult.code}. Retrying.")

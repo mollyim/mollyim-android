@@ -8,8 +8,8 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 
 /**

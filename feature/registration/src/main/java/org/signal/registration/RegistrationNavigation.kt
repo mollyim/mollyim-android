@@ -8,12 +8,6 @@
 package org.signal.registration
 
 import android.os.Parcelable
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,12 +26,17 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import org.signal.core.ui.navigation.ResultEffect
+import org.signal.core.ui.navigation.TransitionSpecs
 import org.signal.registration.screens.accountlocked.AccountLockedScreen
 import org.signal.registration.screens.accountlocked.AccountLockedScreenEvents
 import org.signal.registration.screens.accountlocked.AccountLockedState
 import org.signal.registration.screens.captcha.CaptchaScreen
 import org.signal.registration.screens.captcha.CaptchaScreenEvents
 import org.signal.registration.screens.captcha.CaptchaState
+import org.signal.registration.screens.countrycode.Country
+import org.signal.registration.screens.countrycode.CountryCodePickerRepository
+import org.signal.registration.screens.countrycode.CountryCodePickerScreen
+import org.signal.registration.screens.countrycode.CountryCodePickerViewModel
 import org.signal.registration.screens.permissions.PermissionsScreen
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryScreenEvents
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryViewModel
@@ -45,6 +44,7 @@ import org.signal.registration.screens.phonenumber.PhoneNumberScreen
 import org.signal.registration.screens.pincreation.PinCreationScreen
 import org.signal.registration.screens.pincreation.PinCreationViewModel
 import org.signal.registration.screens.pinentry.PinEntryForRegistrationLockViewModel
+import org.signal.registration.screens.pinentry.PinEntryForSmsBypassViewModel
 import org.signal.registration.screens.pinentry.PinEntryForSvrRestoreViewModel
 import org.signal.registration.screens.pinentry.PinEntryScreen
 import org.signal.registration.screens.restore.RestoreViaQrScreen
@@ -91,6 +91,9 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   ) : RegistrationRoute
 
   @Serializable
+  data class PinEntryForSmsBypass(val svrCredentials: NetworkController.SvrCredentials) : RegistrationRoute
+
+  @Serializable
   data class AccountLocked(val timeRemainingMs: Long) : RegistrationRoute
 
   @Serializable
@@ -113,6 +116,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
 }
 
 private const val CAPTCHA_RESULT = "captcha_token"
+private const val COUNTRY_CODE_RESULT = "country_code_result"
 
 /**
  * Sets up the navigation graph for the registration flow using Navigation 3.
@@ -163,51 +167,25 @@ fun RegistrationNavHost(
     onBack = { viewModel.onEvent(RegistrationFlowEvent.NavigateBack) },
     modifier = modifier,
     transitionSpec = {
-      // Slide in from right and fade in when navigating forward
-      (
-        slideInHorizontally(
-          initialOffsetX = { it },
-          animationSpec = tween(200)
-        ) + fadeIn(animationSpec = tween(200))
-        ) togetherWith
-        // Slide out to left and fade out
-        (
-          slideOutHorizontally(
-            targetOffsetX = { -it },
-            animationSpec = tween(200)
-          ) + fadeOut(animationSpec = tween(200))
-          )
+      if (targetState.key == RegistrationRoute.CountryCodePicker.toString()) {
+        TransitionSpecs.VerticalSlide.transitionSpec.invoke(this)
+      } else {
+        TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
+      }
     },
     popTransitionSpec = {
-      // Slide in from left and fade in when navigating back
-      (
-        slideInHorizontally(
-          initialOffsetX = { -it },
-          animationSpec = tween(200)
-        ) + fadeIn(animationSpec = tween(200))
-        ) togetherWith
-        // Slide out to right and fade out
-        (
-          slideOutHorizontally(
-            targetOffsetX = { it },
-            animationSpec = tween(200)
-          ) + fadeOut(animationSpec = tween(200))
-          )
+      if (initialState.key == RegistrationRoute.CountryCodePicker.toString()) {
+        TransitionSpecs.VerticalSlide.popTransitionSpec.invoke(this)
+      } else {
+        TransitionSpecs.HorizontalSlide.popTransitionSpec.invoke(this)
+      }
     },
     predictivePopTransitionSpec = {
-      // Same as popTransitionSpec for predictive back gestures
-      (
-        slideInHorizontally(
-          initialOffsetX = { -it },
-          animationSpec = tween(200)
-        ) + fadeIn(animationSpec = tween(200))
-        ) togetherWith
-        (
-          slideOutHorizontally(
-            targetOffsetX = { it },
-            animationSpec = tween(200)
-          ) + fadeOut(animationSpec = tween(200))
-          )
+      if (initialState.key == RegistrationRoute.CountryCodePicker.toString()) {
+        TransitionSpecs.VerticalSlide.predictivePopTransitionSpec.invoke(this, it)
+      } else {
+        TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec.invoke(this, it)
+      }
     }
   )
 }
@@ -264,6 +242,12 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
       }
     }
 
+    ResultEffect<Country?>(registrationViewModel.resultBus, COUNTRY_CODE_RESULT) { country ->
+      if (country != null) {
+        viewModel.onEvent(PhoneNumberEntryScreenEvents.CountrySelected(country.countryCode, country.regionCode, country.name, country.emoji))
+      }
+    }
+
     PhoneNumberScreen(
       state = state,
       onEvent = { viewModel.onEvent(it) }
@@ -272,8 +256,20 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
 
   // -- Country Code Picker
   entry<RegistrationRoute.CountryCodePicker> {
-    // We'll also want this to be some sort of launch-for-result flow as well
-    TODO()
+    val viewModel: CountryCodePickerViewModel = viewModel(
+      factory = CountryCodePickerViewModel.Factory(
+        repository = CountryCodePickerRepository(),
+        parentEventEmitter = parentEventEmitter,
+        resultBus = registrationViewModel.resultBus,
+        resultKey = COUNTRY_CODE_RESULT
+      )
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    CountryCodePickerScreen(
+      state = state,
+      onEvent = { viewModel.onEvent(it) }
+    )
   }
 
   // -- Captcha Screen
@@ -355,6 +351,24 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent,
         timeRemaining = key.timeRemaining,
+        svrCredentials = key.svrCredentials
+      )
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    PinEntryScreen(
+      state = state,
+      onEvent = { viewModel.onEvent(it) }
+    )
+  }
+
+  // -- SMS Bypass PIN Entry Screen
+  entry<RegistrationRoute.PinEntryForSmsBypass> { key ->
+    val viewModel: PinEntryForSmsBypassViewModel = viewModel(
+      factory = PinEntryForSmsBypassViewModel.Factory(
+        repository = registrationRepository,
+        parentState = registrationViewModel.state,
+        parentEventEmitter = registrationViewModel::onEvent,
         svrCredentials = key.svrCredentials
       )
     )

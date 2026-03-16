@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Build
 import android.util.TypedValue
 import androidx.annotation.AttrRes
-import androidx.annotation.Discouraged
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import org.signal.core.ui.CoreUiDependencies
 import org.signal.core.ui.R
 import org.signal.core.ui.compose.ProvideIncognitoKeyboard
 
@@ -216,11 +216,10 @@ private val darkColorScheme = darkColorScheme(
 
 // MOLLY: Replaced by snackbarColors()
 
-@Discouraged("Use org.thoughtcrime.securesms.compose.SignalTheme instead.")
 @Composable
 fun SignalTheme(
   isDarkMode: Boolean = LocalConfiguration.current.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES,
-  incognitoKeyboardEnabled: Boolean = false,
+  incognitoKeyboardEnabled: Boolean = CoreUiDependencies.isIncognitoKeyboardEnabled,
   useDynamicColors: Boolean? = null,
   content: @Composable () -> Unit
 ) {
@@ -442,7 +441,6 @@ private fun TypographyPreview() {
   }
 }
 
-@Discouraged("Use org.thoughtcrime.securesms.compose.SignalTheme instead.")
 object SignalTheme {
   val colors: ExtendedColors
     @Composable

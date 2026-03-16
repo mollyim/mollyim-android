@@ -22,6 +22,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieProperty;
 import com.airbnb.lottie.model.KeyPath;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
@@ -36,7 +37,6 @@ import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 import java.util.Locale;
@@ -287,7 +287,11 @@ public class ConversationItemFooter extends ConstraintLayout {
       dateView.setText(null);
     } else if (messageRecord.isFailed()) {
       int errorMsg;
-      if (messageRecord.hasFailedWithNetworkFailures()) {
+      if (messageRecord.isFailedAdminDelete() && messageRecord.isIdentityMismatchFailure()) {
+        errorMsg = R.string.ConversationItem_error_partially_not_deleted;
+      } else if (messageRecord.isFailedAdminDelete()) {
+        errorMsg = R.string.ConversationItem_error_delete_failed;
+      } else if (messageRecord.hasFailedWithNetworkFailures()) {
         errorMsg = R.string.ConversationItem_error_network_not_delivered;
       } else if (messageRecord.getToRecipient().isPushGroup() && messageRecord.isIdentityMismatchFailure()) {
         errorMsg = R.string.ConversationItem_error_partially_not_delivered;
@@ -375,7 +379,7 @@ public class ConversationItemFooter extends ConstraintLayout {
     }
 
     if (onlyShowSendingStatus) {
-      if (messageRecord.isOutgoing() && messageRecord.isPending()) {
+      if (messageRecord.isPending()) {
         deliveryStatusView.setPending();
       } else {
         deliveryStatusView.setNone();

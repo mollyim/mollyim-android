@@ -18,11 +18,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
 import org.thoughtcrime.securesms.registration.ui.phonenumber.EnterPhoneNumberMode
 import org.thoughtcrime.securesms.restore.RestoreActivity
@@ -58,8 +57,8 @@ class SelectManualRestoreMethodFragment : ComposeFragment() {
     var showSkipRestoreWarning by remember { mutableStateOf(false) }
 
     val restoreMethods = remember {
-      if (BuildConfig.DEBUG) {
-        listOf(RestoreMethod.FROM_SIGNAL_BACKUPS, RestoreMethod.FROM_LOCAL_BACKUP_V1, RestoreMethod.FROM_LOCAL_BACKUP_V2)
+      if (Environment.Backups.isNewFormatSupportedForLocalBackup()) {
+        listOf(RestoreMethod.FROM_SIGNAL_BACKUPS, RestoreMethod.FROM_LOCAL_BACKUP_V2)
       } else {
         listOf(RestoreMethod.FROM_SIGNAL_BACKUPS, RestoreMethod.FROM_LOCAL_BACKUP_V1)
       }

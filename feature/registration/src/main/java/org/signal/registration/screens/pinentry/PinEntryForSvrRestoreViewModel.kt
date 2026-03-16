@@ -47,7 +47,7 @@ class PinEntryForSvrRestoreViewModel(
 
   val state: StateFlow<PinEntryState> = _state
     .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.Eagerly, PinEntryState(showNeedHelp = true))
+    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
 
   fun onEvent(event: PinEntryScreenEvents) {
     viewModelScope.launch {
@@ -118,7 +118,8 @@ class PinEntryForSvrRestoreViewModel(
     return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, state.isAlphanumericKeyboard, forRegistrationLock = false)) {
       is NetworkController.RegistrationNetworkResult.Success -> {
         Log.i(TAG, "[PinEntered] Successfully restored master key from SVR.")
-        parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredViaPostRegisterPinEntry(result.data.masterKey))
+        repository.enqueueSvrResetGuessCountJob()
+        parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredFromSvr(result.data.masterKey))
         parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
         state
       }
@@ -129,8 +130,9 @@ class PinEntryForSvrRestoreViewModel(
             state.copy(triesRemaining = result.error.triesRemaining)
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
-            Log.w(TAG, "[PinEntered] No SVR data found. Proceeding without restore.")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.SvrDataMissing)
+            Log.w(TAG, "[PinEntered] No SVR data found. Need to create a PIN instead.")
+            parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+            state
           }
         }
       }
@@ -146,7 +148,8 @@ class PinEntryForSvrRestoreViewModel(
   }
 
   private fun handleSkip() {
-    TODO("Handle skip")
+    // TODO [registration] - Handle skip
+    throw NotImplementedError("Handle skip")
   }
 
   class Factory(

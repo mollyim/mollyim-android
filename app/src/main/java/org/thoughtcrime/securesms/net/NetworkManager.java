@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.net;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
@@ -12,7 +13,6 @@ import androidx.webkit.WebViewFeature;
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
@@ -26,8 +26,8 @@ public class NetworkManager {
 
   private static final String TAG = Log.tag(NetworkManager.class);
 
-  private final ApplicationContext application;
-  private final OrbotHelper        orbotHelper;
+  private final Application application;
+  private final OrbotHelper orbotHelper;
 
   private OrbotStatusCallback orbotStatusCallback;
 
@@ -39,7 +39,7 @@ public class NetworkManager {
 
   private SocksProxy existingProxy;
 
-  private NetworkManager(@NonNull ApplicationContext application,
+  private NetworkManager(@NonNull Application application,
                          @NonNull OrbotHelper orbotHelper) {
     this.application    = application;
     this.orbotHelper    = orbotHelper;
@@ -51,7 +51,7 @@ public class NetworkManager {
 
   @NonNull
   public static NetworkManager create(@NonNull Context context) {
-    return new NetworkManager(ApplicationContext.getInstance(), OrbotHelper.get(context));
+    return new NetworkManager(AppDependencies.getApplication(), OrbotHelper.get(context));
   }
 
   public void setNetworkEnabled(boolean enabled) {

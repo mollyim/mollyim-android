@@ -103,9 +103,12 @@ include(":lib:qr")
 include(":lib:video")
 include(":lib:image-editor")
 include(":lib:debuglogs-viewer")
+include(":lib:blurhash")
 
 // Feature modules
 include(":feature:registration")
+include(":feature:camera")
+include(":feature:media-send")
 
 // Testing/Lint modules
 include(":lintchecks")

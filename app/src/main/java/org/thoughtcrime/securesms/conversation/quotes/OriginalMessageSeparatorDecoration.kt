@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.RecyclerView
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 
 /**

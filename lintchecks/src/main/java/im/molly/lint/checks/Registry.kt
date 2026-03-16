@@ -13,6 +13,7 @@ class Registry : IssueRegistry() {
   override val issues = signalIssues + listOf(
     BaseActivityDetector.ISSUE_DIRECT_SUBCLASS,
     BaseActivityDetector.ISSUE_SUPER_ON_CREATE_MISSING_READY,
+    BuildConfigDetector.VERSION_NAME_USAGE,
   )
 
   override val api: Int = CURRENT_API

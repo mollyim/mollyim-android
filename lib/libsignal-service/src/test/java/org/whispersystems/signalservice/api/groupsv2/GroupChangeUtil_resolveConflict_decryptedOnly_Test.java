@@ -300,7 +300,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -328,7 +328,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -356,7 +356,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -384,7 +384,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -412,7 +412,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -426,7 +426,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -572,7 +572,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -602,7 +602,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -697,11 +697,11 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
         .build();
 
     DecryptedGroupChange conflictingChange = new DecryptedGroupChange.Builder()
-        .modifyMemberLabel(List.of(modifyLabelAction))
+        .modifyMemberLabels(List.of(modifyLabelAction))
         .build();
 
     DecryptedGroupChange.Builder resolved = GroupChangeUtil.resolveConflict(existingGroup, conflictingChange);
-    assertTrue(resolved.build().modifyMemberLabel.isEmpty());
+    assertTrue(resolved.build().modifyMemberLabels.isEmpty());
   }
 
   @Test
@@ -721,10 +721,10 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
         .build();
 
     DecryptedGroupChange conflictingChange = new DecryptedGroupChange.Builder()
-        .modifyMemberLabel(List.of(modifyLabelAction))
+        .modifyMemberLabels(List.of(modifyLabelAction))
         .build();
 
     DecryptedGroupChange.Builder resolved = GroupChangeUtil.resolveConflict(existingGroup, conflictingChange);
-    assertTrue(resolved.build().modifyMemberLabel.isEmpty());
+    assertTrue(resolved.build().modifyMemberLabels.isEmpty());
   }
 }

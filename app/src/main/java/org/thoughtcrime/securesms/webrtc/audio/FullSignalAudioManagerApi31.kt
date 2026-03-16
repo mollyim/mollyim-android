@@ -43,6 +43,11 @@ class FullSignalAudioManagerApi31(context: Context, eventListener: EventListener
   private val communicationDeviceChangedListener = AudioManager.OnCommunicationDeviceChangedListener { device ->
     if (device != null) {
       Log.i(TAG, "OnCommunicationDeviceChangedListener: id: ${device.id} type: ${getDeviceTypeName(device.type)}")
+      if (state == State.RUNNING && userSelectedAudioDevice != null && device.id != userSelectedAudioDevice?.id) {
+        Log.w(TAG, "OnCommunicationDeviceChangedListener: Device changed to ${device.id} but user selected ${userSelectedAudioDevice?.id}. Re-asserting user selection.")
+        logRoutingContext("OnCommunicationDeviceChangedListener", device)
+        updateAudioDeviceState()
+      }
     } else {
       Log.w(TAG, "OnCommunicationDeviceChangedListener: null")
     }
@@ -52,6 +57,7 @@ class FullSignalAudioManagerApi31(context: Context, eventListener: EventListener
     Log.i(TAG, "OnModeChangedListener: ${getModeName(mode)}")
     if (state == State.RUNNING && mode != AudioManager.MODE_IN_COMMUNICATION) {
       Log.w(TAG, "OnModeChangedListener: Not MODE_IN_COMMUNICATION during a call. state: $state")
+      logRoutingContext("OnModeChangedListener")
     }
   }
 
@@ -205,7 +211,6 @@ class FullSignalAudioManagerApi31(context: Context, eventListener: EventListener
     Log.i(TAG, "startIncomingRinger: uri: ${if (ringtoneUri != null) "present" else "null"} vibrate: $vibrate currentMode: ${getModeName(androidAudioManager.mode)}")
     androidAudioManager.mode = AudioManager.MODE_RINGTONE
     setMicrophoneMute(false)
-    setDefaultAudioDevice(recipientId = null, newDefaultDevice = AudioDevice.SPEAKER_PHONE, clearUserEarpieceSelection = false)
     incomingRinger.start(ringtoneUri, vibrate)
   }
 
@@ -234,16 +239,25 @@ class FullSignalAudioManagerApi31(context: Context, eventListener: EventListener
     val currentAudioDevice: AudioDeviceInfo? = androidAudioManager.communicationDevice
 
     val availableCommunicationDevices: List<AudioDeviceInfo> = androidAudioManager.availableCommunicationDevices
+
+    if (userSelectedAudioDevice != null && availableCommunicationDevices.none { it.id == userSelectedAudioDevice?.id }) {
+      Log.w(TAG, "User selected device ${userSelectedAudioDevice?.id} of type ${userSelectedAudioDevice?.type?.let { getDeviceTypeName(it) }} is no longer available. Clearing user selection.")
+      userSelectedAudioDevice = null
+    }
+
     var candidate: AudioDeviceInfo? = userSelectedAudioDevice
     if (candidate != null && candidate.id != 0) {
       val result = androidAudioManager.setCommunicationDevice(candidate)
       if (result) {
         eventListener?.onAudioDeviceChanged(AudioDeviceMapping.fromPlatformType(candidate.type), availableCommunicationDevices.map { AudioDeviceMapping.fromPlatformType(it.type) }.toSet())
       } else {
-        Log.w(TAG, "Failed to set ${candidate.id} of type ${getDeviceTypeName(candidate.type)} as communication device.")
-        eventListener?.onAudioDeviceChangeFailed()
+        Log.w(TAG, "Failed to set ${candidate.id} of type ${getDeviceTypeName(candidate.type)} as communication device. Clearing user selection.")
+        userSelectedAudioDevice = null
+        candidate = null
       }
-    } else {
+    }
+
+    if (candidate == null) {
       val searchOrder: List<AudioDevice> = listOf(AudioDevice.BLUETOOTH, AudioDevice.WIRED_HEADSET, defaultAudioDevice, AudioDevice.EARPIECE, AudioDevice.SPEAKER_PHONE, AudioDevice.NONE).distinct()
       for (deviceType in searchOrder) {
         candidate = availableCommunicationDevices.filterNot { it.productName.contains(" Watch", true) }.find { AudioDeviceMapping.fromPlatformType(it.type) == deviceType }
@@ -256,6 +270,7 @@ class FullSignalAudioManagerApi31(context: Context, eventListener: EventListener
         null -> {
           Log.e(TAG, "Tried to switch audio devices but could not find suitable device in list of types: ${availableCommunicationDevices.map { getDeviceTypeName(it.type) }.joinToString()}")
           androidAudioManager.clearCommunicationDevice()
+          eventListener?.onAudioDeviceChangeFailed()
         }
         else -> {
           Log.d(TAG, "Switching to new device of type ${getDeviceTypeName(candidate.type)} from ${currentAudioDevice?.type?.let { getDeviceTypeName(it) }}")
@@ -270,6 +285,36 @@ class FullSignalAudioManagerApi31(context: Context, eventListener: EventListener
         }
       }
     }
+  }
+  private fun logRoutingContext(event: String, callbackDevice: AudioDeviceInfo? = null) {
+    val mode = androidAudioManager.mode
+    val currentDevice: AudioDeviceInfo? = androidAudioManager.communicationDevice
+    val availableDevices: List<AudioDeviceInfo> = androidAudioManager.availableCommunicationDevices
+    val selectedStillAvailable = userSelectedAudioDevice?.let { selected ->
+      availableDevices.any { it.id == selected.id }
+    } ?: false
+    val probableCause = when {
+      mode != AudioManager.MODE_IN_COMMUNICATION -> "mode_not_in_communication"
+      userSelectedAudioDevice != null && !selectedStillAvailable -> "user_selected_device_disconnected"
+      else -> "platform_or_competing_app_reroute"
+    }
+    Log.w(
+      TAG,
+      "$event: probableCause: $probableCause state: $state mode: ${getModeName(mode)} " +
+        "defaultDevice: $defaultAudioDevice callbackDevice: ${describeDevice(callbackDevice)} " +
+        "userSelected: ${describeDevice(userSelectedAudioDevice)} " +
+        "currentDevice: ${describeDevice(currentDevice)} availableDevices: ${describeDevices(availableDevices)}"
+    )
+  }
+  private fun describeDevices(devices: List<AudioDeviceInfo>): String {
+    return devices.joinToString(prefix = "[", postfix = "]") { describeDevice(it) }
+  }
+  private fun describeDevice(device: AudioDeviceInfo?): String {
+    if (device == null) {
+      return "null"
+    }
+    val productName = device.productName?.toString()?.takeIf { it.isNotBlank() } ?: "unknown"
+    return "${device.id}:${getDeviceTypeName(device.type)}:$productName"
   }
 
   private fun getModeName(mode: Int): String {

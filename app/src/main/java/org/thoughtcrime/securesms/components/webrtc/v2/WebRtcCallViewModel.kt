@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -83,7 +84,7 @@ class WebRtcCallViewModel : ViewModel() {
 
   private val groupMemberStateUpdater = FlowCollector<List<GroupMemberEntry.FullMember>> { m -> participantsState.update { CallParticipantsState.update(it, m) } }
 
-  private val shouldShowSpeakerHint: Flow<Boolean> = participantsState.map(this::shouldShowSpeakerHint)
+  private val shouldShowSpeakerHint: Flow<Boolean> = participantsState.map(this::shouldShowSpeakerHint).distinctUntilChanged()
 
   private val elapsedTimeHandler = Handler(Looper.getMainLooper())
   private val elapsedTimeRunnable = Runnable { handleTick() }
@@ -101,6 +102,7 @@ class WebRtcCallViewModel : ViewModel() {
   private var previousParticipantList = Collections.emptyList<CallParticipant>()
   private var switchOnFirstScreenShare = true
   private var showScreenShareTip = true
+  private var hasShownAutoMuteToast = false
 
   var isCallStarting = false
     private set
@@ -173,6 +175,7 @@ class WebRtcCallViewModel : ViewModel() {
           0
         }
       }
+      .onStart { emit(0) }
 
     return combine(
       callParticipantsState,
@@ -313,11 +316,22 @@ class WebRtcCallViewModel : ViewModel() {
       }
     }
 
+    val wasMicrophoneEnabled = internalMicrophoneEnabled.value
     internalMicrophoneEnabled.value = localParticipant.isMicrophoneEnabled
     isAudioDeviceChangePending.value = webRtcViewModel.isAudioDeviceChangePending
 
     if (internalMicrophoneEnabled.value) {
       remoteMutedBy.update { null }
+    }
+
+    if (!hasShownAutoMuteToast &&
+      wasMicrophoneEnabled &&
+      !localParticipant.isMicrophoneEnabled &&
+      webRtcViewModel.state == WebRtcViewModel.State.CALL_PRE_JOIN &&
+      webRtcViewModel.remoteDevicesCount.orElse(0L) >= CallParticipantsState.PRE_JOIN_MUTE_THRESHOLD
+    ) {
+      hasShownAutoMuteToast = true
+      emitEvent(CallEvent.ShowLargeGroupAutoMuteToast)
     }
 
     val state: CallParticipantsState = participantsState.value!!

@@ -2,9 +2,9 @@ package org.thoughtcrime.securesms.conversation.colors
 
 import android.content.Context
 import androidx.annotation.ColorInt
+import org.signal.core.ui.util.ThemeUtil
 import com.google.android.material.R as MaterialR
 import org.thoughtcrime.securesms.avatar.Avatars
-import org.thoughtcrime.securesms.util.ThemeUtil
 
 class AvatarColorPair private constructor(
   @ColorInt val foregroundColor: Int,

@@ -24,6 +24,7 @@ import androidx.core.view.ViewKt;
 
 import com.bumptech.glide.RequestManager;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
@@ -40,7 +41,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.ContextUtil;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.thoughtcrime.securesms.util.SpanUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.whispersystems.signalservice.api.util.Preconditions;
 

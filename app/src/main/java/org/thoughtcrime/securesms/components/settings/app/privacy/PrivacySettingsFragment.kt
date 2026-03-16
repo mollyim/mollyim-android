@@ -14,6 +14,7 @@ import androidx.biometric.BiometricManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
 import org.thoughtcrime.securesms.PassphraseActivity
@@ -36,7 +37,6 @@ import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter

@@ -37,11 +37,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
 import org.signal.ringrtc.CallLinkState
@@ -50,7 +52,6 @@ import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar.YouAreAlrea
 import org.thoughtcrime.securesms.calls.links.CallLinks
 import org.thoughtcrime.securesms.calls.links.EditCallLinkNameDialogFragment
 import org.thoughtcrime.securesms.calls.links.SignalCallRow
-import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.database.CallLinkTable
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
@@ -59,7 +60,6 @@ import org.thoughtcrime.securesms.service.webrtc.links.SignalCallLinkState
 import org.thoughtcrime.securesms.service.webrtc.links.UpdateCallLinkResult
 import org.thoughtcrime.securesms.sharing.v2.ShareActivity
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.Util
 import java.time.Instant
 import org.signal.core.ui.R as CoreUiR
 
@@ -162,7 +162,7 @@ class CreateCallLinkBottomSheetDialogFragment : ComposeBottomSheetDialogFragment
           startActivity(
             ShareActivity.sendSimpleText(
               requireContext(),
-              getString(R.string.CreateCallLink__use_this_link_to_join_a_signal_call, CallLinks.url(viewModel.linkKeyBytes, viewModel.epochBytes))
+              getString(R.string.CreateCallLink__use_this_link_to_join_a_signal_call, CallLinks.url(viewModel.linkKeyBytes))
             )
           )
         }
@@ -176,7 +176,7 @@ class CreateCallLinkBottomSheetDialogFragment : ComposeBottomSheetDialogFragment
     lifecycleDisposable += viewModel.commitCallLink().subscribeBy(onSuccess = {
       when (it) {
         is EnsureCallLinkCreatedResult.Success -> {
-          Util.copyToClipboard(requireContext(), CallLinks.url(viewModel.linkKeyBytes, viewModel.epochBytes))
+          Util.copyToClipboard(requireContext(), CallLinks.url(viewModel.linkKeyBytes))
           Toast.makeText(requireContext(), R.string.CreateCallLinkBottomSheetDialogFragment__copied_to_clipboard, Toast.LENGTH_LONG).show()
         }
 
@@ -191,7 +191,7 @@ class CreateCallLinkBottomSheetDialogFragment : ComposeBottomSheetDialogFragment
         is EnsureCallLinkCreatedResult.Success -> {
           val mimeType = Intent.normalizeMimeType("text/plain")
           val shareIntent = ShareCompat.IntentBuilder(requireContext())
-            .setText(CallLinks.url(viewModel.linkKeyBytes, viewModel.epochBytes))
+            .setText(CallLinks.url(viewModel.linkKeyBytes))
             .setType(mimeType)
             .createChooserIntent()
 

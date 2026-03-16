@@ -13,10 +13,10 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.RequestManager;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.badges.BadgeImageView;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 
 import java.util.List;
 

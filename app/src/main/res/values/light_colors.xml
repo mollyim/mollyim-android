@@ -67,7 +67,6 @@
     <color name="signal_inverse_transparent_60">@color/transparent_black_60</color>
     <color name="signal_inverse_transparent_80">@color/transparent_black_80</color>
 
-    <!-- MOLLY -->
     <!-- <color name="conversation_compose_background">?attr/colorSurfaceContainerHigh</color> -->
     <!-- <color name="contact_filter_edit_background">?attr/colorSurfaceContainerHighest</color> -->
     <!-- <color name="reactions_pill_selected_color">?attr/colorTertiaryContainer</color> -->
@@ -173,13 +172,17 @@
     <!-- <color name="quote_view_foreground_incoming_wallpaper">@color/signal_colorNeutralInverse</color> -->
     <!-- <color name="quote_view_background_outgoing_wallpaper">@color/signal_neutralSurface</color> -->
     <!-- <color name="quote_view_bar_outgoing_wallpaper">@color/signal_colorOnCustom</color> -->
-    <!-- <color name="quote_view_foreground_outgoing_wallpaper">?attr/colorOnSurface</color> -->
+    <!-- <color name="quote_view_foreground_outgoing_wallpaper">@color/signal_colorOnSurface</color> -->
     <!-- <color name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</color> -->
     <!-- <color name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</color> -->
-    <!-- <color name="quote_view_foreground_incoming_normal">?attr/colorOnSurface</color> -->
+    <!-- <color name="quote_view_foreground_incoming_normal">@color/signal_colorOnSurface</color> -->
     <!-- <color name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</color> -->
     <!-- <color name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</color> -->
-    <!-- <color name="quote_view_foreground_outgoing_normal">?attr/colorOnSurface</color> -->
+    <!-- <color name="quote_view_foreground_outgoing_normal">@color/signal_colorOnSurface</color> -->
+    <!-- <color name="quote_view_label_background_incoming_normal">@color/signal_colorOnSurface_8</color> -->
+    <!-- <color name="quote_view_label_background_incoming_wallpaper">@color/signal_colorOnSurface_8</color> -->
+    <!-- <color name="quote_view_label_background_outgoing_normal">@color/transparent_white_36</color> -->
+    <!-- <color name="quote_view_label_background_outgoing_wallpaper">@color/transparent_white_36</color> -->
 
     <!-- <color name="react_with_any_background">?attr/colorSurfaceContainerLow</color> -->
     <!-- <color name="react_with_any_search_background">?attr/conversation_compose_background</color> -->

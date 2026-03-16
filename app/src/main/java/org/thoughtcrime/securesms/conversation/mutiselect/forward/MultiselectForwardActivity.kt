@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.getParcelableArrayListExtraCompat
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
@@ -15,7 +16,6 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.FragmentWrapperActivity
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment.Companion.RESULT_SELECTION
-import org.thoughtcrime.securesms.util.ThemeUtil
 
 open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectForwardFragment.Callback, SearchConfigurationProvider {
 

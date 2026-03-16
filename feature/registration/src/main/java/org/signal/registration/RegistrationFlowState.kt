@@ -5,44 +5,36 @@
 
 package org.signal.registration
 
-import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.TypeParceler
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.registration.util.AccountEntropyPoolParceler
+import org.signal.registration.util.MasterKeyParceler
 
 @Parcelize
 @TypeParceler<MasterKey?, MasterKeyParceler>
-@TypeParceler<AccountEntropyPool?, AepParceler>
+@TypeParceler<AccountEntropyPool?, AccountEntropyPoolParceler>
 data class RegistrationFlowState(
+  /** The navigation stack. Controls what screen we're on and what the backstack looks like. */
   val backStack: List<RegistrationRoute> = listOf(RegistrationRoute.Welcome),
+
+  /** The metadata for the currently-active registration session. */
   val sessionMetadata: NetworkController.SessionMetadata? = null,
+
+  /** The e164 associated with the [sessionMetadata]. */
   val sessionE164: String? = null,
+
+  /** The AEP we generated as part of this registration. */
   val accountEntropyPool: AccountEntropyPool? = null,
+
+  /** The master key we restored from SVR. Needed for initial storage service restore, but afterwards we'll generate a new one. */
   val temporaryMasterKey: MasterKey? = null,
-  val registrationLockProof: String? = null
+
+  /** If set, indicates that this is a re-registration. It contains a bundle of data related to that previous registration. */
+  val preExistingRegistrationData: PreExistingRegistrationData? = null,
+
+  /** If true, do not attempt any flows where we generate RRP's. Create a session instead. */
+  val doNotAttemptRecoveryPassword: Boolean = false
 ) : Parcelable
-
-object MasterKeyParceler : Parceler<MasterKey?> {
-  override fun create(parcel: Parcel): MasterKey? {
-    val bytes = parcel.createByteArray()
-    return bytes?.let { MasterKey(it) }
-  }
-
-  override fun MasterKey?.write(parcel: Parcel, flags: Int) {
-    parcel.writeByteArray(this?.serialize())
-  }
-}
-
-object AepParceler : Parceler<AccountEntropyPool?> {
-  override fun create(parcel: Parcel): AccountEntropyPool? {
-    val aep = parcel.readString()
-    return aep?.let { AccountEntropyPool(it) }
-  }
-
-  override fun AccountEntropyPool?.write(parcel: Parcel, flags: Int) {
-    parcel.writeString(this?.value)
-  }
-}

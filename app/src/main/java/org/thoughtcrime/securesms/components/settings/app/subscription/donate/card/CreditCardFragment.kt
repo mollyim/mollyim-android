@@ -17,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getParcelableCompat
 import org.signal.donations.InAppPaymentType
@@ -31,7 +32,6 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.donate.st
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe.StripePaymentInProgressViewModel
 import org.thoughtcrime.securesms.databinding.CreditCardFragmentBinding
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.viewModel

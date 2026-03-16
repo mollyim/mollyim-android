@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.view.ActionMode;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -66,6 +67,7 @@ public class ComposeText extends EmojiEditText {
   private MentionRendererDelegate mentionRendererDelegate;
   private SpoilerRendererDelegate spoilerRendererDelegate;
   private MentionValidatorWatcher mentionValidatorWatcher;
+  private MessageSendType         lastMessageSendType;
 
   @Nullable private InputPanel.MediaListener      mediaListener;
   @Nullable private CursorPositionChangedListener cursorPositionChangedListener;
@@ -221,6 +223,11 @@ public class ComposeText extends EmojiEditText {
   }
 
   public void setMessageSendType(MessageSendType messageSendType) {
+    if (messageSendType.equals(lastMessageSendType)) {
+      return;
+    }
+    lastMessageSendType = messageSendType;
+
     int imeOptions = (getImeOptions() & ~EditorInfo.IME_MASK_ACTION) | EditorInfo.IME_ACTION_SEND;
     int inputType  = getInputType();
 
@@ -278,6 +285,10 @@ public class ComposeText extends EmojiEditText {
   }
 
   private void initialize() {
+    if (Build.VERSION.SDK_INT >= 26) {
+      setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
+    }
+
     if (TextSecurePreferences.isIncognitoKeyboardEnabled(getContext())) {
       setImeOptions(getImeOptions() | 16777216);
     }

@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.manage
 import android.text.method.LinkMovementMethod
 import android.widget.ProgressBar
 import android.widget.TextView
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.money.FiatMoney
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
@@ -12,7 +13,6 @@ import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.subscription.Subscription
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingViewHolder
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -34,7 +34,6 @@ object ActiveSubscriptionPreference {
     val activeSubscription: ActiveSubscription.Subscription?,
     val subscriberRequiresCancel: Boolean,
     val onContactSupport: () -> Unit,
-    val onPendingClick: (FiatMoney) -> Unit,
     val onRowClick: (ManageDonationsState.RedemptionState) -> Unit
   ) : PreferenceModel<Model>() {
     override fun areItemsTheSame(newItem: Model): Boolean {
@@ -79,7 +78,7 @@ object ActiveSubscriptionPreference {
 
       when (model.redemptionState) {
         ManageDonationsState.RedemptionState.NONE -> presentRenewalState(model)
-        ManageDonationsState.RedemptionState.IS_PENDING_BANK_TRANSFER -> presentPendingBankTransferState(model)
+        ManageDonationsState.RedemptionState.IS_PENDING_BANK_TRANSFER -> presentPendingBankTransferState()
         ManageDonationsState.RedemptionState.IN_PROGRESS -> presentInProgressState()
         ManageDonationsState.RedemptionState.FAILED -> presentFailureState(model)
         ManageDonationsState.RedemptionState.SUBSCRIPTION_REFRESH -> presentRefreshState()
@@ -102,10 +101,9 @@ object ActiveSubscriptionPreference {
       progress.visible = true
     }
 
-    private fun presentPendingBankTransferState(model: Model) {
+    private fun presentPendingBankTransferState() {
       expiry.text = context.getString(R.string.MySupportPreference__payment_pending)
       progress.visible = true
-      itemView.setOnClickListener { model.onPendingClick(model.price) }
     }
 
     private fun presentInProgressState() {

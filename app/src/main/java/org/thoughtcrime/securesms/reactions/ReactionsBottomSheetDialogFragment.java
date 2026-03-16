@@ -19,12 +19,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.EmojiImageView;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.signal.core.util.concurrent.LifecycleDisposable;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.WindowUtil;
 
 import java.util.Objects;

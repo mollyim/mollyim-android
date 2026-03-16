@@ -13,11 +13,12 @@ import com.squareup.wire.internal.toUnmodifiableList
 import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
+import org.signal.core.util.LRUCache
 import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.UuidUtil
-import org.signal.core.util.isAbsent
 import org.signal.core.util.logging.Log
 import org.signal.core.util.logging.logW
+import org.signal.core.util.orNull
 import org.signal.core.util.roundedString
 import org.signal.libsignal.metadata.InvalidMetadataMessageException
 import org.signal.libsignal.metadata.InvalidMetadataVersionException
@@ -38,6 +39,7 @@ import org.signal.libsignal.protocol.message.CiphertextMessage
 import org.signal.libsignal.protocol.message.DecryptionErrorMessage
 import org.signal.libsignal.protocol.message.SenderKeyDistributionMessage
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil
@@ -57,7 +59,6 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.util.LRUCache
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.asChain
 import org.whispersystems.signalservice.api.InvalidMessageStructureException
@@ -132,7 +133,7 @@ object MessageDecryptor {
       return Result.Ignore(envelope, serverDeliveredTimestamp, emptyList())
     }
 
-    val sourceServiceId = ServiceId.parseOrNull(envelope.sourceServiceId)
+    val sourceServiceId = ServiceId.parseOrNull(envelope.sourceServiceId, envelope.sourceServiceIdBinary)
     if (sourceServiceId is PNI && envelope.type != Envelope.Type.SERVER_DELIVERY_RECEIPT) {
       Log.w(TAG, "${logPrefix(envelope)} Got a message from a PNI that was not a SERVER_DELIVERY_RECEIPT.")
       return Result.Ignore(envelope, serverDeliveredTimestamp, emptyList())
@@ -158,7 +159,8 @@ object MessageDecryptor {
 
       val envelope = if (cipherResult?.metadata?.sourceServiceId != null) {
         envelope.newBuilder()
-          .sourceServiceId(cipherResult.metadata.sourceServiceId.toString())
+          .sourceServiceId(if (BuildConfig.USE_STRING_ID) cipherResult.metadata.sourceServiceId.toString() else null)
+          .sourceServiceIdBinary(if (RemoteConfig.useBinaryId) cipherResult.metadata.sourceServiceId.toByteString() else null)
           .sourceDevice(cipherResult.metadata.sourceDeviceId)
           .build()
       } else {
@@ -170,7 +172,7 @@ object MessageDecryptor {
         return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
       }
 
-      if (cipherResult.metadata.sourceServiceId is PNI && envelope.sourceServiceId == null) {
+      if (cipherResult.metadata.sourceServiceId is PNI && (envelope.sourceServiceId == null && envelope.sourceServiceIdBinary == null)) {
         Log.w(TAG, "${logPrefix(envelope)} Invalid message! Sealed sender used for a PNI.")
         return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
       }
@@ -371,7 +373,7 @@ object MessageDecryptor {
           val groupId: GroupId? = protocolException.parseGroupId(envelope)
 
           val threadId: Long? = if (groupId != null) {
-            if (SignalDatabase.groups.getGroup(groupId).isAbsent()) {
+            if (!SignalDatabase.groups.groupExists(groupId)) {
               Log.w(TAG, "${logPrefix(envelope, senderServiceId)} No group found for $groupId! Not inserting a retry receipt.")
               return@FollowUpOperation null
             }
@@ -558,20 +560,20 @@ object MessageDecryptor {
     return ErrorMetadata(
       sender = this.sender,
       senderDevice = this.senderDevice,
-      groupId = if (this.groupId.isPresent) GroupId.v2(GroupMasterKey(this.groupId.get())) else null
+      groupMasterKey = this.groupId.map(::GroupMasterKey).orNull()
     )
   }
 
   private fun SignalServiceCipherResult.toErrorMetadata(): ErrorMetadata {
-    val groupId = if (this.content.dataMessage.hasGroupContext) {
-      GroupId.v2(GroupMasterKey(this.content.dataMessage!!.groupV2!!.masterKey!!.toByteArray()))
+    val groupMasterKey = if (this.content.dataMessage.hasGroupContext) {
+      GroupMasterKey(this.content.dataMessage!!.groupV2!!.masterKey!!.toByteArray())
     } else {
       null
     }
     return ErrorMetadata(
       sender = this.metadata.sourceServiceId.toString(),
       senderDevice = this.metadata.sourceDeviceId,
-      groupId = groupId
+      groupMasterKey = groupMasterKey
     )
   }
 
@@ -639,8 +641,10 @@ object MessageDecryptor {
   data class ErrorMetadata(
     val sender: String,
     val senderDevice: Int,
-    val groupId: GroupId?
-  )
+    val groupMasterKey: GroupMasterKey?
+  ) {
+    val groupId: GroupId.V2? by lazy { groupMasterKey?.let { GroupId.v2(it) } }
+  }
 
   data class DecryptionErrorCount(
     var count: Int,

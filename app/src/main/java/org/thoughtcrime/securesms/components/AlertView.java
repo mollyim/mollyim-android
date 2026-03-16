@@ -6,8 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 
 public class AlertView extends AppCompatImageView {
 

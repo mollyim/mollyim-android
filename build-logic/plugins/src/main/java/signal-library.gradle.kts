@@ -36,6 +36,7 @@ android {
 
   lint {
     disable += "InvalidVectorPath"
+    lintConfig = rootProject.file("lint.xml")
   }
 }
 
