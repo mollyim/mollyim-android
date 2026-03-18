@@ -41,8 +41,10 @@ android {
 
   buildTypes {
     release {
-      isMinifyEnabled = false
+      isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      signingConfig = signingConfigs.getByName("debug")
     }
   }
   compileOptions {
@@ -54,7 +56,18 @@ android {
   }
   packaging {
     resources {
-      excludes += "/META-INF/{AL2.0,LGPL2.1}"
+      excludes += setOf(
+        "/META-INF/{AL2.0,LGPL2.1}",
+        "**/*.dylib",
+        "**/*.dll"
+      )
+    }
+    jniLibs {
+      excludes += setOf(
+        "**/libsignal_jni_testing.so",
+        "**/*.dylib",
+        "**/*.dll"
+      )
     }
   }
 
@@ -79,6 +92,7 @@ dependencies {
   implementation(project(":lib:video"))
   implementation(project(":core:util"))
   implementation(project(":core:ui"))
+  implementation(libs.androidx.documentfile)
   implementation(libs.androidx.compose.ui.tooling.core)
   implementation(libs.androidx.compose.ui.test.manifest)
   androidTestImplementation(testLibs.junit.junit)
