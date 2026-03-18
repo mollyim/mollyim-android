@@ -344,16 +344,14 @@ android {
 
   androidComponents {
     beforeVariants { variant ->
-      val isSelected = variant.name in selectableVariants
+      val enabled = variant.name in selectableVariants
       val matchesBuild = buildVariants.toRegex().containsMatchIn(variant.name)
-
-      if (isSelected && matchesBuild) {
-        // MOLLY: Disable unit tests for non-debug builds
-        if (variant.buildType != "debug") {
-          (variant as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = false
-        }
-      } else {
+      if (!enabled || !matchesBuild) {
         variant.enable = false
+      }
+      when (variant.buildType) {
+        "release", "instrumentation" ->
+          (variant as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = false
       }
     }
     onVariants { variant ->

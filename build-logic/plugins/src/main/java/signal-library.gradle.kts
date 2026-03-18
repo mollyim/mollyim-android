@@ -40,6 +40,13 @@ android {
   }
 }
 
+androidComponents {
+  // MOLLY: Disable unit tests for release builds
+  beforeVariants(selector().withBuildType("release")) { variant ->
+    (variant as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = false
+  }
+}
+
 dependencies {
   lintChecks(project(":lintchecks"))
 
