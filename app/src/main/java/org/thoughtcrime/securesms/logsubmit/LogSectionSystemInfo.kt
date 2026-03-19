@@ -82,7 +82,7 @@ class LogSectionSystemInfo : LogSection {
       Emoji Version     : ${getEmojiVersionString(context)}
       RenderBigEmoji    : ${canRenderEmojiAtFontSize(1024f)}
       DontKeepActivities: ${getDontKeepActivities(context)}
-      Server Time Offset: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
+      Server Time Offset: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
       Telecom           : ${if (locked) LOCKED else telecomSupported}
       User-Agent        : ${StandardUserAgentInterceptor.USER_AGENT}
       SlowNotifications : ${if (locked) LOCKED else isHavingDelayedNotifications()}
@@ -90,7 +90,7 @@ class LogSectionSystemInfo : LogSection {
       IgnoringBatteryOpt: ${PowerManagerCompat.isIgnoringBatteryOptimizations(context)}
       BkgRestricted     : ${if (Build.VERSION.SDK_INT >= 28) DeviceProperties.isBackgroundRestricted(context) else "N/A"}
       Data Saver        : ${DeviceProperties.getDataSaverState(context)}
-      APNG Animation    : ${DeviceProperties.shouldAllowApngStickerAnimation(context)}
+      APNG Animation    : ${if (locked) LOCKED else DeviceProperties.shouldAllowApngStickerAnimation(context)}
       Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL?.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
       App               : ${getAppInfo(context)}
       Package           : ${BuildConfig.APPLICATION_ID} (${getSigningString(context)})

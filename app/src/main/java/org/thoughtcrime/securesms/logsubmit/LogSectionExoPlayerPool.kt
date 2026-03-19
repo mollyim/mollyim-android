@@ -36,6 +36,4 @@ class LogSectionExoPlayerPool : LogSection {
 
     return output
   }
-
-  override fun getContentLocked(context: Context) = getContent(context)
 }
