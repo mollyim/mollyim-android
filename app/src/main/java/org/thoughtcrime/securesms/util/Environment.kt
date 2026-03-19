@@ -23,7 +23,7 @@ object Environment {
 
     @JvmStatic
     fun isNewFormatSupportedForLocalBackup(): Boolean {
-      return isInternal()
+      return false
     }
   }
 
