@@ -5,7 +5,7 @@
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nTempo stimato per trovare la passphrase: %2$s.\n\nSuggerimento: %3$s</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generazione di chiavi. Questo potrebbe richiedere un po\' di tempo…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Scegli una passphrase che verrà utilizzata per crittografare localmente i tuoi dati.\n\nQuesta dovrebbe essere una passphrase forte.</string>
-    <string name="ChangePassphraseDialogFragment_passphrase">Passphrase</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Frase d\'accesso</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Passphrase debole!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Attiva la crittografia della base di dati</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Richiedere la passphrase per sbloccare Molly\?</string>
@@ -169,4 +169,6 @@
     <string name="preferences__follow_system">Segui il sistema</string>
     <string name="preferences_appearance__dynamic_colors">Colori dinamici</string>
     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Utilizza i colori del sistema per il tema dell\'app</string>
+    <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">La versione installata dei servizi Google Play su questo dispositivo è obsoleta.</string>
+    <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Aria compressa</string>
 </resources>
