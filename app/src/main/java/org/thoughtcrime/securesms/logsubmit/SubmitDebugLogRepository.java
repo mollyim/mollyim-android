@@ -18,7 +18,6 @@ import org.signal.core.util.StreamUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
-import org.signal.core.util.tracing.Tracer;
 import org.signal.debuglogsviewer.DebugLogsViewer;
 import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -121,15 +120,8 @@ public class SubmitDebugLogRepository {
     SignalExecutors.UNBOUNDED.execute(() -> {
       Log.blockUntilAllWritesFinished();
       LogDatabase.getInstance(context).logs().trimToSize();
-      callback.onResult(submitLogInternal(System.currentTimeMillis(), getPrefixLogLinesInternal(), Tracer.getInstance().serialize()));
+      callback.onResult(submitLogInternal(System.currentTimeMillis(), getPrefixLogLinesInternal(), new byte[0]));
     });
-  }
-
-  @WorkerThread
-  public Optional<String> buildAndSubmitLogSync(long untilTime) {
-    Log.blockUntilAllWritesFinished();
-    LogDatabase.getInstance(context).logs().trimToSize();
-    return submitLogInternal(untilTime, getPrefixLogLinesInternal(), Tracer.getInstance().serialize());
   }
 
   public void submitLogFromReader(DebugLogsViewer.LogReader logReader, @Nullable byte[] trace, Callback<Optional<String>> callback) {
@@ -160,7 +152,6 @@ public class SubmitDebugLogRepository {
         outputStream.closeEntry();
 
         outputStream.putNextEntry(new ZipEntry("signal.trace"));
-        outputStream.write(Tracer.getInstance().serialize());
         outputStream.closeEntry();
 
         callback.onResult(true);

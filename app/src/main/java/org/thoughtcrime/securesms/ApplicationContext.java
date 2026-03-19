@@ -41,7 +41,6 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.AndroidLogger;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
-import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.libsignal.net.ChatServiceException;
 import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
@@ -184,15 +183,10 @@ public class ApplicationContext extends Application implements AppForegroundObse
   }
 
   private void onCreateUnlock() {
-    Tracer.getInstance().start("Application#onCreateUnlock()");
     AppStartup.getInstance().onApplicationCreate();
     SignalLocalMetrics.ColdStart.start();
 
     long startTime = System.currentTimeMillis();
-
-    if (RemoteConfig.internalUser()) {
-      Tracer.getInstance().setMaxBufferSize(35_000);
-    }
 
     AppStartup.getInstance().addBlocking("sqlcipher-init", () -> {
                 SignalDatabase.init(this,
@@ -264,7 +258,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
     SignalLocalMetrics.ColdStart.onApplicationCreateFinished();
-    Tracer.getInstance().end("Application#onCreateUnlock()");
   }
 
   @Override
