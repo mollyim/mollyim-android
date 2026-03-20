@@ -139,7 +139,7 @@ jobs:
 
   upload:
     name: Upload
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     needs:
       - build
       - prepare_release
