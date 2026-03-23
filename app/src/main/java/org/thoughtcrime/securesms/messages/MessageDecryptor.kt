@@ -60,6 +60,7 @@ import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.SignalTrace
 import org.thoughtcrime.securesms.util.asChain
 import org.whispersystems.signalservice.api.InvalidMessageStructureException
 import org.whispersystems.signalservice.api.crypto.ContentHint
@@ -154,7 +155,9 @@ object MessageDecryptor {
 
     return try {
       val startTimeNanos = System.nanoTime()
+      SignalTrace.beginSection("MessageDecryptor#cipherDecrypt")
       val cipherResult: SignalServiceCipherResult? = cipher.decrypt(envelope, serverDeliveredTimestamp)
+      SignalTrace.endSection()
       val endTimeNanos = System.nanoTime()
 
       val envelope = if (cipherResult?.metadata?.sourceServiceId != null) {

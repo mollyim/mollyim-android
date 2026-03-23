@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -431,10 +431,10 @@
     <string name="ConversationItem_error_not_sent_tap_for_details">No enviado. Toca para ver más.</string>
     <string name="ConversationItem_error_partially_not_delivered">Enviado parcialmente. Toca para ver más.</string>
     <!-- Warning footer when an admin delete has not been sent to everyone -->
-    <string name="ConversationItem_error_partially_not_deleted">Partially deleted, tap for details</string>
+    <string name="ConversationItem_error_partially_not_deleted">Eliminado parcialmente. Toca para ver más.</string>
     <string name="ConversationItem_error_network_not_delivered">No enviado</string>
     <!-- Warning footer when an admin delete has failed to send -->
-    <string name="ConversationItem_error_delete_failed">Delete failed, tap for details</string>
+    <string name="ConversationItem_error_delete_failed">No se ha podido eliminar. Toca para ver más.</string>
     <string name="ConversationItem_group_action_left">%1$s ha abandonado el grupo.</string>
     <string name="ConversationItem_send_paused">Envío pausado</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">¿Enviar como SMS no cifrado?</string>
@@ -513,6 +513,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">El archivo adjunto excede el límite de tamaño para el tipo de mensaje que intentas enviar.</string>
     <string name="ConversationActivity_unable_to_record_audio">No se ha podido grabar el audio</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">No puedes enviar mensajes porque ya no formas parte de este grupo.</string>
+    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
     <string name="ConversationActivity_only_s_can_send_messages">Solo %1$s pueden enviar mensajes.</string>
     <string name="ConversationActivity_admins">admins</string>
     <string name="ConversationActivity_message_an_admin">Enviar mensaje a un admin</string>
@@ -619,7 +620,7 @@
     <string name="ConversationFragment_deleting">Eliminando</string>
     <string name="ConversationFragment_deleting_messages">Eliminando mensajes…</string>
     <string name="ConversationFragment_delete_for_me">Eliminar para mí</string>
-    <string name="ConversationFragment_delete_for_everyone">Eliminar para todas las personas</string>
+    <string name="ConversationFragment_delete_for_everyone">Eliminar para todos</string>
     <!-- Title of dialog confirming whether to delete the message -->
     <plurals name="ConversationFragment_delete_selected_title">
         <item quantity="one">¿Eliminar el mensaje seleccionado?</item>
@@ -633,7 +634,10 @@
     <!-- Confirmation button to delete the message -->
     <string name="ConversationFragment_delete_for_everyone_title">¿Eliminar para todos?</string>
     <!-- Body of dialog explaining what happens during deletion -->
-    <string name="ConversationFragment_delete_for_everyone_body">Como admin, los participantes del grupo verán que has eliminado estos mensajes.</string>
+    <plurals name="ConversationFragment_delete_for_everyone_body">
+        <item quantity="one">Group members on the latest versions of Signal will see that you deleted this message.</item>
+        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+    </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Eliminar en este dispositivo</string>
     <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
@@ -2017,6 +2021,13 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ha cambiado quién puede editar la lista de participantes del grupo a \"%2$s\".</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Se ha cambiado quién puede editar la lista de participantes del grupo a \"%1$s\".</string>
 
+    <!-- Shown when the current user changes the member label permission. -->
+    <string name="MessageRecord_you_changed_who_can_add_member_labels_to_s">Has cambiado quién puede añadir categorías de participante a \"%1$s\".</string>
+    <!-- Shown when another group member changes the member label permission. -->
+    <string name="MessageRecord_s_changed_who_can_add_member_labels_to_s">%1$s ha cambiado quién puede añadir categorías de participante a \"%2$s\".</string>
+    <!-- Shown when the member label permission is changed by an unknown admin. -->
+    <string name="MessageRecord_unknown_admin_changed_who_can_add_member_labels_to_s">Un admin ha cambiado quién puede añadir categorías de participante a \"%1$s\".</string>
+
     <!-- GV2 announcement group change -->
     <string name="MessageRecord_you_allow_all_members_to_send">Has cambiado los ajustes del grupo para que cualquiera pueda enviar mensajes.</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">Has cambiado los ajustes del grupo para que solo admins puedan enviar mensajes.</string>
@@ -2775,7 +2786,7 @@
     <!-- Dialog message shown when we need to verify sms and carrier rates may apply. -->
     <string name="RegistrationActivity_a_verification_code_will_be_sent_to_this_number">Se enviará una clave de verificación a ese número. Es posible que tu operador aplique algún cargo.</string>
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
-    <string name="RegistrationActivity_you_will_receive_a_verification_code">Recibirás una clave de verificación. Se aplican las tarifas de tu operador.</string>
+    <string name="RegistrationActivity_you_will_receive_a_verification_code">Recibirás una clave de verificación. Es posible que tu operador aplique algún cargo.</string>
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">Selecciona un país</string>
     <!-- Hint text explaining that this is where the country code should go -->
@@ -3380,6 +3391,17 @@
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">No se pueden guardar archivos en una unidad de almacenamiento externo si Signal no tiene acceso</string>
 
+    <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_media">No se puede guardar el archivo</string>
+    <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__media_offloaded_message">Este archivo se ha eliminado de tu dispositivo porque tienes activada la opción \"Optimizar almacenamiento en el dispositivo\". Puedes descargar los archivos uno por uno o desactivar la opción \"Optimizar almacenamiento en el dispositivo\" para descargarlos todos en tu dispositivo.</string>
+    <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_all_items">No se pueden guardar todos los elementos</string>
+    <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__some_media_offloaded_message">Algunos de los archivos que has seleccionado se han eliminado de tu dispositivo porque tienes activada la opción \"Optimizar almacenamiento en el dispositivo\". Puedes guardar los archivos uno por uno o desactivar la opción \"Optimizar almacenamiento en el dispositivo\" para descargarlos todos en tu dispositivo.</string>
+    <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
+    <string name="AttachmentSaver__view_storage_settings">Ver ajustes de almacenamiento</string>
+
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Buscar</string>
     <!-- Hint when searching filtered chat content -->
@@ -3587,9 +3609,9 @@
     <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Fijar grabación de archivo de audio</string>
     <string name="conversation_activity__message_could_not_be_sent">No se ha podido enviar el mensaje. Comprueba tu conexión e inténtalo de nuevo.</string>
     <!-- Dialog body when a message failed to delete and retry is possible. -->
-    <string name="conversation_activity__message_failed_to_delete_retry">Message failed to delete. Check your connection and try again.</string>
+    <string name="conversation_activity__message_failed_to_delete_retry">No se ha podido eliminar el mensaje. Comprueba tu conexión e inténtalo de nuevo.</string>
     <!-- Dialog body when a message failed to delete. -->
-    <string name="conversation_activity__message_failed_to_delete">Message failed to delete.</string>
+    <string name="conversation_activity__message_failed_to_delete">No se ha podido eliminar el mensaje.</string>
 
     <!-- conversation_input_panel -->
     <string name="conversation_input_panel__slide_to_cancel">Desliza para cancelar</string>
@@ -3891,20 +3913,20 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">El cifrado para este chat se ha verificado automáticamente</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">Para los contactos con los que hayas iniciado la comunicación mediante un número de teléfono, Molly puede confirmar automáticamente si la conexión es segura usando un proceso llamado transparencia de claves. Para mayor seguridad, verifica manualmente el cifrado de extremo a extremo comparando los números en la pantalla anterior o escaneando el código que se muestra en el dispositivo de la otra persona.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Para los contactos con los que hayas iniciado la comunicación mediante un número de teléfono, Molly puede confirmar automáticamente si la conexión es segura usando un proceso llamado transparencia de claves. Para mayor seguridad, verifica el cifrado de extremo a extremo manualmente comparando los números en la pantalla anterior o escaneando el código que se muestra en el dispositivo de la otra persona.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
     <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">La verificación automática ya no está disponible para este chat</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly ya no puede verificar automáticamente el cifrado de este chat. Es probable que %1$s haya cambiado su número de teléfono. Verifica manualmente el cifrado de extremo a extremo comparando los números en la pantalla anterior o escaneando el código que se muestra en su dispositivo.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly ya no puede verificar automáticamente el cifrado de este chat. Es probable que %1$s haya cambiado su número de teléfono. Verifica el cifrado de extremo a extremo manualmente comparando los números en la pantalla anterior o escaneando el código que se muestra en su dispositivo.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">La verificación automática no está disponible para este chat</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__body_unavailable">Molly solo puede verificar automáticamente el cifrado en los chats que hayas empezado con alguien mediante un número de teléfono. Si iniciaste un chat con alguien a través de un alias o un grupo en común, verifica el cifrado de extremo a extremo comparando los números en la pantalla anterior o escaneando el código que se muestra en su dispositivo.</string>
 
     <!-- Title for auto verification education sheet -->
-    <string name="VerifyAutomaticallyEducationSheet__title">Ahora, Molly puede verificar automáticamente el cifrado</string>
+    <string name="VerifyAutomaticallyEducationSheet__title">Ahora, Molly puede verificar el cifrado automáticamente</string>
     <!-- Body for auto verification education sheet -->
-    <string name="VerifyAutomaticallyEducationSheet__body">Para los contactos con los que hayas iniciado la comunicación mediante un número de teléfono, Molly puede confirmar automáticamente si la conexión es segura usando un proceso llamado transparencia de claves. Para mayor seguridad, puedes seguir verificando manualmente tus contactos usando un código QR o un número de seguridad.</string>
+    <string name="VerifyAutomaticallyEducationSheet__body">Para los contactos con los que hayas iniciado la comunicación mediante un número de teléfono, Molly puede confirmar automáticamente si la conexión es segura usando un proceso llamado transparencia de claves. Para mayor seguridad, puedes seguir verificando tus contactos manualmente usando un código QR o un número de seguridad.</string>
     <!-- Button to learn more about automatic verification -->
     <string name="VerifyAutomaticallyEducationSheet__learn_more">Más información</string>
     <!-- Button to go to verification page -->
@@ -4622,6 +4644,7 @@
     <string name="conversation__menu_view_all_media">Todos los archivos</string>
     <string name="conversation__menu_conversation_settings">Ajustes del chat</string>
     <string name="conversation__menu_add_shortcut">Añadir a la pantalla de inicio</string>
+    <string name="conversation__menu_export">Exportar</string>
     <string name="conversation__menu_create_bubble">Crear burbuja</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">Formato de texto</string>
@@ -4630,6 +4653,13 @@
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_add_to_contacts__menu_add_to_contacts">Añadir a contactos</string>
+
+    <!-- conversation export -->
+    <string name="conversation_export__exporting">Exporting chat…</string>
+    <string name="conversation_export__export_complete">Chat exported successfully</string>
+    <string name="conversation_export__export_failed">Export failed</string>
+    <string name="conversation_export__export_cancelled">Export cancelled</string>
+    <string name="conversation_export__preparing">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -4865,6 +4895,8 @@
     <string name="BackupDialog_delete_backups">¿Eliminar copias de seguridad?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">¿Desactivar y eliminar todas las copias de seguridad locales?</string>
     <string name="BackupDialog_delete_backups_statement">Eliminar copias de seguridad</string>
+    <!-- Progress dialog message shown while local backup files are being deleted -->
+    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Selecciona una carpeta para habilitar las copias de seguridad. Las copias se guardarán allí.</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">Seleccionar carpeta</string>
@@ -5165,6 +5197,8 @@
     <string name="RecipientBottomSheet_remove_from_group">Eliminar del grupo</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">¿Retirarle los permisos de admin a %1$s?</string>
+    <!-- Message shown when removing an admin will also clear their member label. -->
+    <string name="RecipientBottomSheet_remove_s_as_group_admin_and_clear_member_label">¿Retirarle los permisos de admin a %1$s? También se eliminará su categoría de participante.</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"%1$s podrá editar los ajustes de este grupo y la lista de participantes."</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">¿Eliminar a %1$s del grupo?</string>
@@ -6002,6 +6036,16 @@
     <string name="PermissionsSettingsFragment__who_can_add_new_members">¿Quién puede añadir participantes?</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">¿Quién puede editar los detalles del grupo?</string>
     <string name="PermissionsSettingsFragment__who_can_send_messages">¿Quién puede enviar mensajes e iniciar llamadas?</string>
+    <!-- Label for the member labels permission button in the group permissions settings screen. -->
+    <string name="PermissionsSettingsFragment__add_member_labels">Añadir categorías de participante</string>
+    <!-- Dialog title shown when choosing who has permission to add member labels in the group. -->
+    <string name="PermissionsSettingsFragment__who_can_add_member_labels">¿Quién puede añadir categorías de participante?</string>
+    <!-- Warning title shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">Se eliminarán las categorías de participantes</string>
+    <!-- Warning body shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"Si cambias este permiso a Solo admins, se eliminarán las categorías que hayan añadido los participantes que no sean admins."</string>
+    <!-- Confirm button for changing member label permission after warning. -->
+    <string name="PermissionsSettingsFragment__change_permission">Cambiar permiso</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <!-- Label for the setting to mute notifications for a conversation -->
@@ -6017,17 +6061,17 @@
     <!-- Label for the setting to configure custom notification sounds and vibration for a conversation -->
     <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Notificaciones personalizadas</string>
     <!-- Section header for settings that control which notifications still come through when a conversation is muted -->
-    <string name="SoundsAndNotificationsSettingsFragment__when_muted">When muted</string>
+    <string name="SoundsAndNotificationsSettingsFragment__when_muted">En modo silencio</string>
     <!-- Label for the calls notification setting in conversation sounds and notifications -->
     <string name="SoundsAndNotificationsSettingsFragment__calls">Llamadas</string>
     <!-- Explanatory text shown in the calls notification setting dialog describing what the setting controls -->
-    <string name="SoundsAndNotificationsSettingsFragment__calls_dialog_message">Ring and receive notifications when a call is started in muted chats.</string>
+    <string name="SoundsAndNotificationsSettingsFragment__calls_dialog_message">Sonar y recibir una notificación cuando se inicia una llamada en chats silenciados.</string>
     <!-- Explanatory text shown in the mentions notification setting dialog describing what the setting controls -->
-    <string name="SoundsAndNotificationsSettingsFragment__mentions_dialog_message">Receive notifications when you are mentioned in muted chats.</string>
+    <string name="SoundsAndNotificationsSettingsFragment__mentions_dialog_message">Recibir notificaciones cuando te mencionan en chats silenciados.</string>
     <!-- Label for the replies notification setting in conversation sounds and notifications -->
-    <string name="SoundsAndNotificationsSettingsFragment__replies_to_you">Replies to you</string>
+    <string name="SoundsAndNotificationsSettingsFragment__replies_to_you">Respuestas recibidas</string>
     <!-- Explanatory text shown in the replies notification setting dialog describing what the setting controls -->
-    <string name="SoundsAndNotificationsSettingsFragment__replies_dialog_message">Receive notifications when someone replies to your messages in muted chats.</string>
+    <string name="SoundsAndNotificationsSettingsFragment__replies_dialog_message">Recibir notificaciones cuando alguien responda a tus mensajes en chats silenciados.</string>
 
     <!-- StickerKeyboard -->
     <string name="StickerKeyboard__recently_used">Usados recientemente</string>
@@ -6790,6 +6834,53 @@
     <string name="MyStories__this_story_will_be_deleted">Esta historia se eliminará para ti y para quienes la hayan recibido.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">No se ha podido guardar</string>
+
+    <!-- StoryArchive -->
+    <!-- Title for the story archive screen -->
+    <string name="StoryArchive__story_archive">Archivo de historias</string>
+    <!-- Section header in story settings -->
+    <string name="StoryArchive__archive">Archivar</string>
+    <!-- Label for switch to enable story archiving -->
+    <string name="StoryArchive__keep_stories_in_archive">Archivar las historias</string>
+    <!-- Description for the archive toggle -->
+    <string name="StoryArchive__save_stories_after_they_expire">Guarda las historias que has compartido una vez que desaparecen de tu feed.</string>
+    <!-- Label for archive duration preference -->
+    <string name="StoryArchive__keep_stories_for">Conservar las historias</string>
+    <!-- Archive duration option: forever -->
+    <string name="StoryArchive__forever">Para siempre</string>
+    <!-- Archive duration option: 1 year -->
+    <string name="StoryArchive__1_year">1 año</string>
+    <!-- Archive duration option: 6 months -->
+    <string name="StoryArchive__6_months">6 meses</string>
+    <!-- Archive duration option: 30 days -->
+    <string name="StoryArchive__30_days">30 días</string>
+    <!-- Empty state title when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories">No hay historias archivadas</string>
+    <!-- Empty state message when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories_message">En los ajustes de historias, activa la opción \"Guardar historias en el archivo\" para archivar automáticamente tus historias.</string>
+    <!-- Empty state button to navigate to story settings -->
+    <string name="StoryArchive__go_to_settings">Ir a Ajustes</string>
+    <!-- Label for sort order menu -->
+    <string name="StoryArchive__sort_by">Ordenar por</string>
+    <!-- Sort order option: newest first -->
+    <string name="StoryArchive__newest">Más reciente</string>
+    <!-- Sort order option: oldest first -->
+    <string name="StoryArchive__oldest">Más antiguo</string>
+    <!-- Delete action in story archive multi-select bottom bar -->
+    <string name="StoryArchive__delete">Eliminar</string>
+    <!-- Content description for selecting a story in multi-select mode -->
+    <string name="StoryArchive__select_story">Seleccionar historia</string>
+    <!-- Confirmation dialog body when deleting stories from archive -->
+    <plurals name="StoryArchive__delete_n_stories">
+        <item quantity="one">¿Eliminar la historia de %1$d? Esta acción no se puede deshacer.</item>
+        <item quantity="other">¿Eliminar las historias de %1$d? Esta acción no se puede deshacer.</item>
+    </plurals>
+    <!-- Title shown in toolbar when in multi-select mode in story archive, %d is count of selected items -->
+    <plurals name="StoryArchive__d_selected">
+        <item quantity="one">%1$d seleccionada</item>
+        <item quantity="other">%1$d seleccionadas</item>
+    </plurals>
+
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="one">%1$d visualización</item>
@@ -7739,11 +7830,11 @@
 
     <!-- CallParticipantSheet -->
     <!-- Action to mute a participant\'s audio in a group call -->
-    <string name="CallParticipantSheet__mute_audio">Mute audio</string>
+    <string name="CallParticipantSheet__mute_audio">Silenciar audio</string>
     <!-- Action to remove a participant from a call -->
-    <string name="CallParticipantSheet__remove_from_call">Remove from call</string>
+    <string name="CallParticipantSheet__remove_from_call">Eliminar de la llamada</string>
     <!-- Action to view contact details for a participant -->
-    <string name="CallParticipantSheet__contact_details">Detalles personales</string>
+    <string name="CallParticipantSheet__contact_details">Información del contacto</string>
 
     <!-- CreateCallLinkBottomSheetDialogFragment -->
     <!-- Fragment title -->
@@ -7922,27 +8013,27 @@
     <string name="TurnOnSignalBackups__toast_not_now">Puedes habilitar las copias de seguridad en Ajustes</string>
 
     <!-- Title of Megaphone B: upsell to enable backups when user has many messages -->
-    <string name="BackupMessagesUpsell__title">Never lose a message</string>
+    <string name="BackupMessagesUpsell__title">No pierdas ni un mensaje</string>
     <!-- Body of Megaphone B: upsell to enable backups when user has many messages -->
-    <string name="BackupMessagesUpsell__body">Turn on Signal Secure Backups to preserve your messages and media.</string>
+    <string name="BackupMessagesUpsell__body">Activa las Copias Seguras de Signal para conservar tus mensajes y archivos.</string>
     <!-- Primary button of Megaphone B -->
     <string name="BackupMessagesUpsell__turn_on">Activar</string>
     <!-- Secondary button of Megaphone B -->
     <string name="BackupMessagesUpsell__not_now">Ahora no</string>
 
     <!-- Title of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__title">Back up all your media</string>
+    <string name="BackupMediaUpsell__title">Haz una copia de seguridad de todos tus archivos</string>
     <!-- Body of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__body">Paid Signal Secure Backup plans preserve all your media, up to 100GB.</string>
+    <string name="BackupMediaUpsell__body">Gracias a los planes de pago de Copias Seguras de Signal, puedes conservar todos tus archivos (hasta 100 GB).</string>
     <!-- Primary button of Megaphone C -->
     <string name="BackupMediaUpsell__upgrade">Actualizar</string>
     <!-- Secondary button of Megaphone C -->
     <string name="BackupMediaUpsell__not_now">Ahora no</string>
 
     <!-- Title of Megaphone D: upsell backups when device storage is low -->
-    <string name="BackupStorageUpsell__title">Save space with paid backups</string>
+    <string name="BackupStorageUpsell__title">Ahorra espacio con copias de seguridad de pago</string>
     <!-- Body of Megaphone D: upsell backups when device storage is low -->
-    <string name="BackupStorageUpsell__body">Paid secure backup plans can save storage space by offloading media.</string>
+    <string name="BackupStorageUpsell__body">Los planes de pago de copias de seguridad te permiten eliminar archivos de tu dispositivo y ahorrar espacio de almacenamiento.</string>
     <!-- Primary button of Megaphone D when user has free tier backups -->
     <string name="BackupStorageUpsell__upgrade">Actualizar</string>
     <!-- Primary button of Megaphone D when user has no backups -->
@@ -7951,21 +8042,21 @@
     <string name="BackupStorageUpsell__not_now">Ahora no</string>
 
     <!-- Title of the backup upsell bottom sheet promoting paid backup plans -->
-    <string name="BackupUpsellBottomSheet__title">Upgrade to back up all media</string>
+    <string name="BackupUpsellBottomSheet__title">Mejora tu plan y conserva todos tus archivos</string>
     <!-- Body of the backup upsell bottom sheet -->
-    <string name="BackupUpsellBottomSheet__body">Paid Signal Secure Backup plans save all media you send and receive, up to a maximum of 100GB. Never lose an image or video when you get a new phone or reinstall Signal.</string>
+    <string name="BackupUpsellBottomSheet__body">Con los planes de pago de Copias Seguras de Signal, puedes conservar todos los archivos que envías y recibes (hasta un máximo de 100 GB). No perderás ningún vídeo ni ninguna foto si cambias de teléfono o vuelves a instalar Signal.</string>
     <!-- Label for the paid plan price shown in the feature card, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__price_per_month">%1$s/mes</string>
     <!-- Subtitle for the paid plan feature card -->
     <string name="BackupUpsellBottomSheet__text_and_all_media">Mensajes de texto + todos tus archivos multimedia</string>
     <!-- Feature bullet: full text and media backup -->
-    <string name="BackupUpsellBottomSheet__full_text_media_backup">Full text + media backup</string>
+    <string name="BackupUpsellBottomSheet__full_text_media_backup">Copia de seguridad de todos tus mensajes y archivos</string>
     <!-- Feature bullet: 100GB storage -->
-    <string name="BackupUpsellBottomSheet__storage_100gb">100GB storage</string>
+    <string name="BackupUpsellBottomSheet__storage_100gb">100 GB de almacenamiento</string>
     <!-- Feature bullet: save on-device storage -->
-    <string name="BackupUpsellBottomSheet__save_on_device_storage">Save on-device storage</string>
+    <string name="BackupUpsellBottomSheet__save_on_device_storage">Más espacio libre en tu dispositivo</string>
     <!-- Feature bullet: thanks for supporting Signal -->
-    <string name="BackupUpsellBottomSheet__thanks_for_supporting">Thanks for supporting Signal</string>
+    <string name="BackupUpsellBottomSheet__thanks_for_supporting">Gracias por apoyar a Signal</string>
     <!-- Primary button for the upsell bottom sheet. The %s is replaced by the subscription price, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__subscribe_for">Suscribirme por %1$s/mes</string>
     <!-- Secondary/dismiss button for the upsell bottom sheet -->
@@ -7974,18 +8065,18 @@
     <!-- Title of the backup setup complete bottom sheet -->
     <string name="BackupSetupCompleteBottomSheet__title">¡Todo listo! Ya puedes iniciar tu copia de seguridad.</string>
     <!-- Body of the backup setup complete bottom sheet -->
-    <string name="BackupSetupCompleteBottomSheet__body">This could take a while. You can use Signal normally while backing up.</string>
+    <string name="BackupSetupCompleteBottomSheet__body">Esto puede llevar unos minutos. Puedes seguir usando Signal con normalidad mientras se crea la copia de seguridad.</string>
     <!-- Label for the optimize storage toggle -->
-    <string name="BackupSetupCompleteBottomSheet__optimize_storage">Optimize Signal storage</string>
+    <string name="BackupSetupCompleteBottomSheet__optimize_storage">Optimizar el almacenamiento de Signal</string>
     <!-- Subtitle for the optimize storage toggle -->
-    <string name="BackupSetupCompleteBottomSheet__optimize_subtitle">Older media will be offloaded, but can be downloaded from your backup anytime.</string>
+    <string name="BackupSetupCompleteBottomSheet__optimize_subtitle">Los archivos multimedia más antiguos se eliminarán del dispositivo, pero podrás descargarlos desde tu copia de seguridad en cualquier momento.</string>
     <!-- Primary button on the setup complete bottom sheet -->
     <string name="BackupSetupCompleteBottomSheet__back_up_now">Iniciar copia</string>
 
     <!-- Title of a megaphone shown to prompt the user to upgrade to the new local backups type -->
     <string name="UseNewOnDeviceBackups__title">Usa las nuevas copias de seguridad locales</string>
     <!-- Body of a megaphone shown to prompt the user to upgrade to the new local backups type -->
-    <string name="UseNewOnDeviceBackups__body">Ahora, las copias de seguridad locales se guardan más rápido y consumen menos datos.</string>
+    <string name="UseNewOnDeviceBackups__body">Ahora, las copias de seguridad locales se guardan más rápido y usan menos datos.</string>
     <!-- Button of a megaphone that will take the user to the upgrade flow -->
     <string name="UseNewOnDeviceBackups__upgrade">Actualizar</string>
     <!-- Button of a megaphone that will snooze the reminder to upgrade to the new local backups type -->
@@ -8215,7 +8306,7 @@
 
     <!-- OnDeviceBackupsFragment -->
     <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
-    <string name="OnDeviceBackupsFragment__backup_key_updated">Clave de copia de seguridad actualizada</string>
+    <string name="OnDeviceBackupsFragment__recovery_key_updated">Clave de recuperación actualizada</string>
     <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
     <string name="OnDeviceBackupsFragment__directory_selected">Directorio seleccionado: %1$s</string>
 
@@ -8301,7 +8392,7 @@
     <!-- Title of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
     <string name="CancelBackupDialog_title">¿Cancelar copia de seguridad?</string>
     <!-- Body of a dialog box prompting to confirm whether the user truly wants to cancel their backup. -->
-    <string name="CancelBackupDialog_body">Puedes cancelar el proceso de copia de seguridad, pero no se eliminará tu copia de seguridad. Puedes reanudar el proceso en cualquier momento desde Ajustes de copia de seguridad.</string>
+    <string name="CancelBackupDialog_body">Si cancelas el proceso de copia de seguridad, no se eliminará tu copia de seguridad. Puedes reanudar el proceso en cualquier momento desde Ajustes de copia de seguridad.</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will confirm canceling the currently-running backup (future backups are unaffected). -->
     <string name="CancelBackupDialog_cancel_action">Cancelar copia de seguridad</string>
     <!-- Button on a dialog box that confirming backup cancellation. When pressed, this button will continue the backup rather than cancel it. -->
@@ -8659,15 +8750,35 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">Escanear código QR</string>
 
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">Procesando copia de seguridad…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">Preparando copia de seguridad…</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">Finalizando…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+
+    <!-- LocalArchiveJob -->
+    <!-- Notification title shown while media attachments are being exported during a local backup -->
+    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
     <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">Mejoras en las copias de seguridad locales</string>
     <!-- Subtitle describing that the backup will be upgraded to a new format with a new recovery key -->
     <string name="OnDeviceBackupsImprovementsScreen__your_on_device_backup_will_be_upgraded">Tus copias de seguridad locales se actualizarán a un nuevo formato usando una nueva clave de recuperación</string>
     <!-- Feature description explaining backups are faster and use less data -->
-    <string name="OnDeviceBackupsImprovementsScreen__backups_now_save_faster">Ahora, las copias de seguridad se guardan más rápido y consumen menos datos</string>
+    <string name="OnDeviceBackupsImprovementsScreen__backups_now_save_faster">Ahora, las copias de seguridad se guardan más rápido y usan menos datos</string>
     <!-- Feature description explaining backups will be saved as a folder with many files -->
-    <string name="OnDeviceBackupsImprovementsScreen__your_backup_will_be_saved_as_a_folder">Tu copia de seguridad se guardará en una carpeta con muchos archivos</string>
+    <string name="OnDeviceBackupsImprovementsScreen__your_backup_will_be_saved_as_a_folder">Tu copia de seguridad se guardará como una carpeta con muchos archivos</string>
     <!-- Feature description explaining backups remain end-to-end encrypted -->
     <string name="OnDeviceBackupsImprovementsScreen__all_backups_remain_end_to_end_encrypted">Todas las copias de seguridad seguirán estando cifradas de extremo a extremo</string>
     <!-- Button text to continue to the next step -->
@@ -8680,7 +8791,7 @@
     <string name="OnDeviceBackupsSettingsScreen__update">Actualizar</string>
 
     <!-- UnifiedOnDeviceBackupsSettingsScreen -->
-    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">Ver clave de copia de seguridad</string>
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_recovery_key">Ver clave de recuperación</string>
 
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
@@ -8750,9 +8861,9 @@
     <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">Esta clave reemplazará a la clave de tus copias de seguridad locales.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">La clave de tu copia de seguridad es un código de 64 caracteres que te permite restaurar tus copias de seguridad cuando vuelves a instalar Signal.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Tu clave de recuperación es un código de 64 caracteres que te permite restaurar tus copias de seguridad cuando vuelves a instalar Signal.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Es la misma clave que la de tus copias de seguridad locales.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Es la misma que la de tus copias de seguridad locales.</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">Usa esta clave para:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -8770,7 +8881,7 @@
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Se necesita esta clave para recuperar tu cuenta y tus datos. Guárdala en un lugar seguro. Si la pierdes, no podrás recuperar tu cuenta.</string>
     <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">Esta clave es la misma que la de tus copias de seguridad locales. La necesitarás para recuperar tu cuenta y tus datos.</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_recovery_key">Esta clave es la misma que la de tus copias de seguridad locales. La necesitarás para recuperar tu cuenta y tus datos.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Copiar al portapapeles</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9019,8 +9130,8 @@
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">Introduce tu clave de recuperación</string>
     <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
     <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">Tu clave de recuperación es un código de 64 caracteres que necesitarás para recuperar tu cuenta y tus datos.</string>
-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a backup key -->
-    <string name="EnterLocalBackupKeyScreen__no_backup_key">¿No tienes tu clave?</string>
+    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+    <string name="EnterLocalBackupKeyScreen__no_recovery_key">¿No tienes clave de recuperación?</string>
     <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
     <string name="EnterLocalBackupKeyScreen__next">Siguiente</string>
 
@@ -9470,13 +9581,17 @@
     <!-- Description explaining the group member labels feature. -->
     <string name="GroupMemberLabel__description">Añade una categoría de participante que te describa a ti o tu rol dentro del grupo. La categoría que elijas solo se mostrará dentro de este grupo.</string>
     <!-- Error message shown when the group member label fails to save due to a network error. -->
-    <string name="GroupMemberLabel__error_cant_save_no_network">Couldn\'t save label. Check your network and try again.</string>
+    <string name="GroupMemberLabel__error_cant_save_no_network">No se ha podido guardar la categoría. Comprueba tu conexión de red e inténtalo de nuevo.</string>
+    <!-- Error message shown when trying to edit a member label without adequate permission. -->
+    <string name="GroupMemberLabel__error_no_edit_permission">Solo los admins pueden añadir categorías de participantes en este grupo.</string>
     <!-- Accessibility label for the button to open the group member label emoji picker. -->
     <string name="GroupMemberLabel__accessibility_select_emoji">Seleccionar emoji</string>
     <!-- Accessibility label for the group member label close screen button. -->
     <string name="GroupMemberLabel__accessibility_close_screen">Cerrar pantalla</string>
     <!-- Accessibility label for the group member label text field clear button. -->
     <string name="GroupMemberLabel__accessibility_clear_label">Borrar categoría</string>
+    <!-- Section header for the list of group members who have labels set. -->
+    <string name="GroupMemberLabel__group_members_with_labels">Participantes del grupo con categorías</string>
 
     <!-- Title for the member labels education sheet. -->
     <string name="MemberLabelsEducation__title">Categorías de participantes</string>

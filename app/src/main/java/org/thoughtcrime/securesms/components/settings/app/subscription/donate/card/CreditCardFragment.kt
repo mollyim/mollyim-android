@@ -30,13 +30,14 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.donate.In
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentProcessorActionResult
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe.StripePaymentInProgressFragment
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe.StripePaymentInProgressViewModel
+import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.databinding.CreditCardFragmentBinding
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.viewModel
 
-class CreditCardFragment : Fragment(R.layout.credit_card_fragment) {
+class CreditCardFragment : Fragment(R.layout.credit_card_fragment), InAppPaymentCheckoutDelegate.ErrorHandlerCallback {
 
   private val binding by ViewBinderDelegate(CreditCardFragmentBinding::bind)
   private val args: CreditCardFragmentArgs by navArgs()
@@ -51,7 +52,7 @@ class CreditCardFragment : Fragment(R.layout.credit_card_fragment) {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     TemporaryScreenshotSecurity.bindToViewLifecycleOwner(this)
-    InAppPaymentCheckoutDelegate.ErrorHandler().attach(this, null, args.inAppPaymentId)
+    InAppPaymentCheckoutDelegate.ErrorHandler().attach(this, this, args.inAppPaymentId)
 
     setFragmentResultListener(StripePaymentInProgressFragment.REQUEST_KEY) { _, bundle ->
       val result: InAppPaymentProcessorActionResult = bundle.getParcelableCompat(StripePaymentInProgressFragment.REQUEST_KEY, InAppPaymentProcessorActionResult::class.java)!!
@@ -219,6 +220,14 @@ class CreditCardFragment : Fragment(R.layout.credit_card_fragment) {
         null
       }
     }
+  }
+
+  override fun onUserLaunchedAnExternalApplication() = Unit
+
+  override fun navigateToDonationPending(inAppPayment: InAppPaymentTable.InAppPayment) = Unit
+
+  override fun exitCheckoutFlow() {
+    findNavController().popBackStack()
   }
 
   companion object {

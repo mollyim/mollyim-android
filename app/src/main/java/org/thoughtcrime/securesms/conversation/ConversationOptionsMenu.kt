@@ -16,6 +16,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.recipients.Recipient
 
@@ -163,6 +164,12 @@ internal object ConversationOptionsMenu {
         hideMenuItem(menu, R.id.menu_add_shortcut)
       }
 
+      if (SignalStore.labs.individualChatPlaintextExport) {
+        menu.findItem(R.id.menu_export)?.title = menu.findItem(R.id.menu_export)?.title.toString() + " (Labs)"
+      } else {
+        hideMenuItem(menu, R.id.menu_export)
+      }
+
       if (isActiveV2Group) {
         hideMenuItem(menu, R.id.menu_mute_notifications)
         hideMenuItem(menu, R.id.menu_conversation_settings)
@@ -210,6 +217,7 @@ internal object ConversationOptionsMenu {
         R.id.menu_unmute_notifications -> callback.handleUnmuteNotifications()
         R.id.menu_conversation_settings -> callback.handleConversationSettings()
         R.id.menu_expiring_messages_off, R.id.menu_expiring_messages -> callback.handleSelectMessageExpiration()
+        R.id.menu_export -> callback.handleExportChat()
         R.id.menu_create_bubble -> callback.handleCreateBubble()
         androidx.appcompat.R.id.home -> callback.handleGoHome()
         R.id.menu_block -> callback.handleBlock()
@@ -289,5 +297,6 @@ internal object ConversationOptionsMenu {
     fun handleReportSpam()
     fun handleMessageRequestAccept()
     fun handleDeleteConversation()
+    fun handleExportChat()
   }
 }

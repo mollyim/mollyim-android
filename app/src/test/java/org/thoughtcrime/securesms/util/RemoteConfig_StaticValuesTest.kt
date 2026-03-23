@@ -10,6 +10,7 @@ import kotlin.reflect.full.memberProperties
 /**
  * Ensures we don't release with forced values which is intended for local development only.
  */
+@Suppress("ClassName")
 class RemoteConfig_StaticValuesTest {
 
   @Before
@@ -37,7 +38,8 @@ class RemoteConfig_StaticValuesTest {
       "1",
       "100",
       "12345678910111213141516",
-      "*"
+      "*",
+      "1.0.0"
     )
 
     val configKeys = RemoteConfig.configsByKey.keys

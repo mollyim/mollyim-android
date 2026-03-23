@@ -81,6 +81,7 @@ import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.components.compose.ActionModeTopBar
 import org.thoughtcrime.securesms.components.settings.app.subscription.BadgeImageSmall
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.rememberRecipientField
 
@@ -98,6 +99,7 @@ interface MainToolbarCallback {
   fun onFilterMissedCallsClick()
   fun onClearCallFilterClick()
   fun onStoryPrivacyClick()
+  fun onStoryArchiveClick()
   fun onCloseSearchClick()
   fun onCloseArchiveClick()
   fun onCloseActionModeClick()
@@ -118,6 +120,7 @@ interface MainToolbarCallback {
     override fun onFilterMissedCallsClick() = Unit
     override fun onClearCallFilterClick() = Unit
     override fun onStoryPrivacyClick() = Unit
+    override fun onStoryArchiveClick() = Unit
     override fun onCloseSearchClick() = Unit
     override fun onCloseArchiveClick() = Unit
     override fun onCloseActionModeClick() = Unit
@@ -402,6 +405,17 @@ private fun PrimaryToolbar(
     actions = {
       NotificationProfileAction(state, callback)
       ProxyAction(state, callback)
+
+      if (state.destination == MainNavigationListLocation.STORIES && SignalStore.labs.storyArchive) {
+        IconButtons.IconButton(
+          onClick = callback::onStoryArchiveClick
+        ) {
+          Icon(
+            imageVector = ImageVector.vectorResource(R.drawable.symbol_story_archive_24),
+            contentDescription = stringResource(R.string.StoryArchive__story_archive)
+          )
+        }
+      }
 
       IconButtons.IconButton(
         onClick = callback::onSearchClick,

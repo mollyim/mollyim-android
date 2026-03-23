@@ -128,15 +128,19 @@ public final class Megaphones {
       put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context, Event.DONATE_MOLLY, records) ? ShowForDurationSchedule.showForDays(7) : NEVER);
       put(Event.REMOTE_MEGAPHONE, shouldShowRemoteMegaphone(records) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(1)) : NEVER);
       put(Event.LINKED_DEVICE_INACTIVE, shouldShowLinkedDeviceInactiveMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)): NEVER);
-      put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
-      put(Event.SET_UP_YOUR_USERNAME, shouldShowSetUpYourUsernameMegaphone(records) ? ALWAYS : NEVER);
 
-      // Feature-introduction megaphones should *probably* be added below this divider
-      put(Event.ADD_A_PROFILE_PHOTO, shouldShowAddAProfilePhotoMegaphone(context) ? ALWAYS : NEVER);
-      put(Event.PNP_LAUNCH, shouldShowPnpLaunchMegaphone() ? ALWAYS : NEVER);
+      // Specifically putting backup reminders here, above PIN reminders
       put(Event.BACKUPS_GENERIC_UPSELL, shouldShowGenericBackupsMegaphone(context) ? ALWAYS : NEVER);
       put(Event.VERIFY_BACKUP_KEY, new VerifyBackupKeyReminderSchedule());
       put(Event.USE_NEW_ON_DEVICE_BACKUPS, shouldShowUseNewOnDeviceBackupsMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(14)) : NEVER);
+
+      // The Great Wall of PIN Reminder -- megaphones below this may not be seen by users who never do reminders
+      put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
+
+      // Feature-introduction megaphones should *probably* be added below this divider
+      put(Event.SET_UP_YOUR_USERNAME, shouldShowSetUpYourUsernameMegaphone(records) ? ALWAYS : NEVER);
+      put(Event.ADD_A_PROFILE_PHOTO, shouldShowAddAProfilePhotoMegaphone(context) ? ALWAYS : NEVER);
+      put(Event.PNP_LAUNCH, shouldShowPnpLaunchMegaphone() ? ALWAYS : NEVER);
     }};
   }
 

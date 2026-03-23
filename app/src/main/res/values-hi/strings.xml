@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -513,6 +513,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">अटैचमेंट का साइज़ इस मैसेज के लिए ज़्यादा बड़ा है।</string>
     <string name="ConversationActivity_unable_to_record_audio">ऑडियो रिकॉर्ड नहीं हो सका!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">इस ग्रुप में मैसेज नहीं भेजा जा सकता, क्योंकि अब आप इसके सदस्य नहीं हैं।</string>
+    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
     <string name="ConversationActivity_only_s_can_send_messages">सिर्फ़ %1$s ही मैसेज भेज सकते हैं।</string>
     <string name="ConversationActivity_admins">ऐडमिन</string>
     <string name="ConversationActivity_message_an_admin">ऐडमिन को मैसेज भेजें</string>
@@ -633,7 +634,10 @@
     <!-- Confirmation button to delete the message -->
     <string name="ConversationFragment_delete_for_everyone_title">सभी के लिए डिलीट करना है?</string>
     <!-- Body of dialog explaining what happens during deletion -->
-    <string name="ConversationFragment_delete_for_everyone_body">ग्रुप मेंबर को यह पता चल जाएगा कि ऐडमिन के रूप में ये मैसेज आपने डिलीट किए हैं।</string>
+    <plurals name="ConversationFragment_delete_for_everyone_body">
+        <item quantity="one">Group members on the latest versions of Signal will see that you deleted this message.</item>
+        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+    </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">इस डिवाइस से डिलीट करें</string>
     <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
@@ -2017,6 +2021,13 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ने ग्रुप की मेंबरशिप एडिट करने के अधिकार को बदलकर \'%2$s\' कर दिया है।</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">ग्रुप की मेंबरशिप एडिट करने के अधिकार को बदलकर \'%1$s\' कर दिया गया है।</string>
 
+    <!-- Shown when the current user changes the member label permission. -->
+    <string name="MessageRecord_you_changed_who_can_add_member_labels_to_s">आपने मेंबर लेबल जोड़ने के अधिकार को बदलकर \'%1$s\' कर दिया है।</string>
+    <!-- Shown when another group member changes the member label permission. -->
+    <string name="MessageRecord_s_changed_who_can_add_member_labels_to_s">%1$s ने मेंबर लेबल जोड़ने के अधिकार को बदलकर \'%2$s\' कर दिया है।</string>
+    <!-- Shown when the member label permission is changed by an unknown admin. -->
+    <string name="MessageRecord_unknown_admin_changed_who_can_add_member_labels_to_s">किसी ऐडमिन ने मेंबर लेबल जोड़ने के अधिकार को बदलकर \'%1$s\' कर दिया है।</string>
+
     <!-- GV2 announcement group change -->
     <string name="MessageRecord_you_allow_all_members_to_send">आपने ग्रुप की सेटिंग बदल दी है। अब सभी सदस्य मैसेज भेज सकेंगे।</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">आपने ग्रुप की सेटिंग बदल दी है। अब सिर्फ़ ऐडमिन मैसेज भेज सकेंगे।</string>
@@ -3380,6 +3391,17 @@
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">ऐक्सेस के बिना बाहरी स्टोरेज में इसे सेव नहीं किया जा सकता</string>
 
+    <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_media">मीडिया सेव नहीं किया जा सकता</string>
+    <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__media_offloaded_message">यह मीडिया आपके डिवाइस से ऑफ़लोड किया जा चुका है। ऐसा इसलिए हुआ, क्योंकि \'ऑन-डिवाइस स्टोरेज को बेहतर करें\' चालू है। हालांकि आइटम एक-एक करके डाउनलोड किए जा सकते हैं, या \'ऑन-डिवाइस स्टोरेज को बेहतर करें\' सुविधा बंद करके अपने डिवाइस पर सारा मीडिया डाउनलोड किया जा सकता है।</string>
+    <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_all_items">सभी आइटम सेव नहीं किए जा सकते</string>
+    <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__some_media_offloaded_message">आपने जो मीडिया चुना है उसमें से कुछ मीडिया फ़ाइलें आपके डिवाइस से ऑफ़लोड की जा चुकी हैं, क्योंकि \'ऑन-डिवाइस स्टोरेज को बेहतर करें\' सुविधा चालू है। हालांकि, आइटम एक-एक करके सेव किए जा सकते हैं, या \'ऑन-डिवाइस स्टोरेज को बेहतर करें\' सुविधा बंद करके अपने डिवाइस पर सारा मीडिया डाउनलोड किया जा सकता है।</string>
+    <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
+    <string name="AttachmentSaver__view_storage_settings">स्टोरेज सेटिंग देखें</string>
+
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">खोजें</string>
     <!-- Hint when searching filtered chat content -->
@@ -4622,6 +4644,7 @@
     <string name="conversation__menu_view_all_media">सभी मीडिया</string>
     <string name="conversation__menu_conversation_settings">चैट सेटिंग</string>
     <string name="conversation__menu_add_shortcut">होम स्क्रीन पर जोड़ें</string>
+    <string name="conversation__menu_export">एक्सपोर्ट करें</string>
     <string name="conversation__menu_create_bubble">बबल बनाएं</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">टेक्स्ट फ़ॉर्मैट करें</string>
@@ -4630,6 +4653,13 @@
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_add_to_contacts__menu_add_to_contacts">कॉन्टैक्ट में जोड़ें</string>
+
+    <!-- conversation export -->
+    <string name="conversation_export__exporting">Exporting chat…</string>
+    <string name="conversation_export__export_complete">Chat exported successfully</string>
+    <string name="conversation_export__export_failed">Export failed</string>
+    <string name="conversation_export__export_cancelled">Export cancelled</string>
+    <string name="conversation_export__preparing">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -4865,6 +4895,8 @@
     <string name="BackupDialog_delete_backups">बैकअप डिलीट करें?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">सभी स्थानीय बैकअप अक्षम करें और डिलीट करें?</string>
     <string name="BackupDialog_delete_backups_statement">बैकअप डिलीट करें</string>
+    <!-- Progress dialog message shown while local backup files are being deleted -->
+    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">बैकअप चालू करने के लिए, कोई फ़ोल्ड चुनें। बैकअप इसी लोकेशन पर सेव किए जाएंगे।</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">फ़ोल्डर चुनें</string>
@@ -5165,6 +5197,8 @@
     <string name="RecipientBottomSheet_remove_from_group">ग्रूप से हटाएँ</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">%1$s को समूह संचालक के रूप में हटाया जाए?</string>
+    <!-- Message shown when removing an admin will also clear their member label. -->
+    <string name="RecipientBottomSheet_remove_s_as_group_admin_and_clear_member_label">%1$s को ग्रुप ऐडमिन से हटाना है? इससे उनका मेंबर लेबल भी हट जाएगा।</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"%1$s के पास अब इस ग्रुप और इसमें मौजूद सदस्यों को एडिट करने का अधिकार है।"</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">%1$s को समूह से हटाया जाए?</string>
@@ -5229,8 +5263,8 @@
     <string name="ReviewCardDialogFragment__no_other_groups_in_common">कोई दूसरा कॉमन ग्रुप नहीं है।</string>
     <string name="ReviewCardDialogFragment__no_groups_in_common">कोई कॉमन ग्रुप मौजूद नहीं है।</string>
     <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
-        <item quantity="one">%1$d और ग्रुप साझा है</item>
-        <item quantity="other">%1$d और ग्रुप साझा हैं</item>
+        <item quantity="one">%1$d और ग्रुप कॉमन है</item>
+        <item quantity="other">%1$d और ग्रुप कॉमन हैं</item>
     </plurals>
     <plurals name="ReviewCardDialogFragment__d_groups_in_common">
         <item quantity="one">%1$d ग्रुप कॉमन है</item>
@@ -5515,19 +5549,19 @@
     <!-- String alerting user that something is wrong with their backups subscription -->
     <string name="AppSettingsFragment__renew_your_signal_backups_subscription">अपना Signal सिक्योर बैकअप सब्सक्रिप्शन रिन्यू करें</string>
     <!-- String alerting user that backup failed -->
-    <string name="AppSettingsFragment__couldnt_complete_backup">बैकअप पूरा नहीं कर सका</string>
+    <string name="AppSettingsFragment__couldnt_complete_backup">बैकअप पूरा नहीं हो पाया</string>
     <!-- String alerting user that backup redemption -->
     <string name="AppSettingsFragment__couldnt_redeem_your_backups_subscription">आपका बैकअप सब्सक्रिप्शन रिडीम नहीं किया जा सका</string>
     <!-- String alerting user that backup storage limit has been reached -->
-    <string name="AppSettingsFragment__backup_storage_limit_reached">बैकअप स्टोरज की सीमा पार हो गई</string>
+    <string name="AppSettingsFragment__backup_storage_limit_reached">बैकअप स्टोरज की सीमा पूरी हो गई है</string>
     <!-- String displayed telling user to invite their friends to Signal -->
     <string name="AppSettingsFragment__invite_your_friends">अपने दोस्तों को इनवाइट करें</string>
     <!-- String displayed in a toast when we successfully copy the donations subscriber id to the clipboard -->
-    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">डोनर सब्सक्राइबर आईडी को क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="AppSettingsFragment__copied_donor_subscriber_id_to_clipboard">डोनर सब्सक्राइबर id को क्लिपबोर्ड पर कॉपी किया गया</string>
     <!-- String displayed in a toast when we successfully copy the backups subscriber id to the clipboard -->
-    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">बैकअप्स सब्सक्राइबर आईडी को क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="AppSettingsFragment__copied_backups_subscriber_id_to_clipboard">बैकअप सब्सक्राइबर id को क्लिपबोर्ड पर कॉपी किया गया</string>
     <!-- String displayed in a toast when a subscriber id is not present for a given type -->
-    <string name="AppSettingsFragment__no_subscriber_id_set">कोई सब्सक्राइबर आईडी तय नहीं की गई</string>
+    <string name="AppSettingsFragment__no_subscriber_id_set">कोई सब्सक्राइबर id सेट नहीं की गई है</string>
 
     <!-- AccountSettingsFragment -->
     <string name="AccountSettingsFragment__account">अकाउंट</string>
@@ -5597,7 +5631,7 @@
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">आपको अपना पुराना फ़ोन नंबर डालना होगा</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">आपको अपने नए नंबर का कंट्री कोड डालना होगा</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">आपको अपना नया फ़ोन नंबर डालना होगा</string>
-    <string name="ChangeNumberEnterPhoneNumberFragment__your_new_phone_number_can_not_be_same_as_your_old_phone_number">आपका नया फ़ोन नंबर और आपका पुराना फ़फोन नंबर एक नहीं हो सकता</string>
+    <string name="ChangeNumberEnterPhoneNumberFragment__your_new_phone_number_can_not_be_same_as_your_old_phone_number">आपका नया और पुराना फ़ोन नंबर एक जैसा नहीं हो सकता</string>
 
     <!-- ChangeNumberVerifyFragment -->
     <string name="ChangeNumberVerifyFragment__change_number">नंबर बदलें</string>
@@ -5639,68 +5673,68 @@
 
     <!-- ChatsSettingsFragment -->
     <string name="ChatsSettingsFragment__keyboard">कीबोर्ड</string>
-    <string name="ChatsSettingsFragment__send_with_enter">एंटर करके भेजें</string>
+    <string name="ChatsSettingsFragment__send_with_enter">एंटर दबाएं और भेजें</string>
     <!-- Heading within chats settings for chat folders -->
     <string name="ChatsSettingsFragment__chat_folders">चैट फ़ोल्डर</string>
     <!-- Option within settings to add a new chat folder if you have never created a folder before -->
     <string name="ChatsSettingsFragment__add_chat_folder">चैट फ़ोल्डर जोड़ें</string>
     <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
-    <string name="ChatsSettingsFragment__add_edit_chat_folder">फ़ोल्डर जोड़ें या संपादित करें</string>
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">फ़ोल्डर जोड़ें या उन्हें एडिट करें</string>
     <!-- Text describing the number of folders you have -->
     <plurals name="ChatsSettingsFragment__d_folder">
         <item quantity="one">%1$d फ़ोल्डर</item>
-        <item quantity="other">%1$d फ़ोल्डर्स</item>
+        <item quantity="other">%1$d फ़ोल्डर</item>
     </plurals>
 
     <!-- ChatFoldersEducationSheet -->
     <!-- Text in a bottom sheet describing chat folders and what they can be created for -->
-    <string name="ChatFoldersEducationSheet__create_folders_for_family">परिवार, दोस्तों, दफ़्तर और दूसरी चीज़ों के लिए फ़ोल्डर्स बनाएँ</string>
+    <string name="ChatFoldersEducationSheet__create_folders_for_family">परिवार, दोस्तों, ऑफ़िस वगैरह के लिए फ़ोल्डर बनाएं</string>
     <!-- Text in a bottom sheet explaining how chat folders can be configured to only show unread chats  -->
-    <string name="ChatFoldersEducationSheet__choose_to_show_unread">सिर्फ़ पढ़ी न गई चैट दिखाना चुनें </string>
+    <string name="ChatFoldersEducationSheet__choose_to_show_unread">सिर्फ़ अनरीड चैट देखने का विकल्प चुनें </string>
     <!-- Text in a bottom sheet stating that suggested folders can be easily created -->
-    <string name="ChatFoldersEducationSheet__easily_add_suggested">सुझाए गए फ़ोल्डर्स आसानी से जोडे़ं</string>
+    <string name="ChatFoldersEducationSheet__easily_add_suggested">सुझाए गए फ़ोल्डर आसानी से जोड़ें</string>
     <!-- Button text to dismiss bottom sheet -->
     <string name="ChatFoldersEducationSheet__continue">जारी रखें</string>
 
     <!-- ChatFoldersFragment -->
     <!-- Description of what chat folders are -->
-    <string name="ChatFoldersFragment__organize_your_chats">अपनी चैट को फ़ोल्डर्स में व्यवस्थित करें और अपनी चैट की सूची में उनके बीच तुरंत स्विच करें।</string>
+    <string name="ChatFoldersFragment__organize_your_chats">चैट को अलग-अलग फ़ोल्डर में रखें और चैट लिस्ट से तुरंत दूसरी चैट पर जाएं।</string>
     <!-- Header for section showing current chat folders -->
     <string name="ChatFoldersFragment__folders">फ़ोल्डर</string>
     <!-- Text next to button that allows users to create a new chat folder -->
-    <string name="ChatFoldersFragment__create_a_folder">फ़ोल्डर बनाएँ</string>
+    <string name="ChatFoldersFragment__create_a_folder">फ़ोल्डर बनाएं</string>
     <!-- Name of a chat folder that represents the folder containing all chats -->
     <string name="ChatFoldersFragment__all_chats">सभी चैट</string>
     <!-- Header for section showing suggested chat folders for users to have -->
     <string name="ChatFoldersFragment__suggested_folders">सुझाए गए फ़ोल्डर</string>
     <!-- Name of a chat folder that contains all chats that currently have unread messages -->
-    <string name="ChatFoldersFragment__unread">पढ़े न गए</string>
+    <string name="ChatFoldersFragment__unread">अनरीड</string>
     <!-- Description of the suggested unread chat folder -->
-    <string name="ChatFoldersFragment__unread_messages">सभी चैट से पढ़े न गए संदेश</string>
+    <string name="ChatFoldersFragment__unread_messages">सभी चैट के अनरीड मैसेज</string>
     <!-- Name of a chat folder that contains all 1:1 (individual) chats -->
     <string name="ChatFoldersFragment__one_on_one_chats">1:1 चैट</string>
     <!-- Description of the suggested 1:1 chat folder -->
-    <string name="ChatFoldersFragment__only_direct_messages">सिर्फ़ डायरेक्ट चैट से संदेश</string>
+    <string name="ChatFoldersFragment__only_direct_messages">सिर्फ़ डायरेक्ट चैट के मैसेज</string>
     <!-- Name of a chat folder that contains all groups chats -->
     <string name="ChatFoldersFragment__groups">ग्रुप</string>
     <!-- Description of the suggested group chat folder -->
-    <string name="ChatFoldersFragment__only_group_messages">सिर्फ़ ग्रुप चैट से संदेश</string>
+    <string name="ChatFoldersFragment__only_group_messages">सिर्फ़ ग्रुप चैट से मैसेज</string>
     <!-- Button text to add a suggested folder to a user\'s chat folders -->
     <string name="ChatFoldersFragment__add">जोड़ें</string>
     <!-- Toast shown when a folder gets added where %s is the name of the folder -->
     <string name="ChatFoldersFragment__folder_added">%1$s फ़ोल्डर जोड़ा गया।</string>
     <!-- Option in context menu to edit the folder -->
-    <string name="ChatFoldersFragment__edit_folder">फ़ोल्डर संपादित करें</string>
+    <string name="ChatFoldersFragment__edit_folder">फ़ोल्डर एडिट करें</string>
     <!-- Option in context menu to mute all chats in the folder -->
     <string name="ChatFoldersFragment__mute_all">सभी को म्यूट करें</string>
     <!-- Option in context menu to unmute all chats in the folder -->
     <string name="ChatFoldersFragment__unmute_all">सभी को अनम्यूट करें</string>
     <!-- Option in context menu to mark all of the chats in a folder as read -->
-    <string name="ChatFoldersFragment__mark_all_read">सभी को पढ़ा दिखाएं</string>
+    <string name="ChatFoldersFragment__mark_all_read">सभी को पढ़ा हुआ दिखाएं</string>
     <!-- Text describing the number of chat types in a folder -->
     <plurals name="ChatFoldersFragment__d_chat_types">
-        <item quantity="one">%1$d चैट प्रकार</item>
-        <item quantity="other">%1$d चैट प्रकार</item>
+        <item quantity="one">%1$d चैट टाइप</item>
+        <item quantity="other">%1$d चैट टाइप</item>
     </plurals>
     <!-- Text describing the number of chat in a folder -->
     <plurals name="ChatFoldersFragment__d_chats">
@@ -5709,61 +5743,61 @@
     </plurals>
     <!-- Text describing the number of chats that are excluded in a folder -->
     <plurals name="ChatFoldersFragment__d_chats_excluded">
-        <item quantity="one">%1$d चैट छोड़कर</item>
-        <item quantity="other">%1$d चैट छोड़कर</item>
+        <item quantity="one">%1$d चैट हटाई गई</item>
+        <item quantity="other">%1$d चैट हटाई गईं</item>
     </plurals>
     <!-- Badge shown in chat folder tab when unread count is greater than 99 -->
     <string name="ChatFolderAdapter__99p">99+</string>
 
     <!-- CreateFoldersFragment -->
     <!-- Title of the screen when creating a folder, displayed in the toolbar -->
-    <string name="CreateFoldersFragment__create_a_folder">फ़ोल्डर बनाएँ</string>
+    <string name="CreateFoldersFragment__create_a_folder">फ़ोल्डर बनाएं</string>
     <!-- Hint text shown in text field to enter a name for the folder -->
-    <string name="CreateFoldersFragment__folder_name">फ़ोल्डर का नाम (ज़रूरी)</string>
+    <string name="CreateFoldersFragment__folder_name">फ़ोल्डर का नाम (ज़रूरी है)</string>
     <!-- Section title representing what chats are included in the folder -->
-    <string name="CreateFoldersFragment__included_chats">शामिल की गई चैट्स</string>
+    <string name="CreateFoldersFragment__included_chats">शामिल की गई चैट</string>
     <!-- Text next to button that allows users to add chats to the folder    -->
     <string name="CreateFoldersFragment__add_chats">चैट जोड़ें</string>
     <!-- Description explaining the purpose of the included chats section -->
-    <string name="CreateFoldersFragment__choose_chats_you_want">आप इस फ़ोल्डर में जिन चैट को देखना चाहते हैं उन्हें चुनें।</string>
+    <string name="CreateFoldersFragment__choose_chats_you_want">वे चैट चुनें जिन्हें इस फ़ोल्डर में रखना है।</string>
     <!-- Section title representing what chats are excluded from the folder -->
     <string name="CreateFoldersFragment__exceptions">अपवाद</string>
     <!-- Text next to button that allows users to exclude chats from the folder   -->
-    <string name="CreateFoldersFragment__exclude_chats">चैट छोड़ें</string>
+    <string name="CreateFoldersFragment__exclude_chats">चैट हटाएं</string>
     <!-- Description explaining the purpose of the excluded chats section -->
-    <string name="CreateFoldersFragment__choose_chats_you_do_not_want">आप इस फ़ोल्डर में जिन चैट को नहीं देखना चाहते हैं उन्हें चुनें।</string>
+    <string name="CreateFoldersFragment__choose_chats_you_do_not_want">वे चैट चुनें जिन्हें इस फ़ोल्डर में नहीं रखना है।</string>
     <!-- Toggle switch for folder to show unread chats -->
-    <string name="CreateFoldersFragment__only_show_unread_chats">सिर्फ़ पढ़ी न गई चैट दिखाएँ</string>
+    <string name="CreateFoldersFragment__only_show_unread_chats">सिर्फ़ अनरीड चैट दिखाएं</string>
     <!-- Explanation of unread toggle option -->
-    <string name="CreateFoldersFragment__when_enabled_only_chats">चालू होने पर, सिर्फ़ वे चैट दिखाई जाएँगी जिनमें संदेश पढ़े नहीं गए हैं।</string>
+    <string name="CreateFoldersFragment__when_enabled_only_chats">इसे चालू करने पर इस फ़ोल्डर में सिर्फ़ अनरीड मैसेज वाली चैट दिखाई देंगी।</string>
     <!-- Toggle switch to display muted chats in chat folders -->
     <string name="CreateFoldersFragment__include_muted_chats">म्यूट की गई चैट शामिल करें</string>
     <!-- Button text to create a folder -->
-    <string name="CreateFoldersFragment__create">बनाएँ</string>
+    <string name="CreateFoldersFragment__create">बनाएं</string>
     <!-- Section title shown when editing an existing folder   -->
-    <string name="CreateFoldersFragment__edit_folder">फ़ोल्डर संपादित करें</string>
+    <string name="CreateFoldersFragment__edit_folder">फ़ोल्डर एडिट करें</string>
     <!-- Button text to save the changes to a folder after it has been edited -->
-    <string name="CreateFoldersFragment__save">सेव</string>
+    <string name="CreateFoldersFragment__save">सेव करें</string>
     <!-- Alert dialog title shown when users are going to discard any changes made to a folder without saving -->
-    <string name="CreateFoldersFragment__discard_changes_title">बदलाव को नामंज़ूर करें?</string>
+    <string name="CreateFoldersFragment__discard_changes_title">बदलाव रद्द करने हैं?</string>
     <!-- Alert dialog description explaining that any changes made will be discarded -->
-    <string name="CreateFoldersFragment__you_will_lose_changes">आपने इस फ़ोल्डर में जो भी बदलाव किए हैं वे खो देंगे।</string>
+    <string name="CreateFoldersFragment__you_will_lose_changes">इस फ़ोल्डर में किए गए आपके सभी बदलाव हट जाएंगे।</string>
     <!-- Alert dialog confirmation text to discard the changes -->
     <string name="CreateFoldersFragment__discard">रद्द करें</string>
     <!-- Text that when pressed will delete the current folder -->
     <string name="CreateFoldersFragment__delete_folder">फ़ोल्डर डिलीट करें</string>
     <!-- Alert dialog title to delete the current folder -->
-    <string name="CreateFoldersFragment__delete_this_chat_folder">इस चैट फ़ोल्डर को डिलीट करें?</string>
+    <string name="CreateFoldersFragment__delete_this_chat_folder">क्या इस चैट फ़ोल्डर को डिलीट करना है?</string>
     <!-- Option to see all of the chats if the chat list was too long and had been truncated -->
     <string name="CreateFoldersFragment__see_all">सभी देखें</string>
     <!-- Toast shown when trying to make a folder with no name -->
-    <string name="CreateFoldersFragment__please_enter_name">कृपया फ़ोल्डर का नाम दर्ज करें</string>
+    <string name="CreateFoldersFragment__please_enter_name">कृपया फ़ोल्डर को कोई नाम दें</string>
 
     <!-- ChooseChatsFragment -->
     <!-- Section title representing chat types that can be added to the folder  -->
     <string name="ChooseChatsFragment__chat_types">चैट के प्रकार</string>
     <!-- Done button label to save selected chats to folder -->
-    <string name="ChooseChatsFragment__done">पूर्ण</string>
+    <string name="ChooseChatsFragment__done">हो गया</string>
 
     <!-- NotificationsSettingsFragment -->
     <string name="NotificationsSettingsFragment__messages">मैसेज</string>
@@ -5787,8 +5821,8 @@
     <string name="PrivacySettingsFragment__blocked">ब्लॉक किया गया</string>
     <!-- Settings label that shows the number blocked contacts -->
     <plurals name="PrivacySettingsFragment__d_contacts">
-        <item quantity="one">%1$d संपर्क या ग्रुप</item>
-        <item quantity="other">%1$d संपर्क या ग्रुप</item>
+        <item quantity="one">%1$d कॉन्टैक्ट या ग्रुप</item>
+        <item quantity="other">%1$d कॉन्टैक्ट या ग्रुप</item>
     </plurals>
     <string name="PrivacySettingsFragment__messaging">मैसेज भेजना</string>
     <string name="PrivacySettingsFragment__disappearing_messages">गायब होने वाले मैसेज</string>
@@ -5801,7 +5835,7 @@
     <!-- Summary for stories preference to launch into story privacy settings -->
     <string name="PrivacySettingsFragment__payment_lock_require_lock">फ़ंड भेजने के लिए Android स्क्रीन लॉक या फ़िंगरप्रिंट चाहिए</string>
     <!-- Alert dialog title when payment lock cannot be enabled -->
-    <string name="PrivacySettingsFragment__cant_enable_title">भुगतान लॉक चालू नहीं किया जा सकता</string>
+    <string name="PrivacySettingsFragment__cant_enable_title">पेमेंट लॉक चालू नहीं किया जा सकता</string>
     <!-- Alert dialog description to setup screen lock or fingerprint in phone settings -->
     <string name="PrivacySettingsFragment__cant_enable_description">पेमेंट लॉक का इस्तेमाल करने के लिए, आपको सबसे पहले अपनी फ़ोन सेटिंग में जाकर स्क्रीन लॉक या फ़िंगरप्रिंट ID चालू करनी होगी।</string>
     <!-- Shown in a toast when we can\'t navigate to the user\'s system fingerprint settings -->
@@ -5943,11 +5977,11 @@
     <!-- Dialog title displayed when non-admin tries to add a story to an audience group -->
     <string name="ConversationSettingsFragment__cant_add_to_group_story">ग्रुप स्टोरी में नहीं जोड़ा जा सकता</string>
     <!-- Dialog message displayed when non-admin tries to add a story to an audience group -->
-    <string name="ConversationSettingsFragment__only_admins_of_this_group_can_add_to_its_story">केवल इस ग्रुप के एडमिन ही इस स्टोरी में जोड़ सकते हैं</string>
+    <string name="ConversationSettingsFragment__only_admins_of_this_group_can_add_to_its_story">इसमें सिर्फ़ ग्रुप के ऐडमिन ही स्टोरी जोड़ सकते हैं</string>
     <!-- Error toasted when no activity can handle the add contact intent -->
     <string name="ConversationSettingsFragment__contacts_app_not_found">कॉन्टैक्ट ऐप नहीं मिला</string>
     <string name="ConversationSettingsFragment__start_video_call">वीडियो कॉल शुरू करें</string>
-    <string name="ConversationSettingsFragment__start_audio_call">वॉयस कॉल शुरू करें</string>
+    <string name="ConversationSettingsFragment__start_audio_call">वॉइस कॉल शुरू करें</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
     <string name="ConversationSettingsFragment__story">स्टोरी</string>
     <!-- Button label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -5967,7 +6001,7 @@
     <string name="ConversationSettingsFragment__disappearing_messages">गायब होने वाले मैसेज</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">आवाज़ और नोटिफ़िकेशन</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
-    <string name="ConversationSettingsFragment__contact_details">फोन संपर्क जानकारी</string>
+    <string name="ConversationSettingsFragment__contact_details">फ़ोन कॉन्टैक्ट की जानकारी</string>
     <string name="ConversationSettingsFragment__view_safety_number">सेफ़्टी नंबर देखें</string>
     <string name="ConversationSettingsFragment__block">ब्लॉक करें</string>
     <string name="ConversationSettingsFragment__block_group">समूह को ब्लाॅक करें</string>
@@ -5985,8 +6019,8 @@
     <string name="ConversationSettingsFragment__add_as_a_contact">कॉन्टैक्ट के रूप पर जोड़ें</string>
     <string name="ConversationSettingsFragment__unmute">अनम्यूट करें</string>
     <!-- The subtitle for a settings item that describes how long the user\'s chat is muted. If a chat is muted, you will not receive notifications unless @mentioned. The placeholder represents a time (e.g. 10pm, March 4, etc). -->
-    <string name="ConversationSettingsFragment__conversation_muted_until_s">चैट को %1$s तक म्यूट किया गया है</string>
-    <string name="ConversationSettingsFragment__conversation_muted_forever">चैट को हमेशा के लिए म्यूट किया गया है</string>
+    <string name="ConversationSettingsFragment__conversation_muted_until_s">चैट को %1$s तक म्यूट किया गया</string>
+    <string name="ConversationSettingsFragment__conversation_muted_forever">चैट को हमेशा के लिए म्यूट किया गया</string>
     <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">फ़ोन नंबर क्लिपबोर्ड पर कॉपी किया गया।</string>
     <string name="ConversationSettingsFragment__phone_number">फ़ोन नंबर</string>
     <string name="ConversationSettingsFragment__get_badges">Signal का समर्थन करके अपनी प्रोफ़ाइल के लिए बैज पाएं। अधिक जानने के लिए किसी बैज पर टैप करें।</string>
@@ -6001,7 +6035,17 @@
     <string name="PermissionsSettingsFragment__only_admins">सिर्फ़ ऐडमिन</string>
     <string name="PermissionsSettingsFragment__who_can_add_new_members">नए सदस्यों को जोड़ने का अधिकार किसके पास है?</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">इस ग्रुप की जानकारी एडिट करने का अधिकार किसके पास है?</string>
-    <string name="PermissionsSettingsFragment__who_can_send_messages">कौन संदेश भेज सकता है और कॉल शुरू कर सकता है?</string>
+    <string name="PermissionsSettingsFragment__who_can_send_messages">कौन मैसेज भेज सकता है और कॉल कर सकता है?</string>
+    <!-- Label for the member labels permission button in the group permissions settings screen. -->
+    <string name="PermissionsSettingsFragment__add_member_labels">मेंबर लेबल जोड़ें</string>
+    <!-- Dialog title shown when choosing who has permission to add member labels in the group. -->
+    <string name="PermissionsSettingsFragment__who_can_add_member_labels">मेंबर लेबल जोड़ने का अधिकार किसके पास है?</string>
+    <!-- Warning title shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">मेंबर लेबल हटा दिए जाएंगे</string>
+    <!-- Warning body shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"इस अनुमति को \'सिर्फ़ ऐडमिन\' में बदलने पर, वे मेंबर लेबल हट जाएंगे जिन्हें नॉन-ऐडमिन ने इस ग्रुप में सेट किया है।"</string>
+    <!-- Confirm button for changing member label permission after warning. -->
+    <string name="PermissionsSettingsFragment__change_permission">अनुमति बदलें</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <!-- Label for the setting to mute notifications for a conversation -->
@@ -6044,23 +6088,23 @@
     <!-- NewConversationActivity -->
     <string name="NewConversationActivity__new_message">नया मैसेज</string>
     <!-- Context menu item message -->
-    <string name="NewConversationActivity__message">मेसेज</string>
+    <string name="NewConversationActivity__message">मैसेज</string>
     <!-- Context menu item audio call -->
-    <string name="NewConversationActivity__audio_call">वीडियो कॉल</string>
+    <string name="NewConversationActivity__audio_call">वॉइस कॉल</string>
     <!-- Context menu item video call -->
     <string name="NewConversationActivity__video_call">वीडियो कॉल</string>
     <!-- Context menu item remove -->
-    <string name="NewConversationActivity__remove">हटा दें</string>
+    <string name="NewConversationActivity__remove">हटाएं</string>
     <!-- Context menu item block -->
     <string name="NewConversationActivity__block">ब्लॉक करें</string>
     <!-- Dialog title when removing a contact -->
     <string name="NewConversationActivity__remove_s">%1$s को हटाना है?</string>
     <!-- Dialog message when removing a contact -->
-    <string name="NewConversationActivity__you_wont_see_this_person">ढूँढ़ते समय आपको यह व्यक्ति नहीं दिखेगा। यदि वे भविष्य में आपको मेसेज भेजते हैं तो आपको एक मेसेज अनुरोध प्राप्त होगा।</string>
+    <string name="NewConversationActivity__you_wont_see_this_person">खोजने पर यह व्यक्ति आपको नहीं दिखेगा। अगर आने वाले दिनों में वह व्यक्ति आपको मैसेज भेजता है, तो आपको पहले मैसेज का अनुरोध मिलेगा।</string>
     <!-- Snackbar message after removing a contact -->
     <string name="NewConversationActivity__s_has_been_removed">%1$s को हटा दिया गया है</string>
     <!-- Snackbar message after blocking a contact -->
-    <string name="NewConversationActivity__s_has_been_blocked">%1$s को ब्लॉक कर दिया गया है</string>
+    <string name="NewConversationActivity__s_has_been_blocked">%1$s को ब्लॉक किया गया</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">ब्लॉक नहीं हो पाया</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
@@ -6148,33 +6192,33 @@
     <!-- Error message shown when attempting to select a group to forward/share but it\'s announcement only and you are not an admin -->
     <string name="MultiselectForwardFragment__only_admins_can_send_messages_to_this_group">सिर्फ़ ऐडमिन ही इस ग्रुप में मैसेज भेज सकता है।</string>
     <!-- Error message shown when users try to choose more than 5 chats to send a message to -->
-    <string name="MultiselectForwardFragment__you_cant_select_more_chats">आप 5 से अधिक चैट नहीं चुन सकते</string>
+    <string name="MultiselectForwardFragment__you_cant_select_more_chats">5 से ज़्यादा चैट नहीं चुनी जा सकती</string>
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
-    <string name="MediaReviewFragment__add_to_the_group_story">ग्रुप स्टोरी \"%1$s\" में जोड़ें</string>
+    <string name="MediaReviewFragment__add_to_the_group_story">ग्रुप स्टोरी \'%1$s\' में जोड़ें</string>
     <!-- Positive dialog action when sending a story via an add to group story button -->
     <string name="MediaReviewFragment__add_to_story">स्टोरी में जोड़ें</string>
     <string name="MediaReviewFragment__add_a_message">कोई मैसेज शामिल करें</string>
     <!-- Hint text inside of a compose box that is shown when the user is adding media while quoting a message. -->
     <string name="MediaReviewFragment__add_a_reply">कोई जवाब शामिल करें</string>
     <string name="MediaReviewFragment__send_to">को भेजें</string>
-    <string name="MediaReviewFragment__view_once_message">एक बार मीडिया देखें</string>
+    <string name="MediaReviewFragment__view_once_message">सिर्फ़ एक बार देखे जा सकने वाला मीडिया</string>
     <string name="MediaReviewFragment__one_or_more_items_were_too_large">एक या ज़्यादा आइटम का साइज़ काफ़ी बड़ा है</string>
     <string name="MediaReviewFragment__one_or_more_items_were_invalid">एक या ज़्यादा आइटम का फ़ॉर्मैट गलत है</string>
     <string name="MediaReviewFragment__too_many_items_selected">कई आइटम चुन लिए गए हैं</string>
     <!-- Small notification presented to the user when they set their video to view-once mode -->
-    <string name="MediaReviewFragment__video_set_to_view_once">एक बार देखने के लिए वीडियो सेट किया गया</string>
+    <string name="MediaReviewFragment__video_set_to_view_once">वीडियो को सिर्फ़ एक बार देखने के लिए सेट किया गया</string>
     <!-- Small notification presented to the user when they set their photo to view-once mode -->
-    <string name="MediaReviewFragment__photo_set_to_view_once">एक बार देखने के लिए फ़ोटो सेट किया गया</string>
+    <string name="MediaReviewFragment__photo_set_to_view_once">फ़ोटो को सिर्फ़ एक बार देखने के लिए सेट किया गया है</string>
     <!-- Small notification presented to the user when they set their video to be sent in high visual quality. -->
-    <string name="MediaReviewFragment__video_set_to_high_quality">उच्च गुणवत्ता के लिए वीडियो सेट किया गया</string>
+    <string name="MediaReviewFragment__video_set_to_high_quality">वीडियो को हाई क्वालिटी पर सेट किया गया</string>
     <!-- Small notification presented to the user when they set their video to be sent in standard (lower than high) visual quality. -->
-    <string name="MediaReviewFragment__video_set_to_standard_quality">मानक गुणवत्ता के लिए वीडियो सेट किया गया</string>
+    <string name="MediaReviewFragment__video_set_to_standard_quality">वीडियो को स्टैंडर्ड क्वालिटी पर सेट किया गया</string>
     <!-- Small notification presented to the user when they set their still image to be sent in high visual quality. -->
-    <string name="MediaReviewFragment__photo_set_to_high_quality">उच्च गुणवत्ता के लिए फोटो सेट किया गया</string>
+    <string name="MediaReviewFragment__photo_set_to_high_quality">फ़ोटो को हाई क्वालिटी पर सेट किया गया</string>
     <!-- Small notification presented to the user when they set their still image to be sent in standard (lower than high) visual quality. -->
-    <string name="MediaReviewFragment__photo_set_to_standard_quality">मानक गुणवत्ता के लिए फोटो सेट किया गया</string>
+    <string name="MediaReviewFragment__photo_set_to_standard_quality">फ़ोटो को स्टैंडर्ड क्वालिटी पर सेट किया गया</string>
     <!-- Accessibility label describing the add media button on the Media review screen -->
     <string name="MediaReviewFragment__add_media_accessibility_label">मीडिया जोड़ें</string>
     <!-- Accessibility label describing the brush and pen button on the Media review screen -->
@@ -6195,13 +6239,13 @@
     <string name="MediaReviewFragment__finish_adding_a_message_accessibility_label">संदेश जोड़ना बंद करें</string>
     <!-- Small notification presented to the user when they set multiple media items to be sent in high visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_high_quality">
-        <item quantity="one">उच्च गुणवत्ता के लिए %1$d आइटम सेट किया गया</item>
-        <item quantity="other">उच्च गुणवत्ता के लिए %1$d आइटम सेट किए गए</item>
+        <item quantity="one">%1$d आइटम को हाई क्वालिटी पर सेट किया गया</item>
+        <item quantity="other">%1$d आइटम को हाई क्वालिटी पर सेट किया गया</item>
     </plurals>
     <!-- Small notification presented to the user when they set multiple media items to be sent in standard (lower than high) visual quality. -->
     <plurals name="MediaReviewFragment__items_set_to_standard_quality">
-        <item quantity="one">मानक गुणवत्ता के लिए %1$d आइटम सेट किया गया</item>
-        <item quantity="other">मानक गुणवत्ता के लिए %1$d आइटम सेट किए गए</item>
+        <item quantity="one">%1$d आइटम को स्टैंडर्ड क्वालिटी पर सेट किया गया</item>
+        <item quantity="other">%1$d आइटम को स्टैंडर्ड क्वालिटी पर सेट किया गया</item>
     </plurals>
 
     <string name="ImageEditorHud__cancel">रद्द करें</string>
@@ -6216,7 +6260,7 @@
     <string name="ImageEditorHud__toggle_between_text_styles">टेक्स्ट स्टाइल के बीच टॉगल करें</string>
 
     <!-- Header for section of featured stickers (location/time stickers) -->
-    <string name="ScribbleStickersFragment__featured_stickers">फीचर्ड</string>
+    <string name="ScribbleStickersFragment__featured_stickers">फ़ीचर किया गया</string>
 
     <string name="MediaCountIndicatorButton__send">भेजें</string>
 
@@ -6232,10 +6276,10 @@
     <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
     <string name="MediaCaptureFragment_username_dialog_body">\"%1$s\" के साथ चैट शुरू करें</string>
     <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
-    <string name="MediaCaptureFragment_username_dialog_go_to_chat_button">चैट पर जाएँ</string>
+    <string name="MediaCaptureFragment_username_dialog_go_to_chat_button">चैट पर जाएं</string>
 
     <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-    <string name="MediaCaptureFragment_device_link_dialog_title">डिवाइस को लिंक करें?</string>
+    <string name="MediaCaptureFragment_device_link_dialog_title">डिवाइस को लिंक करना है?</string>
     <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
     <string name="MediaCaptureFragment_it_looks_like_youre_trying">ऐसा लगता है कि आप Signal डिवाइस को लिंक करने की कोशिश कर रहे हैं। \'जारी रखें\' पर टैप करें और फिर \"नया डिवाइस लिंक करें\" पर टैप करें और QR कोड को फिर से स्कैन करें।</string>
     <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
@@ -6255,11 +6299,11 @@
     <!-- Displayed on primary button in the bottom sheet as a call-to-action to launch into the donation flow -->
     <string name="ViewBadgeBottomSheetDialogFragment__donate_now">डोनेट करें</string>
     <!-- Title of a page in the bottom sheet. Placeholder is a user\'s short-name -->
-    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s Signal का समर्थन करता/करती है</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal">%1$s ने Signal को सहयोग दिया है</string>
     <!-- Description of a page in the bottom sheet of a monthly badge. Placeholder is a user\'s short-name -->
-    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_monthly">%1$s एक मासिक दान द्वारा Signal का समर्थन करता/करती है। Signal एक गैर-लाभकारी संस्था है जिसमें कोई विज्ञापनदाता या निवेशक नहीं है, और जिसे सिर्फ़ आप जैसे लोगों का समर्थन प्राप्त है।</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_monthly">%1$s ने मासिक डोनेशन के ज़रिए Signal को सहयोग दिया है। Signal एक गैर-लाभकारी संस्था है। इसका न कोई विज्ञापनदाता है और न कोई निवेशक। यह सिर्फ़ आप जैसे लोगों के सहयोग से चल रहा है।</string>
     <!-- Description of a page in the bottom sheet of a one-time badge. Placeholder is a user\'s short-name -->
-    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_donation">%1$s ने एक दान करके Signal को सहयोग दिया। Signal एक गैर-लाभकारी संस्था है जिसमें कोई विज्ञापनदाता या निवेशक नहीं है, और जिसे सिर्फ़ आप जैसे लोगों का समर्थन प्राप्त है।</string>
+    <string name="ViewBadgeBottomSheetDialogFragment__s_supports_signal_with_a_donation">%1$s ने डोनेशन के ज़रिए Signal को सहयोग दिया है। Signal एक गैर-लाभकारी संस्था है। इसका न कोई विज्ञापनदाता है और न कोई निवेशक। यह सिर्फ़ आप जैसे लोगों के सहयोग से चल रहा है।</string>
 
     <string name="ImageView__badge">बैज</string>
 
@@ -6276,7 +6320,7 @@
 
     <string name="Subscription__s_per_month">%1$s/महीना</string>
     <!-- Shown when a subscription is active and isn\'t going to expire at the end of the term -->
-    <string name="Subscription__renews_s">%1$s को नवीकृत होता है</string>
+    <string name="Subscription__renews_s">%1$s को रिन्यू हुआ है</string>
     <!-- Shown when a subscription is active and is going to expire at the end of the term -->
     <string name="Subscription__expires_s">%1$s को समाप्त हो जाएगा</string>
 
@@ -6293,7 +6337,7 @@
 
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">आपके सहयोग के लिए शुक्रिया!</string>
     <!-- Subtext underneath the dialog title on the thanks sheet -->
-    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">आपको Signal की ओर से एक डोनर बैज मिला है। अपना सहयोग दिखाने के लिए इसे अपनी प्रोफ़ाइल पर डिसप्ले करें।</string>
+    <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge">बधाई हो! आपको Signal का डोनर बैज मिला है। अपना सहयोग दिखाने के लिए इसे अपनी प्रोफ़ाइल पर जोड़ें।</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">आप भी</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">बन सकते/सकती हैं मासिक सस्टेनर।</string>
     <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">प्रोफ़ाइल पर दिखाएं</string>
@@ -6322,15 +6366,15 @@
     <!-- Preference label to launch badge gifting -->
     <string name="ManageDonationsFragment__donate_for_a_friend">किसी दोस्त के बदले डोनेट करें</string>
     <!-- Dialog title shown when a donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet -->
-    <string name="ManageDonationsFragment__couldnt_confirm_donation">दान की पुष्टि नहीं की जा सकी</string>
+    <string name="ManageDonationsFragment__couldnt_confirm_donation">डोनेशन की पुष्टि नहीं हो पाई</string>
     <!-- Dialog message shown when a monthly donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
-    <string name="ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed">आपके %1$s/माह के दान की पुष्टि नहीं की जा सकी। अपने आदर्श भुगतान को स्वीकृत करने के लिए अपने बैंकिंग ऐप की जांच करें।</string>
+    <string name="ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed">आपके %1$s/माह वाले डोनेशन की पुष्टि नहीं हो पाई। अपने iDEAL पेमेंट की मंज़ूरी के लिए अपना बैंकिंग ऐप देखें।</string>
     <!-- Dialog message shown when a one-time donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
-    <string name="ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed">आपके एकमुश्त %1$s दान की पुष्टि नहीं की जा सकी। अपने आदर्श भुगतान को स्वीकृत करने के लिए अपने बैंकिंग ऐप की जांच करें।</string>
+    <string name="ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed">आपके %1$s के एकमुश्त डोनेशन की पुष्टि नहीं हो सकी। अपने iDEAL पेमेंट की मंज़ूरी के लिए अपना बैंकिंग ऐप देखें।</string>
 
     <string name="Boost__enter_custom_amount">कस्टम राशि दर्ज करें</string>
     <!-- Error label when the amount is smaller than what we can accept -->
-    <string name="Boost__the_minimum_amount_you_can_donate_is_s">न्यूनतम %1$s का दान किया जा सकता है</string>
+    <string name="Boost__the_minimum_amount_you_can_donate_is_s">कम से कम %1$s डोनेट किया जा सकता है</string>
 
     <string name="MySupportPreference__s_per_month">%1$s/माह</string>
     <string name="MySupportPreference__renews_s">%1$s को नवीकृत होता है</string>
@@ -6340,31 +6384,31 @@
     <string name="MySupportPreference__couldnt_add_badge_s">बैज शामिल नहीं कर सके। %1$s</string>
     <string name="MySupportPreference__please_contact_support">कृपया सपोर्ट टीम से संपर्क करें।</string>
     <!-- Displayed as a subtitle on a row in the Manage Donations screen when payment for a donation is pending -->
-    <string name="MySupportPreference__payment_pending">भुगतान लंबित</string>
+    <string name="MySupportPreference__payment_pending">पेमेंट पेंडिंग है</string>
     <!-- Displayed as a dialog message when clicking on a donation row that is pending. Placeholder is a formatted fiat amount -->
-    <string name="MySupportPreference__your_bank_transfer_of_s">आपका %1$s का बैंक हस्तांतरण लंबित है। बैंक ट्रांसफर को पूरा करने में 1 से 14 कारोबारी दिन लग सकते हैं।  </string>
+    <string name="MySupportPreference__your_bank_transfer_of_s">आपका %1$s का बैंक ट्रांसफ़र पेंडिंग है। बैंक ट्रांसफ़र पूरा होनने में 1 से 14 कामकाजी दिन लग सकते हैं।  </string>
     <!-- Displayed in the pending help dialog, used to launch user to more details about bank transfers -->
-    <string name="MySupportPreference__learn_more">अधिक जानें</string>
+    <string name="MySupportPreference__learn_more">और जानें</string>
     <!-- Displayed when a subscription refresh is being performed -->
     <string name="MySupportPreference__checking_subscription">सब्सक्रिप्शन की जाँच की जा रही है…</string>
 
     <!-- Title of dialog telling user they need to update signal as it expired -->
     <string name="UpdateSignalExpiredDialog__title">Molly अपडेट करें</string>
     <!-- Message of dialog telling user they need to update signal as it expired -->
-    <string name="UpdateSignalExpiredDialog__message">Molly का यह संस्करण समाप्त हो गया है। Molly का इस्तेमाल जारी रखने के लिए अभी अपडेट करें।</string>
+    <string name="UpdateSignalExpiredDialog__message">Molly का यह वर्ज़न पुराना हो गया है। Molly इस्तेमाल करने के लिए इसे अभी अपडेट करें।</string>
     <!-- Button text of expiration dialog, will take user to update the app -->
-    <string name="UpdateSignalExpiredDialog__update_action">अपडेट</string>
+    <string name="UpdateSignalExpiredDialog__update_action">अपडेट करें</string>
     <!-- Button text of expiration dialog to cancel the dialog.  -->
-    <string name="UpdateSignalExpiredDialog__cancel_action">रद्द करें</string>
+    <string name="UpdateSignalExpiredDialog__cancel_action">कैंसिल करें</string>
 
     <!-- Title of dialog telling user they need to re-register signal -->
-    <string name="ReregisterSignalDialog__title">डिवाइस पंजीकृत नहीं है</string>
+    <string name="ReregisterSignalDialog__title">डिवाइस रजिस्टर नहीं है</string>
     <!-- Message of dialog telling user they need to re-register signal as it is no longer registered -->
-    <string name="ReregisterSignalDialog__message">यह डिवाइस अब पंजीकृत नहीं है। इस डिवाइस पर Molly का इस्तेमाल जारी रखने के लिए पुनः पंजीकरण करें।</string>
+    <string name="ReregisterSignalDialog__message">यह डिवाइस अब रजिस्टर नहीं है। इस डिवाइस पर Molly इस्तेमाल करने के लिए इसे फिर से रजिस्टर करें।</string>
     <!-- Button text of re-registration dialog to re-register the device.  -->
-    <string name="ReregisterSignalDialog__reregister_action">पुनः पंजीकरन</string>
+    <string name="ReregisterSignalDialog__reregister_action">फिर से रजिस्टर करें</string>
     <!-- Button text of re-registration dialog to cancel the dialog.  -->
-    <string name="ReregisterSignalDialog__cancel_action">रद्द करें</string>
+    <string name="ReregisterSignalDialog__cancel_action">कैंसिल करें</string>
 
     <!-- Title of expiry sheet when boost badge falls off profile unexpectedly. -->
     <string name="ExpiredBadgeBottomSheetDialogFragment__boost_badge_expired">बूस्ट बैज समाप्त हो गया</string>
@@ -6394,7 +6438,7 @@
     <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">इसे दोबारा न दिखाएं</string>
 
     <string name="Subscription__contact_support">सपोर्ट टीम से संपर्क करें</string>
-    <string name="Subscription__get_a_s_badge">एक %1$s बैज पाएँ</string>
+    <string name="Subscription__get_a_s_badge">%1$s बैज पाएं</string>
 
     <!-- *PaymentInProgressFragment strings -->
     <string name="InAppPaymentInProgressFragment__processing_donation">डोनेशन प्रोसेस किया जा रहा है…</string>
@@ -6419,14 +6463,14 @@
     <string name="InAppPaymentErrors__StripeFailureCode__an_error_occurred_while_processing_this_payment">इस भुगतान को संसाधित करते समय एक त्रुटि हुई, कृपया पुनः प्रयास करें।</string>
 
     <!-- Displayed in notification when user payment fails to process on Stripe -->
-    <string name="DonationsErrors__error_processing_payment">दान संसाधित करने में त्रुटि</string>
+    <string name="DonationsErrors__error_processing_payment">डोनेशन प्रोसेस करने में कोई गड़बड़ी हुई</string>
     <!-- Displayed on manage donations screen as a dialog message when payment method failed -->
-    <string name="DonationsErrors__try_another_payment_method">किसी अन्य भुगतान विधि से प्रयास करें या फिर अधिक जानकारी के लिए अपने बैंक से संपर्क करें।</string>
+    <string name="DonationsErrors__try_another_payment_method">भुगतान का कोई और तरीका आज़माएं या ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
     <!-- Displayed on manage donations screen error dialogs as an action label -->
-    <string name="DonationsErrors__learn_more">अधिक जानें</string>
+    <string name="DonationsErrors__learn_more">और जानें</string>
     <!-- Displayed on "My Support" screen when user subscription payment method failed. -->
-    <string name="DonationsErrors__error_processing_payment_s">दान संसाधित करने में त्रुटि। %1$s</string>
-    <string name="DonationsErrors__your_payment">आपका दान प्रोसेस नहीं किया जा सका और आपसे शुल्क नहीं लिया गया है। कृपया फिर से कोशिश करें। कृपया फिर से प्रयास करें।</string>
+    <string name="DonationsErrors__error_processing_payment_s">डोनेशन प्रोसेस करने में कोई गड़बड़ी हुई। %1$s</string>
+    <string name="DonationsErrors__your_payment">आपका डोनेशन प्रोसेस नहीं हो सका और आपसे कोई शुल्क नहीं लिया गया है। कृपया दोबारा कोशिश करें।</string>
     <string name="DonationsErrors__still_processing">अभी भी प्रोसेस हो रहा है</string>
     <string name="DonationsErrors__couldnt_add_badge">बैज नहीं जोड़ा जा सका</string>
     <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
@@ -6438,29 +6482,29 @@
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__could_not_validate">सर्वर रेस्पॉन्स वैलिडेट नहीं हो सका। कृपया सपोर्ट टीम से संपर्क करें।</string>
     <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
-    <string name="DonationsErrors__donation_failed">डोनेशन विफल रहा</string>
+    <string name="DonationsErrors__donation_failed">डोनेशन कामयाब नहीं रहा</string>
     <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
-    <string name="DonationsErrors__your_payment_was_processed_but">आपका दान प्रोसेस कर लिया गया था लेकिन Signal द्वारा आपका दान संदेश नहीं भेजा जा सका। कृपया सपोर्ट से संपर्क करें।</string>
+    <string name="DonationsErrors__your_payment_was_processed_but">आपका डोनेशन प्रोसेस हो गया था, लेकिन Signal आपका डोनेशन मैसेज नहीं भेज सका। कृपया सपोर्ट टीम से संपर्क करें।</string>
     <string name="DonationsErrors__your_badge_could_not">आपका बैज आपके अकाउंट में जोड़ा नहीं जा सका, लेकिन हो सकता है कि आपसे शुल्क लिया गया हो। कृपया सपोर्ट से संपर्क करें।</string>
-    <string name="DonationsErrors__your_payment_is_still">आपका दान अभी भी संसाधित किया जा रहा है। आपके कनेक्शन के आधार पर इसमें कुछ समय लग सकता है।</string>
+    <string name="DonationsErrors__your_payment_is_still">आपका डोनेशन अभी प्रोसेस हो रहा है। इसमें थोड़ा समय लग सकता है। यह इस पर निर्भर करता है कि आपका इंटरनेट कनेक्शन कैसा है।</string>
     <string name="DonationsErrors__failed_to_cancel_subscription">सब्सक्रिप्शन रद्द नहीं किया जा सका</string>
     <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">सब्सक्रिप्शन को रद्द करने के लिए इंटरनेट कनेक्शन आवश्यक है।</string>
     <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support">आपका डिवाइस ऐप में दान को सपोर्ट नहीं करता है, इसलिए आप बैज पाने के लिए सब्सक्राइब नहीं कर सकते। आप फिर भी हमारी वेबसाइट पर दान करके Signal को सपोर्ट कर सकते हैं।</string>
     <string name="NetworkFailure__network_error_check_your_connection_and_try_again">नेटवर्क में कोई गड़बड़ी हुई। एक बार अपना कनेक्शन देखें और फिर से कोशिश करें।</string>
     <string name="NetworkFailure__retry">दोबारा कोशिश करें</string>
     <!-- Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__cannot_send_donation">दान नहीं भेजा जा सकता</string>
+    <string name="DonationsErrors__cannot_send_donation">डोनेशन नहीं भेजा जा सकता</string>
     <!-- Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting -->
-    <string name="DonationsErrors__this_user_cant_receive_donations_until">यह यूज़र तब तक दान नहीं प्राप्त कर सकता जब तक वह Signal को अपग्रेड न कर ले।</string>
+    <string name="DonationsErrors__this_user_cant_receive_donations_until">इस यूज़र को तब तक डोनेशन नहीं मिल पाएगा, जब तक कि वह Signal का ताज़ा वर्ज़न डाउनलोड न करें।</string>
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
-    <string name="DonationsErrors__your_donation_could_not_be_sent">आपका दान किसी नेटवर्क दोष के कारण नहीं भेजा जा सका। अपना कनेक्शन जाँचें और फिर से प्रयास करें।</string>
+    <string name="DonationsErrors__your_donation_could_not_be_sent">नेटवर्क की गड़बड़ी की वजह से आपका डोनेशन भेजा नहीं जा सका। अपना कनेक्शन देखें और फिर से कोशिश करें।</string>
     <!-- Displayed as a dialog message when the user encounters an error during an iDEAL donation -->
-    <string name="DonationsErrors__your_ideal_couldnt_be_processed">आपका आदर्श दान संसाधित नहीं किया जा सका। किसी अन्य भुगतान विधि से प्रयास करें या फिर अधिक जानकारी के लिए अपने बैंक से संपर्क करें।</string>
+    <string name="DonationsErrors__your_ideal_couldnt_be_processed">आपका iDEAL डोनेशन प्रोसेस नहीं हो सका। भुगतान का कोई और तरीका आज़माएं या ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
 
     <!-- Gift message view title -->
-    <string name="GiftMessageView__donation_on_behalf_of_s">%1$s की ओर से दान</string>
+    <string name="GiftMessageView__donation_on_behalf_of_s">%1$s के बदले डोनेशन</string>
     <!-- Gift message view title for incoming donations -->
-    <string name="GiftMessageView__s_donated_to_signal_on">%1$s ने आपकी ओर से Signal को दान दिया</string>
+    <string name="GiftMessageView__s_donated_to_signal_on">%1$s ने आपकी ओर से Signal को डोनेट किया</string>
     <!-- Gift badge redeem action label -->
     <string name="GiftMessageView__redeem">रिडीम करें</string>
     <!-- Gift badge view action label -->
@@ -6474,7 +6518,7 @@
     <!-- Stripe decline code generic_failure -->
     <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">किसी और मेथड से पेमेंट करें या फिर ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
     <!-- PayPal decline code for payment declined -->
-    <string name="DeclineCode__try_another_payment_method_or_contact_your_bank_for_more_information_if_this_was_a_paypal">किसी अन्य भुगतान विधि से प्रयास करें या फिर अधिक जानकारी के लिए अपने बैंक से संपर्क करें। यदि यह PayPal लेनदेन था तो PayPal से संपर्क करें।</string>
+    <string name="DeclineCode__try_another_payment_method_or_contact_your_bank_for_more_information_if_this_was_a_paypal">भुगतान का कोई और तरीका आज़माएं या ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें। अगर आपने यह ट्रांज़ैक्शन PayPal से किया था, तो PayPal से संपर्क करें।</string>
     <!-- Stripe decline code verify on Google Pay and try again -->
     <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">Google Pay में जाकर वेरिफ़ाई कर लें कि आपका पेमेंट मेथड अप-टू-डेट है। इसके बाद, फिर से कोशिश करें।</string>
     <!-- Stripe decline code learn more action label -->
@@ -6488,7 +6532,7 @@
     <!-- Stripe decline code go to google pay action label -->
     <string name="DeclineCode__go_to_google_pay">Google Pay पर जाएं</string>
     <!-- Stripe decline code try credit card again action label -->
-    <string name="DeclineCode__try">फिर से कोशिश करो</string>
+    <string name="DeclineCode__try">दोबारा कोशिश करें</string>
     <!-- Stripe decline code incorrect card number -->
     <string name="DeclineCode__your_card_number_is_incorrect">आपका कार्ड नंबर गलत है। Google Pay में जाकर इसे अपडेट करें और फिर से कोशिश करें।</string>
     <!-- Stripe decline code incorrect cvc -->
@@ -6500,37 +6544,37 @@
     <!-- Stripe decline code incorrect expiration year -->
     <string name="DeclineCode__the_expiration_year">आपके पेमेंट मेथड में दिया गया वैधता का साल सही नहीं है। Google Pay में जाकर इसे अपडेट करें और फिर से कोशिश करें।</string>
     <!-- Stripe decline code issuer not available -->
-    <string name="DeclineCode__try_completing_the_payment_again">फिर से दान पूरा करने का प्रयास करें या फिर अधिक जानकारी के लिए अपने बैंक से संपर्क करें।</string>
+    <string name="DeclineCode__try_completing_the_payment_again">फिर से डोनेशन पूरा करने की कोशिश करें या ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
     <!-- Stripe decline code processing error -->
     <string name="DeclineCode__try_again">फिर से कोशिश करें या फिर ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
 
     <!-- Credit Card decline code error strings -->
     <!-- Stripe decline code approve_with_id for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__verify_your_card_details_are_correct_and_try_again">सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
+    <string name="DeclineCode__verify_your_card_details_are_correct_and_try_again">पुष्टि करें कि आपके कार्ड की जानकारी सही है और दोबारा कोशिश करें।</string>
     <!-- Stripe decline code call_issuer for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__verify_your_card_details_are_correct_and_try_again_if_the_problem_continues">सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें। यदि फिर भी समस्या बनी रहे तो अपने बैंक से संपर्क करें।</string>
+    <string name="DeclineCode__verify_your_card_details_are_correct_and_try_again_if_the_problem_continues">पुष्टि करें कि आपके कार्ड की जानकारी सही है और दोबारा कोशिश करें। अगर समस्या तब भी दूर नहीं होती, तो अपने बैंक से संपर्क करें।</string>
     <!-- Stripe decline code expired_card for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__your_card_has_expired_verify_your_card_details">आपके कार्ड की अवधि समाप्त हो गई है। सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
+    <string name="DeclineCode__your_card_has_expired_verify_your_card_details">आपके कार्ड की समयसीमा पूरी हो गई है। पुष्टि करें कि आपके कार्ड की जानकारी सही है और दोबारा कोशिश करें।</string>
     <!-- Stripe decline code incorrect_cvc and invalid_cvc for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__your_cards_cvc_number_is_incorrect_verify_your_card_details">आपके कार्ड का CVV नंबर गलत है। सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
+    <string name="DeclineCode__your_cards_cvc_number_is_incorrect_verify_your_card_details">आपके कार्ड का CVV नंबर गलत है। पुष्टि करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
     <!-- Stripe decline code invalid_expiry_month for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__the_expiration_month_on_your_card_is_incorrect">आपके कार्ड पर दिया वैधता समाप्ति का माह गलत है। सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
+    <string name="DeclineCode__the_expiration_month_on_your_card_is_incorrect">आपके कार्ड पर दिया वैधता समाप्ति का माह गलत है। पुष्टि करें कि आपके कार्ड की जानकारी सही है और दोबारा कोशिश करें।</string>
     <!-- Stripe decline code invalid_expiry_year for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__the_expiration_year_on_your_card_is_incorrect">आपके कार्ड पर दिया वैधता समाप्ति का वर्ष गलत है। सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
+    <string name="DeclineCode__the_expiration_year_on_your_card_is_incorrect">आपके कार्ड पर दी गई एक्सपायरी डेट सही नहीं है। पुष्टि करें कि आपके कार्ड की जानकारी सही है और दोबारा कोशिश करें।</string>
     <!-- Stripe decline code incorrect_number and invalid_number for credit cards displayed in a notification or dialog -->
-    <string name="DeclineCode__your_card_number_is_incorrect_verify_your_card_details">आपका कार्ड नंबर गलत है। सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें।</string>
+    <string name="DeclineCode__your_card_number_is_incorrect_verify_your_card_details">आपका कार्ड नंबर सही नहीं है। पुष्टि करें कि आपके कार्ड की जानकारी सही है और दोबारा कोशिश करें।</string>
 
     <!-- Stripe Failure Codes for failed bank transfers -->
     <!-- Failure code text for insufficient funds, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__the_bank_account_provided">प्रदान किए गए बैंक अकाउंट में इस खरीदारी को पूरा करने के लिए पर्याप्त धनराशि नहीं है, पुनः प्रयास करें या अधिक जानकारी के लिए अपने बैंक से संपर्क करें।</string>
+    <string name="StripeFailureCode__the_bank_account_provided">इस खरीदारी को पूरा करने के लिए, आपके बैंक खाते में पर्याप्त बैलेंस नहीं है। कृपया दोबारा कोशिश करें या ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
     <!-- Failure code text for revoked authorization of payment, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__this_payment_was_revoked">इस दान को अकाउंट धारक द्वारा रद्द कर दिया गया था और संसाधित नहीं किया जा सका। आपसे शुल्क नहीं लिया गया है।</string>
+    <string name="StripeFailureCode__this_payment_was_revoked">अकाउंट होल्डर ने इस डोनेशन को रद्द कर दिया है, इसलिए इसे प्रोसेस नहीं किया जा सकता। आपसे शुल्क नहीं लिया गया है।</string>
     <!-- Failure code text for a payment lacking an authorized mandate or incorrect mandate, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__an_error_occurred_while_processing_this_payment">इस दान को संसाधित करते समय एक त्रुटि हुई, कृपया पुनः प्रयास करें।</string>
+    <string name="StripeFailureCode__an_error_occurred_while_processing_this_payment">इस डोनेशन को प्रोसेस करने में कोई गड़बड़ी हुई, कृपया दोबारा कोशिश करें।</string>
     <!-- Failure code text for a closed account, deceased recipient, or one with blocked direct debits, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__the_bank_details_provided_could_not_be_processed">प्रदान किए गए बैंक विवरण संसाधित नहीं किए जा सके, अधिक जानकारी के लिए अपने बैंक से संपर्क करें।</string>
+    <string name="StripeFailureCode__the_bank_details_provided_could_not_be_processed">दी गई बैंक जानकारी प्रोसेस नहीं हो सकी। ज़्यादा जानकारी के लिए अपने बैंक से संपर्क करें।</string>
     <!-- Failure code text for a non-existent bank branch, invalid account holder, invalid iban, generic failure, or unknown bank failure, displayed in a dialog or notification -->
-    <string name="StripeFailureCode__verify_your_bank_details_are_correct">सत्यापित करें कि आपका कार्ड विवरण सही है और फिर से प्रयास करें। यदि फिर भी समस्या बनी रहे तो अपने बैंक से संपर्क करें।</string>
+    <string name="StripeFailureCode__verify_your_bank_details_are_correct">कृपया पुष्टि करें कि आपने जो बैंक जानकारी दी है वह सही है। इसके बाद, फिर से कोशिश करें। अगर समस्या तब भी दूर नहीं होती, तो अपने बैंक से संपर्क करें।</string>
 
     <!-- Title of create notification profile screen -->
     <string name="EditNotificationProfileFragment__name_your_profile">अपनी प्रोफ़ाइल में नाम लिखें</string>
@@ -6570,9 +6614,9 @@
     <!-- Title for exceptions section of add people to notification profile screen in create flow -->
     <string name="AddAllowedMembers__exceptions">अपवाद</string>
     <!-- List preference to toggle that allows calls through the notification profile during create flow -->
-    <string name="AddAllowedMembers__allow_all_calls">सभी कॉल अनुमत करें</string>
+    <string name="AddAllowedMembers__allow_all_calls">सभी कॉल को मंज़ूरी दें</string>
     <!-- List preference to toggle that allows mentions through the notification profile during create flow -->
-    <string name="AddAllowedMembers__notify_for_all_mentions">सभी उल्लेख हेतु अधिसूचित करें</string>
+    <string name="AddAllowedMembers__notify_for_all_mentions">सभी मेंशन के लिए नोटिफ़िकेशन भेजें</string>
 
     <!-- Call to action button on contact picker for adding to profile -->
     <string name="SelectRecipientsFragment__add">जोड़ें</string>
@@ -6679,9 +6723,9 @@
     <!-- Displayed in a toast when we fail to open the ringtone picker -->
     <string name="NotificationSettingsFragment__failed_to_open_picker">पिकर नहीं खुल सका।</string>
     <!-- Banner title when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__to_enable_notifications">नोटिफ़िकेशन सक्षम करने के लिए, Molly को उन्हें प्रदर्शित करने की अनुमति चाहिए।</string>
+    <string name="NotificationSettingsFragment__to_enable_notifications">नोटिफ़िकेशन चालू करने के लिए ज़रूरी है कि आप Molly को उन्हें दिखाने की अनुमति दें।</string>
     <!-- Banner action when notification permission is disabled -->
-    <string name="NotificationSettingsFragment__turn_on">शुरु करें</string>
+    <string name="NotificationSettingsFragment__turn_on">चालू करें</string>
 
     <!-- Description shown for the Signal Release Notes channel -->
     <string name="ReleaseNotes__signal_release_notes_and_news">Signal की ताज़ा रिलीज़ और खबरें</string>
@@ -6705,9 +6749,9 @@
     <!-- Donation receipts one-time tab label -->
     <string name="DonationReceiptListFragment__one_time">एक बार में किया गया</string>
     <!-- Donation receipts gift tab -->
-    <string name="DonationReceiptListFragment__for_a_friend">दोस्त के लिए</string>
+    <string name="DonationReceiptListFragment__for_a_friend">दोस्त के बदले</string>
     <!-- Donation receipts gift tab label -->
-    <string name="DonationReceiptListFragment__donation_for_a_friend">किसी दोस्त के लिए दान</string>
+    <string name="DonationReceiptListFragment__donation_for_a_friend">किसी दोस्त के लिए डोनेशन</string>
     <!-- Donation receipts donation type heading -->
     <string name="DonationReceiptDetailsFragment__donation_type">दान प्रकार</string>
     <!-- Donation receipts date paid heading -->
@@ -6742,7 +6786,7 @@
     <!-- Subtitle for "My Stories" row item when user has not added stories -->
     <string name="StoriesLandingFragment__tap_to_add">जोड़ने के लिए टैप करें</string>
     <!-- Displayed when there are no stories to display -->
-    <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">अभी दिखाने के लिए कोई हालिया अपडेट नहीं है।</string>
+    <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now">अभी कोई अपडेट नहीं है जिसे दिखाया जा सके।</string>
     <!-- Context menu option to hide a story -->
     <string name="StoriesLandingItem__hide_story">स्टोरी छिपाएँ</string>
     <!-- Context menu option to unhide a story -->
@@ -6790,6 +6834,53 @@
     <string name="MyStories__this_story_will_be_deleted">यह स्टोरी आपके लिए और इसे प्राप्त करनेवाले प्रत्येक के लिए डिलीट कर दी जाएगी।</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">सेव नहीं हो पाई</string>
+
+    <!-- StoryArchive -->
+    <!-- Title for the story archive screen -->
+    <string name="StoryArchive__story_archive">स्टोरी आर्काइव</string>
+    <!-- Section header in story settings -->
+    <string name="StoryArchive__archive">आर्काइव करें</string>
+    <!-- Label for switch to enable story archiving -->
+    <string name="StoryArchive__keep_stories_in_archive">स्टोरी आर्काइव में रखें</string>
+    <!-- Description for the archive toggle -->
+    <string name="StoryArchive__save_stories_after_they_expire">ऐक्टिव फ़ीड से हट जाने के बाद अपनी भेजी गई स्टोरी सुरक्षित सेव कर लें।</string>
+    <!-- Label for archive duration preference -->
+    <string name="StoryArchive__keep_stories_for">इतने समय तक स्टोरी संभालकर रखें</string>
+    <!-- Archive duration option: forever -->
+    <string name="StoryArchive__forever">हमेशा के लिए</string>
+    <!-- Archive duration option: 1 year -->
+    <string name="StoryArchive__1_year">1 साल</string>
+    <!-- Archive duration option: 6 months -->
+    <string name="StoryArchive__6_months">6 महीने</string>
+    <!-- Archive duration option: 30 days -->
+    <string name="StoryArchive__30_days">30 दिन</string>
+    <!-- Empty state title when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories">आर्काइव की हुई कोई स्टोरी नहीं है</string>
+    <!-- Empty state message when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories_message">अपनी स्टोरी ऑटोमैटिक तरीके से आर्काइव करने के लिए, स्टोरी सेटिंग में जाकर \'स्टोरी आर्काइव में सेव करें\' चालू करें।</string>
+    <!-- Empty state button to navigate to story settings -->
+    <string name="StoryArchive__go_to_settings">सेटिंग पर जाएं</string>
+    <!-- Label for sort order menu -->
+    <string name="StoryArchive__sort_by">इस तरह सॉर्ट करें</string>
+    <!-- Sort order option: newest first -->
+    <string name="StoryArchive__newest">सबसे नया</string>
+    <!-- Sort order option: oldest first -->
+    <string name="StoryArchive__oldest">सबसे पुराना</string>
+    <!-- Delete action in story archive multi-select bottom bar -->
+    <string name="StoryArchive__delete">डिलीट करें</string>
+    <!-- Content description for selecting a story in multi-select mode -->
+    <string name="StoryArchive__select_story">स्टोरी चुनें</string>
+    <!-- Confirmation dialog body when deleting stories from archive -->
+    <plurals name="StoryArchive__delete_n_stories">
+        <item quantity="one">%1$d स्टोरी डिलीट करनी है? इसे फिर से पहले जैसा नहीं किया जा सकेगा।</item>
+        <item quantity="other">%1$d स्टोरी डिलीट करनी हैं? इसे फिर से पहले जैसा नहीं किया जा सकेगा।</item>
+    </plurals>
+    <!-- Title shown in toolbar when in multi-select mode in story archive, %d is count of selected items -->
+    <plurals name="StoryArchive__d_selected">
+        <item quantity="one">%1$d आइटम चुना गया</item>
+        <item quantity="other">%1$d आइटम चुने गए</item>
+    </plurals>
+
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="one">%1$d व्यू</item>
@@ -6815,9 +6906,9 @@
     <!-- Displayed when viewing a post from another user with no replies -->
     <string name="StoryViewerPageFragment__reply">जवाब दें</string>
     <!-- Displayed when viewing a post that has failed to send to some users -->
-    <string name="StoryViewerPageFragment__partially_sent">आंशिक रूप से भेजी गई। अधिक जानकारी के लिए टैप करें</string>
+    <string name="StoryViewerPageFragment__partially_sent">पूरा नहीं भेजा जा सका। जानकारी के लिए टैप करें</string>
     <!-- Displayed when viewing a post that has failed to send -->
-    <string name="StoryViewerPageFragment__send_failed">भेजना विफल रहा। फिर से प्रयास करने के लिए टैप करें</string>
+    <string name="StoryViewerPageFragment__send_failed">भेजा नहीं जा सका। दोबारा कोशिश करने के लिए टैप करें</string>
     <!-- Label for the reply button in story viewer, which will launch the group story replies bottom sheet. -->
     <string name="StoryViewerPageFragment__reply_to_group">ग्रुप को जवाब दें</string>
     <!-- Content description for the any reaction button in reply to story composer, which will launch the emojis bottom sheet. -->
@@ -6825,7 +6916,7 @@
     <!-- Displayed when a story has no views -->
     <string name="StoryViewsFragment__no_views_yet">अब तक किसी ने नहीं देखा</string>
     <!-- Displayed when user has disabled receipts -->
-    <string name="StoryViewsFragment__enable_view_receipts_to_see_whos_viewed_your_story">आपकी स्टोरीज़ किसने देखी हैं यह देखने के लिए प्राप्ति सूचनाएँ सक्षम करें।</string>
+    <string name="StoryViewsFragment__enable_view_receipts_to_see_whos_viewed_your_story">आपकी स्टोरी किसने देखी, यह जानने के लिए \'देखे जाने की सूचना देखें\' चालू करें।</string>
     <!-- Button label displayed when user has disabled receipts -->
     <string name="StoryViewsFragment__go_to_settings">सेटिंग पर जाएं</string>
     <!-- Dialog action to remove viewer from a story -->
@@ -6851,7 +6942,7 @@
     <!-- Description of action for reaction button -->
     <string name="StoryReplyComposer__react_to_this_story">इस स्टोरी पर प्रतिक्रिया दें</string>
     <!-- Displayed when the user is replying privately to someone who replied to one of their stories -->
-    <string name="StoryReplyComposer__reply_to_s">%1$s को उत्तर दें</string>
+    <string name="StoryReplyComposer__reply_to_s">%1$s को जवाब दें</string>
     <!-- Context menu item to privately reply to a story response -->
     <!-- Context menu item to copy a story response -->
     <string name="StoryGroupReplyItem__copy">कॉपी करें</string>
@@ -6865,7 +6956,7 @@
         <item quantity="other">%1$d व्यूअर</item>
     </plurals>
     <!-- Button on all signal connections row to view all signal connections. Please keep as short as possible. -->
-    <string name="MyStorySettingsFragment__view">देखना</string>
+    <string name="MyStorySettingsFragment__view">देखें</string>
     <!-- Section heading for story visibility -->
     <string name="MyStorySettingsFragment__who_can_view_this_story">यह स्टोरी कौन देख सकता है</string>
     <!-- Clickable option for selecting people to hide your story from -->
@@ -6873,7 +6964,7 @@
     <string name="MyStorySettingsFragment__all_signal_connections">Signal के सभी कनेक्शन</string>
     <!-- Privacy setting description for sending stories to all your signal connections -->
     <!-- Privacy setting title for sending stories to all except the specified connections -->
-    <string name="MyStorySettingsFragment__all_except">इनको छोड़कर बाकी सबको…</string>
+    <string name="MyStorySettingsFragment__all_except">इन्हें छोड़कर बाकी सबको…</string>
     <!-- Privacy setting description for sending stories to all except the specified connections -->
     <string name="MyStorySettingsFragment__hide_your_story_from_specific_people">अपनी स्टोरी को कुछ निश्चित लोगों से छिपाएँ</string>
     <!-- Summary of clickable option displaying how many people you have excluded from your story -->
@@ -6946,7 +7037,7 @@
     <string name="TextStoryPostSendFragment__search">खोजें</string>
     <!-- Toast shown when an unexpected error occurs while sending a text story -->
     <!-- Toast shown when a trying to add a link preview to a text story post and the link/url is not valid (e.g., missing .com at the end) -->
-    <string name="TextStoryPostSendFragment__please_enter_a_valid_link">कृपया एक मान्य लिंक एंटर करें।</string>
+    <string name="TextStoryPostSendFragment__please_enter_a_valid_link">कृपया सही लिंक डालें।</string>
     <!-- Title for screen allowing user to exclude "My Story" entries from specific people -->
     <string name="ChangeMyStoryMembershipFragment__all_except">इनको छोड़कर बाकी सभी…</string>
     <!-- Title for screen allowing user to only share "My Story" entries with specific people -->
@@ -6954,15 +7045,15 @@
     <!-- Done button label for hide story from screen -->
     <string name="HideStoryFromFragment__done">हो गया</string>
     <!-- Dialog title for removing a group story -->
-    <string name="StoryDialogs__remove_group_story">ग्रुप स्टोरी हटानी है?</string>
+    <string name="StoryDialogs__remove_group_story">ग्रुप स्टोरी हटाना है?</string>
     <!-- Dialog message for removing a group story -->
-    <string name="StoryDialogs__s_will_be_removed">\"%1$s\" को हटा दिया जाएगा।</string>
+    <string name="StoryDialogs__s_will_be_removed">\"%1$s\" हट जाएगा।</string>
     <!-- Dialog positive action for removing a group story -->
-    <string name="StoryDialogs__remove">हटा दें</string>
+    <string name="StoryDialogs__remove">हटाएं</string>
     <!-- Dialog title for deleting a custom story -->
-    <string name="StoryDialogs__delete_custom_story">कस्टम स्टोरी डिलीट करनी है?</string>
+    <string name="StoryDialogs__delete_custom_story">कस्टम स्टोरी डिलीट करना है?</string>
     <!-- Dialog message for deleting a custom story -->
-    <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" और इस स्टोरी से शेयर किए गए अपडेट डिलीट कर दिए जाएंगे।</string>
+    <string name="StoryDialogs__s_and_updates_shared">\"%1$s\" और इस स्टोरी में शेयर किए गए अपडेट डिलीट हो जाएंगे।</string>
     <!-- Dialog positive action for deleting a custom story -->
     <string name="StoryDialogs__delete">डिलीट करें</string>
     <!-- Dialog title for first time sending something to a beta story -->
@@ -6991,7 +7082,7 @@
     <!-- Name story screen title -->
     <string name="CreateStoryWithViewersFragment__name_story">स्टोरी को नाम दें</string>
     <!-- Name story screen note under text field -->
-    <string name="CreateStoryWithViewersFragment__only_you_can">केवल आप इस स्टोरी का नाम देख सकते हैं।</string>
+    <string name="CreateStoryWithViewersFragment__only_you_can">आपके अलावा इस स्टोरी का नाम और कोई नहीं देख सकता।</string>
     <!-- Name story screen label hint -->
     <string name="CreateStoryWithViewersFragment__story_name_required">स्टोरी नाम (आवश्यक है)</string>
     <!-- Name story screen viewers subheading -->
@@ -7065,19 +7156,19 @@
     <string name="GiftFlowStartFragment__donate_for_a_friend">किसी दोस्त के बदले डोनेट करें</string>
     <!-- Description text on start fragment for gifting a badge -->
     <plurals name="GiftFlowStartFragment__support_signal_by">
-        <item quantity="one">Signal इस्तेमाल करनेवाले किसी दोस्त या परिवार के सदस्य के लिए दान देकर Signal को सहयोग दें। उन्हें %1$d दिन के लिए अपनी प्रोफ़ाइल पर दर्शाने के लिए एक बैज मिलेगा</item>
-        <item quantity="other">Signal इस्तेमाल करनेवाले किसी दोस्त या परिवार के सदस्य के लिए दान देकर Signal को सहयोग दें। उन्हें %1$d दिनों के लिए अपनी प्रोफ़ाइल पर दर्शाने के लिए एक बैज मिलेगा</item>
+        <item quantity="one">Signal इस्तेमाल करने वाले किसी दोस्त या परिजन के बदले दान करके Signal को सहयोग दें। उन्हें अपनी प्रोफ़ाइल पर %1$d दिन तक दिखाने के लिए एक बैज मिलेगा।</item>
+        <item quantity="other">Signal इस्तेमाल करने वाले किसी दोस्त या परिजन के बदले दान करके Signal को सहयोग दें। उन्हें अपनी प्रोफ़ाइल पर %1$d दिन तक दिखाने के लिए एक बैज मिलेगा।</item>
     </plurals>
     <!-- Action button label for start fragment for gifting a badge -->
     <string name="GiftFlowStartFragment__next">आगे बढ़ें</string>
     <!-- Title text on choose recipient page for badge gifting -->
     <string name="GiftFlowRecipientSelectionFragment__choose_recipient">जिनको भेजना है उनके नाम चुनें</string>
     <!-- Title text on confirm gift page -->
-    <string name="GiftFlowConfirmationFragment__confirm_donation">दान की पुष्टि करें</string>
+    <string name="GiftFlowConfirmationFragment__confirm_donation">डोनेशन की पुष्टि करें</string>
     <!-- Heading text specifying who the gift will be sent to -->
     <string name="GiftFlowConfirmationFragment__send_to">को भेजें</string>
     <!-- Text explaining that gift will be sent to the chosen recipient -->
-    <string name="GiftFlowConfirmationFragment__the_recipient_will_be_notified">प्राप्तकर्ता को सीधे भेजे जानेवाले एक संदेश द्वारा दान के बारे में सूचित किया जाएगा। अपना खुद का संदेश नीचे जोड़ें।</string>
+    <string name="GiftFlowConfirmationFragment__the_recipient_will_be_notified">प्राप्तकर्ता को इस डोनेशन की सूचना सीधे मैसेज करके दे दी जाएगी। अपना मैसेज नीचे जोड़ें।</string>
     <!-- Text explaining that this gift is a one time donation -->
     <string name="GiftFlowConfirmationFragment__one_time_donation">एक बार का दान</string>
     <!-- Hint for add message input -->
@@ -7085,25 +7176,25 @@
     <!-- Displayed in the dialog while verifying the chosen recipient -->
     <string name="GiftFlowConfirmationFragment__verifying_recipient">जिनको भेजना है उनको वेरिफ़ाई किया जा रहा है…</string>
     <!-- Title for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_for_you">%1$s ने आपके लिए एक दान दिया</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_for_you">%1$s ने आपके बदले डोनेट किया है</string>
     <!-- Title for sheet shown when opening a sent gift -->
     <string name="ViewSentGiftBottomSheet__thanks_for_your_support">आपके सहयोग के लिए शुक्रिया!</string>
     <!-- Description for sheet shown when opening a redeemed gift -->
-    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s ने आपकी ओर से Signal को एक दान दिया! अपनी प्रोफ़ाइल पर Signal के लिए अपना समर्थन दर्शाएँ।</string>
+    <string name="ViewReceivedGiftBottomSheet__s_made_a_donation_to_signal">%1$s ने आपके बदले Signal को डोनेट किया है! अपनी प्रोफ़ाइल पर Signal को किए गए सहयोग को दिखाएं।</string>
     <!-- Description for sheet shown when opening a sent gift -->
-    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">आपने %1$s की ओर से Signal को एक दान दिया है। उन्हें अपना सहयोग अपनी प्रोफ़ाइल पर दर्शाने का विकल्प दिया जाएगा।</string>
+    <string name="ViewSentGiftBottomSheet__youve_made_a_donation_to_signal">आपने %1$s के बदले Signal को डोनेट किया है। अगर उन्हें अपनी प्रोफ़ाइल पर इस सहयोग को दिखाना है, तो ऐसा करने के लिए उन्हें विकल्प दिया जाएगा।</string>
     <!-- Primary action for pending gift sheet to redeem badge now -->
     <string name="ViewReceivedGiftSheet__redeem">रिडीम करें</string>
     <!-- Primary action for pending gift sheet to redeem badge later -->
     <string name="ViewReceivedGiftSheet__not_now">अभी नहीं</string>
     <!-- Dialog text while redeeming a gift -->
-    <string name="ViewReceivedGiftSheet__redeeming_badge">बैज रिडीम किया जा रहा है…</string>
+    <string name="ViewReceivedGiftSheet__redeeming_badge">बैज रिडीम हो जा रहा है…</string>
     <!-- Description text in gift thanks sheet -->
-    <string name="GiftThanksSheet__youve_made_a_donation">आपने %1$s की ओर से Signal को एक दान दिया है। उन्हें अपना सहयोग अपनी प्रोफ़ाइल पर दर्शाने का विकल्प दिया जाएगा।</string>
+    <string name="GiftThanksSheet__youve_made_a_donation">आपने %1$s की ओर से Signal को डोनेट किया है। अगर उन्हें अपनी प्रोफ़ाइल पर इस सहयोग को दिखाना है, तो ऐसा करने के लिए उन्हें विकल्प दिया जाएगा।</string>
     <!-- Expired gift sheet title -->
-    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">आपका बैज समाप्त हो गया है</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired">आपके बैज की समयसीमा खत्म हो गई है</string>
     <!-- Expired gift sheet top description text -->
-    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">आपका बैज समाप्त हो गया है, और अब आपकी प्रोफ़ाइल पर अन्य लोगों को नहीं दिख रहा है।</string>
+    <string name="ExpiredGiftSheetConfiguration__your_badge_has_expired_and_is">आपके बैज की समयसीमा खत्म हो गई है और अब यह आपके प्रोफ़ाइल पर दूसरों को नहीं दिखेगी।</string>
     <!-- Expired gift sheet bottom description text -->
     <string name="ExpiredGiftSheetConfiguration__to_continue">आपके लिए बनी इस टेक्नोलॉजी को मदद करने के लिए, कृपया मासिक सस्टेनर बनें।</string>
     <!-- Expired gift sheet make a monthly donation button -->
@@ -7111,7 +7202,7 @@
     <!-- Expired gift sheet not now button -->
     <string name="ExpiredGiftSheetConfiguration__not_now">अभी नहीं</string>
     <!-- My Story label designating that we will only share with the selected viewers. -->
-    <string name="ContactSearchItems__only_share_with">केवल इनके साथ साझा करें</string>
+    <string name="ContactSearchItems__only_share_with">सिर्फ इनसे शेयर करें</string>
     <!-- Label under name for custom stories -->
     <plurals name="ContactSearchItems__custom_story_d_viewers">
         <item quantity="one">कस्टम स्टोरी · %1$d व्यूअर</item>
@@ -7933,7 +8024,7 @@
     <!-- Title of Megaphone C: upsell to upgrade backups when user has lots of media -->
     <string name="BackupMediaUpsell__title">अपने सभी मीडिया का बैकअप लें</string>
     <!-- Body of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__body">पेड Signal सिक्योर बैकअप प्लान आपका 100GB तक का सारा मीडिया सुरक्षित रखता है।</string>
+    <string name="BackupMediaUpsell__body">पेड Signal सिक्योर बैकअप प्लान में आपका 100GB तक का सारा मीडिया स्टोर रहता है।</string>
     <!-- Primary button of Megaphone C -->
     <string name="BackupMediaUpsell__upgrade">अपग्रेड करें</string>
     <!-- Secondary button of Megaphone C -->
@@ -7953,7 +8044,7 @@
     <!-- Title of the backup upsell bottom sheet promoting paid backup plans -->
     <string name="BackupUpsellBottomSheet__title">सारे मीडिया का बैकअप लेने के लिए अपग्रेड करें</string>
     <!-- Body of the backup upsell bottom sheet -->
-    <string name="BackupUpsellBottomSheet__body">पेड Signal सिक्योर बैकअप प्लान आपके भेजे और पाए गए सभी मीडिया को अधिकतम 100GB तक सेव करते हैं। नया फ़ोन लेने या Signal को रीइंस्टॉल करने पर, अपनी कोई इमेज या वीडियो कभी न खोएं।</string>
+    <string name="BackupUpsellBottomSheet__body">पेड Signal सिक्योर बैकअप प्लान आपके भेजे और पाए गए सभी मीडिया को ज़्यादा से ज़्यादा 100GB तक सेव करता है। नया फ़ोन लेने या Signal को रीइंस्टॉल करने पर, अपनी कोई फ़ोटो या वीडियो कभी न खोएं।</string>
     <!-- Label for the paid plan price shown in the feature card, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__price_per_month">%1$s/माह</string>
     <!-- Subtitle for the paid plan feature card -->
@@ -8215,7 +8306,7 @@
 
     <!-- OnDeviceBackupsFragment -->
     <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
-    <string name="OnDeviceBackupsFragment__backup_key_updated">\'बैकअप की\' अपडेट की गई</string>
+    <string name="OnDeviceBackupsFragment__recovery_key_updated">\'रिकवरी की\' अपडेट हो गई है</string>
     <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
     <string name="OnDeviceBackupsFragment__directory_selected">चुनी गई डायरेक्टरी: %1$s</string>
 
@@ -8659,6 +8750,26 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">QR कोड स्कैन करें</string>
 
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">बैकअप प्रोसेस किया जा रहा है…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">बैकअप तैयार किया जा रहा है…</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">पूरा किया जा रहा है…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+
+    <!-- LocalArchiveJob -->
+    <!-- Notification title shown while media attachments are being exported during a local backup -->
+    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
     <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">ऑन-डिवाइस बैकअप में सुधार</string>
@@ -8680,7 +8791,7 @@
     <string name="OnDeviceBackupsSettingsScreen__update">अपडेट करें</string>
 
     <!-- UnifiedOnDeviceBackupsSettingsScreen -->
-    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">\'बैकअप की\' देखें</string>
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_recovery_key">\'रिकवरी की\' देखें</string>
 
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
@@ -8750,9 +8861,9 @@
     <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">यह \'की\' आपकी ऑन-डिवाइस \'बैकअप की\' को रिप्लेस कर देगी।</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">आपकी \'बैकअप की\' 64-कैरेक्टर वाला एक कोड है। यह Signal को फिर से इंस्टॉल करने पर बैकअप रीस्टोर करने के लिए ज़रूरी है।</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">आपकी \'रिकवरी की\' 64-कैरेक्टर वाला एक कोड होता है। यह Signal को फिर से इंस्टॉल करने पर बैकअप रीस्टोर करने के लिए ज़रूरी है।</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">यह आपकी ऑन-डिवाइस \'बैकअप की\' जैसी ही है।</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">यह आपकी ऑन-डिवाइस \'रिकवरी की\' जैसी ही है।</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">इस \'की\' के ज़रिए:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -8770,7 +8881,7 @@
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">आपके अकाउंट और डेटा को रिकवर करने के लिए यह की ज़रूरी है। इस की को किसी सुरक्षित जगह पर स्टोर करें। अगर यह खो जाती है, तो आप अपना अकाउंट रिकवर नहीं कर पाएँगे।</string>
     <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">यह \'की\' आपकी ऑन-डिवाइस \'बैकअप की\' जैसी ही है। आपके अकाउंट और डेटा को रिकवर करने के लिए यह \'की\' ज़रूरी है।</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_recovery_key">यह \'की\' आपकी ऑन-डिवाइस \'रिकवरी की\' जैसी ही होती है। आपके अकाउंट और डेटा को रिकवर करने के लिए यह \'की\' ज़रूरी है।</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">क्लिपबोर्ड पर कॉपी करें</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9019,8 +9130,8 @@
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">अपनी \'रिकवरी की\' डालें</string>
     <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
     <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">आपकी \'रिकवरी की\' एक 64-कैरेक्टर वाला कोड है, जो आपके अकाउंट और डेटा को रिकवर करने के लिए ज़रूरी है।</string>
-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a backup key -->
-    <string name="EnterLocalBackupKeyScreen__no_backup_key">\'बैकअप की\' नहीं है?</string>
+    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+    <string name="EnterLocalBackupKeyScreen__no_recovery_key">कोई \'रिकवरी की\' नहीं है?</string>
     <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
     <string name="EnterLocalBackupKeyScreen__next">अगला</string>
 
@@ -9471,12 +9582,16 @@
     <string name="GroupMemberLabel__description">इस ग्रुप में अपने बारे में या अपने रोल के बारे में बताने के लिए मेंबर लेबल जोड़ें। मेंबर लेबल सिर्फ़ इसी ग्रुप में दिखाई देंगे।</string>
     <!-- Error message shown when the group member label fails to save due to a network error. -->
     <string name="GroupMemberLabel__error_cant_save_no_network">लेबल सेव नहीं हो पाया। अपना नेटवर्क देखें और दोबारा कोशिश करें।</string>
+    <!-- Error message shown when trying to edit a member label without adequate permission. -->
+    <string name="GroupMemberLabel__error_no_edit_permission">इस ग्रुप में सिर्फ़ ऐडमिन ही मेंबर लेबल जोड़ सकते हैं।</string>
     <!-- Accessibility label for the button to open the group member label emoji picker. -->
     <string name="GroupMemberLabel__accessibility_select_emoji">इमोजी चुनें</string>
     <!-- Accessibility label for the group member label close screen button. -->
     <string name="GroupMemberLabel__accessibility_close_screen">स्क्रीन बंद करें</string>
     <!-- Accessibility label for the group member label text field clear button. -->
     <string name="GroupMemberLabel__accessibility_clear_label">लेबल मिटाएं</string>
+    <!-- Section header for the list of group members who have labels set. -->
+    <string name="GroupMemberLabel__group_members_with_labels">लेबल वाले ग्रुप मेंबर</string>
 
     <!-- Title for the member labels education sheet. -->
     <string name="MemberLabelsEducation__title">मेंबर लेबल</string>

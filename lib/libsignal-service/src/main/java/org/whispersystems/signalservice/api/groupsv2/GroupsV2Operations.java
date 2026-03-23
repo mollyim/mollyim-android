@@ -1,5 +1,9 @@
 package org.whispersystems.signalservice.api.groupsv2;
 
+import org.signal.core.models.ServiceId;
+import org.signal.core.models.ServiceId.ACI;
+import org.signal.core.models.ServiceId.PNI;
+import org.signal.core.util.UuidUtil;
 import org.signal.libsignal.protocol.logging.Log;
 import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.NotarySignature;
@@ -17,14 +21,14 @@ import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
 import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredentialPresentation;
 import org.signal.storageservice.storage.protos.groups.AccessControl;
-import org.signal.storageservice.storage.protos.groups.MemberBanned;
 import org.signal.storageservice.storage.protos.groups.Group;
 import org.signal.storageservice.storage.protos.groups.GroupAttributeBlob;
 import org.signal.storageservice.storage.protos.groups.GroupChange;
 import org.signal.storageservice.storage.protos.groups.GroupJoinInfo;
 import org.signal.storageservice.storage.protos.groups.Member;
-import org.signal.storageservice.storage.protos.groups.MemberPendingProfileKey;
+import org.signal.storageservice.storage.protos.groups.MemberBanned;
 import org.signal.storageservice.storage.protos.groups.MemberPendingAdminApproval;
+import org.signal.storageservice.storage.protos.groups.MemberPendingProfileKey;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedApproveMember;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedBannedMember;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup;
@@ -39,10 +43,6 @@ import org.signal.storageservice.storage.protos.groups.local.DecryptedRequesting
 import org.signal.storageservice.storage.protos.groups.local.DecryptedString;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedTimer;
 import org.signal.storageservice.storage.protos.groups.local.EnabledState;
-import org.signal.core.models.ServiceId;
-import org.signal.core.models.ServiceId.ACI;
-import org.signal.core.models.ServiceId.PNI;
-import org.signal.core.util.UuidUtil;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -53,11 +53,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -341,6 +341,12 @@ public final class GroupsV2Operations {
     public GroupChange.Actions.Builder createChangeAttributesRights(AccessControl.AccessRequired newRights) {
       return new GroupChange.Actions.Builder().modifyAttributesAccess(
           new GroupChange.Actions.ModifyAttributesAccessControlAction.Builder().attributesAccess(newRights).build()
+      );
+    }
+
+    public GroupChange.Actions.Builder createChangeMemberLabelRights(AccessControl.AccessRequired newRights) {
+      return new GroupChange.Actions.Builder().modifyMemberLabelAccess(
+          new GroupChange.Actions.ModifyMemberLabelAccessControlAction.Builder().memberLabelAccess(newRights).build()
       );
     }
 
@@ -763,12 +769,17 @@ public final class GroupsV2Operations {
         modifyMemberLabels.add(
             new DecryptedModifyMemberLabel.Builder()
                 .aciBytes(decryptAciToBinary(action.userId))
-                .labelEmoji(Objects.requireNonNullElse(decryptString(action.labelEmoji), ""))
-                .labelString(Objects.requireNonNullElse(decryptString(action.labelString), ""))
+                .labelEmoji(decryptMemberLabelEmoji(action.labelEmoji))
+                .labelString(decryptMemberLabelText(action.labelString))
                 .build()
         );
       }
       builder.modifyMemberLabels(modifyMemberLabels);
+
+      // Field 27
+      if (actions.modifyMemberLabelAccess != null) {
+        builder.newMemberLabelAccess(actions.modifyMemberLabelAccess.memberLabelAccess);
+      }
 
       if (editorServiceId instanceof ServiceId.PNI) {
         if (actions.addMembers.size() == 1 && builder.newMembers.size() == 1) {
@@ -806,8 +817,8 @@ public final class GroupsV2Operations {
     private DecryptedMember.Builder decryptMember(Member member)
         throws InvalidGroupStateException, VerificationFailedException, InvalidInputException
     {
-      String labelEmoji  = Objects.requireNonNullElse(decryptString(member.labelEmoji), "");
-      String labelString = Objects.requireNonNullElse(decryptString(member.labelString), "");
+      String labelEmoji  = decryptMemberLabelEmoji(member.labelEmoji);
+      String labelString = decryptMemberLabelText(member.labelString);
 
       if (member.presentation.size() == 0) {
         ACI aci = decryptAci(member.userId);
@@ -1061,6 +1072,26 @@ public final class GroupsV2Operations {
       return new String(decryptedBytes, StandardCharsets.UTF_8);
     }
 
+    @Nonnull
+    private String decryptMemberLabelText(@Nullable ByteString cipherText) {
+      try {
+        return Objects.requireNonNullElse(decryptString(cipherText), "");
+      } catch (VerificationFailedException e) {
+        Log.w(TAG, "Failed to decrypt member label string, treating as unset");
+        return "";
+      }
+    }
+
+    @Nonnull
+    private String decryptMemberLabelEmoji(@Nullable ByteString cipherText) {
+      try {
+        return Objects.requireNonNullElse(decryptString(cipherText), "");
+      } catch (VerificationFailedException e) {
+        Log.w(TAG, "Failed to decrypt member label emoji, treating as unset");
+        return "";
+      }
+    }
+
     /**
      * Verifies signature and parses actions on a group change.
      */
@@ -1107,6 +1138,21 @@ public final class GroupsV2Operations {
                   .build()
           )
       );
+    }
+
+    public GroupChange.Actions.Builder createRemoveMemberLabelsChange(@Nonnull List<ACI> acis) {
+      List<GroupChange.Actions.ModifyMemberLabelAction> actions = acis
+          .stream()
+          .map(memberAci ->
+                   new GroupChange.Actions.ModifyMemberLabelAction.Builder()
+                       .userId(encryptServiceId(memberAci))
+                       .labelEmoji(ByteString.EMPTY)
+                       .labelString(ByteString.EMPTY)
+                       .build()
+          )
+          .collect(Collectors.toList());
+
+      return new GroupChange.Actions.Builder().modifyMemberLabels(actions);
     }
 
     public List<ServiceId> decryptAddMembers(List<GroupChange.Actions.AddMemberAction> addMembers) throws InvalidGroupStateException, InvalidInputException, VerificationFailedException {

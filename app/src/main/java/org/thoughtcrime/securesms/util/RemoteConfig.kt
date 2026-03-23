@@ -910,6 +910,15 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** Maximum size a video transcode should target in bytes  */
+  @JvmStatic
+  @get:JvmName("videoTranscodeTargetSizeBytes")
+  val videoTranscodeTargetSizeBytes: Long by remoteLong(
+    key = "global.videoAttachments.transcodeTargetBytes",
+    defaultValue = 100.mebiBytes.inWholeBytes,
+    hotSwappable = true
+  )
+
   /** Maximum input size when opening a video to send in bytes  */
   @JvmStatic
   @get:JvmName("maxSourceTranscodeVideoSizeBytes")
@@ -1154,6 +1163,15 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** The maximum number of attachment pointers that can have incrementalMac populated in a single envelope. */
+  @JvmStatic
+  @get:JvmName("maxIncrementalMacsPerEnvelope")
+  val maxIncrementalMacsPerEnvelope: Int by remoteInt(
+    key = "global.maxIncrementalMacsPerEnvelope",
+    defaultValue = 10,
+    hotSwappable = true
+  )
+
   /** Whether or not to send over binary service ids (alongside string service ids). */
   @JvmStatic
   @get:JvmName("useBinaryId")
@@ -1179,22 +1197,6 @@ object RemoteConfig {
     hotSwappable = true
   )
 
-  @JvmStatic
-  @get:JvmName("receivePinnedMessages")
-  val receivePinnedMessages: Boolean by remoteBoolean(
-    key = "android.receivePinnedMessages.2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  @JvmStatic
-  @get:JvmName("sendPinnedMessages")
-  val sendPinnedMessages: Boolean by remoteBoolean(
-    key = "android.sendPinnedMessages.2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
   /**
    * Whether or not to allow 1:1 polls and a higher character limit for questions
    */
@@ -1207,32 +1209,12 @@ object RemoteConfig {
   )
 
   /**
-   * Whether to receive and display group member labels.
-   */
-  val receiveMemberLabels: Boolean by remoteBoolean(
-    key = "android.receiveMemberLabels.2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
-   * Whether to enable modifying group member labels.
-   */
-  @JvmStatic
-  @get:JvmName("sendMemberLabels")
-  val sendMemberLabels: Boolean by remoteBoolean(
-    key = "android.sendMemberLabels.3",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Whether or not to receive admin delete messages.
    */
   @JvmStatic
   @get:JvmName("receiveAdminDelete")
   val receiveAdminDelete: Boolean by remoteBoolean(
-    key = "android.receiveAdminDelete.2",
+    key = "android.receiveAdminDelete.3",
     defaultValue = false,
     hotSwappable = true
   )
@@ -1267,6 +1249,14 @@ object RemoteConfig {
   val adminDeleteThreshold: Long by remoteLong(
     key = "global.adminDeleteMaxAgeInSeconds",
     defaultValue = 1.days.inWholeSeconds,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("dredDuration")
+  val dredDuration: Int by remoteInt(
+    key = "global.calling.dredDuration",
+    defaultValue = 0,
     hotSwappable = true
   )
   // endregion

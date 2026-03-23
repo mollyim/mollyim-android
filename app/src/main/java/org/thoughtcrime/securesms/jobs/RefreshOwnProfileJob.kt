@@ -263,6 +263,11 @@ class RefreshOwnProfileJob private constructor(parameters: Parameters) : BaseJob
   }
 
   private fun checkUsernameIsInSync() {
+    if (SignalStore.misc.needsUsernameRestore) {
+      Log.d(TAG, "Username restore is still pending. Skipping consistency check.")
+      return
+    }
+
     try {
       val localUsername = SignalStore.account.username
 

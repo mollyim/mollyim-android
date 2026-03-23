@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -513,6 +513,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">Ang kalakip ay lampas sa limitasyon ng laki para sa uri ng mensahe na ipinapadala mo.</string>
     <string name="ConversationActivity_unable_to_record_audio">Hindi makapag-record ng audio!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">Hindi ka maaaring mag-send ng messages sa group na ito dahil hindi ka na member.</string>
+    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
     <string name="ConversationActivity_only_s_can_send_messages">Si %1$s lamang ang pwedeng mag-send ng messages.</string>
     <string name="ConversationActivity_admins">admins</string>
     <string name="ConversationActivity_message_an_admin">I-message ang admin</string>
@@ -633,7 +634,10 @@
     <!-- Confirmation button to delete the message -->
     <string name="ConversationFragment_delete_for_everyone_title">Burahin para sa lahat?</string>
     <!-- Body of dialog explaining what happens during deletion -->
-    <string name="ConversationFragment_delete_for_everyone_body">Bilang isang admin, makikita ng group members na binura mo ang messages na ito.</string>
+    <plurals name="ConversationFragment_delete_for_everyone_body">
+        <item quantity="one">Group members on the latest versions of Signal will see that you deleted this message.</item>
+        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+    </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Burahin sa device na ito</string>
     <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
@@ -2017,6 +2021,13 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">Pinalitan ni %1$s kung sinong pwedeng mag-edit ng group membership sa \"%2$s\".</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Ang pwedeng mag-edit ng group membership ay napalitan sa \"%1$s\".</string>
 
+    <!-- Shown when the current user changes the member label permission. -->
+    <string name="MessageRecord_you_changed_who_can_add_member_labels_to_s">Pinalitan mo kung sinong makakapaglagay ng member labels sa \"%1$s\".</string>
+    <!-- Shown when another group member changes the member label permission. -->
+    <string name="MessageRecord_s_changed_who_can_add_member_labels_to_s">Pinalitan ni %1$s kung sinong makakapaglagay ng member labels sa \"%2$s\".</string>
+    <!-- Shown when the member label permission is changed by an unknown admin. -->
+    <string name="MessageRecord_unknown_admin_changed_who_can_add_member_labels_to_s">Pinalitan ng isang admin kung sinong makakapaglagay ng member labels sa \"%1$s\".</string>
+
     <!-- GV2 announcement group change -->
     <string name="MessageRecord_you_allow_all_members_to_send">Pinalitan mo ang group settings sa pag-allow sa lahat ng members na mag-send ng messages.</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">Pinalitan mo ang group settings sa pag-allow sa admins lamang na mag-send ng messages.</string>
@@ -3380,6 +3391,17 @@
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">Hindi makapag-save sa panlabas na storage nang walang pahintulot</string>
 
+    <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_media">Hindi ma-save ang media</string>
+    <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__media_offloaded_message">Ang media na ito ay offloaded mula sa device mo dahil naka-on ang \"I-optimize ang on-device storage\". Maaari mong i-save ang bawat item, o i-off ang \"I-optimize ang on-device storage\" para ma-download ang lahat ng media sa device mo.</string>
+    <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_all_items">Hindi ma-save ang lahat ng items</string>
+    <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__some_media_offloaded_message">Ang ilang media na pinili mo ay offloaded mula sa device mo dahil naka-on ang \"I-optimize ang on-device storage\". Maaari mong i-save ang bawat items, o i-off ang \"I-optimize ang on-device storage\" para ma-download ang lahat ng media sa device mo.</string>
+    <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
+    <string name="AttachmentSaver__view_storage_settings">Tignan ang storage settings</string>
+
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">Maghanap</string>
     <!-- Hint when searching filtered chat content -->
@@ -4622,6 +4644,7 @@
     <string name="conversation__menu_view_all_media">Lahat ng media</string>
     <string name="conversation__menu_conversation_settings">Chat settings</string>
     <string name="conversation__menu_add_shortcut">Idagdag sa home screen</string>
+    <string name="conversation__menu_export">I-export</string>
     <string name="conversation__menu_create_bubble">Mag-create ng bubble</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">I-format ang text</string>
@@ -4630,6 +4653,13 @@
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_add_to_contacts__menu_add_to_contacts">Idagdag sa mga kontak</string>
+
+    <!-- conversation export -->
+    <string name="conversation_export__exporting">Exporting chat…</string>
+    <string name="conversation_export__export_complete">Chat exported successfully</string>
+    <string name="conversation_export__export_failed">Export failed</string>
+    <string name="conversation_export__export_cancelled">Export cancelled</string>
+    <string name="conversation_export__preparing">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -4865,6 +4895,8 @@
     <string name="BackupDialog_delete_backups">Burahin ang mga backup?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">I-disable at burahin ang lahat ng lokal na backup?</string>
     <string name="BackupDialog_delete_backups_statement">Burahin ang mga backup</string>
+    <!-- Progress dialog message shown while local backup files are being deleted -->
+    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Para ma-enable ang backups, choose a folder. Ang backups ay masa-save sa location na ito.</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">Pumili ng folder</string>
@@ -5165,6 +5197,8 @@
     <string name="RecipientBottomSheet_remove_from_group">Tanggalin mula sa group</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">Gusto mo bang tanggalin si %1$s bilang group admin?</string>
+    <!-- Message shown when removing an admin will also clear their member label. -->
+    <string name="RecipientBottomSheet_remove_s_as_group_admin_and_clear_member_label">Gusto mo bang tanggalin si %1$s bilang group admin? Mawawala rin ang member label nila.</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"Pwedeng i-edit ni \"%1$s\" ang group at ang members nito."</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">Gusto mo bang tanggalin si %1$s mula sa group?</string>
@@ -6002,6 +6036,16 @@
     <string name="PermissionsSettingsFragment__who_can_add_new_members">Sinong pwedeng mag-add ng bagong members?</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Sinong pwedeng mag-edit ng info ng group na ito?</string>
     <string name="PermissionsSettingsFragment__who_can_send_messages">Sino ang pwedeng mag-send ng messages at magsimula ng calls?</string>
+    <!-- Label for the member labels permission button in the group permissions settings screen. -->
+    <string name="PermissionsSettingsFragment__add_member_labels">Maglagay ng member labels</string>
+    <!-- Dialog title shown when choosing who has permission to add member labels in the group. -->
+    <string name="PermissionsSettingsFragment__who_can_add_member_labels">Sinong makakapaglagay ng member labels?</string>
+    <!-- Warning title shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">Tatanggalin ang member labels</string>
+    <!-- Warning body shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"Kapag ginawa mong Only admins ang permission na ito, matatanggal ang member labels na inilagay ng mga hindi admin sa group na ito."</string>
+    <!-- Confirm button for changing member label permission after warning. -->
+    <string name="PermissionsSettingsFragment__change_permission">Palitan ang permission</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <!-- Label for the setting to mute notifications for a conversation -->
@@ -6790,6 +6834,53 @@
     <string name="MyStories__this_story_will_be_deleted">Mabubura ang story na ito sa \'yo at sa lahat ng naka-receive nito.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">Unable to save</string>
+
+    <!-- StoryArchive -->
+    <!-- Title for the story archive screen -->
+    <string name="StoryArchive__story_archive">Story archive</string>
+    <!-- Section header in story settings -->
+    <string name="StoryArchive__archive">I-archive</string>
+    <!-- Label for switch to enable story archiving -->
+    <string name="StoryArchive__keep_stories_in_archive">Panatilihin ang stories sa archive</string>
+    <!-- Description for the archive toggle -->
+    <string name="StoryArchive__save_stories_after_they_expire">I-save ang mga ipinadala mong stories pagkatapos nitong maalis sa active feed.</string>
+    <!-- Label for archive duration preference -->
+    <string name="StoryArchive__keep_stories_for">Panatilihin ang stories sa loob ng</string>
+    <!-- Archive duration option: forever -->
+    <string name="StoryArchive__forever">Forever</string>
+    <!-- Archive duration option: 1 year -->
+    <string name="StoryArchive__1_year">1 year</string>
+    <!-- Archive duration option: 6 months -->
+    <string name="StoryArchive__6_months">6 months</string>
+    <!-- Archive duration option: 30 days -->
+    <string name="StoryArchive__30_days">30 days</string>
+    <!-- Empty state title when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories">Walang naka-archive na stories</string>
+    <!-- Empty state message when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories_message">I-on ang \"Save Stories to Archive\" sa story settings para i-auto archive ang stories mo.</string>
+    <!-- Empty state button to navigate to story settings -->
+    <string name="StoryArchive__go_to_settings">Pumunta sa settings</string>
+    <!-- Label for sort order menu -->
+    <string name="StoryArchive__sort_by">Pasunud-sunurin ayon sa</string>
+    <!-- Sort order option: newest first -->
+    <string name="StoryArchive__newest">Pinakabago</string>
+    <!-- Sort order option: oldest first -->
+    <string name="StoryArchive__oldest">Pinakaluma</string>
+    <!-- Delete action in story archive multi-select bottom bar -->
+    <string name="StoryArchive__delete">Burahin</string>
+    <!-- Content description for selecting a story in multi-select mode -->
+    <string name="StoryArchive__select_story">Pumili ng story</string>
+    <!-- Confirmation dialog body when deleting stories from archive -->
+    <plurals name="StoryArchive__delete_n_stories">
+        <item quantity="one">Gusto mo bang burahin ang %1$d story? Hindi mo na ito mababago.</item>
+        <item quantity="other">Gusto mo bang burahin ang %1$d stories? Hindi mo na ito mababago.</item>
+    </plurals>
+    <!-- Title shown in toolbar when in multi-select mode in story archive, %d is count of selected items -->
+    <plurals name="StoryArchive__d_selected">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="one">%1$d view</item>
@@ -7953,7 +8044,7 @@
     <!-- Title of the backup upsell bottom sheet promoting paid backup plans -->
     <string name="BackupUpsellBottomSheet__title">Mag-upgrade para i-back up ang lahat ng media</string>
     <!-- Body of the backup upsell bottom sheet -->
-    <string name="BackupUpsellBottomSheet__body">Sine-save ng Paid Signal Secure Backup plans ang lahat ng media na sinend at na-receive mo hanggang 100GB. Hindi ka na mawawalan ng image o video kapag nagkaroon ka ng bagong phone o nag-reinstall ka ng Signal.</string>
+    <string name="BackupUpsellBottomSheet__body">Sine-save ng Paid Signal Secure Backup plans ang lahat ng media na sinend at na-receive mo hanggang 100GB. Hindi ka na mawawalan ng photo o video kapag nagkaroon ka ng bagong phone o nag-reinstall ka ng Signal.</string>
     <!-- Label for the paid plan price shown in the feature card, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__price_per_month">%1$s/buwan</string>
     <!-- Subtitle for the paid plan feature card -->
@@ -8215,7 +8306,7 @@
 
     <!-- OnDeviceBackupsFragment -->
     <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
-    <string name="OnDeviceBackupsFragment__backup_key_updated">Updated na ang backup key</string>
+    <string name="OnDeviceBackupsFragment__recovery_key_updated">Na-update ang recovery key</string>
     <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
     <string name="OnDeviceBackupsFragment__directory_selected">Directory selected: %1$s</string>
 
@@ -8659,6 +8750,26 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">I-scan ang QR Code</string>
 
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">Pinoproseso ang backup…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">Hinahanda ang backup…</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">Finalizing…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+
+    <!-- LocalArchiveJob -->
+    <!-- Notification title shown while media attachments are being exported during a local backup -->
+    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
     <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">Improvements sa on-device backups</string>
@@ -8680,7 +8791,7 @@
     <string name="OnDeviceBackupsSettingsScreen__update">I-update</string>
 
     <!-- UnifiedOnDeviceBackupsSettingsScreen -->
-    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">Tingnan ang backup key</string>
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_recovery_key">Tingnan ang recovery key</string>
 
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
@@ -8750,9 +8861,9 @@
     <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">Papalitan ng key na ito ang key sa on-device backup mo.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Ang backup key mo ay isang 64-digit code na magagamit mo sa pag-restore ng iyong backup kapag nag-install ka ulit ng Signal.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Ang recovery key mo ay isang 64-character code na magagamit mo sa pag-restore ng iyong backups kapag nag-install ka ulit ng Signal.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Kapareho ito ng on-device backup key mo.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Kapareho ito ng on-device recovery key mo.</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">Gamitin ang key na ito para:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -8770,7 +8881,7 @@
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">Kailangan ang key para ma-recover mo ang iyong account at data. Itago ang key na ito sa ligtas na lugar. Kapag nawala mo ito, hindi mo mare-recover ang iyong account.</string>
     <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">Ang key na ito ay kapareho ng on-device backup key mo. Required ito para ma-recover ang account at data mo.</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_recovery_key">Ang key na ito ay kapareho ng on-device recovery key mo. Required ito para ma-recover ang account at data mo.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">Kopyahin sa clipboard</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9019,8 +9130,8 @@
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">Ilagay ang iyong recovery key</string>
     <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
     <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">Ang backup key mo ay isang 64-character code na kinakailangan para ma-recover ang iyong account at data.</string>
-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a backup key -->
-    <string name="EnterLocalBackupKeyScreen__no_backup_key">Wala kang backup key?</string>
+    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+    <string name="EnterLocalBackupKeyScreen__no_recovery_key">Walang recovery key?</string>
     <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
     <string name="EnterLocalBackupKeyScreen__next">Susunod</string>
 
@@ -9471,12 +9582,16 @@
     <string name="GroupMemberLabel__description">Mag-set ng member label para ilarawan ang sarili o ang role mo sa group na ito. Sa group lang na ito makikita ang labels.</string>
     <!-- Error message shown when the group member label fails to save due to a network error. -->
     <string name="GroupMemberLabel__error_cant_save_no_network">Hindi ma-save ang label. I-check ang network mo at subukan ulit.</string>
+    <!-- Error message shown when trying to edit a member label without adequate permission. -->
+    <string name="GroupMemberLabel__error_no_edit_permission">Admins lang ang makakapaglagay ng member labels sa group na ito.</string>
     <!-- Accessibility label for the button to open the group member label emoji picker. -->
     <string name="GroupMemberLabel__accessibility_select_emoji">Pumili ng emoji</string>
     <!-- Accessibility label for the group member label close screen button. -->
     <string name="GroupMemberLabel__accessibility_close_screen">Isara ang screen</string>
     <!-- Accessibility label for the group member label text field clear button. -->
     <string name="GroupMemberLabel__accessibility_clear_label">I-clear ang label</string>
+    <!-- Section header for the list of group members who have labels set. -->
+    <string name="GroupMemberLabel__group_members_with_labels">Group members na may labels</string>
 
     <!-- Title for the member labels education sheet. -->
     <string name="MemberLabelsEducation__title">Member labels</string>

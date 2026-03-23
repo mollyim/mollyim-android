@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -513,6 +513,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">მიმაგრებული ფაილი აღემატება იმ შეტყობინების ზომების ლიმიტებს, რომლის გაგზავნასაც შენ ცდილობ.</string>
     <string name="ConversationActivity_unable_to_record_audio">აუდიოს ჩაწერა შეუძლებელია!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">შენ არ შეგიძლია შეტყობინებების გაგზავნა ამ ჯგუფში, რადგან აღარ ხარ მისი წევრი.</string>
+    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
     <string name="ConversationActivity_only_s_can_send_messages">მხოლოდ %1$s-ს შეუძლია შეტყობინებების გაგზავნა.</string>
     <string name="ConversationActivity_admins">ადმინები</string>
     <string name="ConversationActivity_message_an_admin">ადმინისთვის მიწერა</string>
@@ -633,7 +634,10 @@
     <!-- Confirmation button to delete the message -->
     <string name="ConversationFragment_delete_for_everyone_title">ყველასთან წაიშალოს?</string>
     <!-- Body of dialog explaining what happens during deletion -->
-    <string name="ConversationFragment_delete_for_everyone_body">ჯგუფის წევრები ნახავენ, რომ ეს წერილები წაშალე, როგორც ადმინისტრატორმა.</string>
+    <plurals name="ConversationFragment_delete_for_everyone_body">
+        <item quantity="one">Group members on the latest versions of Signal will see that you deleted this message.</item>
+        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+    </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">ამ მოწყობილობაზე წაშლა</string>
     <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
@@ -2017,6 +2021,13 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s-მა შეცვალა ის, ვისაც შეუძლია ჯგუფის წევრობის რედაქტირება \"%2$s\"-ზე.</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">ის, ვისაც შეუძლია ჯგუფის წევრობის რედაქტირება შეიცვალა \"%1$s\"-ზე.</string>
 
+    <!-- Shown when the current user changes the member label permission. -->
+    <string name="MessageRecord_you_changed_who_can_add_member_labels_to_s">შენ შეცვალე, ვის შეუძლია წევრის იარლიყების დამატება \"%1$s\"-ით.</string>
+    <!-- Shown when another group member changes the member label permission. -->
+    <string name="MessageRecord_s_changed_who_can_add_member_labels_to_s">%1$s-მ(ა) შეცვალა, ვის შეუძლია წევრის იარლიყების დამატება \"%2$s\"-ით.</string>
+    <!-- Shown when the member label permission is changed by an unknown admin. -->
+    <string name="MessageRecord_unknown_admin_changed_who_can_add_member_labels_to_s">ადმინისტრატორმა შეცვალა, ვის შეუძლია წევრის იარლიყების დამატება \"%1$s\"-ით.</string>
+
     <!-- GV2 announcement group change -->
     <string name="MessageRecord_you_allow_all_members_to_send">შენ შეცვალე ჯგუფის პარამეტრები ისე, რომ ყველა წევრს შეეძლოს შეტყობინებების გაგზავნა.</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">შენ შეცვალე ჯგუფის პარამეტრები ისე, რომ მხოლოდ ადმინებს შეეძლოთ შეტყობინებების გაგზავნა.</string>
@@ -3380,6 +3391,17 @@
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">ნებართვების გარეშე გარე მეხსიერებაში შენახვა შეუძლებელია</string>
 
+    <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_media">მედია ფაილის შენახვა შეუძლებელია</string>
+    <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__media_offloaded_message">შენი მოწყობილობიდან ამ მედია ფაილის გადატანა მოხდა, რადგან \"მოწყობილობის მეხსიერების ოპტიმიზაციაა\" ჩართული. შეგიძლია თითო-თითო ელემენტი გადმოწერო, ან \"მოწყობილობის მეხსიერების ოპტიმიზაცია\" გამორთო, რომ ყველა მედია ფაილი ერთიანად გადმოიწერო შენს მოწყობილობაზე.</string>
+    <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_all_items">ყველა ელემენტის შენახვა შეუძლებელია</string>
+    <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__some_media_offloaded_message">შენი მოწყობილობიდან შენ მიერ არჩეული ზოგიერთი მედია ფაილის გადატანა მოხდა, რადგან \"მოწყობილობის მეხსიერების ოპტიმიზაციაა\" ჩართული. შეგიძლია თითო-თითო ელემენტი შეინახო , ან \"მოწყობილობის მეხსიერების ოპტიმიზაცია გამორთო, რომ ყველა მედია ფაილი ერთიანად გადმოიწერო შენს მოწყობილობაზე.</string>
+    <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
+    <string name="AttachmentSaver__view_storage_settings">მეხსიერების პარამეტრების ნახვა</string>
+
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">ძიება</string>
     <!-- Hint when searching filtered chat content -->
@@ -4622,6 +4644,7 @@
     <string name="conversation__menu_view_all_media">ყველა მედია-ფაილი</string>
     <string name="conversation__menu_conversation_settings">ჩატის პარამეტრები</string>
     <string name="conversation__menu_add_shortcut">მთავარ გვერდზე დამატება</string>
+    <string name="conversation__menu_export">ექსპორტირება</string>
     <string name="conversation__menu_create_bubble">ბაბლის შექმნა</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">ტექსტის ფორმატირება</string>
@@ -4630,6 +4653,13 @@
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_add_to_contacts__menu_add_to_contacts">კონტაქტებში დამატება</string>
+
+    <!-- conversation export -->
+    <string name="conversation_export__exporting">Exporting chat…</string>
+    <string name="conversation_export__export_complete">Chat exported successfully</string>
+    <string name="conversation_export__export_failed">Export failed</string>
+    <string name="conversation_export__export_cancelled">Export cancelled</string>
+    <string name="conversation_export__preparing">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -4865,6 +4895,8 @@
     <string name="BackupDialog_delete_backups">წავშალოთ სარეზერვო კოპიები?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">გამოვრთოთ და წავშალოთ ყველა ადგილობრივი სარეზერვო კოპია?</string>
     <string name="BackupDialog_delete_backups_statement">სარეზერვო კოპიების წაშლა</string>
+    <!-- Progress dialog message shown while local backup files are being deleted -->
+    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">სარეზერვო კოპიების ჩასართავად აირჩიე შენახვის ადგილი. სარეზერვო კოპიებს მანდ მოვუყრით თავს.</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">აირჩიე შენახვის ადგილი</string>
@@ -5165,6 +5197,8 @@
     <string name="RecipientBottomSheet_remove_from_group">ჯგუფიდან წაშლა</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">ჩამოვართვათ %1$s-ს ჯგუფის ადმინობა?</string>
+    <!-- Message shown when removing an admin will also clear their member label. -->
+    <string name="RecipientBottomSheet_remove_s_as_group_admin_and_clear_member_label">ჩამოვართვათ %1$s-ს ჯგუფის ადმინობა? ეს მის წევრის იარლიყსაც წაშლის.</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"„%1$s“ შეძლებს ამ ჯგუფისა და მისი წევრების რედაქტირებას."</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">წავშალოთ %1$s ჯგუფიდან?</string>
@@ -6002,6 +6036,16 @@
     <string name="PermissionsSettingsFragment__who_can_add_new_members">ვის შეუძლია ახალი წევრების დამატება?</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">ვის შეუძლია ამ ჯგუფის ინფორმაციის რედაქტირება?</string>
     <string name="PermissionsSettingsFragment__who_can_send_messages">ვის შეუძლია შეტყობინების გაგზავნა და ზარების წამოწყება?</string>
+    <!-- Label for the member labels permission button in the group permissions settings screen. -->
+    <string name="PermissionsSettingsFragment__add_member_labels">წევრის იარლიყის დამატება</string>
+    <!-- Dialog title shown when choosing who has permission to add member labels in the group. -->
+    <string name="PermissionsSettingsFragment__who_can_add_member_labels">ვის შეუძლია წევრის იარლიყების დამატება?</string>
+    <!-- Warning title shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">წევრის იარლიყები წაიშლება</string>
+    <!-- Warning body shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"ნებართვის მხოლოდ ადმინისტრატორზე გადაყვანა ამ ჯგუფში არაადმინისტრატორების მიერ დაყენებულ წევრის იარლიყებს წაშლის."</string>
+    <!-- Confirm button for changing member label permission after warning. -->
+    <string name="PermissionsSettingsFragment__change_permission">ნებართვის შეცვლა</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <!-- Label for the setting to mute notifications for a conversation -->
@@ -6790,6 +6834,53 @@
     <string name="MyStories__this_story_will_be_deleted">ეს Story-ი წაიშლება შენთვის და ყველასთვის, ვინც ის მიიღო.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">შენახვა ვერ მოხერხდა</string>
+
+    <!-- StoryArchive -->
+    <!-- Title for the story archive screen -->
+    <string name="StoryArchive__story_archive">სთორის არქივი</string>
+    <!-- Section header in story settings -->
+    <string name="StoryArchive__archive">დაარქივება</string>
+    <!-- Label for switch to enable story archiving -->
+    <string name="StoryArchive__keep_stories_in_archive">სთორიების არქივში შენახვა</string>
+    <!-- Description for the archive toggle -->
+    <string name="StoryArchive__save_stories_after_they_expire">შეინახე შენი გაგზავნილი სთორიები მას შემდეგ, რაც აქტიურ ფიდს დატოვებენ.</string>
+    <!-- Label for archive duration preference -->
+    <string name="StoryArchive__keep_stories_for">შეინახე სთორიები</string>
+    <!-- Archive duration option: forever -->
+    <string name="StoryArchive__forever">სამუდამოდ</string>
+    <!-- Archive duration option: 1 year -->
+    <string name="StoryArchive__1_year">1 წლით</string>
+    <!-- Archive duration option: 6 months -->
+    <string name="StoryArchive__6_months">6 თვით</string>
+    <!-- Archive duration option: 30 days -->
+    <string name="StoryArchive__30_days">30 დღით</string>
+    <!-- Empty state title when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories">დაარქივებული სთორიები ვერ მოიძებნა</string>
+    <!-- Empty state message when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories_message">ჩართე \"სთორიების არქივში შენახვა\" შენი სთორიების პარამეტრებიდან და ავტომატურად დააარქივე.</string>
+    <!-- Empty state button to navigate to story settings -->
+    <string name="StoryArchive__go_to_settings">შედი პარამეტრებში</string>
+    <!-- Label for sort order menu -->
+    <string name="StoryArchive__sort_by">დახარისხება</string>
+    <!-- Sort order option: newest first -->
+    <string name="StoryArchive__newest">ყველაზე ახალი</string>
+    <!-- Sort order option: oldest first -->
+    <string name="StoryArchive__oldest">ყველაზე ძველი</string>
+    <!-- Delete action in story archive multi-select bottom bar -->
+    <string name="StoryArchive__delete">წაშლა</string>
+    <!-- Content description for selecting a story in multi-select mode -->
+    <string name="StoryArchive__select_story">სთორის არჩევა</string>
+    <!-- Confirmation dialog body when deleting stories from archive -->
+    <plurals name="StoryArchive__delete_n_stories">
+        <item quantity="one">%1$d სთორის წაშლა გსურს? ამ მოქმედების გაუქმება შეუძლებელია.</item>
+        <item quantity="other">%1$d სთორიების წაშლა გსურს? ამ მოქმედების გაუქმება შეუძლებელია.</item>
+    </plurals>
+    <!-- Title shown in toolbar when in multi-select mode in story archive, %d is count of selected items -->
+    <plurals name="StoryArchive__d_selected">
+        <item quantity="one">%1$d არჩეულია</item>
+        <item quantity="other">%1$d არჩეულია</item>
+    </plurals>
+
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="one">%1$d ნახვა</item>
@@ -7933,7 +8024,7 @@
     <!-- Title of Megaphone C: upsell to upgrade backups when user has lots of media -->
     <string name="BackupMediaUpsell__title">შექმენი შენი ყველა მედია ფაილის სათადარიგო ასლი</string>
     <!-- Body of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__body">Signal-ის უსაფრთხო სათადარიგო ასლების ფასიანი ვერსია 100GB-მდე მედია ფაილს ინახავს.</string>
+    <string name="BackupMediaUpsell__body">Signal-ის უსაფრთხო სათადარიგო ასლების ფასიანი გამოწერით 100GB-მდე მედია ფაილების შენახვა შეგიძლია.</string>
     <!-- Primary button of Megaphone C -->
     <string name="BackupMediaUpsell__upgrade">Upgrade</string>
     <!-- Secondary button of Megaphone C -->
@@ -7953,7 +8044,7 @@
     <!-- Title of the backup upsell bottom sheet promoting paid backup plans -->
     <string name="BackupUpsellBottomSheet__title">განაახლე ყველა მედია ფაილის სათადარიგო ასლის გასაკეთებლად</string>
     <!-- Body of the backup upsell bottom sheet -->
-    <string name="BackupUpsellBottomSheet__body">Signal-ის უსაფრთხო სათადარიგო ასლების ფასიანი ვერსია მაქსიმუმ 100GB-მდე ოდენობის შენ მიერი გაგზავნილ და მიღებულ ყველა მედია ფაილს ინახავს. არასდროს დაკარგო სურათები ან ვიდეოები, როცა ახალ მობილურს იყიდი ან Signal-ს თავიდან გადმოწერ.</string>
+    <string name="BackupUpsellBottomSheet__body">Signal-ის უსაფრთხო სათადარიგო ასლების ფასიანი ვერსია, მაქსიმუმ, 100GB-მდე ოდენობის შენ მიერ გაგზავნილ და მიღებულ ყველა მედია ფაილს ინახავს. არასდროს დაკარგო ფოტოები ან ვიდეოები, როცა ახალ მობილურს იყიდი ან Signal-ს თავიდან გადმოწერ.</string>
     <!-- Label for the paid plan price shown in the feature card, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__price_per_month">%1$s/თვეში</string>
     <!-- Subtitle for the paid plan feature card -->
@@ -8215,7 +8306,7 @@
 
     <!-- OnDeviceBackupsFragment -->
     <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
-    <string name="OnDeviceBackupsFragment__backup_key_updated">სათადარიგო ასლების გასაღები განახლდა</string>
+    <string name="OnDeviceBackupsFragment__recovery_key_updated">აღდგენის გასაღები განახლდა</string>
     <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
     <string name="OnDeviceBackupsFragment__directory_selected">არჩეული დირექტორია: %1$s</string>
 
@@ -8659,6 +8750,26 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">QR კოდის დასკანირება</string>
 
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">მიმდინარეობს სათადარიგო ასლების დამუშავება…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">მზადდება სათადარიგო ასლები…</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">სრულდება…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+
+    <!-- LocalArchiveJob -->
+    <!-- Notification title shown while media attachments are being exported during a local backup -->
+    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
     <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">გაუმჯობესებული მოწყობილობის სათადარიგო ასლები</string>
@@ -8680,7 +8791,7 @@
     <string name="OnDeviceBackupsSettingsScreen__update">განახლება</string>
 
     <!-- UnifiedOnDeviceBackupsSettingsScreen -->
-    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">სათადარიგო ასლების გასაღების ნახვა</string>
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_recovery_key">აღდგენის გასაღების ნახვა</string>
 
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
@@ -8750,9 +8861,9 @@
     <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">ეს გასაღები შენი მოწყობილობის სათადარიგო ასლების გასაღებს ჩაანაცვლებს.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">შენი სათადარიგო ასლების გასაღები 64-სიმბოლოანი კოდია, რომელიც საშუალებას გაძლევს, შენი ჩანაწერები აღადგინო, თუ Signal-ს თავიდან გადმოიწერ.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">შენი სათადარიგო ასლების გასაღები 64-სიმბოლოიანი კოდია, რომელიც საშუალებას გაძლევს, შენი სათადარიგო ასლები აღადგინო, თუ Signal-ს თავიდან გადმოიწერ.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">ეს იგივეა, რაც მოწყობილობის სათადარიგო ასლების გასაღები.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">ეს გასაღები იგივეა, რაც შენი მოწყობილობის აღდგენის გასაღები.</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">გამოიყენე ეს გასაღები:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -8770,7 +8881,7 @@
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">ეს გასაღები საჭიროა შენი ანგარიშისა და მონაცემების აღსადგენად. შეინახე გასაღები უსაფრთხო ადგილას. თუ მას დაკარგავ, შენი ანგარიშის აღდგენას ვეღარ შეძლებ.</string>
     <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">ეს იგივეა, რაც მოწყობილობის სათადარიგო ასლების გასაღები. ეს შენი ანგარიშისა და მონაცემების აღსადგენადაა საჭირო.</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_recovery_key">ეს გასაღები იგივეა, რაც შენი მოწყობილობის აღდგენის გასაღები. ის შენი ანგარიშისა და მონაცემების აღსადგენადაა საჭირო.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">ბუფერში ჩაკოპირება</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9019,8 +9130,8 @@
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">შეიყვანე შენი აღდგენის გასაღები</string>
     <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
     <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">შენი სათადარიგო ასლების გასაღები 64-სიმბოლოიანი კოდია, რომელიც შენი ანგარიშისა და მონაცემების აღსადგენადაა საჭირო.</string>
-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a backup key -->
-    <string name="EnterLocalBackupKeyScreen__no_backup_key">არ გაქვს სათადარიგო ასლების გასაღები?</string>
+    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+    <string name="EnterLocalBackupKeyScreen__no_recovery_key">არ გაქვს აღდგენის გასაღები?</string>
     <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
     <string name="EnterLocalBackupKeyScreen__next">შემდეგი</string>
 
@@ -9471,12 +9582,16 @@
     <string name="GroupMemberLabel__description">დაამატე წევრის იარლიყი, რომ შენი თავი ან ჯგუფში შენი როლი აღწერო. იარლიყები მხოლოდ ამ ჯგუფში ჩანს.</string>
     <!-- Error message shown when the group member label fails to save due to a network error. -->
     <string name="GroupMemberLabel__error_cant_save_no_network">იარლიყი ვერ შეინახა. შეამოწმე შენი ინტერნეტ კავშირი და თავიდან სცადე.</string>
+    <!-- Error message shown when trying to edit a member label without adequate permission. -->
+    <string name="GroupMemberLabel__error_no_edit_permission">ამ ჯგუფში წევრის იარლიყების დაყენება მხოლოდ ადმინისტრატორებს შეუძლიათ.</string>
     <!-- Accessibility label for the button to open the group member label emoji picker. -->
     <string name="GroupMemberLabel__accessibility_select_emoji">აირჩიე ემოჯი</string>
     <!-- Accessibility label for the group member label close screen button. -->
     <string name="GroupMemberLabel__accessibility_close_screen">ეკრანის დახურვა</string>
     <!-- Accessibility label for the group member label text field clear button. -->
     <string name="GroupMemberLabel__accessibility_clear_label">იარლიყის წაშლა</string>
+    <!-- Section header for the list of group members who have labels set. -->
+    <string name="GroupMemberLabel__group_members_with_labels">ჯგუფის წევრები იარლიყებით</string>
 
     <!-- Title for the member labels education sheet. -->
     <string name="MemberLabelsEducation__title">წევრის იარლიყი</string>

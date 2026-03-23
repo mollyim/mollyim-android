@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.ringrtc.RemotePeer
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState
 import org.thoughtcrime.securesms.util.NetworkUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import java.io.IOException
 
 /**
@@ -65,6 +66,8 @@ class CallLinkPreJoinActionProcessor(
         .groupsV2Authorization
         .getCallLinkAuthorizationForToday(genericServerPublicParams, callLinkSecretParams)
 
+      val dredDuration: Byte = RemoteConfig.dredDuration.toByte()
+
       webRtcInteractor.callManager.createCallLinkCall(
         SignalStore.internal.groupCallingServer,
         WebRtcUtil.getProxyInfo(),
@@ -74,6 +77,7 @@ class CallLinkPreJoinActionProcessor(
         callLink.credentials.adminPassBytes,
         ByteArray(0),
         AUDIO_LEVELS_INTERVAL,
+        dredDuration,
         RingRtcDynamicConfiguration.getAudioConfig(),
         webRtcInteractor.groupCallObserver
       )

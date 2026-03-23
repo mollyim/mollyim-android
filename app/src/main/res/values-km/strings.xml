@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -508,6 +508,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">ឯកសារភ្ជាប់លើសទំហំកំណត់ សម្រាប់ប្រភេទសារដែលអ្នកកំពុងផ្ញើ។</string>
     <string name="ConversationActivity_unable_to_record_audio">មិនអាចថតសំឡេងបាន!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">អ្នកមិនអាចផ្ញើសារទៅក្រុមនេះបានទេ ដោយសារអ្នកមិនមែនជាសមាជិកក្រុម។</string>
+    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
     <string name="ConversationActivity_only_s_can_send_messages">មានតែ %1$s អាចផ្ញើសារ។</string>
     <string name="ConversationActivity_admins">អ្នកអភិបាល</string>
     <string name="ConversationActivity_message_an_admin">ផ្ញើសារទៅអ្នកអ្នកអភិបាល</string>
@@ -621,7 +622,9 @@
     <!-- Confirmation button to delete the message -->
     <string name="ConversationFragment_delete_for_everyone_title">លុបសម្រាប់អ្នករាល់គ្នា?</string>
     <!-- Body of dialog explaining what happens during deletion -->
-    <string name="ConversationFragment_delete_for_everyone_body">ក្នុងនាមជាអ្នកគ្រប់គ្រង សមាជិកក្រុមនឹងឃើញថាអ្នកបានលុបសារទាំងនេះ។</string>
+    <plurals name="ConversationFragment_delete_for_everyone_body">
+        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+    </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">លុបនៅលើឧបករណ៍នេះ</string>
     <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
@@ -1957,6 +1960,13 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s បានផ្លាស់ប្តូរអ្នកដែលអាចកែប្រែសមាជិកភាពក្រុមទៅ \"%2$s\"។</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">អ្នកដែលអាចកែប្រែសមាជិកភាពក្រុម ត្រូវបានផ្លាស់ប្តូរទៅ \"%1$s\"។</string>
 
+    <!-- Shown when the current user changes the member label permission. -->
+    <string name="MessageRecord_you_changed_who_can_add_member_labels_to_s">អ្នកបានផ្លាស់ប្តូរនរណាដែលអាចបញ្ចូលស្លាកសមាជិកទៅជា \"%1$s\"។</string>
+    <!-- Shown when another group member changes the member label permission. -->
+    <string name="MessageRecord_s_changed_who_can_add_member_labels_to_s">%1$s បានផ្លាស់ប្តូរនរណាដែលអាចបញ្ចូលស្លាកសមាជិកទៅជា \"%2$s\"។</string>
+    <!-- Shown when the member label permission is changed by an unknown admin. -->
+    <string name="MessageRecord_unknown_admin_changed_who_can_add_member_labels_to_s">អ្នកគ្រប់គ្រងម្នាក់បានផ្លាស់ប្តូរនរណាដែលអាចបញ្ចូលស្លាកសមាជិកទៅជា \"%1$s\"។</string>
+
     <!-- GV2 announcement group change -->
     <string name="MessageRecord_you_allow_all_members_to_send">អ្នកបានផ្លាស់ប្តូរការកំណត់ក្រុម ដើម្បីអនុញ្ញាតសមាជិកទាំងអស់ផ្ញើសារ។</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">អ្នកបានផ្លាស់ប្តូរការកំណត់ក្រុម ដើម្បីអនុញ្ញាតតែអ្នកគ្រប់គ្រងផ្ញើសារ។</string>
@@ -3277,6 +3287,17 @@
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">មិនអាចរក្សាទុកក្នុងទំហំផ្ទុកខាងក្រៅដោយគ្មានការអនុញ្ញាតបានទេ</string>
 
+    <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_media">មិនអាចរក្សាទុកមេឌៀទេ</string>
+    <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__media_offloaded_message">មេឌៀនេះត្រូវបានផ្ទេរពីឧបករណ៍របស់អ្នក ពីព្រោះមុខងារ \"បង្កើនប្រសិទ្ធភាពទំហំផ្ទុកនៅលើឧបករណ៍\" ត្រូវបានបើក។ អ្នកអាចទាញយកអ្វីៗម្តងមួយៗ ឬបិទមុខងារ \"បង្កើនប្រសិទ្ធភាពទំហំផ្ទុកនៅលើឧបករណ៍\" ដើម្បីទាញយកមេឌៀទាំងអស់ទៅកាន់ឧបករណ៍របស់អ្នក។</string>
+    <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_all_items">មិនអាចរក្សាទុកធាតុទាំងអស់បាន</string>
+    <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__some_media_offloaded_message">មេឌៀមួយចំនួនដែលអ្នកបានជ្រើសរើសត្រូវបានផ្ទេរពីឧបករណ៍របស់អ្នក ដោយសារតែមុខងារ \"បង្កើនប្រសិទ្ធភាពទំហំផ្ទុកនៅលើឧបករណ៍\" ត្រូវបានបើក។ អ្នកអាចរក្សាទុកអ្វីៗម្តងមួយៗ ឬបិទមុខងារ \"បង្កើនប្រសិទ្ធភាពទំហំផ្ទុកនៅលើឧបករណ៍\" ដើម្បីទាញយកមេឌៀទាំងអស់ទៅកាន់ឧបករណ៍របស់អ្នក។</string>
+    <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
+    <string name="AttachmentSaver__view_storage_settings">មើលការកំណត់ទំហំផ្ទុក</string>
+
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">ស្វែងរក</string>
     <!-- Hint when searching filtered chat content -->
@@ -4504,6 +4525,7 @@
     <string name="conversation__menu_view_all_media">ព័ត៌មានទាំងអស់</string>
     <string name="conversation__menu_conversation_settings">ការកំណត់ការជជែក</string>
     <string name="conversation__menu_add_shortcut">បន្ថែមទៅអេក្រង់ដើម</string>
+    <string name="conversation__menu_export">នាំចេញ</string>
     <string name="conversation__menu_create_bubble">បង្កើតពពុះ</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">កំណត់ទម្រង់អត្ថបទ</string>
@@ -4512,6 +4534,13 @@
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_add_to_contacts__menu_add_to_contacts">បន្ថែមទៅបញ្ជីទំនាក់ទំនង</string>
+
+    <!-- conversation export -->
+    <string name="conversation_export__exporting">Exporting chat…</string>
+    <string name="conversation_export__export_complete">Chat exported successfully</string>
+    <string name="conversation_export__export_failed">Export failed</string>
+    <string name="conversation_export__export_cancelled">Export cancelled</string>
+    <string name="conversation_export__preparing">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -4739,6 +4768,8 @@
     <string name="BackupDialog_delete_backups">លុបការបម្រុងទុក?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">បិទ និងលុបចោលការបម្រុងទុកក្នុងឧបករណ៍ទាំងអស់?</string>
     <string name="BackupDialog_delete_backups_statement">លុបការបម្រុងទុក</string>
+    <!-- Progress dialog message shown while local backup files are being deleted -->
+    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">ដើម្បីបើកការបម្រុងទុក​ ជ្រើសរើសថតឯកសារ។ ការបម្រុងទុក នឹងត្រូវរក្សាទុកនៅទីតាំងនេះ។</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">ជ្រើសរើសទីតាំងផ្ទុក</string>
@@ -5039,6 +5070,8 @@
     <string name="RecipientBottomSheet_remove_from_group">ដកចេញពីក្រុម</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">ដក %1$s ចេញពីសិទ្ធិជាអ្នកគ្រប់គ្រងក្រុម?</string>
+    <!-- Message shown when removing an admin will also clear their member label. -->
+    <string name="RecipientBottomSheet_remove_s_as_group_admin_and_clear_member_label">ដក %1$s ចេញពីសិទ្ធិជាអ្នកគ្រប់គ្រងក្រុម? វាក៏នឹងលុបស្លាកសមាជិករបស់ពួកគេផងដែរ។</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"%1$sមានលទ្ធភាពកែរប្រែក្រុម និងសមាជិកនៅក្នុងក្រុម"</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">ដក %1$s ចេញពីក្រុម?</string>
@@ -5861,6 +5894,16 @@
     <string name="PermissionsSettingsFragment__who_can_add_new_members">នរណាអាចបន្ថែមសមាជិកថ្មីឯ</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">នរណាអាចកែប្រែព័ត៌មានក្រុមនេះ?</string>
     <string name="PermissionsSettingsFragment__who_can_send_messages">តើនរណាអាចផ្ញើសារ និងចាប់ផ្តើមការហៅទូរសព្ទបាន?</string>
+    <!-- Label for the member labels permission button in the group permissions settings screen. -->
+    <string name="PermissionsSettingsFragment__add_member_labels">បញ្ចូលស្លាកសមាជិក</string>
+    <!-- Dialog title shown when choosing who has permission to add member labels in the group. -->
+    <string name="PermissionsSettingsFragment__who_can_add_member_labels">នរណាអាចបញ្ចូលស្លាកសមាជិកបាន?</string>
+    <!-- Warning title shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">ស្លាកសមាជិកនឹងត្រូវបានលុបចោល</string>
+    <!-- Warning body shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"ការផ្លាស់ប្តូរការអនុញ្ញាតនេះទៅ “តែអ្នកគ្រប់គ្រងប៉ុណ្ណោះ” នឹងលុបស្លាកសមាជិកដែលកំណត់ដោយបុគ្គលដែលមិនមែនជាអ្នកគ្រប់គ្រងនៅក្នុងក្រុមនេះ។"</string>
+    <!-- Confirm button for changing member label permission after warning. -->
+    <string name="PermissionsSettingsFragment__change_permission">ផ្លាស់ប្តូរការអនុញ្ញាត</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <!-- Label for the setting to mute notifications for a conversation -->
@@ -6641,6 +6684,51 @@
     <string name="MyStories__this_story_will_be_deleted">រឿងរ៉ាវនេះនឹងត្រូវបានលុបចោលសម្រាប់អ្នក និងអ្នករាល់គ្នាដែលបានទទួលវា។</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">មិនអាចរក្សាទុក</string>
+
+    <!-- StoryArchive -->
+    <!-- Title for the story archive screen -->
+    <string name="StoryArchive__story_archive">បណ្ណសាររឿងរ៉ាវ</string>
+    <!-- Section header in story settings -->
+    <string name="StoryArchive__archive">ទុកនៅបណ្ណសារ</string>
+    <!-- Label for switch to enable story archiving -->
+    <string name="StoryArchive__keep_stories_in_archive">រក្សាទុករឿងរ៉ាវនៅក្នុងបណ្ណសារ</string>
+    <!-- Description for the archive toggle -->
+    <string name="StoryArchive__save_stories_after_they_expire">រក្សាទុករឿងរ៉ាវដែលអ្នកបានផ្ញើបន្ទាប់ពីវាចេញពីព័ត៌មានសកម្ម។</string>
+    <!-- Label for archive duration preference -->
+    <string name="StoryArchive__keep_stories_for">រក្សាទុករឿងរ៉ាវសម្រាប់</string>
+    <!-- Archive duration option: forever -->
+    <string name="StoryArchive__forever">ជារៀងរហូត</string>
+    <!-- Archive duration option: 1 year -->
+    <string name="StoryArchive__1_year">1 ឆ្នាំ</string>
+    <!-- Archive duration option: 6 months -->
+    <string name="StoryArchive__6_months">6 ខែ</string>
+    <!-- Archive duration option: 30 days -->
+    <string name="StoryArchive__30_days">30 ថ្ងៃ</string>
+    <!-- Empty state title when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories">មិនមានរឿងរ៉ាវដែលបានទុកក្នុងបណ្ណសារទេ</string>
+    <!-- Empty state message when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories_message">បើក \"រក្សាទុករឿងទៅបណ្ណសារ\" នៅក្នុងការកំណត់រឿងរ៉ាវ ដើម្បីរក្សាទុករឿងរ៉ាវរបស់អ្នកដោយស្វ័យប្រវត្តិ។</string>
+    <!-- Empty state button to navigate to story settings -->
+    <string name="StoryArchive__go_to_settings">ចូលទៅកាន់ការកំណត់</string>
+    <!-- Label for sort order menu -->
+    <string name="StoryArchive__sort_by">តម្រៀបតាម</string>
+    <!-- Sort order option: newest first -->
+    <string name="StoryArchive__newest">ថ្មីបំផុត</string>
+    <!-- Sort order option: oldest first -->
+    <string name="StoryArchive__oldest">ចាស់បំផុត</string>
+    <!-- Delete action in story archive multi-select bottom bar -->
+    <string name="StoryArchive__delete">លុប</string>
+    <!-- Content description for selecting a story in multi-select mode -->
+    <string name="StoryArchive__select_story">ជ្រើសរើសរឿងរ៉ាវ</string>
+    <!-- Confirmation dialog body when deleting stories from archive -->
+    <plurals name="StoryArchive__delete_n_stories">
+        <item quantity="other">លុប %1$d រឿងរ៉ាវ? ការធ្វើបែបនេះមិនអាចត្រឡប់វិញបានទេ។</item>
+    </plurals>
+    <!-- Title shown in toolbar when in multi-select mode in story archive, %d is count of selected items -->
+    <plurals name="StoryArchive__d_selected">
+        <item quantity="other">បានជ្រើសរើស %1$d</item>
+    </plurals>
+
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="other">ចំនួនមើល %1$d</item>
@@ -7759,7 +7847,7 @@
     <!-- Title of Megaphone C: upsell to upgrade backups when user has lots of media -->
     <string name="BackupMediaUpsell__title">បម្រុងទុកមេឌៀរបស់អ្នកទាំងអស់</string>
     <!-- Body of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__body">គម្រោងបង់ប្រាក់សម្រាប់ការបម្រុងទុកសុវត្ថិភាព Signal រក្សាទុកមេឌៀទាំងអស់របស់អ្នក បានរហូតដល់ 100GB។</string>
+    <string name="BackupMediaUpsell__body">គម្រោងបង់ប្រាក់សម្រាប់ការបម្រុងទុកសុវត្ថិភាព Signal រក្សាទុកមេឌៀទាំងអស់របស់អ្នកបានរហូតដល់ 100GB។</string>
     <!-- Primary button of Megaphone C -->
     <string name="BackupMediaUpsell__upgrade">ដំឡើងកម្រិត</string>
     <!-- Secondary button of Megaphone C -->
@@ -7779,7 +7867,7 @@
     <!-- Title of the backup upsell bottom sheet promoting paid backup plans -->
     <string name="BackupUpsellBottomSheet__title">ដំឡើងកម្រិតដើម្បីបម្រុងទុកមេឌៀទាំងអស់</string>
     <!-- Body of the backup upsell bottom sheet -->
-    <string name="BackupUpsellBottomSheet__body">គម្រោងបង់ប្រាក់សម្រាប់ការបម្រុងទុកសុវត្ថិភាពនឹងរក្សាទុកមេឌៀទាំងអស់ដែលអ្នកផ្ញើ និងទទួល បានរហូតដល់ទំហំអតិបរមា 100GB។ គ្មានការបាត់បង់រូបភាព ឬវីដេអូនៅពេលអ្នកមានទូរសព្ទថ្មី ឬដំឡើង Signal ឡើងវិញឡើយ។</string>
+    <string name="BackupUpsellBottomSheet__body">គម្រោងបង់ប្រាក់សម្រាប់ការបម្រុងទុកសុវត្ថិភាព Signal រក្សាទុកមេឌៀទាំងអស់ដែលអ្នកផ្ញើ និងទទួល បានរហូតដល់ទំហំអតិបរមា 100GB។ គ្មានការបាត់បង់រូបភាព ឬវីដេអូនៅពេលអ្នកមានទូរសព្ទថ្មី ឬដំឡើង Signal ឡើងវិញឡើយ។</string>
     <!-- Label for the paid plan price shown in the feature card, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__price_per_month">%1$s/ខែ</string>
     <!-- Subtitle for the paid plan feature card -->
@@ -8038,7 +8126,7 @@
 
     <!-- OnDeviceBackupsFragment -->
     <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
-    <string name="OnDeviceBackupsFragment__backup_key_updated">បានធ្វើបច្ចុប្បន្នភាពសោបម្រុងទុក</string>
+    <string name="OnDeviceBackupsFragment__recovery_key_updated">សោស្តារត្រូវបានធ្វើបច្ចុប្បន្នភាព</string>
     <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
     <string name="OnDeviceBackupsFragment__directory_selected">ថតឯកសារដែលបានជ្រើសរើស៖ %1$s</string>
 
@@ -8475,6 +8563,26 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">ស្គែនកូដ QR</string>
 
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">កំពុងដំណើរការការបម្រុងទុក…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">កំពុងរៀបចំការបម្រុងទុក…</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">កំពុងបញ្ចប់…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+
+    <!-- LocalArchiveJob -->
+    <!-- Notification title shown while media attachments are being exported during a local backup -->
+    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
     <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">ការកែលម្អចំពោះការបម្រុងទុកនៅលើឧបករណ៍</string>
@@ -8496,7 +8604,7 @@
     <string name="OnDeviceBackupsSettingsScreen__update">ធ្វើបច្ចុប្បន្នភាព</string>
 
     <!-- UnifiedOnDeviceBackupsSettingsScreen -->
-    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">មើលសោបម្រុងទុក</string>
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_recovery_key">មើលសោស្តារ</string>
 
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
@@ -8566,9 +8674,9 @@
     <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">សោនេះនឹងជំនួសសោសម្រាប់ការបម្រុងទុកនៅលើឧបករណ៍របស់អ្នក។</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">សោបម្រុងទុករបស់អ្នកគឺជាលេខកូដមាន 64 តួអក្សរដែលអាចឱ្យអ្នកស្តារការបម្រុងទុករបស់អ្នកមកវិញនៅពេលអ្នកដំឡើង Signal ឡើងវិញ។</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">សោស្តាររបស់អ្នកគឺជាលេខកូដមាន 64 តួអក្សរដែលអាចឱ្យអ្នកស្តារការបម្រុងទុករបស់អ្នកមកវិញនៅពេលអ្នកដំឡើង Signal ឡើងវិញ។</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">វាដូចគ្នានឹងសោបម្រុងទុកនៅលើឧបករណ៍របស់អ្នក។</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">វាដូចគ្នានឹងសោស្តារនៅលើឧបករណ៍របស់អ្នក។</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">ប្រើសោនេះដើម្បី៖</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -8586,7 +8694,7 @@
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">តម្រូវឱ្យមានសោនេះដើម្បីស្តារគណនី និងទិន្នន័យរបស់អ្នក។ ទុកសោនេះនៅកន្លែងដែលមានសុវត្ថិភាព។ ប្រសិនបើអ្នកបាត់វា អ្នកនឹងមិនអាចស្តារគណនីរបស់អ្នកមកវិញបានទេ។</string>
     <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">សោនេះដូចគ្នានឹងសោបម្រុងទុកនៅលើឧបករណ៍របស់អ្នក។ ចាំបាច់ត្រូវស្តារយកគណនី និងទិន្នន័យរបស់អ្នកមកវិញ។</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_recovery_key">សោនេះដូចគ្នានឹងសោស្តារនៅលើឧបករណ៍របស់អ្នក។ ចាំបាច់ត្រូវស្តារយកគណនី និងទិន្នន័យរបស់អ្នកមកវិញ។</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">ចម្លងទៅឃ្លីបបត</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -8833,8 +8941,8 @@
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">បញ្ចូលសោស្តាររបស់អ្នក</string>
     <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
     <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">សោស្តាររបស់អ្នកគឺជាលេខកូដមាន 64 តួអក្សរដែលត្រូវការចាំបាច់ដើម្បីស្តារយកគណនី និងទិន្នន័យរបស់អ្នកមកវិញ។</string>
-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a backup key -->
-    <string name="EnterLocalBackupKeyScreen__no_backup_key">គ្មានសោបម្រុងទុកទេ?</string>
+    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+    <string name="EnterLocalBackupKeyScreen__no_recovery_key">មិនមានសោស្តារទេ?</string>
     <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
     <string name="EnterLocalBackupKeyScreen__next">បន្ទាប់</string>
 
@@ -9282,12 +9390,16 @@
     <string name="GroupMemberLabel__description">ដាក់ស្លាកសមាជិកដើម្បីពណ៌នាអំពីខ្លួនអ្នក ឬតួនាទីរបស់អ្នកនៅក្នុងក្រុមនេះ។ ស្លាកអាចមើលឃើញតែនៅក្នុងក្រុមនេះប៉ុណ្ណោះ។</string>
     <!-- Error message shown when the group member label fails to save due to a network error. -->
     <string name="GroupMemberLabel__error_cant_save_no_network">មិនអាចរក្សាទុកស្លាកបានទេ។ សូមពិនិត្យមើលបណ្តាញរបស់អ្នក ហើយព្យាយាមម្តងទៀត។</string>
+    <!-- Error message shown when trying to edit a member label without adequate permission. -->
+    <string name="GroupMemberLabel__error_no_edit_permission">មានតែអ្នកគ្រប់គ្រងទេដែលអាចបញ្ចូលស្លាកសមាជិកនៅក្នុងក្រុមនេះបាន។</string>
     <!-- Accessibility label for the button to open the group member label emoji picker. -->
     <string name="GroupMemberLabel__accessibility_select_emoji">ជ្រើសរើសរូបអារម្មណ៍</string>
     <!-- Accessibility label for the group member label close screen button. -->
     <string name="GroupMemberLabel__accessibility_close_screen">បិទអេក្រង់</string>
     <!-- Accessibility label for the group member label text field clear button. -->
     <string name="GroupMemberLabel__accessibility_clear_label">សម្អាតស្លាក</string>
+    <!-- Section header for the list of group members who have labels set. -->
+    <string name="GroupMemberLabel__group_members_with_labels">សមាជិកក្រុមដែលមានស្លាក</string>
 
     <!-- Title for the member labels education sheet. -->
     <string name="MemberLabelsEducation__title">ស្លាកសមាជិក</string>

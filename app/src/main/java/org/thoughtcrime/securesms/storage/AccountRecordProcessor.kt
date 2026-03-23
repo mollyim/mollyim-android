@@ -140,6 +140,7 @@ class AccountRecordProcessor(
       notificationProfileManualOverride = remote.proto.notificationProfileManualOverride
       backupTier = local.proto.backupTier ?: remote.proto.backupTier
       automaticKeyVerificationDisabled = remote.proto.automaticKeyVerificationDisabled
+      hasSeenAdminDeleteEducationDialog = remote.proto.hasSeenAdminDeleteEducationDialog
       avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())
