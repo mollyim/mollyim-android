@@ -1182,6 +1182,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       mainNavigationViewModel.snackbarRegistry.emit(
         SnackbarState(
           message = string,
+          duration = Snackbars.Duration.LONG,
           hostKey = MainSnackbarHostKey.MainChrome
         )
       )
