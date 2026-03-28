@@ -21,9 +21,9 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val UNIFIEDPUSH_LAST_RECEIVED_TIME = "up.lastRecvTime"
   }
 
-  override fun onFirstEverAppLaunch() = Unit
+  public override fun onFirstEverAppLaunch() = Unit
 
-  override fun getKeysToIncludeInBackup() = emptyList<String>()
+  public override fun getKeysToIncludeInBackup() = emptyList<String>()
 
   @get:JvmName("isEnabled")
   var enabled: Boolean by booleanValue(UNIFIEDPUSH_ENABLED, false)

@@ -139,7 +139,8 @@ object AccountDataArchiveProcessor {
               chatWallpaper = chatWallpaper,
               backupMode = exportState.backupMode
             ),
-            allowAutomaticKeyVerification = signalStore.settingsValues.automaticVerificationEnabled
+            allowAutomaticKeyVerification = signalStore.settingsValues.automaticVerificationEnabled,
+            hasSeenAdminDeleteEducationDialog = signalStore.uiHintValues.hasSeenAdminDeleteEducationDialog()
           ),
           donationSubscriberData = donationSubscriber?.toSubscriberData(signalStore.inAppPaymentValues.isDonationSubscriptionManuallyCancelled()),
           backupsSubscriberData = backupSubscriberRecord?.toIAPSubscriberData(),
@@ -338,6 +339,10 @@ object AccountDataArchiveProcessor {
 
     if (settings.hasCompletedUsernameOnboarding) {
       SignalStore.uiHints.setHasCompletedUsernameOnboarding(true)
+    }
+
+    if (settings.hasSeenAdminDeleteEducationDialog) {
+      SignalStore.uiHints.setHasSeenAdminDeleteEducationDialog()
     }
   }
 

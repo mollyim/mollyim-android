@@ -38,6 +38,7 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
   val apkUpdateValues = ApkUpdateValues(store)
   val backupValues = BackupValues(store)
   val unifiedPushValues = UnifiedPushValues(store)
+  val labsValues = LabsValues(store)
 
   val plainTextValues = PlainTextSharedPrefsDataStore(context)
 
@@ -85,6 +86,8 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
       story.onFirstEverAppLaunch()
       apkUpdate.onFirstEverAppLaunch()
       backup.onFirstEverAppLaunch()
+      unifiedpush.onFirstEverAppLaunch()
+      labs.onFirstEverAppLaunch()
     }
 
     @JvmStatic
@@ -116,7 +119,9 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
           releaseChannel.keysToIncludeInBackup +
           story.keysToIncludeInBackup +
           apkUpdate.keysToIncludeInBackup +
-          backup.keysToIncludeInBackup
+          backup.keysToIncludeInBackup +
+          unifiedpush.keysToIncludeInBackup +
+          labs.keysToIncludeInBackup
       }
 
     /**
@@ -271,6 +276,11 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
     @get:JvmName("unifiedpush")
     val unifiedpush: UnifiedPushValues
       get() = instance!!.unifiedPushValues
+
+    @JvmStatic
+    @get:JvmName("labs")
+    val labs: LabsValues
+      get() = instance!!.labsValues
 
     val groupsV2AciAuthorizationCache: GroupsV2AuthorizationSignalStoreCache
       get() = GroupsV2AuthorizationSignalStoreCache.createAciCache(instance!!.store)

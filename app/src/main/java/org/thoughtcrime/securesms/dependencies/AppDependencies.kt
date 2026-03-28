@@ -32,6 +32,7 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager
 import org.thoughtcrime.securesms.service.DeletedCallEventManager
+import org.thoughtcrime.securesms.service.ExpiringArchivedStoriesManager
 import org.thoughtcrime.securesms.service.ExpiringMessageManager
 import org.thoughtcrime.securesms.service.ExpiringStoriesManager
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager
@@ -221,6 +222,11 @@ object AppDependencies {
   @JvmStatic
   val expireStoriesManager: ExpiringStoriesManager by lazy {
     provider.provideExpiringStoriesManager()
+  }
+
+  @JvmStatic
+  val expireArchivedStoriesManager: ExpiringArchivedStoriesManager by lazy {
+    provider.provideExpiringArchivedStoriesManager()
   }
 
   @JvmStatic
@@ -427,6 +433,7 @@ object AppDependencies {
     fun provideTrimThreadsByDateManager(): TrimThreadsByDateManager
     fun provideViewOnceMessageManager(): ViewOnceMessageManager
     fun provideExpiringStoriesManager(): ExpiringStoriesManager
+    fun provideExpiringArchivedStoriesManager(): ExpiringArchivedStoriesManager
     fun provideExpiringMessageManager(): ExpiringMessageManager
     fun provideDeletedCallEventManager(): DeletedCallEventManager
     fun provideTypingStatusRepository(): TypingStatusRepository

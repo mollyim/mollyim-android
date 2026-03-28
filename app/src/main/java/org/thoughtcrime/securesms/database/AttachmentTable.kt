@@ -83,11 +83,6 @@ import org.thoughtcrime.securesms.backup.v2.proto.BackupDebugInfo
 import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.COPY_PENDING
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.FINISHED
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.NONE
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.PERMANENT_FAILURE
-import org.thoughtcrime.securesms.database.AttachmentTable.ArchiveTransferState.UPLOAD_IN_PROGRESS
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_FILE
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_HASH_END
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.PREUPLOAD_MESSAGE_ID
@@ -493,6 +488,32 @@ class AttachmentTable(
       .run()
       .readToList { it.readAttachments() }
       .flatten()
+  }
+
+  /**
+   * Returns the number of attachments that will be exported for a plaintext export of a given thread.
+   * Used for estimating progress.
+   */
+  fun getPlaintextExportableAttachmentCountForThread(threadId: Long): Int {
+    return readableDatabase.rawQuery(
+      """
+        SELECT COUNT(*)
+        FROM $TABLE_NAME
+        INNER JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}
+        WHERE ${MessageTable.TABLE_NAME}.${MessageTable.THREAD_ID} = ?
+          AND ${MessageTable.TABLE_NAME}.${MessageTable.STORY_TYPE} = 0
+          AND ${MessageTable.TABLE_NAME}.${MessageTable.PARENT_STORY_ID} <= 0
+          AND ${MessageTable.TABLE_NAME}.${MessageTable.SCHEDULED_DATE} = -1
+          AND ${MessageTable.TABLE_NAME}.${MessageTable.LATEST_REVISION_ID} IS NULL
+          AND ${MessageTable.TABLE_NAME}.${MessageTable.VIEW_ONCE} = 0
+          AND ${MessageTable.TABLE_NAME}.${MessageTable.DELETED_BY} IS NULL
+          AND $TABLE_NAME.$DATA_FILE IS NOT NULL
+          AND $TABLE_NAME.$QUOTE = 0
+      """.trimIndent(),
+      arrayOf(threadId.toString())
+    ).use { cursor ->
+      if (cursor.moveToFirst()) cursor.getInt(0) else 0
+    }
   }
 
   fun getAttachmentsForMessagesArchive(mmsIds: Collection<Long>): Map<Long, List<DatabaseAttachment>> {
@@ -1980,31 +2001,58 @@ class AttachmentTable(
   }
 
   fun createRemoteKeyIfNecessary(attachmentId: AttachmentId) {
-    val key = Util.getSecretBytes(64)
+    val dataFile = getDataFilePath(attachmentId)
 
+    if (dataFile != null) {
+      val duplicate = readableDatabase
+        .select()
+        .from(TABLE_NAME)
+        .where("$DATA_FILE = ? AND $REMOTE_KEY NOT NULL AND LENGTH($REMOTE_KEY) > 0", dataFile)
+        .orderBy("(CASE WHEN $REMOTE_LOCATION IS NOT NULL AND $REMOTE_DIGEST IS NOT NULL THEN 0 ELSE 1 END), $ID DESC")
+        .run()
+        .readToSingleObject { cursor -> cursor.readAttachment() to cursor.readDataFileInfo() }
+
+      if (duplicate != null) {
+        val (duplicateAttachment, dataFileInfo) = duplicate
+
+        if (duplicateAttachment.remoteLocation != null && duplicateAttachment.remoteDigest != null && dataFileInfo != null) {
+          Log.w(TAG, "[createRemoteKeyIfNecessary][$attachmentId] Found duplicate with full remote data. Copying all remote data.")
+          writableDatabase
+            .update(TABLE_NAME)
+            .values(
+              REMOTE_KEY to duplicateAttachment.remoteKey,
+              REMOTE_LOCATION to duplicateAttachment.remoteLocation,
+              REMOTE_DIGEST to duplicateAttachment.remoteDigest,
+              REMOTE_INCREMENTAL_DIGEST to duplicateAttachment.incrementalDigest?.takeIf { it.isNotEmpty() },
+              REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE to duplicateAttachment.incrementalMacChunkSize,
+              UPLOAD_TIMESTAMP to duplicateAttachment.uploadTimestamp,
+              ARCHIVE_CDN to duplicateAttachment.archiveCdn,
+              ARCHIVE_TRANSFER_STATE to duplicateAttachment.archiveTransferState.value,
+              THUMBNAIL_FILE to dataFileInfo.thumbnailFile,
+              THUMBNAIL_RANDOM to dataFileInfo.thumbnailRandom,
+              THUMBNAIL_RESTORE_STATE to dataFileInfo.thumbnailRestoreState
+            )
+            .where("$ID = ? AND ($REMOTE_KEY IS NULL OR LENGTH($REMOTE_KEY) = 0)", attachmentId.id)
+            .run()
+        } else {
+          Log.w(TAG, "[createRemoteKeyIfNecessary][$attachmentId] Found duplicate with key only. Copying key.")
+          writableDatabase
+            .update(TABLE_NAME)
+            .values(REMOTE_KEY to duplicateAttachment.remoteKey)
+            .where("$ID = ? AND ($REMOTE_KEY IS NULL OR LENGTH($REMOTE_KEY) = 0)", attachmentId.id)
+            .run()
+        }
+        return
+      }
+    }
+
+    val key = Util.getSecretBytes(64)
+    Log.w(TAG, "[createRemoteKeyIfNecessary][$attachmentId] Missing key. Assigning new one.")
     writableDatabase
       .update(TABLE_NAME)
       .values(REMOTE_KEY to Base64.encodeWithPadding(key))
       .where("$ID = ? AND ($REMOTE_KEY IS NULL OR LENGTH($REMOTE_KEY) = 0)", attachmentId.id)
       .run()
-  }
-
-  /**
-   * A query for a specific migration. Retrieves attachments that we'd need to create a new digest for.
-   * This is basically all attachments that have data and are finished downloading.
-   */
-  fun getAttachmentsThatNeedNewDigests(): List<AttachmentId> {
-    return readableDatabase
-      .select(ID)
-      .from(TABLE_NAME)
-      .where(
-        """
-        $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND 
-        $DATA_FILE NOT NULL
-        """
-      )
-      .run()
-      .readToList { AttachmentId(it.requireLong(ID)) }
   }
 
   /**

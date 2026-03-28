@@ -37,6 +37,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.collections.MutableMap.MutableEntry
 import kotlin.math.max
 
@@ -44,7 +45,7 @@ import kotlin.math.max
  * MessageNotifier implementation using the new system for creating and showing notifications.
  */
 class DefaultMessageNotifier(context: Application) : MessageNotifier {
-  @Volatile private var visibleThread: ConversationId? = null
+  private val visibleThread: AtomicReference<ConversationId?> = AtomicReference(null)
 
   @Volatile private var visibleBubbleThread: ConversationId? = null
 
@@ -69,7 +70,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
   private val executor = CancelableExecutor()
 
   override fun setVisibleThread(conversationId: ConversationId?) {
-    visibleThread = conversationId
+    visibleThread.set(conversationId)
     stickyThreads.remove(conversationId)
     if (conversationId != null) {
       lastThreadNotification.remove(conversationId)
@@ -77,11 +78,15 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
   }
 
   override fun getVisibleThread(): Optional<ConversationId> {
-    return Optional.ofNullable(visibleThread)
+    return Optional.ofNullable(visibleThread.get())
   }
 
   override fun clearVisibleThread() {
     setVisibleThread(null)
+  }
+
+  override fun clearVisibleThread(conversationId: ConversationId) {
+    visibleThread.compareAndSet(conversationId, null)
   }
 
   override fun setVisibleBubbleThread(conversationId: ConversationId?) {
@@ -97,7 +102,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
   }
 
   override fun notifyMessageDeliveryFailed(context: Context, recipient: Recipient, conversationId: ConversationId) {
-    NotificationFactory.notifyMessageDeliveryFailed(context, recipient, conversationId, visibleThread, visibleBubbleThread)
+    NotificationFactory.notifyMessageDeliveryFailed(context, recipient, conversationId, visibleThread.get(), visibleBubbleThread)
   }
 
   override fun notifyStoryDeliveryFailed(context: Context, recipient: Recipient, conversationId: ConversationId) {
@@ -105,7 +110,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
   }
 
   override fun notifyProofRequired(context: Context, recipient: Recipient, conversationId: ConversationId) {
-    NotificationFactory.notifyProofRequired(context, recipient, conversationId, visibleThread)
+    NotificationFactory.notifyProofRequired(context, recipient, conversationId, visibleThread.get())
   }
 
   override fun cancelDelayedNotifications() {
@@ -201,7 +206,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     val threadsThatAlerted: Set<ConversationId> = NotificationFactory.notify(
       context = ContextThemeWrapper(context, R.style.TextSecure_LightTheme),
       state = state,
-      visibleThread = visibleThread,
+      visibleThread = visibleThread.get(),
       targetThread = conversationId,
       defaultBubbleState = defaultBubbleState,
       lastAudibleNotification = lastAudibleNotification,
@@ -226,7 +231,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     Log.i(TAG, "threads: ${state.threadCount} messages: ${state.messageCount}")
 
     if (Build.VERSION.SDK_INT >= 24) {
-      val ids = state.conversations.filter { it.thread != visibleThread }.map { it.notificationId } + stickyThreads.map { (_, stickyThread) -> stickyThread.notificationId }
+      val ids = state.conversations.filter { it.thread != visibleThread.get() }.map { it.notificationId } + stickyThreads.map { (_, stickyThread) -> stickyThread.notificationId }
       val notShown = ids - getDisplayedNotificationIds(context)
       if (notShown.isNotEmpty()) {
         Log.e(TAG, "Notifications should be showing but are not for ${notShown.size} threads")

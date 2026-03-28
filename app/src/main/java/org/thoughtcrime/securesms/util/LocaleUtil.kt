@@ -7,9 +7,7 @@ import java.util.Locale
 
 object LocaleUtil {
 
-  fun getFirstLocale(): Locale {
-    return getLocaleDefaults().firstOrNull() ?: Locale.getDefault()
-  }
+  // MOLLY: LocaleUtil.getFirstLocale() is deprecated; use Locale.getDefault() instead
 
   /**
    * Get a user priority list of locales supported on the device, with the locale set via Signal settings

@@ -105,6 +105,7 @@ class AppSettingsFragment : ComposeFragment(), Callbacks {
             is AppSettingsRoute.AppUpdates -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_appUpdatesSettingsFragment)
             is AppSettingsRoute.HelpRoute.Settings -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_helpSettingsFragment)
             is AppSettingsRoute.Invite -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteFragment)
+            is AppSettingsRoute.LabsRoute.Labs -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_labsSettingsFragment)
             is AppSettingsRoute.InternalRoute.Internal -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_internalSettingsFragment)
             is AppSettingsRoute.AccountRoute.ManageProfile -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageProfileActivity)
             is AppSettingsRoute.UsernameLinkRoute.UsernameLink -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_usernameLinkSettingsFragment)
@@ -455,7 +456,18 @@ private fun AppSettingsContent(
 
           item {
             Rows.TextRow(
+              text = "Labs",
+              icon = painterResource(R.drawable.symbol_flash_24),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.LabsRoute.Labs)
+              }
+            )
+          }
+
+          item {
+            Rows.TextRow(
               text = stringResource(R.string.preferences__internal_preferences),
+              icon = painterResource(R.drawable.symbol_key_24),
               onClick = {
                 callbacks.navigate(AppSettingsRoute.InternalRoute.Internal)
               }

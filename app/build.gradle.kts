@@ -11,8 +11,8 @@ plugins {
   id("signal-locales")
 }
 
-val canonicalVersionCode = 1663
-val canonicalVersionName = "8.2.2"
+val canonicalVersionCode = 1670
+val canonicalVersionName = "8.4.1"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 3
@@ -455,6 +455,7 @@ dependencies {
   implementation(libs.androidx.concurrent.futures)
   implementation(libs.androidx.autofill)
   implementation(libs.androidx.biometric)
+  implementation(libs.androidx.core.telecom)
   implementation(libs.androidx.sharetarget)
   implementation(libs.androidx.profileinstaller)
   implementation(libs.androidx.asynclayoutinflater)
@@ -478,7 +479,7 @@ dependencies {
   implementation(libs.conscrypt.android)
   implementation(libs.signal.aesgcmprovider)
   implementation(libs.libsignal.android)
-  implementation(libs.molly.ringrtc)
+  implementation(libs.signal.ringrtc)
   implementation(libs.leolin.shortcutbadger)
   implementation(libs.emilsjolander.stickylistheaders)
   implementation(libs.glide.glide)
@@ -588,15 +589,15 @@ licensee {
   allowDependency("im.molly", "native-utils", "1.0.0") {
     because("AGPL-3.0-or-later")
   }
-  allowDependency("org.signal", "sqlcipher-android", "4.6.0-S1") {
-    because("BSD-3-Clause")
-  }
   allowUrl("http://opensource.org/licenses/bsd-license.php")
   allowUrl("https://www.gnu.org/licenses/agpl-3.0.html")
   allowUrl("https://www.gnu.org/licenses/agpl-3.0.txt")
   allowUrl("https://www.gnu.org/licenses/gpl-3.0.txt")
   allowUrl("http://jsoup.org/license") {
     because("MIT")
+  }
+  allowUrl("https://www.zetetic.net/sqlcipher/license/") {
+    because("BSD-3-Clause")
   }
 }
 

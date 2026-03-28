@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/8768161836954</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -443,10 +443,10 @@
     <string name="ConversationItem_error_not_sent_tap_for_details">لم يتم الإرسال. انقر للمزيد من التفاصيل.</string>
     <string name="ConversationItem_error_partially_not_delivered">تمَّ الإرسال جزئيًا. انقر للمزيد من التفاصيل.</string>
     <!-- Warning footer when an admin delete has not been sent to everyone -->
-    <string name="ConversationItem_error_partially_not_deleted">Partially deleted, tap for details</string>
+    <string name="ConversationItem_error_partially_not_deleted">حذف جزئي، انقر لعرض التفاصيل.</string>
     <string name="ConversationItem_error_network_not_delivered">فشل الإرسال.</string>
     <!-- Warning footer when an admin delete has failed to send -->
-    <string name="ConversationItem_error_delete_failed">Delete failed, tap for details</string>
+    <string name="ConversationItem_error_delete_failed">تعذَّرت عملية الحذف، انقر للتفاصيل.</string>
     <string name="ConversationItem_group_action_left">غادر المُستخدِم %1$s المجموعة.</string>
     <string name="ConversationItem_send_paused">الإرسال متوقف مؤقتًا</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">هل ترغبُ بالعودة إلى الرسائل القصيرة غير المُشفَّرة؟</string>
@@ -533,6 +533,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">تجاوز حجم الملف المُرفَق الحد المسموح به لهذا الصنف من الرسائل.</string>
     <string name="ConversationActivity_unable_to_record_audio">تعذَّر تسجيل الصوت!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">لا تستطيع إرسال الرسائل لهذه المجموعة لأنك لم تعد عضوًا فيها.</string>
+    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
     <string name="ConversationActivity_only_s_can_send_messages">يمكن فقط لـ %1$s إرسال الرسائل.</string>
     <string name="ConversationActivity_admins">المُشرِفون</string>
     <string name="ConversationActivity_message_an_admin">مراسلة أحد المُشرِفين</string>
@@ -681,7 +682,14 @@
     <!-- Confirmation button to delete the message -->
     <string name="ConversationFragment_delete_for_everyone_title">الحذف للجميع؟</string>
     <!-- Body of dialog explaining what happens during deletion -->
-    <string name="ConversationFragment_delete_for_everyone_body">بصفتك مُشرِفًا، سيرى أعضاء المجموعة أنك حذفت هذه الرسائل.</string>
+    <plurals name="ConversationFragment_delete_for_everyone_body">
+        <item quantity="zero">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+        <item quantity="one">Group members on the latest versions of Signal will see that you deleted this message.</item>
+        <item quantity="two">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+        <item quantity="few">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+        <item quantity="many">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+    </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">حذف من هذا الجهاز</string>
     <!-- Dialog button for deleting one or more note-to-self messages that will be sync\'d to other devices -->
@@ -2257,6 +2265,13 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">غيَّر %1$s الأشخاص الذين يستطيعون تعديل عضوية المجموعة إلى \"%2$s\".</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">تمَّ تغيير من يمكنهم تعديل عضوية المجموعة ليصبح \"%1$s\".</string>
 
+    <!-- Shown when the current user changes the member label permission. -->
+    <string name="MessageRecord_you_changed_who_can_add_member_labels_to_s">غيّرتَ من يمكنه إضافة أدوار الأعضاء إلى \"%1$s\".</string>
+    <!-- Shown when another group member changes the member label permission. -->
+    <string name="MessageRecord_s_changed_who_can_add_member_labels_to_s">%1$s غيَّرَ من يمكنه إضافة أدوار الأعضاء إلى \"%2$s\".</string>
+    <!-- Shown when the member label permission is changed by an unknown admin. -->
+    <string name="MessageRecord_unknown_admin_changed_who_can_add_member_labels_to_s">غيَّرَ أحد المُشرِفين من يمكنه إضافة أدوار الأعضاء إلى \"%1$s\".</string>
+
     <!-- GV2 announcement group change -->
     <string name="MessageRecord_you_allow_all_members_to_send">قمتَ بتغيير إعدادات المجموعة للسماح للمُشرِفين فقط بإرسال الرسائل.</string>
     <string name="MessageRecord_you_allow_only_admins_to_send">قمتَ بتغيير إعدادات المجموعة للسماح للمُشرفين فقط بإرسال الرسائل.</string>
@@ -3792,6 +3807,17 @@
     <!-- Message explaining that it is not possible to save media to the device storage after the user denied the system save to storage permission. -->
     <string name="AttachmentSaver__unable_to_write_to_external_storage_without_permission">لا يمكن الحفظ إلى الذاكرة الخارجية بدون أذونات.</string>
 
+    <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_media">تعذَّر حفظ ملفات الوسائط</string>
+    <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__media_offloaded_message">تمَّ نقل ملفات الوسائط من جهازك لأن خاصية \"تحسين التخزين على الجهاز\" مُفعَّلة. يمكنك تنزيل العناصر واحدًا تلو الآخر، أو إيقاف تشغيل خاصية \"تحسين التخزين على الجهاز\" لتنزيل جميع الوسائط إلى جهازك.</string>
+    <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__cant_save_all_items">تعذَّر حفظ جميع العناصر</string>
+    <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
+    <string name="AttachmentSaver__some_media_offloaded_message">تمَّ نقل بعض ملفات الوسائط التي اخترتها من جهازك لأن خاصية \"تحسين التخزين على الجهاز\" مُفعَّلة. يمكنك حفظ العناصر واحدًا تلو الآخر، أو إيقاف تشغيل خاصية \"تحسين التخزين على الجهاز\" لتنزيل جميع ملفات الوسائط إلى جهازك.</string>
+    <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
+    <string name="AttachmentSaver__view_storage_settings">عرض إعدادات التخزين</string>
+
     <!-- SearchToolbar -->
     <string name="SearchToolbar_search">بحث</string>
     <!-- Hint when searching filtered chat content -->
@@ -4015,9 +4041,9 @@
     <string name="conversation_activity__quick_attachment_drawer_lock_record_description">قفل تسجيل المُرفَق الصوتي</string>
     <string name="conversation_activity__message_could_not_be_sent">لم تُرسَل الرسالة. عليك التأكُّد من اتصالك بالانترنت ثم المحاولة مُجدَّدًا.</string>
     <!-- Dialog body when a message failed to delete and retry is possible. -->
-    <string name="conversation_activity__message_failed_to_delete_retry">Message failed to delete. Check your connection and try again.</string>
+    <string name="conversation_activity__message_failed_to_delete_retry">تعذَّر حذف الرسالة. تحقَّق من شبكة الواي فاي وحاوِل من جديد.</string>
     <!-- Dialog body when a message failed to delete. -->
-    <string name="conversation_activity__message_failed_to_delete">Message failed to delete.</string>
+    <string name="conversation_activity__message_failed_to_delete">تعذَّر حذف الرسالة.</string>
 
     <!-- conversation_input_panel -->
     <string name="conversation_input_panel__slide_to_cancel">اسحب للإلغاء</string>
@@ -5094,6 +5120,7 @@
     <string name="conversation__menu_view_all_media">جميع الوسائط</string>
     <string name="conversation__menu_conversation_settings">إعدادات الدردشة</string>
     <string name="conversation__menu_add_shortcut">إضافة إلى الشاشة الرئيسية</string>
+    <string name="conversation__menu_export">تصدير</string>
     <string name="conversation__menu_create_bubble">إنشاء فقاعة</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">تنسيق النص</string>
@@ -5102,6 +5129,13 @@
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_add_to_contacts__menu_add_to_contacts">إضافة إلى جهات الاتصال</string>
+
+    <!-- conversation export -->
+    <string name="conversation_export__exporting">Exporting chat…</string>
+    <string name="conversation_export__export_complete">Chat exported successfully</string>
+    <string name="conversation_export__export_failed">Export failed</string>
+    <string name="conversation_export__export_cancelled">Export cancelled</string>
+    <string name="conversation_export__preparing">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -5369,6 +5403,8 @@
     <string name="BackupDialog_delete_backups">هل ترغبُ بحذف النسخ الاحتياطية؟</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">هل ترغبُ بتعطيل وحذف كل النسخ الاحتياطية المحلية؟</string>
     <string name="BackupDialog_delete_backups_statement">حذف النسخ الاحتياطية</string>
+    <!-- Progress dialog message shown while local backup files are being deleted -->
+    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">لتفعيل النسخ اﻻحتياطية، اختر مجلد. سوف تُخزَّن النسخ اﻻحتياطية في هذا الموقع.</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">اختر مجلدًا</string>
@@ -5669,6 +5705,8 @@
     <string name="RecipientBottomSheet_remove_from_group">إزالة من المجموعة</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">هل ترغب بإزالة ميزة الإشراف على المجموعة عن %1$s؟</string>
+    <!-- Message shown when removing an admin will also clear their member label. -->
+    <string name="RecipientBottomSheet_remove_s_as_group_admin_and_clear_member_label">هل ترغب بإزالة ميزة الإشراف على المجموعة عن %1$s؟ سيُؤدي هذا أيضًا إلى مسح دور العضو الخاص به.</string>
     <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"سيتمكن العضو %1$s من تعديل هذه المجموعة وأيضًا تعديل صلاحيات الأعضاء فيها."</string>
 
     <string name="RecipientBottomSheet_remove_s_from_the_group">هل ترغبُ بإزالة %1$s من المجموعة؟</string>
@@ -6505,7 +6543,7 @@
 
     <!-- ConversationSettingsFragment -->
     <!-- Dialog title displayed when non-admin tries to add a story to an audience group -->
-    <string name="ConversationSettingsFragment__cant_add_to_group_story">تعذَّرت الإضافة إلى قِصة المجموعة</string>
+    <string name="ConversationSettingsFragment__cant_add_to_group_story">تعذَّرت الإضافة إلى القِصة المُخصَّصة للمجموعات</string>
     <!-- Dialog message displayed when non-admin tries to add a story to an audience group -->
     <string name="ConversationSettingsFragment__only_admins_of_this_group_can_add_to_its_story">فقط المُشرِفون على هذه المجموعة هم من يمكنُهم الإضافة إلى قصتها</string>
     <!-- Error toasted when no activity can handle the add contact intent -->
@@ -6566,6 +6604,16 @@
     <string name="PermissionsSettingsFragment__who_can_add_new_members">من يمكنه إضافة أعضاء جُدُد؟</string>
     <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">من يمكنه تعديل معلومات هذه المجموعة ؟</string>
     <string name="PermissionsSettingsFragment__who_can_send_messages">من يمكنه إرسال رسائل وبدء مكالمات؟</string>
+    <!-- Label for the member labels permission button in the group permissions settings screen. -->
+    <string name="PermissionsSettingsFragment__add_member_labels">إضافة دور العضو</string>
+    <!-- Dialog title shown when choosing who has permission to add member labels in the group. -->
+    <string name="PermissionsSettingsFragment__who_can_add_member_labels">من يمكنه إضافة أدوار الأعضاء؟</string>
+    <!-- Warning title shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">سَيتم مسح أدوار الأعضاء</string>
+    <!-- Warning body shown before restricting member labels to admins only. -->
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"تغيير هذا الإذن إلى \"المُشرِفون فقط\" سَيؤدي إلى مسح أدوار الأعضاء المُحدَّدة من طرف الأعضاء غير المُشرِفين في هذه المجموعة."</string>
+    <!-- Confirm button for changing member label permission after warning. -->
+    <string name="PermissionsSettingsFragment__change_permission">تغيير الأذن</string>
 
     <!-- SoundsAndNotificationsSettingsFragment -->
     <!-- Label for the setting to mute notifications for a conversation -->
@@ -6581,17 +6629,17 @@
     <!-- Label for the setting to configure custom notification sounds and vibration for a conversation -->
     <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">إشعارات مُخصَّصة</string>
     <!-- Section header for settings that control which notifications still come through when a conversation is muted -->
-    <string name="SoundsAndNotificationsSettingsFragment__when_muted">When muted</string>
+    <string name="SoundsAndNotificationsSettingsFragment__when_muted">عند كتم الصوت</string>
     <!-- Label for the calls notification setting in conversation sounds and notifications -->
     <string name="SoundsAndNotificationsSettingsFragment__calls">المكالمات</string>
     <!-- Explanatory text shown in the calls notification setting dialog describing what the setting controls -->
-    <string name="SoundsAndNotificationsSettingsFragment__calls_dialog_message">Ring and receive notifications when a call is started in muted chats.</string>
+    <string name="SoundsAndNotificationsSettingsFragment__calls_dialog_message">يرن الهاتف وتتلقى إشعارات عند بدء مكالمة في المحادثات المكتومة.</string>
     <!-- Explanatory text shown in the mentions notification setting dialog describing what the setting controls -->
-    <string name="SoundsAndNotificationsSettingsFragment__mentions_dialog_message">Receive notifications when you are mentioned in muted chats.</string>
+    <string name="SoundsAndNotificationsSettingsFragment__mentions_dialog_message">تتلقى الإشعارات عندما يُذكَر اسمك في الدردشات المكتومة.</string>
     <!-- Label for the replies notification setting in conversation sounds and notifications -->
-    <string name="SoundsAndNotificationsSettingsFragment__replies_to_you">Replies to you</string>
+    <string name="SoundsAndNotificationsSettingsFragment__replies_to_you">الردود الواردة</string>
     <!-- Explanatory text shown in the replies notification setting dialog describing what the setting controls -->
-    <string name="SoundsAndNotificationsSettingsFragment__replies_dialog_message">Receive notifications when someone replies to your messages in muted chats.</string>
+    <string name="SoundsAndNotificationsSettingsFragment__replies_dialog_message">تتلقى الإشعارات عند ورود ردود على رسائلك في المحادثات المكتومة.</string>
 
     <!-- StickerKeyboard -->
     <string name="StickerKeyboard__recently_used">استُخدِمَت مؤخَّرًا</string>
@@ -6736,7 +6784,7 @@
 
     <!-- Media V2 -->
     <!-- Dialog message when sending a story via an add to group story button -->
-    <string name="MediaReviewFragment__add_to_the_group_story">إضافة إلى قِصة المجموعة \"%1$s\"</string>
+    <string name="MediaReviewFragment__add_to_the_group_story">إضافة إلى القِصة المُخصَّصة للمجموعات \"%1$s\"</string>
     <!-- Positive dialog action when sending a story via an add to group story button -->
     <string name="MediaReviewFragment__add_to_story">إضافة إلى القصة</string>
     <string name="MediaReviewFragment__add_a_message">إضافة رسالة</string>
@@ -7386,6 +7434,61 @@
     <string name="MyStories__this_story_will_be_deleted">ستُحذَف هذه القصة من عند جميع من استلمها بما فيهم أنت.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">تعذَّر الحفظ</string>
+
+    <!-- StoryArchive -->
+    <!-- Title for the story archive screen -->
+    <string name="StoryArchive__story_archive">أرشيف القصص</string>
+    <!-- Section header in story settings -->
+    <string name="StoryArchive__archive">أرشفة المحادثة</string>
+    <!-- Label for switch to enable story archiving -->
+    <string name="StoryArchive__keep_stories_in_archive">الاحتفاظ بقصصك في الأرشيف</string>
+    <!-- Description for the archive toggle -->
+    <string name="StoryArchive__save_stories_after_they_expire">الاحتفاظ بالقصص التي أرسلتها بعد تركها لموجز الفعاليات.</string>
+    <!-- Label for archive duration preference -->
+    <string name="StoryArchive__keep_stories_for">الاحتفاظ بالقصص لمدة</string>
+    <!-- Archive duration option: forever -->
+    <string name="StoryArchive__forever">بشكل دائم</string>
+    <!-- Archive duration option: 1 year -->
+    <string name="StoryArchive__1_year">عام واحد</string>
+    <!-- Archive duration option: 6 months -->
+    <string name="StoryArchive__6_months">6 أشهر</string>
+    <!-- Archive duration option: 30 days -->
+    <string name="StoryArchive__30_days">30 يومًا</string>
+    <!-- Empty state title when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories">لا توجد قصص مؤرشَفة</string>
+    <!-- Empty state message when no archived stories exist -->
+    <string name="StoryArchive__no_archived_stories_message">قُم بتفعيل \"حفظ القصص إلى الأرشيف\" في إعدادات القصة إلى \"أرشفة قصصك تلقائيًا\".</string>
+    <!-- Empty state button to navigate to story settings -->
+    <string name="StoryArchive__go_to_settings">انتقِل إلى الإعدادات</string>
+    <!-- Label for sort order menu -->
+    <string name="StoryArchive__sort_by">الترتيب بحسب</string>
+    <!-- Sort order option: newest first -->
+    <string name="StoryArchive__newest">الأحدث</string>
+    <!-- Sort order option: oldest first -->
+    <string name="StoryArchive__oldest">الأقدم</string>
+    <!-- Delete action in story archive multi-select bottom bar -->
+    <string name="StoryArchive__delete">حذف</string>
+    <!-- Content description for selecting a story in multi-select mode -->
+    <string name="StoryArchive__select_story">اختيار القصة</string>
+    <!-- Confirmation dialog body when deleting stories from archive -->
+    <plurals name="StoryArchive__delete_n_stories">
+        <item quantity="zero">هل ترغبُ بحذف %1$d قصة؟ لا يمكن التراجع عن هذا الإجراء.</item>
+        <item quantity="one">هل ترغبُ بحذف %1$d قصة؟ لا يمكن التراجع عن هذا الإجراء.</item>
+        <item quantity="two">هل ترغبُ بحذف %1$d قصتين؟ لا يمكن التراجع عن هذا الإجراء.</item>
+        <item quantity="few">هل ترغبُ بحذف %1$d قصص؟ لا يمكن التراجع عن هذا الإجراء.</item>
+        <item quantity="many">هل ترغبُ بحذف %1$d قصة؟ لا يمكن التراجع عن هذا الإجراء.</item>
+        <item quantity="other">هل ترغبُ بحذف %1$d قصة؟ لا يمكن التراجع عن هذا الإجراء.</item>
+    </plurals>
+    <!-- Title shown in toolbar when in multi-select mode in story archive, %d is count of selected items -->
+    <plurals name="StoryArchive__d_selected">
+        <item quantity="zero">لا شيء مُحدَّد (%1$d)</item>
+        <item quantity="one">واحدة مُحدَّدة (%1$d)</item>
+        <item quantity="two">%1$d محدَّدتان</item>
+        <item quantity="few">‫%1$d محدَّدة</item>
+        <item quantity="many">‫%1$d محدَّدة</item>
+        <item quantity="other">‫%1$d محدَّدة</item>
+    </plurals>
+
     <!-- Displayed at bottom of story viewer when current item has views -->
     <plurals name="StoryViewerFragment__d_views">
         <item quantity="zero">لا مشاهدة (%1$d)</item>
@@ -7631,7 +7734,7 @@
     <!-- Choose story type bottom sheet new story row summary -->
     <string name="ChooseStoryTypeBottomSheet__visible_only_to">ظاهرة فقط لأشخاص مُعيَّنين</string>
     <!-- Choose story type bottom sheet group story title -->
-    <string name="ChooseStoryTypeBottomSheet__group_story">قِصة المجموعة</string>
+    <string name="ChooseStoryTypeBottomSheet__group_story">قِصة مُخصَّصة للمجموعات</string>
     <!-- Choose story type bottom sheet group story summary -->
     <string name="ChooseStoryTypeBottomSheet__share_to_an_existing_group">المشاركة مع مجموعة موجودة</string>
     <!-- Choose groups bottom sheet title -->
@@ -7794,7 +7897,7 @@
     <!-- Label for context menu item to delete a custom story -->
     <string name="ContactSearchItems__delete_story">حذف القصة</string>
     <!-- Dialog title for removing a group story -->
-    <string name="ContactSearchMediator__remove_group_story">هل ترغبُ بإزالة قِصة المجموعة؟</string>
+    <string name="ContactSearchMediator__remove_group_story">هل ترغبُ بإزالة القِصة المُخصَّصة للمجموعات؟</string>
     <!-- Dialog message for removing a group story -->
     <string name="ContactSearchMediator__this_will_remove">سَيتسبب هذا في إزالة القصة من هذه اللائحة. يُمكنك مواصلة مشاهدة القِصص من هذه المجموعة.</string>
     <!-- Dialog action item for removing a group story -->
@@ -8427,9 +8530,9 @@
 
     <!-- CallParticipantSheet -->
     <!-- Action to mute a participant\'s audio in a group call -->
-    <string name="CallParticipantSheet__mute_audio">Mute audio</string>
+    <string name="CallParticipantSheet__mute_audio">كتم الصوت</string>
     <!-- Action to remove a participant from a call -->
-    <string name="CallParticipantSheet__remove_from_call">Remove from call</string>
+    <string name="CallParticipantSheet__remove_from_call">إزالة من المكالمة</string>
     <!-- Action to view contact details for a participant -->
     <string name="CallParticipantSheet__contact_details">تفاصيل جهة الاتصال</string>
 
@@ -8618,27 +8721,27 @@
     <string name="TurnOnSignalBackups__toast_not_now">يُمكنك تفعيل النسخ الاحتياطية في \"الإعدادات\"</string>
 
     <!-- Title of Megaphone B: upsell to enable backups when user has many messages -->
-    <string name="BackupMessagesUpsell__title">Never lose a message</string>
+    <string name="BackupMessagesUpsell__title">ضمان عدم فقدان أي رسالة</string>
     <!-- Body of Megaphone B: upsell to enable backups when user has many messages -->
-    <string name="BackupMessagesUpsell__body">Turn on Signal Secure Backups to preserve your messages and media.</string>
+    <string name="BackupMessagesUpsell__body">فعِّل النسخ الاحتياطية الآمنة في سيجنال للحفاظ على رسائلك ووسائطك.</string>
     <!-- Primary button of Megaphone B -->
     <string name="BackupMessagesUpsell__turn_on">تشغيل</string>
     <!-- Secondary button of Megaphone B -->
     <string name="BackupMessagesUpsell__not_now">ليس الآن</string>
 
     <!-- Title of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__title">Back up all your media</string>
+    <string name="BackupMediaUpsell__title">إجراء نسخ احتياطي لجميع ملفات الوسائط</string>
     <!-- Body of Megaphone C: upsell to upgrade backups when user has lots of media -->
-    <string name="BackupMediaUpsell__body">Paid Signal Secure Backup plans preserve all your media, up to 100GB.</string>
+    <string name="BackupMediaUpsell__body">تتيح اشتراكات النسخ الاحتياطي الآمن المدفوعة من سيجنال الحفاظ على جميع وسائطك، بسعة تصل إلى 100 جيجابايت.</string>
     <!-- Primary button of Megaphone C -->
     <string name="BackupMediaUpsell__upgrade">ترقية</string>
     <!-- Secondary button of Megaphone C -->
     <string name="BackupMediaUpsell__not_now">ليس الآن</string>
 
     <!-- Title of Megaphone D: upsell backups when device storage is low -->
-    <string name="BackupStorageUpsell__title">Save space with paid backups</string>
+    <string name="BackupStorageUpsell__title">وفِّر مساحة باستخدام النسخ الاحتياطية المدفوعة</string>
     <!-- Body of Megaphone D: upsell backups when device storage is low -->
-    <string name="BackupStorageUpsell__body">Paid secure backup plans can save storage space by offloading media.</string>
+    <string name="BackupStorageUpsell__body">تتيح خطط النسخ الاحتياطية الآمنة المدفوعة توفير مساحة تخزين على الجهاز من خلال نقل الوسائط إلى النسخ الاحتياطي.</string>
     <!-- Primary button of Megaphone D when user has free tier backups -->
     <string name="BackupStorageUpsell__upgrade">ترقية</string>
     <!-- Primary button of Megaphone D when user has no backups -->
@@ -8647,21 +8750,21 @@
     <string name="BackupStorageUpsell__not_now">ليس الآن</string>
 
     <!-- Title of the backup upsell bottom sheet promoting paid backup plans -->
-    <string name="BackupUpsellBottomSheet__title">Upgrade to back up all media</string>
+    <string name="BackupUpsellBottomSheet__title">قُم بالترقية لنسخ جميع الوسائط احتياطيًا.</string>
     <!-- Body of the backup upsell bottom sheet -->
-    <string name="BackupUpsellBottomSheet__body">Paid Signal Secure Backup plans save all media you send and receive, up to a maximum of 100GB. Never lose an image or video when you get a new phone or reinstall Signal.</string>
+    <string name="BackupUpsellBottomSheet__body">تُتيح اشتراكات النسخ الاحتياطي الآمن المدفوعة من سيجنال حفظ جميع الوسائط المُرسَلة والمُستقبَلة، بسعة تصل إلى 100 جيجابايت. لا تخسر أي صورة أو فيديو عند حصولك على هاتف جديد أو عند إعادة تثبيت سيجنال.</string>
     <!-- Label for the paid plan price shown in the feature card, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__price_per_month">%1$s/شهريًا</string>
     <!-- Subtitle for the paid plan feature card -->
     <string name="BackupUpsellBottomSheet__text_and_all_media">الرسائل النصية + كل وسائطك</string>
     <!-- Feature bullet: full text and media backup -->
-    <string name="BackupUpsellBottomSheet__full_text_media_backup">Full text + media backup</string>
+    <string name="BackupUpsellBottomSheet__full_text_media_backup">نسخ احتياطي كامل للرسائل النصية والوسائط</string>
     <!-- Feature bullet: 100GB storage -->
-    <string name="BackupUpsellBottomSheet__storage_100gb">100GB storage</string>
+    <string name="BackupUpsellBottomSheet__storage_100gb">100 جيجابايت تخزين</string>
     <!-- Feature bullet: save on-device storage -->
-    <string name="BackupUpsellBottomSheet__save_on_device_storage">Save on-device storage</string>
+    <string name="BackupUpsellBottomSheet__save_on_device_storage">توفير مساحة التخزين على الجهاز</string>
     <!-- Feature bullet: thanks for supporting Signal -->
-    <string name="BackupUpsellBottomSheet__thanks_for_supporting">Thanks for supporting Signal</string>
+    <string name="BackupUpsellBottomSheet__thanks_for_supporting">شكرًا لدعمك لسيجنال</string>
     <!-- Primary button for the upsell bottom sheet. The %s is replaced by the subscription price, e.g. "$1.99/month" -->
     <string name="BackupUpsellBottomSheet__subscribe_for">اشترِك مقابل %1$s/شهريًا</string>
     <!-- Secondary/dismiss button for the upsell bottom sheet -->
@@ -8670,11 +8773,11 @@
     <!-- Title of the backup setup complete bottom sheet -->
     <string name="BackupSetupCompleteBottomSheet__title">أنت جاهز الآن. ابدأ النسخ الاحتياطي لديك الآن.</string>
     <!-- Body of the backup setup complete bottom sheet -->
-    <string name="BackupSetupCompleteBottomSheet__body">This could take a while. You can use Signal normally while backing up.</string>
+    <string name="BackupSetupCompleteBottomSheet__body">قد يستغرق هذا بعض الوقت. يمكنك استخدام سيجنال بشكل عادي أثناء إجراء عملية النسخ الاحتياطي.</string>
     <!-- Label for the optimize storage toggle -->
-    <string name="BackupSetupCompleteBottomSheet__optimize_storage">Optimize Signal storage</string>
+    <string name="BackupSetupCompleteBottomSheet__optimize_storage">تحسين مساحة التخزين على سيجنال</string>
     <!-- Subtitle for the optimize storage toggle -->
-    <string name="BackupSetupCompleteBottomSheet__optimize_subtitle">Older media will be offloaded, but can be downloaded from your backup anytime.</string>
+    <string name="BackupSetupCompleteBottomSheet__optimize_subtitle">سيتمُّ تفريغ ملفات الوسائط القديمة، لكن يُمكن تنزيلها من النسخة الاحتياطية الخاصة بك في أيّ وقت.</string>
     <!-- Primary button on the setup complete bottom sheet -->
     <string name="BackupSetupCompleteBottomSheet__back_up_now">إنشاء نسخة احتياطية الآن</string>
 
@@ -8923,7 +9026,7 @@
 
     <!-- OnDeviceBackupsFragment -->
     <!-- Snackbar message shown after successfully updating the on-device backups recovery key. -->
-    <string name="OnDeviceBackupsFragment__backup_key_updated">تمَّ تحديث مفتاح النسخ الاحتياطي</string>
+    <string name="OnDeviceBackupsFragment__recovery_key_updated">تمَّ تحديث مفتاح الاستعادة</string>
     <!-- Toast message shown after selecting a folder to store on-device backups. Placeholder is the selected folder. -->
     <string name="OnDeviceBackupsFragment__directory_selected">المكان المُخصَّص المُختار: %1$s</string>
 
@@ -9395,6 +9498,26 @@
     <!-- Button label to open QR scanner to scan a device and transfer a backup -->
     <string name="RemoteBackupsSettingsFragment__scan_qr_code">امسح ضوئيًا كود الـ QR</string>
 
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">جارٍ معاجلة النسخة الاحتياطية…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">جارٍ تحضير النسخة الاحتياطية…</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">جارٍ وضع اللمسات الأخيرة…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+
+    <!-- LocalArchiveJob -->
+    <!-- Notification title shown while media attachments are being exported during a local backup -->
+    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
     <string name="OnDeviceBackupsImprovementsScreen__improvements_to_on_device_backups">التحسينات التي تخُص النسخ الاحتياطية على الجهاز</string>
@@ -9416,7 +9539,7 @@
     <string name="OnDeviceBackupsSettingsScreen__update">تحديث</string>
 
     <!-- UnifiedOnDeviceBackupsSettingsScreen -->
-    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_backup_key">عرض مفتاح النسخة الاحتياطية</string>
+    <string name="UnifiedOnDeviceBackupsSettingsScreen__view_recovery_key">عرض مفتاح الاستعادة</string>
 
     <!-- DownloadYourBackupTodayDialog -->
     <!-- Dialog title -->
@@ -9486,9 +9609,9 @@
     <!-- Screen body shown when upgrading on-device backups to a new recovery key (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__local_backup_upgrade_description_bold">سيحل هذا المفتاح محل مفتاحك الخاص بالنسخة النسخ الاحتياطية على الجهاز.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 1). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">مفتاح النسخة الاحتياطية الخاص بك هو كود مُكوَّن من 64 رقمًا يَسمح لك باستعادة نسخك الاحتياطية عندما تُعيد تثبيت سيجنال.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">مفتاح الاستعادة الخاص بك هو كود مُكوَّن من 64 رمزًا يَسمح لك باستعادة نسختك الاحتياطية عندما تُعيد تثبيت سيجنال.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
-    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">هذا المفتاح مثل مفتاح النسخ الاحتياطية على الجهاز.</string>
+    <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">هذا المفتاح مثل مفتاح الاستعادة على الجهاز الخاص بك.</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">استخدِم هذا المفتاح من أجل:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -9506,7 +9629,7 @@
     <!-- Screen subhead -->
     <string name="MessageBackupsKeyRecordScreen__this_key_is_required_to_recover">هذا المفتاح مطلوب لاسترجاع بياناتك وحسابك. احتفِظ بهذا المفتاح في مكانٍ آمن. إذا فقدته، لن تتمكّن من استرجاع حسابك.</string>
     <!-- Screen subhead shown when the recovery key is shared between Signal Secure Backups and on-device backups. -->
-    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_backup_key">هذا المفتاح مثل مفتاح النسخ الاحتياطية على الجهاز الخاص بك. هذا المفتاح مطلوب لاسترجاع حسابك وبياناتك.</string>
+    <string name="MessageBackupsKeyRecordScreen__this_key_is_the_same_as_your_on_device_recovery_key">هذا المفتاح مثل مفتاح الاستعادة على الجهاز الخاص بك. هذا المفتاح مطلوب لاسترجاع حسابك وبياناتك.</string>
     <!-- Copy to clipboard button label -->
     <string name="MessageBackupsKeyRecordScreen__copy_to_clipboard">نسخ إلى الحافظة</string>
     <!-- Label for the button to save a recovery key to the device password manager. -->
@@ -9763,8 +9886,8 @@
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">أدخِل مفتاح الاستعادة الخاص بك.</string>
     <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
     <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">مفتاح الاستعادة الخاص بك هو كود مُكوَّن من 64 رمزًا، وهو مطلوب لاستعادة حسابك وبياناتك.</string>
-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a backup key -->
-    <string name="EnterLocalBackupKeyScreen__no_backup_key">لا ترغبُ باستخدام مفتاح النسخة الاحتياطية؟</string>
+    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+    <string name="EnterLocalBackupKeyScreen__no_recovery_key">لا حاجة لمفتاح استعادة جديد؟</string>
     <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
     <string name="EnterLocalBackupKeyScreen__next">التالي</string>
 
@@ -10226,13 +10349,17 @@
     <!-- Description explaining the group member labels feature. -->
     <string name="GroupMemberLabel__description">حدِّد دور عضو لتصف نفسك أو دورك في هذه المجموعة. الأدوار مرئية فقط داخلة هذه المجموعة.</string>
     <!-- Error message shown when the group member label fails to save due to a network error. -->
-    <string name="GroupMemberLabel__error_cant_save_no_network">Couldn\'t save label. Check your network and try again.</string>
+    <string name="GroupMemberLabel__error_cant_save_no_network">تعذَّر حفظ الدور. تحقَّق من شبكتك وحاوِل من جديد.</string>
+    <!-- Error message shown when trying to edit a member label without adequate permission. -->
+    <string name="GroupMemberLabel__error_no_edit_permission">فقط المُشرِفون هم من يمكنهم تحديد أدوار الأعضاء في هذه المجموعة.</string>
     <!-- Accessibility label for the button to open the group member label emoji picker. -->
     <string name="GroupMemberLabel__accessibility_select_emoji">اختر رمزًا تعبيريًا</string>
     <!-- Accessibility label for the group member label close screen button. -->
     <string name="GroupMemberLabel__accessibility_close_screen">إغلاق الشاشة</string>
     <!-- Accessibility label for the group member label text field clear button. -->
     <string name="GroupMemberLabel__accessibility_clear_label">مسح الدور</string>
+    <!-- Section header for the list of group members who have labels set. -->
+    <string name="GroupMemberLabel__group_members_with_labels">أعضاء المجموعة ذوو الأدوار</string>
 
     <!-- Title for the member labels education sheet. -->
     <string name="MemberLabelsEducation__title">دور العضو</string>

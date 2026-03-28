@@ -253,7 +253,7 @@ class InAppPaymentCheckoutDelegate(
           errorDialog = DonationErrorDialogs.show(
             fragment!!.requireContext(),
             throwable,
-            DialogHandler()
+            DialogHandler(inAppPayment)
           )
         }
       }
@@ -280,13 +280,13 @@ class InAppPaymentCheckoutDelegate(
           errorDialog = DonationErrorDialogs.show(
             fragment!!.requireContext(),
             inAppPayment,
-            DialogHandler()
+            DialogHandler(inAppPayment)
           )
         }
       }
     }
 
-    private inner class DialogHandler : DonationErrorDialogs.DialogCallback() {
+    private inner class DialogHandler(private val inAppPayment: InAppPaymentTable.InAppPayment) : DonationErrorDialogs.DialogCallback() {
       var tryAgain = false
 
       override fun onTryCreditCardAgain(context: Context): DonationErrorParams.ErrorAction<Unit> {
@@ -309,8 +309,18 @@ class InAppPaymentCheckoutDelegate(
 
       override fun onDialogDismissed() {
         errorDialog = null
-        if (!tryAgain) {
-          tryAgain = false
+        if (tryAgain) {
+          Log.d(TAG, "Resetting InAppPayment[${inAppPayment.id}] to CREATED for retry.", true)
+          InAppPaymentsRepository.updateInAppPayment(
+            inAppPayment.copy(
+              state = InAppPaymentTable.State.CREATED,
+              data = inAppPayment.data.newBuilder()
+                .error(null)
+                .redemption(InAppPaymentData.RedemptionState(stage = InAppPaymentData.RedemptionState.Stage.INIT))
+                .build()
+            )
+          ).subscribe()
+        } else {
           errorHandlerCallback?.exitCheckoutFlow()
         }
       }

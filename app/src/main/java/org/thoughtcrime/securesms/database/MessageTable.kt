@@ -190,7 +190,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     const val UNIDENTIFIED = "unidentified"
     const val REACTIONS_UNREAD = "reactions_unread"
     const val REACTIONS_LAST_SEEN = "reactions_last_seen"
-    const val REMOTE_DELETED = "remote_deleted"
+    const val REMOTE_DELETED = "remote_deleted" // Note: Use [DELETED_BY] instead. All attempts to remove this have failed.
     const val SERVER_GUID = "server_guid"
     const val RECEIPT_TIMESTAMP = "receipt_timestamp"
     const val EXPORT_STATE = "export_state"
@@ -226,6 +226,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     const val PINNING_MESSAGE_ID = "pinning_message_id"
     const val PINNED_AT = "pinned_at"
     const val DELETED_BY = "deleted_by"
+    const val STORY_ARCHIVED = "story_archived"
 
     const val QUOTE_NOT_PRESENT_ID = 0L
     const val QUOTE_TARGET_MISSING_ID = -1L
@@ -297,7 +298,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         $PINNED_UNTIL INTEGER DEFAULT 0,
         $PINNING_MESSAGE_ID INTEGER DEFAULT 0,
         $PINNED_AT INTEGER DEFAULT 0,
-        $DELETED_BY INTEGER DEFAULT NULL REFERENCES ${RecipientTable.TABLE_NAME} (${RecipientTable.ID}) ON DELETE CASCADE
+        $DELETED_BY INTEGER DEFAULT NULL REFERENCES ${RecipientTable.TABLE_NAME} (${RecipientTable.ID}) ON DELETE CASCADE,
+        $STORY_ARCHIVED INTEGER DEFAULT 0
       )
     """
 
@@ -331,7 +333,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       "CREATE INDEX IF NOT EXISTS message_votes_unread_index ON $TABLE_NAME ($VOTES_UNREAD)",
       "CREATE INDEX IF NOT EXISTS message_pinned_until_index ON $TABLE_NAME ($PINNED_UNTIL)",
       "CREATE INDEX IF NOT EXISTS message_pinned_at_index ON $TABLE_NAME ($PINNED_AT)",
-      "CREATE INDEX IF NOT EXISTS message_deleted_by_index ON $TABLE_NAME ($DELETED_BY)"
+      "CREATE INDEX IF NOT EXISTS message_deleted_by_index ON $TABLE_NAME ($DELETED_BY)",
+      "CREATE INDEX IF NOT EXISTS message_story_archived_index ON $TABLE_NAME ($STORY_ARCHIVED, $STORY_TYPE, $DATE_SENT) WHERE $STORY_TYPE > 0 AND $STORY_ARCHIVED > 0"
     )
 
     private val MMS_PROJECTION_BASE = arrayOf(
@@ -433,7 +436,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         ) AS ${AttachmentTable.ATTACHMENT_JSON_ALIAS}
       """.toSingleLine()
 
-    private const val IS_STORY_CLAUSE = "$STORY_TYPE > 0 AND $DELETED_BY IS NULL"
+    private const val IS_STORY_CLAUSE = "$STORY_TYPE > 0 AND $DELETED_BY IS NULL AND $STORY_ARCHIVED = 0"
+    private const val IS_ARCHIVED_STORY_CLAUSE = "$STORY_TYPE > 0 AND $DELETED_BY IS NULL AND $STORY_ARCHIVED > 0"
     private const val RAW_ID_WHERE = "$TABLE_NAME.$ID = ?"
 
     private val SNIPPET_QUERY =
@@ -1694,9 +1698,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       .run()
   }
 
-  fun deleteStoriesOlderThan(timestamp: Long, hasSeenReleaseChannelStories: Boolean): Int {
+  fun deleteUnarchivedStoriesOlderThan(timestamp: Long, hasSeenReleaseChannelStories: Boolean): Int {
     return writableDatabase.withinTransaction { db ->
       val releaseChannelThreadId = getReleaseChannelThreadId(hasSeenReleaseChannelStories)
+
       val storiesBeforeTimestampWhere = "$IS_STORY_CLAUSE AND $DATE_SENT < ? AND $THREAD_ID != ?"
       val sharedArgs = buildArgs(timestamp, releaseChannelThreadId)
 
@@ -1767,6 +1772,65 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       }
 
       deletedStoryCount
+    }
+  }
+
+  fun archiveStoriesOlderThan(timestamp: Long, hasSeenReleaseChannelStories: Boolean): Int {
+    val releaseChannelThreadId = getReleaseChannelThreadId(hasSeenReleaseChannelStories)
+    val outgoingFilter = "($outgoingTypeClause)"
+
+    return writableDatabase
+      .update(TABLE_NAME)
+      .values(STORY_ARCHIVED to 1)
+      .where("$IS_STORY_CLAUSE AND $DATE_SENT < ? AND $THREAD_ID != ? AND $outgoingFilter", timestamp, releaseChannelThreadId)
+      .run()
+  }
+
+  fun getArchiveScreenStoriesCount(includeActive: Boolean): Int {
+    val storyClause = if (includeActive) "$STORY_TYPE > 0 AND $DELETED_BY IS NULL" else IS_ARCHIVED_STORY_CLAUSE
+    val where = "$storyClause AND ($outgoingTypeClause)"
+    return readableDatabase.select("COUNT(*)").from(TABLE_NAME).where(where).run().readToSingleInt()
+  }
+
+  fun getArchiveScreenStoriesPage(includeActive: Boolean, sortNewest: Boolean, offset: Int, limit: Int): Reader {
+    val storyClause = if (includeActive) "$STORY_TYPE > 0 AND $DELETED_BY IS NULL" else IS_ARCHIVED_STORY_CLAUSE
+    val where = "$storyClause AND ($outgoingTypeClause)"
+    val order = if (sortNewest) "$TABLE_NAME.$DATE_SENT DESC" else "$TABLE_NAME.$DATE_SENT ASC"
+    return MmsReader(rawQueryWithAttachments(where, null, orderBy = order, limit = limit.toLong(), offset = offset.toLong()))
+  }
+
+  fun getOldestArchivedStorySentTimestamp(): Long? {
+    return readableDatabase
+      .select(DATE_SENT)
+      .from(TABLE_NAME)
+      .where(IS_ARCHIVED_STORY_CLAUSE)
+      .limit(1)
+      .orderBy("$DATE_SENT ASC")
+      .run()
+      .readToSingleObject { it.getLong(0) }
+  }
+
+  fun deleteArchivedStoriesOlderThan(timestamp: Long): Int {
+    return writableDatabase.withinTransaction { db ->
+      val where = "$IS_ARCHIVED_STORY_CLAUSE AND $DATE_SENT < ?"
+      val args = buildArgs(timestamp)
+
+      val deletedCount = db.select(ID)
+        .from(TABLE_NAME)
+        .where(where, args)
+        .run()
+        .use { cursor ->
+          while (cursor.moveToNext()) {
+            deleteMessage(cursor.requireLong(ID))
+          }
+          cursor.count
+        }
+
+      if (deletedCount > 0) {
+        OptimizeMessageSearchIndexJob.enqueue()
+      }
+
+      deletedCount
     }
   }
 
@@ -2068,7 +2132,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   /**
    * Note: [reverse] and [orderBy] are mutually exclusive. If you want the order to be reversed, explicitly use 'ASC' or 'DESC'
    */
-  private fun rawQueryWithAttachments(where: String, arguments: Array<String>?, reverse: Boolean = false, limit: Long = 0, orderBy: String = ""): Cursor {
+  private fun rawQueryWithAttachments(where: String, arguments: Array<String>?, reverse: Boolean = false, limit: Long = 0, offset: Long = 0, orderBy: String = ""): Cursor {
     val database = databaseHelper.signalReadableDatabase
     var rawQueryString = """
       SELECT 
@@ -2089,6 +2153,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     if (limit > 0) {
       rawQueryString += " LIMIT $limit"
+      if (offset > 0) {
+        rawQueryString += " OFFSET $offset"
+      }
     }
 
     return database.rawQuery(rawQueryString, arguments)
@@ -2263,6 +2330,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
   }
 
+  @Throws(NoSuchMessageException::class)
   fun markAsDeleteBySelf(messageId: Long) {
     val targetMessage: MessageRecord = getMessageRecord(messageId)
     markAsRemoteDelete(targetMessage, Recipient.self().id)
@@ -4038,38 +4106,54 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     SignalTrace.beginSection("MessageTable#deleteMessagesInThread")
     for (threadId in threadsWithPossibleDeletes) {
-      val subSelect = "SELECT ${TABLE_NAME}.$ID FROM $TABLE_NAME WHERE ${TABLE_NAME}.$THREAD_ID = $threadId $extraWhere LIMIT $DELETE_BATCH_SIZE"
+      val batchTable = "tmp_delete_batch"
+      val batchSelect = "SELECT $ID FROM $batchTable"
       var deletedCount: Int
       do {
         deletedCount = writableDatabase.withinTransaction { db ->
+          db.execSQL("CREATE TEMP TABLE IF NOT EXISTS $batchTable ($ID INTEGER PRIMARY KEY)")
+          db.execSQL("DELETE FROM $batchTable")
+          db.execSQL("INSERT INTO $batchTable SELECT ${TABLE_NAME}.$ID FROM $TABLE_NAME WHERE ${TABLE_NAME}.$THREAD_ID = $threadId $extraWhere LIMIT $DELETE_BATCH_SIZE")
+          // Expand to include revision chain members so they're always deleted together
+          db.execSQL("INSERT OR IGNORE INTO $batchTable SELECT $ID FROM $TABLE_NAME WHERE $LATEST_REVISION_ID IN (SELECT $ID FROM $batchTable) OR $ORIGINAL_MESSAGE_ID IN (SELECT $ID FROM $batchTable)")
+
           db.delete(StorySendTable.TABLE_NAME)
-            .where("${StorySendTable.TABLE_NAME}.${StorySendTable.MESSAGE_ID} IN ($subSelect)")
+            .where("${StorySendTable.TABLE_NAME}.${StorySendTable.MESSAGE_ID} IN ($batchSelect)")
             .run()
 
           db.delete(ReactionTable.TABLE_NAME)
-            .where("${ReactionTable.TABLE_NAME}.${ReactionTable.MESSAGE_ID} IN ($subSelect)")
+            .where("${ReactionTable.TABLE_NAME}.${ReactionTable.MESSAGE_ID} IN ($batchSelect)")
             .run()
 
           db.delete(CallTable.TABLE_NAME)
-            .where("${CallTable.TABLE_NAME}.${CallTable.MESSAGE_ID} IN ($subSelect)")
+            .where("${CallTable.TABLE_NAME}.${CallTable.MESSAGE_ID} IN ($batchSelect)")
             .run()
 
           db.delete(AttachmentTable.TABLE_NAME)
-            .where("${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID} IN ($subSelect)")
+            .where("${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID} IN ($batchSelect)")
             .run()
 
           db.delete(GroupReceiptTable.TABLE_NAME)
-            .where("${GroupReceiptTable.TABLE_NAME}.${GroupReceiptTable.MMS_ID} IN ($subSelect)")
+            .where("${GroupReceiptTable.TABLE_NAME}.${GroupReceiptTable.MMS_ID} IN ($batchSelect)")
             .run()
 
           db.delete(MentionTable.TABLE_NAME)
-            .where("${MentionTable.TABLE_NAME}.${MentionTable.MESSAGE_ID} IN ($subSelect)")
+            .where("${MentionTable.TABLE_NAME}.${MentionTable.MESSAGE_ID} IN ($batchSelect)")
             .run()
 
-          // Delete the messages themselves
-          db.delete(TABLE_NAME)
-            .where("$ID IN ($subSelect)")
+          // Null self-referential FK links so DELETE doesn't trigger CASCADE checks
+          db.update(TABLE_NAME)
+            .values(LATEST_REVISION_ID to null, ORIGINAL_MESSAGE_ID to null)
+            .where("$LATEST_REVISION_ID IN ($batchSelect) OR $ORIGINAL_MESSAGE_ID IN ($batchSelect)")
             .run()
+
+          SignalTrace.beginSection("deleteMessages")
+          val count = db.delete(TABLE_NAME)
+            .where("$ID IN ($batchSelect)")
+            .run()
+          SignalTrace.endSection()
+
+          count
         }
 
         totalDeletedCount += deletedCount
@@ -4954,8 +5038,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       .run()
   }
 
-  fun incrementDeliveryReceiptCounts(targetTimestamps: List<Long>, receiptAuthor: RecipientId, receiptSentTimestamp: Long, stopwatch: Stopwatch? = null): Set<Long> {
-    return incrementReceiptCounts(targetTimestamps, receiptAuthor, receiptSentTimestamp, ReceiptType.DELIVERY, stopwatch = stopwatch)
+  fun incrementDeliveryReceiptCounts(targetTimestamps: List<Long>, receiptAuthor: RecipientId, receiptSentTimestamp: Long, stopwatch: Stopwatch? = null, receiptDataCache: MutableMap<Long, ReceiptData>? = null): Set<Long> {
+    return incrementReceiptCounts(targetTimestamps, receiptAuthor, receiptSentTimestamp, ReceiptType.DELIVERY, stopwatch = stopwatch, receiptDataCache = receiptDataCache)
   }
 
   fun incrementDeliveryReceiptCount(targetTimestamps: Long, receiptAuthor: RecipientId, receiptSentTimestamp: Long): Boolean {
@@ -4965,8 +5049,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   /**
    * @return A list of ID's that were not updated.
    */
-  fun incrementReadReceiptCounts(targetTimestamps: List<Long>, receiptAuthor: RecipientId, receiptSentTimestamp: Long): Set<Long> {
-    return incrementReceiptCounts(targetTimestamps, receiptAuthor, receiptSentTimestamp, ReceiptType.READ)
+  fun incrementReadReceiptCounts(targetTimestamps: List<Long>, receiptAuthor: RecipientId, receiptSentTimestamp: Long, receiptDataCache: MutableMap<Long, ReceiptData>? = null): Set<Long> {
+    return incrementReceiptCounts(targetTimestamps, receiptAuthor, receiptSentTimestamp, ReceiptType.READ, receiptDataCache = receiptDataCache)
   }
 
   fun incrementReadReceiptCount(targetTimestamps: Long, receiptAuthor: RecipientId, receiptSentTimestamp: Long): Boolean {
@@ -5044,13 +5128,13 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
    *
    * @return All of the target timestamps that couldn't be found in the table.
    */
-  private fun incrementReceiptCounts(targetTimestamps: List<Long>, receiptAuthor: RecipientId, receiptSentTimestamp: Long, receiptType: ReceiptType, messageQualifier: MessageQualifier = MessageQualifier.ALL, stopwatch: Stopwatch? = null): Set<Long> {
+  private fun incrementReceiptCounts(targetTimestamps: List<Long>, receiptAuthor: RecipientId, receiptSentTimestamp: Long, receiptType: ReceiptType, messageQualifier: MessageQualifier = MessageQualifier.ALL, stopwatch: Stopwatch? = null, receiptDataCache: MutableMap<Long, ReceiptData>? = null): Set<Long> {
     val messageUpdates: MutableSet<MessageReceiptUpdate> = HashSet()
     val missingTargetTimestamps: MutableSet<Long> = HashSet()
 
     writableDatabase.withinTransaction {
       for (targetTimestamp in targetTimestamps) {
-        val updates: Set<MessageReceiptUpdate> = incrementReceiptCountInternal(targetTimestamp, receiptAuthor, receiptSentTimestamp, receiptType, messageQualifier, stopwatch)
+        val updates: Set<MessageReceiptUpdate> = incrementReceiptCountInternal(targetTimestamp, receiptAuthor, receiptSentTimestamp, receiptType, messageQualifier, stopwatch, receiptDataCache)
         if (updates.isNotEmpty()) {
           messageUpdates += updates
         } else {
@@ -5083,7 +5167,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return missingTargetTimestamps
   }
 
-  private fun incrementReceiptCountInternal(targetTimestamp: Long, receiptAuthor: RecipientId, receiptSentTimestamp: Long, receiptType: ReceiptType, messageQualifier: MessageQualifier, stopwatch: Stopwatch? = null): Set<MessageReceiptUpdate> {
+  private fun incrementReceiptCountInternal(targetTimestamp: Long, receiptAuthor: RecipientId, receiptSentTimestamp: Long, receiptType: ReceiptType, messageQualifier: MessageQualifier, stopwatch: Stopwatch? = null, receiptDataCache: MutableMap<Long, ReceiptData>? = null): Set<MessageReceiptUpdate> {
     val qualifierWhere: String = when (messageQualifier) {
       MessageQualifier.NORMAL -> " AND NOT ($IS_STORY_CLAUSE)"
       MessageQualifier.STORY -> " AND $IS_STORY_CLAUSE"
@@ -5091,39 +5175,45 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
 
     // Note: While it is true that multiple messages can have the same (sent, author) pair, this should only happen for stories, which are handled below.
-    val receiptData: ReceiptData? = readableDatabase
-      .select(ID, THREAD_ID, STORY_TYPE, receiptType.columnName, TO_RECIPIENT_ID)
-      .from(TABLE_NAME)
-      .where(
-        """
-        $DATE_SENT = $targetTimestamp AND
-        $FROM_RECIPIENT_ID = ? AND
-        (
-          $TO_RECIPIENT_ID = ? OR 
-          EXISTS (
-            SELECT 1 
-            FROM ${RecipientTable.TABLE_NAME} 
-            WHERE 
-              ${RecipientTable.TABLE_NAME}.${RecipientTable.ID} = $TO_RECIPIENT_ID AND 
-              ${RecipientTable.TABLE_NAME}.${RecipientTable.TYPE} != ${RecipientTable.RecipientType.INDIVIDUAL.id}
+    val receiptData: ReceiptData? = receiptDataCache?.get(targetTimestamp)
+      ?: readableDatabase
+        .select(ID, THREAD_ID, STORY_TYPE, receiptType.columnName, TO_RECIPIENT_ID)
+        .from(TABLE_NAME)
+        .where(
+          """
+          $DATE_SENT = $targetTimestamp AND
+          $FROM_RECIPIENT_ID = ? AND
+          (
+            $TO_RECIPIENT_ID = ? OR
+            EXISTS (
+              SELECT 1
+              FROM ${RecipientTable.TABLE_NAME}
+              WHERE
+                ${RecipientTable.TABLE_NAME}.${RecipientTable.ID} = $TO_RECIPIENT_ID AND
+                ${RecipientTable.TABLE_NAME}.${RecipientTable.TYPE} != ${RecipientTable.RecipientType.INDIVIDUAL.id}
+            )
           )
+          $qualifierWhere
+          """,
+          Recipient.self().id,
+          receiptAuthor
         )
-        $qualifierWhere
-        """,
-        Recipient.self().id,
-        receiptAuthor
-      )
-      .limit(1)
-      .run()
-      .readToSingleObject { cursor ->
-        ReceiptData(
-          messageId = cursor.requireLong(ID),
-          threadId = cursor.requireLong(THREAD_ID),
-          storyType = StoryType.fromCode(cursor.requireInt(STORY_TYPE)),
-          marked = cursor.requireBoolean(receiptType.columnName),
-          forIndividualChat = cursor.requireLong(TO_RECIPIENT_ID) == receiptAuthor.toLong()
-        )
-      }
+        .limit(1)
+        .run()
+        .readToSingleObject { cursor ->
+          ReceiptData(
+            messageId = cursor.requireLong(ID),
+            threadId = cursor.requireLong(THREAD_ID),
+            storyType = StoryType.fromCode(cursor.requireInt(STORY_TYPE)),
+            marked = cursor.requireBoolean(receiptType.columnName),
+            forIndividualChat = cursor.requireLong(TO_RECIPIENT_ID) == receiptAuthor.toLong()
+          )
+        }
+        .also { result ->
+          if (result != null && !result.forIndividualChat) {
+            receiptDataCache?.put(targetTimestamp, result)
+          }
+        }
 
     stopwatch?.split("receipt-query")
 
@@ -5143,11 +5233,15 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         UPDATE $TABLE_NAME
         SET
           ${receiptType.columnName} = 1,
-          $RECEIPT_TIMESTAMP = MAX($RECEIPT_TIMESTAMP, $receiptSentTimestamp) 
+          $RECEIPT_TIMESTAMP = MAX($RECEIPT_TIMESTAMP, $receiptSentTimestamp)
         WHERE
           $ID = ${receiptData.messageId}
         """
       )
+
+      if (receiptDataCache?.containsKey(targetTimestamp) == true) {
+        receiptDataCache[targetTimestamp] = receiptData.copy(marked = true)
+      }
     }
     stopwatch?.split("receipt-update")
 
@@ -5298,14 +5392,14 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
    * A cursor containing all of the messages in a given thread, in the proper order, respecting offset/limit.
    * This does *not* have attachments in it.
    */
-  fun getConversation(threadId: Long, offset: Long, limit: Long): Cursor {
+  fun getConversation(threadId: Long, offset: Long = 0, limit: Long = 0, dateReceiveOrderBy: String = "DESC"): Cursor {
     val limitStr: String = if (limit > 0 || offset > 0) "$offset, $limit" else ""
 
     return readableDatabase
       .select(*MMS_PROJECTION)
       .from("$TABLE_NAME INDEXED BY $INDEX_THREAD_STORY_SCHEDULED_DATE_LATEST_REVISION_ID")
       .where("$THREAD_ID = ? AND $STORY_TYPE = ? AND $PARENT_STORY_ID <= ? AND $SCHEDULED_DATE = ? AND $LATEST_REVISION_ID IS NULL", threadId, 0, 0, -1)
-      .orderBy("$DATE_RECEIVED DESC")
+      .orderBy("$DATE_RECEIVED $dateReceiveOrderBy")
       .limit(limitStr)
       .run()
   }
