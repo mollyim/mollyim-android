@@ -528,7 +528,7 @@ private fun BioRow(
       AvatarImage(
         recipient = self.recipient,
         modifier = Modifier
-          .padding(vertical = 24.dp)
+          .padding(horizontal = 24.dp, vertical = 24.dp)
           .size(80.dp)
       )
 
@@ -542,7 +542,11 @@ private fun BioRow(
         )
       }
     }
+  }
 
+  Row(
+    verticalAlignment = Alignment.CenterVertically
+  ) {
     Column(
       modifier = Modifier
         .weight(1f)
@@ -592,16 +596,20 @@ private fun BioRow(
         }
       }
     }
-
+  }
+  Row(
+    verticalAlignment = Alignment.CenterVertically
+  ) {
     if (hasUsername) {
       IconButtons.IconButton(
         onClick = {
           callbacks.navigate(AppSettingsRoute.UsernameLinkRoute.UsernameLink)
         },
+        modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp),
         size = 36.dp,
         colors = IconButtons.iconButtonColors(
           containerColor = SignalTheme.colors.colorSurface4
-        )
+        ),
       ) {
         Icon(
           painter = SignalIcons.QrCode.painter,

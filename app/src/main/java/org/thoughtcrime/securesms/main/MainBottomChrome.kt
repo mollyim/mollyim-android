@@ -72,18 +72,6 @@ fun MainBottomChrome(
       .fillMaxWidth()
       .animateContentSize()
   ) {
-    if (state.mainToolbarMode == MainToolbarMode.FULL && navigationType != NavigationType.RAIL) {
-      Box(
-        contentAlignment = Alignment.CenterEnd,
-        modifier = Modifier.fillMaxWidth()
-      ) {
-        MainFloatingActionButtons(
-          destination = state.destination,
-          callback = callback
-        )
-      }
-    }
-
     if (state.mainToolbarMode == MainToolbarMode.FULL) {
       MainMegaphoneContainer(
         state = state.megaphoneState,

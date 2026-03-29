@@ -174,7 +174,7 @@ public class InputPanel extends ConstraintLayout
 
     this.recordLockCancel.setOnClickListener(v -> microphoneRecorderView.cancelAction(true));
 
-    mediaKeyboard.setVisibility(View.VISIBLE);
+    // mediaKeyboard.setVisibility(View.VISIBLE);
     emojiVisible = true;
 
     quoteDismiss.setOnClickListener(v -> clearQuote());
@@ -201,12 +201,7 @@ public class InputPanel extends ConstraintLayout
     mediaKeyboard.setOnClickListener(v -> listener.onEmojiToggle());
     voiceNoteDraftView.setListener(listener);
 
-    if (Camera.getNumberOfCameras() > 0) {
-      quickCameraToggle.setOnClickListener(v -> listener.onQuickCameraToggleClicked());
-      quickCameraToggle.setVisibility(View.VISIBLE);
-    } else {
-      quickCameraToggle.setVisibility(View.GONE);
-    }
+    quickCameraToggle.setVisibility(View.GONE);
   }
 
   public void setMediaListener(@NonNull MediaListener listener) {
@@ -656,7 +651,6 @@ public class InputPanel extends ConstraintLayout
     composeText.setEnabled(enabled);
     mediaKeyboard.setEnabled(enabled);
     quickAudioToggle.setEnabled(enabled);
-    quickCameraToggle.setEnabled(enabled);
   }
 
   private long onRecordHideEvent() {
@@ -751,7 +745,6 @@ public class InputPanel extends ConstraintLayout
     }
 
     fadeIn(composeText);
-    fadeIn(quickCameraToggle);
     fadeIn(quickAudioToggle);
     fadeIn(buttonToggle);
   }

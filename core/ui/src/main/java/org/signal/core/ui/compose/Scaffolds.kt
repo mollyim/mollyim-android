@@ -161,6 +161,8 @@ object Scaffolds {
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
   ) {
     TopAppBar(
+      modifier = Modifier
+        .padding(horizontal = 24.dp),
       title = { titleContent(scrollBehavior.state.contentOffset, title) },
       navigationIcon = navigationIconContent,
       scrollBehavior = scrollBehavior,

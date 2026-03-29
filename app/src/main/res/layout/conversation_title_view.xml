@@ -10,24 +10,24 @@
     tools:layout_height="@dimen/signal_m3_toolbar_height">
 
     <FrameLayout
-        android:transitionName="avatar"
         android:id="@+id/contact_photo_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:transitionName="avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <org.thoughtcrime.securesms.avatar.view.AvatarView
             android:id="@+id/contact_photo_image"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:layout_gravity="start|top"
             android:clickable="true"
             android:contentDescription="@string/conversation_list_item_view__contact_photo_image"
             android:cropToPadding="true"
-            android:layout_gravity="start|top"
             android:foreground="@drawable/contact_photo_background"
             app:fallbackImageSize="small" />
 
@@ -47,19 +47,19 @@
         style="@style/Signal.Text.TitleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toEndOf="@id/contact_photo_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/subtitle_container"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintHorizontal_bias="0"
         android:layout_marginStart="16dp"
         android:drawablePadding="3dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:transitionName="recipient_name"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/subtitle_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/contact_photo_container"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:ignore="UnusedAttribute"
         tools:text="J. Jonah Jameson" />
 
@@ -69,12 +69,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constrainedWidth="true"
-        app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <include layout="@layout/expiration_timer_badge" />
 
@@ -116,6 +116,6 @@
             android:textDirection="ltr"
             tools:text="(123) 123-1234" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </org.thoughtcrime.securesms.conversation.ConversationTitleView>

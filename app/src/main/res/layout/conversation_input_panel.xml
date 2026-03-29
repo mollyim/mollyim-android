@@ -131,6 +131,7 @@
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
+        tools:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
         app:layout_constraintStart_toStartOf="@id/compose_bubble"
         app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements"
@@ -140,7 +141,7 @@
     <FrameLayout
         android:id="@+id/embedded_text_editor_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/conversation_compose_height"
         app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
         app:layout_constraintEnd_toStartOf="@id/attachment_barrier"
         app:layout_constraintStart_toEndOf="@id/emoji_toggle"
@@ -154,6 +155,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:minHeight="@dimen/conversation_compose_height"
+            android:maxHeight="64dp"
             android:nextFocusRight="@+id/send_button"
             android:nextFocusForward="@+id/send_button"
             android:paddingVertical="8dp"
@@ -192,6 +194,7 @@
             android:contentDescription="@string/conversation_activity__quick_attachment_drawer_toggle_camera_description"
             android:foreground="?selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
+            tools:visibility="gone"
             app:srcCompat="@drawable/ic_camera_24"
             app:tint="?attr/colorOnSurfaceVariant" />
 

@@ -8,6 +8,7 @@
     <!-- ======================================= -->
     <!-- Features                                -->
     <!-- ======================================= -->
+    <uses-feature android:name="android.hardware.type.watch"/>
     <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.location" android:required="false" />
@@ -117,6 +118,9 @@
         <meta-data
             android:name="android.telephony.PROPERTY_SATELLITE_DATA_OPTIMIZED"
             android:value="org.thoughtcrime.securesms" />
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
 
         <!-- ======================================= -->
         <!-- Activities                              -->

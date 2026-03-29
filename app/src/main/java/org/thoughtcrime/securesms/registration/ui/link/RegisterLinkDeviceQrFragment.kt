@@ -156,7 +156,7 @@ private fun RegisterLinkDeviceQrScreen(
           .aspectRatio(1f)
           .clip(RoundedCornerShape(24.dp))
           .background(SignalTheme.colors.colorSurface5)
-          .padding(40.dp)
+          .padding(10.dp)
       ) {
         SignalTheme(isDarkMode = false) {
           Box(

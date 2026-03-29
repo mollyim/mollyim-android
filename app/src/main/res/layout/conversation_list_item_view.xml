@@ -8,12 +8,12 @@
     android:animateLayoutChanges="true"
     android:background="@drawable/conversation_list_item_background"
     android:focusable="true"
-    android:minHeight="84dp"
+    android:minHeight="64dp"
     android:nextFocusLeft="@+id/container"
     android:paddingStart="@dimen/dsl_settings_gutter"
-    android:paddingTop="10dp"
+    android:paddingTop="5dp"
     android:paddingEnd="@dimen/dsl_settings_gutter"
-    android:paddingBottom="10dp">
+    android:paddingBottom="5dp">
 
     <FrameLayout
         android:id="@+id/conversation_list_item_check_container"

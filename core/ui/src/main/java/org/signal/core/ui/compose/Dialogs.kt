@@ -381,7 +381,7 @@ object Dialogs {
     ) {
       Surface(
         modifier = Modifier
-          .heightIn(min = 0.dp, max = getScreenHeight() - 200.dp)
+          .heightIn(min = 0.dp, max = getScreenHeight() - 10.dp)
           .background(
             color = SignalTheme.colors.colorSurface2,
             shape = AlertDialogDefaults.shape

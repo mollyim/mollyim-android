@@ -345,6 +345,9 @@ private fun PrimaryToolbar(
   onSearchButtonPositioned: (Float) -> Unit
 ) {
   TopAppBar(
+    modifier = Modifier
+      .padding(horizontal = 24.dp)
+      .height(56.dp),
     colors = TopAppBarDefaults.topAppBarColors(
       containerColor = state.toolbarColor ?: MaterialTheme.colorScheme.surface
     ),
@@ -395,9 +398,6 @@ private fun PrimaryToolbar(
       }
     },
     title = {
-      Text(
-        text = stringResource(R.string.app_name)
-      )
     },
     actions = {
       NotificationProfileAction(state, callback)

@@ -42,6 +42,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -245,7 +246,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     return motionEventRelay.offer(ev) || super.dispatchTouchEvent(ev)
   }
 
-  @OptIn(ExperimentalMaterial3AdaptiveApi::class)
+  @OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
     if (!isTaskRoot && intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN == intent.action) {
       Log.w(TAG, "Duplicate launcher intent received, finishing duplicate instance.")
@@ -533,24 +534,6 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
                 onDismissed = mainBottomChromeCallback::onSnackbarDismissed,
                 modifier = Modifier.navigationBarsPadding()
               )
-            }
-          },
-          bottomNavContent = {
-            if (isNavigationBarVisible) {
-              Column(
-                modifier = Modifier
-                  .clip(contentLayoutData.navigationBarShape)
-                  .background(color = colorAttribute(R.attr.navbar_container_color))
-              ) {
-                MainNavigationBar(
-                  state = mainNavigationState,
-                  onDestinationSelected = mainNavigationCallback
-                )
-
-                if (!windowSizeClass.isSplitPane()) {
-                  Spacer(Modifier.navigationBarsPadding())
-                }
-              }
             }
           },
           navRailContent = {
