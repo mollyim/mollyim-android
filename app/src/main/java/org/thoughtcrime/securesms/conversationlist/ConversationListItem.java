@@ -47,6 +47,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.makeramen.roundedimageview.RoundedDrawable;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.StringUtil;
 import org.signal.core.util.logging.Log;
@@ -72,8 +73,9 @@ import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.database.model.UpdateDescription;
 import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.glide.targets.GlideLiveDataTarget;
-import org.thoughtcrime.securesms.mms.DecryptableUri;
+import org.signal.glide.decryptableuri.DecryptableUri;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -85,8 +87,7 @@ import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.SearchUtil;
 import org.thoughtcrime.securesms.util.SignalE164Util;
 import org.thoughtcrime.securesms.util.SpanUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 
 import java.util.List;
@@ -319,7 +320,9 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     setSubjectViewText(null);
 
     fromView.setText(recipient.get(), recipient.get().getDisplayName(getContext()), null, false);
-    setSubjectViewText(SearchUtil.getHighlightedSpan(locale, searchStyleFactory, messageResult.getBodySnippet(), highlightSubstring, SearchUtil.MATCH_ALL));
+    CharSequence snippet = SearchUtil.getHighlightedSpan(locale, searchStyleFactory, messageResult.getBodySnippet(), highlightSubstring, SearchUtil.MATCH_ALL);
+    snippet = createGroupMessageUpdateString(getContext(), snippet, messageResult.getMessageRecipient());
+    setSubjectViewText(snippet);
 
     updateDateView = () -> {
       Pair<String, String> date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, messageResult.getReceivedTimestampMs());
@@ -535,7 +538,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     } else {
       alertView.setNone();
 
-      if (thread.getExtra() != null && thread.getExtra().isRemoteDelete()) {
+      if (thread.getExtra() != null && thread.getExtra().getDeletedBy() != null) {
         if (thread.isPending()) {
           deliveryStatusIndicator.setPending();
         } else {
@@ -663,12 +666,12 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
       String time = ExpirationUtil.getExpirationDisplayValue(context, seconds);
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_disappearing_message_time_updated_to_s, time), Glyph.TIMER, defaultTint);
     } else if (MessageTypes.isIdentityUpdate(thread.getType())) {
-      return emphasisAdded(recipientToStringAsync(thread.getRecipient().getId(), r -> {
-        if (r.isGroup()) {
-          return new SpannableString(context.getString(R.string.ThreadRecord_safety_number_changed));
-        } else {
-          return new SpannableString(context.getString(R.string.ThreadRecord_your_safety_number_with_s_has_changed, r.getDisplayName(context)));
-        }
+      RecipientId individualRecipientId = thread.getIndividualRecipientId();
+      if (individualRecipientId.isUnknown() || !thread.getRecipient().isGroup()) {
+        return emphasisAdded(context, context.getString(R.string.ThreadRecord_safety_number_changed), defaultTint);
+      }
+      return emphasisAdded(recipientToStringAsync(individualRecipientId, r -> {
+        return new SpannableString(context.getString(R.string.ThreadRecord_your_safety_number_with_s_has_changed, r.getDisplayName(context)));
       }));
     } else if (MessageTypes.isIdentityVerified(thread.getType())) {
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_you_marked_verified), defaultTint);
@@ -698,8 +701,16 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
       ThreadTable.Extra extra = thread.getExtra();
       if (extra != null && extra.isViewOnce()) {
         return emphasisAdded(context, getViewOnceDescription(context, thread.getContentType()), defaultTint);
-      } else if (extra != null && extra.isRemoteDelete()) {
-        return emphasisAdded(context, context.getString(thread.isOutgoing() ? R.string.ThreadRecord_you_deleted_this_message : R.string.ThreadRecord_this_message_was_deleted), defaultTint);
+      } else if (extra != null && extra.getDeletedBy() != null) {
+        RecipientId individualRecipientId = thread.getIndividualRecipientId();
+        RecipientId deletedBy = thread.getDeletedByRecipientId();
+        if (individualRecipientId.equals(deletedBy) && thread.isOutgoing()) {
+          return emphasisAdded(context, context.getString(R.string.ThreadRecord_you_deleted_this_message), defaultTint);
+        } else if (individualRecipientId.equals(deletedBy)) {
+          return emphasisAdded(recipientToStringAsync(deletedBy, r -> new SpannableString(context.getString(R.string.ThreadRecord_s_deleted_this_message, r.getDisplayName(context)))));
+        } else {
+          return emphasisAdded(recipientToStringAsync(deletedBy, r -> new SpannableString(context.getString(R.string.ThreadRecord_admin_deleted_this_message, r.getDisplayName(context)))));
+        }
       } else if (extra != null && extra.isPoll()) {
         return emphasisAdded(context, thread.getBody(), Glyph.POLL, defaultTint);
       } else {

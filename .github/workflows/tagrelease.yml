@@ -6,7 +6,7 @@ on:
 jobs:
   push_tag:
     name: Push version tag
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.extract_version.outputs.version }}
       should_call_release: ${{ steps.release_trigger.outputs.should_call_release }}

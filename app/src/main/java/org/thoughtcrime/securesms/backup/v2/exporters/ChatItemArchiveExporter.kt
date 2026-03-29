@@ -19,7 +19,6 @@ import org.signal.core.util.UuidUtil
 import org.signal.core.util.bytes
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.emptyIfNull
-import org.signal.core.util.isEmpty
 import org.signal.core.util.isNotEmpty
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.kibiBytes
@@ -42,6 +41,7 @@ import org.thoughtcrime.securesms.backup.v2.BackupMode
 import org.thoughtcrime.securesms.backup.v2.ExportOddities
 import org.thoughtcrime.securesms.backup.v2.ExportSkips
 import org.thoughtcrime.securesms.backup.v2.ExportState
+import org.thoughtcrime.securesms.backup.v2.proto.AdminDeletedMessage
 import org.thoughtcrime.securesms.backup.v2.proto.ChatItem
 import org.thoughtcrime.securesms.backup.v2.proto.ChatUpdateMessage
 import org.thoughtcrime.securesms.backup.v2.proto.ContactAttachment
@@ -189,9 +189,14 @@ class ChatItemArchiveExporter(
       }
 
       when {
-        record.remoteDeleted -> {
+        record.deletedBy == record.fromRecipientId -> {
           builder.remoteDeletedMessage = RemoteDeletedMessage()
           transformTimer.emit("remote-delete")
+        }
+
+        record.deletedBy != null -> {
+          builder.adminDeletedMessage = AdminDeletedMessage(adminId = record.deletedBy)
+          transformTimer.emit("admin-delete")
         }
 
         MessageTypes.isJoinedType(record.type) -> {
@@ -553,7 +558,7 @@ private fun BackupMessageRecord.toBasicChatItemBuilder(selfRecipientId: Recipien
   }
 
   val direction = when {
-    record.type.isDirectionlessType() && !record.remoteDeleted -> {
+    record.type.isDirectionlessType() && record.deletedBy == null -> {
       Direction.DIRECTIONLESS
     }
     MessageTypes.isOutgoingMessageType(record.type) || record.fromRecipientId == selfRecipientId.toLong() -> {
@@ -1138,6 +1143,16 @@ private fun BackupMessageRecord.toRemoteQuote(exportState: ExportState, attachme
     return null
   }
 
+  if (!exportState.recipientIds.contains(this.quoteAuthor)) {
+    Log.w(TAG, ExportOddities.quoteAuthorNotFound(this.dateSent))
+    return null
+  }
+
+  if (exportState.recipientIdToAci[this.quoteAuthor] == null && exportState.recipientIdToE164[this.quoteAuthor] == null) {
+    Log.w(TAG, ExportOddities.quoteAuthorHasNoAciOrE164(this.dateSent))
+    return null
+  }
+
   val localType = QuoteModel.Type.fromCode(this.quoteType)
   val remoteType = when (localType) {
     QuoteModel.Type.NORMAL -> {
@@ -1288,11 +1303,12 @@ private fun List<DatabaseAttachment>.toRemoteAttachments(backupMode: BackupMode)
 }
 
 private fun List<Mention>.toRemoteBodyRanges(exportState: ExportState): List<BackupBodyRange> {
-  return this.map {
+  return this.mapNotNull {
+    val aci = exportState.recipientIdToAci[it.recipientId.toLong()] ?: return@mapNotNull null
     BackupBodyRange(
       start = it.start,
       length = it.length,
-      mentionAci = exportState.recipientIdToAci[it.recipientId.toLong()]
+      mentionAci = aci
     )
   }
 }
@@ -1305,16 +1321,16 @@ private fun ByteArray.toRemoteBodyRanges(dateSent: Long): List<BackupBodyRange> 
     return emptyList()
   }
 
-  return decoded.ranges.map { range ->
+  return decoded.ranges.mapNotNull { range ->
     val mention = range.mentionUuid?.let { UuidUtil.parseOrNull(it) }?.toByteArray()?.toByteString()?.takeIf { it.isNotEmpty() }
     val style = if (mention == null) {
-      range.style?.toRemote() ?: BackupBodyRange.Style.NONE
+      range.style?.toRemote()
     } else {
       null
     }
 
     if (mention == null && style == null) {
-      return emptyList()
+      return@mapNotNull null
     }
 
     BackupBodyRange(
@@ -1590,7 +1606,8 @@ private fun ChatItem.validateChatItem(exportState: ExportState, selfRecipientId:
     this.giftBadge == null &&
     this.viewOnceMessage == null &&
     this.directStoryReplyMessage == null &&
-    this.poll == null
+    this.poll == null &&
+    this.adminDeletedMessage == null
   ) {
     Log.w(TAG, ExportSkips.emptyChatItem(this.dateSent))
     return null
@@ -1613,6 +1630,11 @@ private fun ChatItem.validateChatItem(exportState: ExportState, selfRecipientId:
 
   if (this.incoming != null && exportState.recipientIdToAci[this.authorId] == null && exportState.recipientIdToE164[this.authorId] == null) {
     Log.w(TAG, ExportSkips.incomingMessageAuthorDoesNotHaveAciOrE164(this.dateSent))
+    return null
+  }
+
+  if (this.directionless != null && this.authorId != selfRecipientId.toLong() && exportState.recipientIdToAci[this.authorId] == null && exportState.recipientIdToE164[this.authorId] == null) {
+    Log.w(TAG, ExportSkips.directionlessMessageAuthorDoesNotHaveAciOrE164(this.dateSent))
     return null
   }
 
@@ -1733,7 +1755,6 @@ private fun Cursor.toBackupMessageRecord(pastIds: Set<Long>, backupStartTime: Lo
     toRecipientId = this.requireLong(MessageTable.TO_RECIPIENT_ID),
     expiresIn = expiresIn,
     expireStarted = expireStarted,
-    remoteDeleted = this.requireBoolean(MessageTable.REMOTE_DELETED),
     sealedSender = this.requireBoolean(MessageTable.UNIDENTIFIED),
     linkPreview = this.requireString(MessageTable.LINK_PREVIEWS),
     sharedContacts = this.requireString(MessageTable.SHARED_CONTACTS),
@@ -1758,6 +1779,7 @@ private fun Cursor.toBackupMessageRecord(pastIds: Set<Long>, backupStartTime: Lo
     parentStoryId = this.requireLong(MessageTable.PARENT_STORY_ID),
     pinnedAt = this.requireLong(MessageTable.PINNED_AT),
     pinnedUntil = this.requireLong(MessageTable.PINNED_UNTIL),
+    deletedBy = this.requireLongOrNull(MessageTable.DELETED_BY),
     messageExtrasSize = messageExtras?.size ?: 0
   )
 }
@@ -1775,7 +1797,6 @@ private class BackupMessageRecord(
   val toRecipientId: Long,
   val expiresIn: Long,
   val expireStarted: Long,
-  val remoteDeleted: Boolean,
   val sealedSender: Boolean,
   val linkPreview: String?,
   val sharedContacts: String?,
@@ -1800,6 +1821,7 @@ private class BackupMessageRecord(
   val viewOnce: Boolean,
   val pinnedAt: Long,
   val pinnedUntil: Long,
+  val deletedBy: Long?,
   private val messageExtrasSize: Int
 ) {
   val estimatedSizeInBytes: Int = (body?.length ?: 0) +

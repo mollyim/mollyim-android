@@ -6,6 +6,7 @@ import androidx.annotation.MainThread
 import androidx.fragment.app.viewModels
 import com.google.android.material.R as MaterialR
 import com.google.android.material.button.MaterialButton
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
@@ -23,10 +24,10 @@ import org.thoughtcrime.securesms.conversation.ui.error.TrustAndVerifyResult
 import org.thoughtcrime.securesms.crypto.IdentityKeyParcelable
 import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.safety.review.SafetyNumberReviewConnectionsFragment
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.fragments.findListener
 import org.thoughtcrime.securesms.util.visible
 import org.thoughtcrime.securesms.verify.VerifyIdentityFragment
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Displays a bottom sheet containing information about safety number changes and allows the user to
@@ -120,7 +121,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
             state.hasLargeNumberOfUntrustedRecipients -> R.string.SafetyNumberBottomSheetFragment__safety_number_checkup
             else -> R.string.SafetyNumberBottomSheetFragment__safety_number_changes
           },
-          DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_TitleLarge),
+          DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_TitleLarge),
           DSLSettingsText.CenterModifier
         )
       )
@@ -132,7 +133,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
             state.hasLargeNumberOfUntrustedRecipients -> resources.getQuantityString(R.plurals.SafetyNumberBottomSheetFragment__you_have_d_connections_plural, args.untrustedRecipients.size, args.untrustedRecipients.size)
             else -> getString(R.string.SafetyNumberBottomSheetFragment__the_following_people)
           },
-          DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyLarge),
+          DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyLarge),
           DSLSettingsText.CenterModifier
         )
       )
@@ -143,7 +144,7 @@ class SafetyNumberBottomSheetFragment : DSLSettingsBottomSheetFragment(layoutId 
         noPadTextPref(
           title = DSLSettingsText.from(
             R.string.SafetyNumberBottomSheetFragment__no_more_recipients_to_show,
-            DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyLarge),
+            DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyLarge),
             DSLSettingsText.CenterModifier,
             DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
           )

@@ -31,6 +31,8 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 
+import net.zetetic.database.Logger;
+
 import org.conscrypt.ConscryptSignal;
 import org.greenrobot.eventbus.EventBus;
 import org.signal.aesgcmprovider.AesGcmProvider;
@@ -41,7 +43,6 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.AndroidLogger;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
-import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.libsignal.net.ChatServiceException;
 import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
@@ -67,6 +68,7 @@ import org.thoughtcrime.securesms.jobs.AccountConsistencyWorkerJob;
 import org.thoughtcrime.securesms.jobs.BackupRefreshJob;
 import org.thoughtcrime.securesms.jobs.BackupSubscriptionCheckJob;
 import org.thoughtcrime.securesms.jobs.BuildExpirationConfirmationJob;
+import org.thoughtcrime.securesms.jobs.CheckKeyTransparencyJob;
 import org.thoughtcrime.securesms.jobs.CheckServiceReachabilityJob;
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob;
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob;
@@ -83,7 +85,7 @@ import org.thoughtcrime.securesms.jobs.RefreshSvrCredentialsJob;
 import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob;
-import org.thoughtcrime.securesms.jobs.RetryPendingSendsJob;
+import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob;
 import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
@@ -96,6 +98,7 @@ import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
+import org.thoughtcrime.securesms.osm.SingleSessionDiskTileWriter;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.ratelimit.RateLimitUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -114,14 +117,15 @@ import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
+import org.thoughtcrime.securesms.util.DeviceProperties;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FileUtils;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
-import org.thoughtcrime.securesms.util.StorageUtil;
+import org.thoughtcrime.securesms.util.SqlCipherLogTarget;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket;
 
@@ -132,6 +136,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import im.molly.app.base.ApkInfo;
+import im.molly.app.base.ApplicationInstance;
 import im.molly.unifiedpush.UnifiedPushDistributor;
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
@@ -151,15 +157,13 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
   private static final String TAG = Log.tag(ApplicationContext.class);
 
-  private static ApplicationContext instance;
+  public static ApplicationContext getInstance(Context context) {
+    return (ApplicationContext) context.getApplicationContext();
+  }
 
   public ApplicationContext() {
     super();
-    instance = this;
-  }
-
-  public static @NonNull ApplicationContext getInstance() {
-    return instance;
+    ApplicationInstance.set(this);
   }
 
   private volatile boolean isAppInitialized;
@@ -175,26 +179,23 @@ public class ApplicationContext extends Application implements AppForegroundObse
     EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     DynamicTheme.setDefaultDayNightMode(this);
     ScreenLockController.enableAutoLock(TextSecurePreferences.isBiometricScreenLockEnabled(this));
+    AppDependencies.installDependencyProviders();
 
     initializePassphraseLock();
     cleanCacheDir();
   }
 
   private void onCreateUnlock() {
-    Tracer.getInstance().start("Application#onCreateUnlock()");
     AppStartup.getInstance().onApplicationCreate();
     SignalLocalMetrics.ColdStart.start();
 
     long startTime = System.currentTimeMillis();
 
-    if (RemoteConfig.internalUser()) {
-      Tracer.getInstance().setMaxBufferSize(35_000);
-    }
-
     AppStartup.getInstance().addBlocking("sqlcipher-init", () -> {
                 SignalDatabase.init(this,
                                     DatabaseSecretProvider.getOrCreateDatabaseSecret(this),
                                     AttachmentSecretProvider.getInstance(this).getOrCreateAttachmentSecret());
+                Logger.setTarget(SqlCipherLogTarget.INSTANCE);
               })
               .addBlocking("signal-store", () -> SignalStore.init(this))
               .addBlocking("logging", () -> {
@@ -226,6 +227,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addNonBlocking(this::initializePeriodicTasks)
               .addNonBlocking(this::initializeCleanup)
               .addNonBlocking(this::initializeGlideCodecs)
+              .addNonBlocking(SealedSenderConstraint::checkAndSetValidity)
               .addNonBlocking(StorageSyncHelper::scheduleRoutineSync)
               .addNonBlocking(this::beginJobLoop)
               .addNonBlocking(EmojiSource::refresh)
@@ -234,6 +236,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addNonBlocking(this::ensureProfileUploaded)
               .addNonBlocking(() -> AppDependencies.getExpireStoriesManager().scheduleIfNecessary())
               .addNonBlocking(BackupRepository::maybeFixAnyDanglingUploadProgress)
+              .addNonBlocking(BackupRepository::maybeFixAnyDanglingLocalExportProgress)
               .addPostRender(() -> AppDependencies.getDeletedCallEventManager().scheduleIfNecessary())
               .addPostRender(() -> RateLimitUtil.retryAllRateLimitedMessages(this))
               .addPostRender(this::initializeExpiringMessageManager)
@@ -244,7 +247,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addPostRender(() -> SignalDatabase.messageLog().trimOldMessages(System.currentTimeMillis(), RemoteConfig.retryRespondMaxAge()))
               .addPostRender(() -> JumboEmoji.updateCurrentVersion(this))
               .addPostRender(RetrieveRemoteAnnouncementsJob::enqueue)
-              .addPostRender(() -> AndroidTelecomUtil.registerPhoneAccount())
+              .addPostRender(AndroidTelecomUtil::registerPhoneAccount)
               .addPostRender(() -> AppDependencies.getJobManager().add(new FontDownloaderJob()))
               .addPostRender(CheckServiceReachabilityJob::enqueueIfNecessary)
               .addPostRender(GroupV2UpdateSelfProfileKeyJob::enqueueForGroupsIfNecessary)
@@ -261,12 +264,11 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
     SignalLocalMetrics.ColdStart.onApplicationCreateFinished();
-    Tracer.getInstance().end("Application#onCreateUnlock()");
   }
 
   @Override
   public void onForeground() {
-    Log.i(TAG, "App is now visible.");
+    Log.i(TAG, "App is now visible. Battery: " + DeviceProperties.getBatteryLevel(this) + "% (charging: " + DeviceProperties.isCharging(this) + ")");
 
     if (!KeyCachingService.isLocked()) {
       onStartUnlock();
@@ -290,6 +292,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
       checkFreeDiskSpace();
       MemoryTracker.start();
       BackupSubscriptionCheckJob.enqueueIfAble();
+      CheckKeyTransparencyJob.enqueueIfNecessary(true);
 
       long lastForegroundTime = SignalStore.misc().getLastForegroundTime();
       long currentTime        = System.currentTimeMillis();
@@ -469,16 +472,16 @@ public class ApplicationContext extends Application implements AppForegroundObse
   }
 
   private void cleanCacheDir() {
-    SignalExecutors.BOUNDED.execute(() -> {
-      FileUtils.deleteDirectoryContents(StorageUtil.getTileCacheDirectory(this));
-    });
+    SignalExecutors.BOUNDED.execute(
+        () -> FileUtils.deleteDirectoryContents(SingleSessionDiskTileWriter.Companion.getTileCacheDir(this))
+    );
   }
 
   @VisibleForTesting
   void initializeAppDependencies() {
     if (!AppDependencies.isInitialized()) {
       Log.i(TAG, "Initializing AppDependencies.");
-      AppDependencies.init(this, new ApplicationDependencyProvider(this));
+      AppDependencies.init(new ApplicationDependencyProvider(this));
     }
     AppForegroundObserver.begin();
   }
@@ -492,8 +495,8 @@ public class ApplicationContext extends Application implements AppForegroundObse
       SignalStore.account().generateAciIdentityKeyIfNecessary();
       SignalStore.account().generatePniIdentityKeyIfNecessary();
 
-      Log.i(TAG, "Setting first install version to " + Util.getSignalCanonicalVersionCode());
-      TextSecurePreferences.setFirstInstallVersion(this, Util.getSignalCanonicalVersionCode());
+      Log.i(TAG, "Setting first install version to " + ApkInfo.signalCanonicalVersionCode);
+      TextSecurePreferences.setFirstInstallVersion(this, ApkInfo.signalCanonicalVersionCode);
     }
   }
 

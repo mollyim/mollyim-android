@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.messages
 
 import android.content.Context
 import org.signal.core.models.ServiceId
+import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.toOptional
@@ -46,8 +47,8 @@ import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
+import org.thoughtcrime.securesms.util.SignalTrace
 import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
 import org.whispersystems.signalservice.api.push.DistributionId
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
@@ -130,6 +131,8 @@ open class MessageContentProcessor(private val context: Context) {
         getGroupRecipient(content.dataMessage?.groupV2, sender)
       } else if (content.editMessage?.dataMessage.hasGroupContext) {
         getGroupRecipient(content.editMessage?.dataMessage?.groupV2, sender)
+      } else if (content.syncMessage?.sent?.message.hasGroupContext) {
+        getGroupRecipient(content.syncMessage?.sent?.message?.groupV2, sender)
       } else {
         sender
       }
@@ -241,9 +244,10 @@ open class MessageContentProcessor(private val context: Context) {
       groupV2: GroupContextV2,
       senderRecipient: Recipient,
       groupSecretParams: GroupSecretParams? = null,
-      serverGuid: String? = null
+      serverGuid: String? = null,
+      batchCache: BatchCache? = null
     ): Gv2PreProcessResult {
-      val preUpdateGroupRecord = SignalDatabase.groups.getGroup(groupId)
+      val preUpdateGroupRecord = batchCache?.groupRecordCache[groupId] ?: SignalDatabase.groups.getGroup(groupId)
       val groupUpdateResult = updateGv2GroupFromServerOrP2PChange(context, timestamp, groupV2, preUpdateGroupRecord, groupSecretParams, serverGuid)
       if (groupUpdateResult == null) {
         log(timestamp, "Ignoring GV2 message for group we are not currently in $groupId")
@@ -255,6 +259,7 @@ open class MessageContentProcessor(private val context: Context) {
       } else {
         SignalDatabase.groups.getGroup(groupId)
       }
+      batchCache?.groupRecordCache?.put(groupId, groupRecord)
 
       if (groupRecord.isPresent && !groupRecord.get().members.contains(senderRecipient.id)) {
         log(timestamp, "Ignoring GV2 message from member not in group $groupId. Sender: ${formatSender(senderRecipient.id, metadata.sourceServiceId, metadata.sourceDeviceId)}")
@@ -290,7 +295,7 @@ open class MessageContentProcessor(private val context: Context) {
     ): GroupUpdateResult? {
       return try {
         val signedGroupChange: ByteArray? = if (groupV2.hasSignedGroupChange) groupV2.signedGroupChange else null
-        val updatedTimestamp = if (signedGroupChange != null) timestamp else timestamp - 1
+        val updatedTimestamp = if (signedGroupChange != null) timestamp else timestamp + 1
         if (groupV2.revision != null) {
           GroupManager.updateGroupFromServer(context, groupV2.groupMasterKey, localRecord, groupSecretParams, groupV2.revision!!, updatedTimestamp, signedGroupChange, serverGuid)
         } else {
@@ -334,10 +339,20 @@ open class MessageContentProcessor(private val context: Context) {
    * store or enqueue early content jobs if we detect this as being early, to avoid recursive scenarios.
    */
   @JvmOverloads
-  open fun process(envelope: Envelope, content: Content, metadata: EnvelopeMetadata, serverDeliveredTimestamp: Long, processingEarlyContent: Boolean = false, localMetric: SignalLocalMetrics.MessageReceive? = null) {
+  open fun process(
+    envelope: Envelope,
+    content: Content,
+    metadata: EnvelopeMetadata,
+    serverDeliveredTimestamp: Long,
+    processingEarlyContent: Boolean = false,
+    localMetric: SignalLocalMetrics.MessageReceive? = null,
+    batchCache: BatchCache = OneTimeBatchCache()
+  ) {
     val senderRecipient = Recipient.externalPush(SignalServiceAddress(metadata.sourceServiceId, metadata.sourceE164))
 
-    handleMessage(senderRecipient, envelope, content, metadata, serverDeliveredTimestamp, processingEarlyContent, localMetric)
+    SignalTrace.beginSection("MessageContentProcessor#handleMessage")
+    handleMessage(senderRecipient, envelope, content, metadata, serverDeliveredTimestamp, processingEarlyContent, localMetric, batchCache)
+    SignalTrace.endSection()
 
     val earlyCacheEntries: List<EarlyMessageCacheEntry>? = AppDependencies
       .earlyMessageCache
@@ -347,7 +362,7 @@ open class MessageContentProcessor(private val context: Context) {
     if (!processingEarlyContent && earlyCacheEntries != null) {
       log(envelope.timestamp!!, "Found " + earlyCacheEntries.size + " dependent item(s) that were retrieved earlier. Processing.")
       for (entry in earlyCacheEntries) {
-        handleMessage(senderRecipient, entry.envelope, entry.content, entry.metadata, entry.serverDeliveredTimestamp, processingEarlyContent = true, localMetric = null)
+        handleMessage(senderRecipient, entry.envelope, entry.content, entry.metadata, entry.serverDeliveredTimestamp, processingEarlyContent = true, localMetric = null, batchCache)
       }
     }
   }
@@ -427,7 +442,8 @@ open class MessageContentProcessor(private val context: Context) {
     metadata: EnvelopeMetadata,
     serverDeliveredTimestamp: Long,
     processingEarlyContent: Boolean,
-    localMetric: SignalLocalMetrics.MessageReceive?
+    localMetric: SignalLocalMetrics.MessageReceive?,
+    batchCache: BatchCache
   ) {
     val threadRecipient = getMessageDestination(content, senderRecipient)
 
@@ -452,7 +468,8 @@ open class MessageContentProcessor(private val context: Context) {
           metadata,
           receivedTime,
           if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp),
-          localMetric
+          localMetric,
+          batchCache
         )
       }
 
@@ -490,7 +507,8 @@ open class MessageContentProcessor(private val context: Context) {
           envelope,
           content,
           metadata,
-          if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp)
+          if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp),
+          batchCache
         )
       }
 

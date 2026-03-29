@@ -5,8 +5,19 @@
  */
 package org.whispersystems.signalservice.api;
 
+import org.signal.core.models.ServiceId;
+import org.signal.core.models.ServiceId.PNI;
 import org.signal.core.util.Base64;
+import org.signal.core.util.ProtoUtil;
+import org.signal.core.util.UuidUtil;
 import org.signal.libsignal.metadata.certificate.SenderCertificate;
+import org.signal.libsignal.net.MismatchedDeviceException;
+import org.signal.libsignal.net.MultiRecipientMessageResponse;
+import org.signal.libsignal.net.MultiRecipientSendAuthorization;
+import org.signal.libsignal.net.MultiRecipientSendFailure;
+import org.signal.libsignal.net.RequestResult;
+import org.signal.libsignal.net.RequestUnauthorizedException;
+import org.signal.libsignal.net.RetryLaterException;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
@@ -35,6 +46,7 @@ import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.groupsv2.GroupSendEndorsements;
 import org.whispersystems.signalservice.api.keys.KeysApi;
 import org.whispersystems.signalservice.api.message.MessageApi;
+import org.whispersystems.signalservice.api.message.MessageApiKt;
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
@@ -68,23 +80,21 @@ import org.whispersystems.signalservice.api.messages.multidevice.ViewOnceOpenMes
 import org.whispersystems.signalservice.api.messages.multidevice.ViewedMessage;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
 import org.whispersystems.signalservice.api.push.DistributionId;
-import org.signal.core.models.ServiceId;
-import org.signal.core.models.ServiceId.PNI;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.AuthorizationFailedException;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
-import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.RateLimitException;
+import org.whispersystems.signalservice.api.push.exceptions.RetryNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
+import org.whispersystems.signalservice.api.push.exceptions.UnknownGroupSendException;
 import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
 import org.whispersystems.signalservice.api.util.AttachmentPointerUtil;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.Preconditions;
 import org.whispersystems.signalservice.api.util.Uint64RangeException;
 import org.whispersystems.signalservice.api.util.Uint64Util;
-import org.signal.core.util.UuidUtil;
 import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableException;
 import org.whispersystems.signalservice.internal.crypto.AttachmentDigest;
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
@@ -96,8 +106,6 @@ import org.whispersystems.signalservice.internal.push.Content;
 import org.whispersystems.signalservice.internal.push.DataMessage;
 import org.whispersystems.signalservice.internal.push.EditMessage;
 import org.whispersystems.signalservice.internal.push.GroupContextV2;
-import org.whispersystems.signalservice.internal.push.GroupMismatchedDevices;
-import org.whispersystems.signalservice.internal.push.GroupStaleDevices;
 import org.whispersystems.signalservice.internal.push.MismatchedDevices;
 import org.whispersystems.signalservice.internal.push.NullMessage;
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessage;
@@ -108,7 +116,6 @@ import org.whispersystems.signalservice.internal.push.ProvisioningVersion;
 import org.whispersystems.signalservice.internal.push.PushAttachmentData;
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.push.ReceiptMessage;
-import org.whispersystems.signalservice.internal.push.SendGroupMessageResponse;
 import org.whispersystems.signalservice.internal.push.SendMessageResponse;
 import org.whispersystems.signalservice.internal.push.StaleDevices;
 import org.whispersystems.signalservice.internal.push.StoryMessage;
@@ -116,8 +123,6 @@ import org.whispersystems.signalservice.internal.push.SyncMessage;
 import org.whispersystems.signalservice.internal.push.TextAttachment;
 import org.whispersystems.signalservice.internal.push.TypingMessage;
 import org.whispersystems.signalservice.internal.push.Verified;
-import org.whispersystems.signalservice.internal.push.exceptions.GroupMismatchedDevicesException;
-import org.whispersystems.signalservice.internal.push.exceptions.GroupStaleDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.InvalidUnidentifiedAccessHeaderException;
 import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.StaleDevicesException;
@@ -183,6 +188,7 @@ public class SignalServiceMessageSender {
 
   private final Scheduler       scheduler;
   private final long            maxEnvelopeSize;
+  private final int             maxIncrementalMacsPerEnvelope;
   private final BooleanSupplier useRestFallback;
   private final boolean         useBinaryId;
   private final boolean         useStringId;
@@ -196,28 +202,30 @@ public class SignalServiceMessageSender {
                                     Optional<EventListener> eventListener,
                                     ExecutorService executor,
                                     long maxEnvelopeSize,
+                                    int maxIncrementalMacsPerEnvelope,
                                     BooleanSupplier useRestFallback,
                                     boolean useBinaryId,
                                     boolean useStringId)
   {
     CredentialsProvider credentialsProvider = pushServiceSocket.getCredentialsProvider();
 
-    this.socket           = pushServiceSocket;
-    this.aciStore         = store.aci();
-    this.sessionLock      = sessionLock;
-    this.localAddress     = new SignalServiceAddress(credentialsProvider.getAci(), credentialsProvider.getE164());
-    this.localDeviceId    = credentialsProvider.getDeviceId();
-    this.localPni         = credentialsProvider.getPni();
-    this.attachmentApi    = attachmentApi;
-    this.messageApi       = messageApi;
-    this.eventListener    = eventListener;
-    this.maxEnvelopeSize  = maxEnvelopeSize;
-    this.localPniIdentity = store.pni().getIdentityKeyPair();
-    this.scheduler        = Schedulers.from(executor, false, false);
-    this.keysApi          = keysApi;
-    this.useRestFallback  = useRestFallback;
-    this.useBinaryId      = useBinaryId;
-    this.useStringId      = useStringId;
+    this.socket                        = pushServiceSocket;
+    this.aciStore                      = store.aci();
+    this.sessionLock                   = sessionLock;
+    this.localAddress                  = new SignalServiceAddress(credentialsProvider.getAci(), credentialsProvider.getE164());
+    this.localDeviceId                 = credentialsProvider.getDeviceId();
+    this.localPni                      = credentialsProvider.getPni();
+    this.attachmentApi                 = attachmentApi;
+    this.messageApi                    = messageApi;
+    this.eventListener                 = eventListener;
+    this.maxEnvelopeSize               = maxEnvelopeSize;
+    this.maxIncrementalMacsPerEnvelope = maxIncrementalMacsPerEnvelope;
+    this.localPniIdentity              = store.pni().getIdentityKeyPair();
+    this.scheduler                     = Schedulers.from(executor, false, false);
+    this.keysApi                       = keysApi;
+    this.useRestFallback               = useRestFallback;
+    this.useBinaryId                   = useBinaryId;
+    this.useStringId                   = useStringId;
   }
 
   /**
@@ -718,7 +726,7 @@ public class SignalServiceMessageSender {
     boolean urgent = false;
 
     if (!aciStore.isMultiDevice()) {
-      Log.w(TAG, "We do not have any linked devices. Skipping.");
+      Log.d(TAG, "We do not have any linked devices. Skipping.");
       return SendMessageResult.success(localAddress, Collections.emptyList(), false, false, 0, Optional.empty());
     }
 
@@ -1301,6 +1309,14 @@ public class SignalServiceMessageSender {
       builder.unpinMessage(new DataMessage.UnpinMessage.Builder()
                                .targetAuthorAciBinary(unpinnedMessage.getTargetAuthor().toByteString())
                                .targetSentTimestamp(unpinnedMessage.getTargetSentTimestamp())
+                               .build());
+    }
+
+    if (message.getAdminDelete().isPresent()) {
+      SignalServiceDataMessage.AdminDelete adminDelete = message.getAdminDelete().get();
+      builder.adminDelete(new DataMessage.AdminDelete.Builder()
+                               .targetAuthorAciBinary(adminDelete.getTargetAuthor().toByteString())
+                               .targetSentTimestamp(adminDelete.getTargetSentTimestamp())
                                .build());
     }
 
@@ -2113,7 +2129,10 @@ public class SignalServiceMessageSender {
     Log.d(TAG, "[" + timestamp + "] Sending to " + recipients.size() + " recipients.");
     enforceMaxEnvelopeContentSize(content);
 
-    long                                startTime                  = System.currentTimeMillis();
+    long startTime = System.currentTimeMillis();
+
+    eagerlyFetchMissingPreKeys(recipients, sealedSenderAccesses, story);
+
     List<Observable<SendMessageResult>> singleResults              = new LinkedList<>();
     Iterator<SignalServiceAddress>      recipientIterator          = recipients.iterator();
     Iterator<SealedSenderAccess>        sealedSenderAccessIterator = sealedSenderAccesses.iterator();
@@ -2543,52 +2562,53 @@ public class SignalServiceMessageSender {
 
       sendEvents.onMessageEncrypted();
 
-      try {
-        try {
+      MultiRecipientSendAuthorization multiRecipientAuth = story ? MultiRecipientSendAuthorization.Story.INSTANCE
+                                                                 : new MultiRecipientSendAuthorization.GroupSend(groupSendEndorsements.toFullToken());
 
-          SendGroupMessageResponse response = NetworkResultUtil.toGroupMessageSendLegacy(messageApi.sendGroupMessage(ciphertext, sealedSenderAccess, timestamp, online, urgent, story));
-          return transformGroupResponseToMessageResults(targetInfo.devices, response, content);
-        } catch (InvalidUnidentifiedAccessHeaderException |
-                 NotFoundException |
-                 GroupMismatchedDevicesException |
-                 GroupStaleDevicesException |
-                 ServerRejectedException |
-                 RateLimitException e) {
-          // Non-technical failures shouldn't be retried with socket
-          throw e;
-        } catch (WebSocketUnavailableException e) {
-          if (useRestFallback.getAsBoolean()) {
-            Log.i(TAG, "[sendGroupMessage][" + timestamp + "] Pipe unavailable, falling back... (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
-          } else {
-            Log.i(TAG, "[sendGroupMessage][" + timestamp + "] Pipe unavailable (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
-            throw e;
-          }
-        } catch (IOException e) {
-          if (useRestFallback.getAsBoolean()) {
-            Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Pipe failed, falling back... (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
-          } else {
-            Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Pipe failed (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
-            throw e;
-          }
-        }
+      RequestResult<MultiRecipientMessageResponse, MultiRecipientSendFailure> result = messageApi.sendGroupMessage(ciphertext, multiRecipientAuth, timestamp, online, urgent);
 
-        SendGroupMessageResponse response = socket.sendGroupMessage(ciphertext, sealedSenderAccess, timestamp, online, urgent, story);
-        return transformGroupResponseToMessageResults(targetInfo.devices, response, content);
-      } catch (GroupMismatchedDevicesException e) {
-        Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Handling mismatched devices. (" + e.getMessage() + ")");
-        for (GroupMismatchedDevices mismatched : e.getMismatchedDevices()) {
-          SignalServiceAddress address = new SignalServiceAddress(ServiceId.parseOrThrow(mismatched.getUuid()), Optional.empty());
-          handleMismatchedDevices(address, mismatched.getDevices());
+      if (result instanceof RequestResult.Success) {
+        MultiRecipientMessageResponse response = ((RequestResult.Success<MultiRecipientMessageResponse>) result).getResult();
+        return transformGroupResponseToMessageResults(targetInfo.devices, MessageApiKt.unsentTargets(response), content);
+      } else if (result instanceof RequestResult.NonSuccess) {
+        MultiRecipientSendFailure error = ((RequestResult.NonSuccess<MultiRecipientSendFailure>) result).getError();
+        if (error instanceof MismatchedDeviceException) {
+          MismatchedDeviceException mismatchedDeviceException = (MismatchedDeviceException) error;
+          Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Handling mismatched devices. (" + mismatchedDeviceException.getMessage() + ")");
+          for (MismatchedDeviceException.Entry entry : mismatchedDeviceException.getEntries()) {
+            SignalServiceAddress address = new SignalServiceAddress(ServiceId.fromLibSignal(entry.getAccount()));
+            MismatchedDevices    devices = MismatchedDevices.fromLibSignal(entry);
+            handleMismatchedDevices(address, devices);
+            if (entry.getStaleDevices().length > 0) {
+              StaleDevices staleDevices = StaleDevices.fromLibSignal(entry);
+              handleStaleDevices(address, staleDevices);
+            }
+          }
+        } else if (error instanceof RequestUnauthorizedException) {
+          Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Invalid access header.");
+          throw new InvalidUnidentifiedAccessHeaderException();
+        } else {
+          throw new IOException("Unknown multi-recipient send failure: " + error.getClass().getSimpleName());
         }
-      } catch (GroupStaleDevicesException e) {
-        Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Handling stale devices. (" + e.getMessage() + ")");
-        for (GroupStaleDevices stale : e.getStaleDevices()) {
-          SignalServiceAddress address = new SignalServiceAddress(ServiceId.parseOrThrow(stale.getUuid()), Optional.empty());
-          handleStaleDevices(address, stale.getDevices());
+      } else if (result instanceof RequestResult.RetryableNetworkError) {
+        RequestResult.RetryableNetworkError retryableError = (RequestResult.RetryableNetworkError) result;
+        IOException                         exception      = retryableError.getNetworkError();
+        if (exception instanceof RetryLaterException) {
+          throw exception;
+        } else if (retryableError.getRetryAfter() != null && retryableError.getRetryAfter().toMillis() > 0) {
+          throw new RetryNetworkException(retryableError.getRetryAfter().toMillis(), exception);
+        } else {
+          throw exception;
         }
-      } catch (InvalidUnidentifiedAccessHeaderException e) {
-        Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Invalid access header. (" + e.getMessage() + ")");
-        throw e;
+      } else if (result instanceof RequestResult.ApplicationError) {
+        Throwable cause = ((RequestResult.ApplicationError) result).getCause();
+        if (cause instanceof IOException) {
+          throw (IOException) cause;
+        } else if (cause instanceof RuntimeException) {
+          throw (RuntimeException) cause;
+        } else {
+          throw new UnknownGroupSendException(cause);
+        }
       }
 
       Log.w(TAG, "[sendGroupMessage][" + timestamp + "] Attempt failed (i = " + i + ")");
@@ -2641,9 +2661,7 @@ public class SignalServiceMessageSender {
     }
   }
 
-  private List<SendMessageResult> transformGroupResponseToMessageResults(Map<SignalServiceAddress, List<Integer>> recipients, SendGroupMessageResponse response, Content content) {
-    Set<ServiceId> unregistered = response.getUnsentTargets();
-
+  private List<SendMessageResult> transformGroupResponseToMessageResults(Map<SignalServiceAddress, List<Integer>> recipients, Set<ServiceId> unregistered, Content content) {
     List<SendMessageResult> failures = unregistered.stream()
                                                    .map(SignalServiceAddress::new)
                                                    .map(SendMessageResult::unregisteredFailure)
@@ -2679,7 +2697,42 @@ public class SignalServiceMessageSender {
       }
     }
 
-    return pointers;
+    return capIncrementalMacs(pointers);
+  }
+
+  private List<AttachmentPointer> capIncrementalMacs(List<AttachmentPointer> pointers) {
+    if (maxIncrementalMacsPerEnvelope <= 0) {
+      return pointers;
+    }
+
+    int incrementalMacCount = 0;
+    for (AttachmentPointer pointer : pointers) {
+      if (pointer.incrementalMac != null) {
+        incrementalMacCount++;
+      }
+    }
+
+    if (incrementalMacCount <= maxIncrementalMacsPerEnvelope) {
+      return pointers;
+    }
+
+    Log.w(TAG, "Envelope has " + incrementalMacCount + " incrementalMacs, which exceeds the limit of " + maxIncrementalMacsPerEnvelope + ". Stripping excess.");
+
+    List<AttachmentPointer> result = new ArrayList<>(pointers.size());
+    int                     kept   = 0;
+
+    for (AttachmentPointer pointer : pointers) {
+      if (pointer.incrementalMac != null && kept >= maxIncrementalMacsPerEnvelope) {
+        result.add(pointer.newBuilder().incrementalMac(null).chunkSize(null).build());
+      } else {
+        if (pointer.incrementalMac != null) {
+          kept++;
+        }
+        result.add(pointer);
+      }
+    }
+
+    return result;
   }
 
   private AttachmentPointer createAttachmentPointer(SignalServiceAttachmentPointer attachment) {
@@ -2823,6 +2876,81 @@ public class SignalServiceMessageSender {
     }
   }
 
+  private void eagerlyFetchMissingPreKeys(List<SignalServiceAddress> recipients, List<SealedSenderAccess> sealedSenderAccesses, boolean story) {
+    long start = System.currentTimeMillis();
+
+    Iterator<SignalServiceAddress> recipientIterator          = recipients.iterator();
+    Iterator<SealedSenderAccess>   sealedSenderAccessIterator = sealedSenderAccesses.iterator();
+    List<Observable<Boolean>>      eagerFetches               = new LinkedList<>();
+
+    while (recipientIterator.hasNext()) {
+      SignalServiceAddress  recipient             = recipientIterator.next();
+      SealedSenderAccess    sealedSenderAccess    = sealedSenderAccessIterator.next();
+      SignalProtocolAddress signalProtocolAddress = new SignalProtocolAddress(recipient.getIdentifier(), SignalServiceAddress.DEFAULT_DEVICE_ID);
+
+      if (!aciStore.containsSession(signalProtocolAddress)) {
+        Observable<Boolean> thing = Single.fromCallable(() -> {
+                                            eagerlyFetchMissingPreKeys(recipient, sealedSenderAccess, story);
+                                            return true;
+                                          })
+                                          .subscribeOn(scheduler)
+                                          .toObservable();
+
+        eagerFetches.add(thing);
+      }
+    }
+
+    if (eagerFetches.isEmpty()) {
+      return;
+    }
+
+    Log.i(TAG, "[eagerPrefetch] Attempting to fetch prekeys for " + eagerFetches.size() + " recipients");
+
+    try {
+      //noinspection ResultOfMethodCallIgnored
+      Observable.mergeDelayError(eagerFetches, Integer.MAX_VALUE, 1)
+                .observeOn(scheduler)
+                .lastOrError()
+                .blockingGet();
+    } catch (RuntimeException e) {
+      Log.w(TAG, "[eagerPrefetch] Unexpectedly failed eager fetching prekeys", e);
+      return;
+    }
+
+    Log.i(TAG, "[eagerPrefetch] Completed in " + (System.currentTimeMillis() - start) + "ms");
+  }
+
+  private void eagerlyFetchMissingPreKeys(SignalServiceAddress recipient, SealedSenderAccess sealedSenderAccess, boolean story) {
+    SignalProtocolAddress signalProtocolAddress = new SignalProtocolAddress(recipient.getIdentifier(), SignalServiceAddress.DEFAULT_DEVICE_ID);
+
+    try {
+      List<PreKeyBundle> preKeys = getPreKeys(recipient, sealedSenderAccess, SignalServiceAddress.DEFAULT_DEVICE_ID, story);
+
+      for (PreKeyBundle preKey : preKeys) {
+        Log.d(TAG, "[eagerFetch] Initializing prekey session for " + signalProtocolAddress);
+
+        try {
+          SignalProtocolAddress preKeyAddress  = new SignalProtocolAddress(recipient.getIdentifier(), preKey.getDeviceId());
+          SignalSessionBuilder  sessionBuilder = new SignalSessionBuilder(sessionLock, new SessionBuilder(aciStore, preKeyAddress));
+          sessionBuilder.process(preKey);
+        } catch (org.signal.libsignal.protocol.UntrustedIdentityException e) {
+          Log.i(TAG, "[eagerPrefetch] Untrusted identity for recipient");
+          return;
+
+        }
+      }
+
+      if (eventListener.isPresent()) {
+        eventListener.get().onSecurityEvent(recipient);
+      }
+    } catch (IOException e) {
+      Log.i(TAG, "[eagerPrefetch] Network issue encountered");
+    } catch (InvalidKeyException e) {
+      Log.i(TAG, "[eagerPrefetch] Invalid pre-key");
+      return;
+    }
+  }
+
   private List<PreKeyBundle> getPreKeys(SignalServiceAddress recipient, @Nullable SealedSenderAccess sealedSenderAccess, int deviceId, boolean story) throws IOException {
     try {
       // If it's only unrestricted because it's a story send, then we know it'll fail
@@ -2849,6 +2977,11 @@ public class SignalServiceMessageSender {
       Log.w(TAG, "[handleMismatchedDevices] Address: " + recipient.getIdentifier() + ", ExtraDevices: " + mismatchedDevices.getExtraDevices() + ", MissingDevices: " + mismatchedDevices.getMissingDevices());
       archiveSessions(recipient, mismatchedDevices.getExtraDevices());
 
+      ArrayList<Integer> mismatchedDeviceIds = new ArrayList<>();
+      mismatchedDeviceIds.addAll(mismatchedDevices.getExtraDevices());
+      mismatchedDeviceIds.addAll(mismatchedDevices.getMissingDevices());
+      clearSenderKeySharedWith(recipient, mismatchedDeviceIds);
+
       for (int missingDeviceId : mismatchedDevices.getMissingDevices()) {
         PreKeyBundle preKey = NetworkResultUtil.toPreKeysLegacy(keysApi.getPreKey(recipient, missingDeviceId));
 
@@ -2867,6 +3000,7 @@ public class SignalServiceMessageSender {
   private void handleStaleDevices(SignalServiceAddress recipient, StaleDevices staleDevices) {
     Log.w(TAG, "[handleStaleDevices] Address: " + recipient.getIdentifier() + ", StaleDevices: " + staleDevices.getStaleDevices());
     archiveSessions(recipient, staleDevices.getStaleDevices());
+    clearSenderKeySharedWith(recipient, staleDevices.getStaleDevices());
   }
 
   public void handleChangeNumberMismatchDevices(@Nonnull MismatchedDevices mismatchedDevices)
@@ -2881,6 +3015,10 @@ public class SignalServiceMessageSender {
     for (SignalProtocolAddress address : addressesToClear) {
       aciStore.archiveSession(address);
     }
+  }
+
+  private void clearSenderKeySharedWith(SignalServiceAddress recipient, List<Integer> deviceIds) {
+    aciStore.clearSenderKeySharedWith(convertToProtocolAddresses(recipient, deviceIds));
   }
 
   private List<SignalProtocolAddress> convertToProtocolAddresses(SignalServiceAddress recipient, List<Integer> devices) {
@@ -2907,6 +3045,7 @@ public class SignalServiceMessageSender {
       } else {
         message = buildContentTooLargeBreadcrumbs(content.getContent().get());
       }
+      Log.w(TAG, "About to crash for exceeding max envelope size (" + size + " > " + maxEnvelopeSize + ")\n" + message);
       throw new ContentTooLargeException(size, message);
     }
   }
@@ -2922,104 +3061,7 @@ public class SignalServiceMessageSender {
   }
 
   private String buildContentTooLargeBreadcrumbs(Content content) {
-    StringBuilder message = new StringBuilder();
-
-    if (content.dataMessage != null) {
-      message.append("Data message;");
-      if (content.dataMessage.body != null && !content.dataMessage.body.isEmpty()) {
-        message.append("Body(").append(content.dataMessage.body.length()).append(");");
-      }
-      if (content.dataMessage.groupV2 != null) {
-        if (content.dataMessage.groupV2.groupChange != null) {
-          message.append("GroupV2Change(").append(content.dataMessage.groupV2.groupChange.size()).append(");");
-        } else {
-          message.append("GroupV2NoChange;");
-        }
-      }
-      if (content.dataMessage.giftBadge != null) {
-        message.append("GiftBadge;");
-      }
-      if (content.dataMessage.pollCreate != null) {
-        message.append("PollCreate;");
-      }
-      if (content.dataMessage.pollTerminate != null) {
-        message.append("PollTerminate;");
-      }
-      if (content.dataMessage.pollVote != null) {
-        message.append("PollVote;");
-      }
-      if (content.dataMessage.pinMessage != null) {
-        message.append("PinMessage;");
-      }
-      if (content.dataMessage.unpinMessage != null) {
-        message.append("UnpinMessage;");
-      }
-      if (content.dataMessage.reaction != null) {
-        message.append("Reaction;");
-      }
-      if (content.dataMessage.profileKey != null && content.dataMessage.profileKey.size() > 0) {
-        message.append("ProfileKey(").append(content.dataMessage.profileKey.size()).append(");");
-      }
-      if (content.dataMessage.payment != null) {
-        message.append("Payment;");
-      }
-      if (!content.dataMessage.attachments.isEmpty()) {
-        message.append("Attachments(").append(content.dataMessage.attachments.size()).append(");");
-      }
-      if (!content.dataMessage.contact.isEmpty()) {
-        message.append("Contacts(").append(content.dataMessage.contact.size()).append(");");
-      }
-      if (!content.dataMessage.bodyRanges.isEmpty()) {
-        message.append("Ranges(").append(content.dataMessage.bodyRanges.size()).append(");");
-      }
-      if (content.dataMessage.quote != null) {
-        if (content.dataMessage.quote.text != null) {
-          message.append("Quote(").append(content.dataMessage.quote.text.length()).append(");");
-        } else {
-          message.append("Quote(No text);");
-        }
-      }
-    }
-
-    if (content.syncMessage != null) {
-      message.append("Sync message;");
-
-      if (content.syncMessage.sent != null) {
-        if (content.syncMessage.sent.storyMessage != null) {
-          message.append("StoryMessage(").append(content.syncMessage.sent.storyMessageRecipients.size()).append(");");
-        }
-        if (!content.syncMessage.sent.storyMessageRecipients.isEmpty()) {
-          message.append("StoryRecipients(").append(content.syncMessage.sent.storyMessageRecipients.size()).append(");");
-        }
-        if (content.syncMessage.blocked != null) {
-          message.append("Blocked-AciString(").append(content.syncMessage.blocked.acis.size()).append(");");
-          message.append("Blocked-AciBinary(").append(content.syncMessage.blocked.acisBinary.size()).append(");");
-          message.append("Blocked-GroupIds(").append(content.syncMessage.blocked.groupIds.size()).append(");");
-          message.append("Blocked-Numbers(").append(content.syncMessage.blocked.numbers.size()).append(");");
-        }
-        if (content.syncMessage.outgoingPayment != null) {
-          message.append("OutgoingPayment");
-        }
-        if (content.syncMessage.deleteForMe != null) {
-          message.append("DeleteForMe-Messages(").append(content.syncMessage.deleteForMe.messageDeletes.size()).append(");");
-          message.append("DeleteForMe-Attachments(").append(content.syncMessage.deleteForMe.attachmentDeletes.size()).append(");");
-          message.append("DeleteForMe-Conversations(").append(content.syncMessage.deleteForMe.conversationDeletes.size()).append(");");
-        }
-        if (!content.syncMessage.read.isEmpty()) {
-          message.append("Read(").append(content.syncMessage.read.size()).append(");");
-        }
-        if (!content.syncMessage.viewed.isEmpty()) {
-          message.append("Viewed(").append(content.syncMessage.read.size()).append(");");
-        }
-      }
-    }
-
-    if (content.receiptMessage != null) {
-      message.append("ReceiptMessage(").append(content.receiptMessage.timestamp.size()).append(");");
-      message.append("ReceiptMessage(").append(content.receiptMessage.type.getValue()).append(");");
-    }
-
-    return message.toString();
+    return ProtoUtil.buildSizeTree(content, "Content");
   }
 
   public interface EventListener {

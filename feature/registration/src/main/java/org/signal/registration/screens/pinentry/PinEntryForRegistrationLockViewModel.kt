@@ -50,9 +50,10 @@ class PinEntryForRegistrationLockViewModel(
 
   val state: StateFlow<PinEntryState> = _state
     .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.Eagerly, PinEntryState(showNeedHelp = true))
+    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
 
   fun onEvent(event: PinEntryScreenEvents) {
+    Log.d(TAG, "[Event] $event")
     viewModelScope.launch {
       val stateEmitter: (PinEntryState) -> Unit = { state ->
         _state.value = state
@@ -113,7 +114,7 @@ class PinEntryForRegistrationLockViewModel(
       }
     }
 
-    parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredViaRegistrationLock(masterKey))
+    parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredFromSvr(masterKey))
 
     val registrationLockToken = masterKey.deriveRegistrationLock()
 
@@ -127,7 +128,7 @@ class PinEntryForRegistrationLockViewModel(
     }
 
     Log.d(TAG, "[PinEntered] Attempting to register with registration lock token...")
-    val registerResult = repository.registerAccount(
+    val registerResult = repository.registerAccountWithSession(
       e164 = e164,
       sessionId = sessionId,
       registrationLock = registrationLockToken,
@@ -140,14 +141,18 @@ class PinEntryForRegistrationLockViewModel(
         val (response, keyMaterial) = registerResult.data
         parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
         // TODO storage service restore + profile screen
-        parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
+        when {
+          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ChooseRestoreOptionAfterRegistration)
+          else -> parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
+        }
         state
       }
       is NetworkController.RegistrationNetworkResult.Failure -> {
         when (registerResult.error) {
           is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
             Log.w(TAG, "[PinEntered] Session not found or verified: ${registerResult.error.message}")
-            TODO()
+            // TODO [registration] - Handle session not found or verified.
+            throw NotImplementedError("Handle session not found or verified")
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             Log.w(TAG, "[PinEntered] Still getting registration lock error after providing token. This shouldn't happen. Resetting state.")
@@ -168,7 +173,8 @@ class PinEntryForRegistrationLockViewModel(
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${registerResult.error.message}")
-            TODO()
+            // TODO [registration] - Handle incorrect password
+            throw NotImplementedError("Handle incorrect password")
           }
         }
       }
@@ -185,7 +191,7 @@ class PinEntryForRegistrationLockViewModel(
 
   private fun handleSkip() {
     Log.d(TAG, "Skip requested - this will result in account data loss after timeRemaining: $timeRemaining ms")
-    // TODO: Show confirmation dialog warning about data loss, then proceed without PIN
+    // TODO [registration] - Show confirmation dialog warning about data loss, then proceed without PIN
   }
 
   class Factory(

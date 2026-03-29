@@ -9,8 +9,8 @@ import android.graphics.drawable.LayerDrawable
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
 import androidx.core.content.ContextCompat
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.util.ThemeUtil
 
 const val NO_TINT = -1
 

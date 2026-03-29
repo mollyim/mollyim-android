@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResult
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.FullScreenDialogFragment
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment.Companion.DIALOG_TITLE
 import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.fragments.findListener
 
 class MultiselectForwardFullScreenDialogFragment : FullScreenDialogFragment(), MultiselectForwardFragment.Callback {

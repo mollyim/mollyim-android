@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preferences__enable_debug_log">تفعيل سجل التصحيح</string>
+    <string name="preferences__enable_debug_log">فعِّل سجل التصحيح</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">توليد المفاتيح. هذا قد يستغرق بعض الوقت…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">الرجاء اختيار عبارة مرور سيتم استخدامها لتعمية بياناتك محليًا.\n\nيجب أن تكون هذه عبارة المرور قوية.</string>
     <string name="ChangePassphraseDialogFragment_passphrase">عبارة المرور</string>
@@ -8,14 +8,14 @@
     <string name="ChangePassphraseDialogFragment_weak_passphrase">عبارة مرور ضعيفة!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">شغّل تعمية قاعدة البيانات</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">هل تتطلب عبارة المرور لفتح مولي؟</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">الآن يمكنك تعيين عبارة مرور لتعمية قاعدة البيانات. حتى يتم إلغاء قفله، لا يمكن لمولي تلقي الإشعارات أو المكالمات. يساعد هذا في حماية البيانات الموجودة على الأجهزة المفقودة أو المسروقة.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">الآن يمكنك تعيين عبارة مرور لتعمية قاعدة البيانات. حتى يتم إلغاء قفله، لا يمكن ل Molly تلقي الإشعارات أو المكالمات. يساعد هذا في حماية البيانات الموجودة على الأجهزة المفقودة أو المسروقة.</string>
     <string name="AppProtectionPreferenceFragment_instant">فوري</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">المسح الآمن قيد التقدم</string>
-    <string name="preferences__passphrase_changed">تم تغيير عبارة المرور</string>
+    <string name="preferences__passphrase_changed">غُيّر عبارة المرور</string>
     <string name="preferences__device_lock_timeout">مهلة قفل الجهاز</string>
     <string name="preferences__automatic_lockdown">قفل تلقائي</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">حماية قاعدة بيانات مولي بعبارة مرور</string>
-    <string name="preferences__passphrase_lock">تشفير قاعدة البيانات</string>
+    <string name="preferences__passphrase_lock">تعمية قاعدة البيانات</string>
     <string name="arrays__on_inactivity_timeout">إذا ذهبت إلى وقت معين دون إلغاء قفل جهازك</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">لن تتصل بمولي بدون Orbot ، وهي غير مثبتة على هذا الجهاز.</string>
     <string name="RegistrationActivity_network_settings">اعدادات الشبكة</string>
@@ -43,12 +43,12 @@
     <string name="preferences__map_hybrid">هجين</string>
     <string name="preferences__map_normal">طبيعي</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">تحقق دوريًا من وجود إصدارات جديدة واطلب تثبيتها</string>
-    <string name="preferences__autoupdate_molly">حدّث مولي تلقائيًا</string>
+    <string name="preferences__autoupdate_molly">حدّث Molly تلقائيًا</string>
     <string name="arrays__tor_via_orbot">تور عبر Orbot</string>
     <string name="arrays__none">لا</string>
     <string name="BlockUnblockDialog_block_and_delete">حظر ثم الحذف</string>
     <string name="preferences__include_beta_updates">تضمين تحديثات تجريبة</string>
-    <string name="preferences__block_unknown">حظر غير معروف</string>
+    <string name="preferences__block_unknown">احظر المجهول</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">احظر المستخدمين الذين لم تتواصل معهم مطلقًا والذين لم يتم حفظهم كجهات اتصال.</string>
     <string name="DonateMegaphone_molly_is_free_software">مولي هو برنامج مجاني</string>
     <string name="BackupsPreferenceFragment__change_schedule">تغيير الجدولة</string>

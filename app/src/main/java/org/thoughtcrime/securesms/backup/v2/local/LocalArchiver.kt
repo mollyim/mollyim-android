@@ -6,21 +6,20 @@
 package org.thoughtcrime.securesms.backup.v2.local
 
 import okio.ByteString.Companion.toByteString
-import org.greenrobot.eventbus.EventBus
 import org.signal.core.models.backup.BackupId
 import org.signal.core.models.backup.MediaName
 import org.signal.core.util.Stopwatch
 import org.signal.core.util.StreamUtil
+import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readFully
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
-import org.thoughtcrime.securesms.backup.v2.LocalBackupV2Event
 import org.thoughtcrime.securesms.backup.v2.local.proto.FilesFrame
 import org.thoughtcrime.securesms.backup.v2.local.proto.Metadata
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.Util
+import org.thoughtcrime.securesms.keyvalue.protos.LocalBackupCreationProgress
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherOutputStream
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
@@ -66,8 +65,11 @@ object LocalArchiver {
       mainStream = snapshotFileSystem.mainOutputStream() ?: return ArchiveResult.failure(ArchiveFailure.MainStream)
 
       Log.i(TAG, "Listing all current files")
-      val allFiles = filesFileSystem.allFiles()
+      val allFiles = filesFileSystem.allFiles { completed, total ->
+        SignalStore.backup.newLocalBackupProgress = LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.INITIALIZING, frameExportCount = completed.toLong(), frameTotalCount = total.toLong()))
+      }
       stopwatch.split("files-list")
+      SignalStore.backup.newLocalBackupProgress = LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.INITIALIZING))
 
       val mediaNames: MutableSet<MediaName> = Collections.synchronizedSet(HashSet())
 
@@ -233,45 +235,54 @@ object LocalArchiver {
     private var lastVerboseUpdate: Long = 0
 
     override fun onAccount() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_ACCOUNT))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.ACCOUNT)))
     }
 
     override fun onRecipient() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_RECIPIENT))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.RECIPIENT)))
     }
 
     override fun onThread() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_THREAD))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.THREAD)))
     }
 
     override fun onCall() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_CALL))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.CALL)))
     }
 
     override fun onSticker() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_STICKER))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.STICKER)))
     }
 
     override fun onNotificationProfile() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.NOTIFICATION_PROFILE))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.NOTIFICATION_PROFILE)))
     }
 
     override fun onChatFolder() {
-      EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.CHAT_FOLDER))
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.CHAT_FOLDER)))
     }
 
     override fun onMessage(currentProgress: Long, approximateCount: Long) {
-      if (lastVerboseUpdate > System.currentTimeMillis() || lastVerboseUpdate + 1000 < System.currentTimeMillis() || currentProgress >= approximateCount) {
-        EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_MESSAGE, currentProgress, approximateCount))
-        lastVerboseUpdate = System.currentTimeMillis()
-      }
+      if (shouldThrottle(currentProgress >= approximateCount)) return
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.MESSAGE, frameExportCount = currentProgress, frameTotalCount = approximateCount)))
     }
 
     override fun onAttachment(currentProgress: Long, totalCount: Long) {
-      if (lastVerboseUpdate > System.currentTimeMillis() || lastVerboseUpdate + 1000 < System.currentTimeMillis() || currentProgress >= totalCount) {
-        EventBus.getDefault().post(LocalBackupV2Event(LocalBackupV2Event.Type.PROGRESS_ATTACHMENT, currentProgress, totalCount))
-        lastVerboseUpdate = System.currentTimeMillis()
+      if (shouldThrottle(currentProgress >= totalCount)) return
+      post(LocalBackupCreationProgress(transferring = LocalBackupCreationProgress.Transferring(completed = currentProgress, total = totalCount, mediaPhase = true)))
+    }
+
+    private fun shouldThrottle(forceUpdate: Boolean): Boolean {
+      val now = System.currentTimeMillis()
+      if (forceUpdate || lastVerboseUpdate > now || lastVerboseUpdate + 1000 < now) {
+        lastVerboseUpdate = now
+        return false
       }
+      return true
+    }
+
+    private fun post(progress: LocalBackupCreationProgress) {
+      SignalStore.backup.newLocalBackupProgress = progress
     }
   }
 }

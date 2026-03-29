@@ -111,19 +111,30 @@ private fun AccessControl.AccessRequired.toRemote(): Group.AccessControl.AccessR
 }
 
 private fun AccessControl.toRemote(): Group.AccessControl {
-  return Group.AccessControl(members = members.toRemote(), attributes = attributes.toRemote(), addFromInviteLink = addFromInviteLink.toRemote())
+  return Group.AccessControl(
+    members = members.toRemote(),
+    attributes = attributes.toRemote(),
+    addFromInviteLink = addFromInviteLink.toRemote(),
+    memberLabel = memberLabel.toRemote()
+  )
 }
 
 private fun Member.Role.toRemote(): Group.Member.Role {
   return when (this) {
-    Member.Role.UNKNOWN -> Group.Member.Role.UNKNOWN
+    Member.Role.UNKNOWN -> Group.Member.Role.DEFAULT
     Member.Role.DEFAULT -> Group.Member.Role.DEFAULT
     Member.Role.ADMINISTRATOR -> Group.Member.Role.ADMINISTRATOR
   }
 }
 
 private fun DecryptedMember.toRemote(): Group.Member {
-  return Group.Member(userId = aciBytes, role = role.toRemote(), joinedAtVersion = joinedAtRevision)
+  return Group.Member(
+    userId = aciBytes,
+    role = role.toRemote(),
+    joinedAtVersion = joinedAtRevision,
+    labelEmoji = labelEmoji,
+    labelString = labelString
+  )
 }
 
 private fun DecryptedPendingMember.toRemote(): Group.MemberPendingProfileKey {

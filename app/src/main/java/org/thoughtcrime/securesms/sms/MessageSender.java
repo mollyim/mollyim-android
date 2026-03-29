@@ -48,6 +48,7 @@ import org.thoughtcrime.securesms.database.model.StoryType;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
+import org.thoughtcrime.securesms.jobs.AdminDeleteSendJob;
 import org.thoughtcrime.securesms.jobs.AttachmentCompressionJob;
 import org.thoughtcrime.securesms.jobs.AttachmentCopyJob;
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
@@ -78,7 +79,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -506,15 +506,39 @@ public class MessageSender {
   }
 
   public static void sendRemoteDelete(long messageId) {
-    MessageTable db = SignalDatabase.messages();
-    db.markAsRemoteDelete(messageId);
-    db.markAsSending(messageId);
-
     try {
+      MessageTable db = SignalDatabase.messages();
+      db.markAsDeleteBySelf(messageId);
+      db.markAsSending(messageId);
       RemoteDeleteSendJob.create(messageId).enqueue();
       onMessageSent();
     } catch (NoSuchMessageException e) {
       Log.w(TAG, "[sendRemoteDelete] Could not find message! Ignoring.");
+    }
+  }
+
+  public static void sendAdminDelete(long messageId) {
+    try {
+      SignalDatabase.messages().markAsDeleteBySelf(messageId);
+      SignalDatabase.messages().markAsPendingAdminDelete(messageId);
+      AdminDeleteSendJob job = AdminDeleteSendJob.create(messageId, Collections.emptyList());
+      if (job != null) {
+        AppDependencies.getJobManager().add(job);
+      } else {
+        Log.w(TAG, "[sendAdminDelete] Could not create the admin delete job.");
+      }
+    } catch (NoSuchMessageException e) {
+      Log.w(TAG, "[sendAdminDelete] Could not find message! Ignoring.");
+    }
+  }
+
+  public static void resendAdminDelete(MessageRecord message, List<RecipientId> filteredRecipients) {
+    SignalDatabase.messages().markAsPendingAdminDelete(message.getId());
+    AdminDeleteSendJob job = AdminDeleteSendJob.create(message.getId(), filteredRecipients);
+    if (job != null) {
+      AppDependencies.getJobManager().add(job);
+    } else {
+      Log.w(TAG, "[resendAdminDelete] Could not resend the admin delete job.");
     }
   }
 

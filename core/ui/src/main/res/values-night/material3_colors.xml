@@ -5,7 +5,6 @@
     <color name="signal_neutralSurface">@color/signal_dark_neutralSurface</color>
     <color name="signal_colorOnCustom">@color/signal_dark_colorOnCustom</color>
     <color name="signal_colorOnCustomVariant">@color/signal_dark_colorOnCustomVariant</color>
-
     <color name="signal_colorTransparent1">@color/signal_dark_colorTransparent1</color>
     <color name="signal_colorTransparent2">@color/signal_dark_colorTransparent2</color>
     <color name="signal_colorTransparent3">@color/signal_dark_colorTransparent3</color>
@@ -22,7 +21,7 @@
     <color name="signal_colorNeutralVariantInverse">@color/signal_dark_colorNeutralVariantInverse</color>
 
     <!-- Inverses -->
-    <!-- MOLLY: Colors moved to themes.xml as theme attributes -->
+    <color name="signal_colorOnSurfaceInverse">@color/molly_on_surface_light</color>
     <color name="signal_colorErrorInverse">@color/molly_error_light</color>
     <color name="signal_colorErrorContainerInverse">@color/molly_error_container_light</color>
 

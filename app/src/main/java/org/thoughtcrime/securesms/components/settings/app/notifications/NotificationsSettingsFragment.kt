@@ -51,6 +51,8 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.signal.core.ui.BottomSheetUtil
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
@@ -64,13 +66,11 @@ import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRoute
 import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRouter
 import org.thoughtcrime.securesms.components.settings.models.Banner
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.events.PushServiceEvent
 import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.RingtoneUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager

@@ -23,15 +23,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import im.molly.app.base.ApkInfo
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Rows.TextAndLabel
 import org.signal.core.ui.compose.Rows.defaultPadding
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -94,7 +94,7 @@ class HelpSettingsFragment : ComposeFragment() {
             onClick = {
               navController.safeNavigate(R.id.action_helpSettingsFragment_to_appUpdatesFragment)
             },
-            label = BuildConfig.VERSION_NAME
+            label = ApkInfo.versionName
           )
         }
 

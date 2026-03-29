@@ -290,7 +290,7 @@ public abstract class WebRtcActionProcessor {
     RemotePeer peer = currentState.getCallInfoState().getPeerByCallId(new CallId(callId));
     if (peer == null || !peer.callIdEquals(currentState.getCallInfoState().getActivePeer())) {
       Log.w(tag, "Received telecom approval after call terminated. callId: " + callId + " recipient: " + recipientId);
-      webRtcInteractor.terminateCall(recipientId);
+      webRtcInteractor.terminateCall(recipientId, android.telecom.DisconnectCause.LOCAL);
       return currentState;
     }
 
@@ -586,6 +586,10 @@ public abstract class WebRtcActionProcessor {
     return currentState;
   }
 
+  protected @NonNull WebRtcServiceState handleSetIncomingRingingVanity(@NonNull WebRtcServiceState currentState, boolean enabled) {
+    Log.i(tag, "handleSetIncomingRingingVanity not processed");
+    return currentState;
+  }
 
   protected @NonNull WebRtcServiceState handleSelfRaiseHand(@NonNull WebRtcServiceState currentState, boolean raised) {
     Log.i(tag, "raiseHand not processed");
@@ -965,6 +969,12 @@ public abstract class WebRtcActionProcessor {
 
   protected @NonNull WebRtcServiceState handleSetCallLinkJoinRequestRejected(@NonNull WebRtcServiceState currentState, @NonNull RecipientId participant) {
     Log.i(tag, "handleSetCallLinkJoinRequestRejected not processed");
+
+    return currentState;
+  }
+
+  protected @NonNull WebRtcServiceState handleSendRemoteMuteRequest(@NonNull WebRtcServiceState currentState, @NonNull CallParticipant participant) {
+    Log.i(tag, "handleSendRemoteMuteRequest not processed");
 
     return currentState;
   }

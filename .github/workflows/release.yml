@@ -22,10 +22,7 @@ jobs:
   build:
     name: Build
     if: "github.event.base_ref != 'refs/heads/upstream'"
-    runs-on: ubuntu-22.04
-
-    env:
-      GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -78,12 +75,12 @@ jobs:
 
       - name: Build without signing
         if: "env.HAVE_KEYSTORE == 'false'"
-        run: docker compose run -v "$HOME/.gradle/caches:/.gradle-ro-cache:ro" assemble
+        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
         working-directory: reproducible-builds
 
       - name: Build and sign
         if: "env.HAVE_KEYSTORE == 'true'"
-        run: docker compose run -v "$HOME/.gradle/caches:/.gradle-ro-cache:ro" assemble
+        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
         working-directory: reproducible-builds
         env:
           CI_KEYSTORE_PATH: certs/keystore.jks
@@ -116,7 +113,7 @@ jobs:
   prepare_release:
     name: Prepare release
     if: "github.event.base_ref != 'refs/heads/upstream'"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
 
     steps:
       - uses: actions/checkout@v4
@@ -142,7 +139,7 @@ jobs:
 
   upload:
     name: Upload
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - build
       - prepare_release

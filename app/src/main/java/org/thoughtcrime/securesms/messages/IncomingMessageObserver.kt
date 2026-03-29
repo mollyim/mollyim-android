@@ -14,14 +14,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.models.ServiceId
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
+import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupsV2ProcessingLock
+import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor
+import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
 import org.thoughtcrime.securesms.jobs.PushProcessMessageErrorJob
 import org.thoughtcrime.securesms.jobs.PushProcessMessageJob
+import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.isDecisionPending
 import org.thoughtcrime.securesms.messages.MessageDecryptor.FollowUpOperation
@@ -32,8 +36,11 @@ import org.thoughtcrime.securesms.service.SafeForegroundService
 import org.thoughtcrime.securesms.util.AlarmSleepTimer
 import org.thoughtcrime.securesms.util.AppForegroundObserver
 import org.thoughtcrime.securesms.util.ServiceUtil
+import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
+import org.thoughtcrime.securesms.util.SignalTrace
 import org.thoughtcrime.securesms.util.asChain
+import org.whispersystems.signalservice.api.messages.EnvelopeResponse
 import org.whispersystems.signalservice.api.util.SleepTimer
 import org.whispersystems.signalservice.api.util.UptimeSleepTimer
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket
@@ -107,7 +114,7 @@ class IncomingMessageObserver(
     // MOLLY: Accessing libsignalNetwork applies proxy configuration on access
   )
 
-  private val messageContentProcessor = MessageContentProcessor(context)
+  private val messageContentProcessor = MessageContentProcessor.create(context)
 
   data class AppState(
     val isForeground: Boolean,
@@ -245,7 +252,7 @@ class IncomingMessageObserver(
   }
 
   @VisibleForTesting
-  fun processEnvelope(bufferedProtocolStore: BufferedProtocolStore, envelope: Envelope, serverDeliveredTimestamp: Long): List<FollowUpOperation>? {
+  fun processEnvelope(bufferedProtocolStore: BufferedProtocolStore, envelope: Envelope, serverDeliveredTimestamp: Long, batchCache: BatchCache): List<FollowUpOperation>? {
     return when (envelope.type) {
       Envelope.Type.SERVER_DELIVERY_RECEIPT -> {
         processReceipt(envelope)
@@ -256,7 +263,10 @@ class IncomingMessageObserver(
       Envelope.Type.CIPHERTEXT,
       Envelope.Type.UNIDENTIFIED_SENDER,
       Envelope.Type.PLAINTEXT_CONTENT -> {
-        processMessage(bufferedProtocolStore, envelope, serverDeliveredTimestamp)
+        SignalTrace.beginSection("IncomingMessageObserver#processMessage")
+        val followUps = processMessage(bufferedProtocolStore, envelope, serverDeliveredTimestamp, batchCache)
+        SignalTrace.endSection()
+        followUps
       }
 
       else -> {
@@ -266,26 +276,45 @@ class IncomingMessageObserver(
     }
   }
 
-  private fun processMessage(bufferedProtocolStore: BufferedProtocolStore, envelope: Envelope, serverDeliveredTimestamp: Long): List<FollowUpOperation> {
+  private fun processMessage(bufferedProtocolStore: BufferedProtocolStore, envelope: Envelope, serverDeliveredTimestamp: Long, batchCache: BatchCache): List<FollowUpOperation> {
     val localReceiveMetric = SignalLocalMetrics.MessageReceive.start()
+    SignalTrace.beginSection("IncomingMessageObserver#decryptMessage")
     val result = MessageDecryptor.decrypt(context, bufferedProtocolStore, envelope, serverDeliveredTimestamp)
+    SignalTrace.endSection()
     localReceiveMetric.onEnvelopeDecrypted()
 
     SignalLocalMetrics.MessageLatency.onMessageReceived(envelope.serverTimestamp!!, serverDeliveredTimestamp, envelope.urgent!!)
     when (result) {
       is MessageDecryptor.Result.Success -> {
-        val job = PushProcessMessageJob.processOrDefer(messageContentProcessor, result, localReceiveMetric)
+        val job = PushProcessMessageJob.processOrDefer(messageContentProcessor, result, localReceiveMetric, batchCache)
         if (job != null) {
           return result.followUpOperations + FollowUpOperation { job.asChain() }
         }
       }
       is MessageDecryptor.Result.Error -> {
         return result.followUpOperations + FollowUpOperation {
-          PushProcessMessageErrorJob(
+          val jobs = mutableListOf<Job>()
+
+          if (result.errorMetadata.groupMasterKey != null) {
+            val groupId = result.errorMetadata.groupId!!
+            if (!SignalDatabase.groups.getGroup(groupId).isPresent) {
+              Log.w(TAG, "Decryption error in group, but group not found. Creating placeholder for groupId: $groupId")
+              SignalDatabase.groups.create(
+                groupMasterKey = result.errorMetadata.groupMasterKey!!,
+                groupState = DecryptedGroup(revision = GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION),
+                groupSendEndorsements = null
+              )
+              jobs += RequestGroupV2InfoJob(groupId)
+            }
+          }
+
+          jobs += PushProcessMessageErrorJob(
             result.toMessageState(),
             result.errorMetadata.toExceptionMetadata(),
             result.envelope.timestamp!!
-          ).asChain()
+          )
+
+          AppDependencies.jobManager.startChain(jobs)
         }
       }
       is MessageDecryptor.Result.Ignore -> {
@@ -385,27 +414,15 @@ class IncomingMessageObserver(
 
                 val hasMore = authWebSocket.readMessageBatch(websocketReadTimeout, 30) { batch ->
                   Log.i(TAG, "Retrieved ${batch.size} envelopes!")
-                  val bufferedStore = BufferedProtocolStore.create()
 
                   val startTime = System.currentTimeMillis()
                   GroupsV2ProcessingLock.acquireGroupProcessingLock().use {
                     ReentrantSessionLock.INSTANCE.acquire().use {
-                      batch.forEach { response ->
-                        Log.d(TAG, "Beginning database transaction...")
-                        val followUpOperations = SignalDatabase.runInTransaction { db ->
-                          val followUps: List<FollowUpOperation>? = processEnvelope(bufferedStore, response.envelope, response.serverDeliveredTimestamp)
-                          bufferedStore.flushToDisk()
-                          followUps
-                        }
-                        Log.d(TAG, "Ended database transaction.")
+                      val batchCommitted = processBatchInTransaction(batch)
 
-                        if (followUpOperations != null) {
-                          Log.d(TAG, "Running ${followUpOperations.size} follow-up operations...")
-                          val jobs = followUpOperations.mapNotNull { it.run() }
-                          AppDependencies.jobManager.addAllChains(jobs)
-                        }
-
-                        authWebSocket.sendAck(response)
+                      if (!batchCommitted) {
+                        Log.w(TAG, "Batch transaction rolled back, falling back to per-message processing")
+                        processMessagesIndividually(batch)
                       }
                     }
                   }
@@ -457,6 +474,73 @@ class IncomingMessageObserver(
         Log.i(TAG, "Looping...")
       }
       Log.w(TAG, "Terminated! (${this.hashCode()})")
+    }
+
+    /**
+     * Attempts to process the entire batch in a single transaction for performance.
+     *
+     * @return true if the transaction committed, false if it the batch was rolled back.
+     */
+    private fun processBatchInTransaction(batch: List<EnvelopeResponse>): Boolean {
+      val allFollowUpOperations = mutableListOf<FollowUpOperation>()
+      val bufferedStore = BufferedProtocolStore.create()
+      val batchCache = ReusedBatchCache()
+
+      val committed = SignalDatabase.tryRunInTransaction {
+        batch.forEach { response ->
+          SignalTrace.beginSection("IncomingMessageObserver#perMessageTransaction")
+          val followUps = processEnvelope(bufferedStore, response.envelope, response.serverDeliveredTimestamp, batchCache)
+          bufferedStore.flushToDisk()
+          SignalTrace.endSection()
+
+          if (followUps?.isNotEmpty() == true) {
+            allFollowUpOperations += followUps
+          }
+        }
+      }
+
+      if (committed) {
+        batchCache.flushAndClear()
+
+        if (allFollowUpOperations.isNotEmpty()) {
+          Log.d(TAG, "Running ${allFollowUpOperations.size} follow-up operations...")
+          val jobs = allFollowUpOperations.mapNotNull { it.run() }
+          AppDependencies.jobManager.addAllChains(jobs)
+        }
+
+        batch.forEach { response ->
+          authWebSocket.sendAck(response)
+        }
+      }
+
+      return committed
+    }
+
+    /**
+     * If something prevented us from processing the entire batch in a single transaction, we process each message individually.
+     */
+    private fun processMessagesIndividually(batch: List<EnvelopeResponse>) {
+      val bufferedStore = BufferedProtocolStore.create()
+      val batchCache = ReusedBatchCache()
+
+      batch.forEach { response ->
+        SignalTrace.beginSection("IncomingMessageObserver#perMessageTransaction")
+        val followUpOperations = SignalDatabase.runInTransaction {
+          val followUps = processEnvelope(bufferedStore, response.envelope, response.serverDeliveredTimestamp, batchCache)
+          bufferedStore.flushToDisk()
+          followUps
+        }
+        SignalTrace.endSection()
+
+        if (followUpOperations?.isNotEmpty() == true) {
+          val jobs = followUpOperations.mapNotNull { it.run() }
+          AppDependencies.jobManager.addAllChains(jobs)
+        }
+
+        authWebSocket.sendAck(response)
+      }
+
+      batchCache.flushAndClear()
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {

@@ -13,6 +13,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.signal.core.util.Base64
+import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.util.KeyHelper
 import org.thoughtcrime.securesms.AppCapabilities
@@ -24,7 +25,6 @@ import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.thoughtcrime.securesms.util.JsonUtils
-import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.account.AccountAttributes
 import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException
 import java.io.IOException

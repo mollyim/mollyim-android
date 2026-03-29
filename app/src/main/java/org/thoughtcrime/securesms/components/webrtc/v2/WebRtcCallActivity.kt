@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.components.webrtc.v2
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.KeyguardManager
 import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.Intent
@@ -41,6 +42,8 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.signal.core.ui.BottomSheetUtil
+import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.SignalExecutors
@@ -64,7 +67,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messagerequests.CalleeMustAcceptMessageRequestActivity
-import org.thoughtcrime.securesms.permissions.Permissions
 import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment
 import org.thoughtcrime.securesms.ratelimit.RecaptchaRequiredEvent
 import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDialogFragment
@@ -74,7 +76,6 @@ import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.service.webrtc.CallLinkDisconnectReason
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
 import org.thoughtcrime.securesms.sms.MessageSender
-import org.thoughtcrime.securesms.util.BottomSheetUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter
@@ -118,6 +119,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private var enterPipOnResume: Boolean = false
   private var lastProcessedIntentTimestamp = 0L
   private var previousEvent: WebRtcViewModel? = null
+  private var answeredFromNotification: Boolean = false
   private var ephemeralStateDisposable = Disposable.empty()
   private val callPermissionsDialogController = CallPermissionsDialogController()
 
@@ -258,6 +260,8 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     if (SignalStore.rateLimit.needsRecaptcha()) {
       RecaptchaProofBottomSheetFragment.show(supportFragmentManager)
     }
+
+    updateIncomingRingingVanity()
   }
 
   override fun onNewIntent(intent: Intent) {
@@ -271,6 +275,8 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   override fun onPause() {
     Log.i(TAG, "onPause")
     super.onPause()
+
+    disableIncomingRingingVanity()
 
     if (!isInPipMode() || isFinishing) {
       EventBus.getDefault().unregister(this)
@@ -397,7 +403,15 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     viewModel.setRecipient(event.recipient)
     callScreen.setRecipient(event.recipient)
     event.isRemoteVideoOffer
-    callScreen.setWebRtcCallState(event.state)
+
+    if (answeredFromNotification && event.state == WebRtcViewModel.State.CALL_INCOMING) {
+      Log.d(TAG, "Suppressing CALL_INCOMING UI state because call was already answered from notification")
+    } else {
+      if (event.state != WebRtcViewModel.State.CALL_INCOMING) {
+        answeredFromNotification = false
+      }
+      callScreen.setWebRtcCallState(event.state)
+    }
 
     if (event.state != previousCallState) {
       setTurnScreenOnForCallState(event.state)
@@ -411,6 +425,9 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
           Log.d(TAG, "Incoming call directly from network failure state. Recreating activity.")
           recreate()
           return
+        }
+        if (previousCallState != WebRtcViewModel.State.CALL_INCOMING) {
+          updateIncomingRingingVanity()
         }
       }
 
@@ -688,8 +705,18 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
   private fun processIntent(callIntent: CallIntent) {
     when (callIntent.action) {
-      CallIntent.Action.ANSWER_AUDIO -> handleAnswerWithAudio()
-      CallIntent.Action.ANSWER_VIDEO -> handleAnswerWithVideo()
+      CallIntent.Action.ANSWER_AUDIO -> {
+        handleAnswerWithAudio()
+        if (!callIntent.isStartedFromFullScreen) {
+          answeredFromNotification = true
+        }
+      }
+      CallIntent.Action.ANSWER_VIDEO -> {
+        handleAnswerWithVideo()
+        if (!callIntent.isStartedFromFullScreen) {
+          answeredFromNotification = true
+        }
+      }
       CallIntent.Action.DENY -> handleDenyCall()
       CallIntent.Action.END_CALL -> handleEndCall()
       else -> Unit
@@ -961,6 +988,10 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       is CallEvent.SwitchToSpeaker -> callScreen.switchToSpeakerView()
       is CallEvent.ShowSwipeToSpeakerHint -> callScreen.showSpeakerViewHint()
       is CallEvent.ShowRemoteMuteToast -> callScreen.showRemoteMuteToast(event.getDescription(this))
+      is CallEvent.ShowLargeGroupAutoMuteToast -> {
+        callScreen.onCallStateUpdate(CallControlsChange.MIC_OFF)
+        callScreen.showRemoteMuteToast(getString(R.string.WebRtcCallView__youve_been_muted_large_group))
+      }
       is CallEvent.ShowVideoTooltip -> {
         if (isInPipMode()) return
 
@@ -1060,20 +1091,38 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     }
   }
 
+  private fun updateIncomingRingingVanity() {
+    val event = previousEvent ?: return
+    if (event.state != WebRtcViewModel.State.CALL_INCOMING) return
+
+    val keyguardManager = getSystemService(KeyguardManager::class.java)
+    val shouldEnable = keyguardManager == null || !keyguardManager.isKeyguardLocked
+
+    Log.i(TAG, "updateIncomingRingingVanity(): shouldEnable=$shouldEnable, keyguardLocked=${keyguardManager?.isKeyguardLocked}")
+    AppDependencies.signalCallManager.setIncomingRingingVanity(shouldEnable)
+  }
+
+  private fun disableIncomingRingingVanity() {
+    val event = previousEvent ?: return
+    if (event.state == WebRtcViewModel.State.CALL_INCOMING) {
+      AppDependencies.signalCallManager.setIncomingRingingVanity(false)
+    }
+  }
+
   /**
    * Controls lock screen and screen-on behavior based on call state.
-   * - Show over lock screen: Only for incoming ringing calls, so user can answer.
+   * - Show over lock screen: For any ongoing call state, so the call UI remains visible
+   *   if the call was answered from the lock screen.
    * - Turn screen on: For any ongoing call state, so screen stays on during call.
    */
   private fun setTurnScreenOnForCallState(callState: WebRtcViewModel.State) {
-    val isIncomingRinging = callState == WebRtcViewModel.State.CALL_INCOMING
     val isOngoingCall = callState.inOngoingCall
     if (Build.VERSION.SDK_INT >= 27) {
-      setShowWhenLocked(isIncomingRinging)
+      setShowWhenLocked(isOngoingCall)
       setTurnScreenOn(isOngoingCall)
     } else {
       @Suppress("DEPRECATION")
-      if (isIncomingRinging) {
+      if (isOngoingCall) {
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
       } else {
         window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
@@ -1237,7 +1286,16 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     @RequiresApi(31)
     override fun onAudioOutputChanged31(audioOutput: WebRtcAudioDevice) {
       maybeDisplaySpeakerphonePopup(audioOutput.webRtcAudioOutput)
-      AppDependencies.signalCallManager.selectAudioDevice(ChosenAudioDeviceIdentifier(audioOutput.deviceId!!))
+      if (audioOutput.deviceId != null) {
+        AppDependencies.signalCallManager.selectAudioDevice(ChosenAudioDeviceIdentifier(audioOutput.deviceId))
+      } else {
+        when (audioOutput.webRtcAudioOutput) {
+          WebRtcAudioOutput.HANDSET -> handleSetAudioHandset()
+          WebRtcAudioOutput.SPEAKER -> handleSetAudioSpeaker()
+          WebRtcAudioOutput.BLUETOOTH_HEADSET -> handleSetAudioBluetooth()
+          WebRtcAudioOutput.WIRED_HEADSET -> handleSetAudioWiredHeadset()
+        }
+      }
     }
 
     override fun onVideoChanged(isVideoEnabled: Boolean) {

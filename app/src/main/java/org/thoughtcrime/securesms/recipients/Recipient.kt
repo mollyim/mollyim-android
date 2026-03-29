@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
+import androidx.core.text.buildSpannedString
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.collections.immutable.toImmutableList
@@ -11,6 +12,7 @@ import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.BidiUtil
+import org.signal.core.util.Util
 import org.signal.core.util.UuidUtil
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
@@ -27,8 +29,8 @@ import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ChatColors.Id.Auto
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsPalette
-import org.thoughtcrime.securesms.database.RecipientTable.MentionSetting
 import org.thoughtcrime.securesms.database.RecipientTable.MissingRecipientException
+import org.thoughtcrime.securesms.database.RecipientTable.NotificationSetting
 import org.thoughtcrime.securesms.database.RecipientTable.PhoneNumberSharingState
 import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState
 import org.thoughtcrime.securesms.database.RecipientTable.SealedSenderAccessMode
@@ -40,6 +42,7 @@ import org.thoughtcrime.securesms.database.model.ProfileAvatarFileDetails
 import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.RecipientExtras
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.fonts.SignalSymbols
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
@@ -47,18 +50,22 @@ import org.thoughtcrime.securesms.phonenumbers.NumberUtil
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient.Companion.external
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
+import org.thoughtcrime.securesms.util.ContextUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalE164Util
+import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.UsernameUtil.isValidUsernameForSearch
-import org.thoughtcrime.securesms.util.Util
+import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.util.OptionalUtil
 import java.util.LinkedList
 import java.util.Objects
 import java.util.Optional
+import org.signal.core.ui.R as CoreUiR
 
 /**
- * A recipient represents something you can send messages to, or receive messages from. They could be individuals, groups, or even distribution lists.
+ * A recipient represents something you can send messages to or receive messages from. They could be individuals, groups, or even distribution lists.
  * This class is a snapshot of common state that is used to present recipients through the UI.
  *
  * It's important to note that this is only a snapshot, and the actual state of a recipient can change over time.
@@ -103,7 +110,9 @@ class Recipient(
   private val sealedSenderAccessModeValue: SealedSenderAccessMode = SealedSenderAccessMode.UNKNOWN,
   private val capabilities: RecipientRecord.Capabilities = RecipientRecord.Capabilities.UNKNOWN,
   val storageId: ByteArray? = null,
-  val mentionSetting: MentionSetting = MentionSetting.ALWAYS_NOTIFY,
+  val mentionSetting: NotificationSetting = NotificationSetting.ALWAYS_NOTIFY,
+  private val callNotificationSettingValue: NotificationSetting = NotificationSetting.ALWAYS_NOTIFY,
+  private val replyNotificationSettingValue: NotificationSetting = NotificationSetting.ALWAYS_NOTIFY,
   private val wallpaperValue: ChatWallpaper? = null,
   private val chatColorsValue: ChatColors? = null,
   val avatarColor: AvatarColor = AvatarColor.UNKNOWN,
@@ -120,7 +129,8 @@ class Recipient(
   private val groupRecord: Optional<GroupRecord> = Optional.empty(),
   val phoneNumberSharing: PhoneNumberSharingState = PhoneNumberSharingState.UNKNOWN,
   val nickname: ProfileName = ProfileName.EMPTY,
-  val note: String? = null
+  val note: String? = null,
+  val keyTransparencyData: ByteArray? = null
 ) {
 
   /** The recipient's [ServiceId], which could be either an [ACI] or [PNI]. */
@@ -328,6 +338,14 @@ class Recipient(
   /** The notification channel, if both set and supported by the system. Otherwise null. */
   val notificationChannel: String? = if (!NotificationChannels.supported()) null else notificationChannelValue
 
+  /** Whether calls should break through mute for this recipient. */
+  val callNotificationSetting: NotificationSetting
+    get() = if (RemoteConfig.internalUser) callNotificationSettingValue else NotificationSetting.ALWAYS_NOTIFY
+
+  /** Whether replies should break through mute for this recipient. Only applicable to groups. */
+  val replyNotificationSetting: NotificationSetting
+    get() = if (groupIdValue == null) NotificationSetting.DO_NOT_NOTIFY else if (RemoteConfig.internalUser) replyNotificationSettingValue else mentionSetting
+
   /** The state around whether we can send sealed sender to this user. */
   val sealedSenderAccessMode: SealedSenderAccessMode = if (pni.isPresent && pni == serviceId) {
     SealedSenderAccessMode.DISABLED
@@ -375,13 +393,14 @@ class Recipient(
    * The badge to feature on a recipient's avatar, if any.
    * This value respects the local user's [SignalStore.inAppPayments.getDisplayBadgesOnProfile()] preference.
    */
-  val featuredBadge: Badge? get() {
-    return if (isSelf && !SignalStore.inAppPayments.getDisplayBadgesOnProfile()) {
-      null
-    } else {
-      badges.firstOrNull()
+  val featuredBadge: Badge?
+    get() {
+      return if (isSelf && !SignalStore.inAppPayments.getDisplayBadgesOnProfile()) {
+        null
+      } else {
+        badges.firstOrNull()
+      }
     }
-  }
 
   /** A string combining the about emoji + text for displaying various places. */
   val combinedAboutAndEmoji: String? by lazy { listOf(aboutEmoji, about).filter { it.isNotNullOrBlank() }.joinToString(separator = " ").nullIfBlank() }
@@ -647,6 +666,47 @@ class Recipient(
     }
   }
 
+  /**
+   * Gets the recipient's display name with any applicable decorations:
+   * - A badge icon for verified recipients
+   * - A person-circle glyph for system contacts
+   * - A directional chevron for tappable individual profiles
+   */
+  fun getDisplayNameForHeadline(context: Context): CharSequence {
+    val name = if (isSelf) context.getString(R.string.note_to_self) else getDisplayName(context)
+
+    return buildSpannedString {
+      append(name)
+
+      if (showVerified) {
+        val verifiedBadge = ContextUtil.requireDrawable(context, R.drawable.ic_official_28)
+        SpanUtil.appendSpacer(this, 8)
+        SpanUtil.appendCenteredImageSpanWithoutSpace(this, verifiedBadge, 28, 28)
+      } else if (isSystemContact) {
+        val systemContactGlyph = SignalSymbols
+          .getSpannedString(context, SignalSymbols.Weight.BOLD, SignalSymbols.Glyph.PERSON_CIRCLE)
+          .let { SpanUtil.ofSize(it, 20) }
+
+        append("\u00A0")
+        append(systemContactGlyph)
+      }
+
+      if (isIndividual && !isSelf) {
+        val isLtr = ViewUtil.isLtr(context)
+        val chevronGlyph = SignalSymbols.getSpannedString(context, SignalSymbols.Weight.BOLD, if (isLtr) SignalSymbols.Glyph.CHEVRON_RIGHT else SignalSymbols.Glyph.CHEVRON_LEFT, com.google.android.material.R.attr.colorOutline)
+          .let { SpanUtil.ofSize(it, 24) }
+
+        if (isLtr) {
+          append("\u00A0")
+          append(chevronGlyph)
+        } else {
+          insert(0, "\u00A0")
+          insert(0, chevronGlyph)
+        }
+      }
+    }
+  }
+
   fun getFallbackAvatar(): FallbackAvatar {
     return if (isSelf) {
       FallbackAvatar.Resource.Local(avatarColor)
@@ -808,8 +868,9 @@ class Recipient(
       profileAvatar == other.profileAvatar &&
       notificationChannelValue == other.notificationChannelValue &&
       sealedSenderAccessModeValue == other.sealedSenderAccessModeValue &&
-      storageId.contentEquals(other.storageId) &&
       mentionSetting == other.mentionSetting &&
+      callNotificationSettingValue == other.callNotificationSettingValue &&
+      replyNotificationSettingValue == other.replyNotificationSettingValue &&
       wallpaperValue == other.wallpaperValue &&
       chatColorsValue == other.chatColorsValue &&
       avatarColor == other.avatarColor &&
@@ -822,7 +883,8 @@ class Recipient(
       callLinkRoomId == other.callLinkRoomId &&
       phoneNumberSharing == other.phoneNumberSharing &&
       nickname == other.nickname &&
-      note == other.note
+      note == other.note &&
+      keyTransparencyData.contentEquals(other.keyTransparencyData)
   }
 
   override fun equals(other: Any?): Boolean {

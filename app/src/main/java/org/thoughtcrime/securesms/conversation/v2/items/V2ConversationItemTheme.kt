@@ -9,10 +9,10 @@ import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.conversation.v2.items.V2ConversationItemUtils.isThumbnailAtBottomOfBubble
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.hasNoBubble
 
 /**

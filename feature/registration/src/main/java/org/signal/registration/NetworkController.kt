@@ -6,12 +6,14 @@
 package org.signal.registration
 
 import android.os.Parcelable
+import kotlinx.coroutines.flow.Flow
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.signal.core.models.MasterKey
 import org.signal.core.util.serialization.ByteArrayToBase64Serializer
 import org.signal.libsignal.protocol.IdentityKey
+import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import java.io.IOException
@@ -108,12 +110,12 @@ interface NetworkController {
    * This is called when the user encounters a registration lock and needs to prove
    * they know their PIN to proceed with registration.
    *
-   * @param svr2Credentials The SVR2 credentials provided by the server during the registration lock response.
+   * @param svrCredentials The SVR2 credentials provided by the server during the registration lock response.
    * @param pin The user-entered PIN.
    * @return The restored master key on success, or an appropriate error.
    */
   suspend fun restoreMasterKeyFromSvr(
-    svr2Credentials: SvrCredentials,
+    svrCredentials: SvrCredentials,
     pin: String
   ): RegistrationNetworkResult<MasterKeyResponse, RestoreMasterKeyError>
 
@@ -127,7 +129,14 @@ interface NetworkController {
   suspend fun setPinAndMasterKeyOnSvr(
     pin: String,
     masterKey: MasterKey
-  ): RegistrationNetworkResult<Unit, BackupMasterKeyError>
+  ): RegistrationNetworkResult<SvrCredentials?, BackupMasterKeyError>
+
+  /**
+   * Requests that the currently-set PIN and [MasterKey] are backed up to SVR.
+   * It should always be the case that when this is called, you should have a stored PIN and [MasterKey].
+   * If you do not, you should probably crash.
+   */
+  suspend fun enqueueSvrGuessResetJob()
 
   /**
    * Enables registration lock on the account using the registration lock token
@@ -154,6 +163,15 @@ interface NetworkController {
   suspend fun getSvrCredentials(): RegistrationNetworkResult<SvrCredentials, GetSvrCredentialsError>
 
   /**
+   * Checks if the SVR2 credentials are valid for the given phone number.
+   *
+   * `POST /v2/svr/auth/check`
+   *
+   * @return A response containing a mapping of which credentials are matches.
+   */
+  suspend fun checkSvrCredentials(e164: String, credentials: List<SvrCredentials>): RegistrationNetworkResult<CheckSvrCredentialsResponse, CheckSvrCredentialsError>
+
+  /**
    * Updates account attributes on the server.
    *
    * `PUT /v1/accounts/attributes`
@@ -163,21 +181,19 @@ interface NetworkController {
    */
   suspend fun setAccountAttributes(attributes: AccountAttributes): RegistrationNetworkResult<Unit, SetAccountAttributesError>
 
-  // TODO
-//  /**
-//   * Validates the provided SVR2 auth credentials, returning information on their usability.
-//   *
-//   * `POST /v2/svr/auth/check`
-//   */
-//  suspend fun validateSvr2AuthCredential(e164: String, usernamePasswords: List<String>)
-//
-//  /**
-//   * Validates the provided SVR3 auth credentials, returning information on their usability.
-//   *
-//   * `POST /v3/backup/auth/check`
-//   */
-//  suspend fun validateSvr3AuthCredential(e164: String, usernamePasswords: List<String>)
-//
+  /**
+   * Starts a provisioning session for QR-based quick restore.
+   *
+   * The returned flow emits [ProvisioningEvent]s:
+   * - [ProvisioningEvent.QrCodeReady] whenever a new QR code URL is available (e.g. due to socket rotation).
+   * - [ProvisioningEvent.MessageReceived] when the old device scans the QR code and sends provisioning data.
+   * - [ProvisioningEvent.Error] if the provisioning session encounters an unrecoverable error.
+   *
+   * The flow will manage socket lifecycle (rotation, keep-alive) internally.
+   * Cancel the collecting coroutine to stop provisioning.
+   */
+  fun startProvisioning(): Flow<ProvisioningEvent>
+
 //  /**
 //   * Set [RestoreMethod] enum on the server for use by the old device to update UX.
 //   */
@@ -282,6 +298,11 @@ interface NetworkController {
     data object NoServiceCredentialsAvailable : GetSvrCredentialsError()
   }
 
+  sealed class CheckSvrCredentialsError() {
+    data object Unauthorized : CheckSvrCredentialsError()
+    data class InvalidRequest(val message: String) : CheckSvrCredentialsError()
+  }
+
   data class MasterKeyResponse(
     val masterKey: MasterKey
   )
@@ -374,6 +395,43 @@ interface NetworkController {
   ) : Parcelable
 
   @Serializable
+  data class CheckSvrCredentialsResponse(
+    val matches: Map<String, String>
+  ) {
+    /**
+     * The first valid credential, if any.
+     *
+     * The response is structured like this:
+     * {
+     *   matches: {
+     *     <token>: "match|no-match|invalid"
+     *   }
+     * }
+     *
+     * So we find the first map entry with "match". The token is "username:password", so we split it apart.
+     * Important: The password can have ":" in it, so we need to make sure to just split on the first ":".
+     */
+    val validCredential: SvrCredentials? by lazy {
+      matches.entries.firstOrNull { it.value == "match" }?.key?.split(":", limit = 2)?.let { SvrCredentials(it[0], it[1]) }
+    }
+  }
+
+  @Serializable
+  data class CheckSvrCredentialsRequest(
+    val number: String,
+    val tokens: List<String>
+  ) {
+    companion object {
+      fun createForCredentials(number: String, credentials: List<SvrCredentials>): CheckSvrCredentialsRequest {
+        return CheckSvrCredentialsRequest(
+          number = number,
+          tokens = credentials.map { "${it.username}:${it.password}" }
+        )
+      }
+    }
+  }
+
+  @Serializable
   data class ThirdPartyServiceErrorResponse(
     val reason: String,
     val permanentFailure: Boolean
@@ -387,5 +445,39 @@ interface NetworkController {
 
   enum class VerificationCodeTransport {
     SMS, VOICE
+  }
+
+  /**
+   * Data received from the old device during QR-based provisioning.
+   */
+  data class ProvisioningMessage(
+    val accountEntropyPool: String,
+    val e164: String,
+    val pin: String?,
+    val aciIdentityKeyPair: IdentityKeyPair,
+    val pniIdentityKeyPair: IdentityKeyPair,
+    val platform: Platform,
+    val tier: Tier?,
+    val backupTimestampMs: Long?,
+    val backupSizeBytes: Long?,
+    val restoreMethodToken: String,
+    val backupVersion: Long
+  ) {
+    enum class Platform { ANDROID, IOS }
+    enum class Tier { FREE, PAID }
+  }
+
+  /**
+   * Events emitted during a provisioning session.
+   */
+  sealed interface ProvisioningEvent {
+    /** A new QR code URL is available for display. */
+    data class QrCodeReady(val url: String) : ProvisioningEvent
+
+    /** The old device has scanned the QR code and sent provisioning data. */
+    data class MessageReceived(val message: ProvisioningMessage) : ProvisioningEvent
+
+    /** The provisioning session encountered an error. */
+    data class Error(val cause: Throwable?) : ProvisioningEvent
   }
 }

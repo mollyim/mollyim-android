@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.BackupMessagesConstraintObserv
 import org.thoughtcrime.securesms.jobmanager.impl.BatteryNotLowConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.ChangeNumberConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.ChangeNumberConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.ChargingAndBatteryIsNotLowConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint;
@@ -85,9 +86,11 @@ import org.thoughtcrime.securesms.migrations.ProfileMigrationJob;
 import org.thoughtcrime.securesms.migrations.ProfileSharingUpdateMigrationJob;
 import org.thoughtcrime.securesms.migrations.QuoteThumbnailBackfillMigrationJob;
 import org.thoughtcrime.securesms.migrations.RebuildMessageSearchIndexMigrationJob;
+import org.thoughtcrime.securesms.migrations.ReleaseChannelRecipientFixMigrationJob;
 import org.thoughtcrime.securesms.migrations.SelfRegisteredStateMigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerAdditionMigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerDayByDayMigrationJob;
+import org.thoughtcrime.securesms.migrations.StickerPackAddition2MigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerMyDailyLifeMigrationJob;
 import org.thoughtcrime.securesms.migrations.StorageCapabilityMigrationJob;
 import org.thoughtcrime.securesms.migrations.StorageFixLocalUnknownMigrationJob;
@@ -116,6 +119,7 @@ public final class JobManagerFactories {
   public static Map<String, Job.Factory> getJobFactories(@NonNull Application application) {
     return new HashMap<>() {{
       put(AccountConsistencyWorkerJob.KEY,             new AccountConsistencyWorkerJob.Factory());
+      put(AdminDeleteSendJob.KEY,                      new AdminDeleteSendJob.Factory());
       put("AllDataSyncRequestJob",                     new FailingJob.Factory()); // MOLLY
       put(AnalyzeDatabaseJob.KEY,                      new AnalyzeDatabaseJob.Factory());
       put(ApkUpdateJob.KEY,                            new ApkUpdateJob.Factory());
@@ -145,6 +149,7 @@ public final class JobManagerFactories {
       put("CallQualitySurveySubmission",               new FailingJob.Factory()); // MOLLY
       put(CallSyncEventJob.KEY,                        new CallSyncEventJob.Factory());
       put(CancelRestoreMediaJob.KEY,                   new CancelRestoreMediaJob.Factory());
+      put(CheckKeyTransparencyJob.KEY,                 new CheckKeyTransparencyJob.Factory());
       put(CheckRestoreMediaLeftJob.KEY,                new CheckRestoreMediaLeftJob.Factory());
       put(CheckServiceReachabilityJob.KEY,             new CheckServiceReachabilityJob.Factory());
       put(CleanPreKeysJob.KEY,                         new CleanPreKeysJob.Factory());
@@ -332,6 +337,7 @@ public final class JobManagerFactories {
       put(QuoteThumbnailBackfillMigrationJob.KEY,         new QuoteThumbnailBackfillMigrationJob.Factory());
       put(RebuildMessageSearchIndexMigrationJob.KEY,      new RebuildMessageSearchIndexMigrationJob.Factory());
       put("RecheckPaymentsMigrationJob",                  new FailingJob.Factory());  // MOLLY
+      put(ReleaseChannelRecipientFixMigrationJob.KEY,     new ReleaseChannelRecipientFixMigrationJob.Factory());
       put("RecipientSearchMigrationJob",                  new FailingJob.Factory());  // MOLLY
       put("ResetArchiveTierMigrationJob",                 new FailingJob.Factory());  // MOLLY
       put(SelfRegisteredStateMigrationJob.KEY,            new SelfRegisteredStateMigrationJob.Factory());
@@ -339,6 +345,7 @@ public final class JobManagerFactories {
       put(StickerAdditionMigrationJob.KEY,                new StickerAdditionMigrationJob.Factory());
       put(StickerDayByDayMigrationJob.KEY,                new StickerDayByDayMigrationJob.Factory());
       put(StickerMyDailyLifeMigrationJob.KEY,             new StickerMyDailyLifeMigrationJob.Factory());
+      put(StickerPackAddition2MigrationJob.KEY,           new StickerPackAddition2MigrationJob.Factory());
       put(StorageCapabilityMigrationJob.KEY,              new StorageCapabilityMigrationJob.Factory());
       put(StorageFixLocalUnknownMigrationJob.KEY,         new StorageFixLocalUnknownMigrationJob.Factory());
       put(StorageServiceMigrationJob.KEY,                 new StorageServiceMigrationJob.Factory());
@@ -431,6 +438,7 @@ public final class JobManagerFactories {
       put(NotInCallConstraint.KEY,                               new NotInCallConstraint.Factory());
       put(RegisteredConstraint.KEY,                              new RegisteredConstraint.Factory());
       put(RestoreAttachmentConstraint.KEY,                       new RestoreAttachmentConstraint.Factory(application));
+      put(SealedSenderConstraint.KEY,                            new SealedSenderConstraint.Factory());
       put(StickersNotDownloadingConstraint.KEY,                  new StickersNotDownloadingConstraint.Factory());
       put(WifiConstraint.KEY,                                    new WifiConstraint.Factory(application));
     }};
@@ -449,7 +457,8 @@ public final class JobManagerFactories {
                          RegisteredConstraint.Observer.INSTANCE,
                          BackupMessagesConstraintObserver.INSTANCE,
                          DeletionNotAwaitingMediaDownloadConstraint.Observer.INSTANCE,
-                         StickersNotDownloadingConstraint.Observer.INSTANCE);
+                         StickersNotDownloadingConstraint.Observer.INSTANCE,
+                         SealedSenderConstraint.Observer.INSTANCE);
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {

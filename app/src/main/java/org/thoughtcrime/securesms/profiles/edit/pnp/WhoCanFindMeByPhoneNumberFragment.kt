@@ -9,6 +9,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -16,8 +17,8 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.databinding.WhoCanFindMeByPhoneNumberFragmentBinding
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Allows the user to select who can see their phone number during registration.
@@ -77,7 +78,7 @@ class WhoCanFindMeByPhoneNumberFragment : DSLSettingsFragment(
             WhoCanFindMeByPhoneNumberState.EVERYONE -> R.string.WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your
             WhoCanFindMeByPhoneNumberState.NOBODY -> R.string.WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able
           },
-          DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
+          DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
           DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant))
         )
       )

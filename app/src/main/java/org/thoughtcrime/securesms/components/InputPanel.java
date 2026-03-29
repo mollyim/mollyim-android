@@ -39,6 +39,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.SettableFuture;
@@ -64,14 +65,13 @@ import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.keyboard.KeyboardPage;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository;
-import org.thoughtcrime.securesms.mms.DecryptableUri;
+import org.signal.glide.decryptableuri.DecryptableUri;
 import org.thoughtcrime.securesms.mms.QuoteModel;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
 
@@ -215,7 +215,7 @@ public class InputPanel extends ConstraintLayout
                        @NonNull SlideDeck attachments,
                        @NonNull QuoteModel.Type quoteType)
   {
-    this.quoteView.setQuote(requestManager, id, author, body, false, attachments, null, quoteType, true);
+    this.quoteView.setQuote(requestManager, id, author, body, false, attachments, null, quoteType, true, null);
     if (listener != null) {
       this.quoteView.setOnClickListener(v -> listener.onQuoteClicked(id, author.getId()));
     }

@@ -56,15 +56,15 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.horizontalGutters
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCode
-import org.thoughtcrime.securesms.compose.ComposeFragment
-import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
 import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
 

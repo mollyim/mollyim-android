@@ -37,20 +37,20 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parcelize
+import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.billing.launchManageBackupsSubscription
 import org.thoughtcrime.securesms.components.contactsupport.ContactSupportDialogFragment
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
-import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.keyvalue.protos.BackupDownloadNotifierState
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.PlayStoreUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 
 /**
  * Notifies the user of an issue with their backup.

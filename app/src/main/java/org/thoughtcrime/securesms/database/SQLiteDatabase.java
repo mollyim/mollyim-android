@@ -14,8 +14,6 @@ import androidx.sqlite.db.SupportSQLiteQuery;
 import net.zetetic.database.sqlcipher.SQLiteStatement;
 import net.zetetic.database.sqlcipher.SQLiteTransactionListener;
 
-import org.signal.core.util.tracing.Tracer;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,7 +44,6 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
   private static final String NAME_LOCK  = "LOCK";
 
   private final net.zetetic.database.sqlcipher.SQLiteDatabase wrapped;
-  private final Tracer                                        tracer;
 
   private static final ThreadLocal<Set<Runnable>> PENDING_POST_SUCCESSFUL_TRANSACTION_TASKS;
   private static final ThreadLocal<Set<Runnable>> POST_SUCCESSFUL_TRANSACTION_TASKS;
@@ -60,21 +57,16 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   public SQLiteDatabase(net.zetetic.database.sqlcipher.SQLiteDatabase wrapped) {
     this.wrapped = wrapped;
-    this.tracer  = Tracer.getInstance();
   }
 
   private void traceLockStart() {
-    tracer.start(NAME_LOCK, Tracer.TrackId.DB_LOCK, KEY_THREAD, Thread.currentThread().getName());
   }
 
   private void traceLockEnd() {
-    tracer.end(NAME_LOCK, Tracer.TrackId.DB_LOCK);
   }
 
   private void trace(String methodName, Runnable runnable) {
-    tracer.start(methodName);
     runnable.run();
-    tracer.end(methodName);
   }
 
   private void traceSql(String methodName, String query, boolean locked, Runnable returnable) {
@@ -82,9 +74,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       traceLockStart();
     }
 
-    tracer.start(methodName, KEY_QUERY, query);
     returnable.run();
-    tracer.end(methodName);
 
     if (locked) {
       traceLockEnd();
@@ -108,13 +98,11 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       params.put(KEY_TABLE, table);
     }
 
-    tracer.start(methodName, params);
     E result = returnable.run();
     if (result instanceof Cursor) {
       // Triggers filling the window (which is about to be done anyway), but lets us capture that time inside the trace
       ((Cursor) result).getCount();
     }
-    tracer.end(methodName);
 
     if (locked) {
       traceLockEnd();

@@ -19,7 +19,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.ThemeUtil;
+import org.signal.core.ui.util.ThemeUtil;
 
 /**
  * Appends an optional "Learn more" link to a given piece of text.

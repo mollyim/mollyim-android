@@ -6,7 +6,6 @@ import org.osmdroid.tileprovider.modules.IFilesystemCache
 import org.osmdroid.tileprovider.tilesource.ITileSource
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
-import org.thoughtcrime.securesms.util.StorageUtil
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -21,11 +20,15 @@ private val RandomSessionId = SecureRandom().nextInt()
 
 class SingleSessionDiskTileWriter(private val context: Context) : IFilesystemCache {
 
-  private val tileCacheDir = StorageUtil.getTileCacheDirectory(context)
+  companion object {
+    private const val DIRECTORY = "tiles"
 
-  init {
-    tileCacheDir.mkdir()
+    fun getTileCacheDir(context: Context): File {
+      return File(context.cacheDir, DIRECTORY)
+    }
   }
+
+  private val tileCacheDir by lazy { getTileCacheDir(context) }
 
   private fun buildTileFile(tileSource: ITileSource, mapTileIndex: Long): File {
     val uniqueName = tileSource.name() + mapTileIndex.toString(36) + RandomSessionId.toString(36)
@@ -37,6 +40,7 @@ class SingleSessionDiskTileWriter(private val context: Context) : IFilesystemCac
     val tileFile = buildTileFile(tileSource, mapTileIndex)
     tileFile.deleteOnExit()
     try {
+      tileCacheDir.mkdir()
       inputStream.use { input ->
         val data = input.readBytes()
         val paddedInput = PaddingInputStream(ByteArrayInputStream(data), data.size.toLong())

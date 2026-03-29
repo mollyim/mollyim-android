@@ -460,6 +460,15 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
 
         <activity
+            android:name="org.signal.mediasend.MediaSendActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
+
+        <activity
             android:name=".conversation.mutiselect.forward.MultiselectForwardActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
@@ -504,6 +513,12 @@
             android:exported="false"
             android:theme="@style/Theme.Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name=".stories.archive.StoryArchiveActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".stories.viewer.StoryViewerActivity"
@@ -716,7 +731,7 @@
             android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <activity
-            android:name=".registration.ui.restore.local.InternalNewLocalRestoreActivity"
+            android:name=".registration.ui.restore.local.RestoreLocalBackupActivity"
             android:exported="false"
             android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
@@ -901,6 +916,11 @@
             android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
             android:exported="false"
             android:theme="@style/TextSecure.DialogActivity" />
+
+        <activity
+            android:name=".groups.memberlabel.MemberLabelActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <!-- ======================================= -->
         <!-- Activity Aliases                        -->
@@ -1230,6 +1250,11 @@
             android:foregroundServiceType="remoteMessaging" />
 
         <service
+            android:name=".service.WipeMemoryService"
+            android:exported="false"
+            android:foregroundServiceType="remoteMessaging" />
+
+        <service
             android:name=".messages.IncomingMessageObserver$ForegroundService"
             android:enabled="true"
             android:exported="false"
@@ -1240,16 +1265,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <service
-            android:name=".service.webrtc.AndroidCallConnectionService"
-            android:exported="true"
-            android:foregroundServiceType="phoneCall"
-            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
-            tools:targetApi="28">
-            <intent-filter>
-                <action android:name="android.telecom.ConnectionService" />
-            </intent-filter>
-        </service>
 
         <service
             android:name=".components.voice.VoiceNotePlaybackService"
@@ -1347,12 +1362,11 @@
         <service
             android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"
             android:exported="false"
-            android:foregroundServiceType="dataSync|microphone|camera" />
+            android:foregroundServiceType="dataSync|microphone|camera|phoneCall" />
 
         <service
-            android:name=".service.WipeMemoryService"
-            android:exported="false"
-            android:foregroundServiceType="remoteMessaging" />
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+            tools:node="remove" />
 
         <!-- ======================================= -->
         <!-- Receivers                               -->
@@ -1384,6 +1398,10 @@
             android:exported="false" />
 
         <receiver
+            android:name=".service.ExpiringArchivedStoriesManager$ExpireArchivedStoriesAlarm"
+            android:exported="false" />
+
+        <receiver
             android:name=".revealable.ViewOnceMessageManager$ViewOnceAlarm"
             android:exported="false" />
 
@@ -1404,7 +1422,7 @@
             android:exported="false" />
 
         <receiver
-            android:name=".payments.backup.phrase.ClearClipboardAlarmReceiver"
+            android:name="org.signal.core.util.ClearClipboardAlarmReceiver"
             android:exported="false" />
 
         <receiver

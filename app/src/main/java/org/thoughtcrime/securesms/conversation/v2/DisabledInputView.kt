@@ -15,12 +15,12 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.messagerequests.MessageRequestsBottomView
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.visible
 
 /**
@@ -47,6 +47,7 @@ class DisabledInputView @JvmOverloads constructor(
   private var announcementGroupOnly: TextView? = null
   private var inviteToSignal: View? = null
   private var releaseNoteChannel: View? = null
+  private var incognitoView: View? = null
 
   private var currentView: View? = null
 
@@ -72,6 +73,13 @@ class DisabledInputView @JvmOverloads constructor(
           }
         }
       }
+    )
+  }
+
+  fun showAsIncognito() {
+    incognitoView = show(
+      existingView = incognitoView,
+      create = { inflater.inflate(R.layout.conversation_incognito_mode, this, false) }
     )
   }
 
@@ -207,6 +215,7 @@ class DisabledInputView @JvmOverloads constructor(
     noLongerAMember = null
     requestingGroup = null
     announcementGroupOnly = null
+    incognitoView = null
   }
 
   private fun <V : View> show(existingView: V?, create: () -> V, bind: V.() -> Unit = {}): V {

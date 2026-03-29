@@ -17,9 +17,7 @@ permissions:
 jobs:
   test:
     name: Run tests
-    runs-on: ubuntu-22.04
-    env:
-      GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -36,12 +34,15 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Copy Docker gradle.properties
+        run: cp gradle.properties.docker "$GRADLE_USER_HOME/gradle.properties"
+
       - name: Run tests
-        run: ./gradlew build --no-daemon
+        run: ./gradlew build
 
       - name: Archive reports for failed tests
         if: "failure()"
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
+          name: test-reports-${{ github.run_id }}
           path: '*/build/reports'

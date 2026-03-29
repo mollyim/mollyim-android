@@ -7,11 +7,13 @@ import androidx.annotation.VisibleForTesting;
 import com.annimon.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
 
 import java.io.IOException;
 import java.util.Objects;
+
+import im.molly.app.base.ApkInfo;
 
 public final class RemoteDeprecation {
 
@@ -24,7 +26,7 @@ public final class RemoteDeprecation {
    *         there's no pending expiration.
    */
   public static long getTimeUntilDeprecation(long currentTime) {
-    return getTimeUntilDeprecation(RemoteConfig.clientExpiration(), currentTime, Util.getSignalCanonicalVersionName());
+    return getTimeUntilDeprecation(RemoteConfig.clientExpiration(), currentTime, ApkInfo.signalCanonicalVersionName);
   }
 
   /**

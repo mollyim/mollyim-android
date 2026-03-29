@@ -4,10 +4,10 @@ import android.content.res.ColorStateList
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import com.bumptech.glide.Glide
+import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.paged.ChatType
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.ThemeUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel

@@ -32,6 +32,7 @@ import org.thoughtcrime.securesms.jobmanager.JobLogger;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.messages.GroupSendUtil;
 import org.thoughtcrime.securesms.messages.StorySendUtil;
 import org.thoughtcrime.securesms.mms.MessageGroupContext;
@@ -48,7 +49,7 @@ import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.MessageUtil;
 import org.thoughtcrime.securesms.util.RecipientAccessList;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.whispersystems.signalservice.api.crypto.ContentHint;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
@@ -95,6 +96,7 @@ public final class PushGroupSendJob extends PushSendJob {
     this(new Job.Parameters.Builder()
              .setQueue(isScheduledSend ? destination.toScheduledSendQueueKey() : destination.toQueueKey(hasMedia))
              .addConstraint(NetworkConstraint.KEY)
+             .addConstraint(SealedSenderConstraint.KEY)
              .setLifespan(TimeUnit.DAYS.toMillis(1))
              .setMaxAttempts(Parameters.UNLIMITED)
              .build(),
@@ -276,8 +278,6 @@ public final class PushGroupSendJob extends PushSendJob {
     }
 
     try {
-      rotateSenderCertificateIfNecessary();
-
       GroupId.Push                                     groupId            = groupRecipient.requireGroupId().requirePush();
       Optional<byte[]>                                 profileKey         = getProfileKey(groupRecipient);
       Optional<SignalServiceDataMessage.Sticker>       sticker            = getStickerFor(message);

@@ -1,10 +1,12 @@
 package org.thoughtcrime.securesms.keyvalue
 
 import android.content.Context
+import im.molly.app.base.ApkInfo
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.Base64
+import org.signal.core.util.Util
 import org.signal.core.util.UuidUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.nullIfBlank
@@ -21,7 +23,6 @@ import org.thoughtcrime.securesms.jobmanager.impl.RegisteredConstraint
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
-import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.push.ServiceIds
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.push.UsernameLinkComponents
@@ -83,6 +84,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     private const val KEY_ACCOUNT_ENTROPY_POOL = "account.account_entropy_pool"
     private const val KEY_RESTORED_ACCOUNT_ENTROPY_KEY = "account.restored_account_entropy_pool"
     private const val KEY_RESTORED_ACCOUNT_ENTROPY_KEY_FROM_PRIMARY = "account.restore_account_entropy_pool_primary"
+    private const val KEY_KT_DISTINGUISHED_HEAD = "account.key_transparency_distinguished_head"
 
     private val AEP_LOCK = ReentrantLock()
   }
@@ -414,7 +416,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   var fcmToken: String?
     get() {
       val tokenVersion: Int = getInteger(KEY_FCM_TOKEN_VERSION, 0)
-      return if (tokenVersion == Util.getSignalCanonicalVersionCode()) {
+      return if (tokenVersion == ApkInfo.signalCanonicalVersionCode) {
         getString(KEY_FCM_TOKEN, null)
       } else {
         null
@@ -423,7 +425,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     set(value) {
       store.beginWrite()
         .putString(KEY_FCM_TOKEN, value)
-        .putInteger(KEY_FCM_TOKEN_VERSION, if (value == null) 0 else Util.getSignalCanonicalVersionCode())
+        .putInteger(KEY_FCM_TOKEN_VERSION, if (value == null) 0 else ApkInfo.signalCanonicalVersionCode)
         .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, if (value == null) 0 else System.currentTimeMillis())
         .apply()
     }
@@ -518,6 +520,17 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
         .beginWrite()
         .putBlob(KEY_USERNAME_LINK_ENTROPY, value?.entropy)
         .putBlob(KEY_USERNAME_LINK_SERVER_ID, value?.serverId?.toByteArray())
+        .apply()
+    }
+
+  var distinguishedHead: ByteArray?
+    get() {
+      return getBlob(KEY_KT_DISTINGUISHED_HEAD, null)
+    }
+    set(value) {
+      store
+        .beginWrite()
+        .putBlob(KEY_KT_DISTINGUISHED_HEAD, value)
         .apply()
     }
 

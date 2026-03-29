@@ -7,8 +7,10 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.Base64
 import org.signal.core.util.DimensionUnit
+import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.libsignal.usernames.Username
 import org.thoughtcrime.securesms.R
@@ -19,8 +21,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.FragmentResultContract
-import org.thoughtcrime.securesms.util.ThemeUtil
-import org.thoughtcrime.securesms.util.Util
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Allows the user to either share their username directly or to copy it to their clipboard.
@@ -51,7 +52,7 @@ class UsernameShareBottomSheet : DSLSettingsBottomSheetFragment() {
       noPadTextPref(
         title = DSLSettingsText.from(
           R.string.UsernameShareBottomSheet__copy_or_share_a_username_link,
-          DSLSettingsText.TextAppearanceModifier(R.style.Signal_Text_BodyMedium),
+          DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
           DSLSettingsText.CenterModifier,
           DSLSettingsText.ColorModifier(
             ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant)

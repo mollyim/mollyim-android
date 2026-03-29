@@ -1,5 +1,7 @@
 package org.whispersystems.signalservice.api.groupsv2;
 
+import org.signal.core.models.ServiceId;
+import org.signal.core.models.ServiceId.ACI;
 import org.signal.libsignal.protocol.logging.Log;
 import org.signal.storageservice.storage.protos.groups.AccessControl;
 import org.signal.storageservice.storage.protos.groups.Member;
@@ -8,14 +10,11 @@ import org.signal.storageservice.storage.protos.groups.local.DecryptedBannedMemb
 import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedGroupChange;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedMember;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedModifyMemberLabel;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedModifyMemberRole;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMember;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMemberRemoval;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedRequestingMember;
 import org.signal.storageservice.storage.protos.groups.local.EnabledState;
-import org.signal.core.models.ServiceId;
-import org.signal.core.models.ServiceId.ACI;
 import org.whispersystems.signalservice.api.push.ServiceIds;
 
 import java.util.ArrayList;
@@ -324,6 +323,8 @@ public final class DecryptedGroupUtil {
 
     applyModifyAddFromInviteLinkAccessControlAction(builder, change);
 
+    applyModifyMemberLabelAccessControlAction(builder, change);
+
     applyAddRequestingMembers(builder, change.newRequestingMembers);
 
     applyDeleteRequestingMembers(builder, change.deleteRequestingMembers);
@@ -338,7 +339,7 @@ public final class DecryptedGroupUtil {
 
     applyPromotePendingPniAciMemberActions(builder, change.promotePendingPniAciMembers);
 
-    DecryptedGroupExtensionsKt.setModifyMemberLabelActions(builder, change.modifyMemberLabel);
+    DecryptedGroupExtensions.setModifyMemberLabelActions(builder, change.modifyMemberLabels);
 
     return builder.build();
   }
@@ -522,6 +523,15 @@ public final class DecryptedGroupUtil {
     if (newAccessLevel != AccessControl.AccessRequired.UNKNOWN) {
       AccessControl.Builder accessControlBuilder = builder.accessControl != null ? builder.accessControl.newBuilder() : new AccessControl.Builder();
       builder.accessControl(accessControlBuilder.addFromInviteLink(newAccessLevel).build());
+    }
+  }
+
+  private static void applyModifyMemberLabelAccessControlAction(DecryptedGroup.Builder builder, DecryptedGroupChange change) {
+    AccessControl.AccessRequired newAccessLevel = change.newMemberLabelAccess;
+
+    if (newAccessLevel != AccessControl.AccessRequired.UNKNOWN) {
+      AccessControl.Builder accessControlBuilder = builder.accessControl != null ? builder.accessControl.newBuilder() : new AccessControl.Builder();
+      builder.accessControl(accessControlBuilder.memberLabel(newAccessLevel).build());
     }
   }
 
@@ -721,74 +731,5 @@ public final class DecryptedGroupUtil {
       }
     }
     return -1;
-  }
-
-  public static boolean changeIsEmpty(DecryptedGroupChange change) {
-    return change.modifiedProfileKeys.size() == 0 && // field 6
-           changeIsEmptyExceptForProfileKeyChanges(change);
-  }
-
-  /*
-   * When updating this, update {@link #changeIsEmptyExceptForBanChangesAndOptionalProfileKeyChanges(DecryptedGroupChange)}
-   */
-  public static boolean changeIsEmptyExceptForProfileKeyChanges(DecryptedGroupChange change) {
-    return change.newMembers.size() == 0 &&                // field 3
-           change.deleteMembers.size() == 0 &&             // field 4
-           change.modifyMemberRoles.size() == 0 &&         // field 5
-           change.newPendingMembers.size() == 0 &&         // field 7
-           change.deletePendingMembers.size() == 0 &&      // field 8
-           change.promotePendingMembers.size() == 0 &&     // field 9
-           change.newTitle == null &&                      // field 10
-           change.newAvatar == null &&                     // field 11
-           change.newTimer == null &&                      // field 12
-           isEmpty(change.newAttributeAccess) &&           // field 13
-           isEmpty(change.newMemberAccess) &&              // field 14
-           isEmpty(change.newInviteLinkAccess) &&          // field 15
-           change.newRequestingMembers.size() == 0 &&      // field 16
-           change.deleteRequestingMembers.size() == 0 &&   // field 17
-           change.promoteRequestingMembers.size() == 0 &&  // field 18
-           change.newInviteLinkPassword.size() == 0 &&     // field 19
-           change.newDescription == null &&                // field 20
-           isEmpty(change.newIsAnnouncementGroup) &&       // field 21
-           change.newBannedMembers.size() == 0 &&          // field 22
-           change.deleteBannedMembers.size() == 0 &&       // field 23
-           change.promotePendingPniAciMembers.size() == 0 && // field 24
-           change.modifyMemberLabel.isEmpty();          // field 26
-  }
-
-  public static boolean changeIsEmptyExceptForBanChangesAndOptionalProfileKeyChanges(DecryptedGroupChange change) {
-    return (change.newBannedMembers.size() != 0 || change.deleteBannedMembers.size() != 0) &&
-           change.newMembers.size() == 0 &&                // field 3
-           change.deleteMembers.size() == 0 &&             // field 4
-           change.modifyMemberRoles.size() == 0 &&         // field 5
-           change.newPendingMembers.size() == 0 &&         // field 7
-           change.deletePendingMembers.size() == 0 &&      // field 8
-           change.promotePendingMembers.size() == 0 &&     // field 9
-           change.newTitle == null &&                      // field 10
-           change.newAvatar == null &&                     // field 11
-           change.newTimer == null &&                      // field 12
-           isEmpty(change.newAttributeAccess) &&           // field 13
-           isEmpty(change.newMemberAccess) &&              // field 14
-           isEmpty(change.newInviteLinkAccess) &&          // field 15
-           change.newRequestingMembers.size() == 0 &&      // field 16
-           change.deleteRequestingMembers.size() == 0 &&   // field 17
-           change.promoteRequestingMembers.size() == 0 &&  // field 18
-           change.newInviteLinkPassword.size() == 0 &&     // field 19
-           change.newDescription == null &&                // field 20
-           isEmpty(change.newIsAnnouncementGroup) &&       // field 21
-           change.promotePendingPniAciMembers.size() == 0 && // field 24
-           change.modifyMemberLabel.isEmpty();          // field 26
-  }
-
-  static boolean isEmpty(AccessControl.AccessRequired newAttributeAccess) {
-    return newAttributeAccess == AccessControl.AccessRequired.UNKNOWN;
-  }
-
-  static boolean isEmpty(EnabledState enabledState) {
-    return enabledState == EnabledState.UNKNOWN;
-  }
-
-  public static boolean changeIsSilent(DecryptedGroupChange plainGroupChange) {
-    return changeIsEmptyExceptForProfileKeyChanges(plainGroupChange) || changeIsEmptyExceptForBanChangesAndOptionalProfileKeyChanges(plainGroupChange);
   }
 }

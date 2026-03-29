@@ -1,4 +1,4 @@
-FROM docker.io/eclipse-temurin:17.0.14_7-jdk-alpine-3.21@sha256:b16e661d76d3af0d226d0585063dbcafe7fb8a4ef31cfcaaec71d39c41269420 AS builder
+FROM docker.io/eclipse-temurin:17.0.18_8-jdk-alpine-3.23@sha256:903e865ecd125a01759fd156d042b998aa86957262f6dec4745125a47bd4f882 AS builder
 
 ARG ANDROID_SDK_DIST=commandlinetools-linux-11076708_latest.zip
 ARG ANDROID_SDK_SHA256=2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
@@ -30,11 +30,13 @@ RUN sdkmanager "ndk;${NDK_VERSION}"
 RUN sdkmanager "platforms;${COMPILE_SDK_VERSION}"
 RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}"
 
+ENV GRADLE_RO_DEP_CACHE=/.gradle-ro-cache
+
 COPY gradlew /molly/
 COPY gradle /molly/gradle/
 RUN /molly/gradlew --version
 
-ENV GRADLE_RO_DEP_CACHE=/.gradle-ro-cache
+COPY gradle.properties.docker /root/.gradle/gradle.properties
 
 COPY . /molly/
 WORKDIR /molly

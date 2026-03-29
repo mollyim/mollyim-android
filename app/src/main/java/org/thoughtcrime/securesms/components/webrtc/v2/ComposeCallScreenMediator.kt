@@ -31,6 +31,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.rememberIsInPipMode
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
@@ -41,7 +42,6 @@ import org.thoughtcrime.securesms.components.webrtc.WebRtcControls
 import org.thoughtcrime.securesms.components.webrtc.controls.CallInfoView
 import org.thoughtcrime.securesms.components.webrtc.controls.ControlsAndInfoViewModel
 import org.thoughtcrime.securesms.components.webrtc.controls.RaiseHandSnackbar
-import org.thoughtcrime.securesms.compose.SignalTheme
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -49,6 +49,7 @@ import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDial
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.service.webrtc.links.UpdateCallLinkResult
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcEphemeralState
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.webrtc.CallParticipantsViewState
 import kotlin.time.Duration.Companion.seconds
@@ -173,6 +174,8 @@ class ComposeCallScreenMediator(private val activity: WebRtcCallActivity, viewMo
         }
       }
 
+      val controlAndInfoState by controlsAndInfoViewModel.state
+
       SignalTheme(isDarkMode = true) {
         CallScreen(
           callRecipient = recipient,
@@ -217,7 +220,15 @@ class ComposeCallScreenMediator(private val activity: WebRtcCallActivity, viewMo
           onWifiToCellularPopupDismissed = { callScreenViewModel.callScreenState.update { it.copy(displayWifiToCellularPopup = false) } },
           onSwipeToSpeakerHintDismissed = { callScreenViewModel.callScreenState.update { it.copy(displaySwipeToSpeakerHint = false) } },
           onRemoteMuteToastDismissed = { callScreenViewModel.callScreenState.update { it.copy(remoteMuteToastMessage = null) } },
-          callParticipantUpdatePopupController = callParticipantUpdatePopupController
+          callParticipantUpdatePopupController = callParticipantUpdatePopupController,
+          isInternalUser = RemoteConfig.internalUser,
+          isSelfAdmin = controlAndInfoState.isSelfAdmin(),
+          isCallLink = controlAndInfoState.callLink != null,
+          onMuteAudio = callInfoCallbacks::onMuteAudio,
+          onRemoveFromCall = callInfoCallbacks::onRemoveFromCall,
+          onContactDetails = callInfoCallbacks::onContactDetails,
+          onViewSafetyNumber = callInfoCallbacks::onViewSafetyNumber,
+          onGoToChat = callInfoCallbacks::onGoToChat
         )
       }
     }

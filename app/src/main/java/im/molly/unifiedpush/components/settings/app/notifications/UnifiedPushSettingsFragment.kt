@@ -17,7 +17,6 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.events.PushServiceEvent
-import org.thoughtcrime.securesms.util.Util.writeTextToClipboard
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 
 class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDeliveryMethod__unifiedpush) {

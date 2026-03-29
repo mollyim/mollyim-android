@@ -8,6 +8,7 @@ import org.signal.core.models.ServiceId.PNI
 import org.signal.core.models.backup.MediaRootBackupKey
 import org.signal.core.util.Base64
 import org.signal.core.util.Hex
+import org.signal.core.util.Util
 import org.signal.core.util.UuidUtil
 import org.signal.core.util.isNotEmpty
 import org.signal.core.util.orNull
@@ -67,6 +68,7 @@ import org.thoughtcrime.securesms.jobs.RefreshCallLinkDetailsJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
 import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob
 import org.thoughtcrime.securesms.jobs.StorageSyncJob
+import org.thoughtcrime.securesms.jobs.UploadAttachmentToArchiveJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreview
 import org.thoughtcrime.securesms.messages.MessageContentProcessor.Companion.log
@@ -104,10 +106,8 @@ import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.IdentityUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
@@ -232,7 +232,7 @@ object SyncMessageProcessor {
           handleSynchronizeSentGv2Update(context, envelope, sent)
           threadId = SignalDatabase.threads.getOrCreateThreadIdFor(getSyncMessageDestination(sent))
         }
-        dataMessage.groupCallUpdate != null -> DataMessageProcessor.handleGroupCallUpdateMessage(envelope, dataMessage, senderRecipient.id, groupId)
+        dataMessage.groupCallUpdate != null -> DataMessageProcessor.handleGroupCallUpdateMessage(envelope, senderRecipient.id, groupId)
         dataMessage.isEmptyGroupV2Message -> warn(envelope.timestamp!!, "Empty GV2 message! Doing nothing.")
         dataMessage.isExpirationUpdate -> threadId = handleSynchronizeSentExpirationUpdate(sent)
         dataMessage.storyContext != null -> threadId = handleSynchronizeSentStoryReply(sent, envelope.timestamp!!)
@@ -251,6 +251,10 @@ object SyncMessageProcessor {
         dataMessage.pinMessage != null -> threadId = handleSynchronizedPinMessage(envelope, dataMessage, sent, senderRecipient, earlyMessageCacheEntry)
         dataMessage.unpinMessage != null -> {
           DataMessageProcessor.handleUnpinMessage(envelope, dataMessage, senderRecipient, threadRecipient, earlyMessageCacheEntry)
+          threadId = SignalDatabase.threads.getOrCreateThreadIdFor(getSyncMessageDestination(sent))
+        }
+        dataMessage.adminDelete != null -> {
+          DataMessageProcessor.handleAdminRemoteDelete(context, envelope, dataMessage, senderRecipient, threadRecipient, earlyMessageCacheEntry)
           threadId = SignalDatabase.threads.getOrCreateThreadIdFor(getSyncMessageDestination(sent))
         }
         else -> threadId = handleSynchronizeSentTextMessage(sent, envelope.timestamp!!)
@@ -862,7 +866,8 @@ object SyncMessageProcessor {
     }
 
     val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(recipient)
-    val messageId: Long = SignalDatabase.messages.insertMessageOutbox(mediaMessage, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null).messageId
+    val insertResult = SignalDatabase.messages.insertMessageOutbox(mediaMessage, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null)
+    val messageId = insertResult.messageId
     log(envelopeTimestamp, "Inserted sync message as messageId $messageId")
 
     if (recipient.isGroup) {
@@ -872,8 +877,6 @@ object SyncMessageProcessor {
     }
 
     SignalDatabase.messages.markAsSent(messageId, true)
-
-    val attachments: List<DatabaseAttachment> = SignalDatabase.attachments.getAttachmentsForMessage(messageId)
 
     if (dataMessage.expireTimerDuration > Duration.ZERO) {
       SignalDatabase.messages.markExpireStarted(messageId, sent.expirationStartTimestamp ?: 0)
@@ -886,8 +889,25 @@ object SyncMessageProcessor {
     }
 
     SignalDatabase.runPostSuccessfulTransaction {
-      val downloadJobs: List<AttachmentDownloadJob> = attachments.map { AttachmentDownloadJob(messageId = messageId, attachmentId = it.attachmentId, forceDownload = it.isSticker) }
-      AppDependencies.jobManager.addAll(downloadJobs)
+      if (insertResult.insertedAttachments != null) {
+        val downloadJobs: List<AttachmentDownloadJob> = insertResult.insertedAttachments.mapNotNull { (attachment, attachmentId) ->
+          if (attachment.isSticker) {
+            if (attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE) {
+              AttachmentDownloadJob(messageId = insertResult.messageId, attachmentId = attachmentId, forceDownload = true)
+            } else {
+              null
+            }
+          } else {
+            AttachmentDownloadJob(messageId = insertResult.messageId, attachmentId = attachmentId, forceDownload = false)
+          }
+        }
+        AppDependencies.jobManager.addAll(downloadJobs)
+      }
+
+      if (insertResult.quoteAttachmentId != null && SignalStore.backup.backsUpMedia) {
+        SignalDatabase.attachments.createRemoteKeyIfNecessary(insertResult.quoteAttachmentId)
+        AppDependencies.jobManager.add(UploadAttachmentToArchiveJob(insertResult.quoteAttachmentId))
+      }
     }
 
     return threadId
@@ -1339,7 +1359,6 @@ object SyncMessageProcessor {
         roomId,
         CallLinkCredentials(
           callLinkUpdate.rootKey!!.toByteArray(),
-          callLinkUpdate.epoch?.toByteArray(),
           callLinkUpdate.adminPasskey?.toByteArray()
         )
       )
@@ -1351,7 +1370,6 @@ object SyncMessageProcessor {
           roomId = roomId,
           credentials = CallLinkCredentials(
             linkKeyBytes = callLinkRootKey.keyBytes,
-            epochBytes = callLinkUpdate.epoch?.toByteArray(),
             adminPassBytes = callLinkUpdate.adminPasskey?.toByteArray()
           ),
           state = SignalCallLinkState(),
@@ -1802,10 +1820,6 @@ object SyncMessageProcessor {
     senderRecipient: Recipient,
     earlyMessageCacheEntry: EarlyMessageCacheEntry?
   ): Long {
-    if (!RemoteConfig.receivePinnedMessages) {
-      log(envelope.timestamp!!, "Sync pinned messages not allowed due to remote config.")
-    }
-
     log(envelope.timestamp!!, "Synchronize pinned message")
 
     val recipient = getSyncMessageDestination(sent)
@@ -1836,6 +1850,11 @@ object SyncMessageProcessor {
 
     if (targetMessage.hasGiftBadge()) {
       warn(envelope.timestamp!!, "Cannot pin gift badge")
+      return -1
+    }
+
+    if (targetMessage.isRemoteDelete) {
+      warn(envelope.timestamp!!, "Cannot pin deleted message")
       return -1
     }
 

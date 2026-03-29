@@ -11,8 +11,7 @@ import android.view.WindowManager;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.ScreenLockController;
-import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.signal.core.ui.util.ThemeUtil;
 
 public final class WindowUtil {
 
@@ -20,12 +19,7 @@ public final class WindowUtil {
   }
 
   public static void initializeScreenshotSecurity(@NonNull Context context, @NonNull Window window) {
-    boolean forceFlag = ScreenLockController.getAlwaysSetSecureFlagOnResume();
-    if (forceFlag || KeyCachingService.isLocked() || TextSecurePreferences.isScreenSecurityEnabled(context)) {
-      window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    } else {
-      window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    }
+    org.signal.core.ui.WindowExtensionsKt.initializeScreenshotSecurity(window);
   }
 
   public static void setLightNavigationBarFromTheme(@NonNull Activity activity) {
@@ -34,7 +28,7 @@ public final class WindowUtil {
     final boolean isLightNavigationBar = ThemeUtil.getThemedBoolean(activity, android.R.attr.windowLightNavigationBar);
 
     if (isLightNavigationBar) setLightNavigationBar(activity.getWindow());
-    else                      clearLightNavigationBar(activity.getWindow());
+    else clearLightNavigationBar(activity.getWindow());
   }
 
   public static void clearLightNavigationBar(@NonNull Window window) {
@@ -69,7 +63,7 @@ public final class WindowUtil {
     final boolean isLightStatusBar = ThemeUtil.getThemedBoolean(activity, android.R.attr.windowLightStatusBar);
 
     if (isLightStatusBar) setLightStatusBar(activity.getWindow());
-    else                  clearLightStatusBar(activity.getWindow());
+    else clearLightStatusBar(activity.getWindow());
   }
 
   public static void clearLightStatusBar(@NonNull Window window) {

@@ -43,16 +43,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.IconButtons
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
-import org.signal.core.ui.compose.Rows.TextAndLabel
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.util.Util
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
@@ -63,21 +64,18 @@ import org.thoughtcrime.securesms.banner.banners.UnauthorizedBanner
 import org.thoughtcrime.securesms.banner.ui.compose.Action
 import org.thoughtcrime.securesms.banner.ui.compose.DefaultBanner
 import org.thoughtcrime.securesms.banner.ui.compose.Importance
-import org.thoughtcrime.securesms.components.compose.TextWithBetaLabel
 import org.thoughtcrime.securesms.components.emoji.Emojifier
 import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRoute
 import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRouter
 import org.thoughtcrime.securesms.components.settings.app.subscription.BadgeImageMedium
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.completed.InAppPaymentsBottomSheetDelegate
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.SignalE164Util
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 class AppSettingsFragment : ComposeFragment(), Callbacks {
@@ -107,6 +105,7 @@ class AppSettingsFragment : ComposeFragment(), Callbacks {
             is AppSettingsRoute.AppUpdates -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_appUpdatesSettingsFragment)
             is AppSettingsRoute.HelpRoute.Settings -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_helpSettingsFragment)
             is AppSettingsRoute.Invite -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteFragment)
+            is AppSettingsRoute.LabsRoute.Labs -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_labsSettingsFragment)
             is AppSettingsRoute.InternalRoute.Internal -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_internalSettingsFragment)
             is AppSettingsRoute.AccountRoute.ManageProfile -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageProfileActivity)
             is AppSettingsRoute.UsernameLinkRoute.UsernameLink -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_usernameLinkSettingsFragment)
@@ -383,18 +382,10 @@ private fun AppSettingsContent(
         item {
           Rows.TextRow(
             text = {
-              if (state.isLinkedDevice) {
-                TextAndLabel(
-                  text = stringResource(R.string.preferences_chats__backups),
-                  textStyle = MaterialTheme.typography.bodyLarge
-                )
-              } else {
-                TextWithBetaLabel(
-                  text = stringResource(R.string.preferences_chats__backups),
-                  textStyle = MaterialTheme.typography.bodyLarge,
-                  enabled = isRegisteredAndUpToDate
-                )
-              }
+              Text(
+                text = stringResource(R.string.preferences_chats__backups),
+                style = MaterialTheme.typography.bodyLarge
+              )
             },
             icon = {
               Icon(
@@ -465,7 +456,18 @@ private fun AppSettingsContent(
 
           item {
             Rows.TextRow(
+              text = "Labs",
+              icon = painterResource(R.drawable.symbol_flash_24),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.LabsRoute.Labs)
+              }
+            )
+          }
+
+          item {
+            Rows.TextRow(
               text = stringResource(R.string.preferences__internal_preferences),
+              icon = painterResource(R.drawable.symbol_key_24),
               onClick = {
                 callbacks.navigate(AppSettingsRoute.InternalRoute.Internal)
               }

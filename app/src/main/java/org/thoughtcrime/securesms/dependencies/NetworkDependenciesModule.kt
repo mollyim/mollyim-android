@@ -223,6 +223,10 @@ class NetworkDependenciesModule(
   val svrBApi: SvrBApi
     get() = provider.provideSvrBApi(libsignalNetwork())
 
+  val keyTransparencyApi: KeyTransparencyApi by lazy {
+    provider.provideKeyTransparencyApi(unauthWebSocket)
+  }
+
   val okHttpClient: OkHttpClient by lazy {
     OkHttpClient.Builder()
       .socketFactory(Networking.socketFactory)

@@ -104,7 +104,12 @@ private fun Group.AccessControl.AccessRequired.toLocal(): AccessControl.AccessRe
 }
 
 private fun Group.AccessControl.toLocal(): AccessControl {
-  return AccessControl(members = this.members.toLocal(), attributes = this.attributes.toLocal(), addFromInviteLink = this.addFromInviteLink.toLocal())
+  return AccessControl(
+    members = this.members.toLocal(),
+    attributes = this.attributes.toLocal(),
+    addFromInviteLink = this.addFromInviteLink.toLocal(),
+    memberLabel = this.memberLabel.toLocal()
+  )
 }
 
 private fun Group.Member.Role.toLocal(): Member.Role {
@@ -116,7 +121,13 @@ private fun Group.Member.Role.toLocal(): Member.Role {
 }
 
 private fun Group.Member.toLocal(): DecryptedMember {
-  return DecryptedMember(aciBytes = userId, role = role.toLocal(), joinedAtRevision = joinedAtVersion)
+  return DecryptedMember(
+    aciBytes = userId,
+    role = role.toLocal(),
+    joinedAtRevision = joinedAtVersion,
+    labelEmoji = labelEmoji,
+    labelString = labelString
+  )
 }
 
 private fun Group.MemberPendingAdminApproval.toLocal(): DecryptedRequestingMember {

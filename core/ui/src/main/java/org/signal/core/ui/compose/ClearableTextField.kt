@@ -6,7 +6,9 @@
 package org.signal.core.ui.compose
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -67,6 +70,8 @@ fun ClearableTextField(
   keyboardActions: KeyboardActions = KeyboardActions.Default,
   singleLine: Boolean = false,
   clearable: Boolean = true,
+  onClear: () -> Unit = { onValueChange("") },
+  hasClearableContent: () -> Boolean = { value.isNotEmpty() },
   charactersRemainingBeforeLimit: Int = Int.MAX_VALUE,
   countdownConfig: ClearableTextField.CountdownConfig? = null,
   colors: TextFieldColors = defaultTextFieldColors()
@@ -84,7 +89,9 @@ fun ClearableTextField(
     keyboardActions = keyboardActions,
     singleLine = singleLine,
     clearable = clearable,
-    charactersRemaining = charactersRemainingBeforeLimit,
+    onClear = onClear,
+    hasClearableContent = hasClearableContent,
+    charactersRemainingBeforeLimit = charactersRemainingBeforeLimit,
     countdownConfig = countdownConfig,
     colors = colors
   )
@@ -104,32 +111,36 @@ fun ClearableTextField(
   enabled: Boolean = true,
   textStyle: TextStyle = LocalTextStyle.current,
   label: @Composable (() -> Unit)? = null,
+  placeholder: @Composable (() -> Unit)? = null,
   leadingIcon: @Composable (() -> Unit)? = null,
   keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
   keyboardActions: KeyboardActions = KeyboardActions.Default,
   singleLine: Boolean = false,
   clearable: Boolean = true,
-  charactersRemaining: Int = Int.MAX_VALUE,
+  onClear: () -> Unit = { onValueChange("") },
+  hasClearableContent: () -> Boolean = { value.isNotEmpty() },
+  charactersRemainingBeforeLimit: Int = Int.MAX_VALUE,
   countdownConfig: ClearableTextField.CountdownConfig? = null,
   colors: TextFieldColors = defaultTextFieldColors()
 ) {
   var focused by remember { mutableStateOf(false) }
-  val displayCountdown = countdownConfig != null && charactersRemaining <= countdownConfig.displayThreshold
+  val displayCountdown = countdownConfig != null && charactersRemainingBeforeLimit <= countdownConfig.displayThreshold
 
   val clearButton: @Composable () -> Unit = {
     ClearButton(
-      visible = focused,
-      onClick = { onValueChange("") },
+      visible = focused && hasClearableContent(),
+      onClick = onClear,
       contentDescription = clearContentDescription
     )
   }
 
-  Box(modifier = modifier) {
+  Column(modifier = modifier) {
     TextFields.TextField(
       value = value,
       onValueChange = onValueChange,
       textStyle = textStyle,
       label = label,
+      placeholder = placeholder,
       enabled = enabled,
       singleLine = singleLine,
       keyboardActions = keyboardActions,
@@ -139,23 +150,20 @@ fun ClearableTextField(
         .onFocusChanged { focused = it.hasFocus && clearable },
       colors = colors,
       leadingIcon = leadingIcon,
-      trailingIcon = if (clearable) clearButton else null,
-      contentPadding = TextFieldDefaults.contentPaddingWithLabel(end = if (displayCountdown) 48.dp else 16.dp)
+      trailingIcon = if (clearable) clearButton else null
     )
 
-    AnimatedVisibility(
-      visible = displayCountdown,
+    val countdownAlpha by animateFloatAsState(targetValue = if (displayCountdown) 1f else 0f, label = "countdownAlpha")
+    val errorThresholdExceeded = countdownConfig != null && charactersRemainingBeforeLimit <= countdownConfig.warnThreshold
+    Text(
+      text = "$charactersRemainingBeforeLimit",
+      style = MaterialTheme.typography.bodySmall,
+      color = if (errorThresholdExceeded) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outline,
       modifier = Modifier
-        .align(Alignment.BottomEnd)
-        .padding(bottom = 10.dp, end = 12.dp)
-    ) {
-      val errorThresholdExceeded = countdownConfig != null && charactersRemaining <= countdownConfig.warnThreshold
-      Text(
-        text = "$charactersRemaining",
-        style = MaterialTheme.typography.bodySmall,
-        color = if (errorThresholdExceeded) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outline
-      )
-    }
+        .align(Alignment.End)
+        .alpha(countdownAlpha)
+        .padding(top = 4.dp, end = 16.dp)
+    )
   }
 }
 
@@ -165,14 +173,18 @@ private fun ClearButton(
   onClick: () -> Unit,
   contentDescription: String
 ) {
-  AnimatedVisibility(visible = visible) {
+  AnimatedVisibility(
+    visible = visible,
+    enter = fadeIn(),
+    exit = fadeOut()
+  ) {
     IconButton(
       onClick = onClick
     ) {
       Icon(
-        painter = SignalIcons.XCircleFill.painter,
+        painter = SignalIcons.X.painter,
         contentDescription = contentDescription,
-        tint = MaterialTheme.colorScheme.outline
+        tint = MaterialTheme.colorScheme.onSurface
       )
     }
   }
@@ -252,14 +264,21 @@ private fun ClearableTextFieldCharacterCountPreview() {
 
       Spacer(modifier = Modifier.size(16.dp))
 
+      val focusRequester = remember { FocusRequester() }
+
       ClearableTextField(
         value = "Very long text showing the character count warning state",
         onValueChange = {},
         hint = "countdown warning",
         clearContentDescription = "Clear",
         charactersRemainingBeforeLimit = 8,
-        countdownConfig = countdownConfig
+        countdownConfig = countdownConfig,
+        modifier = Modifier.focusRequester(focusRequester)
       )
+
+      LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+      }
 
       Spacer(modifier = Modifier.size(16.dp))
 

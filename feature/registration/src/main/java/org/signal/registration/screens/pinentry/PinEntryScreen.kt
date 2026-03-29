@@ -39,7 +39,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.signal.core.ui.compose.DayNightPreviews
+import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 
@@ -73,7 +73,8 @@ fun PinEntryScreen(
       val titleString = remember {
         return@remember when (state.mode) {
           PinEntryState.Mode.RegistrationLock -> "Registration Lock"
-          PinEntryState.Mode.SvrRestore -> "Enter your PIN"
+          PinEntryState.Mode.SvrRestore,
+          PinEntryState.Mode.SmsBypass -> "Enter your PIN"
         }
       }
 
@@ -195,7 +196,7 @@ fun PinEntryScreen(
   }
 }
 
-@DayNightPreviews
+@AllDevicePreviews
 @Composable
 private fun PinEntryScreenPreview() {
   Previews.Preview {
@@ -206,7 +207,7 @@ private fun PinEntryScreenPreview() {
   }
 }
 
-@DayNightPreviews
+@AllDevicePreviews
 @Composable
 private fun PinEntryScreenWithErrorPreview() {
   Previews.Preview {

@@ -431,10 +431,10 @@ public final class GroupChangeReconstructTest {
 
     DecryptedGroupChange change = GroupChangeReconstruct.reconstructGroupChange(from, to);
 
-    assertEquals(1, change.modifyMemberLabel.size());
-    assertEquals(UuidUtil.toByteString(memberUuid), change.modifyMemberLabel.get(0).aciBytes);
-    assertEquals("🎉", change.modifyMemberLabel.get(0).labelEmoji);
-    assertEquals("New Label", change.modifyMemberLabel.get(0).labelString);
+    assertEquals(1, change.modifyMemberLabels.size());
+    assertEquals(UuidUtil.toByteString(memberUuid), change.modifyMemberLabels.get(0).aciBytes);
+    assertEquals("🎉", change.modifyMemberLabels.get(0).labelEmoji);
+    assertEquals("New Label", change.modifyMemberLabels.get(0).labelString);
   }
 
   @Test
@@ -457,9 +457,34 @@ public final class GroupChangeReconstructTest {
 
     DecryptedGroupChange change = GroupChangeReconstruct.reconstructGroupChange(from, to);
 
-    assertEquals(1, change.modifyMemberLabel.size());
-    assertEquals(UuidUtil.toByteString(memberUuid), change.modifyMemberLabel.get(0).aciBytes);
-    assertEquals("", change.modifyMemberLabel.get(0).labelEmoji);
-    assertEquals("", change.modifyMemberLabel.get(0).labelString);
+    assertEquals(1, change.modifyMemberLabels.size());
+    assertEquals(UuidUtil.toByteString(memberUuid), change.modifyMemberLabels.get(0).aciBytes);
+    assertEquals("", change.modifyMemberLabels.get(0).labelEmoji);
+    assertEquals("", change.modifyMemberLabels.get(0).labelString);
+  }
+
+  @Test
+  public void new_member_label_access() {
+    DecryptedGroup from = new DecryptedGroup.Builder()
+        .accessControl(
+            new AccessControl.Builder()
+                .memberLabel(AccessControl.AccessRequired.ADMINISTRATOR)
+                .build())
+        .build();
+
+    DecryptedGroup to = new DecryptedGroup.Builder()
+        .accessControl(
+            new AccessControl.Builder()
+                .memberLabel(AccessControl.AccessRequired.MEMBER)
+                .build())
+        .build();
+
+    DecryptedGroupChange decryptedGroupChange = GroupChangeReconstruct.reconstructGroupChange(from, to);
+
+    assertEquals(
+        new DecryptedGroupChange.Builder()
+            .newMemberLabelAccess(AccessControl.AccessRequired.MEMBER)
+            .build(),
+        decryptedGroupChange);
   }
 }

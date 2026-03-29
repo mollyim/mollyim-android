@@ -19,7 +19,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.ThreadUtil
+import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireParcelableCompat
 import org.signal.libsignal.protocol.fingerprint.Fingerprint
@@ -28,11 +30,10 @@ import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.verify.SafetyNumberQrView.Companion.getSegments
 import org.thoughtcrime.securesms.crypto.IdentityKeyParcelable
 import org.thoughtcrime.securesms.databinding.VerifyDisplayFragmentBinding
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.ThemeUtil
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import java.nio.charset.StandardCharsets
@@ -73,9 +74,13 @@ class VerifyDisplayFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     initializeViewModel()
 
+    if (RemoteConfig.internalUser && SignalStore.settings.automaticVerificationEnabled && !SignalStore.uiHints.hasSeenVerifyAutomaticallySheet()) {
+      VerifyAutomaticallyEducationSheet.show(parentFragmentManager)
+    }
+
     updateVerifyButton(requireArguments().getBoolean(VERIFIED_STATE, false), false)
 
-    binding.automaticVerification.visible = RemoteConfig.keyTransparency
+    binding.automaticVerification.visible = RemoteConfig.internalUser && SignalStore.settings.automaticVerificationEnabled
     binding.safetyQrView.verifyButton.setOnClickListener { updateVerifyButton(!currentVerifiedState, true) }
     binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
     binding.toolbar.setTitle(R.string.AndroidManifest__verify_safety_number)
@@ -85,7 +90,14 @@ class VerifyDisplayFragment : Fragment() {
     binding.caption.setLinkColor(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorPrimary))
 
     viewModel.getAutomaticVerification().observe(viewLifecycleOwner) { status ->
-      updateStatus(status)
+      if (status == AutomaticVerificationStatus.NONE) {
+        binding.autoVerifyContainer.setOnClickListener {
+          viewModel.verifyAutomatically()
+        }
+      } else {
+        binding.autoVerifyContainer.setOnClickListener(null)
+      }
+      animateStatus(status)
     }
 
     viewModel.recipient.observe(this) { recipient: Recipient -> setRecipientText(recipient) }
@@ -108,6 +120,25 @@ class VerifyDisplayFragment : Fragment() {
       binding.safetyQrView.shareButton.setOnClickListener { v: View? -> handleShare(fingerprint.fingerprint) }
       binding.safetyQrView.qrCodeContainer.setOnClickListener { v: View? -> callback!!.onQrCodeContainerClicked() }
       registerForContextMenu(binding.safetyQrView.numbersContainer)
+    }
+  }
+
+  private fun animateStatus(status: AutomaticVerificationStatus) {
+    if (status == AutomaticVerificationStatus.NONE || status == AutomaticVerificationStatus.UNAVAILABLE_PERMANENT) {
+      updateStatus(status)
+    } else {
+      binding.autoVerifyContainer.animate()
+        .alpha(0f)
+        .setDuration(FADE_TIME)
+        .withEndAction {
+          updateStatus(status)
+
+          binding.autoVerifyContainer.animate()
+            .alpha(1f)
+            .setDuration(FADE_TIME)
+            .start()
+        }
+        .start()
     }
   }
 
@@ -326,6 +357,7 @@ class VerifyDisplayFragment : Fragment() {
     private const val LOCAL_IDENTITY = "local_identity"
     private const val LOCAL_NUMBER = "local_number"
     private const val VERIFIED_STATE = "verified_state"
+    private const val FADE_TIME = 250L
 
     fun create(
       recipientId: RecipientId,

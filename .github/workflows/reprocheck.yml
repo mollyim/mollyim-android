@@ -20,10 +20,7 @@ env:
 jobs:
   build:
     name: Build new
-    runs-on: ubuntu-22.04
-
-    env:
-      GRADLE_OPTS: "-Dorg.gradle.project.kotlin.compiler.execution.strategy=in-process"
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -74,7 +71,7 @@ jobs:
 
   download:
     name: Download original
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     outputs:
       apks: "${{ steps.set.outputs.apks }}"
 
@@ -102,7 +99,7 @@ jobs:
 
   compare:
     name: Compare
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - build
       - download

@@ -9,7 +9,11 @@ plugins {
 
 buildscript {
   repositories {
-    google()
+    google {
+      content {
+        includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
+      }
+    }
     mavenCentral()
   }
 
@@ -41,35 +45,39 @@ allprojects {
   }
 }
 
+if (JavaVersion.current().isJava8Compatible) {
+  allprojects {
+    tasks.withType<Javadoc> {
+      (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
+    }
+  }
+}
+
 interface ConcurrencyConstraintService : BuildService<BuildServiceParameters.None>
 
 subprojects {
-  if (JavaVersion.current().isJava8Compatible) {
-    allprojects {
-      tasks.withType<Javadoc> {
-        (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
-      }
+  // MOLLY: Limit concurrency of high-RAM tasks to avoid OOMs (especially in CI).
+  fun limiter(name: String, max: Int) =
+    gradle.sharedServices.registerIfAbsent(name, ConcurrencyConstraintService::class.java) {
+      maxParallelUsages.set(max)
     }
-  }
 
-  val limiterService = gradle.sharedServices.registerIfAbsent("concurrencyConstraint", ConcurrencyConstraintService::class.java) {
-    maxParallelUsages.set(1)
-  }
-
-  val expensiveTaskClasses = listOf(
-    org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class,
-    com.android.build.gradle.internal.lint.AndroidLintAnalysisTask::class,
-    com.android.build.gradle.internal.tasks.R8Task::class,
-  )
+  val lintLimiter = limiter("CC-lint", max = 1)
+  val r8Limiter = limiter("CC-r8", max = 1)
+  val kLimiter = limiter("CC-kotlin", max = 3)
 
   tasks.configureEach {
-    if (expensiveTaskClasses.any { it.isInstance(this) }) {
-      usesService(limiterService)
+    val service = when (this) {
+      is com.android.build.gradle.internal.lint.AndroidLintAnalysisTask -> lintLimiter
+      is com.android.build.gradle.internal.tasks.R8Task -> r8Limiter
+      is org.jetbrains.kotlin.gradle.tasks.KotlinCompile -> kLimiter
+      else -> null
     }
+    service?.let(::usesService)
   }
 
   // MOLLY: Add task `./gradlew allDeps` to list all dependencies for each configuration
-  tasks.register<DependencyReportTask>("allDeps") { }
+  tasks.register<DependencyReportTask>("allDeps")
 }
 
 tasks.register("clean", Delete::class) {

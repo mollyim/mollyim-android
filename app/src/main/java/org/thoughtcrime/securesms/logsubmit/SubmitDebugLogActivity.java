@@ -31,18 +31,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.signal.core.util.ThreadUtil;
 import org.signal.debuglogsviewer.DebugLogsViewer;
 import org.thoughtcrime.securesms.BaseActivity;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar;
 import org.thoughtcrime.securesms.components.ProgressCard;
 import org.thoughtcrime.securesms.components.SearchView;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
+import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
 
@@ -95,8 +94,8 @@ public class SubmitDebugLogActivity extends BaseActivity {
   private boolean isWarning;
   private boolean isError;
 
-  private final DynamicTheme dynamicTheme = new DynamicTheme();
-  private final CompositeDisposable disposables = new CompositeDisposable();
+  private final DynamicTheme        dynamicTheme = new DynamicTheme();
+  private final CompositeDisposable disposables  = new CompositeDisposable();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -266,11 +265,11 @@ public class SubmitDebugLogActivity extends BaseActivity {
 
     List<String> selectedLevels = new ArrayList<>();
 
-    if (isVerbose)  selectedLevels.add("\" V \"");
-    if (isDebug)    selectedLevels.add("\" D \"");
-    if (isInfo)     selectedLevels.add("\" I \"");
-    if (isWarning)  selectedLevels.add("\" W \"");
-    if (isError)    selectedLevels.add("\" E \"");
+    if (isVerbose) selectedLevels.add("\" V \"");
+    if (isDebug) selectedLevels.add("\" D \"");
+    if (isInfo) selectedLevels.add("\" I \"");
+    if (isWarning) selectedLevels.add("\" W \"");
+    if (isError) selectedLevels.add("\" E \"");
     if (isUncaught) selectedLevels.add("\" SignalUncaughtException:\"");
 
     DebugLogsViewer.onFilterLevel(logWebView, "[" + String.join(",", selectedLevels) + "]");
@@ -315,7 +314,7 @@ public class SubmitDebugLogActivity extends BaseActivity {
     Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
     intent.addCategory(Intent.CATEGORY_OPENABLE);
     intent.setType("application/zip");
-    intent.putExtra(Intent.EXTRA_TITLE, BuildConfig.BACKUP_FILENAME + "-log-" + System.currentTimeMillis() + ".zip");
+    intent.putExtra(Intent.EXTRA_TITLE, BackupUtil.getBackupFilenamePrefix() + "-log-" + System.currentTimeMillis() + ".zip");
 
     startActivityForResult(intent, CODE_SAVE);
   }
@@ -384,13 +383,13 @@ public class SubmitDebugLogActivity extends BaseActivity {
 
   private void subscribeToLogLines() {
     Disposable disposable = viewModel.getLogLinesObservable()
-        .observeOn(Schedulers.io())
-        .subscribe(this::appendLines, throwable -> {
-          // Handle error
-          ThreadUtil.runOnMain(() -> {
-            this.progressCard.setVisibility(View.GONE);
-          });
-        });
+                                     .observeOn(Schedulers.io())
+                                     .subscribe(this::appendLines, throwable -> {
+                                       // Handle error
+                                       ThreadUtil.runOnMain(() -> {
+                                         this.progressCard.setVisibility(View.GONE);
+                                       });
+                                     });
     disposables.add(disposable);
   }
 

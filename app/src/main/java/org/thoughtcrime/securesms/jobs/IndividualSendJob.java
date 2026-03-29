@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.mms.OutgoingMessage;
@@ -33,7 +34,7 @@ import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
 import org.thoughtcrime.securesms.util.MessageUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
-import org.thoughtcrime.securesms.util.Util;
+import org.signal.core.util.Util;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender.IndividualSendEvents;
 import org.whispersystems.signalservice.api.crypto.ContentHint;
@@ -73,6 +74,7 @@ public class IndividualSendJob extends PushSendJob {
     this(new Parameters.Builder()
              .setQueue(isScheduledSend ? recipient.getId().toScheduledSendQueueKey() : recipient.getId().toQueueKey(hasMedia))
              .addConstraint(NetworkConstraint.KEY)
+             .addConstraint(SealedSenderConstraint.KEY)
              .setLifespan(TimeUnit.DAYS.toMillis(1))
              .setMaxAttempts(Parameters.UNLIMITED)
              .build(),
@@ -255,8 +257,6 @@ public class IndividualSendJob extends PushSendJob {
     }
 
     try {
-      rotateSenderCertificateIfNecessary();
-
       Recipient messageRecipient = message.getThreadRecipient().fresh();
 
       if (messageRecipient.isUnregistered()) {

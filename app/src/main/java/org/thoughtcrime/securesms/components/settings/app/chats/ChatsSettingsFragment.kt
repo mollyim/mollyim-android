@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
+import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
@@ -19,7 +20,6 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -79,10 +79,6 @@ class ChatsSettingsFragment : ComposeFragment() {
     override fun onEnterKeySendsChanged(enabled: Boolean) {
       viewModel.setEnterKeySends(enabled)
     }
-
-    override fun onChatBackupsClick() {
-      findNavController().safeNavigate(R.id.action_chatsSettingsFragment_to_backupsPreferenceFragment)
-    }
   }
 }
 
@@ -95,7 +91,6 @@ private interface ChatsSettingsCallbacks {
   fun onAddOrEditFoldersClick() = Unit
   fun onUseSystemEmojiChanged(enabled: Boolean) = Unit
   fun onEnterKeySendsChanged(enabled: Boolean) = Unit
-  fun onChatBackupsClick() = Unit
 
   object Empty : ChatsSettingsCallbacks
 }

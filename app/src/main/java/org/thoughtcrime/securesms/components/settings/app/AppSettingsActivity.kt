@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.DynamicTheme
+import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
@@ -41,10 +42,16 @@ class AppSettingsActivity : DSLSettingsActivity() {
     val startingAction: NavDirections? = if (intent?.categories?.contains(NOTIFICATION_CATEGORY) == true) {
       AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
     } else {
-      val appSettingsRoute: AppSettingsRoute? = intent?.getParcelableExtraCompat(START_ROUTE, AppSettingsRoute::class.java)
-      when (appSettingsRoute) {
+      when (val appSettingsRoute: AppSettingsRoute? = intent?.getParcelableExtraCompat(START_ROUTE, AppSettingsRoute::class.java)) {
         AppSettingsRoute.Empty -> null
-        AppSettingsRoute.BackupsRoute.Local -> AppSettingsFragmentDirections.actionDirectToBackupsPreferenceFragment()
+        is AppSettingsRoute.BackupsRoute.Local -> {
+          if (SignalStore.backup.newLocalBackupsEnabled || (Environment.Backups.isNewFormatSupportedForLocalBackup() && (!SignalStore.settings.isBackupEnabled || appSettingsRoute.triggerUpdateFlow))) {
+            AppSettingsFragmentDirections.actionDirectToLocalBackupsFragment()
+              .setTriggerUpdateFlow(appSettingsRoute.triggerUpdateFlow)
+          } else {
+            AppSettingsFragmentDirections.actionDirectToBackupsPreferenceFragment()
+          }
+        }
         is AppSettingsRoute.HelpRoute.Settings -> AppSettingsFragmentDirections.actionDirectToHelpFragment()
           .setStartCategoryIndex(appSettingsRoute.startCategoryIndex)
         AppSettingsRoute.DataAndStorageRoute.Proxy -> AppSettingsFragmentDirections.actionDirectToNetworkPreferenceFragment()
@@ -142,7 +149,7 @@ class AppSettingsActivity : DSLSettingsActivity() {
     }
 
     @JvmStatic
-    fun backups(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.BackupsRoute.Local)
+    fun backups(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.BackupsRoute.Local())
 
     @JvmStatic
     fun help(context: Context, startCategoryIndex: Int = 0): Intent {
@@ -218,6 +225,9 @@ class AppSettingsActivity : DSLSettingsActivity() {
 
     @JvmStatic
     fun invite(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.Invite)
+
+    @JvmStatic
+    fun upgradeLocalBackups(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.BackupsRoute.Local(triggerUpdateFlow = true))
 
     private fun getIntentForStartLocation(context: Context, startRoute: AppSettingsRoute): Intent {
       return Intent(context, AppSettingsActivity::class.java)

@@ -11,10 +11,19 @@ object Environment {
   const val IS_INSTRUMENTATION: Boolean = BuildConfig.BUILD_TYPE == "instrumentation"
   const val IS_DEV: Boolean = BuildConfig.FLAVOR_environment == "dev"
 
+  fun isInternal(): Boolean {
+    return IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
+  }
+
   object Backups {
     @JvmStatic
     fun supportsGooglePlayBilling(): Boolean {
       return BuildConfig.APPLICATION_ID == GOOGLE_PLAY_BILLING_APPLICATION_ID
+    }
+
+    @JvmStatic
+    fun isNewFormatSupportedForLocalBackup(): Boolean {
+      return false
     }
   }
 

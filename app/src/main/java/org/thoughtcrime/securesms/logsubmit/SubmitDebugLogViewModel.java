@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.signal.core.util.Stopwatch;
 import org.signal.core.util.logging.Log;
-import org.signal.core.util.tracing.Tracer;
 import org.signal.debuglogsviewer.DebugLogsViewer;
 import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -39,7 +38,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
   private SubmitDebugLogViewModel() {
     this.repo          = new SubmitDebugLogRepository();
     this.mode          = new MutableLiveData<>();
-    this.trace         = Tracer.getInstance().serialize();
+    this.trace         = new byte[0];
     this.firstViewTime = System.currentTimeMillis();
     this.event         = new SingleLiveEvent<>();
   }

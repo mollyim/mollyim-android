@@ -9,10 +9,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import org.signal.core.util.ResourceUtil;
+import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 
 import java.util.Locale;
+
+import im.molly.app.base.ApkInfo;
 
 public final class SupportEmailUtil {
 
@@ -76,7 +79,7 @@ public final class SupportEmailUtil {
   }
 
   private static CharSequence getSignalVersion() {
-    return BuildConfig.VERSION_NAME;
+    return ApkInfo.versionName;
   }
 
   private static CharSequence getSignalPackage(@NonNull Context context) {

@@ -46,12 +46,12 @@ import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.compose.theme.colorAttribute
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.ComposeBottomSheetDialogFragment
 
 /**
  * Shows tips about typical spam and fraud messages.

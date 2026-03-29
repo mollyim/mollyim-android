@@ -36,7 +36,7 @@ public abstract class PassphraseActivity extends BaseActivity {
     KeyCachingService.setMasterSecret(masterSecret);
     startService(new Intent(this, KeyCachingService.class));
 
-    ApplicationContext.getInstance().onUnlock();
+    ApplicationContext.getInstance(this).onUnlock();
   }
 
   void launchRoutedActivity() {

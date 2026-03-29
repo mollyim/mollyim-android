@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat;
 
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
-import org.signal.core.util.tracing.Tracer;
 import org.signal.devicetransfer.TransferStatus;
 import org.thoughtcrime.securesms.components.settings.app.changenumber.ChangeNumberLockActivity;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
@@ -53,7 +52,6 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   @Override
   protected final void onCreate(Bundle savedInstanceState) {
-    Tracer.getInstance().start(Log.tag(getClass()) + "#onCreate()");
     AppStartup.getInstance().onCriticalRenderEventStart();
     onPreCreate();
 
@@ -69,7 +67,6 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
     }
 
     AppStartup.getInstance().onCriticalRenderEventEnd();
-    Tracer.getInstance().end(Log.tag(getClass()) + "#onCreate()");
   }
 
   protected void onPreCreate() {}

@@ -119,7 +119,7 @@ object AccountDataArchiveProcessor {
             hasSeenGroupStoryEducationSheet = signalStore.storyValues.userHasSeenGroupStoryEducationSheet,
             hasCompletedUsernameOnboarding = signalStore.uiHintValues.hasCompletedUsernameOnboarding(),
             customChatColors = db.chatColorsTable.getSavedChatColors().toRemoteChatColors().also { colors -> exportState.customChatColorIds.addAll(colors.map { it.id }) },
-            optimizeOnDeviceStorage = signalStore.backupValues.optimizeStorage,
+            optimizeOnDeviceStorage = signalStore.backupValues.optimizeStorage && signalStore.backupValues.backupTier == MessageBackupTier.PAID,
             backupTier = signalStore.backupValues.backupTier.toRemoteBackupTier(),
             defaultSentMediaQuality = signalStore.settingsValues.sentMediaQuality.toRemoteSentMediaQuality(),
             autoDownloadSettings = AccountData.AutoDownloadSettings(
@@ -138,7 +138,9 @@ object AccountDataArchiveProcessor {
               chatColorId = chatColors?.id?.takeIf { it.isValid(exportState) } ?: ChatColors.Id.NotSet,
               chatWallpaper = chatWallpaper,
               backupMode = exportState.backupMode
-            )
+            ),
+            allowAutomaticKeyVerification = signalStore.settingsValues.automaticVerificationEnabled,
+            hasSeenAdminDeleteEducationDialog = signalStore.uiHintValues.hasSeenAdminDeleteEducationDialog()
           ),
           donationSubscriberData = donationSubscriber?.toSubscriberData(signalStore.inAppPaymentValues.isDonationSubscriptionManuallyCancelled()),
           backupsSubscriberData = backupSubscriberRecord?.toIAPSubscriberData(),
@@ -148,7 +150,8 @@ object AccountDataArchiveProcessor {
             navigationBarSize = signalStore.settingsValues.useCompactNavigationBar.toRemoteNavigationBarSize()
           ).takeUnless { Environment.IS_INSTRUMENTATION && SignalStore.backup.importedEmptyAndroidSettings },
           bioText = selfRecord.about ?: "",
-          bioEmoji = selfRecord.aboutEmoji ?: ""
+          bioEmoji = selfRecord.aboutEmoji ?: "",
+          keyTransparencyData = selfRecord.keyTransparencyData?.toByteString()
         )
       )
     )
@@ -237,6 +240,8 @@ object AccountDataArchiveProcessor {
       SignalStore.account.usernameLink = null
     }
 
+    SignalDatabase.recipients.setKeyTransparencyData(Recipient.self().aci.get(), accountData.keyTransparencyData?.toByteArray())
+
     SignalDatabase.runPostSuccessfulTransaction { ProfileUtil.handleSelfProfileKeyChange() }
 
     Recipient.self().live().refresh()
@@ -265,6 +270,7 @@ object AccountDataArchiveProcessor {
     SignalStore.settings.sentMediaQuality = settings.defaultSentMediaQuality.toLocalSentMediaQuality()
     SignalStore.settings.setTheme(settings.appTheme.toLocalTheme(), false)  // MOLLY: FIXME
     SignalStore.settings.setCallDataMode(settings.callsUseLessDataSetting.toLocalCallDataMode())
+    SignalStore.settings.automaticVerificationEnabled = settings.allowAutomaticKeyVerification
 
     if (settings.autoDownloadSettings != null) {
       val mobileAndWifiDownloadSet = settings.autoDownloadSettings.toLocalAutoDownloadSet(AccountData.AutoDownloadSettings.AutoDownloadOption.WIFI_AND_CELLULAR)
@@ -333,6 +339,10 @@ object AccountDataArchiveProcessor {
 
     if (settings.hasCompletedUsernameOnboarding) {
       SignalStore.uiHints.setHasCompletedUsernameOnboarding(true)
+    }
+
+    if (settings.hasSeenAdminDeleteEducationDialog) {
+      SignalStore.uiHints.setHasSeenAdminDeleteEducationDialog()
     }
   }
 

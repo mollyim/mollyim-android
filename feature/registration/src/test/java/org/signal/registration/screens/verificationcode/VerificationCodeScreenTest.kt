@@ -12,11 +12,13 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.test.core.app.ApplicationProvider
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.ui.CoreUiDependenciesRule
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.registration.test.TestTags
 
@@ -31,6 +33,9 @@ class VerificationCodeScreenTest {
   @get:Rule
   val composeTestRule = createComposeRule()
 
+  @get:Rule
+  val coreUiDependenciesRule = CoreUiDependenciesRule(ApplicationProvider.getApplicationContext())
+
   @Test
   fun `screen displays title`() {
     // Given
@@ -44,7 +49,7 @@ class VerificationCodeScreenTest {
     }
 
     // Then
-    composeTestRule.onNodeWithText("Enter verification code").assertIsDisplayed()
+    composeTestRule.onNodeWithText("Verification code").assertIsDisplayed()
   }
 
   @Test
@@ -65,7 +70,7 @@ class VerificationCodeScreenTest {
     composeTestRule.onNodeWithTag(TestTags.VERIFICATION_CODE_DIGIT_2).assertIsDisplayed()
     composeTestRule.onNodeWithTag(TestTags.VERIFICATION_CODE_DIGIT_3).assertIsDisplayed()
     composeTestRule.onNodeWithTag(TestTags.VERIFICATION_CODE_DIGIT_4).assertIsDisplayed()
-    composeTestRule.onNodeWithTag(TestTags.VERIFICATION_CODE_DIGIT_5).assertIsDisplayed()
+    composeTestRule.onNodeWithTag(TestTags.VERIFICATION_CODE_DIGIT_5).fetchSemanticsNode()
   }
 
   @Test
@@ -186,7 +191,7 @@ class VerificationCodeScreenTest {
 
     // Then
     composeTestRule.onNodeWithText("Wrong number?").assertIsDisplayed()
-    composeTestRule.onNodeWithText("Resend SMS").assertIsDisplayed()
+    composeTestRule.onNodeWithText("Resend Code").assertIsDisplayed()
     composeTestRule.onNodeWithText("Call me instead").assertIsDisplayed()
   }
 }

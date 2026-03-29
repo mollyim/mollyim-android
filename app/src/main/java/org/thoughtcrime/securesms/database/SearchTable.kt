@@ -80,10 +80,10 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
         $FTS_TABLE_NAME.$BODY, 
         $FTS_TABLE_NAME.$ID AS $MESSAGE_ID, 
         1 AS $IS_MMS 
-      FROM 
-        ${MessageTable.TABLE_NAME} 
-          INNER JOIN $FTS_TABLE_NAME ON $FTS_TABLE_NAME.$ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID} 
-          INNER JOIN ${ThreadTable.TABLE_NAME} ON $FTS_TABLE_NAME.$THREAD_ID = ${ThreadTable.TABLE_NAME}.${ThreadTable.ID} 
+      FROM
+        $FTS_TABLE_NAME
+          CROSS JOIN ${MessageTable.TABLE_NAME} ON ${MessageTable.TABLE_NAME}.${MessageTable.ID} = $FTS_TABLE_NAME.$ID
+          INNER JOIN ${ThreadTable.TABLE_NAME} ON $FTS_TABLE_NAME.$THREAD_ID = ${ThreadTable.TABLE_NAME}.${ThreadTable.ID}
       WHERE 
         $FTS_TABLE_NAME MATCH ? AND 
         ${MessageTable.TABLE_NAME}.${MessageTable.TYPE} & ${MessageTypes.GROUP_V2_BIT} = 0 AND 
@@ -105,10 +105,10 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
         $FTS_TABLE_NAME.$BODY, 
         $FTS_TABLE_NAME.$ID AS $MESSAGE_ID,
         1 AS $IS_MMS 
-      FROM 
-        ${MessageTable.TABLE_NAME} 
-          INNER JOIN $FTS_TABLE_NAME ON $FTS_TABLE_NAME.$ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID} 
-          INNER JOIN ${ThreadTable.TABLE_NAME} ON $FTS_TABLE_NAME.$THREAD_ID = ${ThreadTable.TABLE_NAME}.${ThreadTable.ID} 
+      FROM
+        $FTS_TABLE_NAME
+          CROSS JOIN ${MessageTable.TABLE_NAME} ON ${MessageTable.TABLE_NAME}.${MessageTable.ID} = $FTS_TABLE_NAME.$ID
+          INNER JOIN ${ThreadTable.TABLE_NAME} ON $FTS_TABLE_NAME.$THREAD_ID = ${ThreadTable.TABLE_NAME}.${ThreadTable.ID}
       WHERE 
         $FTS_TABLE_NAME MATCH ? AND 
         ${MessageTable.TABLE_NAME}.${MessageTable.THREAD_ID} = ? AND
@@ -321,7 +321,7 @@ class SearchTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
       // There are specific error recovery paths where this is run inside of database initialization, before the job manager is initialized
       if (!AppDependencies.isInitialized) {
-        AppDependencies.init(context as Application, ApplicationDependencyProvider(context))
+        AppDependencies.init(ApplicationDependencyProvider(context as Application))
       }
 
       RebuildMessageSearchIndexJob.enqueue()

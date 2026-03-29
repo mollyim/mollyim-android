@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.Stopwatch;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupEvent;
 import org.thoughtcrime.securesms.backup.BackupFileIOError;
@@ -19,17 +18,17 @@ import org.thoughtcrime.securesms.backup.BackupPassphrase;
 import org.thoughtcrime.securesms.backup.BackupVerifier;
 import org.thoughtcrime.securesms.backup.FullBackupExporter;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
-import org.thoughtcrime.securesms.database.NoExternalStorageException;
+import org.signal.core.util.NoExternalStorageException;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
-import org.thoughtcrime.securesms.permissions.Permissions;
+import org.signal.core.ui.permissions.Permissions;
 import org.thoughtcrime.securesms.service.GenericForegroundService;
 import org.thoughtcrime.securesms.service.NotificationController;
 import org.thoughtcrime.securesms.util.BackupUtil;
-import org.thoughtcrime.securesms.util.StorageUtil;
+import org.signal.core.ui.util.StorageUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -115,7 +114,7 @@ public final class LocalBackupJob extends BaseJob {
       String backupPassword  = BackupPassphrase.get(context);
       File   backupDirectory = StorageUtil.getOrCreateBackupDirectory();
       String timestamp       = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US).format(new Date());
-      String fileName        = String.format("%s-%s.backup", BuildConfig.BACKUP_FILENAME, timestamp);
+      String fileName        = String.format("%s-%s.backup", BackupUtil.getBackupFilenamePrefix(), timestamp);
       File   backupFile      = new File(backupDirectory, fileName);
 
       deleteOldTemporaryBackups(backupDirectory);

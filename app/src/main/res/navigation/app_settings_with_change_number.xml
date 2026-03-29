@@ -142,6 +142,13 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
         <action
+            android:id="@+id/action_appSettingsFragment_to_labsSettingsFragment"
+            app:destination="@id/labsSettingsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
             android:id="@+id/action_appSettingsFragment_to_manageDonationsFragment"
             app:destination="@id/manageDonationsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -386,13 +393,6 @@
         android:label="chats_settings_fragment"
         tools:layout="@layout/dsl_settings_fragment">
         <action
-            android:id="@+id/action_chatsSettingsFragment_to_backupsPreferenceFragment"
-            app:destination="@id/backupsPreferenceFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-        <action
             android:id="@+id/action_chatsSettingsFragment_to_editReactionsFragment"
             app:destination="@id/editReactionsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -419,7 +419,35 @@
         android:id="@+id/backupsPreferenceFragment"
         android:name="org.thoughtcrime.securesms.preferences.BackupsPreferenceFragment"
         android:label="backups_preference_fragment"
-        tools:layout="@layout/fragment_backups" />
+        tools:layout="@layout/fragment_backups">
+
+        <action
+            android:id="@+id/action_backupsPreferenceFragment_to_localBackupsFragment"
+            app:destination="@id/localBackupsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/localBackupsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.backups.local.LocalBackupsFragment"
+        android:label="backups_preference_fragment">
+
+        <action
+            android:id="@+id/action_backupsPreferenceFragment_to_backupKeyDisplayFragment"
+            app:destination="@id/backupKeyDisplayFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
+        <argument
+            android:name="trigger_update_flow"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/editReactionsFragment"
@@ -626,7 +654,27 @@
         app:enterAnim="@anim/fragment_open_enter"
         app:exitAnim="@anim/fragment_open_exit"
         app:popEnterAnim="@anim/fragment_close_enter"
-        app:popExitAnim="@anim/fragment_close_exit" />
+        app:popExitAnim="@anim/fragment_close_exit">
+
+        <argument
+            android:name="trigger_update_flow"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </action>
+
+    <action
+        android:id="@+id/action_direct_to_localBackupsFragment"
+        app:destination="@id/localBackupsFragment"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:exitAnim="@anim/fragment_open_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit">
+
+        <argument
+            android:name="trigger_update_flow"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </action>
 
     <action
         android:id="@+id/action_direct_to_helpFragment"
@@ -809,6 +857,13 @@
         app:popUpToInclusive="true" />
 
     <!-- endregion -->
+
+    <!-- Labs Settings -->
+
+    <fragment
+        android:id="@+id/labsSettingsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.labs.LabsSettingsFragment"
+        android:label="labs_settings_fragment" />
 
     <!-- Internal Settings -->
 
@@ -1178,16 +1233,16 @@
             app:popExitAnim="@anim/fragment_close_exit" />
 
         <action
-            android:id="@+id/action_backupsSettingsFragment_to_remoteBackupsSettingsFragment"
-            app:destination="@id/remoteBackupsSettingsFragment"
+            android:id="@+id/action_backupsSettingsFragment_to_localBackupsFragment"
+            app:destination="@id/localBackupsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
         <action
-            android:id="@+id/action_backupsSettingsFragment_to_internalLocalBackupFragment"
-            app:destination="@id/internalLocalBackupFragment"
+            android:id="@+id/action_backupsSettingsFragment_to_remoteBackupsSettingsFragment"
+            app:destination="@id/remoteBackupsSettingsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
@@ -1226,11 +1281,6 @@
             android:name="start_with_key_rotation"
             app:argType="boolean"
             android:defaultValue="false" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/internalLocalBackupFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.backups.local.InternalNewLocalBackupCreateFragment">
     </fragment>
 
     <include app:graph="@navigation/username_link_settings" />

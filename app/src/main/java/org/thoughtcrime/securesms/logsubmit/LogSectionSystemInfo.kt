@@ -5,8 +5,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import im.molly.app.base.ApkInfo
+import org.signal.core.ui.getWindowSizeClass
 import org.signal.core.util.BidiUtil
 import org.signal.core.util.DiskUtil
 import org.signal.core.util.FontUtil.canRenderEmojiAtFontSize
@@ -28,9 +31,7 @@ import org.thoughtcrime.securesms.util.PowerManagerCompat
 import org.thoughtcrime.securesms.util.ScreenDensity
 import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.VersionTracker.getDaysSinceFirstInstalled
-import org.thoughtcrime.securesms.window.getWindowSizeClass
 import java.util.Locale
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -81,17 +82,19 @@ class LogSectionSystemInfo : LogSection {
       Emoji Version     : ${getEmojiVersionString(context)}
       RenderBigEmoji    : ${canRenderEmojiAtFontSize(1024f)}
       DontKeepActivities: ${getDontKeepActivities(context)}
-      Server Time Offset: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
+      Server Time Offset: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
       Telecom           : ${if (locked) LOCKED else telecomSupported}
       User-Agent        : ${StandardUserAgentInterceptor.USER_AGENT}
       SlowNotifications : ${if (locked) LOCKED else isHavingDelayedNotifications()}
+      Battery Level     : ${DeviceProperties.getBatteryLevel(context)}% (charging: ${DeviceProperties.isCharging(context)})
       IgnoringBatteryOpt: ${PowerManagerCompat.isIgnoringBatteryOptimizations(context)}
       BkgRestricted     : ${if (Build.VERSION.SDK_INT >= 28) DeviceProperties.isBackgroundRestricted(context) else "N/A"}
       Data Saver        : ${DeviceProperties.getDataSaverState(context)}
-      APNG Animation    : ${DeviceProperties.shouldAllowApngStickerAnimation(context)}
+      APNG Animation    : ${if (locked) LOCKED else DeviceProperties.shouldAllowApngStickerAnimation(context)}
       Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL?.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
       App               : ${getAppInfo(context)}
       Package           : ${BuildConfig.APPLICATION_ID} (${getSigningString(context)})
+      FullScreenIntents : ${NotificationManagerCompat.from(context).canUseFullScreenIntent()}
     """.trimIndent()
   }
 
@@ -100,9 +103,9 @@ class LogSectionSystemInfo : LogSection {
       val packageManager = context.packageManager
       val appLabel = packageManager.getApplicationLabel(packageManager.getApplicationInfo(context.packageName, 0))
       val versionName = packageManager.getPackageInfo(context.packageName, 0).versionName
-      val manifestApkVersion = Util.getManifestApkVersion(context)
+      val manifestApkVersion = ApkInfo.versionCode
 
-      "$appLabel $versionName (${Util.getSignalCanonicalVersionCode()}, $manifestApkVersion) (${BuildConfig.GIT_HASH})"
+      "$appLabel $versionName (${ApkInfo.signalCanonicalVersionCode}, $manifestApkVersion) (${BuildConfig.GIT_HASH})"
     } catch (_: PackageManager.NameNotFoundException) {
       "Unknown"
     }

@@ -19,6 +19,7 @@ import java.util.UUID;
 import okio.ByteString;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.whispersystems.signalservice.api.groupsv2.ProtoTestUtils.admin;
 import static org.whispersystems.signalservice.api.groupsv2.ProtoTestUtils.approveMember;
@@ -45,7 +46,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
     int maxFieldFound = getMaxDeclaredFieldNumber(DecryptedGroupChange.class);
 
     assertEquals("GroupChangeUtil#resolveConflict and its tests need updating to account for new fields on " + DecryptedGroupChange.class.getName(),
-                 26, maxFieldFound);
+                 27, maxFieldFound);
   }
 
   /**
@@ -300,7 +301,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -328,7 +329,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -356,7 +357,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -384,7 +385,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -412,7 +413,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -426,7 +427,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -572,7 +573,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -602,7 +603,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
 
     DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
 
-    assertTrue(DecryptedGroupUtil.changeIsEmpty(resolvedChanges));
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
@@ -676,7 +677,7 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
   }
 
   @Test
-  public void field_26__modify_member_label__remove_if_label_already_matches() {
+  public void field_26__member_label_change_removed_when_same_as_group_state() {
     UUID memberUuid = UUID.fromString("d1d1d1d1-0000-4000-8000-000000000001");
 
     DecryptedMember existingMember = member(memberUuid)
@@ -691,25 +692,25 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
         .labelString("Already Set")
         .build();
 
-    DecryptedGroup existingGroup = new DecryptedGroup.Builder()
+    DecryptedGroup groupState = new DecryptedGroup.Builder()
         .revision(10)
         .members(List.of(existingMember))
         .build();
 
     DecryptedGroupChange conflictingChange = new DecryptedGroupChange.Builder()
-        .modifyMemberLabel(List.of(modifyLabelAction))
+        .modifyMemberLabels(List.of(modifyLabelAction))
         .build();
 
-    DecryptedGroupChange.Builder resolved = GroupChangeUtil.resolveConflict(existingGroup, conflictingChange);
-    assertTrue(resolved.build().modifyMemberLabel.isEmpty());
+    DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, conflictingChange).build();
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 
   @Test
-  public void field_26__modify_member_label__remove_if_member_not_in_group() {
+  public void field_26__member_label_change_removed_when_member_not_in_group() {
     UUID memberUuid = UUID.fromString("d1d1d1d1-0000-4000-8000-000000000001");
     UUID notInGroupUuid = UUID.fromString("d2d2d2d2-0000-4000-8000-000000000002");
 
-    DecryptedGroup existingGroup = new DecryptedGroup.Builder()
+    DecryptedGroup groupState = new DecryptedGroup.Builder()
         .revision(10)
         .members(List.of(member(memberUuid)))
         .build();
@@ -721,10 +722,67 @@ public final class GroupChangeUtil_resolveConflict_decryptedOnly_Test {
         .build();
 
     DecryptedGroupChange conflictingChange = new DecryptedGroupChange.Builder()
-        .modifyMemberLabel(List.of(modifyLabelAction))
+        .modifyMemberLabels(List.of(modifyLabelAction))
         .build();
 
-    DecryptedGroupChange.Builder resolved = GroupChangeUtil.resolveConflict(existingGroup, conflictingChange);
-    assertTrue(resolved.build().modifyMemberLabel.isEmpty());
+    DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, conflictingChange).build();
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
+  }
+
+  @Test
+  public void field_26__member_label_change_preserved_when_label_differs() {
+    UUID memberUuid = UUID.fromString("d1d1d1d1-0000-4000-8000-000000000001");
+
+    DecryptedMember existingMember = member(memberUuid)
+        .newBuilder()
+        .labelEmoji("🔥")
+        .labelString("Old Label")
+        .build();
+
+    DecryptedGroup groupState = new DecryptedGroup.Builder()
+        .revision(10)
+        .members(List.of(existingMember))
+        .build();
+
+    DecryptedModifyMemberLabel modifyLabelAction = new DecryptedModifyMemberLabel.Builder()
+        .aciBytes(UuidUtil.toByteString(memberUuid))
+        .labelEmoji("🎉")
+        .labelString("New Label")
+        .build();
+
+    DecryptedGroupChange conflictingChange = new DecryptedGroupChange.Builder()
+        .modifyMemberLabels(List.of(modifyLabelAction))
+        .build();
+
+    DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, conflictingChange).build();
+    assertFalse(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
+  }
+
+  @Test
+  public void field_27__member_label_access_change_preserved_when_differs_from_group_state() {
+    DecryptedGroup groupState = new DecryptedGroup.Builder()
+        .accessControl(new AccessControl.Builder().memberLabel(AccessControl.AccessRequired.ADMINISTRATOR).build())
+        .build();
+
+    DecryptedGroupChange decryptedChange = new DecryptedGroupChange.Builder()
+        .newMemberLabelAccess(AccessControl.AccessRequired.MEMBER)
+        .build();
+
+    DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
+    assertEquals(decryptedChange, resolvedChanges);
+  }
+
+  @Test
+  public void field_27__member_label_access_change_removed_when_same_as_group_state() {
+    DecryptedGroup groupState = new DecryptedGroup.Builder()
+        .accessControl(new AccessControl.Builder().memberLabel(AccessControl.AccessRequired.ADMINISTRATOR).build())
+        .build();
+
+    DecryptedGroupChange decryptedChange = new DecryptedGroupChange.Builder()
+        .newMemberLabelAccess(AccessControl.AccessRequired.ADMINISTRATOR)
+        .build();
+
+    DecryptedGroupChange resolvedChanges = GroupChangeUtil.resolveConflict(groupState, decryptedChange).build();
+    assertTrue(DecryptedGroupExtensions.getChangedFields(resolvedChanges).isEmpty());
   }
 }

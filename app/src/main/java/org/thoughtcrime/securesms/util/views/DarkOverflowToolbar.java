@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
+import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 
 /**
  * It seems to be impossible to tint the overflow icon in an ActionMode independently from the
