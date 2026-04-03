@@ -112,7 +112,6 @@ import org.whispersystems.signalservice.internal.push.OutgoingPushMessage;
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessageList;
 import org.whispersystems.signalservice.internal.push.PniSignatureMessage;
 import org.whispersystems.signalservice.internal.push.Preview;
-import org.whispersystems.signalservice.internal.push.ProvisioningVersion;
 import org.whispersystems.signalservice.internal.push.PushAttachmentData;
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.push.ReceiptMessage;
@@ -1602,8 +1601,6 @@ public class SignalServiceMessageSender {
       configurationMessage.linkPreviews(configuration.getLinkPreviews().get());
     }
 
-    configurationMessage.provisioningVersion(ProvisioningVersion.CURRENT.getValue());
-
     return container.syncMessage(syncMessage.configuration(configurationMessage.build()).build()).build();
   }
 
@@ -1748,10 +1745,6 @@ public class SignalServiceMessageSender {
     Content.Builder          container   = new Content.Builder();
     SyncMessage.Builder      syncMessage = createSyncMessageBuilder();
     SyncMessage.Keys.Builder builder     = new SyncMessage.Keys.Builder();
-
-    if (keysMessage.getMaster() != null) {
-      builder.master(ByteString.of(keysMessage.getMaster().serialize()));
-    }
 
     if (keysMessage.getAccountEntropyPool() != null) {
       builder.accountEntropyPool(keysMessage.getAccountEntropyPool().getValue());

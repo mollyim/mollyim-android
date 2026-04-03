@@ -43,6 +43,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.asFlow
 import org.signal.core.models.ServiceId
+import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.paging.ProxyPagingController
@@ -183,7 +184,7 @@ class ConversationViewModel(
   val messageRequestState: MessageRequestState
     get() = hasMessageRequestStateSubject.value ?: MessageRequestState()
 
-  private val groupRecordFlow: Flow<GroupRecord>
+  val groupRecordFlow: Flow<GroupRecord>
 
   private val refreshIdentityRecords: Subject<Unit> = PublishSubject.create()
   private val identityRecordsStore: RxStore<IdentityRecordsState> = RxStore(IdentityRecordsState())
@@ -380,6 +381,16 @@ class ConversationViewModel(
     }
   }
 
+  fun setMessageStarred(messageId: Long, starred: Boolean): Completable {
+    return setMessagesStarred(setOf(messageId), starred)
+  }
+
+  fun setMessagesStarred(messageIds: Set<Long>, starred: Boolean): Completable {
+    return repository
+      .setMessagesStarred(messageIds, starred)
+      .observeOn(AndroidSchedulers.mainThread())
+  }
+
   fun updateThreadHeader() {
     pagingController.onDataItemChanged(ConversationElementKey.threadHeader)
   }
@@ -394,7 +405,7 @@ class ConversationViewModel(
     val pendingGroupJoinFlow: Flow<PendingGroupJoinRequestsBanner> = groupRecordFlow
       .map {
         PendingGroupJoinRequestsBanner(
-          suggestionsSize = it.actionableRequestingMembersCount,
+          suggestionsSize = if (it.isTerminated) 0 else it.actionableRequestingMembersCount,
           onViewClicked = groupJoinClickListener
         )
       }
@@ -420,6 +431,20 @@ class ConversationViewModel(
       transform = { it.toList() }
     )
       .flowOn(Dispatchers.IO)
+  }
+
+  fun onCollapseEvents(messageId: Long) {
+    viewModelScope.launch(Dispatchers.IO) {
+      repository.collapseEvents(messageId)
+      pagingController.onDataInvalidated()
+    }
+  }
+
+  fun onExpandEvents(messageId: Long) {
+    viewModelScope.launch(Dispatchers.IO) {
+      repository.expandEvents(messageId)
+      pagingController.onDataInvalidated()
+    }
   }
 
   fun onChatBoundsChanged(bounds: Rect) {
@@ -707,6 +732,10 @@ class ConversationViewModel(
     }
   }
 
+  fun resetBackPressedState() {
+    internalBackPressedState.value = BackPressedState()
+  }
+
   fun toggleVote(poll: PollRecord, pollOption: PollOption, isChecked: Boolean) {
     viewModelScope.launch(Dispatchers.IO) {
       val voteCount = if (isChecked) {
@@ -772,6 +801,12 @@ class ConversationViewModel(
 
   fun clearPlaintextExportState() {
     _plaintextExportState.value = PlaintextExportState.None
+  }
+
+  fun collapseAllEvents() {
+    viewModelScope.launch(SignalDispatchers.IO) {
+      repository.collapseAllEvents()
+    }
   }
 
   sealed interface PlaintextExportState {

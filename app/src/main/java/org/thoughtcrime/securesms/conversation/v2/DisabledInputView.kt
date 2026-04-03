@@ -43,6 +43,7 @@ class DisabledInputView @JvmOverloads constructor(
   private var expiredOrUnauthorized: View? = null
   private var messageRequestView: MessageRequestsBottomView? = null
   private var noLongerAMember: View? = null
+  private var terminatedGroup: View? = null
   private var requestingGroup: View? = null
   private var announcementGroupOnly: TextView? = null
   private var inviteToSignal: View? = null
@@ -122,6 +123,13 @@ class DisabledInputView @JvmOverloads constructor(
     noLongerAMember = show(
       existingView = noLongerAMember,
       create = { inflater.inflate(R.layout.conversation_no_longer_a_member, this, false) }
+    )
+  }
+
+  fun showAsTerminatedGroup() {
+    terminatedGroup = show(
+      existingView = terminatedGroup,
+      create = { inflater.inflate(R.layout.conversation_group_terminated, this, false) }
     )
   }
 
@@ -213,6 +221,7 @@ class DisabledInputView @JvmOverloads constructor(
     messageRequestView?.hideBusy()
     messageRequestView = null
     noLongerAMember = null
+    terminatedGroup = null
     requestingGroup = null
     announcementGroupOnly = null
     incognitoView = null

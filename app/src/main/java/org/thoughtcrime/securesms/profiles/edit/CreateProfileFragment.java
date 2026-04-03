@@ -321,6 +321,7 @@ public class CreateProfileFragment extends LoggingFragment {
         }
       } else {
         Toast.makeText(requireContext(), R.string.CreateProfileActivity_problem_setting_profile, Toast.LENGTH_LONG).show();
+        binding.finishButton.cancelSpinning();
       }
     });
 

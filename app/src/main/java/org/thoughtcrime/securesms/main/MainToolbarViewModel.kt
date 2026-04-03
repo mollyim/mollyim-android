@@ -208,6 +208,12 @@ class MainToolbarViewModel : ViewModel() {
     }
   }
 
+  fun setHasActiveSearchFilter(hasActiveSearchFilter: Boolean) {
+    internalStateFlow.update {
+      it.copy(hasActiveSearchFilter = hasActiveSearchFilter)
+    }
+  }
+
   private fun emitPossibleSearchStateChangeEvent(previousMode: MainToolbarMode, mode: MainToolbarMode) {
     if (previousMode == MainToolbarMode.SEARCH && mode != MainToolbarMode.SEARCH) {
       emitEvent(Event.Search.Close)

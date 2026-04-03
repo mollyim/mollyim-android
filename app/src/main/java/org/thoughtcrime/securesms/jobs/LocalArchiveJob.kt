@@ -1,11 +1,17 @@
 package org.thoughtcrime.securesms.jobs
 
 import android.net.Uri
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import org.signal.core.util.Stopwatch
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.BackupFileIOError
 import org.thoughtcrime.securesms.backup.FullBackupExporter.BackupCanceledException
+import org.thoughtcrime.securesms.backup.LocalExportProgress
 import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem
 import org.thoughtcrime.securesms.backup.v2.local.LocalArchiver
 import org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem
@@ -85,6 +91,13 @@ class LocalArchiveJob internal constructor(parameters: Parameters) : Job(paramet
       try {
         SignalDatabase.attachmentMetadata.insertNewKeysForExistingAttachments()
 
+        val progressScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        progressScope.launch {
+          LocalExportProgress.encryptedProgress.collect { progress ->
+            updateNotification(progress, notification)
+          }
+        }
+
         try {
           val result = LocalArchiver.export(snapshotFileSystem, archiveFileSystem.filesFileSystem, stopwatch, cancellationSignal = { isCanceled })
           Log.i(TAG, "Archive finished with result: $result")
@@ -94,6 +107,8 @@ class LocalArchiveJob internal constructor(parameters: Parameters) : Job(paramet
         } catch (e: Exception) {
           Log.w(TAG, "Unable to create local archive", e)
           return Result.failure()
+        } finally {
+          progressScope.cancel()
         }
 
         stopwatch.split("archive-create")
@@ -139,11 +154,11 @@ class LocalArchiveJob internal constructor(parameters: Parameters) : Job(paramet
   }
 
   override fun onFailure() {
-    SignalStore.backup.newLocalBackupProgress = LocalBackupCreationProgress(idle = LocalBackupCreationProgress.Idle())
+    LocalExportProgress.setEncryptedProgress(LocalBackupCreationProgress(idle = LocalBackupCreationProgress.Idle()))
   }
 
   private fun setProgress(progress: LocalBackupCreationProgress, notification: NotificationController?) {
-    SignalStore.backup.newLocalBackupProgress = progress
+    LocalExportProgress.setEncryptedProgress(progress)
     updateNotification(progress, notification)
   }
 
@@ -158,8 +173,25 @@ class LocalArchiveJob internal constructor(parameters: Parameters) : Job(paramet
     when {
       exporting != null -> {
         val phase = NotificationPhase.Export(exporting.phase)
-        if (previousPhase != phase) {
-          notification.replaceTitle(exporting.phase.toString())
+        val title = when (exporting.phase) {
+          LocalBackupCreationProgress.ExportPhase.MESSAGE -> {
+            if (exporting.frameTotalCount > 0) {
+              context.getString(
+                R.string.BackupCreationProgressRow__processing_messages_s_of_s_d,
+                "%,d".format(exporting.frameExportCount),
+                "%,d".format(exporting.frameTotalCount),
+                (exporting.frameExportCount * 100 / exporting.frameTotalCount).toInt()
+              )
+            } else {
+              context.getString(R.string.BackupCreationProgressRow__processing_messages)
+            }
+          }
+          LocalBackupCreationProgress.ExportPhase.FINALIZING -> context.getString(R.string.BackupCreationProgressRow__finalizing)
+          LocalBackupCreationProgress.ExportPhase.NONE -> context.getString(R.string.BackupCreationProgressRow__processing_backup)
+          else -> context.getString(R.string.BackupCreationProgressRow__preparing_backup)
+        }
+        if (previousPhase != phase || exporting.phase == LocalBackupCreationProgress.ExportPhase.MESSAGE) {
+          notification.replaceTitle(title)
           previousPhase = phase
         }
         if (exporting.frameTotalCount == 0L) {

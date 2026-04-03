@@ -68,6 +68,12 @@ class CameraScreenViewModel : ViewModel() {
 
     /** Debug flag for testing limited binding (i.e. no simultaneous binding to image + video). */
     private const val FORCE_LIMITED_BINDING = false
+
+    /** Number of times to retry camera binding when initial attempt fails due to camera unavailability. */
+    private const val CAMERA_BIND_MAX_RETRIES = 3
+
+    /** Initial delay between camera binding retries, in milliseconds. Doubles on each subsequent retry. */
+    private const val CAMERA_BIND_RETRY_DELAY_MS = 500L
   }
 
   private val _state: MutableState<CameraScreenState> = mutableStateOf(CameraScreenState())
@@ -81,7 +87,7 @@ class CameraScreenViewModel : ViewModel() {
   private var imageCapture: ImageCapture? = null
   private var videoCapture: VideoCapture<Recorder>? = null
   private var recording: Recording? = null
-  private var isLimitedBinding: Boolean = false
+  private var captureMode: CameraCaptureMode = CameraCaptureMode.ImageOnly
   private var brightnessBeforeFlash: Float = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
   private var brightnessWindow: WeakReference<Window>? = null
   private var orientationListener: OrientationEventListener? = null
@@ -103,6 +109,8 @@ class CameraScreenViewModel : ViewModel() {
   }
 
   fun onEvent(event: CameraScreenEvents) {
+    logEvent(event)
+
     val currentState = _state.value
     when (event) {
       is CameraScreenEvents.BindCamera -> {
@@ -129,6 +137,19 @@ class CameraScreenViewModel : ViewModel() {
       is CameraScreenEvents.ClearCaptureError -> {
         handleClearCaptureErrorEvent(currentState)
       }
+    }
+  }
+
+  private fun logEvent(event: CameraScreenEvents) {
+    when (event) {
+      is CameraScreenEvents.BindCamera -> Log.d(TAG, "[Event] BindCamera(captureMode=${event.captureMode}, enableQrScanning=${event.enableQrScanning})")
+      is CameraScreenEvents.TapToFocus -> Log.d(TAG, "[Event] TapToFocus(view=${event.viewX},${event.viewY}, surface=${event.surfaceX},${event.surfaceY})")
+      is CameraScreenEvents.PinchZoom -> Log.d(TAG, "[Event] PinchZoom(factor=${event.zoomFactor})")
+      is CameraScreenEvents.LinearZoom -> Log.d(TAG, "[Event] LinearZoom(${event.linearZoom})")
+      is CameraScreenEvents.SwitchCamera -> Log.d(TAG, "[Event] SwitchCamera")
+      is CameraScreenEvents.SetFlashMode -> Log.d(TAG, "[Event] SetFlashMode(${event.flashMode})")
+      is CameraScreenEvents.NextFlashMode -> Log.d(TAG, "[Event] NextFlashMode")
+      is CameraScreenEvents.ClearCaptureError -> Log.d(TAG, "[Event] ClearCaptureError")
     }
   }
 
@@ -234,7 +255,7 @@ class CameraScreenViewModel : ViewModel() {
     output: VideoOutput,
     onVideoCaptured: (VideoCaptureResult) -> Unit
   ) {
-    val capture = if (isLimitedBinding) rebindForVideoCapture() ?: return else videoCapture ?: return
+    val capture = videoCapture ?: rebindForVideoCapture() ?: return
 
     recordingStartZoomRatio = _state.value.zoomRatio
 
@@ -308,7 +329,7 @@ class CameraScreenViewModel : ViewModel() {
             // Clear recording
             recording = null
 
-            if (isLimitedBinding) {
+            if (captureMode == CameraCaptureMode.ImageAndVideoExclusive) {
               rebindToLastSuccessfulAttempt()
             }
           }
@@ -388,6 +409,36 @@ class CameraScreenViewModel : ViewModel() {
     state: CameraScreenState,
     event: CameraScreenEvents.BindCamera
   ) {
+    if (tryBindCamera(state, event)) {
+      return
+    }
+
+    // Initial binding failed. On some devices (e.g. Fairphone 6), the camera HAL may not
+    // release resources promptly after a previous session ends, causing CameraX to report
+    // zero available cameras. Retry with exponential backoff to give the hardware time to recover.
+    viewModelScope.launch {
+      for (retry in 1..CAMERA_BIND_MAX_RETRIES) {
+        Log.d(TAG, "Retrying camera binding (retry $retry of $CAMERA_BIND_MAX_RETRIES) after $CAMERA_BIND_RETRY_DELAY_MS ms")
+        delay(CAMERA_BIND_RETRY_DELAY_MS)
+
+        if (tryBindCamera(_state.value, event)) {
+          Log.i(TAG, "Camera binding succeeded on retry $retry")
+          return@launch
+        }
+      }
+
+      Log.e(TAG, "All camera binding retries exhausted")
+    }
+  }
+
+  /**
+   * Attempts to bind the camera with progressively fewer optional use cases.
+   * Returns true if binding succeeded, false if all attempts failed.
+   */
+  private fun tryBindCamera(
+    state: CameraScreenState,
+    event: CameraScreenEvents.BindCamera
+  ): Boolean {
     val cameraSelector = CameraSelector.Builder()
       .requireLensFacing(state.lensFacing)
       .build()
@@ -416,17 +467,18 @@ class CameraScreenViewModel : ViewModel() {
         lastSuccessfulAttempt = attempt
         imageCapture = attempt.imageCapture
         videoCapture = attempt.videoCapture
-        isLimitedBinding = event.enableVideoCapture && attempt.videoCapture == null
+        captureMode = event.captureMode
       } catch (e: Exception) {
         Log.e(TAG, "Use case binding failed (attempt ${index + 1} of ${bindingAttempts.size})", e)
         continue
       }
 
       setupOrientationListener(event.context)
-      return
+      return true
     }
 
     Log.e(TAG, "All use case binding attempts failed")
+    return false
   }
 
   @android.annotation.SuppressLint("RestrictedApi")
@@ -462,7 +514,7 @@ class CameraScreenViewModel : ViewModel() {
       .setResolutionSelector(resolutionSelector)
       .build()
 
-    val videoCapture: VideoCapture<Recorder>? = if (event.enableVideoCapture && !FORCE_LIMITED_BINDING) {
+    val videoCapture: VideoCapture<Recorder>? = if (event.captureMode == CameraCaptureMode.ImageAndVideoSimultaneous && !FORCE_LIMITED_BINDING) {
       buildVideoCapture()
     } else {
       null

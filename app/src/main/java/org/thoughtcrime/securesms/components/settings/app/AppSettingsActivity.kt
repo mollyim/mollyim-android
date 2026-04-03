@@ -77,6 +77,7 @@ class AppSettingsActivity : DSLSettingsActivity() {
           appSettingsRoute.threadIds
         )
 
+        AppSettingsRoute.ChatsRoute.Chats -> AppSettingsFragmentDirections.actionDirectToChatsSettingsFragment()
         AppSettingsRoute.BackupsRoute.Backups -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment()
         AppSettingsRoute.Invite -> AppSettingsFragmentDirections.actionDirectToInviteFragment()
         AppSettingsRoute.DataAndStorageRoute.DataAndStorage -> AppSettingsFragmentDirections.actionDirectToStoragePreferenceFragment()
@@ -205,6 +206,9 @@ class AppSettingsActivity : DSLSettingsActivity() {
     @JvmStatic
     @JvmOverloads
     fun remoteBackups(context: Context, forQuickRestore: Boolean = false): Intent = getIntentForStartLocation(context, AppSettingsRoute.BackupsRoute.Remote(forQuickRestore = forQuickRestore))
+
+    @JvmStatic
+    fun chats(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.ChatsRoute.Chats)
 
     @JvmStatic
     fun chatFolders(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.ChatFoldersRoute.ChatFolders)

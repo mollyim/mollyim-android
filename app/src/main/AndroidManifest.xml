@@ -440,6 +440,13 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
+            android:name=".search.SingleContactSelectionActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__select_contacts"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name=".giph.ui.GiphyActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
@@ -641,6 +648,13 @@
             android:exported="false"
             android:label="@string/AndroidManifest__media_preview"
             android:theme="@style/TextSecure.DarkNoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".starred.StarredMessagesActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
         <activity

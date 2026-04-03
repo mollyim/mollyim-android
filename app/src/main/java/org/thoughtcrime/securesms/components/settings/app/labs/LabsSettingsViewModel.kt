@@ -29,6 +29,23 @@ class LabsSettingsViewModel : ViewModel() {
         SignalStore.labs.incognito = event.enabled
         _state.value = _state.value.copy(incognito = event.enabled)
       }
+      is LabsSettingsEvents.ToggleGroupSuggestionsForMembers -> {
+        SignalStore.labs.groupSuggestionsForMembers = event.enabled
+        _state.value = _state.value.copy(groupSuggestionsForMembers = event.enabled)
+      }
+      is LabsSettingsEvents.ToggleBetterSearch -> {
+        SignalStore.labs.betterSearch = event.enabled
+        _state.value = _state.value.copy(betterSearch = event.enabled)
+      }
+      is LabsSettingsEvents.ToggleAutoLowerHand -> {
+        SignalStore.labs.autoLowerHand = event.enabled
+        _state.value = _state.value.copy(autoLowerHand = event.enabled)
+      }
+
+      is LabsSettingsEvents.ToggleStarredMessages -> {
+        SignalStore.labs.starredMessages = event.enabled
+        _state.value = _state.value.copy(starredMessages = event.enabled)
+      }
     }
   }
 
@@ -36,7 +53,12 @@ class LabsSettingsViewModel : ViewModel() {
     return LabsSettingsState(
       individualChatPlaintextExport = SignalStore.labs.individualChatPlaintextExport,
       storyArchive = SignalStore.labs.storyArchive,
-      incognito = SignalStore.labs.incognito
+      incognito = SignalStore.labs.incognito,
+      groupSuggestionsForMembers = SignalStore.labs.groupSuggestionsForMembers,
+      betterSearch = SignalStore.labs.betterSearch,
+      autoLowerHand = SignalStore.labs.autoLowerHand,
+
+      starredMessages = SignalStore.labs.starredMessages
     )
   }
 }
