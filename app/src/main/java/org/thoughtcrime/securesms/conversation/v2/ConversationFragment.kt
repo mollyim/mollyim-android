@@ -3346,11 +3346,11 @@ class ConversationFragment :
     override fun onItemDoubleClick(item: MultiselectPart) {
       Log.d(TAG, "onItemDoubleClick")
 
-      // Quick reaction works only on incoming messages
-      if (!item.conversationMessage.messageRecord.isOutgoing) {
+      if (item.conversationMessage.messageRecord.isOutgoing) {
+        onDoubleTapToEdit(item.conversationMessage)
+      } else {
         onDoubleTapToQuickReact(item.conversationMessage)
       }
-      onDoubleTapToEdit(item.conversationMessage)
     }
 
     private fun onDoubleTapToQuickReact(conversationMessage: ConversationMessage) {
