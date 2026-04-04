@@ -3345,7 +3345,35 @@ class ConversationFragment :
 
     override fun onItemDoubleClick(item: MultiselectPart) {
       Log.d(TAG, "onItemDoubleClick")
+
+      // Quick reaction works only on incoming messages
+      if (!item.conversationMessage.messageRecord.isOutgoing) {
+        onDoubleTapToQuickReact(item.conversationMessage)
+      }
       onDoubleTapToEdit(item.conversationMessage)
+    }
+
+    private fun onDoubleTapToQuickReact(conversationMessage: ConversationMessage) {
+      if (isActionModeStarted()) {
+        return
+      }
+
+      val messageRecord = conversationMessage.getMessageRecord()
+      if (messageRecord.isInMemoryMessageRecord || messageRecord.isOutgoing || !messageRecord.isValidReactionTarget()) {
+        return
+      }
+
+      val recipient = viewModel.recipientSnapshot ?: return
+      if (recipient.isBlocked || viewModel.hasMessageRequestState || (recipient.isGroup && !recipient.isActiveGroup)) {
+        return
+      }
+
+      if (adapter.selectedItems.isNotEmpty()) {
+        return
+      }
+
+      val emoji = SignalStore.emoji.reactions.first()
+      disposables += viewModel.updateReaction(messageRecord, emoji).subscribe()
     }
 
     private fun onDoubleTapToEdit(conversationMessage: ConversationMessage) {

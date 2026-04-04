@@ -393,6 +393,7 @@ class ConversationAdapterV2(
   private inner class IncomingMediaViewHolder(itemView: View) : ConversationViewHolder<IncomingMedia>(itemView) {
     override fun bind(model: IncomingMedia) {
       bindable.setEventListener(clickListener)
+      bindable.setGestureDetector(gestureDetector)
 
       if (bindPayloadsIfAvailable()) {
         return
