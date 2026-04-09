@@ -15,6 +15,8 @@ object Environment {
     return IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
   }
 
+  const val USE_NEW_REGISTRATION: Boolean = false // MOLLY: Test before enable
+
   object Backups {
     @JvmStatic
     fun supportsGooglePlayBilling(): Boolean {

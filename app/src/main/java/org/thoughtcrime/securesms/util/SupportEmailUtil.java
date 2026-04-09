@@ -67,7 +67,7 @@ public final class SupportEmailUtil {
            "\n" +
            context.getString(R.string.SupportEmailUtil_signal_package) + " " + getSignalPackage(context) +
            "\n" +
-           context.getString(R.string.SupportEmailUtil_locale) + " " + Locale.getDefault().toString();
+           context.getString(R.string.SupportEmailUtil_locale) + " " + Locale.getDefault();
   }
 
   private static CharSequence getDeviceInfo() {

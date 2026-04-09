@@ -145,6 +145,7 @@ public final class JobManagerFactories {
       put(BackupRestoreMediaJob.KEY,                   new BackupRestoreMediaJob.Factory());
       put(BackupSubscriptionCheckJob.KEY,              new BackupSubscriptionCheckJob.Factory());
       put(BuildExpirationConfirmationJob.KEY,          new BuildExpirationConfirmationJob.Factory());
+      put(CallingAssetsDownloadJob.KEY,                new CallingAssetsDownloadJob.Factory());
       put(CallLinkPeekJob.KEY,                         new CallLinkPeekJob.Factory());
       put(CallLinkUpdateSendJob.KEY,                   new CallLinkUpdateSendJob.Factory());
       put(CallLogEventSendJob.KEY,                     new CallLogEventSendJob.Factory());
@@ -253,7 +254,6 @@ public final class JobManagerFactories {
       put(RemoteDeleteSendJob.KEY,                     new RemoteDeleteSendJob.Factory());
       put(ReportSpamJob.KEY,                           new ReportSpamJob.Factory());
       put(ResendMessageJob.KEY,                        new ResendMessageJob.Factory());
-      put(ResumableUploadSpecJob.KEY,                  new ResumableUploadSpecJob.Factory());
       put(RequestGroupV2InfoWorkerJob.KEY,             new RequestGroupV2InfoWorkerJob.Factory());
       put(RequestGroupV2InfoJob.KEY,                   new RequestGroupV2InfoJob.Factory());
       put(LocalBackupRestoreMediaJob.KEY,              new LocalBackupRestoreMediaJob.Factory());
@@ -423,6 +423,7 @@ public final class JobManagerFactories {
       put("BackupRestoreJob",                            new FailingJob.Factory());
       put("BackfillDigestsMigrationJob",                 new PassingMigrationJob.Factory());
       put("BackfillDigestJob",                           new FailingJob.Factory());
+      put("ResumableUploadSpecJob",                      new FailingJob.Factory());
     }};
   }
 

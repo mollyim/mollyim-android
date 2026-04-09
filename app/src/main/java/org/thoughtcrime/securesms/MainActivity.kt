@@ -156,6 +156,7 @@ import org.thoughtcrime.securesms.main.rememberFocusRequester
 import org.thoughtcrime.securesms.main.storiesNavGraphBuilder
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXRemoteConfig
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
+import org.thoughtcrime.securesms.mediasend.v3.mediaSendLauncher
 import org.thoughtcrime.securesms.megaphone.Megaphone
 import org.thoughtcrime.securesms.megaphone.MegaphoneActionController
 import org.thoughtcrime.securesms.megaphone.Megaphones
@@ -260,7 +261,7 @@ class MainActivity :
   private val megaphoneActionController = MainMegaphoneActionController()
   private val mainNavigationCallback = MainNavigationCallback()
 
-  private lateinit var mediaActivityLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
+  private lateinit var mediaSendLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
 
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
     return motionEventRelay.offer(ev) || super.dispatchTouchEvent(ev)
@@ -287,7 +288,7 @@ class MainActivity :
     super.onCreate(savedInstanceState, ready)
     navigator = MainNavigator(this, mainNavigationViewModel)
 
-    mediaActivityLauncher = registerForActivityResult(MediaSendActivityContract()) { }
+    mediaSendLauncher = mediaSendLauncher()
 
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
@@ -1070,7 +1071,7 @@ class MainActivity :
       if (isForQuickRestore) {
         startActivity(MediaSelectionActivity.cameraForQuickRestore(context = this@MainActivity))
       } else if (SignalStore.internal.useNewMediaActivity) {
-        mediaActivityLauncher.launch(
+        mediaSendLauncher.launch(
           MediaSendActivityContract.Args(
             isCameraFirst = false,
             isStory = destination == MainNavigationListLocation.STORIES

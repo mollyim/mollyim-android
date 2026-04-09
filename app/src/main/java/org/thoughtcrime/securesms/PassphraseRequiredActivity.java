@@ -25,9 +25,11 @@ import org.thoughtcrime.securesms.pin.PinRestoreActivity;
 import org.thoughtcrime.securesms.profiles.edit.CreateProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.ui.RegistrationActivity;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.restore.RestoreActivity;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppStartup;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 public abstract class PassphraseRequiredActivity extends PassphraseActivity implements MasterSecretListener {
@@ -88,12 +90,15 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
     final int applicationState = getApplicationState(locked);
     Intent    intent           = getIntentForState(applicationState);
     // MOLLY: If the current activity matches the intent target, skip the routing
-    if (intent == null || (intent.getComponent() != null && getLocalClassName().equals(intent.getComponent().getClassName()))) {
-      return;
+    if (intent != null && (intent.getComponent() == null || !getLocalClassName().equals(intent.getComponent().getClassName()))) {
+      Log.d(TAG, "routeApplicationState(), intent: " + intent.getComponent());
+      if (applicationState == STATE_WELCOME_PUSH_SCREEN && Environment.USE_NEW_REGISTRATION) {
+        startActivity(intent);
+      } else {
+        startActivity(intent);
+        finish();
+      }
     }
-    Log.d(TAG, "routeApplicationState(), intent: " + intent.getComponent());
-    startActivity(intent);
-    finish();
   }
 
   private Intent getIntentForState(int state) {
@@ -173,7 +178,11 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   }
 
   private Intent getPushRegistrationIntent() {
-    return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
+    if (Environment.USE_NEW_REGISTRATION) {
+      return org.signal.registration.RegistrationActivity.createIntent(this);
+    } else {
+      return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
+    }
   }
 
   private Intent getEnterSignalPinIntent() {

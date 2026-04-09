@@ -14,6 +14,7 @@ object TestTags {
   const val WELCOME_SCREEN = "welcome_screen"
   const val WELCOME_HEADLINE = "welcome_headline"
   const val WELCOME_GET_STARTED_BUTTON = "welcome_get_started_button"
+  const val WELCOME_LINK_DEVICE_BUTTON = "welcome_link_device_button"
   const val WELCOME_RESTORE_OR_TRANSFER_BUTTON = "welcome_restore_or_transfer_button"
   const val WELCOME_RESTORE_HAS_OLD_PHONE_BUTTON = "welcome_restore_has_old_phone_button"
   const val WELCOME_RESTORE_NO_OLD_PHONE_BUTTON = "welcome_restore_no_old_phone_button"
@@ -50,4 +51,12 @@ object TestTags {
   const val ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FILE = "archive_restore_selection_from_backup_file"
   const val ARCHIVE_RESTORE_SELECTION_DEVICE_TRANSFER = "archive_restore_selection_device_transfer"
   const val ARCHIVE_RESTORE_SELECTION_SKIP = "archive_restore_selection_skip"
+
+  // Local Backup Restore Screen
+  const val LOCAL_BACKUP_RESTORE_SCREEN = "local_backup_restore_screen"
+  const val LOCAL_BACKUP_RESTORE_SELECT_FOLDER_BUTTON = "local_backup_restore_select_folder_button"
+  const val LOCAL_BACKUP_RESTORE_BACKUP_INFO_CARD = "local_backup_restore_backup_info_card"
+  const val LOCAL_BACKUP_RESTORE_RESTORE_BUTTON = "local_backup_restore_restore_button"
+  const val LOCAL_BACKUP_RESTORE_PROGRESS_BAR = "local_backup_restore_progress_bar"
+  const val LOCAL_BACKUP_RESTORE_CONTINUE_BUTTON = "local_backup_restore_continue_button"
 }

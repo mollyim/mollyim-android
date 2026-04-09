@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -102,6 +103,7 @@ import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.time.Duration
 
 /**
@@ -172,6 +174,8 @@ class ConversationViewModel(
   val isPushAvailable: Boolean
     get() = recipientSnapshot?.isRegistered == true && Recipient.self().isRegistered
 
+  val wallpaper: Flow<ChatWallpaper?> = recipient.asFlow().map { it.wallpaper }.distinctUntilChanged()
+
   val wallpaperSnapshot: ChatWallpaper?
     get() = recipientSnapshot?.wallpaper
 
@@ -216,7 +220,7 @@ class ConversationViewModel(
   private val _plaintextExportState = MutableStateFlow<PlaintextExportState>(PlaintextExportState.None)
   val plaintextExportState: StateFlow<PlaintextExportState> = _plaintextExportState
 
-  private val plaintextExportCancelled = java.util.concurrent.atomic.AtomicBoolean(false)
+  private val plaintextExportCancelled = AtomicBoolean(false)
 
   init {
     disposables += recipient
@@ -758,7 +762,7 @@ class ConversationViewModel(
     }
   }
 
-  fun startPlaintextExport(context: Context, directoryUri: Uri) {
+  fun startPlaintextExport(context: Context, directoryUri: Uri, withMedia: Boolean) {
     val recipient = recipientSnapshot ?: return
     val chatName = if (recipient.isSelf) context.getString(R.string.note_to_self) else recipient.getDisplayName(context)
 
@@ -771,12 +775,17 @@ class ConversationViewModel(
         threadId = threadId,
         directoryUri = directoryUri,
         chatName = chatName,
+        includeMedia = withMedia,
         progressListener = { messagesProcessed, messageCount, attachmentsProcessed, attachmentCount ->
-          val messagePercent = if (messageCount > 0) (messagesProcessed * 25) / messageCount else 25
-          val attachmentPercent = if (attachmentCount > 0) (attachmentsProcessed * 75) / attachmentCount else 75
-          val percent = messagePercent + attachmentPercent
+          val percent = if (withMedia) {
+            val messagePercent = if (messageCount > 0) (messagesProcessed * 25) / messageCount else 25
+            val attachmentPercent = if (attachmentCount > 0) (attachmentsProcessed * 75) / attachmentCount else 75
+            messagePercent + attachmentPercent
+          } else {
+            if (messageCount > 0) (messagesProcessed * 100) / messageCount else 100
+          }
 
-          val status = if (attachmentsProcessed > 0 || messagesProcessed >= messageCount) {
+          val status = if (withMedia && (attachmentsProcessed > 0 || messagesProcessed >= messageCount)) {
             "Exporting media ($attachmentsProcessed/$attachmentCount)..."
           } else {
             "Exporting messages ($messagesProcessed/$messageCount)..."
