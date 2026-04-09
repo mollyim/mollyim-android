@@ -116,7 +116,7 @@
             android:value="false" />
         <meta-data
             android:name="android.telephony.PROPERTY_SATELLITE_DATA_OPTIMIZED"
-            android:value="org.thoughtcrime.securesms" />
+            android:value="${applicationId}" />
 
         <!-- ======================================= -->
         <!-- Activities                              -->
