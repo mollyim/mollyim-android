@@ -37,9 +37,17 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
   val resultBus = ResultEventBus()
 
   init {
+    _state.value = _state.value.copy(isRestoringNavigationState = true)
     viewModelScope.launch {
-      repository.getPreExistingRegistrationData()?.let {
-        _state.value = _state.value.copy(preExistingRegistrationData = it)
+      val restored = repository.restoreFlowState()
+      if (restored != null) {
+        Log.i(TAG, "[init] Restored flow state from disk. Backstack size: ${restored.backStack.size}, hasSession: ${restored.sessionMetadata != null}")
+        _state.value = validateRestoredState(restored).copy(isRestoringNavigationState = false)
+      } else {
+        _state.value = _state.value.copy(
+          preExistingRegistrationData = repository.getPreExistingRegistrationData(),
+          isRestoringNavigationState = false
+        )
       }
     }
   }
@@ -47,11 +55,15 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
   fun onEvent(event: RegistrationFlowEvent) {
     Log.d(TAG, "[Event] $event")
     _state.value = applyEvent(_state.value, event)
+
+    viewModelScope.launch {
+      persistFlowState(event)
+    }
   }
 
   fun applyEvent(state: RegistrationFlowState, event: RegistrationFlowEvent): RegistrationFlowState {
     return when (event) {
-      is RegistrationFlowEvent.ResetState -> RegistrationFlowState()
+      is RegistrationFlowEvent.ResetState -> RegistrationFlowState(isRestoringNavigationState = false)
       is RegistrationFlowEvent.SessionUpdated -> state.copy(sessionMetadata = event.session)
       is RegistrationFlowEvent.E164Chosen -> state.copy(sessionE164 = event.e164)
       is RegistrationFlowEvent.Registered -> state.copy(accountEntropyPool = event.accountEntropyPool)
@@ -59,18 +71,49 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
       is RegistrationFlowEvent.NavigateToScreen -> applyNavigationToScreenEvent(state, event)
       is RegistrationFlowEvent.NavigateBack -> state.copy(backStack = state.backStack.dropLast(1))
       is RegistrationFlowEvent.RecoveryPasswordInvalid -> state.copy(doNotAttemptRecoveryPassword = true)
+      is RegistrationFlowEvent.PendingRestoreOptionSelected -> state.copy(pendingRestoreOption = event.option)
+      is RegistrationFlowEvent.AepSubmittedViaLocalBackupRestore -> state.copy(unverifiedRestoredAep = event.aep)
     }
   }
 
   private fun applyNavigationToScreenEvent(inputState: RegistrationFlowState, event: RegistrationFlowEvent.NavigateToScreen): RegistrationFlowState {
-    val state = inputState.copy(backStack = inputState.backStack + event.route)
+    return inputState.copy(backStack = inputState.backStack + event.route)
+  }
 
-    return when (event.route) {
-      is RegistrationRoute.VerificationCodeEntry -> {
-        state.copy(sessionMetadata = event.route.session, sessionE164 = event.route.e164)
-      }
-      else -> state
+  /**
+   * Validates a restored flow state by checking if the session is still valid.
+   *
+   * - If the session is still valid, updates session metadata with fresh data.
+   * - If the session is expired and the user is already registered, nulls out the session
+   *   (post-registration screens like PinCreate don't need a session).
+   * - If the session is expired and the user is NOT registered, resets the backstack to
+   *   PhoneNumberEntry with the phone number pre-filled so the user can re-submit.
+   */
+  private suspend fun validateRestoredState(state: RegistrationFlowState): RegistrationFlowState {
+    val sessionMetadata = state.sessionMetadata ?: return state
+
+    val freshSession = repository.validateSession(sessionMetadata.id)
+    if (freshSession != null) {
+      Log.i(TAG, "[validateRestoredState] Session still valid.")
+      return state.copy(sessionMetadata = freshSession)
     }
+
+    Log.i(TAG, "[validateRestoredState] Session expired/invalid.")
+
+    if (repository.isRegistered()) {
+      Log.i(TAG, "[validateRestoredState] User is registered, proceeding without session.")
+      return state.copy(sessionMetadata = null)
+    }
+
+    Log.i(TAG, "[validateRestoredState] User is NOT registered, resetting to PhoneNumberEntry.")
+    return state.copy(
+      backStack = listOf(
+        RegistrationRoute.Welcome,
+        RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry),
+        RegistrationRoute.PhoneNumberEntry
+      ),
+      sessionMetadata = null
+    )
   }
 
   /**
@@ -98,6 +141,29 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
       if (Build.VERSION.SDK_INT >= 26) {
         add(Manifest.permission.READ_PHONE_NUMBERS)
       }
+    }
+  }
+
+  private suspend fun persistFlowState(event: RegistrationFlowEvent) {
+    when (event) {
+      is RegistrationFlowEvent.ResetState -> repository.clearFlowState()
+      is RegistrationFlowEvent.NavigateToScreen -> {
+        if (event.route is RegistrationRoute.FullyComplete) {
+          repository.clearFlowState()
+        } else {
+          repository.saveFlowState(_state.value)
+        }
+      }
+      is RegistrationFlowEvent.NavigateBack,
+      is RegistrationFlowEvent.SessionUpdated,
+      is RegistrationFlowEvent.E164Chosen,
+      is RegistrationFlowEvent.RecoveryPasswordInvalid,
+      is RegistrationFlowEvent.PendingRestoreOptionSelected,
+      is RegistrationFlowEvent.AepSubmittedViaLocalBackupRestore -> repository.saveFlowState(_state.value)
+
+      // No need to persist anything new, fields accounted for in proto already
+      is RegistrationFlowEvent.Registered,
+      is RegistrationFlowEvent.MasterKeyRestoredFromSvr -> { }
     }
   }
 

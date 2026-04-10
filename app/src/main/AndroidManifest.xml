@@ -116,7 +116,7 @@
             android:value="false" />
         <meta-data
             android:name="android.telephony.PROPERTY_SATELLITE_DATA_OPTIMIZED"
-            android:value="org.thoughtcrime.securesms" />
+            android:value="${applicationId}" />
 
         <!-- ======================================= -->
         <!-- Activities                              -->
@@ -440,6 +440,13 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
+            android:name=".search.SingleContactSelectionActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__select_contacts"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name=".giph.ui.GiphyActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
@@ -456,7 +463,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
 
         <activity
-            android:name="org.signal.mediasend.MediaSendActivity"
+            android:name=".mediasend.v3.MediaSendV3Activity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
             android:exported="false"
             android:launchMode="singleTop"
@@ -641,6 +648,13 @@
             android:exported="false"
             android:label="@string/AndroidManifest__media_preview"
             android:theme="@style/TextSecure.DarkNoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".starred.StarredMessagesActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
         <activity

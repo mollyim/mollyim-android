@@ -38,6 +38,7 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
@@ -112,23 +113,23 @@ public class SubmitDebugLogRepository {
     this.executor = SignalExecutors.SERIAL;
   }
 
-  public void getPrefixLogLines(@NonNull Callback<List<LogLine>> callback) {
-    executor.execute(() -> callback.onResult(getPrefixLogLinesInternal()));
+  public void getPrefixLogLines(@NonNull Consumer<List<LogLine>> callback) {
+    executor.execute(() -> callback.accept(getPrefixLogLinesInternal()));
   }
 
-  public void buildAndSubmitLog(@NonNull Callback<Optional<String>> callback) {
+  public void buildAndSubmitLog(@NonNull Consumer<Optional<String>> callback) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       Log.blockUntilAllWritesFinished();
       LogDatabase.getInstance(context).logs().trimToSize();
-      callback.onResult(submitLogInternal(System.currentTimeMillis(), getPrefixLogLinesInternal(), new byte[0]));
+      callback.accept(submitLogInternal(System.currentTimeMillis(), getPrefixLogLinesInternal(), new byte[0]));
     });
   }
 
-  public void submitLogFromReader(DebugLogsViewer.LogReader logReader, @Nullable byte[] trace, Callback<Optional<String>> callback) {
-    SignalExecutors.UNBOUNDED.execute(() -> callback.onResult(submitLogFromReaderInternal(logReader, trace)));
+  public void submitLogFromReader(DebugLogsViewer.LogReader logReader, @Nullable byte[] trace, Consumer<Optional<String>> callback) {
+    SignalExecutors.UNBOUNDED.execute(() -> callback.accept(submitLogFromReaderInternal(logReader, trace)));
   }
 
-  public void writeLogToDisk(@NonNull Uri uri, long untilTime, Callback<Boolean> callback) {
+  public void writeLogToDisk(@NonNull Uri uri, long untilTime, Consumer<Boolean> callback) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try (ZipOutputStream outputStream = new ZipOutputStream(context.getContentResolver().openOutputStream(uri))) {
         StringBuilder prefixLines = linesToStringBuilder(getPrefixLogLinesInternal(), null);
@@ -144,7 +145,7 @@ public class SubmitDebugLogRepository {
         } catch (IllegalStateException e) {
           if (!KeyCachingService.isLocked()) {
             Log.e(TAG, "Failed to read row!", e);
-            callback.onResult(false);
+            callback.accept(false);
             return;
           }
         }
@@ -154,9 +155,9 @@ public class SubmitDebugLogRepository {
         outputStream.putNextEntry(new ZipEntry("signal.trace"));
         outputStream.closeEntry();
 
-        callback.onResult(true);
+        callback.accept(true);
       } catch (IOException e) {
-        callback.onResult(false);
+        callback.accept(false);
       }
     });
   }
@@ -445,9 +446,5 @@ public class SubmitDebugLogRepository {
     }
 
     return stringBuilder;
-  }
-
-  public interface Callback<E> {
-    void onResult(E result);
   }
 }

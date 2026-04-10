@@ -367,11 +367,10 @@ public class EncryptedPreferences implements SharedPreferences {
       }
     }
     Object value = null;
-    MasterCipher masterCipher = getCipher();
     synchronized (cache) {
       String encryptedValue = sharedPreferences.getString(key, null);
       if (encryptedValue != null) {
-        byte[] bytes = decrypt(key, encryptedValue, masterCipher);
+        byte[] bytes = decrypt(key, encryptedValue, getCipher());
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         buffer.position(0);
         int typeId = buffer.getInt();

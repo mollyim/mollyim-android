@@ -99,7 +99,7 @@
     <!-- Title text for the archive restore selection screen -->
     <string name="ArchiveRestoreSelectionScreen__restore_or_transfer_account">Vratite ili prenesite račun</string>
     <!-- Subtitle text for the archive restore selection screen -->
-    <string name="ArchiveRestoreSelectionScreen__subheading">Choose how you’d like to restore your message history and account data.</string>
+    <string name="ArchiveRestoreSelectionScreen__subheading">Odaberite kako želite vratiti historiju poruka i podatke računa.</string>
     <!-- Title for the Signal Backups option card -->
     <string name="ArchiveRestoreSelectionScreen__from_signal_backups">Iz sigurnosnih kopija Signala</string>
     <!-- Subtitle for the Signal Backups option card -->
@@ -111,13 +111,13 @@
     <!-- Title for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">Nastavite bez prijenosa</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
-    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Messages &amp; media won’t be transferred</string>
+    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Poruke i medijski sadržaj se neće prenijeti</string>
     <!-- Title for the backup folder option card (V2 format) -->
     <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Iz foldera rezervne kopije</string>
     <!-- Title for the backup file option card (V1 legacy format) -->
     <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">Iz datoteke rezervne kopije</string>
     <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Choose a backup you\'ve saved</string>
+    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Odaberite rezervnu kopiju koju ste sačuvali</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">Sa starog telefona</string>
     <!-- Subtitle for the device transfer option card -->
@@ -130,4 +130,85 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_warning">Ako sada preskočite vraćanje, nećete moći vratiti podatke kasnije. Ako ponovo omogućite sigurnosne kopije nakon preskakanja vraćanja, vaša trenutna sigurnosna kopija bit će zamijenjena vašom novom istorijom poruka.</string>
     <!-- Confirm button text for the skip restore dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_confirm_button">Preskoči obnovu</string>
+
+    <!-- LocalBackupRestoreScreen -->
+    <!-- Title for the local backup restore screen -->
+    <string name="LocalBackupRestoreScreen__restore_on_device_backup">Vratite sigurnosnu kopiju na uređaju</string>
+    <!-- Description on the folder selection screen -->
+    <string name="LocalBackupRestoreScreen__select_folder_description">Vratite svoje poruke iz sigurnosne kopije koju ste sačuvali na svom uređaju. Ako ih ne vratite sada, nećete ih moći vratiti kasnije.</string>
+    <!-- Title for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_backup_folder">Odaberite folder za sigurnosnu kopiju</string>
+    <!-- Subtitle for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_folder_subtitle">Odaberite folder na uređaju u kojem se nalazi sigurnosna kopija</string>
+    <!-- Text shown while scanning for backups -->
+    <string name="LocalBackupRestoreScreen__scanning_folder">Looking for backups…</string>
+    <!-- Description shown when a backup is found -->
+    <string name="LocalBackupRestoreScreen__backup_found_description">Vratite poruke iz foldera sigurnosnih kopija koji ste sačuvali na uređaju. Ako ih ne vratite sada, nećete ih moći vratiti kasnije.</string>
+    <!-- Title for the latest backup card -->
+    <string name="LocalBackupRestoreScreen__your_latest_backup">Vaša najnovija sigurnosna kopija:</string>
+    <!-- Label for a legacy backup type -->
+    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
+    <!-- Restore backup button text -->
+    <string name="LocalBackupRestoreScreen__restore_backup">Vrati podatke</string>
+    <!-- Link to choose an earlier backup -->
+    <string name="LocalBackupRestoreScreen__choose_earlier_backup">Odaberite raniju sigurnosnu kopiju</string>
+    <!-- Title for the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choose_a_backup_to_restore">Odaberite sigurnosnu kopiju za vraćanje</string>
+    <!-- Warning text in the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choosing_an_older_backup_warning">Ako odaberete stariju sigurnosnu kopiju, možete izgubiti poruke ili medije.</string>
+    <!-- Title when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found">No backup found</string>
+    <!-- Description when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found_description">No Signal backup was found in the selected folder. Please try a different folder.</string>
+    <!-- Button to try a different folder -->
+    <string name="LocalBackupRestoreScreen__try_different_folder">Try a different folder</string>
+    <!-- Title for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_backup_passphrase">Unesite lozinku za rezervne kopije</string>
+    <!-- Description for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Your local backup passphrase is a 30-digit code required to recover your account and data.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="LocalBackupRestoreScreen__recovery_key">Ključ za oporavak</string>
+    <!-- Error text when passphrase is too long -->
+    <string name="LocalBackupRestoreScreen__too_long">Predugo (%1$d/%2$d)</string>
+    <!-- Link for users who don\'t have their passphrase -->
+    <string name="LocalBackupRestoreScreen__no_passphrase">No passphrase?</string>
+    <!-- Next button text -->
+    <string name="LocalBackupRestoreScreen__next">Dalje</string>
+    <!-- EnterAepScreen -->
+    <!-- Title for recovery key entry screen -->
+    <string name="EnterAepScreen__enter_your_recovery_key">Unesite svoj ključ za oporavak</string>
+    <!-- Description for recovery key entry screen -->
+    <string name="EnterAepScreen__your_recovery_key_is_a_64_character_code">Vaš ključ za oporavak je kod od 64 znaka potreban za oporavak vašeg računa i podataka.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="EnterAepScreen__recovery_key">Ključ za oporavak</string>
+    <!-- Link for users who don\'t have their recovery key -->
+    <string name="EnterAepScreen__no_recovery_key">Nema ključa za oporavak?</string>
+    <!-- Error text when key is too long -->
+    <string name="EnterAepScreen__too_long">Predugo (%1$d/%2$d)</string>
+    <!-- Error text when key is invalid -->
+    <string name="EnterAepScreen__invalid_recovery_key">Nevažeći ključ za oporavak</string>
+    <!-- Text shown while preparing the restore -->
+    <string name="LocalBackupRestoreScreen__preparing_restore">Preparing restore…</string>
+    <!-- Title shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_backup">Vraćanje sigurnosne kopije</string>
+    <!-- Description shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_description">Please wait while your messages and data are being restored.</string>
+    <!-- Title shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete">Vraćanje podataka je završeno</string>
+    <!-- Description shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
+    <!-- Continue button text after restore is complete -->
+    <string name="LocalBackupRestoreScreen__continue_button">Nastavi</string>
+    <!-- Title shown when restore fails -->
+    <string name="LocalBackupRestoreScreen__restore_failed">Vraćanje nije uspjelo</string>
+    <!-- Description shown when restore fails with an unknown error -->
+    <string name="LocalBackupRestoreScreen__restore_failed_description">Došlo je do greške prilikom vraćanja vaše sigurnosne kopije. Molimo pokušajte ponovno.</string>
+    <!-- Button to retry restore after failure -->
+    <string name="LocalBackupRestoreScreen__try_again">Pokušajte ponovo</string>
+    <!-- Button to link an existing Signal account to this device -->
+    <string name="WelcomeScreen__link_your_account">Link your account</string>
+    <!-- Prompt shown to users who don\'t have a Signal account yet -->
+    <string name="WelcomeScreen__not_on_signal_yet">Not on Signal yet?</string>
+    <!-- Button to create a new Signal account -->
+    <string name="WelcomeScreen__create_account">Create account</string>
 </resources>

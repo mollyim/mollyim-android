@@ -17,7 +17,9 @@
 package org.thoughtcrime.securesms.conversationlist;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -35,11 +37,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
 import androidx.appcompat.content.res.AppCompatResources;
 import org.signal.core.ui.compose.Snackbars;
 import androidx.compose.ui.platform.ComposeView;
@@ -66,7 +69,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.Stopwatch;
-import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.concurrent.SimpleTask;
@@ -106,12 +108,14 @@ import org.thoughtcrime.securesms.components.snackbars.SnackbarState;
 import org.thoughtcrime.securesms.components.spoiler.SpoilerAnnotation;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView;
+import org.thoughtcrime.securesms.contacts.ContactSelectionDisplayMode;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchAdapter;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchConfiguration;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchData;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchMediator;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchState;
+import org.thoughtcrime.securesms.contacts.selection.ContactSelectionArguments;
 import org.thoughtcrime.securesms.conversation.ConversationUpdateTick;
 import org.thoughtcrime.securesms.conversationlist.chatfilter.ConversationFilterRequest;
 import org.thoughtcrime.securesms.conversationlist.chatfilter.ConversationFilterSource;
@@ -140,6 +144,8 @@ import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.search.MessageResult;
+import org.thoughtcrime.securesms.search.SearchFilter;
+import org.thoughtcrime.securesms.search.SearchFilterBottomSheet;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
@@ -154,7 +160,6 @@ import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter;
 import org.thoughtcrime.securesms.verify.SelfVerificationFailureSheet;
-import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.signal.core.ui.WindowSizeClassExtensionsKt;
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
 
@@ -223,6 +228,13 @@ public class ConversationListFragment extends MainFragment implements Conversati
   private   MainToolbarViewModel                  mainToolbarViewModel;
   private   ChatListBackHandler                   chatListBackHandler;
 
+  private   SearchFilter                   activeSearchFilter = SearchFilter.EMPTY;
+  private   ActivityResultLauncher<Intent> searchFilterContactPickerLauncher;
+
+  private static final String EXTRA_FILTER_START_DATE = "filter_start_date";
+  private static final String EXTRA_FILTER_END_DATE   = "filter_end_date";
+  private static final String EXTRA_FILTER_AUTHOR_ID  = "filter_author_id";
+
   private BannerManager bannerManager;
   private SignalProgressDialog progressDialog;
 
@@ -249,6 +261,33 @@ public class ConversationListFragment extends MainFragment implements Conversati
     startupStopwatch        = new Stopwatch("startup");
     mainToolbarViewModel    = new ViewModelProvider(requireActivity()).get(MainToolbarViewModel.class);
     mainNavigationViewModel = new ViewModelProvider(requireActivity(), new MainNavigationViewModel.Factory()).get(MainNavigationViewModel.class);
+
+    searchFilterContactPickerLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+          Intent launchIntent = result.getData();
+          long   startDate    = launchIntent != null ? launchIntent.getLongExtra(EXTRA_FILTER_START_DATE, -1) : -1;
+          long   endDate      = launchIntent != null ? launchIntent.getLongExtra(EXTRA_FILTER_END_DATE, -1) : -1;
+          String authorStr    = launchIntent != null ? launchIntent.getStringExtra(EXTRA_FILTER_AUTHOR_ID) : null;
+
+          RecipientId selectedAuthor = authorStr != null ? RecipientId.from(Long.parseLong(authorStr)) : null;
+          if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            List<RecipientId> recipients = result.getData().getParcelableArrayListExtra(
+                org.thoughtcrime.securesms.search.SingleContactSelectionActivity.KEY_SELECTED_RECIPIENT
+            );
+            if (recipients != null && !recipients.isEmpty()) {
+              selectedAuthor = recipients.get(0);
+            }
+          }
+
+          SearchFilterBottomSheet.show(
+              getParentFragmentManager(),
+              startDate != -1 ? startDate : null,
+              endDate != -1 ? endDate : null,
+              selectedAuthor
+          );
+        }
+    );
   }
 
   @Override
@@ -309,6 +348,8 @@ public class ConversationListFragment extends MainFragment implements Conversati
     );
 
     searchAdapter = contactSearchMediator.getAdapter();
+
+    initializeSearchFilterListener();
 
     if (WindowSizeClassExtensionsKt.isHeightCompact(getWindowSizeClass(getResources()))) {
       ViewUtil.setBottomMargin(bottomActionBar, ViewUtil.getNavigationBarHeight(bottomActionBar));
@@ -524,6 +565,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
         boolean                   unreadOnly                = conversationFilterRequest != null && conversationFilterRequest.getFilter() == ConversationFilter.UNREAD;
 
         builder.setQuery(state.getQuery());
+        builder.setSearchFilter(state.getSearchFilter());
         builder.addSection(new ContactSearchConfiguration.Section.Chats(
             unreadOnly,
             true,
@@ -665,6 +707,46 @@ public class ConversationListFragment extends MainFragment implements Conversati
             mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS);
           }
         })
+    );
+  }
+
+  private void initializeSearchFilterListener() {
+    getParentFragmentManager().setFragmentResultListener(
+        SearchFilterBottomSheet.REQUEST_KEY,
+        getViewLifecycleOwner(),
+        (requestKey, result) -> {
+          String action = result.getString(SearchFilterBottomSheet.RESULT_ACTION, "");
+
+          switch (action) {
+            case SearchFilterBottomSheet.ACTION_APPLY:
+              long   startDate   = result.getLong(SearchFilterBottomSheet.RESULT_START_DATE, -1);
+              long   endDate     = result.getLong(SearchFilterBottomSheet.RESULT_END_DATE, -1);
+              String authorIdStr = result.getString(SearchFilterBottomSheet.RESULT_AUTHOR_ID);
+
+              activeSearchFilter = new SearchFilter(
+                  startDate != -1 ? startDate : null,
+                  endDate != -1 ? endDate : null,
+                  authorIdStr != null ? RecipientId.from(Long.parseLong(authorIdStr)) : null
+              );
+              mainToolbarViewModel.setHasActiveSearchFilter(!activeSearchFilter.isEmpty());
+              contactSearchMediator.onSearchFilterChanged(activeSearchFilter);
+              break;
+
+            case SearchFilterBottomSheet.ACTION_CLEAR:
+              activeSearchFilter = SearchFilter.EMPTY;
+              mainToolbarViewModel.setHasActiveSearchFilter(false);
+              contactSearchMediator.onSearchFilterChanged(activeSearchFilter);
+              break;
+
+            case SearchFilterBottomSheet.ACTION_SELECT_AUTHOR:
+              searchFilterContactPickerLauncher.launch(new Intent(requireContext(), org.thoughtcrime.securesms.search.SingleContactSelectionActivity.class)
+                  .putExtra(ContactSelectionArguments.DISPLAY_MODE, ContactSelectionDisplayMode.FLAG_PUSH | ContactSelectionDisplayMode.FLAG_ACTIVE_GROUPS)
+                  .putExtra(EXTRA_FILTER_START_DATE, result.getLong(SearchFilterBottomSheet.RESULT_START_DATE, -1))
+                  .putExtra(EXTRA_FILTER_END_DATE, result.getLong(SearchFilterBottomSheet.RESULT_END_DATE, -1))
+                  .putExtra(EXTRA_FILTER_AUTHOR_ID, result.getString(SearchFilterBottomSheet.RESULT_AUTHOR_ID)));
+              break;
+          }
+        }
     );
   }
 
@@ -1177,15 +1259,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
   }
 
   private void handleCreateConversation(long threadId, Recipient recipient, int distributionType) {
-    SimpleTask.run(getLifecycle(), () -> {
-      ChatWallpaper wallpaper = recipient.resolve().getWallpaper();
-      if (wallpaper != null && !wallpaper.prefetch(requireContext(), 250)) {
-        Log.w(TAG, "Failed to prefetch wallpaper.");
-      }
-      return null;
-    }, (nothing) -> {
-      getNavigator().goToConversation(recipient.getId(), threadId, distributionType, -1);
-    });
+    getNavigator().goToConversation(recipient.getId(), threadId, distributionType, -1);
   }
 
   private void handleOpenIncognito(@NonNull Conversation conversation) {
@@ -1193,15 +1267,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
     Recipient recipient        = conversation.getThreadRecord().getRecipient();
     int       distributionType = conversation.getThreadRecord().getDistributionType();
 
-    SimpleTask.run(getLifecycle(), () -> {
-      ChatWallpaper wallpaper = recipient.resolve().getWallpaper();
-      if (wallpaper != null && !wallpaper.prefetch(requireContext(), 250)) {
-        Log.w(TAG, "Failed to prefetch wallpaper.");
-      }
-      return null;
-    }, (nothing) -> {
-      getNavigator().goToConversation(recipient.getId(), threadId, distributionType, -1, true);
-    });
+    getNavigator().goToConversation(recipient.getId(), threadId, distributionType, -1, true);
   }
 
   private void startActionModeIfNotActive() {
@@ -1292,7 +1358,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
       }
 
       if (SignalStore.labs().getIncognito()) {
-        items.add(new ActionItem(R.drawable.symbol_view_once_24, "Open Incognito", () -> handleOpenIncognito(conversation)));
+        items.add(new ActionItem(R.drawable.symbol_view_once_24, "Open Incognito (Labs)", () -> handleOpenIncognito(conversation)));
       }
     }
 
@@ -1610,6 +1676,15 @@ public class ConversationListFragment extends MainFragment implements Conversati
     startActivity(AppSettingsActivity.chatFolders(requireContext()));
   }
 
+  public void showSearchFilterBottomSheet() {
+    SearchFilterBottomSheet.show(
+        getParentFragmentManager(),
+        activeSearchFilter.getStartDate(),
+        activeSearchFilter.getEndDate(),
+        activeSearchFilter.getAuthor()
+    );
+  }
+
   private void onSearchOpen() {
     chatListBackHandler.setEnabled(true);
   }
@@ -1618,6 +1693,10 @@ public class ConversationListFragment extends MainFragment implements Conversati
     if (list != null) {
       setAdapter(defaultAdapter);
     }
+
+    activeSearchFilter = SearchFilter.EMPTY;
+    mainToolbarViewModel.setHasActiveSearchFilter(false);
+    contactSearchMediator.onSearchFilterChanged(activeSearchFilter);
 
     chatListBackHandler.setEnabled(false);
   }

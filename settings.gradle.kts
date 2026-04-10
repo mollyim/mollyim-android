@@ -105,6 +105,8 @@ include(":lib:video")
 include(":lib:image-editor")
 include(":lib:debuglogs-viewer")
 include(":lib:blurhash")
+include(":lib:apng")
+include(":lib:archive")
 
 // Feature modules
 include(":feature:registration")

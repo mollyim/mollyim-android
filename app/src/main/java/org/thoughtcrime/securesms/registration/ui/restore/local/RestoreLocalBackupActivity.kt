@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -39,7 +40,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
@@ -51,6 +57,8 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.contactsupport.ContactSupportCallbacks
 import org.thoughtcrime.securesms.components.contactsupport.ContactSupportDialog
 import org.thoughtcrime.securesms.components.contactsupport.ContactSupportViewModel
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
+import org.thoughtcrime.securesms.registration.ui.restore.RemoteRestoreWakeLock
 import org.thoughtcrime.securesms.restore.RestoreActivity
 import kotlin.math.max
 
@@ -77,8 +85,31 @@ class RestoreLocalBackupActivity : BaseActivity() {
     intent.getBooleanExtra(KEY_FINISH, false)
   }
 
+  private lateinit var wakeLock: RemoteRestoreWakeLock
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    wakeLock = RemoteRestoreWakeLock(this, "localRestore")
+
+    lifecycleScope.launch {
+      lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+        viewModel.state
+          .map { it.restorePhase }
+          .collect { phase ->
+            when (phase) {
+              RestorePhase.RESTORING, RestorePhase.FINALIZING -> {
+                wakeLock.acquire()
+                window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+              }
+              else -> {
+                wakeLock.release()
+                window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+              }
+            }
+          }
+      }
+    }
 
     setContent {
       val state by viewModel.state.collectAsStateWithLifecycle()
@@ -86,9 +117,11 @@ class RestoreLocalBackupActivity : BaseActivity() {
       LaunchedEffect(state.restorePhase) {
         when (state.restorePhase) {
           RestorePhase.COMPLETE -> {
-            startActivity(MainActivity.clearTop(this@RestoreLocalBackupActivity))
-            if (finishActivity) {
-              finishAffinity()
+            if (state.dialog == null) {
+              startActivity(MainActivity.clearTop(this@RestoreLocalBackupActivity))
+              if (finishActivity) {
+                finishAffinity()
+              }
             }
           }
 
@@ -107,6 +140,51 @@ class RestoreLocalBackupActivity : BaseActivity() {
         RestoreLocalBackupScreen(
           state = state,
           onContactSupportClick = contactSupportViewModel::showContactSupport,
+          onConfirmBackupLocation = {
+            viewModel.enableLocalBackupsAndDismissDialog()
+            startActivity(MainActivity.clearTop(this@RestoreLocalBackupActivity))
+            if (finishActivity) {
+              finishAffinity()
+            }
+          },
+          onDisableBackups = {
+            viewModel.changeBackupLocation()
+            startActivity(MainActivity.clearTop(this@RestoreLocalBackupActivity))
+            if (finishActivity) {
+              finishAffinity()
+            }
+          },
+          onChangeBackupLocation = {
+            viewModel.changeBackupLocation()
+            startActivities(
+              arrayOf(
+                MainActivity.clearTop(this@RestoreLocalBackupActivity),
+                AppSettingsActivity.backups(this@RestoreLocalBackupActivity)
+              )
+            )
+            if (finishActivity) {
+              finishAffinity()
+            }
+          },
+          onLocalBackupsDisabledDialogConfirm = {
+            viewModel.dismissDialog()
+            startActivities(
+              arrayOf(
+                MainActivity.clearTop(this@RestoreLocalBackupActivity),
+                AppSettingsActivity.backups(this@RestoreLocalBackupActivity)
+              )
+            )
+            if (finishActivity) {
+              finishAffinity()
+            }
+          },
+          onLocalBackupsDisabledDialogDeny = {
+            viewModel.dismissDialog()
+            startActivity(MainActivity.clearTop(this@RestoreLocalBackupActivity))
+            if (finishActivity) {
+              finishAffinity()
+            }
+          },
           onFailureDialogConfirm = {
             if (finishActivity) {
               viewModel.resetRestoreState()
@@ -128,6 +206,11 @@ class RestoreLocalBackupActivity : BaseActivity() {
 private fun RestoreLocalBackupScreen(
   state: RestoreLocalBackupScreenState,
   onFailureDialogConfirm: () -> Unit,
+  onConfirmBackupLocation: () -> Unit,
+  onChangeBackupLocation: () -> Unit,
+  onDisableBackups: () -> Unit,
+  onLocalBackupsDisabledDialogConfirm: () -> Unit,
+  onLocalBackupsDisabledDialogDeny: () -> Unit,
   onContactSupportClick: () -> Unit,
   contactSupportState: ContactSupportViewModel.ContactSupportState<Unit>,
   contactSupportCallbacks: ContactSupportCallbacks
@@ -243,6 +326,32 @@ private fun RestoreLocalBackupScreen(
         )
       }
     }
+
+    when (state.dialog) {
+      RestoreLocalBackupActivityDialog.CONFIRM_BACKUP_LOCATION -> {
+        Dialogs.AdvancedAlertDialog(
+          title = stringResource(R.string.RestoreLocalBackupActivity__restore_complete),
+          body = stringResource(R.string.RestoreLocalBackupActivity__choose_a_folder_for_backups),
+          positive = stringResource(R.string.RestoreLocalBackupActivity__use_current_folder),
+          neutral = stringResource(R.string.RestoreLocalBackupActivity__choose_new_folder),
+          negative = stringResource(R.string.RestoreLocalBackupActivity__disable_backups),
+          onPositive = onConfirmBackupLocation,
+          onNeutral = onChangeBackupLocation,
+          onNegative = onDisableBackups
+        )
+      }
+      RestoreLocalBackupActivityDialog.LOCAL_BACKUPS_DISABLED -> {
+        Dialogs.SimpleAlertDialog(
+          title = stringResource(R.string.RestoreLocalBackupActivity__turn_on_on_device_backups),
+          body = stringResource(R.string.RestoreLocalBackupActivity__to_continue_using_on_device_backups),
+          confirm = stringResource(R.string.RestoreLocalBackupActivity__turn_on_now),
+          dismiss = stringResource(R.string.RestoreLocalBackupActivity__not_now),
+          onConfirm = onLocalBackupsDisabledDialogConfirm,
+          onDeny = onLocalBackupsDisabledDialogDeny
+        )
+      }
+      null -> Unit
+    }
   }
 }
 
@@ -253,6 +362,11 @@ private fun RestoreLocalBackupScreenPreview() {
     RestoreLocalBackupScreen(
       state = RestoreLocalBackupScreenState(),
       onFailureDialogConfirm = {},
+      onConfirmBackupLocation = {},
+      onChangeBackupLocation = {},
+      onDisableBackups = {},
+      onLocalBackupsDisabledDialogConfirm = {},
+      onLocalBackupsDisabledDialogDeny = {},
       onContactSupportClick = {},
       contactSupportState = ContactSupportViewModel.ContactSupportState(),
       contactSupportCallbacks = ContactSupportCallbacks.Empty

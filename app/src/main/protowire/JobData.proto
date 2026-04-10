@@ -7,7 +7,7 @@ import "ResumableUploads.proto";
 option java_package        = "org.thoughtcrime.securesms.jobs.protos";
 option java_multiple_files = true;
 
-import SignalService.proto;
+import "SignalService.proto";
 
 message CallSyncEventJobRecord {
 
@@ -115,6 +115,14 @@ message RestoreLocalAttachmentJobData {
   uint64 messageId = 2;
   string fileUri = 3;
   uint64 fileSize = 4;
+}
+
+message BackfillCollapsedMessageJobData {
+  int64 lastDateReceived = 1;
+}
+
+message LocalBackupRestoreMediaJobData {
+  string backupDirectoryUri = 1;
 }
 
 message BackfillDigestJobData {

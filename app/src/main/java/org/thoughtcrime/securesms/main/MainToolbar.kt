@@ -22,6 +22,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -104,6 +105,8 @@ interface MainToolbarCallback {
   fun onCloseArchiveClick()
   fun onCloseActionModeClick()
   fun onSearchQueryUpdated(query: String)
+  fun onSearchFilterClick()
+  fun onStarredMessagesClick()
   fun onNotificationProfileTooltipDismissed()
 
   object Empty : MainToolbarCallback {
@@ -125,6 +128,8 @@ interface MainToolbarCallback {
     override fun onCloseArchiveClick() = Unit
     override fun onCloseActionModeClick() = Unit
     override fun onSearchQueryUpdated(query: String) = Unit
+    override fun onSearchFilterClick() = Unit
+    override fun onStarredMessagesClick() = Unit
     override fun onNotificationProfileTooltipDismissed() = Unit
   }
 }
@@ -162,6 +167,7 @@ data class MainToolbarState(
   val proxyState: ProxyState = ProxyState.NONE,
   @StringRes val searchHint: Int = R.string.SearchToolbar_search,
   val searchQuery: String = "",
+  val hasActiveSearchFilter: Boolean = false,
   val actionModeCount: Int = 0
 ) {
   enum class ProxyState(@DrawableRes val icon: Int) {
@@ -262,21 +268,41 @@ private fun SearchToolbar(
           )
         }
       },
-      trailingIcon = if (state.searchQuery.isNotEmpty()) {
-        {
-          IconButtons.IconButton(
-            onClick = {
-              callback.onSearchQueryUpdated("")
+      trailingIcon = {
+        Row {
+          if (SignalStore.labs.betterSearch) {
+            Box(contentAlignment = Alignment.TopEnd) {
+              IconButtons.IconButton(
+                onClick = callback::onSearchFilterClick
+              ) {
+                Icon(
+                  imageVector = ImageVector.vectorResource(R.drawable.symbol_filter_24),
+                  contentDescription = stringResource(R.string.MainToolbar__search_filter_content_description)
+                )
+              }
+              if (state.hasActiveSearchFilter) {
+                Box(
+                  modifier = Modifier
+                    .padding(top = 8.dp, end = 8.dp)
+                    .size(8.dp)
+                    .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                )
+              }
             }
-          ) {
-            Icon(
-              imageVector = ImageVector.vectorResource(R.drawable.ic_x_20),
-              contentDescription = stringResource(R.string.MainToolbar__clear_search_content_description)
-            )
+          }
+          if (state.searchQuery.isNotEmpty()) {
+            IconButtons.IconButton(
+              onClick = {
+                callback.onSearchQueryUpdated("")
+              }
+            ) {
+              Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_x_20),
+                contentDescription = stringResource(R.string.MainToolbar__clear_search_content_description)
+              )
+            }
           }
         }
-      } else {
-        null
       },
       contentPadding = PaddingValues(0.dp),
       colors = TextFieldDefaults.colors(
@@ -680,6 +706,20 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
       },
       onClick = {
         callback.onClearUnreadChatsFilterClick()
+        onOptionSelected()
+      }
+    )
+  }
+
+  if (SignalStore.labs.starredMessages) {
+    DropdownMenus.Item(
+      text = {
+        Text(
+          text = stringResource(R.string.text_secure_normal__starred_messages)
+        )
+      },
+      onClick = {
+        callback.onStarredMessagesClick()
         onOptionSelected()
       }
     )

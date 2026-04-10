@@ -808,7 +808,7 @@ object RemoteConfig {
 
   /** A comma-separated list of manufacturers that should *not* use CameraX mixed mode.  */
   val cameraXMixedModelBlocklist: String by remoteString(
-    key = "android.cameraXMixedModelBlockList.2",
+    key = "android.cameraXMixedModelBlockList.3",
     defaultValue = "",
     hotSwappable = false
   )
@@ -818,15 +818,6 @@ object RemoteConfig {
     key = "android.stories.autoDownloadMaximum",
     defaultValue = 2,
     hotSwappable = false
-  )
-
-  /** Whether client supports sending a request to another to activate payments  */
-  @JvmStatic
-  @get:JvmName("paymentsRequestActivateFlow")
-  val paymentsRequestActivateFlow: Boolean by remoteBoolean(
-    key = "android.payments.requestActivateFlow",
-    defaultValue = false,
-    hotSwappable = true
   )
 
   /** Serialized list of regions in which Google Pay is disabled for donations */
@@ -1182,14 +1173,6 @@ object RemoteConfig {
   )
 
   @JvmStatic
-  @get:JvmName("backupsMegaphone")
-  val backupsMegaphone: Boolean by remoteBoolean(
-    key = "android.backupsMegaphone.3",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  @JvmStatic
   @get:JvmName("pinLimit")
   val pinLimit: Int by remoteInt(
     key = "global.pinnedMessageLimit",
@@ -1259,5 +1242,61 @@ object RemoteConfig {
     defaultValue = 0,
     hotSwappable = true
   )
+
+  /**
+   * Whether or not to allow admins to terminate groups.
+   */
+  @JvmStatic
+  @get:JvmName("groupTerminateSend")
+  val groupTerminateSend: Boolean by remoteBoolean(
+    key = "android.groupTerminateSend",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  /**
+   * Whether to collapse update events
+   */
+  @JvmStatic
+  @get:JvmName("collapseEvents")
+  val collapseEvents: Boolean by remoteBoolean(
+    key = "android.collapseEvents.2",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  /**
+   * Whether to use the new custom APNG renderer instead of the existing third-party library.
+   */
+  @JvmStatic
+  @get:JvmName("newApngRenderer")
+  val newApngRenderer: Boolean by remoteBoolean(
+    key = "android.newApngRenderer",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  /**
+   * Whether the backups upgrade megaphone can be displayed
+   */
+  @JvmStatic
+  @get:JvmName("upgradeBackupsMegaphone")
+  val upgradeBackupsMegaphone: Boolean by remoteBoolean(
+    key = "android.upgradeBackupsMegaphone",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  /**
+   * Whether local plaintext export is available
+   */
+  @JvmStatic
+  @get:JvmName("localPlaintextExport")
+  val localPlaintextExport: Boolean by remoteBoolean(
+    key = "android.localPlaintextExport.3",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
   // endregion
 }

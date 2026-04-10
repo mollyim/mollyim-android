@@ -14,6 +14,8 @@ import org.thoughtcrime.securesms.conversation.mutiselect.Multiselect;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectCollection;
 import org.thoughtcrime.securesms.conversation.v2.computed.FormattedDate;
 import org.thoughtcrime.securesms.database.BodyRangeUtil;
+import org.thoughtcrime.securesms.database.CollapsedState;
+import org.thoughtcrime.securesms.database.CollapsibleEvents;
 import org.thoughtcrime.securesms.database.MentionUtil;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -54,6 +56,8 @@ public class ConversationMessage {
   @Nullable private final MemberLabel            memberLabel;
   @Nullable private final MemberLabel            quoteMemberLabel;
   @Nullable private final Recipient              deletedByRecipient;
+            private final int                    collapsedSize;
+            private final long                   collapsedExpirationInMs;
 
   private ConversationMessage(@NonNull MessageRecord messageRecord,
                               @Nullable CharSequence body,
@@ -65,18 +69,22 @@ public class ConversationMessage {
                               @NonNull ComputedProperties computedProperties,
                               @Nullable MemberLabel memberLabel,
                               @Nullable MemberLabel quoteMemberLabel,
-                              @Nullable Recipient deletedByRecipient)
+                              @Nullable Recipient deletedByRecipient,
+                              int collapsedSize,
+                              long collapsedExpirationInMs)
   {
-    this.messageRecord      = messageRecord;
-    this.hasBeenQuoted      = hasBeenQuoted;
-    this.mentions           = mentions != null ? mentions : Collections.emptyList();
-    this.styleResult        = styleResult != null ? styleResult : MessageStyler.Result.none();
-    this.threadRecipient    = threadRecipient;
-    this.originalMessage    = originalMessage;
-    this.computedProperties = computedProperties;
-    this.memberLabel        = memberLabel;
-    this.quoteMemberLabel   = quoteMemberLabel;
-    this.deletedByRecipient = deletedByRecipient;
+    this.messageRecord           = messageRecord;
+    this.hasBeenQuoted           = hasBeenQuoted;
+    this.mentions                = mentions != null ? mentions : Collections.emptyList();
+    this.styleResult             = styleResult != null ? styleResult : MessageStyler.Result.none();
+    this.threadRecipient         = threadRecipient;
+    this.originalMessage         = originalMessage;
+    this.computedProperties      = computedProperties;
+    this.memberLabel             = memberLabel;
+    this.quoteMemberLabel        = quoteMemberLabel;
+    this.deletedByRecipient      = deletedByRecipient;
+    this.collapsedSize           = collapsedSize;
+    this.collapsedExpirationInMs = collapsedExpirationInMs;
 
     if (body != null) {
       this.body = SpannableString.valueOf(body);
@@ -105,6 +113,10 @@ public class ConversationMessage {
     return multiselectCollection;
   }
 
+  public long getCollapsedExpirationInMs() {
+    return collapsedExpirationInMs;
+  }
+
   public boolean hasBeenQuoted() {
     return hasBeenQuoted;
   }
@@ -123,6 +135,10 @@ public class ConversationMessage {
 
   public @Nullable Recipient getDeletedByRecipient() {
     return deletedByRecipient;
+  }
+
+  public int getCollapsedSize() {
+    return collapsedSize;
   }
 
   @Override
@@ -187,6 +203,14 @@ public class ConversationMessage {
 
   @NonNull public Recipient getThreadRecipient() {
     return threadRecipient;
+  }
+
+  public boolean isActiveCollapsibleHead() {
+    return collapsedSize > 1 && CollapsedState.isHead(messageRecord.getCollapsedState());
+  }
+
+  public boolean isActiveCollapsedHead() {
+    return collapsedSize > 1 && messageRecord.getCollapsedState() == CollapsedState.HEAD_COLLAPSED;
   }
 
   public static @NonNull FormattedDate getFormattedDate(@NonNull Context context, @NonNull MessageRecord messageRecord) {
@@ -282,6 +306,15 @@ public class ConversationMessage {
       MemberLabel   quoteMemberLabel = getQuoteMemberLabel(messageRecord, threadRecipient, prefetchedLabels);
       Recipient     deletedBy        = messageRecord.getDeletedBy() != null ? Recipient.resolved(messageRecord.getDeletedBy()) : null;
 
+      int collapsedSize = 0;
+      long collapsedExpirationInMs = 0;
+      if (CollapsedState.isHead(messageRecord.getCollapsedState())) {
+        collapsedSize = SignalDatabase.messages().getCollapsedCount(messageRecord.getId());
+        if (CollapsibleEvents.getCollapsibleType(messageRecord.getType(), messageRecord.getMessageExtras()) == CollapsibleEvents.CollapsibleType.DISAPPEARING_TIMER && collapsedSize > 1) {
+          collapsedExpirationInMs = SignalDatabase.messages().getDisappearingTimerStateForCollapsedSet(messageRecord.getId());
+        }
+      }
+
       return new ConversationMessage(messageRecord,
                                      styledAndMentionBody != null ? styledAndMentionBody : mentionsUpdate != null ? mentionsUpdate.getBody() : body,
                                      mentionsUpdate != null ? mentionsUpdate.getMentions() : null,
@@ -292,7 +325,9 @@ public class ConversationMessage {
                                      new ComputedProperties(formattedDate),
                                      memberLabel,
                                      quoteMemberLabel,
-                                     deletedBy);
+                                     deletedBy,
+                                     collapsedSize,
+                                     collapsedExpirationInMs);
     }
 
     /**

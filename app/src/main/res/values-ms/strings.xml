@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="remote_backup_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -508,7 +508,8 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">Lampiran melebihi had saiz untuk jenis mesej yang anda hantar.</string>
     <string name="ConversationActivity_unable_to_record_audio">Tidak dapat merakam audio!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">Anda tidak boleh menghantar mesej ke group ini kerana anda bukan lagi ahli.</string>
-    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
+  <!-- Removed by excludeNonTranslatables <string name="DisabledInputView__incognito_mode" translatable="false">Incognito mode (Labs)</string> -->
+    <string name="ConversationActivity_you_cant_send_messages_because_group_ended">Anda tidak boleh menghantar mesej kerana kumpulan ini telah ditamatkan.</string>
     <string name="ConversationActivity_only_s_can_send_messages">Hanya %1$s boleh menghantar mesej.</string>
     <string name="ConversationActivity_admins">pentadbir</string>
     <string name="ConversationActivity_message_an_admin">Mesej pentadbir</string>
@@ -623,7 +624,7 @@
     <string name="ConversationFragment_delete_for_everyone_title">Padam untuk semua orang?</string>
     <!-- Body of dialog explaining what happens during deletion -->
     <plurals name="ConversationFragment_delete_for_everyone_body">
-        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+        <item quantity="other">Ahli kumpulan yang menggunakan versi terkini Signal akan melihat bahawa anda telah memadam mesej ini.</item>
     </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Padam pada peranti ini</string>
@@ -640,7 +641,10 @@
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Media lihat sekali dipadamkan selepas dihantar</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Anda telah melihat mesej ini</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Anda boleh menambah nota untuk diri sendiri dalam sembang ini. Sekiranya akaun anda mempunyai peranti yang dipautkan, nota baharu akan disegerakkan.</string>
-    <string name="ConversationFragment__d_group_members_have_the_same_name">Ahli kumpulan %1$d mempunyai nama yang sama.</string>
+    <!-- Text in banner to show how many people have the same name. -->
+    <plurals name="ConversationFragment__d_group_members_have_the_same_name">
+        <item quantity="other">%1$d ahli kumpulan mempunyai nama yang sama.</item>
+    </plurals>
     <string name="ConversationFragment__tap_to_review">Tekan untuk review</string>
     <!-- The body of a banner that can show up at the top of a chat, letting the user know that you have two contacts with the same name -->
     <string name="ConversationFragment__review_banner_body">Orang ini mempunyai nama yang sama dengan kenalan lain</string>
@@ -1627,6 +1631,8 @@
     <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Tidak dapat menyertai kumpulan. Sila cuba semula kemudian</string>
     <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Menghadapi ralat rangkaian.</string>
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Pautan kumpulan ini tidak aktif</string>
+    <!-- Toast message shown when trying to join a group via link but the group has been ended -->
+    <string name="GroupJoinBottomSheetDialogFragment_this_group_has_been_ended">Tidak dapat menyertai kumpulan ini.</string>
     <!-- Toast message shown when trying to join a group by link but the group is full -->
     <string name="GroupJoinBottomSheetDialogFragment_group_limit_reached">Had kumpulan dicapai, tidak dapat menyertai kumpulan</string>
     <!-- Title shown when there was an known issue getting group information from a group link -->
@@ -1725,6 +1731,8 @@
     <string name="MediaOverviewActivity_Files">Fail-fail</string>
     <string name="MediaOverviewActivity_Audio">Audio</string>
     <string name="MediaOverviewActivity_All">Semua</string>
+    <string name="MediaOverviewActivity_Links">Pautan</string>
+    <string name="MediaOverviewActivity_link">Pautan</string>
     <plurals name="MediaOverviewActivity_Media_delete_confirm_title">
         <item quantity="other">Padam item yang dipilih?</item>
     </plurals>
@@ -1766,6 +1774,7 @@
     <string name="MediaOverviewActivity_sent_by_you_to_s">Dihantar oleh anda kepada %1$s</string>
     <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
     <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Media ini belum dihantar.</string>
+    <string name="MediaOverviewActivity_jump_to_message">Jump to message</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Ingatkan saya kemudian</string>
@@ -1788,6 +1797,16 @@
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Balasan</string>
+
+    <!-- StarredMessagesFragment -->
+    <!-- Title for the starred messages screen -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesActivity__starred_messages" translatable="false">Starred messages</string> -->
+    <!-- Empty state text when there are no starred messages -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesFragment__no_starred_messages" translatable="false">No starred messages</string> -->
+    <!-- Empty state description when there are no starred messages -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesFragment__tap_and_hold_on_a_message_to_star_it" translatable="false">Tap and hold on a message to star it.</string> -->
+    <!-- Format for starred message source label, e.g. "Alice › Book Club" -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessages__s_chevron_s" translatable="false">%1$s \u203A %2$s</string> -->
 
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Mewujudkan panggilan Molly</string>
@@ -1823,6 +1842,12 @@
     <string name="MessageRecord_left_group">Anda telah meninggalkan kumpulan.</string>
     <string name="MessageRecord_you_updated_group">Anda telah mengemas kini kumpulan.</string>
     <string name="MessageRecord_the_group_was_updated">Kumpulan telah dikemas kini.</string>
+    <!-- Update message shown a group is terminated, but the person that terminated it is unknown. -->
+    <string name="MessageRecord_the_group_was_terminated">Kumpulan ini telah tamat.</string>
+    <!-- Update message shown when a group is terminated, placeholder is the name of the person that terminated the group. -->
+    <string name="MessageRecord_s_terminated_the_group">%1$s menamatkan kumpulan</string>
+    <!-- Update message shown when a group is terminated by you -->
+    <string name="MessageRecord_you_terminated_the_group">Anda menamatkan kumpulan ini</string>
     <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">Panggilan suara keluar</string>
     <!-- Update message shown when placing an outgoing 1:1 video call -->
@@ -1839,6 +1864,10 @@
     <string name="MessageRecord_declined_voice_call">Panggilan suara ditolak</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_declined_video_call">Panggilan video ditolak</string>
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and the remote party did not answer -->
+    <string name="MessageRecord_unanswered_voice_call">Panggilan suara tidak dijawab</string>
+    <!-- Update message shown when placing an outgoing 1:1 video call and the remote party did not answer -->
+    <string name="MessageRecord_unanswered_video_call">Panggilan video tidak dijawab</string>
     <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
     <string name="MessageRecord_missed_voice_call_notification_profile">Panggilan suara terlepas semasa profil pemberitahuan dihidupkan</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
@@ -2951,6 +2980,7 @@
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_package" translatable="false">Signal package:</string> -->
     <string name="SupportEmailUtil_registration_lock">Kunci pendaftaran:</string>
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_challenge_received" translatable="false">Challenge Received:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Kumpulan dikemas kini</string>
@@ -3500,6 +3530,10 @@
     <!-- Accessibility content description describing how a user can lock voice note recording. -->
     <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Kunci lampiran audio merekod</string>
     <string name="conversation_activity__message_could_not_be_sent">Mesej tidak dapat dihantar. Periksa sambungan anda dan cuba lagi.</string>
+    <!-- Dialog body shown when tapping a failed message in a terminated group -->
+    <string name="conversation_activity__send_failed_group_ended">Anda tidak lagi boleh menghantar atau menerima mesej dalam kumpulan ini kerana kumpulan telah ditamatkan.</string>
+    <!-- Dialog body shown when tapping a group action button (e.g. invite friends) in a terminated group -->
+    <string name="conversation_activity__group_action_not_allowed_group_ended">Tindakan ini tidak tersedia kerana kumpulan ini telah ditamatkan.</string>
     <!-- Dialog body when a message failed to delete and retry is possible. -->
     <string name="conversation_activity__message_failed_to_delete_retry">Mesej gagal dipadamkan. Periksa sambungan anda dan cuba lagi.</string>
     <!-- Dialog body when a message failed to delete. -->
@@ -3553,6 +3587,22 @@
     <string name="ConversationUpdateItem_options">Pilihan</string>
     <!-- Update item button text shown for a profile name change. -->
     <string name="ConversationUpdateItem_update">Kemas Kini</string>
+    <!-- Update item button text to show how many group updates there are. -->
+    <plurals name="CollapsedEvent__group_update">
+        <item quantity="other">%1$d kemas kini kumpulan</item>
+    </plurals>
+    <!-- Update item button text to show how many group updates there are. -->
+    <plurals name="CollapsedEvent__chat_update">
+        <item quantity="other">%1$d kemas kini sembang</item>
+    </plurals>
+    <!-- Update item button text to show how many disappearing message timer changes are. %2$s is what the timer was ultimately set to.-->
+    <plurals name="CollapsedEvent__disappearing_timer">
+        <item quantity="other">%1$d perubahan pemasa mesej menghilang · %2$s</item>
+    </plurals>
+    <!-- Update item button text to show how many call events are. -->
+    <plurals name="CollapsedEvent__call_event">
+        <item quantity="other">%1$d acara panggilan</item>
+    </plurals>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Main … Jeda</string>
@@ -4457,6 +4507,10 @@
     <string name="conversation_selection__menu_copy">Salin</string>
     <!-- Button to delete a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_delete">Padam</string>
+    <!-- Button to star a message to save it for later; Action item -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_selection__menu_star" translatable="false">Star (Labs)</string> -->
+    <!-- Button to remove the star from a message; Action item -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_selection__menu_unstar" translatable="false">Unstar (Labs)</string> -->
     <!-- Button to forward a message to another person or group chat; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_forward">Hantar</string>
     <!-- Button to reply to a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -4525,7 +4579,7 @@
     <string name="conversation__menu_view_all_media">Semua media</string>
     <string name="conversation__menu_conversation_settings">Tetapan sembang</string>
     <string name="conversation__menu_add_shortcut">Tambah ke skrin utama</string>
-    <string name="conversation__menu_export">Eksport</string>
+  <!-- Removed by excludeNonTranslatables <string name="conversation__menu_export" translatable="false">Export (Labs)</string> -->
     <string name="conversation__menu_create_bubble">Cipta gelembung</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">Format teks</string>
@@ -4536,11 +4590,11 @@
     <string name="conversation_add_to_contacts__menu_add_to_contacts">Tambah ke kenalan</string>
 
     <!-- conversation export -->
-    <string name="conversation_export__exporting">Exporting chat…</string>
-    <string name="conversation_export__export_complete">Chat exported successfully</string>
-    <string name="conversation_export__export_failed">Export failed</string>
-    <string name="conversation_export__export_cancelled">Export cancelled</string>
-    <string name="conversation_export__preparing">Preparing export…</string>
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__exporting" translatable="false">Exporting chat…</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_complete" translatable="false">Chat exported successfully</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_failed" translatable="false">Export failed</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_cancelled" translatable="false">Export cancelled</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__preparing" translatable="false">Preparing export…</string> -->
 
     <!-- conversation scheduled messages bar -->
 
@@ -4568,6 +4622,8 @@
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Kumpulan baru</string>
     <string name="text_secure_normal__menu_settings">Tetapan</string>
+    <!-- Menu item in the main conversation list to view all starred messages -->
+  <!-- Removed by excludeNonTranslatables <string name="text_secure_normal__starred_messages" translatable="false">Starred messages (Labs)</string> -->
     <string name="text_secure_normal__menu_clear_passphrase">Kunci</string>
     <string name="text_secure_normal__mark_all_as_read">Tandakan semua dibaca</string>
     <string name="text_secure_normal__invite_friends">Jemput rakan</string>
@@ -4769,7 +4825,7 @@
     <string name="BackupDialog_disable_and_delete_all_local_backups">Nyahdayakan dan memadam semua sandaran tempatan?</string>
     <string name="BackupDialog_delete_backups_statement">Padam sandaran</string>
     <!-- Progress dialog message shown while local backup files are being deleted -->
-    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
+    <string name="BackupDialog_deleting_local_backup">Memadam sandaran tempatan…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Untuk mendayakan sandaran, pilih folder. Sandaran akan disimpan ke lokasi ini.</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">Memilih folder</string>
@@ -5550,6 +5606,41 @@
         <item quantity="other">%1$d folder</item>
     </plurals>
 
+    <!-- Row title for the option to export chat history as a plaintext archive -->
+    <string name="ChatsSettingsFragment__export_chat_history">Eksport sejarah sembang</string>
+    <!-- Row description for the plaintext chat export option -->
+    <string name="ChatsSettingsFragment__export_chat_history_label">Eksport salinan JSON yang boleh dibaca mesin bagi semua sembang anda. Mesej menghilang tidak akan dieksport.</string>
+    <!-- Biometrics prompt title shown before allowing the user to export chat history -->
+    <string name="ChatsSettingsFragment__unlock_to_export_chat_history">Buka kunci untuk mengeksport sejarah sembang</string>
+    <!-- Snackbar shown when biometric authentication fails before a chat export -->
+    <string name="ChatsSettingsFragment__authentication_failed">Pengesahan Gagal</string>
+
+    <!-- ChatExportDialogs -->
+    <!-- Progress dialog message shown while canceling an in-progress chat export -->
+    <string name="ChatExportDialogs__canceling_export">Membatalkan eksport…</string>
+    <!-- Title of the dialog asking the user to confirm they want to export chat history -->
+    <string name="ChatExportDialogs__export_chat_history_title">Eksport sejarah sembang?</string>
+    <!-- Bold warning prefix in the export confirmation dialog body -->
+    <string name="ChatExportDialogs__be_careful_warning">BERHATI-HATI!</string>
+    <!-- Body of the export confirmation dialog, displayed after the bold "BE CAREFUL!" prefix -->
+    <string name="ChatExportDialogs__export_confirm_body">JANGAN kongsi fail ini dengan sesiapa sahaja. Sejarah sembang anda akan disimpan pada peranti anda dan boleh diakses oleh aplikasi lain bergantung pada kebenaran peranti anda. Mengeksport bersama media akan menghasilkan saiz fail yang lebih besar.</string>
+    <!-- Button in the export confirmation dialog to export messages and media -->
+    <string name="ChatExportDialogs__export_with_media">Eksport dengan media</string>
+    <!-- Button in the export confirmation dialog to export messages only -->
+    <string name="ChatExportDialogs__export_without_media">Eksport tanpa media</string>
+    <!-- Title of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_title">Pilih folder</string>
+    <!-- Body of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_body">Pilih folder dalam storan peranti anda untuk menyimpan sejarah sembang anda.</string>
+    <!-- Button that opens the system folder picker -->
+    <string name="ChatExportDialogs__choose_folder_button">Memilih folder</string>
+    <!-- Title of the dialog shown when a chat export finishes successfully -->
+    <string name="ChatExportDialogs__complete_title">Eksport sembang selesai</string>
+    <!-- Bold warning prefix in the export complete dialog body -->
+    <string name="ChatExportDialogs__be_careful">BERHATI-HATI</string>
+    <!-- Body of the export complete dialog, displayed after the bold "BE CAREFUL" prefix -->
+    <string name="ChatExportDialogs__complete_body">Simpan fail eksport sembang anda dengan selamat dan jangan kongsi dengan sesiapa. Aplikasi lain pada peranti anda boleh mengaksesnya bergantung pada kebenaran peranti anda.</string>
+
     <!-- ChatFoldersEducationSheet -->
     <!-- Text in a bottom sheet describing chat folders and what they can be created for -->
     <string name="ChatFoldersEducationSheet__create_folders_for_family">Cipta folder untuk keluarga, rakan, kerja dan banyak lagi</string>
@@ -5858,6 +5949,8 @@
     <string name="ConversationSettingsFragment__search">Cari</string>
     <string name="ConversationSettingsFragment__disappearing_messages">Mesej hilang</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Bunyi &amp; pemberitahuan</string>
+    <!-- Label for the starred messages option in conversation settings -->
+  <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__starred_messages" translatable="false">Starred messages</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
     <string name="ConversationSettingsFragment__contact_details">Maklumat kenalan telefon</string>
     <string name="ConversationSettingsFragment__view_safety_number">Lihat nombor keselamatan</string>
@@ -5884,6 +5977,18 @@
     <string name="ConversationSettingsFragment__get_badges">Dapatkan lencana untuk profil anda dengan menyokong Signal. Tekan pada lencana untuk mengetahui lebih lanjut.</string>
     <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
     <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Media ini belum dihantar.</string>
+    <!-- End group option in group conversation settings screen -->
+    <string name="ConversationSettingsFragment__end_group">Tamatkan kumpulan</string>
+    <!-- Banner shown at the top of group settings when the group has been ended -->
+    <string name="ConversationSettingsFragment__this_group_was_ended">Kumpulan ini telah ditamatkan.</string>
+    <!-- Archive chat option in group conversation settings screen -->
+    <string name="ConversationSettingsFragment__archive_chat">Arkibkan Sembang</string>
+    <!-- Delete chat option in group conversation settings screen -->
+    <string name="ConversationSettingsFragment__delete_chat">Padam sembang</string>
+    <!-- Member section header for terminated groups. %1$d is the member count -->
+    <plurals name="ConversationSettingsFragment__d_former_members">
+        <item quantity="other">%1$d ahli terdahulu</item>
+    </plurals>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Tambah ahli</string>
@@ -6682,44 +6787,46 @@
     <string name="MyStories__delete_story">Padam cerita?</string>
     <!-- Message of dialog to confirm deletion of story -->
     <string name="MyStories__this_story_will_be_deleted">Cerita ini akan dipadam untuk anda dan semua orang yang telah menerimanya.</string>
+    <!-- Message of dialog to confirm deletion of story in a terminated group -->
+    <string name="MyStories__delete_story_terminated_group">Ia hanya akan dipadam untuk anda kerana kumpulan ini telah ditamatkan.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">Tidak boleh menyimpan</string>
 
     <!-- StoryArchive -->
     <!-- Title for the story archive screen -->
-    <string name="StoryArchive__story_archive">Arkib cerita</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__story_archive" translatable="false">Story archive (Labs)</string> -->
     <!-- Section header in story settings -->
-    <string name="StoryArchive__archive">Arkib</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__archive" translatable="false">Archive</string> -->
     <!-- Label for switch to enable story archiving -->
-    <string name="StoryArchive__keep_stories_in_archive">Simpan cerita dalam arkib</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__keep_stories_in_archive" translatable="false">Keep stories in archive</string> -->
     <!-- Description for the archive toggle -->
-    <string name="StoryArchive__save_stories_after_they_expire">Simpan cerita yang telah anda hantar selepas ia keluar daripada suapan aktif.</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__save_stories_after_they_expire" translatable="false">Save your sent stories after they leave the active feed.</string> -->
     <!-- Label for archive duration preference -->
-    <string name="StoryArchive__keep_stories_for">Simpan cerita selama</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__keep_stories_for" translatable="false">Keep stories for</string> -->
     <!-- Archive duration option: forever -->
-    <string name="StoryArchive__forever">Selama-lamanya</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__forever" translatable="false">Forever</string> -->
     <!-- Archive duration option: 1 year -->
-    <string name="StoryArchive__1_year">1 tahun</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__1_year" translatable="false">1 year</string> -->
     <!-- Archive duration option: 6 months -->
-    <string name="StoryArchive__6_months">6 bulan</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__6_months" translatable="false">6 months</string> -->
     <!-- Archive duration option: 30 days -->
-    <string name="StoryArchive__30_days">30 hari</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__30_days" translatable="false">30 days</string> -->
     <!-- Empty state title when no archived stories exist -->
-    <string name="StoryArchive__no_archived_stories">Tiada cerita diarkibkan</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__no_archived_stories" translatable="false">No archived stories</string> -->
     <!-- Empty state message when no archived stories exist -->
-    <string name="StoryArchive__no_archived_stories_message">Hidupkan \"Simpan Cerita ke Arkib\" dalam tetapan cerita untuk mengarkibkan cerita anda secara automatik.</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__no_archived_stories_message" translatable="false">Turn on \"Save Stories to Archive\" in story settings to auto-archive your stories.</string> -->
     <!-- Empty state button to navigate to story settings -->
-    <string name="StoryArchive__go_to_settings">Pergi ke tetapan</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__go_to_settings" translatable="false">Go to settings</string> -->
     <!-- Label for sort order menu -->
-    <string name="StoryArchive__sort_by">Susun mengikut</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__sort_by" translatable="false">Sort by</string> -->
     <!-- Sort order option: newest first -->
-    <string name="StoryArchive__newest">Terkini</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__newest" translatable="false">Newest</string> -->
     <!-- Sort order option: oldest first -->
-    <string name="StoryArchive__oldest">Terlama</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__oldest" translatable="false">Oldest</string> -->
     <!-- Delete action in story archive multi-select bottom bar -->
-    <string name="StoryArchive__delete">Padam</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__delete" translatable="false">Delete</string> -->
     <!-- Content description for selecting a story in multi-select mode -->
-    <string name="StoryArchive__select_story">Pilih cerita</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__select_story" translatable="false">Select story</string> -->
     <!-- Confirmation dialog body when deleting stories from archive -->
     <plurals name="StoryArchive__delete_n_stories">
         <item quantity="other">Padam cerita %1$d? Ini tidak boleh dibuat asal.</item>
@@ -7514,6 +7621,8 @@
     <string name="CallLogAdapter__incoming">Panggilan masuk</string>
     <!-- Displayed for outgoing calls -->
     <string name="CallLogAdapter__outgoing">Panggilan keluar</string>
+    <!-- Displayed for outgoing calls that were not accepted by the remote party -->
+    <string name="CallLogAdapter__unanswered">Unanswered</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">Panggilan terlepas</string>
     <!-- Displayed for one missed call declined by notification profile -->
@@ -7595,6 +7704,8 @@
     <string name="CallLogFragment__get_started_by_calling_a_friend">Mulakan dengan menghubungi rakan.</string>
     <!-- Displayed as a message in a dialog when deleting multiple items -->
     <string name="CallLogFragment__call_links_youve_created">Pautan panggilan yang telah anda buat tidak akan berfungsi lagi untuk orang yang memilikinya.</string>
+    <!-- Dialog message shown when trying to start a group call but the user is no longer a member -->
+    <string name="CallLogFragment__cant_start_call_no_longer_a_member">You\'re no longer a member of this group.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -8316,6 +8427,28 @@
     <!-- Secondary action button on bottom sheet -->
     <string name="MediaNoLongerAvailableSheet__not_now">Bukan sekarang</string>
 
+    <!-- End group button label shown in confirmation dialogs -->
+    <string name="EndGroupDialog__end_group">Tamatkan kumpulan</string>
+    <!-- Title of first end group confirmation dialog. %1$s is the group name -->
+    <string name="EndGroupDialog__end_s">Tamatkan \"%1$s\"?</string>
+    <!-- Body of first end group confirmation dialog -->
+    <string name="EndGroupDialog__members_will_no_longer_be_able_to_send">Ahli tidak lagi boleh menghantar mesej atau memulakan panggilan dalam kumpulan ini. Mereka akan dimaklumkan bahawa anda telah menamatkan kumpulan ini dan masih boleh mengakses sejarah mesej.</string>
+    <!-- Body of second/final end group confirmation dialog -->
+    <string name="EndGroupDialog__this_will_end_the_group_permanently">Ini akan menamatkan kumpulan secara kekal. Adakah anda pasti mahu meneruskan?</string>
+    <!-- Progress message shown while ending a group -->
+    <string name="EndGroupDialog__ending_group">Menamatkan kumpulan…</string>
+    <!-- Message shown when ending a group fails -->
+    <string name="EndGroupDialog__ending_the_group_failed">Tidak dapat menamatkan kumpulan. Periksa sambungan anda dan cuba lagi.</string>
+    <!-- Retry button shown when ending a group fails -->
+    <string name="EndGroupDialog__try_again">Cuba lagi</string>
+
+    <!-- Title of bottom sheet shown when opening a terminated group for the first time, with admin name. %1$s is the admin\'s display name -->
+    <string name="TerminatedGroupBottomSheet__s_ended_the_group">%1$s Telah Menamatkan Kumpulan</string>
+    <!-- Title of bottom sheet shown when opening a terminated group for the first time, without admin name -->
+    <string name="TerminatedGroupBottomSheet__the_group_has_been_ended">Kumpulan ini telah ditamatkan.</string>
+    <!-- Body of bottom sheet shown when opening a terminated group -->
+    <string name="TerminatedGroupBottomSheet__you_can_no_longer_send_and_receive">Anda tidak lagi boleh menghantar dan menerima mesej atau panggilan dalam kumpulan ini.</string>
+
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Pemadaman kini disegerakkan merentas semua peranti anda</string>
     <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
@@ -8571,17 +8704,17 @@
     <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
     <string name="BackupCreationProgressRow__finalizing">Memuktamadkan…</string>
     <!-- Progress text shown while messages are being processed, with no count available yet -->
-    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <string name="BackupCreationProgressRow__processing_messages">Memproses mesej…</string>
     <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
-    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Memproses mesej: %1$s daripada %2$s (%3$d%%)</string>
     <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
-    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <string name="BackupCreationProgressRow__uploading_media_d">Memuat naik media: %1$d%%</string>
     <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
-    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+    <string name="BackupCreationProgressRow__exporting_media_d">Mengeksport media: %1$d%%</string>
 
     <!-- LocalArchiveJob -->
     <!-- Notification title shown while media attachments are being exported during a local backup -->
-    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+    <string name="LocalArchiveJob__exporting_media">Mengeksport media…</string>
 
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
@@ -8677,6 +8810,8 @@
     <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Kunci pemulihan anda ialah kod 64 aksara yang boleh memulihkan sandaran apabila anda memasang semula Signal.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Ini adalah sama seperti kunci pemulihan pada peranti anda.</string>
+    <!-- Screen body shown when enabling on-device backups while Signal Secure Backups are already enabled (part 2, bolded). -->
+    <string name="MessageBackupsKeyEducationScreen__local_backup_with_remote_enabled_description_bold">Ini sama seperti kunci pemulihan Sandaran Selamat Signal anda.</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">Gunakan kunci ini untuk:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -8950,6 +9085,18 @@
     <string name="RestoreLocalBackupDialog__failed_to_load_archive">Gagal memuatkan arkib. Sila pilih direktori lain.</string>
     <!-- RestoreLocalBackupDialog: Dismiss button for dialog -->
     <string name="RestoreLocalBackupDialog__ok">OK</string>
+    <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm skipping backup restore -->
+    <string name="RestoreLocalBackupDialog__skip_restore">Langkau pemulihan?</string>
+    <!-- RestoreLocalBackupDialog: Body of the dialog warning the user about the consequences of skipping backup restore -->
+    <string name="RestoreLocalBackupDialog__skip_restore_body">Jika anda melangkau pemulihan sekarang, anda tidak akan dapat memulihkan kemudian. Jika anda mendayakan semula sandaran selepas melangkau pemulihan, sandaran semasa anda akan digantikan dengan sejarah pemesejan baharu anda.</string>
+    <!-- RestoreLocalBackupDialog: Confirm button label for the skip restore dialog -->
+    <string name="RestoreLocalBackupDialog__skip_restore_confirm">Langkau pemulihan</string>
+    <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm restoring a backup from a different account -->
+    <string name="RestoreLocalBackupDialog__restore_to_new_account">Pulihkan ke akaun baharu?</string>
+    <!-- RestoreLocalBackupDialog: Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="RestoreLocalBackupDialog__restore_to_new_account_body">Sandaran yang anda pulihkan telah dicipta menggunakan akaun Signal yang berbeza. Anda boleh memulihkan sandaran ini ke akaun baharu, tetapi anda tidak lagi akan menjadi ahli mana-mana kumpulan yang dipulihkan.</string>
+    <!-- RestoreLocalBackupDialog: Confirm button label for the restore to new account dialog -->
+    <string name="RestoreLocalBackupDialog__restore">Memulihkan</string>
 
     <!-- RestoreLocalBackupActivity: Toast message when backup restore fails -->
     <string name="RestoreLocalBackupActivity__backup_restore_failed">Pemulihan sandaran gagal</string>
@@ -8976,6 +9123,30 @@
 
     <!-- RestoreLocalBackupActivity: Label for the button that opens the contact support form -->
     <string name="RestoreLocalBackupActivity__contact_support">Hubungi sokongan</string>
+
+    <!-- RestoreLocalBackupActivity: Title for the dialog shown when the restored backup belongs to a different account -->
+    <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Hidupkan sandaran pada peranti?</string>
+
+    <!-- RestoreLocalBackupActivity: Body for the dialog shown when the restored backup belongs to a different account, prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Untuk terus menggunakan sandaran pada peranti, anda perlu mendayakannya untuk akaun ini dan merekodkan kunci pemulihan baharu anda. Anda boleh melakukannya pada bila-bila masa melalui Tetapan &gt; Sandaran.</string>
+
+    <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__turn_on_now">Hidupkan sekarang</string>
+
+    <!-- RestoreLocalBackupActivity: Dismiss button label for the dialog prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__not_now">Bukan sekarang</string>
+
+    <!-- RestoreLocalBackupActivity: Body text for the dialog shown after a successful restore, prompting the user to choose a backup folder -->
+    <string name="RestoreLocalBackupActivity__choose_a_folder_for_backups">Untuk terus menggunakan sandaran pada peranti, pilih folder pada peranti anda di mana sandaran baharu akan disimpan.</string>
+
+    <!-- RestoreLocalBackupActivity: Positive button label for the dialog shown after a successful restore; keeps the current backup folder -->
+    <string name="RestoreLocalBackupActivity__use_current_folder">Gunakan folder semasa</string>
+
+    <!-- RestoreLocalBackupActivity: Neutral button label for the dialog shown after a successful restore; opens folder picker to select a different backup location -->
+    <string name="RestoreLocalBackupActivity__choose_new_folder">Pilih folder baharu</string>
+
+    <!-- RestoreLocalBackupActivity: Negative button label for the dialog shown after a successful restore; disables on-device backups -->
+    <string name="RestoreLocalBackupActivity__disable_backups">Nyahdayakan sandaran</string>
 
     <!-- SelectInstructionsSheet: Title for the select backup folder instruction sheet -->
     <string name="SelectInstructionsSheet__select_your_backup_folder">Pilih folder sandaran anda</string>
@@ -9132,6 +9303,27 @@
     <string name="MainToolbar__notification_profile_content_description">Profil pemberitahuan</string>
     <!-- Accessibility label for more options button in MainToolbar -->
     <string name="MainToolbar__proxy_content_description">Proksi</string>
+    <!-- Accessibility label for search filter button in MainToolbar -->
+  <!-- Removed by excludeNonTranslatables <string name="MainToolbar__search_filter_content_description" translatable="false">Search filter</string> -->
+
+    <!-- SearchFilterBottomSheet: Title -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__filter_search" translatable="false">Filter search</string> -->
+    <!-- SearchFilterBottomSheet: Start date label -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__start_date" translatable="false">Start date</string> -->
+    <!-- SearchFilterBottomSheet: End date label -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__end_date" translatable="false">End date</string> -->
+    <!-- SearchFilterBottomSheet: Author label -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__author" translatable="false">Author</string> -->
+    <!-- SearchFilterBottomSheet: Placeholder for unset date -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__not_set" translatable="false">Not set</string> -->
+    <!-- SearchFilterBottomSheet: Placeholder for unset author -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__anyone" translatable="false">Anyone</string> -->
+    <!-- SearchFilterBottomSheet: Apply button -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__apply" translatable="false">Apply</string> -->
+    <!-- SearchFilterBottomSheet: Clear button -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__clear" translatable="false">Clear</string> -->
+    <!-- SearchFilterBottomSheet: Select date dialog title -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__select_date" translatable="false">Select date</string> -->
 
     <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
     <string name="DefaultTopAppBar__navigate_up_content_description">Navigasi ke atas</string>
@@ -9414,6 +9606,18 @@
     <string name="MemberLabelsAboutOverride__title">Paparan Label Ahli</string>
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">Dalam kumpulan ini, Label Ahli anda akan dipaparkan di sebelah foto anda sebagai ganti Perihal anda.</string>
+
+    <!-- Label for internal-only section showing groups with same members -->
+  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+
+    <!-- Title of the sheet shown when a local backup restore could not be completed -->
+    <string name="CouldNotCompleteBackupRestoreSheet__title">Tidak dapat memulihkan sandaran</string>
+
+    <!-- Body of the sheet shown when a local backup restore could not be completed, explaining the likely cause -->
+    <string name="CouldNotCompleteBackupRestoreSheet__body_error">Ralat berlaku dan sandaran anda tidak dapat dipulihkan. Ini mungkin kerana folder sandaran telah dipindahkan pada peranti anda semasa sandaran anda sedang dipulihkan.</string>
+
+    <!-- Body of the sheet shown when a local backup restore could not be completed, explaining how to try again -->
+    <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Untuk mencuba lagi, nyahpasang dan pasang semula Molly pada peranti ini, kemudian pilih “Pulihkan atau pindahkan”.</string>
 
     <!-- EOF -->
 </resources>

@@ -17,6 +17,7 @@ import org.signal.libsignal.net.MultiRecipientSendAuthorization;
 import org.signal.libsignal.net.MultiRecipientSendFailure;
 import org.signal.libsignal.net.RequestResult;
 import org.signal.libsignal.net.RequestUnauthorizedException;
+import org.signal.libsignal.net.UploadTooLargeException;
 import org.signal.libsignal.net.RetryLaterException;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.IdentityKeyPair;
@@ -112,7 +113,6 @@ import org.whispersystems.signalservice.internal.push.OutgoingPushMessage;
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessageList;
 import org.whispersystems.signalservice.internal.push.PniSignatureMessage;
 import org.whispersystems.signalservice.internal.push.Preview;
-import org.whispersystems.signalservice.internal.push.ProvisioningVersion;
 import org.whispersystems.signalservice.internal.push.PushAttachmentData;
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.push.ReceiptMessage;
@@ -833,11 +833,22 @@ public class SignalServiceMessageSender {
     return uploadAttachmentV4(attachment, attachmentKey, attachmentData);
   }
 
-  public ResumableUploadSpec getResumableUploadSpec() throws IOException {
+  public ResumableUploadSpec getResumableUploadSpec(long uploadSizeBytes) throws IOException {
     Log.d(TAG, "Using pipe to retrieve attachment upload attributes...");
-    AttachmentUploadForm v4UploadAttributes = NetworkResultUtil.toBasicLegacy(attachmentApi.getAttachmentV4UploadForm());
+    RequestResult<AttachmentUploadForm, UploadTooLargeException> result = attachmentApi.getAttachmentV4UploadForm(uploadSizeBytes);
 
-    return socket.getResumableUploadSpec(v4UploadAttributes);
+    if (result instanceof RequestResult.Success) {
+      AttachmentUploadForm v4UploadAttributes = ((RequestResult.Success<AttachmentUploadForm>) result).getResult();
+      return socket.getResumableUploadSpec(v4UploadAttributes);
+    } else if (result instanceof RequestResult.NonSuccess) {
+      throw ((RequestResult.NonSuccess<UploadTooLargeException>) result).getError();
+    } else if (result instanceof RequestResult.RetryableNetworkError) {
+      throw new PushNetworkException(((RequestResult.RetryableNetworkError) result).getNetworkError());
+    } else if (result instanceof RequestResult.ApplicationError) {
+      throw new RuntimeException(((RequestResult.ApplicationError) result).getCause());
+    } else {
+      throw new IOException("Unexpected RequestResult type: " + result.getClass().getSimpleName());
+    }
   }
 
   private SignalServiceAttachmentPointer uploadAttachmentV4(SignalServiceAttachmentStream attachment, byte[] attachmentKey, PushAttachmentData attachmentData) throws IOException {
@@ -1602,8 +1613,6 @@ public class SignalServiceMessageSender {
       configurationMessage.linkPreviews(configuration.getLinkPreviews().get());
     }
 
-    configurationMessage.provisioningVersion(ProvisioningVersion.CURRENT.getValue());
-
     return container.syncMessage(syncMessage.configuration(configurationMessage.build()).build()).build();
   }
 
@@ -1748,10 +1757,6 @@ public class SignalServiceMessageSender {
     Content.Builder          container   = new Content.Builder();
     SyncMessage.Builder      syncMessage = createSyncMessageBuilder();
     SyncMessage.Keys.Builder builder     = new SyncMessage.Keys.Builder();
-
-    if (keysMessage.getMaster() != null) {
-      builder.master(ByteString.of(keysMessage.getMaster().serialize()));
-    }
 
     if (keysMessage.getAccountEntropyPool() != null) {
       builder.accountEntropyPool(keysMessage.getAccountEntropyPool().getValue());
@@ -2848,6 +2853,10 @@ public class SignalServiceMessageSender {
     if (!aciStore.containsSession(signalProtocolAddress)) {
       try {
         List<PreKeyBundle> preKeys = getPreKeys(recipient, sealedSenderAccess, deviceId, story);
+
+        if (preKeys.isEmpty()) {
+          throw new InvalidKeyException("No valid prekey bundles available for " + signalProtocolAddress);
+        }
 
         for (PreKeyBundle preKey : preKeys) {
           Log.d(TAG, "Initializing prekey session for " + signalProtocolAddress);

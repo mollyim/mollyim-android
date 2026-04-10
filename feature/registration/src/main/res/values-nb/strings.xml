@@ -99,11 +99,11 @@
     <!-- Title text for the archive restore selection screen -->
     <string name="ArchiveRestoreSelectionScreen__restore_or_transfer_account">Gjenopprette eller overføre en konto</string>
     <!-- Subtitle text for the archive restore selection screen -->
-    <string name="ArchiveRestoreSelectionScreen__subheading">Choose how you’d like to restore your message history and account data.</string>
+    <string name="ArchiveRestoreSelectionScreen__subheading">Velg hvordan du ønsker å gjenopprette meldingsloggen og kontoopplysningene dine.</string>
     <!-- Title for the Signal Backups option card -->
-    <string name="ArchiveRestoreSelectionScreen__from_signal_backups">Fra Signal-sikkerhetskopi</string>
+    <string name="ArchiveRestoreSelectionScreen__from_signal_backups">Fra Sikkerhetskopiering av Signal</string>
     <!-- Subtitle for the Signal Backups option card -->
-    <string name="ArchiveRestoreSelectionScreen__your_free_or_paid_signal_backup_plan">Fra abonnementet ditt på sikkerhetskopiering fra Signal</string>
+    <string name="ArchiveRestoreSelectionScreen__your_free_or_paid_signal_backup_plan">Fra abonnementet ditt på Sikkerhetskopiering av Signal</string>
     <!-- Title for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__local_backup_card_title">Gjenopprett sikkerhetskopi på enheten</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
@@ -111,13 +111,13 @@
     <!-- Title for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">Gå videre uten overføring</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
-    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Messages &amp; media won’t be transferred</string>
+    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Meldinger og mediefiler overføres ikke</string>
     <!-- Title for the backup folder option card (V2 format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Fra en nedlastet sikkerhetskopi</string>
+    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Fra en mappe med sikkerhetskopier</string>
     <!-- Title for the backup file option card (V1 legacy format) -->
     <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">Fra en sikkerhetskopi</string>
     <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Choose a backup you\'ve saved</string>
+    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Velg en sikkerhetskopi du har lagret</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">Fra den gamle enheten</string>
     <!-- Subtitle for the device transfer option card -->
@@ -127,7 +127,88 @@
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">Vil du hoppe over gjenopprettingen?</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
-    <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_warning">Du får ikke mulighet til å gjenopprette dette senere. Hvis du reaktiverer sikkerhetskopiering etter at du hopper over gjenopprettingen, erstattes sikkerhetskopien din av den nye meldingsloggen din.</string>
+    <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_warning">Du får ikke mulighet til å gjenopprette dette senere. Hvis du aktiverer sikkerhetskopiering på nytt etter at du hopper over gjenopprettingen, erstattes sikkerhetskopien din av den nye meldingsloggen.</string>
     <!-- Confirm button text for the skip restore dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_confirm_button">Hopp over gjenoppretting</string>
+
+    <!-- LocalBackupRestoreScreen -->
+    <!-- Title for the local backup restore screen -->
+    <string name="LocalBackupRestoreScreen__restore_on_device_backup">Gjenopprett sikkerhetskopi på enheten</string>
+    <!-- Description on the folder selection screen -->
+    <string name="LocalBackupRestoreScreen__select_folder_description">Gjenopprett meldingene dine fra sikkerhetskopien som ble lagret på enheten. Du får ikke mulighet til å gjøre dette senere.</string>
+    <!-- Title for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_backup_folder">Velg mappe for sikkerhetskopi</string>
+    <!-- Subtitle for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_folder_subtitle">Velg mappen som sikkerhetskopien din er lagret i</string>
+    <!-- Text shown while scanning for backups -->
+    <string name="LocalBackupRestoreScreen__scanning_folder">Looking for backups…</string>
+    <!-- Description shown when a backup is found -->
+    <string name="LocalBackupRestoreScreen__backup_found_description">Gjenopprett meldingene dine fra mappen for sikkerhetskopi som er lagret lokalt på enheten. Du får ikke mulighet til å gjøre dette senere.</string>
+    <!-- Title for the latest backup card -->
+    <string name="LocalBackupRestoreScreen__your_latest_backup">Siste sikkerhetskopi:</string>
+    <!-- Label for a legacy backup type -->
+    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
+    <!-- Restore backup button text -->
+    <string name="LocalBackupRestoreScreen__restore_backup">Gjenopprett sikkerhetskopi</string>
+    <!-- Link to choose an earlier backup -->
+    <string name="LocalBackupRestoreScreen__choose_earlier_backup">Velg en tidligere sikkerhetskopi</string>
+    <!-- Title for the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choose_a_backup_to_restore">Velg hvilken sikkerhetskopi du vil gjenopprette</string>
+    <!-- Warning text in the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choosing_an_older_backup_warning">Hvis du velger en tidligere sikkerhetskopi, kan det hende at du mister meldinger og mediefiler.</string>
+    <!-- Title when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found">No backup found</string>
+    <!-- Description when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found_description">No Signal backup was found in the selected folder. Please try a different folder.</string>
+    <!-- Button to try a different folder -->
+    <string name="LocalBackupRestoreScreen__try_different_folder">Try a different folder</string>
+    <!-- Title for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_backup_passphrase">Skriv inn passordfrase for sikkerhetskopi</string>
+    <!-- Description for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Your local backup passphrase is a 30-digit code required to recover your account and data.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="LocalBackupRestoreScreen__recovery_key">Sikkerhetskode</string>
+    <!-- Error text when passphrase is too long -->
+    <string name="LocalBackupRestoreScreen__too_long">For lang (%1$d/%2$d)</string>
+    <!-- Link for users who don\'t have their passphrase -->
+    <string name="LocalBackupRestoreScreen__no_passphrase">No passphrase?</string>
+    <!-- Next button text -->
+    <string name="LocalBackupRestoreScreen__next">Neste</string>
+    <!-- EnterAepScreen -->
+    <!-- Title for recovery key entry screen -->
+    <string name="EnterAepScreen__enter_your_recovery_key">Skriv inn sikkerhetskoden</string>
+    <!-- Description for recovery key entry screen -->
+    <string name="EnterAepScreen__your_recovery_key_is_a_64_character_code">Sikkerhetskoden består av 64 tegn og kreves for å gjenopprette kontoen din og dataene dine.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="EnterAepScreen__recovery_key">Sikkerhetskode</string>
+    <!-- Link for users who don\'t have their recovery key -->
+    <string name="EnterAepScreen__no_recovery_key">Ingen sikkerhetskode?</string>
+    <!-- Error text when key is too long -->
+    <string name="EnterAepScreen__too_long">For lang (%1$d/%2$d)</string>
+    <!-- Error text when key is invalid -->
+    <string name="EnterAepScreen__invalid_recovery_key">Ugyldig sikkerhetskode</string>
+    <!-- Text shown while preparing the restore -->
+    <string name="LocalBackupRestoreScreen__preparing_restore">Preparing restore…</string>
+    <!-- Title shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_backup">Gjenoppretter sikkerhetskopien</string>
+    <!-- Description shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_description">Please wait while your messages and data are being restored.</string>
+    <!-- Title shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete">Gjenoppretting utført</string>
+    <!-- Description shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
+    <!-- Continue button text after restore is complete -->
+    <string name="LocalBackupRestoreScreen__continue_button">Fortsett</string>
+    <!-- Title shown when restore fails -->
+    <string name="LocalBackupRestoreScreen__restore_failed">Gjenopprettingen mislyktes</string>
+    <!-- Description shown when restore fails with an unknown error -->
+    <string name="LocalBackupRestoreScreen__restore_failed_description">En feil oppstod da du forsøkte å gjenopprette sikkerhetskopien din. Prøv på nytt.</string>
+    <!-- Button to retry restore after failure -->
+    <string name="LocalBackupRestoreScreen__try_again">Prøv igjen</string>
+    <!-- Button to link an existing Signal account to this device -->
+    <string name="WelcomeScreen__link_your_account">Link your account</string>
+    <!-- Prompt shown to users who don\'t have a Signal account yet -->
+    <string name="WelcomeScreen__not_on_signal_yet">Not on Signal yet?</string>
+    <!-- Button to create a new Signal account -->
+    <string name="WelcomeScreen__create_account">Create account</string>
 </resources>

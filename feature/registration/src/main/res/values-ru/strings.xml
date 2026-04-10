@@ -99,7 +99,7 @@
     <!-- Title text for the archive restore selection screen -->
     <string name="ArchiveRestoreSelectionScreen__restore_or_transfer_account">Восстановить или перенести учётную запись</string>
     <!-- Subtitle text for the archive restore selection screen -->
-    <string name="ArchiveRestoreSelectionScreen__subheading">Choose how you’d like to restore your message history and account data.</string>
+    <string name="ArchiveRestoreSelectionScreen__subheading">Выберите способ восстановления истории сообщений и данных учётной записи.</string>
     <!-- Title for the Signal Backups option card -->
     <string name="ArchiveRestoreSelectionScreen__from_signal_backups">Из Резервного копирования Signal</string>
     <!-- Subtitle for the Signal Backups option card -->
@@ -111,13 +111,13 @@
     <!-- Title for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">Продолжить без переноса</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
-    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Messages &amp; media won’t be transferred</string>
+    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Сообщения и медиафайлы не будут перенесены</string>
     <!-- Title for the backup folder option card (V2 format) -->
     <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Из папки резервных копий</string>
     <!-- Title for the backup file option card (V1 legacy format) -->
     <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">Из файла резервной копии</string>
     <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Choose a backup you\'ve saved</string>
+    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Выберите сохранённую резервную копию</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">Со старого телефона</string>
     <!-- Subtitle for the device transfer option card -->
@@ -130,4 +130,85 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_warning">Если вы пропустите восстановление сейчас, вы не сможете выполнить его позже. Если вы пропустите восстановление и затем повторно включите резервное копирование, текущая резервная копия будет заменена новой историей сообщений.</string>
     <!-- Confirm button text for the skip restore dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_confirm_button">Пропустить восстановление</string>
+
+    <!-- LocalBackupRestoreScreen -->
+    <!-- Title for the local backup restore screen -->
+    <string name="LocalBackupRestoreScreen__restore_on_device_backup">Восстановить резервную копию на устройстве</string>
+    <!-- Description on the folder selection screen -->
+    <string name="LocalBackupRestoreScreen__select_folder_description">Восстановите сообщения из резервной копии, сохранённой на этом устройстве. Если вы не сделаете этого сейчас, вы не сможете восстановить их позже.</string>
+    <!-- Title for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_backup_folder">Выбрать папку резервных копий</string>
+    <!-- Subtitle for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_folder_subtitle">Выберите папку на вашем устройстве, где хранится резервная копия</string>
+    <!-- Text shown while scanning for backups -->
+    <string name="LocalBackupRestoreScreen__scanning_folder">Looking for backups…</string>
+    <!-- Description shown when a backup is found -->
+    <string name="LocalBackupRestoreScreen__backup_found_description">Восстановите свои сообщения из папки резервной копии, сохранённой на вашем устройстве. Если вы не сделаете этого сейчас, вы не сможете восстановить их позже.</string>
+    <!-- Title for the latest backup card -->
+    <string name="LocalBackupRestoreScreen__your_latest_backup">Ваша последняя резервная копия:</string>
+    <!-- Label for a legacy backup type -->
+    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
+    <!-- Restore backup button text -->
+    <string name="LocalBackupRestoreScreen__restore_backup">Восстановить резервную копию</string>
+    <!-- Link to choose an earlier backup -->
+    <string name="LocalBackupRestoreScreen__choose_earlier_backup">Выбрать более раннюю резервную копию</string>
+    <!-- Title for the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choose_a_backup_to_restore">Выбрать резервную копию для восстановления</string>
+    <!-- Warning text in the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choosing_an_older_backup_warning">Выбор старой резервной копии может привести к потере сообщений или медиафайлов.</string>
+    <!-- Title when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found">No backup found</string>
+    <!-- Description when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found_description">No Signal backup was found in the selected folder. Please try a different folder.</string>
+    <!-- Button to try a different folder -->
+    <string name="LocalBackupRestoreScreen__try_different_folder">Try a different folder</string>
+    <!-- Title for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_backup_passphrase">Введите парольную фразу резервной копии</string>
+    <!-- Description for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Your local backup passphrase is a 30-digit code required to recover your account and data.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="LocalBackupRestoreScreen__recovery_key">Ключ восстановления</string>
+    <!-- Error text when passphrase is too long -->
+    <string name="LocalBackupRestoreScreen__too_long">Слишком длинный (%1$d/%2$d)</string>
+    <!-- Link for users who don\'t have their passphrase -->
+    <string name="LocalBackupRestoreScreen__no_passphrase">No passphrase?</string>
+    <!-- Next button text -->
+    <string name="LocalBackupRestoreScreen__next">Далее</string>
+    <!-- EnterAepScreen -->
+    <!-- Title for recovery key entry screen -->
+    <string name="EnterAepScreen__enter_your_recovery_key">Введите ключ восстановления</string>
+    <!-- Description for recovery key entry screen -->
+    <string name="EnterAepScreen__your_recovery_key_is_a_64_character_code">Ключ восстановления – это 64-значный код, необходимый для восстановления вашей учётной записи и данных.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="EnterAepScreen__recovery_key">Ключ восстановления</string>
+    <!-- Link for users who don\'t have their recovery key -->
+    <string name="EnterAepScreen__no_recovery_key">Нет ключа восстановления?</string>
+    <!-- Error text when key is too long -->
+    <string name="EnterAepScreen__too_long">Слишком длинный (%1$d/%2$d)</string>
+    <!-- Error text when key is invalid -->
+    <string name="EnterAepScreen__invalid_recovery_key">Недействительный ключ восстановления</string>
+    <!-- Text shown while preparing the restore -->
+    <string name="LocalBackupRestoreScreen__preparing_restore">Preparing restore…</string>
+    <!-- Title shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_backup">Восстановление резервной копии</string>
+    <!-- Description shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_description">Please wait while your messages and data are being restored.</string>
+    <!-- Title shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete">Восстановление завершено</string>
+    <!-- Description shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
+    <!-- Continue button text after restore is complete -->
+    <string name="LocalBackupRestoreScreen__continue_button">Продолжить</string>
+    <!-- Title shown when restore fails -->
+    <string name="LocalBackupRestoreScreen__restore_failed">Ошибка восстановления</string>
+    <!-- Description shown when restore fails with an unknown error -->
+    <string name="LocalBackupRestoreScreen__restore_failed_description">Произошла ошибка при восстановлении резервной копии. Пожалуйста, попробуйте ещё раз.</string>
+    <!-- Button to retry restore after failure -->
+    <string name="LocalBackupRestoreScreen__try_again">Попробовать ещё раз</string>
+    <!-- Button to link an existing Signal account to this device -->
+    <string name="WelcomeScreen__link_your_account">Link your account</string>
+    <!-- Prompt shown to users who don\'t have a Signal account yet -->
+    <string name="WelcomeScreen__not_on_signal_yet">Not on Signal yet?</string>
+    <!-- Button to create a new Signal account -->
+    <string name="WelcomeScreen__create_account">Create account</string>
 </resources>

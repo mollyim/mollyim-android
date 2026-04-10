@@ -54,6 +54,7 @@ import org.thoughtcrime.securesms.migrations.AttachmentHashBackfillMigrationJob;
 import org.thoughtcrime.securesms.migrations.AttributesMigrationJob;
 import org.thoughtcrime.securesms.migrations.AvatarColorStorageServiceMigrationJob;
 import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
+import org.thoughtcrime.securesms.migrations.BackfillCollapsedEventsMigrationJob;
 import org.thoughtcrime.securesms.migrations.BackfillDigestsForDuplicatesMigrationJob;
 import org.thoughtcrime.securesms.migrations.BackupJitterMigrationJob;
 import org.thoughtcrime.securesms.migrations.BackupNotificationMigrationJob;
@@ -137,12 +138,14 @@ public final class JobManagerFactories {
       put(AutomaticSessionResetJob.KEY,                new AutomaticSessionResetJob.Factory());
       put(AvatarGroupsV1DownloadJob.KEY,               new AvatarGroupsV1DownloadJob.Factory());
       put(AvatarGroupsV2DownloadJob.KEY,               new AvatarGroupsV2DownloadJob.Factory());
+      put(BackfillCollapsedMessageJob.KEY,              new BackfillCollapsedMessageJob.Factory());
       put(BackfillDigestsForDataFileJob.KEY,           new BackfillDigestsForDataFileJob.Factory());
       put(BackupDeleteJob.KEY,                         new BackupDeleteJob.Factory());
       put(BackupMessagesJob.KEY,                       new BackupMessagesJob.Factory());
       put(BackupRestoreMediaJob.KEY,                   new BackupRestoreMediaJob.Factory());
       put(BackupSubscriptionCheckJob.KEY,              new BackupSubscriptionCheckJob.Factory());
       put(BuildExpirationConfirmationJob.KEY,          new BuildExpirationConfirmationJob.Factory());
+      put(CallingAssetsDownloadJob.KEY,                new CallingAssetsDownloadJob.Factory());
       put(CallLinkPeekJob.KEY,                         new CallLinkPeekJob.Factory());
       put(CallLinkUpdateSendJob.KEY,                   new CallLinkUpdateSendJob.Factory());
       put(CallLogEventSendJob.KEY,                     new CallLogEventSendJob.Factory());
@@ -193,6 +196,7 @@ public final class JobManagerFactories {
       put(LinkedDeviceInactiveCheckJob.KEY,            new LinkedDeviceInactiveCheckJob.Factory());
       put(LocalArchiveJob.KEY,                         new LocalArchiveJob.Factory());
       put(LocalBackupJob.KEY,                          new LocalBackupJob.Factory());
+      put(LocalPlaintextArchiveJob.KEY,                new LocalPlaintextArchiveJob.Factory());
       put(LocalBackupJobApi29.KEY,                     new LocalBackupJobApi29.Factory());
       put(MarkerJob.KEY,                               new MarkerJob.Factory());
       put(MultiDeviceAttachmentBackfillMissingJob.KEY, new MultiDeviceAttachmentBackfillMissingJob.Factory());
@@ -250,9 +254,9 @@ public final class JobManagerFactories {
       put(RemoteDeleteSendJob.KEY,                     new RemoteDeleteSendJob.Factory());
       put(ReportSpamJob.KEY,                           new ReportSpamJob.Factory());
       put(ResendMessageJob.KEY,                        new ResendMessageJob.Factory());
-      put(ResumableUploadSpecJob.KEY,                  new ResumableUploadSpecJob.Factory());
       put(RequestGroupV2InfoWorkerJob.KEY,             new RequestGroupV2InfoWorkerJob.Factory());
       put(RequestGroupV2InfoJob.KEY,                   new RequestGroupV2InfoJob.Factory());
+      put(LocalBackupRestoreMediaJob.KEY,              new LocalBackupRestoreMediaJob.Factory());
       put(RestoreAttachmentJob.KEY,                    new RestoreAttachmentJob.Factory());
       put(RestoreAttachmentThumbnailJob.KEY,           new RestoreAttachmentThumbnailJob.Factory());
       put(RestoreLocalAttachmentJob.KEY,               new RestoreLocalAttachmentJob.Factory());
@@ -302,6 +306,7 @@ public final class JobManagerFactories {
       put(AvatarColorStorageServiceMigrationJob.KEY,      new AvatarColorStorageServiceMigrationJob.Factory());
       put(AvatarIdRemovalMigrationJob.KEY,                new AvatarIdRemovalMigrationJob.Factory());
       put("AvatarMigrationJob",                           new FailingJob.Factory());  // MOLLY
+      put(BackfillCollapsedEventsMigrationJob.KEY,        new BackfillCollapsedEventsMigrationJob.Factory());
       put(BackfillDigestsForDuplicatesMigrationJob.KEY,   new BackfillDigestsForDuplicatesMigrationJob.Factory());
       put(BackupJitterMigrationJob.KEY,                   new BackupJitterMigrationJob.Factory());
       put(BackupNotificationMigrationJob.KEY,             new BackupNotificationMigrationJob.Factory());
@@ -418,6 +423,7 @@ public final class JobManagerFactories {
       put("BackupRestoreJob",                            new FailingJob.Factory());
       put("BackfillDigestsMigrationJob",                 new PassingMigrationJob.Factory());
       put("BackfillDigestJob",                           new FailingJob.Factory());
+      put("ResumableUploadSpecJob",                      new FailingJob.Factory());
     }};
   }
 

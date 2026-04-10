@@ -5,19 +5,25 @@
 
 package org.whispersystems.signalservice.api.attachment
 
+import kotlinx.coroutines.runBlocking
+import org.signal.core.util.logging.Log
+import org.signal.libsignal.net.AuthMessagesService
+import org.signal.libsignal.net.AuthenticatedChatConnection
+import org.signal.libsignal.net.RequestResult
+import org.signal.libsignal.net.UploadTooLargeException
+import org.signal.libsignal.net.getOrError
 import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
-import org.whispersystems.signalservice.internal.get
 import org.whispersystems.signalservice.internal.push.AttachmentUploadForm
 import org.whispersystems.signalservice.internal.push.PushAttachmentData
 import org.whispersystems.signalservice.internal.push.PushServiceSocket
 import org.whispersystems.signalservice.internal.push.http.AttachmentCipherOutputStreamFactory
 import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec
-import org.whispersystems.signalservice.internal.websocket.WebSocketRequestMessage
+import java.io.IOException
 import java.io.InputStream
 import kotlin.jvm.optionals.getOrNull
 
@@ -28,69 +34,117 @@ class AttachmentApi(
   private val authWebSocket: SignalWebSocket.AuthenticatedWebSocket,
   private val pushServiceSocket: PushServiceSocket
 ) {
+
+  companion object {
+    private val TAG: String = Log.tag(AttachmentApi::class)
+  }
+
   /**
    * Gets a v4 attachment upload form, which provides the necessary information to upload an attachment.
-   *
-   * GET /v4/attachments/form/upload
-   * - 200: Success
-   * - 413: Too many attempts
-   * - 429: Too many attempts
    */
-  fun getAttachmentV4UploadForm(): NetworkResult<AttachmentUploadForm> {
-    val request = WebSocketRequestMessage.get("/v4/attachments/form/upload")
-    return NetworkResult.fromWebSocketRequest(authWebSocket, request, AttachmentUploadForm::class)
-  }
-
-  /**
-   * Gets a resumable upload spec, which can be saved and re-used across upload attempts to resume upload progress.
-   */
-  fun getResumableUploadSpec(key: ByteArray, iv: ByteArray, uploadForm: AttachmentUploadForm): NetworkResult<ResumableUploadSpec> {
-    return getResumableUploadUrl(uploadForm)
-      .map { url ->
-        ResumableUploadSpec(
-          attachmentKey = key,
-          attachmentIv = iv,
-          cdnKey = uploadForm.key,
-          cdnNumber = uploadForm.cdn,
-          resumeLocation = url,
-          expirationTimestamp = System.currentTimeMillis() + PushServiceSocket.CDN2_RESUMABLE_LINK_LIFETIME_MILLIS,
-          headers = uploadForm.headers
+  fun getAttachmentV4UploadForm(uploadSizeBytes: Long): RequestResult<AttachmentUploadForm, UploadTooLargeException> {
+    return try {
+      runBlocking {
+        authWebSocket.runWithChatConnection { chatConnection ->
+          AuthMessagesService(chatConnection as AuthenticatedChatConnection).getUploadForm(uploadSizeBytes)
+        }
+      }.getOrError().map { form ->
+        AttachmentUploadForm(
+          cdn = form.cdn,
+          key = form.key,
+          headers = form.headers,
+          signedUploadLocation = form.signedUploadUrl.toString()
         )
       }
+    } catch (e: IOException) {
+      RequestResult.RetryableNetworkError(e)
+    } catch (e: Throwable) {
+      RequestResult.ApplicationError(e)
+    }
   }
 
   /**
-   * Uploads an attachment using the v4 upload scheme.
+   * Uploads an encrypted attachment, automatically choosing the best upload strategy based on CDN version.
+   * For CDN3, uses TUS "Creation With Upload" (single POST). For other CDNs, falls back to the legacy
+   * resumable upload flow (POST create + HEAD + PATCH).
+   *
+   * If [existingSpec] is provided, the upload resumes using the existing resumable upload URL (HEAD+PATCH)
+   * and [form] is not required.
+   * Otherwise, [form] is required, a new upload is initiated, and [onSpecCreated] is called with the
+   * [ResumableUploadSpec] before the upload begins, allowing callers to persist it for crash recovery.
    */
-  fun uploadAttachmentV4(attachmentStream: SignalServiceAttachmentStream): NetworkResult<AttachmentUploadResult> {
-    if (attachmentStream.resumableUploadSpec.isEmpty) {
-      throw IllegalStateException("Attachment must have a resumable upload spec!")
-    }
-
+  fun uploadAttachmentV4(
+    form: AttachmentUploadForm? = null,
+    key: ByteArray,
+    iv: ByteArray,
+    checksumSha256: String?,
+    attachmentStream: SignalServiceAttachmentStream,
+    existingSpec: ResumableUploadSpec? = null,
+    onSpecCreated: ((ResumableUploadSpec) -> Unit)? = null
+  ): NetworkResult<AttachmentUploadResult> {
     return NetworkResult.fromFetch {
-      val resumableUploadSpec = attachmentStream.resumableUploadSpec.get()
+      require(existingSpec != null || form != null) { "Either existingSpec or form must be provided" }
 
       val paddedLength = PaddingInputStream.getPaddedSize(attachmentStream.length)
       val dataStream: InputStream = PaddingInputStream(attachmentStream.inputStream, attachmentStream.length)
       val ciphertextLength = AttachmentCipherStreamUtil.getCiphertextLength(paddedLength)
+
+      val effectiveKey = existingSpec?.attachmentKey ?: key
+      val effectiveIv = existingSpec?.attachmentIv ?: iv
 
       val attachmentData = PushAttachmentData(
         contentType = attachmentStream.contentType,
         data = dataStream,
         dataSize = ciphertextLength,
         incremental = attachmentStream.isFaststart,
-        outputStreamFactory = AttachmentCipherOutputStreamFactory(resumableUploadSpec.attachmentKey, resumableUploadSpec.attachmentIv),
+        outputStreamFactory = AttachmentCipherOutputStreamFactory(effectiveKey, effectiveIv),
         listener = attachmentStream.listener,
         cancelationSignal = attachmentStream.cancelationSignal,
-        resumableUploadSpec = attachmentStream.resumableUploadSpec.get()
+        resumableUploadSpec = existingSpec
       )
 
-      val digestInfo = pushServiceSocket.uploadAttachment(attachmentData)
+      val digestInfo = if (existingSpec != null) {
+        Log.i(TAG, "Resuming upload via HEAD+PATCH")
+        pushServiceSocket.uploadAttachment(attachmentData)
+      } else if (form!!.cdn == 3) {
+        Log.i(TAG, "Fresh upload via creation-with-upload (CDN3)")
+
+        val spec = ResumableUploadSpec(
+          attachmentKey = key,
+          attachmentIv = iv,
+          cdnKey = form.key,
+          cdnNumber = form.cdn,
+          resumeLocation = form.signedUploadLocation + "/" + form.key,
+          expirationTimestamp = System.currentTimeMillis() + PushServiceSocket.CDN2_RESUMABLE_LINK_LIFETIME_MILLIS,
+          headers = form.headers
+        )
+        onSpecCreated?.invoke(spec)
+
+        pushServiceSocket.createAndUploadToCdn3(form, checksumSha256, attachmentData)
+      } else {
+        Log.i(TAG, "Fresh upload via legacy flow (CDN${form.cdn})")
+        val resumeUrl = pushServiceSocket.getResumableUploadUrl(form, checksumSha256)
+        val spec = ResumableUploadSpec(
+          attachmentKey = key,
+          attachmentIv = iv,
+          cdnKey = form.key,
+          cdnNumber = form.cdn,
+          resumeLocation = resumeUrl,
+          expirationTimestamp = System.currentTimeMillis() + PushServiceSocket.CDN2_RESUMABLE_LINK_LIFETIME_MILLIS,
+          headers = form.headers
+        )
+        onSpecCreated?.invoke(spec)
+
+        pushServiceSocket.uploadAttachment(attachmentData.copy(resumableUploadSpec = spec))
+      }
+
+      val cdnKey = existingSpec?.cdnKey ?: form!!.key
+      val cdnNumber = existingSpec?.cdnNumber ?: form!!.cdn
 
       AttachmentUploadResult(
-        remoteId = SignalServiceAttachmentRemoteId.V4(attachmentData.resumableUploadSpec.cdnKey),
-        cdnNumber = attachmentData.resumableUploadSpec.cdnNumber,
-        key = resumableUploadSpec.attachmentKey,
+        remoteId = SignalServiceAttachmentRemoteId.V4(cdnKey),
+        cdnNumber = cdnNumber,
+        key = key,
         digest = digestInfo.digest,
         incrementalDigest = digestInfo.incrementalDigest,
         incrementalDigestChunkSize = digestInfo.incrementalMacChunkSize,
@@ -98,22 +152,6 @@ class AttachmentApi(
         dataSize = attachmentStream.length,
         blurHash = attachmentStream.blurHash.getOrNull()
       )
-    }
-  }
-
-  /**
-   * Uploads a raw file using the v4 upload scheme. No additional encryption is supplied! Always prefer [uploadAttachmentV4], unless you are using a separate
-   * encryption scheme (i.e. like backup files).
-   */
-  fun uploadPreEncryptedFileToAttachmentV4(uploadForm: AttachmentUploadForm, resumableUploadUrl: String, inputStream: InputStream, inputStreamLength: Long): NetworkResult<Unit> {
-    return NetworkResult.fromFetch {
-      pushServiceSocket.uploadBackupFile(uploadForm, resumableUploadUrl, inputStream, inputStreamLength)
-    }
-  }
-
-  fun getResumableUploadUrl(uploadForm: AttachmentUploadForm): NetworkResult<String> {
-    return NetworkResult.fromFetch {
-      pushServiceSocket.getResumableUploadUrl(uploadForm)
     }
   }
 }

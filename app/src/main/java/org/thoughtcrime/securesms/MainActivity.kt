@@ -91,10 +91,13 @@ import org.signal.core.ui.isSplitPane
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
+import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.getSerializableCompat
 import org.signal.core.util.logging.Log
 import org.signal.mediasend.MediaSendActivityContract
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
+import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgressState
+import org.thoughtcrime.securesms.backup.v2.ui.CouldNotCompleteBackupRestoreSheet
 import org.thoughtcrime.securesms.backup.v2.ui.verify.VerifyBackupKeyActivity
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar.show
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
@@ -135,6 +138,7 @@ import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
 import org.thoughtcrime.securesms.main.MainNavigationDetailLocationEffect
 import org.thoughtcrime.securesms.main.MainNavigationListLocation
 import org.thoughtcrime.securesms.main.MainNavigationRail
+import org.thoughtcrime.securesms.main.MainNavigationRouter
 import org.thoughtcrime.securesms.main.MainNavigationViewModel
 import org.thoughtcrime.securesms.main.MainSnackbar
 import org.thoughtcrime.securesms.main.MainSnackbarHostKey
@@ -150,8 +154,9 @@ import org.thoughtcrime.securesms.main.navigateToDetailLocation
 import org.thoughtcrime.securesms.main.rememberDetailNavHostController
 import org.thoughtcrime.securesms.main.rememberFocusRequester
 import org.thoughtcrime.securesms.main.storiesNavGraphBuilder
-import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil
+import org.thoughtcrime.securesms.mediasend.camerax.CameraXRemoteConfig
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
+import org.thoughtcrime.securesms.mediasend.v3.mediaSendLauncher
 import org.thoughtcrime.securesms.megaphone.Megaphone
 import org.thoughtcrime.securesms.megaphone.MegaphoneActionController
 import org.thoughtcrime.securesms.megaphone.Megaphones
@@ -162,6 +167,7 @@ import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles
 import org.thoughtcrime.securesms.profiles.manage.UsernameEditFragment
 import org.thoughtcrime.securesms.service.BackupMediaRestoreService
 import org.thoughtcrime.securesms.service.KeyCachingService
+import org.thoughtcrime.securesms.starred.StarredMessagesActivity
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.stories.archive.StoryArchiveActivity
 import org.thoughtcrime.securesms.stories.landing.StoriesLandingFragment
@@ -185,12 +191,20 @@ import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDeleg
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import org.signal.core.ui.R as CoreUiR
 
-class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, MainNavigator.NavigatorProvider, Material3OnScrollHelperBinder, ConversationListFragment.Callback, CallLogFragment.Callback {
+class MainActivity :
+  PassphraseRequiredActivity(),
+  VoiceNoteMediaControllerOwner,
+  MainNavigator.NavigatorProvider,
+  Material3OnScrollHelperBinder,
+  ConversationListFragment.Callback,
+  MainNavigationRouter,
+  CallLogFragment.Callback {
 
   companion object {
     private val TAG = Log.tag(MainActivity::class)
 
     private const val KEY_STARTING_TAB = "STARTING_TAB"
+    private const val KEY_DETAIL_LOCATION = "DETAIL_LOCATION"
     const val RESULT_CONFIG_CHANGED = Activity.RESULT_FIRST_USER + 901
 
     @JvmStatic
@@ -202,6 +216,11 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     @JvmStatic
     fun clearTopAndOpenTab(context: Context, startingTab: MainNavigationListLocation): Intent {
       return clearTop(context).putExtra(KEY_STARTING_TAB, startingTab)
+    }
+
+    @JvmStatic
+    fun clearTopAndOpenDetail(context: Context, location: MainNavigationDetailLocation): Intent {
+      return clearTop(context).putExtra(KEY_DETAIL_LOCATION, location)
     }
   }
 
@@ -242,7 +261,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
   private val megaphoneActionController = MainMegaphoneActionController()
   private val mainNavigationCallback = MainNavigationCallback()
 
-  private lateinit var mediaActivityLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
+  private lateinit var mediaSendLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
 
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
     return motionEventRelay.offer(ev) || super.dispatchTouchEvent(ev)
@@ -269,7 +288,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     super.onCreate(savedInstanceState, ready)
     navigator = MainNavigator(this, mainNavigationViewModel)
 
-    mediaActivityLauncher = registerForActivityResult(MediaSendActivityContract()) { }
+    mediaSendLauncher = mediaSendLauncher()
 
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
@@ -308,6 +327,19 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               Log.i(TAG, "Still restoring media, launching a service. Remaining restoration size: ${it.remainingRestoreSize} out of ${it.totalRestoreSize} ")
               BackupMediaRestoreService.resetTimeout()
               BackupMediaRestoreService.start(this@MainActivity, resources.getString(R.string.BackupStatus__restoring_media))
+            }
+        }
+      }
+
+      launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+          ArchiveRestoreProgress
+            .stateFlow
+            .filter { it.restoreStatus == ArchiveRestoreProgressState.RestoreStatus.LOCAL_RESTORE_DIRECTORY_UNAVAILABLE }
+            .collect {
+              ArchiveRestoreProgress.clearLocalRestoreDirectoryError()
+              CouldNotCompleteBackupRestoreSheet().show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+              Log.i(TAG, "Local restore directory became unavailable.")
             }
         }
       }
@@ -466,6 +498,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
               }
 
               is MainNavigationDetailLocation.Calls -> callsNavHostController.navigateToDetailLocation(location)
+
               is MainNavigationDetailLocation.Stories -> storiesNavHostController.navigateToDetailLocation(location)
             }
           }
@@ -781,6 +814,13 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
     handleDeepLinkIntent(intent)
 
     val extras = intent.extras ?: return
+
+    val detailLocation = extras.getParcelableCompat(KEY_DETAIL_LOCATION, MainNavigationDetailLocation::class.java)
+    if (detailLocation != null) {
+      mainNavigationViewModel.goTo(detailLocation)
+      return
+    }
+
     val startingTab = extras.getSerializableCompat(KEY_STARTING_TAB, MainNavigationListLocation::class.java)
 
     when (startingTab) {
@@ -1031,7 +1071,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       if (isForQuickRestore) {
         startActivity(MediaSelectionActivity.cameraForQuickRestore(context = this@MainActivity))
       } else if (SignalStore.internal.useNewMediaActivity) {
-        mediaActivityLauncher.launch(
+        mediaSendLauncher.launch(
           MediaSendActivityContract.Args(
             isCameraFirst = false,
             isStory = destination == MainNavigationListLocation.STORIES
@@ -1047,7 +1087,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       }
     }
 
-    if (CameraXUtil.isSupported()) {
+    if (CameraXRemoteConfig.isSupported()) {
       onGranted()
     } else {
       Permissions.with(this@MainActivity)
@@ -1089,6 +1129,10 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
     override fun onClearUnreadChatsFilterClick() {
       toolbarViewModel.setChatFilter(ConversationFilter.OFF)
+    }
+
+    override fun onStarredMessagesClick() {
+      startActivity(StarredMessagesActivity.createIntent(this@MainActivity))
     }
 
     override fun onSettingsClick() {
@@ -1146,6 +1190,14 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
 
     override fun onSearchQueryUpdated(query: String) {
       toolbarViewModel.setSearchQuery(query)
+    }
+
+    override fun onSearchFilterClick() {
+      supportFragmentManager.fragments.forEach { fragment ->
+        if (fragment is ConversationListFragment) {
+          fragment.showSearchFilterBottomSheet()
+        }
+      }
     }
 
     override fun onNotificationProfileTooltipDismissed() {
@@ -1220,4 +1272,7 @@ class MainActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner
       }
     }
   }
+
+  override fun goTo(location: MainNavigationListLocation) = mainNavigationViewModel.goTo(location)
+  override fun goTo(location: MainNavigationDetailLocation) = mainNavigationViewModel.goTo(location)
 }

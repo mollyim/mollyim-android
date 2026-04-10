@@ -99,7 +99,7 @@
     <!-- Title text for the archive restore selection screen -->
     <string name="ArchiveRestoreSelectionScreen__restore_or_transfer_account">Obnovení nebo přenos účtu</string>
     <!-- Subtitle text for the archive restore selection screen -->
-    <string name="ArchiveRestoreSelectionScreen__subheading">Choose how you’d like to restore your message history and account data.</string>
+    <string name="ArchiveRestoreSelectionScreen__subheading">Vyberte, jakým způsobem chcete obnovit historii zpráv a data účtu.</string>
     <!-- Title for the Signal Backups option card -->
     <string name="ArchiveRestoreSelectionScreen__from_signal_backups">Ze zálohování služby Signal</string>
     <!-- Subtitle for the Signal Backups option card -->
@@ -111,13 +111,13 @@
     <!-- Title for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">Pokračovat bez přenosu</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
-    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Messages &amp; media won’t be transferred</string>
+    <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Zprávy a média nebudou přeneseny</string>
     <!-- Title for the backup folder option card (V2 format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Ze záložní složky</string>
+    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Ze složky se zálohou</string>
     <!-- Title for the backup file option card (V1 legacy format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">Ze záložního souboru</string>
+    <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">Ze souboru zálohy</string>
     <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Choose a backup you\'ve saved</string>
+    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Vyberte uloženou zálohu</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">Ze starého telefonu</string>
     <!-- Subtitle for the device transfer option card -->
@@ -130,4 +130,85 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_warning">Pokud nyní obnovení přeskočíte, nebude to už později možné. Pokud zálohování po přeskočení obnovení znovu povolíte, bude vaše aktuální záloha nahrazena novou historií zpráv.</string>
     <!-- Confirm button text for the skip restore dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_confirm_button">Přeskočit obnovení</string>
+
+    <!-- LocalBackupRestoreScreen -->
+    <!-- Title for the local backup restore screen -->
+    <string name="LocalBackupRestoreScreen__restore_on_device_backup">Obnovení zálohy uložené v zařízení</string>
+    <!-- Description on the folder selection screen -->
+    <string name="LocalBackupRestoreScreen__select_folder_description">Obnovte své zprávy ze zálohy uložené ve vašem zařízení. Pokud je neobnovíte teď, nebude to už později možné.</string>
+    <!-- Title for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_backup_folder">Vyberte složku se zálohou</string>
+    <!-- Subtitle for the choose backup folder card -->
+    <string name="LocalBackupRestoreScreen__choose_folder_subtitle">Vyberte složku ve svém zařízení, ve které je uložena záloha</string>
+    <!-- Text shown while scanning for backups -->
+    <string name="LocalBackupRestoreScreen__scanning_folder">Looking for backups…</string>
+    <!-- Description shown when a backup is found -->
+    <string name="LocalBackupRestoreScreen__backup_found_description">Obnovte své zprávy ze složky se zálohou uložené ve vašem zařízení. Pokud je neobnovíte teď, nebude to už později možné.</string>
+    <!-- Title for the latest backup card -->
+    <string name="LocalBackupRestoreScreen__your_latest_backup">Vaše poslední záloha:</string>
+    <!-- Label for a legacy backup type -->
+    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
+    <!-- Restore backup button text -->
+    <string name="LocalBackupRestoreScreen__restore_backup">Obnovit zálohu</string>
+    <!-- Link to choose an earlier backup -->
+    <string name="LocalBackupRestoreScreen__choose_earlier_backup">Vyberte starší zálohu</string>
+    <!-- Title for the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choose_a_backup_to_restore">Vyberte zálohu pro obnovení</string>
+    <!-- Warning text in the backup picker bottom sheet -->
+    <string name="LocalBackupRestoreScreen__choosing_an_older_backup_warning">Výběr starší zálohy může vést ke ztrátě zpráv nebo médií.</string>
+    <!-- Title when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found">No backup found</string>
+    <!-- Description when no backup is found -->
+    <string name="LocalBackupRestoreScreen__no_backup_found_description">No Signal backup was found in the selected folder. Please try a different folder.</string>
+    <!-- Button to try a different folder -->
+    <string name="LocalBackupRestoreScreen__try_different_folder">Try a different folder</string>
+    <!-- Title for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_backup_passphrase">Zadejte heslo pro zálohu</string>
+    <!-- Description for V1 passphrase entry screen -->
+    <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Your local backup passphrase is a 30-digit code required to recover your account and data.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="LocalBackupRestoreScreen__recovery_key">Klíč pro obnovení</string>
+    <!-- Error text when passphrase is too long -->
+    <string name="LocalBackupRestoreScreen__too_long">Příliš dlouhé (%1$d/%2$d)</string>
+    <!-- Link for users who don\'t have their passphrase -->
+    <string name="LocalBackupRestoreScreen__no_passphrase">No passphrase?</string>
+    <!-- Next button text -->
+    <string name="LocalBackupRestoreScreen__next">Další</string>
+    <!-- EnterAepScreen -->
+    <!-- Title for recovery key entry screen -->
+    <string name="EnterAepScreen__enter_your_recovery_key">Zadejte svůj klíč pro obnovení</string>
+    <!-- Description for recovery key entry screen -->
+    <string name="EnterAepScreen__your_recovery_key_is_a_64_character_code">Klíč pro obnovrní je 64místný kód potřebný k obnovení účtu a dat.</string>
+    <!-- Label for the recovery key text field -->
+    <string name="EnterAepScreen__recovery_key">Klíč pro obnovení</string>
+    <!-- Link for users who don\'t have their recovery key -->
+    <string name="EnterAepScreen__no_recovery_key">Žádný klíč pro obnovení?</string>
+    <!-- Error text when key is too long -->
+    <string name="EnterAepScreen__too_long">Příliš dlouhé (%1$d/%2$d)</string>
+    <!-- Error text when key is invalid -->
+    <string name="EnterAepScreen__invalid_recovery_key">Neplatný klíč pro obnovení</string>
+    <!-- Text shown while preparing the restore -->
+    <string name="LocalBackupRestoreScreen__preparing_restore">Preparing restore…</string>
+    <!-- Title shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_backup">Obnovování zálohy</string>
+    <!-- Description shown while restore is in progress -->
+    <string name="LocalBackupRestoreScreen__restoring_description">Please wait while your messages and data are being restored.</string>
+    <!-- Title shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete">Obnovení dokončeno</string>
+    <!-- Description shown when restore is complete -->
+    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
+    <!-- Continue button text after restore is complete -->
+    <string name="LocalBackupRestoreScreen__continue_button">Pokračovat</string>
+    <!-- Title shown when restore fails -->
+    <string name="LocalBackupRestoreScreen__restore_failed">Obnovení se nezdařilo</string>
+    <!-- Description shown when restore fails with an unknown error -->
+    <string name="LocalBackupRestoreScreen__restore_failed_description">Při obnovování zálohy se vyskytla chyba. Zkuste to prosím znovu.</string>
+    <!-- Button to retry restore after failure -->
+    <string name="LocalBackupRestoreScreen__try_again">Zkusit znovu</string>
+    <!-- Button to link an existing Signal account to this device -->
+    <string name="WelcomeScreen__link_your_account">Link your account</string>
+    <!-- Prompt shown to users who don\'t have a Signal account yet -->
+    <string name="WelcomeScreen__not_on_signal_yet">Not on Signal yet?</string>
+    <!-- Button to create a new Signal account -->
+    <string name="WelcomeScreen__create_account">Create account</string>
 </resources>

@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -43,6 +44,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.asFlow
 import org.signal.core.models.ServiceId
+import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.paging.ProxyPagingController
@@ -101,6 +103,7 @@ import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.time.Duration
 
 /**
@@ -171,6 +174,8 @@ class ConversationViewModel(
   val isPushAvailable: Boolean
     get() = recipientSnapshot?.isRegistered == true && Recipient.self().isRegistered
 
+  val wallpaper: Flow<ChatWallpaper?> = recipient.asFlow().map { it.wallpaper }.distinctUntilChanged()
+
   val wallpaperSnapshot: ChatWallpaper?
     get() = recipientSnapshot?.wallpaper
 
@@ -183,7 +188,7 @@ class ConversationViewModel(
   val messageRequestState: MessageRequestState
     get() = hasMessageRequestStateSubject.value ?: MessageRequestState()
 
-  private val groupRecordFlow: Flow<GroupRecord>
+  val groupRecordFlow: Flow<GroupRecord>
 
   private val refreshIdentityRecords: Subject<Unit> = PublishSubject.create()
   private val identityRecordsStore: RxStore<IdentityRecordsState> = RxStore(IdentityRecordsState())
@@ -215,7 +220,7 @@ class ConversationViewModel(
   private val _plaintextExportState = MutableStateFlow<PlaintextExportState>(PlaintextExportState.None)
   val plaintextExportState: StateFlow<PlaintextExportState> = _plaintextExportState
 
-  private val plaintextExportCancelled = java.util.concurrent.atomic.AtomicBoolean(false)
+  private val plaintextExportCancelled = AtomicBoolean(false)
 
   init {
     disposables += recipient
@@ -380,6 +385,16 @@ class ConversationViewModel(
     }
   }
 
+  fun setMessageStarred(messageId: Long, starred: Boolean): Completable {
+    return setMessagesStarred(setOf(messageId), starred)
+  }
+
+  fun setMessagesStarred(messageIds: Set<Long>, starred: Boolean): Completable {
+    return repository
+      .setMessagesStarred(messageIds, starred)
+      .observeOn(AndroidSchedulers.mainThread())
+  }
+
   fun updateThreadHeader() {
     pagingController.onDataItemChanged(ConversationElementKey.threadHeader)
   }
@@ -394,7 +409,7 @@ class ConversationViewModel(
     val pendingGroupJoinFlow: Flow<PendingGroupJoinRequestsBanner> = groupRecordFlow
       .map {
         PendingGroupJoinRequestsBanner(
-          suggestionsSize = it.actionableRequestingMembersCount,
+          suggestionsSize = if (it.isTerminated) 0 else it.actionableRequestingMembersCount,
           onViewClicked = groupJoinClickListener
         )
       }
@@ -420,6 +435,20 @@ class ConversationViewModel(
       transform = { it.toList() }
     )
       .flowOn(Dispatchers.IO)
+  }
+
+  fun onCollapseEvents(messageId: Long) {
+    viewModelScope.launch(Dispatchers.IO) {
+      repository.collapseEvents(messageId)
+      pagingController.onDataInvalidated()
+    }
+  }
+
+  fun onExpandEvents(messageId: Long) {
+    viewModelScope.launch(Dispatchers.IO) {
+      repository.expandEvents(messageId)
+      pagingController.onDataInvalidated()
+    }
   }
 
   fun onChatBoundsChanged(bounds: Rect) {
@@ -707,6 +736,10 @@ class ConversationViewModel(
     }
   }
 
+  fun resetBackPressedState() {
+    internalBackPressedState.value = BackPressedState()
+  }
+
   fun toggleVote(poll: PollRecord, pollOption: PollOption, isChecked: Boolean) {
     viewModelScope.launch(Dispatchers.IO) {
       val voteCount = if (isChecked) {
@@ -729,7 +762,7 @@ class ConversationViewModel(
     }
   }
 
-  fun startPlaintextExport(context: Context, directoryUri: Uri) {
+  fun startPlaintextExport(context: Context, directoryUri: Uri, withMedia: Boolean) {
     val recipient = recipientSnapshot ?: return
     val chatName = if (recipient.isSelf) context.getString(R.string.note_to_self) else recipient.getDisplayName(context)
 
@@ -742,12 +775,17 @@ class ConversationViewModel(
         threadId = threadId,
         directoryUri = directoryUri,
         chatName = chatName,
+        includeMedia = withMedia,
         progressListener = { messagesProcessed, messageCount, attachmentsProcessed, attachmentCount ->
-          val messagePercent = if (messageCount > 0) (messagesProcessed * 25) / messageCount else 25
-          val attachmentPercent = if (attachmentCount > 0) (attachmentsProcessed * 75) / attachmentCount else 75
-          val percent = messagePercent + attachmentPercent
+          val percent = if (withMedia) {
+            val messagePercent = if (messageCount > 0) (messagesProcessed * 25) / messageCount else 25
+            val attachmentPercent = if (attachmentCount > 0) (attachmentsProcessed * 75) / attachmentCount else 75
+            messagePercent + attachmentPercent
+          } else {
+            if (messageCount > 0) (messagesProcessed * 100) / messageCount else 100
+          }
 
-          val status = if (attachmentsProcessed > 0 || messagesProcessed >= messageCount) {
+          val status = if (withMedia && (attachmentsProcessed > 0 || messagesProcessed >= messageCount)) {
             "Exporting media ($attachmentsProcessed/$attachmentCount)..."
           } else {
             "Exporting messages ($messagesProcessed/$messageCount)..."
@@ -772,6 +810,12 @@ class ConversationViewModel(
 
   fun clearPlaintextExportState() {
     _plaintextExportState.value = PlaintextExportState.None
+  }
+
+  fun collapseAllEvents() {
+    viewModelScope.launch(SignalDispatchers.IO) {
+      repository.collapseAllEvents()
+    }
   }
 
   sealed interface PlaintextExportState {

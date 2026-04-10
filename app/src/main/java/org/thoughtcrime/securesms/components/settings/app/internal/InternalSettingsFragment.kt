@@ -40,6 +40,7 @@ import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.JobTracker
+import org.thoughtcrime.securesms.jobs.BackfillCollapsedMessageJob
 import org.thoughtcrime.securesms.jobs.CheckKeyTransparencyJob
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob
 import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob
@@ -197,6 +198,17 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
           RationaleDialog.createFor(requireContext(), "Title", "Details", R.drawable.symbol_key_24).show()
         }
       )
+
+      clickPref(
+        title = DSLSettingsText.from("Collapse chat updates"),
+        summary = DSLSettingsText.from("Collapses certain consecutive chat updates - cannot be undone."),
+        onClick = {
+          SignalStore.misc.completedCollapsedEventsMigration = false
+          AppDependencies.jobManager.add(BackfillCollapsedMessageJob())
+        }
+      )
+
+      dividerPref()
 
       sectionHeaderPref(DSLSettingsText.from("Playgrounds"))
 

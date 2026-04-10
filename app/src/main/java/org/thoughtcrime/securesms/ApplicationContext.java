@@ -68,6 +68,7 @@ import org.thoughtcrime.securesms.jobs.AccountConsistencyWorkerJob;
 import org.thoughtcrime.securesms.jobs.BackupRefreshJob;
 import org.thoughtcrime.securesms.jobs.BackupSubscriptionCheckJob;
 import org.thoughtcrime.securesms.jobs.BuildExpirationConfirmationJob;
+import org.thoughtcrime.securesms.jobs.CallingAssetsDownloadJob;
 import org.thoughtcrime.securesms.jobs.CheckKeyTransparencyJob;
 import org.thoughtcrime.securesms.jobs.CheckServiceReachabilityJob;
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob;
@@ -113,12 +114,14 @@ import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.webrtc.ActiveCallManager;
+import org.thoughtcrime.securesms.service.webrtc.CallingAssets;
 import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.DeviceProperties;
 import org.thoughtcrime.securesms.util.DynamicTheme;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.FileUtils;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
@@ -236,7 +239,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addNonBlocking(this::ensureProfileUploaded)
               .addNonBlocking(() -> AppDependencies.getExpireStoriesManager().scheduleIfNecessary())
               .addNonBlocking(BackupRepository::maybeFixAnyDanglingUploadProgress)
-              .addNonBlocking(BackupRepository::maybeFixAnyDanglingLocalExportProgress)
               .addPostRender(() -> AppDependencies.getDeletedCallEventManager().scheduleIfNecessary())
               .addPostRender(() -> RateLimitUtil.retryAllRateLimitedMessages(this))
               .addPostRender(this::initializeExpiringMessageManager)
@@ -249,6 +251,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addPostRender(RetrieveRemoteAnnouncementsJob::enqueue)
               .addPostRender(AndroidTelecomUtil::registerPhoneAccount)
               .addPostRender(() -> AppDependencies.getJobManager().add(new FontDownloaderJob()))
+              .addPostRender(() -> AppDependencies.getJobManager().add(new CallingAssetsDownloadJob()))
               .addPostRender(CheckServiceReachabilityJob::enqueueIfNecessary)
               .addPostRender(GroupV2UpdateSelfProfileKeyJob::enqueueForGroupsIfNecessary)
               .addPostRender(StoryOnboardingDownloadJob.Companion::enqueueIfNeeded)
@@ -484,6 +487,20 @@ public class ApplicationContext extends Application implements AppForegroundObse
       AppDependencies.init(new ApplicationDependencyProvider(this));
     }
     AppForegroundObserver.begin();
+
+    if (Environment.USE_NEW_REGISTRATION) {
+      initializeRegistrationDependencies();
+    }
+  }
+
+  private void initializeRegistrationDependencies() {
+    org.signal.registration.RegistrationDependencies.Companion.provide(
+      new org.signal.registration.RegistrationDependencies(
+        new org.thoughtcrime.securesms.registration.v2.AppRegistrationNetworkController(this, AppDependencies.getPushServiceSocket()),
+        new org.thoughtcrime.securesms.registration.v2.AppRegistrationStorageController(this),
+        null
+      )
+    );
   }
 
   private void initializeFirstEverAppLaunch() {

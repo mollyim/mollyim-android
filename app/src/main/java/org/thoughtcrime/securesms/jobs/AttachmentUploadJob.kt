@@ -12,6 +12,9 @@ import org.signal.core.util.Util
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.inRoundedDays
 import org.signal.core.util.logging.Log
+import org.signal.libsignal.net.RequestResult
+import org.signal.libsignal.net.RetryLaterException
+import org.signal.libsignal.net.UploadTooLargeException
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.Attachment
@@ -28,6 +31,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec
 import org.thoughtcrime.securesms.jobs.protos.AttachmentUploadJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.net.NotPushRegisteredException
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -44,6 +48,7 @@ import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStre
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResumableUploadResponseCodeException
 import org.whispersystems.signalservice.api.push.exceptions.ResumeLocationInvalidException
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
+import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.days
@@ -146,7 +151,7 @@ class AttachmentUploadJob private constructor(
 
     val timeSinceUpload = System.currentTimeMillis() - databaseAttachment.uploadTimestamp
     if (timeSinceUpload < UPLOAD_REUSE_THRESHOLD && !TextUtils.isEmpty(databaseAttachment.remoteLocation)) {
-      Log.i(TAG, "We can re-use an already-uploaded file. It was uploaded $timeSinceUpload ms (${timeSinceUpload.milliseconds.inRoundedDays()} days) ago. Skipping.")
+      Log.i(TAG, "[$attachmentId] We can re-use an already-uploaded file. It was uploaded $timeSinceUpload ms (${timeSinceUpload.milliseconds.inRoundedDays()} days) ago. Skipping.")
       SignalDatabase.attachments.setTransferState(databaseAttachment.mmsId, attachmentId, AttachmentTable.TRANSFER_PROGRESS_DONE)
       if (SignalStore.account.isPrimaryDevice && BackupRepository.shouldCopyAttachmentToArchive(databaseAttachment.attachmentId, databaseAttachment.mmsId)) {
         Log.i(TAG, "[$attachmentId] The re-used file was not copied to the archive. Copying now.")
@@ -154,39 +159,57 @@ class AttachmentUploadJob private constructor(
       }
       return
     } else if (databaseAttachment.uploadTimestamp > 0) {
-      Log.i(TAG, "This file was previously-uploaded, but too long ago to be re-used. Age: $timeSinceUpload ms (${timeSinceUpload.milliseconds.inRoundedDays()} days)")
+      Log.i(TAG, "[$attachmentId] This file was previously-uploaded, but too long ago to be re-used. Age: $timeSinceUpload ms (${timeSinceUpload.milliseconds.inRoundedDays()} days)")
       if (databaseAttachment.archiveTransferState != AttachmentTable.ArchiveTransferState.NONE) {
         SignalDatabase.attachments.clearArchiveData(attachmentId)
       }
     }
 
     if (uploadSpec != null && System.currentTimeMillis() > uploadSpec!!.timeout) {
-      Log.w(TAG, "Upload spec expired! Clearing.")
+      Log.w(TAG, "[$attachmentId] Upload spec expired! Clearing.")
       uploadSpec = null
     }
 
-    if (uploadSpec == null) {
-      Log.d(TAG, "Need an upload spec. Fetching...")
-      uploadSpec = SignalNetwork.attachments
-        .getAttachmentV4UploadForm()
-        .then { form ->
-          SignalNetwork.attachments.getResumableUploadSpec(
-            key = Base64.decode(databaseAttachment.remoteKey!!),
-            iv = Util.getSecretBytes(16),
-            uploadForm = form
-          )
-        }
-        .successOrThrow()
-        .toProto()
-    } else {
-      Log.d(TAG, "Re-using existing upload spec.")
-    }
-
-    Log.i(TAG, "Uploading attachment for message " + databaseAttachment.mmsId + " with ID " + databaseAttachment.attachmentId)
+    Log.i(TAG, "[$attachmentId] Uploading attachment for message ${databaseAttachment.mmsId}")
     try {
+      val existingSpec = uploadSpec?.let { ResumableUploadSpec.from(it) }
+
+      val ciphertextLength = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(databaseAttachment.size))
+
+      val uploadForm = if (existingSpec == null) {
+        when (val result = SignalNetwork.attachments.getAttachmentV4UploadForm(ciphertextLength)) {
+          is RequestResult.Success -> result.result
+          is RequestResult.NonSuccess -> throw result.error
+          is RequestResult.RetryableNetworkError -> throw RetryLaterException(result.retryAfter)
+          is RequestResult.ApplicationError -> throw result.cause
+        }
+      } else {
+        null
+      }
+
+      val key = existingSpec?.attachmentKey ?: Base64.decode(databaseAttachment.remoteKey!!)
+      val iv = existingSpec?.attachmentIv ?: Util.getSecretBytes(16)
+
+      val checksumSha256 = if (existingSpec == null) {
+        PartAuthority.getAttachmentStream(context, databaseAttachment.uri!!).use { stream ->
+          AttachmentUploadUtil.computeCiphertextChecksum(key, iv, stream, databaseAttachment.size)
+        }
+      } else {
+        null
+      }
+
       getAttachmentNotificationIfNeeded(databaseAttachment).use { notification ->
-        buildAttachmentStream(databaseAttachment, notification, uploadSpec!!).use { localAttachment ->
-          val uploadResult: AttachmentUploadResult = SignalNetwork.attachments.uploadAttachmentV4(localAttachment).successOrThrow()
+        buildAttachmentStream(databaseAttachment, notification).use { localAttachment ->
+          val uploadResult: AttachmentUploadResult = SignalNetwork.attachments.uploadAttachmentV4(
+            form = uploadForm,
+            key = key,
+            iv = iv,
+            checksumSha256 = checksumSha256,
+            attachmentStream = localAttachment,
+            existingSpec = existingSpec,
+            onSpecCreated = { spec -> uploadSpec = spec.toProto() }
+          ).successOrThrow()
+
           SignalDatabase.attachments.finalizeAttachmentAfterUpload(databaseAttachment.attachmentId, uploadResult)
           if (SignalStore.backup.backsUpMedia) {
             val messageId = SignalDatabase.attachments.getMessageId(databaseAttachment.attachmentId)
@@ -234,7 +257,7 @@ class AttachmentUploadJob private constructor(
       throw e
     } catch (e: NonSuccessfulResumableUploadResponseCodeException) {
       if (e.code == 400) {
-        Log.w(TAG, "Failed to upload due to a 400 when getting resumable upload information. Clearing upload spec.", e)
+        Log.w(TAG, "[$attachmentId] Failed to upload due to a 400 when getting resumable upload information. Clearing upload spec.", e)
         uploadSpec = null
       }
 
@@ -242,7 +265,7 @@ class AttachmentUploadJob private constructor(
 
       throw e
     } catch (e: ResumeLocationInvalidException) {
-      Log.w(TAG, "Resume location invalid. Clearing upload spec.", e)
+      Log.w(TAG, "[$attachmentId] Resume location invalid. Clearing upload spec.", e)
       uploadSpec = null
 
       resetProgressListeners(databaseAttachment)
@@ -267,19 +290,27 @@ class AttachmentUploadJob private constructor(
     val database = SignalDatabase.attachments
     val databaseAttachment = database.getAttachment(attachmentId)
     if (databaseAttachment == null) {
-      Log.i(TAG, "Could not find attachment in DB for upload job upon failure/cancellation.")
+      Log.i(TAG, "[$attachmentId] Could not find attachment in DB for upload job upon failure/cancellation.")
       return
     }
 
     database.setTransferProgressFailed(attachmentId, databaseAttachment.mmsId)
   }
 
+  override fun getNextRunAttemptBackoff(pastAttemptCount: Int, exception: java.lang.Exception): Long {
+    if (exception is RetryLaterException && exception.duration != null) {
+      return exception.duration.toMillis()
+    }
+
+    return super.getNextRunAttemptBackoff(pastAttemptCount, exception)
+  }
+
   override fun onShouldRetry(exception: Exception): Boolean {
-    return exception is IOException && exception !is NotPushRegisteredException
+    return exception is IOException && exception !is NotPushRegisteredException && exception !is UploadTooLargeException
   }
 
   @Throws(InvalidAttachmentException::class)
-  private fun buildAttachmentStream(attachment: Attachment, notification: AttachmentProgressService.Controller?, resumableUploadSpec: ResumableUpload): SignalServiceAttachmentStream {
+  private fun buildAttachmentStream(attachment: Attachment, notification: AttachmentProgressService.Controller?): SignalServiceAttachmentStream {
     if (attachment.uri == null || attachment.size == 0L) {
       throw InvalidAttachmentException(IOException("Outgoing attachment has no data!"))
     }
@@ -288,7 +319,6 @@ class AttachmentUploadJob private constructor(
       AttachmentUploadUtil.buildSignalServiceAttachmentStream(
         context = context,
         attachment = attachment,
-        uploadSpec = resumableUploadSpec,
         cancellationSignal = { isCanceled },
         progressListener = object : SignalServiceAttachment.ProgressListener {
           override fun onAttachmentProgress(progress: AttachmentTransferProgress) {

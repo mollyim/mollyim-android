@@ -78,6 +78,7 @@ class ConversationListFilterPullView @JvmOverloads constructor(
   private val velocityTracker = ProgressVelocityTracker(5)
   private var animateHelpText = 0
   private var helpTextStartFraction = 0.35f
+  private var previousDragProgress: Float? = null
 
   private val pillDefaultBackgroundTint = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSecondaryContainer)
   private val pillWillCloseBackgroundTint = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSurfaceContainerLow)
@@ -114,6 +115,9 @@ class ConversationListFilterPullView @JvmOverloads constructor(
   }
 
   fun onUserDrag(progress: Float) {
+    val previousProgress = previousDragProgress ?: progress
+    val enteredApexFromBelow = previousProgress < 1f && progress >= 1f
+
     binding.filterCircle.progress = progress
 
     if (state == FilterPullState.CLOSED && progress <= 0) {
@@ -123,7 +127,7 @@ class ConversationListFilterPullView @JvmOverloads constructor(
       vibrate()
       resetHelpText()
       resetPillColor()
-    } else if (state == FilterPullState.OPEN && progress >= 1f) {
+    } else if (state == FilterPullState.OPEN && enteredApexFromBelow) {
       setState(FilterPullState.CLOSE_APEX, ConversationFilterSource.DRAG)
       vibrate()
       animatePillColor()
@@ -167,6 +171,8 @@ class ConversationListFilterPullView @JvmOverloads constructor(
     if (state == FilterPullState.CLOSE_APEX) {
       binding.filterText.alpha = FilterLerp.getPillCloseApexAlphaLerp(progress)
     }
+
+    previousDragProgress = progress
   }
 
   fun onUserDragFinished() {

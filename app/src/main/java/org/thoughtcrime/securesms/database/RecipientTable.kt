@@ -1290,7 +1290,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
 
       if (key == null) {
         Log.w(TAG, "Needed to repair storageId for $recipientId (group $id)")
-        rotateStorageId(existing.id)
+        rotateStorageId(existing.id, logFailure = true)
         existing = getRecordForSync(recipientId) ?: throw AssertionError("Failed to find recipient record for second fetch!")
         key = existing.storageId ?: throw AssertionError("StorageId not present immediately after setting it!")
       }
@@ -2322,7 +2322,6 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         .values(NEEDS_PNI_SIGNATURE to 0)
         .run()
 
-      clearSelfKeyTransparencyData()
       SignalDatabase.pendingPniSignatureMessages.deleteAll()
 
       db.setTransactionSuccessful()
@@ -2349,10 +2348,6 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           Log.i(TAG, "Username was previously thought to be owned by " + existingUsername.get() + ". Clearing their username.")
           setUsername(existingUsername.get(), null)
         }
-      }
-
-      if (id == Recipient.self().id) {
-        clearSelfKeyTransparencyData()
       }
 
       if (update(id, contentValuesOf(USERNAME to username))) {
@@ -3745,7 +3740,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     val threadDatabase = threads
     val recipientsWithinInteractionThreshold: MutableSet<RecipientId> = LinkedHashSet()
 
-    threadDatabase.readerFor(threadDatabase.getRecentPushConversationList(-1, false)).use { reader ->
+    threadDatabase.readerFor(threadDatabase.getRecentPushConversationList(-1)).use { reader ->
       var record: ThreadRecord? = reader.getNext()
 
       while (record != null && record.date > lastInteractionThreshold) {
@@ -4011,7 +4006,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
    * Will *not* give storageIds to those that shouldn't get them (e.g. MMS groups, unregistered
    * users).
    */
-  fun rotateStorageId(recipientId: RecipientId) {
+  fun rotateStorageId(recipientId: RecipientId, logFailure: Boolean = false) {
     val selfId = Recipient.self().id
 
     val values = ContentValues(1).apply {
@@ -4023,6 +4018,16 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
 
     writableDatabase.update(TABLE_NAME, values, query, args).also { updateCount ->
       Log.d(TAG, "[rotateStorageId] updateCount: $updateCount")
+      if (logFailure && updateCount == 0) {
+        val typeRegistered = readableDatabase
+          .select(TYPE, REGISTERED)
+          .from(TABLE_NAME)
+          .where(ID_WHERE, recipientId)
+          .run()
+          .readToSingleObject { it.requireInt(TYPE) to it.requireInt(REGISTERED) }
+
+        Log.w(TAG, "[rotateStorageId] No records updated for $recipientId, exists=${typeRegistered != null} type=${typeRegistered?.first} registered=${typeRegistered?.second}")
+      }
     }
   }
 
@@ -4830,7 +4835,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
             SELECT 1 
             FROM ${GroupTable.MembershipTable.TABLE_NAME}
             INNER JOIN ${GroupTable.TABLE_NAME} ON ${GroupTable.TABLE_NAME}.${GroupTable.GROUP_ID} = ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.GROUP_ID}
-            WHERE ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.RECIPIENT_ID} = $TABLE_NAME.$ID AND ${GroupTable.TABLE_NAME}.${GroupTable.ACTIVE} = 1 AND ${GroupTable.TABLE_NAME}.${GroupTable.MMS} = 0
+            WHERE ${GroupTable.MembershipTable.TABLE_NAME}.${GroupTable.MembershipTable.RECIPIENT_ID} = $TABLE_NAME.$ID AND ${GroupTable.TABLE_NAME}.${GroupTable.IS_MEMBER} = 1 AND ${GroupTable.TABLE_NAME}.${GroupTable.TERMINATED_BY} = 0 AND ${GroupTable.TABLE_NAME}.${GroupTable.MMS} = 0
         )
       """
       val E164_SEARCH = "(($PHONE_NUMBER_SHARING != ${PhoneNumberSharingState.DISABLED.id} OR $SYSTEM_CONTACT_URI NOT NULL) AND $E164 GLOB ?)"

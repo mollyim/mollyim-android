@@ -18,7 +18,6 @@ import org.thoughtcrime.securesms.jobmanager.impl.NoRemoteArchiveGarbageCollecti
 import org.thoughtcrime.securesms.jobmanager.impl.RestoreAttachmentConstraintObserver
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
 import org.thoughtcrime.securesms.keyvalue.protos.BackupDownloadNotifierState
-import org.thoughtcrime.securesms.keyvalue.protos.LocalBackupCreationProgress
 import org.thoughtcrime.securesms.util.Environment
 import org.whispersystems.signalservice.api.archive.ArchiveServiceCredential
 import org.whispersystems.signalservice.api.archive.GetArchiveCdnCredentialsResponse
@@ -105,7 +104,8 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_NEW_LOCAL_BACKUPS_DIRECTORY = "backup.new_local_backups_directory"
     private const val KEY_NEW_LOCAL_BACKUPS_LAST_BACKUP_TIME = "backup.new_local_backups_last_backup_time"
     private const val KEY_NEW_LOCAL_BACKUPS_SELECTED_SNAPSHOT_TIMESTAMP = "backup.new_local_backups_selected_snapshot_timestamp"
-    private const val KEY_NEW_LOCAL_BACKUPS_CREATION_PROGRESS = "backup.new_local_backups_creation_progress"
+    private const val KEY_LOCAL_RESTORE_ACCOUNT_ENTROPY_POOL = "backup.local_restore_account_entropy_pool"
+    private const val KEY_LOCAL_RESTORE_DIRECTORY_ERROR = "backup.local_restore_directory_error"
 
     private const val KEY_UPLOAD_BANNER_VISIBLE = "backup.upload_banner_visible"
 
@@ -475,13 +475,6 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
   var newLocalBackupsEnabled: Boolean by newLocalBackupsEnabledValue
   val newLocalBackupsEnabledFlow: Flow<Boolean> by lazy { newLocalBackupsEnabledValue.toFlow() }
 
-  /**
-   * Progress values for local backup progress.
-   */
-  private val newLocalBackupProgressValue = protoValue(KEY_NEW_LOCAL_BACKUPS_CREATION_PROGRESS, LocalBackupCreationProgress(), LocalBackupCreationProgress.ADAPTER)
-  var newLocalBackupProgress: LocalBackupCreationProgress by newLocalBackupProgressValue
-  val newLocalBackupProgressFlow: Flow<LocalBackupCreationProgress> by lazy { newLocalBackupProgressValue.toFlow() }
-
   /**IT
    * The directory URI path selected for new local backups.
    */
@@ -500,6 +493,13 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
    * The snapshot timestamp selected for restore. Set before launching restore, cleared after completion.
    */
   var newLocalBackupsSelectedSnapshotTimestamp: Long by longValue(KEY_NEW_LOCAL_BACKUPS_SELECTED_SNAPSHOT_TIMESTAMP, -1L)
+
+  /**
+   * Temporary storage for the AEP used to decrypt a local backup file. This is kept separate from
+   * the account AEP because the local backup may belong to a different account (e.g., after ACI change).
+   */
+  var localRestoreAccountEntropyPool: String? by stringValue(KEY_LOCAL_RESTORE_ACCOUNT_ENTROPY_POOL, null as String?)
+  var localRestoreDirectoryError: Boolean by booleanValue(KEY_LOCAL_RESTORE_DIRECTORY_ERROR, false)
 
   /**
    * When we are told by the server that we are out of storage space, we should show

@@ -210,7 +210,10 @@ object FakeMessageRecords {
       false,
       0,
       deletedBy,
-      null
+      CollapsedState.NONE,
+      0,
+      null,
+      false
     )
   }
 }

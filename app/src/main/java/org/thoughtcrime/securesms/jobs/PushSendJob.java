@@ -15,11 +15,14 @@ import androidx.annotation.Nullable;
 import com.annimon.stream.Stream;
 
 import org.greenrobot.eventbus.EventBus;
+import org.signal.blurhash.BlurHash;
+import org.signal.core.models.ServiceId.ACI;
+import org.signal.core.util.Base64;
 import org.signal.core.util.Hex;
+import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation;
-import org.signal.blurhash.BlurHash;
 import org.thoughtcrime.securesms.TextSecureExpiredException;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.AttachmentId;
@@ -43,7 +46,6 @@ import org.thoughtcrime.securesms.events.PartProgressEvent;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.JobTracker;
-import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.mms.OutgoingMessage;
@@ -57,28 +59,23 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
-import org.signal.core.util.Base64;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.signal.core.util.Util;
+import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress;
+import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.messages.SignalServicePreview;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
-import org.signal.core.models.ServiceId.ACI;
-import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
-import org.whispersystems.signalservice.api.push.exceptions.RateLimitException;
-import org.whispersystems.signalservice.api.push.exceptions.RetryNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 import org.whispersystems.signalservice.internal.push.BodyRange;
+import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -177,9 +174,12 @@ public abstract class PushSendJob extends SendJob {
 
     try {
       if (attachment.getUri() == null || attachment.size == 0) throw new IOException("Assertion failed, outgoing attachment has no data!");
-      InputStream is = PartAuthority.getAttachmentStream(context, attachment.getUri());
+      InputStream         inputStream      = PartAuthority.getAttachmentStream(context, attachment.getUri());
+      long                ciphertextLength = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(attachment.size));
+      ResumableUploadSpec uploadSpec       = AppDependencies.getSignalServiceMessageSender().getResumableUploadSpec(ciphertextLength);
+
       return SignalServiceAttachment.newStreamBuilder()
-                                    .withStream(is)
+                                    .withStream(inputStream)
                                     .withContentType(attachment.contentType)
                                     .withLength(attachment.size)
                                     .withFileName(attachment.fileName)
@@ -191,7 +191,7 @@ public abstract class PushSendJob extends SendJob {
                                     .withHeight(attachment.height)
                                     .withCaption(attachment.caption)
                                     .withUuid(attachment.uuid)
-                                    .withResumableUploadSpec(AppDependencies.getSignalServiceMessageSender().getResumableUploadSpec())
+                                    .withResumableUploadSpec(uploadSpec)
                                     .withListener(new SignalServiceAttachment.ProgressListener() {
                                       @Override
                                       public void onAttachmentProgress(@NonNull AttachmentTransferProgress progress) {

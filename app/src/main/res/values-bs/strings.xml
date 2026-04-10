@@ -7,7 +7,7 @@
   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_failed_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="remote_backup_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
   <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
   <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
@@ -523,7 +523,8 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">Veličina priloga veća je od dopuštene za vrstu poruke koju šaljete.</string>
     <string name="ConversationActivity_unable_to_record_audio">Nije moguće snimiti zvuk!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">Ne možete slati poruke ovoj grupi jer više niste njen član.</string>
-    <string name="DisabledInputView__incognito_mode">Incognito mode</string>
+  <!-- Removed by excludeNonTranslatables <string name="DisabledInputView__incognito_mode" translatable="false">Incognito mode (Labs)</string> -->
+    <string name="ConversationActivity_you_cant_send_messages_because_group_ended">Ne možete slati poruke jer je ova grupa okončana.</string>
     <string name="ConversationActivity_only_s_can_send_messages">Samo %1$s može slati poruke.</string>
     <string name="ConversationActivity_admins">administratori</string>
     <string name="ConversationActivity_message_an_admin">Pošalji poruku administratoru</string>
@@ -659,10 +660,10 @@
     <string name="ConversationFragment_delete_for_everyone_title">Izbrisati za sve?</string>
     <!-- Body of dialog explaining what happens during deletion -->
     <plurals name="ConversationFragment_delete_for_everyone_body">
-        <item quantity="one">Group members on the latest versions of Signal will see that you deleted this message.</item>
-        <item quantity="few">Group members on the latest versions of Signal will see that you deleted these messages.</item>
-        <item quantity="many">Group members on the latest versions of Signal will see that you deleted these messages.</item>
-        <item quantity="other">Group members on the latest versions of Signal will see that you deleted these messages.</item>
+        <item quantity="one">Članovi grupe na najnovijoj verziji Signala će vidjeti da ste izbrisali ovu poruku.</item>
+        <item quantity="few">Članovi grupe na najnovijoj verziji Signala će vidjeti da ste izbrisali ove poruke.</item>
+        <item quantity="many">Članovi grupe na najnovijoj verziji Signala će vidjeti da ste izbrisali ove poruke.</item>
+        <item quantity="other">Članovi grupe na najnovijoj verziji Signala će vidjeti da ste izbrisali ove poruke.</item>
     </plurals>
     <!-- Dialog button for deleting one or more note-to-self messages only on this device, leaving that same message intact on other devices. -->
     <string name="ConversationFragment_delete_on_this_device">Izbriši na ovom uređaju</string>
@@ -679,7 +680,13 @@
     <string name="ConversationFragment_view_once_media_is_deleted_after_sending">Medij View-once se briše nakon slanja</string>
     <string name="ConversationFragment_you_already_viewed_this_message">Već ste vidjeli ovu poruku</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">U ovom chatu možete dodati bilješke za sebe. Ako Signal koristite na više uređaja, ove će bilješke biti sinhronizovane na njima.</string>
-    <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d člana grupe imaju isto ime.</string>
+    <!-- Text in banner to show how many people have the same name. -->
+    <plurals name="ConversationFragment__d_group_members_have_the_same_name">
+        <item quantity="one">%1$d član grupe ima isto ime.</item>
+        <item quantity="few">%1$d člana grupe imaju isto ime.</item>
+        <item quantity="many">%1$d članova grupe imaju isto ime.</item>
+        <item quantity="other">%1$d članova grupe ima isto ime.</item>
+    </plurals>
     <string name="ConversationFragment__tap_to_review">Dotaknite da provjerite</string>
     <!-- The body of a banner that can show up at the top of a chat, letting the user know that you have two contacts with the same name -->
     <string name="ConversationFragment__review_banner_body">Ova osoba ima isto ime kao i još jedan kontakt</string>
@@ -1768,6 +1775,8 @@
     <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Nije moguće pristupiti grupi. Molimo pokušajte kasnije</string>
     <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Došlo je do greške u mreži.</string>
     <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Ovaj link za grupu nije aktivan</string>
+    <!-- Toast message shown when trying to join a group via link but the group has been ended -->
+    <string name="GroupJoinBottomSheetDialogFragment_this_group_has_been_ended">Pridruživanje ovoj grupi nije uspjelo.</string>
     <!-- Toast message shown when trying to join a group by link but the group is full -->
     <string name="GroupJoinBottomSheetDialogFragment_group_limit_reached">Dostignuto je ograničenje grupe, nije moguće pridružiti se grupi</string>
     <!-- Title shown when there was an known issue getting group information from a group link -->
@@ -1872,6 +1881,8 @@
     <string name="MediaOverviewActivity_Files">Datoteke</string>
     <string name="MediaOverviewActivity_Audio">Zvuk</string>
     <string name="MediaOverviewActivity_All">Sve</string>
+    <string name="MediaOverviewActivity_Links">Linkovi</string>
+    <string name="MediaOverviewActivity_link">Poveznica</string>
     <plurals name="MediaOverviewActivity_Media_delete_confirm_title">
         <item quantity="one">Izbrisati označenu stavku?</item>
         <item quantity="few">Izbrisati označene stavke?</item>
@@ -1928,6 +1939,7 @@
     <string name="MediaOverviewActivity_sent_by_you_to_s">Vi ste poslali za %1$s</string>
     <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
     <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Ovaj medijski sadržaj još nije poslan.</string>
+    <string name="MediaOverviewActivity_jump_to_message">Jump to message</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Podsjeti me kasnije</string>
@@ -1950,6 +1962,16 @@
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
     <string name="MessageQuotesBottomSheet_replies">Odgovori</string>
+
+    <!-- StarredMessagesFragment -->
+    <!-- Title for the starred messages screen -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesActivity__starred_messages" translatable="false">Starred messages</string> -->
+    <!-- Empty state text when there are no starred messages -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesFragment__no_starred_messages" translatable="false">No starred messages</string> -->
+    <!-- Empty state description when there are no starred messages -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesFragment__tap_and_hold_on_a_message_to_star_it" translatable="false">Tap and hold on a message to star it.</string> -->
+    <!-- Format for starred message source label, e.g. "Alice › Book Club" -->
+  <!-- Removed by excludeNonTranslatables <string name="StarredMessages__s_chevron_s" translatable="false">%1$s \u203A %2$s</string> -->
 
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Uspostavljam Molly poziv</string>
@@ -1985,6 +2007,12 @@
     <string name="MessageRecord_left_group">Napustili ste grupu.</string>
     <string name="MessageRecord_you_updated_group">Ažurirali ste grupu.</string>
     <string name="MessageRecord_the_group_was_updated">Grupa je ažurirana.</string>
+    <!-- Update message shown a group is terminated, but the person that terminated it is unknown. -->
+    <string name="MessageRecord_the_group_was_terminated">Grupa je okončana.</string>
+    <!-- Update message shown when a group is terminated, placeholder is the name of the person that terminated the group. -->
+    <string name="MessageRecord_s_terminated_the_group">%1$s je okončao/la grupu</string>
+    <!-- Update message shown when a group is terminated by you -->
+    <string name="MessageRecord_you_terminated_the_group">Okončali ste grupu</string>
     <!-- Update message shown when placing an outgoing 1:1 voice/audio call -->
     <string name="MessageRecord_outgoing_voice_call">Odlazni glasovni poziv</string>
     <!-- Update message shown when placing an outgoing 1:1 video call -->
@@ -2001,6 +2029,10 @@
     <string name="MessageRecord_declined_voice_call">Odbijen poziv</string>
     <!-- Update message shown when receiving an incoming 1:1 video call and not answered -->
     <string name="MessageRecord_declined_video_call">Odbijen video poziv</string>
+    <!-- Update message shown when placing an outgoing 1:1 voice/audio call and the remote party did not answer -->
+    <string name="MessageRecord_unanswered_voice_call">Propušteni glasovni poziv</string>
+    <!-- Update message shown when placing an outgoing 1:1 video call and the remote party did not answer -->
+    <string name="MessageRecord_unanswered_video_call">Propušteni video poziv</string>
     <!-- Update message shown when receiving an incoming voice call and declined due to notification profile -->
     <string name="MessageRecord_missed_voice_call_notification_profile">Propušteni glasovni poziv dok je profil obavijesti uključen</string>
     <!-- Update message shown when receiving an incoming video call and declined due to notification profile -->
@@ -3242,6 +3274,7 @@
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_package" translatable="false">Signal package:</string> -->
     <string name="SupportEmailUtil_registration_lock">Zaključavanje registracije:</string>
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_challenge_received" translatable="false">Challenge Received:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Grupa ažurirana</string>
@@ -3824,6 +3857,10 @@
     <!-- Accessibility content description describing how a user can lock voice note recording. -->
     <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Zaključaj snimanje zvučnog priloga</string>
     <string name="conversation_activity__message_could_not_be_sent">Nije bilo moguće poslati poruku. Provjerite svoju konekciju i pokušajte ponovo.</string>
+    <!-- Dialog body shown when tapping a failed message in a terminated group -->
+    <string name="conversation_activity__send_failed_group_ended">Više ne možete slati niti primati poruke u ovoj grupi jer je grupa okončana.</string>
+    <!-- Dialog body shown when tapping a group action button (e.g. invite friends) in a terminated group -->
+    <string name="conversation_activity__group_action_not_allowed_group_ended">Ova radnja nije dostupna jer je grupa okončana.</string>
     <!-- Dialog body when a message failed to delete and retry is possible. -->
     <string name="conversation_activity__message_failed_to_delete_retry">Brisanje poruke nije uspjelo. Provjerite vezu i pokušajte ponovno.</string>
     <!-- Dialog body when a message failed to delete. -->
@@ -3877,6 +3914,34 @@
     <string name="ConversationUpdateItem_options">Opcije</string>
     <!-- Update item button text shown for a profile name change. -->
     <string name="ConversationUpdateItem_update">Ažuriraj</string>
+    <!-- Update item button text to show how many group updates there are. -->
+    <plurals name="CollapsedEvent__group_update">
+        <item quantity="one">%1$d ažuriranje u grupi</item>
+        <item quantity="few">%1$d ažuriranja u grupi</item>
+        <item quantity="many">%1$d ažuriranja u grupi</item>
+        <item quantity="other">%1$d ažuriranja u grupi</item>
+    </plurals>
+    <!-- Update item button text to show how many group updates there are. -->
+    <plurals name="CollapsedEvent__chat_update">
+        <item quantity="one">%1$d ažuriranje u chatu</item>
+        <item quantity="few">%1$d ažuriranja u chatu</item>
+        <item quantity="many">%1$d ažuriranja u chatu</item>
+        <item quantity="other">%1$d ažuriranja u chatu</item>
+    </plurals>
+    <!-- Update item button text to show how many disappearing message timer changes are. %2$s is what the timer was ultimately set to.-->
+    <plurals name="CollapsedEvent__disappearing_timer">
+        <item quantity="one">%1$d promjena tajmera za poruke koje nestaju · %2$s</item>
+        <item quantity="few">%1$d promjene tajmera za poruke koje nestaju · %2$s</item>
+        <item quantity="many">%1$d promjena tajmera za poruke koje nestaju · %2$s</item>
+        <item quantity="other">%1$d promjene tajmera za poruke koje nestaju · %2$s</item>
+    </plurals>
+    <!-- Update item button text to show how many call events are. -->
+    <plurals name="CollapsedEvent__call_event">
+        <item quantity="one">%1$d događaj vezan za pozive</item>
+        <item quantity="few">%1$d događaja vezana za pozive</item>
+        <item quantity="many">%1$d događaja vezanih za pozive</item>
+        <item quantity="other">%1$d događaja vezana za pozive</item>
+    </plurals>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Sviraj … Pauziraj</string>
@@ -4814,6 +4879,10 @@
     <string name="conversation_selection__menu_copy">Kopiraj</string>
     <!-- Button to delete a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_delete">Izbriši</string>
+    <!-- Button to star a message to save it for later; Action item -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_selection__menu_star" translatable="false">Star (Labs)</string> -->
+    <!-- Button to remove the star from a message; Action item -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_selection__menu_unstar" translatable="false">Unstar (Labs)</string> -->
     <!-- Button to forward a message to another person or group chat; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_forward">Proslijedi</string>
     <!-- Button to reply to a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -4882,7 +4951,7 @@
     <string name="conversation__menu_view_all_media">Svi prilozi</string>
     <string name="conversation__menu_conversation_settings">Postavke chata</string>
     <string name="conversation__menu_add_shortcut">Stavi na početni ekran</string>
-    <string name="conversation__menu_export">Izvoz</string>
+  <!-- Removed by excludeNonTranslatables <string name="conversation__menu_export" translatable="false">Export (Labs)</string> -->
     <string name="conversation__menu_create_bubble">Kreiraj balončić</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">Formatiranje teksta</string>
@@ -4893,11 +4962,11 @@
     <string name="conversation_add_to_contacts__menu_add_to_contacts">Dodaj među kontakte</string>
 
     <!-- conversation export -->
-    <string name="conversation_export__exporting">Exporting chat…</string>
-    <string name="conversation_export__export_complete">Chat exported successfully</string>
-    <string name="conversation_export__export_failed">Export failed</string>
-    <string name="conversation_export__export_cancelled">Export cancelled</string>
-    <string name="conversation_export__preparing">Preparing export…</string>
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__exporting" translatable="false">Exporting chat…</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_complete" translatable="false">Chat exported successfully</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_failed" translatable="false">Export failed</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_cancelled" translatable="false">Export cancelled</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="conversation_export__preparing" translatable="false">Preparing export…</string> -->
 
     <!-- conversation scheduled messages bar -->
 
@@ -4928,6 +4997,8 @@
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_group">Nova grupa</string>
     <string name="text_secure_normal__menu_settings">Podešavanja</string>
+    <!-- Menu item in the main conversation list to view all starred messages -->
+  <!-- Removed by excludeNonTranslatables <string name="text_secure_normal__starred_messages" translatable="false">Starred messages (Labs)</string> -->
     <string name="text_secure_normal__menu_clear_passphrase">Zaključaj</string>
     <string name="text_secure_normal__mark_all_as_read">Sve označi kao pročitano</string>
     <string name="text_secure_normal__invite_friends">Pozovi prijatelje</string>
@@ -5150,7 +5221,7 @@
     <string name="BackupDialog_disable_and_delete_all_local_backups">Deaktivirati i izbrisati sve lokalne rezervne kopije?</string>
     <string name="BackupDialog_delete_backups_statement">Izbriši sigurnosne kopije</string>
     <!-- Progress dialog message shown while local backup files are being deleted -->
-    <string name="BackupDialog_deleting_local_backup">Deleting local backup…</string>
+    <string name="BackupDialog_deleting_local_backup">Brisanje lokalne sigurnosne kopije…</string>
     <string name="BackupDialog_to_enable_backups_choose_a_folder">Da biste aktivirali kreiranje rezervnih kopija, izaberite direktorij. Rezervne kopije bit će pohranjene na toj lokaciji.</string>
     <!-- Button shown in dialog to choose a folder for backups -->
     <string name="BackupDialog_choose_folder">Odaberi direktorij</string>
@@ -5958,6 +6029,41 @@
         <item quantity="other">%1$d foldera</item>
     </plurals>
 
+    <!-- Row title for the option to export chat history as a plaintext archive -->
+    <string name="ChatsSettingsFragment__export_chat_history">Izvezi historiju chata</string>
+    <!-- Row description for the plaintext chat export option -->
+    <string name="ChatsSettingsFragment__export_chat_history_label">Izvezite mašinski čitljivu JSON kopiju svih vaših chatova. Poruke koje nestaju neće biti izvezene.</string>
+    <!-- Biometrics prompt title shown before allowing the user to export chat history -->
+    <string name="ChatsSettingsFragment__unlock_to_export_chat_history">Otključajte da izvezete historiju chata</string>
+    <!-- Snackbar shown when biometric authentication fails before a chat export -->
+    <string name="ChatsSettingsFragment__authentication_failed">Autentifikacija nije uspjela</string>
+
+    <!-- ChatExportDialogs -->
+    <!-- Progress dialog message shown while canceling an in-progress chat export -->
+    <string name="ChatExportDialogs__canceling_export">Otkazivanje izvoza…</string>
+    <!-- Title of the dialog asking the user to confirm they want to export chat history -->
+    <string name="ChatExportDialogs__export_chat_history_title">Izvesti historiju chata?</string>
+    <!-- Bold warning prefix in the export confirmation dialog body -->
+    <string name="ChatExportDialogs__be_careful_warning">BUDITE OPREZNI!</string>
+    <!-- Body of the export confirmation dialog, displayed after the bold "BE CAREFUL!" prefix -->
+    <string name="ChatExportDialogs__export_confirm_body">NE dijelite ovu datoteku ni sa kim. Vaša historija razgovora će se sačuvati na vašem uređaju, a druge aplikacije joj mogu pristupiti u zavisnosti od dozvola na vašem uređaju. Izvoz s medijskim sadržajem će za rezultat imati veću datoteku.</string>
+    <!-- Button in the export confirmation dialog to export messages and media -->
+    <string name="ChatExportDialogs__export_with_media">Izvezi s medijskim sadržajem</string>
+    <!-- Button in the export confirmation dialog to export messages only -->
+    <string name="ChatExportDialogs__export_without_media">Izvezi bez medijskog sadržaja</string>
+    <!-- Title of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_title">Odaberite folder</string>
+    <!-- Body of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_body">Odaberite folder u pohrani uređaja gdje će se pohranjivati vaša historija chata.</string>
+    <!-- Button that opens the system folder picker -->
+    <string name="ChatExportDialogs__choose_folder_button">Odaberi direktorij</string>
+    <!-- Title of the dialog shown when a chat export finishes successfully -->
+    <string name="ChatExportDialogs__complete_title">Izvoz chata je završen</string>
+    <!-- Bold warning prefix in the export complete dialog body -->
+    <string name="ChatExportDialogs__be_careful">BUDITE OPREZNI</string>
+    <!-- Body of the export complete dialog, displayed after the bold "BE CAREFUL" prefix -->
+    <string name="ChatExportDialogs__complete_body">gdje pohranjujete svoju izvezenu datoteku za chat i ne dijelite je ni sa kim. Druge aplikacije na vašem uređaju mogu pristupiti ovisno o dopuštenjima vašeg uređaja.</string>
+
     <!-- ChatFoldersEducationSheet -->
     <!-- Text in a bottom sheet describing chat folders and what they can be created for -->
     <string name="ChatFoldersEducationSheet__create_folders_for_family">Kreirajte foldere za porodicu, prijatelje, posao i još mnoge druge</string>
@@ -6284,6 +6390,8 @@
     <string name="ConversationSettingsFragment__search">Traži</string>
     <string name="ConversationSettingsFragment__disappearing_messages">Nestajuće poruke</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Zvuk i obavještenja</string>
+    <!-- Label for the starred messages option in conversation settings -->
+  <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__starred_messages" translatable="false">Starred messages</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
     <string name="ConversationSettingsFragment__contact_details">Kontakt podaci telefona</string>
     <string name="ConversationSettingsFragment__view_safety_number">Vidi sigurnosni broj</string>
@@ -6310,6 +6418,21 @@
     <string name="ConversationSettingsFragment__get_badges">Nabavite značke za svoj profil tako što ćete podržati Signal. Pritisnite značku kako biste saznali više.</string>
     <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
     <string name="ConversationSettingsFragment__this_media_is_not_sent_yet">Ovaj medijski sadržaj još nije poslan.</string>
+    <!-- End group option in group conversation settings screen -->
+    <string name="ConversationSettingsFragment__end_group">Okončaj grupu</string>
+    <!-- Banner shown at the top of group settings when the group has been ended -->
+    <string name="ConversationSettingsFragment__this_group_was_ended">Ova grupa je okončana.</string>
+    <!-- Archive chat option in group conversation settings screen -->
+    <string name="ConversationSettingsFragment__archive_chat">Arhiviraj chat</string>
+    <!-- Delete chat option in group conversation settings screen -->
+    <string name="ConversationSettingsFragment__delete_chat">Izbriši chat</string>
+    <!-- Member section header for terminated groups. %1$d is the member count -->
+    <plurals name="ConversationSettingsFragment__d_former_members">
+        <item quantity="one">%1$d bivši član</item>
+        <item quantity="few">%1$d bivša člana</item>
+        <item quantity="many">%1$d bivših članova</item>
+        <item quantity="other">%1$d bivša člana</item>
+    </plurals>
 
     <!-- PermissionsSettingsFragment -->
     <string name="PermissionsSettingsFragment__add_members">Uvrštavanje članova</string>
@@ -7132,44 +7255,46 @@
     <string name="MyStories__delete_story">Izbrisati priču?</string>
     <!-- Message of dialog to confirm deletion of story -->
     <string name="MyStories__this_story_will_be_deleted">Ova priča će biti izbrisana i za vas i za sve one koji su je primili.</string>
+    <!-- Message of dialog to confirm deletion of story in a terminated group -->
+    <string name="MyStories__delete_story_terminated_group">Izbrisat će se za vas samo zato što je grupa okončana.</string>
     <!-- Toast shown when story media cannot be saved -->
     <string name="MyStories__unable_to_save">Nije moguće spremiti</string>
 
     <!-- StoryArchive -->
     <!-- Title for the story archive screen -->
-    <string name="StoryArchive__story_archive">Arhiva priča</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__story_archive" translatable="false">Story archive (Labs)</string> -->
     <!-- Section header in story settings -->
-    <string name="StoryArchive__archive">Arhiviraj</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__archive" translatable="false">Archive</string> -->
     <!-- Label for switch to enable story archiving -->
-    <string name="StoryArchive__keep_stories_in_archive">Držite priče u arhivi</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__keep_stories_in_archive" translatable="false">Keep stories in archive</string> -->
     <!-- Description for the archive toggle -->
-    <string name="StoryArchive__save_stories_after_they_expire">Sačuvajte poslane priče nakon što napuste aktivni sažetak sadržaja.</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__save_stories_after_they_expire" translatable="false">Save your sent stories after they leave the active feed.</string> -->
     <!-- Label for archive duration preference -->
-    <string name="StoryArchive__keep_stories_for">Čuvajte priče za</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__keep_stories_for" translatable="false">Keep stories for</string> -->
     <!-- Archive duration option: forever -->
-    <string name="StoryArchive__forever">Zauvijek</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__forever" translatable="false">Forever</string> -->
     <!-- Archive duration option: 1 year -->
-    <string name="StoryArchive__1_year">1 godinu</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__1_year" translatable="false">1 year</string> -->
     <!-- Archive duration option: 6 months -->
-    <string name="StoryArchive__6_months">6 mjeseci</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__6_months" translatable="false">6 months</string> -->
     <!-- Archive duration option: 30 days -->
-    <string name="StoryArchive__30_days">30 dana</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__30_days" translatable="false">30 days</string> -->
     <!-- Empty state title when no archived stories exist -->
-    <string name="StoryArchive__no_archived_stories">Nema pohranjenih priča</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__no_archived_stories" translatable="false">No archived stories</string> -->
     <!-- Empty state message when no archived stories exist -->
-    <string name="StoryArchive__no_archived_stories_message">Uključite \"Sačuvaj priče u arhivu\" u postavkama priča kako biste automatski pohranjivali priče.</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__no_archived_stories_message" translatable="false">Turn on \"Save Stories to Archive\" in story settings to auto-archive your stories.</string> -->
     <!-- Empty state button to navigate to story settings -->
-    <string name="StoryArchive__go_to_settings">Idi u postavke</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__go_to_settings" translatable="false">Go to settings</string> -->
     <!-- Label for sort order menu -->
-    <string name="StoryArchive__sort_by">Sortiranje</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__sort_by" translatable="false">Sort by</string> -->
     <!-- Sort order option: newest first -->
-    <string name="StoryArchive__newest">Najnovije</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__newest" translatable="false">Newest</string> -->
     <!-- Sort order option: oldest first -->
-    <string name="StoryArchive__oldest">Najstarije</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__oldest" translatable="false">Oldest</string> -->
     <!-- Delete action in story archive multi-select bottom bar -->
-    <string name="StoryArchive__delete">Izbriši</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__delete" translatable="false">Delete</string> -->
     <!-- Content description for selecting a story in multi-select mode -->
-    <string name="StoryArchive__select_story">Odabir priče</string>
+  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__select_story" translatable="false">Select story</string> -->
     <!-- Confirmation dialog body when deleting stories from archive -->
     <plurals name="StoryArchive__delete_n_stories">
         <item quantity="one">Izbrisati %1$d priču? Ova radnja se ne može opozvati.</item>
@@ -8030,6 +8155,8 @@
     <string name="CallLogAdapter__incoming">Dolazni</string>
     <!-- Displayed for outgoing calls -->
     <string name="CallLogAdapter__outgoing">Odlazni</string>
+    <!-- Displayed for outgoing calls that were not accepted by the remote party -->
+    <string name="CallLogAdapter__unanswered">Unanswered</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">Propušteni</string>
     <!-- Displayed for one missed call declined by notification profile -->
@@ -8120,6 +8247,8 @@
     <string name="CallLogFragment__get_started_by_calling_a_friend">Započnite pozivom prijatelja.</string>
     <!-- Displayed as a message in a dialog when deleting multiple items -->
     <string name="CallLogFragment__call_links_youve_created">Poveznice za pozive koje ste kreirali više neće raditi za osobe koje ih imaju.</string>
+    <!-- Dialog message shown when trying to start a group call but the user is no longer a member -->
+    <string name="CallLogFragment__cant_start_call_no_longer_a_member">You\'re no longer a member of this group.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -8859,6 +8988,28 @@
     <!-- Secondary action button on bottom sheet -->
     <string name="MediaNoLongerAvailableSheet__not_now">Ne sada</string>
 
+    <!-- End group button label shown in confirmation dialogs -->
+    <string name="EndGroupDialog__end_group">Okončaj grupu</string>
+    <!-- Title of first end group confirmation dialog. %1$s is the group name -->
+    <string name="EndGroupDialog__end_s">Okončaj \"%1$s\"?</string>
+    <!-- Body of first end group confirmation dialog -->
+    <string name="EndGroupDialog__members_will_no_longer_be_able_to_send">Članovi više neće moći slati poruke ili pokretati pozive u grupi. Primit će obavještenje da ste okončali grupu te će i dalje imati pristup historiji poruka.</string>
+    <!-- Body of second/final end group confirmation dialog -->
+    <string name="EndGroupDialog__this_will_end_the_group_permanently">Ovim će se grupa okončati trajno. Sigurno želite nastaviti?</string>
+    <!-- Progress message shown while ending a group -->
+    <string name="EndGroupDialog__ending_group">Okončavanje grupe…</string>
+    <!-- Message shown when ending a group fails -->
+    <string name="EndGroupDialog__ending_the_group_failed">Nije bilo moguće okončati grupu. Provjerite vezu i pokušajte ponovno.</string>
+    <!-- Retry button shown when ending a group fails -->
+    <string name="EndGroupDialog__try_again">Pokušajte ponovo</string>
+
+    <!-- Title of bottom sheet shown when opening a terminated group for the first time, with admin name. %1$s is the admin\'s display name -->
+    <string name="TerminatedGroupBottomSheet__s_ended_the_group">%1$s je završio/la grupu</string>
+    <!-- Title of bottom sheet shown when opening a terminated group for the first time, without admin name -->
+    <string name="TerminatedGroupBottomSheet__the_group_has_been_ended">Grupa je okončana.</string>
+    <!-- Body of bottom sheet shown when opening a terminated group -->
+    <string name="TerminatedGroupBottomSheet__you_can_no_longer_send_and_receive">Više nećete moći slati niti primati poruke ili pozive u ovoj grupi.</string>
+
     <!-- Educational bottom sheet dialog title shown to notify about delete syncs causing deletes to happen across all devices -->
     <string name="DeleteSyncEducation_title">Brisanje je sada sinhronizirano na svim vašim uređajima</string>
     <!-- Educational bottom sheet dialog message shown to notify about delete syncs causing deletes to happen across all devices -->
@@ -9132,17 +9283,17 @@
     <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
     <string name="BackupCreationProgressRow__finalizing">Finaliziranje…</string>
     <!-- Progress text shown while messages are being processed, with no count available yet -->
-    <string name="BackupCreationProgressRow__processing_messages">Processing messages…</string>
+    <string name="BackupCreationProgressRow__processing_messages">Obrada poruka…</string>
     <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
-    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Processing messages: %1$s of %2$s (%3$d%%)</string>
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Obrada poruka: %1$s od %2$s (%3$d%%)</string>
     <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
-    <string name="BackupCreationProgressRow__uploading_media_d">Uploading media: %1$d%%</string>
+    <string name="BackupCreationProgressRow__uploading_media_d">Otpremanje medijskog sadržaja: %1$d%%</string>
     <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
-    <string name="BackupCreationProgressRow__exporting_media_d">Exporting media: %1$d%%</string>
+    <string name="BackupCreationProgressRow__exporting_media_d">Izvoz medijskog sadržaja: %1$d%%</string>
 
     <!-- LocalArchiveJob -->
     <!-- Notification title shown while media attachments are being exported during a local backup -->
-    <string name="LocalArchiveJob__exporting_media">Exporting media…</string>
+    <string name="LocalArchiveJob__exporting_media">Izvoz medijskog sadržaja…</string>
 
     <!-- OnDeviceBackupsImprovementsScreen -->
     <!-- Title displayed at the top of the screen explaining on-device backup improvements -->
@@ -9238,6 +9389,8 @@
     <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description">Vaš ključ za oporavak je kod od 64 znaka koji vam omogućava da vratite sigurnosne kopije kada ponovo instalirate Signal.</string>
     <!-- Screen body shown when enabling Signal Secure Backups while on-device backups are already enabled (part 2, bolded). -->
     <string name="MessageBackupsKeyEducationScreen__remote_backup_with_local_enabled_description_bold">Ovo je isto što i vaš ključ za oporavak na uređaju.</string>
+    <!-- Screen body shown when enabling on-device backups while Signal Secure Backups are already enabled (part 2, bolded). -->
+    <string name="MessageBackupsKeyEducationScreen__local_backup_with_remote_enabled_description_bold">Ovo je isto kao ključ za oporavak zaštićene kopije podataka.</string>
     <!-- Label shown above a list of actions that the recovery key can be used for. -->
     <string name="MessageBackupsKeyEducationScreen__use_this_key_to">Koristite ovaj ključ za:</string>
     <!-- Row label indicating that the recovery key can be used to restore an on-device backup. -->
@@ -9517,6 +9670,18 @@
     <string name="RestoreLocalBackupDialog__failed_to_load_archive">Učitavanje arhive nije uspjelo. Odaberite drugi direktorij.</string>
     <!-- RestoreLocalBackupDialog: Dismiss button for dialog -->
     <string name="RestoreLocalBackupDialog__ok">OK</string>
+    <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm skipping backup restore -->
+    <string name="RestoreLocalBackupDialog__skip_restore">Preskočiti vraćanje?</string>
+    <!-- RestoreLocalBackupDialog: Body of the dialog warning the user about the consequences of skipping backup restore -->
+    <string name="RestoreLocalBackupDialog__skip_restore_body">Ako sada preskočite vraćanje, nećete moći vratiti podatke kasnije. Ako ponovo omogućite sigurnosne kopije nakon preskakanja vraćanja, vaša trenutna sigurnosna kopija bit će zamijenjena vašom novom istorijom poruka.</string>
+    <!-- RestoreLocalBackupDialog: Confirm button label for the skip restore dialog -->
+    <string name="RestoreLocalBackupDialog__skip_restore_confirm">Preskoči obnovu</string>
+    <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm restoring a backup from a different account -->
+    <string name="RestoreLocalBackupDialog__restore_to_new_account">Vratiti na novi račun?</string>
+    <!-- RestoreLocalBackupDialog: Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="RestoreLocalBackupDialog__restore_to_new_account_body">Sigurnosna kopija koju vraćate je kreirana pomoću različitog Signal računa. Možete vratiti ovu sigurnosnu kopiju na novi račun ali više nećete biti član nijedne vraćene grupe.</string>
+    <!-- RestoreLocalBackupDialog: Confirm button label for the restore to new account dialog -->
+    <string name="RestoreLocalBackupDialog__restore">Vrati</string>
 
     <!-- RestoreLocalBackupActivity: Toast message when backup restore fails -->
     <string name="RestoreLocalBackupActivity__backup_restore_failed">Vraćanje sigurnosne kopije nije uspjelo</string>
@@ -9543,6 +9708,30 @@
 
     <!-- RestoreLocalBackupActivity: Label for the button that opens the contact support form -->
     <string name="RestoreLocalBackupActivity__contact_support">Kontaktirajte podršku</string>
+
+    <!-- RestoreLocalBackupActivity: Title for the dialog shown when the restored backup belongs to a different account -->
+    <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Uključiti sigurnosne kopije na uređaju?</string>
+
+    <!-- RestoreLocalBackupActivity: Body for the dialog shown when the restored backup belongs to a different account, prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Da nastavite koristiti sigurnosne kopije na uređaju, morat ćete ih omogućiti za ovaj račun i snimiti novi ključ za oporavak. To možete uraditi bilo kada u Postavkama &gt; Sigurnosne kopije.</string>
+
+    <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__turn_on_now">Uključi sada</string>
+
+    <!-- RestoreLocalBackupActivity: Dismiss button label for the dialog prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__not_now">Ne sada</string>
+
+    <!-- RestoreLocalBackupActivity: Body text for the dialog shown after a successful restore, prompting the user to choose a backup folder -->
+    <string name="RestoreLocalBackupActivity__choose_a_folder_for_backups">Da nastavite koristiti sigurnosne kopije na uređaju, odaberite folder na uređaju gdje će se pohranjivati nove sigurnosne kopije.</string>
+
+    <!-- RestoreLocalBackupActivity: Positive button label for the dialog shown after a successful restore; keeps the current backup folder -->
+    <string name="RestoreLocalBackupActivity__use_current_folder">Koristi trenutni folder</string>
+
+    <!-- RestoreLocalBackupActivity: Neutral button label for the dialog shown after a successful restore; opens folder picker to select a different backup location -->
+    <string name="RestoreLocalBackupActivity__choose_new_folder">Odaberi drugi folder</string>
+
+    <!-- RestoreLocalBackupActivity: Negative button label for the dialog shown after a successful restore; disables on-device backups -->
+    <string name="RestoreLocalBackupActivity__disable_backups">Onemogući sigurnosne kopije</string>
 
     <!-- SelectInstructionsSheet: Title for the select backup folder instruction sheet -->
     <string name="SelectInstructionsSheet__select_your_backup_folder">Odaberite folder za sigurnosnu kopiju</string>
@@ -9699,6 +9888,27 @@
     <string name="MainToolbar__notification_profile_content_description">Profil obavijesti</string>
     <!-- Accessibility label for more options button in MainToolbar -->
     <string name="MainToolbar__proxy_content_description">Proxy</string>
+    <!-- Accessibility label for search filter button in MainToolbar -->
+  <!-- Removed by excludeNonTranslatables <string name="MainToolbar__search_filter_content_description" translatable="false">Search filter</string> -->
+
+    <!-- SearchFilterBottomSheet: Title -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__filter_search" translatable="false">Filter search</string> -->
+    <!-- SearchFilterBottomSheet: Start date label -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__start_date" translatable="false">Start date</string> -->
+    <!-- SearchFilterBottomSheet: End date label -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__end_date" translatable="false">End date</string> -->
+    <!-- SearchFilterBottomSheet: Author label -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__author" translatable="false">Author</string> -->
+    <!-- SearchFilterBottomSheet: Placeholder for unset date -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__not_set" translatable="false">Not set</string> -->
+    <!-- SearchFilterBottomSheet: Placeholder for unset author -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__anyone" translatable="false">Anyone</string> -->
+    <!-- SearchFilterBottomSheet: Apply button -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__apply" translatable="false">Apply</string> -->
+    <!-- SearchFilterBottomSheet: Clear button -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__clear" translatable="false">Clear</string> -->
+    <!-- SearchFilterBottomSheet: Select date dialog title -->
+  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__select_date" translatable="false">Select date</string> -->
 
     <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
     <string name="DefaultTopAppBar__navigate_up_content_description">Prema gore</string>
@@ -9990,6 +10200,18 @@
     <string name="MemberLabelsAboutOverride__title">Prikaz oznake člana</string>
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">U ovoj grupi, vaša oznaka člana će biti prikazana pored vaše fotografije umjesto vaše stranice \"O meni\".</string>
+
+    <!-- Label for internal-only section showing groups with same members -->
+  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+
+    <!-- Title of the sheet shown when a local backup restore could not be completed -->
+    <string name="CouldNotCompleteBackupRestoreSheet__title">Nije moguće vratiti sigurnosnu kopiju</string>
+
+    <!-- Body of the sheet shown when a local backup restore could not be completed, explaining the likely cause -->
+    <string name="CouldNotCompleteBackupRestoreSheet__body_error">Došlo je do greške i vaša sigurnosna kopija nije vraćena. To može biti zato što je folder sigurnosne kopije premješten na vašem uređaju tokom vraćanja.</string>
+
+    <!-- Body of the sheet shown when a local backup restore could not be completed, explaining how to try again -->
+    <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Pokušajte ponovo tako što ćete deinstalirati i ponovo instalirati Molly na ovom uređaju, a zatim odabrati \"Vrati ili prenesi\".</string>
 
     <!-- EOF -->
 </resources>
