@@ -135,7 +135,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
       return STATE_ENTER_SIGNAL_PIN;
     } else if (userMustSetProfileName()) {
       return STATE_CREATE_PROFILE_NAME;
-    } else if (userMustCreateSignalPin()) {
+    } else if (userMustCreateSignalPin() && getClass() != CreateSvrPinActivity.class) {
       return STATE_CREATE_SIGNAL_PIN;
     } else if (EventBus.getDefault().getStickyEvent(TransferStatus.class) != null && getClass() != OldDeviceTransferActivity.class) {
       return STATE_TRANSFER_ONGOING;
