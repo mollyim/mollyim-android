@@ -82,7 +82,6 @@ public class FullBackupExporter extends FullBackupBase {
   private static final long TABLE_RECORD_COUNT_MULTIPLIER    = 3L;
   private static final long IDENTITY_KEY_BACKUP_RECORD_COUNT = 2L;
   private static final long FINAL_MESSAGE_COUNT              = 1L;
-  private static final long EXPIRATION_BACKUP_THRESHOLD      = TimeUnit.DAYS.toMillis(1);
 
   /**
    * Tables in list will still have their *schema* exported (so the tables will be created),
@@ -593,23 +592,9 @@ public class FullBackupExporter extends FullBackupBase {
   }
 
   private static boolean isNonExpiringMessage(@NonNull SQLiteDatabase db, @NonNull Cursor cursor) {
-    long id                = CursorUtil.requireLong(cursor, MessageTable.ID);
-    long expireStarted     = CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED);
-    long expiresIn         = CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN);
-    long latestRevisionId  = CursorUtil.requireLong(cursor, MessageTable.LATEST_REVISION_ID);
-
-    long expiresAt     = expireStarted + expiresIn;
-    long timeRemaining = expiresAt - System.currentTimeMillis();
-
-    if (latestRevisionId > 0 && latestRevisionId != id ) {
-      return isForNonExpiringMessage(db, latestRevisionId);
-    }
-
-    if (expireStarted > 0 && timeRemaining <= EXPIRATION_BACKUP_THRESHOLD) {
-      return false;
-    }
-
-    return true;
+    // MOLLY: Exclude any message whose expire timer has started regardless of remaining time
+    return CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN) <= 0 ||
+           CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED) <= 0;
   }
 
   private static boolean isForNonExpiringMessage(@NonNull SQLiteDatabase db, long messageId) {
