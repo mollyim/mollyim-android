@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobs.protos.StorageSyncJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -159,6 +160,7 @@ class StorageSyncJob private constructor(parameters: Parameters, private var loc
   private constructor(localManifestOutOfDate: Boolean, @Parameters.Priority priority: Int = Parameters.PRIORITY_DEFAULT) : this(
     Parameters.Builder()
       .addConstraint(NetworkConstraint.KEY)
+      .addConstraint(DataRestoreConstraint.KEY)
       .setGlobalPriority(priority)
       .setQueue(QUEUE_KEY)
       .setMaxInstancesForFactory(2)
