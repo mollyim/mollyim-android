@@ -6,6 +6,9 @@
 package org.thoughtcrime.securesms.registration.ui.captcha
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
@@ -25,22 +28,55 @@ abstract class CaptchaFragment : LoggingFragment(R.layout.fragment_registration_
   @SuppressLint("SetJavaScriptEnabled")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    binding.registrationCaptchaWebView.settings.javaScriptEnabled = true
-    binding.registrationCaptchaWebView.clearCache(true)
 
-    binding.registrationCaptchaWebView.webViewClient = object : WebViewClient() {
-      @Deprecated("Deprecated in Java")
-      override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-        if (url.startsWith(RegistrationConstants.SIGNAL_CAPTCHA_SCHEME)) {
-          val token = url.substring(RegistrationConstants.SIGNAL_CAPTCHA_SCHEME.length)
-          handleCaptchaToken(token)
-          findNavController().navigateUp()
-          return true
-        }
-        return false
-      }
+    // Issue #303: users that have disabled / removed the system WebView
+    // (low-storage devices, hardened ROMs) cannot complete the captcha
+    // because the WebView either fails to inflate or refuses to load.
+    // Detect that case and fall back to opening the captcha URL in the
+    // user's default browser — the `signalcaptcha://` URI scheme handler
+    // brings them back into the app with the token via the existing
+    // intent filter.
+    val webView = try {
+      binding.registrationCaptchaWebView
+    } catch (e: Throwable) {
+      openCaptchaInBrowser()
+      return
     }
-    binding.registrationCaptchaWebView.loadUrl(BuildConfig.SIGNAL_CAPTCHA_URL)
+
+    try {
+      webView.settings.javaScriptEnabled = true
+      webView.clearCache(true)
+
+      webView.webViewClient = object : WebViewClient() {
+        @Deprecated("Deprecated in Java")
+        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+          if (url.startsWith(RegistrationConstants.SIGNAL_CAPTCHA_SCHEME)) {
+            val token = url.substring(RegistrationConstants.SIGNAL_CAPTCHA_SCHEME.length)
+            handleCaptchaToken(token)
+            findNavController().navigateUp()
+            return true
+          }
+          return false
+        }
+      }
+      webView.loadUrl(BuildConfig.SIGNAL_CAPTCHA_URL)
+    } catch (e: Throwable) {
+      // Catches AndroidRuntimeException("WebView ... not available") thrown
+      // by the WebView constructor / settings when the WebView package is
+      // disabled at runtime.
+      openCaptchaInBrowser()
+    }
+  }
+
+  private fun openCaptchaInBrowser() {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.SIGNAL_CAPTCHA_URL))
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    try {
+      startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+      // No browser available; let the user back out.
+    }
+    findNavController().navigateUp()
   }
 
   abstract fun handleCaptchaToken(token: String)
