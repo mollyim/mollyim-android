@@ -53,6 +53,7 @@ dependencies {
 
   // Registration library
   implementation(project(":feature:registration"))
+  implementation(project(":lib:device-transfer"))
 
   // Core dependencies
   implementation(project(":core:ui"))

@@ -135,10 +135,10 @@ interface NetworkController {
 
   /**
    * Requests that the currently-set PIN and [MasterKey] are backed up to SVR.
-   * It should always be the case that when this is called, you should have a stored PIN and [MasterKey].
-   * If you do not, you should probably crash.
+   *
+   * @return True if a job was successfully enqueued, otherwise false. Enqueueing will fail if a PIN is unavailable, which can happen in some restoration flows.
    */
-  suspend fun enqueueSvrGuessResetJob()
+  suspend fun enqueueSvrGuessResetJobIfPossible(): Boolean
 
   /**
    * Enables registration lock on the account using the registration lock token
@@ -229,11 +229,27 @@ interface NetworkController {
    */
   fun startProvisioning(): Flow<ProvisioningEvent>
 
-//  /**
-//   * Set [RestoreMethod] enum on the server for use by the old device to update UX.
-//   */
-//  suspend fun setRestoreMethod(token: String, method: RestoreMethod)
-//
+  /**
+   * Starts `DeviceToDeviceTransferService` in server mode on the new device. The concrete
+   * [org.signal.devicetransfer.ServerTask] that receives and imports the backup lives in the app
+   * module (it references SignalDatabase / FullBackupImporter / SignalStore), as does the
+   * foreground-service notification channel and the tap-through `PendingIntent`. Consolidating
+   * the start call here keeps this module free of app-specific notification plumbing.
+   *
+   * @param aep The user's [AccountEntropyPool]. The production implementation ignores this (it
+   *   pulls the AEP from `SignalStore.account` directly); demo/test implementations need it
+   *   passed in because they have no equivalent store.
+   */
+  fun startNewDeviceTransferServer(context: android.content.Context, aep: AccountEntropyPool)
+
+  /**
+   * Reports the user's chosen restore method to the server so the old device's quick-restore UI can update.
+   * The [token] is the `restoreMethodToken` delivered in the [ProvisioningMessage].
+   *
+   * `PUT /v1/devices/restore_account/{token}`
+   */
+  suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError>
+
 //  /**
 //   * Registers a device as a linked device on a pre-existing account.
 //   *
@@ -320,6 +336,11 @@ interface NetworkController {
   sealed class CheckSvrCredentialsError : BadRequestError {
     data object Unauthorized : CheckSvrCredentialsError()
     data class InvalidRequest(val message: String) : CheckSvrCredentialsError()
+  }
+
+  sealed class SetRestoreMethodError : BadRequestError {
+    data class InvalidRequest(val message: String) : SetRestoreMethodError()
+    data class RateLimited(val retryAfter: Duration) : SetRestoreMethodError()
   }
 
   sealed class GetBackupInfoError : BadRequestError {
@@ -473,6 +494,13 @@ interface NetworkController {
 
   enum class VerificationCodeTransport {
     SMS, VOICE
+  }
+
+  /**
+   * The user's chosen restore method, reported back to the old device via [setRestoreMethod] so its UX can update.
+   */
+  enum class RestoreMethod {
+    REMOTE_BACKUP, LOCAL_BACKUP, DEVICE_TRANSFER, DECLINE
   }
 
   @Serializable

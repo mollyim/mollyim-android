@@ -5,6 +5,8 @@
 
 package org.signal.registration.sample.dependencies
 
+import android.app.PendingIntent
+import android.content.Intent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
@@ -26,6 +28,7 @@ import org.signal.core.util.Base64
 import org.signal.core.util.Hex
 import org.signal.core.util.SleepTimer
 import org.signal.core.util.logging.Log
+import org.signal.devicetransfer.DeviceToDeviceTransferService
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.net.RequestResult
 import org.signal.libsignal.protocol.IdentityKey
@@ -53,6 +56,7 @@ import org.signal.registration.NetworkController.ThirdPartyServiceErrorResponse
 import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.NetworkController.VerificationCodeTransport
 import org.signal.registration.proto.RegistrationProvisionMessage
+import org.signal.registration.sample.MainActivity
 import org.signal.registration.sample.fcm.FcmUtil
 import org.signal.registration.sample.fcm.PushChallengeReceiver
 import org.signal.registration.sample.storage.RegistrationPreferences
@@ -88,6 +92,8 @@ class DemoNetworkController(
 
   companion object {
     private val TAG = Log.tag(DemoNetworkController::class)
+    const val DEVICE_TRANSFER_NOTIFICATION_CHANNEL_ID = "device_transfer"
+    private const val DEVICE_TRANSFER_NOTIFICATION_ID = 4321
   }
 
   private val json = Json { ignoreUnknownKeys = true }
@@ -393,6 +399,27 @@ class DemoNetworkController(
     return "https://signalcaptchas.org/staging/registration/generate.html"
   }
 
+  override fun startNewDeviceTransferServer(context: android.content.Context, aep: AccountEntropyPool) {
+    val pendingIntent = PendingIntent.getActivity(
+      context,
+      0,
+      Intent(context, MainActivity::class.java)
+        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP),
+      PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+    )
+    val notificationData = DeviceToDeviceTransferService.TransferNotificationData(
+      DEVICE_TRANSFER_NOTIFICATION_ID,
+      DEVICE_TRANSFER_NOTIFICATION_CHANNEL_ID,
+      android.R.drawable.stat_sys_download
+    )
+    DeviceToDeviceTransferService.startServer(
+      context,
+      DemoDeviceTransferServerTask(aep.value),
+      notificationData,
+      pendingIntent
+    )
+  }
+
   override fun startProvisioning(): Flow<ProvisioningEvent> = callbackFlow {
     val socketHandles = mutableListOf<java.io.Closeable>()
 
@@ -614,7 +641,11 @@ class DemoNetworkController(
     }
   }
 
-  override suspend fun enqueueSvrGuessResetJob() {
+  override suspend fun enqueueSvrGuessResetJobIfPossible(): Boolean {
+    if (RegistrationPreferences.pin == null) {
+      return false
+    }
+
     val pin = checkNotNull(RegistrationPreferences.pin) { "Pin is not set!" }
     val masterKey = checkNotNull(RegistrationPreferences.masterKey) { "Master key is not set!" }
 
@@ -622,6 +653,8 @@ class DemoNetworkController(
     if (result !is RequestResult.Success) {
       Log.w(TAG, "Failed to set pin and master key on SVR! A real app would retry. Result: $result")
     }
+
+    return true
   }
 
   override suspend fun enableRegistrationLock(): RequestResult<Unit, NetworkController.SetRegistrationLockError> = withContext(Dispatchers.IO) {
@@ -859,6 +892,36 @@ class DemoNetworkController(
     val result = setAccountAttributes(buildCurrentAccountAttributes())
     if (result !is RequestResult.Success) {
       Log.w(TAG, "[enqueueAccountAttributesSyncJob] Failed to sync attributes: $result")
+    }
+  }
+
+  override suspend fun setRestoreMethod(token: String, method: NetworkController.RestoreMethod): RequestResult<Unit, NetworkController.SetRestoreMethodError> = withContext(Dispatchers.IO) {
+    try {
+      val baseUrl = serviceConfiguration.signalServiceUrls[0].url
+      val body = json.encodeToString(SetRestoreMethodRequest.serializer(), SetRestoreMethodRequest(method))
+        .toRequestBody("application/json".toMediaType())
+
+      val request = okhttp3.Request.Builder()
+        .url("$baseUrl/v1/devices/restore_account/${java.net.URLEncoder.encode(token, "UTF-8")}")
+        .put(body)
+        .build()
+
+      okHttpClient.newCall(request).execute().use { response ->
+        when (response.code) {
+          200, 204 -> {
+            Log.i(TAG, "[setRestoreMethod] Successfully reported restore method: $method")
+            RequestResult.Success(Unit)
+          }
+          429 -> RequestResult.NonSuccess(NetworkController.SetRestoreMethodError.RateLimited(0.seconds))
+          else -> RequestResult.NonSuccess(NetworkController.SetRestoreMethodError.InvalidRequest("HTTP ${response.code}: ${response.body.string()}"))
+        }
+      }
+    } catch (e: IOException) {
+      Log.w(TAG, "[setRestoreMethod] IOException", e)
+      RequestResult.RetryableNetworkError(e)
+    } catch (e: Exception) {
+      Log.w(TAG, "[setRestoreMethod] Exception", e)
+      RequestResult.ApplicationError(e)
     }
   }
 
@@ -1106,6 +1169,9 @@ class DemoNetworkController(
     val credential: String,
     val redemptionTime: Long
   )
+
+  @Serializable
+  private data class SetRestoreMethodRequest(val method: NetworkController.RestoreMethod)
 
   private fun AccountAttributes.toServiceAccountAttributes(): ServiceAccountAttributes {
     return ServiceAccountAttributes(

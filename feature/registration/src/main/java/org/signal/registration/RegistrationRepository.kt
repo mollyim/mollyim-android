@@ -174,10 +174,10 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
-   * See [NetworkController.enqueueSvrGuessResetJob]
+   * See [NetworkController.enqueueSvrGuessResetJobIfPossible]
    */
   suspend fun enqueueSvrResetGuessCountJob() {
-    networkController.enqueueSvrGuessResetJob()
+    check(networkController.enqueueSvrGuessResetJobIfPossible()) { "Failed to enqueue SVR guess! Should not happen in this flow." }
   }
 
   /**
@@ -245,6 +245,17 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    */
   fun startProvisioning(): Flow<ProvisioningEvent> {
     return networkController.startProvisioning()
+  }
+
+  /**
+   * Reports the user's chosen restore method to the server so the old (quick-restore) device's UI can update.
+   * See [NetworkController.setRestoreMethod].
+   */
+  suspend fun setRestoreMethod(
+    token: String,
+    method: NetworkController.RestoreMethod
+  ): RequestResult<Unit, NetworkController.SetRestoreMethodError> = withContext(Dispatchers.IO) {
+    networkController.setRestoreMethod(token, method)
   }
 
   /**
@@ -549,7 +560,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   suspend fun commitFinalRegistrationData(): Unit = withContext(Dispatchers.IO) {
     storageController.commitRegistrationData()
     networkController.enqueueAccountAttributesSyncJob()
-    networkController.enqueueSvrGuessResetJob()
+    networkController.enqueueSvrGuessResetJobIfPossible()
   }
 
   private fun generateKeyMaterial(

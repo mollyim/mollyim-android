@@ -41,6 +41,7 @@ import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SetAccountAttributesError
 import org.signal.registration.NetworkController.SetRegistrationLockError
+import org.signal.registration.NetworkController.SetRestoreMethodError
 import org.signal.registration.NetworkController.SubmitVerificationCodeError
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.ThirdPartyServiceErrorResponse
@@ -72,6 +73,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import org.whispersystems.signalservice.api.account.AccountAttributes as ServiceAccountAttributes
 import org.whispersystems.signalservice.api.account.PreKeyCollection as ServicePreKeyCollection
+import org.whispersystems.signalservice.api.provisioning.RestoreMethod as ServiceRestoreMethod
 
 /**
  * Implementation of [NetworkController] that bridges to the app's existing network infrastructure.
@@ -443,8 +445,13 @@ class AppRegistrationNetworkController(
     }
   }
 
-  override suspend fun enqueueSvrGuessResetJob() {
+  override suspend fun enqueueSvrGuessResetJobIfPossible(): Boolean {
+    if (SignalStore.svr.pin == null) {
+      return false
+    }
+
     AppDependencies.jobManager.add(ResetSvrGuessCountJob())
+    return true
   }
 
   override suspend fun enableRegistrationLock(): RequestResult<Unit, SetRegistrationLockError> = withContext(Dispatchers.IO) {
@@ -595,6 +602,26 @@ class AppRegistrationNetworkController(
     AppDependencies.jobManager.add(RefreshAttributesJob())
   }
 
+  override suspend fun setRestoreMethod(token: String, method: NetworkController.RestoreMethod): RequestResult<Unit, SetRestoreMethodError> = withContext(Dispatchers.IO) {
+    val serviceMethod = when (method) {
+      NetworkController.RestoreMethod.REMOTE_BACKUP -> ServiceRestoreMethod.REMOTE_BACKUP
+      NetworkController.RestoreMethod.LOCAL_BACKUP -> ServiceRestoreMethod.LOCAL_BACKUP
+      NetworkController.RestoreMethod.DEVICE_TRANSFER -> ServiceRestoreMethod.DEVICE_TRANSFER
+      NetworkController.RestoreMethod.DECLINE -> ServiceRestoreMethod.DECLINE
+    }
+    when (val result = AppDependencies.registrationApi.setRestoreMethod(token, serviceMethod)) {
+      is NetworkResult.Success -> RequestResult.Success(Unit)
+      is NetworkResult.StatusCodeError -> {
+        when (result.code) {
+          429 -> RequestResult.NonSuccess(SetRestoreMethodError.RateLimited(0.seconds))
+          else -> RequestResult.NonSuccess(SetRestoreMethodError.InvalidRequest("HTTP ${result.code}"))
+        }
+      }
+      is NetworkResult.NetworkError -> RequestResult.RetryableNetworkError(result.exception)
+      is NetworkResult.ApplicationError -> RequestResult.ApplicationError(result.throwable)
+    }
+  }
+
   override suspend fun getBackupFileLastModified(
     aep: AccountEntropyPool,
     backupInfo: NetworkController.GetBackupInfoResponse
@@ -625,6 +652,26 @@ class AppRegistrationNetworkController(
     } catch (e: Exception) {
       RequestResult.ApplicationError(e)
     }
+  }
+
+  override fun startNewDeviceTransferServer(context: Context, aep: AccountEntropyPool) {
+    val pendingIntent = android.app.PendingIntent.getActivity(
+      context,
+      0,
+      org.thoughtcrime.securesms.MainActivity.clearTop(context),
+      org.signal.core.util.PendingIntentFlags.mutable()
+    )
+    val notificationData = org.signal.devicetransfer.DeviceToDeviceTransferService.TransferNotificationData(
+      org.thoughtcrime.securesms.notifications.NotificationIds.DEVICE_TRANSFER,
+      org.thoughtcrime.securesms.notifications.NotificationChannels.getInstance().BACKUPS,
+      org.thoughtcrime.securesms.R.drawable.ic_signal_backup
+    )
+    org.signal.devicetransfer.DeviceToDeviceTransferService.startServer(
+      context,
+      org.thoughtcrime.securesms.devicetransfer.newdevice.NewDeviceServerTask(),
+      notificationData,
+      pendingIntent
+    )
   }
 
   override fun startProvisioning(): Flow<ProvisioningEvent> = callbackFlow {

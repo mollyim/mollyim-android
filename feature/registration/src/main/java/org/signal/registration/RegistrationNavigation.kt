@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,6 +58,14 @@ import org.signal.registration.screens.countrycode.Country
 import org.signal.registration.screens.countrycode.CountryCodePickerRepository
 import org.signal.registration.screens.countrycode.CountryCodePickerScreen
 import org.signal.registration.screens.countrycode.CountryCodePickerViewModel
+import org.signal.registration.screens.devicetransfer.complete.DeviceTransferCompleteScreen
+import org.signal.registration.screens.devicetransfer.complete.DeviceTransferCompleteViewModel
+import org.signal.registration.screens.devicetransfer.instructions.DeviceTransferInstructionsScreen
+import org.signal.registration.screens.devicetransfer.instructions.DeviceTransferInstructionsViewModel
+import org.signal.registration.screens.devicetransfer.progress.DeviceTransferProgressScreen
+import org.signal.registration.screens.devicetransfer.progress.DeviceTransferProgressViewModel
+import org.signal.registration.screens.devicetransfer.setup.DeviceTransferSetupScreen
+import org.signal.registration.screens.devicetransfer.setup.DeviceTransferSetupViewModel
 import org.signal.registration.screens.linkaccount.LinkAccountScreen
 import org.signal.registration.screens.linkaccount.LinkAccountScreenEvent
 import org.signal.registration.screens.linkaccount.LinkAccountViewModel
@@ -166,7 +175,6 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
           restoreOptions = buildList {
             add(ArchiveRestoreOption.SignalSecureBackup)
             add(ArchiveRestoreOption.LocalBackup)
-            add(ArchiveRestoreOption.DeviceTransfer)
           },
           isPreRegistration = true
         )
@@ -177,7 +185,6 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
           restoreOptions = buildList {
             add(ArchiveRestoreOption.SignalSecureBackup)
             add(ArchiveRestoreOption.LocalBackup)
-            add(ArchiveRestoreOption.DeviceTransfer)
             add(ArchiveRestoreOption.None)
           },
           isPreRegistration = false
@@ -210,6 +217,18 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
 
   @Serializable
   data object Transfer : RegistrationRoute
+
+  @Serializable
+  data object DeviceTransferInstructions : RegistrationRoute
+
+  @Serializable
+  data object DeviceTransferSetup : RegistrationRoute
+
+  @Serializable
+  data object DeviceTransferProgress : RegistrationRoute
+
+  @Serializable
+  data object DeviceTransferComplete : RegistrationRoute
 
   @Serializable
   data object Profile : RegistrationRoute
@@ -632,6 +651,8 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
       factory = ArchiveRestoreSelectionViewModel.Factory(
         restoreOptions = key.restoreOptions,
         isPreRegistration = key.isPreRegistration,
+        repository = registrationRepository,
+        parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent
       )
     )
@@ -764,6 +785,68 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
 
   entry<RegistrationRoute.Transfer> {
     // TODO: Implement TransferScreen
+  }
+
+  // -- Device Transfer: Instructions
+  entry<RegistrationRoute.DeviceTransferInstructions> {
+    val viewModel: DeviceTransferInstructionsViewModel = viewModel(
+      factory = DeviceTransferInstructionsViewModel.Factory(parentEventEmitter)
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    DeviceTransferInstructionsScreen(
+      state = state,
+      onEvent = viewModel::onEvent
+    )
+  }
+
+  // -- Device Transfer: Setup (permissions, wifi, verify SAS)
+  entry<RegistrationRoute.DeviceTransferSetup> {
+    val context = LocalContext.current.applicationContext
+    val viewModel: DeviceTransferSetupViewModel = viewModel(
+      factory = DeviceTransferSetupViewModel.Factory(
+        context = context,
+        networkController = RegistrationDependencies.get().networkController,
+        setupEvents = DeviceTransferSetupViewModel.transferStatusFlow(),
+        parentState = registrationViewModel.state,
+        parentEventEmitter = parentEventEmitter
+      )
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    DeviceTransferSetupScreen(
+      state = state,
+      onEvent = viewModel::onEvent
+    )
+  }
+
+  // -- Device Transfer: Progress (receiving + importing)
+  entry<RegistrationRoute.DeviceTransferProgress> {
+    val context = LocalContext.current.applicationContext
+    val viewModel: DeviceTransferProgressViewModel = viewModel(
+      factory = DeviceTransferProgressViewModel.Factory(
+        context = context,
+        progressEvents = DeviceTransferProgressViewModel.restoreStatusFlow(),
+        parentEventEmitter = parentEventEmitter
+      )
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val showCancelDialog by viewModel.showCancelDialog.collectAsState()
+    DeviceTransferProgressScreen(
+      state = state,
+      showCancelDialog = showCancelDialog,
+      onEvent = viewModel::onEvent
+    )
+  }
+
+  // -- Device Transfer: Complete
+  entry<RegistrationRoute.DeviceTransferComplete> {
+    val viewModel: DeviceTransferCompleteViewModel = viewModel(
+      factory = DeviceTransferCompleteViewModel.Factory(parentEventEmitter)
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    DeviceTransferCompleteScreen(
+      state = state,
+      onEvent = viewModel::onEvent
+    )
   }
 
   entry<RegistrationRoute.Profile> {
