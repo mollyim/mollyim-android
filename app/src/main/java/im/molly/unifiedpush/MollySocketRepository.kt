@@ -94,7 +94,7 @@ object MollySocketRepository {
 
   @Throws(IOException::class)
   fun removeDevice(device: MollySocketDevice) {
-    AppDependencies.linkDeviceApi.removeDevice(device.deviceId).successOrThrow()
+    LinkDeviceRepository.removeDevice(device.deviceId)
   }
 
   fun getDeviceStatus(device: MollySocketDevice): LinkStatus {
