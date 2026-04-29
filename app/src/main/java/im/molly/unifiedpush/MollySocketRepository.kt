@@ -15,17 +15,25 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.signal.core.util.Base64
 import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
+import org.signal.libsignal.protocol.SessionBuilder
+import org.signal.libsignal.protocol.SignalProtocolAddress
 import org.signal.libsignal.protocol.util.KeyHelper
 import org.thoughtcrime.securesms.AppCapabilities
+import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.dependencies.AppDependencies.keysApi
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository
 import org.thoughtcrime.securesms.push.AccountManagerFactory
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.thoughtcrime.securesms.util.JsonUtils
+import org.whispersystems.signalservice.api.NetworkResultUtil
 import org.whispersystems.signalservice.api.account.AccountAttributes
+import org.whispersystems.signalservice.api.crypto.SignalSessionBuilder
+import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException
 import java.io.IOException
 import java.net.MalformedURLException
@@ -87,14 +95,37 @@ object MollySocketRepository {
       accountAttributes,
       aciPreKeyCollection, pniPreKeyCollection,
       null
-    ).also {
+    ).also { deviceId ->
       SignalStore.account.isMultiDevice = true
+      loadPreKeys(deviceId)
     }
+  }
+
+  /**
+   * We need to load prekeys, else we get a bug if MollySocket is the only linked device:
+   * - SignalStore.account.isMultiDevice is set to `true` => we try to [sendSyncMessage][org.whispersystems.signalservice.api.SignalServiceMessageSender.sendSyncMessage]
+   * - [SignalServiceAccountDataStore.containsSession] returns false for this device
+   * - So, [getEncryptedMessage][org.whispersystems.signalservice.api.SignalServiceMessageSender.getEncryptedMessage] removes this device => it returns a OutgoingPushMessageList with an empty message list
+   * - [sendMessage][org.whispersystems.signalservice.api.SignalServiceMessageSender.sendMessage] fails with NonSuccessfulResponseCodeException: [400],
+   *     we don't get the Mismatched device exception [409] which allow handling ExtraDevices/MissingDevices.
+   * - We're stuck in a loop where we can't send a message.
+   */
+  private fun loadPreKeys(deviceId: Int) {
+    val recipient = SignalServiceAddress(Recipient.self().requireAci())
+    val preKey = NetworkResultUtil.toPreKeysLegacy(keysApi.getPreKey(recipient, deviceId));
+    val sessionBuilder = SignalSessionBuilder(
+      ReentrantSessionLock.INSTANCE,
+      SessionBuilder(
+        AppDependencies.protocolStore.aci(),
+        SignalProtocolAddress(recipient.identifier, deviceId)
+      )
+    )
+    sessionBuilder.process(preKey)
   }
 
   @Throws(IOException::class)
   fun removeDevice(device: MollySocketDevice) {
-    AppDependencies.linkDeviceApi.removeDevice(device.deviceId).successOrThrow()
+    LinkDeviceRepository.removeDevice(device.deviceId)
   }
 
   fun getDeviceStatus(device: MollySocketDevice): LinkStatus {
