@@ -13,7 +13,6 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.models.ServiceId
 import org.signal.core.util.AppForegroundObserver
-import org.signal.core.util.ServiceUtil
 import org.signal.core.util.SleepTimer
 import org.signal.core.util.UptimeSleepTimer
 import org.signal.core.util.concurrent.SignalExecutors
@@ -34,11 +33,15 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.isDecisionPending
 import org.thoughtcrime.securesms.messages.MessageDecryptor.FollowUpOperation
 import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
+import org.thoughtcrime.securesms.net.ConnectivityState
+import org.thoughtcrime.securesms.net.InternetConnectivityMonitor
+import org.thoughtcrime.securesms.net.Networking
+import org.thoughtcrime.securesms.net.configureProxy
+import org.thoughtcrime.securesms.net.resolveProxyConfig
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.SafeForegroundService
 import org.thoughtcrime.securesms.util.AlarmSleepTimer
-import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.SignalTrace
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -90,38 +93,50 @@ class IncomingMessageObserver(
 
   private val decryptionDrainedListeners: MutableList<Runnable> = CopyOnWriteArrayList()
 
-  @Volatile
-  private var networkIsActive: Boolean? = null
+  private val connectionNecessarySemaphore = Semaphore(0)
 
-  private val connectionDecisionSemaphore = Semaphore(0)
+  /** Tracks Internet connection as reported by [InternetConnectivityMonitor]. */
+  @Volatile
+  private var internetConnection: ConnectivityState = ConnectivityState.OFFLINE
+
   private val internetConnectivityMonitor = InternetConnectivityMonitor(
-    connectivityManager = ServiceUtil.getConnectivityManager(context),
-    onReachabilityChanged = { connectivityState ->
-      if (networkIsActive != null) {
+    context = context,
+    onConnectivityUpdated = { state ->
+      internetConnection = state
+      if (state.isOnline) {
         AppDependencies.libsignalNetwork.onNetworkChange()
-      }
-      if (connectivityState.hasInternet) {
-        networkIsActive = true
       } else {
         Log.w(TAG, "Lost network connection. Resetting the drained state.")
         decryptionDrained = false
         authWebSocket.disconnect()
         // TODO [no-more-rest] Move the connection listener to a neutral location so this isn't passed in
         unauthWebSocket.disconnect()
-        networkIsActive = false
       }
-      releaseConnectionDecisionSemaphore()
+      notifyConnectionConditionsChanged()
     },
-    // MOLLY: Accessing libsignalNetwork applies proxy configuration on access
+    onProxyChanged = {
+      val proxyConfig = resolveProxyConfig(Networking.socksProxy)
+      val proxyChanged = AppDependencies.networkProxyState.update(proxyConfig)
+      if (proxyChanged) {
+        AppDependencies.libsignalNetwork.configureProxy(proxyConfig)
+        Log.i(TAG, "Proxy config changed, disconnecting websocket...")
+        decryptionDrained = false
+        authWebSocket.disconnect()
+        unauthWebSocket.disconnect()
+      }
+    }
   )
 
   private val messageContentProcessor = MessageContentProcessor.create(context)
 
-  data class AppState(
+  private data class AppState(
     val isForeground: Boolean,
     val lastInteractionTime: Long
   )
-  private var appState = AppState(isForeground = false, lastInteractionTime = System.currentTimeMillis())
+
+  @Volatile
+  private var appState = AppState(false, System.currentTimeMillis())
+
   private var webSocketStateDisposable = Disposable.disposed()
 
   @Volatile
@@ -141,11 +156,11 @@ class IncomingMessageObserver(
 
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
-        SignalExecutors.BOUNDED.execute { onAppForegrounded() }
+        onAppForegrounded()
       }
 
       override fun onBackground() {
-        SignalExecutors.BOUNDED.execute { onAppBackgrounded() }
+        onAppBackgrounded()
       }
     })
 
@@ -156,19 +171,17 @@ class IncomingMessageObserver(
       .observeOn(Schedulers.computation())
       .subscribeBy {
         if (it == WebSocketConnectionState.CONNECTED) {
-          releaseConnectionDecisionSemaphore()
+          notifyConnectionConditionsChanged()
         }
       }
 
     authWebSocket.addKeepAliveChangeListener {
-      SignalExecutors.BOUNDED.execute {
-        releaseConnectionDecisionSemaphore()
-      }
+      notifyConnectionConditionsChanged()
     }
   }
 
   fun notifyRegistrationStateChanged() {
-    releaseConnectionDecisionSemaphore()
+    notifyConnectionConditionsChanged()
   }
 
   fun notifyRestoreDecisionMade() {
@@ -188,15 +201,14 @@ class IncomingMessageObserver(
   }
 
   private fun onAppForegrounded() {
-    ProcessLifetimeHintService.start(context)
     appState = appState.copy(isForeground = true)
-    releaseConnectionDecisionSemaphore()
+    ProcessLifetimeHintService.start(context)
+    notifyConnectionConditionsChanged()
   }
 
   private fun onAppBackgrounded() {
-    val now = System.currentTimeMillis()
-    appState = appState.copy(isForeground = false, lastInteractionTime = now)
-    releaseConnectionDecisionSemaphore()
+    appState = appState.copy(isForeground = false, lastInteractionTime = System.currentTimeMillis())
+    notifyConnectionConditionsChanged()
   }
 
   private fun isConnectionNecessary(): Boolean {
@@ -208,7 +220,7 @@ class IncomingMessageObserver(
     val registered = SignalStore.account.isRegistered
     val unauthorizedReceived = TextSecurePreferences.isUnauthorizedReceived(context)
     val pushAvailable = SignalStore.account.pushAvailable
-    val hasNetwork = networkIsActive ?: false
+    val hasNetwork = internetConnection.isOnline
     val hasProxy = AppDependencies.networkManager.isProxyEnabled
     val forceWebsocket = SignalStore.settings.forceWebsocketMode.isEnabled
     val websocketAlreadyOpen = isConnectionAvailable()
@@ -229,20 +241,25 @@ class IncomingMessageObserver(
   }
 
   private fun isConnectionAvailable(): Boolean {
-    return !TextSecurePreferences.isUnauthorizedReceived(context) && SignalStore.account.isRegistered && (authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && networkIsActive ?: true))
-  }
-
-  private fun releaseConnectionDecisionSemaphore() {
-    connectionDecisionSemaphore.drainPermits()
-    connectionDecisionSemaphore.release()
+    val hasNetwork = internetConnection.isOnline
+    return !TextSecurePreferences.isUnauthorizedReceived(context) && SignalStore.account.isRegistered && (authWebSocket.stateSnapshot == WebSocketConnectionState.CONNECTED || (authWebSocket.shouldSendKeepAlives() && hasNetwork))
   }
 
   private fun waitForConnectionNecessary() {
     while (!isConnectionNecessary() && !isConnectionAvailable()) {
-      if (connectionDecisionSemaphore.drainPermits() == 0) {
-        connectionDecisionSemaphore.acquireUninterruptibly()
+      val numberDrained = connectionNecessarySemaphore.drainPermits()
+      if (numberDrained == 0) {
+        connectionNecessarySemaphore.acquireUninterruptibly()
       }
     }
+  }
+
+  /**
+   * Signals that a condition affecting the connection decision may have changed.
+   */
+  private fun notifyConnectionConditionsChanged() {
+    connectionNecessarySemaphore.drainPermits()
+    connectionNecessarySemaphore.release()
   }
 
   fun terminate() {

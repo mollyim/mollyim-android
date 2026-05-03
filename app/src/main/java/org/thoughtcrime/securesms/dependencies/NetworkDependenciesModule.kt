@@ -119,22 +119,20 @@ class NetworkDependenciesModule(
     provider.provideSignalServiceAccountManager(authWebSocket, accountApi, pushServiceSocket, groupsV2Operations)
   }
 
-  private val _libsignalNetwork: Network by lazy {
-    provider.provideLibsignalNetwork(signalServiceNetworkAccess.getConfiguration())
+  val libsignalNetwork: Network by lazy {
+    provider.provideLibsignalNetwork(signalServiceNetworkAccess.getConfiguration(), networkProxyState)
   }
 
-  fun libsignalNetwork(): Network {
-    return _libsignalNetwork.also { Networking.configureLibsignalProxy(it, BuildConfig.SIGNAL_URL) }
-  }
+  val networkProxyState: NetworkProxyState = NetworkProxyState()
 
   val authWebSocket: SignalWebSocket.AuthenticatedWebSocket by lazy {
-    provider.provideAuthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork() }).also {
+    provider.provideAuthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork }).also {
       disposables += it.state.subscribe { s -> webSocketStateSubject.onNext(s) }
     }
   }
 
   val unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket by lazy {
-    provider.provideUnauthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork() })
+    provider.provideUnauthWebSocket({ signalServiceNetworkAccess.getConfiguration() }, { libsignalNetwork })
   }
 
   val groupsV2Authorization: GroupsV2Authorization by lazy {
@@ -234,8 +232,9 @@ class NetworkDependenciesModule(
     provider.provideDonationsApi(authWebSocket, unauthWebSocket)
   }
 
-  val svrBApi: SvrBApi
-    get() = provider.provideSvrBApi(libsignalNetwork())
+  val svrBApi: SvrBApi by lazy {
+    provider.provideSvrBApi(libsignalNetwork)
+  }
 
   val keyTransparencyApi: KeyTransparencyApi by lazy {
     provider.provideKeyTransparencyApi(unauthWebSocket)

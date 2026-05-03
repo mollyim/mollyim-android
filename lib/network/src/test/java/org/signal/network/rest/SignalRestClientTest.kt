@@ -180,7 +180,6 @@ class SignalRestClientTest {
       dns = Dns.SYSTEM,
       socketFactory = SocketFactory.getDefault(),
       proxySelector = ProxySelector.getDefault(),
-      systemHttpProxy = Optional.empty(),
       zkGroupServerPublicParams = ByteArray(0),
       genericServerPublicParams = ByteArray(0),
       backupServerPublicParams = ByteArray(0),
