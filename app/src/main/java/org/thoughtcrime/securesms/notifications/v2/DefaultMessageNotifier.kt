@@ -168,6 +168,10 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     var state: NotificationState = NotificationStateProvider.constructNotificationState(stickyThreads, notificationProfile)
     Log.internal().i(TAG, "state: $state")
 
+    if (SignalStore.parentalControl.parentalModeEnabled) {
+      state = state.filterThreads(SignalStore.parentalControl.getAllowedThreadIds())
+    }
+
     if (state.muteFilteredMessages.isNotEmpty()) {
       Log.i(TAG, "Marking ${state.muteFilteredMessages.size} muted messages as notified to skip notification")
       state.muteFilteredMessages.forEach { item ->
