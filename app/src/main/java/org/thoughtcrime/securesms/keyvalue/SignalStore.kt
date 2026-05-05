@@ -39,6 +39,7 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
   val backupValues = BackupValues(store)
   val unifiedPushValues = UnifiedPushValues(store)
   val labsValues = LabsValues(store)
+  val parentalControlValues = ParentalControlValues(store)
 
   val plainTextValues = PlainTextSharedPrefsDataStore(context)
 
@@ -88,6 +89,7 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
       backup.onFirstEverAppLaunch()
       unifiedpush.onFirstEverAppLaunch()
       labs.onFirstEverAppLaunch()
+      parentalControl.onFirstEverAppLaunch()
     }
 
     @JvmStatic
@@ -281,6 +283,11 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
     @get:JvmName("labs")
     val labs: LabsValues
       get() = instance!!.labsValues
+
+    @JvmStatic
+    @get:JvmName("parentalControl")
+    val parentalControl: ParentalControlValues
+      get() = instance!!.parentalControlValues
 
     val groupsV2AciAuthorizationCache: GroupsV2AuthorizationSignalStoreCache
       get() = GroupsV2AuthorizationSignalStoreCache.createAciCache(instance!!.store)
