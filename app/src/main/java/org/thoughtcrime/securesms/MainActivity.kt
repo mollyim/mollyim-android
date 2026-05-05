@@ -150,6 +150,8 @@ import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
 import org.thoughtcrime.securesms.main.callNavGraphBuilder
 import org.thoughtcrime.securesms.main.chatNavGraphBuilder
+import org.thoughtcrime.securesms.parental.ParentalPinDialog
+import org.thoughtcrime.securesms.parental.PendingGroupInvitesFragment
 import org.thoughtcrime.securesms.main.navigateToDetailLocation
 import org.thoughtcrime.securesms.main.rememberDetailNavHostController
 import org.thoughtcrime.securesms.main.rememberFocusRequester
@@ -1203,6 +1205,12 @@ class MainActivity :
     override fun onNotificationProfileTooltipDismissed() {
       SignalStore.notificationProfile.hasSeenTooltip = true
       toolbarViewModel.setShowNotificationProfilesTooltip(false)
+    }
+
+    override fun onPendingGroupInvitesClick() {
+      ParentalPinDialog.show(this@MainActivity) {
+        PendingGroupInvitesFragment.show(supportFragmentManager)
+      }
     }
   }
 

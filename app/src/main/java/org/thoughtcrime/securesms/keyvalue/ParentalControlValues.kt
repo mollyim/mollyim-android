@@ -48,6 +48,24 @@ class ParentalControlValues internal constructor(store: KeyValueStore) : SignalS
     settingsChanges.onNext(Unit)
   }
 
+  /** Returns true if the provided [pin] matches the stored parent PIN hash. */
+  fun verifyPin(pin: String): Boolean {
+    val hash = parentPinHash
+    if (hash.isEmpty()) return false
+    return computePinHash(pin, getPinSalt()) == hash
+  }
+
+  /** Adds [threadId] to the allowed set without clearing existing entries. */
+  fun addAllowedThreadId(threadId: Long) {
+    setAllowedThreadIds(getAllowedThreadIds() + threadId)
+  }
+
+  /** Returns true if an incoming/outgoing call on [threadId] is permitted in parental mode. */
+  fun isThreadCallAllowed(threadId: Long): Boolean {
+    if (!parentalModeEnabled) return true
+    return threadId in getAllowedThreadIds()
+  }
+
   public override fun onFirstEverAppLaunch() = Unit
 
   public override fun getKeysToIncludeInBackup(): List<String> = emptyList()
