@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.signal.core.util.StringSerializer
 import java.security.MessageDigest
 import java.security.SecureRandom
@@ -20,7 +21,14 @@ class ParentalControlValues internal constructor(store: KeyValueStore) : SignalS
     }
   }
 
-  var parentalModeEnabled: Boolean by booleanValue(KEY_PARENTAL_MODE_ENABLED, true)
+  val settingsChanges: PublishSubject<Unit> = PublishSubject.create()
+
+  var parentalModeEnabled: Boolean
+    get() = getBoolean(KEY_PARENTAL_MODE_ENABLED, true)
+    set(value) {
+      putBoolean(KEY_PARENTAL_MODE_ENABLED, value)
+      settingsChanges.onNext(Unit)
+    }
 
   var parentPinHash: String by stringValue(KEY_PARENT_PIN_HASH, "")
 
@@ -37,6 +45,7 @@ class ParentalControlValues internal constructor(store: KeyValueStore) : SignalS
 
   fun setAllowedThreadIds(ids: Set<Long>) {
     putList(KEY_ALLOWED_THREAD_IDS, ids.toList(), LongSerializer)
+    settingsChanges.onNext(Unit)
   }
 
   public override fun onFirstEverAppLaunch() = Unit
