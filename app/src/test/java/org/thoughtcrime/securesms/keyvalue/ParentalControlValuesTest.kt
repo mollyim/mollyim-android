@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
 import assertk.assertThat
-import assertk.assertions.containsExactly
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEmpty
@@ -11,9 +10,15 @@ import org.junit.Test
 class ParentalControlValuesTest {
 
   private fun createValues(): ParentalControlValues {
-    val dataset = KeyValueDataSet()
-    val store = KeyValueStore(dataset)
-    return ParentalControlValues(store)
+    val storage = object : KeyValuePersistentStorage {
+      private val dataSet = KeyValueDataSet()
+      override fun writeDataSet(newDataSet: KeyValueDataSet, removes: kotlin.collections.Collection<String>) {
+        dataSet.removeAll(removes)
+        dataSet.putAll(newDataSet)
+      }
+      override fun getDataSet(): KeyValueDataSet = dataSet
+    }
+    return ParentalControlValues(KeyValueStore(storage))
   }
 
   @Test
@@ -97,7 +102,7 @@ class ParentalControlValuesTest {
     val values = createValues()
     val ids = setOf(1L, 2L, 3L)
     values.setAllowedThreadIds(ids)
-    assertThat(values.getAllowedThreadIds()).containsExactly(1L, 2L, 3L)
+    assertThat(values.getAllowedThreadIds()).isEqualTo(setOf(1L, 2L, 3L))
   }
 
   @Test
