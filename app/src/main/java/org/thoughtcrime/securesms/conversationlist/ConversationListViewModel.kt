@@ -51,6 +51,17 @@ sealed class ConversationListViewModel(
     private const val STATE = "state"
 
     private var coldStart = true
+
+    internal fun applyParentalFilter(
+      list: List<Conversation>,
+      enabled: Boolean,
+      allowedIds: Set<Long>
+    ): List<Conversation> {
+      if (!enabled) return list
+      return list.filter { conv ->
+        conv.type != Conversation.Type.THREAD || conv.threadRecord.threadId in allowedIds
+      }
+    }
   }
 
   private val disposables: CompositeDisposable = CompositeDisposable()
@@ -69,6 +80,13 @@ sealed class ConversationListViewModel(
     .build()
 
   val conversationsState: Flowable<List<Conversation>> = store.mapDistinctForUi { it.conversations }
+    .map { list ->
+      applyParentalFilter(
+        list,
+        SignalStore.parentalControl.parentalModeEnabled,
+        SignalStore.parentalControl.getAllowedThreadIds()
+      )
+    }
   val selectedState: Flowable<ConversationSet> = store.mapDistinctForUi { it.selectedConversations }
   val filterRequestState: Flowable<ConversationFilterRequest> = savedStateHandle.getStateFlow(STATE, SaveableState()).map { it.filterRequest }.asFlowable().observeOn(AndroidSchedulers.mainThread())
   val chatFolderState: Flowable<List<ChatFolderMappingModel>> = savedStateHandle.getStateFlow(STATE, SaveableState()).map { it.chatFolders }.asFlowable().observeOn(AndroidSchedulers.mainThread())
@@ -121,6 +139,12 @@ sealed class ConversationListViewModel(
     RxDatabaseObserver
       .conversationList
       .throttleLatest(500, TimeUnit.MILLISECONDS)
+      .subscribe { controller.onDataInvalidated() }
+      .addTo(disposables)
+
+    SignalStore.parentalControl.settingsChanges
+      .toFlowable(BackpressureStrategy.LATEST)
+      .observeOn(Schedulers.io())
       .subscribe { controller.onDataInvalidated() }
       .addTo(disposables)
 

@@ -6,6 +6,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEmpty
 import assertk.assertions.isNotEqualTo
 import org.junit.Test
+import java.util.concurrent.CopyOnWriteArrayList
 
 class ParentalControlValuesTest {
 
@@ -118,5 +119,24 @@ class ParentalControlValuesTest {
     values.setAllowedThreadIds(setOf(1L, 2L))
     values.setAllowedThreadIds(emptySet())
     assertThat(values.getAllowedThreadIds()).isEmpty()
+  }
+
+  @Test
+  fun `settingsChanges emits when parental mode toggled`() {
+    val values = createValues()
+    val emissions = CopyOnWriteArrayList<Unit>()
+    values.settingsChanges.subscribe { emissions.add(Unit) }
+    values.parentalModeEnabled = false
+    values.parentalModeEnabled = true
+    assertThat(emissions.size).isEqualTo(2)
+  }
+
+  @Test
+  fun `settingsChanges emits when allowed thread ids updated`() {
+    val values = createValues()
+    val emissions = CopyOnWriteArrayList<Unit>()
+    values.settingsChanges.subscribe { emissions.add(Unit) }
+    values.setAllowedThreadIds(setOf(1L, 2L))
+    assertThat(emissions.size).isEqualTo(1)
   }
 }
