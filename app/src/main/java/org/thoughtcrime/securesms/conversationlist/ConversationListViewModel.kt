@@ -79,7 +79,10 @@ sealed class ConversationListViewModel(
     .setBufferPages(2)
     .build()
 
-  val conversationsState: Flowable<List<Conversation>> = store.mapDistinctForUi { it.conversations }
+  val conversationsState: Flowable<List<Conversation>> = Flowable.combineLatest(
+    store.mapDistinctForUi { it.conversations },
+    SignalStore.parentalControl.settingsChanges.startWithItem(Unit).toFlowable(BackpressureStrategy.LATEST)
+  ) { list, _ -> list }
     .map { list ->
       applyParentalFilter(
         list,
@@ -139,12 +142,6 @@ sealed class ConversationListViewModel(
     RxDatabaseObserver
       .conversationList
       .throttleLatest(500, TimeUnit.MILLISECONDS)
-      .subscribe { controller.onDataInvalidated() }
-      .addTo(disposables)
-
-    SignalStore.parentalControl.settingsChanges
-      .toFlowable(BackpressureStrategy.LATEST)
-      .observeOn(Schedulers.io())
       .subscribe { controller.onDataInvalidated() }
       .addTo(disposables)
 

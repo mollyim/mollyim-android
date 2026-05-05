@@ -16,7 +16,7 @@ class CallLogPagedDataSource(
   }
 
   private val hasFilter = filter == CallLogFilter.MISSED
-  private val hasCallLinkRow = filter == CallLogFilter.ALL && query.isNullOrEmpty()
+  private val hasCallLinkRow = filter == CallLogFilter.ALL && query.isNullOrEmpty() && !org.thoughtcrime.securesms.keyvalue.SignalStore.parentalControl.parentalModeEnabled
 
   private var callEventsCount = 0
   private var callLinksCount = 0

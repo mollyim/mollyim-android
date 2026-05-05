@@ -63,6 +63,11 @@ class ParentalControlActivity : AppCompatActivity() {
     }
   }
 
+  override fun onStop() {
+    super.onStop()
+    SignalStore.parentalControl.notifyChanged()
+  }
+
   private fun populateThreadList(threads: List<ParentalControlViewModel.ThreadItem>) {
     val container = binding.parentalThreadContainer
     container.removeAllViews()

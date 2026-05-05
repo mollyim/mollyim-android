@@ -4294,6 +4294,8 @@ class ConversationFragment :
 
     override fun handleManageGroup() {
       viewModel.recipientSnapshot?.let { recipient ->
+        if (SignalStore.parentalControl.parentalModeEnabled && recipient.isPushGroup) return
+
         container.hideKeyboard(composeText)
         chatRouter.goToChatDetail(MainNavigationDetailLocation.Chats.ConversationSettings(recipient.id))
       }
@@ -4331,6 +4333,8 @@ class ConversationFragment :
 
     override fun handleConversationSettings() {
       viewModel.recipientSnapshot?.let { recipient ->
+        if (SignalStore.parentalControl.parentalModeEnabled && recipient.isPushGroup) return
+
         if (!viewModel.hasMessageRequestState || recipient.isBlocked) {
           container.hideKeyboard(composeText)
           chatRouter.goToChatDetail(MainNavigationDetailLocation.Chats.ConversationSettings(recipient.id))
