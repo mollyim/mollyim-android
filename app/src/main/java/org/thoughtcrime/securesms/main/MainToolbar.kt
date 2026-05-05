@@ -109,6 +109,7 @@ interface MainToolbarCallback {
   fun onStarredMessagesClick()
   fun onNotificationProfileTooltipDismissed()
   fun onPendingGroupInvitesClick()
+  fun onParentalControlsClick()
 
   object Empty : MainToolbarCallback {
     override fun onNewGroupClick() = Unit
@@ -133,6 +134,7 @@ interface MainToolbarCallback {
     override fun onStarredMessagesClick() = Unit
     override fun onNotificationProfileTooltipDismissed() = Unit
     override fun onPendingGroupInvitesClick() = Unit
+    override fun onParentalControlsClick() = Unit
   }
 }
 
@@ -736,6 +738,17 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
       },
       onClick = {
         callback.onPendingGroupInvitesClick()
+        onOptionSelected()
+      }
+    )
+    DropdownMenus.Item(
+      text = {
+        Text(
+          text = stringResource(R.string.parental_controls_menu_item)
+        )
+      },
+      onClick = {
+        callback.onParentalControlsClick()
         onOptionSelected()
       }
     )

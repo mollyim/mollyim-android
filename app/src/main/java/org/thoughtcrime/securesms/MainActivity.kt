@@ -155,6 +155,7 @@ import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarState
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
+import org.thoughtcrime.securesms.parental.ParentalControlActivity
 import org.thoughtcrime.securesms.parental.ParentalPinDialog
 import org.thoughtcrime.securesms.parental.PendingGroupInvitesFragment
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
@@ -1211,6 +1212,20 @@ class MainActivity :
     override fun onPendingGroupInvitesClick() {
       ParentalPinDialog.show(this@MainActivity) {
         PendingGroupInvitesFragment.show(supportFragmentManager)
+      }
+    }
+
+    override fun onParentalControlsClick() {
+      val pc = SignalStore.parentalControl
+      if (pc.parentPinHash.isEmpty()) {
+        startActivity(
+          Intent(this@MainActivity, ParentalControlActivity::class.java)
+            .putExtra(ParentalControlActivity.EXTRA_SETUP_PIN, true)
+        )
+      } else {
+        ParentalPinDialog.show(this@MainActivity) {
+          startActivity(Intent(this@MainActivity, ParentalControlActivity::class.java))
+        }
       }
     }
   }
