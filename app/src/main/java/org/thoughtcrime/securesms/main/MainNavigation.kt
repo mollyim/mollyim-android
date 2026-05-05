@@ -60,8 +60,18 @@ import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.theme.colorAttribute
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 
 private val LOTTIE_SIZE = 28.dp
+
+internal fun buildNavEntries(isStoriesEnabled: Boolean, parentalModeEnabled: Boolean): List<MainNavigationListLocation> {
+  val hideStories = !isStoriesEnabled || parentalModeEnabled
+  return if (hideStories) {
+    MainNavigationListLocation.entries.filterNot { it == MainNavigationListLocation.STORIES || it == MainNavigationListLocation.ARCHIVE }
+  } else {
+    MainNavigationListLocation.entries.filterNot { it == MainNavigationListLocation.ARCHIVE }
+  }
+}
 
 enum class MainNavigationListLocation(
   @StringRes val label: Int,
@@ -110,12 +120,9 @@ fun MainNavigationBar(
     modifier = Modifier.height(if (state.compact) 48.dp else 80.dp),
     windowInsets = WindowInsets(0, 0, 0, 0)
   ) {
-    val entries = remember(state.isStoriesFeatureEnabled) {
-      if (state.isStoriesFeatureEnabled) {
-        MainNavigationListLocation.entries.filterNot { it == MainNavigationListLocation.ARCHIVE }
-      } else {
-        MainNavigationListLocation.entries.filterNot { it == MainNavigationListLocation.STORIES || it == MainNavigationListLocation.ARCHIVE }
-      }
+    val parentalModeEnabled = SignalStore.parentalControl.parentalModeEnabled
+    val entries = remember(state.isStoriesFeatureEnabled, parentalModeEnabled) {
+      buildNavEntries(state.isStoriesFeatureEnabled, parentalModeEnabled)
     }
 
     entries.forEach { destination ->
@@ -233,12 +240,9 @@ fun MainNavigationRail(
 
     Spacer(modifier = Modifier.height(40.dp).weight(1f, fill = false))
 
-    val entries = remember(state.isStoriesFeatureEnabled) {
-      if (state.isStoriesFeatureEnabled) {
-        MainNavigationListLocation.entries.filterNot { it == MainNavigationListLocation.ARCHIVE }
-      } else {
-        MainNavigationListLocation.entries.filterNot { it == MainNavigationListLocation.STORIES || it == MainNavigationListLocation.ARCHIVE }
-      }
+    val parentalModeEnabled = SignalStore.parentalControl.parentalModeEnabled
+    val entries = remember(state.isStoriesFeatureEnabled, parentalModeEnabled) {
+      buildNavEntries(state.isStoriesFeatureEnabled, parentalModeEnabled)
     }
 
     val selectedDestination = if (state.currentListLocation == MainNavigationListLocation.ARCHIVE) {
