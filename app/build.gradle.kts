@@ -32,8 +32,12 @@ val selectableVariants = listOf(
   "prodStoreDebug",
   "prodStoreRelease",
   "prodWebsiteInstrumentation",
+  "prodKidsDebug",
+  "prodKidsRelease",
   "stagingWebsiteDebug",
   "stagingWebsiteRelease",
+  "stagingKidsDebug",
+  "stagingKidsRelease",
 )
 
 // Override build config via env vars when project property 'CI' is set
@@ -279,6 +283,13 @@ android {
       dimension = "distribution"
       buildConfigField("boolean", "MANAGE_MOLLY_UPDATES", "true")
       isDefault = true
+    }
+
+    create("kids") {
+      dimension = "distribution"
+      buildConfigField("boolean", "MANAGE_MOLLY_UPDATES", "true")
+      applicationIdSuffix = ".kids"
+      buildConfigField("boolean", "PARENTAL_CONTROLS_ENABLED", "true")
     }
 
     create("prod") {
