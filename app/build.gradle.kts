@@ -301,7 +301,6 @@ android {
     create("kids") {
       dimension = "distribution"
       buildConfigField("boolean", "MANAGE_MOLLY_UPDATES", "true")
-      applicationIdSuffix = ".kids"
       buildConfigField("boolean", "PARENTAL_CONTROLS_ENABLED", "true")
     }
 

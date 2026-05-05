@@ -665,17 +665,19 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
     )
   }
 
-  DropdownMenus.Item(
-    text = {
-      Text(
-        text = stringResource(R.string.text_secure_normal__menu_new_group)
-      )
-    },
-    onClick = {
-      callback.onNewGroupClick()
-      onOptionSelected()
-    }
-  )
+  if (!SignalStore.parentalControl.parentalModeEnabled) {
+    DropdownMenus.Item(
+      text = {
+        Text(
+          text = stringResource(R.string.text_secure_normal__menu_new_group)
+        )
+      },
+      onClick = {
+        callback.onNewGroupClick()
+        onOptionSelected()
+      }
+    )
+  }
 
   DropdownMenus.Item(
     text = {
@@ -741,18 +743,19 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
         onOptionSelected()
       }
     )
-    DropdownMenus.Item(
-      text = {
-        Text(
-          text = stringResource(R.string.parental_controls_menu_item)
-        )
-      },
-      onClick = {
-        callback.onParentalControlsClick()
-        onOptionSelected()
-      }
-    )
   }
+
+  DropdownMenus.Item(
+    text = {
+      Text(
+        text = stringResource(R.string.parental_controls_menu_item)
+      )
+    },
+    onClick = {
+      callback.onParentalControlsClick()
+      onOptionSelected()
+    }
+  )
 
   DropdownMenus.Item(
     text = {

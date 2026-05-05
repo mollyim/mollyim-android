@@ -4240,6 +4240,11 @@ class ConversationFragment :
    * In split-pane mode, delegates to the [MainNavigationRouter] to display content in the detail pane. Otherwise, opens the destination as a standalone screen.
    */
   private fun navigateTo(location: MainNavigationDetailLocation.Chats) {
+    if (SignalStore.parentalControl.parentalModeEnabled &&
+      location is MainNavigationDetailLocation.Chats.ConversationSettings &&
+      viewModel.recipientSnapshot?.isPushGroup == true
+    ) return
+
     val router = mainNavRouter
     if (router != null && resources.getWindowSizeClass().isSplitPane()) {
       router.goTo(location)
@@ -4264,6 +4269,8 @@ class ConversationFragment :
    * Opens conversation settings as a standalone (single-pane) screen.
    */
   private fun navigateToConversationSettingsStandalone(recipient: Recipient) {
+    if (SignalStore.parentalControl.parentalModeEnabled && recipient.isPushGroup) return
+
     val intent = if (recipient.isPushGroup) {
       ConversationSettingsActivity.forGroup(requireContext(), recipient.requireGroupId())
     } else {

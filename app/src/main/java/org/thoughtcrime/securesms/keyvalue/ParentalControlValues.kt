@@ -23,6 +23,8 @@ class ParentalControlValues internal constructor(store: KeyValueStore) : SignalS
 
   val settingsChanges: PublishSubject<Unit> = PublishSubject.create()
 
+  fun notifyChanged() = settingsChanges.onNext(Unit)
+
   var parentalModeEnabled: Boolean
     get() = getBoolean(KEY_PARENTAL_MODE_ENABLED, true)
     set(value) {

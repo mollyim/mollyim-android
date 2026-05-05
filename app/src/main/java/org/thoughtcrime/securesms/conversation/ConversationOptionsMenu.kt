@@ -128,6 +128,9 @@ internal object ConversationOptionsMenu {
           }
         }
         menuInflater.inflate(R.menu.conversation_active_group_options, menu)
+        if (SignalStore.parentalControl.parentalModeEnabled) {
+          hideMenuItem(menu, R.id.menu_group_settings)
+        }
       }
 
       menuInflater.inflate(R.menu.conversation, menu)
