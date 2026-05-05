@@ -108,6 +108,7 @@ interface MainToolbarCallback {
   fun onSearchFilterClick()
   fun onStarredMessagesClick()
   fun onNotificationProfileTooltipDismissed()
+  fun onPendingGroupInvitesClick()
 
   object Empty : MainToolbarCallback {
     override fun onNewGroupClick() = Unit
@@ -131,6 +132,7 @@ interface MainToolbarCallback {
     override fun onSearchFilterClick() = Unit
     override fun onStarredMessagesClick() = Unit
     override fun onNotificationProfileTooltipDismissed() = Unit
+    override fun onPendingGroupInvitesClick() = Unit
   }
 }
 
@@ -720,6 +722,20 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
       },
       onClick = {
         callback.onStarredMessagesClick()
+        onOptionSelected()
+      }
+    )
+  }
+
+  if (SignalStore.parentalControl.parentalModeEnabled) {
+    DropdownMenus.Item(
+      text = {
+        Text(
+          text = stringResource(R.string.parental_pending_invites)
+        )
+      },
+      onClick = {
+        callback.onPendingGroupInvitesClick()
         onOptionSelected()
       }
     )

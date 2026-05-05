@@ -139,4 +139,77 @@ class ParentalControlValuesTest {
     values.setAllowedThreadIds(setOf(1L, 2L))
     assertThat(emissions.size).isEqualTo(1)
   }
+
+  @Test
+  fun `isThreadCallAllowed - parental mode OFF - any thread allowed`() {
+    val values = createValues()
+    values.parentalModeEnabled = false
+    assertThat(values.isThreadCallAllowed(99L)).isEqualTo(true)
+  }
+
+  @Test
+  fun `isThreadCallAllowed - parental mode ON - allowed thread permitted`() {
+    val values = createValues()
+    values.setAllowedThreadIds(setOf(1L, 2L))
+    assertThat(values.isThreadCallAllowed(1L)).isEqualTo(true)
+  }
+
+  @Test
+  fun `isThreadCallAllowed - parental mode ON - non-allowed thread blocked`() {
+    val values = createValues()
+    values.setAllowedThreadIds(setOf(1L, 2L))
+    assertThat(values.isThreadCallAllowed(99L)).isEqualTo(false)
+  }
+
+  @Test
+  fun `isThreadCallAllowed - parental mode ON - unknown thread (id -1) blocked`() {
+    val values = createValues()
+    values.setAllowedThreadIds(setOf(1L, 2L))
+    assertThat(values.isThreadCallAllowed(-1L)).isEqualTo(false)
+  }
+
+  @Test
+  fun `isThreadCallAllowed - parental mode ON - empty allowed set blocks all`() {
+    val values = createValues()
+    values.setAllowedThreadIds(emptySet())
+    assertThat(values.isThreadCallAllowed(1L)).isEqualTo(false)
+  }
+
+  @Test
+  fun `verifyPin - correct pin returns true`() {
+    val values = createValues()
+    val pin = "7890"
+    values.parentPinHash = ParentalControlValues.computePinHash(pin, values.getPinSalt())
+    assertThat(values.verifyPin(pin)).isEqualTo(true)
+  }
+
+  @Test
+  fun `verifyPin - wrong pin returns false`() {
+    val values = createValues()
+    values.parentPinHash = ParentalControlValues.computePinHash("1234", values.getPinSalt())
+    assertThat(values.verifyPin("9999")).isEqualTo(false)
+  }
+
+  @Test
+  fun `verifyPin - empty hash returns false`() {
+    val values = createValues()
+    assertThat(values.parentPinHash).isEqualTo("")
+    assertThat(values.verifyPin("1234")).isEqualTo(false)
+  }
+
+  @Test
+  fun `addAllowedThreadId - appends without replacing existing`() {
+    val values = createValues()
+    values.setAllowedThreadIds(setOf(1L, 2L))
+    values.addAllowedThreadId(3L)
+    assertThat(values.getAllowedThreadIds()).isEqualTo(setOf(1L, 2L, 3L))
+  }
+
+  @Test
+  fun `addAllowedThreadId - idempotent when id already present`() {
+    val values = createValues()
+    values.setAllowedThreadIds(setOf(1L, 2L))
+    values.addAllowedThreadId(2L)
+    assertThat(values.getAllowedThreadIds()).isEqualTo(setOf(1L, 2L))
+  }
 }

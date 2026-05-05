@@ -155,6 +155,8 @@ import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarState
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
+import org.thoughtcrime.securesms.parental.ParentalPinDialog
+import org.thoughtcrime.securesms.parental.PendingGroupInvitesFragment
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.mediasend.v3.mediaSendLauncher
 import org.thoughtcrime.securesms.megaphone.Megaphone
@@ -1204,6 +1206,12 @@ class MainActivity :
     override fun onNotificationProfileTooltipDismissed() {
       SignalStore.notificationProfile.hasSeenTooltip = true
       toolbarViewModel.setShowNotificationProfilesTooltip(false)
+    }
+
+    override fun onPendingGroupInvitesClick() {
+      ParentalPinDialog.show(this@MainActivity) {
+        PendingGroupInvitesFragment.show(supportFragmentManager)
+      }
     }
   }
 
