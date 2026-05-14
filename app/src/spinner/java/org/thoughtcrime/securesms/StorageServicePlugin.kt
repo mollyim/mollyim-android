@@ -33,7 +33,7 @@ class StorageServicePlugin : Plugin {
 
       if (record.proto.account != null) {
         row += "Account"
-        row += record.proto.account.toString()
+        row += record.proto.account.toString().prettyPrintProto()
       } else if (record.proto.contact != null) {
         row += "Contact"
         row += record.proto.toString()
@@ -76,4 +76,56 @@ class StorageServicePlugin : Plugin {
   companion object {
     const val PATH = "/storage"
   }
+}
+
+private fun String.prettyPrintProto(): String {
+  val out = StringBuilder(length + length / 4)
+  var indent = 0
+  var compactDepth = 0
+  fun newline() {
+    out.append('\n').append("  ".repeat(indent))
+  }
+  var i = 0
+  while (i < length) {
+    val c = this[i]
+    when (c) {
+      '{', '[' -> {
+        val compact = c == '[' && this.regionMatches(i + 1, "hex", 0, 3, ignoreCase = true)
+        if (compact) {
+          compactDepth++
+          out.append(c)
+        } else {
+          indent++
+          out.append(c)
+          newline()
+        }
+      }
+      '}', ']' -> {
+        if (compactDepth > 0 && c == ']') {
+          compactDepth--
+          out.append(c)
+        } else {
+          indent = (indent - 1).coerceAtLeast(0)
+          val opener = if (c == '}') '{' else '['
+          while (out.isNotEmpty() && (out.last() == ' ' || out.last() == '\n')) {
+            out.deleteCharAt(out.length - 1)
+          }
+          if (out.isNotEmpty() && out.last() == opener) {
+            out.append(c)
+          } else {
+            newline()
+            out.append(c)
+          }
+        }
+      }
+      ',' -> {
+        out.append(c)
+        if (compactDepth == 0) newline()
+      }
+      ' ' -> if (out.isNotEmpty() && out.last() != '\n' && out.last() != ' ') out.append(c)
+      else -> out.append(c)
+    }
+    i++
+  }
+  return out.toString()
 }

@@ -1622,6 +1622,8 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
             Log.w(TAG, "Failed to parse serviceId!")
             null
           }
+        } else if (pinned.releaseNotes != null) {
+          SignalStore.releaseChannel.releaseChannelRecipientId?.let { Recipient.resolved(it) }
         } else if (pinned.legacyGroupId != null) {
           try {
             Recipient.externalGroupExact(GroupId.v1(pinned.legacyGroupId!!.toByteArray()))
@@ -1655,6 +1657,10 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     }
 
     notifyConversationListListeners()
+  }
+
+  fun applyStorageSyncReleaseChannelUpdate(recipientId: RecipientId, archived: Boolean, forcedUnread: Boolean) {
+    applyStorageSyncUpdate(recipientId, archived, forcedUnread, isGroup = false)
   }
 
   private fun applyStorageSyncUpdate(recipientId: RecipientId, archived: Boolean, forcedUnread: Boolean, isGroup: Boolean) {

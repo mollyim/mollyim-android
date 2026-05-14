@@ -139,6 +139,8 @@ object StorageSyncHelper {
 
     val storageId = selfRecord?.storageId ?: self.storageId
 
+    val releaseChannelRecord: RecipientRecord? = SignalStore.releaseChannel.releaseChannelRecipientId?.let { SignalDatabase.recipients.getRecordForSync(it) }
+
     val accountRecord = SignalAccountRecord.newBuilder(selfRecord?.syncExtras?.storageProto).apply {
       profileKey = self.profileKey?.toByteString() ?: ByteString.EMPTY
       givenName = self.profileName.givenName
@@ -197,6 +199,13 @@ object StorageSyncHelper {
       safeSetPayments(SignalStore.payments.mobileCoinPaymentsEnabled(), Optional.ofNullable(SignalStore.payments.paymentsEntropy).map { obj: Entropy -> obj.bytes }.orElse(null))
       automaticKeyVerificationDisabled = !SignalStore.settings.automaticVerificationEnabled
       hasSeenAdminDeleteEducationDialog = SignalStore.uiHints.hasSeenAdminDeleteEducationDialog()
+
+      if (releaseChannelRecord != null) {
+        releaseNotesChatArchived = releaseChannelRecord.syncExtras.isArchived == true
+        releaseNotesChatMutedUntilTimestamp = releaseChannelRecord.muteUntil
+        releaseNotesChatBlocked = releaseChannelRecord.isBlocked == true
+        releaseNotesChatMarkedUnread = releaseChannelRecord.syncExtras.isForcedUnread == true
+      }
     }
 
     return accountRecord.toSignalAccountRecord(StorageId.forAccount(storageId)).toSignalStorageRecord()
@@ -306,6 +315,13 @@ object StorageSyncHelper {
       )
 
       SignalStore.misc.usernameQrCodeColorScheme = StorageSyncModels.remoteToLocalUsernameColor(update.new.proto.usernameLink!!.color)
+    }
+
+    SignalStore.releaseChannel.releaseChannelRecipientId?.let { releaseChannelId ->
+      SignalDatabase.recipients.setBlocked(releaseChannelId, update.new.proto.releaseNotesChatBlocked)
+      SignalDatabase.recipients.setMuted(releaseChannelId, update.new.proto.releaseNotesChatMutedUntilTimestamp)
+      SignalDatabase.threads.applyStorageSyncReleaseChannelUpdate(releaseChannelId, update.new.proto.releaseNotesChatArchived, update.new.proto.releaseNotesChatMarkedUnread)
+      Recipient.live(releaseChannelId).refresh()
     }
 
     if (update.new.proto.notificationProfileManualOverride != null) {

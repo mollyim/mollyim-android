@@ -28,6 +28,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.groups.BadGroupIdException
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
@@ -123,13 +124,17 @@ object StorageSyncModels {
 
   @JvmStatic
   fun localToRemotePinnedConversations(records: List<RecipientRecord>): List<AccountRecord.PinnedConversation> {
+    val releaseChannelId = SignalStore.releaseChannel.releaseChannelRecipientId
     return records
-      .filter { it.recipientType == RecipientType.GV1 || it.recipientType == RecipientType.GV2 || it.registered == RecipientTable.RegisteredState.REGISTERED }
-      .map { localToRemotePinnedConversation(it) }
+      .filter { it.recipientType == RecipientType.GV1 || it.recipientType == RecipientType.GV2 || it.registered == RecipientTable.RegisteredState.REGISTERED || it.id == releaseChannelId }
+      .map { localToRemotePinnedConversation(it, releaseChannelId) }
   }
 
   @JvmStatic
-  private fun localToRemotePinnedConversation(settings: RecipientRecord): AccountRecord.PinnedConversation {
+  private fun localToRemotePinnedConversation(settings: RecipientRecord, releaseChannelId: RecipientId?): AccountRecord.PinnedConversation {
+    if (settings.id == releaseChannelId) {
+      return AccountRecord.PinnedConversation(releaseNotes = AccountRecord.PinnedConversation.ReleaseNotes())
+    }
     return when (settings.recipientType) {
       RecipientType.INDIVIDUAL -> {
         AccountRecord.PinnedConversation(

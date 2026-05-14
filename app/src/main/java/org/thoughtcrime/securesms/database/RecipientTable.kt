@@ -4028,6 +4028,11 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   fun rotateStorageId(recipientId: RecipientId, logFailure: Boolean = false) {
     val selfId = Recipient.self().id
 
+    if (recipientId != selfId && recipientId == SignalStore.releaseChannel.releaseChannelRecipientId) {
+      // Release channel info is stored on the account record (self)
+      rotateStorageId(selfId)
+    }
+
     val values = ContentValues(1).apply {
       put(STORAGE_SERVICE_ID, Base64.encodeWithPadding(StorageSyncHelper.generateKey()))
     }

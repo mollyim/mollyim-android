@@ -140,6 +140,10 @@ class AccountRecordProcessor(
       backupTier = local.proto.backupTier ?: remote.proto.backupTier
       automaticKeyVerificationDisabled = remote.proto.automaticKeyVerificationDisabled
       hasSeenAdminDeleteEducationDialog = remote.proto.hasSeenAdminDeleteEducationDialog
+      releaseNotesChatArchived = remote.proto.releaseNotesChatArchived
+      releaseNotesChatMutedUntilTimestamp = remote.proto.releaseNotesChatMutedUntilTimestamp
+      releaseNotesChatBlocked = remote.proto.releaseNotesChatBlocked
+      releaseNotesChatMarkedUnread = remote.proto.releaseNotesChatMarkedUnread
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())
       safeSetSubscriber(donationSubscriberId, donationSubscriberCurrencyCode)
