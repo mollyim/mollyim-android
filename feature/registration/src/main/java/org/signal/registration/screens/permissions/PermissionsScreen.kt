@@ -88,7 +88,7 @@ fun PermissionsScreen(
       }
     }
 
-    WindowBreakpoint.LARGE -> {
+    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
       Surface(modifier = modifier.testTag(TestTags.PERMISSIONS_SCREEN)) {
         LargeLayout(
           permissionsState = permissionsState,

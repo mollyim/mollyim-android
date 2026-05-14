@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.getWindowBreakpoint
 import org.signal.core.ui.rememberIsSplitPane
 
@@ -79,7 +78,7 @@ data class MainContentLayoutData(
       val isSplitPane = resources.rememberIsSplitPane()
 
       return remember(windowSizeClass, mode, breakpoint, isSplitPane) {
-        val isLargeWindowSize = breakpoint == WindowBreakpoint.LARGE
+        val isLargeWindowSize = breakpoint.isLargeWindow
 
         MainContentLayoutData(
           shape = when {

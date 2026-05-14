@@ -72,7 +72,7 @@ fun ArchiveRestoreSelectionScreen(
       MediumLayout(state, onEvent, modifier)
     }
 
-    WindowBreakpoint.LARGE -> {
+    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
       LargeLayout(state, onEvent, modifier)
     }
   }

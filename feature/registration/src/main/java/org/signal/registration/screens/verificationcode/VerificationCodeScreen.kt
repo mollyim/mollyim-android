@@ -153,7 +153,7 @@ fun VerificationCodeScreen(
         )
       }
 
-      WindowBreakpoint.LARGE -> {
+      WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
         LargeLayout(
           digits = digits,
           focusRequesters = focusRequesters,

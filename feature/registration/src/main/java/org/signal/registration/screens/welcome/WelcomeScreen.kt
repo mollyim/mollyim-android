@@ -100,7 +100,7 @@ fun WelcomeScreen(
       )
     }
 
-    WindowBreakpoint.LARGE -> {
+    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
       LargeLayout(
         onEvent = onEvent,
         onTermsAndPrivacyClick = onTermsAndPrivacyClick,

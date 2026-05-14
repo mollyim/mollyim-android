@@ -74,7 +74,7 @@ fun EnterAepScreen(
       MediumLayout(state, onEvent)
     }
 
-    WindowBreakpoint.LARGE -> {
+    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
       LargeLayout(state, onEvent)
     }
   }

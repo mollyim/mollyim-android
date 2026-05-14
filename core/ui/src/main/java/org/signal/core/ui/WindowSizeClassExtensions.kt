@@ -24,11 +24,14 @@ val WindowSizeClass.detailPaneMaxContentWidth: Dp get() = 624.dp
 val WindowSizeClass.isWidthCompact
   get() = !isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
 
+val WindowSizeClass.isWidthExpanded
+  get() = isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND)
+
 val WindowSizeClass.isHeightCompact
   get() = !isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND)
 
-val WindowSizeClass.isWidthExpanded
-  get() = isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND)
+val WindowSizeClass.isHeightExpanded
+  get() = isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_EXPANDED_LOWER_BOUND)
 
 fun Resources.getWindowSizeClass(): WindowSizeClass {
   return WindowSizeClass.BREAKPOINTS_V1.computeWindowSizeClass(
@@ -48,12 +51,11 @@ fun rememberWindowBreakpoint(): WindowBreakpoint {
 }
 
 /**
- * Determines the device's form factor (PHONE, FOLDABLE, or TABLET) based on the current
- * [Resources] and window size class.
+ * Determines the device's form factor based on the current [Resources] and window size class.
  *
  * This function uses several heuristics:
  * - Returns [WindowBreakpoint.SMALL] if the width or height is compact
- * - Otherwise, falls back to aspect ratio heuristics: wider (≥ 1.5) is [WindowBreakpoint.LARGE], else [WindowBreakpoint.MEDIUM].
+ * - Otherwise, falls back to aspect ratio heuristics: wide windows use [WindowBreakpoint.LARGE_WIDTH], tall windows use [WindowBreakpoint.LARGE_HEIGHT], else [WindowBreakpoint.MEDIUM].
  *
  * @return the inferred [WindowBreakpoint] for the current device.
  */
@@ -68,24 +70,31 @@ fun Resources.getWindowBreakpoint(): WindowBreakpoint {
   val denominator = minOf(displayMetrics.widthPixels, displayMetrics.heightPixels)
   val aspectRatio = numerator.toFloat() / denominator
 
-  return if (aspectRatio >= TABLET_ASPECT_RATIO) {
-    WindowBreakpoint.LARGE
-  } else {
-    WindowBreakpoint.MEDIUM
+  return when {
+    aspectRatio < TABLET_ASPECT_RATIO -> WindowBreakpoint.MEDIUM
+    else -> {
+      if (displayMetrics.widthPixels >= displayMetrics.heightPixels) {
+        WindowBreakpoint.LARGE_WIDTH
+      } else {
+        WindowBreakpoint.LARGE_HEIGHT
+      }
+    }
   }
 }
 
 /**
  * Indicates the general form factor of the device for responsive UI purposes.
  *
- * - [SMALL]: A window similar to a phone-sized device, typically with a compact width or height.
- * - [MEDIUM]: A window similar to a foldable or medium-size device, or a device which doesn't obviously fit into phone or tablet by heuristics.
- * - [LARGE]: A window similar to a large-screen tablet device, typically with an expanded height or wide aspect ratio.
+ * - [SMALL]: A window with a compact width or height, typical of phone-sized devices.
+ * - [MEDIUM]: A window where neither width nor height is compact or expanded, typical of foldables.
+ * - [LARGE_WIDTH]: A window with expanded width and medium height, typical of tablets in landscape orientation.
+ * - [LARGE_HEIGHT]: A window with medium width and expanded height, typical of tablets in portrait orientation.
  */
-enum class WindowBreakpoint {
-  SMALL,
-  MEDIUM,
-  LARGE
+enum class WindowBreakpoint(val isLargeWindow: Boolean) {
+  SMALL(isLargeWindow = false),
+  MEDIUM(isLargeWindow = false),
+  LARGE_WIDTH(isLargeWindow = true),
+  LARGE_HEIGHT(isLargeWindow = true)
 }
 
 @Composable
@@ -108,14 +117,8 @@ fun Resources.isSplitPane(
     return true
   }
 
-  val breakpoint = getWindowBreakpoint()
-  if (breakpoint == WindowBreakpoint.SMALL) {
-    return false
+  return when (getWindowBreakpoint()) {
+    WindowBreakpoint.SMALL, WindowBreakpoint.LARGE_HEIGHT -> false
+    WindowBreakpoint.MEDIUM, WindowBreakpoint.LARGE_WIDTH -> true
   }
-
-  if (breakpoint == WindowBreakpoint.LARGE && displayMetrics.widthPixels < displayMetrics.heightPixels) {
-    return false
-  }
-
-  return true
 }

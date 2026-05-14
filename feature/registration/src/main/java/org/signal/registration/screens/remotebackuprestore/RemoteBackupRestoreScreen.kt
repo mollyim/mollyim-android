@@ -69,7 +69,7 @@ fun RemoteRestoreScreen(
       when (windowBreakpoint) {
         WindowBreakpoint.SMALL -> CompactLayout(state = state, onEvent = onEvent, modifier = modifier)
         WindowBreakpoint.MEDIUM -> MediumLayout(state = state, onEvent = onEvent, modifier = modifier)
-        WindowBreakpoint.LARGE -> LargeLayout(state = state, onEvent = onEvent, modifier = modifier)
+        WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> LargeLayout(state = state, onEvent = onEvent, modifier = modifier)
       }
     }
 
