@@ -39,7 +39,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.test.TestTags
 
 @Composable
@@ -81,7 +81,7 @@ fun ArchiveRestoreSelectionScreen(
 @Composable
 private fun CompactLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit, modifier: Modifier) {
   val scrollState = rememberScrollState()
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Column(
@@ -113,7 +113,7 @@ private fun CompactLayout(state: ArchiveRestoreSelectionState, onEvent: (Archive
 @Composable
 private fun MediumLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit, modifier: Modifier) {
   val scrollState = rememberScrollState()
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Row(
@@ -150,7 +150,7 @@ private fun MediumLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveR
 private fun LargeLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit, modifier: Modifier) {
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Row(

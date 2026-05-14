@@ -60,7 +60,7 @@ import org.signal.core.ui.compose.IconButtons.IconButton
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryState.OneTimeEvent
 import org.signal.registration.test.TestTags
 
@@ -181,7 +181,7 @@ private fun CompactLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEnt
 
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier,
     header = {
       TopbarMenu()
@@ -234,7 +234,7 @@ private fun MediumLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntr
 
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier,
     header = {
       TopbarMenu()
@@ -297,7 +297,7 @@ private fun LargeLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntry
 
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier,
     header = {
       TopbarMenu()

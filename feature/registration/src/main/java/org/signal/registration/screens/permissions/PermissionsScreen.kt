@@ -43,7 +43,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.util.MockMultiplePermissionsState
 import org.signal.registration.screens.util.MockPermissionsState
 import org.signal.registration.test.TestTags
@@ -108,7 +108,7 @@ private fun CompactLayout(
   permissionsState: MultiplePermissionsState,
   onProceed: () -> Unit
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Box(
@@ -160,7 +160,7 @@ private fun MediumLayout(
 ) {
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Row(
@@ -213,7 +213,7 @@ private fun LargeLayout(
 ) {
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Row(

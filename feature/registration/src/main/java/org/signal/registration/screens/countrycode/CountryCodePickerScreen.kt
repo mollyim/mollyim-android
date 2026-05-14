@@ -59,7 +59,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 
 /**
  * Screen that allows someone to search and select a country code from a supported list of countries.
@@ -90,7 +90,7 @@ fun CountryCodePickerScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CompactLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     header = {
       Row(
@@ -119,7 +119,7 @@ private fun CompactLayout(state: CountryCodeState, onEvent: (CountryCodePickerSc
 
 @Composable
 private fun MediumLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     header = {
       Header(onEvent)
@@ -148,7 +148,7 @@ private fun MediumLayout(state: CountryCodeState, onEvent: (CountryCodePickerScr
 
 @Composable
 private fun LargeLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     header = {
       Header(onEvent)

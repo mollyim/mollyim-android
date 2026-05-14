@@ -48,7 +48,7 @@ import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import java.util.Date
 
 @Composable
@@ -103,7 +103,7 @@ private fun CompactLayout(
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     content = {
       Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -131,7 +131,7 @@ private fun MediumLayout(
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     content = {
       Box(
         contentAlignment = Alignment.Center,
@@ -172,7 +172,7 @@ private fun LargeLayout(
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     content = {
       Row(
         modifier = Modifier

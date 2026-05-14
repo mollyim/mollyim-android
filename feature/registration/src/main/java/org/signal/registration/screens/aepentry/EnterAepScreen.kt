@@ -53,7 +53,7 @@ import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.localbackuprestore.attachBackupKeyAutoFillHelper
 import org.signal.registration.screens.localbackuprestore.backupKeyAutoFillHelper
 
@@ -83,7 +83,7 @@ fun EnterAepScreen(
 @Composable
 private fun CompactLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit) {
   val scrollState = rememberScrollState()
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Column(
@@ -124,7 +124,7 @@ private fun CompactLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Uni
 @Composable
 private fun MediumLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit) {
   val scrollState = rememberScrollState()
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Row(
@@ -162,7 +162,7 @@ private fun MediumLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit
 @Composable
 private fun LargeLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit) {
   val scrollState = rememberScrollState()
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Row(

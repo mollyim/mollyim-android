@@ -55,7 +55,7 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.test.TestTags
 import kotlin.time.Duration.Companion.seconds
 
@@ -177,7 +177,7 @@ private fun CompactLayout(
 ) {
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Column(
@@ -231,7 +231,7 @@ private fun MediumLayout(
   onDigitsChanged: (List<String>) -> Unit
 ) {
   val scrollState = rememberScrollState()
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Row(
@@ -290,7 +290,7 @@ private fun LargeLayout(
 ) {
   val scrollState = rememberScrollState()
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     content = {
       Row(

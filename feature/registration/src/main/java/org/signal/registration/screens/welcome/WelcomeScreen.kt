@@ -64,7 +64,7 @@ import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.isWidthExpanded
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.test.TestTags
 
 /**
@@ -128,7 +128,7 @@ private fun CompactLayout(
   onRestoreOrTransferClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier
       .fillMaxSize()
       .testTag(TestTags.WELCOME_SCREEN),
@@ -186,7 +186,7 @@ private fun MediumLayout(
   onRestoreOrTransferClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier
       .fillMaxSize()
       .padding(bottom = 56.dp),
@@ -242,7 +242,7 @@ private fun LargeLayout(
   onRestoreOrTransferClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Row(
