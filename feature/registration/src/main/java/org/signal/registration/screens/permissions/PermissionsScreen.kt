@@ -8,6 +8,7 @@
 package org.signal.registration.screens.permissions
 
 import android.Manifest
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -131,7 +132,7 @@ private fun OnePaneLayout(
         onProceed = onProceed,
         permissionsState = permissionsState,
         showElevation = scrollState.canScrollForward,
-        modifier = Modifier.padding(params.bottomInset)
+        modifier = Modifier.padding(params.footerPadding)
       )
     }
   )
@@ -187,7 +188,7 @@ private fun TwoPaneLayout(
         onProceed = onProceed,
         permissionsState = permissionsState,
         showElevation = scrollState.canScrollForward,
-        modifier = Modifier.padding(params.bottomInset)
+        modifier = Modifier.padding(params.footerPadding)
       )
     }
   )
@@ -312,6 +313,7 @@ private fun PermissionButtons(
   }
 }
 
+@SuppressLint("InlinedApi")
 @AllDevicePreviews
 @Composable
 private fun PermissionsScreenPreview() {

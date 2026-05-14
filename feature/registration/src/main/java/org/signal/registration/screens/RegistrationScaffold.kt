@@ -73,6 +73,14 @@ object RegistrationScaffold {
     val bottomInset: Dp
     val maxButtonWidth: Dp
 
+    val footerPadding
+      get() = PaddingValues(
+        top = 16.dp,
+        bottom = bottomInset,
+        start = 16.dp,
+        end = bottomInset
+      )
+
     data class OnePane(
       override val headerSlotHeight: Dp,
       private val paneVerticalInset: Dp,
