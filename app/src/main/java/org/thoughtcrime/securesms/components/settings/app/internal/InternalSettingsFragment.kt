@@ -4,15 +4,20 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.permissions.PermissionDeniedBottomSheet
 import org.signal.core.ui.permissions.RationaleDialog
@@ -1092,15 +1097,26 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   }
 
   private fun refreshRemoteValues() {
-    Toast.makeText(context, "Running remote config refresh, app will restart after completion.", Toast.LENGTH_LONG).show()
-    SignalExecutors.BOUNDED.execute {
+    val starterToast = Toast.makeText(context, "Running remote config refresh, app will restart after completion.", Toast.LENGTH_LONG).apply { show() }
+    lifecycleScope.launch(Dispatchers.IO) {
       SignalStore.remoteConfig.eTag = ""
       val result: Optional<JobTracker.JobState> = AppDependencies.jobManager.runSynchronously(RemoteConfigRefreshJob(), TimeUnit.SECONDS.toMillis(10))
 
-      if (result.isPresent && result.get() == JobTracker.JobState.SUCCESS) {
-        AppUtil.restart(requireContext())
-      } else {
-        Toast.makeText(context, "Failed to refresh config remote config.", Toast.LENGTH_SHORT).show()
+      withContext(Dispatchers.Main) {
+        starterToast.cancel()
+        if (result.isPresent && result.get() == JobTracker.JobState.SUCCESS) {
+          val toast = Toast.makeText(context, "Refresh successful. Restarting...", Toast.LENGTH_SHORT)
+          if (Build.VERSION.SDK_INT >= 30) {
+            toast.addCallback(object : Toast.Callback() {
+              override fun onToastHidden() {
+                AppUtil.restart(requireContext())
+              }
+            })
+          }
+          toast.show()
+        } else {
+          Toast.makeText(context, "Failed to refresh config remote config.", Toast.LENGTH_SHORT).show()
+        }
       }
     }
   }
