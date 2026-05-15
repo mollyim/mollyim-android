@@ -33,7 +33,7 @@ import org.signal.core.ui.rememberWindowBreakpoint
 
 object RegistrationScaffold {
   private val smallLayoutParams = Params.OnePane(
-    topInset = 24.dp,
+    headerSlotHeight = 24.dp,
     bottomInset = 24.dp,
     paneVerticalInset = 24.dp,
     paneHorizontalInset = 24.dp,
@@ -41,7 +41,7 @@ object RegistrationScaffold {
   )
 
   private val mediumLayoutParams = Params.TwoPane(
-    topInset = 64.dp,
+    headerSlotHeight = 64.dp,
     bottomInset = 24.dp,
     paneTopInset = 16.dp,
     paneBottomInset = 24.dp,
@@ -51,7 +51,7 @@ object RegistrationScaffold {
   )
 
   private val largeWidthLayoutParams = Params.TwoPane(
-    topInset = 64.dp,
+    headerSlotHeight = 64.dp,
     bottomInset = 32.dp,
     paneTopInset = 64.dp,
     paneBottomInset = 64.dp,
@@ -61,7 +61,7 @@ object RegistrationScaffold {
   )
 
   private val largeHeightLayoutParams = Params.OnePane(
-    topInset = 64.dp,
+    headerSlotHeight = 64.dp,
     bottomInset = 32.dp,
     paneVerticalInset = 64.dp,
     paneHorizontalInset = 128.dp,
@@ -69,19 +69,19 @@ object RegistrationScaffold {
   )
 
   sealed interface Params {
-    val topInset: Dp
+    val headerSlotHeight: Dp
     val bottomInset: Dp
     val maxButtonWidth: Dp
 
     data class OnePane(
-      override val topInset: Dp,
+      override val headerSlotHeight: Dp,
       private val paneVerticalInset: Dp,
       private val paneHorizontalInset: Dp,
       override val bottomInset: Dp,
       override val maxButtonWidth: Dp
     ) : Params {
-      val panePadding = PaddingValues(
-        top = topInset + paneVerticalInset,
+      fun panePadding(hasHeader: Boolean) = PaddingValues(
+        top = if (hasHeader) paneVerticalInset else headerSlotHeight + paneVerticalInset,
         bottom = paneVerticalInset,
         start = paneHorizontalInset,
         end = paneHorizontalInset
@@ -89,7 +89,7 @@ object RegistrationScaffold {
     }
 
     data class TwoPane(
-      override val topInset: Dp,
+      override val headerSlotHeight: Dp,
       private val paneTopInset: Dp,
       private val paneBottomInset: Dp,
       private val paneOuterInset: Dp,
@@ -97,15 +97,16 @@ object RegistrationScaffold {
       override val bottomInset: Dp,
       override val maxButtonWidth: Dp
     ) : Params {
-      val firstPanePadding: PaddingValues = PaddingValues(
-        top = topInset + paneTopInset,
+
+      fun firstPanePadding(hasHeader: Boolean): PaddingValues = PaddingValues(
+        top = if (hasHeader) paneTopInset else headerSlotHeight + paneTopInset,
         bottom = paneBottomInset,
         start = paneOuterInset,
         end = paneInnerInset
       )
 
-      val secondPanePadding: PaddingValues = PaddingValues(
-        top = topInset + paneTopInset,
+      fun secondPanePadding(hasHeader: Boolean): PaddingValues = PaddingValues(
+        top = if (hasHeader) paneTopInset else headerSlotHeight + paneTopInset,
         bottom = paneBottomInset,
         start = paneInnerInset,
         end = paneOuterInset
@@ -129,9 +130,9 @@ object RegistrationScaffold {
  */
 @Composable
 fun RegistrationScaffold(
-  content: @Composable () -> Unit,
   modifier: Modifier = Modifier,
-  header: (@Composable () -> Unit)? = null,
+  content: @Composable () -> Unit,
+  topBar: (@Composable () -> Unit)? = null,
   footer: (@Composable () -> Unit)? = null
 ) {
   SubcomposeLayout(modifier = modifier.imePadding()) { constraints ->
@@ -140,7 +141,7 @@ fun RegistrationScaffold(
     } ?: emptyList()
     val footerHeight = footerPlaceables.maxOfOrNull { it.height } ?: 0
 
-    val headerPlaceables = header?.let {
+    val headerPlaceables = topBar?.let {
       subcompose("header", it).map { m -> m.measure(constraints.copy(minWidth = 0, minHeight = 0)) }
     } ?: emptyList()
     val headerHeight = headerPlaceables.maxOfOrNull { it.height } ?: 0
@@ -159,28 +160,47 @@ fun RegistrationScaffold(
 }
 
 /**
+ * One-pane variant of [RegistrationScaffold] for windows with limited width.
+ */
+@Composable
+fun OnePaneRegistrationScaffold(
+  modifier: Modifier = Modifier,
+  params: RegistrationScaffold.Params.OnePane,
+  topBar: (@Composable () -> Unit)? = null,
+  footer: (@Composable () -> Unit)? = null,
+  content: @Composable (PaddingValues) -> Unit
+) {
+  RegistrationScaffold(
+    modifier = modifier.fillMaxSize(),
+    topBar = topBar,
+    footer = footer,
+    content = { content(params.panePadding(hasHeader = topBar != null)) }
+  )
+}
+
+/**
  * Two-pane variant of [RegistrationScaffold] for medium and large-width breakpoints.
  */
 @Composable
 fun TwoPaneRegistrationScaffold(
   modifier: Modifier = Modifier,
   params: RegistrationScaffold.Params.TwoPane,
-  header: (@Composable () -> Unit)? = null,
+  topBar: (@Composable () -> Unit)? = null,
   footer: (@Composable () -> Unit)? = null,
   firstPane: @Composable RowScope.(PaddingValues) -> Unit,
   secondPane: @Composable RowScope.(PaddingValues) -> Unit
 ) {
   RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
-    header = header,
+    topBar = topBar,
     footer = footer,
     content = {
       Row(
         horizontalArrangement = Arrangement.SpaceAround,
         modifier = Modifier.fillMaxSize()
       ) {
-        firstPane(params.firstPanePadding)
-        secondPane(params.secondPanePadding)
+        firstPane(params.firstPanePadding(hasHeader = topBar != null))
+        secondPane(params.secondPanePadding(hasHeader = topBar != null))
       }
     }
   )
@@ -213,23 +233,24 @@ private fun PreviewPane(
 private fun RegistrationScaffoldPreview() = Previews.Preview {
   when (val params = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> {
-      RegistrationScaffold(
-        header = {
+      OnePaneRegistrationScaffold(
+        params = params,
+        topBar = {
           Text(
             modifier = Modifier
               .fillMaxWidth()
               .background(Color.Green)
               .padding(16.dp),
-            text = "header",
+            text = "topBar",
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
             color = Color.Black
           )
         },
-        content = {
+        content = { paddingValues ->
           PreviewPane(
             label = "content",
-            paddingValues = params.panePadding,
+            paddingValues = paddingValues,
             outerColor = Color.Red,
             innerColor = Color.Yellow,
             modifier = Modifier.fillMaxWidth()
@@ -254,13 +275,13 @@ private fun RegistrationScaffoldPreview() = Previews.Preview {
       TwoPaneRegistrationScaffold(
         modifier = Modifier.fillMaxSize(),
         params = params,
-        header = {
+        topBar = {
           Text(
             modifier = Modifier
               .fillMaxWidth()
               .background(Color.Green)
               .padding(16.dp),
-            text = "header",
+            text = "topBar",
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
             color = Color.Black

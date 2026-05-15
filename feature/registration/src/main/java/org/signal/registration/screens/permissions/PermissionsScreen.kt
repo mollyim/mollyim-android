@@ -38,6 +38,7 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.util.MockMultiplePermissionsState
@@ -92,9 +93,10 @@ private fun OnePaneLayout(
 ) {
   val scrollState = rememberScrollState()
 
-  RegistrationScaffold(
+  OnePaneRegistrationScaffold(
     modifier = modifier.fillMaxSize(),
-    content = {
+    params = params,
+    content = { paddingValues ->
       Box(
         modifier = Modifier
           .fillMaxWidth()
@@ -104,7 +106,7 @@ private fun OnePaneLayout(
           modifier = Modifier
             .fillMaxHeight()
             .verticalScroll(scrollState)
-            .padding(params.panePadding)
+            .padding(paddingValues)
         ) {
           Text(
             text = stringResource(id = R.string.GrantPermissionsFragment__allow_permissions),

@@ -92,7 +92,7 @@ fun CountryCodePickerScreen(
 private fun CompactLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
   RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
-    header = {
+    topBar = {
       Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -121,8 +121,8 @@ private fun CompactLayout(state: CountryCodeState, onEvent: (CountryCodePickerSc
 private fun MediumLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
   RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
-    header = {
-      Header(onEvent)
+    topBar = {
+      TopBar(onEvent)
     },
     content = {
       Row(
@@ -150,8 +150,8 @@ private fun MediumLayout(state: CountryCodeState, onEvent: (CountryCodePickerScr
 private fun LargeLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
   RegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
-    header = {
-      Header(onEvent)
+    topBar = {
+      TopBar(onEvent)
     },
     content = {
       Row(
@@ -176,7 +176,7 @@ private fun LargeLayout(state: CountryCodeState, onEvent: (CountryCodePickerScre
 }
 
 @Composable
-private fun Header(onEvent: (CountryCodePickerScreenEvents) -> Unit) {
+private fun TopBar(onEvent: (CountryCodePickerScreenEvents) -> Unit) {
   Row(
     modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
     verticalAlignment = Alignment.CenterVertically

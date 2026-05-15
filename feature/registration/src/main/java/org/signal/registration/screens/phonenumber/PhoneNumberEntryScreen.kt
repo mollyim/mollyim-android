@@ -183,7 +183,7 @@ private fun CompactLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEnt
 
   RegistrationScaffold(
     modifier = Modifier,
-    header = {
+    topBar = {
       TopbarMenu()
     },
     content = {
@@ -236,7 +236,7 @@ private fun MediumLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntr
 
   RegistrationScaffold(
     modifier = Modifier,
-    header = {
+    topBar = {
       TopbarMenu()
     },
     content = {
@@ -299,7 +299,7 @@ private fun LargeLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntry
 
   RegistrationScaffold(
     modifier = Modifier,
-    header = {
+    topBar = {
       TopbarMenu()
     },
     content = {
