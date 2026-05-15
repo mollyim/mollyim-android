@@ -409,6 +409,10 @@ class IndividualSendJob private constructor(parameters: Parameters, private val 
       SignalLocalMetrics.IndividualMessageSend.onMessageSent(messageId)
     }
 
+    override fun onSyncMessageEncrypted() {
+      SignalLocalMetrics.IndividualMessageSend.onSyncMessageEncrypted(messageId)
+    }
+
     override fun onSyncMessageSent() {
       SignalLocalMetrics.IndividualMessageSend.onSyncMessageSent(messageId)
     }

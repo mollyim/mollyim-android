@@ -942,6 +942,11 @@ public final class GroupSendUtil {
     public void onSyncMessageSent() {
       SignalLocalMetrics.GroupMessageSend.onSenderKeySyncSent(messageId);
     }
+
+    @Override
+    public void onSyncMessageEncrypted() {
+      SignalLocalMetrics.GroupMessageSend.onSenderKeySyncEncrypted(messageId);
+    }
   }
 
   private static final class LegacyMetricEventListener implements LegacyGroupEvents {
@@ -963,6 +968,11 @@ public final class GroupSendUtil {
     @Override
     public void onSyncMessageSent() {
       SignalLocalMetrics.GroupMessageSend.onLegacySyncFinished(messageId);
+    }
+
+    @Override
+    public void onSyncMessageEncrypted() {
+      SignalLocalMetrics.GroupMessageSend.onLegacySyncEncrypted(messageId);
     }
   }
 

@@ -500,7 +500,7 @@ public class SignalServiceMessageSender {
       Content         syncMessage        = createMultiDeviceSentTranscriptContent(content, Optional.of(recipient), timestamp, Collections.singletonList(result), false, Collections.emptySet());
       EnvelopeContent syncMessageContent = EnvelopeContent.encrypted(syncMessage, ContentHint.IMPLICIT, Optional.empty());
 
-      sendMessage(localAddress, SealedSenderAccess.NONE, timestamp, syncMessageContent, false, null, null, false, false);
+      sendMessage(localAddress, SealedSenderAccess.NONE, timestamp, syncMessageContent, false, null, sendEvents, false, false);
     }
 
     sendEvents.onSyncMessageSent();
@@ -602,7 +602,7 @@ public class SignalServiceMessageSender {
       Content         syncMessage        = createMultiDeviceSentTranscriptContent(content, Optional.empty(), message.getTimestamp(), results, isRecipientUpdate, Collections.emptySet());
       EnvelopeContent syncMessageContent = EnvelopeContent.encrypted(syncMessage, ContentHint.IMPLICIT, Optional.empty());
 
-      sendMessage(localAddress, SealedSenderAccess.NONE, message.getTimestamp(), syncMessageContent, false, null, null, false, false);
+      sendMessage(localAddress, SealedSenderAccess.NONE, message.getTimestamp(), syncMessageContent, false, null, sendEvents, false, false);
     }
 
     sendEvents.onSyncMessageSent();
@@ -653,7 +653,7 @@ public class SignalServiceMessageSender {
       Content         syncMessage        = createMultiDeviceSentTranscriptContent(content, recipient, timestamp, results, isRecipientUpdate, Collections.emptySet());
       EnvelopeContent syncMessageContent = EnvelopeContent.encrypted(syncMessage, ContentHint.IMPLICIT, Optional.empty());
 
-      sendMessage(localAddress, SealedSenderAccess.NONE, timestamp, syncMessageContent, false, null, null, false, false);
+      sendMessage(localAddress, SealedSenderAccess.NONE, timestamp, syncMessageContent, false, null, sendEvents, false, false);
     }
 
     sendEvents.onSyncMessageSent();
@@ -705,7 +705,7 @@ public class SignalServiceMessageSender {
       Content         syncMessage        = createMultiDeviceSentTranscriptContent(content, recipient, timestamp, results, isRecipientUpdate, Collections.emptySet());
       EnvelopeContent syncMessageContent = EnvelopeContent.encrypted(syncMessage, ContentHint.IMPLICIT, Optional.empty());
 
-      sendMessage(localAddress, SealedSenderAccess.NONE, timestamp, syncMessageContent, false, null, null, false, false);
+      sendMessage(localAddress, SealedSenderAccess.NONE, timestamp, syncMessageContent, false, null, sendEvents, false, false);
     }
 
     sendEvents.onSyncMessageSent();
@@ -2035,11 +2035,17 @@ public class SignalServiceMessageSender {
                                                                 online,
                                                                 urgent,
                                                                 story);
+        boolean isSentSyncTranscript = content.getContent().isPresent() && content.getContent().get().syncMessage != null && content.getContent().get().syncMessage.sent != null;
+
         if (i == 0 && sendEvents != null) {
-          sendEvents.onMessageEncrypted();
+          if (isSentSyncTranscript) {
+            sendEvents.onSyncMessageEncrypted();
+          } else {
+            sendEvents.onMessageEncrypted();
+          }
         }
 
-        if (content.getContent().isPresent() && content.getContent().get().syncMessage != null && content.getContent().get().syncMessage.sent != null) {
+        if (isSentSyncTranscript) {
           Log.d(TAG, "[sendMessage][" + timestamp + "] Sending a sent sync message to devices: " + messages.getDevices());
         } else if (content.getContent().isPresent() && content.getContent().get().senderKeyDistributionMessage != null) {
           Log.d(TAG, "[sendMessage][" + timestamp + "] Sending a SKDM to " + messages.getDestination() + " for devices: " + messages.getDevices() + (content.getContent().get().dataMessage != null ? " (it's piggy-backing on a DataMessage)" : ""));
@@ -3044,6 +3050,7 @@ public class SignalServiceMessageSender {
     void onMessageEncrypted();
     void onMessageSent();
     void onSyncMessageSent();
+    void onSyncMessageEncrypted();
   }
 
   public interface IndividualSendEvents extends SendEvents {
@@ -3056,6 +3063,9 @@ public class SignalServiceMessageSender {
 
       @Override
       public void onSyncMessageSent() { }
+
+      @Override
+      public void onSyncMessageEncrypted() { }
     };
   }
 
@@ -3072,6 +3082,9 @@ public class SignalServiceMessageSender {
 
       @Override
       public void onSyncMessageSent() { }
+
+      @Override
+      public void onSyncMessageEncrypted() { }
     };
 
     void onSenderKeyShared();
@@ -3087,6 +3100,9 @@ public class SignalServiceMessageSender {
 
       @Override
       public void onSyncMessageSent() { }
+
+      @Override
+      public void onSyncMessageEncrypted() { }
     };
 
   }
