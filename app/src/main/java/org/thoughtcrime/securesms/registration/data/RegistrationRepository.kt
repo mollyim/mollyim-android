@@ -184,6 +184,7 @@ object RegistrationRepository {
     val aci: ACI = ACI.parseOrThrow(data.aci)
     val pni: PNI = PNI.parseOrThrow(data.pni)
     val hasPin: Boolean = data.hasPin
+    val isAciChanged: Boolean = SignalStore.account.aci != aci
 
     SignalStore.account.setAci(aci)
     SignalStore.account.setPni(pni)
@@ -232,7 +233,7 @@ object RegistrationRepository {
     }
 
     SignalStore.account.setServicePassword(data.servicePassword)
-    SignalStore.account.setRegistered(true)
+    SignalStore.account.setRegistered(registered = true, isAciChanged = isAciChanged)
     TextSecurePreferences.setPromptedPushRegistration(context, true)
     TextSecurePreferences.setUnauthorizedReceived(context, false)
     NotificationManagerCompat.from(context).cancel(NotificationIds.UNREGISTERED_NOTIFICATION_ID)

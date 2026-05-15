@@ -434,7 +434,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   val isRegistered: Boolean
     get() = getBoolean(KEY_IS_REGISTERED, false)
 
-  fun setRegistered(registered: Boolean) {
+  fun setRegistered(registered: Boolean, isAciChanged: Boolean = false) {
     Log.i(TAG, "Setting push registered: $registered", Throwable())
 
     val previous = isRegistered
@@ -451,7 +451,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       clearLocalCredentials()
     }
 
-    if (!previous && registered) {
+    if (registered && (!previous || isAciChanged)) {
       registeredAtTimestamp = System.currentTimeMillis()
     } else if (!registered) {
       registeredAtTimestamp = -1

@@ -1411,6 +1411,15 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** Seconds after registration during which change-number is blocked. */
+  @JvmStatic
+  @get:JvmName("changeNumberPostRegistrationWaitingPeriodSeconds")
+  val changeNumberPostRegistrationWaitingPeriodSeconds: Long by remoteLong(
+    key = "global.changeNumber.postRegistrationWaitingPeriodSeconds",
+    defaultValue = 3600,
+    hotSwappable = true
+  )
+
   /**
    * A ratio between 0 and 1, where 0 means that a session is never archived due
    * to a lack of PQ, and 1 means that a session is always archived due to a
