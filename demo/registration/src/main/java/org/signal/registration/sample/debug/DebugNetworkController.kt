@@ -26,10 +26,12 @@ import org.signal.registration.NetworkController.ProvisioningEvent
 import org.signal.registration.NetworkController.RegisterAccountError
 import org.signal.registration.NetworkController.RegisterAccountResponse
 import org.signal.registration.NetworkController.RequestVerificationCodeError
+import org.signal.registration.NetworkController.RestoreAccountRecordError
 import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.RestoreMethod
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SetAccountAttributesError
+import org.signal.registration.NetworkController.SetProfileError
 import org.signal.registration.NetworkController.SetRegistrationLockError
 import org.signal.registration.NetworkController.SetRestoreMethodError
 import org.signal.registration.NetworkController.SubmitVerificationCodeError
@@ -201,6 +203,27 @@ class DebugNetworkController(
 
   override suspend fun enqueueAccountAttributesSyncJob() {
     delegate.enqueueAccountAttributesSyncJob()
+  }
+
+  override suspend fun setProfile(
+    givenName: String,
+    familyName: String,
+    avatar: ByteArray?,
+    discoverableByPhoneNumber: Boolean
+  ): RequestResult<Unit, SetProfileError> {
+    NetworkDebugState.getOverride<RequestResult<Unit, SetProfileError>>("setProfile")?.let {
+      Log.d(TAG, "[setProfile] Returning debug override")
+      return it
+    }
+    return delegate.setProfile(givenName, familyName, avatar, discoverableByPhoneNumber)
+  }
+
+  override suspend fun restoreAccountRecord(timeout: kotlin.time.Duration): RequestResult<Unit, RestoreAccountRecordError> {
+    NetworkDebugState.getOverride<RequestResult<Unit, RestoreAccountRecordError>>("restoreAccountRecord")?.let {
+      Log.d(TAG, "[restoreAccountRecord] Returning debug override")
+      return it
+    }
+    return delegate.restoreAccountRecord(timeout)
   }
 
   override suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError> {

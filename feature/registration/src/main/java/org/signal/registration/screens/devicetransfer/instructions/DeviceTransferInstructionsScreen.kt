@@ -28,7 +28,7 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 
 @Composable
 fun DeviceTransferInstructionsScreen(
@@ -36,7 +36,7 @@ fun DeviceTransferInstructionsScreen(
   onEvent: (DeviceTransferInstructionsScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Column(

@@ -250,6 +250,39 @@ interface NetworkController {
    */
   suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError>
 
+  /**
+   * Best-effort restore of the AccountRecord from the storage service. Implementations should
+   * always kick off the restore (typically via a durable job) so that work continues in the
+   * background, but this call must return within [timeout]. A timeout is reported as a non-success
+   * result, but the underlying restore may still complete shortly after.
+   *
+   * Intended to be invoked once the user has set/verified their PIN, so that subsequent screens
+   * (e.g. the create-profile screen) can pre-seed themselves from any data that was restored.
+   */
+  suspend fun restoreAccountRecord(timeout: Duration): RequestResult<Unit, RestoreAccountRecordError>
+
+  /**
+   * Persists the user's chosen profile name (and optional avatar) for the freshly-registered account
+   * and arranges for it to be synced to the service. Implementations may save the data locally and
+   * enqueue a durable job to perform the actual upload, since profile sync is allowed to happen in
+   * the background.
+   *
+   * Also persists [discoverableByPhoneNumber] as the user's choice for whether other users can find
+   * them on Signal by their phone number.
+   *
+   * @param givenName The user's given/first name. Must be non-blank.
+   * @param familyName The user's family/last name. May be blank.
+   * @param avatar Raw avatar bytes, or null to leave the avatar unchanged/cleared.
+   * @param discoverableByPhoneNumber If true, anyone who has the user's phone number can find them
+   *   on Signal; if false, the user is only reachable via existing chats.
+   */
+  suspend fun setProfile(
+    givenName: String,
+    familyName: String,
+    avatar: ByteArray?,
+    discoverableByPhoneNumber: Boolean
+  ): RequestResult<Unit, SetProfileError>
+
 //  /**
 //   * Registers a device as a linked device on a pre-existing account.
 //   *
@@ -341,6 +374,17 @@ interface NetworkController {
   sealed class SetRestoreMethodError : BadRequestError {
     data class InvalidRequest(val message: String) : SetRestoreMethodError()
     data class RateLimited(val retryAfter: Duration) : SetRestoreMethodError()
+  }
+
+  sealed class SetProfileError : BadRequestError {
+    data object NotRegistered : SetProfileError()
+    data class IOError(val cause: Throwable) : SetProfileError()
+    data class InvalidRequest(val message: String) : SetProfileError()
+  }
+
+  sealed class RestoreAccountRecordError : BadRequestError {
+    data object Timeout : RestoreAccountRecordError()
+    data class IOError(val cause: Throwable) : RestoreAccountRecordError()
   }
 
   sealed class GetBackupInfoError : BadRequestError {

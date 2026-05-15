@@ -12,9 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
+import org.signal.registration.RegistrationRepository
 import org.signal.registration.screens.EventDrivenViewModel
 
 class DeviceTransferCompleteViewModel(
+  private val repository: RegistrationRepository,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
 ) : EventDrivenViewModel<DeviceTransferCompleteScreenEvents>(TAG) {
 
@@ -26,7 +28,7 @@ class DeviceTransferCompleteViewModel(
   val state: StateFlow<DeviceTransferCompleteState> = _state
 
   override suspend fun processEvent(event: DeviceTransferCompleteScreenEvents) {
-    applyEvent(state.value, event, parentEventEmitter) { _state.value = it }
+    applyEvent(state.value, event, parentEventEmitter, repository) { _state.value = it }
   }
 
   @VisibleForTesting
@@ -34,11 +36,12 @@ class DeviceTransferCompleteViewModel(
     state: DeviceTransferCompleteState,
     event: DeviceTransferCompleteScreenEvents,
     parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+    repository: RegistrationRepository,
     stateEmitter: (DeviceTransferCompleteState) -> Unit
   ) {
     when (event) {
       DeviceTransferCompleteScreenEvents.ContinueClicked -> {
-        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+        repository.finishRegistrationOrCreateProfile(parentEventEmitter)
       }
       DeviceTransferCompleteScreenEvents.ConsumeOneTimeEvent -> {
         stateEmitter(state.copy(oneTimeEvent = null))
@@ -47,11 +50,12 @@ class DeviceTransferCompleteViewModel(
   }
 
   class Factory(
+    private val repository: RegistrationRepository,
     private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
   ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return DeviceTransferCompleteViewModel(parentEventEmitter) as T
+      return DeviceTransferCompleteViewModel(repository, parentEventEmitter) as T
     }
   }
 }

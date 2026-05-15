@@ -37,9 +37,11 @@ import org.signal.registration.NetworkController.RegisterAccountError
 import org.signal.registration.NetworkController.RegisterAccountResponse
 import org.signal.registration.NetworkController.RegistrationLockResponse
 import org.signal.registration.NetworkController.RequestVerificationCodeError
+import org.signal.registration.NetworkController.RestoreAccountRecordError
 import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SetAccountAttributesError
+import org.signal.registration.NetworkController.SetProfileError
 import org.signal.registration.NetworkController.SetRegistrationLockError
 import org.signal.registration.NetworkController.SetRestoreMethodError
 import org.signal.registration.NetworkController.SubmitVerificationCodeError
@@ -49,15 +51,24 @@ import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.NetworkController.VerificationCodeTransport
 import org.signal.registration.proto.RegistrationProvisionMessage
 import org.thoughtcrime.securesms.BuildConfig
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.gcm.FcmUtil
+import org.thoughtcrime.securesms.jobs.MultiDeviceProfileContentUpdateJob
+import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob
+import org.thoughtcrime.securesms.jobs.ProfileUploadJob
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.ResetSvrGuessCountJob
+import org.thoughtcrime.securesms.jobs.StorageAccountRestoreJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
+import org.thoughtcrime.securesms.profiles.AvatarHelper
+import org.thoughtcrime.securesms.profiles.ProfileName
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.fcm.PushChallengeRequest
+import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.archive.ArchiveServiceAccess
@@ -600,6 +611,60 @@ class AppRegistrationNetworkController(
 
   override suspend fun enqueueAccountAttributesSyncJob() {
     AppDependencies.jobManager.add(RefreshAttributesJob())
+  }
+
+  override suspend fun setProfile(
+    givenName: String,
+    familyName: String,
+    avatar: ByteArray?,
+    discoverableByPhoneNumber: Boolean
+  ): RequestResult<Unit, SetProfileError> = withContext(Dispatchers.IO) {
+    if (!SignalStore.account.isRegistered) {
+      Log.w(TAG, "[setProfile] Not registered.")
+      return@withContext RequestResult.NonSuccess(SetProfileError.NotRegistered)
+    }
+
+    val profileName = ProfileName.fromParts(givenName, familyName)
+    SignalDatabase.recipients.setProfileName(Recipient.self().id, profileName)
+
+    if (avatar != null) {
+      try {
+        AvatarHelper.setAvatar(context, Recipient.self().id, java.io.ByteArrayInputStream(avatar))
+      } catch (e: IOException) {
+        Log.w(TAG, "[setProfile] Failed to write avatar.", e)
+        return@withContext RequestResult.NonSuccess(SetProfileError.IOError(e))
+      }
+      SignalStore.misc.hasEverHadAnAvatar = true
+    }
+
+    SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode = if (discoverableByPhoneNumber) {
+      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.DISCOVERABLE
+    } else {
+      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
+    }
+
+    AppDependencies.jobManager
+      .startChain(ProfileUploadJob())
+      .then(listOf(MultiDeviceProfileKeyUpdateJob(), MultiDeviceProfileContentUpdateJob()))
+      .enqueue()
+
+    RegistrationUtil.maybeMarkRegistrationComplete()
+
+    RequestResult.Success(Unit)
+  }
+
+  override suspend fun restoreAccountRecord(
+    timeout: Duration
+  ): RequestResult<Unit, RestoreAccountRecordError> = withContext(Dispatchers.IO) {
+    Log.i(TAG, "[restoreAccountRecord] Enqueuing StorageAccountRestoreJob (timeout=${timeout.inWholeSeconds}s).")
+    val state = AppDependencies.jobManager.runSynchronously(StorageAccountRestoreJob(), timeout.inWholeMilliseconds)
+    if (state.isPresent) {
+      Log.i(TAG, "[restoreAccountRecord] Completed within timeout: ${state.get()}")
+      RequestResult.Success(Unit)
+    } else {
+      Log.w(TAG, "[restoreAccountRecord] Timed out. Job continues in background.")
+      RequestResult.NonSuccess(RestoreAccountRecordError.Timeout)
+    }
   }
 
   override suspend fun setRestoreMethod(token: String, method: NetworkController.RestoreMethod): RequestResult<Unit, SetRestoreMethodError> = withContext(Dispatchers.IO) {

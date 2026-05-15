@@ -38,7 +38,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -51,6 +50,7 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
+import org.signal.registration.fonts.MonoTypeface
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
@@ -213,7 +213,7 @@ private fun RecoveryKeyTextField(state: EnterAepState, onEvent: (EnterAepEvents)
     },
     label = { Text(stringResource(R.string.EnterAepScreen__recovery_key)) },
     textStyle = MaterialTheme.typography.bodyLarge.copy(
-      fontFamily = FontFamily.Monospace,
+      fontFamily = MonoTypeface.fontFamily(),
       lineHeight = 36.sp
     ),
     colors = TextFieldDefaults.colors(

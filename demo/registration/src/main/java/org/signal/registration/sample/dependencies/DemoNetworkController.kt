@@ -8,6 +8,7 @@ package org.signal.registration.sample.dependencies
 import android.app.PendingIntent
 import android.content.Intent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -37,6 +39,7 @@ import org.signal.libsignal.protocol.ecc.ECPrivateKey
 import org.signal.libsignal.zkgroup.GenericServerPublicParams
 import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialRequestContext
 import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialResponse
+import org.signal.network.service.StorageServiceService
 import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.AccountAttributes
 import org.signal.registration.NetworkController.CheckSvrCredentialsRequest
@@ -61,6 +64,7 @@ import org.signal.registration.sample.fcm.FcmUtil
 import org.signal.registration.sample.fcm.PushChallengeReceiver
 import org.signal.registration.sample.storage.RegistrationPreferences
 import org.whispersystems.signalservice.api.provisioning.ProvisioningSocket
+import org.whispersystems.signalservice.api.storage.StorageServiceApi
 import org.whispersystems.signalservice.api.svr.SecureValueRecovery.BackupResponse
 import org.whispersystems.signalservice.api.svr.SecureValueRecovery.RestoreResponse
 import org.whispersystems.signalservice.api.svr.SecureValueRecoveryV2
@@ -892,6 +896,126 @@ class DemoNetworkController(
     val result = setAccountAttributes(buildCurrentAccountAttributes())
     if (result !is RequestResult.Success) {
       Log.w(TAG, "[enqueueAccountAttributesSyncJob] Failed to sync attributes: $result")
+    }
+  }
+
+  override suspend fun setProfile(
+    givenName: String,
+    familyName: String,
+    avatar: ByteArray?,
+    discoverableByPhoneNumber: Boolean
+  ): RequestResult<Unit, NetworkController.SetProfileError> = withContext(Dispatchers.IO) {
+    val aci = RegistrationPreferences.aci
+    if (aci == null) {
+      Log.w(TAG, "[setProfile] Not registered.")
+      return@withContext RequestResult.NonSuccess(NetworkController.SetProfileError.NotRegistered)
+    }
+    Log.i(TAG, "[setProfile] Pretending to upload profile (givenName=${givenName.length} chars, familyName=${familyName.length} chars, avatar=${avatar?.size ?: 0} bytes, discoverable=$discoverableByPhoneNumber).")
+    RegistrationPreferences.profileGivenName = givenName
+    RegistrationPreferences.profileFamilyName = familyName
+    RegistrationPreferences.profileAvatar = avatar
+    RegistrationPreferences.profileDiscoverableByPhoneNumber = discoverableByPhoneNumber
+    RequestResult.Success(Unit)
+  }
+
+  override suspend fun restoreAccountRecord(
+    timeout: kotlin.time.Duration
+  ): RequestResult<Unit, NetworkController.RestoreAccountRecordError> = withContext(Dispatchers.IO) {
+    val aci = RegistrationPreferences.aci
+    val pni = RegistrationPreferences.pni
+    val e164 = RegistrationPreferences.e164
+    val password = RegistrationPreferences.servicePassword
+    val masterKey = RegistrationPreferences.temporaryMasterKey ?: RegistrationPreferences.masterKey
+
+    if (aci == null || pni == null || e164 == null || password == null || masterKey == null) {
+      Log.w(TAG, "[restoreAccountRecord] Missing credentials or master key.")
+      return@withContext RequestResult.Success(Unit)
+    }
+
+    val storageKey = masterKey.deriveStorageServiceKey()
+
+    val network = Network(Network.Environment.STAGING, "Signal-Android-Registration-Sample", emptyMap(), Network.BuildVariant.PRODUCTION)
+    val credentialsProvider = StaticCredentialsProvider(aci, pni, e164, 1, password)
+    val healthMonitor = object : HealthMonitor {
+      override fun onKeepAliveResponse(sentTimestamp: Long, isIdentifiedWebSocket: Boolean) {}
+      override fun onMessageError(status: Int, isIdentifiedWebSocket: Boolean) {}
+      override fun onReceivedAlerts(alerts: Array<out String>, isIdentifiedWebSocket: Boolean) {}
+    }
+    val libSignalConnection = LibSignalChatConnection(
+      name = "Storage-Restore",
+      network = network,
+      credentialsProvider = credentialsProvider,
+      receiveStories = false,
+      healthMonitor = healthMonitor
+    )
+    val authWebSocket = SignalWebSocket.AuthenticatedWebSocket(
+      connectionFactory = { libSignalConnection },
+      canConnect = { true },
+      sleepTimer = { millis -> Thread.sleep(millis) },
+      disconnectTimeoutMs = 60.seconds.inWholeMilliseconds
+    )
+
+    try {
+      withTimeout(timeout) {
+        authWebSocket.connect()
+        val storageService = StorageServiceService(StorageServiceApi(authWebSocket, pushServiceSocket))
+
+        Log.i(TAG, "[restoreAccountRecord] Retrieving manifest...")
+        val manifest = when (val result = storageService.getStorageManifest(storageKey)) {
+          is StorageServiceService.ManifestResult.Success -> result.manifest
+          is StorageServiceService.ManifestResult.NotFoundError -> {
+            Log.w(TAG, "[restoreAccountRecord] No manifest found.")
+            return@withTimeout RequestResult.Success(Unit)
+          }
+          is StorageServiceService.ManifestResult.DecryptionError -> {
+            Log.w(TAG, "[restoreAccountRecord] Manifest decryption failed.", result.exception)
+            return@withTimeout RequestResult.Success(Unit)
+          }
+          is StorageServiceService.ManifestResult.NetworkError -> return@withTimeout RequestResult.NonSuccess(NetworkController.RestoreAccountRecordError.IOError(result.exception))
+          is StorageServiceService.ManifestResult.StatusCodeError -> return@withTimeout RequestResult.ApplicationError(result.exception)
+        }
+
+        val accountId = manifest.accountStorageId
+        if (!accountId.isPresent) {
+          Log.w(TAG, "[restoreAccountRecord] Manifest had no account record.")
+          return@withTimeout RequestResult.Success(Unit)
+        }
+
+        Log.i(TAG, "[restoreAccountRecord] Retrieving account record...")
+        val records = when (val result = storageService.readStorageRecords(storageKey, manifest.recordIkm, listOf(accountId.get()))) {
+          is StorageServiceService.StorageRecordResult.Success -> result.records
+          is StorageServiceService.StorageRecordResult.DecryptionError -> {
+            Log.w(TAG, "[restoreAccountRecord] Account record decryption failed.", result.exception)
+            return@withTimeout RequestResult.Success(Unit)
+          }
+          is StorageServiceService.StorageRecordResult.NetworkError -> return@withTimeout RequestResult.NonSuccess(NetworkController.RestoreAccountRecordError.IOError(result.exception))
+          is StorageServiceService.StorageRecordResult.StatusCodeError -> return@withTimeout RequestResult.ApplicationError(result.exception)
+        }
+
+        val account = records.firstOrNull()?.proto?.account
+        if (account == null) {
+          Log.w(TAG, "[restoreAccountRecord] Storage record did not contain an account.")
+          return@withTimeout RequestResult.Success(Unit)
+        }
+
+        RegistrationPreferences.profileGivenName = account.givenName
+        RegistrationPreferences.profileFamilyName = account.familyName
+        RegistrationPreferences.profileDiscoverableByPhoneNumber = !account.unlistedPhoneNumber
+        Log.i(TAG, "[restoreAccountRecord] Restored profile: givenName=${account.givenName.length} chars, familyName=${account.familyName.length} chars, discoverable=${!account.unlistedPhoneNumber}, avatarUrlPath='${account.avatarUrlPath}' (not downloaded in demo).")
+
+        RequestResult.Success(Unit)
+      }
+    } catch (e: TimeoutCancellationException) {
+      Log.w(TAG, "[restoreAccountRecord] Timed out.")
+      RequestResult.NonSuccess(NetworkController.RestoreAccountRecordError.Timeout)
+    } catch (e: IOException) {
+      Log.w(TAG, "[restoreAccountRecord] IOException", e)
+      RequestResult.NonSuccess(NetworkController.RestoreAccountRecordError.IOError(e))
+    } catch (e: Exception) {
+      Log.w(TAG, "[restoreAccountRecord] Exception", e)
+      RequestResult.ApplicationError(e)
+    } finally {
+      authWebSocket.disconnect()
     }
   }
 

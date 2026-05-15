@@ -29,7 +29,7 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 
 @Composable
 fun DeviceTransferCompleteScreen(
@@ -39,7 +39,7 @@ fun DeviceTransferCompleteScreen(
 ) {
   BackHandler(enabled = true) { /* no-op: the transfer is done, don't let the user back out */ }
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Column(

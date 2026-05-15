@@ -5,8 +5,8 @@
 
 package org.signal.registration.screens.devicetransfer.complete
 
-import assertk.assertThat
-import assertk.assertions.containsExactly
+import io.mockk.coVerify
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -17,12 +17,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.signal.registration.RegistrationFlowEvent
+import org.signal.registration.RegistrationRepository
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DeviceTransferCompleteViewModelTest {
 
   private val testDispatcher = StandardTestDispatcher()
   private lateinit var viewModel: DeviceTransferCompleteViewModel
+  private lateinit var mockRepository: RegistrationRepository
   private lateinit var emittedEvents: MutableList<RegistrationFlowEvent>
   private lateinit var parentEventEmitter: (RegistrationFlowEvent) -> Unit
   private lateinit var emittedStates: MutableList<DeviceTransferCompleteState>
@@ -31,11 +33,12 @@ class DeviceTransferCompleteViewModelTest {
   @Before
   fun setUp() {
     Dispatchers.setMain(testDispatcher)
+    mockRepository = mockk(relaxed = true)
     emittedEvents = mutableListOf()
     parentEventEmitter = { emittedEvents.add(it) }
     emittedStates = mutableListOf()
     stateEmitter = { emittedStates.add(it) }
-    viewModel = DeviceTransferCompleteViewModel(parentEventEmitter)
+    viewModel = DeviceTransferCompleteViewModel(mockRepository, parentEventEmitter)
     testDispatcher.scheduler.advanceUntilIdle()
   }
 
@@ -45,14 +48,15 @@ class DeviceTransferCompleteViewModelTest {
   }
 
   @Test
-  fun `ContinueClicked emits RegistrationComplete`() = runTest {
+  fun `ContinueClicked hands off to finishRegistrationOrCreateProfile`() = runTest {
     viewModel.applyEvent(
       DeviceTransferCompleteState(),
       DeviceTransferCompleteScreenEvents.ContinueClicked,
       parentEventEmitter,
+      mockRepository,
       stateEmitter
     )
 
-    assertThat(emittedEvents).containsExactly(RegistrationFlowEvent.RegistrationComplete)
+    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
   }
 }

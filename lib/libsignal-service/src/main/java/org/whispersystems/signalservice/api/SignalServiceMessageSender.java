@@ -169,7 +169,7 @@ import okio.Utf8;
  */
 public class SignalServiceMessageSender {
 
-  private static final String TAG = SignalServiceMessageSender.class.getSimpleName();
+  private static final String TAG = SignalServiceMessageSender.class.getSimpleName().substring(0, 23);
 
   private static final int RETRY_COUNT = 4;
 

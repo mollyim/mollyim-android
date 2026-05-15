@@ -46,7 +46,7 @@ import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.devicetransfer.WifiDirect
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
 import java.util.Locale
 
 @Composable
@@ -128,7 +128,7 @@ private fun DeviceTransferSetupScreen(
     )
   }
 
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
       Column(
@@ -316,7 +316,7 @@ private fun TroubleshootingStep(onTryAgain: () -> Unit) {
 @Composable
 private fun DeviceTransferSetupScreenVerifyPreview() {
   Previews.Preview {
-    RegistrationScreen(
+    RegistrationScaffold(
       content = {
         Column(
           modifier = Modifier
@@ -336,7 +336,7 @@ private fun DeviceTransferSetupScreenVerifyPreview() {
 @Composable
 private fun DeviceTransferSetupScreenProgressPreview() {
   Previews.Preview {
-    RegistrationScreen(
+    RegistrationScaffold(
       content = {
         Column(
           modifier = Modifier
