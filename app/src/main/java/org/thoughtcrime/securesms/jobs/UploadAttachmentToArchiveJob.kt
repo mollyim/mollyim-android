@@ -14,6 +14,7 @@ import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readLength
 import org.signal.network.NetworkResult
+import org.signal.network.api.AttachmentUploadResult
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.AttachmentId
@@ -35,7 +36,6 @@ import org.thoughtcrime.securesms.service.AttachmentProgressService
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.archive.ArchiveMediaUploadFormStatusCodes
-import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment

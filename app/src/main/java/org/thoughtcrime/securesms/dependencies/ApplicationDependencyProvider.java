@@ -18,9 +18,12 @@ import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.libsignal.net.Network;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
+import org.signal.libsignal.zkgroup.GenericServerPublicParams;
+import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations;
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations;
 import org.signal.network.api.ArchiveApi;
+import org.signal.network.rest.SignalRestClient;
 import org.signal.network.api.CallingApi;
 import org.signal.network.api.CdsApi;
 import org.signal.network.api.CertificateApi;
@@ -104,7 +107,7 @@ import org.whispersystems.signalservice.api.SignalServiceDataStore;
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.account.AccountApi;
-import org.whispersystems.signalservice.api.attachment.AttachmentApi;
+import org.signal.network.api.AttachmentApi;
 import org.whispersystems.signalservice.api.donations.DonationsApi;
 import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
@@ -155,6 +158,14 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
+  public @NonNull SignalRestClient provideSignalRestClient(@NonNull SignalServiceConfiguration signalServiceConfiguration) {
+    return new SignalRestClient(signalServiceConfiguration,
+                                BuildConfig.SIGNAL_AGENT,
+                                new DynamicCredentialsProvider(),
+                                RemoteConfig.okHttpAutomaticRetry());
+  }
+
+  @Override
   public @NonNull GroupsV2Operations provideGroupsV2Operations(@NonNull SignalServiceConfiguration signalServiceConfiguration) {
     return new GroupsV2Operations(provideClientZkOperations(signalServiceConfiguration), RemoteConfig.groupLimits().getHardLimit());
   }
@@ -167,13 +178,11 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   @Override
   public @NonNull SignalServiceMessageSender provideSignalServiceMessageSender(@NonNull SignalServiceDataStore protocolStore,
                                                                                @NonNull PushServiceSocket pushServiceSocket,
-                                                                               @NonNull AttachmentApi attachmentApi,
                                                                                @NonNull MessageApi messageApi,
                                                                                @NonNull KeysApi keysApi) {
       return new SignalServiceMessageSender(pushServiceSocket,
                                             protocolStore,
                                             ReentrantSessionLock.INSTANCE,
-                                            attachmentApi,
                                             messageApi,
                                             keysApi,
                                             Optional.of(new SecurityEventListener(context)),
@@ -502,8 +511,12 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull ArchiveApi provideArchiveApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket, @NonNull PushServiceSocket pushServiceSocket) {
-    return new ArchiveApi(authWebSocket, unauthWebSocket, pushServiceSocket);
+  public @NonNull ArchiveApi provideArchiveApi(@NonNull SignalWebSocket.AuthenticatedWebSocket authWebSocket, @NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket, @NonNull PushServiceSocket pushServiceSocket, @NonNull SignalServiceConfiguration signalServiceConfiguration) {
+    try {
+      return new ArchiveApi(authWebSocket, unauthWebSocket, pushServiceSocket, new GenericServerPublicParams(signalServiceConfiguration.getBackupServerPublicParams()));
+    } catch (InvalidInputException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override

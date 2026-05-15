@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.whispersystems.signalservice.api.attachment
+package org.signal.network.api
 
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
 

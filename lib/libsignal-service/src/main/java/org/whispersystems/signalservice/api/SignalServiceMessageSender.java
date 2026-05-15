@@ -19,7 +19,6 @@ import org.signal.libsignal.net.MultiRecipientSendAuthorization;
 import org.signal.libsignal.net.MultiRecipientSendFailure;
 import org.signal.libsignal.net.RequestResult;
 import org.signal.libsignal.net.RequestUnauthorizedException;
-import org.signal.libsignal.net.UploadTooLargeException;
 import org.signal.libsignal.net.RetryLaterException;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.IdentityKeyPair;
@@ -36,7 +35,6 @@ import org.signal.libsignal.protocol.message.SenderKeyDistributionMessage;
 import org.signal.libsignal.protocol.state.PreKeyBundle;
 import org.signal.libsignal.protocol.state.SessionRecord;
 import org.signal.libsignal.zkgroup.groupsend.GroupSendFullToken;
-import org.whispersystems.signalservice.api.attachment.AttachmentApi;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
 import org.whispersystems.signalservice.api.crypto.ContentHint;
 import org.whispersystems.signalservice.api.crypto.EnvelopeContent;
@@ -103,7 +101,6 @@ import org.whispersystems.signalservice.api.websocket.WebSocketUnavailableExcept
 import org.whispersystems.signalservice.internal.crypto.AttachmentDigest;
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.internal.push.AttachmentPointer;
-import org.whispersystems.signalservice.internal.push.AttachmentUploadForm;
 import org.whispersystems.signalservice.internal.push.BodyRange;
 import org.whispersystems.signalservice.internal.push.CallMessage;
 import org.whispersystems.signalservice.internal.push.Content;
@@ -186,7 +183,6 @@ public class SignalServiceMessageSender {
   private final Optional<EventListener>       eventListener;
   private final IdentityKeyPair               localPniIdentity;
 
-  private final AttachmentApi    attachmentApi;
   private final MessageApi       messageApi;
   private final KeysApi          keysApi;
   private final PreKeyRepository preKeyRepository;
@@ -201,7 +197,6 @@ public class SignalServiceMessageSender {
   public SignalServiceMessageSender(PushServiceSocket pushServiceSocket,
                                     SignalServiceDataStore store,
                                     SignalSessionLock sessionLock,
-                                    AttachmentApi attachmentApi,
                                     MessageApi messageApi,
                                     KeysApi keysApi,
                                     Optional<EventListener> eventListener,
@@ -222,7 +217,6 @@ public class SignalServiceMessageSender {
     this.localDeviceId                 = credentialsProvider.getDeviceId();
     this.localProtocolAddress          = new SignalProtocolAddress(localAddress.getIdentifier(), localDeviceId);
     this.localPni                      = credentialsProvider.getPni();
-    this.attachmentApi                 = attachmentApi;
     this.messageApi                    = messageApi;
     this.eventListener                 = eventListener;
     this.maxEnvelopeSize               = maxEnvelopeSize;
@@ -839,24 +833,6 @@ public class SignalServiceMessageSender {
     }
 
     return uploadAttachmentV4(attachment, attachmentKey, attachmentData);
-  }
-
-  public ResumableUploadSpec getResumableUploadSpec(long uploadSizeBytes) throws IOException {
-    Log.d(TAG, "Using pipe to retrieve attachment upload attributes...");
-    RequestResult<AttachmentUploadForm, UploadTooLargeException> result = attachmentApi.getAttachmentV4UploadForm(uploadSizeBytes);
-
-    if (result instanceof RequestResult.Success) {
-      AttachmentUploadForm v4UploadAttributes = ((RequestResult.Success<AttachmentUploadForm>) result).getResult();
-      return socket.getResumableUploadSpec(v4UploadAttributes);
-    } else if (result instanceof RequestResult.NonSuccess) {
-      throw ((RequestResult.NonSuccess<UploadTooLargeException>) result).getError();
-    } else if (result instanceof RequestResult.RetryableNetworkError) {
-      throw new PushNetworkException(((RequestResult.RetryableNetworkError) result).getNetworkError());
-    } else if (result instanceof RequestResult.ApplicationError) {
-      throw new RuntimeException(((RequestResult.ApplicationError) result).getCause());
-    } else {
-      throw new IOException("Unexpected RequestResult type: " + result.getClass().getSimpleName());
-    }
   }
 
   private SignalServiceAttachmentPointer uploadAttachmentV4(SignalServiceAttachmentStream attachment, byte[] attachmentKey, PushAttachmentData attachmentData) throws IOException {

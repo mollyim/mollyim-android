@@ -71,6 +71,7 @@ import org.signal.network.NetworkResult
 import org.signal.network.StatusCodeErrorAction
 import org.signal.network.api.SvrBApi
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException
+import org.signal.network.rest.toNetworkResult
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
@@ -1625,19 +1626,6 @@ object BackupRepository {
               mediaSize = mediaObjects.sumOf { it.objectLength }
             )
           }
-      }
-  }
-
-  fun getResumableMessagesBackupUploadSpec(backupFileSize: Long): NetworkResult<ResumableMessagesBackupUploadSpec> {
-    return initBackupAndFetchAuth()
-      .then { credential ->
-        SignalNetwork.archive.getMessageBackupUploadForm(SignalStore.account.requireAci(), credential.messageBackupAccess, backupFileSize)
-          .also { Log.i(TAG, "UploadFormResult: ${it::class.simpleName}") }
-      }
-      .then { form ->
-        SignalNetwork.archive.getBackupResumableUploadUrl(form)
-          .also { Log.i(TAG, "ResumableUploadUrlResult: ${it::class.simpleName}") }
-          .map { ResumableMessagesBackupUploadSpec(attachmentUploadForm = form, resumableUri = it) }
       }
   }
 

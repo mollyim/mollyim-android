@@ -57,14 +57,13 @@ import kotlin.time.Duration.Companion.seconds
 class ArchiveApi(
   private val authWebSocket: SignalWebSocket.AuthenticatedWebSocket,
   private val unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket,
-  private val pushServiceSocket: PushServiceSocket
+  private val pushServiceSocket: PushServiceSocket,
+  private val backupServerPublicParams: GenericServerPublicParams
 ) {
 
   companion object {
     private val TAG = Log.tag(ArchiveApi::class)
   }
-
-  private val backupServerPublicParams: GenericServerPublicParams = GenericServerPublicParams(pushServiceSocket.configuration.backupServerPublicParams)
 
   /**
    * Retrieves a set of credentials one can use to authorize other requests.
@@ -247,15 +246,6 @@ class ArchiveApi(
   }
 
   /**
-   * Retrieves a resumable upload URL you can use to upload your main message backup file or an arbitrary media file to cloud storage.
-   */
-  fun getBackupResumableUploadUrl(uploadForm: AttachmentUploadForm): NetworkResult<String> {
-    return NetworkResult.fromFetch {
-      pushServiceSocket.getResumableUploadUrl(uploadForm)
-    }
-  }
-
-  /**
    * Uploads a pre-encrypted backup file, automatically choosing the best upload strategy based on CDN version.
    * For CDN3, uses TUS "Creation With Upload" (single POST). For other CDNs, falls back to the legacy
    * resumable upload flow.
@@ -294,7 +284,7 @@ class ArchiveApi(
   /**
    * Retrieves an [AttachmentUploadForm] that can be used to upload pre-existing media to the archive.
    *
-   * This is basically the same as [org.whispersystems.signalservice.api.attachment.AttachmentApi.getAttachmentV4UploadForm], but with a relaxed rate limit
+   * This is basically the same as [org.signal.network.api.AttachmentApi.getAttachmentV4UploadForm], but with a relaxed rate limit
    * so we can request them more often (which is required for backfilling).
    *
    * After uploading, the media still needs to be copied via [copyAttachmentToArchive].

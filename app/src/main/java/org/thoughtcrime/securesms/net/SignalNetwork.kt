@@ -6,6 +6,7 @@
 package org.thoughtcrime.securesms.net
 
 import org.signal.network.api.ArchiveApi
+import org.signal.network.api.AttachmentApi
 import org.signal.network.api.CallingApi
 import org.signal.network.api.CdsApi
 import org.signal.network.api.CertificateApi
@@ -19,7 +20,6 @@ import org.signal.network.api.UsernameApi
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.dependencies.KeyTransparencyApi
 import org.whispersystems.signalservice.api.account.AccountApi
-import org.whispersystems.signalservice.api.attachment.AttachmentApi
 import org.whispersystems.signalservice.api.keys.KeysApi
 import org.whispersystems.signalservice.api.message.MessageApi
 import org.whispersystems.signalservice.api.profiles.ProfileApi

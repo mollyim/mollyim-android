@@ -17,6 +17,7 @@ import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
 import org.signal.mediasend.MediaSendDependencies
 import org.signal.network.api.ArchiveApi
+import org.signal.network.api.AttachmentApi
 import org.signal.network.api.CallingApi
 import org.signal.network.api.CdsApi
 import org.signal.network.api.CertificateApi
@@ -27,6 +28,7 @@ import org.signal.network.api.RateLimitChallengeApi
 import org.signal.network.api.RemoteConfigApi
 import org.signal.network.api.SvrBApi
 import org.signal.network.api.UsernameApi
+import org.signal.network.rest.SignalRestClient
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
@@ -63,7 +65,6 @@ import org.whispersystems.signalservice.api.SignalServiceDataStore
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver
 import org.whispersystems.signalservice.api.SignalServiceMessageSender
 import org.whispersystems.signalservice.api.account.AccountApi
-import org.whispersystems.signalservice.api.attachment.AttachmentApi
 import org.whispersystems.signalservice.api.donations.DonationsApi
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
 import org.whispersystems.signalservice.api.keys.KeysApi
@@ -349,6 +350,10 @@ object AppDependencies {
     get() = networkModule.pushServiceSocket
 
   @JvmStatic
+  val signalRestClient: SignalRestClient
+    get() = networkModule.signalRestClient
+
+  @JvmStatic
   val registrationApi: RegistrationApi
     get() = networkModule.registrationApi
 
@@ -433,9 +438,10 @@ object AppDependencies {
 
   interface Provider {
     fun providePushServiceSocket(signalServiceConfiguration: SignalServiceConfiguration, groupsV2Operations: GroupsV2Operations): PushServiceSocket
+    fun provideSignalRestClient(signalServiceConfiguration: SignalServiceConfiguration): SignalRestClient
     fun provideGroupsV2Operations(signalServiceConfiguration: SignalServiceConfiguration): GroupsV2Operations
     fun provideSignalServiceAccountManager(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, accountApi: AccountApi, pushServiceSocket: PushServiceSocket, groupsV2Operations: GroupsV2Operations): SignalServiceAccountManager
-    fun provideSignalServiceMessageSender(protocolStore: SignalServiceDataStore, pushServiceSocket: PushServiceSocket, attachmentApi: AttachmentApi, messageApi: MessageApi, keysApi: KeysApi): SignalServiceMessageSender
+    fun provideSignalServiceMessageSender(protocolStore: SignalServiceDataStore, pushServiceSocket: PushServiceSocket, messageApi: MessageApi, keysApi: KeysApi): SignalServiceMessageSender
     fun provideSignalServiceMessageReceiver(pushServiceSocket: PushServiceSocket): SignalServiceMessageReceiver
     fun provideSignalServiceNetworkAccess(): SignalServiceNetworkAccess
     fun provideRecipientCache(): LiveRecipientCache
@@ -471,7 +477,7 @@ object AppDependencies {
     fun providePinnedMessageManager(): PinnedMessageManager
     fun provideLibsignalNetwork(config: SignalServiceConfiguration): Network
     fun provideBillingApi(): BillingApi
-    fun provideArchiveApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket, pushServiceSocket: PushServiceSocket): ArchiveApi
+    fun provideArchiveApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket, pushServiceSocket: PushServiceSocket, signalServiceConfiguration: SignalServiceConfiguration): ArchiveApi
     fun provideKeysApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): KeysApi
     fun provideAttachmentApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, pushServiceSocket: PushServiceSocket): AttachmentApi
     fun provideLinkDeviceApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket): LinkDeviceApi

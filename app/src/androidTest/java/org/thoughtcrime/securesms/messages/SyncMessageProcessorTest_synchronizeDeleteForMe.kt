@@ -25,6 +25,7 @@ import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
+import org.signal.network.api.AttachmentUploadResult
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.database.AttachmentTable
@@ -37,7 +38,6 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.testing.MessageContentFuzzer.DeleteForMeSync
 import org.thoughtcrime.securesms.testing.SignalActivityRule
 import org.thoughtcrime.securesms.util.IdentityUtil
-import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
 import java.util.UUID
 

@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
+import org.signal.network.service.CdnService;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -93,7 +94,8 @@ public class MultiDeviceProfileKeyUpdateJob extends BaseJob {
     SignalServiceMessageSender    messageSender    = AppDependencies.getSignalServiceMessageSender();
     long                          dataLength       = baos.toByteArray().length;
     long                          ciphertextLength = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(dataLength));
-    ResumableUploadSpec           uploadSpec       = messageSender.getResumableUploadSpec(ciphertextLength);
+    CdnService                    cdnService       = new CdnService(AppDependencies.getSignalRestClient(), AppDependencies.getAttachmentApi());
+    ResumableUploadSpec           uploadSpec       = cdnService.getResumableUploadSpecBlocking(ciphertextLength);
     SignalServiceAttachmentStream attachmentStream = SignalServiceAttachment.newStreamBuilder()
                                                                             .withStream(new ByteArrayInputStream(baos.toByteArray()))
                                                                             .withContentType("application/octet-stream")

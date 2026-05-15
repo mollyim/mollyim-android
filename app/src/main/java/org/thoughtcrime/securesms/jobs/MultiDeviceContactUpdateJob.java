@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
+import org.signal.network.service.CdnService;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
@@ -286,11 +287,12 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
   {
     if (length > 0) {
       try {
+        CdnService cdnService = new CdnService(AppDependencies.getSignalRestClient(), AppDependencies.getAttachmentApi());
         SignalServiceAttachmentStream.Builder attachmentStream = SignalServiceAttachment.newStreamBuilder()
                                                                                         .withStream(stream)
                                                                                         .withContentType("application/octet-stream")
                                                                                         .withLength(length)
-                                                                                        .withResumableUploadSpec(messageSender.getResumableUploadSpec(AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(length))));
+                                                                                        .withResumableUploadSpec(cdnService.getResumableUploadSpecBlocking(AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(length))));
 
         messageSender.sendSyncMessage(SignalServiceSyncMessage.forContacts(new ContactsMessage(attachmentStream.build(), complete))
         );

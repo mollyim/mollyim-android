@@ -7,6 +7,7 @@ import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
 import org.signal.network.api.ArchiveApi
+import org.signal.network.api.AttachmentApi
 import org.signal.network.api.CallingApi
 import org.signal.network.api.CdsApi
 import org.signal.network.api.CertificateApi
@@ -17,6 +18,7 @@ import org.signal.network.api.RateLimitChallengeApi
 import org.signal.network.api.RemoteConfigApi
 import org.signal.network.api.SvrBApi
 import org.signal.network.api.UsernameApi
+import org.signal.network.rest.SignalRestClient
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
 import org.thoughtcrime.securesms.crypto.storage.SignalServiceDataStoreImpl
@@ -50,7 +52,6 @@ import org.whispersystems.signalservice.api.SignalServiceDataStore
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver
 import org.whispersystems.signalservice.api.SignalServiceMessageSender
 import org.whispersystems.signalservice.api.account.AccountApi
-import org.whispersystems.signalservice.api.attachment.AttachmentApi
 import org.whispersystems.signalservice.api.donations.DonationsApi
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
 import org.whispersystems.signalservice.api.keys.KeysApi
@@ -70,6 +71,10 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk(relaxed = true)
   }
 
+  override fun provideSignalRestClient(signalServiceConfiguration: SignalServiceConfiguration): SignalRestClient {
+    return mockk(relaxed = true)
+  }
+
   override fun provideGroupsV2Operations(signalServiceConfiguration: SignalServiceConfiguration): GroupsV2Operations {
     return mockk(relaxed = true)
   }
@@ -81,7 +86,6 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
   override fun provideSignalServiceMessageSender(
     protocolStore: SignalServiceDataStore,
     pushServiceSocket: PushServiceSocket,
-    attachmentApi: AttachmentApi,
     messageApi: MessageApi,
     keysApi: KeysApi
   ): SignalServiceMessageSender {
@@ -232,7 +236,7 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk(relaxed = true)
   }
 
-  override fun provideArchiveApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket, pushServiceSocket: PushServiceSocket): ArchiveApi {
+  override fun provideArchiveApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket, pushServiceSocket: PushServiceSocket, signalServiceConfiguration: SignalServiceConfiguration): ArchiveApi {
     return mockk(relaxed = true)
   }
 

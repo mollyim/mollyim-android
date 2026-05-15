@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.whispersystems.signalservice.api.attachment
+package org.signal.network.api
 
 import kotlinx.coroutines.runBlocking
 import org.signal.core.util.logging.Log

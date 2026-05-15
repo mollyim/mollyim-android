@@ -16,6 +16,7 @@ import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.zkgroup.InvalidInputException
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
+import org.signal.network.service.CdnService
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.TextSecureExpiredException
 import org.thoughtcrime.securesms.attachments.Attachment
@@ -233,7 +234,7 @@ abstract class PushSendJob protected constructor(parameters: Parameters) : BaseJ
 
       val inputStream = PartAuthority.getAttachmentStream(context, attachment.uri!!)
       val ciphertextLength = getCiphertextLength(PaddingInputStream.getPaddedSize(attachment.size))
-      val uploadSpec = AppDependencies.signalServiceMessageSender.getResumableUploadSpec(ciphertextLength)
+      val uploadSpec = CdnService(AppDependencies.signalRestClient, AppDependencies.attachmentApi).getResumableUploadSpecBlocking(ciphertextLength)
 
       return SignalServiceAttachment.newStreamBuilder()
         .withStream(inputStream)

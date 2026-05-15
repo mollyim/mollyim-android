@@ -9,6 +9,7 @@ import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.glide.decryptableuri.DecryptableUri
 import org.signal.network.NetworkResult
+import org.signal.network.api.AttachmentUploadResult
 import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
@@ -30,7 +31,6 @@ import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.util.ImageCompressionUtil
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream
