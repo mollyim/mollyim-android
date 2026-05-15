@@ -369,6 +369,13 @@ object RemoteConfig {
     }
   }
 
+  private fun Any?.asDouble(defaultValue: Double): Double {
+    return when (this) {
+      is String -> this.toDoubleOrNull() ?: defaultValue
+      else -> defaultValue
+    }
+  }
+
   private fun <T : String?> Any?.asString(defaultValue: T): T {
     @Suppress("UNCHECKED_CAST")
     return when (this) {
@@ -483,6 +490,23 @@ object RemoteConfig {
       active = active,
       onChangeListener = onChangeListener,
       transformer = { it.asLong(defaultValue) }
+    )
+  }
+
+  private fun remoteDouble(
+    key: String,
+    defaultValue: Double,
+    hotSwappable: Boolean,
+    active: Boolean = true,
+    onChangeListener: OnFlagChange? = null
+  ): Config<Double> {
+    return remoteValue(
+      key = key,
+      hotSwappable = hotSwappable,
+      sticky = false,
+      active = active,
+      onChangeListener = onChangeListener,
+      transformer = { it.asDouble(defaultValue) }
     )
   }
 
@@ -1384,6 +1408,19 @@ object RemoteConfig {
   val screenSharing: Boolean by remoteBoolean(
     key = "android.calling.screenSharing",
     defaultValue = false,
+    hotSwappable = true
+  )
+
+  /**
+   * A ratio between 0 and 1, where 0 means that a session is never archived due
+   * to a lack of PQ, and 1 means that a session is always archived due to a
+   * lack of PQ.
+   */
+  @JvmStatic
+  @get:JvmName("requirePqRatio")
+  val requirePqRatio: Double by remoteDouble(
+    key = "android.requirePqRatio",
+    defaultValue = 0.0,
     hotSwappable = true
   )
 

@@ -12,6 +12,7 @@ import org.thoughtcrime.securesms.database.SessionTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.whispersystems.signalservice.api.SignalServiceSessionStore;
 import org.whispersystems.signalservice.api.SignalSessionLock;
 import org.signal.core.models.ServiceId;
@@ -76,7 +77,7 @@ public class TextSecureSessionStore implements SignalServiceSessionStore {
     try (SignalSessionLock.Lock unused = ReentrantSessionLock.INSTANCE.acquire()) {
       SessionRecord sessionRecord = SignalDatabase.sessions().load(accountId, address);
 
-      return sessionRecord != null && sessionRecord.hasSenderChain(0.0);
+      return sessionRecord != null && sessionRecord.hasSenderChain(RemoteConfig.requirePqRatio());
     }
   }
 
@@ -188,6 +189,6 @@ public class TextSecureSessionStore implements SignalServiceSessionStore {
   }
 
   private static boolean isActive(@Nullable SessionRecord record) {
-    return record != null && record.hasSenderChain(0.0);
+    return record != null && record.hasSenderChain(RemoteConfig.requirePqRatio());
   }
 }
