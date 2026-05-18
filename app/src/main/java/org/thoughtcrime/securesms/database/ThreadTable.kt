@@ -2151,7 +2151,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
 
   private fun createQuery(where: String, offset: Long, limit: Long, preferPinned: Boolean): String {
     val orderBy = if (preferPinned) {
-      "$TABLE_NAME.$PINNED_ORDER DESC, $TABLE_NAME.$DATE DESC"
+      "CASE WHEN $TABLE_NAME.$PINNED_ORDER IS NULL THEN 1 ELSE 0 END, $TABLE_NAME.$PINNED_ORDER ASC, $TABLE_NAME.$DATE DESC"
     } else {
       "$TABLE_NAME.$DATE DESC"
     }
