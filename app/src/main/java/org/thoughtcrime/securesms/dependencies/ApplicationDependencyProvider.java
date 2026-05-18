@@ -191,7 +191,6 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                             RemoteConfig.maxIncrementalMacsPerEnvelope(),
                                             RemoteConfig::useMessageSendRestFallback,
                                             RemoteConfig.useBinaryId(),
-                                            BuildConfig.USE_STRING_ID,
                                             new PreKeyRepository(
                                                 keysApi,
                                                 protocolStore.aci(),

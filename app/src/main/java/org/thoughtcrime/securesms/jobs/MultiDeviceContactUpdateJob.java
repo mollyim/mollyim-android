@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsMapper;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
@@ -151,7 +150,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
 
     Uri updateUri = null;
     try {
-      DeviceContactsOutputStream out       = new DeviceContactsOutputStream(writeDetails.outputStream, RemoteConfig.useBinaryId(), BuildConfig.USE_STRING_ID);
+      DeviceContactsOutputStream out       = new DeviceContactsOutputStream(writeDetails.outputStream, RemoteConfig.useBinaryId());
       Recipient                  recipient = Recipient.resolved(recipientId);
 
       if (recipient.getRegistered() == RecipientTable.RegisteredState.NOT_REGISTERED) {
@@ -216,7 +215,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
 
     Uri updateUri = null;
     try {
-      DeviceContactsOutputStream out            = new DeviceContactsOutputStream(writeDetails.outputStream, RemoteConfig.useBinaryId(), BuildConfig.USE_STRING_ID);
+      DeviceContactsOutputStream out            = new DeviceContactsOutputStream(writeDetails.outputStream, RemoteConfig.useBinaryId());
       List<Recipient>            recipients     = SignalDatabase.recipients().getRecipientsForMultiDeviceSync();
       Map<RecipientId, Integer>  inboxPositions = SignalDatabase.threads().getInboxPositions();
       Set<RecipientId>           archived       = SignalDatabase.threads().getArchivedRecipients();
