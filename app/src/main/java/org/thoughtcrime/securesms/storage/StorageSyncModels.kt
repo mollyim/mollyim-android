@@ -31,7 +31,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.api.storage.SignalCallLinkRecord
@@ -140,7 +139,7 @@ object StorageSyncModels {
           contact = AccountRecord.PinnedConversation.Contact(
             serviceId = "",
             e164 = settings.e164 ?: "",
-            serviceIdBinary = settings.serviceId?.toByteString().takeIf { RemoteConfig.useBinaryId } ?: ByteString.EMPTY
+            serviceIdBinary = settings.serviceId?.toByteString() ?: ByteString.EMPTY
           )
         )
       }
@@ -217,8 +216,8 @@ object StorageSyncModels {
       nickname = recipient.nickname.takeUnless { it.isEmpty }?.let { ContactRecord.Name(given = it.givenName, family = it.familyName) }
       note = recipient.note ?: ""
       avatarColor = localToRemoteAvatarColor(recipient.avatarColor)
-      aciBinary = recipient.aci?.toByteString()?.takeIf { RemoteConfig.useBinaryId } ?: ByteString.EMPTY
-      pniBinary = recipient.pni?.toByteStringWithoutPrefix()?.takeIf { RemoteConfig.useBinaryId } ?: ByteString.EMPTY
+      aciBinary = recipient.aci?.toByteString() ?: ByteString.EMPTY
+      pniBinary = recipient.pni?.toByteStringWithoutPrefix() ?: ByteString.EMPTY
     }.build().toSignalContactRecord(StorageId.forContact(rawStorageId))
   }
 
@@ -304,14 +303,10 @@ object StorageSyncModels {
       identifier = UuidUtil.toByteArray(record.distributionId.asUuid()).toByteString()
       name = record.name
       recipientServiceIds = emptyList()
-      recipientServiceIdsBinary = if (RemoteConfig.useBinaryId) {
-        record.getMembersToSync()
-          .map { Recipient.resolved(it) }
-          .filter { it.hasServiceId }
-          .map { it.requireServiceId().toByteString() }
-      } else {
-        emptyList()
-      }
+      recipientServiceIdsBinary = record.getMembersToSync()
+        .map { Recipient.resolved(it) }
+        .filter { it.hasServiceId }
+        .map { it.requireServiceId().toByteString() }
       allowsReplies = record.allowsReplies
       isBlockList = record.privacyMode.isBlockList
     }.build().toSignalStoryDistributionListRecord(StorageId.forStoryDistributionList(rawStorageId))
@@ -515,7 +510,7 @@ object StorageSyncModels {
               contact = RemoteRecipient.Contact(
                 serviceId = "",
                 e164 = recipient.e164 ?: "",
-                serviceIdBinary = recipient.serviceId?.toByteString().takeIf { RemoteConfig.useBinaryId } ?: ByteString.EMPTY
+                serviceIdBinary = recipient.serviceId?.toByteString() ?: ByteString.EMPTY
               )
             )
           }

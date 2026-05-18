@@ -1208,15 +1208,6 @@ object RemoteConfig {
     hotSwappable = true
   )
 
-  /** Whether or not to send over binary service ids (alongside string service ids). */
-  @JvmStatic
-  @get:JvmName("useBinaryId")
-  val useBinaryId: Boolean by remoteBoolean(
-    key = "android.useBinaryServiceId.2",
-    defaultValue = true,
-    hotSwappable = false
-  )
-
   @JvmStatic
   @get:JvmName("backupsMegaphone")
   val backupsMegaphone: Boolean by remoteBoolean(

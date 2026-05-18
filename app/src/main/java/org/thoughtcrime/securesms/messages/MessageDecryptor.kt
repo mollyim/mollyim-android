@@ -161,7 +161,7 @@ object MessageDecryptor {
 
       val envelope = if (cipherResult?.metadata?.sourceServiceId != null) {
         envelope.newBuilder()
-          .sourceServiceIdBinary(if (RemoteConfig.useBinaryId) cipherResult.metadata.sourceServiceId.toByteString() else null)
+          .sourceServiceIdBinary(cipherResult.metadata.sourceServiceId.toByteString())
           .sourceDeviceId(cipherResult.metadata.sourceDeviceId)
           .build()
       } else {

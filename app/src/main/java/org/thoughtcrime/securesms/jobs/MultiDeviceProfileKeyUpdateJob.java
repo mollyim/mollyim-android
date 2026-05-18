@@ -15,7 +15,6 @@ import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
@@ -78,7 +77,7 @@ public class MultiDeviceProfileKeyUpdateJob extends BaseJob {
     }
 
     ByteArrayOutputStream      baos = new ByteArrayOutputStream();
-    DeviceContactsOutputStream out  = new DeviceContactsOutputStream(baos, RemoteConfig.useBinaryId());
+    DeviceContactsOutputStream out  = new DeviceContactsOutputStream(baos);
 
     out.write(new DeviceContact(Optional.ofNullable(SignalStore.account().getAci()),
                                 Optional.ofNullable(SignalStore.account().getE164()),

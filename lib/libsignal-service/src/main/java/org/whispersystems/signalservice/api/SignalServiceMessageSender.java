@@ -191,7 +191,6 @@ public class SignalServiceMessageSender {
   private final long            maxEnvelopeSize;
   private final int             maxIncrementalMacsPerEnvelope;
   private final BooleanSupplier useRestFallback;
-  private final boolean         useBinaryId;
 
   public SignalServiceMessageSender(PushServiceSocket pushServiceSocket,
                                     SignalServiceDataStore store,
@@ -203,7 +202,6 @@ public class SignalServiceMessageSender {
                                     long maxEnvelopeSize,
                                     int maxIncrementalMacsPerEnvelope,
                                     BooleanSupplier useRestFallback,
-                                    boolean useBinaryId,
                                     PreKeyRepository preKeyRepository)
   {
     CredentialsProvider credentialsProvider = pushServiceSocket.getCredentialsProvider();
@@ -224,7 +222,6 @@ public class SignalServiceMessageSender {
     this.keysApi                       = keysApi;
     this.preKeyRepository              = preKeyRepository;
     this.useRestFallback               = useRestFallback;
-    this.useBinaryId                   = useBinaryId;
   }
 
   /**
@@ -1058,7 +1055,7 @@ public class SignalServiceMessageSender {
       DataMessage.Quote.Builder quoteBuilder = new DataMessage.Quote.Builder()
                                                                 .id(message.getQuote().get().getId())
                                                                 .text(message.getQuote().get().getText())
-                                                                .authorAciBinary(useBinaryId ? message.getQuote().get().getAuthor().toByteString() : null)
+                                                                .authorAciBinary(message.getQuote().get().getAuthor().toByteString())
                                                                 .type(message.getQuote().get().getType().getProtoType());
 
       List<SignalServiceDataMessage.Mention> mentions = message.getQuote().get().getMentions();
@@ -1166,7 +1163,7 @@ public class SignalServiceMessageSender {
                                                                              .emoji(message.getReaction().get().getEmoji())
                                                                              .remove(message.getReaction().get().isRemove())
                                                                              .targetSentTimestamp(message.getReaction().get().getTargetSentTimestamp())
-                                                                             .targetAuthorAciBinary(useBinaryId ? message.getReaction().get().getTargetAuthor().toByteString() : null);
+                                                                             .targetAuthorAciBinary(message.getReaction().get().getTargetAuthor().toByteString());
 
       builder.reaction(reactionBuilder.build());
       builder.requiredProtocolVersion(Math.max(DataMessage.ProtocolVersion.REACTIONS.getValue(), builder.requiredProtocolVersion));
@@ -1210,7 +1207,7 @@ public class SignalServiceMessageSender {
       SignalServiceDataMessage.StoryContext storyContext = message.getStoryContext().get();
 
       builder.storyContext(new DataMessage.StoryContext.Builder()
-                                                       .authorAciBinary(useBinaryId ? storyContext.getAuthorServiceId().toByteString() : null)
+                                                       .authorAciBinary(storyContext.getAuthorServiceId().toByteString())
                                                        .sentTimestamp(storyContext.getSentTimestamp())
                                                        .build());
     }
@@ -1434,7 +1431,7 @@ public class SignalServiceMessageSender {
         }
 
         unidentifiedDeliveryStatuses.add(new SyncMessage.Sent.UnidentifiedDeliveryStatus.Builder()
-                                                                                        .destinationServiceIdBinary(useBinaryId ? result.getAddress().getServiceId().toByteString() : null)
+                                                                                        .destinationServiceIdBinary(result.getAddress().getServiceId().toByteString())
                                                                                         .unidentified(false)
                                                                                         .destinationPniIdentityKey(identity)
                                                                                         .build());
@@ -1443,7 +1440,7 @@ public class SignalServiceMessageSender {
     sentMessage.unidentifiedStatus(unidentifiedDeliveryStatuses);
 
     if (recipient.isPresent()) {
-      sentMessage.destinationServiceIdBinary(useBinaryId ? recipient.get().getServiceId().toByteString() : null);
+      sentMessage.destinationServiceIdBinary(recipient.get().getServiceId().toByteString());
       if (recipient.get().getNumber().isPresent()) {
         sentMessage.destinationE164(recipient.get().getNumber().get());
       }
@@ -1482,7 +1479,7 @@ public class SignalServiceMessageSender {
   private SyncMessage.Sent.StoryMessageRecipient createStoryMessageRecipient(SignalServiceStoryMessageRecipient storyMessageRecipient) {
     return new SyncMessage.Sent.StoryMessageRecipient.Builder()
                                                      .distributionListIds(storyMessageRecipient.getDistributionListIds())
-                                                     .destinationServiceIdBinary(useBinaryId ? storyMessageRecipient.getSignalServiceAddress().getServiceId().toByteString() : null)
+                                                     .destinationServiceIdBinary(storyMessageRecipient.getSignalServiceAddress().getServiceId().toByteString())
                                                      .isAllowedToReply(storyMessageRecipient.isAllowedToReply())
                                                      .build();
   }
@@ -1495,7 +1492,7 @@ public class SignalServiceMessageSender {
         readMessages.stream()
                     .map(readMessage -> new SyncMessage.Read.Builder()
                                                             .timestamp(readMessage.getTimestamp())
-                                                            .senderAciBinary(useBinaryId ? readMessage.getSenderAci().toByteString() : null)
+                                                            .senderAciBinary(readMessage.getSenderAci().toByteString())
                                                             .build())
                     .collect(Collectors.toList())
     );
@@ -1511,7 +1508,7 @@ public class SignalServiceMessageSender {
         readMessages.stream()
                     .map(readMessage -> new SyncMessage.Viewed.Builder()
                                                               .timestamp(readMessage.getTimestamp())
-                                                              .senderAciBinary(useBinaryId ? readMessage.getSender().toByteString() : null)
+                                                              .senderAciBinary(readMessage.getSender().toByteString())
                                                               .build())
                     .collect(Collectors.toList())
     );
@@ -1525,7 +1522,7 @@ public class SignalServiceMessageSender {
 
     builder.viewOnceOpen(new SyncMessage.ViewOnceOpen.Builder()
                                                      .timestamp(readMessage.getTimestamp())
-                                                     .senderAciBinary(useBinaryId ? readMessage.getSender().toByteString() : null)
+                                                     .senderAciBinary(readMessage.getSender().toByteString())
                                                      .build());
 
     return container.syncMessage(builder.build()).build();
@@ -1536,7 +1533,7 @@ public class SignalServiceMessageSender {
     SyncMessage.Builder         syncMessage    = createSyncMessageBuilder();
     SyncMessage.Blocked.Builder blockedMessage = new SyncMessage.Blocked.Builder();
 
-    blockedMessage.acisBinary(useBinaryId ? blocked.individuals.stream().filter(a -> a.getAci() != null).map(a -> a.getAci().toByteString()).collect(Collectors.toList()) : Collections.emptyList());
+    blockedMessage.acisBinary(blocked.individuals.stream().filter(a -> a.getAci() != null).map(a -> a.getAci().toByteString()).collect(Collectors.toList()));
     blockedMessage.numbers(blocked.individuals.stream().filter(a -> a.getE164() != null).map(a -> a.getE164()).collect(Collectors.toList()));
     blockedMessage.groupIds(blocked.groupIds.stream().map(ByteString::of).collect(Collectors.toList()));
 
@@ -1633,7 +1630,7 @@ public class SignalServiceMessageSender {
     }
 
     if (message.getPerson().isPresent()) {
-      responseMessage.threadAciBinary(useBinaryId ? message.getPerson().get().toByteString() : null);
+      responseMessage.threadAciBinary(message.getPerson().get().toByteString());
     }
 
     switch (message.getType()) {
@@ -1726,7 +1723,7 @@ public class SignalServiceMessageSender {
 
     verifiedMessageBuilder.nullMessage(ByteString.of(nullMessage));
     verifiedMessageBuilder.identityKey(ByteString.of(verifiedMessage.getIdentityKey().serialize()));
-    verifiedMessageBuilder.destinationAciBinary(useBinaryId ? verifiedMessage.getDestination().getServiceId().toByteString() : null);
+    verifiedMessageBuilder.destinationAciBinary(verifiedMessage.getDestination().getServiceId().toByteString());
 
 
     switch (verifiedMessage.getVerified()) {

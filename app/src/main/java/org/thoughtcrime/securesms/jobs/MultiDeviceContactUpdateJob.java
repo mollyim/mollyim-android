@@ -32,7 +32,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
@@ -150,7 +149,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
 
     Uri updateUri = null;
     try {
-      DeviceContactsOutputStream out       = new DeviceContactsOutputStream(writeDetails.outputStream, RemoteConfig.useBinaryId());
+      DeviceContactsOutputStream out       = new DeviceContactsOutputStream(writeDetails.outputStream);
       Recipient                  recipient = Recipient.resolved(recipientId);
 
       if (recipient.getRegistered() == RecipientTable.RegisteredState.NOT_REGISTERED) {
@@ -215,7 +214,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
 
     Uri updateUri = null;
     try {
-      DeviceContactsOutputStream out            = new DeviceContactsOutputStream(writeDetails.outputStream, RemoteConfig.useBinaryId());
+      DeviceContactsOutputStream out            = new DeviceContactsOutputStream(writeDetails.outputStream);
       List<Recipient>            recipients     = SignalDatabase.recipients().getRecipientsForMultiDeviceSync();
       Map<RecipientId, Integer>  inboxPositions = SignalDatabase.threads().getInboxPositions();
       Set<RecipientId>           archived       = SignalDatabase.threads().getArchivedRecipients();
