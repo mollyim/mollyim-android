@@ -607,6 +607,8 @@ class ConversationFragment :
   private var releaseNotesLayoutApplied: Boolean = false
   private var releaseNotesWallpaperApplied: Boolean = false
 
+  private var applyToolbarPaddingRunnable: Runnable? = null
+
   private val jumpAndPulseScrollStrategy = object : ScrollToPositionDelegate.ScrollStrategy {
     override fun performScroll(recyclerView: RecyclerView, layoutManager: LinearLayoutManager, position: Int, smooth: Boolean) {
       ScrollToPositionDelegate.JumpToPositionStrategy.performScroll(recyclerView, layoutManager, position, smooth)
@@ -766,17 +768,25 @@ class ConversationFragment :
     }
 
     binding.toolbar.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
-      // Bug: ConstraintLayout's solver can transiently place the toolbar at a negative position during the very first layout, preventing future RV layouts
+      // Bug: ConstraintLayout can provide a negative value for the toolbar causing RV layout problems
       if (bottom < 0) return@addOnLayoutChangeListener
 
-      binding.conversationItemRecycler.padding(top = bottom)
-      if (bottom != oldBottom && ::conversationHeaderPositionDecoration.isInitialized) {
-        val newMargin = bottom + 16.dp
-        if (conversationHeaderPositionDecoration.toolbarMargin != newMargin) {
-          conversationHeaderPositionDecoration.toolbarMargin = newMargin
-          binding.conversationItemRecycler.invalidateItemDecorations()
+      // Bug: LinearLayoutManger can get stuck and not layout children under Compose's AndroidFragment if updated too quickly.
+      val rv = binding.conversationItemRecycler
+      applyToolbarPaddingRunnable?.let { rv.removeCallbacks(it) }
+      val runnable = Runnable {
+        if (view == null) return@Runnable
+        rv.padding(top = bottom)
+        if (bottom != oldBottom && ::conversationHeaderPositionDecoration.isInitialized) {
+          val newMargin = bottom + 16.dp
+          if (conversationHeaderPositionDecoration.toolbarMargin != newMargin) {
+            conversationHeaderPositionDecoration.toolbarMargin = newMargin
+            rv.invalidateItemDecorations()
+          }
         }
       }
+      applyToolbarPaddingRunnable = runnable
+      rv.post(runnable)
     }
 
     binding.conversationItemRecycler.addItemDecoration(ChatColorsDrawable.ChatColorsItemDecoration)
