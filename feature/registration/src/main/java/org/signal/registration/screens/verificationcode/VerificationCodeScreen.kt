@@ -50,12 +50,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.test.TestTags
 import kotlin.time.Duration.Companion.seconds
 
@@ -73,7 +73,6 @@ fun VerificationCodeScreen(
   var digits by remember { mutableStateOf(List(6) { "" }) }
   val focusRequesters = remember { List(6) { FocusRequester() } }
   val snackbarHostState = remember { SnackbarHostState() }
-  val windowBreakpoint = rememberWindowBreakpoint()
   val resources = LocalResources.current
 
   LaunchedEffect(state.rateLimits) {
@@ -131,43 +130,33 @@ fun VerificationCodeScreen(
     snackbarHost = { SnackbarHost(snackbarHostState) },
     modifier = modifier
   ) { innerPadding ->
-    when (windowBreakpoint) {
-      WindowBreakpoint.SMALL -> {
-        CompactLayout(
-          innerPadding = innerPadding,
-          digits = digits,
-          focusRequesters = focusRequesters,
-          state = state,
-          onEvent = onEvent,
-          onDigitsChanged = { digits = it }
-        )
-      }
+    when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+      is RegistrationScaffold.Params.OnePane -> OnePaneLayout(
+        params = layoutParams,
+        innerPadding = innerPadding,
+        digits = digits,
+        focusRequesters = focusRequesters,
+        state = state,
+        onEvent = onEvent,
+        onDigitsChanged = { digits = it }
+      )
 
-      WindowBreakpoint.MEDIUM -> {
-        MediumLayout(
-          digits = digits,
-          focusRequesters = focusRequesters,
-          state = state,
-          onEvent = onEvent,
-          onDigitsChanged = { digits = it }
-        )
-      }
-
-      WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
-        LargeLayout(
-          digits = digits,
-          focusRequesters = focusRequesters,
-          state = state,
-          onEvent = onEvent,
-          onDigitsChanged = { digits = it }
-        )
-      }
+      is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(
+        params = layoutParams,
+        innerPadding = innerPadding,
+        digits = digits,
+        focusRequesters = focusRequesters,
+        state = state,
+        onEvent = onEvent,
+        onDigitsChanged = { digits = it }
+      )
     }
   }
 }
 
 @Composable
-private fun CompactLayout(
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
   innerPadding: PaddingValues,
   digits: List<String>,
   focusRequesters: List<FocusRequester>,
@@ -177,19 +166,19 @@ private fun CompactLayout(
 ) {
   val scrollState = rememberScrollState()
 
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
+  OnePaneRegistrationScaffold(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(innerPadding),
+    params = params,
+    content = { paddingValues ->
       Column(
         modifier = Modifier
           .fillMaxSize()
-          .padding(innerPadding)
           .verticalScroll(scrollState)
-          .padding(horizontal = 24.dp),
+          .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Spacer(modifier = Modifier.height(40.dp))
-
         Description(state, onEvent)
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -223,7 +212,9 @@ private fun CompactLayout(
 }
 
 @Composable
-private fun MediumLayout(
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  innerPadding: PaddingValues,
   digits: List<String>,
   focusRequesters: List<FocusRequester>,
   state: VerificationCodeState,
@@ -231,97 +222,39 @@ private fun MediumLayout(
   onDigitsChanged: (List<String>) -> Unit
 ) {
   val scrollState = rememberScrollState()
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
-      Row(
+  TwoPaneRegistrationScaffold(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(innerPadding),
+    params = params,
+    firstPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-
-          Description(state, onEvent)
-        }
-        Column(
-          modifier = Modifier.weight(1f)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-
-          CodeField(
-            digits = digits,
-            focusRequesters = focusRequesters,
-            state = state,
-            onDigitsChanged = onDigitsChanged
-          )
-
-          Spacer(modifier = Modifier.height(32.dp))
-
-          if (state.shouldShowHavingTrouble()) {
-            TroubleButton(onEvent)
-          }
-        }
+        Description(state, onEvent)
       }
     },
-    footer = {
-      Row(
+    secondPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxWidth()
-          .padding(bottom = 16.dp, start = 24.dp, end = 24.dp),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.Bottom
-      ) {
-        AlternateCodeOptions(state, onEvent)
-      }
-    }
-  )
-}
-
-@Composable
-private fun LargeLayout(
-  digits: List<String>,
-  focusRequesters: List<FocusRequester>,
-  state: VerificationCodeState,
-  onEvent: (VerificationCodeScreenEvents) -> Unit,
-  onDigitsChanged: (List<String>) -> Unit
-) {
-  val scrollState = rememberScrollState()
-
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
-      Row(
-        modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
+        CodeField(
+          digits = digits,
+          focusRequesters = focusRequesters,
+          state = state,
+          onDigitsChanged = onDigitsChanged
+        )
 
-          Description(state, onEvent)
-        }
-        Column(
-          modifier = Modifier.weight(1f)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
-          CodeField(
-            digits = digits,
-            focusRequesters = focusRequesters,
-            state = state,
-            onDigitsChanged = onDigitsChanged
-          )
-
-          Spacer(modifier = Modifier.height(32.dp))
-
-          if (state.shouldShowHavingTrouble()) {
-            TroubleButton(onEvent)
-          }
+        if (state.shouldShowHavingTrouble()) {
+          TroubleButton(onEvent)
         }
       }
     },

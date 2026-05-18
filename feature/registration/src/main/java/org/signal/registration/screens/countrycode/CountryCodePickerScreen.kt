@@ -11,6 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -50,16 +51,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.IconButtons.IconButton
 import org.signal.core.ui.compose.LargeFontPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
-import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
 
 /**
  * Screen that allows someone to search and select a country code from a supported list of countries.
@@ -70,28 +71,22 @@ fun CountryCodePickerScreen(
   state: CountryCodeState,
   onEvent: (CountryCodePickerScreenEvents) -> Unit
 ) {
-  val windowBreakpoint = rememberWindowBreakpoint()
-
-  when (windowBreakpoint) {
-    WindowBreakpoint.SMALL -> {
-      CompactLayout(state, onEvent)
-    }
-
-    WindowBreakpoint.MEDIUM -> {
-      MediumLayout(state, onEvent)
-    }
-
-    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
-      LargeLayout(state, onEvent)
-    }
+  when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+    is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent)
+    is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent)
   }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun CompactLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  RegistrationScaffold(
+private fun OnePaneLayout(
+  layoutParams: RegistrationScaffold.Params.OnePane,
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit
+) {
+  OnePaneRegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
+    params = layoutParams,
     topBar = {
       Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
@@ -110,86 +105,60 @@ private fun CompactLayout(state: CountryCodeState, onEvent: (CountryCodePickerSc
           style = MaterialTheme.typography.titleLarge
         )
       }
-    },
-    content = {
-      CountryList(state, onEvent)
     }
-  )
-}
-
-@Composable
-private fun MediumLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    topBar = {
-      TopBar(onEvent)
-    },
-    content = {
-      Row(
-        modifier = Modifier.fillMaxSize()
-      ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Text(
-            stringResource(R.string.CountryCodeSelectScreen__your_country),
-            style = MaterialTheme.typography.titleLarge
-          )
-        }
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          CountryList(state, onEvent)
-        }
-      }
-    }
-  )
-}
-
-@Composable
-private fun LargeLayout(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    topBar = {
-      TopBar(onEvent)
-    },
-    content = {
-      Row(
-        modifier = Modifier.fillMaxSize()
-      ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Text(
-            stringResource(R.string.CountryCodeSelectScreen__your_country),
-            style = MaterialTheme.typography.titleLarge
-          )
-        }
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          CountryList(state, onEvent)
-        }
-      }
-    }
-  )
-}
-
-@Composable
-private fun TopBar(onEvent: (CountryCodePickerScreenEvents) -> Unit) {
-  Row(
-    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-    verticalAlignment = Alignment.CenterVertically
   ) {
-    IconButton(
-      onClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
-    ) {
-      Icon(
-        imageVector = SignalIcons.X.imageVector,
-        contentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
-      )
-    }
+    CountryList(state, onEvent)
   }
+}
+
+@Composable
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit
+) {
+  TwoPaneRegistrationScaffold(
+    modifier = Modifier.fillMaxSize(),
+    topBar = {
+      Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        IconButton(
+          onClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+        ) {
+          Icon(
+            imageVector = SignalIcons.X.imageVector,
+            contentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
+          )
+        }
+      }
+    },
+    params = params,
+    firstPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .padding(paddingValues)
+      ) {
+        Text(
+          stringResource(R.string.CountryCodeSelectScreen__your_country),
+          style = MaterialTheme.typography.titleLarge
+        )
+      }
+    },
+    secondPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .padding(paddingValues)
+      ) {
+        CountryList(state, onEvent)
+      }
+    }
+  )
 }
 
 @Composable

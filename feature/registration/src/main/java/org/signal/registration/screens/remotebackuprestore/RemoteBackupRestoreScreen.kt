@@ -8,6 +8,7 @@ package org.signal.registration.screens.remotebackuprestore
 import android.text.format.DateFormat
 import android.text.format.Formatter
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +20,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -39,16 +39,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.models.AccountEntropyPool
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
-import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import java.util.Date
 
 @Composable
@@ -65,11 +65,9 @@ fun RemoteRestoreScreen(
     }
 
     RemoteBackupRestoreState.LoadState.Loaded -> {
-      val windowBreakpoint = rememberWindowBreakpoint()
-      when (windowBreakpoint) {
-        WindowBreakpoint.SMALL -> CompactLayout(state = state, onEvent = onEvent, modifier = modifier)
-        WindowBreakpoint.MEDIUM -> MediumLayout(state = state, onEvent = onEvent, modifier = modifier)
-        WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> LargeLayout(state = state, onEvent = onEvent, modifier = modifier)
+      when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+        is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
+        is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
       }
     }
 
@@ -98,112 +96,89 @@ fun RemoteRestoreScreen(
 }
 
 @Composable
-private fun CompactLayout(
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
   state: RemoteBackupRestoreState,
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScaffold(
-    content = {
+  OnePaneRegistrationScaffold(
+    modifier = modifier,
+    params = params,
+    content = { paddingValues ->
       Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
           .fillMaxSize()
           .verticalScroll(rememberScrollState())
-          .padding(horizontal = 24.dp)
+          .padding(paddingValues)
       ) {
-        Spacer(modifier = Modifier.height(48.dp))
         BackupInfoContent(state = state)
       }
 
       RestoreStateDialogs(state = state, onEvent = onEvent)
     },
     footer = {
-      FooterButtons(onEvent = onEvent)
-    },
-    modifier = modifier
+      Column(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(24.dp)
+      ) {
+        RestoreButton(onEvent, Modifier.fillMaxWidth())
+        CancelButton(onEvent, Modifier.fillMaxWidth())
+      }
+    }
   )
 }
 
 @Composable
-private fun MediumLayout(
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
   state: RemoteBackupRestoreState,
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScaffold(
-    content = {
-      Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
+  TwoPaneRegistrationScaffold(
+    modifier = modifier,
+    params = params,
+    firstPane = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(rememberScrollState())
+          .padding(paddingValues)
       ) {
-        Column(
-          horizontalAlignment = Alignment.CenterHorizontally,
-          modifier = Modifier
-            .widthIn(max = 450.dp)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(48.dp))
-          BackupInfoContent(state = state)
-          Spacer(modifier = Modifier.height(48.dp))
-        }
+        BackupInfoHeading()
+      }
+    },
+    secondPane = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(rememberScrollState())
+          .padding(paddingValues)
+      ) {
+        BackupInfoDetails(state = state)
       }
 
       RestoreStateDialogs(state = state, onEvent = onEvent)
     },
     footer = {
-      Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxWidth()
-      ) {
-        Column(modifier = Modifier.widthIn(max = 320.dp)) {
-          FooterButtons(onEvent = onEvent)
-        }
-      }
-    },
-    modifier = modifier
-  )
-}
-
-@Composable
-private fun LargeLayout(
-  state: RemoteBackupRestoreState,
-  onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
-  modifier: Modifier = Modifier
-) {
-  RegistrationScaffold(
-    content = {
       Row(
         modifier = Modifier
-          .fillMaxSize()
-          .padding(vertical = 56.dp)
+          .fillMaxWidth()
+          .padding(24.dp),
+        horizontalArrangement = Arrangement.End
       ) {
-        Spacer(modifier = Modifier.weight(1f))
-
-        Box(
-          contentAlignment = Alignment.Center,
-          modifier = Modifier.weight(1f)
-        ) {
-          Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-              .widthIn(max = 400.dp)
-              .fillMaxHeight()
-              .verticalScroll(rememberScrollState())
-          ) {
-            Spacer(modifier = Modifier.weight(1f))
-            BackupInfoContent(state = state)
-            Spacer(modifier = Modifier.weight(1f))
-            FooterButtons(onEvent = onEvent)
-            Spacer(modifier = Modifier.height(24.dp))
-          }
-        }
+        CancelButton(onEvent, Modifier)
+        Spacer(modifier = Modifier.size(8.dp))
+        RestoreButton(onEvent, Modifier)
       }
-
-      RestoreStateDialogs(state = state, onEvent = onEvent)
-    },
-    modifier = modifier
+    }
   )
 }
 
@@ -211,6 +186,12 @@ private fun LargeLayout(
 private fun BackupInfoContent(
   state: RemoteBackupRestoreState
 ) {
+  BackupInfoHeading()
+  BackupInfoDetails(state = state)
+}
+
+@Composable
+private fun BackupInfoHeading() {
   Icon(
     imageVector = SignalIcons.Backup.imageVector,
     contentDescription = null,
@@ -229,7 +210,10 @@ private fun BackupInfoContent(
     textAlign = TextAlign.Center,
     modifier = Modifier.fillMaxWidth()
   )
+}
 
+@Composable
+private fun BackupInfoDetails(state: RemoteBackupRestoreState) {
   if (state.backupTime > 0) {
     Spacer(modifier = Modifier.height(12.dp))
 
@@ -262,28 +246,28 @@ private fun BackupInfoContent(
 }
 
 @Composable
-private fun FooterButtons(
-  onEvent: (RemoteBackupRestoreScreenEvents) -> Unit
+private fun RestoreButton(
+  onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
+  modifier: Modifier
 ) {
-  Column(
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(horizontal = 24.dp)
-      .padding(bottom = 24.dp)
+  Buttons.LargeTonal(
+    onClick = { onEvent(RemoteBackupRestoreScreenEvents.BackupRestoreBackup) },
+    modifier = modifier
   ) {
-    Buttons.LargeTonal(
-      onClick = { onEvent(RemoteBackupRestoreScreenEvents.BackupRestoreBackup) },
-      modifier = Modifier.fillMaxWidth()
-    ) {
-      Text(text = stringResource(R.string.RemoteRestoreScreen__restore_backup))
-    }
+    Text(text = stringResource(R.string.RemoteRestoreScreen__restore_backup))
+  }
+}
 
-    TextButton(
-      onClick = { onEvent(RemoteBackupRestoreScreenEvents.Cancel) },
-      modifier = Modifier.fillMaxWidth()
-    ) {
-      Text(text = stringResource(android.R.string.cancel))
-    }
+@Composable
+private fun CancelButton(
+  onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
+  modifier: Modifier
+) {
+  TextButton(
+    onClick = { onEvent(RemoteBackupRestoreScreenEvents.Cancel) },
+    modifier = modifier
+  ) {
+    Text(text = stringResource(android.R.string.cancel))
   }
 }
 
@@ -439,7 +423,7 @@ private fun RemoteRestoreScreenLoadingPreview() {
   Previews.Preview {
     RemoteRestoreScreen(
       state = RemoteBackupRestoreState(
-        aep = AccountEntropyPool.generate(),
+        aep = AccountEntropyPool("0000000000000000000000000000000000000000000000000000000000000000"),
         loadState = RemoteBackupRestoreState.LoadState.Loading
       ),
       onEvent = {}

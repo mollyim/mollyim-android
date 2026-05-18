@@ -51,16 +51,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.DropdownMenus
 import org.signal.core.ui.compose.IconButtons.IconButton
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryState.OneTimeEvent
 import org.signal.registration.test.TestTags
 
@@ -75,7 +75,6 @@ fun PhoneNumberScreen(
 ) {
   val resources = LocalResources.current
   var simpleErrorMessage: String? by remember { mutableStateOf(null) }
-  val windowBreakpoint = rememberWindowBreakpoint()
 
   if (state.showDialog) {
     Dialogs.SimpleAlertDialog(
@@ -113,18 +112,9 @@ fun PhoneNumberScreen(
       .fillMaxSize()
       .testTag(TestTags.PHONE_NUMBER_SCREEN)
   ) {
-    when (windowBreakpoint) {
-      WindowBreakpoint.SMALL -> {
-        CompactLayout(state, onEvent)
-      }
-
-      WindowBreakpoint.MEDIUM -> {
-        MediumLayout(state, onEvent)
-      }
-
-      WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
-        LargeLayout(state, onEvent)
-      }
+    when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+      is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent)
+      is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent)
     }
   }
 }
@@ -175,22 +165,27 @@ fun TopbarMenu() {
 }
 
 @Composable
-private fun CompactLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntryScreenEvents) -> Unit) {
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
+  state: PhoneNumberEntryState,
+  onEvent: (PhoneNumberEntryScreenEvents) -> Unit
+) {
   val selectedCountry = state.countryName
   val selectedCountryEmoji = state.countryEmoji
 
   val scrollState = rememberScrollState()
 
-  RegistrationScaffold(
-    modifier = Modifier,
+  OnePaneRegistrationScaffold(
+    params = params,
     topBar = {
       TopbarMenu()
     },
-    content = {
+    content = { paddingValues ->
       Column(
         modifier = Modifier
           .fillMaxSize()
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
         Description()
 
@@ -202,7 +197,6 @@ private fun CompactLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEnt
           onClick = { onEvent(PhoneNumberEntryScreenEvents.CountryPicker) },
           modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp)
             .testTag(TestTags.PHONE_NUMBER_COUNTRY_PICKER)
         )
 
@@ -215,9 +209,7 @@ private fun CompactLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEnt
           onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
           onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberChanged(it)) },
           onPhoneNumberEntered = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberEntered) },
-          modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
+          modifier = Modifier.fillMaxWidth()
         )
       }
     },
@@ -228,123 +220,58 @@ private fun CompactLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEnt
 }
 
 @Composable
-private fun MediumLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntryScreenEvents) -> Unit) {
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: PhoneNumberEntryState,
+  onEvent: (PhoneNumberEntryScreenEvents) -> Unit
+) {
   val selectedCountry = state.countryName
   val selectedCountryEmoji = state.countryEmoji
 
   val scrollState = rememberScrollState()
 
-  RegistrationScaffold(
-    modifier = Modifier,
+  TwoPaneRegistrationScaffold(
+    params = params,
     topBar = {
       TopbarMenu()
     },
-    content = {
-      Row(
+    firstPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(56.dp))
-
-          Description()
-        }
-
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(56.dp))
-
-          CountryPicker(
-            emoji = selectedCountryEmoji,
-            country = selectedCountry,
-            onClick = { onEvent(PhoneNumberEntryScreenEvents.CountryPicker) },
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(horizontal = 24.dp)
-              .testTag(TestTags.PHONE_NUMBER_COUNTRY_PICKER)
-          )
-
-          Spacer(modifier = Modifier.height(16.dp))
-
-          PhoneNumberInputFields(
-            hasValidCountry = state.countryName.isNotEmpty(),
-            countryCode = state.countryCode,
-            formattedNumber = state.formattedNumber,
-            onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
-            onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberChanged(it)) },
-            onPhoneNumberEntered = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberEntered) },
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(horizontal = 24.dp)
-          )
-        }
+        Description()
       }
     },
-    footer = {
-      NextButton(state, onEvent)
-    }
-  )
-}
-
-@Composable
-private fun LargeLayout(state: PhoneNumberEntryState, onEvent: (PhoneNumberEntryScreenEvents) -> Unit) {
-  val selectedCountry = state.countryName
-  val selectedCountryEmoji = state.countryEmoji
-
-  val scrollState = rememberScrollState()
-
-  RegistrationScaffold(
-    modifier = Modifier,
-    topBar = {
-      TopbarMenu()
-    },
-    content = {
-      Row(
+    secondPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(56.dp))
+        CountryPicker(
+          emoji = selectedCountryEmoji,
+          country = selectedCountry,
+          onClick = { onEvent(PhoneNumberEntryScreenEvents.CountryPicker) },
+          modifier = Modifier
+            .fillMaxWidth()
+            .testTag(TestTags.PHONE_NUMBER_COUNTRY_PICKER)
+        )
 
-          Description()
-        }
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(56.dp))
-
-          CountryPicker(
-            emoji = selectedCountryEmoji,
-            country = selectedCountry,
-            onClick = { onEvent(PhoneNumberEntryScreenEvents.CountryPicker) },
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(horizontal = 24.dp)
-              .testTag(TestTags.PHONE_NUMBER_COUNTRY_PICKER)
-          )
-
-          Spacer(modifier = Modifier.height(16.dp))
-
-          PhoneNumberInputFields(
-            hasValidCountry = state.countryName.isNotEmpty(),
-            countryCode = state.countryCode,
-            formattedNumber = state.formattedNumber,
-            onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
-            onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberChanged(it)) },
-            onPhoneNumberEntered = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberEntered) },
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(horizontal = 24.dp)
-          )
-        }
+        PhoneNumberInputFields(
+          hasValidCountry = state.countryName.isNotEmpty(),
+          countryCode = state.countryCode,
+          formattedNumber = state.formattedNumber,
+          onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
+          onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberChanged(it)) },
+          onPhoneNumberEntered = { onEvent(PhoneNumberEntryScreenEvents.PhoneNumberEntered) },
+          modifier = Modifier.fillMaxWidth()
+        )
       }
     },
     footer = {
@@ -358,9 +285,7 @@ private fun Description() {
   Text(
     text = stringResource(R.string.RegistrationActivity_phone_number),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(horizontal = 24.dp)
+    modifier = Modifier.fillMaxWidth()
   )
 
   Spacer(modifier = Modifier.height(16.dp))
@@ -369,9 +294,7 @@ private fun Description() {
     text = stringResource(R.string.RegistrationActivity_you_will_receive_a_verification_code),
     style = MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(horizontal = 24.dp)
+    modifier = Modifier.fillMaxWidth()
   )
 }
 

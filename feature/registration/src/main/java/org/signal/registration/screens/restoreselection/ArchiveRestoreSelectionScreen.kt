@@ -6,6 +6,7 @@
 package org.signal.registration.screens.restoreselection
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,14 +33,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
-import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.test.TestTags
 
 @Composable
@@ -48,8 +49,6 @@ fun ArchiveRestoreSelectionScreen(
   onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val windowBreakpoint = rememberWindowBreakpoint()
-
   if (state.showSkipWarningDialog) {
     Dialogs.SimpleAlertDialog(
       title = stringResource(R.string.ArchiveRestoreSelectionScreen__skip_restore_dialog_title),
@@ -63,46 +62,45 @@ fun ArchiveRestoreSelectionScreen(
     )
   }
 
-  when (windowBreakpoint) {
-    WindowBreakpoint.SMALL -> {
-      CompactLayout(state, onEvent, modifier)
-    }
-
-    WindowBreakpoint.MEDIUM -> {
-      MediumLayout(state, onEvent, modifier)
-    }
-
-    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
-      LargeLayout(state, onEvent, modifier)
-    }
+  when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+    is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
+    is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
   }
 }
 
 @Composable
-private fun CompactLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit, modifier: Modifier) {
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
+  state: ArchiveRestoreSelectionState,
+  onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit,
+  modifier: Modifier
+) {
   val scrollState = rememberScrollState()
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
+  OnePaneRegistrationScaffold(
+    modifier = modifier.fillMaxSize(),
+    params = params,
+    content = { paddingValues ->
       Column(
-        modifier = modifier
+        modifier = Modifier
           .fillMaxSize()
           .verticalScroll(scrollState)
-          .padding(horizontal = 24.dp)
+          .padding(paddingValues)
           .testTag(TestTags.ARCHIVE_RESTORE_SELECTION_SCREEN),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Spacer(modifier = Modifier.height(40.dp))
-
         Description()
 
         Spacer(modifier = Modifier.height(28.dp))
 
         RestoreOptions(state, onEvent)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        if (state.showSkipButton) {
+      }
+    },
+    footer = {
+      if (state.showSkipButton) {
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          horizontalArrangement = Arrangement.Center
+        ) {
           SkipRestoreButton(onEvent)
         }
       }
@@ -111,71 +109,45 @@ private fun CompactLayout(state: ArchiveRestoreSelectionState, onEvent: (Archive
 }
 
 @Composable
-private fun MediumLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit, modifier: Modifier) {
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: ArchiveRestoreSelectionState,
+  onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit,
+  modifier: Modifier
+) {
   val scrollState = rememberScrollState()
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
-      Row(
+  TwoPaneRegistrationScaffold(
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.ARCHIVE_RESTORE_SELECTION_SCREEN),
+    params = params,
+    firstPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
           .verticalScroll(scrollState)
-          .testTag(TestTags.ARCHIVE_RESTORE_SELECTION_SCREEN)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f)
-            .padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-          Description()
-        }
-        Column(
-          modifier = Modifier.weight(1f)
-            .padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-          RestoreOptions(state, onEvent)
-
-          if (state.showSkipButton) {
-            SkipRestoreButton(onEvent)
-          }
-        }
+        Description()
       }
     },
-    footer = {}
-  )
-}
-
-@Composable
-private fun LargeLayout(state: ArchiveRestoreSelectionState, onEvent: (ArchiveRestoreSelectionScreenEvents) -> Unit, modifier: Modifier) {
-  val scrollState = rememberScrollState()
-
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
-      Row(
+    secondPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
           .verticalScroll(scrollState)
-          .testTag(TestTags.ARCHIVE_RESTORE_SELECTION_SCREEN)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
+        RestoreOptions(state, onEvent)
+      }
+    },
+    footer = {
+      if (state.showSkipButton) {
+        Row(
+          modifier = Modifier.fillMaxWidth().padding(end = 32.dp),
+          horizontalArrangement = Arrangement.End
         ) {
-          Spacer(modifier = Modifier.height(40.dp))
-
-          Description()
-        }
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-
-          RestoreOptions(state, onEvent)
-
-          if (state.showSkipButton) {
-            SkipRestoreButton(onEvent)
-          }
+          SkipRestoreButton(onEvent)
         }
       }
     }

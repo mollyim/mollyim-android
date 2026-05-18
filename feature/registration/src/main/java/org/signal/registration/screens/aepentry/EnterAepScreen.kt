@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -47,13 +47,13 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.localbackuprestore.attachBackupKeyAutoFillHelper
 import org.signal.registration.screens.localbackuprestore.backupKeyAutoFillHelper
 
@@ -63,39 +63,33 @@ fun EnterAepScreen(
   onEvent: (EnterAepEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val windowBreakpoint = rememberWindowBreakpoint()
-
-  when (windowBreakpoint) {
-    WindowBreakpoint.SMALL -> {
-      CompactLayout(state, onEvent)
-    }
-
-    WindowBreakpoint.MEDIUM -> {
-      MediumLayout(state, onEvent)
-    }
-
-    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
-      LargeLayout(state, onEvent)
-    }
+  when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+    is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
+    is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
   }
 }
 
 @Composable
-private fun CompactLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit) {
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
+  state: EnterAepState,
+  onEvent: (EnterAepEvents) -> Unit,
+  modifier: Modifier = Modifier
+) {
   val scrollState = rememberScrollState()
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
+  OnePaneRegistrationScaffold(
+    modifier = modifier.fillMaxSize(),
+    params = params,
+    content = { paddingValues ->
       Column(
         modifier = Modifier
           .fillMaxSize()
           .verticalScroll(scrollState)
-          .padding(horizontal = 24.dp),
+          .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Spacer(modifier = Modifier.height(40.dp))
         Description()
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.size(24.dp))
         RecoveryKeyTextField(state, onEvent)
       }
     },
@@ -122,68 +116,36 @@ private fun CompactLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Uni
 }
 
 @Composable
-private fun MediumLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit) {
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: EnterAepState,
+  onEvent: (EnterAepEvents) -> Unit,
+  modifier: Modifier = Modifier
+) {
   val scrollState = rememberScrollState()
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
-      Row(
+  TwoPaneRegistrationScaffold(
+    modifier = modifier.fillMaxSize(),
+    params = params,
+    firstPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
+          .fillMaxHeight()
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-          Description()
-        }
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-          RecoveryKeyTextField(state, onEvent)
-        }
+        Description()
       }
     },
-    footer = {
-      Row(
-        horizontalArrangement = Arrangement.End,
-        modifier = Modifier.fillMaxWidth().padding(16.dp)
-      ) {
-        NoRecoverKeyButton(onEvent)
-        Spacer(modifier = Modifier.size(24.dp))
-        NextButton(state, onEvent)
-      }
-    }
-  )
-}
-
-@Composable
-private fun LargeLayout(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit) {
-  val scrollState = rememberScrollState()
-  RegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
-    content = {
-      Row(
+    secondPane = { paddingValues ->
+      Column(
         modifier = Modifier
-          .fillMaxSize()
+          .weight(1f)
+          .fillMaxHeight()
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-
-          Description()
-        }
-        Column(
-          modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
-        ) {
-          Spacer(modifier = Modifier.height(40.dp))
-
-          RecoveryKeyTextField(state, onEvent)
-        }
+        RecoveryKeyTextField(state, onEvent)
       }
     },
     footer = {
@@ -207,7 +169,7 @@ private fun Description() {
     modifier = Modifier.fillMaxWidth()
   )
 
-  Spacer(modifier = Modifier.height(8.dp))
+  Spacer(modifier = Modifier.size(8.dp))
 
   Text(
     text = stringResource(R.string.EnterAepScreen__your_recovery_key_is_a_64_character_code),
