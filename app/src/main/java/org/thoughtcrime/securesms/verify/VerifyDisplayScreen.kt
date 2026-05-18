@@ -378,7 +378,7 @@ private fun YouMustFirstExchangeMessagesDialog(
   state.recipient ?: return
 
   val context = LocalContext.current
-  val recipientName = rememberRecipientField(state.recipient) { getDisplayName(context) }
+  val recipientName by rememberRecipientField(state.recipient) { getDisplayName(context) }
 
   Dialogs.SimpleMessageDialog(
     message = stringResource(R.string.VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view, recipientName),
