@@ -73,7 +73,7 @@ object AttachmentUtil {
     val contentType = attachment.contentType
 
     return when {
-      MediaUtil.isLongTextType(contentType) -> true
+      MediaUtil.isLongTextType(contentType) -> attachment.size <= MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES
       attachment.isSticker -> ciphertextSize <= SMALL_ATTACHMENT_SIZE || allowedForType(allowedTypes, "image", "sticker")
       attachment.voiceNote -> ciphertextSize <= SMALL_ATTACHMENT_SIZE || allowedForType(allowedTypes, "audio", "voice message")
       attachment.videoGif -> allowedForType(allowedTypes, "image", "video gif")

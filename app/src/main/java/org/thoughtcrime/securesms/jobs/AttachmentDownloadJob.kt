@@ -38,6 +38,8 @@ import org.thoughtcrime.securesms.notifications.v2.ConversationId.Companion.forC
 import org.thoughtcrime.securesms.s3.S3
 import org.thoughtcrime.securesms.transport.RetryLaterException
 import org.thoughtcrime.securesms.util.AttachmentUtil
+import org.thoughtcrime.securesms.util.MediaUtil
+import org.thoughtcrime.securesms.util.MessageUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream.IntegrityCheck
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
@@ -299,6 +301,10 @@ class AttachmentDownloadJob private constructor(
     try {
       if (attachment.size > maxReceiveSize) {
         throw MmsException("[$attachmentId] Attachment too large, failing download")
+      }
+
+      if (MediaUtil.isLongTextType(attachment.contentType) && attachment.size > MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES) {
+        throw InvalidAttachmentException("[$attachmentId] Long-text attachment exceeds ${MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES} byte cap, declared size: ${attachment.size}")
       }
 
       val pointer = createAttachmentPointer(attachment)

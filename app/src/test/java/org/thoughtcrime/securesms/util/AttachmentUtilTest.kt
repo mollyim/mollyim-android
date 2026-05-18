@@ -210,9 +210,15 @@ class AttachmentUtilTest {
   }
 
   @Test
-  fun `long text always permitted`() {
-    val attachment = attachment(contentType = "text/x-signal-plain")
+  fun `long text within 64 KiB cap permitted`() {
+    val attachment = attachment(size = MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES.toLong(), contentType = "text/x-signal-plain")
     assertTrue(AttachmentUtil.isAutoDownloadPermitted(context, attachment))
+  }
+
+  @Test
+  fun `long text exceeding 64 KiB cap rejected`() {
+    val attachment = attachment(size = MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES.toLong() + 1, contentType = "text/x-signal-plain")
+    assertFalse(AttachmentUtil.isAutoDownloadPermitted(context, attachment))
   }
 
   @Test
