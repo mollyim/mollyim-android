@@ -761,11 +761,14 @@ class ConversationFragment :
       split.second
     }
 
-    binding.conversationItemRecycler.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+    binding.conversationItemRecycler.addOnLayoutChangeListener { _, left, top, right, bottom, _, _, _, _ ->
       viewModel.onChatBoundsChanged(Rect(left, top, right, bottom))
     }
 
     binding.toolbar.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+      // Bug: ConstraintLayout's solver can transiently place the toolbar at a negative position during the very first layout, preventing future RV layouts
+      if (bottom < 0) return@addOnLayoutChangeListener
+
       binding.conversationItemRecycler.padding(top = bottom)
       if (bottom != oldBottom && ::conversationHeaderPositionDecoration.isInitialized) {
         val newMargin = bottom + 16.dp
