@@ -16,31 +16,19 @@
  */
 package org.thoughtcrime.securesms.jobs;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
-import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.PlayServicesProblemActivity;
-import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.gcm.FcmUtil;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.SignalNetwork;
-import org.thoughtcrime.securesms.notifications.NotificationChannels;
-import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.whispersystems.signalservice.api.NetworkResultUtil;
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
@@ -88,25 +76,26 @@ public class FcmRefreshJob extends BaseJob {
     int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
 
     if (result != ConnectionResult.SUCCESS) {
-      notifyFcmFailure();
-    } else {
-      Optional<String> token = FcmUtil.getToken(context);
+      Log.w(TAG, "Play Services are unavailable. Skipping FCM refresh.");
+      return;
+    }
 
-      if (token.isPresent()) {
-        String oldToken = SignalStore.account().getFcmToken();
+    Optional<String> token = FcmUtil.getToken(context);
 
-        if (!token.get().equals(oldToken)) {
-          int oldLength = oldToken != null ? oldToken.length() : -1;
-          Log.i(TAG, "Token changed. oldLength: " + oldLength + "  newLength: " + token.get().length());
-        } else {
-          Log.i(TAG, "Token didn't change.");
-        }
+    if (token.isPresent()) {
+      String oldToken = SignalStore.account().getFcmToken();
 
-        NetworkResultUtil.toBasicLegacy(SignalNetwork.account().setFcmToken(token.get()));
-        SignalStore.account().setFcmToken(token.get());
+      if (!token.get().equals(oldToken)) {
+        int oldLength = oldToken != null ? oldToken.length() : -1;
+        Log.i(TAG, "Token changed. oldLength: " + oldLength + "  newLength: " + token.get().length());
       } else {
-        throw new RetryLaterException(new IOException("Failed to retrieve a token."));
+        Log.i(TAG, "Token didn't change.");
       }
+
+      NetworkResultUtil.toBasicLegacy(SignalNetwork.account().setFcmToken(token.get()));
+      SignalStore.account().setFcmToken(token.get());
+    } else {
+      throw new RetryLaterException(new IOException("Failed to retrieve a token."));
     }
   }
 
@@ -119,24 +108,6 @@ public class FcmRefreshJob extends BaseJob {
   public boolean onShouldRetry(@NonNull Exception throwable) {
     if (throwable instanceof NonSuccessfulResponseCodeException) return false;
     return true;
-  }
-
-  private void notifyFcmFailure() {
-    Intent                     intent        = new Intent(context, PlayServicesProblemActivity.class);
-    PendingIntent              pendingIntent = PendingIntent.getActivity(context, 1122, intent, PendingIntentFlags.cancelCurrent());
-    NotificationCompat.Builder builder       = new NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES);
-
-    builder.setSmallIcon(R.drawable.ic_notification);
-    builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                                                      R.drawable.symbol_error_triangle_fill_32));
-    builder.setContentTitle(context.getString(R.string.GcmRefreshJob_Permanent_Signal_communication_failure));
-    builder.setContentText(context.getString(R.string.GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services));
-    builder.setTicker(context.getString(R.string.GcmRefreshJob_Permanent_Signal_communication_failure));
-    builder.setVibrate(new long[] {0, 1000});
-    builder.setContentIntent(pendingIntent);
-
-    ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE))
-        .notify(NotificationIds.FCM_FAILURE, builder.build());
   }
 
   public static final class Factory implements Job.Factory<FcmRefreshJob> {
