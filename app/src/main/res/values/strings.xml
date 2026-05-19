@@ -3114,6 +3114,10 @@
     <string name="SubmitDebugLogActivity_info" translatable="false">Info</string>
     <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string>
     <string name="SubmitDebugLogActivity_error" translatable="false">Error</string>
+    <!-- Title of dialog shown when debug log prefix generation is unusually slow -->
+    <string name="SubmitDebugLogActivity_slow_log_title" translatable="false">Slow log generation</string>
+    <!-- Body of dialog shown when debug log prefix generation is unusually slow. %1$d is duration in seconds. -->
+    <string name="SubmitDebugLogActivity_slow_log_message" translatable="false">Generating the debug log header took %1$d seconds. We should figure out what\'s slowing things down.</string>
 
     <!-- SupportEmailUtil -->
     <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string>

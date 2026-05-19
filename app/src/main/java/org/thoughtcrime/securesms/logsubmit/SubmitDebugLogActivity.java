@@ -354,6 +354,16 @@ public class SubmitDebugLogActivity extends BaseActivity {
   private void initViewModel() {
     viewModel.getMode().observe(this, this::presentMode);
     viewModel.getEvents().observe(this, this::presentEvents);
+    viewModel.getSlowPrefixWarning().observe(this, this::presentSlowPrefixWarning);
+  }
+
+  private void presentSlowPrefixWarning(@NonNull Long durationMillis) {
+    int durationSeconds = (int) Math.round(durationMillis / 1000.0);
+    new MaterialAlertDialogBuilder(this)
+        .setTitle(R.string.SubmitDebugLogActivity_slow_log_title)
+        .setMessage(getString(R.string.SubmitDebugLogActivity_slow_log_message, durationSeconds))
+        .setPositiveButton(android.R.string.ok, null)
+        .show();
   }
 
   private void subscribeToLogLines() {

@@ -373,18 +373,28 @@ public class SubmitDebugLogRepository {
 
     int maxTitleLength = SECTIONS.stream().reduce(0, (max, section) -> Math.max(max, section.getTitle().length()), Integer::sum);
 
-    List<LogLine> allLines = new ArrayList<>();
-
+    List<Future<List<LogLine>>> futures = new ArrayList<>(SECTIONS.size());
     for (LogSection section : SECTIONS) {
-      List<LogLine> lines = getLinesForSection(context, section, maxTitleLength);
+      futures.add(SignalExecutors.BOUNDED.submit(() -> getLinesForSection(context, section, maxTitleLength)));
+    }
 
-      if (SECTIONS.indexOf(section) != SECTIONS.size() - 1) {
-        for (int i = 0; i < SECTION_SPACING; i++) {
-          lines.add(SimpleLogLine.EMPTY);
-        }
+    List<LogLine> allLines = new ArrayList<>();
+    for (int i = 0; i < futures.size(); i++) {
+      List<LogLine> lines;
+      try {
+        lines = futures.get(i).get();
+      } catch (InterruptedException | ExecutionException e) {
+        Log.w(TAG, "Failed to read section " + SECTIONS.get(i).getTitle(), e);
+        lines = new ArrayList<>();
       }
 
       allLines.addAll(lines);
+
+      if (i != futures.size() - 1) {
+        for (int j = 0; j < SECTION_SPACING; j++) {
+          allLines.add(SimpleLogLine.EMPTY);
+        }
+      }
     }
 
     List<LogLine> withIds = new ArrayList<>(allLines.size());

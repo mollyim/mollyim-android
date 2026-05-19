@@ -674,6 +674,15 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** Whether to surface a warning dialog when debug log prefix generation exceeds a threshold. */
+  @JvmStatic
+  @get:JvmName("showSlowDebugLogWarning")
+  val showSlowDebugLogWarning: Boolean by remoteBoolean(
+    key = "android.showSlowDebugLogWarning",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
   /** How often we allow an automatic session reset.  */
   @JvmStatic
   @get:JvmName("automaticSessionResetIntervalSeconds")

@@ -3557,38 +3557,41 @@ class AttachmentTable(
     )
       .readToSingleLong(0)
 
-    val archiveStatusMediaNameCounts: Map<ArchiveTransferState, Long> = ArchiveTransferState.entries.associateWith { state ->
+    val archiveStatusMediaNameCounts: Map<ArchiveTransferState, Long> = ArchiveTransferState.entries.associateWith { 0L }.toMutableMap().apply {
       readableDatabase.query(
         """
-        SELECT COUNT(*) FROM (
-          SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY
+        SELECT $ARCHIVE_TRANSFER_STATE, COUNT(*) FROM (
+          SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY, $ARCHIVE_TRANSFER_STATE
           FROM $TABLE_NAME LEFT JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}
-          WHERE ${buildAttachmentsThatCanArchiveQuery(archiveTransferStateFilter = "$ARCHIVE_TRANSFER_STATE = ${state.value}")}
-        )
+          WHERE ${buildAttachmentsThatCanArchiveQuery(archiveTransferStateFilter = "1=1")}
+        ) GROUP BY $ARCHIVE_TRANSFER_STATE
         """
-      )
-        .readToSingleLong(0)
+      ).forEach { cursor ->
+        this[ArchiveTransferState.deserialize(cursor.getInt(0))] = cursor.getLong(1)
+      }
     }
 
     val uniqueEligibleMediaNamesWithThumbnailsCount =
       readableDatabase.query("SELECT COUNT(*) FROM (SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY FROM $TABLE_NAME WHERE $DATA_HASH_END NOT NULL AND $REMOTE_KEY NOT NULL AND $THUMBNAIL_FILE NOT NULL AND $QUOTE = 0 AND $MESSAGE_ID != $WALLPAPER_MESSAGE_ID)")
         .readToSingleLong(-1L)
-    val archiveStatusMediaNameThumbnailCounts: Map<ArchiveTransferState, Long> = ArchiveTransferState.entries.associateWith { state ->
+
+    val archiveStatusMediaNameThumbnailCounts: Map<ArchiveTransferState, Long> = ArchiveTransferState.entries.associateWith { 0L }.toMutableMap().apply {
       readableDatabase.query(
         """
-        SELECT COUNT(*) FROM (
-          SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY
+        SELECT $ARCHIVE_THUMBNAIL_TRANSFER_STATE, COUNT(*) FROM (
+          SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY, $ARCHIVE_THUMBNAIL_TRANSFER_STATE
           FROM $TABLE_NAME LEFT JOIN ${MessageTable.TABLE_NAME} ON $TABLE_NAME.$MESSAGE_ID = ${MessageTable.TABLE_NAME}.${MessageTable.ID}
-          WHERE 
-            ${buildAttachmentsThatCanArchiveQuery("$ARCHIVE_THUMBNAIL_TRANSFER_STATE = ${state.value}")} AND
+          WHERE
+            ${buildAttachmentsThatCanArchiveQuery("1=1")} AND
             $QUOTE = 0 AND
             ($CONTENT_TYPE LIKE 'image/%' OR $CONTENT_TYPE LIKE 'video/%') AND
             $CONTENT_TYPE != 'image/svg+xml' AND
             $MESSAGE_ID != $WALLPAPER_MESSAGE_ID
-        )
+        ) GROUP BY $ARCHIVE_THUMBNAIL_TRANSFER_STATE
         """
-      )
-        .readToSingleLong(0)
+      ).forEach { cursor ->
+        this[ArchiveTransferState.deserialize(cursor.getInt(0))] = cursor.getLong(1)
+      }
     }
 
     val pendingAttachmentUploadBytes = getPendingArchiveUploadBytes()
@@ -3599,9 +3602,9 @@ class AttachmentTable(
           FROM (
             SELECT DISTINCT $DATA_HASH_END, $REMOTE_KEY, $DATA_SIZE
             FROM $TABLE_NAME
-            WHERE 
-              $DATA_FILE NOT NULL AND 
-              $DATA_HASH_END NOT NULL AND 
+            WHERE
+              $DATA_FILE NOT NULL AND
+              $DATA_HASH_END NOT NULL AND
               $REMOTE_KEY NOT NULL AND
               $ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value}
           )
