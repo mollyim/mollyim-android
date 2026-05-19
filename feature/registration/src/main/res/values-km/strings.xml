@@ -279,29 +279,29 @@
     <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
     <string name="RemoteRestoreScreen__s_of_s_s">%1$s នៃ %2$s (%3$s)</string>
     <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
-    <string name="LinkActions_error_no_browser_found">ទំព័រវែបសាយរកមិនឃើញ.</string>
+    <string name="LinkActions_error_no_browser_found">រកមិនឃើញកម្មវិធីរុករកគេហទំព័រ។</string>
 
     <!-- Title for screen when your account is locked -->
-    <string name="AccountLockedScreen__account_locked">គណនីត្រូវបានចាក់សោរ</string>
+    <string name="AccountLockedScreen__account_locked">គណនីត្រូវបានចាក់សោ</string>
     <!-- Description for screen when account is locked -->
     <string name="AccountLockedScreen__your_account">គណនីរបស់អ្នកត្រូវបានចាក់សោ ដើម្បីការពារឯកជនភាព និងសុវត្ថិភាពរបស់អ្នក។ បន្ទាប់ពីមិនមានសកម្មភាពរយៈពេល %1$d ថ្ងៃនៅក្នុងគណនីរបស់អ្នក អ្នកនឹងអាចចុះឈ្មោះលេខទូរសព្ទនេះឡើងវិញ ដោយមិនចាំបាច់មានលេខកូដសម្ងាត់របស់អ្នកទេ។ ខ្លឹមសារទាំងអស់នឹងត្រូវលុបចោល។</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">នៅលើទូរសព្ទចាស់របស់អ្នក សូមបើក Signal</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">ចូលទៅកាន់ការកំណត់ &gt; ផ្ទេរគណនី</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">ស្គែនកូដ QR នេះ</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">កំពុងចុះឈ្មោះ…</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">មានបញ្ហាកើតឡើងអំឡុងពេលចុះឈ្មោះ</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">ស្គែនពីឧបករណ៍ចាស់</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">បានស្គែនកូដ QR</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">ព្យាយាមម្តងទៀត</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"មិនអាចបង្កើតកូដ QR បានទេ"</string>
 </resources>

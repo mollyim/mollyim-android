@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">プライバシーとセキュリティ保護のため、あなたのアカウントをロックしました。%1$d日間の休止後に、PINなしでこの電話番号を再登録できるようになります。メッセージ等はすべて消去されます。</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">以前利用していたスマートフォンでSignalを開いてください</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">「設定」&gt;「アカウントの移行」へ進みます</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">このQRコードをスキャンしてください</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">登録中…</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">登録中にエラーが発生しました</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">以前利用していた端末でスキャンしてください</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">QRコードをスキャンしました</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">再試行</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"QRコードを生成できませんでした"</string>
 </resources>

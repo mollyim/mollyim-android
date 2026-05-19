@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">आपकी प्राइवेसी और सुरक्षा कायम रखने के लिए आपका अकाउंट लॉक किया गया है। आपके अकाउंट में %1$d तक कोई गतिविधि न होने पर, आपको यह सुविधा मिलेगी कि आप बिना पिन के इस फ़ोन नंबर को दोबारा रजिस्टर कर सकें। सभी कॉन्टेंट डिलीट हो जाएगा।</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">अपने पुराने फ़ोन पर, Signal खोलें</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">सेटिंग &gt; अकाउंट ट्रांसफ़र करें पर जाएं</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">यह QR कोड स्कैन करें</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">रजिस्टर हो रहा है…</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">रजिस्ट्रेशन करते समय कोई गड़बड़ी हुई</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">पुराने डिवाइस से स्कैन करें</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">QR कोड स्कैन किया गया</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">दोबारा कोशिश करें</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"QR कोड जनरेट नहीं हो पाया"</string>
 </resources>

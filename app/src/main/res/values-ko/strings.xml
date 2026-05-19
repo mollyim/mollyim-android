@@ -2619,9 +2619,9 @@
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">취소</string>
     <!-- A clickable button to share your screen in a call -->
-    <string name="CallOverflowPopupWindow__share_screen">Share screen</string>
+    <string name="CallOverflowPopupWindow__share_screen">화면 공유</string>
     <!-- A clickable button to stop sharing your screen in a call -->
-    <string name="CallOverflowPopupWindow__stop_screen_share">공유 그만하기</string>
+    <string name="CallOverflowPopupWindow__stop_screen_share">공유 중단하기</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">보기</string>
 
@@ -2737,7 +2737,7 @@
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">스와이프하여 화면 공유 보기</string>
     <!-- Hint shown to teach the user they can swipe between the grid view and the active speaker view -->
-    <string name="CallToastPopupWindow__swipe_to_view_speaker">Swipe to view speaker</string>
+    <string name="CallToastPopupWindow__swipe_to_view_speaker">화면을 살짝 밀면 지금 말하는 사람을 확인할 수 있어요</string>
 
     <!-- ProxyBottomSheetFragment -->
     <string name="ProxyBottomSheetFragment_proxy_server">프록시 서버</string>
@@ -8060,9 +8060,9 @@
     <string name="UseNewOnDeviceBackups__not_now">나중에 하기</string>
 
     <!-- Title of a megaphone shown to prompt the user to open Signal on their primary device -->
-    <string name="InactivePrimary__title">휴대전화에서 Signal을 여세요.</string>
+    <string name="InactivePrimary__title">휴대전화에서 Signal을 열어주세요</string>
     <!-- Body of a megaphone shown to prompt the user to open Signal on their primary device -->
-    <string name="InactivePrimary__body">계정을 활성화 상태로 유지하려면 주요 기기에서 Signal을 여세요.</string>
+    <string name="InactivePrimary__body">계정을 활성화 상태로 유지하려면 내가 주로 사용하는 기기에서 Signal을 열어주세요.</string>
     <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will navigate to a support page -->
     <string name="InactivePrimary__learn_more">자세히 알아보기</string>
     <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will snooze the megaphone -->

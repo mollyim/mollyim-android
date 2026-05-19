@@ -282,26 +282,26 @@
     <string name="LinkActions_error_no_browser_found">Не е открит уеб браузър.</string>
 
     <!-- Title for screen when your account is locked -->
-    <string name="AccountLockedScreen__account_locked">Заключен профил</string>
+    <string name="AccountLockedScreen__account_locked">Заключен акаунт</string>
     <!-- Description for screen when account is locked -->
     <string name="AccountLockedScreen__your_account">Вашият акаунт е заключен, за да защити вашата поверителност и сигурност. След %1$d дни на неактивност във вашия акаунт ще можете да пререгистрирате този телефонен номер, без да се нуждаете от своя ПИН. Цялото съдържание ще бъде изтрито.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">Отворете Signal на стария си телефон</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">Отидете на „Настройки &gt; Прехвърляне на акаунт“</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">Сканирайте този QR код</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">Регистриране…</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">По време на регистрацията възникна грешка</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">Сканирайте от старото устройство</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">QR кодът е сканиран</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Опитайте отново</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"Неуспешно генериране на QR код"</string>
 </resources>

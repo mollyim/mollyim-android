@@ -284,24 +284,24 @@
     <!-- Title for screen when your account is locked -->
     <string name="AccountLockedScreen__account_locked">Conta bloqueada</string>
     <!-- Description for screen when account is locked -->
-    <string name="AccountLockedScreen__your_account">Sua conta foi bloqueada para proteger sua privacidade e segurança. Após %1$d dias de bloqueio, você poderá registrar novamente esse número de telefone com um novo PIN. Nesse caso, todo o conteúdo será apagado.</string>
+    <string name="AccountLockedScreen__your_account">Sua conta foi bloqueada para proteger sua privacidade e segurança. Após %1$d  dias de inatividade na sua conta, você poderá registrar novamente este número de telefone sem precisar do PIN. Todo o conteúdo será apagado. </string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">No seu telefone antigo, abra o Signal</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">Acesse Configurações &gt; Transferir conta</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">Escaneie este QR code</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">Registrando…</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">Ocorreu um erro durante o registro</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">Escanear de dispositivo antigo</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">QR code escaneado</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Tente novamente</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"Falha ao gerar o QR code"</string>
 </resources>

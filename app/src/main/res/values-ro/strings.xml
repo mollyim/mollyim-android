@@ -852,9 +852,9 @@
     </plurals>
     <string name="ConversationListFragment_deleting">Se șterge</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
-        <item quantity="one">Se șterge conversația selectată…</item>
-        <item quantity="few">Se șterg conversațiile selectate…</item>
-        <item quantity="other">Se șterg conversațiile selectate…</item>
+        <item quantity="one">Se șterge conversația selectată...</item>
+        <item quantity="few">Se șterg conversațiile selectate...</item>
+        <item quantity="other">Se șterg conversațiile selectate...</item>
     </plurals>
     <plurals name="ConversationListFragment_conversations_archived">
         <item quantity="one">Conversație arhivată</item>
@@ -2787,7 +2787,7 @@
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Anulează</string>
     <!-- A clickable button to share your screen in a call -->
-    <string name="CallOverflowPopupWindow__share_screen">Share screen</string>
+    <string name="CallOverflowPopupWindow__share_screen">Acordă acces la ecran</string>
     <!-- A clickable button to stop sharing your screen in a call -->
     <string name="CallOverflowPopupWindow__stop_screen_share">Oprește partajarea</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2925,7 +2925,7 @@
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Glisează pentru a vedea partajarea ecranului</string>
     <!-- Hint shown to teach the user they can swipe between the grid view and the active speaker view -->
-    <string name="CallToastPopupWindow__swipe_to_view_speaker">Swipe to view speaker</string>
+    <string name="CallToastPopupWindow__swipe_to_view_speaker">Glisează ca să vezi vorbitorul</string>
 
     <!-- ProxyBottomSheetFragment -->
     <string name="ProxyBottomSheetFragment_proxy_server">Server proxy</string>

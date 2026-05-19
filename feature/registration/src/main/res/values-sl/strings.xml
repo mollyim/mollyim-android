@@ -58,7 +58,7 @@
     <!-- Menu option to link this as a device -->
     <string name="RegistrationActivity_link_device">Poveži z napravo</string>
     <!-- Clickable text that opens a corresponding URL -->
-    <string name="RegistrationActivity_learn_more">Preberite več</string>
+    <string name="RegistrationActivity_learn_more">Več o tem</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -284,24 +284,24 @@
     <!-- Title for screen when your account is locked -->
     <string name="AccountLockedScreen__account_locked">Račun je zaklenjen</string>
     <!-- Description for screen when account is locked -->
-    <string name="AccountLockedScreen__your_account">Zaradi zaščite vaše varnosti in zasebnosti je bil vaš račun zaklenjen. Po %1$d dneh neaktivnosti računa se boste zopet lahko prijavili s to telefonsko številko brez vnosa PINa. Vsa vsebina bo izbrisana.</string>
+    <string name="AccountLockedScreen__your_account">Zaradi zaščite vaše varnosti in zasebnosti je bil vaš račun zaklenjen. Po %1$d dneh neaktivnosti računa se boste lahko spet prijavili s to telefonsko številko brez vnosa PIN-a. Vsa vsebina bo izbrisana.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">Odprite Signal v starem telefonu</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">Odprite Nastavitve &gt; Prenos računa</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">Skenirajte to kodo QR</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">Registracija …</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">Napaka se je pojavila med registracijo</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">Elektronska kopija iz stare naprave</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">Koda QR je skenirana</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Ponovno</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"Ni bilo mogoče ustvariti kode QR"</string>
 </resources>

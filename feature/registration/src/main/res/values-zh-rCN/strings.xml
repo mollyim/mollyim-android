@@ -282,26 +282,26 @@
     <string name="LinkActions_error_no_browser_found">未找到网页浏览器。</string>
 
     <!-- Title for screen when your account is locked -->
-    <string name="AccountLockedScreen__account_locked">帐户已锁定</string>
+    <string name="AccountLockedScreen__account_locked">账户已锁定</string>
     <!-- Description for screen when account is locked -->
-    <string name="AccountLockedScreen__your_account">你的账户已经锁定以保护你的安全及隐私。你的账户在 %1$d 天的不活跃之后，你可以在不需要密码的情况下用重新用手机号码注册。不过所有的数据都会被删除。</string>
+    <string name="AccountLockedScreen__your_account">为了保护您的隐私和安全，您的账户已被锁定。在您的账户处于非活动状态连续 %1$d 天后，您将无需密码即可重新注册此手机号码。不过所有数据将被删除。</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">On your old phone, open Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">在您的旧手机上打开 Signal</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Go to Settings &gt; Transfer account</string>
+    <string name="QuickRestoreQRScreen__step_2">前往设置 &gt; 转移账户</string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Scan this QR code</string>
+    <string name="QuickRestoreQRScreen__step_3">扫描此二维码</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Registering…</string>
+    <string name="QuickRestoreQRScreen__reregister">正在注册…</string>
     <!-- Error message text shown if registering fails -->
-    <string name="QuickRestoreQRScreen__error">An error occurred during registration</string>
+    <string name="QuickRestoreQRScreen__error">注册过程中发生错误</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Scan from old device</string>
+    <string name="QuickRestoreQRScreen__scan">使用旧设备扫描</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
-    <string name="QuickRestoreQRScreen__scanned">QR code scanned</string>
+    <string name="QuickRestoreQRScreen__scanned">二维码已扫描</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">重试</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Failed to generate QR code"</string>
+    <string name="QuickRestoreQRScreen__failed">"无法生成二维码"</string>
 </resources>
