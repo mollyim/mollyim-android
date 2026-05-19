@@ -236,8 +236,8 @@ private fun TitleAndSubtitle(inAppPayment: InAppPaymentTable.InAppPayment) {
   when (inAppPayment.type) {
     InAppPaymentType.UNKNOWN -> error("Unsupported type UNKNOWN")
     InAppPaymentType.ONE_TIME_GIFT -> OneTimeGiftTitleAndSubtitle(inAppPayment)
-    InAppPaymentType.ONE_TIME_DONATION -> RecurringDonationTitleAndSubtitle(inAppPayment)
-    InAppPaymentType.RECURRING_DONATION -> OneTimeDonationTitleAndSubtitle(inAppPayment)
+    InAppPaymentType.ONE_TIME_DONATION -> OneTimeDonationTitleAndSubtitle(inAppPayment)
+    InAppPaymentType.RECURRING_DONATION -> RecurringDonationTitleAndSubtitle(inAppPayment)
     InAppPaymentType.RECURRING_BACKUP -> error("This type is not supported")
   }
 }
