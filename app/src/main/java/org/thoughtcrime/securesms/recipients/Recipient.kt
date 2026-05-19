@@ -1063,7 +1063,7 @@ class Recipient(
       } else if (NumberUtil.isValidEmail(identifier)) {
         SignalDatabase.recipients.getOrInsertFromEmail(identifier)
       } else {
-        val e164 = SignalE164Util.formatAsE164(identifier) ?: return null
+        val e164 = SignalE164Util.formatNonShortCodeAsE164(identifier) ?: return null
         SignalDatabase.recipients.getOrInsertFromE164(e164)
       }
 
