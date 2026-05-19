@@ -43,6 +43,7 @@ import org.signal.core.util.toInt
 import org.signal.core.util.update
 import org.signal.core.util.updateAll
 import org.signal.core.util.withinTransaction
+import org.signal.libsignal.net.KeyTransparency
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.InvalidKeyException
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
@@ -67,6 +68,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase.Companion.runPostSucce
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.sessions
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.threads
 import org.thoughtcrime.securesms.database.model.DistributionListId
+import org.thoughtcrime.securesms.database.model.KeyTransparencyStore
 import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.database.model.ThreadRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BadgeList
@@ -77,6 +79,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.SessionSwitchove
 import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent
 import org.thoughtcrime.securesms.database.model.databaseprotos.Wallpaper
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.dependencies.KeyTransparencyApi
 import org.thoughtcrime.securesms.groups.BadGroupIdException
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.GroupId.V1
@@ -2330,6 +2333,9 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         .values(NEEDS_PNI_SIGNATURE to 0)
         .run()
 
+      Log.i(TAG, "Resetting KT data due to change number.")
+      KeyTransparencyApi.reset(aci = SignalStore.account.requireAci().libSignalAci, field = KeyTransparency.AccountDataField.E164, keyTransparencyStore = KeyTransparencyStore)
+
       SignalDatabase.pendingPniSignatureMessages.deleteAll()
 
       db.setTransactionSuccessful()
@@ -2362,6 +2368,11 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         AppDependencies.databaseObserver.notifyRecipientChanged(id)
         rotateStorageId(id)
         StorageSyncHelper.scheduleSyncForDataChange()
+      }
+
+      if (id == Recipient.self().id) {
+        Log.i(TAG, "Resetting KT data due to username change.")
+        KeyTransparencyApi.reset(aci = SignalStore.account.requireAci().libSignalAci, field = KeyTransparency.AccountDataField.USERNAME_HASH, keyTransparencyStore = KeyTransparencyStore)
       }
     }
   }
@@ -4099,6 +4110,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   }
 
   fun clearAllKeyTransparencyData() {
+    Log.i(TAG, "Clearing all key transparency data.")
     writableDatabase
       .update(TABLE_NAME)
       .values(KEY_TRANSPARENCY_DATA to null)
@@ -4107,6 +4119,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   }
 
   fun clearSelfKeyTransparencyData() {
+    Log.i(TAG, "Clearing self key transparency data.")
     writableDatabase
       .update(TABLE_NAME)
       .values(KEY_TRANSPARENCY_DATA to null)

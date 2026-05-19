@@ -566,6 +566,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public void setAutomaticVerificationEnabled(boolean enabled) {
+    Log.i(TAG, "Setting key transparency enabled to " + enabled);
     putBoolean(AUTOMATIC_VERIFICATION_ENABLED, enabled);
   }
 
