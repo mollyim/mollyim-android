@@ -56,7 +56,11 @@ public class CustomDns implements Dns {
 
   private static @NonNull Lookup doLookup(@NonNull String hostname) throws UnknownHostException {
     try {
-      return new Lookup(hostname);
+      Lookup lookup = new Lookup(hostname);
+      // Disable hosts file lookups to work around a race condition in dnsjava 3.6.4's that leads to an NPE.
+      // Android doesn't have a meaningful /etc/hosts anyway.
+      lookup.setHostsFileParser(null);
+      return lookup;
     } catch (Throwable e) {
       Log.w(TAG, e);
       throw new UnknownHostException();
