@@ -145,7 +145,6 @@ object RecipientTableCursorUtil {
       signalProfileAvatar = cursor.requireString(RecipientTable.PROFILE_AVATAR),
       profileAvatarFileDetails = AvatarHelper.getAvatarFileDetails(context, recipientId),
       profileSharing = cursor.requireBoolean(RecipientTable.PROFILE_SHARING),
-      lastProfileFetch = cursor.requireLong(RecipientTable.LAST_PROFILE_FETCH),
       notificationChannel = cursor.requireString(RecipientTable.NOTIFICATION_CHANNEL),
       sealedSenderAccessMode = RecipientTable.SealedSenderAccessMode.fromMode(cursor.requireInt(RecipientTable.SEALED_SENDER_MODE)),
       capabilities = readCapabilities(cursor),

@@ -105,7 +105,6 @@ class Recipient(
   val profileAvatarFileDetails: ProfileAvatarFileDetails = ProfileAvatarFileDetails.NO_DETAILS,
   val isProfileSharing: Boolean = false,
   val hiddenState: HiddenState = HiddenState.NOT_HIDDEN,
-  val lastProfileFetchTime: Long = 0,
   private val notificationChannelValue: String? = null,
   private val sealedSenderAccessModeValue: SealedSenderAccessMode = SealedSenderAccessMode.UNKNOWN,
   private val capabilities: RecipientRecord.Capabilities = RecipientRecord.Capabilities.UNKNOWN,

@@ -120,6 +120,7 @@ import java.util.LinkedList
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 import kotlin.math.max
+import kotlin.time.Duration
 
 open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTable(context, databaseHelper) {
 
@@ -760,6 +761,27 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     val remappedRecords = ids.filterNot { it in foundIds }.mapNotNull { findRemappedIdRecord(it) }
 
     return (foundRecords + remappedRecords).associateBy { it.id }
+  }
+
+  /**
+   * Returns recipient records eligible for a profile fetch.
+   * - Must have a service id (ACI or PNI)
+   * - Last profile fetch must be before [debounceThreshold] if non-null
+   */
+  fun getRecordsForProfileFetch(ids: Collection<RecipientId>, debounceThreshold: Duration?): List<RecipientRecord> {
+    if (ids.isEmpty()) {
+      return emptyList()
+    }
+
+    val prefix = "($ACI_COLUMN NOT NULL OR $PNI_COLUMN NOT NULL) ${if (debounceThreshold != null) " AND ($LAST_PROFILE_FETCH < ${debounceThreshold.inWholeMilliseconds}) AND " else ""}"
+    val idQuery = SqlUtil.buildFastCollectionQuery(ID, ids, prefix)
+
+    return readableDatabase
+      .select()
+      .from(TABLE_NAME)
+      .where(idQuery.where, idQuery.whereArgs)
+      .run()
+      .readToList { cursor -> RecipientTableCursorUtil.getRecord(context, cursor) }
   }
 
   fun getRecord(id: RecipientId): RecipientRecord {
@@ -2489,11 +2511,32 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
   fun markUnregistered(id: RecipientId) {
     val record = getRecord(id)
 
-    if (record.aci != null && record.pni != null) {
+    val needsSplit = record.aci != null && record.pni != null
+    if (record.registered == RegisteredState.NOT_REGISTERED && !needsSplit) {
+      return
+    }
+
+    if (needsSplit) {
       markUnregisteredAndSplit(id, record)
     } else {
       markUnregisteredWithoutSplit(id)
     }
+  }
+
+  fun markUnregistered(ids: Collection<RecipientId>) {
+    if (ids.isEmpty()) {
+      return
+    }
+
+    ids
+      .chunked(100)
+      .forEach { chunk ->
+        writableDatabase.withinTransaction {
+          for (id in chunk) {
+            markUnregistered(id)
+          }
+        }
+      }
   }
 
   /**
@@ -3773,13 +3816,19 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       }
     }
 
-    return Recipient.resolvedList(recipientsWithinInteractionThreshold)
-      .asSequence()
-      .filterNot { it.isSelf }
-      .filter { it.lastProfileFetchTime < lastProfileFetchThreshold }
-      .take(limit)
-      .map { it.id }
-      .toMutableList()
+    if (Recipient.isSelfSet) {
+      recipientsWithinInteractionThreshold.remove(Recipient.self().id)
+    }
+
+    val select = SqlUtil.buildFastCollectionQuery(ID, recipientsWithinInteractionThreshold, "$LAST_PROFILE_FETCH < $lastProfileFetchThreshold AND")
+
+    return readableDatabase
+      .select(ID)
+      .from(TABLE_NAME)
+      .where(select.where, select.whereArgs)
+      .limit(limit)
+      .run()
+      .readToList { RecipientId.from(it.requireLong(ID)) }
   }
 
   fun markProfilesFetched(ids: Collection<RecipientId>, time: Long) {
@@ -3789,11 +3838,6 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       SqlUtil.buildCollectionQuery(ID, ids).forEach { query ->
         db.update(TABLE_NAME, values, query.where, query.whereArgs)
       }
-    }
-
-    // Invalidate recipient cache so that updated timestamps are reflected
-    ids.forEach { id ->
-      AppDependencies.databaseObserver.notifyRecipientChanged(id)
     }
   }
 

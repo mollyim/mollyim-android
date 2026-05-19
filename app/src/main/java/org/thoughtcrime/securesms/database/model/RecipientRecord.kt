@@ -59,7 +59,6 @@ data class RecipientRecord(
   val profileAvatarFileDetails: ProfileAvatarFileDetails,
   @get:JvmName("isProfileSharing")
   val profileSharing: Boolean,
-  val lastProfileFetch: Long,
   val notificationChannel: String?,
   val sealedSenderAccessMode: SealedSenderAccessMode,
   val capabilities: Capabilities,
