@@ -524,6 +524,9 @@ android {
 androidComponents {
   beforeVariants { variant ->
     variant.enable = variant.name in selectableVariants
+    if (variant.enable) {
+      (variant as? com.android.build.api.variant.HasUnitTestBuilder)?.enableUnitTest = true
+    }
   }
   onVariants(selector().all()) { variant: com.android.build.api.variant.ApplicationVariant ->
     // Rename APK to include version name

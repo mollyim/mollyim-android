@@ -79,8 +79,8 @@ tasks.register("qa") {
 
 // Wire up QA dependencies after all projects are evaluated
 gradle.projectsEvaluated {
-  val appTestTask = tasks.findByPath(":Signal-Android:testPlayProdReleaseUnitTest")
-  val appLintTask = tasks.findByPath(":Signal-Android:lintPlayProdRelease")
+  val appTestTask = tasks.findByPath(":Signal-Android:testPlayProdReleaseUnitTest")!!
+  val appLintTask = tasks.findByPath(":Signal-Android:lintPlayProdRelease")!!
   val appCompileInstrumentationTask = tasks.findByPath(":Signal-Android:compilePlayProdInstrumentationAndroidTestSources")
 
   tasks.named("qa") {
@@ -89,8 +89,8 @@ gradle.projectsEvaluated {
     dependsOn("checkStopship")
 
     // Main app tasks
-    appTestTask?.let { dependsOn(it) }
-    appLintTask?.let { dependsOn(it) }
+    dependsOn(appTestTask)
+    dependsOn(appLintTask)
 
     // Instrumentation
     appCompileInstrumentationTask?.let { dependsOn(it) }
@@ -120,11 +120,11 @@ gradle.projectsEvaluated {
   // If you let all of these things run in parallel, gradle will likely OOM.
   // To avoid this, we put non-app tests and lints behind the much heavier app tests and lints.
   subprojects.filter { it.name != "Signal-Android" }.forEach { subproject ->
-    appTestTask?.let { task ->
+    appTestTask.let { task ->
       subproject.tasks.findByName("testDebugUnitTest")?.mustRunAfter(task)
       subproject.tasks.findByName("test")?.mustRunAfter(task)
     }
-    appLintTask?.let { task ->
+    appLintTask.let { task ->
       subproject.tasks.findByName("lintDebug")?.mustRunAfter(task)
     }
   }
