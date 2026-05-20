@@ -3,18 +3,35 @@ package org.thoughtcrime.securesms.conversation
 import android.app.Application
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
+import io.mockk.every
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.thoughtcrime.securesms.conversation.v2.items.V2ConversationItemUtils
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.UrlClickHandler
 
 @Suppress("ClassName")
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(application = Application::class)
 class ConversationItemTest_linkifyUrlLinks(private val input: String, private val expectedUrl: String) {
+
+  @Before
+  fun setup() {
+    mockkStatic(RemoteConfig::class)
+    every { RemoteConfig.useNewLinkifier } returns true
+  }
+
+  @After
+  fun tearDown() {
+    unmockkStatic(RemoteConfig::class)
+  }
 
   @Test
   fun test1() {
