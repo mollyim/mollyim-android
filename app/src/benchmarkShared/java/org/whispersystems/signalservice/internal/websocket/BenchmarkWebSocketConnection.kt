@@ -68,6 +68,18 @@ class BenchmarkWebSocketConnection : WebSocketConnection {
     fun addQueueEmptyMessage() {
       authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).forEach { it.addQueueEmptyMessage() }
     }
+
+    fun awaitAllMessagesConsumed(timeoutMs: Long): Boolean {
+      val deadline = System.currentTimeMillis() + timeoutMs
+      while (System.currentTimeMillis() < deadline) {
+        val activeInstances = synchronized(this) { authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).toList() }
+        if (activeInstances.isNotEmpty() && activeInstances.all { it.incomingRequests.isEmpty() && it.incomingSemaphore.availablePermits() == 0 }) {
+          return true
+        }
+        Thread.sleep(25)
+      }
+      return false
+    }
   }
 
   override val name: String = "bench-${System.identityHashCode(this)}"

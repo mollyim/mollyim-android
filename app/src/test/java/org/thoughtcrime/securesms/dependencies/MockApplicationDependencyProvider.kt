@@ -104,7 +104,11 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk(relaxed = true)
   }
 
-  override fun provideJobManager(): JobManager {
+  override fun provideJobManager(configurationBuilder: JobManager.Configuration.Builder): JobManager {
+    return mockk(relaxed = true)
+  }
+
+  override fun provideJobManagerConfigurationBuilder(): JobManager.Configuration.Builder {
     return mockk(relaxed = true)
   }
 

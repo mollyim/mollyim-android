@@ -132,7 +132,7 @@ object AppDependencies {
 
   @JvmStatic
   val jobManager: JobManager by lazy {
-    provider.provideJobManager()
+    provider.provideJobManager(provider.provideJobManagerConfigurationBuilder())
   }
 
   @JvmStatic
@@ -445,7 +445,8 @@ object AppDependencies {
     fun provideSignalServiceMessageReceiver(pushServiceSocket: PushServiceSocket): SignalServiceMessageReceiver
     fun provideSignalServiceNetworkAccess(): SignalServiceNetworkAccess
     fun provideRecipientCache(): LiveRecipientCache
-    fun provideJobManager(): JobManager
+    fun provideJobManager(configurationBuilder: JobManager.Configuration.Builder): JobManager
+    fun provideJobManagerConfigurationBuilder(): JobManager.Configuration.Builder
     fun provideFrameRateTracker(): FrameRateTracker
     fun provideMegaphoneRepository(): MegaphoneRepository
     fun provideEarlyMessageCache(): EarlyMessageCache

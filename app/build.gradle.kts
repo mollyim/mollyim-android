@@ -100,6 +100,9 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).conf
   if (!isTestTask && (name.contains("Mocked") || name.contains("Benchmark"))) {
     source("$projectDir/src/benchmarkShared/java")
   }
+  if (isTestTask && name.contains("AndroidTest")) {
+    source("$projectDir/src/benchmarkShared/java")
+  }
 }
 
 wire {
@@ -168,6 +171,7 @@ android {
 
     getByName("androidTest") {
       java.srcDir("$projectDir/src/testShared")
+      java.srcDir("$projectDir/src/benchmarkShared/java")
     }
   }
 
@@ -287,7 +291,11 @@ android {
       }
     }
 
-    testInstrumentationRunner = "org.thoughtcrime.securesms.testing.SignalTestRunner"
+    testInstrumentationRunner = if (project.hasProperty("imoTests")) {
+      "org.thoughtcrime.securesms.testing.incomingmessageobserver.IncomingMessageObserverTestRunner"
+    } else {
+      "org.thoughtcrime.securesms.testing.SignalTestRunner"
+    }
     testInstrumentationRunnerArguments["clearPackageData"] = "true"
   }
 
@@ -345,6 +353,7 @@ android {
 
       buildConfigField("String", "BUILD_VARIANT_TYPE", "\"Instrumentation\"")
       buildConfigField("String", "STRIPE_BASE_URL", "\"http://127.0.0.1:8080/stripe\"")
+      buildConfigField("String[]", "UNIDENTIFIED_SENDER_TRUST_ROOTS", "new String[]{ \"BVT/2gHqbrG1xzuIypLIOjFgMtihrMld1/5TGADL6Dhv\"}")
     }
 
     create("spinner") {

@@ -216,25 +216,28 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull JobManager provideJobManager() {
-    JobManager.Configuration config = new JobManager.Configuration.Builder()
-                                                                  .setJobFactories(JobManagerFactories.getJobFactories(context))
-                                                                  .setConstraintFactories(JobManagerFactories.getConstraintFactories(context))
-                                                                  .setConstraintObservers(JobManagerFactories.getConstraintObservers(context))
-                                                                  .setJobStorage(new FastJobStorage(JobDatabase.getInstance(context)))
-                                                                  .setJobMigrator(new JobMigrator(TextSecurePreferences.getJobManagerVersion(context), JobManager.CURRENT_VERSION, JobManagerFactories.getJobMigrations(context)))
-                                                                  .addReservedJobRunner(new FactoryJobPredicate(PushProcessMessageJob.KEY, MarkerJob.KEY))
-                                                                  .addReservedJobRunner(new FactoryJobPredicate(AttachmentUploadJob.KEY, AttachmentCompressionJob.KEY))
-                                                                  .addReservedJobRunner(new FactoryJobPredicate(
-                                                                      IndividualSendJob.KEY,
-                                                                      PushGroupSendJob.KEY,
-                                                                      ReactionSendJob.KEY,
-                                                                      TypingSendJob.KEY,
-                                                                      GroupCallUpdateSendJob.KEY,
-                                                                      SendDeliveryReceiptJob.KEY
-                                                                  ))
-                                                                  .build();
-    return new JobManager(context, config);
+  public @NonNull JobManager provideJobManager(@NonNull JobManager.Configuration.Builder configurationBuilder) {
+    return new JobManager(context, configurationBuilder.build());
+  }
+
+  @Override
+  public @NonNull JobManager.Configuration.Builder provideJobManagerConfigurationBuilder() {
+    return new JobManager.Configuration.Builder()
+                                       .setJobFactories(JobManagerFactories.getJobFactories(context))
+                                       .setConstraintFactories(JobManagerFactories.getConstraintFactories(context))
+                                       .setConstraintObservers(JobManagerFactories.getConstraintObservers(context))
+                                       .setJobStorage(new FastJobStorage(JobDatabase.getInstance(context)))
+                                       .setJobMigrator(new JobMigrator(TextSecurePreferences.getJobManagerVersion(context), JobManager.CURRENT_VERSION, JobManagerFactories.getJobMigrations(context)))
+                                       .addReservedJobRunner(new FactoryJobPredicate(PushProcessMessageJob.KEY, MarkerJob.KEY))
+                                       .addReservedJobRunner(new FactoryJobPredicate(AttachmentUploadJob.KEY, AttachmentCompressionJob.KEY))
+                                       .addReservedJobRunner(new FactoryJobPredicate(
+                                           IndividualSendJob.KEY,
+                                           PushGroupSendJob.KEY,
+                                           ReactionSendJob.KEY,
+                                           TypingSendJob.KEY,
+                                           GroupCallUpdateSendJob.KEY,
+                                           SendDeliveryReceiptJob.KEY
+                                       ));
   }
 
   @Override
