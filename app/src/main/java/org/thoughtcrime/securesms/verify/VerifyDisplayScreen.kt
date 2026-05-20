@@ -60,6 +60,7 @@ import org.thoughtcrime.securesms.components.verify.SafetyNumberQrView
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.rememberRecipientField
 import org.thoughtcrime.securesms.util.CommunicationActions
+import org.signal.core.ui.R as CoreUiR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,9 +76,9 @@ fun VerifyDisplayScreen(
   val displayName by rememberRecipientField(state.recipient) { getDisplayName(context) }
   val scrollState = rememberScrollState()
 
-  Scaffolds.Settings(
+  Scaffolds.Default(
     title = stringResource(R.string.AndroidManifest__verify_safety_number),
-    navigationIcon = SignalIcons.ArrowStart.imageVector,
+    navigationIconRes = CoreUiR.drawable.symbol_arrow_start_24,
     onNavigationClick = { backPressedDispatcher?.onBackPressed() }
   ) {
     Column(
@@ -153,7 +154,7 @@ fun VerifyDisplayScreen(
           },
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurfaceVariant,
-          modifier = Modifier.padding(vertical = 12.dp)
+          modifier = Modifier.padding(vertical = 12.dp, horizontal = 24.dp)
         )
       }
     }
