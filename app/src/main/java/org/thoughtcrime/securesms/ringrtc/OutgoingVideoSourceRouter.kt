@@ -19,7 +19,7 @@ import kotlin.concurrent.Volatile
 class OutgoingVideoSourceRouter(
   private val context: Context,
   private val eglBase: EglBaseWrapper,
-  cameraEventListener: CameraEventListener,
+  private val cameraEventListener: CameraEventListener,
   desiredCameraDirection: CameraState.Direction
 ) : CameraControl {
 
@@ -92,7 +92,12 @@ class OutgoingVideoSourceRouter(
     }
 
     if (screenShareCapturer == null) {
-      screenShareCapturer = ScreenShareCapturer(context, eglBase, ScreenSideObserver())
+      screenShareCapturer = ScreenShareCapturer(
+        context = context,
+        eglBase = eglBase,
+        sink = ScreenSideObserver(),
+        onMediaProjectionStopped = cameraEventListener::onScreenShareStopped
+      )
     }
 
     screenShareCapturer!!.start(mediaProjectionData)

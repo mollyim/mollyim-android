@@ -1099,6 +1099,11 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   @Override
+  public void onScreenShareStopped() {
+    stopScreenShare();
+  }
+
+  @Override
   public void onForeground() {
     process((s, p) -> {
       WebRtcViewModel.State          callState      = s.getCallInfoState().getCallState();

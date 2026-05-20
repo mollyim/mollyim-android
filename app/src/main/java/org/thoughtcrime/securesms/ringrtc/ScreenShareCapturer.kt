@@ -24,7 +24,8 @@ import kotlin.math.max
 class ScreenShareCapturer(
   private val context: Context,
   private val eglBase: EglBaseWrapper,
-  private val sink: CapturerObserver
+  private val sink: CapturerObserver,
+  private val onMediaProjectionStopped: () -> Unit
 ) {
 
   companion object {
@@ -70,6 +71,7 @@ class ScreenShareCapturer(
         object : MediaProjection.Callback() {
           override fun onStop() {
             Log.i(TAG, "MediaProjection stopped")
+            onMediaProjectionStopped()
           }
 
           override fun onCapturedContentResize(width: Int, height: Int) {
