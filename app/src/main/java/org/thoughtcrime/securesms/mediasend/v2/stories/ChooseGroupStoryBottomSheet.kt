@@ -103,8 +103,7 @@ class ChooseGroupStoryBottomSheet : FixedRoundedCornerBottomSheetDialogFragment(
             )
           )
         }
-      },
-      contentBottomPaddingDp = 44f
+      }
     )
 
     viewLifecycleOwner.lifecycleScope.launch {

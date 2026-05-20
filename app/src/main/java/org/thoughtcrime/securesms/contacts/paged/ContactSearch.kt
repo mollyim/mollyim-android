@@ -9,36 +9,39 @@ import android.content.Context
 import android.view.View
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.collections.immutable.persistentHashMapOf
 import org.signal.core.ui.compose.DayNightPreviews
+import org.signal.core.ui.compose.FastScrollerState
+import org.signal.core.ui.compose.LazyColumnFastScroller
+import org.signal.core.ui.compose.LocalFragmentManager
 import org.signal.core.ui.compose.Previews
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.contacts.paged.ContactSearchView.RecyclerViewReadyCallback
+import org.thoughtcrime.securesms.components.emoji.Emojifier
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.stories.settings.custom.PrivateStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.my.MyStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.privacy.ChooseInitialMyStoryMembershipBottomSheetDialogFragment
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter
+import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingEntryProvider
+import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingLazyColumn
+import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingLazyListController
+import org.thoughtcrime.securesms.util.adapter.mapping.compose.rememberMappingEntryProvider
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -50,26 +53,16 @@ import org.signal.core.ui.R as CoreUiR
  * 2. Via [ContactSearchView] in XML/View-based layouts — [ContactSearchView] creates the ViewModel
  *    and delegates its `Content()` to this function.
  *
- * The [PagingMappingAdapter] is created internally via `remember` and re-created if
- * [displayOptions] or [adapterFactory] change.
- *
  * @param viewModel               Drives the list — managed by the caller.
  * @param mapStateToConfiguration Maps the current [ContactSearchState] to the active
  *                                [ContactSearchConfiguration], re-evaluated whenever state changes.
  * @param modifier                Modifier applied to the composable root.
  * @param displayOptions          Controls checkbox and secondary-info visibility.
  * @param callbacks               Hooks for filtering and reacting to selection changes.
- * @param storyFragmentManager    [FragmentManager] used to show story-related dialogs.
- *                                Pass `null` to disable story context menus and dialogs.
  * @param onListCommitted         Called after each list commit with the committed item count.
- * @param itemDecorations         [RecyclerView.ItemDecoration]s added to the internal list.
- * @param contentBottomPadding    Extra bottom padding so last items scroll above overlaid UI.
- *                                Automatically disables `clipToPadding` when non-zero.
- * @param adapterFactory          Factory for the adapter — swap for custom adapters (e.g.
- *                                [ContactSelectionListAdapter]).
- * @param scrollListeners         [RecyclerView.OnScrollListener]s attached to the inner list.
- * @param onRecyclerViewReady     Called once with the inner [RecyclerView] after first composition.
- *                                Useful for attaching fast-scrollers or custom item animators.
+ * @param additionalEntries       Extra [MappingEntryProvider] entries layered on top of the base
+ *                                set from [ContactSearchModels.composeEntries]. The base set is
+ *                                always applied; on key collisions the base entry wins.
  */
 @Composable
 fun ContactSearch(
@@ -77,99 +70,151 @@ fun ContactSearch(
   mapStateToConfiguration: (ContactSearchState) -> ContactSearchConfiguration,
   modifier: Modifier = Modifier,
   displayOptions: ContactSearchAdapter.DisplayOptions = ContactSearchAdapter.DisplayOptions(),
-  callbacks: ContactSearchCallbacks = remember { ContactSearchCallbacks.Simple() },
-  storyFragmentManager: FragmentManager? = null,
   onListCommitted: (Int) -> Unit = {},
-  itemDecorations: List<RecyclerView.ItemDecoration> = emptyList(),
-  contentBottomPadding: Dp = 0.dp,
-  adapterFactory: ContactSearchAdapter.AdapterFactory = ContactSearchAdapter.DefaultAdapterFactory,
-  scrollListeners: List<RecyclerView.OnScrollListener> = emptyList(),
-  onRecyclerViewReady: RecyclerViewReadyCallback? = null
+  additionalEntries: MappingEntryProvider<Any> = persistentHashMapOf(),
+  lazyListState: LazyListState = rememberLazyListState(),
+  callbacks: ContactSearchCallbacks = remember { ContactSearchCallbacks.Simple() },
+  clickCallbacks: ContactSearchAdapter.ClickCallbacks = rememberDefaultContactSearchItemClickCallbacks(viewModel, callbacks),
+  longClickCallbacks: ContactSearchAdapter.LongClickCallbacks = rememberDefaultContactSearchItemLongClickCallbacks(),
+  storyContextMenuCallbacks: ContactSearchAdapter.StoryContextMenuCallbacks = rememberDefaultContactSearchItemStoryContextMenuCallbacks(viewModel),
+  callButtonClickCallbacks: ContactSearchAdapter.CallButtonClickCallbacks = rememberDefaultContactSearchItemCallButtonClickCallbacks()
 ) {
   val mappingModels by viewModel.mappingModels.collectAsStateWithLifecycle()
   val controller by viewModel.controller.collectAsStateWithLifecycle()
   val configState by viewModel.configurationState.collectAsStateWithLifecycle()
+  val totalCount by viewModel.totalCount.collectAsStateWithLifecycle()
+  val fastScrollerEnabled by viewModel.fastScrollerEnabled.collectAsStateWithLifecycle()
+  val isDisplayingContextMenu by viewModel.isDisplayingContextMenu.collectAsStateWithLifecycle()
 
   val currentMapStateToConfiguration by rememberUpdatedState(mapStateToConfiguration)
   val currentOnListCommitted by rememberUpdatedState(onListCommitted)
-  // Held as State references (not delegated) so click-callback lambdas captured inside
-  // remember() always read the latest value without recreating the adapter.
-  val currentCallbacks = rememberUpdatedState(callbacks)
-  val currentStoryFragmentManager = rememberUpdatedState(storyFragmentManager)
-
-  val context = LocalContext.current
-  val contextState = rememberUpdatedState(context)
-
-  val adapter = remember(viewModel.fixedContacts, displayOptions, adapterFactory) {
-    adapterFactory.create(
-      context = context,
-      fixedContacts = viewModel.fixedContacts,
-      displayOptions = displayOptions,
-      callbacks = DefaultClickCallbacks(viewModel, currentCallbacks, currentStoryFragmentManager),
-      longClickCallbacks = ContactSearchAdapter.LongClickCallbacksAdapter(),
-      storyContextMenuCallbacks = DefaultStoryContextMenuCallbacks(viewModel, currentStoryFragmentManager, contextState),
-      callButtonClickCallbacks = ContactSearchAdapter.EmptyCallButtonClickCallbacks
-    )
-  }
-
-  LaunchedEffect(mappingModels) {
-    adapter.submitList(mappingModels) {
-      currentOnListCommitted(mappingModels.size)
-    }
-  }
-
-  LaunchedEffect(controller) {
-    controller?.let { adapter.setPagingController(it) }
-  }
 
   LaunchedEffect(configState) {
     viewModel.setConfiguration(currentMapStateToConfiguration(configState))
   }
 
-  val recyclerView = remember(context) {
-    RecyclerView(context).apply {
-      layoutManager = LinearLayoutManager(context)
+  LaunchedEffect(lazyListState) {
+    viewModel.scrollRequests.collect {
+      lazyListState.requestScrollToItem(0)
     }
   }
 
-  DisposableEffect(recyclerView, itemDecorations) {
-    itemDecorations.forEach { recyclerView.addItemDecoration(it) }
-    onDispose {
-      itemDecorations.forEach { recyclerView.removeItemDecoration(it) }
-    }
-  }
-
-  DisposableEffect(recyclerView, scrollListeners) {
-    scrollListeners.forEach { recyclerView.addOnScrollListener(it) }
-    onDispose {
-      scrollListeners.forEach { recyclerView.removeOnScrollListener(it) }
-    }
-  }
-
-  val bottomPaddingPx = with(LocalDensity.current) { contentBottomPadding.roundToPx() }
-
-  LaunchedEffect(recyclerView) {
-    onRecyclerViewReady?.onRecyclerViewReady(recyclerView)
-  }
-
-  AndroidView(
-    factory = { recyclerView },
-    update = { rv ->
-      if (rv.adapter !== adapter) {
-        rv.adapter = adapter
-      }
-      rv.setPadding(0, 0, 0, bottomPaddingPx)
-      rv.clipToPadding = bottomPaddingPx == 0
-      rv.clipChildren = bottomPaddingPx == 0
-    },
-    modifier = modifier.fillMaxSize()
+  val baseProvider = rememberContactSearchMappingEntryProvider(
+    fixedContacts = viewModel.fixedContacts,
+    displayOptions = displayOptions,
+    callbacks = clickCallbacks,
+    longClickCallbacks = longClickCallbacks,
+    storyContextMenuCallbacks = storyContextMenuCallbacks,
+    callButtonClickCallbacks = callButtonClickCallbacks
   )
+
+  val provider = remember(baseProvider, additionalEntries) {
+    additionalEntries.putAll(baseProvider)
+  }
+
+  val mappingCtrl = remember {
+    MappingLazyListController(
+      entryProvider = provider
+    )
+  }
+
+  LaunchedEffect(controller) {
+    controller?.run {
+      mappingCtrl.pagingController = this
+    }
+  }
+
+  LaunchedEffect(mappingModels) {
+    mappingCtrl.items = mappingModels
+    currentOnListCommitted(mappingModels.size)
+  }
+
+  val fastScrollerState = remember(mappingModels, totalCount) {
+    FastScrollerState(items = mappingModels, totalCount = totalCount)
+  }
+
+  LazyColumnFastScroller(
+    enabled = fastScrollerEnabled,
+    userScrollEnabled = !isDisplayingContextMenu,
+    fastScrollerState = fastScrollerState,
+    lazyListState = lazyListState,
+    modifier = modifier.fillMaxSize(),
+    letterContent = {
+      Emojifier(text = it.toString()) { annotatedText, inlineContent ->
+        Text(
+          text = annotatedText,
+          inlineContent = inlineContent,
+          style = MaterialTheme.typography.headlineLarge,
+          color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+      }
+    }
+  ) {
+    MappingLazyColumn(
+      userScrollEnabled = !isDisplayingContextMenu,
+      controller = mappingCtrl,
+      lazyListState = it,
+      modifier = Modifier.fillMaxSize()
+    )
+  }
+}
+
+@Composable
+private fun rememberContactSearchMappingEntryProvider(
+  fixedContacts: Set<ContactSearchKey>,
+  displayOptions: ContactSearchAdapter.DisplayOptions,
+  callbacks: ContactSearchAdapter.ClickCallbacks,
+  longClickCallbacks: ContactSearchAdapter.LongClickCallbacks,
+  storyContextMenuCallbacks: ContactSearchAdapter.StoryContextMenuCallbacks?,
+  callButtonClickCallbacks: ContactSearchAdapter.CallButtonClickCallbacks
+): MappingEntryProvider<Any> {
+  return rememberMappingEntryProvider {
+    // Subclass-registered models (Message, Thread, Empty, GroupWithMembers) and
+    // ArbitraryRepository-backed models are handled separately.
+    provider<Any>(
+      ContactSearchModels.composeEntries(
+        fixedContacts = fixedContacts,
+        displayOptions = displayOptions,
+        callbacks = callbacks,
+        longClickCallbacks = longClickCallbacks,
+        storyContextMenuCallbacks = storyContextMenuCallbacks,
+        callButtonClickCallbacks = callButtonClickCallbacks
+      )
+    )
+  }
+}
+
+@Composable
+fun rememberDefaultContactSearchItemClickCallbacks(viewModel: ContactSearchViewModel, callbacks: ContactSearchCallbacks): ContactSearchAdapter.ClickCallbacks {
+  val fragmentManager = LocalFragmentManager.current
+
+  return remember(callbacks) {
+    DefaultClickCallbacks(viewModel, callbacks, fragmentManager)
+  }
+}
+
+@Composable
+fun rememberDefaultContactSearchItemLongClickCallbacks(): ContactSearchAdapter.LongClickCallbacks {
+  return remember { ContactSearchAdapter.LongClickCallbacksAdapter() }
+}
+
+@Composable
+fun rememberDefaultContactSearchItemStoryContextMenuCallbacks(viewModel: ContactSearchViewModel): ContactSearchAdapter.StoryContextMenuCallbacks {
+  val context = LocalContext.current
+  val fragmentManager = LocalFragmentManager.current
+
+  return remember { DefaultStoryContextMenuCallbacks(viewModel, fragmentManager, context) }
+}
+
+@Composable
+fun rememberDefaultContactSearchItemCallButtonClickCallbacks(): ContactSearchAdapter.CallButtonClickCallbacks {
+  return remember { ContactSearchAdapter.EmptyCallButtonClickCallbacks }
 }
 
 private class DefaultClickCallbacks(
   private val viewModel: ContactSearchViewModel,
-  private val callbacks: State<ContactSearchCallbacks>,
-  private val fragmentManager: State<FragmentManager?>
+  private val callbacks: ContactSearchCallbacks,
+  private val fragmentManager: FragmentManager?
 ) : ContactSearchAdapter.ClickCallbacks {
 
   companion object {
@@ -179,7 +224,7 @@ private class DefaultClickCallbacks(
   override fun onStoryClicked(view: View, story: ContactSearchData.Story, isSelected: Boolean) {
     Log.d(TAG, "onStoryClicked()")
     if (story.recipient.isMyStory && !SignalStore.story.userHasBeenNotifiedAboutStories) {
-      fragmentManager.value?.let { ChooseInitialMyStoryMembershipBottomSheetDialogFragment.show(it) }
+      fragmentManager?.let { ChooseInitialMyStoryMembershipBottomSheetDialogFragment.show(it) }
     } else {
       toggle(view, story, isSelected)
     }
@@ -200,30 +245,30 @@ private class DefaultClickCallbacks(
     if (isSelected) {
       viewModel.setKeysNotSelected(setOf(chatTypeRow.contactSearchKey))
     } else {
-      viewModel.setKeysSelected(callbacks.value.onBeforeContactsSelected(view, setOf(chatTypeRow.contactSearchKey)))
+      viewModel.setKeysSelected(callbacks.onBeforeContactsSelected(view, setOf(chatTypeRow.contactSearchKey)))
     }
   }
 
   private fun toggle(view: View, data: ContactSearchData, isSelected: Boolean) {
     if (isSelected) {
       Log.d(TAG, "toggle(OFF) ${data.contactSearchKey}")
-      callbacks.value.onContactDeselected(view, data.contactSearchKey)
+      callbacks.onContactDeselected(view, data.contactSearchKey)
       viewModel.setKeysNotSelected(setOf(data.contactSearchKey))
     } else {
       Log.d(TAG, "toggle(ON) ${data.contactSearchKey}")
-      viewModel.setKeysSelected(callbacks.value.onBeforeContactsSelected(view, setOf(data.contactSearchKey)))
+      viewModel.setKeysSelected(callbacks.onBeforeContactsSelected(view, setOf(data.contactSearchKey)))
     }
   }
 }
 
 private class DefaultStoryContextMenuCallbacks(
   private val viewModel: ContactSearchViewModel,
-  private val fragmentManager: State<FragmentManager?>,
-  private val context: State<Context>
+  private val fragmentManager: FragmentManager?,
+  private val context: Context
 ) : ContactSearchAdapter.StoryContextMenuCallbacks {
 
   override fun onOpenStorySettings(story: ContactSearchData.Story) {
-    val fm = fragmentManager.value ?: return
+    val fm = fragmentManager ?: return
     if (story.recipient.isMyStory) {
       MyStorySettingsFragment.createAsDialog().show(fm, null)
     } else {
@@ -232,8 +277,8 @@ private class DefaultStoryContextMenuCallbacks(
   }
 
   override fun onRemoveGroupStory(story: ContactSearchData.Story, isSelected: Boolean) {
-    fragmentManager.value ?: return
-    MaterialAlertDialogBuilder(context.value)
+    fragmentManager ?: return
+    MaterialAlertDialogBuilder(context)
       .setTitle(R.string.ContactSearchMediator__remove_group_story)
       .setMessage(R.string.ContactSearchMediator__this_will_remove)
       .setPositiveButton(R.string.ContactSearchMediator__remove) { _, _ -> viewModel.removeGroupStory(story) }
@@ -242,8 +287,8 @@ private class DefaultStoryContextMenuCallbacks(
   }
 
   override fun onDeletePrivateStory(story: ContactSearchData.Story, isSelected: Boolean) {
-    fragmentManager.value ?: return
-    val ctx = context.value
+    fragmentManager ?: return
+    val ctx = context
     MaterialAlertDialogBuilder(ctx)
       .setTitle(R.string.ContactSearchMediator__delete_story)
       .setMessage(ctx.getString(R.string.ContactSearchMediator__delete_the_custom, story.recipient.getDisplayName(ctx)))

@@ -13,7 +13,9 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.subjects.PublishSubject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -82,6 +84,13 @@ class ContactSearchViewModel(
   private val internalSelectedContacts = MutableStateFlow<Set<ContactSearchKey>>(emptySet())
   private val errorEvents = PublishSubject.create<ContactSearchError>()
   private val rawQuery = MutableStateFlow<String?>(savedStateHandle[QUERY])
+  private val internalFastScrollerEnabled = MutableStateFlow(false)
+  private val internalDisplayingContextMenu = MutableStateFlow(false)
+  private val internalScrollRequests = MutableSharedFlow<ScrollRequest>(extraBufferCapacity = 1)
+
+  val fastScrollerEnabled: StateFlow<Boolean> = internalFastScrollerEnabled
+  val isDisplayingContextMenu: StateFlow<Boolean> = internalDisplayingContextMenu
+  val scrollRequests: SharedFlow<ScrollRequest> = internalScrollRequests
 
   init {
     viewModelScope.launch {
@@ -110,13 +119,28 @@ class ContactSearchViewModel(
 
   /** Adapter-ready models combining [data] with [selectionState]. Suitable for direct submission to a [ContactSearchAdapter]. */
   val mappingModels: StateFlow<MappingModelList> = combine(data, selectionState) { contactData, selection ->
-    ContactSearchAdapter.toMappingModelList(contactData, selection, arbitraryRepository)
+    ContactSearchModels.toMappingModelList(contactData, selection, arbitraryRepository)
   }.stateIn(viewModelScope, SharingStarted.Eagerly, MappingModelList())
 
   val errorEventsStream: Observable<ContactSearchError> = errorEvents
 
+  val internalTotalCount = MutableStateFlow(0)
+  val totalCount: StateFlow<Int> = internalTotalCount
+
   override fun onCleared() {
     disposables.clear()
+  }
+
+  fun setFastScrollEnabled(enabled: Boolean) {
+    internalFastScrollerEnabled.update { enabled }
+  }
+
+  fun setDisplayingContextMenu(isDisplayingContextMenu: Boolean) {
+    internalDisplayingContextMenu.update { isDisplayingContextMenu }
+  }
+
+  fun requestScrollPosition(position: Int) {
+    internalScrollRequests.tryEmit(ScrollRequest(position))
   }
 
   fun setConfiguration(contactSearchConfiguration: ContactSearchConfiguration) {
@@ -126,6 +150,7 @@ class ContactSearchViewModel(
       searchRepository = searchRepository,
       contactSearchPagedDataSourceRepository = contactSearchPagedDataSourceRepository
     )
+    internalTotalCount.value = pagedDataSource.size()
     pagedData.value = PagedData.createForStateFlow(pagedDataSource, pagingConfig)
   }
 
@@ -226,6 +251,8 @@ class ContactSearchViewModel(
   fun refresh() {
     controller.value?.onDataInvalidated()
   }
+
+  data class ScrollRequest(val position: Int)
 
   class Factory(
     private val selectionLimits: SelectionLimits,

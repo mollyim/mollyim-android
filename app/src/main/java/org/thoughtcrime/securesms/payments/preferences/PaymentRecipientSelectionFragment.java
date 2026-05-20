@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 
-public class PaymentRecipientSelectionFragment extends LoggingFragment implements ContactSelectionListFragment.OnContactSelectedListener, ContactSelectionListFragment.ScrollCallback {
+public class PaymentRecipientSelectionFragment extends LoggingFragment implements ContactSelectionListFragment.OnContactSelectedListener {
 
   private Toolbar                      toolbar;
   private ContactFilterView            contactFilterView;
@@ -88,11 +88,6 @@ public class PaymentRecipientSelectionFragment extends LoggingFragment implement
 
   @Override
   public void onSelectionChanged() {
-  }
-
-  @Override
-  public void onBeginScroll() {
-    hideKeyboard();
   }
 
   private void hideKeyboard() {

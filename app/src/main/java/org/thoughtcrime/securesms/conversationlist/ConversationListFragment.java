@@ -642,8 +642,8 @@ public class ConversationListFragment extends MainFragment implements Conversati
         } else {
           builder.arbitrary(
               conversationFilterRequest.getSource() == ConversationFilterSource.DRAG
-              ? ConversationListSearchAdapter.ChatFilterOptions.WITHOUT_TIP.getCode()
-              : ConversationListSearchAdapter.ChatFilterOptions.WITH_TIP.getCode()
+              ? ConversationListSearchModels.ChatFilterOptions.WITHOUT_TIP.getCode()
+              : ConversationListSearchModels.ChatFilterOptions.WITH_TIP.getCode()
           );
         }
 

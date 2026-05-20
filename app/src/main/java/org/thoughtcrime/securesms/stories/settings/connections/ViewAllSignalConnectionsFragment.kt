@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.WrapperDialogFragment
-import org.thoughtcrime.securesms.contacts.LetterHeaderDecoration
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchAdapter
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchConfiguration
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchPagedDataSourceRepository
@@ -47,8 +46,7 @@ class ViewAllSignalConnectionsFragment : Fragment(R.layout.view_all_signal_conne
         displayCheckBox = false,
         displaySecondaryInformation = ContactSearchAdapter.DisplaySecondaryInformation.NEVER
       ),
-      mapStateToConfiguration = { getConfiguration() },
-      itemDecorations = listOf(LetterHeaderDecoration(requireContext()) { false })
+      mapStateToConfiguration = { getConfiguration() }
     )
   }
 

@@ -157,8 +157,7 @@ class MultiselectForwardFragment :
           Log.d(TAG, "onBeforeContactsSelected() Attempting to select: ${contactSearchKeys.map { it.toString() }}, Filtered selection: ${filtered.map { it.toString() } }")
           return filtered
         }
-      },
-      contentBottomPaddingDp = 44f
+      }
     )
 
     callback = findListener()!!

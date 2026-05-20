@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,13 +51,15 @@ typealias MappingEntryProvider<T> = PersistentMap<Class<out T>, MappingEntry<out
 @Composable
 fun <T : Any> MappingLazyColumn(
   controller: MappingLazyListController<T>,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  lazyListState: LazyListState = rememberLazyListState(),
+  userScrollEnabled: Boolean = true
 ) {
-  val lazyListState = rememberLazyListState()
   val items = controller.items
 
   LazyColumn(
     state = lazyListState,
+    userScrollEnabled = userScrollEnabled,
     modifier = modifier
   ) {
     insertProvidedItems(items, controller.entryProvider, controller.placeholder)
@@ -68,9 +71,9 @@ fun <T : Any> MappingLazyColumn(
 @Composable
 fun <T : Any> MappingLazyRow(
   controller: MappingLazyListController<T>,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  lazyListState: LazyListState = rememberLazyListState()
 ) {
-  val lazyListState = rememberLazyListState()
   val items = controller.items
 
   LazyRow(
@@ -97,7 +100,7 @@ private fun <T : Any> LazyListScope.insertProvidedItems(
       } else {
         @Suppress("UNCHECKED_CAST")
         val entry = provider[model.javaClass] as MappingEntry<T>
-        entry.key?.invoke(model) ?: index
+        entry.key?.invoke(model) ?: model.javaClass
       }
     }
   ) { _, model ->
@@ -178,6 +181,10 @@ class MappingEntryProviderBuilder<T : Any> {
     map[R::class.java] = MappingEntry(key = key) { model -> content(model) }
   }
 
+  inline fun <reified R : T> provider(entryProvider: MappingEntryProvider<R>) {
+    map.putAll(entryProvider)
+  }
+
   inline fun <reified R : T> viewHolder(noinline key: ((R) -> Any)? = null, crossinline createViewHolder: (Context) -> MappingViewHolder<R>) {
     entry<R>(key = key, content = { model ->
       var viewHolder: MappingViewHolder<R>? by remember { mutableStateOf(null) }
@@ -206,12 +213,13 @@ class MappingLazyListController<T : Any>(
   val placeholder: @Composable () -> Unit = { Spacer(Modifier.height(100.dp)) }
 ) {
 
-  private var proxyController = ProxyPagingController<T>()
+  private val proxyController = ProxyPagingController<Any>()
 
-  var pagingController: PagingController<T>
+  var pagingController: PagingController<*>
     get() = proxyController
     set(value) {
-      proxyController.set(value)
+      @Suppress("UNCHECKED_CAST")
+      proxyController.set(value as PagingController<Any>)
     }
 
   var items: List<T?> by mutableStateOf(emptyList())
