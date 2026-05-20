@@ -287,6 +287,8 @@ object SyncMessageProcessor {
         log(envelope.clientTimestamp!!, "Got a sent transcript while in reCAPTCHA mode. Assuming we're good to message again.")
         RateLimitUtil.retryAllRateLimitedMessages(context)
       }
+
+      SignalStore.misc.lastSyncMessageSeenTimeMs = System.currentTimeMillis()
     } catch (e: MmsException) {
       throw StorageFailedException(e, metadata.sourceServiceId.toString(), metadata.sourceDeviceId)
     }
@@ -1010,6 +1012,8 @@ object SyncMessageProcessor {
       PushProcessEarlyMessagesJob.enqueue()
     }
 
+    SignalStore.misc.lastSyncMessageSeenTimeMs = System.currentTimeMillis()
+
     AppDependencies
       .messageNotifier
       .apply {
@@ -1045,6 +1049,8 @@ object SyncMessageProcessor {
     SignalDatabase.messages.setIncomingMessagesViewed(toMarkViewed)
     SignalDatabase.messages.setOutgoingGiftsRevealed(toMarkViewed)
 
+    SignalStore.misc.lastSyncMessageSeenTimeMs = System.currentTimeMillis()
+
     AppDependencies.messageNotifier.apply {
       cancelDelayedNotifications()
       updateNotification(context)
@@ -1072,6 +1078,8 @@ object SyncMessageProcessor {
         PushProcessEarlyMessagesJob.enqueue()
       }
     }
+
+    SignalStore.misc.lastSyncMessageSeenTimeMs = System.currentTimeMillis()
 
     AppDependencies.messageNotifier.apply {
       cancelDelayedNotifications()
