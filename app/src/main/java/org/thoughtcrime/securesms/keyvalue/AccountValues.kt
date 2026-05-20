@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import kotlinx.coroutines.flow.Flow
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
@@ -85,6 +86,8 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
     private const val KEY_HAS_LINKED_DEVICES = "account.has_linked_devices"
     private const val KEY_HAS_INACTIVE_PRIMARY_DEVICE_ALERT = "account.has_inactive_primary_device_alert"
+
+    private const val KEY_VERIFICATION_CODE_REQUESTED_AT = "account.verification_code_requested_at"
 
     private const val KEY_ACCOUNT_ENTROPY_POOL = "account.account_entropy_pool"
     private const val KEY_RESTORED_ACCOUNT_ENTROPY_KEY = "account.restored_account_entropy_pool"
@@ -561,6 +564,11 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
    */
   @get:JvmName("isMultiDevice")
   var isMultiDevice by booleanValue(KEY_HAS_LINKED_DEVICES, false)
+
+  /** Server has indicated a verification code was requested for the account at this timestamp (ms since epoch) */
+  private val verificationCodeRequestedAtMsValue = longValue(KEY_VERIFICATION_CODE_REQUESTED_AT, 0)
+  var verificationCodeRequestedAtMs: Long by verificationCodeRequestedAtMsValue
+  val verificationCodeRequestedAtMsFlow: Flow<Long> by lazy { verificationCodeRequestedAtMsValue.toFlow() }
 
   /** Do not alter. If you need to migrate more stuff, create a new method. */
   private fun migrateFromSharedPrefsV1(context: Context) {

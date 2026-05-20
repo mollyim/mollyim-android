@@ -116,6 +116,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePay
 import org.thoughtcrime.securesms.components.snackbars.LocalSnackbarStateConsumerRegistry
 import org.thoughtcrime.securesms.components.snackbars.SnackbarHostKey
 import org.thoughtcrime.securesms.components.snackbars.SnackbarState
+import org.thoughtcrime.securesms.components.verificationrequested.VerificationCodeRequestedBottomSheet
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.conversation.ConversationIntents
@@ -195,6 +196,7 @@ import org.thoughtcrime.securesms.window.AppScaffoldNavigator
 import org.thoughtcrime.securesms.window.NavigationType
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+import kotlin.time.Duration.Companion.minutes
 import org.signal.core.ui.R as CoreUiR
 
 class MainActivity :
@@ -354,6 +356,25 @@ class MainActivity :
               ArchiveRestoreProgress.clearLocalRestoreDirectoryError()
               CouldNotCompleteBackupRestoreSheet().show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
               Log.i(TAG, "Local restore directory became unavailable.")
+            }
+        }
+      }
+
+      launch {
+        repeatOnLifecycle(Lifecycle.State.RESUMED) {
+          SignalStore
+            .account
+            .verificationCodeRequestedAtMsFlow
+            .filter { it > 0L }
+            .collect { requestedAt ->
+              val notificationThreshold = requestedAt + 10.minutes.inWholeMilliseconds
+              if (System.currentTimeMillis() < notificationThreshold) {
+                VerificationCodeRequestedBottomSheet.show(supportFragmentManager, requestedAt)
+              } else {
+                Log.i(TAG, "Verification code requested but is older than 10 minutes, not showing sheet")
+              }
+
+              SignalStore.account.verificationCodeRequestedAtMs = 0L
             }
         }
       }

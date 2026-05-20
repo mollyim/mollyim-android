@@ -86,6 +86,7 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
         is AppSettingsRoute.BackupsRoute.Backups -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment().setLaunchCheckoutFlow(appSettingsRoute.launchCheckoutFlow)
         AppSettingsRoute.Invite -> AppSettingsFragmentDirections.actionDirectToInviteFragment()
         AppSettingsRoute.DataAndStorageRoute.DataAndStorage -> AppSettingsFragmentDirections.actionDirectToStoragePreferenceFragment()
+        AppSettingsRoute.AccountRoute.Account -> AppSettingsFragmentDirections.actionDirectToAccountSettingsFragment()
         else -> error("Unsupported start location: ${appSettingsRoute?.javaClass?.name}")
       }
     }
@@ -176,6 +177,9 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
 
     @JvmStatic
     fun changeNumber(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.ChangeNumberRoute.Start)
+
+    @JvmStatic
+    fun account(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.AccountRoute.Account)
 
     @JvmStatic
     fun subscriptions(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.DonationsRoute.Donations(directToCheckoutType = InAppPaymentType.RECURRING_DONATION))
