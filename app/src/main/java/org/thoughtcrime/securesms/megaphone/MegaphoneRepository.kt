@@ -65,7 +65,10 @@ class MegaphoneRepository(private val context: Application) {
         val currentTime = System.currentTimeMillis()
         val next = Megaphones.getNextMegaphone(context, databaseCache)
 
-        if (next != null) {
+        val isDonateMegaphone = next?.event == Megaphones.Event.REMOTE_MEGAPHONE &&
+          RemoteMegaphoneRepository.getRemoteMegaphoneToShow()?.primaryActionId?.isDonateAction == true
+
+        if (next != null && !isDonateMegaphone) {
           val record = getRecord(next.event)
           if (record.lastVisible > 0 && currentTime - record.lastVisible > MAX_DISPLAY_DURATION) {
             Log.i(TAG, "Auto-snoozing ${next.event} after being visible for ${currentTime - record.lastVisible}ms without interaction.")
