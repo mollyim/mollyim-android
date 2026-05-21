@@ -852,9 +852,9 @@
     </plurals>
     <string name="ConversationListFragment_deleting">Se șterge</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
-        <item quantity="one">Se șterge conversația selectată...</item>
-        <item quantity="few">Se șterg conversațiile selectate...</item>
-        <item quantity="other">Se șterg conversațiile selectate...</item>
+        <item quantity="one">Se șterge conversația selectată…</item>
+        <item quantity="few">Se șterg conversațiile selectate…</item>
+        <item quantity="other">Se șterg conversațiile selectate…</item>
     </plurals>
     <plurals name="ConversationListFragment_conversations_archived">
         <item quantity="one">Conversație arhivată</item>
@@ -1316,10 +1316,6 @@
         <item quantity="other">%1$d de solicitări de membru în așteptare.</item>
     </plurals>
     <string name="PendingGroupJoinRequestsReminder_view">Vizualizare</string>
-
-    <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Eroare permanentă de comunicare cu Signal!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal nu s-a putut înregistra la Google Play Services. Mesajele și apelurile Signal au fost dezactivate, te rugăm încearcă să te înregistrezi din nou din meniul Setări &gt; Avansat.</string>
 
 
     <!-- GiphyActivity -->

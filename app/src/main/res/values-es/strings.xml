@@ -731,7 +731,7 @@
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
     <string name="ConversationFragment_profile_names">nombres de perfil</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
-    <string name="ConversationFragment_group_names">nombres de los grupos</string>
+    <string name="ConversationFragment_group_names">nombre del grupo</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">No se ha podido descargar la foto. Vuelve a intentarlo.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
@@ -767,7 +767,7 @@
     <!-- Summary tip 1 title: Review names and photos -->
     <string name="SafetyTips_summary_tip1_title">Revisa los nombres y las fotos</string>
     <!-- Summary tip 1 message -->
-    <string name="SafetyTips_summary_tip1_message">Presta atención al aviso de \"Nombre no verificado\". En Signal, todos los usuarios eligen su propio nombre de perfil.</string>
+    <string name="SafetyTips_summary_tip1_message">Presta atención al aviso de \"Nombre no verificado\". En Signal, cada usuario elige su propio nombre de perfil.</string>
     <!-- Summary tip 2 title: Look out for scams -->
     <string name="SafetyTips_summary_tip2_title">Presta atención a posibles estafas</string>
     <!-- Summary tip 2 message -->
@@ -780,7 +780,7 @@
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Revisa los nombres y las fotos</string>
     <!-- Detail tip 1 message -->
-    <string name="SafetyTips_detail_tip1_message">Presta atención al aviso de \"Nombre no verificado\". En Signal, todos los usuarios eligen su propio nombre y foto de perfil. Si no sabes quién te ha enviado una nueva solicitud de mensaje, lo mejor (y más seguro) es ignorarla.</string>
+    <string name="SafetyTips_detail_tip1_message">Presta atención al aviso de \"Nombre no verificado\". En Signal, cada usuario elige su propio nombre y foto de perfil. Si no sabes quién te ha enviado una nueva solicitud de mensaje, lo mejor (y más seguro) es ignorarla.</string>
     <!-- Detail tip 2 title -->
     <string name="SafetyTips_detail_tip2_title">Mensajes confusos o irrelevantes</string>
     <!-- Detail tip 2 message -->
@@ -799,7 +799,7 @@
     <string name="SafetyTips_detail_tip5_message">Ten cuidado con las empresas o agencias gubernamentales que se pongan en contacto contigo. Los mensajes que involucren a entidades como agencias tributarias y empresas de mensajería pueden ser spam.</string>
 
     <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
-    <string name="ProfileNameBottomSheet__profile_names_on_signal">Los %1$s en Signal los elige quien crea la cuenta.</string>
+    <string name="ProfileNameBottomSheet__profile_names_on_signal">Cada usuario elige su %1$s en Signal.</string>
     <!-- Bottom sheet text explaining that Signal can\'t verify names and photos -->
     <string name="ProfileNameBottomSheet__signal_cant_verify">Signal no puede verificar los nombres ni las fotos.</string>
     <!-- Bottom sheet text explaining that Signal will never contact you for registration code, PIN, or recovery key -->
@@ -809,7 +809,7 @@
     <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
     <string name="ProfileNameBottomSheet__dont_share_personal">No compartas información personal con personas que no conozcas.</string>
     <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
-    <string name="ProfileNameBottomSheet__group_names_on_signal">Los %1$s los eligen los participantes del grupo.</string>
+    <string name="ProfileNameBottomSheet__group_names_on_signal">Los participantes del grupo eligen el %1$s.</string>
     <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
     <string name="ProfileNameBottomSheet__be_cautious_of_groups">Ten cuidado con los grupos que se hacen pasar por organizaciones y empresas.</string>
     <!-- Bottom sheet text explaining that profile names of group members are not verified -->
@@ -1287,10 +1287,6 @@
         <item quantity="other">%1$d solicitudes para unirse.</item>
     </plurals>
     <string name="PendingGroupJoinRequestsReminder_view">Ver</string>
-
-    <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Fallo permanente de comunicación de Signal</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal no ha podido completar el registro en Servicios de Google Play. Se han desactivado los mensajes y las llamadas de Signal. Intenta registrarte otra vez en Ajustes &gt; Ajustes avanzados.</string>
 
 
     <!-- GiphyActivity -->
@@ -2342,7 +2338,7 @@
     <!-- Alert dialog title to accept a message request -->
     <string name="MessageRequestBottomView_accept_request">¿Aceptar solicitud?</string>
     <!-- Alert dialog body to review the message request carefully -->
-    <string name="MessageRequestBottomView_review_requests_carefully">Revisa detenidamente las solicitudes. Los nombres de perfil los elige quien crea la cuenta y no se verifican.</string>
+    <string name="MessageRequestBottomView_review_requests_carefully">Revisa detenidamente las solicitudes. Cada usuario elige su nombre de perfil y los nombres no se verifican.</string>
     <!-- Alert dialog body for accepting a message request. Contains bold substring placeholder -->
     <string name="MessageRequestBottomView_accept_request_body">Acepta solamente las solicitudes de personas de tu confianza. %1$s te enviará un mensaje para pedirte tu código de registro, PIN o clave de recuperación.</string>
     <!-- Bold substring used in accept request body: "Signal will never" -->
@@ -2350,7 +2346,7 @@
     <!-- Alert dialog title to accept a message request to join a group -->
     <string name="MessageRequestBottomView_join_group">¿Unirse al grupo?</string>
     <!-- Alert dialog body to review the message request for a group carefully -->
-    <string name="MessageRequestBottomView_review_requests_carefully_groups">Revisa detenidamente las solicitudes. Los nombres de los grupos los eligen los participantes del grupo y no se verifican.</string>
+    <string name="MessageRequestBottomView_review_requests_carefully_groups">Revisa detenidamente las solicitudes. Los participantes del grupo eligen el nombre del grupo y los nombres no se verifican.</string>
     <!-- Button text to join a group -->
     <string name="MessageRequestBottomView_join">Unirse</string>
 

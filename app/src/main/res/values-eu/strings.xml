@@ -1288,10 +1288,6 @@
     </plurals>
     <string name="PendingGroupJoinRequestsReminder_view">Ikusi</string>
 
-    <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal behin betiko komunikazio hutsegitea!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ez da gai izan Google Play Zerbitzuekin erregistratzeko. Signal mezu eta deiak desgaitu egin dira; mesedez, saiatu bererregistratzen Ezarpenak &gt; Aurreratua menuan.</string>
-
 
     <!-- GiphyActivity -->
     <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Errorea bereizmen osoko GIFa eskuratzerakoan</string>
@@ -2703,7 +2699,7 @@
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Utzi</string>
     <!-- A clickable button to share your screen in a call -->
-    <string name="CallOverflowPopupWindow__share_screen">Share screen</string>
+    <string name="CallOverflowPopupWindow__share_screen">Partekatu pantaila</string>
     <!-- A clickable button to stop sharing your screen in a call -->
     <string name="CallOverflowPopupWindow__stop_screen_share">Utzi partekatzeari</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2831,7 +2827,7 @@
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Pasatu hatza pantaila partekatua ikusteko.</string>
     <!-- Hint shown to teach the user they can swipe between the grid view and the active speaker view -->
-    <string name="CallToastPopupWindow__swipe_to_view_speaker">Swipe to view speaker</string>
+    <string name="CallToastPopupWindow__swipe_to_view_speaker">Pasatu hatza bozgorailua ikusteko</string>
 
     <!-- ProxyBottomSheetFragment -->
     <string name="ProxyBottomSheetFragment_proxy_server">Proxy zerbitzaria</string>
@@ -8246,7 +8242,7 @@
     <!-- Title of a megaphone shown to prompt the user to open Signal on their primary device -->
     <string name="InactivePrimary__title">Ireki Signal telefonoan</string>
     <!-- Body of a megaphone shown to prompt the user to open Signal on their primary device -->
-    <string name="InactivePrimary__body">To keep your account active, open Signal on your primary device.</string>
+    <string name="InactivePrimary__body">Kontua aktibo mantentzeko, ireki Signal gailu nagusian.</string>
     <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will navigate to a support page -->
     <string name="InactivePrimary__learn_more">Informazio gehiago</string>
     <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will snooze the megaphone -->

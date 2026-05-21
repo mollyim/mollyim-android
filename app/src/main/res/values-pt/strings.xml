@@ -1288,10 +1288,6 @@
     </plurals>
     <string name="PendingGroupJoinRequestsReminder_view">Ver</string>
 
-    <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Falha permanente de comunicação do Signal!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">O Signal não se conseguiu registar com os Serviços Google Play. As mensagens e chamadas do Signal estão desativadas, por favor tente registar-se novamente em Definições &gt; Avançado.</string>
-
 
     <!-- GiphyActivity -->
     <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Erro ao obter o GIF de resolução integral</string>
@@ -2703,7 +2699,7 @@
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Cancelar</string>
     <!-- A clickable button to share your screen in a call -->
-    <string name="CallOverflowPopupWindow__share_screen">Share screen</string>
+    <string name="CallOverflowPopupWindow__share_screen">Partilhar ecrã</string>
     <!-- A clickable button to stop sharing your screen in a call -->
     <string name="CallOverflowPopupWindow__stop_screen_share">Parar de partilhar</string>
     <!-- A button to take you to a list of participants with raised hands -->
@@ -2831,7 +2827,7 @@
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Deslize para ver o ecrã de partilha</string>
     <!-- Hint shown to teach the user they can swipe between the grid view and the active speaker view -->
-    <string name="CallToastPopupWindow__swipe_to_view_speaker">Swipe to view speaker</string>
+    <string name="CallToastPopupWindow__swipe_to_view_speaker">Deslize para ver quem está a falar</string>
 
     <!-- ProxyBottomSheetFragment -->
     <string name="ProxyBottomSheetFragment_proxy_server">Servidor proxy</string>
