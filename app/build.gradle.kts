@@ -541,6 +541,7 @@ androidComponents {
     // Include the test-only library on debug builds.
     if (variant.buildType != "instrumentation") {
       variant.packaging.jniLibs.excludes.add("**/libsignal_jni_testing.so")
+      variant.androidResources.ignoreAssetsPatterns.add("libsignal-testing.md")
     }
 
     // Starting with minSdk 23, Android leaves native libraries uncompressed, which is fine for the Play Store, but not for our self-distributed APKs.
