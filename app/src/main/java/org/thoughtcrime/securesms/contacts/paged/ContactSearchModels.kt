@@ -147,7 +147,9 @@ object ContactSearchModels {
     callButtonClickCallbacks: ContactSearchAdapter.CallButtonClickCallbacks
   ): MappingEntryProvider<Any> {
     return MappingEntryProviderBuilder<Any>().apply {
-      viewHolder<StoryModel> { ctx ->
+      viewHolder<StoryModel>(
+        key = { model -> "StoryModel${model.story.recipient.id}" }
+      ) { ctx ->
         LayoutFactory(
           { view -> StoryViewHolder(view, displayOptions.displayCheckBox, callbacks::onStoryClicked, storyContextMenuCallbacks, displayOptions.displayStoryRing) },
           R.layout.contact_search_story_item
