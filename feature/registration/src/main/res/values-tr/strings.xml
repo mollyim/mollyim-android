@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Gizliliğini ve güvenliğini korumak için hesabın kilitlendi. %1$d gün boyunca hesabında hareket olmazsa, PIN’e ihtiyaç duymadan bu telefon numarasını yeniden kaydedebilirsin. Tüm içerikler silinecektir.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Eski telefonunda Signal\'ı aç</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Ayarlar &gt; Hesap aktar seçeneğine git</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Bu kare kodu tara</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Kaydediliyor…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Kayıt sırasında bir hata oluştu</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Eski cihazdan tara</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">Kare kod tarandı</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Tekrar dene</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Kare kod üretilemedi"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

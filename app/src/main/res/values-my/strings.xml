@@ -3010,6 +3010,10 @@
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
+    <!-- Title of dialog shown when debug log prefix generation is unusually slow -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_title" translatable="false">Slow log generation</string> -->
+    <!-- Body of dialog shown when debug log prefix generation is unusually slow. %1$d is duration in seconds. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_message" translatable="false">Generating the debug log header took %1$d seconds. We should figure out what\&apos;s slowing things down.</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3889,11 +3893,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">ဤချက်(တ်)အတွက် ကုဒ်ပြောင်းဝှက်ခြင်းကို အလိုအလျောက် အတည်ပြုပြီးပါပြီ</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">ဖုန်းနံပါတ်ဖြင့် ချိတ်ဆက်ထားသော အဆက်အသွယ်များအတွက် Signal သည် ကီး ပွင့်လင်းမြင်သာမှုဟုခေါ်သော လုပ်ငန်းစဉ်ကို အသုံးပြု၍ ချိတ်ဆက်မှု လုံခြုံခြင်းရှိမရှိကို အလိုအလျောက် အတည်ပြုနိုင်သည်။ လုံခြုံရေး ပိုမိုမြင့်မားစေရန်အတွက် ယခင်စခရင်ပေါ်ရှိ နံပါတ်များကို နှိုင်းယှဉ်ခြင်း သို့မဟုတ် ၎င်းတို့၏စက်ပေါ်ရှိ ကုဒ်ကို စကင်ဖတ်ခြင်းဖြင့် ဟိုဘက်သည်ဘက်ကုဒ်ပြောင်းဝှက်ခြင်းကို ကိုယ်တိုင်အတည်ပြုပါ။</string>
+    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">ဤချက်(တ်)အတွက် အလိုအလျောက်အတည်ပြုခြင်းကို အသုံးမပြုနိုင်တော့ပါ</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal သည် ဤချက်(တ်)အတွက် ကုဒ်ပြောင်းဝှက်ခြင်းကို အလိုအလျောက် အတည်ပြုနိုင်တော့မည် မဟုတ်ပါ။ %1$s သည် ၎င်း၏ဖုန်းနံပါတ်ကို ပြောင်းလိုက်ခြင်းကြောင့် ဖြစ်နိုင်ပါသည်။ ယခင် စခရင်ပေါ်ရှိ နံပါတ်များကို နှိုင်းယှဉ်ခြင်း သို့မဟုတ် ၎င်းတို့၏စက်ပေါ်ရှိ ကုဒ်ကို စကင်ဖတ်ခြင်းဖြင့် ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ခြင်းကို ကိုယ်တိုင်အတည်ပြုပါ။</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">ဤချက်(တ်)အတွက် အလိုအလျောက်အတည်ပြုခြင်း မရရှိနိုင်ပါ</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5581,6 +5585,29 @@
     <string name="ChangeNumber__your_phone_number_has_changed_to_s">သင့်ဖုန်းနံပါတ်ကို %1$s သို့ ပြောင်းထားပြီးပါပြီ</string>
     <!-- Confirmation button to dismiss number changed dialog -->
     <string name="ChangeNumber__okay">အိုကေ</string>
+
+    <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
+    <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
+        <item quantity="other">Try again in %1$d hours.</item>
+    </plurals>
+    <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
+    <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
+        <item quantity="other">Try again in %1$d minutes.</item>
+    </plurals>
+    <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__ok">OK</string>
+    <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
+    <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
+        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+    </plurals>
+    <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
+    <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
+        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+    </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
     <string name="ChangeNumberEnterPhoneNumberFragment__change_number">နံပါတ် ပြောင်းရန်</string>
@@ -9666,6 +9693,36 @@
 
     <!-- Body of the sheet shown when a local backup restore could not be completed, explaining how to try again -->
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">ထပ်ကြိုးစားရန် ဤစက်တွင် Signal ကို ဖြုတ်ပြီး ပြန်လည်ထည့်သွင်းပါ၊ ထို့နောက် \"ပြန်လည်ရယူရန် သို့မဟုတ် လွှဲပြောင်းရန်\" ကို ရွေးချယ်ပါ။</string>
+
+    <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
+    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <!-- First paragraph of the body of the verification code requested sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <!-- Second paragraph of the body of the verification code requested sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <!-- Button on the verification code requested sheet that opens the safety tips screen -->
+    <string name="VerificationCodeRequestedBottomSheet__safety_tips">Safety tips</string>
+    <!-- Button on the verification code requested sheet that dismisses the sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__ok">OK</string>
+    <!-- Subtitle on the verification code requested sheet showing the time the code was requested followed by the relative day. %1$s is the time (e.g. "3:25 PM"), %2$s is the relative day (e.g. "Today", "Yesterday", "Jan 15") -->
+    <string name="VerificationCodeRequestedBottomSheet__time_with_day">%1$s %2$s</string>
+
+    <!-- Title of the safety tips screen within the verification code requested sheet -->
+    <string name="SafetyTipsBottomSheet__title">Safety Tips</string>
+    <!-- Title of the first safety tip: don\'t respond to chats claiming to be Signal -->
+    <string name="SafetyTipsBottomSheet__tip_1_title">Don\'t respond to chats from Signal</string>
+    <!-- Body of the first safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_1_body">Signal will never message you for your registration code, PIN, or recovery key. Never respond to a chat pretending to be Signal.</string>
+    <!-- Title of the second safety tip: keep your verification code safe -->
+    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <!-- Body of the second safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <!-- Title of the third safety tip: enable registration lock -->
+    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <!-- Body of the third safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <!-- Button on the safety tips screen that opens account settings -->
+    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
 
     <!-- EOF -->
 </resources>

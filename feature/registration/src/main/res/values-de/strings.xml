@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Dein Konto wurde gesperrt, um deine Privatsphäre und Sicherheit zu schützen. Nach Ablauf von %1$d Tagen ohne Kontoaktivität kannst du diese Telefonnummer ohne PIN neu registrieren. Alle Inhalte werden gelöscht.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Öffne Signal auf deinem alten Telefon</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Gehe zu Einstellungen &gt; Konto übertragen</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Diesen QR-Code scannen</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Registrieren …</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Bei der Registrierung ist ein Fehler aufgetreten</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Vom alten Gerät scannen</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR-Code gescannt</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Erneut versuchen</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"QR-Code konnte nicht erstellt werden"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

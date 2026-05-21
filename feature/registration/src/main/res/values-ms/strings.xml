@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Akaun anda telah dikunci untuk melindungi privasi dan keselamatan anda. Selepas %1$d hari tidak aktif dalam akaun, anda boleh mendaftar semula nombor telefon ini tanpa memerlukan PIN anda. Semua kandungan akan dipadamkan.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Pada telefon lama anda, buka Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Pergi ke Tetapan &gt; Pindahkan akaun</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Imbas kod QR</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Mendaftar…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Masalah berlaku semasa pendaftaran</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Imbas daripada peranti lama</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">Kod QR diimbas</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Cuba Semula</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Gagal menjana kod QR"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

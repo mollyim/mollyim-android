@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Ваш акаунт заблоковано з міркувань конфіденційності та безпеки. Через %1$d днів без активності в акаунті ви зможете заново зареєструвати цей номер телефону без введення PIN-коду. Весь вміст буде видалено.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Відкрийте Signal на старому пристрої</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Перейдіть у налаштування &gt; Перенести акаунт</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Зіскануйте цей QR-код</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Реєстрація…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Під час реєстрації виникла помилка</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Зіскануйте зі старого пристрою</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR-код зіскановано</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Повторити спробу</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Не вдалося створити QR-код"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

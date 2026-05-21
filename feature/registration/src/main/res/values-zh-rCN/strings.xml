@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">为了保护您的隐私和安全，您的账户已被锁定。在您的账户处于非活动状态连续 %1$d 天后，您将无需密码即可重新注册此手机号码。不过所有数据将被删除。</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">在您的旧手机上打开 Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">前往设置 &gt; 转移账户</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">扫描此二维码</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">正在注册…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">注册过程中发生错误</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">使用旧设备扫描</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">二维码已扫描</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">重试</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"无法生成二维码"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

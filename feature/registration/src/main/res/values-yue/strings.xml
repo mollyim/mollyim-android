@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">為咗保障你嘅私隱同安全，我哋會將你嘅帳戶暫時鎖定。閒置 %1$d 日之後，你就可以喺冇 PIN 碼嘅情況下重新註冊呢個電話冧把，而所有資料都會被刪除。</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">喺你部舊手機度打開 Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">去「設定」&gt;「轉移帳戶」</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">掃描呢個二維碼</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">註冊緊……</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">註冊過程中發生錯誤</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">用部舊機掃瞄</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">已經掃描二維碼</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">再試多次</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"建立唔到二維碼"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

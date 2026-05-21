@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Sinu konto on sinu privaatsuse ja turvalisuse kaitseks lukustatud. Pärast %1$d päeva mitteaktiivsust sinu kontol on sul võimalik see telefoninumber ilma PIN-koodi vajamata uuesti registreerida. Kogu sisu eemaldatakse.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Ava oma vanas telefonis Signal</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Vali Sätted &gt; Konto edastamine</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Skanni see QR-kood</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Registreerimine …</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Registreerimise ajal tekkis tõrge</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Skanni vanast seadmest</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR-kood on skannitud</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Proovi uuesti</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"QR-koodi ei saanud luua"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

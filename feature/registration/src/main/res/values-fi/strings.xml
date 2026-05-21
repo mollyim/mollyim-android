@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Tili on lukittu yksityisyytesi ja tietoturvasi suojaamiseksi. Kun %1$d päivää on kulunut, voit rekisteröidä tämän puhelinnumeron uudelleen ilman tunnuslukua. Kaikki sisältö tullaan poistamaan.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Avaa Signal vanhalla laitteellasi</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Siirry kohtaan Asetukset &gt; Siirrä tili</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Skannaa tämä QR-koodi</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Rekisteröidään…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Rekisteröinnissä tapahtui virhe</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Skannaa vanhalla laitteella</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR-koodi skannattu</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Yritä uudelleen</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"QR-koodin luominen epäonnistui"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

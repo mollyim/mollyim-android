@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Hesabınız məxfilik və təhlükəsizliyinizi qorumaq üçün kilidləndi. Hesabınızda fəaliyyətsiz %1$d gündən sonra bu telefon nömrəsi ilə PIN-inizə ehtiyac olmadan yenidən qeydiyyatdan keçə biləcəksiniz. Bütün məzmunlar silinəcək.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Köhnə telefonunuzdan Sıgnal-ı açın</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Parametrlər &gt; Hesabı köçür seçimlərinə keçin</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Bu QR kodu skan edin</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Qeydiyyat aparılır…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Qeydiyyat zamanı xəta baş verdi</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Köhnə cihazdan skan et</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR kodu skan edildi</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Yenidən sına</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"QR kodu yaratmaq uğursuz oldu"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

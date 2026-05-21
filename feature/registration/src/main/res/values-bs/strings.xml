@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">Vaš je račun zaključan kako bi se zaštitila Vaša privatnost i sigurnost. Nakon %1$d dana neaktivnosti računa moći ćete se ponovo registrovati pomoću ovoga broja telefona a bez PIN-a. Sav raniji sadržaj računa bit će izbrisan.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Otvorite Signal na starom telefonu</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">Idite u Postavke &gt; Prenesi račun</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">Skeniraj ovaj QR kod</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">Registriranje…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Došlo je do greške prilikom registracije</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">Skeniraj sa starog uređaja</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR kod je skeniran</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">Pokušaj ponovo</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"Generiranje QR koda nije uspjelo"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>

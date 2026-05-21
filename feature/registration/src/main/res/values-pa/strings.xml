@@ -287,21 +287,21 @@
     <string name="AccountLockedScreen__your_account">ਤੁਹਾਡੀ ਪਰਦੇਦਾਰੀ ਅਤੇ ਸੁਰੱਖਿਆ ਦੇ ਲਈ ਤੁਹਾਡੇ ਖਾਤੇ ਨੂੰ ਲਾਕ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ। ਜੇ %1$d ਦਿਨ ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਕੋਈ ਗਤੀਵਿਧੀ ਨਹੀਂ ਹੁੰਦੀ ਤਾਂ ਤੁਸੀਂ PIN ਦੀ ਲੋੜ ਪਏ ਬਿਨਾਂ ਇਸ ਫ਼ੋਨ ਨੰਬਰ ਨੂੰ ਮੁੜ-ਰਜਿਸਟਰ ਕਰ ਸਕਦੇ ਹੋ। ਸਾਰੀ ਸਮੱਗਰੀ ਮਿਟਾ ਦਿੱਤੀ ਜਾਵੇਗੀ।</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">ਆਪਣੇ ਪੁਰਾਣੇ ਫ਼ੋਨ ਉੱਤੇ, Signal ਖੋਲ੍ਹੋ</string>
+    <string name="QuickRestoreQRScreen__step_1">Open Signal on your old device</string>
     <!-- Step 2 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_2">ਸੈਟਿੰਗਾਂ &gt; ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰੋ \'ਤੇ ਜਾਓ</string>
+    <string name="QuickRestoreQRScreen__step_2">Tap the camera icon </string>
     <!-- Step 3 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_3">ਇਸ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰੋ</string>
+    <string name="QuickRestoreQRScreen__step_3">Scan this code with the camera</string>
     <!-- Loading dialog text when registering -->
     <string name="QuickRestoreQRScreen__reregister">ਰਜਿਸਟਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਰਨ ਦੌਰਾਨ ਕੋਈ ਗੜਬੜ ਹੋ ਗਈ ਹੈ</string>
     <!-- Title for quick restoring -->
-    <string name="QuickRestoreQRScreen__scan">ਪੁਰਾਣੇ ਡਿਵਾਈਸ ਤੋਂ ਸਕੈਨ ਕਰੋ</string>
+    <string name="QuickRestoreQRScreen__scan">Scan this code with your old phone</string>
     <!-- Confirmation dialog when qr code is successfully scanned -->
     <string name="QuickRestoreQRScreen__scanned">QR ਕੋਡ ਸਕੈਨ ਕੀਤਾ ਗਿਆ</string>
     <!-- Button text to retry scanning the QR code -->
     <string name="QuickRestoreQRScreen__retry">ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
     <!-- Failure text when a code could not be generated -->
-    <string name="QuickRestoreQRScreen__failed">"QR ਕੋਡ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ ਰਹੇ"</string>
+    <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
 </resources>
