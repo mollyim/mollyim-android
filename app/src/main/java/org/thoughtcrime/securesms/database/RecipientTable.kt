@@ -1121,6 +1121,12 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       put(USERNAME, update.new.proto.username.nullIfBlank())
       put(STORAGE_SERVICE_ID, Base64.encodeWithPadding(update.new.id.raw))
 
+      if (SignalStore.account.isLinkedDevice) {
+        StorageSyncModels.remoteToLocalAvatarColor(update.new.proto.avatarColor)?.let {
+          put(AVATAR_COLOR, it.serialize())
+        }
+      }
+
       if (update.new.proto.hasUnknownFields()) {
         put(STORAGE_SERVICE_PROTO, Base64.encodeWithPadding(update.new.serializedUnknowns!!))
       } else {
