@@ -49,6 +49,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 
 /**
  * Screen to display QR code for restoring from an old device.
@@ -150,7 +151,7 @@ private fun Heading() {
     text = stringResource(R.string.QuickRestoreQRScreen__scan),
     style = MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
   )
 }
 

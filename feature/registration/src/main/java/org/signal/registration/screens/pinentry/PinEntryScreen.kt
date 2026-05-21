@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.registration.screens.attachDebugLogHelper
 
 /**
  * PIN entry screen for the registration flow.
@@ -81,7 +82,8 @@ fun PinEntryScreen(
       Text(
         text = titleString,
         style = MaterialTheme.typography.headlineMedium,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        modifier = Modifier.attachDebugLogHelper()
       )
 
       Spacer(modifier = Modifier.height(12.dp))

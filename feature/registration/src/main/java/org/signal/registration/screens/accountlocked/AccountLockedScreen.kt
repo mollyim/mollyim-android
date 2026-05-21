@@ -40,6 +40,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 
 /**
  * Screen shown when the user's account is locked due to too many failed PIN attempts
@@ -156,7 +157,7 @@ private fun Title() {
   Text(
     text = stringResource(R.string.AccountLockedScreen__account_locked),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
   )
 }
 

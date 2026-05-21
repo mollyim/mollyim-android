@@ -54,6 +54,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.localbackuprestore.attachBackupKeyAutoFillHelper
 import org.signal.registration.screens.localbackuprestore.backupKeyAutoFillHelper
 
@@ -166,7 +167,7 @@ private fun Description() {
   Text(
     text = stringResource(R.string.EnterAepScreen__enter_your_recovery_key),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
   )
 
   Spacer(modifier = Modifier.size(8.dp))

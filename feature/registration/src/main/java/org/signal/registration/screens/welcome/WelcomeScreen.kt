@@ -65,6 +65,7 @@ import org.signal.core.ui.isWidthExpanded
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.test.TestTags
 
 /**
@@ -299,7 +300,7 @@ private fun HeroImage(
   Image(
     painter = painterResource(R.drawable.welcome),
     contentDescription = null,
-    modifier = modifier,
+    modifier = modifier.attachDebugLogHelper(),
     contentScale = ContentScale.Fit
   )
 }
@@ -316,6 +317,7 @@ private fun Headline(
     textAlign = textAlign,
     modifier = modifier
       .testTag(TestTags.WELCOME_HEADLINE)
+      .attachDebugLogHelper()
   )
 }
 

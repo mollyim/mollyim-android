@@ -56,6 +56,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.test.TestTags
 import kotlin.time.Duration.Companion.seconds
 
@@ -430,7 +431,7 @@ private fun Description(state: VerificationCodeState, onEvent: (VerificationCode
   Text(
     text = stringResource(R.string.VerificationCodeScreen__verification_code),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
   )
 
   Spacer(modifier = Modifier.height(16.dp))

@@ -41,6 +41,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.util.MockMultiplePermissionsState
 import org.signal.registration.screens.util.MockPermissionsState
 import org.signal.registration.test.TestTags
@@ -111,7 +112,7 @@ private fun OnePaneLayout(
           Text(
             text = stringResource(id = R.string.GrantPermissionsFragment__allow_permissions),
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
           )
 
           Text(
@@ -159,7 +160,7 @@ private fun TwoPaneLayout(
         Text(
           text = stringResource(id = R.string.GrantPermissionsFragment__allow_permissions),
           style = MaterialTheme.typography.headlineMedium,
-          modifier = Modifier.fillMaxWidth()
+          modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
         )
 
         Text(

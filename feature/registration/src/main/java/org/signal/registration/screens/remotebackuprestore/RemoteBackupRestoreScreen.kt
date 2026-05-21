@@ -49,6 +49,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import java.util.Date
 
 @Composable
@@ -208,7 +209,7 @@ private fun BackupInfoHeading() {
     text = stringResource(R.string.RemoteRestoreScreen__restore_from_backup),
     style = MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
   )
 }
 

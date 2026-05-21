@@ -18,6 +18,7 @@ package org.thoughtcrime.securesms;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,6 +89,7 @@ import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
+import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
@@ -417,7 +419,11 @@ public class ApplicationContext extends Application implements AppForegroundObse
       new org.signal.registration.RegistrationDependencies(
         new org.thoughtcrime.securesms.registration.v2.AppRegistrationNetworkController(this, AppDependencies.getPushServiceSocket()),
         new org.thoughtcrime.securesms.registration.v2.AppRegistrationStorageController(this),
-        null
+        null,
+        context -> {
+          context.startActivity(new Intent(context, SubmitDebugLogActivity.class));
+          return Unit.INSTANCE;
+        }
       )
     );
   }

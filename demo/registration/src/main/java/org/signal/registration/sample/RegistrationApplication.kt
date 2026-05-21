@@ -59,7 +59,8 @@ class RegistrationApplication : Application() {
       RegistrationDependencies(
         networkController = networkController,
         storageController = storageController,
-        sensitiveLogger = LogLogger
+        sensitiveLogger = LogLogger,
+        debugLogCallback = {}
       )
     )
 

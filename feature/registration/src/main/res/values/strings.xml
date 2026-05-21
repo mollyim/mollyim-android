@@ -304,4 +304,10 @@
     <string name="QuickRestoreQRScreen__retry">Retry</string>
     <!-- Failure text when a code could not be generated -->
     <string name="QuickRestoreQRScreen__failed">Unable to generate QR code</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">You are now %1$d step away from submitting a debug log.</item>
+        <item quantity="other">You are now %1$d steps away from submitting a debug log.</item>
+    </plurals>
 </resources>

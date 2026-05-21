@@ -41,6 +41,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.test.TestTags
 
 @Composable
@@ -159,7 +160,7 @@ private fun Description() {
   Text(
     text = stringResource(R.string.ArchiveRestoreSelectionScreen__restore_or_transfer_account),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
   )
 
   Spacer(modifier = Modifier.height(8.dp))
