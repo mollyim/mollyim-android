@@ -32,6 +32,7 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
     private const val LAST_SERVER_TIME_OFFSET_UPDATE = "misc.last_server_time_offset_update"
     private const val NEEDS_USERNAME_RESTORE = "misc.needs_username_restore"
     private const val LAST_FORCED_PREKEY_REFRESH = "misc.last_forced_prekey_refresh"
+    private const val FORCE_PNI_SIGNED_PREKEY_ROTATION = "misc.force_pni_signed_prekey_rotation"
     private const val LAST_CDS_FOREGROUND_SYNC = "misc.last_cds_foreground_sync"
     private const val LINKED_DEVICE_LAST_ACTIVE_CHECK_TIME = "misc.linked_device.last_active_check_time"
     private const val LEAST_ACTIVE_LINKED_DEVICE = "misc.linked_device.least_active"
@@ -51,6 +52,7 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
     private const val CAPTCHA_LAST_VIEWED_AT = "misc.captcha_last_viewed_at"
     private const val CALLING_ASSETS_VERSION = "misc.calling_assets_version"
     private const val LAST_SYNC_MESSAGE_SEEN_TIME_MS = "misc.last_sync_message_seen_time"
+    private const val LAST_APPLIED_PNI_CHANGE_SERVER_TIMESTAMP = "misc.last_applied_pni_change_server_timestamp"
   }
 
   public override fun onFirstEverAppLaunch() {
@@ -74,6 +76,17 @@ class MiscellaneousValues internal constructor(store: KeyValueStore) : SignalSto
    * Get the last time we successfully completed a forced prekey refresh.
    */
   var lastForcedPreKeyRefresh by longValue(LAST_FORCED_PREKEY_REFRESH, 0)
+
+  /**
+   * Bypasses the timeout in [org.thoughtcrime.securesms.jobs.PreKeysSyncJob] since otherwise we can hit a race.
+   */
+  var forcePniSignedPreKeyRotation by booleanValue(FORCE_PNI_SIGNED_PREKEY_ROTATION, false)
+
+  /**
+   * Envelope serverTimestamp of the most recently applied PniChangeNumber sync. Used to reject
+   * stale replays — a sync with serverTimestamp <= this value is treated as a replay and ignored.
+   */
+  var lastAppliedPniChangeServerTimestamp by longValue(LAST_APPLIED_PNI_CHANGE_SERVER_TIMESTAMP, 0L)
 
   /**
    * The last time we completed a routine profile refresh.

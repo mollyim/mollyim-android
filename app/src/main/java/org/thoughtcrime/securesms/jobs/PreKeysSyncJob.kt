@@ -125,6 +125,11 @@ class PreKeysSyncJob private constructor(
       return
     }
 
+    val pniRotationOverride = SignalStore.misc.forcePniSignedPreKeyRotation
+    if (pniRotationOverride) {
+      warn(TAG, ServiceIdType.PNI, "Forced PNI prekey rotation pending after PniChangeNumber sync. Bypassing dedup/interval gating for PNI.")
+    }
+
     val forceRotation = if (forceRotationRequested) {
       warn(TAG, "Forced rotation was requested.")
       warn(TAG, ServiceIdType.ACI, "Active Signed EC: ${SignalStore.account.aciPreKeys.activeSignedPreKeyId}, Last Resort Kyber: ${SignalStore.account.aciPreKeys.lastResortKyberPreKeyId}")
@@ -146,18 +151,25 @@ class PreKeysSyncJob private constructor(
       false
     }
 
-    if (forceRotation) {
-      warn(TAG, "Forcing prekey rotation.")
+    val forcePniRotation = forceRotation || pniRotationOverride
+
+    if (forcePniRotation) {
+      warn(TAG, "Forcing prekey rotation. ACI=$forceRotation PNI=$forcePniRotation")
     } else if (forceRotationRequested) {
       warn(TAG, "Forced prekey rotation was requested, but we already did a forced refresh ${System.currentTimeMillis() - SignalStore.misc.lastForcedPreKeyRefresh} ms ago. Ignoring.")
     }
 
     syncPreKeys(ServiceIdType.ACI, SignalStore.account.aci, AppDependencies.protocolStore.aci(), SignalStore.account.aciPreKeys, forceRotation)
-    syncPreKeys(ServiceIdType.PNI, SignalStore.account.pni, AppDependencies.protocolStore.pni(), SignalStore.account.pniPreKeys, forceRotation)
+    syncPreKeys(ServiceIdType.PNI, SignalStore.account.pni, AppDependencies.protocolStore.pni(), SignalStore.account.pniPreKeys, forcePniRotation)
     SignalStore.misc.lastFullPrekeyRefreshTime = System.currentTimeMillis()
 
-    if (forceRotation) {
+    if (forcePniRotation) {
       SignalStore.misc.lastForcedPreKeyRefresh = System.currentTimeMillis()
+    }
+
+    if (pniRotationOverride) {
+      // Cleared only after both syncPreKeys calls completed without throwing; a thrown upload leaves the flag set for the next attempt.
+      SignalStore.misc.forcePniSignedPreKeyRotation = false
     }
   }
 

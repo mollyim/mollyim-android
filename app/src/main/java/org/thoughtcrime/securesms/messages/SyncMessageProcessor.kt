@@ -15,8 +15,12 @@ import org.signal.core.util.UuidUtil
 import org.signal.core.util.isNotEmpty
 import org.signal.core.util.orNull
 import org.signal.libsignal.protocol.IdentityKey
+import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.InvalidKeyException
+import org.signal.libsignal.protocol.ServiceId.Pni
 import org.signal.libsignal.protocol.SignalProtocolAddress
+import org.signal.libsignal.protocol.state.KyberPreKeyRecord
+import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.ringrtc.CallException
 import org.signal.ringrtc.CallId
 import org.signal.ringrtc.CallLinkRootKey
@@ -24,6 +28,7 @@ import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.TombstoneAttachment
 import org.thoughtcrime.securesms.components.emoji.EmojiUtil
+import org.thoughtcrime.securesms.components.settings.app.changenumber.ChangeNumberRepository
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.CallLinkTable
@@ -66,6 +71,7 @@ import org.thoughtcrime.securesms.jobs.MultiDeviceContactSyncJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceKeysUpdateJob
 import org.thoughtcrime.securesms.jobs.MultiDeviceStickerPackSyncJob
+import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
 import org.thoughtcrime.securesms.jobs.PushProcessEarlyMessagesJob
 import org.thoughtcrime.securesms.jobs.RefreshCallLinkDetailsJob
 import org.thoughtcrime.securesms.jobs.RefreshDonationSubscriptionStatusJob
@@ -175,6 +181,7 @@ object SyncMessageProcessor {
       syncMessage.outgoingPayment != null -> handleSynchronizeOutgoingPayment(syncMessage.outgoingPayment!!, envelope.clientTimestamp!!)
       syncMessage.contacts != null -> handleSynchronizeContacts(syncMessage.contacts!!, envelope.clientTimestamp!!)
       syncMessage.keys != null -> handleSynchronizeKeys(syncMessage.keys!!, envelope.clientTimestamp!!)
+      syncMessage.pniChangeNumber != null -> handleSynchronizePniChangeNumber(envelope, metadata, syncMessage.pniChangeNumber!!)
       syncMessage.callEvent != null -> handleSynchronizeCallEvent(syncMessage.callEvent!!, envelope.clientTimestamp!!)
       syncMessage.callLinkUpdate != null -> handleSynchronizeCallLink(syncMessage.callLinkUpdate!!, envelope.clientTimestamp!!)
       syncMessage.callLogEvent != null -> handleSynchronizeCallLogEvent(syncMessage.callLogEvent!!, envelope.clientTimestamp!!)
@@ -1748,6 +1755,99 @@ object SyncMessageProcessor {
 
     // Enqueueing an update immediately to tell the requesting device that the primary is online.
     MultiDeviceAttachmentBackfillUpdateJob.enqueue(request.targetMessage!!, request.targetConversation!!, messageId)
+  }
+
+  private fun handleSynchronizePniChangeNumber(envelope: Envelope, metadata: EnvelopeMetadata, pniChangeNumber: SyncMessage.PniChangeNumber) {
+    val timestamp = envelope.clientTimestamp!!
+
+    if (SignalStore.account.isPrimaryDevice) {
+      warn(timestamp, "Received a PniChangeNumber sync message on the primary device. Bailing.")
+      return
+    }
+
+    if (metadata.sourceDeviceId != SignalServiceAddress.DEFAULT_DEVICE_ID) {
+      warn(timestamp, "Received a PniChangeNumber sync message from a non-primary device (${metadata.sourceDeviceId}). Bailing.")
+      return
+    }
+
+    if (SignalStore.account.aci == null) {
+      warn(timestamp, "Received a PniChangeNumber sync message but no local ACI is set. Bailing.")
+      return
+    }
+
+    val envelopeServerTimestamp = envelope.serverTimestamp ?: 0L
+    val lastAppliedServerTimestamp = SignalStore.misc.lastAppliedPniChangeServerTimestamp
+    if (envelopeServerTimestamp <= lastAppliedServerTimestamp) {
+      warn(timestamp, "PniChangeNumber sync serverTimestamp ($envelopeServerTimestamp) is not newer than the last applied ($lastAppliedServerTimestamp). Treating as a replay and bailing.")
+      return
+    }
+
+    // updatedPniBinary is a raw 16-byte UUID per the proto contract instead of a 17-byte service-id array.
+    val pni = if (envelope.updatedPniBinary != null) {
+      val updatedPniUuid = UuidUtil.parseOrNull(envelope.updatedPniBinary!!.toByteArray())
+      if (updatedPniUuid == null) {
+        warn(timestamp, "Could not parse updatedPniBinary as a UUID. Bailing.")
+        return
+      }
+      Pni(updatedPniUuid)
+    } else if (envelope.updatedPni != null) {
+      Pni.parseFromString(envelope.updatedPni)
+    } else {
+      warn(timestamp, "Neither updatedPni or updatedPniBinary were present on the envelope. Bailing.")
+      return
+    }
+
+    if (SignalStore.account.pni == PNI(pni)) {
+      log(timestamp, "PniChangeNumber sync already applied locally. Skipping.")
+      return
+    }
+
+    val identityKeyPairBytes = pniChangeNumber.identityKeyPair
+    val signedPreKeyBytes = pniChangeNumber.signedPreKey
+    val registrationId = pniChangeNumber.registrationId
+    val newE164 = pniChangeNumber.newE164
+
+    if (identityKeyPairBytes == null || signedPreKeyBytes == null || registrationId == null || registrationId <= 0 || newE164.isNullOrEmpty() || !SignalE164Util.isPotentialE164(newE164)) {
+      warn(timestamp, "PniChangeNumber sync message is missing or has an invalid required field. Bailing.")
+      return
+    }
+
+    val pniIdentityKeyPair: IdentityKeyPair
+    val pniSignedPreKey: SignedPreKeyRecord
+    val pniLastResortKyberPreKey: KyberPreKeyRecord?
+    try {
+      pniIdentityKeyPair = IdentityKeyPair(identityKeyPairBytes.toByteArray())
+      pniSignedPreKey = SignedPreKeyRecord(signedPreKeyBytes.toByteArray())
+      pniLastResortKyberPreKey = pniChangeNumber.lastResortKyberPreKey?.let { KyberPreKeyRecord(it.toByteArray()) }
+    } catch (e: Exception) {
+      warn(timestamp, "Failed to deserialize PniChangeNumber sync message. Bailing.", e)
+      return
+    }
+
+    log(timestamp, "Applying PniChangeNumber sync message.")
+
+    ChangeNumberRepository().applyLocalNumberChange(
+      e164 = newE164,
+      pni = PNI(pni),
+      pniIdentityKeyPair = pniIdentityKeyPair,
+      pniSignedPreKey = pniSignedPreKey,
+      pniLastResortKyberPreKey = pniLastResortKyberPreKey,
+      pniRegistrationId = registrationId
+    )
+
+    SignalStore.misc.lastAppliedPniChangeServerTimestamp = envelopeServerTimestamp
+
+    // The primary already submitted these per-device prekeys to the server as part of the
+    // change-number request, so they are registered server-side from this device's perspective.
+    val pniMetadataStore = SignalStore.account.pniPreKeys
+    pniMetadataStore.isSignedPreKeyRegistered = true
+    if (pniLastResortKyberPreKey != null) {
+      pniMetadataStore.lastResortKyberPreKeyId = pniLastResortKyberPreKey.id
+    }
+
+    // Rotate the primary-generated keys as soon as possible so we don't rely on them long-term.
+    SignalStore.misc.forcePniSignedPreKeyRotation = true
+    AppDependencies.jobManager.add(PreKeysSyncJob.create(forceRotationRequested = true))
   }
 
   private fun handleSynchronizedPollCreate(
