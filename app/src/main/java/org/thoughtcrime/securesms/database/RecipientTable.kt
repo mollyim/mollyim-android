@@ -3820,6 +3820,10 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       recipientsWithinInteractionThreshold.remove(Recipient.self().id)
     }
 
+    if (recipientsWithinInteractionThreshold.isEmpty()) {
+      return emptyList()
+    }
+
     val select = SqlUtil.buildFastCollectionQuery(ID, recipientsWithinInteractionThreshold, "$LAST_PROFILE_FETCH < $lastProfileFetchThreshold AND")
 
     return readableDatabase
