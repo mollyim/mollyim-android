@@ -26,7 +26,7 @@ import org.signal.core.util.PendingIntentFlags;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.payments.Mnemonic;
-import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
 

@@ -64,10 +64,10 @@ import org.thoughtcrime.securesms.scribbles.stickers.DigitalClockStickerRenderer
 import org.thoughtcrime.securesms.scribbles.stickers.FeatureSticker;
 import org.thoughtcrime.securesms.scribbles.stickers.TappableRenderer;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.ParcelUtil;
+import org.signal.core.util.ParcelUtil;
 import org.thoughtcrime.securesms.util.SaveAttachmentUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.ThrottledDebouncer;
+import org.signal.core.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 

@@ -23,7 +23,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.signal.core.util.CursorUtil;
 import org.signal.core.util.LRUCache;
 import org.signal.core.util.Stopwatch;
-import org.thoughtcrime.securesms.util.concurrent.FilteredExecutor;
+import org.signal.core.util.concurrent.FilteredExecutor;
 import org.signal.core.models.ServiceId.ACI;
 
 import java.util.ArrayList;

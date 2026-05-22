@@ -12,6 +12,8 @@ import org.json.JSONObject
 import org.jsoup.helper.StringUtil
 import org.signal.core.models.ServiceId
 import org.signal.core.util.CursorUtil
+import org.signal.core.util.JsonUtils
+import org.signal.core.util.JsonUtils.SaneJSONObject
 import org.signal.core.util.LRUCache
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.Stopwatch
@@ -68,8 +70,6 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.ConversationUtil
-import org.thoughtcrime.securesms.util.JsonUtils
-import org.thoughtcrime.securesms.util.JsonUtils.SaneJSONObject
 import org.thoughtcrime.securesms.util.SignalTrace
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.isPoll

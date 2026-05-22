@@ -35,7 +35,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.signal.core.util.Util;
-import org.thoughtcrime.securesms.util.concurrent.SerialExecutor;
+import org.signal.core.util.concurrent.SerialExecutor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

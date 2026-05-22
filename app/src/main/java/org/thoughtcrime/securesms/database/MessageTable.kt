@@ -30,6 +30,7 @@ import org.json.JSONObject
 import org.signal.core.models.ServiceId
 import org.signal.core.util.Base64
 import org.signal.core.util.CursorUtil
+import org.signal.core.util.JsonUtils
 import org.signal.core.util.SqlUtil
 import org.signal.core.util.SqlUtil.buildArgs
 import org.signal.core.util.SqlUtil.buildSingleCollectionQuery
@@ -141,7 +142,6 @@ import org.thoughtcrime.securesms.revealable.ViewOnceUtil
 import org.thoughtcrime.securesms.sms.GroupV2UpdateMessageUtil
 import org.thoughtcrime.securesms.stories.Stories.isFeatureEnabled
 import org.thoughtcrime.securesms.util.DateUtils
-import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageConstraintsUtil
 import org.thoughtcrime.securesms.util.RemoteConfig

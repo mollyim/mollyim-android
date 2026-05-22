@@ -16,7 +16,7 @@ import org.thoughtcrime.securesms.jobmanager.persistence.FullSpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobStorage;
 import org.thoughtcrime.securesms.jobs.MinimalJobSpec;
-import org.thoughtcrime.securesms.util.Debouncer;
+import org.signal.core.util.Debouncer;
 
 import java.util.ArrayList;
 import java.util.Collection;
