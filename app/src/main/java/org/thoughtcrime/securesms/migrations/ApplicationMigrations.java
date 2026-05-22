@@ -200,9 +200,10 @@ public class ApplicationMigrations {
     static final int COLLAPSED_EVENTS_2            = 156;
     static final int KEY_TRANSPARENCY              = 157;
     static final int RELEASE_NOTES_CHAT_SYNC       = 158;
+    static final int READ_INDEX_DB_MIGRATION       = 159;
   }
 
-  public static final int CURRENT_VERSION = 158;
+  public static final int CURRENT_VERSION = 159;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -927,6 +928,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.RELEASE_NOTES_CHAT_SYNC) {
       jobs.put(Version.RELEASE_NOTES_CHAT_SYNC, new AccountRecordMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.READ_INDEX_DB_MIGRATION) {
+      jobs.put(Version.READ_INDEX_DB_MIGRATION, new DatabaseMigrationJob());
     }
 
     return jobs;

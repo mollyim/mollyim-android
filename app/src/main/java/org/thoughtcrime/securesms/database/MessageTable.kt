@@ -310,6 +310,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     """
 
     private const val INDEX_THREAD_STORY_SCHEDULED_DATE_LATEST_REVISION_ID = "message_thread_story_parent_story_scheduled_date_latest_revision_id_index"
+    private const val INDEX_THREAD_DATE_RECEIVED_UNREAD = "message_thread_date_received_unread_index"
     private const val INDEX_DATE_SENT_FROM_TO_THREAD = "message_date_sent_from_to_thread_index"
     private const val INDEX_THREAD_COUNT = "message_thread_count_index"
     private const val INDEX_THREAD_UNREAD_COUNT = "message_thread_unread_count_index"
@@ -339,6 +340,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       "CREATE INDEX IF NOT EXISTS $INDEX_THREAD_COUNT ON $TABLE_NAME ($THREAD_ID) WHERE $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL AND $COLLAPSED_STATE != ${CollapsedState.COLLAPSED.id}",
       // This index is created specifically for getting the number of unread messages in a thread and therefore needs to be kept in sync with that query
       "CREATE INDEX IF NOT EXISTS $INDEX_THREAD_UNREAD_COUNT ON $TABLE_NAME ($THREAD_ID) WHERE $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE = -1 AND $ORIGINAL_MESSAGE_ID IS NULL AND $READ = 0",
+      // Partial index for marking messages read in a thread (see setMessagesReadSince). Only contains unread/unseen rows.
+      "CREATE INDEX IF NOT EXISTS $INDEX_THREAD_DATE_RECEIVED_UNREAD ON $TABLE_NAME ($THREAD_ID, $DATE_RECEIVED) WHERE $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND ($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1)",
       "CREATE INDEX IF NOT EXISTS message_votes_unread_index ON $TABLE_NAME ($VOTES_UNREAD)",
       "CREATE INDEX IF NOT EXISTS message_pinned_until_index ON $TABLE_NAME ($PINNED_UNTIL)",
       "CREATE INDEX IF NOT EXISTS message_pinned_at_index ON $TABLE_NAME ($PINNED_AT)",
@@ -2523,22 +2526,26 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun setMessagesReadSince(threadId: Long, sinceTimestamp: Long): List<MarkedMessageInfo> {
+    // The standalone "($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1)" term below is logically redundant -- it's implied by the
+    // larger read/reactions/votes clause that follows. We need it to satisfy the query planner so we can use INDEX_THREAD_DATE_RECEIVED_UNREAD.
+    // The index needs to appear exactly in the query.
     var query = """
-      $THREAD_ID = ? AND 
-      $STORY_TYPE = 0 AND 
-      $PARENT_STORY_ID <= 0 AND 
+      $THREAD_ID = ? AND
+      $STORY_TYPE = 0 AND
+      $PARENT_STORY_ID <= 0 AND
       (
         $ORIGINAL_MESSAGE_ID IS NULL OR
         $LATEST_REVISION_ID IS NULL
-      ) AND 
+      ) AND
+      ($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1) AND
       (
-        $READ = 0 OR 
+        $READ = 0 OR
         (
-          $REACTIONS_UNREAD = 1 AND 
+          $REACTIONS_UNREAD = 1 AND
           ($outgoingTypeClause)
         ) OR
         (
-          $VOTES_UNREAD = 1 AND 
+          $VOTES_UNREAD = 1 AND
           ($outgoingTypeClause)
         )
       )
@@ -2551,7 +2558,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       args += sinceTimestamp.toString()
     }
 
-    return setMessagesRead(query, args.toTypedArray())
+    return setMessagesRead(query, args.toTypedArray(), index = INDEX_THREAD_DATE_RECEIVED_UNREAD)
   }
 
   fun setGroupStoryMessagesReadSince(threadId: Long, groupStoryId: Long, sinceTimestamp: Long): List<MarkedMessageInfo> {
@@ -2618,7 +2625,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
   private fun setMessagesRead(where: String, arguments: Array<String>?, index: String = INDEX_THREAD_STORY_SCHEDULED_DATE_LATEST_REVISION_ID): List<MarkedMessageInfo> {
     val releaseChannelId = SignalStore.releaseChannel.releaseChannelRecipientId
-    return writableDatabase.rawQuery(
+    val startTime = System.currentTimeMillis()
+    val results = writableDatabase.rawQuery(
       """
           UPDATE $TABLE_NAME INDEXED BY $index
           SET $READ = 1, $REACTIONS_UNREAD = 0, $REACTIONS_LAST_SEEN = ${System.currentTimeMillis()}, $VOTES_UNREAD = 0, $VOTES_LAST_SEEN = ${System.currentTimeMillis()}
@@ -2645,6 +2653,10 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       }
     }
       .filterNotNull()
+
+    Log.d(TAG, "[setMessagesRead] Updated ${results.size} messages in ${System.currentTimeMillis() - startTime} ms using index $index.")
+
+    return results
   }
 
   fun getOldestUnreadMentionDetails(threadId: Long): Pair<RecipientId, Long>? {
