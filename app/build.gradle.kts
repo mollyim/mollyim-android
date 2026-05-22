@@ -727,6 +727,7 @@ dependencies {
   }
   implementation(libs.dnsjava)
   implementation(libs.kotlinx.collections.immutable)
+  implementation(libs.arrow.core)
   implementation(libs.accompanist.permissions)
   implementation(libs.accompanist.drawablepainter)
   implementation(libs.kotlin.stdlib.jdk8)

@@ -903,7 +903,7 @@ public class SignalServiceMessageSender {
     return sendMessage(address, sealedSenderAccess, System.currentTimeMillis(), envelopeContent, false, null, null, false, false);
   }
 
-  private PniSignatureMessage createPniSignatureMessage() {
+  public PniSignatureMessage createPniSignatureMessage() {
     byte[] signature = localPniIdentity.signAlternateIdentity(aciStore.getIdentityKeyPair().getPublicKey());
 
     return new PniSignatureMessage.Builder()

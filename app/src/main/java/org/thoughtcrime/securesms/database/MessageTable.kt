@@ -2312,9 +2312,27 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     AppDependencies.databaseObserver.notifyConversationListListeners()
   }
 
-  fun markAsSent(messageId: Long, secure: Boolean) {
+  fun markAsSent(messageId: Long) {
     val threadId = getThreadIdForMessage(messageId)
-    updateMailboxBitmask(messageId, MessageTypes.BASE_TYPE_MASK, MessageTypes.BASE_SENT_TYPE or if (secure) MessageTypes.PUSH_MESSAGE_BIT or MessageTypes.SECURE_MESSAGE_BIT else 0, Optional.of(threadId))
+    updateMailboxBitmask(messageId, MessageTypes.BASE_TYPE_MASK, MessageTypes.BASE_SENT_TYPE or MessageTypes.PUSH_MESSAGE_BIT or MessageTypes.SECURE_MESSAGE_BIT, Optional.of(threadId))
+    AppDependencies.databaseObserver.notifyMessageUpdateObservers(MessageId(messageId))
+    AppDependencies.databaseObserver.notifyConversationListListeners()
+  }
+
+  fun markAsSent(messageId: Long, sealedSender: Boolean) {
+    val maskOff = MessageTypes.BASE_TYPE_MASK
+    val maskOn = MessageTypes.BASE_SENT_TYPE or MessageTypes.PUSH_MESSAGE_BIT or MessageTypes.SECURE_MESSAGE_BIT
+
+    writableDatabase.execSQL(
+      """
+        UPDATE $TABLE_NAME 
+        SET 
+          $TYPE = ($TYPE & ${MessageTypes.TOTAL_MASK - maskOff} | $maskOn ),
+          $UNIDENTIFIED = ${sealedSender.toInt()}
+        WHERE $ID = $messageId
+      """
+    )
+
     AppDependencies.databaseObserver.notifyMessageUpdateObservers(MessageId(messageId))
     AppDependencies.databaseObserver.notifyConversationListListeners()
   }
@@ -2691,6 +2709,18 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         threads.setLastScrolled(id, 0)
         threads.update(id, false)
       }
+  }
+
+  fun getOutgoingMessageOrNull(messageId: Long): OutgoingMessage? {
+    return try {
+      getOutgoingMessage(messageId)
+    } catch (e: MmsException) {
+      Log.w(TAG, "Hit MmsException, returning null", e)
+      null
+    } catch (e: NoSuchMessageException) {
+      Log.w(TAG, "Hit NoSuchMessageException, returning null", e)
+      null
+    }
   }
 
   @Throws(MmsException::class, NoSuchMessageException::class)

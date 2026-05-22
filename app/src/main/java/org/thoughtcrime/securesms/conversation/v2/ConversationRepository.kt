@@ -273,7 +273,7 @@ class ConversationRepository(
           Log.i(TAG, "Some recipients skipped when sending end poll. Resending to $filterRecipientIds")
           MessageSender.resendGroupMessage(applicationContext, messageRecord, filterRecipientIds)
         } else {
-          SignalDatabase.messages.markAsSent(messageId, true)
+          SignalDatabase.messages.markAsSent(messageId)
         }
         emitter.onComplete()
       } else {
@@ -381,7 +381,7 @@ class ConversationRepository(
           Log.i(TAG, "Some recipients skipped when sending pin message. Resending to $filterRecipientIds")
           MessageSender.resendGroupMessage(applicationContext, messageRecord, filterRecipientIds)
         } else {
-          SignalDatabase.messages.markAsSent(insertResult.messageId, true)
+          SignalDatabase.messages.markAsSent(insertResult.messageId)
         }
         emitter.onComplete()
       } else {

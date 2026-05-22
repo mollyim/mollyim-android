@@ -495,7 +495,7 @@ public final class PushGroupSendJob extends PushSendJob {
     }
 
     if (existingNetworkFailures.isEmpty() && existingIdentityMismatches.isEmpty()) {
-      database.markAsSent(messageId, true);
+      database.markAsSent(messageId);
 
       markAttachmentsUploaded(messageId, message);
 

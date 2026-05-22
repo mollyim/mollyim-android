@@ -425,7 +425,7 @@ object SyncMessageProcessor {
       SignalDatabase.messages.markUnidentified(messageId, sent.isUnidentified(toRecipient.serviceId.orNull()))
     }
 
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
     if (targetMessage.expireStarted > 0) {
       SignalDatabase.messages.markExpireStarted(messageId, targetMessage.expireStarted)
       AppDependencies.expiringMessageManager.scheduleDeletion(messageId, true, targetMessage.expireStarted, targetMessage.expireStarted)
@@ -498,7 +498,7 @@ object SyncMessageProcessor {
       SignalDatabase.messages.markUnidentified(messageId, sent.isUnidentified(toRecipient.serviceId.orNull()))
     }
 
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     val attachments: List<DatabaseAttachment> = SignalDatabase.attachments.getAttachmentsForMessage(messageId)
 
@@ -605,7 +605,7 @@ object SyncMessageProcessor {
       SignalDatabase.messages.markUnidentified(messageId, sent.isUnidentified(recipient.serviceId.orNull()))
     }
 
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     val allAttachments = SignalDatabase.attachments.getAttachmentsForMessage(messageId)
     val attachments: List<DatabaseAttachment> = allAttachments.filterNot { it.isSticker }
@@ -716,14 +716,14 @@ object SyncMessageProcessor {
       // TODO [expireVersion] After unsupported builds expire, we can remove this branch
       SignalDatabase.recipients.setExpireMessagesWithoutIncrementingVersion(recipient.id, sent.message!!.expireTimerDuration.inWholeSeconds.toInt())
       val messageId: Long = SignalDatabase.messages.insertMessageOutbox(expirationUpdateMessage, threadId, false, null).messageId
-      SignalDatabase.messages.markAsSent(messageId, true)
+      SignalDatabase.messages.markAsSent(messageId)
     } else if (sent.message!!.expireTimerVersion!! >= recipient.expireTimerVersion) {
       SignalDatabase.recipients.setExpireMessages(recipient.id, sent.message!!.expireTimerDuration.inWholeSeconds.toInt(), sent.message!!.expireTimerVersion!!)
 
       if (sent.message!!.expireTimerDuration != recipient.expiresInSeconds.seconds) {
         log(sent.timestamp!!, "Not inserted update message as timer value did not change")
         val messageId: Long = SignalDatabase.messages.insertMessageOutbox(expirationUpdateMessage, threadId, false, null).messageId
-        SignalDatabase.messages.markAsSent(messageId, true)
+        SignalDatabase.messages.markAsSent(messageId)
       }
     } else {
       warn(sent.timestamp!!, "[SynchronizeExpiration] Ignoring expire timer update with old version. Received: ${sent.message!!.expireTimerVersion}, Current: ${recipient.expireTimerVersion}")
@@ -807,7 +807,7 @@ object SyncMessageProcessor {
         SignalDatabase.messages.markUnidentified(messageId, sent.isUnidentified(recipient.serviceId.orNull()))
       }
 
-      SignalDatabase.messages.markAsSent(messageId, true)
+      SignalDatabase.messages.markAsSent(messageId)
       if (dataMessage.expireTimerDuration > Duration.ZERO) {
         SignalDatabase.messages.markExpireStarted(messageId, sent.expirationStartTimestamp ?: 0)
 
@@ -874,7 +874,7 @@ object SyncMessageProcessor {
       SignalDatabase.messages.markUnidentified(messageId, sent.isUnidentified(syncDestinationRecipient.serviceId.orNull()))
     }
 
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     if (dataMessage.expireTimerDuration > Duration.ZERO) {
       SignalDatabase.messages.markExpireStarted(messageId, sent.expirationStartTimestamp ?: 0)
@@ -949,7 +949,7 @@ object SyncMessageProcessor {
 
     log(envelopeTimestamp, "Inserted sync message as messageId $messageId")
 
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     if (expiresInMillis > 0) {
       SignalDatabase.messages.markExpireStarted(messageId, sent.expirationStartTimestamp ?: 0)
@@ -1889,7 +1889,7 @@ object SyncMessageProcessor {
 
     log(envelope.clientTimestamp!!, "Inserted sync poll create message as messageId $messageId")
 
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     if (expiresInMillis > 0) {
       SignalDatabase.messages.markExpireStarted(messageId, sent.expirationStartTimestamp ?: 0)
@@ -1947,7 +1947,7 @@ object SyncMessageProcessor {
 
     val receiptStatus = if (recipient.isGroup) GroupReceiptTable.STATUS_UNKNOWN else GroupReceiptTable.STATUS_UNDELIVERED
     val messageId = SignalDatabase.messages.insertMessageOutbox(outgoingMessage, threadId, false, receiptStatus, null).messageId
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     log(envelope.clientTimestamp!!, "Inserted sync poll end message as messageId $messageId")
 
@@ -2014,7 +2014,7 @@ object SyncMessageProcessor {
     )
 
     val messageId = SignalDatabase.messages.insertMessageOutbox(outgoingMessage, threadId, false, GroupReceiptTable.STATUS_UNKNOWN, null).messageId
-    SignalDatabase.messages.markAsSent(messageId, true)
+    SignalDatabase.messages.markAsSent(messageId)
 
     log(envelope.clientTimestamp!!, "Inserted sync pin message as messageId $messageId")
 

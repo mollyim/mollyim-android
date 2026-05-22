@@ -200,6 +200,7 @@ dnsjava = "dnsjava:dnsjava:3.6.4"
 nanohttpd-webserver = { module = "org.nanohttpd:nanohttpd-webserver", version.ref = "nanohttpd" }
 nanohttpd-websocket = { module = "org.nanohttpd:nanohttpd-websocket", version.ref = "nanohttpd" }
 kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0"
+arrow-core = "io.arrow-kt:arrow-core:2.2.2.1"
 
 # Can't use the newest version because it hits some weird NoClassDefFoundException
 jknack-handlebars = "com.github.jknack:handlebars:4.0.7"
