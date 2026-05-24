@@ -432,10 +432,10 @@
     <string name="ConversationItem_error_not_sent_tap_for_details">전송되지 않음. 자세히 보려면 탭하세요</string>
     <string name="ConversationItem_error_partially_not_delivered">일부만 전송됨. 자세히 보려면 탭하세요</string>
     <!-- Warning footer when an admin delete has not been sent to everyone -->
-    <string name="ConversationItem_error_partially_not_deleted">부분 삭제됨, 탭하여 자세히 알아보기</string>
+    <string name="ConversationItem_error_partially_not_deleted">부분 삭제됨. 자세히 보려면 탭하세요</string>
     <string name="ConversationItem_error_network_not_delivered">보내기 실패</string>
     <!-- Warning footer when an admin delete has failed to send -->
-    <string name="ConversationItem_error_delete_failed">삭제 실패, 탭하여 자세히 알아보기</string>
+    <string name="ConversationItem_error_delete_failed">삭제 실패. 자세히 보려면 탭하세요</string>
     <string name="ConversationItem_group_action_left">%1$s 님이 그룹에서 나갔습니다.</string>
     <string name="ConversationItem_send_paused">전송 일시 중지됨</string>
     <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">비보안 SMS로 바꾸시겠어요?</string>
@@ -459,15 +459,15 @@
     <!-- Dialog error message shown when user can\'t download a message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other\'s name -->
     <string name="ConversationItem_cant_download_message_s_will_need_to_send_it_again">메시지를 다운로드할 수 없습니다. %1$s 님이 다시 전송해야 합니다.</string>
     <!-- Dialog error message shown when user can\'t download an image message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other\'s name -->
-    <string name="ConversationItem_cant_download_image_s_will_need_to_send_it_again">이미지를 다운로드할 수 없습니다. %1$s 님이 다시 공유해야 합니다.</string>
+    <string name="ConversationItem_cant_download_image_s_will_need_to_send_it_again">이미지를 다운로드할 수 없습니다. %1$s 님이 다시 전송해야 합니다.</string>
     <!-- Dialog error message shown when user can\'t download a video message from someone else due to a permanent failure (e.g., unable to decrypt), placeholder is other\'s name -->
-    <string name="ConversationItem_cant_download_video_s_will_need_to_send_it_again">동영상을 다운로드할 수 없습니다. %1$s 님이 다시 공유해야 합니다.</string>
+    <string name="ConversationItem_cant_download_video_s_will_need_to_send_it_again">동영상을 다운로드할 수 없습니다. %1$s 님이 다시 전송해야 합니다.</string>
     <!-- Dialog error message shown when user can\'t download a their own message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
-    <string name="ConversationItem_cant_download_message_you_will_need_to_send_it_again">메시지를 다운로드할 수 없습니다. 다시 공유해 주세요.</string>
+    <string name="ConversationItem_cant_download_message_you_will_need_to_send_it_again">메시지를 다운로드할 수 없습니다. 다시 전송해 주세요.</string>
     <!-- Dialog error message shown when user can\'t download a their own image message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
-    <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">이미지를 다운로드할 수 없습니다. 다시 공유해 주세요.</string>
+    <string name="ConversationItem_cant_download_image_you_will_need_to_send_it_again">이미지를 다운로드할 수 없습니다. 다시 전송해 주세요.</string>
     <!-- Dialog error message shown when user can\'t download a their own video message via a linked device due to a permanent failure (e.g., unable to decrypt) -->
-    <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">동영상을 다운로드할 수 없습니다. 다시 공유해 주세요.</string>
+    <string name="ConversationItem_cant_download_video_you_will_need_to_send_it_again">동영상을 다운로드할 수 없습니다. 다시 전송해 주세요.</string>
     <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. The timestamp represents a message that has been edited within the last minute. -->
     <string name="ConversationItem_edited_now_timestamp_footer">방금 수정함</string>
     <!-- Display as the timestamp footer in a message bubble in a conversation when a message has been edited. This is displayed when the edit has occurred between 1-59 minutes ago. -->
@@ -492,7 +492,7 @@
     </plurals>
     <!-- Warning dialog text shown to user if they try to edit a message too many times. Where %1$d is replaced with the number of edits -->
     <plurals name="ConversationActivity_edit_message_too_many_edits">
-        <item quantity="other">이 메시지는 오직 %1$d 님만 수정할 수 있습니다.</item>
+        <item quantity="other">이 메시지는 %1$d번만 수정할 수 있습니다.</item>
     </plurals>
 
     <string name="ConversationActivity_invalid_recipient">잘못된 수신자입니다</string>
@@ -578,9 +578,9 @@
     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
     <string name="ConversationActivity__this_person_is_no_longer_using_signal">이 사용자는 더 이상 Signal을 사용하지 않습니다. Signal로 초대하여 대화를 이어가세요.</string>
     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
-    <string name="ConversationActivity__invite_to_signal">Signal로 초대</string>
+    <string name="ConversationActivity__invite_to_signal">Signal로 초대하기</string>
     <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
-    <string name="ConversationActivity__you_will_be_reminded_again_soon">알림이 곧 다시 표시됩니다.</string>
+    <string name="ConversationActivity__you_will_be_reminded_again_soon">조만간 다시 알림을 보내드릴게요.</string>
     <!-- Toast message shown when trying to record a voice message during an ongoing call -->
     <string name="ConversationFragment_cannot_record_voice_message_during_call">통화 중에는 음성 메시지를 녹음할 수 없습니다.</string>
 
@@ -808,22 +808,22 @@
         <item quantity="other">선택한 대화를 삭제할까요?</item>
     </plurals>
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
-        <item quantity="other">대화 %1$d개를 모두 영구 삭제합니다.</item>
+        <item quantity="other">선택한 대화 %1$d개가 모두 영구 삭제됩니다.</item>
     </plurals>
     <!-- Dialog message shown when deleting one to many conversations from the chat list and the user has a linked device -->
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations_linked_device">
-        <item quantity="other">모든 기기에서 선택한 대화 %1$d개를 모두 영구 삭제합니다.</item>
+        <item quantity="other">선택한 대화 %1$d개가 모든 기기에서 영구 삭제됩니다.</item>
     </plurals>
     <string name="ConversationListFragment_deleting">삭제 중</string>
     <plurals name="ConversationListFragment_deleting_selected_conversations">
         <item quantity="other">선택한 대화를 삭제하는 중…</item>
     </plurals>
     <plurals name="ConversationListFragment_conversations_archived">
-        <item quantity="other">%1$d개 대화를 보관함</item>
+        <item quantity="other">%1$d개 대화를 보관했습니다</item>
     </plurals>
     <string name="ConversationListFragment_undo">실행 취소</string>
     <plurals name="ConversationListFragment_moved_conversations_to_inbox">
-        <item quantity="other">%1$d개 대화를 받은 메시지함으로 이동함</item>
+        <item quantity="other">%1$d개 대화를 받은 메시지함으로 옮겼습니다</item>
     </plurals>
     <plurals name="ConversationListFragment_read_plural">
         <item quantity="other">읽음</item>
@@ -868,7 +868,7 @@
     <string name="ConversationListFragment_username_recovered_toast">QR 코드와 링크를 초기화했으며, 사용자 이름은 %1$s입니다.</string>
 
     <!-- ConversationListItem -->
-    <string name="ConversationListItem_key_exchange_message">핵심 교환 메시지</string>
+    <string name="ConversationListItem_key_exchange_message">키 교환 메시지</string>
 
     <!-- ConversationListItemAction -->
     <string name="ConversationListItemAction_archived_conversations_d">보관한 대화(%1$d개)</string>
@@ -902,7 +902,7 @@
 
     <!-- ProfileCreateFragment -->
     <!-- Displayed at the top of the screen and explains how profiles can be viewed. -->
-    <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">사용자가 메시지를 보내는 사람과 연락처, 그룹에 프로필이 표시됩니다.</string>
+    <string name="ProfileCreateFragment__profiles_are_visible_to_contacts_and_people_you_message">내 프로필은 내가 메시지를 보낸 사람, 내 연락처, 참여 중인 그룹에 노출됩니다.</string>
     <!-- Title of clickable row to select phone number privacy settings -->
     <string name="ProfileCreateFragment__who_can_find_me">전화번호로 나를 찾을 수 있는 사람은 누구인가요?</string>
 
@@ -995,9 +995,9 @@
     <!-- Status text shown in backup preferences when verifying a backup -->
     <string name="BackupsPreferenceFragment__verifying_backup">백업을 확인하는 중…</string>
     <!-- Progress of backup where %d is the number of files completed so far -->
-    <string name="BackupsPreferenceFragment__d_so_far">지금까지 %1$d…</string>
+    <string name="BackupsPreferenceFragment__d_so_far">%1$d개 완료</string>
     <!-- Show percentage of completion of backup -->
-    <string name="BackupsPreferenceFragment__s_so_far">%1$s%% 진행중…</string>
+    <string name="BackupsPreferenceFragment__s_so_far">%1$s%% 완료</string>
     <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal에서 백업을 저장하려면 저장 공간 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
     <!-- Title of dialog shown when picking the time to perform a chat backup -->
     <string name="BackupsPreferenceFragment__set_backup_time">백업 시간 설정</string>
@@ -1076,7 +1076,7 @@
     <string name="ScheduledMessagesBottomSheet_deleting_progress_message">예약 메시지를 삭제하는 중…</string>
 
     <!-- DecryptionFailedDialog -->
-    <string name="DecryptionFailedDialog_chat_session_refreshed">대화 세션이 새로고침되었어요</string>
+    <string name="DecryptionFailedDialog_chat_session_refreshed">대화 세션이 새로고침되었습니다</string>
     <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal은 종단간 암호화를 사용하며, 때에 따라 대화 세션을 새로고침해야 할 수 있습니다. 이 과정은 보안에 영향을 주지 않지만, 간혹 메시지가 수신되지 않을 수 있습니다. 이런 경우 상대방에게 메시지 재전송을 요청해 주세요.</string>
 
     <!-- LinkDeviceFragment -->
@@ -1219,10 +1219,10 @@
 
     <!-- DeviceListActivity -->
     <string name="DeviceListActivity_unlink_s">\'%1$s\' 기기의 연결을 해제할까요?</string>
-    <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">기기를 연결 해제하면 메시지를 보내거나 받을 수 없습니다.</string>
+    <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">기기를 연결 해제하면 메시지를 주고받을 수 없습니다.</string>
     <string name="DeviceListActivity_network_connection_failed">네트워크 연결 실패</string>
     <!-- Button label on an alert dialog. The dialog informs the user they have network issues. If pressed, we will retry the network request. -->
-    <string name="DeviceListActivity_try_again">다시 시도해 주세요.</string>
+    <string name="DeviceListActivity_try_again">다시 시도해 주세요</string>
     <string name="DeviceListActivity_unlinking_device">기기 연결 해제 중…</string>
     <string name="DeviceListActivity_unlinking_device_no_ellipsis">기기 연결 해제 중</string>
     <string name="DeviceListActivity_network_failed">네트워크 연결 실패</string>
@@ -1238,12 +1238,12 @@
     <string name="DocumentView_document_file">문서 파일</string>
 
     <!-- DozeReminder -->
-    <string name="DozeReminder_optimize_for_missing_play_services">누락된 Play Services에 최적화</string>
-    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">기기에서는 Play Services를 지원하지 않습니다. 탭하여 시스템 배터리 최적화 기능을 사용하지 않을 수 있습니다. 해당 기능은 Signal이 비활성화된 동안에 메시지를 검색하지 못하게 합니다.</string>
+    <string name="DozeReminder_optimize_for_missing_play_services">Play Services 미지원 기기 최적화</string>
+    <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">이 기기는 Play Services를 지원하지 않습니다. 백그라운드 상태에서도 메시지를 정상적으로 가져오려면 탭하여 배터리 최적화를 비활성화하세요.</string>
 
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal 버전이 만료되었습니다. 메시지를 주고받으려면 지금 업데이트하세요.</string>
-    <string name="ExpiredBuildReminder_update_now">지금 업데이트하세요.</string>
+    <string name="ExpiredBuildReminder_update_now">지금 업데이트하세요</string>
 
     <!-- A message in a banner shown at the top of the screen indicating that the user must upgrade their device to use signal. -->
     <string name="DeprecatedSdkBanner_body">Signal이 이 기기에서는 더 이상 작동하지 않습니다. Signal을 다시 사용하려면 기기를 최신 Android 버전으로 업데이트하거나 최신 기기로 업데이트하세요.</string>
@@ -1339,7 +1339,7 @@
     <plurals name="GroupsV1MigrationSuggestionsReminder_add_members">
         <item quantity="other">멤버 추가하기</item>
     </plurals>
-    <string name="GroupsV1MigrationSuggestionsReminder_no_thanks">괜찮습니다</string>
+    <string name="GroupsV1MigrationSuggestionsReminder_no_thanks">괜찮아요</string>
 
     <!-- GroupsV1MigrationSuggestionsDialog -->
     <plurals name="GroupsV1MigrationSuggestionsDialog_add_members_question">
@@ -1369,13 +1369,13 @@
     <!-- LinkPreviewView -->
     <string name="LinkPreviewView_no_link_preview_available">사용 가능한 링크 미리보기가 없습니다</string>
     <string name="LinkPreviewView_this_group_link_is_not_active">그룹 링크가 비활성화되어 있습니다</string>
-    <string name="LinkPreviewView_domain_date">%1$s, %2$s</string>
+    <string name="LinkPreviewView_domain_date">%1$s · %2$s</string>
     <!-- Description for Call Link url previews -->
     <string name="LinkPreviewView__use_this_link_to_join_a_signal_call">이 링크를 사용하여 Signal 통화에 참여하세요.</string>
 
     <!-- LinkPreviewRepository -->
     <plurals name="LinkPreviewRepository_d_members">
-        <item quantity="other">%1$d명의 멤버</item>
+        <item quantity="other">멤버 %1$d명</item>
     </plurals>
 
     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
@@ -1422,7 +1422,7 @@
     <string name="PendingMembersActivity_people_you_invited">내가 초대한 사용자</string>
     <string name="PendingMembersActivity_you_have_no_pending_invites">대기 중인 초대가 없습니다.</string>
     <string name="PendingMembersActivity_invites_by_other_group_members">다른 그룹 멤버가 초대한 사용자</string>
-    <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">지금은 다른 멤버가 초대한 사람이 없습니다.</string>
+    <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">대기 중인 그룹 멤버 초대 내역이 없습니다.</string>
     <string name="PendingMembersActivity_missing_detail_explanation">다른 그룹 멤버가 초대한 사람의 상세 정보는 표시되지 않습니다. 초대된 사람이 그룹 참가를 선택하면 그때 정보가 그룹에 공유됩니다. 초대된 사람은 참가할 때까지 그룹 내 메시지를 볼 수 없습니다.</string>
 
     <string name="PendingMembersActivity_revoke_invite">초대 취소</string>
@@ -1641,7 +1641,7 @@
 
     <!-- GroupLinkShareQrDialogFragment -->
     <string name="GroupLinkShareQrDialogFragment__qr_code">QR 코드</string>
-    <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">이 코드를 스캔한 사람들이 내 그룹에 참가할 수 있게 됩니다. 이 설정을 켠 경우 관리자는 멤버 참가를 일일이 승인해야 합니다.</string>
+    <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">이 코드를 스캔한 사람은 누구나 그룹에 참여할 수 있습니다. 단, 멤버 승인 설정을 켜둔 경우 관리자의 승인이 필요합니다.</string>
     <string name="GroupLinkShareQrDialogFragment__share_code">코드 공유</string>
 
     <!-- GV2 Invite Revoke confirmation dialog -->
@@ -1686,10 +1686,10 @@
 
     <!-- GroupInviteLinkEnableAndShareBottomSheetDialogFragment -->
     <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_invite_friends">친구 초대</string>
-    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">친구들과 링크를 공유해서 그룹에 빠르게 참가하도록 하세요.</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">친구들에게 링크를 공유하고 이 그룹에 빠르게 초대해 보세요.</string>
 
     <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_enable_and_share_link">링크 활성화 및 공유</string>
-    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">링크 공유하기</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">링크 공유</string>
 
     <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">그룹 링크를 활성화할 수 없습니다. 나중에 다시 시도해 주세요.</string>
     <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_encountered_a_network_error">네트워크 오류가 발생했습니다.</string>
@@ -1701,17 +1701,17 @@
     <string name="RequestConfirmationDialog_deny_request_from_s">\'%1$s\' 님의 요청을 거절하시겠어요?</string>
     <!-- Confirm dialog message shown when deny a group link join request and group link is enabled. -->
     <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">\'%1$s\' 님의 요청을 거절하시겠어요? 이 사용자는 그룹 링크를 통해 다시 참가 요청을 보낼 수 없습니다.</string>
-    <string name="RequestConfirmationDialog_add">추가</string>
+    <string name="RequestConfirmationDialog_add">추가하기</string>
     <string name="RequestConfirmationDialog_deny">거부하기</string>
 
     <!-- ImageEditorHud -->
-    <string name="ImageEditorHud_blur_faces">얼굴 블러</string>
-    <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">신규: 얼굴 블러 또는 아무 곳에서나 그려서 블러 처리</string>
-    <string name="ImageEditorHud_draw_anywhere_to_blur">아무 곳이나 그려서 가릴 수 있습니다</string>
-    <string name="ImageEditorHud_draw_to_blur_additional_faces_or_areas">다른 사람의 얼굴이나 영역을 그어서 가릴 수 있습니다</string>
+    <string name="ImageEditorHud_blur_faces">얼굴 흐림 처리하기</string>
+    <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">새 기능: 얼굴을 흐림 처리하거나, 원하는 곳을 그려서 흐림 처리하세요</string>
+    <string name="ImageEditorHud_draw_anywhere_to_blur">원하는 곳을 그려서 흐림 처리하세요</string>
+    <string name="ImageEditorHud_draw_to_blur_additional_faces_or_areas">다른 얼굴 또는 영역을 그려서 흐림 처리하세요</string>
 
     <!-- InputPanel -->
-    <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">길게 탭하여 음성 메시지를 녹음하고, 손을 떼어 보내기</string>
+    <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">길게 누르고 있으면 음성 메시지가 녹음되며, 손을 떼면 전송됩니다.</string>
     <!-- When editing a message, label shown above the text input field in the composer -->
     <string name="InputPanel_edit_message">메시지 수정</string>
     <!-- Dialog title shown if users are about to discard their draft message -->
@@ -3071,7 +3071,7 @@
     <string name="ThreadRecord_voice_message">음성 메시지</string>
     <string name="ThreadRecord_file">파일</string>
     <string name="ThreadRecord_video">동영상</string>
-    <string name="ThreadRecord_chat_session_refreshed">대화 세션이 새로고침되었어요</string>
+    <string name="ThreadRecord_chat_session_refreshed">대화 세션이 새로고침되었습니다</string>
     <!-- Displayed in the notification when the user is sent a gift -->
     <string name="ThreadRecord__s_donated_for_you">%1$s 님이 나를 대신해 후원했어요</string>
     <!-- Displayed in the notification when the user sends a gift -->
@@ -6133,11 +6133,11 @@
     <!-- Dialog title when removing a contact -->
     <string name="NewConversationActivity__remove_s">%1$s 님을 삭제할까요?</string>
     <!-- Dialog message when removing a contact -->
-    <string name="NewConversationActivity__you_wont_see_this_person">검색 시 이 사용자가 표시되지 않습니다. 향후 해당 사용자가 메시지를 보내는 경우 메시지 요청이 수신됩니다.</string>
+    <string name="NewConversationActivity__you_wont_see_this_person">이제 검색 시 이 사용자가 표시되지 않습니다. 향후 상대방이 보내는 메시지는 \'메시지 요청\'으로 들어오게 됩니다.</string>
     <!-- Snackbar message after removing a contact -->
     <string name="NewConversationActivity__s_has_been_removed">%1$s 님을 삭제했습니다</string>
     <!-- Snackbar message after blocking a contact -->
-    <string name="NewConversationActivity__s_has_been_blocked">%1$s 님을 차단했습니다.</string>
+    <string name="NewConversationActivity__s_has_been_blocked">%1$s 님을 차단했습니다</string>
     <!-- Snackbar message when blocking a contact has failed -->
     <string name="NewConversationActivity__block_failed">차단 실패</string>
     <!-- Error message shown when looking up a person by phone number and that phone number is not associated with a signal account -->
@@ -6278,7 +6278,7 @@
     <string name="ImageEditorHud__draw">그리기</string>
     <string name="ImageEditorHud__write_text">텍스트 작성</string>
     <string name="ImageEditorHud__add_a_sticker">스티커 추가</string>
-    <string name="ImageEditorHud__blur">흐리게</string>
+    <string name="ImageEditorHud__blur">흐림 처리</string>
     <string name="ImageEditorHud__done_editing">편집 완료</string>
     <string name="ImageEditorHud__clear_all">모두 지우기</string>
     <string name="ImageEditorHud__undo">실행 취소</string>

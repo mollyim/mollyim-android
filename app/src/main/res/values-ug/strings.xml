@@ -3893,11 +3893,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">بۇ سۆھبەت ئۈچۈن شىفىرلاشتۇرۇش ئاپتوماتىك دەلىللەندى</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">تېلېفون نومۇرى ئارقىلىق باغلانغان كىشىلەر ئۈچۈن، Signal، ئاچقۇچ ئاشكارىلىقى دەپ ئاتىلىدىغان جەريان ئارقىلىق ئۇلىنىشنىڭ بىخەتەر ياكى ئەمەسلىكىنى ئاپتوماتىك جەزملەشتۈرەلەيدۇ. بىخەتەرلىكنى ئاشۇرۇش ئۈچۈن، ئالدىنقى ئېكراندىكى سانلارنى سېلىشتۇرۇش ياكى ئۇلارنىڭ ئۈسكۈنىسىدىكى كودنى سىكانىرلاش ئارقىلىق ئاخىرغىچە شىفىرلاشنى قولدا دەلىللەڭ.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">بۇ سۆھبەت ئۈچۈن ئاپتوماتىك دەلىللەشنى ئىشلەتكىلى بولمايدۇ</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal بۇ سۆھبەتنىڭ شىفىرلاشتۇرۇلىشىنى ئاپتوماتىك دەلىللىيەلمەيدۇ. بۇنىڭ سەۋەبى بەلكىم %1$s نىڭ تېلېفون نومۇرىنى ياكى تېلېفون نۇمۇرىنىڭ شەخسىي مەخپىيەتلىك تەڭشەكلىرىنى ئۆزگەرتكەنلىكى سەۋەبىدىن بولۇشى مۇمكىن. ئالدىنقى ئېكراندىكى نۇمۇرلارنى سېلىشتۇرۇش ياكى ئۈسكۈنىدىكى كودنى سىكانىرلاش ئارقىلىق ئاخىرغىچە شىفىرلاشتۇرۇشنى قولدا دەلىللەڭ.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">بۇ سۆھبەت ئۈچۈن ئاپتوماتىك دەلىللەشنى ئىشلەتكىلى بولمايدۇ</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5587,26 +5587,26 @@
     <string name="ChangeNumber__okay">جەزملە</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">نۇمۇرنى ئۆزگەرتكىلى بولمىدى</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">بۇ ھېساباتنى تېخى يېقىندا تىزىملاتقانلىقىڭىز ئۈچۈن، تېلېفون نومۇرىڭىزنى ھازىرچە ئۆزگەرتەلمەيسىز. بىر قېتىملىق قىسقا مۇددەتلىك ساقلاش جەريانى ياردەملىشىپ ھېساباتىڭىزنى قوغدايدۇ.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="other">%1$d سائەتتىن كېيىن قايتا سىناڭ.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="other">%1$d مىنۇتتىن كېيىن قايتا سىناڭ.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">بولىدۇ</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="other">بەك كۆپ قېتىم سىنىدىڭىز، %1$d سائەتتىن كېيىن قايتا سىناڭ.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="other">بەك كۆپ قېتىم سىنىدىڭىز، %1$d مىنوتتىن كېيىن قايتا سىناڭ.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9695,11 +9695,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">قايتا سىناش ئۈچۈن، Signal دېتالىنى بۇ ئۈسكىنىدىن ئۆچۈرۈپ قايتا قاچىلاڭ ھەمدە «ئەسلىگە كەلتۈرۈش ياكى يۆتكەش»نى تاللاڭ.</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">دەلىللەش كودى تەلەپ قىلىنغان</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">دەلىللەش كودىڭىزنى ھېچكىمگە بەرمەڭ. Signal ھەرگىز سىزگە ئۇچۇر يوللاپ كود سورىمايدۇ. ئەگەر سىز Signalنىڭ قىياپىتىگە كىرىۋالغان بىرىنىڭ ئۇچۇرىنى تاپشۇرۇۋالغان بولسىڭىز، بۇ بىر ئالدامچىلىق.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">ئەگەر سىز ئۆزىڭىز كودنى تەلەپ قىلغان بولسىڭىز، بۇ ئۇچۇرغا پەرۋا قىلماڭ.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">بىخەتەرلىك ئەسكەرتىشلىرى</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9714,15 +9714,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal ھەرگىز تىزىملىتىش كودىڭىز، PIN نومۇرىڭىز، ياكى ئەسلىگە كەلتۈرۈش ئاچقۇچىڭىزنى سوراپ سىز بىلەن ئالاقىلاشمايدۇ. ھەرگىز Signal دىن كەلگەن قىياپەتكە كىرىۋالغان ئۇچۇرغا جاۋاپ قايتۇرماڭ.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">دەلىللەش كودىڭىزنى بىخەتەر ساقلاڭ</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">ئەگەر سىز تەلەپ قىلمىغان ئەھۋالدا بىر دەلىللەش كودى تاپشۇرۇۋالغان بولسىڭىز، بىرى سىزنىڭ ھېساباتىڭىزغا كىرىشكە ئۇرۇنغان بولۇشى مۇمكىن. كودىڭىزنى ئورتاقلاشماڭ.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">تىزىملىتىش قۇلۇپىنى ھېسابات تەڭشىكىدىن ئېچىپ قۇيۇڭ</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">دەلىللەش كودىڭىزغا يانداپ، Signal ئارقىلىق تىزىملاتقاندا، Signal PIN نومۇرىنى تەلەپ قىلىپ ھېساباتىڭىزنى قوغداڭ.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">ھېسابات تەڭشەكلىرىنى ئېچىڭ</string>
 
     <!-- EOF -->
 </resources>

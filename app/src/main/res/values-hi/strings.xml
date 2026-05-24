@@ -3233,7 +3233,7 @@
     <string name="UsernameEditFragment__usernames_let_others_message">यूज़रनेम के साथ कुछ नंबर अपने-आप जुड़ जाते हैं।</string>
     <!-- Dialog title for explanation about numbers at the end of the username -->
     <string name="UsernameEditFragment__what_is_this_number">इस नंबर का क्या मतलब है?</string>
-    <string name="UsernameEditFragment__these_digits_help_keep">यह अंक आपको अपना यूज़रनेम निजी रखने में मदद करते हैं ताकि आप अवांछित संदेशों से बच सकें। अपना यूज़रनेम केवल उन लोगों और ग्रुप्स के साथ शेयर करें जिनके साथ आप चैट करना चाहते हैं। यदि आप अपना यूज़रनेम बदलते हैं तो आपको अंकों का एक नया सेट मिलेगा।</string>
+    <string name="UsernameEditFragment__these_digits_help_keep">इन डिजिट से आपको अपना यूज़रनेम प्राइवेट बनाए रखने में मदद मिलती है, ताकि अनचाहे मैसेज से बचा जा सके। अपना यूज़रनेम उन्हीं लोगों और ग्रुप के साथ शेयर करें, जिनसे आपको चैट करनी है। यूज़रनेम बदलने पर आपको नए डिजिट मिलेंगे।</string>
     <!-- Button to allow user to skip -->
     <string name="UsernameEditFragment__skip">छोड़ें</string>
     <!-- Content description for done button -->
@@ -6511,7 +6511,7 @@
     <string name="Subscription__expires_s">%1$s को समाप्त हो जाएगा</string>
 
     <!-- Title of learn more sheet -->
-    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">एक स्वतंत्र गैर-लाभकारी संस्था के तौर पर, Signal प्राइवेट मैसेज और कॉल की सुविधा उपलब्ध कराने के लिए प्रतिबद्ध है। न कोई विज्ञापन, न कोई ट्रैकर, न ही निगरानी। Signal को सहयोग करने के लिए आज ही डोनेट करें।</string>
+    <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_different">एक स्वतंत्र गैर-लाभकारी संस्था के तौर पर, Signal मैसेज और कॉल की जानकारी को गोपनीय बनाए रखने के लिए प्रतिबद्ध है।न कोई विज्ञापन, न कोई ट्रैकर, न ही निगरानी। Signal को सहयोग करने के लिए आज ही डोनेट करें।</string>
     <!-- First small text blurb on learn more sheet -->
     <string name="SubscribeLearnMoreBottomSheetDialogFragment__private_messaging">No ads, no trackers, no surveillance. Donate today to support Signal.</string>
     <!-- Second small text blurb on learn more sheet -->
@@ -6841,7 +6841,7 @@
     <!-- Profile exception to allow all calls through the profile restrictions -->
     <string name="NotificationProfileDetails__allow_all_calls">सभी कॉल को मंज़ूरी दें</string>
     <!-- Profile exception to allow all @mentions through the profile restrictions -->
-    <string name="NotificationProfileDetails__notify_for_all_mentions">सभी मेंशन के लिए नोटिफ़िकेशन पाएं</string>
+    <string name="NotificationProfileDetails__notify_for_all_mentions">हर बार मेंशन किए जाने पर नोटिफ़िकेशन पाएं</string>
     <!-- Section header for showing schedule information -->
     <string name="NotificationProfileDetails__schedule">शेड्यूल</string>
     <!-- If member list is long, will truncate the list and show an option to then see all when tapped -->
@@ -7783,7 +7783,7 @@
     <string name="PaymentMessageView_s_sent_you">%1$s ने आपको भेजा</string>
 
     <!-- YourInformationIsPrivateBottomSheet -->
-    <string name="YourInformationIsPrivateBottomSheet__your_information_is_private">आपकी जानकारी निजी है</string>
+    <string name="YourInformationIsPrivateBottomSheet__your_information_is_private">आपकी जानकारी गोपनीय रहती है</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_collect">डोनेट करने पर, Signal आपकी कोई भी निजी जानकारी न तो इकट्ठा करता है और न ही उसे स्टोर करता है।</string>
     <string name="YourInformationIsPrivateBottomSheet__we_use_stripe">हम आपसे डोनेशन पाने के लिए Stripe को अपने पेमेंट प्रोसेसर के रूप में इस्तेमाल करते हैं। आपकी ओर से उसे दी गई किसी भी जानकारी को न तो ऐक्सेस करते हैं, न स्टोर और न ही उसे सेव करते हैं।</string>
     <string name="YourInformationIsPrivateBottomSheet__signal_does_not_and_cannot">Signal आपके डोनेशन को आपके Signal अकाउंट से न तो कनेक्ट करता है और न ही ऐसा कर सकता है।</string>
