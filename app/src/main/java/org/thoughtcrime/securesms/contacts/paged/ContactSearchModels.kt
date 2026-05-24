@@ -148,7 +148,7 @@ object ContactSearchModels {
   ): MappingEntryProvider<Any> {
     return MappingEntryProviderBuilder<Any>().apply {
       viewHolder<StoryModel>(
-        key = { model -> "StoryModel${model.story.recipient.id}" }
+        key = { model -> "StoryModel:${model.story.recipient.id}:${model.story.privacyMode}" }
       ) { ctx ->
         LayoutFactory(
           { view -> StoryViewHolder(view, displayOptions.displayCheckBox, callbacks::onStoryClicked, storyContextMenuCallbacks, displayOptions.displayStoryRing) },
@@ -156,7 +156,7 @@ object ContactSearchModels {
         ).createViewHolder(FrameLayout(ctx))
       }
       entry<RecipientModel>(
-        key = { model -> model.knownRecipient.recipient.id }
+        key = { model -> "${model.knownRecipient.sectionKey}:${model.knownRecipient.recipient.id}" }
       ) { model ->
         Column(modifier = Modifier.fillMaxWidth()) {
           val letter = model.knownRecipient.headerLetter
@@ -193,7 +193,9 @@ object ContactSearchModels {
           )
         }
       }
-      viewHolder<UnknownRecipientModel> { ctx ->
+      viewHolder<UnknownRecipientModel>(
+        key = { model -> "Unknown:${model.data.sectionKey}:${model.data.mode}:${model.data.query}" }
+      ) { ctx ->
         LayoutFactory(
           { view -> UnknownRecipientViewHolder(view, callbacks::onUnknownRecipientClicked, displayOptions.displayCheckBox) },
           R.layout.contact_search_unknown_item
