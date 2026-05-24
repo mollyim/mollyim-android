@@ -34,9 +34,9 @@ import org.signal.network.util.Preconditions;
 import java.util.Objects;
 
 /**
- * Represents an entry in the {@link org.thoughtcrime.securesms.database.ThreadTable}.
+ * Similar to {@link ThreadRecord}, but with a populated recipient.
  */
-public final class ThreadRecord {
+public final class ThreadWithRecipient {
 
   private final long          threadId;
   private final String        body;
@@ -60,7 +60,7 @@ public final class ThreadRecord {
   private final int           unreadSelfMentionsCount;
   private final MessageExtras messageExtras;
 
-  private ThreadRecord(@NonNull Builder builder) {
+  private ThreadWithRecipient(@NonNull Builder builder) {
     this.threadId                = builder.threadId;
     this.body                    = builder.body;
     this.recipient               = builder.recipient;
@@ -255,7 +255,7 @@ public final class ThreadRecord {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ThreadRecord that = (ThreadRecord) o;
+    ThreadWithRecipient that = (ThreadWithRecipient) o;
     return threadId == that.threadId &&
            type == that.type &&
            date == that.date &&
@@ -434,13 +434,13 @@ public final class ThreadRecord {
       return this;
     }
 
-    public ThreadRecord build() {
+    public ThreadWithRecipient build() {
       if (distributionType == ThreadTable.DistributionTypes.CONVERSATION) {
         Preconditions.checkArgument(threadId > 0);
         Preconditions.checkNotNull(body);
         Preconditions.checkNotNull(recipient);
       }
-      return new ThreadRecord(this);
+      return new ThreadWithRecipient(this);
     }
   }
 }

@@ -391,6 +391,7 @@ class JobController {
         }
       }
 
+
       jobStorage.markJobAsRunning(job.getId(), System.currentTimeMillis());
       runningJobs.put(job.getId(), new ActiveJobInfo(job, runnerName, timeoutMs == 0));
       jobTracker.onStateChange(job, JobTracker.JobState.RUNNING);

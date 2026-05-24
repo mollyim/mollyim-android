@@ -209,7 +209,7 @@ object RecipientTableCursorUtil {
       identityKey = cursor.optionalString(RecipientTable.IDENTITY_KEY).map { Base64.decodeOrThrow(it) }.orElse(null),
       identityStatus = cursor.optionalInt(RecipientTable.IDENTITY_STATUS).map { VerifiedStatus.forState(it) }.orElse(VerifiedStatus.DEFAULT),
       isArchived = cursor.optionalBoolean(ThreadTable.ARCHIVED).orElse(false),
-      isForcedUnread = cursor.optionalInt(ThreadTable.READ).map { status: Int -> status == ThreadTable.ReadStatus.FORCED_UNREAD.serialize() }.orElse(false),
+      isForcedUnread = cursor.optionalInt(ThreadTable.READ).map { status: Int -> status == ThreadTable.ReadStatus.ForcedUnread.serialize() }.orElse(false),
       unregisteredTimestamp = cursor.optionalLong(RecipientTable.UNREGISTERED_TIMESTAMP).orElse(0),
       systemNickname = cursor.optionalString(RecipientTable.SYSTEM_NICKNAME).orElse(null),
       pniSignatureVerified = cursor.optionalBoolean(RecipientTable.PNI_SIGNATURE_VERIFIED).orElse(false)

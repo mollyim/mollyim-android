@@ -311,6 +311,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     private const val INDEX_THREAD_STORY_SCHEDULED_DATE_LATEST_REVISION_ID = "message_thread_story_parent_story_scheduled_date_latest_revision_id_index"
     private const val INDEX_THREAD_DATE_RECEIVED_UNREAD = "message_thread_date_received_unread_index"
+    private const val INDEX_COLLAPSED_STATE = "message_collapsed_state_index"
     private const val INDEX_DATE_SENT_FROM_TO_THREAD = "message_date_sent_from_to_thread_index"
     private const val INDEX_THREAD_COUNT = "message_thread_count_index"
     private const val INDEX_THREAD_UNREAD_COUNT = "message_thread_unread_count_index"
@@ -4657,10 +4658,22 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun setReactionsSeen(threadId: Long, sinceTimestamp: Long) {
-    val where = "$THREAD_ID = ? AND $REACTIONS_UNREAD = ?" + if (sinceTimestamp > -1) " AND $DATE_RECEIVED <= $sinceTimestamp" else ""
+    // The $STORY_TYPE/$PARENT_STORY_ID and "(read=0 OR reactions_unread=1 OR votes_unread=1)" predicates are required for the
+    // query planner to recognize that $INDEX_THREAD_DATE_RECEIVED_UNREAD (a partial index) covers this query.
+    // They match exactly the WHERE clause used when defining that index.
+    var where = """
+      $THREAD_ID = ? AND
+      $STORY_TYPE = 0 AND
+      $PARENT_STORY_ID <= 0 AND
+      ($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1) AND
+      $REACTIONS_UNREAD = ?
+    """
+    if (sinceTimestamp > -1) {
+      where += " AND $DATE_RECEIVED <= $sinceTimestamp"
+    }
 
     writableDatabase
-      .update(TABLE_NAME)
+      .update("$TABLE_NAME INDEXED BY $INDEX_THREAD_DATE_RECEIVED_UNREAD")
       .values(
         REACTIONS_UNREAD to 0,
         REACTIONS_LAST_SEEN to System.currentTimeMillis()
@@ -4681,14 +4694,20 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun setVoteSeen(threadId: Long, sinceTimestamp: Long) {
-    val where = if (sinceTimestamp > -1) {
-      "$THREAD_ID = ? AND $VOTES_UNREAD = ? AND $DATE_RECEIVED <= $sinceTimestamp"
-    } else {
-      "$THREAD_ID = ? AND $VOTES_UNREAD = ?"
+    // See setReactionsSeen for an explanation of the extra predicates / INDEXED BY hint.
+    var where = """
+      $THREAD_ID = ? AND
+      $STORY_TYPE = 0 AND
+      $PARENT_STORY_ID <= 0 AND
+      ($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1) AND
+      $VOTES_UNREAD = ?
+    """
+    if (sinceTimestamp > -1) {
+      where += " AND $DATE_RECEIVED <= $sinceTimestamp"
     }
 
     writableDatabase
-      .update(TABLE_NAME)
+      .update("$TABLE_NAME INDEXED BY $INDEX_THREAD_DATE_RECEIVED_UNREAD")
       .values(
         VOTES_UNREAD to 0,
         VOTES_LAST_SEEN to System.currentTimeMillis()
@@ -4709,6 +4728,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun collapsePendingCollapsibleEvents(threadId: Long, sinceTimestamp: Long) {
+    // Force INDEXED BY message_collapsed_state_index. COLLAPSED_STATE = PENDING_COLLAPSED is a transient state, so the index
+    // entries for it are typically near zero — much more selective than scanning the thread by date_received.
     val where = if (sinceTimestamp > -1) {
       "$THREAD_ID = ? AND $COLLAPSED_STATE = ? AND $DATE_RECEIVED <= $sinceTimestamp"
     } else {
@@ -4716,7 +4737,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     }
 
     writableDatabase
-      .update(TABLE_NAME)
+      .update("$TABLE_NAME INDEXED BY $INDEX_COLLAPSED_STATE")
       .values(COLLAPSED_STATE to CollapsedState.COLLAPSED.id)
       .where(where, threadId, CollapsedState.PENDING_COLLAPSED.id)
       .run()

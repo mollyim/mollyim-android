@@ -70,7 +70,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase.Companion.threads
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.database.model.KeyTransparencyStore
 import org.thoughtcrime.securesms.database.model.RecipientRecord
-import org.thoughtcrime.securesms.database.model.ThreadRecord
+import org.thoughtcrime.securesms.database.model.ThreadWithRecipient
 import org.thoughtcrime.securesms.database.model.databaseprotos.BadgeList
 import org.thoughtcrime.securesms.database.model.databaseprotos.DeviceLastResetTime
 import org.thoughtcrime.securesms.database.model.databaseprotos.ExpiringProfileKeyCredentialColumnData
@@ -3809,7 +3809,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     val recipientsWithinInteractionThreshold: MutableSet<RecipientId> = LinkedHashSet()
 
     threadDatabase.readerFor(threadDatabase.getRecentPushConversationList(-1)).use { reader ->
-      var record: ThreadRecord? = reader.getNext()
+      var record: ThreadWithRecipient? = reader.getNext()
 
       while (record != null && record.date > lastInteractionThreshold) {
         val recipient = Recipient.resolved(record.recipient.id)

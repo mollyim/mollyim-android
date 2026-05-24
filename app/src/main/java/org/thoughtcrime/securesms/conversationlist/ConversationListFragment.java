@@ -135,7 +135,7 @@ import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter;
 import org.thoughtcrime.securesms.database.MessageTable.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadTable;
-import org.thoughtcrime.securesms.database.model.ThreadRecord;
+import org.thoughtcrime.securesms.database.model.ThreadWithRecipient;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
@@ -668,7 +668,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
     }
   }
 
-  private void onConversationClicked(@NonNull ThreadRecord threadRecord) {
+  private void onConversationClicked(@NonNull ThreadWithRecipient threadRecord) {
     hideKeyboard();
     getNavigator().goToConversation(threadRecord.getRecipient().getId(),
                                     threadRecord.getThreadId(),
@@ -1843,7 +1843,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
     }
 
     private void onTrueSwipe(RecyclerView.ViewHolder viewHolder) {
-      ThreadRecord thread = ((ConversationListItem) viewHolder.itemView).getThread();
+      ThreadWithRecipient thread = ((ConversationListItem) viewHolder.itemView).getThread();
 
       onItemSwiped(thread.getThreadId(), thread.getUnreadCount(), thread.getUnreadSelfMentionsCount());
     }
@@ -1966,12 +1966,12 @@ public class ConversationListFragment extends MainFragment implements Conversati
 
     @Override
     public void onThreadClicked(@NonNull View view, @NonNull ContactSearchData.Thread thread, boolean isSelected) {
-      onConversationClicked(thread.getThreadRecord());
+      onConversationClicked(thread.getThreadWithRecipient());
     }
 
     @Override
     public boolean onThreadLongClicked(@NonNull View view, @NonNull ContactSearchData.Thread thread) {
-      return showConversationContextMenu(new Conversation(thread.getThreadRecord()), view, true);
+      return showConversationContextMenu(new Conversation(thread.getThreadWithRecipient()), view, true);
     }
 
     @Override
