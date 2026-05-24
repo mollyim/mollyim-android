@@ -773,7 +773,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       return emptyList()
     }
 
-    val prefix = "($ACI_COLUMN NOT NULL OR $PNI_COLUMN NOT NULL) ${if (debounceThreshold != null) " AND ($LAST_PROFILE_FETCH < ${debounceThreshold.inWholeMilliseconds}) AND " else ""}"
+    val prefix = "($ACI_COLUMN NOT NULL OR $PNI_COLUMN NOT NULL) AND ${if (debounceThreshold != null) " ($LAST_PROFILE_FETCH < ${debounceThreshold.inWholeMilliseconds}) AND " else ""}"
     val idQuery = SqlUtil.buildFastCollectionQuery(ID, ids, prefix)
 
     return readableDatabase
