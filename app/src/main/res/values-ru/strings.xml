@@ -4256,11 +4256,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Шифрование для этого чата было автоматически подтверждено</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Для людей, к которым вы подключены по номеру телефона, Signal может автоматически подтвердить, что соединение защищено с помощью процесса под названием «прозрачность ключа». Для дополнительной безопасности подтвердите сквозное шифрование вручную, сравнив номера на предыдущем экране или отсканировав код на устройстве контакта.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Автоподтверждение этого чата недоступно</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal не может автоматически подтвердить шифрование этого чата. Скорее всего, это связано с тем, что %1$s сменил(а) свой номер телефона или настройки конфиденциальности номера телефона. Подтвердите сквозное шифрование вручную, сравнив цифры на предыдущем экране или отсканировав код на устройстве контакта.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">Автоподтверждение этого чата недоступно</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -6010,38 +6010,38 @@
     <string name="ChangeNumber__okay">Хорошо</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Невозможно изменить номер</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Поскольку вы зарегистрировали эту учётную запись недавно, вы не можете изменить номер телефона прямо сейчас. Короткий период ожидания поможет защитить вашу учётную запись.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="few">Try again in %1$d hours.</item>
-        <item quantity="many">Try again in %1$d hours.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">Попробуйте ещё раз через %1$d час.</item>
+        <item quantity="few">Попробуйте ещё раз через %1$d часа.</item>
+        <item quantity="many">Попробуйте ещё раз через %1$d часов.</item>
+        <item quantity="other">Попробуйте ещё раз через %1$d часа.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="few">Try again in %1$d minutes.</item>
-        <item quantity="many">Try again in %1$d minutes.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">Попробуйте ещё раз через %1$d минуту.</item>
+        <item quantity="few">Попробуйте ещё раз через %1$d минуты.</item>
+        <item quantity="many">Попробуйте ещё раз через %1$d минут.</item>
+        <item quantity="other">Попробуйте ещё раз через %1$d минуты.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">ОК</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d час.</item>
+        <item quantity="few">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d часа.</item>
+        <item quantity="many">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d часов.</item>
+        <item quantity="other">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d часа.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d минуту.</item>
+        <item quantity="few">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d минуты.</item>
+        <item quantity="many">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d минут.</item>
+        <item quantity="other">Вы сделали слишком много попыток. Пожалуйста, попробуйте ещё раз через %1$d минуты.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -10304,11 +10304,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Чтобы повторить попытку, удалите и переустановите Signal на этом устройстве и выберите «Восстановить или перенести».</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">Код подтверждения был запрошен</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Никому не передавайте свой код подтверждения. Signal никогда не отправляет сообщения с просьбой об этом. Если вы получили сообщение от кого-то, кто выдает себя за представителя Signal, это мошенничество.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Вы можете спокойно проигнорировать это сообщение, если вы сами запросили код.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">Советы по безопасности</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -10323,15 +10323,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal никогда не посылает вам сообщения для получения вашего регистрационного кода, Пин-кода или ключа восстановления. Никогда не отвечайте на чаты, притворяющиеся Signal.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">Храните код подтверждения в безопасности</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">Если вы получили код подтверждения, который не запрашивали, возможно, кто-то пытается получить доступ к вашей учётной записи. Не делитесь вашим кодом.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">Включите блокировку регистрации в настройках учётной записи</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Защитите свою учётную запись, запрашивая при регистрации в Signal не только кода подтверждения, но и вашего PIN-кода Signal.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">Открыть настройки учётной записи</string>
 
     <!-- EOF -->
 </resources>

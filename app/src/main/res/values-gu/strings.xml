@@ -4014,11 +4014,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">આ ચેટ માટે એન્ક્રિપ્શન ઓટો-વેરિફાય થયું હતું.</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">ફોન નંબર દ્વારા તમે જે સંપર્કો સાથે જોડાયેલા છો, તેમના માટે Signal કી ટ્રાન્સપરન્સી નામની પ્રક્રિયાનો ઉપયોગ કરીને કનેક્શન સુરક્ષિત છે કે નહીં તેની ખાતરી આપમેળે કરી શકે છે. વધારાની સુરક્ષા માટે, પાછલી સ્ક્રીન પરના નંબરોની તુલના કરીને અથવા તેમના ડિવાઇસ પર કોડ સ્કેન કરીને એન્ડ-ટૂ-એન્ડ એન્ક્રિપ્શન મેન્યુઅલી વેરિફાય કરો.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">આ ચેટ માટે ઓટો-વેરિફિકેશન ઉપલબ્ધ નથી</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal આ ચેટ માટે એન્ક્રિપ્શન આપમેળે વેરિફાય કરી શકતું નથી. આ કદાચ એટલા માટે છે કારણ કે %1$sએ તેમનો ફોન નંબર અથવા તેમના ફોન નંબરની ગોપનીયતા સેટિંગ્સ બદલી છે. પાછલી સ્ક્રીન પરના નંબરોની તુલના કરીને અથવા તેમના ડિવાઇસ પર કોડ સ્કેન કરીને એન્ડ-ટૂ-એન્ડ એન્ક્રિપ્શન મેન્યુઅલી વેરિફાય કરો.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">આ ચેટ માટે ઓટો-વેરિફિકેશન ઉપલબ્ધ નથી</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5728,30 +5728,30 @@
     <string name="ChangeNumber__okay">બરાબર</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">નંબર બદલી શકતા નથી</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">તમે આ એકાઉન્ટને હમણાં જ રજીસ્ટર કર્યું હોવાથી, તમે અત્યારે ફોન નંબર બદલી શકતા નથી. થોડો પ્રતીક્ષા સમય તમારા એકાઉન્ટને સુરક્ષિત કરવામાં મદદ કરે છે.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">%1$d કલાકમાં ફરી પ્રયાસ કરો.</item>
+        <item quantity="other">%1$d કલાકમાં ફરી પ્રયાસ કરો.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">%1$d મિનિટમાં ફરી પ્રયાસ કરો.</item>
+        <item quantity="other">%1$d મિનિટમાં ફરી પ્રયાસ કરો.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">ઓકે</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">તમે ઘણા પ્રયત્નો કર્યા છે. કૃપા કરીને %1$d કલાકમાં ફરી પ્રયત્ન કરો.</item>
+        <item quantity="other">તમે ઘણા પ્રયત્નો કર્યા છે. કૃપા કરીને %1$d કલાકમાં ફરી પ્રયત્ન કરો.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">તમે ઘણા પ્રયત્નો કર્યા છે. કૃપા કરીને %1$d મિનિટમાં ફરી પ્રયત્ન કરો.</item>
+        <item quantity="other">તમે ઘણા પ્રયત્નો કર્યા છે. કૃપા કરીને %1$d મિનિટમાં ફરી પ્રયત્ન કરો.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9898,11 +9898,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">ફરીથી પ્રયાસ કરવા, આ ડિવાઇસ પરથી Signal અનઇન્સ્ટોલ કરીને ફરીથી ઇન્સ્ટોલ કરો અને \"રિસ્ટોર અથવા ટ્રાન્સફર કરો\" પસંદ કરો.</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">વેરિફિકેશન કોડની વિનંતી કરવામાં આવી હતી</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">તમારો વેરિફિકેશન કોડ કોઈને આપશો નહીં. Signal તમને ક્યારેય તેના માટે મેસેજ કરશે નહીં. જો તમને કોઈના તરફથી મેસેજ આવે જે Signal હોવાનો ડોળ કરતાં હોય, તો તે છેતરપિંડી હશે.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">જો તમે પોતે જ કોડની વિનંતી કરી હોય તો તમે આ મેસેજને અવગણી શકો છો.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">સલામતી ટિપ્સ</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9917,15 +9917,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal ક્યારેય તમારા રજીસ્ટ્રેશન કોડ, પિન અથવા રિકવરી કી માટે તમારો સંપર્ક કરશે નહીં. Signal હોવાનો દાવો કરતી કોઈ ચેટનો ક્યારેય જવાબ આપશો નહીં</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">તમારો વેરિફિકેશન કોડ સુરક્ષિત રાખો</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">જો તમને વેરિફિકેશન કોડ મળે જેના માટે તમે વિનંતી કરી ન હોય, તો કોઈક તમારા એકાઉન્ટને ઍક્સેસ કરવાનો પ્રયાસ કરતું હોઈ શકે છે. તમારો કોડ શેર કરશો નહીં.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">એકાઉન્ટ સેટિંગ્સમાં રજીસ્ટ્રેશન લૉક ચાલુ કરો</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Signal સાથે રજીસ્ટર કરાવતી વખતે તમારા વેરિફિકેશન કોડ ઉપરાંત, તમારા Signal પિનને જરૂરી બનાવીને તમારા એકાઉન્ટને સુરક્ષિત કરો.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">એકાઉન્ટ સેટિંગ્સ ખોલો</string>
 
     <!-- EOF -->
 </resources>

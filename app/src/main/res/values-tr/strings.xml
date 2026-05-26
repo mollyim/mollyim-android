@@ -4014,11 +4014,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Şifreleme bu sohbet için otomatik olarak doğrulandı</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Telefon numarasıyla bağlandığın kişiler için Signal, anahtar şeffaflığı adı verilen bir süreç kullanarak bağlantının güvenli olup olmadığını otomatik olarak onaylayabilir. İlave güvenlik için önceki ekrandaki rakamları karşılaştırarak veya cihazındaki kodu tarayarak, uçtan uca şifrelemeyi manuel olarak doğrula.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Bu sohbet için otomatik doğrulama kullanılamıyor</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal bu sohbet için şifrelemeyi otomatik olarak doğrulayamıyor. Bunun sebebi muhtemelen %1$s kişisinin telefon numarasını veya telefon numarası gizlilik ayarlarını değiştirmiş olmasıdır. Önceki ekrandaki numaraları karşılaştırarak veya karşı tarafın cihazındaki kodu tarayarak uçtan uca şifrelemeyi manuel olarak doğrula.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">Bu sohbet için otomatik doğrulama kullanılamıyor</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5728,30 +5728,30 @@
     <string name="ChangeNumber__okay">Tamam</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Numara değiştirilemiyor</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Bu hesabı kısa süre önce oluşturduğun için telefon numarasını hemen değiştiremezsin. Kısa bir bekleme süresi hesabını korumana yardımcı olur.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">%1$d saat sonra tekrar dene.</item>
+        <item quantity="other">%1$d saat sonra tekrar dene.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">%1$d dakika sonra tekrar dene.</item>
+        <item quantity="other">%1$d dakika sonra tekrar dene.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">TAMAM</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">Çok fazla deneme yaptın. Lütfen %1$d saat sonra tekrar dene.</item>
+        <item quantity="other">Çok fazla deneme yaptın. Lütfen %1$d saat sonra tekrar dene.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">Çok fazla deneme yaptın. Lütfen %1$d dakika sonra tekrar dene.</item>
+        <item quantity="other">Çok fazla deneme yaptın. Lütfen %1$d dakika sonra tekrar dene.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9898,11 +9898,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Tekrar denemek için Signal\'ı bu cihazdan kaldırıp tekrar yükle ve \"Geri yükle veya aktar\"ı seç.</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">Bir doğrulama kodu istendi</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Doğrulama kodunu kimseye verme. Signal hiçbir zaman sana mesaj göndermez. Signal gibi davranan birinden mesaj almışsan, dolandırıcılık mesajıdır.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Kodu kendin istediysen, bu mesajı güvenle yok sayabilirsin.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">Güvenlik ipuçları</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9917,15 +9917,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal hiçbir zaman kayıt kodun, PIN kodun veya kurtarma anahtarın için sana mesaj atmaz. Signal olduğunu iddia eden bir sohbeti hiçbir zaman yanıtlama.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">Doğrulama kodunu güvende tut</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">İstemediğin bir doğrulama kodu aldıysan, birisi hesabına erişmeye çalışıyor olabilir. Kodunu paylaşma.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">Hesap ayarlarından kaydolma kilidini aç</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Signal\'da kaydolurken, doğrulama koduna ilaveten Signal PIN\'ini de isteyerek hesabını koru.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">Hesap ayarlarını aç</string>
 
     <!-- EOF -->
 </resources>

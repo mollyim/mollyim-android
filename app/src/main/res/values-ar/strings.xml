@@ -4498,11 +4498,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">تمَّ التحقُّق من التشفير تلقائيًا لهذه الدردشة.</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">بالنسبة لِجهات الاتصال المُرتبطين بك عبر رقم الهاتف، يُمكن لتطبيق سيجنال التحقُّق تلقائيًا من أمان الاتصال باستخدام عملية تُسمّى شفافية المفاتيح. للمزيد من الأمان، تحقَّق من التشفير من طرف لطرف يدويًا من خلال مقارنة الأرقام على الشاشة السابقة أو مسح الكود على جهازه(ا).</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">التحقُّق التلقائي غير متوفِّر لهذه الدردشة.</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">لا يمكن لسيجنال التحقُّق تلقائيًا من تشفير هذه الدردشة. قد يكون هذا بسبب أن %1$s غيَّر رقم هاتفه أو إعدادات الخصوصية الخاصة برقم هاتفه. التحقُّق من التشفير من طرف لطرف يدويًا عن طريق مقارنة الأرقام على الشاشة السابقة أو مسح الكود على جهازه(ا).</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">التحقُّق التلقائي غير متوفِّر لهذه الدردشة.</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -6292,46 +6292,46 @@
     <string name="ChangeNumber__okay">حسنًا</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">يتعذَّر تغيير رقم الهاتف</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">لأنك قُمتَ بتسجيل هذا الحساب مؤخرًا، لا يمكنك تغيير رقم الهاتف حاليًا. قد تساعدك فترة انتظار قصيرة في حماية حسابك.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="zero">Try again in %1$d hours.</item>
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="two">Try again in %1$d hours.</item>
-        <item quantity="few">Try again in %1$d hours.</item>
-        <item quantity="many">Try again in %1$d hours.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="zero">حاوِل مُجدَّدًا بعد %1$d ساعات.</item>
+        <item quantity="one">حاوِل مُجدَّدًا بعد %1$d ساعة.</item>
+        <item quantity="two">حاوِل مُجدَّدًا بعد %1$d ساعتين.</item>
+        <item quantity="few">حاوِل مُجدَّدًا بعد %1$d ساعات.</item>
+        <item quantity="many">حاوِل مُجدَّدًا بعد %1$d ساعة.</item>
+        <item quantity="other">حاول مُجدَّدًا بعد %1$d ساعة.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="zero">Try again in %1$d minutes.</item>
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="two">Try again in %1$d minutes.</item>
-        <item quantity="few">Try again in %1$d minutes.</item>
-        <item quantity="many">Try again in %1$d minutes.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="zero">حاول مُجدَّدًا بعد %1$d دقيقة.</item>
+        <item quantity="one">حاول مُجدَّدًا بعد %1$d دقيقة.</item>
+        <item quantity="two">حاول مُجدَّدًا بعد %1$d دقيقتين.</item>
+        <item quantity="few">حاول مُجدَّدًا بعد %1$d دقائق.</item>
+        <item quantity="many">حاول مُجدَّدًا بعد %1$d دقيقة.</item>
+        <item quantity="other">حاول مُجدَّدًا بعد %1$d دقيقة.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">حسنًا</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="zero">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="two">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="zero">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d ساعات.</item>
+        <item quantity="one">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d ساعة.</item>
+        <item quantity="two">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d ساعتين.</item>
+        <item quantity="few">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d ساعات.</item>
+        <item quantity="many">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d ساعة.</item>
+        <item quantity="other">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d ساعة.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="zero">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="two">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="zero">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d دقيقة.</item>
+        <item quantity="one">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d دقيقة.</item>
+        <item quantity="two">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d دقيقتين.</item>
+        <item quantity="few">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d دقائق.</item>
+        <item quantity="many">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d دقيقة.</item>
+        <item quantity="other">قُمتَ بمحاولاتٍ كثيرة. يُرجى المحاولة مُجدَّدًا بعد %1$d دقيقة.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -10710,11 +10710,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">للمحاولة من جديد، قُم بإلغاء تثبيت وإعادة تثبيت سيجنال على هذا الجهاز، واختر \"الاستعادة أو النقل\".</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">تمَّ طلب كود تحقُّق.</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">لا تشارِك كود التحقُّق مع أي أحد. سيجنال لن يرسل إليك رسالة يطلب فيها هذا الكود أبدًا. إذا تلقّيتَ رسالة من شخص ما يدّعي أنه سيجنال، فالأمر يتعلق بمحاولة احتيال.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">يمكنك تجاهل هذه الرسالة إذا طلبت الكود بنفسك.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">نصائح السلامة</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -10729,15 +10729,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">لن يُرسِل لك سيجنال أبدًا رسالة يطلب فيها كود التسجيل أو رقم التعريف الشخصي (PIN) أو مفتاح الاستعادة الخاص بك. تجنَّب الرد نهائيًا على الدردشات التي تدعي أنها مُرسَلة من طرف سيجنال.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">أبقِ كود التحقُّق آمنًا</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">إذا استلمتَ كود تحقّق لم تطلبه، فقد يكون شخص ما يحاول الوصول إلى حسابك. لا تشارِك الكود الخاص بك.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">قُم بتفعيل قفل التسجيل في إعدادات التسجيل</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">قُم بحماية حسابك من خلال طلب رقم التعريف الشخصي (PIN) على سيجنال، بالإضافة إلى كود التحقُّق عند التسجيل في سيجنال.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">افتح إعدادات الحساب</string>
 
     <!-- EOF -->
 </resources>

@@ -1724,13 +1724,13 @@
     <!-- InviteActivity -->
     <string name="InviteActivity_share">공유</string>
     <string name="InviteActivity_share_with_contacts">연락처와 공유</string>
-    <string name="InviteActivity_share_via">공유…</string>
+    <string name="InviteActivity_share_via">공유 수단</string>
 
     <string name="InviteActivity_cancel">취소</string>
     <string name="InviteActivity_sending">보내는 중…</string>
     <string name="InviteActivity_invitations_sent">초대를 보냈어요!</string>
     <string name="InviteActivity_invite_to_signal">Signal로 초대</string>
-    <string name="InviteActivity_send_sms">SMS 보내기 (%1$d)</string>
+    <string name="InviteActivity_send_sms">SMS 보내기(%1$d)</string>
     <plurals name="InviteActivity_send_sms_invites">
         <item quantity="other">SMS 초대 %1$d개를 보낼까요?</item>
     </plurals>
@@ -3893,11 +3893,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">이 채팅에 대한 암호화가 자동 인증되었습니다</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">전화번호를 통해 연결된 사용자의 경우, Signal은 키 투명성이라는 프로세스를 사용하여 연결이 안전한지 자동으로 확인할 수 있습니다. 보안을 강화하려면 이전 화면의 숫자를 대조하거나, 상대방 기기의 코드를 스캔하여 종단간 암호화를 수동으로 인증해 주세요.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">이 채팅에 자동 인증을 사용할 수 없음</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal이 이 채팅의 암호화를 자동으로 인증할 수 없습니다. %1$s 님이 전화번호 또는 전화번호 개인정보보호 설정을 변경하여 발생한 문제일 수 있습니다. 이전 화면의 숫자를 대조하거나, 상대방 기기의 코드를 스캔하여 종단간 암호화를 수동으로 인증해 주세요.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">이 채팅에 자동 인증을 사용할 수 없습니다</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5587,26 +5587,26 @@
     <string name="ChangeNumber__okay">확인</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">전화번호를 변경할 수 없음</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">계정을 생성한 지 얼마 되지 않아 지금은 전화번호를 변경할 수 없습니다. 계정을 안전하게 보호하려면 번호를 변경하기 전 대기 시간이 필요합니다.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="other">%1$d시간 후 다시 시도해 주세요.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="other">%1$d분 후 다시 시도해 주세요.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">확인</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="other">입력 횟수를 초과했습니다. %1$d시간 후에 다시 시도하세요.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="other">입력 횟수를 초과했습니다. %1$d분 후에 다시 시도하세요.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9695,11 +9695,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">다시 시도하려면 이 기기에서 Signal을 삭제한 후 재설치하고, \'복원 또는 이전\'을 선택해 주세요.</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">인증 코드 요청됨</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">인증 코드를 다른 사람과 공유하지 마세요. Signal은 절대 인증 코드를 요청하는 메시지를 보내지 않습니다. Signal을 사칭한 메시지를 받았다면 사기일 수 있으니, 유의해 주세요.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">본인이 직접 코드를 요청하신 경우, 이 메시지는 무시하셔도 됩니다.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">안전 팁</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9714,15 +9714,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal은 절대 사용자의 등록 코드나 PIN, 복구 키를 요청하는 메시지를 보내지 않습니다. Signal을 사칭하는 채팅에 절대 답장하지 마세요.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">인증 코드를 안전하게 보관하세요</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">직접 요청한 인증 코드가 아니라면 다른 사람이 계정 접근을 시도하는 것일 수 있습니다. 인증 코드를 절대 타인과 공유하지 마세요.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">계정 설정에서 등록 잠금을 켜세요</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Signal 등록 시 인증 코드와 함께 Signal PIN 입력 단계를 추가하여 계정을 보호하세요.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">계정 설정 열기</string>
 
     <!-- EOF -->
 </resources>

@@ -4256,11 +4256,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Šifriranje je automatski provjereno za ovaj razgovor</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Za osobe s kojima ste povezani putem broja telefona, Signal može automatski potvrditi je li veza sigurna pomoću postupka koji se naziva transparentnost ključa. Radi dodatne sigurnosti, ručno provjerite sveobuhvatno šifriranje usporedbom brojeva na prethodnom zaslonu ili skeniranjem koda na uređaju određenog korisnika.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Automatska provjera nije dostupna za ovaj razgovor</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal ne može automatski provjeriti šifriranje ovog razgovora. Razlog tome može biti to što je %1$s promijenio/la svoj broj telefona ili postavke privatnosti broja telefona. Sveobuhvatno šifriranje može se provjeriti ručno, usporedbom brojeva na prethodnom zaslonu, ili skeniranjem koda na uređaju tog korisnika.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">Automatska provjera nije dostupna za ovaj razgovor</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -6010,38 +6010,38 @@
     <string name="ChangeNumber__okay">U redu</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Nije moguće promijeniti broj</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Budući da je ovaj račun nedavno registriran, promjena telefonskog broja još nije moguća. Ovo kratko razdoblje čekanja pomaže u zaštiti vašeg računa.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="few">Try again in %1$d hours.</item>
-        <item quantity="many">Try again in %1$d hours.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">Pokušajte ponovno za %1$d sat.</item>
+        <item quantity="few">Pokušajte ponovno za %1$d sata.</item>
+        <item quantity="many">Pokušajte ponovno za %1$d sati.</item>
+        <item quantity="other">Pokušajte ponovno za %1$d sati.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="few">Try again in %1$d minutes.</item>
-        <item quantity="many">Try again in %1$d minutes.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">Pokušajte ponovno za %1$d minutu.</item>
+        <item quantity="few">Pokušajte ponovno za %1$d minute.</item>
+        <item quantity="many">Pokušajte ponovno za %1$d minuta.</item>
+        <item quantity="other">Pokušajte ponovno za %1$d minuta.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">U redu</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d sat.</item>
+        <item quantity="few">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d sata.</item>
+        <item quantity="many">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d sati.</item>
+        <item quantity="other">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d sati.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d minutu.</item>
+        <item quantity="few">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d minuta.</item>
+        <item quantity="many">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d minuta.</item>
+        <item quantity="other">Previše neuspjelih pokušaja. Pokušajte ponovo za %1$d minute.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -10304,11 +10304,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Ako želite pokušati ponovno, deinstalirajte i ponovno instalirajte Signal na ovome uređaju, a zatim odaberite opciju „Vrati ili prenesi“.</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">Zatražen je potvrdni kôd</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Nemojte dijeliti svoj potvrdni kôd ni s kim. Signal vas nikad neće pitati za kôd putem poruke. Ako ste primili poruku od nekoga tko se predstavlja kao Signal, radi se o prijevari.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Slobodno ignorirajte ovu poruku ako ste vi zatražili potvrdni kôd.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">Savjeti za sigurnost</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -10323,15 +10323,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal vas nikada neće kontaktirati da pita vaš kôd za registraciju, PIN ili ključ za oporavak. Nikada ne odgovarajte na poruke koje se predstavljaju kao da su od Signala.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">Čuvajte svoj potvrdni kôd</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">Ako ste primili potvrdni kôd koji niste zatražili, to može značiti da netko pokušava pristupiti vašem računu. Nemojte dijeliti svoj kôd.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">Uključite zaključavanje registracije u postavkama računa</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Zaštitite svoj račun korištenjem Signal PIN-a uz potvrdni kôd prilikom registracije na Signal.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">Otvori postavke računa</string>
 
     <!-- EOF -->
 </resources>

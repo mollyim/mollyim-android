@@ -3893,11 +3893,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">ဤချက်(တ်)အတွက် ကုဒ်ပြောင်းဝှက်ခြင်းကို အလိုအလျောက် အတည်ပြုပြီးပါပြီ</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">ဖုန်းနံပါတ်ဖြင့် ချိတ်ဆက်ထားသူများအတွက် Signal သည် ကီး ပွင့်လင်းမြင်သာမှုဟုခေါ်သော လုပ်ငန်းစဉ်ကို အသုံးပြု၍ ချိတ်ဆက်မှု လုံခြုံခြင်းရှိမရှိကို အလိုအလျောက် အတည်ပြုနိုင်သည်။ လုံခြုံရေး ပိုမိုမြင့်မားစေရန်အတွက် ယခင်စခရင်ပေါ်ရှိ နံပါတ်များကို နှိုင်းယှဉ်ခြင်း သို့မဟုတ် ၎င်းတို့၏စက်ပေါ်ရှိ ကုဒ်ကို စကင်ဖတ်ခြင်းဖြင့် ဟိုဘက်သည်ဘက်ကုဒ်ပြောင်းဝှက်ခြင်းကို ကိုယ်တိုင်အတည်ပြုပါ။</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">ဤချက်(တ်)အတွက် အလိုအလျောက်အတည်ပြုခြင်း မရရှိနိုင်ပါ</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal သည် ဤချက်(တ်)အတွက် ကုဒ်ပြောင်းဝှက်ခြင်းကို အလိုအလျောက် အတည်မပြုနိုင်ပါ။ %1$s သည် သူ၏ ဖုန်းနံပါတ် သို့မဟုတ် ဖုန်းနံပါတ် ကိုယ်ပိုင်အချက်ဆက်တင်ကို ပြောင်းလဲလိုက်သောကြောင့် ဖြစ်နိုင်သည်။ ယခင် စခရင်ပေါ်ရှိ နံပါတ်များကို နှိုင်းယှဉ်ခြင်း သို့မဟုတ် ၎င်းတို့၏စက်ပေါ်ရှိ ကုဒ်ကို စကင်ဖတ်ခြင်းဖြင့် ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ခြင်းကို ကိုယ်တိုင်အတည်ပြုပါ။</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">ဤချက်(တ်)အတွက် အလိုအလျောက်အတည်ပြုခြင်း မရရှိနိုင်ပါ</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5587,26 +5587,26 @@
     <string name="ChangeNumber__okay">အိုကေ</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">နံပါတ်ပြောင်း၍မရပါ</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">မကြာသေးမီကပင် ဤအကောင့်ကို မှတ်ပုံတင်ခဲ့သောကြောင့် ဖုန်းနံပါတ်ကို ယခုပြောင်းလဲ၍မရပါ။ ခဏတာစောင့်ဆိုင်းခြင်းက သင့်အကောင့်ကို ကာကွယ်ပေးပါသည်။</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="other">%1$d နာရီအကြာတွင် ထပ်စမ်းကြည့်ပါ။</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="other">%1$d နာရီအကြာတွင် ထပ်စမ်းကြည့်ပါ။</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">အိုကေ</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="other">သင်သည် အကြိမ်များစွာ ကြိုးစားပြီးပါပြီ၊ %1$d နာရီအကြာတွင် ထပ်စမ်းကြည့်ပါ။</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="other">သင်သည် အကြိမ်များစွာ ကြိုးစားပြီးပါပြီ၊ %1$d နာရီအကြာတွင် ထပ်စမ်းကြည့်ပါ။</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9695,11 +9695,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">ထပ်ကြိုးစားရန် ဤစက်တွင် Signal ကို ဖြုတ်ပြီး ပြန်လည်ထည့်သွင်းပါ၊ ထို့နောက် \"ပြန်လည်ရယူရန် သို့မဟုတ် လွှဲပြောင်းရန်\" ကို ရွေးချယ်ပါ။</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">အတည်ပြုကုဒ် တောင်းဆိုထားပါသည်</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">အတည်ပြုကုဒ်ကို မည်သူကိုမျှ မပေးပါနှင့်။ Signal သည် ၎င်းအတွက်မည်သည့်အခါမျှ မက်ဆေ့ချ်ပို့မည်မဟုတ်ပါ။ Signal အဖြစ်ဟန်ဆောင်ထားသူထံမှ မက်ဆေ့ချ်တစ်စောင် လက်ခံရရှိပါက ၎င်းသည် လိမ်လည်မှုတစ်ခုဖြစ်သည်။</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">သင်ကိုယ်တိုင် ကုဒ်ကို တောင်းဆိုပါက ဤမက်ဆေ့ချ်ကို ဘေးကင်းစွာ လျစ်လျူရှုနိုင်ပါသည်။</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">ဘေးကင်းရေး အကြံပြုချက်များ</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9714,15 +9714,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal က သင့် စာရင်းသွင်းကုဒ်၊ PIN သို့မဟုတ် ပြန်လည်ရယူရေးကီးကို မည်သည့်အခါမျှ မက်ဆေ့ချ်ပို့မည်မဟုတ်ပါ။ Signal ဟန်ဆောင်ထားသည့် ချက်(တ်)ကို စာမပြန်ပါနှင့်။</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">သင့် အတည်ပြုကုဒ်ကို လုံခြုံအောင်ထားပါ</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">သင်မတောင်းဆိုထားသော အတည်ပြုကုဒ်ကို လက်ခံရရှိပါက တစ်စုံတစ်ယောက်သည် သင့်အကောင့်သို့ ဝင်ရောက်ရန် ကြိုးစားနေခြင်း ဖြစ်နိုင်သည်။ သင်၏ကုဒ်ကို မျှဝေခြင်းမပြုပါနှင့်။</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">အကောင့်ဆက်တင်တွင် မှတ်ပုံတင်ခြင်းလော့ခ်ဖွင့်ပါ</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Signal တွင် မှတ်ပုံတင်သည့်အခါ အတည်ပြုကုဒ်အပြင် သင့် Signal PIN ကို ထည့်သွင်းပေးခြင်းဖြင့် သင့်အကောင့်ကို ကာကွယ်ပါ။</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">အကောင့်ဆက်တင် ဖွင့်ရန်</string>
 
     <!-- EOF -->
 </resources>

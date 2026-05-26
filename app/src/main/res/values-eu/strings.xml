@@ -4014,11 +4014,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Enkriptatzea automatikoki egiaztatu da txat honetan</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Zurekin telefono-zenbaki bidez konektatuta dauden pertsonei dagokienez, Signal-ek \"gako-gardentasuna\" izeneko prozesu baten bidez egiazta dezake konexioa seguruan den. Segurtasun handiagoa izateko, egiaztatu muturretik muturrerako enkriptatzea eskuz, aurreko pantailako zenbakiak alderatuz edo gailuko kodea eskaneatuz.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Egiaztapen automatikoa ez dago erabilgarri txat honetarako</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal-ek ezin du automatikoki egiaztatu txat honen enkriptatzea. Baliteke %1$s(e)k telefono-zenbakia edo telefono-zenbakiaren pribatutasun-ezarpenak aldatu dituelako izatea. Egiaztatu muturretik muturrerako enkriptatzea eskuz, aurreko pantailako zenbakiak alderatuz edo gailuko kodea eskaneatuz.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">Egiaztapen automatikoa ez dago erabilgarri txat honetarako</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5728,30 +5728,30 @@
     <string name="ChangeNumber__okay">Ados</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Ezin da aldatu zenbakia</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Kontu hau duela gutxi erregistratu duzunez, une honetan ezin duzu aldatu telefono-zenbakia. Itxaronaldi labur horri esker, zure kontua babes dezakegu.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">Saiatu berriro %1$d ordu barru.</item>
+        <item quantity="other">Saiatu berriro %1$d ordu barru.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">Saiatu berriro %1$d minutu barru.</item>
+        <item quantity="other">Saiatu berriro %1$d minutu barru.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">Ados</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">Saiakera gehiegi egin dituzu. Saiatu berriro %1$d ordu barru.</item>
+        <item quantity="other">Saiakera gehiegi egin dituzu. Saiatu berriro %1$d ordu barru.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">Saiakera gehiegi egin dituzu. Saiatu berriro %1$d minutu barru.</item>
+        <item quantity="other">Saiakera gehiegi egin dituzu. Saiatu berriro %1$d minutu barru.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9898,11 +9898,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Berriro saiatzeko, desinstalatu Signal eta instala ezazu berriro gailu honetan, eta aukeratu \"Leheneratu edo transferitu\".</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">Egiaztapen-kode bat eskatu da</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Ez eman egiaztapen-kodea inori. Signal-ek ez dizu inoiz mezurik bidaliko hura eskatzeko. Signal-en plantak egiten ari zen norbaiten mezu bat jaso baduzu, iruzur bat da.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Kodea zeuk eskatu baduzu, mezu honi ez ikusi egin diezaiokezu lasai.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">Segurtasun-aholkuak</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9917,15 +9917,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal ez da inoiz zurekin harremanetan jarriko erregistro-kodea, PINa edo berreskuratzeko PINa eskatzeko. Ez erantzun Signal izatearen plantak egiten dituzten txatei.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">Gorde egiaztapen-kodea modu seguruan</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">Eskatu ez duzun egiaztapen-kode bat jaso baduzu, baliteke norbait zure kontuan sartu nahian ibiltzea. Ez partekatu zure kodea.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">Aktibatu erregistro-blokeoa kontuaren ezarpenetan</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Babestu zure kontua Signal-eko PINa eskatuta, egiaztapen-kodeaz gain, Signal-ekin erregistratzean.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">Ireki kontuaren ezarpenak</string>
 
     <!-- EOF -->
 </resources>

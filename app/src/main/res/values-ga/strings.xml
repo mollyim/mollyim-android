@@ -4377,11 +4377,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Uathfhíoraíodh an criptiú don chomhrá seo</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">I gcás daoine lena bhfuil tú nasctha le huimhir ghutháin, is féidir le Signal slánú an naisc a dheimhniú go huathoibríoch agus próiseas ar a dtugtar trédhearcacht eochracha in úsáid. Ar mhaithe le slándáil bhreise, fíoraigh an criptiú ó cheann ceann de láimh ach na huimhreacha ar an scáileán roimhe a chur i gcomparáid lena chéile nó an cód ar ghléas an duine a scanadh.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Níl uathfhíorú ar fáil don chomhrá seo</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Ní féidir le Signal an criptiú a uathfhíorú don chomhrá seo. D\'fhéadfaí gurbh é gur athraigh %1$s a (h)uimhir ghutháin nó socruithe príobháideachais ar an uimhir ghutháin is cúis leis sin. Fíoraigh an criptiú ó cheann ceann de láimh ach na huimhreacha ar an scáileán roimhe a chur i gcomparáid le chéile nó an cód ar ghléas an duine a scanadh.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">Níl an t-uathfhíorú ar fáil don chomhrá seo</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -6151,42 +6151,42 @@
     <string name="ChangeNumber__okay">Tá go maith</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Ní féidir an uimhir a athrú</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Ós rud é gur chláraigh tú an cuntas seo le déanaí, ní féidir leat uimhreacha gutháin a athrú díreach anois. Cabhraíonn tréimhse feithimh ghearr le do chuntas a chosaint.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="two">Try again in %1$d hours.</item>
-        <item quantity="few">Try again in %1$d hours.</item>
-        <item quantity="many">Try again in %1$d hours.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">Triail arís i gceann %1$d uair an chloig.</item>
+        <item quantity="two">Triail arís i gceann %1$d uair an chloig.</item>
+        <item quantity="few">Triail arís i gceann %1$d uair an chloig.</item>
+        <item quantity="many">Triail arís i gceann %1$d n-uair an chloig.</item>
+        <item quantity="other">Triail arís i gceann %1$d uair an chloig.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="two">Try again in %1$d minutes.</item>
-        <item quantity="few">Try again in %1$d minutes.</item>
-        <item quantity="many">Try again in %1$d minutes.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">Triail arís i gceann %1$d nóiméid.</item>
+        <item quantity="two">Triail arís i gceann %1$d nóiméad.</item>
+        <item quantity="few">Triail arís i gceann %1$d nóiméad.</item>
+        <item quantity="many">Triail arís i gceann %1$d nóiméad.</item>
+        <item quantity="other">Triail arís i gceann %1$d nóiméad.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">CGL</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="two">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d hours.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d uair an chloig.</item>
+        <item quantity="two">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d uair an chloig.</item>
+        <item quantity="few">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d uair an chloig.</item>
+        <item quantity="many">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d n-uair an chloig.</item>
+        <item quantity="other">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d uair an chloig.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="two">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="few">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="many">You have made too many attempts. Please try again in %1$d minutes.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d nóiméid.</item>
+        <item quantity="two">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d nóiméad.</item>
+        <item quantity="few">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d nóiméad.</item>
+        <item quantity="many">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d nóiméad.</item>
+        <item quantity="other">Rinne tú an iomarca iarrachtaí. Triail arís i gceann %1$d nóiméad.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -10507,11 +10507,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Lena thriail arís, díshuiteáil Signal ar an ngléas seo agus suiteáil arís é, agus roghnaigh \"Aischuir nó aistrigh\".</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">Cód fíoraithe iarrtha</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Ná tabhair do chód fíoraithe do dhuine ar bith. Ní sheolfaidh Signal teachtaireacht chugat dó. Más é go bhfuair tú teachtaireacht ó dhuine a ligeann gur Signal atá ann, is camscéim í.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Is féidir leat neamhaird a thabhairt go sábháilte ar an teachtaireacht seo más é gur tusa a d\'iarr é.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">Leideanna sábháilteachta</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -10526,15 +10526,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Ní sheolfaidh Signal teachtaireacht chugat choíche chun do chód clárúcháin, UAP nó eochair athshlánaithe a iarraidh ort. Ná freagair comhrá choíche a ligeann gur Signal atá ann.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">Coinnigh do chód fíoraithe sábháilte</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">Más é go bhfuair tú cód fíoraithe nár iarr tú, is féidir go bhfuil duine ag iarraidh do chuntas a rochtain. Ná comhroinn do chód.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">Cas air an glas cláraithe i socruithe an chuntais</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Cosain do chuntas trí do UAP Signal, mar aon le do chód fíoraithe, a éileamh ar chlárú le Signal.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">Oscail socruithe an chuntais</string>
 
     <!-- EOF -->
 </resources>

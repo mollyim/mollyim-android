@@ -4014,11 +4014,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">ఈ చాట్ కోసం గుప్తీకరణ ఆటోమేటిక్‌గా ధృవీకరించబడింది</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">For people you’re connected to by phone number, Signal can automatically confirm whether the connection is secure using a process called key transparency. For added security, verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_success">ఫోన్ నంబర్ ద్వారా మీరు కనెక్ట్ అయిన వ్యక్తుల కోసం, Signal కీ పారదర్శకత అనే ప్రక్రియను ఉపయోగించి కనెక్షన్ సురక్షితంగా ఉందో లేదో ఆటోమేటిక్‌గా నిర్ధారించగలదు. అదనపు భద్రత కోసం, మునుపటి స్క్రీన్‌పై ఉన్న నంబర్‌లను సరిపోల్చడం ద్వారా లేదా వారి పరికరంలోని కోడ్‌ను స్కాన్ చేయడం ద్వారా ఎండ్-టు-ఎండ్ గుప్తీకరణను మాన్యువల్‌గా ధృవీకరించండి.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Auto-verification is not available for this chat</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">ఈ చాట్ కోసం ఆటో-ధృవీకరణ అందుబాటులో లేదు</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal can not automatically verify the encryption for this chat. This could be because %1$s changed their phone number or their phone number privacy settings. Verify end-to-end encryption manually by comparing the numbers on the previous screen or scanning the code on their device.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal ఈ చాట్ కోసం గుప్తీకరణను ఆటోమేటిక్‌గా ధృవీకరించలేదు. ఇది %1$s వారి ఫోన్ నంబర్‌ను లేదా వారి ఫోన్ నంబర్ గోప్యతా సెట్టింగ్‌లను మార్చిన కారణమో కావచ్చు. మునుపటి స్క్రీన్‌పై ఉన్న నంబర్‌లను సరిపోల్చడం ద్వారా లేదా వారి పరికరంలోని కోడ్‌ను స్కాన్ చేయడం ద్వారా ఎండ్-టు-ఎండ్ గుప్తీకరణను మాన్యువల్‌గా ధృవీకరించండి.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">ఈ చాట్ కోసం ఆటో-ధృవీకరణ అందుబాటులో లేదు</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -5728,30 +5728,30 @@
     <string name="ChangeNumber__okay">సరే</string>
 
     <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__title">Can\'t change number</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">నెంబరు మార్చలేకపోతున్నాను</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
-    <string name="ChangeNumberPostRegistrationWaitSheet__body">Because you recently registered this account, you can\'t change phone numbers right now. A short waiting period helps protect your account.</string>
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">మీరు ఈ ఖాతాను ఇటీవలనే నమోదు చేసుకున్నారు కాబట్టి, మీరు ప్రస్తుతం ఫోన్ నంబర్‌లను మార్చలేరు. చిన్న నిరీక్షణ సమయం మీ ఖాతాను రక్షించడంలో సహాయపడుతుంది.</string>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
-        <item quantity="one">Try again in %1$d hour.</item>
-        <item quantity="other">Try again in %1$d hours.</item>
+        <item quantity="one">%1$d గంటలో మళ్ళీ ప్రయత్నించండి.</item>
+        <item quantity="other">%1$d గంటలలో మళ్ళీ ప్రయత్నించండి.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
     <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
-        <item quantity="one">Try again in %1$d minute.</item>
-        <item quantity="other">Try again in %1$d minutes.</item>
+        <item quantity="one">%1$d నిమిషంలో మళ్ళీ ప్రయత్నించండి.</item>
+        <item quantity="other">%1$d నిమిషాలలో మళ్ళీ ప్రయత్నించండి.</item>
     </plurals>
     <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
     <string name="ChangeNumberPostRegistrationWaitSheet__ok">సరే</string>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d hour.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d hours.</item>
+        <item quantity="one">మీరు మరీ ఎక్కువ సార్లు ప్రయత్నించారు. దయచేసి %1$d గంటలో మళ్ళీ ప్రయత్నించండి.</item>
+        <item quantity="other">మీరు మరీ ఎక్కువ సార్లు ప్రయత్నించారు. దయచేసి %1$d గంటలలో మళ్ళీ ప్రయత్నించండి.</item>
     </plurals>
     <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
     <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
-        <item quantity="one">You have made too many attempts. Please try again in %1$d minute.</item>
-        <item quantity="other">You have made too many attempts. Please try again in %1$d minutes.</item>
+        <item quantity="one">మీరు మరీ ఎక్కువ సార్లు ప్రయత్నించారు. దయచేసి %1$d నిమిషంలో మళ్ళీ ప్రయత్నించండి.</item>
+        <item quantity="other">మీరు మరీ ఎక్కువ సార్లు ప్రయత్నించారు. దయచేసి %1$d నిమిషాలలో మళ్ళీ ప్రయత్నించండి.</item>
     </plurals>
 
     <!-- ChangeNumberEnterPhoneNumberFragment -->
@@ -9898,11 +9898,11 @@
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">మళ్ళీ ప్రయత్నించడానికి, ఈ పరికరంలో Signal ను అన్‌ఇన్‌స్టాల్ చేసి, మళ్లీ ఇన్‌స్టాల్ చేసి, \"పునరుద్ధరించు లేదా బదిలీ చేయండి\"ని ఎంచుకోండి.</string>
 
     <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
-    <string name="VerificationCodeRequestedBottomSheet__title">A verification code was requested</string>
+    <string name="VerificationCodeRequestedBottomSheet__title">ధృవీకరణ కోడ్ కోరబడింది</string>
     <!-- First paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_1">Do not give your verification code to anyone. Signal will never message you for it. If you received a message from someone pretending to be Signal, it is a scam.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_1">మీ ధృవీకరణ కోడ్‌ను ఎవరికీ ఇవ్వకండి. Signal దీని కోసం మీకు ఎప్పుడూ సందేశం పంపదు. Signal అని నటిస్తూ ఎవరి నుంచైనా ఒకవేళ మీకు సందేశం వస్తే, అది ఒక మోసం.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">You can safely ignore this message if you requested the code yourself.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">ఒకవేళ మీరే స్వయంగా కోడ్ కోసం అభ్యర్థించి ఉంటే, మీరు ఈ సందేశాన్ని సురక్షితంగా విస్మరించవచ్చు.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">భద్రతా చిట్కాలు</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->
@@ -9917,15 +9917,15 @@
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal మీ నమోదు కోడ్, PIN లేదా రికవర్ కీ కోసం మీకు ఎప్పటికీ సందేశం పంపదు. Signal అని నటిస్తూ చేసే చాట్‌కు ఎప్పుడూ స్పందించవద్దు.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
-    <string name="SafetyTipsBottomSheet__tip_2_title">Keep your verification code safe</string>
+    <string name="SafetyTipsBottomSheet__tip_2_title">మీ ధృవీకరణ కోడ్‌ను సురక్షితంగా ఉంచుకోండి</string>
     <!-- Body of the second safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_2_body">If you received a verification code you didn\'t request, someone may be attempting to access your account. Do not share your code.</string>
+    <string name="SafetyTipsBottomSheet__tip_2_body">మీరు అభ్యర్థించని ధృవీకరణ కోడ్ ఒకవేళ మీకు అందితే, ఎవరో మీ ఖాతాను యాక్సెస్ చేయడానికి ప్రయత్నిస్తూ ఉండవచ్చు. మీ కోడ్‌ను పంచుకోకండి.</string>
     <!-- Title of the third safety tip: enable registration lock -->
-    <string name="SafetyTipsBottomSheet__tip_3_title">Turn on registration lock in account settings</string>
+    <string name="SafetyTipsBottomSheet__tip_3_title">ఖాతా సెట్టింగ్‌లలో రిజిస్ట్రేషన్ లాక్‌ను ఆన్ చేయండి</string>
     <!-- Body of the third safety tip -->
-    <string name="SafetyTipsBottomSheet__tip_3_body">Protect your account by requiring your Signal PIN, in addition to your verification code, when registering with Signal.</string>
+    <string name="SafetyTipsBottomSheet__tip_3_body">Signal లో నమోదు చేసుకునేటప్పుడు, మీ ధృవీకరణ కోడ్‌తో పాటు మీ Signal PIN ను తప్పనిసరి చేయడం ద్వారా మీ ఖాతాను రక్షించుకోండి.</string>
     <!-- Button on the safety tips screen that opens account settings -->
-    <string name="SafetyTipsBottomSheet__open_account_settings">Open account settings</string>
+    <string name="SafetyTipsBottomSheet__open_account_settings">ఖాతా సెట్టింగ్‌లను తెరవండి</string>
 
     <!-- EOF -->
 </resources>
