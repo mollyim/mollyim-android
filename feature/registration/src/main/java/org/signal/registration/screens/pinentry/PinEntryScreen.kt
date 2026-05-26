@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.registration.R
 import org.signal.registration.screens.attachDebugLogHelper
 
 /**
@@ -71,12 +73,10 @@ fun PinEntryScreen(
     ) {
       Spacer(modifier = Modifier.height(32.dp))
 
-      val titleString = remember {
-        return@remember when (state.mode) {
-          PinEntryState.Mode.RegistrationLock -> "Registration Lock"
-          PinEntryState.Mode.SvrRestore,
-          PinEntryState.Mode.SmsBypass -> "Enter your PIN"
-        }
+      val titleString = when (state.mode) {
+        PinEntryState.Mode.RegistrationLock -> stringResource(R.string.PinEntryScreen__registration_lock)
+        PinEntryState.Mode.SvrRestore,
+        PinEntryState.Mode.SmsBypass -> stringResource(R.string.PinEntryScreen__enter_your_pin)
       }
 
       Text(
@@ -89,7 +89,7 @@ fun PinEntryScreen(
       Spacer(modifier = Modifier.height(12.dp))
 
       Text(
-        text = "Enter the PIN you created when you first installed Signal",
+        text = stringResource(R.string.PinEntryScreen__enter_the_pin_you_created),
         style = MaterialTheme.typography.bodyLarge,
         textAlign = TextAlign.Center,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -123,7 +123,7 @@ fun PinEntryScreen(
       if (state.triesRemaining != null) {
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-          text = "Incorrect PIN. ${state.triesRemaining} attempts remaining.",
+          text = stringResource(R.string.PinEntryScreen__incorrect_pin, state.triesRemaining),
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.error,
           textAlign = TextAlign.Center,
@@ -139,7 +139,7 @@ fun PinEntryScreen(
           onClick = { onEvent(PinEntryScreenEvents.NeedHelp) },
           modifier = Modifier.fillMaxWidth()
         ) {
-          Text("Need help?")
+          Text(stringResource(R.string.PinEntryScreen__need_help))
         }
       }
 
@@ -154,7 +154,7 @@ fun PinEntryScreen(
           contentDescription = null,
           modifier = Modifier.padding(end = 8.dp)
         )
-        Text("Switch keyboard")
+        Text(stringResource(R.string.PinEntryScreen__switch_keyboard))
       }
 
       Spacer(modifier = Modifier.weight(1f))
@@ -171,7 +171,7 @@ fun PinEntryScreen(
           },
           enabled = pin.isNotEmpty()
         ) {
-          Text("Continue")
+          Text(stringResource(R.string.PinEntryScreen__continue))
         }
       }
 
@@ -186,7 +186,7 @@ fun PinEntryScreen(
         .padding(8.dp)
     ) {
       Text(
-        text = "Skip",
+        text = stringResource(R.string.PinEntryScreen__skip),
         color = MaterialTheme.colorScheme.onSurfaceVariant
       )
     }
