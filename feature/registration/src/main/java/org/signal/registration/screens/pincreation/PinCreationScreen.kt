@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
@@ -45,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.registration.R
 import org.signal.registration.screens.attachDebugLogHelper
 
 /**
@@ -72,7 +74,7 @@ fun PinCreationScreen(
     Spacer(modifier = Modifier.height(32.dp))
 
     Text(
-      text = "Create your PIN",
+      text = stringResource(R.string.PinCreationScreen__create_your_pin),
       style = MaterialTheme.typography.headlineMedium,
       textAlign = TextAlign.Start,
       modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
@@ -81,7 +83,7 @@ fun PinCreationScreen(
     Spacer(modifier = Modifier.height(16.dp))
 
     val descriptionText = buildAnnotatedString {
-      append("PINs can help you restore your account if you lose your phone. ")
+      append(stringResource(R.string.PinCreationScreen__pins_can_help))
       pushStringAnnotation(tag = "LEARN_MORE", annotation = "learn_more")
       withStyle(
         style = SpanStyle(
@@ -89,7 +91,7 @@ fun PinCreationScreen(
           textDecoration = TextDecoration.Underline
         )
       ) {
-        append("Learn more")
+        append(stringResource(R.string.PinCreationScreen__learn_more))
       }
       pop()
     }
@@ -154,7 +156,7 @@ fun PinCreationScreen(
         modifier = Modifier.padding(end = 8.dp)
       )
       Text(
-        text = if (state.isAlphanumericKeyboard) "Switch to numeric" else "Switch to alphanumberic"
+        text = if (state.isAlphanumericKeyboard) stringResource(R.string.PinCreationScreen__switch_to_numeric) else stringResource(R.string.PinCreationScreen__switch_to_alphanumeric)
       )
     }
 
@@ -168,7 +170,7 @@ fun PinCreationScreen(
         onClick = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) },
         enabled = pin.length >= 4
       ) {
-        Text("Next")
+        Text(stringResource(R.string.PinCreationScreen__next))
       }
     }
 
