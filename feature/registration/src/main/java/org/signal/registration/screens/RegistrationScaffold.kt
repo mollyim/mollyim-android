@@ -34,7 +34,7 @@ import org.signal.core.ui.rememberWindowBreakpoint
 object RegistrationScaffold {
   private val smallLayoutParams = Params.OnePane(
     headerSlotHeight = 24.dp,
-    bottomInset = 24.dp,
+    edgeInset = 24.dp,
     paneVerticalInset = 24.dp,
     paneHorizontalInset = 24.dp,
     maxButtonWidth = 320.dp
@@ -42,7 +42,7 @@ object RegistrationScaffold {
 
   private val mediumLayoutParams = Params.TwoPane(
     headerSlotHeight = 64.dp,
-    bottomInset = 24.dp,
+    edgeInset = 24.dp,
     paneTopInset = 16.dp,
     paneBottomInset = 24.dp,
     paneOuterInset = 24.dp,
@@ -52,7 +52,7 @@ object RegistrationScaffold {
 
   private val largeWidthLayoutParams = Params.TwoPane(
     headerSlotHeight = 64.dp,
-    bottomInset = 32.dp,
+    edgeInset = 32.dp,
     paneTopInset = 64.dp,
     paneBottomInset = 64.dp,
     paneOuterInset = 128.dp,
@@ -62,7 +62,7 @@ object RegistrationScaffold {
 
   private val largeHeightLayoutParams = Params.OnePane(
     headerSlotHeight = 64.dp,
-    bottomInset = 32.dp,
+    edgeInset = 32.dp,
     paneVerticalInset = 64.dp,
     paneHorizontalInset = 128.dp,
     maxButtonWidth = 320.dp
@@ -70,22 +70,22 @@ object RegistrationScaffold {
 
   sealed interface Params {
     val headerSlotHeight: Dp
-    val bottomInset: Dp
+    val edgeInset: Dp
     val maxButtonWidth: Dp
 
     val footerPadding
       get() = PaddingValues(
         top = 16.dp,
-        bottom = bottomInset,
+        bottom = edgeInset,
         start = 16.dp,
-        end = bottomInset
+        end = edgeInset
       )
 
     data class OnePane(
       override val headerSlotHeight: Dp,
       private val paneVerticalInset: Dp,
       private val paneHorizontalInset: Dp,
-      override val bottomInset: Dp,
+      override val edgeInset: Dp,
       override val maxButtonWidth: Dp
     ) : Params {
       fun panePadding(hasHeader: Boolean) = PaddingValues(
@@ -102,7 +102,7 @@ object RegistrationScaffold {
       private val paneBottomInset: Dp,
       private val paneOuterInset: Dp,
       private val paneInnerInset: Dp,
-      override val bottomInset: Dp,
+      override val edgeInset: Dp,
       override val maxButtonWidth: Dp
     ) : Params {
 
