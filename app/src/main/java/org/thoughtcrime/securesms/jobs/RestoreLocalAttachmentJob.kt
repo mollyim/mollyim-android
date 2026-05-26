@@ -133,12 +133,7 @@ class RestoreLocalAttachmentJob private constructor(
       return Result.failure()
     }
 
-    if (attachment.isPermanentlyFailed) {
-      Log.w(TAG, "Attachment was marked as a permanent failure. Refusing to download.")
-      return Result.failure()
-    }
-
-    if (attachment.transferState != AttachmentTable.TRANSFER_NEEDS_RESTORE && attachment.transferState != AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS) {
+    if (attachment.transferState == AttachmentTable.TRANSFER_PROGRESS_DONE) {
       Log.w(TAG, "Attachment does not need to be restored.")
       return Result.success()
     }
