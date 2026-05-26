@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.subjects.PublishSubject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -27,6 +28,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.signal.network.util.Preconditions
 import org.signal.paging.PagedData
 import org.signal.paging.PagingConfig
@@ -143,14 +145,15 @@ class ContactSearchViewModel(
     internalScrollRequests.tryEmit(ScrollRequest(position))
   }
 
-  fun setConfiguration(contactSearchConfiguration: ContactSearchConfiguration) {
+  suspend fun setConfiguration(contactSearchConfiguration: ContactSearchConfiguration) {
     val pagedDataSource = ContactSearchPagedDataSource(
       contactSearchConfiguration,
       arbitraryRepository = arbitraryRepository,
       searchRepository = searchRepository,
       contactSearchPagedDataSourceRepository = contactSearchPagedDataSourceRepository
     )
-    internalTotalCount.value = pagedDataSource.size()
+    val size = withContext(Dispatchers.IO) { pagedDataSource.size() }
+    internalTotalCount.value = size
     pagedData.value = PagedData.createForStateFlow(pagedDataSource, pagingConfig)
   }
 
