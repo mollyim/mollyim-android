@@ -187,6 +187,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
     if (state.isEmpty) {
       Log.i(TAG, "State is empty, cancelling all notifications")
+      cancelDelayedNotifications()
       NotificationCancellationHelper.cancelAllMessageNotifications(context, stickyThreads.map { it.value.notificationId }.toSet())
       updateBadge(context, 0)
       clearReminderInternal(context)
