@@ -56,6 +56,11 @@ val localProperties: Properties? = if (localPropertiesFile.exists()) {
 val quickstartCredentialsDir: String? = localProperties?.getProperty("quickstart.credentials.dir")
 val benchmarkBackupFile: String? = localProperties?.getProperty("benchmark.backup.file")
 
+val isInstrumentationTestRun = gradle.startParameter.taskNames.any { taskName ->
+  val lower = taskName.lowercase()
+  lower.contains("androidtest") || lower.contains("connectedcheck")
+}
+
 val selectableVariants = listOf(
   "nightlyProdSpinner",
   "nightlyProdPerf",
@@ -68,13 +73,11 @@ val selectableVariants = listOf(
   "playProdMocked",
   "playProdNonMinifiedMocked",
   "playProdBenchmark",
-  "playProdInstrumentation",
   "playProdRelease",
   "playStagingDebug",
   "playStagingCanary",
   "playStagingSpinner",
   "playStagingPerf",
-  "playStagingInstrumentation",
   "playStagingRelease",
   "playProdQuickstart",
   "playStagingQuickstart",
@@ -132,7 +135,6 @@ android {
   ndkVersion = libs.versions.ndk.get()
 
   flavorDimensions += listOf("distribution", "environment")
-  testBuildType = "instrumentation"
 
   android.bundle.language.enableSplit = false
 
@@ -218,6 +220,10 @@ android {
     }
     versionCode = (canonicalVersionCode * maxHotfixVersions) + possibleHotfixVersions[currentHotfixVersion]
     versionName = canonicalVersionName
+
+    if (isInstrumentationTestRun) {
+      applicationIdSuffix = ".test_run"
+    }
 
     minSdk = libs.versions.minSdk.get().toInt()
     targetSdk = libs.versions.targetSdk.get().toInt()
@@ -342,18 +348,6 @@ android {
       isMinifyEnabled = true
       proguardFiles(*buildTypes["debug"].proguardFiles.toTypedArray())
       buildConfigField("String", "BUILD_VARIANT_TYPE", "\"Release\"")
-    }
-
-    create("instrumentation") {
-      initWith(getByName("debug"))
-      isDefault = false
-      isMinifyEnabled = false
-      matchingFallbacks += "debug"
-      applicationIdSuffix = ".instrumentation"
-
-      buildConfigField("String", "BUILD_VARIANT_TYPE", "\"Instrumentation\"")
-      buildConfigField("String", "STRIPE_BASE_URL", "\"http://127.0.0.1:8080/stripe\"")
-      buildConfigField("String[]", "UNIDENTIFIED_SENDER_TRUST_ROOTS", "new String[]{ \"BVT/2gHqbrG1xzuIypLIOjFgMtihrMld1/5TGADL6Dhv\"}")
     }
 
     create("spinner") {
@@ -538,8 +532,8 @@ androidComponents {
       transformationRequest.set(renameRequest)
     }
 
-    // Include the test-only library on debug builds.
-    if (variant.buildType != "instrumentation") {
+    // Include the test-only library on non-release builds.
+    if (variant.buildType == "release") {
       variant.packaging.jniLibs.excludes.add("**/libsignal_jni_testing.so")
       variant.androidResources.ignoreAssetsPatterns.add("libsignal-testing.md")
     }
@@ -749,7 +743,7 @@ dependencies {
 
   "canaryImplementation"(libs.square.leakcanary)
 
-  "instrumentationImplementation"(libs.androidx.fragment.testing) {
+  androidTestImplementation(libs.androidx.fragment.testing) {
     exclude(group = "androidx.test", module = "core")
   }
 

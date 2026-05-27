@@ -81,7 +81,7 @@ tasks.register("qa") {
 gradle.projectsEvaluated {
   val appTestTask = tasks.findByPath(":Signal-Android:testPlayProdReleaseUnitTest")!!
   val appLintTask = tasks.findByPath(":Signal-Android:lintPlayProdRelease")!!
-  val appCompileInstrumentationTask = tasks.findByPath(":Signal-Android:compilePlayProdInstrumentationAndroidTestSources")
+  val appCompileInstrumentationTask = tasks.findByPath(":Signal-Android:compilePlayProdDebugAndroidTestSources")
 
   tasks.named("qa") {
     dependsOn("ktlintCheck")
