@@ -93,6 +93,14 @@ class IncomingMessageObserver(
 
     private val censored: Boolean
       get() = AppDependencies.signalServiceNetworkAccess.isCensored()
+
+    /**
+     * Stops the foreground service for websocket users.
+     */
+    @JvmStatic
+    fun stopForegroundService(context: Context) {
+      context.stopService(Intent(context, ForegroundService::class.java))
+    }
   }
 
   private val decryptionDrainedListeners: MutableList<Runnable> = CopyOnWriteArrayList()
@@ -147,7 +155,7 @@ class IncomingMessageObserver(
 
     MessageRetrievalThread().start()
 
-    if (!SignalStore.account.fcmEnabled || SignalStore.internal.isWebsocketModeForced) {
+    if (!SignalStore.account.fcmEnabled || SignalStore.settings.forceWebsocketMode.isEnabled) {
       try {
         ForegroundServiceUtil.start(context, Intent(context, ForegroundService::class.java))
       } catch (e: UnableToStartException) {
@@ -244,7 +252,7 @@ class IncomingMessageObserver(
     val fcmEnabled = SignalStore.account.fcmEnabled
     val hasNetwork = NetworkConstraint.isMet(context)
     val hasProxy = SignalStore.proxy.isProxyEnabled
-    val forceWebsocket = SignalStore.internal.isWebsocketModeForced
+    val forceWebsocket = SignalStore.settings.forceWebsocketMode.isEnabled
     val websocketAlreadyOpen = isConnectionAvailable()
 
     val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
@@ -431,7 +439,7 @@ class IncomingMessageObserver(
       Log.i(TAG, "Initializing! (${this.hashCode()})")
       uncaughtExceptionHandler = this
 
-      sleepTimer = if (!SignalStore.account.fcmEnabled || SignalStore.internal.isWebsocketModeForced) AlarmSleepTimer(context) else UptimeSleepTimer()
+      sleepTimer = if (!SignalStore.account.fcmEnabled || SignalStore.settings.forceWebsocketMode.isEnabled) AlarmSleepTimer(context) else UptimeSleepTimer()
 
       canProcessMessages = !SignalStore.registration.restoreDecisionState.isDecisionPending
     }

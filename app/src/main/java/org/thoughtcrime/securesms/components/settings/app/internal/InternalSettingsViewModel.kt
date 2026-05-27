@@ -70,11 +70,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
-  fun setForceWebsocketMode(enabled: Boolean) {
-    preferenceDataStore.putBoolean(InternalValues.FORCE_WEBSOCKET_MODE, enabled)
-    refresh()
-  }
-
   fun resetPnpInitializedState() {
     SignalStore.misc.hasPniInitializedDevices = false
     refresh()
@@ -182,7 +177,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     gv2forceInvites = SignalStore.internal.gv2ForceInvites,
     gv2ignoreP2PChanges = SignalStore.internal.gv2IgnoreP2PChanges,
     allowCensorshipSetting = SignalStore.internal.allowChangingCensorshipSetting,
-    forceWebsocketMode = SignalStore.internal.isWebsocketModeForced,
     callingServer = SignalStore.internal.groupCallingServer,
     callingDataMode = SignalStore.internal.callingDataMode,
     callingDisableTelecom = SignalStore.internal.callingDisableTelecom,

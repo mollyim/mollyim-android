@@ -91,6 +91,7 @@ import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.PersistentLogger;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver;
+import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
 import org.thoughtcrime.securesms.providers.BlobProvider;
@@ -454,22 +455,27 @@ public class ApplicationContext extends Application implements AppForegroundObse
     PlayServicesUtil.PlayServicesStatus playServicesStatus = PlayServicesUtil.getPlayServicesStatus(this);
 
     if (playServicesStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS && !SignalStore.account().isFcmEnabled()) {
-      Log.i(TAG, "Play Services are newly-available. Enabling FCM and updating server.");
+      Log.w(TAG, "Play Services are newly-available. Enabling FCM and updating server.");
       SignalStore.account().setFcmEnabled(true);
       AppDependencies.getJobManager().startChain(new FcmRefreshJob())
                                       .then(new RefreshAttributesJob())
                                       .enqueue();
+      AppDependencies.resetNetwork();
+      AppDependencies.startNetwork();
+      IncomingMessageObserver.stopForegroundService(this);
     } else if (playServicesStatus == PlayServicesUtil.PlayServicesStatus.MISSING && SignalStore.account().isFcmEnabled()) {
-      Log.w(TAG, "Play Services are no longer available. Disabling FCM and updating server.");
-      SignalStore.account().setFcmEnabled(false);
-      SignalStore.account().setFcmToken(null);
-      AppDependencies.getJobManager().add(new RefreshAttributesJob());
+      Log.w(TAG, "Play Services are no longer available. Attempting to get an FCM token anyway.");
+      AppDependencies.getJobManager().add(new FcmRefreshJob());
+    } else if (playServicesStatus == PlayServicesUtil.PlayServicesStatus.MISSING && (System.currentTimeMillis() - SignalStore.misc().getLastMissingPlayServicesFcmVerificationTime()) > TimeUnit.DAYS.toMillis(3)) {
+      Log.i(TAG, "Play Services are unavailable, but it's been long enough that we should check and see if we can get an FCM token anyway.");
+      AppDependencies.getJobManager().add(new FcmRefreshJob());
     } else if (SignalStore.account().isFcmEnabled()) {
       long lastSetTime = SignalStore.account().getFcmTokenLastSetTime();
       long nextSetTime = lastSetTime + TimeUnit.HOURS.toMillis(6);
       long now         = System.currentTimeMillis();
 
       if (SignalStore.account().getFcmToken() == null || nextSetTime <= now || lastSetTime > now) {
+        Log.i(TAG, "Time for routine FCM token refresh.");
         AppDependencies.getJobManager().add(new FcmRefreshJob());
       }
     } else {
