@@ -318,6 +318,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     private const val INDEX_STORY_TYPE = "message_story_type_index"
     private const val INDEX_ARCHIVED_STORY = "message_story_archived_index"
     private const val INDEX_STARRED = "message_starred_index"
+    private const val INDEX_NOTIFICATION_STATE = "message_notification_state_index"
 
     @JvmField
     val CREATE_INDEXS = arrayOf(
@@ -350,7 +351,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       "CREATE INDEX IF NOT EXISTS $INDEX_ARCHIVED_STORY ON $TABLE_NAME ($STORY_ARCHIVED, $STORY_TYPE, $DATE_SENT) WHERE $STORY_TYPE > 0 AND $STORY_ARCHIVED > 0",
       "CREATE INDEX IF NOT EXISTS $INDEX_STARRED ON $TABLE_NAME ($STARRED) WHERE $STARRED > 0",
       "CREATE INDEX IF NOT EXISTS message_collapsed_state_index ON $TABLE_NAME ($COLLAPSED_STATE)",
-      "CREATE INDEX IF NOT EXISTS message_collapsed_head_id_index ON $TABLE_NAME ($COLLAPSED_HEAD_ID)"
+      "CREATE INDEX IF NOT EXISTS message_collapsed_head_id_index ON $TABLE_NAME ($COLLAPSED_HEAD_ID)",
+      "CREATE INDEX IF NOT EXISTS $INDEX_NOTIFICATION_STATE ON $TABLE_NAME ($DATE_RECEIVED) WHERE $NOTIFIED = 0 AND $STORY_TYPE = 0 AND $LATEST_REVISION_ID IS NULL"
     )
 
     private val MMS_PROJECTION_BASE = arrayOf(
@@ -886,6 +888,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       DATE_RECEIVED to dateReceived,
       DATE_SENT to timestamp,
       READ to 1,
+      NOTIFIED to 1,
       TYPE to type,
       THREAD_ID to threadId
     )
@@ -912,7 +915,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       .update(TABLE_NAME)
       .values(
         TYPE to type,
-        READ to 1
+        READ to 1,
+        NOTIFIED to 1
       )
       .where("$ID = ?", messageId)
       .run()
@@ -960,6 +964,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         DATE_RECEIVED to timestamp,
         DATE_SENT to timestamp,
         READ to if (markRead) 1 else 0,
+        NOTIFIED to if (markRead) 1 else 0,
         BODY to Base64.encodeWithPadding(updateDetails),
         TYPE to MessageTypes.GROUP_CALL_TYPE,
         THREAD_ID to threadId
@@ -1068,6 +1073,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
       if (sameEraId && (containsSelf || updateDetail.localUserJoined)) {
         contentValues.put(READ, 1)
+        contentValues.put(NOTIFIED, 1)
       }
 
       val query = buildTrueUpdateQuery(ID_WHERE, buildArgs(messageId), contentValues)
@@ -1119,6 +1125,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
         if (sameEraId && (containsSelf || groupCallUpdateDetails.localUserJoined)) {
           contentValues.put(READ, 1)
+          contentValues.put(NOTIFIED, 1)
         }
 
         val query = buildTrueUpdateQuery(ID_WHERE, buildArgs(record.id), contentValues)
@@ -1187,6 +1194,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
             DATE_RECEIVED to now,
             DATE_SENT to now,
             READ to 1,
+            NOTIFIED to 1,
             TYPE to MessageTypes.PROFILE_CHANGE_TYPE,
             THREAD_ID to threadId,
             MESSAGE_EXTRAS to extras.encode()
@@ -1226,6 +1234,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
           DATE_RECEIVED to now,
           DATE_SENT to now,
           READ to 1,
+          NOTIFIED to 1,
           TYPE to MessageTypes.PROFILE_CHANGE_TYPE,
           THREAD_ID to threadId,
           MESSAGE_EXTRAS to extras.encode()
@@ -1259,6 +1268,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       DATE_RECEIVED to System.currentTimeMillis(),
       DATE_SENT to System.currentTimeMillis(),
       READ to 1,
+      NOTIFIED to 1,
       TYPE to MessageTypes.GV1_MIGRATION_TYPE,
       THREAD_ID to threadId
     )
@@ -1293,6 +1303,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
             DATE_RECEIVED to System.currentTimeMillis(),
             DATE_SENT to System.currentTimeMillis(),
             READ to 1,
+            NOTIFIED to 1,
             TYPE to MessageTypes.CHANGE_NUMBER_TYPE,
             THREAD_ID to threadId,
             BODY to null
@@ -1317,6 +1328,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         DATE_RECEIVED to System.currentTimeMillis(),
         DATE_SENT to System.currentTimeMillis(),
         READ to 1,
+        NOTIFIED to 1,
         TYPE to MessageTypes.RELEASE_CHANNEL_DONATION_REQUEST_TYPE,
         THREAD_ID to threadId,
         BODY to null
@@ -1334,6 +1346,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         DATE_RECEIVED to System.currentTimeMillis(),
         DATE_SENT to System.currentTimeMillis(),
         READ to 1,
+        NOTIFIED to 1,
         TYPE to MessageTypes.THREAD_MERGE_TYPE,
         THREAD_ID to threadId,
         BODY to Base64.encodeWithPadding(event.encode())
@@ -1352,6 +1365,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         DATE_RECEIVED to System.currentTimeMillis(),
         DATE_SENT to System.currentTimeMillis(),
         READ to 1,
+        NOTIFIED to 1,
         TYPE to MessageTypes.SESSION_SWITCHOVER_TYPE,
         THREAD_ID to threadId,
         BODY to Base64.encodeWithPadding(event.encode())
@@ -1373,6 +1387,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
             DATE_RECEIVED to System.currentTimeMillis(),
             DATE_SENT to System.currentTimeMillis(),
             READ to 1,
+            NOTIFIED to 1,
             TYPE to MessageTypes.SMS_EXPORT_TYPE,
             THREAD_ID to threadId,
             BODY to null
@@ -2630,7 +2645,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val results = writableDatabase.rawQuery(
       """
           UPDATE $TABLE_NAME INDEXED BY $index
-          SET $READ = 1, $REACTIONS_UNREAD = 0, $REACTIONS_LAST_SEEN = ${System.currentTimeMillis()}, $VOTES_UNREAD = 0, $VOTES_LAST_SEEN = ${System.currentTimeMillis()}
+          SET $READ = 1, $NOTIFIED = 1, $REACTIONS_UNREAD = 0, $REACTIONS_LAST_SEEN = ${System.currentTimeMillis()}, $VOTES_UNREAD = 0, $VOTES_LAST_SEEN = ${System.currentTimeMillis()}
           WHERE $where
           RETURNING $ID, $FROM_RECIPIENT_ID, $DATE_SENT, $DATE_RECEIVED, $TYPE, $EXPIRES_IN, $EXPIRE_STARTED, $THREAD_ID, $STORY_TYPE
         """,
@@ -3430,6 +3445,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     contentValues.put(TYPE, type)
     contentValues.put(THREAD_ID, threadId)
     contentValues.put(READ, 1)
+    contentValues.put(NOTIFIED, 1)
     contentValues.put(DATE_RECEIVED, dateReceived)
     contentValues.put(SMS_SUBSCRIPTION_ID, message.subscriptionId)
     contentValues.put(EXPIRES_IN, editedMessage?.expiresIn ?: message.expiresIn)
@@ -5613,6 +5629,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
         val values = contentValuesOf(
           READ to 1,
+          NOTIFIED to 1,
           REACTIONS_UNREAD to 0,
           REACTIONS_LAST_SEEN to System.currentTimeMillis(),
           VOTES_UNREAD to 0,
@@ -5829,12 +5846,12 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     return readableDatabase
       .select(*MMS_PROJECTION)
-      .from(TABLE_NAME)
+      .from("$TABLE_NAME INDEXED BY $INDEX_NOTIFICATION_STATE")
       .where(
         """
-        $NOTIFIED = 0 
-        AND $STORY_TYPE = 0 
-        AND $LATEST_REVISION_ID IS NULL 
+        $NOTIFIED = 0
+        AND $STORY_TYPE = 0
+        AND $LATEST_REVISION_ID IS NULL
         AND (
           ($READ = 0 AND ($ORIGINAL_MESSAGE_ID IS NULL OR EXISTS (SELECT 1 FROM $TABLE_NAME AS m WHERE m.$ID = $TABLE_NAME.$ORIGINAL_MESSAGE_ID AND m.$READ = 0)))
           OR $REACTIONS_UNREAD = 1 
@@ -5991,7 +6008,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
       if (!hasReactions) {
         values.put(REACTIONS_UNREAD, 0)
-      } else if (!isRemoval) {
+      } else if (!isRemoval && isOutgoing) {
         values.put(REACTIONS_UNREAD, 1)
       }
 
@@ -6017,7 +6034,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
       if (!hasVotes) {
         values.put(VOTES_UNREAD, 0)
-      } else if (!isRemoval) {
+      } else if (!isRemoval && isOutgoing) {
         values.put(VOTES_UNREAD, 1)
       }
 

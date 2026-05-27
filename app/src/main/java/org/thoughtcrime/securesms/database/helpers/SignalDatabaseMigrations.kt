@@ -170,6 +170,7 @@ import org.thoughtcrime.securesms.database.helpers.migration.V314_FixMessageRequ
 import org.thoughtcrime.securesms.database.helpers.migration.V315_CleanupE164SenderKeyShared
 import org.thoughtcrime.securesms.database.helpers.migration.V316_AddVerifiedGroupNameHashMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V317_AddMessageThreadDateReceivedUnreadIndex
+import org.thoughtcrime.securesms.database.helpers.migration.V318_AddMessageNotificationStateIndex
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -347,10 +348,11 @@ object SignalDatabaseMigrations {
     314 to V314_FixMessageRequestAcceptedToRecipient,
     315 to V315_CleanupE164SenderKeyShared,
     316 to V316_AddVerifiedGroupNameHashMigration,
-    317 to V317_AddMessageThreadDateReceivedUnreadIndex
+    317 to V317_AddMessageThreadDateReceivedUnreadIndex,
+    318 to V318_AddMessageNotificationStateIndex
   )
 
-  const val DATABASE_VERSION = 317
+  const val DATABASE_VERSION = 318
 
   @JvmStatic
   fun migrate(context: Application, db: SignalSqliteDatabase, oldVersion: Int, newVersion: Int) {
