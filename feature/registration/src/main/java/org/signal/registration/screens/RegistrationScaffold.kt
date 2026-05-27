@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -130,6 +131,19 @@ object RegistrationScaffold {
       WindowBreakpoint.LARGE_WIDTH -> largeWidthLayoutParams
       WindowBreakpoint.LARGE_HEIGHT -> largeHeightLayoutParams
     }
+  }
+
+  @Composable
+  fun FooterSurface(
+    isContentScrolledUnder: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+  ) {
+    Surface(
+      modifier = modifier.fillMaxWidth(),
+      shadowElevation = if (isContentScrolledUnder) 8.dp else 0.dp,
+      content = content
+    )
   }
 }
 

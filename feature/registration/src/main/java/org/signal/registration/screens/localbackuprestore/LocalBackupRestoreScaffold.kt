@@ -62,18 +62,22 @@ internal fun LocalBackupRestoreLayout(
           }
         },
         footer = {
-          if (primaryButton != null || secondaryButton != null) {
-            Column(
-              modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 16.dp),
-              horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-              primaryButton?.invoke(Modifier.fillMaxWidth())
-              if (secondaryButton != null) {
-                Spacer(modifier = Modifier.height(8.dp))
+          RegistrationScaffold.FooterSurface(
+            isContentScrolledUnder = scrollState.canScrollForward
+          ) {
+            if (primaryButton != null || secondaryButton != null) {
+              Column(
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(horizontal = 24.dp, vertical = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+              ) {
+                primaryButton?.invoke(Modifier.fillMaxWidth())
+                if (secondaryButton != null) {
+                  Spacer(modifier = Modifier.height(8.dp))
+                }
+                secondaryButton?.invoke(Modifier.fillMaxWidth())
               }
-              secondaryButton?.invoke(Modifier.fillMaxWidth())
             }
           }
         }
@@ -112,19 +116,23 @@ internal fun LocalBackupRestoreLayout(
           }
         },
         footer = {
-          if (primaryButton != null || secondaryButton != null) {
-            Row(
-              modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 16.dp),
-              horizontalArrangement = Arrangement.End,
-              verticalAlignment = Alignment.CenterVertically
-            ) {
-              secondaryButton?.invoke(Modifier)
-              if (secondaryButton != null) {
-                Spacer(modifier = Modifier.width(16.dp))
+          RegistrationScaffold.FooterSurface(
+            isContentScrolledUnder = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
+          ) {
+            if (primaryButton != null || secondaryButton != null) {
+              Row(
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(horizontal = 24.dp, vertical = 16.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+              ) {
+                secondaryButton?.invoke(Modifier)
+                if (secondaryButton != null) {
+                  Spacer(modifier = Modifier.width(16.dp))
+                }
+                primaryButton?.invoke(Modifier)
               }
-              primaryButton?.invoke(Modifier)
             }
           }
         }
@@ -138,7 +146,9 @@ internal fun Description(headline: String, body: String) {
   Text(
     text = headline,
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 
   Spacer(modifier = Modifier.height(8.dp))

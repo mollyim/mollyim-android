@@ -95,21 +95,27 @@ private fun OnePaneLayout(
       }
     },
     footer = {
-      Row(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
       ) {
-        Box(
-          modifier = Modifier.weight(1f),
-          contentAlignment = Alignment.CenterStart
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+          horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-          NoRecoverKeyButton(onEvent)
-        }
-        Box(
-          modifier = Modifier.weight(1f),
-          contentAlignment = Alignment.CenterEnd
-        ) {
-          NextButton(state, onEvent)
+          Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.CenterStart
+          ) {
+            NoRecoverKeyButton(onEvent)
+          }
+          Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.CenterEnd
+          ) {
+            NextButton(state, onEvent)
+          }
         }
       }
     }
@@ -150,13 +156,19 @@ private fun TwoPaneLayout(
       }
     },
     footer = {
-      Row(
-        horizontalArrangement = Arrangement.End,
-        modifier = Modifier.fillMaxWidth().padding(16.dp)
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
       ) {
-        NoRecoverKeyButton(onEvent)
-        Spacer(modifier = Modifier.size(24.dp))
-        NextButton(state, onEvent)
+        Row(
+          horizontalArrangement = Arrangement.End,
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+        ) {
+          NoRecoverKeyButton(onEvent)
+          Spacer(modifier = Modifier.size(24.dp))
+          NextButton(state, onEvent)
+        }
       }
     }
   )
@@ -167,7 +179,9 @@ private fun Description() {
   Text(
     text = stringResource(R.string.EnterAepScreen__enter_your_recovery_key),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 
   Spacer(modifier = Modifier.size(8.dp))

@@ -83,17 +83,26 @@ private fun OnePaneLayout(
       }
     },
     footer = {
-      Column(
-        modifier = modifier
-          .fillMaxWidth()
-          .padding(vertical = 16.dp)
-          .horizontalGutters(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
       ) {
-        NextButton(onEvent, modifier = Modifier.widthIn(max = params.maxButtonWidth).fillMaxWidth())
-        Spacer(modifier = Modifier.height(16.dp))
-        LearnMore(onEvent)
+        Column(
+          modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+            .horizontalGutters(),
+          horizontalAlignment = Alignment.CenterHorizontally,
+          verticalArrangement = Arrangement.Center
+        ) {
+          NextButton(
+            onEvent,
+            modifier = Modifier
+              .widthIn(max = params.maxButtonWidth)
+              .fillMaxWidth()
+          )
+          Spacer(modifier = Modifier.height(16.dp))
+          LearnMore(onEvent)
+        }
       }
     }
   )
@@ -136,17 +145,21 @@ private fun TwoPaneLayout(
       }
     },
     footer = {
-      Row(
-        modifier = modifier
-          .padding(vertical = 16.dp)
-          .fillMaxWidth()
-          .horizontalGutters(),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
       ) {
-        LearnMore(onEvent)
-        Spacer(modifier = Modifier.size(16.dp))
-        NextButton(onEvent, modifier = Modifier.widthIn(max = params.maxButtonWidth))
+        Row(
+          modifier = modifier
+            .padding(vertical = 16.dp)
+            .fillMaxWidth()
+            .horizontalGutters(),
+          horizontalArrangement = Arrangement.End,
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          LearnMore(onEvent)
+          Spacer(modifier = Modifier.size(16.dp))
+          NextButton(onEvent, modifier = Modifier.widthIn(max = params.maxButtonWidth))
+        }
       }
     }
   )
@@ -157,7 +170,9 @@ private fun Title() {
   Text(
     text = stringResource(R.string.AccountLockedScreen__account_locked),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 }
 

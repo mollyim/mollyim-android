@@ -103,6 +103,8 @@ private fun OnePaneLayout(
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  val scrollState = rememberScrollState()
+
   OnePaneRegistrationScaffold(
     modifier = modifier,
     params = params,
@@ -111,7 +113,7 @@ private fun OnePaneLayout(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
           .fillMaxSize()
-          .verticalScroll(rememberScrollState())
+          .verticalScroll(scrollState)
           .padding(paddingValues)
       ) {
         BackupInfoContent(state = state)
@@ -120,13 +122,17 @@ private fun OnePaneLayout(
       RestoreStateDialogs(state = state, onEvent = onEvent)
     },
     footer = {
-      Column(
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(24.dp)
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
       ) {
-        RestoreButton(onEvent, Modifier.fillMaxWidth())
-        CancelButton(onEvent, Modifier.fillMaxWidth())
+        Column(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp)
+        ) {
+          RestoreButton(onEvent, Modifier.fillMaxWidth())
+          CancelButton(onEvent, Modifier.fillMaxWidth())
+        }
       }
     }
   )
@@ -139,6 +145,9 @@ private fun TwoPaneLayout(
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
+
   TwoPaneRegistrationScaffold(
     modifier = modifier,
     params = params,
@@ -148,7 +157,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
-          .verticalScroll(rememberScrollState())
+          .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
         BackupInfoHeading()
@@ -160,7 +169,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
-          .verticalScroll(rememberScrollState())
+          .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       ) {
         BackupInfoDetails(state = state)
@@ -169,15 +178,19 @@ private fun TwoPaneLayout(
       RestoreStateDialogs(state = state, onEvent = onEvent)
     },
     footer = {
-      Row(
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(24.dp),
-        horizontalArrangement = Arrangement.End
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
       ) {
-        CancelButton(onEvent, Modifier)
-        Spacer(modifier = Modifier.size(8.dp))
-        RestoreButton(onEvent, Modifier)
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+          horizontalArrangement = Arrangement.End
+        ) {
+          CancelButton(onEvent, Modifier)
+          Spacer(modifier = Modifier.size(8.dp))
+          RestoreButton(onEvent, Modifier)
+        }
       }
     }
   )
@@ -209,7 +222,9 @@ private fun BackupInfoHeading() {
     text = stringResource(R.string.RemoteRestoreScreen__restore_from_backup),
     style = MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
-    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 }
 
@@ -282,6 +297,7 @@ private fun RestoreStateDialogs(
     RemoteBackupRestoreState.RestoreState.InProgress -> {
       RestoreProgressDialog(restoreProgress = state.restoreProgress)
     }
+
     RemoteBackupRestoreState.RestoreState.Restored -> Unit
     RemoteBackupRestoreState.RestoreState.NetworkFailure -> {
       Dialogs.SimpleAlertDialog(
@@ -292,6 +308,7 @@ private fun RestoreStateDialogs(
         onDismiss = { onEvent(RemoteBackupRestoreScreenEvents.DismissError) }
       )
     }
+
     RemoteBackupRestoreState.RestoreState.InvalidBackupVersion -> {
       Dialogs.SimpleAlertDialog(
         title = stringResource(R.string.RemoteRestoreScreen__couldnt_restore_this_backup),
@@ -302,6 +319,7 @@ private fun RestoreStateDialogs(
         onDismiss = { onEvent(RemoteBackupRestoreScreenEvents.DismissError) }
       )
     }
+
     RemoteBackupRestoreState.RestoreState.PermanentSvrBFailure -> {
       Dialogs.SimpleAlertDialog(
         title = stringResource(R.string.RemoteRestoreScreen__cant_restore_this_backup),
@@ -312,6 +330,7 @@ private fun RestoreStateDialogs(
         onDismiss = { onEvent(RemoteBackupRestoreScreenEvents.DismissError) }
       )
     }
+
     RemoteBackupRestoreState.RestoreState.Failed -> {
       Dialogs.SimpleAlertDialog(
         title = stringResource(R.string.RemoteRestoreScreen__couldnt_finish_restore),

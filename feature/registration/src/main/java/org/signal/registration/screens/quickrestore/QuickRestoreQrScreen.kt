@@ -96,7 +96,11 @@ private fun OnePaneLayout(
       }
     },
     footer = {
-      CancelFooter(onEvent)
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
+      ) {
+        CancelFooter(onEvent)
+      }
     }
   )
 }
@@ -140,7 +144,11 @@ private fun TwoPaneLayout(
       }
     },
     footer = {
-      CancelFooter(onEvent)
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
+      ) {
+        CancelFooter(onEvent)
+      }
     }
   )
 }
@@ -151,7 +159,9 @@ private fun Heading() {
     text = stringResource(R.string.QuickRestoreQRScreen__scan),
     style = MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
-    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 }
 

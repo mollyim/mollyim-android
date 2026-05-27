@@ -215,7 +215,11 @@ private fun OnePaneLayout(
       }
     },
     footer = {
-      NextButton(state, onEvent)
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
+      ) {
+        NextButton(state, onEvent)
+      }
     }
   )
 }
@@ -276,7 +280,11 @@ private fun TwoPaneLayout(
       }
     },
     footer = {
-      NextButton(state, onEvent)
+      RegistrationScaffold.FooterSurface(
+        isContentScrolledUnder = scrollState.canScrollForward
+      ) {
+        NextButton(state, onEvent)
+      }
     }
   )
 }
@@ -286,7 +294,9 @@ private fun Description() {
   Text(
     text = stringResource(R.string.RegistrationActivity_phone_number),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth().attachDebugLogHelper()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 
   Spacer(modifier = Modifier.height(16.dp))
