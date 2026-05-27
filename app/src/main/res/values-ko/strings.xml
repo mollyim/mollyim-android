@@ -1662,7 +1662,7 @@
     <!-- Toast message shown when trying to join a group by link but the group is full -->
     <string name="GroupJoinBottomSheetDialogFragment_group_limit_reached">그룹 제한에 도달하여 그룹에 참가할 수 없음</string>
     <!-- Title shown when there was an known issue getting group information from a group link -->
-    <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">그룹에 참가할 수 없습니다.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">그룹에 참가할 수 없습니다</string>
     <!-- Message shown when you try to get information for a group via link but an admin has removed you -->
     <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">관리자에 의해 그룹에서 제외되어, 그룹 링크를 사용할 수 없습니다. 그룹에 다시 참가하려면 관리자에게 문의해 주세요.</string>
     <!-- Message shown when you try to get information for a group via link but the link is no longer valid -->
@@ -1679,9 +1679,9 @@
     </plurals>
 
     <!-- GroupJoinUpdateRequiredBottomSheetDialogFragment -->
-    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">그룹 링크를 사용하기 위해서 Signal을 업데이트하세요</string>
+    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">그룹 링크를 사용하려면 Signal을 업데이트하세요</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">사용 중인 Signal 버전에서는 이 그룹 링크를 지원하지 않습니다. 링크를 통해 그룹에 가입하려면 최신 버전으로 업데이트하세요.</string>
-    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">시그널 업데이트하기</string>
+    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Signal 업데이트</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">그룹 링크가 유효하지 않습니다.</string>
 
     <!-- GroupInviteLinkEnableAndShareBottomSheetDialogFragment -->
@@ -1739,7 +1739,7 @@
     <string name="InviteActivity_no_app_to_share_to">공유하기 위해 사용할 수 있는 앱이 없습니다.</string>
 
     <!-- LearnMoreTextView -->
-    <string name="LearnMoreTextView_learn_more">더 알아보기</string>
+    <string name="LearnMoreTextView_learn_more">자세히 알아보기</string>
 
     <string name="SpanUtil__read_more">더 읽기</string>
 
@@ -1763,18 +1763,18 @@
         <item quantity="other">선택한 항목을 삭제할까요?</item>
     </plurals>
     <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
-        <item quantity="other">&lt;mrk id=\'314\' mtype=\'seg\'&gt;선택한 파일 %1$d개가 모두 영구 삭제됩니다.&lt;/mrk&gt; &lt;mrk id=\'315\' mtype=\'seg\'&gt;이 항목들과 관련된 모든 메시지의 텍스트도 삭제됩니다.&lt;/mrk&gt;</item>
+        <item quantity="other">선택한 파일 %1$d개가 모두 영구 삭제됩니다. 이 항목들과 관련된 모든 메시지도 삭제됩니다.</item>
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">삭제 중</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">메시지 삭제 중…</string>
     <!-- Format string showing current vs. total items being deleted, e.g. "12 of 207" -->
     <string name="MediaOverviewActivity_Media_delete_progress_count">%2$d 중 %1$d</string>
     <string name="MediaOverviewActivity_Sort_by">정렬 방법</string>
-    <string name="MediaOverviewActivity_Newest">최근 순서</string>
-    <string name="MediaOverviewActivity_Oldest">오래된 순서</string>
+    <string name="MediaOverviewActivity_Newest">최신순</string>
+    <string name="MediaOverviewActivity_Oldest">오래된 순</string>
     <string name="MediaOverviewActivity_Storage_used">사용된 저장 공간</string>
     <string name="MediaOverviewActivity_All_storage_use">저장 공간 사용 상태</string>
-    <string name="MediaOverviewActivity_Grid_view_description">눈금 보기</string>
+    <string name="MediaOverviewActivity_Grid_view_description">그리드 보기</string>
     <string name="MediaOverviewActivity_List_view_description">목록 보기</string>
     <string name="MediaOverviewActivity_Selected_description">선택됨</string>
     <string name="MediaOverviewActivity_select_all">모두 선택</string>
@@ -1809,7 +1809,7 @@
     <string name="Megaphones_verify_your_signal_pin">Signal PIN을 인증하세요</string>
     <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">PIN을 잊어버리지 않도록 주기적으로 확인을 요청드릴게요.</string>
     <string name="Megaphones_verify_pin">PIN 인증</string>
-    <string name="Megaphones_get_started">시작</string>
+    <string name="Megaphones_get_started">시작하기</string>
     <string name="Megaphones_new_group">새 그룹</string>
     <!-- Text in a card view to invite friends as part of the onboarding megaphone -->
     <string name="Megaphones_invite_friends">친구 초대</string>
@@ -1824,7 +1824,7 @@
     <string name="NewLinkedDeviceMegaphone__ok">확인</string>
 
     <!-- Title of a bottom sheet to render messages that all quote a specific message -->
-    <string name="MessageQuotesBottomSheet_replies">회신</string>
+    <string name="MessageQuotesBottomSheet_replies">답장</string>
 
     <!-- StarredMessagesFragment -->
     <!-- Title for the starred messages screen -->
@@ -2228,7 +2228,7 @@
     <string name="MessageRequestProfileView_member_of_two_groups">%1$s 및 %2$s 멤버</string>
     <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s 및 %3$s 멤버</string>
     <plurals name="MessageRequestProfileView_members">
-        <item quantity="other">%1$d 멤버</item>
+        <item quantity="other">멤버 %1$d명</item>
     </plurals>
     <!-- Describes the number of members in a group. The string MessageRequestProfileView_invited is nested in the parentheses. -->
     <plurals name="MessageRequestProfileView_members_and_invited">
@@ -2240,10 +2240,10 @@
     </plurals>
     <!-- Describe the total number of groups, besides two groups, that you and a person have in common. Nested inside MessageRequestProfileView_member_of_many_groups -->
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
-        <item quantity="other">%1$d개의 추가 그룹</item>
+        <item quantity="other">추가 그룹 %1$d개</item>
     </plurals>
     <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
-    <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>
+    <string name="MessageRequestProfileView_member_names_and_invited">%1$s(%2$s)</string>
     <!-- Text for an empty group or when you are the only member -->
     <string name="MessageRequestProfileView_group_members_zero">아직 다른 그룹 멤버가 없습니다</string>
     <!-- Text for a group with one member (not you). %1$s is their name -->
@@ -2251,7 +2251,7 @@
     <!-- Text for a 2 member group you are in. %1$s is the name of the other member -->
     <string name="MessageRequestProfileView_group_members_one_and_you">나와 %1$s</string>
     <!-- Text for a 2 member group you are not in. %1$s and %2$s are the members\' names -->
-    <string name="MessageRequestProfileView_group_members_two">%1$s %2$s</string>
+    <string name="MessageRequestProfileView_group_members_two">%1$s, %2$s</string>
     <!-- Text for a 3 member group you are in. %1$s and %2$s are the members\' names -->
     <string name="MessageRequestProfileView_group_members_two_and_you">나와 %1$s, %2$s</string>
     <!-- Text for a 3 member group you are not in. %1$s, %2$s, %3$s are the names of the other members. -->
@@ -2300,15 +2300,15 @@
     <string name="DeviceProvisioningActivity_content_progress_key_error">잘못된 QR 코드입니다.</string>
     <!-- Toast message shown when a user has too many linked devices and needs to remove one before linking another -->
     <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">현재 연결된 기기 수가 한도를 초과했습니다. 일부 기기를 해제한 후 다시 시도해 주세요.</string>
-    <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">죄송합니다. 올바른 기기 연결 QR 코드가 아닙니다.</string>
+    <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">올바른 기기 연결 QR 코드가 아닙니다.</string>
     <string name="DeviceProvisioningActivity_link_a_signal_device">Signal 기기를 연결할까요?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">이 Signal 계정에 데스크톱이나 iPad를 연결하려면 연결된 기기로 이동하여 \'새 기기 연결\'을 탭한 다음 QR 코드를 다시 스캔하세요. Signal에서 직접 제공한 QR 코드만 스캔하세요.</string>
 
     <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
-    <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">카메라 권한이 없어 QR 코드를 스캔할 수 없음</string>
+    <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">카메라 권한이 없어 QR 코드를 스캔할 수 없습니다</string>
 
     <!-- OutdatedBuildReminder -->
-    <string name="OutdatedBuildReminder_update_now">지금 업데이트하세요.</string>
+    <string name="OutdatedBuildReminder_update_now">지금 업데이트하세요</string>
     <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">이 Signal 버전은 오늘 만료됩니다. 최신 버전으로 업데이트하세요.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
         <item quantity="other">이 Signal 버전은 %1$d일 후에 만료됩니다. 최신 버전으로 업데이트하세요.</item>
@@ -2699,7 +2699,7 @@
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call">
-        <item quantity="other">통화 참가자 수(%1$d명)</item>
+        <item quantity="other">통화 참가자 %1$d명</item>
     </plurals>
     <plurals name="CallParticipantsListDialog__signal_will_ring">
         <item quantity="other">Signal에서 전화를 겁니다(%1$d)</item>
@@ -7783,7 +7783,7 @@
     <!-- Displayed when the user disables group call ringing -->
     <string name="CallStateUpdatePopupWindow__ringing_off">통화 꺼짐</string>
     <!-- Displayed when the user cannot enable group call ringing -->
-    <string name="CallStateUpdatePopupWindow__group_is_too_large">그룹 통화 참가자가 너무 많아 전화를 걸 수 없습니다.</string>
+    <string name="CallStateUpdatePopupWindow__group_is_too_large">그룹 인원이 너무 많아 전화를 걸 수 없습니다</string>
     <!-- Displayed when the user turns on their mic -->
     <string name="CallStateUpdatePopupWindow__mic_on">마이크 켜짐</string>
     <!-- Displayed when the user turns off their mic -->
@@ -9238,7 +9238,7 @@
     <!-- SelectInstructionsSheet: Instruction to select the top-level backup folder -->
     <string name="SelectInstructionsSheet__select_the_top_level_folder">백업이 저장된 가장 상위 폴더를 선택하세요</string>
     <!-- SelectInstructionsSheet: Continue button text -->
-    <string name="SelectInstructionsSheet__continue_button">확인</string>
+    <string name="SelectInstructionsSheet__continue_button">계속</string>
 
     <!-- SelectLocalBackupScreen: Screen title for restoring on-device backup -->
     <string name="SelectLocalBackupScreen__restore_on_device_backup">기기 백업 복원</string>
@@ -9260,7 +9260,7 @@
     <!-- SelectLocalBackupSheet: Subtitle warning about choosing an older backup -->
     <string name="SelectLocalBackupSheet__choosing_an_older_backup">이전 백업을 선택하면 메시지나 미디어가 손실될 수 있습니다.</string>
     <!-- SelectLocalBackupSheet: Continue button text -->
-    <string name="SelectLocalBackupSheet__continue_button">확인</string>
+    <string name="SelectLocalBackupSheet__continue_button">계속</string>
 
     <!-- SelectLocalBackupTypeScreen: Screen title for selecting backup type -->
     <string name="SelectLocalBackupTypeScreen__restore_on_device_backup">기기 백업 복원</string>
