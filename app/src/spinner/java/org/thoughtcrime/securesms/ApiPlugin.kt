@@ -239,17 +239,18 @@ class ApiPlugin : Plugin {
     val threadId = parameters["id"]?.firstOrNull()?.toLongOrNull() ?: return PluginResult.ErrorResult.notFound("thread not found")
 
     val threadRecord = SignalDatabase.threads.getThreadRecord(threadId) ?: return PluginResult.ErrorResult(message = "Thread not found")
+    val recipient = Recipient.resolved(threadRecord.recipientId).fresh()
 
     return ThreadInfo(
       threadId = threadRecord.threadId,
-      recipientName = threadRecord.recipient.getDisplayName(AppDependencies.application),
-      recipientId = threadRecord.recipient.id.toLong(),
+      recipientName = recipient.getDisplayName(AppDependencies.application),
+      recipientId = recipient.id.toLong(),
       unreadCount = threadRecord.unreadCount,
-      snippet = threadRecord.body,
+      snippet = threadRecord.snippet,
       date = threadRecord.date,
-      archived = threadRecord.isArchived,
-      pinned = threadRecord.isPinned,
-      unreadSelfMentionsCount = threadRecord.unreadSelfMentionsCount
+      archived = threadRecord.archived,
+      pinned = threadRecord.pinnedOrder != null,
+      unreadSelfMentionsCount = threadRecord.unreadSelfMentionCount
     ).toJsonResult()
   }
 
