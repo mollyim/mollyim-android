@@ -57,7 +57,7 @@ subprojects {
   }
 
   tasks.withType<Test>().configureEach {
-    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 4).coerceAtLeast(1)
   }
 }
 
