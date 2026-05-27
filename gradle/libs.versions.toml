@@ -34,7 +34,6 @@ nanohttpd = "2.3.1"
 navigation-safe-args-gradle-plugin = "2.9.8"
 protobuf-gradle-plugin = "0.10.0"
 ktlint = "14.2.0"
-ui-test-junit4 = "1.11.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -209,7 +208,6 @@ jknack-handlebars = "com.github.jknack:handlebars:4.0.7"
 mp4parser-isoparser = { module = "org.mp4parser:isoparser", version.ref = "mp4parser" }
 mp4parser-streaming = { module = "org.mp4parser:streaming", version.ref = "mp4parser" }
 mp4parser-muxer = { module = "org.mp4parser:muxer", version.ref = "mp4parser" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "ui-test-junit4" }
 
 [bundles]
 media3 = ["androidx-media3-exoplayer", "androidx-media3-session", "androidx-media3-ui"]
