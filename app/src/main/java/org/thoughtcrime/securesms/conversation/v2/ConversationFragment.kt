@@ -2880,7 +2880,6 @@ class ConversationFragment :
 
     BlockUnblockDialog.showReportSpamFor(
       requireContext(),
-      lifecycle,
       recipient,
       {
         messageRequestViewModel
@@ -2928,7 +2927,6 @@ class ConversationFragment :
 
     BlockUnblockDialog.showBlockFor(
       requireContext(),
-      lifecycle,
       recipient
     ) {
       messageRequestViewModel
@@ -2947,7 +2945,6 @@ class ConversationFragment :
 
     BlockUnblockDialog.showUnblockFor(
       requireContext(),
-      lifecycle,
       recipient
     ) {
       messageRequestViewModel
