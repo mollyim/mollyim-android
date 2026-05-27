@@ -13,7 +13,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences
  */
 class PanicResponderListener : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
-    val passwordEnabled = !TextSecurePreferences.isPassphraseLockEnabled(context)
+    val passwordEnabled = TextSecurePreferences.isPassphraseLockEnabled(context)
     val intentAction = intent.action
     if (passwordEnabled && "info.guardianproject.panic.action.TRIGGER" == intentAction) {
       val lockIntent = Intent(context, KeyCachingService::class.java)
