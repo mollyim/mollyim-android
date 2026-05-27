@@ -327,19 +327,6 @@
     <!-- Accessibility label for the send button in media selection -->
     <string name="CameraXFragment_send">전송</string>
 
-    <!-- CameraContacts -->
-    <string name="CameraContacts_recent_contacts">최근 연락처</string>
-    <string name="CameraContacts_signal_contacts">Signal 연락처</string>
-    <string name="CameraContacts_signal_groups">Signal 그룹</string>
-    <!-- A warning shown in a toast when  -->
-    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
-        <item quantity="other">최대 %1$d개 대화에서 공유할 수 있습니다.</item>
-    </plurals>
-    <string name="CameraContacts_select_signal_recipients">Signal 받는 사람 선택</string>
-    <string name="CameraContacts_no_signal_contacts">Signal 연락처 없음</string>
-    <string name="CameraContacts_you_can_only_use_the_camera_button">카메라 버튼은 Signal 연락처에 사진을 보내는 용도로만 사용할 수 있습니다. </string>
-    <string name="CameraContacts_cant_find_who_youre_looking_for">원하는 사람을 찾지 못하셨나요?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Signal 가입 초대하기</string>
     <string name="CameraContacts__menu_search">검색</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -4248,7 +4235,7 @@
     <string name="preferences_data_and_storage__never">없음</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi 및 모바일 데이터</string>
     <string name="preferences_data_and_storage__mobile_data_only">모바일 데이터만</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">데이터 사용량을 줄이면 네트워크 상태가 좋지 않을 때도 통화 품질이 개선될 수 있습니다.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
     <string name="preferences_notifications__in_chat_sounds">대화 내 사운드</string>
     <string name="preferences_notifications__show">표시</string>
     <string name="preferences_notifications__ringtone">알림 벨소리</string>
@@ -5892,6 +5879,8 @@
     <string name="HelpSettingsFragment__support_center">고객 지원</string>
     <string name="HelpSettingsFragment__contact_us">문의하기</string>
     <string name="HelpSettingsFragment__version">버전</string>
+    <!-- Displayed when copying help screen text to the clipboard -->
+    <string name="HelpSettingsFragment__copied_to_clipboard">Copied to clipboard</string>
     <string name="HelpSettingsFragment__debug_log">디버그 로그</string>
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">라이선스</string>
@@ -5913,6 +5902,12 @@
     <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
     <string name="DataAndStorageSettingsFragment__standard">기본</string>
     <string name="DataAndStorageSettingsFragment__calls">전화</string>
+    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9199,11 +9194,11 @@
     <!-- RestoreLocalBackupActivity: Label for the button that opens the contact support form -->
     <string name="RestoreLocalBackupActivity__contact_support">지원팀에 문의</string>
 
-    <!-- RestoreLocalBackupActivity: Title for the dialog shown when the restored backup belongs to a different account -->
+    <!-- RestoreLocalBackupActivity: Title for the dialog shown when on-device backups could not be automatically re-enabled -->
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">기기 내 백업을 켜시겠어요?</string>
 
-    <!-- RestoreLocalBackupActivity: Body for the dialog shown when the restored backup belongs to a different account, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">기기 내 백업을 계속 사용하려면 이 계정에서 백업을 활성화하고 새 복구 키를 기록해 둬야 합니다. 설정 &gt; 백업에서 언제든지 이 작업을 수행하실 수 있습니다.</string>
+    <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">지금 켜기</string>
