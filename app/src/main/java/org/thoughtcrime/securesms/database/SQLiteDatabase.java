@@ -14,6 +14,7 @@ import androidx.sqlite.db.SupportSQLiteQuery;
 import net.zetetic.database.sqlcipher.SQLiteStatement;
 import net.zetetic.database.sqlcipher.SQLiteTransactionListener;
 
+import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This is a wrapper around {@link net.zetetic.database.sqlcipher.SQLiteDatabase}. There's difficulties
@@ -32,6 +34,13 @@ import java.util.Set;
  * their import statements.
  */
 public class SQLiteDatabase implements SupportSQLiteDatabase {
+
+  private static final String TAG = Log.tag(SQLiteDatabase.class);
+
+  private static final long SLOW_WRITE_LOCK_WAIT_MS = TimeUnit.SECONDS.toMillis(3);
+  private static final long SLOW_TRANSACTION_HOLD_MS = 750;
+  private static final long SLOW_DIRECT_WRITE_MS = 250;
+  private static final long SLOW_QUERY_MS = TimeUnit.SECONDS.toMillis(1);
 
   public static final int CONFLICT_ROLLBACK = 1;
   public static final int CONFLICT_ABORT    = 2;
@@ -48,6 +57,9 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
   private final net.zetetic.database.sqlcipher.SQLiteDatabase wrapped;
   private final Tracer                                        tracer;
 
+  private static volatile boolean slowWriteLoggingEnabled = false;
+
+  private static final ThreadLocal<Long>          TRANSACTION_HOLD_START_NS = new ThreadLocal<>();
   private static final ThreadLocal<Set<Runnable>> PENDING_POST_SUCCESSFUL_TRANSACTION_TASKS;
   private static final ThreadLocal<Set<Runnable>> POST_SUCCESSFUL_TRANSACTION_TASKS;
 
@@ -56,6 +68,10 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
     POST_SUCCESSFUL_TRANSACTION_TASKS         = new ThreadLocal<>();
 
     PENDING_POST_SUCCESSFUL_TRANSACTION_TASKS.set(new LinkedHashSet<>());
+  }
+
+  public static void setSlowWriteLoggingEnabled(boolean enabled) {
+    slowWriteLoggingEnabled = enabled;
   }
 
   public SQLiteDatabase(net.zetetic.database.sqlcipher.SQLiteDatabase wrapped) {
@@ -83,7 +99,11 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
     }
 
     tracer.start(methodName, KEY_QUERY, query);
+    long startNs = slowWriteLoggingEnabled && locked ? System.nanoTime() : 0L;
     returnable.run();
+    if (slowWriteLoggingEnabled && locked) {
+      warnIfSlowDirectWrite(methodName, null, query, startNs);
+    }
     tracer.end(methodName);
 
     if (locked) {
@@ -109,10 +129,18 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
     }
 
     tracer.start(methodName, params);
+    long startNs = slowWriteLoggingEnabled ? System.nanoTime() : 0L;
     E result = returnable.run();
     if (result instanceof Cursor) {
       // Triggers filling the window (which is about to be done anyway), but lets us capture that time inside the trace
       ((Cursor) result).getCount();
+    }
+    if (slowWriteLoggingEnabled) {
+      if (locked) {
+        warnIfSlowDirectWrite(methodName, table, query, startNs);
+      } else {
+        warnIfSlowQuery(methodName, table, query, startNs);
+      }
     }
     tracer.end(methodName);
 
@@ -292,6 +320,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       trace("beginTransaction()", wrapped::beginTransaction);
     } else {
       trace("beginTransaction()", () -> {
+        long waitStartNs = slowWriteLoggingEnabled ? System.nanoTime() : 0L;
         wrapped.beginTransactionWithListener(new SQLiteTransactionListener() {
           @Override
           public void onBegin() { }
@@ -310,13 +339,31 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
             getPendingPostSuccessfulTransactionTasks().clear();
           }
         });
+        if (slowWriteLoggingEnabled) {
+          long waitMs = (System.nanoTime() - waitStartNs) / 1_000_000L;
+          if (waitMs >= SLOW_WRITE_LOCK_WAIT_MS) {
+            Log.w(TAG, "Slow write-lock acquire: waited " + waitMs + "ms to BEGIN", new Throwable());
+          }
+          TRANSACTION_HOLD_START_NS.set(System.nanoTime());
+        }
       });
     }
   }
 
   public void endTransaction() {
+    Long holdStartNs = slowWriteLoggingEnabled ? TRANSACTION_HOLD_START_NS.get() : null;
     trace("endTransaction()", wrapped::endTransaction);
     traceLockEnd();
+    if (holdStartNs != null && !wrapped.inTransaction()) {
+      TRANSACTION_HOLD_START_NS.remove();
+      if (slowWriteLoggingEnabled) {
+        long holdMs = (System.nanoTime() - holdStartNs) / 1_000_000L;
+        if (holdMs >= SLOW_TRANSACTION_HOLD_MS) {
+          Log.w(TAG, "Slow transaction: held write lock for " + holdMs + "ms", new Throwable());
+          SlowTransactionInternalNotifier.onSlowEvent();
+        }
+      }
+    }
     Set<Runnable> tasks = getPostSuccessfulTransactionTasks();
     for (Runnable r : new HashSet<>(tasks)) {
       r.run();
@@ -517,6 +564,31 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   public void setLocale(Locale locale) {
     wrapped.setLocale(locale);
+  }
+
+  private void warnIfSlowDirectWrite(String methodName, String table, String query, long startNs) {
+    if (!slowWriteLoggingEnabled || wrapped.inTransaction()) {
+      return;
+    }
+
+    long elapsedMs = (System.nanoTime() - startNs) / 1_000_000L;
+
+    if (elapsedMs >= SLOW_DIRECT_WRITE_MS) {
+      Log.w(TAG, "Slow direct write: " + methodName + " on " + table + " took " + elapsedMs + "ms (query=" + query + ")", new Throwable());
+    }
+  }
+
+  private void warnIfSlowQuery(String methodName, String table, String query, long startNs) {
+    if (!slowWriteLoggingEnabled) {
+      return;
+    }
+
+    long elapsedMs = (System.nanoTime() - startNs) / 1_000_000L;
+
+    if (elapsedMs >= SLOW_QUERY_MS) {
+      Log.w(TAG, "Slow query: " + methodName + " on " + table + " took " + elapsedMs + "ms (query=" + query + ")", new Throwable());
+      SlowTransactionInternalNotifier.onSlowEvent();
+    }
   }
 
   private static class ConvertedTransactionListener implements SQLiteTransactionListener {

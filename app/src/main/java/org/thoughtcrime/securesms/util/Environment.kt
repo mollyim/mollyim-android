@@ -17,6 +17,7 @@ object Environment {
   @JvmField
   var IS_INSTRUMENTATION: Boolean = IS_BENCHMARK
 
+  @JvmStatic
   fun isInternal(): Boolean {
     return !IS_INSTRUMENTATION && (BuildConfig.DEBUG || IS_NIGHTLY || IS_PERF || IS_STAGING)
   }
