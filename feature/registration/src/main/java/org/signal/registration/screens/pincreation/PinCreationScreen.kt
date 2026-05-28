@@ -122,6 +122,7 @@ private fun OnePaneLayout(
           .padding(params.panePadding(hasHeader = false))
       ) {
         PinDescription(
+          isConfirmEnabled = state.isConfirmEnabled,
           onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
         )
 
@@ -182,6 +183,7 @@ private fun TwoPaneLayout(
           .padding(paddingValues)
       ) {
         PinDescription(
+          isConfirmEnabled = state.isConfirmEnabled,
           onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
         )
       }
@@ -226,12 +228,16 @@ private fun TwoPaneLayout(
 
 @Composable
 private fun PinDescription(
+  isConfirmEnabled: Boolean,
   onLearnMore: () -> Unit,
   modifier: Modifier = Modifier
 ) {
   Column(modifier = modifier) {
     Text(
-      text = stringResource(R.string.PinCreationScreen__create_your_pin),
+      text = when {
+        isConfirmEnabled -> stringResource(R.string.PinCreationScreen__confirm_your_pin)
+        else -> stringResource(R.string.PinCreationScreen__create_your_pin)
+      },
       style = MaterialTheme.typography.headlineMedium,
       textAlign = TextAlign.Start,
       modifier = Modifier
@@ -241,34 +247,45 @@ private fun PinDescription(
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    val descriptionText = buildAnnotatedString {
-      append(stringResource(R.string.PinCreationScreen__pins_can_help))
-      append(" ")
-      pushStringAnnotation(tag = "LEARN_MORE", annotation = "learn_more")
-      withStyle(
-        style = SpanStyle(
-          color = MaterialTheme.colorScheme.primary,
-          textDecoration = TextDecoration.Underline
-        )
-      ) {
-        append(stringResource(R.string.PinCreationScreen__learn_more))
+    if (isConfirmEnabled) {
+      Text(
+        text = stringResource(R.string.PinCreationScreen__reenter_pin_description),
+        style = MaterialTheme.typography.bodyLarge.copy(
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
+          textAlign = TextAlign.Start
+        ),
+        modifier = Modifier.fillMaxWidth()
+      )
+    } else {
+      val descriptionText = buildAnnotatedString {
+        append(stringResource(R.string.PinCreationScreen__pins_can_help))
+        append(" ")
+        pushStringAnnotation(tag = "LEARN_MORE", annotation = "learn_more")
+        withStyle(
+          style = SpanStyle(
+            color = MaterialTheme.colorScheme.primary,
+            textDecoration = TextDecoration.Underline
+          )
+        ) {
+          append(stringResource(R.string.PinCreationScreen__learn_more))
+        }
+        pop()
       }
-      pop()
-    }
 
-    ClickableText(
-      text = descriptionText,
-      style = MaterialTheme.typography.bodyLarge.copy(
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        textAlign = TextAlign.Start
-      ),
-      modifier = Modifier.fillMaxWidth(),
-      onClick = { offset ->
-        descriptionText.getStringAnnotations(tag = "LEARN_MORE", start = offset, end = offset)
-          .firstOrNull()
-          ?.let { onLearnMore() }
-      }
-    )
+      ClickableText(
+        text = descriptionText,
+        style = MaterialTheme.typography.bodyLarge.copy(
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
+          textAlign = TextAlign.Start
+        ),
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { offset ->
+          descriptionText.getStringAnnotations(tag = "LEARN_MORE", start = offset, end = offset)
+            .firstOrNull()
+            ?.let { onLearnMore() }
+        }
+      )
+    }
   }
 }
 
@@ -386,6 +403,17 @@ private fun PinCreationScreenAlphanumericPreview() {
         isAlphanumericKeyboard = false,
         inputLabel = "PIN must be at least 4 characters"
       ),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun PinCreationScreenConfirmPreview() {
+  Previews.Preview {
+    PinCreationScreen(
+      state = PinCreationState(isConfirmEnabled = true),
       onEvent = {}
     )
   }
