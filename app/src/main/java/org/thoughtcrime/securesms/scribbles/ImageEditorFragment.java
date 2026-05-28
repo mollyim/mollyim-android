@@ -819,6 +819,20 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
                        .createForSingleUseInMemory();
   }
 
+  @WorkerThread
+  public static @NonNull Uri renderToSingleSessionBlob(@NonNull Context context, @NonNull EditorModel editorModel) {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    Bitmap                image        = editorModel.render(context, new FontTypefaceProvider());
+
+    image.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+    image.recycle();
+
+    return BlobProvider.getInstance()
+                       .forData(outputStream.toByteArray())
+                       .withMimeType(MediaUtil.IMAGE_JPEG)
+                       .createForSingleSessionInMemory();
+  }
+
   private void onDrawingChanged(boolean stillTouching, boolean isUserEdit) {
     if (isUserEdit) {
       hasMadeAnEditThisSession = true;
