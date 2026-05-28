@@ -60,7 +60,8 @@ class RegistrationApplication : Application() {
         networkController = networkController,
         storageController = storageController,
         sensitiveLogger = LogLogger,
-        debugLogCallback = {}
+        debugLogCallback = {},
+        isLinkAndSyncAvailable = false
       )
     )
 

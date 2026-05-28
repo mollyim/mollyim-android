@@ -74,6 +74,7 @@ import org.signal.registration.test.TestTags
  */
 @Composable
 fun WelcomeScreen(
+  isLinkAndSyncAvailable: Boolean = false,
   onEvent: (WelcomeScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -103,6 +104,7 @@ fun WelcomeScreen(
 
     WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
       LargeLayout(
+        isLinkAndSyncAvailable = isLinkAndSyncAvailable,
         onEvent = onEvent,
         onTermsAndPrivacyClick = onTermsAndPrivacyClick,
         onRestoreOrTransferClick = onRestoreOrTransferClick,
@@ -238,6 +240,7 @@ private fun MediumLayout(
 
 @Composable
 private fun LargeLayout(
+  isLinkAndSyncAvailable: Boolean,
   onEvent: (WelcomeScreenEvents) -> Unit,
   onTermsAndPrivacyClick: () -> Unit,
   onRestoreOrTransferClick: () -> Unit,
@@ -282,10 +285,16 @@ private fun LargeLayout(
                 .padding(bottom = 8.dp)
             )
 
-            PrimaryDeviceCallToActionButtons(
-              onEvent = onEvent,
-              onRestoreOrTransferClick = onRestoreOrTransferClick
-            )
+            if (isLinkAndSyncAvailable) {
+              SecondaryDeviceCallToActionButtons(
+                onEvent = onEvent
+              )
+            } else {
+              PrimaryDeviceCallToActionButtons(
+                onEvent = onEvent,
+                onRestoreOrTransferClick = onRestoreOrTransferClick
+              )
+            }
           }
         }
       }

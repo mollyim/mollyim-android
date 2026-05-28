@@ -19,6 +19,7 @@ import org.signal.registration.util.SensitiveLog
 class RegistrationDependencies(
   val networkController: NetworkController,
   val storageController: StorageController,
+  val isLinkAndSyncAvailable: Boolean,
   val sensitiveLogger: Log.Logger?,
   val debugLogCallback: ((Context) -> Unit)?
 ) {

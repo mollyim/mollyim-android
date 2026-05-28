@@ -245,7 +245,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     SpannableStringBuilder suffix = null;
     if (appendSystemContactIcon && recipient.get().isSystemContact() && !recipient.get().getShowVerified()) {
       suffix = new SpannableStringBuilder();
-      Drawable drawable = ContextUtil.requireDrawable(getContext(), R.drawable.symbol_person_circle_24);
+      Drawable drawable = ContextUtil.requireDrawable(getContext(), org.signal.core.ui.R.drawable.symbol_person_circle_24);
       drawable.setTint(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurface));
       SpanUtil.appendCenteredImageSpan(suffix, drawable, 16, 16);
     }

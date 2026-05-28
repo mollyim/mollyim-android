@@ -420,6 +420,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
       new org.signal.registration.RegistrationDependencies(
         new org.thoughtcrime.securesms.registration.v2.AppRegistrationNetworkController(this, AppDependencies.getPushServiceSocket()),
         new org.thoughtcrime.securesms.registration.v2.AppRegistrationStorageController(this),
+        Environment.IS_LINK_AND_SYNC_AVAILABLE,
         null,
         context -> {
           context.startActivity(new Intent(context, SubmitDebugLogActivity.class));

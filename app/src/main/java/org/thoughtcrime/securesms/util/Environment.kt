@@ -22,6 +22,7 @@ object Environment {
   }
 
   const val USE_NEW_REGISTRATION: Boolean = false
+  const val IS_LINK_AND_SYNC_AVAILABLE: Boolean = false
 
   object Backups {
     @JvmStatic
