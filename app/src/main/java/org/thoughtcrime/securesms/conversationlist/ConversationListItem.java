@@ -716,15 +716,15 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
         MessageStyler.style(thread.getDate(), thread.getBodyRanges(), sourceBody);
 
         CharSequence              body      = StringUtil.replace(sourceBody, '\n', " ");
-        LiveData<SpannableString> finalBody = Transformations.map(createFinalBodyWithMediaIcon(context, body, thread, requestManager, thumbSize, thumbTarget), updatedBody -> {
+        LiveData<SpannableString> finalBody = Transformations.switchMap(createFinalBodyWithMediaIcon(context, body, thread, requestManager, thumbSize, thumbTarget), updatedBody -> {
           if (thread.getRecipient().isGroup()) {
             RecipientId groupMessageSender = thread.getGroupMessageSender();
             if (!groupMessageSender.isUnknown()) {
-              return createGroupMessageUpdateString(context, updatedBody, Recipient.resolved(groupMessageSender));
+              return Transformations.map(Recipient.live(groupMessageSender).getLiveDataResolved(), recipient -> createGroupMessageUpdateString(context, updatedBody, recipient));
             }
           }
 
-          return new SpannableString(updatedBody);
+          return LiveDataUtil.just(new SpannableString(updatedBody));
         });
 
         return whileLoadingShow(sourceBody, finalBody);
