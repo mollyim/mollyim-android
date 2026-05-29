@@ -138,7 +138,6 @@ import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.revealable.ViewOnceExpirationInfo
-import org.thoughtcrime.securesms.revealable.ViewOnceUtil
 import org.thoughtcrime.securesms.sms.GroupV2UpdateMessageUtil
 import org.thoughtcrime.securesms.stories.Stories.isFeatureEnabled
 import org.thoughtcrime.securesms.util.DateUtils
@@ -352,7 +351,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       "CREATE INDEX IF NOT EXISTS $INDEX_STARRED ON $TABLE_NAME ($STARRED) WHERE $STARRED > 0",
       "CREATE INDEX IF NOT EXISTS message_collapsed_state_index ON $TABLE_NAME ($COLLAPSED_STATE)",
       "CREATE INDEX IF NOT EXISTS message_collapsed_head_id_index ON $TABLE_NAME ($COLLAPSED_HEAD_ID)",
-      "CREATE INDEX IF NOT EXISTS $INDEX_NOTIFICATION_STATE ON $TABLE_NAME ($DATE_RECEIVED) WHERE $NOTIFIED = 0 AND $STORY_TYPE = 0 AND $LATEST_REVISION_ID IS NULL"
+      "CREATE INDEX IF NOT EXISTS $INDEX_NOTIFICATION_STATE ON $TABLE_NAME ($DATE_RECEIVED) WHERE $NOTIFIED = 0 AND $STORY_TYPE = 0 AND $LATEST_REVISION_ID IS NULL",
+      "CREATE INDEX IF NOT EXISTS message_expire_started_index ON $TABLE_NAME ($EXPIRE_STARTED) WHERE $EXPIRE_STARTED > 0",
+      "CREATE INDEX IF NOT EXISTS message_view_once_index ON $TABLE_NAME ($VIEW_ONCE) WHERE $VIEW_ONCE > 0"
     )
 
     private val MMS_PROJECTION_BASE = arrayOf(
@@ -4461,34 +4462,25 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
   fun getNearestExpiringViewOnceMessage(): ViewOnceExpirationInfo? {
     val query = """
-      SELECT 
-        $TABLE_NAME.$ID, 
-        $VIEW_ONCE, 
-        $DATE_RECEIVED 
-      FROM 
-        $TABLE_NAME INNER JOIN ${AttachmentTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID} 
-      WHERE 
-        $VIEW_ONCE > 0 AND 
+      SELECT
+        $TABLE_NAME.$ID,
+        $VIEW_ONCE,
+        $DATE_RECEIVED
+      FROM
+        $TABLE_NAME INNER JOIN ${AttachmentTable.TABLE_NAME} ON $TABLE_NAME.$ID = ${AttachmentTable.TABLE_NAME}.${AttachmentTable.MESSAGE_ID}
+      WHERE
+        $VIEW_ONCE > 0 AND
         (${AttachmentTable.DATA_FILE} NOT NULL OR ${AttachmentTable.TRANSFER_STATE} != ?)
+      ORDER BY $DATE_RECEIVED ASC
+      LIMIT 1
       """
 
     val args = buildArgs(AttachmentTable.TRANSFER_PROGRESS_DONE)
 
-    var info: ViewOnceExpirationInfo? = null
-    var nearestExpiration = Long.MAX_VALUE
-
-    readableDatabase.rawQuery(query, args).forEach { cursor ->
-      val id = cursor.requireLong(ID)
-      val dateReceived = cursor.requireLong(DATE_RECEIVED)
-      val expiresAt = dateReceived + ViewOnceUtil.MAX_LIFESPAN
-
-      if (info == null || expiresAt < nearestExpiration) {
-        info = ViewOnceExpirationInfo(id, dateReceived)
-        nearestExpiration = expiresAt
+    return readableDatabase.rawQuery(query, args)
+      .readToSingleObject { cursor ->
+        ViewOnceExpirationInfo(cursor.requireLong(ID), cursor.requireLong(DATE_RECEIVED))
       }
-    }
-
-    return info
   }
 
   /**
