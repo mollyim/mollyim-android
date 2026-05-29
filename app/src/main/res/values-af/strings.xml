@@ -4358,7 +4358,7 @@
     <string name="preferences_data_and_storage__never">Nooit</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">Wi-Fi en mobiele data</string>
     <string name="preferences_data_and_storage__mobile_data_only">Slegs mobiele data</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Die gebruik van minder data kan oproepe op swak netwerke verbeter.</string>
     <string name="preferences_notifications__in_chat_sounds">Klanke tydens klets</string>
     <string name="preferences_notifications__show">Vertoon</string>
     <string name="preferences_notifications__ringtone">Luitoon</string>
@@ -6029,7 +6029,7 @@
     <string name="HelpSettingsFragment__contact_us">Kontak ons</string>
     <string name="HelpSettingsFragment__version">Weergawe</string>
     <!-- Displayed when copying help screen text to the clipboard -->
-    <string name="HelpSettingsFragment__copied_to_clipboard">Copied to clipboard</string>
+    <string name="HelpSettingsFragment__copied_to_clipboard">Na knipbord gekopieer</string>
     <string name="HelpSettingsFragment__debug_log">Ontfoutlog</string>
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Lisensies</string>
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Standaard</string>
     <string name="DataAndStorageSettingsFragment__calls">Oproepe</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Bly in die agtergrond verbind</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Deur in die agtergrond verbind te bly sal waarskynlik verhoogde batterygebruik tot gevolg hê. Vir die meeste toestelle is dit nie nodig nie. Aktiveer dit slegs indien jy probleme met kennisgewings ervaar het.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Aktiveer</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Skakel rugsteun op toestel aan?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Om voort te gaan om rugsteun op toestel te gebruik, moet jy dit vir hierdie rekening aktiveer. Jy kan dit te eniger tyd doen in Instellings &gt; Rugsteun.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Skakel nou aan</string>

@@ -2315,19 +2315,19 @@
 
     <!-- Content description of the pin image -->
     <string name="PlacePickerActivity_drop_pin">핀 고정</string>
-    <string name="PlacePickerActivity_accept_address">주소 허용</string>
+    <string name="PlacePickerActivity_accept_address">주소 수락</string>
 
     <!-- PlayServicesProblemFragment -->
     <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">설치된 Google Play Serivces 버전이 제대로 작동하지 않습니다. Google Play Services를 다시 설치한 후 시도해 주세요.</string>
 
     <!-- PinRestoreEntryFragment -->
-    <string name="PinRestoreEntryFragment_incorrect_pin">PIN이 올바르지 않습니다</string>
+    <string name="PinRestoreEntryFragment_incorrect_pin">PIN이 일치하지 않습니다</string>
     <string name="PinRestoreEntryFragment_skip_pin_entry">PIN 입력을 건너뛸까요?</string>
     <string name="PinRestoreEntryFragment_need_help">도움이 필요하신가요?</string>
     <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">PIN은 직접 설정한 %1$d자리 이상의 숫자 또는 영숫자 조합 코드입니다.\n\nPIN이 기억나지 않는 경우 새로 만들 수 있습니다. 이 경우 계정 등록 및 사용은 가능하지만, 프로필 정보 등 저장된 일부 설정은 삭제됩니다.</string>
     <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">PIN 번호를 잊어버렸다면 새 번호를 생성할 수 있습니다. 이 경우 계정 등록 및 사용은 가능하지만, 프로필 정보 등 저장된 일부 설정은 삭제됩니다.</string>
     <string name="PinRestoreEntryFragment_create_new_pin">새 PIN 생성</string>
-    <string name="PinRestoreEntryFragment_contact_support">지원에 문의</string>
+    <string name="PinRestoreEntryFragment_contact_support">고객 지원 문의</string>
     <string name="PinRestoreEntryFragment_cancel">취소</string>
     <string name="PinRestoreEntryFragment_skip">건너뛰기</string>
     <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
@@ -2365,7 +2365,7 @@
     <string name="RatingManager_later">나중에</string>
 
     <!-- ReactionsBottomSheetDialogFragment -->
-    <string name="ReactionsBottomSheetDialogFragment_all">모두: %1$d</string>
+    <string name="ReactionsBottomSheetDialogFragment_all">전체 · %1$d</string>
     <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">탭하여 제거</string>
 
     <!-- ReactionsConversationView -->
@@ -2375,9 +2375,9 @@
     <string name="ReactionsRecipientAdapter_you">나</string>
 
     <!-- RecaptchaRequiredBottomSheetFragment -->
-    <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">메시지를 계속 보내려면 확인하세요.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">메시지를 계속 보내려면 인증해 주세요</string>
     <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal 서비스 내 스팸 방지를 위해 인증을 완료해 주세요.</string>
-    <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">확인 후 메시지를 계속 전송할 수 있습니다. 일시 중지된 메시지는 자동으로 전송됩니다.</string>
+    <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">인증 완료 후 메시지를 계속 전송할 수 있습니다. 일시 중지된 메시지는 인증 후 자동으로 전송됩니다.</string>
 
     <!-- Recipient -->
     <string name="Recipient_you">나</string>
@@ -2393,10 +2393,10 @@
     <!-- RecipientProvider -->
 
     <!-- RedPhone -->
-    <string name="RedPhone_answering">답장 중…</string>
+    <string name="RedPhone_answering">통화 수신 중…</string>
     <string name="RedPhone_ending_call">통화 종료 중…</string>
     <string name="RedPhone_ringing">발신 중…</string>
-    <string name="RedPhone_busy">전화 중</string>
+    <string name="RedPhone_busy">통화 중</string>
     <string name="RedPhone_recipient_unavailable">응답 없음</string>
     <!-- Error message shown during a call when a fatal network error occurs. -->
     <string name="RedPhone_network_failed">네트워크 연결에 실패했습니다. 네트워크 연결을 확인하고 다시 시도하세요.</string>
@@ -2419,11 +2419,11 @@
     <string name="CallScreenPreJoinOverlay__your_camera_is_off">카메라가 꺼졌습니다.</string>
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">비디오를 사용하려면 탭하세요</string>
+    <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">비디오를 켜려면 여기를 탭하세요</string>
     <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s 님에게 전화하려면 Signal에서 카메라 권한이 필요합니다.</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
-    <string name="WebRtcCallActivity__signal_s">시그널 %1$s</string>
-    <string name="WebRtcCallActivity__calling">전화 거는 중</string>
+    <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+    <string name="WebRtcCallActivity__calling">전화 거는 중…</string>
     <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
     <string name="WebRtcCallActivity__reconnecting">재연결 중…</string>
     <!-- Title for dialog warning about lacking bluetooth permissions during a call -->
@@ -3248,7 +3248,7 @@
     <string name="MessageNotifier_failed_to_deliver_message">메시지 전송에 실패했습니다.</string>
     <string name="MessageNotifier_error_delivering_message">메시지 전송 중 오류가 발생했습니다.</string>
     <string name="MessageNotifier_message_delivery_paused">메시지 전달이 일시 중지되었습니다.</string>
-    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal에서 메시지를 계속 보내려면 확인하세요.</string>
+    <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal에서 메시지를 계속 보내려면 인증해 주세요.</string>
     <string name="MessageNotifier_mark_all_as_read">모두 읽음으로 표시</string>
     <string name="MessageNotifier_mark_read">읽음으로 표시</string>
     <string name="MessageNotifier_turn_off_these_notifications">이 알림 끄기</string>
@@ -4235,7 +4235,7 @@
     <string name="preferences_data_and_storage__never">없음</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi 및 모바일 데이터</string>
     <string name="preferences_data_and_storage__mobile_data_only">모바일 데이터만</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">데이터를 적게 사용하면 잘못된 네트워크에서의 통화 품질이 향상될 수 있습니다.</string>
     <string name="preferences_notifications__in_chat_sounds">대화 내 사운드</string>
     <string name="preferences_notifications__show">표시</string>
     <string name="preferences_notifications__ringtone">알림 벨소리</string>
@@ -5880,7 +5880,7 @@
     <string name="HelpSettingsFragment__contact_us">문의하기</string>
     <string name="HelpSettingsFragment__version">버전</string>
     <!-- Displayed when copying help screen text to the clipboard -->
-    <string name="HelpSettingsFragment__copied_to_clipboard">Copied to clipboard</string>
+    <string name="HelpSettingsFragment__copied_to_clipboard">클립보드로 복사했습니다.</string>
     <string name="HelpSettingsFragment__debug_log">디버그 로그</string>
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">라이선스</string>
@@ -8674,7 +8674,7 @@
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__manually_back_up">수동 백업</string>
     <!-- The body of an alert dialog shown when we detect the user may be confused by the lock screen -->
-    <string name="PassphrasePromptActivity_help_prompt_body">기기 PIN, 암호 또는 패턴을 입력하세요.</string>
+    <string name="PassphrasePromptActivity_help_prompt_body">기기 PIN, 비밀번호 또는 패턴을 입력하세요.</string>
     <!-- Button label to re-enable backups (launches into checkout flow) -->
     <string name="RemoteBackupsSettingsFragment__reenable_backups">백업 재활성화</string>
     <!-- Notice displayed when backups have been disabled and deleted -->

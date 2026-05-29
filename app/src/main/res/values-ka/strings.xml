@@ -4358,7 +4358,7 @@
     <string name="preferences_data_and_storage__never">არასდროს</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi და მობილური ინტერნეტი</string>
     <string name="preferences_data_and_storage__mobile_data_only">მხოლოდ მობილური ინტერნეტი</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">ნაკლები მონაცემის გამოყენებამ შეიძლება გააუმჯობესოს ზარები, როცა ქსელი კარგად არ მუშაობს.</string>
     <string name="preferences_notifications__in_chat_sounds">ჩატს-შიდა ხმები</string>
     <string name="preferences_notifications__show">ჩვენება</string>
     <string name="preferences_notifications__ringtone">მელოდია</string>
@@ -6029,7 +6029,7 @@
     <string name="HelpSettingsFragment__contact_us">დაგვიკავშირდი</string>
     <string name="HelpSettingsFragment__version">ვერსია</string>
     <!-- Displayed when copying help screen text to the clipboard -->
-    <string name="HelpSettingsFragment__copied_to_clipboard">Copied to clipboard</string>
+    <string name="HelpSettingsFragment__copied_to_clipboard">დაკოპირებულია ბუფერში</string>
     <string name="HelpSettingsFragment__debug_log">გაუმართაობის რეესტრი</string>
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">ლიცენზიები</string>
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">სტანდარტული</string>
     <string name="DataAndStorageSettingsFragment__calls">ზარები</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">დარჩი ხაზზე პარალელურად</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">პარალელურად ხაზზე დარჩენა, დიდი ალბათობით, ელემენტის გაზრდილ მოხმარებას გამოიწვევს. ეს მოწყობილობების უმრავლესობისთვის საჭირო არაა. ეს მხოლოდ იმ შემთხვევაში ჩართე, თუ შეტყობინებებთან დაკავშირებული პრობლემები გაქვს.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">ჩართვა</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">გსურს მოწყობილობის სათადარიგო ასლები ჩართო?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">მოწყობილობის სათადარიგო ასლების გამოყენება რომ გააგრძელო, ის ამ ანგარიშზე უნდა ჩართო. ამის გაკეთება ნებისმიერ დროს შეგიძლია, აირჩიე პარამეტრები &gt; სათადარიგო ასლები.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">ახლა ჩართვა</string>
