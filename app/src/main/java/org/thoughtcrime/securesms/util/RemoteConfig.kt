@@ -630,6 +630,16 @@ object RemoteConfig {
     }
   }
 
+  /** Internal-only gate for dogfooding libsignal reflector proxy mode. */
+  @JvmStatic
+  @get:JvmName("enableReflectorsTest")
+  val enableReflectorsTest: Boolean by remoteBoolean(
+    key = "android.enableReflectorsTest",
+    defaultValue = false,
+    hotSwappable = true,
+    active = Environment.isInternal()
+  )
+
   /** The raw client expiration JSON string.  */
   @JvmStatic
   @get:JvmName("clientExpiration")
