@@ -341,7 +341,7 @@ private fun KeyboardToggleButton(
   onToggleKeyboard: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  OutlinedButton(
+  TextButton(
     onClick = onToggleKeyboard,
     modifier = modifier.fillMaxWidth()
   ) {

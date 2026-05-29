@@ -22,9 +22,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -319,7 +319,11 @@ private fun PinInputLabel(
   modifier: Modifier = Modifier
 ) {
   Text(
-    text = state.inputLabel ?: "",
+    text = when {
+      state.isConfirmEnabled -> stringResource(R.string.PinCreationScreen__reenter_pin)
+      state.isAlphanumericKeyboard -> stringResource(R.string.PinCreationScreen__pin_at_least_4_characters)
+      else -> stringResource(R.string.PinCreationScreen__pin_at_least_4_digits)
+    },
     style = MaterialTheme.typography.bodyMedium,
     textAlign = TextAlign.Center,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -333,7 +337,7 @@ private fun KeyboardToggleButton(
   onToggleKeyboard: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  OutlinedButton(
+  TextButton(
     onClick = onToggleKeyboard,
     modifier = modifier.fillMaxWidth()
   ) {
@@ -383,11 +387,11 @@ private fun NextButton(
 
 @AllDevicePreviews
 @Composable
-private fun PinCreationScreenPreview() {
+private fun PinCreationScreenNumericPreview() {
   Previews.Preview {
     PinCreationScreen(
       state = PinCreationState(
-        inputLabel = "PIN must be at least 4 digits"
+        isAlphanumericKeyboard = false
       ),
       onEvent = {}
     )
@@ -400,8 +404,7 @@ private fun PinCreationScreenAlphanumericPreview() {
   Previews.Preview {
     PinCreationScreen(
       state = PinCreationState(
-        isAlphanumericKeyboard = false,
-        inputLabel = "PIN must be at least 4 characters"
+        isAlphanumericKeyboard = true
       ),
       onEvent = {}
     )
