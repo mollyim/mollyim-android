@@ -11,9 +11,13 @@ import arrow.core.Either
 import arrow.core.getOrElse
 import arrow.core.raise.Raise
 import arrow.core.raise.either
+import okio.ByteString
+import okio.ByteString.Companion.toByteString
 import okio.utf8Size
+import org.signal.core.models.ServiceId
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
+import org.signal.libsignal.protocol.SignalProtocolAddress
 import org.signal.network.service.MessageService
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.attachments.Attachment
@@ -409,13 +413,31 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
     val editMessage = primaryResult.envelopeContent.content.get().editMessage
     val timestamp = dataMessage?.timestamp ?: editMessage?.dataMessage?.timestamp ?: raise(MessageService.SendError.ApplicationError(IllegalStateException("No timestamp on primary message send!")))
 
+    val recipientServiceId = targetRecipient.requireServiceId()
+    val pniIdentityKey: ByteString? = if (recipientServiceId is ServiceId.PNI) {
+      AppDependencies
+        .protocolStore
+        .aci()
+        .identities()
+        .getIdentity(SignalProtocolAddress(recipientServiceId.toString(), SignalServiceAddress.DEFAULT_DEVICE_ID))?.publicKey?.serialize()?.toByteString()
+    } else {
+      null
+    }
+
     val syncContent = Content(
       syncMessage = SyncMessage(
         sent = SyncMessage.Sent(
           destinationServiceId = targetRecipient.serviceId.get().toString(),
           timestamp = timestamp,
           message = dataMessage,
-          editMessage = editMessage
+          editMessage = editMessage,
+          unidentifiedStatus = listOf(
+            SyncMessage.Sent.UnidentifiedDeliveryStatus(
+              destinationServiceIdBinary = recipientServiceId.toByteString(),
+              unidentified = primaryResult.sentUnidentified,
+              destinationPniIdentityKey = pniIdentityKey
+            )
+          )
         )
       )
     )
