@@ -1064,7 +1064,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
       val updateDetail = GroupCallUpdateDetailsUtil.parse(message.body)
       val containsSelf = joinedUuids.contains(SignalStore.account.requireAci().rawUuid)
-      val sameEraId = updateDetail.eraId == eraId && !Util.isEmpty(eraId)
+      // Treat empty eraId from ring requests as matching for updating
+      val sameEraId = (updateDetail.eraId == eraId || updateDetail.eraId.isEmpty()) && !Util.isEmpty(eraId)
       val inCallUuids = if (sameEraId) joinedUuids.map { it.toString() } else emptyList()
       val body = GroupCallUpdateDetailsUtil.createUpdatedBody(updateDetail, inCallUuids, isCallFull, isRingingOnLocalDevice)
       val contentValues = contentValuesOf(
@@ -1111,7 +1112,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         val record = reader.getNext() ?: return@withinTransaction false
         val groupCallUpdateDetails = GroupCallUpdateDetailsUtil.parse(record.body)
         val containsSelf = peekJoinedUuids.contains(SignalStore.account.requireAci().rawUuid)
-        val sameEraId = groupCallUpdateDetails.eraId == peekGroupCallEraId && !Util.isEmpty(peekGroupCallEraId)
+        // Treat empty eraId from ring requests as matching for updating
+        val sameEraId = (groupCallUpdateDetails.eraId == peekGroupCallEraId || groupCallUpdateDetails.eraId.isEmpty()) && !Util.isEmpty(peekGroupCallEraId)
 
         val inCallUuids = if (sameEraId) {
           peekJoinedUuids.map { it.toString() }.toList()

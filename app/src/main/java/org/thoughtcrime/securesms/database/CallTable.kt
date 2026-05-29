@@ -892,7 +892,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
 
     Log.d(TAG, "Updating group call state: localJoined: $localJoined, isGroupCallActive: $isGroupCallActive")
 
-    return writableDatabase.update(TABLE_NAME)
+    val changed = writableDatabase.update(TABLE_NAME)
       .values(
         LOCAL_JOINED to localJoined,
         GROUP_CALL_ACTIVE to isGroupCallActive
@@ -905,6 +905,16 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         isGroupCallActive.toInt()
       )
       .run() > 0
+
+    if (hasLocalUserJoined && !call.didLocalUserJoin && call.event == Event.RINGING) {
+      writableDatabase.update(TABLE_NAME)
+        .values(EVENT to Event.serialize(Event.ACCEPTED))
+        .where("$CALL_ID = ?", call.callId)
+        .run()
+      Log.d(TAG, "[updateGroupCallState] Transitioned group call ${call.callId} from RINGING to ACCEPTED on local join")
+    }
+
+    return changed
   }
 
   private fun handleGroupRingState(
@@ -936,7 +946,14 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
 
           RingUpdate.EXPIRED_REQUEST, RingUpdate.CANCELLED_BY_RINGER -> {
             when (call.event) {
-              Event.GENERIC_GROUP_CALL, Event.RINGING -> updateEventFromRingState(ringId, if (dueToNotificationProfile) Event.MISSED_NOTIFICATION_PROFILE else Event.MISSED, ringerRecipient)
+              Event.GENERIC_GROUP_CALL -> updateEventFromRingState(ringId, if (dueToNotificationProfile) Event.MISSED_NOTIFICATION_PROFILE else Event.MISSED, ringerRecipient)
+              Event.RINGING -> {
+                if (call.didLocalUserJoin) {
+                  updateEventFromRingState(ringId, Event.ACCEPTED, ringerRecipient)
+                } else {
+                  updateEventFromRingState(ringId, if (dueToNotificationProfile) Event.MISSED_NOTIFICATION_PROFILE else Event.MISSED, ringerRecipient)
+                }
+              }
               Event.JOINED -> updateEventFromRingState(ringId, Event.ACCEPTED, ringerRecipient)
               Event.OUTGOING_RING -> Log.w(TAG, "Received an expiration or cancellation while in OUTGOING_RING state. Ignoring.")
               else -> Unit
@@ -946,7 +963,14 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
           RingUpdate.BUSY_LOCALLY -> {
             when (call.event) {
               Event.JOINED -> updateEventFromRingState(ringId, Event.ACCEPTED)
-              Event.GENERIC_GROUP_CALL, Event.RINGING -> updateEventFromRingState(ringId, Event.MISSED)
+              Event.GENERIC_GROUP_CALL -> updateEventFromRingState(ringId, Event.MISSED)
+              Event.RINGING -> {
+                if (call.didLocalUserJoin) {
+                  updateEventFromRingState(ringId, Event.ACCEPTED)
+                } else {
+                  updateEventFromRingState(ringId, Event.MISSED)
+                }
+              }
               else -> {
                 updateEventFromRingState(ringId, call.event, ringerRecipient)
                 Log.w(TAG, "Received a busy event we can't process. Updating ringer only.")
@@ -957,7 +981,14 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
           RingUpdate.BUSY_ON_ANOTHER_DEVICE -> {
             when (call.event) {
               Event.JOINED -> updateEventFromRingState(ringId, Event.ACCEPTED)
-              Event.GENERIC_GROUP_CALL, Event.RINGING -> updateEventFromRingState(ringId, Event.MISSED)
+              Event.GENERIC_GROUP_CALL -> updateEventFromRingState(ringId, Event.MISSED)
+              Event.RINGING -> {
+                if (call.didLocalUserJoin) {
+                  updateEventFromRingState(ringId, Event.ACCEPTED)
+                } else {
+                  updateEventFromRingState(ringId, Event.MISSED)
+                }
+              }
               else -> Log.w(TAG, "Received a busy event we can't process. Ignoring.")
             }
           }
