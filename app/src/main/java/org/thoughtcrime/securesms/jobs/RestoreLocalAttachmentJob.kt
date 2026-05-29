@@ -46,6 +46,11 @@ class RestoreLocalAttachmentJob private constructor(
     fun enqueueRestoreLocalAttachmentsJobs(mediaNameToFileInfo: Map<String, DocumentFileInfo>) {
       val jobManager = AppDependencies.jobManager
 
+      val orphanedCount = SignalDatabase.attachments.markRestorableAttachmentsWithoutMessageAsFailed()
+      if (orphanedCount > 0) {
+        Log.w(TAG, "Failed $orphanedCount orphaned restorable attachment(s) with no backing message before enqueueing restores.")
+      }
+
       do {
         val possibleRestorableAttachments: List<LocalRestorableAttachment> = SignalDatabase.attachments.getRestorableLocalAttachments(500)
         val notRestorableAttachments = ArrayList<AttachmentId>(possibleRestorableAttachments.size)
@@ -72,7 +77,7 @@ class RestoreLocalAttachmentJob private constructor(
         // Intentionally enqueues one at a time for safer attachment transfer state management
         Log.d(TAG, "Adding ${restoreAttachmentJobs.size} restore local attachment jobs")
         restoreAttachmentJobs.forEach { jobManager.add(it) }
-      } while (restoreAttachmentJobs.isNotEmpty())
+      } while (possibleRestorableAttachments.isNotEmpty())
 
       ArchiveRestoreProgress.onRestoringMedia()
 

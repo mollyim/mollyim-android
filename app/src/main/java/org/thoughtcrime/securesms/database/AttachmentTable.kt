@@ -1665,6 +1665,24 @@ class AttachmentTable(
     }
   }
 
+  /**
+   * Marks any restorable attachment whose [MESSAGE_ID] does not point to an existing message as failed.
+   * @return the number of rows updated
+   */
+  fun markRestorableAttachmentsWithoutMessageAsFailed(): Int {
+    return writableDatabase
+      .update(TABLE_NAME)
+      .values(TRANSFER_STATE to TRANSFER_PROGRESS_FAILED)
+      .where(
+        """
+          ($TRANSFER_STATE = $TRANSFER_NEEDS_RESTORE OR $TRANSFER_STATE = $TRANSFER_RESTORE_IN_PROGRESS) AND
+          $MESSAGE_ID > 0 AND
+          $MESSAGE_ID NOT IN (SELECT ${MessageTable.ID} FROM ${MessageTable.TABLE_NAME})
+        """
+      )
+      .run()
+  }
+
   fun setRestoreTransferState(attachmentId: AttachmentId, state: Int) {
     setRestoreTransferState(listOf(attachmentId), state)
   }
