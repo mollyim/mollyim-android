@@ -784,7 +784,7 @@ public final class ConversationUpdateItem extends FrameLayout
       return false;
     }
 
-    return (messageRecord.isCollapsedGroupV2JoinUpdate() && !nextMessageRecord.map(m -> m.isGroupV2JoinRequest(toBlock.requireServiceId())).orElse(false)) ||
+    return (messageRecord.isCollapsedGroupV2JoinUpdate(toBlock.requireServiceId()) && !nextMessageRecord.map(m -> m.isGroupV2JoinRequest(toBlock.requireServiceId())).orElse(false)) ||
            (messageRecord.isGroupV2JoinRequest(toBlock.requireServiceId()) && previousMessageRecord.map(m -> m.isCollapsedGroupV2JoinUpdate(toBlock.requireServiceId())).orElse(false));
   }
 
