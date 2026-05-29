@@ -79,6 +79,7 @@ import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
 import org.thoughtcrime.securesms.jobs.InAppPaymentAuthCheckJob;
 import org.thoughtcrime.securesms.jobs.InAppPaymentKeepAliveJob;
 import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob;
+import org.thoughtcrime.securesms.jobs.MessageSendLogCleanupJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob;
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
@@ -229,7 +230,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
               .addPostRender(RefreshSvrCredentialsJob::enqueueIfNecessary)
               .addPostRender(() -> DownloadLatestEmojiDataJob.scheduleIfNecessary(this))
               .addPostRender(EmojiSearchIndexDownloadJob::scheduleIfNecessary)
-              .addPostRender(() -> SignalDatabase.messageLog().trimOldMessages(System.currentTimeMillis(), RemoteConfig.retryRespondMaxAge()))
+              .addPostRender(MessageSendLogCleanupJob::enqueue)
               .addPostRender(() -> JumboEmoji.updateCurrentVersion(this))
               .addPostRender(RetrieveRemoteAnnouncementsJob::enqueue)
               .addPostRender(AndroidTelecomUtil::registerPhoneAccount)

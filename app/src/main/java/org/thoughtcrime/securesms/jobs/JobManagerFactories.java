@@ -205,6 +205,7 @@ public final class JobManagerFactories {
       put(LocalPlaintextArchiveJob.KEY,                new LocalPlaintextArchiveJob.Factory());
       put(LocalBackupJobApi29.KEY,                     new LocalBackupJobApi29.Factory());
       put(MarkerJob.KEY,                               new MarkerJob.Factory());
+      put(MessageSendLogCleanupJob.KEY,                new MessageSendLogCleanupJob.Factory());
       put(MultiDeviceAttachmentBackfillMissingJob.KEY, new MultiDeviceAttachmentBackfillMissingJob.Factory());
       put(MultiDeviceAttachmentBackfillUpdateJob.KEY,  new MultiDeviceAttachmentBackfillUpdateJob.Factory());
       put(MultiDeviceBlockedUpdateJob.KEY,             new MultiDeviceBlockedUpdateJob.Factory());

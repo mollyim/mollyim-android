@@ -1465,6 +1465,7 @@ object BackupRepository {
     }
 
     SignalDatabase.remappedRecords.clearCache()
+    SignalDatabase.remappedRecords.trimStaleMappings()
     AppDependencies.recipientCache.clear()
     AppDependencies.recipientCache.warmUp()
     SignalDatabase.threads.clearCache()
