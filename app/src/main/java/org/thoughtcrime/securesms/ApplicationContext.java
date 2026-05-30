@@ -511,8 +511,9 @@ public class ApplicationContext extends Application implements AppForegroundObse
   private void initializeTracer() {
     if (RemoteConfig.internalUser()) {
       Tracer.getInstance().setMaxBufferSize(35_000);
-      SQLiteDatabase.setSlowWriteLoggingEnabled(true);
     }
+
+    SQLiteDatabase.setSlowWriteLoggingEnabled(RemoteConfig.slowDatabaseNotifications());
   }
 
   private void initializePeriodicTasks() {

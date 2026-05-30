@@ -26,7 +26,8 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 
 /**
- * Internal-user-only notifier that surfaces SQLite write-lock contention.
+ * Notifier that surfaces SQLite write-lock contention. Gated behind the
+ * [RemoteConfig.slowDatabaseNotifications] flag.
  */
 object SlowTransactionInternalNotifier {
 
@@ -41,7 +42,7 @@ object SlowTransactionInternalNotifier {
 
   @JvmStatic
   fun onSlowEvent() {
-    if (!RemoteConfig.internalUser) {
+    if (!RemoteConfig.slowDatabaseNotifications) {
       return
     }
 

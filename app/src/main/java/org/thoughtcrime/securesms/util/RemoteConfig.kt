@@ -11,6 +11,7 @@ import org.signal.core.util.gibiBytes
 import org.signal.core.util.kibiBytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.mebiBytes
+import org.thoughtcrime.securesms.database.SQLiteDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.SelectionLimits
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
@@ -691,6 +692,16 @@ object RemoteConfig {
     key = "android.showSlowDebugLogWarning",
     defaultValue = false,
     hotSwappable = true
+  )
+
+  /** Whether we log and surface notifications for slow database transactions/queries. */
+  @JvmStatic
+  @get:JvmName("slowDatabaseNotifications")
+  val slowDatabaseNotifications: Boolean by remoteBoolean(
+    key = "android.slowDatabaseNotifications",
+    defaultValue = false,
+    hotSwappable = true,
+    onChangeListener = { SQLiteDatabase.setSlowWriteLoggingEnabled(it.newValue.asBoolean(false)) }
   )
 
   /** How often we allow an automatic session reset.  */
