@@ -30,7 +30,7 @@ buildscript {
     classpath(libs.gradle)
     classpath(libs.androidx.navigation.safe.args.gradle.plugin)
     classpath(libs.protobuf.gradle.plugin)
-    classpath("com.squareup.wire:wire-gradle-plugin:6.0.0-alpha02") {
+    classpath("com.squareup.wire:wire-gradle-plugin:6.4.0") {
       exclude(group = "com.squareup.wire", module = "wire-swift-generator")
       exclude(group = "com.squareup.wire", module = "wire-grpc-client")
       exclude(group = "com.squareup.wire", module = "wire-grpc-jvm")
