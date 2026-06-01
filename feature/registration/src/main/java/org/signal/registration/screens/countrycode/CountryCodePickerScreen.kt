@@ -28,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -56,6 +57,7 @@ import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.IconButtons.IconButton
 import org.signal.core.ui.compose.LargeFontPreviews
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
@@ -85,58 +87,40 @@ private fun OnePaneLayout(
   state: CountryCodeState,
   onEvent: (CountryCodePickerScreenEvents) -> Unit
 ) {
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
+
   OnePaneRegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
     params = layoutParams,
     topBar = {
-      Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        IconButton(
-          onClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
-        ) {
-          Icon(
-            imageVector = SignalIcons.X.imageVector,
-            contentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
-          )
-        }
-        Text(
-          stringResource(R.string.CountryCodeSelectScreen__your_country),
-          style = MaterialTheme.typography.titleLarge,
-          modifier = Modifier.attachDebugLogHelper()
-        )
-      }
+      TopAppBar(
+        scrollBehavior = topBarScrollBehavior,
+        onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+      )
     }
   ) {
     CountryList(state, onEvent)
   }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TwoPaneLayout(
   params: RegistrationScaffold.Params.TwoPane,
   state: CountryCodeState,
   onEvent: (CountryCodePickerScreenEvents) -> Unit
 ) {
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
+
   TwoPaneRegistrationScaffold(
     modifier = Modifier.fillMaxSize(),
-    topBar = {
-      Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        IconButton(
-          onClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
-        ) {
-          Icon(
-            imageVector = SignalIcons.X.imageVector,
-            contentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
-          )
-        }
-      }
-    },
     params = params,
+    topBar = {
+      TopAppBar(
+        scrollBehavior = topBarScrollBehavior,
+        onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+      )
+    },
     firstPane = { paddingValues ->
       Column(
         modifier = Modifier
@@ -146,7 +130,7 @@ private fun TwoPaneLayout(
       ) {
         Text(
           stringResource(R.string.CountryCodeSelectScreen__your_country),
-          style = MaterialTheme.typography.titleLarge,
+          style = MaterialTheme.typography.headlineMedium,
           modifier = Modifier.attachDebugLogHelper()
         )
       }
@@ -161,6 +145,22 @@ private fun TwoPaneLayout(
         CountryList(state, onEvent)
       }
     }
+  )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBar(
+  scrollBehavior: TopAppBarScrollBehavior,
+  onCloseClick: () -> Unit
+) {
+  Scaffolds.DefaultTopAppBar(
+    title = "",
+    titleContent = { _, _ -> },
+    onNavigationClick = onCloseClick,
+    navigationIcon = SignalIcons.X.imageVector,
+    navigationContentDescription = stringResource(R.string.CountryCodeSelectScreen__close),
+    scrollBehavior = scrollBehavior
   )
 }
 

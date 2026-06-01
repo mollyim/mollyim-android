@@ -16,13 +16,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -30,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.getWindowSizeClass
+import org.signal.core.ui.isHeightCompact
 import org.signal.core.ui.rememberWindowBreakpoint
 
 object RegistrationScaffold {
@@ -129,6 +136,19 @@ object RegistrationScaffold {
       is WindowBreakpoint.Small -> smallLayoutParams
       is WindowBreakpoint.Medium -> mediumLayoutParams
       is WindowBreakpoint.Large -> if (breakpoint.isWidthExpanded) largeWidthLayoutParams else largeHeightLayoutParams
+    }
+  }
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  fun rememberTopBarScrollBehavior(): TopAppBarScrollBehavior {
+    val isHeightCompact = LocalResources.current.getWindowSizeClass().isHeightCompact
+    val topAppBarState = rememberTopAppBarState()
+
+    return if (isHeightCompact) {
+      TopAppBarDefaults.enterAlwaysScrollBehavior(state = topAppBarState)
+    } else {
+      TopAppBarDefaults.pinnedScrollBehavior(state = topAppBarState)
     }
   }
 
