@@ -1467,5 +1467,13 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  @JvmStatic
+  @get:JvmName("disappearMore")
+  val disappearMore: Boolean by remoteBoolean(
+    key = "android.disappearMore",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
   // endregion
 }

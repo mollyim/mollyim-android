@@ -511,6 +511,10 @@ public abstract class MessageRecord extends DisplayRecord {
     return UpdateDescription.staticDescriptionWithExpiration(string, glyph);
   }
 
+  protected static @NonNull UpdateDescription staticUpdateDescriptionWithExpiration(@NonNull String string, Glyph glyph, @ColorInt int lightTint, @ColorInt int darkTint) {
+    return UpdateDescription.staticDescriptionWithExpiration(string, glyph, lightTint, darkTint);
+  }
+
   protected static @NonNull UpdateDescription staticUpdateDescription(@NonNull String string,
                                                                       Glyph glyph,
                                                                       @ColorInt int lightTint,

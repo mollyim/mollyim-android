@@ -30,6 +30,7 @@ import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
 import org.signal.ringrtc.CallId
 import org.signal.ringrtc.CallManager.RingUpdate
+import org.thoughtcrime.securesms.database.CallTable.Companion.TIMESTAMP
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.CallLinkUpdateSendJob
@@ -109,11 +110,32 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     )
   }
   fun markAllCallEventsRead(timestamp: Long = Long.MAX_VALUE) {
+    val now = System.currentTimeMillis()
+
+    val allUnreadMissedCalls = readableDatabase
+      .select(MESSAGE_ID)
+      .from(TABLE_NAME)
+      .where("$TIMESTAMP <= ? AND $READ != ? AND $EVENT = ?", timestamp, ReadState.serialize(ReadState.READ), Event.serialize(Event.MISSED))
+      .run()
+      .readToList { cursor ->
+        cursor.requireLong(MESSAGE_ID)
+      }
+
     val updateCount = writableDatabase
       .update(TABLE_NAME)
       .values(READ to ReadState.serialize(ReadState.READ))
       .where("$TIMESTAMP <= ? AND $READ != ?", timestamp, ReadState.serialize(ReadState.READ))
       .run()
+
+    val expiringCalls = SignalDatabase.messages.getUnstartedExpirations(allUnreadMissedCalls)
+
+    if (expiringCalls.isNotEmpty()) {
+      Log.i(TAG, "Found ${expiringCalls.size} calls that needs expiring.")
+      SignalDatabase.messages.markExpireStarted(expiringCalls.map { it.key to now })
+      for ((messageId, expiresIn) in expiringCalls) {
+        AppDependencies.expiringMessageManager.scheduleDeletion(messageId, true, now, expiresIn)
+      }
+    }
 
     if (updateCount > 0) {
       notifyConversationListListeners()
@@ -121,11 +143,32 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
   }
 
   fun markAllCallEventsWithPeerBeforeTimestampRead(peer: RecipientId, timestamp: Long): Call? {
+    val now = System.currentTimeMillis()
     val latestCallAsOfTimestamp = writableDatabase.withinTransaction { db ->
+
+      val unreadMissedCalls = db
+        .select(MESSAGE_ID)
+        .from(TABLE_NAME)
+        .where("$PEER = ? AND $TIMESTAMP <= ? AND $READ != ? AND $EVENT = ?", peer.toLong(), timestamp, ReadState.serialize(ReadState.READ), Event.serialize(Event.MISSED))
+        .run()
+        .readToList { cursor ->
+          cursor.requireLong(MESSAGE_ID)
+        }
+
       val updated = db.update(TABLE_NAME)
         .values(READ to ReadState.serialize(ReadState.READ))
         .where("$PEER = ? AND $TIMESTAMP <= ?", peer.toLong(), timestamp)
         .run()
+
+      val expiring = SignalDatabase.messages.getUnstartedExpirations(unreadMissedCalls)
+
+      if (expiring.isNotEmpty()) {
+        Log.i(TAG, "Found ${expiring.size} calls that needs expiring.")
+        SignalDatabase.messages.markExpireStarted(expiring.map { it.key to now })
+        for ((messageId, expiresIn) in expiring) {
+          AppDependencies.expiringMessageManager.scheduleDeletion(messageId, true, now, expiresIn)
+        }
+      }
 
       if (updated == 0) {
         null
@@ -157,7 +200,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     val messageType: Long = Call.getMessageType(type, direction, event)
 
     writableDatabase.withinTransaction {
-      val result = SignalDatabase.messages.insertCallLog(peer, messageType, timestamp, direction == Direction.OUTGOING)
+      val result = SignalDatabase.messages.insertOneToOneCallLog(peer, messageType, timestamp, direction == Direction.OUTGOING)
       val values = contentValuesOf(
         CALL_ID to callId,
         MESSAGE_ID to result.messageId,
@@ -202,7 +245,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         if (call.messageId == null) {
           Log.w(TAG, "Call does not have an associated message id! No message to update.")
         } else {
-          SignalDatabase.messages.updateCallLog(call.messageId, call.messageType)
+          SignalDatabase.messages.updateOneToOneCallLog(call.messageId, call.messageType)
         }
 
         AppDependencies.messageNotifier.updateNotification(context)

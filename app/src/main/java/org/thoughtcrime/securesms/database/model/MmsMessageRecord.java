@@ -265,13 +265,13 @@ public class MmsMessageRecord extends MessageRecord {
 
         if (call.getEvent() == CallTable.Event.NOT_ACCEPTED) {
           int message = isVideoCall ? R.string.MessageRecord_unanswered_video_call : R.string.MessageRecord_unanswered_voice_call;
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(message), callDateString),
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(message), callDateString),
                                          icon,
                                          ContextCompat.getColor(context, R.color.core_red_shade),
                                          ContextCompat.getColor(context, R.color.core_red));
         } else {
           int updateString = isVideoCall ? R.string.MessageRecord_outgoing_video_call : R.string.MessageRecord_outgoing_voice_call;
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
         }
       } else {
         boolean isVideoCall = call.getType() == CallTable.Type.VIDEO_CALL;
@@ -279,7 +279,7 @@ public class MmsMessageRecord extends MessageRecord {
         if (accepted || !call.isDisplayedAsMissedCallInUi()) {
           int updateString = isVideoCall ? R.string.MessageRecord_incoming_video_call : R.string.MessageRecord_incoming_voice_call;
           Glyph icon       = isVideoCall ? Glyph.VIDEO_CAMERA : Glyph.PHONE;
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
         } else {
           Glyph icon = isVideoCall ? Glyph.VIDEO_CAMERA : Glyph.PHONE;
           int message;
@@ -291,7 +291,7 @@ public class MmsMessageRecord extends MessageRecord {
             message = isVideoCall ? R.string.MessageRecord_missed_video_call : R.string.MessageRecord_missed_voice_call;
           }
 
-          return staticUpdateDescription(context.getString(R.string.MessageRecord_call_message_with_date,
+          return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date,
                                                            context.getString(message),
                                                            callDateString),
                                          icon,

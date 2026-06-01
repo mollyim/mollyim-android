@@ -656,6 +656,32 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   /**
+   * Given a list of ids, will return a list of the ids that have an expiration and what that expiration is.
+   */
+  fun getUnstartedExpirations(messageIds: List<Long>): Map<Long, Long> {
+    val expirations: MutableMap<Long, Long> = hashMapOf()
+
+    SqlUtil.buildCollectionQuery(
+      column = ID,
+      values = messageIds,
+      prefix = "$EXPIRES_IN != 0 AND $EXPIRE_STARTED = 0 AND"
+    ).forEach { query ->
+      readableDatabase
+        .select(ID, EXPIRES_IN)
+        .from(TABLE_NAME)
+        .where(query.where, query.whereArgs)
+        .run()
+        .use { cursor ->
+          while (cursor.moveToNext()) {
+            expirations[cursor.requireLong(ID)] = cursor.requireLong(EXPIRES_IN)
+          }
+        }
+    }
+
+    return expirations
+  }
+
+  /**
    * Returns true iff
    * - the message will expire within [ChatItemArchiveExporter.EXPIRATION_CUTOFF] once viewed
    */
@@ -876,11 +902,12 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return results
   }
 
-  fun insertCallLog(recipientId: RecipientId, type: Long, timestamp: Long, outgoing: Boolean): InsertResult {
+  fun insertOneToOneCallLog(recipientId: RecipientId, type: Long, timestamp: Long, outgoing: Boolean): InsertResult {
     val recipient = Recipient.resolved(recipientId)
     val threadIdResult = threads.getOrCreateThreadIdResultFor(recipient.id, recipient.isGroup)
     val threadId = threadIdResult.threadId
     val dateReceived = System.currentTimeMillis()
+    val expiresIn = if (RemoteConfig.disappearMore) threads.getExpiresIn(threadId) else 0
 
     val values = contentValuesOf(
       FROM_RECIPIENT_ID to if (outgoing) Recipient.self().id.serialize() else recipientId.serialize(),
@@ -891,7 +918,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       READ to 1,
       NOTIFIED to 1,
       TYPE to type,
-      THREAD_ID to threadId
+      THREAD_ID to threadId,
+      EXPIRES_IN to expiresIn
     )
 
     val messageId = writableDatabase.insert(TABLE_NAME, null, values)
@@ -910,7 +938,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     )
   }
 
-  fun updateCallLog(messageId: Long, type: Long) {
+  fun updateOneToOneCallLog(messageId: Long, type: Long) {
     val message = getMessageRecordOrNull(messageId = messageId)
     writableDatabase
       .update(TABLE_NAME)
@@ -928,6 +956,13 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     if (message?.collapsedState == CollapsedState.NONE) {
       maybeCollapseMessage(db = writableDatabase, messageId = messageId, threadId = threadId, dateReceived = message.dateReceived, messageExtras = message.messageExtras, messageType = type)
+    }
+
+    // Start disappearing timer when a call is answered or declined (e.g. not missed)
+    if (message?.expiresIn != null && message.expiresIn != 0L && !MessageTypes.isMissedVideoCall(type) && !MessageTypes.isMissedAudioCall(type)) {
+      val now = System.currentTimeMillis()
+      markExpireStarted(messageId, now)
+      AppDependencies.expiringMessageManager.scheduleDeletion(messageId, message.isMms, now, message.expiresIn)
     }
 
     notifyConversationListeners(threadId)

@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
@@ -104,6 +103,7 @@ public final class ConversationUpdateItem extends FrameLayout
   private EventListener             eventListener;
   private Button                    collapsedButton;
   private float                     lastYDownRelativeToThis;
+  private int                       tint;
 
   private final UpdateObserver updateObserver = new UpdateObserver();
 
@@ -220,6 +220,8 @@ public final class ConversationUpdateItem extends FrameLayout
 
     observeDisplayBody(lifecycleOwner, spannableMessage);
     observeDisplayBodyWithTimer(lifecycleOwner);
+
+    this.tint = updateDescription.getTint(getContext());
 
     boolean donationRequest = conversationMessage.getMessageRecord().isReleaseChannelDonationRequest();
 
@@ -487,8 +489,9 @@ public final class ConversationUpdateItem extends FrameLayout
 
     SpannableStringBuilder builder = new SpannableStringBuilder(displayBody);
 
+    int color = tint != 0 ? tint : ContextCompat.getColor(getContext(), R.color.signal_icon_tint_secondary);
     if (latestFrame != 0) {
-      Drawable drawable = DrawableUtil.tint(getContext().getDrawable(latestFrame), ContextCompat.getColor(getContext(), R.color.signal_icon_tint_secondary));
+      Drawable drawable = DrawableUtil.tint(getContext().getDrawable(latestFrame), color);
       SpanUtil.appendCenteredImageSpan(builder, drawable, 12, 12);
     }
 

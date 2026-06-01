@@ -2086,7 +2086,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     }
   }
 
-  private fun getExpiresIn(threadId: Long): Long {
+  fun getExpiresIn(threadId: Long): Long {
     return readableDatabase
       .select(EXPIRES_IN)
       .from(TABLE_NAME)
