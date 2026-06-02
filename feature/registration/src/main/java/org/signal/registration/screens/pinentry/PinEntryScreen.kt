@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -301,7 +302,7 @@ private fun PinInputField(
     if (state.triesRemaining != null) {
       Spacer(modifier = Modifier.height(8.dp))
       PinInputLabel(
-        text = stringResource(R.string.PinEntryScreen__incorrect_pin, state.triesRemaining),
+        text = pluralStringResource(R.plurals.PinEntryScreen__incorrect_pin, state.triesRemaining, state.triesRemaining),
         isError = true
       )
     } else {

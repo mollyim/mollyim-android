@@ -341,7 +341,10 @@
     <!-- Describes the PIN that needs to be entered. -->
     <string name="PinEntryScreen__enter_the_pin_you_created">Enter the PIN you created when you first installed Signal</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
-    <string name="PinEntryScreen__incorrect_pin">Incorrect PIN. %1$d attempts remaining.</string>
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">Incorrect PIN. %1$d attempt remaining.</item>
+        <item quantity="other">Incorrect PIN. %1$d attempts remaining.</item>
+    </plurals>
     <!-- Labels the button to get help with PIN entry. -->
     <string name="PinEntryScreen__need_help">Need help?</string>
     <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
