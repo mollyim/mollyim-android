@@ -1703,7 +1703,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     return readableDatabase
       .select(DATE_SENT)
-      .from(TABLE_NAME)
+      .from("$TABLE_NAME INDEXED BY $INDEX_STORY_TYPE")
       .where("$IS_STORY_CLAUSE AND $THREAD_ID != ?", releaseChannelThreadId)
       .limit(1)
       .orderBy("$DATE_SENT ASC")
