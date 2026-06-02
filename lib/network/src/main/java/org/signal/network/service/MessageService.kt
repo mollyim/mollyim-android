@@ -23,6 +23,7 @@ import org.signal.libsignal.net.SealedSendFailure
 import org.signal.libsignal.net.ServiceIdNotFoundException
 import org.signal.libsignal.net.SingleOutboundSealedSenderMessage
 import org.signal.libsignal.net.SingleOutboundUnsealedMessage
+import org.signal.libsignal.net.SyncSendFailure
 import org.signal.libsignal.net.UnsealedSendFailure
 import org.signal.libsignal.net.UserBasedAuthorization
 import org.signal.libsignal.net.UserBasedSendAuthorization
@@ -148,6 +149,81 @@ open class MessageService(
       }
 
       Log.w(TAG, "Exhausted device-recovery attempts for $serviceId")
+      raise(SendError.SessionAttemptsExhausted())
+    }
+  }
+
+  /**
+   * Sends a sync message to your other devices.
+   */
+  suspend fun sendSyncMessage(
+    timestamp: Long,
+    envelopeContent: EnvelopeContent,
+    urgent: Boolean,
+    onEncrypted: (() -> Unit)?
+  ): Either<SendError, SendSuccess> = withContext(Dispatchers.IO) {
+    either {
+      val contentSize = envelopeContent.size().toLong()
+      if (maxContentSizeBytes > 0 && contentSize > maxContentSizeBytes) {
+        Log.w(TAG, "Content size $contentSize exceeds limit of $maxContentSizeBytes bytes; aborting send.")
+        raise(SendError.ContentTooLarge(size = contentSize, maxAllowed = maxContentSizeBytes))
+      }
+
+      var encryptedReported = false
+
+      // Certain errors self-resolve by mutating external state, like creating new sessions.
+      // Trying several times in a loop lets us re-read that external state and use it in the next attempt.
+      for (attempt in 0 until MAX_DEVICE_RECOVERY_ATTEMPTS) {
+        Log.d(TAG, "Starting sync message send attempt ${attempt + 1}")
+        val encryptedMessages = encryptForAllDevices(localAddress.serviceId, envelopeContent, sealedSenderAccess = null)
+        if (!encryptedReported) {
+          onEncrypted?.invoke()
+          encryptedReported = true
+        }
+
+        val result = messageApi.sendSyncMessage(
+          timestamp = timestamp,
+          contents = encryptedMessages.map {
+            SingleOutboundUnsealedMessage(
+              deviceId = it.destinationDeviceId,
+              registrationId = it.destinationRegistrationId,
+              message = SignalMessage(it.content.decodeBase64OrThrow())
+            )
+          },
+          urgent = urgent
+        )
+
+        when (result) {
+          is RequestResult.Success -> {
+            val devices = encryptedMessages.map { it.destinationDeviceId }
+
+            Log.d(TAG, "Successfully sent sync message to devices: $devices")
+            return@either SendSuccess(
+              envelopeContent = envelopeContent,
+              sentSealedSender = false,
+              devices = devices
+            )
+          }
+          is RequestResult.RetryableNetworkError -> {
+            raise(SendError.NetworkError(result.networkError))
+          }
+          is RequestResult.ApplicationError -> {
+            raise(SendError.ApplicationError(result.cause))
+          }
+          is RequestResult.NonSuccess<SyncSendFailure> -> {
+            when (val error = result.error) {
+              is MismatchedDeviceException -> {
+                handleMismatched(error, sealedSenderAccess = null)
+              }
+              is RateLimitChallengeException -> {
+                raise(SendError.ChallengeRequired(error.token, error.options, error.retryLater?.toKotlinDuration()))
+              }
+            }
+          }
+        }
+      }
+
+      Log.w(TAG, "Exhausted device-recovery attempts for sync message")
       raise(SendError.SessionAttemptsExhausted())
     }
   }

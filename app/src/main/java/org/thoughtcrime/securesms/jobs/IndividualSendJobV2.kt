@@ -449,13 +449,9 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
     )
     val syncEnvelope = EnvelopeContent.encrypted(syncContent, ContentHint.IMPLICIT, Optional.empty())
 
-    return AppDependencies.messageService.sendMessage(
-      serviceId = SignalStore.account.requireAci(),
+    return AppDependencies.messageService.sendSyncMessage(
       envelopeContent = syncEnvelope,
       timestamp = timestamp,
-      sealedSenderAccess = null, // We don't use sealed sender for sync messages
-      story = false,
-      isOnline = false,
       urgent = true,
       onEncrypted = { SignalLocalMetrics.IndividualMessageSend.onSyncMessageEncrypted(messageId) }
     ).bind()

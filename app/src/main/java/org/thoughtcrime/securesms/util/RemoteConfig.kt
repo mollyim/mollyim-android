@@ -1209,7 +1209,7 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("useIndividualSendJobV2")
   val useIndividualSendJobV2: Boolean by remoteBoolean(
-    key = "android.useIndividualSendJobV2",
+    key = "android.useIndividualSendJobV2.2",
     defaultValue = false,
     hotSwappable = true
   )

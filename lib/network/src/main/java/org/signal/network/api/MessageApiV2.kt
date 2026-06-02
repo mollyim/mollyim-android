@@ -11,6 +11,7 @@ import org.signal.libsignal.net.RequestResult
 import org.signal.libsignal.net.SealedSendFailure
 import org.signal.libsignal.net.SingleOutboundSealedSenderMessage
 import org.signal.libsignal.net.SingleOutboundUnsealedMessage
+import org.signal.libsignal.net.SyncSendFailure
 import org.signal.libsignal.net.UnauthMessagesService
 import org.signal.libsignal.net.UnsealedSendFailure
 import org.signal.libsignal.net.UserBasedSendAuthorization
@@ -46,6 +47,16 @@ class MessageApiV2(
   ): RequestResult<Unit, UnsealedSendFailure> {
     return authWebSocket.runCatchingWithChatConnection { connection ->
       AuthMessagesService(connection).sendMessage(serviceId.libSignalServiceId, timestamp, contents, onlineOnly, urgent)
+    }
+  }
+
+  suspend fun sendSyncMessage(
+    timestamp: Long,
+    contents: List<SingleOutboundUnsealedMessage>,
+    urgent: Boolean
+  ): RequestResult<Unit, SyncSendFailure> {
+    return authWebSocket.runCatchingWithChatConnection { connection ->
+      AuthMessagesService(connection).sendSyncMessage(timestamp, contents, urgent)
     }
   }
 }
