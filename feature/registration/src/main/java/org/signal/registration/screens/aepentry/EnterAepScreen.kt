@@ -279,10 +279,10 @@ private fun NextButton(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit, 
 }
 
 /**
- * Visual formatter for backup keys — groups characters with spaces. Preserves whatever the user
- * typed verbatim (no character swapping).
+ * Visual formatter for backup keys. Uppercases and groups characters with spaces without swapping
+ * display-equivalent characters.
  */
-private class AepVisualTransformation(private val chunkSize: Int) : VisualTransformation {
+internal class AepVisualTransformation(private val chunkSize: Int) : VisualTransformation {
   override fun filter(text: AnnotatedString): TransformedText {
     var output = ""
     for ((i, c) in text.text.withIndex()) {
