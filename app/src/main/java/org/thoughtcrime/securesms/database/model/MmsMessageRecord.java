@@ -228,12 +228,6 @@ public class MmsMessageRecord extends MessageRecord {
   public SpannableString getDisplayBody(@NonNull Context context) {
     if (MessageTypes.isChatSessionRefresh(type)) {
       return emphasisAdded(context.getString(R.string.MessageRecord_chat_session_refreshed));
-    } else if (MessageTypes.isDuplicateMessageType(type)) {
-      return emphasisAdded(context.getString(R.string.SmsMessageRecord_duplicate_message));
-    } else if (MessageTypes.isNoRemoteSessionType(type)) {
-      return emphasisAdded(context.getString(R.string.MessageDisplayHelper_message_encrypted_for_non_existing_session));
-    } else if (isLegacyMessage()) {
-      return emphasisAdded(context.getString(R.string.MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported));
     } else if (isPaymentNotification() && payment != null) {
       return new SpannableString(context.getString(R.string.MessageRecord__payment_s, payment.getAmount().toString(FormatterOptions.defaults())));
     } else if (isPaymentTombstone() || isPaymentNotification()) {

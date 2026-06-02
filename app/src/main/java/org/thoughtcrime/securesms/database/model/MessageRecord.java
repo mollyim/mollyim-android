@@ -180,10 +180,6 @@ public abstract class MessageRecord extends DisplayRecord {
     return MessageTypes.isSecureType(type);
   }
 
-  public boolean isLegacyMessage() {
-    return MessageTypes.isLegacyType(type);
-  }
-
   @Override
   public boolean isFailed() {
     return super.isFailed() || isFailedAdminDelete();

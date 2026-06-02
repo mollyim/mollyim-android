@@ -629,12 +629,8 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
       return emphasisAdded(context, context.getString(R.string.ConversationListItem_key_exchange_message), defaultTint);
     } else if (MessageTypes.isChatSessionRefresh(thread.getType())) {
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_chat_session_refreshed), Glyph.REFRESH, defaultTint);
-    } else if (MessageTypes.isNoRemoteSessionType(thread.getType())) {
-      return emphasisAdded(context, context.getString(R.string.MessageDisplayHelper_message_encrypted_for_non_existing_session), defaultTint);
     } else if (MessageTypes.isEndSessionType(thread.getType())) {
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_secure_session_reset), defaultTint);
-    } else if (MessageTypes.isLegacyType(thread.getType())) {
-      return emphasisAdded(context, context.getString(R.string.MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported), defaultTint);
     } else if (thread.isScheduledMessage()) {
       return emphasisAdded(context, context.getString(R.string.ThreadRecord_scheduled_message), Glyph.CALENDAR, defaultTint);
     } else if (MessageTypes.isDraftMessageType(thread.getType())) {
