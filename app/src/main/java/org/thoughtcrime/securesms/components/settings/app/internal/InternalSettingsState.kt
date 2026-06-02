@@ -32,5 +32,6 @@ data class InternalSettingsState(
   val forceSplitPane: Boolean,
   val forceSinglePane: Boolean,
   val useNewMediaActivity: Boolean,
-  val disableInternalUser: Boolean
+  val disableInternalUser: Boolean,
+  val searchQuery: String = ""
 )
