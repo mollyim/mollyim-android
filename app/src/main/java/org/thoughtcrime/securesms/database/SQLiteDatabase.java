@@ -41,6 +41,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
   private static final long SLOW_WRITE_LOCK_WAIT_MS = TimeUnit.SECONDS.toMillis(3);
   private static final long SLOW_TRANSACTION_HOLD_MS = 750;
   private static final long SLOW_DIRECT_WRITE_MS = 250;
+  private static final long SLOW_DIRECT_DELETE_MS = TimeUnit.SECONDS.toMillis(1);
   private static final long SLOW_QUERY_MS = TimeUnit.SECONDS.toMillis(1);
 
   public static final int CONFLICT_ROLLBACK = 1;
@@ -668,7 +669,9 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
     long elapsedMs = (System.nanoTime() - startNs) / 1_000_000L;
 
-    if (elapsedMs >= SLOW_DIRECT_WRITE_MS) {
+    long threshold = "delete()".equals(methodName) ? SLOW_DIRECT_DELETE_MS : SLOW_DIRECT_WRITE_MS;
+
+    if (elapsedMs >= threshold) {
       Log.w(TAG, "Slow direct write: " + methodName + " on " + table + " took " + elapsedMs + "ms (query=" + query + ")", new Throwable());
       logQueryPlan(methodName, queryPlanSql, queryPlanArgs);
     }

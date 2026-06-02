@@ -315,9 +315,11 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     private const val INDEX_THREAD_COUNT = "message_thread_count_index"
     private const val INDEX_THREAD_UNREAD_COUNT = "message_thread_unread_count_index"
     private const val INDEX_STORY_TYPE = "message_story_type_index"
+    private const val INDEX_PARENT_STORY_ID = "message_parent_story_id_index"
     private const val INDEX_ARCHIVED_STORY = "message_story_archived_index"
     private const val INDEX_STARRED = "message_starred_index"
     private const val INDEX_NOTIFICATION_STATE = "message_notification_state_index"
+    private const val INDEX_RATE_LIMITED = "message_rate_limited_index"
 
     @JvmField
     val CREATE_INDEXS = arrayOf(
@@ -353,7 +355,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       "CREATE INDEX IF NOT EXISTS message_collapsed_head_id_index ON $TABLE_NAME ($COLLAPSED_HEAD_ID)",
       "CREATE INDEX IF NOT EXISTS $INDEX_NOTIFICATION_STATE ON $TABLE_NAME ($DATE_RECEIVED) WHERE $NOTIFIED = 0 AND $STORY_TYPE = 0 AND $LATEST_REVISION_ID IS NULL",
       "CREATE INDEX IF NOT EXISTS message_expire_started_index ON $TABLE_NAME ($EXPIRE_STARTED) WHERE $EXPIRE_STARTED > 0",
-      "CREATE INDEX IF NOT EXISTS message_view_once_index ON $TABLE_NAME ($VIEW_ONCE) WHERE $VIEW_ONCE > 0"
+      "CREATE INDEX IF NOT EXISTS message_view_once_index ON $TABLE_NAME ($VIEW_ONCE) WHERE $VIEW_ONCE > 0",
+      "CREATE INDEX IF NOT EXISTS $INDEX_RATE_LIMITED ON $TABLE_NAME ($ID) WHERE ($TYPE & ${MessageTypes.MESSAGE_RATE_LIMITED_BIT}) != 0"
     )
 
     private val MMS_PROJECTION_BASE = arrayOf(
@@ -1723,76 +1726,45 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return writableDatabase.withinTransaction { db ->
       val releaseChannelThreadId = getReleaseChannelThreadId(hasSeenReleaseChannelStories)
 
-      val storiesBeforeTimestampWhere = "$IS_STORY_CLAUSE AND $DATE_SENT < ? AND $THREAD_ID != ?"
-      val sharedArgs = buildArgs(timestamp, releaseChannelThreadId)
+      data class ExpiredStory(val id: Long, val fromRecipientId: Long)
 
-      val deleteStoryRepliesQuery = """
-        DELETE FROM $TABLE_NAME INDEXED BY $INDEX_STORY_TYPE 
-        WHERE 
-          $PARENT_STORY_ID > 0 AND 
-          $PARENT_STORY_ID IN (
-            SELECT $ID 
-            FROM $TABLE_NAME 
-            WHERE $storiesBeforeTimestampWhere
-          )
-        """
+      val expiredStories = db
+        .select(ID, FROM_RECIPIENT_ID)
+        .from("$TABLE_NAME INDEXED BY $INDEX_STORY_TYPE")
+        .where("$IS_STORY_CLAUSE AND $DATE_SENT < ? AND $THREAD_ID != ?", buildArgs(timestamp, releaseChannelThreadId))
+        .run()
+        .readToList { ExpiredStory(it.requireLong(ID), it.requireLong(FROM_RECIPIENT_ID)) }
 
-      val disassociateQuoteQuery = """
-        UPDATE $TABLE_NAME 
-        SET 
-          $QUOTE_MISSING = 1, 
-          $QUOTE_BODY = '' 
-        WHERE 
-          $PARENT_STORY_ID < 0 AND 
-          ABS($PARENT_STORY_ID) IN (
-            SELECT $ID 
-            FROM $TABLE_NAME 
-            WHERE $storiesBeforeTimestampWhere
-          )
-        """
-
-      val storyRepliesQuery = """
-        SELECT $ID FROM $TABLE_NAME
-        WHERE 
-          $PARENT_STORY_ID < 0 AND 
-          ABS($PARENT_STORY_ID) IN (
-            SELECT $ID 
-            FROM $TABLE_NAME 
-            WHERE $storiesBeforeTimestampWhere
-          )
-        """
-
-      db.execSQL(deleteStoryRepliesQuery, sharedArgs)
-      db.execSQL(disassociateQuoteQuery, sharedArgs)
-      db.rawQuery(storyRepliesQuery, sharedArgs).forEach { cursor: Cursor ->
-        val mmsId = cursor.requireLong(ID)
-        attachments.deleteAttachmentsForMessage(mmsId)
+      if (expiredStories.isEmpty()) {
+        return@withinTransaction 0
       }
 
-      db.select(FROM_RECIPIENT_ID)
-        .from(TABLE_NAME)
-        .where(storiesBeforeTimestampWhere, sharedArgs)
+      val storyIds = expiredStories.map { it.id }
+      val directReplyClause = buildSingleCollectionQuery(PARENT_STORY_ID, storyIds)
+      val quotedReplyClause = buildSingleCollectionQuery(PARENT_STORY_ID, storyIds.map { -it })
+
+      db.delete("$TABLE_NAME INDEXED BY $INDEX_PARENT_STORY_ID")
+        .where(directReplyClause.where, directReplyClause.whereArgs)
         .run()
-        .readToList { RecipientId.from(it.requireLong(FROM_RECIPIENT_ID)) }
-        .forEach { id -> AppDependencies.databaseObserver.notifyStoryObservers(id) }
 
-      val deletedStoryCount = db.select(ID)
-        .from(TABLE_NAME)
-        .where(storiesBeforeTimestampWhere, sharedArgs)
+      db.update("$TABLE_NAME INDEXED BY $INDEX_PARENT_STORY_ID")
+        .values(QUOTE_MISSING to 1, QUOTE_BODY to "")
+        .where(quotedReplyClause.where, quotedReplyClause.whereArgs)
         .run()
-        .use { cursor ->
-          while (cursor.moveToNext()) {
-            deleteMessage(cursor.requireLong(ID))
-          }
 
-          cursor.count
-        }
+      db.select(ID)
+        .from("$TABLE_NAME INDEXED BY $INDEX_PARENT_STORY_ID")
+        .where(quotedReplyClause.where, quotedReplyClause.whereArgs)
+        .run()
+        .forEach { cursor -> attachments.deleteAttachmentsForMessage(cursor.requireLong(ID)) }
 
-      if (deletedStoryCount > 0) {
-        OptimizeMessageSearchIndexJob.enqueue()
-      }
+      expiredStories.forEach { AppDependencies.databaseObserver.notifyStoryObservers(RecipientId.from(it.fromRecipientId)) }
 
-      deletedStoryCount
+      storyIds.forEach { deleteMessage(it) }
+
+      OptimizeMessageSearchIndexJob.enqueue()
+
+      storyIds.size
     }
   }
 
@@ -1863,71 +1835,40 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   fun deleteStoriesForRecipient(recipientId: RecipientId): Int {
     return writableDatabase.withinTransaction { db ->
       val threadId = threads.getThreadIdFor(recipientId) ?: return@withinTransaction 0
-      val storiesInRecipientThread = "$IS_STORY_CLAUSE AND $THREAD_ID = ?"
-      val sharedArgs = buildArgs(threadId)
 
-      val deleteStoryRepliesQuery = """
-        DELETE FROM $TABLE_NAME INDEXED BY $INDEX_STORY_TYPE 
-        WHERE 
-          $PARENT_STORY_ID > 0 AND 
-          $PARENT_STORY_ID IN (
-            SELECT $ID 
-            FROM $TABLE_NAME 
-            WHERE $storiesInRecipientThread
-          )
-        """
+      val storyIds = db.select(ID)
+        .from("$TABLE_NAME INDEXED BY $INDEX_STORY_TYPE")
+        .where("$IS_STORY_CLAUSE AND $THREAD_ID = ?", threadId)
+        .run()
+        .readToList { it.requireLong(ID) }
 
-      val disassociateQuoteQuery = """
-        UPDATE $TABLE_NAME 
-        SET 
-          $QUOTE_MISSING = 1, 
-          $QUOTE_BODY = '' 
-        WHERE 
-          $PARENT_STORY_ID < 0 AND 
-          ABS($PARENT_STORY_ID) IN (
-            SELECT $ID 
-            FROM $TABLE_NAME 
-            WHERE $storiesInRecipientThread
-          )
-        """
+      if (storyIds.isEmpty()) return@withinTransaction 0
 
-      val storyRepliesQuery = """
-        SELECT $ID FROM $TABLE_NAME
-        WHERE 
-          $PARENT_STORY_ID < 0 AND 
-          ABS($PARENT_STORY_ID) IN (
-            SELECT $ID 
-            FROM $TABLE_NAME 
-            WHERE $storiesInRecipientThread
-          )
-        """
+      val directReplyClause = buildSingleCollectionQuery(PARENT_STORY_ID, storyIds)
+      val quotedReplyClause = buildSingleCollectionQuery(PARENT_STORY_ID, storyIds.map { -it })
 
-      db.execSQL(deleteStoryRepliesQuery, sharedArgs)
-      db.execSQL(disassociateQuoteQuery, sharedArgs)
-      db.rawQuery(storyRepliesQuery, sharedArgs).forEach { cursor: Cursor ->
-        val mmsId = cursor.requireLong(ID)
-        attachments.deleteAttachmentsForMessage(mmsId)
-      }
+      db.delete("$TABLE_NAME INDEXED BY $INDEX_PARENT_STORY_ID")
+        .where(directReplyClause.where, directReplyClause.whereArgs)
+        .run()
+
+      db.update("$TABLE_NAME INDEXED BY $INDEX_PARENT_STORY_ID")
+        .values(QUOTE_MISSING to 1, QUOTE_BODY to "")
+        .where(quotedReplyClause.where, quotedReplyClause.whereArgs)
+        .run()
+
+      db.select(ID)
+        .from("$TABLE_NAME INDEXED BY $INDEX_PARENT_STORY_ID")
+        .where(quotedReplyClause.where, quotedReplyClause.whereArgs)
+        .run()
+        .forEach { cursor -> attachments.deleteAttachmentsForMessage(cursor.requireLong(ID)) }
 
       AppDependencies.databaseObserver.notifyStoryObservers(recipientId)
 
-      val deletedStoryCount = db.select(ID)
-        .from("$TABLE_NAME INDEXED BY $INDEX_STORY_TYPE")
-        .where(storiesInRecipientThread, sharedArgs)
-        .run()
-        .use { cursor ->
-          while (cursor.moveToNext()) {
-            deleteMessage(cursor.requireLong(ID))
-          }
+      storyIds.forEach { deleteMessage(it) }
 
-          cursor.count
-        }
+      OptimizeMessageSearchIndexJob.enqueue()
 
-      if (deletedStoryCount > 0) {
-        OptimizeMessageSearchIndexJob.enqueue()
-      }
-
-      deletedStoryCount
+      storyIds.size
     }
   }
 
@@ -4285,15 +4226,12 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   }
 
   fun getAllRateLimitedMessageIds(): Set<Long> {
-    val db = databaseHelper.signalReadableDatabase
-    val where = "(" + TYPE + " & " + MessageTypes.TOTAL_MASK + " & " + MessageTypes.MESSAGE_RATE_LIMITED_BIT + ") > 0"
-    val ids: MutableSet<Long> = HashSet()
-    db.query(TABLE_NAME, arrayOf(ID), where, null, null, null, null).use { cursor ->
-      while (cursor.moveToNext()) {
-        ids.add(CursorUtil.requireLong(cursor, ID))
-      }
-    }
-    return ids
+    return readableDatabase
+      .select(ID)
+      .from("$TABLE_NAME INDEXED BY $INDEX_RATE_LIMITED")
+      .where("($TYPE & ${MessageTypes.MESSAGE_RATE_LIMITED_BIT}) != 0")
+      .run()
+      .readToSet { it.requireLong(ID) }
   }
 
   fun deleteMessagesInThreadBeforeDate(threadId: Long, date: Long, inclusive: Boolean): Int {

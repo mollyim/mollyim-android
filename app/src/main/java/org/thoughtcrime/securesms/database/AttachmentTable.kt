@@ -299,7 +299,9 @@ class AttachmentTable(
       "CREATE INDEX IF NOT EXISTS attachment_remote_digest_index ON $TABLE_NAME ($REMOTE_DIGEST);",
       "CREATE INDEX IF NOT EXISTS attachment_metadata_id ON $TABLE_NAME ($METADATA_ID);",
       "CREATE INDEX IF NOT EXISTS attachment_media_overview_size ON $TABLE_NAME ($DATA_SIZE DESC, $DISPLAY_ORDER DESC) WHERE $QUOTE = 0 AND $STICKER_PACK_ID IS NULL AND $DATA_FILE IS NOT NULL",
-      "CREATE INDEX IF NOT EXISTS attachment_archive_thumbnail_transfer_state ON $TABLE_NAME ($ARCHIVE_THUMBNAIL_TRANSFER_STATE)"
+      "CREATE INDEX IF NOT EXISTS attachment_archive_thumbnail_transfer_state ON $TABLE_NAME ($ARCHIVE_THUMBNAIL_TRANSFER_STATE)",
+      "CREATE INDEX IF NOT EXISTS attachment_thumbnail_file_index ON $TABLE_NAME ($THUMBNAIL_FILE) WHERE $THUMBNAIL_FILE IS NOT NULL",
+      "CREATE INDEX IF NOT EXISTS attachment_uuid_index ON $TABLE_NAME ($ATTACHMENT_UUID) WHERE $ATTACHMENT_UUID IS NOT NULL"
     )
 
     private val DATA_FILE_INFO_PROJECTION = arrayOf(
@@ -373,7 +375,7 @@ class AttachmentTable(
       val hashEnd = Base64.encodeWithPadding(hash)
 
       val (existingFile: String?, existingSize: Long?, existingRandom: ByteArray?) = db.select(DATA_FILE, DATA_SIZE, DATA_RANDOM)
-        .from(TABLE_NAME)
+        .from("$TABLE_NAME INDEXED BY $DATA_HASH_REMOTE_KEY_INDEX")
         .where("$DATA_HASH_END = ? AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND $DATA_FILE NOT NULL AND $DATA_FILE != ?", hashEnd, file.absolutePath)
         .limit(1)
         .run()
@@ -1302,7 +1304,9 @@ class AttachmentTable(
     val contentTypesToDelete: MutableSet<String> = mutableSetOf()
 
     val deleteCount = writableDatabase.withinTransaction { db ->
-      db.select(DATA_FILE, CONTENT_TYPE, ID)
+      val metadataIdsToCleanup: MutableSet<Long> = mutableSetOf()
+
+      db.select(DATA_FILE, CONTENT_TYPE, ID, METADATA_ID)
         .from(TABLE_NAME)
         .where("$MESSAGE_ID = ?", mmsId)
         .run()
@@ -1314,6 +1318,8 @@ class AttachmentTable(
           val filePath = cursor.requireString(DATA_FILE)
           val contentType = cursor.requireString(CONTENT_TYPE)
 
+          cursor.requireLongOrNull(METADATA_ID)?.let { metadataIdsToCleanup += it }
+
           if (filePath != null && isSafeToDeleteDataFile(filePath, attachmentId)) {
             filePathsToDelete += filePath
             contentType?.let { contentTypesToDelete += it }
@@ -1324,7 +1330,7 @@ class AttachmentTable(
         .where("$MESSAGE_ID = ?", mmsId)
         .run()
 
-      SignalDatabase.attachmentMetadata.cleanup()
+      SignalDatabase.attachmentMetadata.cleanupById(metadataIdsToCleanup)
 
       AppDependencies.databaseObserver.notifyAttachmentDeletedObservers()
 
@@ -1368,7 +1374,9 @@ class AttachmentTable(
     var threadId: Long = -1
 
     writableDatabase.withinTransaction { db ->
-      db.select(DATA_FILE, CONTENT_TYPE, ID)
+      val metadataIdsToCleanup: MutableSet<Long> = mutableSetOf()
+
+      db.select(DATA_FILE, CONTENT_TYPE, ID, METADATA_ID)
         .from(TABLE_NAME)
         .where("$MESSAGE_ID = ?", messageId)
         .run()
@@ -1376,6 +1384,7 @@ class AttachmentTable(
           val filePath = cursor.requireString(DATA_FILE)
           val contentType = cursor.requireString(CONTENT_TYPE)
           val id = AttachmentId(cursor.requireLong(ID))
+          cursor.requireLongOrNull(METADATA_ID)?.let { metadataIdsToCleanup += it }
 
           if (filePath != null && isSafeToDeleteDataFile(filePath, id)) {
             filePathsToDelete += filePath
@@ -1409,7 +1418,7 @@ class AttachmentTable(
         .where("$MESSAGE_ID = ?", messageId)
         .run()
 
-      SignalDatabase.attachmentMetadata.cleanup()
+      SignalDatabase.attachmentMetadata.cleanupById(metadataIdsToCleanup)
 
       AppDependencies.databaseObserver.notifyAttachmentDeletedObservers()
 
@@ -1434,7 +1443,7 @@ class AttachmentTable(
     var deletedMessageId: Long? = null
 
     writableDatabase.withinTransaction { db ->
-      db.select(DATA_FILE, CONTENT_TYPE, MESSAGE_ID)
+      db.select(DATA_FILE, CONTENT_TYPE, MESSAGE_ID, METADATA_ID)
         .from(TABLE_NAME)
         .where("$ID = ?", id.id)
         .run()
@@ -1447,12 +1456,13 @@ class AttachmentTable(
           val filePath = cursor.requireString(DATA_FILE)
           val contentType = cursor.requireString(CONTENT_TYPE)
           deletedMessageId = cursor.requireLong(MESSAGE_ID)
+          val metadataId = cursor.requireLongOrNull(METADATA_ID)
 
           db.delete(TABLE_NAME)
             .where("$ID = ?", id.id)
             .run()
 
-          SignalDatabase.attachmentMetadata.cleanup()
+          SignalDatabase.attachmentMetadata.cleanupById(listOfNotNull(metadataId))
 
           if (filePath != null && isSafeToDeleteDataFile(filePath, id)) {
             filePathsToDelete += filePath
@@ -1749,7 +1759,7 @@ class AttachmentTable(
       // the quality of the attachment we received.
       val hashMatch: DataFileInfo? = readableDatabase
         .select(*DATA_FILE_INFO_PROJECTION)
-        .from(TABLE_NAME)
+        .from("$TABLE_NAME INDEXED BY $DATA_HASH_REMOTE_KEY_INDEX")
         .where("$DATA_HASH_END = ? AND $DATA_HASH_END NOT NULL AND $TRANSFER_STATE = $TRANSFER_PROGRESS_DONE AND $DATA_FILE NOT NULL", fileWriteResult.hash)
         .run()
         .readToList { it.readDataFileInfo() }

@@ -26,14 +26,20 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 
 /**
- * Notifier that surfaces SQLite write-lock contention. Gated behind the
- * [RemoteConfig.slowDatabaseNotifications] flag.
+ * Notifier that surfaces SQLite write-lock contention. Gated behind the [RemoteConfig.slowDatabaseNotifications] flag.
  */
 object SlowTransactionInternalNotifier {
 
   private const val THRESHOLD = 5
 
   private val NOTIFY_INTERVAL = 30.minutes
+
+  private val IGNORED_STACK_TRACE_CLASSES = listOf(
+    "BackupRepository",
+    "BackupMessagesJob",
+    "ArchiveAttachmentReconciliationJob",
+    "SubmitDebugLogRepository"
+  )
 
   private val count = AtomicInteger(0)
 
@@ -43,6 +49,10 @@ object SlowTransactionInternalNotifier {
   @JvmStatic
   fun onSlowEvent() {
     if (!RemoteConfig.slowDatabaseNotifications) {
+      return
+    }
+
+    if (isExpectedSlowOperation()) {
       return
     }
 
@@ -71,5 +81,16 @@ object SlowTransactionInternalNotifier {
       .build()
 
     NotificationManagerCompat.from(context).notify(NotificationIds.INTERNAL_ERROR, notification)
+  }
+
+  private fun isExpectedSlowOperation(): Boolean {
+    return Thread
+      .currentThread()
+      .stackTrace
+      .any { element ->
+        IGNORED_STACK_TRACE_CLASSES.any {
+          element.className.contains(it)
+        }
+      }
   }
 }
