@@ -28,7 +28,15 @@ jobs:
       with:
         distribution: temurin
         java-version: 17
-        cache: gradle
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6
+      # gh api repos/gradle/actions/commits/v6 --jq '.sha'
+      with:
+        # PR-only workflow: always read from the cache, never write.
+        cache-read-only: true
+        # Required to read the Gradle configuration cache persisted by 8.** builds.
+        cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
     - name: Install NDK
       run: echo "y" | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --install "ndk;${{ env.NDK_VERSION }}"

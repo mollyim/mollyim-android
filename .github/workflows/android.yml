@@ -5,7 +5,7 @@ on:
   push:
     branches:
     - 'main'
-    - '7.**'
+    - '8.**'
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -27,11 +27,19 @@ jobs:
       with:
         distribution: temurin
         java-version: 17
-        cache: gradle
 
     - name: Validate Gradle Wrapper
       uses: gradle/actions/wrapper-validation@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6
       # gh api repos/gradle/actions/commits/v6 --jq '.sha'
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6
+      # gh api repos/gradle/actions/commits/v6 --jq '.sha'
+      with:
+        # Only 8.** branch builds write to the cache; everything else (PRs, etc.) reads only.
+        cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/8.') }}
+        # Required to persist the Gradle configuration cache across runs.
+        cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
     - name: Build with Gradle
       run: ./gradlew qa
