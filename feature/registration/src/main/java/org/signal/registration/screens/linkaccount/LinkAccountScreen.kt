@@ -417,10 +417,9 @@ fun getQrOuterBorderSize(isInOverlay: Boolean): Dp {
 
   val breakpoint = rememberWindowBreakpoint()
   return when (breakpoint) {
-    WindowBreakpoint.SMALL -> 296.dp
-    WindowBreakpoint.MEDIUM -> 296.dp
-    WindowBreakpoint.LARGE_WIDTH -> 364.dp
-    WindowBreakpoint.LARGE_HEIGHT -> 364.dp
+    is WindowBreakpoint.Small -> 296.dp
+    is WindowBreakpoint.Medium -> 296.dp
+    is WindowBreakpoint.Large -> 364.dp
   }
 }
 
@@ -432,10 +431,9 @@ fun getQrInnerBorderSize(isInOverlay: Boolean): Dp {
 
   val breakpoint = rememberWindowBreakpoint()
   return when (breakpoint) {
-    WindowBreakpoint.SMALL -> 232.dp
-    WindowBreakpoint.MEDIUM -> 232.dp
-    WindowBreakpoint.LARGE_WIDTH -> 284.dp
-    WindowBreakpoint.LARGE_HEIGHT -> 284.dp
+    is WindowBreakpoint.Small -> 232.dp
+    is WindowBreakpoint.Medium -> 232.dp
+    is WindowBreakpoint.Large -> 284.dp
   }
 }
 
@@ -447,10 +445,9 @@ fun getQrCodeSize(isInOverlay: Boolean): Dp {
 
   val breakpoint = rememberWindowBreakpoint()
   return when (breakpoint) {
-    WindowBreakpoint.SMALL -> 208.dp
-    WindowBreakpoint.MEDIUM -> 208.dp
-    WindowBreakpoint.LARGE_WIDTH -> 256.dp
-    WindowBreakpoint.LARGE_HEIGHT -> 256.dp
+    is WindowBreakpoint.Small -> 208.dp
+    is WindowBreakpoint.Medium -> 208.dp
+    is WindowBreakpoint.Large -> 256.dp
   }
 }
 

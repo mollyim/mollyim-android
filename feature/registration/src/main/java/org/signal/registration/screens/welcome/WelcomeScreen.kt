@@ -84,7 +84,7 @@ fun WelcomeScreen(
   val onTermsAndPrivacyClick = { onEvent(WelcomeScreenEvents.ViewTermsAndPrivacy) }
 
   when (windowBreakpoint) {
-    WindowBreakpoint.SMALL -> {
+    is WindowBreakpoint.Small -> {
       CompactLayout(
         onEvent = onEvent,
         onRestoreOrTransferClick = onRestoreOrTransferClick,
@@ -93,7 +93,7 @@ fun WelcomeScreen(
       )
     }
 
-    WindowBreakpoint.MEDIUM -> {
+    is WindowBreakpoint.Medium -> {
       MediumLayout(
         onEvent = onEvent,
         onRestoreOrTransferClick = onRestoreOrTransferClick,
@@ -102,7 +102,7 @@ fun WelcomeScreen(
       )
     }
 
-    WindowBreakpoint.LARGE_WIDTH, WindowBreakpoint.LARGE_HEIGHT -> {
+    is WindowBreakpoint.Large -> {
       LargeLayout(
         isLinkAndSyncAvailable = isLinkAndSyncAvailable,
         onEvent = onEvent,

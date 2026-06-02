@@ -173,10 +173,9 @@ private fun FooterContent(
   val breakpoint = rememberWindowBreakpoint()
 
   when (breakpoint) {
-    WindowBreakpoint.SMALL -> StackedFooter(params, modifier, onEvent)
-    WindowBreakpoint.MEDIUM -> StackedFooter(params, modifier, onEvent)
-    WindowBreakpoint.LARGE_WIDTH -> InlineFooter(modifier, onEvent)
-    WindowBreakpoint.LARGE_HEIGHT -> InlineFooter(modifier, onEvent)
+    is WindowBreakpoint.Small -> StackedFooter(params, modifier, onEvent)
+    is WindowBreakpoint.Medium -> StackedFooter(params, modifier, onEvent)
+    is WindowBreakpoint.Large -> InlineFooter(modifier, onEvent)
   }
 }
 

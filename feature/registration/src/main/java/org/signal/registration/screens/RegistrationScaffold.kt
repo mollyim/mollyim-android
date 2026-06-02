@@ -125,11 +125,10 @@ object RegistrationScaffold {
 
   @Composable
   fun rememberLayoutParams(): Params {
-    return when (rememberWindowBreakpoint()) {
-      WindowBreakpoint.SMALL -> smallLayoutParams
-      WindowBreakpoint.MEDIUM -> mediumLayoutParams
-      WindowBreakpoint.LARGE_WIDTH -> largeWidthLayoutParams
-      WindowBreakpoint.LARGE_HEIGHT -> largeHeightLayoutParams
+    return when (val breakpoint = rememberWindowBreakpoint()) {
+      is WindowBreakpoint.Small -> smallLayoutParams
+      is WindowBreakpoint.Medium -> mediumLayoutParams
+      is WindowBreakpoint.Large -> if (breakpoint.isWidthExpanded) largeWidthLayoutParams else largeHeightLayoutParams
     }
   }
 
