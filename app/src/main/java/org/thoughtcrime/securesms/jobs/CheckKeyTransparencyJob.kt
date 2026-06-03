@@ -81,7 +81,10 @@ class CheckKeyTransparencyJob private constructor(
     }
 
     private fun canRunJob(): Boolean {
-      return if (!SignalStore.account.isRegistered) {
+      return if (!RemoteConfig.internalUser) {
+        Log.i(TAG, "Remote config is not on. Exiting.")
+        false
+      } else if (!SignalStore.account.isRegistered) {
         Log.i(TAG, "Account not registered. Exiting.")
         false
       } else if (!SignalStore.settings.automaticVerificationEnabled) {
