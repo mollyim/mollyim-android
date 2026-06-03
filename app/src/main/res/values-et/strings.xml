@@ -4358,7 +4358,7 @@
     <string name="preferences_data_and_storage__never">Mitte kunagi</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi ja mobiilne andmeside</string>
     <string name="preferences_data_and_storage__mobile_data_only">Ainult mobiilne andmeside</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Väiksema andmemahu kasutamine võib kehvades võrkudes parendada kõnekvaliteeti.</string>
     <string name="preferences_notifications__in_chat_sounds">Vestlusesisesed helid</string>
     <string name="preferences_notifications__show">Kuva</string>
     <string name="preferences_notifications__ringtone">Helin</string>
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Standardne</string>
     <string name="DataAndStorageSettingsFragment__calls">Kõned</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Hoia rakendus taustal avatuna</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Rakenduse taustal avatuna hoidmine tühjendab tõenäoliselt rohkem akut. See ei ole enamiku seadmete puhul vajalik. Lülita see sisse vaid juhul, kui sul on olnud teavitustega probleeme.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Luba</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Kas lülitada seadmesisesed varukoopiad sisse?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Selleks, et jätkata seadmesiseste varukoopiate kasutamist, pead need selle konto jaoks lubama. Saad seda igal ajal teha, valides Sätted &gt; Varukoopiad.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Lülita kohe sisse</string>

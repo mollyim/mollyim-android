@@ -4235,7 +4235,7 @@
     <string name="preferences_data_and_storage__never">Không bao giờ</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi và dữ liệu di động</string>
     <string name="preferences_data_and_storage__mobile_data_only">Chỉ dữ liệu di động</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Sử dụng ít lưu lượng data có thể cải thiện chất lượng cuộc gọi trong môi trường mạng kém.</string>
     <string name="preferences_notifications__in_chat_sounds">Âm thanh khi đang trò chuyện</string>
     <string name="preferences_notifications__show">Hiện</string>
     <string name="preferences_notifications__ringtone">Nhạc chuông</string>
@@ -5903,11 +5903,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Tiêu chuẩn</string>
     <string name="DataAndStorageSettingsFragment__calls">Cuộc gọi</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Duy trì kết nối ở chế độ nền</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Việc duy trì kết nối khi ứng dụng chạy ngầm có thể dẫn đến việc tiêu hao pin nhiều hơn. Điều này không cần thiết đối với hầu hết thiết bị. Chỉ bật tùy chọn này nếu bạn đang gặp vấn đề về thông báo.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Bật</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9198,7 +9198,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Bật sao lưu trên thiết bị?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Để tiếp tục sử dụng tính năng sao lưu trên thiết bị, bạn cần bật tính năng này cho tài khoản. Bạn có thể làm điều này bất cứ lúc nào trong Cài đặt &gt; Sao lưu.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Bật ngay</string>

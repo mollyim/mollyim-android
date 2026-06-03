@@ -1787,7 +1787,7 @@
 
     <!-- MessageRetrievalService -->
     <string name="MessageRetrievalService_signal">Signal</string>
-    <string name="MessageRetrievalService_background_connection_enabled">Berichten ontvangen op de achtergrond is actief</string>
+    <string name="MessageRetrievalService_background_connection_enabled">Verbinding op de achtergrond is actief</string>
 
     <!-- MediaOverviewActivity -->
     <string name="MediaOverviewActivity_Media">Media</string>
@@ -3166,7 +3166,7 @@
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">Reageerde met %1$s op je verhaal</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
-    <string name="ThreadRecord__reacted_s_to_their_story">Reageerde met %1$s op een verhaal</string>
+    <string name="ThreadRecord__reacted_s_to_their_story">Je reageerde met %1$s op een verhaal</string>
     <!-- Displayed in the conversation list when your most recent message is a payment to or from the person the conversation is with -->
     <string name="ThreadRecord_payment">Betaling</string>
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Standaard</string>
     <string name="DataAndStorageSettingsFragment__calls">Oproepen</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Verbonden blijven op de achtergrond</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Verbonden blijven op de achtergrond zal waarschijnlijk je batterijverbruik verhogen. Dit is voor de meeste apparaten niet nodig. Schakel deze optie alleen in wanneer je problemen ondervindt met meldingen.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Inschakelen</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Lokale back-ups inschakelen?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Om lokale back-ups te blijven gebruiken moet je deze voor dit account inschakelen. Je kunt dit elk moment doen in Instellingen &gt; Back-ups.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Nu inschakelen</string>
@@ -9896,7 +9896,7 @@
     <!-- First paragraph of the body of the verification code requested sheet -->
     <string name="VerificationCodeRequestedBottomSheet__body_1">Deel de verificatiecode met niemand. Signal zal je er nooit een bericht over sturen. Als je een bericht hebt ontvangen van iemand die zich voordoet als Signal, dan is dat oplichting.</string>
     <!-- Second paragraph of the body of the verification code requested sheet -->
-    <string name="VerificationCodeRequestedBottomSheet__body_2">Je kunt dit bericht negeren als je de code zelf hebt aangevraagd.</string>
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Als je de code zelf hebt aangevraagd, kun je dit bericht negeren.</string>
     <!-- Button on the verification code requested sheet that opens the safety tips screen -->
     <string name="VerificationCodeRequestedBottomSheet__safety_tips">Veiligheidstips</string>
     <!-- Button on the verification code requested sheet that dismisses the sheet -->

@@ -4481,7 +4481,7 @@
     <string name="preferences_data_and_storage__never">Nekad</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">Wi-Fi un mobilie dati</string>
     <string name="preferences_data_and_storage__mobile_data_only">Tikai mobilie dati</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Taupīgāka datu lietošana var uzlabot zvanu kvalitāti sliktos tīklos.</string>
     <string name="preferences_notifications__in_chat_sounds">Skaņas sarunā</string>
     <string name="preferences_notifications__show">Rādīt</string>
     <string name="preferences_notifications__ringtone">Zvana signāls</string>
@@ -6201,11 +6201,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Standarta</string>
     <string name="DataAndStorageSettingsFragment__calls">Zvani</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Saglabāt savienojumu fonā</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Saglabājot savienojumu fonā, visticamāk, palielināsies akumulatora enerģijas patēriņš. Lielākajai daļai ierīču tas nav nepieciešams. Iespējojiet tikai tad, ja jums ir problēmas ar paziņojumiem.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Iespējot</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9596,7 +9596,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Vai ieslēgt rezerves kopijas ierīcē?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Lai turpinātu lietot rezerves kopijas ierīcē, tās jāiespējo šim kontam. To var izdarīt jebkurā laikā sadaļā Iestatījumi &gt; Rezerves kopijas.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Ieslēgt tūlīt</string>

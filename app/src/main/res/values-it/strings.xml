@@ -60,7 +60,7 @@
     <string name="ApplicationPreferencesActivity_pin_disabled">PIN disabilitato.</string>
     <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Annota la frase di recupero dei pagamenti</string>
     <string name="ApplicationPreferencesActivity_record_phrase">Annota frase</string>
-    <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Prima di poter disabilitare il PIN, è necessario annotare la frase di recupero dei pagamenti per assicurarsi di poter recuperare il proprio account pagamenti.</string>
+    <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Prima di disattivare il PIN, salva la frase di recupero per assicurarti di poter recuperare il tuo account dei pagamenti.</string>
     <!-- The title of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
     <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_title">Crea una nuova chiave di ripristino</string>
     <!-- The body of a dialog letting the user know they have to rotate their recovery key if they want to disable PINs -->
@@ -118,9 +118,9 @@
 
     <!-- AttachmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Impossibile trovare un\'app per selezionare il file.</string>
-    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal richiede l\'autorizzazione per accedere alla galleria e quindi allegare foto, video o audio, ma è stata negata in modo definitivo. Apri il menu delle impostazioni dell\'app, seleziona \"Autorizzazioni\" e abilita \"Archiviazione\".</string>
-    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal richiede l\'autorizzazione per accedere ai contatti e quindi allegare le informazioni di contatto, ma è stata negata in modo definitivo. Apri il menu delle impostazioni dell\'app, seleziona \"Autorizzazioni\" e abilita \"Contatti\".</string>
-    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal richiede l\'autorizzazione per accedere alla geolocalizzazione e quindi allegare la posizione, ma è stata negata in modo definitivo. Apri il menu delle impostazioni dell\'app, seleziona \"Autorizzazioni\" e abilita \"Posizione\".</string>
+    <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Hai disattivato permanentemente l\'accesso all\'archiviazione, necessario per allegare foto, video o audio. Per rimediare, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Archiviazione”.</string>
+    <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">L\'accesso ai contatti è stato disattivato permanentemente. Per poter condividere le informazioni dei tuoi contatti, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Contatti”.</string>
+    <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">L\'accesso alla posizione è stato disattivato permanentemente. Per poter condividere dove ti trovi, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Posizione”.</string>
 
     <!-- Dialog title asking users for location permission -->
     <string name="AttachmentManager_signal_allow_access_location">Consenti l\'accesso alla tua posizione</string>
@@ -509,9 +509,9 @@
     <string name="ConversationActivity_admins">admin</string>
     <string name="ConversationActivity_message_an_admin">Invia un messaggio a un admin</string>
     <string name="ConversationActivity_cant_start_group_call">Impossibile iniziare una chiamata di gruppo</string>
-    <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Solo gli admin di questo gruppo possono iniziare una chiamata.</string>
+    <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Solo gli amministratori di questo gruppo possono iniziare una chiamata.</string>
     <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Sul tuo dispositivo non sono presenti app per gestire questo link.</string>
-    <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">La tua richiesta di unirti è stata inviata agli admin del gruppo. Riceverai una notifica quando interverranno.</string>
+    <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">La tua richiesta di unirti è stata inviata agli amministratori del gruppo. Riceverai una notifica quando interverranno.</string>
     <string name="ConversationActivity_cancel_request">Annulla richiesta</string>
 
     <!-- Dialog title asking users for microphone permission -->
@@ -522,14 +522,14 @@
     <string name="ConversationActivity_to_send_voice_messages_allow_signal_access_to_your_microphone">Per poter inviare dei messaggi vocali, permetti a Signal di accedere al tuo microfono.</string>
     <!-- Toast text explaining Signal\'s need for microphone access -->
     <string name="ConversationActivity_signal_needs_microphone_access_voice_message">Signal deve accedere al tuo microfono per poter registrare un messaggio vocale.</string>
-    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal richiede l\'autorizzazione all\'uso del microfono per inviare messaggi audio, ma è stata negata in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Microfono\".</string>
+    <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">L\'accesso al microfono è stato disattivato permanentemente. Per poter inviare messaggi vocali, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Microfono”.</string>
 
-    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal richiede le autorizzazioni all\'uso del microfono e della fotocamera per chiamare %1$s, ma sono state negate in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Microfono\" e \"Fotocamera\".</string>
-    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Per poter catturare foto e video, permetti a Signal di accedere alla fotocamera del tuo dispositivo</string>
-    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal richiede l\'autorizzazione all\'uso della fotocamera per scattare foto o registrare video, ma è stata negata in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Fotocamera\".</string>
+    <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">L\'accesso a fotocamera e microfono è stato disattivato permanentemente. Per poter chiamare %1$s, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Fotocamera” e “Microfono”.</string>
+    <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Per scattare foto e video, permetti a Signal di accedere alla fotocamera del tuo dispositivo.</string>
+    <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">L\'accesso alla fotocamera è stato disattivato permanentemente. Per poter scattare foto o registrare video, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Fotocamera”.</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal richiede l\'autorizzazione all\'uso della fotocamera per scattare foto o registrare video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Abilita l\'autorizzazione all\'uso del microfono per registrare video con audio.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal richiede l\'autorizzazione all\'uso del microfono per registrare video, ma è stata negata. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Microfono\" e \"Fotocamera\".</string>
+    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">L\'accesso a microfono e fotocamera è disattivato. Per poter registrare video, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Microfono” e “Fotocamera”.</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal richiede l\'autorizzazione all\'uso del microfono per registrare video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -982,7 +982,7 @@
     <!-- Remote media restoration paused status description for when the restore is paused because internet is unavailable. -->
     <string name="RestoreMediaReminder__Waiting_for_internet_connection">In attesa di una connessione Internet…</string>
     <!-- Remote media restoration paused status description for when the device\'s battery is low -->
-    <string name="RestoreMediaReminder__low_battery">Batteria bassa. Carica il tuo dispositivo.</string>
+    <string name="RestoreMediaReminder__low_battery">Batteria scarica. Ricarica il dispositivo.</string>
     <!-- Remote media restoration call to action when the device is out of space. The placeholder string is a file size, such as "1.23 GB". -->
     <string name="RestoreMediaReminder__Free_up_space">Libera %1$s per ripristinare i tuoi media.</string>
     <!-- Button label to abort media restoration -->
@@ -2361,7 +2361,7 @@
     <string name="DeviceProvisioningActivity_link_a_signal_device">Collegare un dispositivo Signal?</string>
     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">Per collegare un desktop o un iPad a questo account Signal, vai nella sezione Dispositivi collegati, tocca \"Collega un nuovo dispositivo\" e scansiona di nuovo il codice QR. Assicurati di scansionare solamente i codici QR inviati direttamente da Signal.</string>
 
-    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal richiede l\'autorizzazione all\'uso della fotocamera per leggere codici QR, ma questa è stata negata in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Fotocamera\".</string>
+    <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">L\'accesso alla fotocamera è stato disattivato permanentemente. Per poter scansionare i codici QR, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Fotocamera”.</string>
     <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Signal richiede l\'autorizzazione all\'uso della fotocamera per leggere codici QR.</string>
 
     <!-- OutdatedBuildReminder -->
@@ -2545,7 +2545,7 @@
     <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
     <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">La tua richiesta di accesso alla chiamata è stata rifiutata.</string>
     <!-- Title of dialog displayed when a user is removed from a call link -->
-    <string name="WebRtcCallActivity__removed_from_call">Sei fuori dalla chiamata</string>
+    <string name="WebRtcCallActivity__removed_from_call">Sei stato/a rimosso/a dalla chiamata</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
     <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">Ti hanno rimosso dalla chiamata.</string>
     <!-- Dialog title asking users for camera and microphone permission -->
@@ -2851,12 +2851,12 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">Riceverai una chiamata per verificare questo numero.</string>
     <string name="RegistrationActivity_edit_number">Modifica numero</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play Services mancanti</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Il dispositivo non ha Google Play Services. Puoi comunque usare Signal, ma questa configurazione potrebbe essere meno affidabile o performante.\n\nSe non sei un utente avanzato, non usi una ROM Android alternativa o credi che questo messaggio sia un errore, contatta support@signal.org per ricevere aiuto.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">Su questo dispositivo mancano i Google Play Services. Puoi comunque usare Signal, ma l\'app potrebbe essere meno affidabile o avere prestazioni ridotte.\n\nSe non usi una ROM Android alternativa o ritieni che questo messaggio sia un errore, contatta support@signal.org per ricevere assistenza.</string>
     <string name="RegistrationActivity_i_understand">Ho capito</string>
     <string name="RegistrationActivity_play_services_error">Errore di Google Play Services</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services si sta aggiornando o non è al momento disponibile. Per favore riprovare.</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal richiede l\'accesso ai tuoi contatti e ai tuoi contenuti multimediali per aiutarti a connetterti con gli amici e inviare messaggi. I tuoi contatti vengono caricati utilizzando la scoperta privata dei contatti di Signal, il che significa che sono crittografati end-to-end e non sono mai visibili al servizio Signal.</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal richiede l\'accesso ai tuoi contatti per aiutarti a connetterti con gli amici. I tuoi contatti vengono caricati utilizzando la scoperta privata dei contatti di Signal, il che significa che sono crittografati end-to-end e non sono mai visibili al servizio Signal.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal ha bisogno di accedere ai contatti e ai contenuti multimediali per permetterti di messaggiare e connetterti con chi conosci. La verifica della rubrica avviene in modo protetto: i dati sono crittografati end-to-end e non sono mai visibili nemmeno a Signal.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal ha bisogno di accedere alla tua rubrica per aiutarti a connetterti con gli amici. La verifica dei contatti avviene in modo protetto: i tuoi dati sono crittografati end-to-end e non sono mai visibili a nessuno, nemmeno a Signal.</string>
     <string name="RegistrationActivity_rate_limited_to_service">Hai fatto troppi tentativi per registrare questo numero. Per favore riprova più tardi.</string>
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
     <string name="RegistrationActivity_rate_limited_to_try_again">Hai fatto troppi tentativi per registrarti con questo numero. Per favore riprova tra %1$s.</string>
@@ -3252,12 +3252,12 @@
 
     <!-- VerifyIdentityActivity -->
     <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Il tuo contatto sta eseguendo una versione più aggiornata di Signal con un formato di codice QR non compatibile. Per effettuare il confronto aggiorna la tua versione.</string>
-    <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">Il codice QR letto non è un codice di verifica formalmente valido per un codice di sicurezza. Si prega di rieseguire la scansione.</string>
+    <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">Il codice QR scansionato non è valido per la verifica di sicurezza. Riprova a scansionarlo.</string>
     <string name="VerifyIdentityActivity_share_safety_number_via">Condividi codice di sicurezza tramite…</string>
     <string name="VerifyIdentityActivity_our_signal_safety_number">I nostri codice di sicurezza Signal:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">Sembra che tu non abbia applicazioni per condividere.</string>
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Negli appunti non c\'è un codice di sicurezza da confrontare</string>
-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal richiede l\'autorizzazione all\'uso della fotocamera per leggere codici QR, ma questa è stata negata in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Fotocamera\".</string>
+    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">L\'accesso alla fotocamera è stato disattivato permanentemente. Per poter scansionare i codici QR, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Fotocamera”.</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Impossibile scannerizzare i codici QR senza il permesso all\'uso della fotocamera</string>
     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">È necessario prima scambiarsi messaggi per poter visualizzare il codice di sicurezza di %1$s.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
@@ -3539,7 +3539,7 @@
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Per rispondere alla chiamata, dai a Signal l\'autorizzazione ad accedere al tuo microfono.</string>
     <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
     <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">Per rispondere alla videochiamata, dai a Signal l\'autorizzazione ad accedere al tuo microfono e alla fotocamera.</string>
-    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal richiede le autorizzazioni all\'uso del microfono e della fotocamera per fare e ricevere chiamate, ma questo sono state negate in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Microfono\" e \"Fotocamera\".</string>
+    <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">L\'accesso a fotocamera e microfono è stato disattivato permanentemente. Per poter effettuare e ricevere chiamate, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Fotocamera” e “Microfono”.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">Hai risposto su un dispositivo collegato.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">Hai rifiutato su un dispositivo collegato.</string>
     <string name="WebRtcCallActivity__busy_on_a_linked_device">Occupato su un dispositivo collegato.</string>
@@ -3613,7 +3613,7 @@
     <string name="SingleContactSelectionActivity_contact_photo">Foto del contatto</string>
 
     <!-- ContactSelectionListFragment-->
-    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal richiede l\'autorizzazione alla lettura dei contatti per permetterti la ricerca, ma questa è stata negata in modo permanente. Si prega di aprire il menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Contatti\".</string>
+    <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">L\'accesso ai contatti è stato disattivato permanentemente. Per poter cercare le persone che conosci, vai nelle impostazioni dell\'app, seleziona “Autorizzazioni” e attiva “Contatti”.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Errore di rilevamento dei contatti, controlla la connessione di rete</string>
     <string name="ContactSelectionListFragment_username_not_found">Nome utente non trovato</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\"%1$s\" non è un utente Signal. Controlla il nome utente e riprova."</string>
@@ -3872,7 +3872,7 @@
     <string name="IdentityUtil_unverified_banner_two">I tuoi codici di sicurezza con %1$s e %2$s non sono più verificati</string>
     <string name="IdentityUtil_unverified_banner_many">I tuoi codici di sicurezza con %1$s,%2$s e %3$s non sono più verificati</string>
 
-    <string name="IdentityUtil_unverified_dialog_one">Il tuo codice di sicurezza con %1$s è cambiato. Questo può voler dire che qualcuno sta cercando d\'intercettare la tua comunicazione, oppure che %1$s ha semplicemente reinstallato Signal.</string>
+    <string name="IdentityUtil_unverified_dialog_one">Il tuo codice di sicurezza con %1$s è cambiato e non è più verificato. Questo potrebbe significare che qualcuno sta tentando di intercettare le tue comunicazioni, o che %1$s ha reinstallato Signal.</string>
     <string name="IdentityUtil_unverified_dialog_two">I tuoi codici di sicurezza con %1$s e %2$s non sono più verificati. Questo potrebbe significare che qualcuno sta tentando di intercettare le tue comunicazioni o che l\'altro utente ha semplicemente reinstallato Signal.</string>
     <string name="IdentityUtil_unverified_dialog_many">I tuoi codici di sicurezza con %1$s,%2$s e %3$s non sono più verificati. Questo potrebbe significare che qualcuno sta tentando di intercettare le tue comunicazioni o che l\'altro utente ha semplicemente reinstallato Signal.</string>
 
@@ -4358,7 +4358,7 @@
     <string name="preferences_data_and_storage__never">Mai</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi e dati mobili</string>
     <string name="preferences_data_and_storage__mobile_data_only">Solo dati mobili</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">L\'utilizzo di meno dati può migliorare le chiamate su reti lente.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Utilizzare meno dati può migliorare le chiamate su reti lente.</string>
     <string name="preferences_notifications__in_chat_sounds">Suoni in chat</string>
     <string name="preferences_notifications__show">Mostra</string>
     <string name="preferences_notifications__ringtone">Suoneria</string>
@@ -4553,7 +4553,7 @@
     <string name="PaymentsTransferFragment__check_the_wallet_address">Controlla l\'indirizzo del portafoglio a cui stai tentando di trasferire e riprova.</string>
     <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Non puoi trasferire all\'indirizzo del tuo portafoglio Signal. Inserisci l\'indirizzo del portafoglio dal tuo account in uno exchange supportato.</string>
     <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Per scansionare un codice QR, Signal deve accedere alla fotocamera.</string>
-    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal richiede l\'autorizzazione all\'uso della fotocamera per acquisire un codice QR. Vai nelle impostazioni, selezionare \"Autorizzazioni\" e abilita \"Fotocamera\".</string>
+    <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal ha bisogno dell\'autorizzazione per la fotocamera per scansionare il codice QR. Vai nelle impostazioni, seleziona “Autorizzazioni” e attiva “Fotocamera”.</string>
     <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Per scansionare un codice QR, Signal deve accedere alla fotocamera.</string>
     <string name="PaymentsTransferFragment__settings">Impostazioni</string>
 
@@ -5167,7 +5167,7 @@
     <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal necessita dell\'autorizzazione alla posizione per trovare e connettersi al tuo vecchio dispositivo Android.</string>
     <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal ha bisogno che i servizi di localizzazione siano attivi per trovare e connettersi con il tuo vecchio dispositivo Android.</string>
     <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal ha bisogno che il Wi-Fi sia attivo per trovare e connettersi con il tuo vecchio dispositivo Android. Il Wi-Fi deve essere attivo ma non è necessario che sia connesso a una rete Wi-Fi.</string>
-    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Spiacenti, sembra che questo dispositivo non supporti il Wi-Fi Direct. Signal utilizza il Wi-Fi Direct per trovare e connettersi con il tuo vecchio dispositivo Android. Puoi comunque ripristinare un backup per ripristinare il tuo account dal tuo vecchio dispositivo Android.</string>
+    <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Questo dispositivo non sembra supportare il Wi-Fi Direct, utilizzato da Signal per rilevare e connettersi al vecchio telefono Android. Puoi comunque ripristinare un backup per recuperare il tuo account.</string>
     <string name="NewDeviceTransferSetup__restore_a_backup">Ripristina un backup</string>
     <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Si è verificato un errore imprevisto durante il tentativo di connessione al tuo vecchio dispositivo Android.</string>
 
@@ -5176,7 +5176,7 @@
     <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal necessita dell\'autorizzazione alla posizione per trovare e connettersi al tuo nuovo dispositivo Android.</string>
     <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal ha bisogno che i servizi di localizzazione siano attivi per trovare e connettersi con il tuo nuovo dispositivo Android.</string>
     <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal ha bisogno che il Wi-Fi sia attivo per trovare e connettersi con il tuo nuovo dispositivo Android. Il Wi-Fi deve essere attivo ma non è necessario che sia connesso a una rete Wi-Fi.</string>
-    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Spiacenti, sembra che questo dispositivo non supporti il Wi-Fi Direct. Signal utilizza il Wi-Fi Direct per trovare e connettersi con il tuo nuovo dispositivo Android. Puoi comunque creare un backup per ripristinare il tuo account sul tuo nuovo dispositivo Android.</string>
+    <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Questo dispositivo non sembra supportare il Wi-Fi Direct, utilizzato da Signal per rilevare e connettersi al nuovo telefono Android. Puoi comunque creare un backup per trasferire il tuo account.</string>
     <string name="OldDeviceTransferSetup__create_a_backup">Crea un backup</string>
     <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Si è verificato un errore imprevisto durante il tentativo di connessione al tuo nuovo dispositivo Android.</string>
 
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Normale</string>
     <string name="DataAndStorageSettingsFragment__calls">Chiamate</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Mantieni connessione in background</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">La connessione in background potrebbe aumentare il consumo della batteria. Questa opzione non è necessaria per la maggior parte dei dispositivi: attivala solo se riscontri problemi con le notifiche.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Attiva</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -6660,7 +6660,7 @@
     <!-- Displayed when badge credential couldn\'t be verified -->
     <string name="DonationsErrors__failed_to_validate_badge">Validazione del badge non riuscita</string>
     <!-- Displayed when badge credential couldn\'t be verified -->
-    <string name="DonationsErrors__could_not_validate">Impossibile validare la risposta del server. Si prega di contattare il supporto.</string>
+    <string name="DonationsErrors__could_not_validate">Impossibile verificare la risposta del server. Contatta l\'assistenza.</string>
     <!-- Displayed as title when some generic error happens during sending donation on behalf of another user -->
     <string name="DonationsErrors__donation_failed">Donazione non riuscita</string>
     <!-- Displayed as message when some generic error happens during sending donation on behalf of another user -->
@@ -9278,7 +9278,7 @@
     <!-- Dialog title shown as a warning when skipping restore during registration -->
     <string name="SelectRestoreMethodFragment__skip_restore_title">Saltare il ripristino?</string>
     <!-- Dialog message shown as a warning when skipping restore during registration -->
-    <string name="SelectRestoreMethodFragment__skip_restore_warning">Se non fai ora il ripristino, non sarà possibile eseguirlo in un secondo momento. Se attivi di nuovo i backup dopo aver saltato il ripristino, il tuo backup attuale verrà rimpiazzato con la tua nuova cronologia messaggi.</string>
+    <string name="SelectRestoreMethodFragment__skip_restore_warning">Se salti il ripristino adesso, non potrai più eseguirlo in seguito. Attivando nuovamente i backup, quello attuale verrà sostituito dalla nuova cronologia dei messaggi.</string>
     <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
     <string name="SelectRestoreMethodFragment__skip_restore">Salta il ripristino</string>
 
@@ -9357,7 +9357,7 @@
     <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm skipping backup restore -->
     <string name="RestoreLocalBackupDialog__skip_restore">Saltare il ripristino?</string>
     <!-- RestoreLocalBackupDialog: Body of the dialog warning the user about the consequences of skipping backup restore -->
-    <string name="RestoreLocalBackupDialog__skip_restore_body">Se non fai ora il ripristino, non sarà possibile eseguirlo in un secondo momento. Se attivi di nuovo i backup dopo aver saltato il ripristino, il tuo backup attuale verrà sostituito con la tua nuova cronologia messaggi.</string>
+    <string name="RestoreLocalBackupDialog__skip_restore_body">Se salti il ripristino adesso, non potrai più eseguirlo in seguito. Attivando nuovamente i backup, quello attuale verrà sostituito dalla nuova cronologia dei messaggi.</string>
     <!-- RestoreLocalBackupDialog: Confirm button label for the skip restore dialog -->
     <string name="RestoreLocalBackupDialog__skip_restore_confirm">Salta il ripristino</string>
     <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm restoring a backup from a different account -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Attivare i backup sul dispositivo?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Per continuare a usare i backup su dispositivo, devi attivarli per questo account. Puoi farlo in qualsiasi momento dalle Impostazioni &gt; Backup.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Attiva ora</string>

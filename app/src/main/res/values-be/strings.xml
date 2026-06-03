@@ -6350,11 +6350,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Стандартная</string>
     <string name="DataAndStorageSettingsFragment__calls">Званкі</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Падключыць у фонавым рэжыме</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Падключэнне ў фонавым рэжыме, часцей за ўсё, прыводзіць да павелічэння выкарыстання батарэі. Для большасці прылад гэта рабіць неабавязкова. Уключайце гэту наладу толькі тады, калі ў вас узніклі праблемы з апавяшчэннямі.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Уключыць</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9795,7 +9795,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Уключыць рэзервовае капіраванне на прыладзе?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Каб працягваць выкарыстоўваць рэзервовыя копіі на прыладзе, вам трэба ўключыць іх для гэтага ўліковага запісу. Вы можаце ў любы час зрабіць гэта ў «Налады» &gt; «Рэзервовыя копіі».</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Уключыць зараз</string>

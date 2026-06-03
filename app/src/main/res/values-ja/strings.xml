@@ -4235,7 +4235,7 @@
     <string name="preferences_data_and_storage__never">なし</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">Wi-Fiとモバイルデータ</string>
     <string name="preferences_data_and_storage__mobile_data_only">モバイルデータのみ</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">データ通信量を抑えて、低品質なネットワーク上での通話を改善します。</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">データ通信量を抑えると、低品質なネットワーク上での通話が改善されることがあります。</string>
     <string name="preferences_notifications__in_chat_sounds">チャット中の着信音</string>
     <string name="preferences_notifications__show">表示</string>
     <string name="preferences_notifications__ringtone">着信音</string>
@@ -5903,11 +5903,11 @@
     <string name="DataAndStorageSettingsFragment__standard">標準</string>
     <string name="DataAndStorageSettingsFragment__calls">通話</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">バックグラウンドで接続したままにする</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">バックグラウンドで接続したままにすると、バッテリーの消費量が増える可能性があります。ほとんどの端末ではこの設定は必要ではありません。通知が届かないなどの問題がある時のみ有効にしてください。</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">有効にする</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9198,7 +9198,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">端末上のバックアップを有効化しますか？</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">端末上のバックアップを使用して引き続きご利用になるには、このアカウントでバックアップを有効にする必要があります。これは、設定 &gt; バックアップ からいつでもおこなえます。</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">今すぐ有効化</string>

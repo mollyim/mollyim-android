@@ -2419,7 +2419,7 @@
     <string name="CallScreenPreJoinOverlay__your_camera_is_off">카메라가 꺼졌습니다.</string>
 
     <!-- WebRtcCallActivity -->
-    <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">비디오를 켜려면 여기를 탭하세요</string>
+    <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">영상 통화 화면을 켜려면 여기를 탭하세요</string>
     <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s 님에게 전화하려면 Signal에서 카메라 권한이 필요합니다.</string>
     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
     <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
@@ -2456,7 +2456,7 @@
     <string name="WebRtcCallActivity__deny_all">모두 거부</string>
     <!-- Displayed in call status when users are pending -->
     <plurals name="WebRtcCallActivity__d_people_waiting">
-        <item quantity="other">%1$d명이 대기 중입니다.</item>
+        <item quantity="other">%1$d명이 대기 중입니다</item>
     </plurals>
     <!-- Displayed in call status during call link when no users are pending -->
     <plurals name="WebRtcCallActivity__d_people">
@@ -2467,9 +2467,9 @@
     <!-- Message of dialog displayed when a user\'s join request is denied for call link entry -->
     <string name="WebRtcCallActivity__your_request_to_join_this_call_has_been_denied">통화 참여 요청이 거부되었습니다.</string>
     <!-- Title of dialog displayed when a user is removed from a call link -->
-    <string name="WebRtcCallActivity__removed_from_call">통화 참가 제한</string>
+    <string name="WebRtcCallActivity__removed_from_call">통화에서 제외되었습니다</string>
     <!-- Message of dialog displayed when a user is removed from a call link -->
-    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">통화 그룹에서 제외되었습니다.</string>
+    <string name="WebRtcCallActivity__someone_has_removed_you_from_the_call">다른 참여자가 통화 그룹에서 나를 내보냈습니다.</string>
     <!-- Dialog title asking users for camera and microphone permission -->
     <string name="WebRtcCallActivity__allow_access_camera_microphone">카메라와 마이크 접근을 허용해 주세요</string>
     <!-- Dialog title asking users for microphone permission -->
@@ -2481,15 +2481,15 @@
     <!-- Dialog description explaining why microphone permissions are needed to start or join a call -->
     <string name="WebRtcCallActivity__to_start_call_microphone">통화를 시작하거나 통화에 참여하려면 Signal에 마이크 접근을 허용해 주세요.</string>
     <!-- Dialog description explaining why camera permissions are needed to enable a user\'s video in a call -->
-    <string name="WebRtcCallActivity__to_enable_video_allow_camera">동영상을 사용하려면 Signal에 카메라 접근을 허용해 주세요.</string>
+    <string name="WebRtcCallActivity__to_enable_video_allow_camera">영상 통화를 켜려면 Signal에 카메라 접근을 허용해 주세요.</string>
     <!-- Toast describing why microphone permissions are needed to start or join a call -->
     <string name="WebRtcCallActivity__signal_needs_microphone_start_call">통화를 시작하거나 통화에 참여하려면 Signal에 마이크 사용 권한이 필요합니다.</string>
     <!-- Toast describing why camera permissions are needed to enable a video in a call -->
-    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">동영상을 사용하려면 Signal에 카메라 접근 권한이 필요합니다.</string>
+    <string name="WebRtcCallActivity__signal_needs_camera_access_enable_video">영상 통화 화면을 켜려면 Signal에 카메라 접근 권한이 필요합니다.</string>
     <!-- Dialog description that will explain the steps needed to give microphone permissions -->
     <string name="WebRtcCallActivity__to_start_call">통화 시작 또는 참여 방법:</string>
     <!-- Dialog description that will explain the steps needed to give camera permissions -->
-    <string name="WebRtcCallActivity__to_enable_video">동영상 사용 방법:</string>
+    <string name="WebRtcCallActivity__to_enable_video">영상 통화 화면 켜는 법:</string>
 
     <!-- MoveableLocalVideoRenderer -->
     <!-- Content description for button to shrink local video from focused/full-screen mode -->
@@ -2502,11 +2502,11 @@
     <string name="WebRtcCallView__signal_video_call">Signal 영상 통화</string>
     <string name="WebRtcCallView__start_call">통화 시작하기</string>
     <string name="WebRtcCallView__join_call">통화 참여하기</string>
-    <string name="WebRtcCallView__call_is_full">통화 최대 참가자 수 도달</string>
+    <string name="WebRtcCallView__call_is_full">통화 정원 도달</string>
     <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">이 통화는 정원(%1$d명) 초과로 지금은 참여할 수 없습니다. 나중에 다시 시도해 주세요.</string>
-    <string name="WebRtcCallView__your_video_is_off">영상이 꺼졌습니다.</string>
+    <string name="WebRtcCallView__your_video_is_off">카메라가 꺼져 있습니다</string>
     <string name="WebRtcCallView__reconnecting">재연결 중…</string>
-    <string name="WebRtcCallView__joining">참가하는 중…</string>
+    <string name="WebRtcCallView__joining">참여하는 중…</string>
     <string name="WebRtcCallView__disconnected">연결 끊김</string>
     <!-- Utilized in the lobby before joining a call link -->
     <string name="WebRtcCallView__signal_call_link">Signal 통화 링크</string>
@@ -2523,7 +2523,7 @@
         <item quantity="other">Signal에서 %1$s 님, %2$s 님 외 %3$d명에게 전화를 겁니다.</item>
     </plurals>
 
-    <string name="WebRtcCallView__s_will_be_notified">%1$s님은 알림을 받을겁니다.</string>
+    <string name="WebRtcCallView__s_will_be_notified">%1$s 님에게 알림이 갑니다.</string>
     <string name="WebRtcCallView__s_and_s_will_be_notified">%1$s 님과 %2$s 님에게 알림이 갑니다.</string>
     <plurals name="WebRtcCallView__s_s_and_d_others_will_be_notified">
         <item quantity="other">%1$s 님과 %2$s 님 외 %3$d명에게 알림이 갑니다.</item>
@@ -2727,12 +2727,12 @@
     <string name="ProxyBottomSheetFragment_proxy_address">프록시 주소</string>
     <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">이 프록시 주소를 사용하시겠어요?</string>
     <string name="ProxyBottomSheetFragment_use_proxy">프록시 사용하기</string>
-    <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">프록시에 성공적으로 연결됨</string>
+    <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">프록시에 정상적으로 연결되었습니다.</string>
 
     <!-- RecaptchaProofActivity -->
     <string name="RecaptchaProofActivity_failed_to_submit">제출 실패</string>
     <!-- Toolbar title when solving a captcha -->
-    <string name="RecaptchaProofActivity_complete_verification">확인 완료</string>
+    <string name="RecaptchaProofActivity_complete_verification">인증을 완료해 주세요</string>
 
     <!-- RegistrationActivity -->
     <string name="RegistrationActivity_select_your_country">국가 선택</string>
@@ -2746,9 +2746,9 @@
     <!-- Dialog title shown when registering and we want to verify they entered the correct number before proceeding. -->
     <string name="RegistrationActivity_phone_number_verification_dialog_title">아래 전화번호가 맞나요?</string>
     <!-- Dialog title shown when re-registering and skip sms flow failed or was aborted and now need perform additional verification via sms and warn about carrier charges -->
-    <string name="RegistrationActivity_additional_verification_required">추가 확인이 필요합니다.</string>
+    <string name="RegistrationActivity_additional_verification_required">추가 인증이 필요합니다</string>
     <!-- Dialog message shown when we need to verify sms and carrier rates may apply. -->
-    <string name="RegistrationActivity_a_verification_code_will_be_sent_to_this_number">이 번호로 확인 코드를 보냅니다. 통신사 요금이 적용될 수 있습니다.</string>
+    <string name="RegistrationActivity_a_verification_code_will_be_sent_to_this_number">이 번호로 인증 코드를 보내드립니다. 통신사 요금이 적용될 수 있습니다.</string>
     <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
     <string name="RegistrationActivity_you_will_receive_a_verification_code">인증 코드를 보내드립니다. 통신사 요금이 적용될 수 있습니다.</string>
     <!-- Hint text to select a country -->
@@ -2758,32 +2758,32 @@
     <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">이 전화번호를 인증하는 데 필요한 전화를 수신하게 됩니다.</string>
     <string name="RegistrationActivity_edit_number">전화번호 수정</string>
     <string name="RegistrationActivity_missing_google_play_services">Google Play Services가 설치되어 있지 않음</string>
-    <string name="RegistrationActivity_this_device_is_missing_google_play_services">기기에 Google Play Services가 없습니다. Signal을 사용할 수는 있지만, 안정성이나 성능이 떨어질 수 있습니다.\n\n맞춤형 안드로이드 ROM을 사용하는 고급 사용자가 아니거나, 이 메시지가 오류라고 생각한다면 문제 해결을 위해 이메일로 support@signal.org에 문의해 주세요.</string>
-    <string name="RegistrationActivity_i_understand">이해했습니다.</string>
+    <string name="RegistrationActivity_this_device_is_missing_google_play_services">이 기기에는 Google Play Services가 없습니다. Signal을 계속 사용할 수는 있지만, 알림 지연이나 성능 저하가 발생할 수 있습니다.\n\n고급 사용자가 아니거나, 커스텀 ROM을 설치하지 않았는데도 이 메시지가 보인다면 오류일 수 있으니 support@signal.org로 문의해 주세요.</string>
+    <string name="RegistrationActivity_i_understand">이해했습니다</string>
     <string name="RegistrationActivity_play_services_error">Play Services 오류</string>
     <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services가 업데이트 중이거나 잠시 제공되지 않고 있습니다. 다시 시도해 주세요.</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">친구를 추가하고 메시지를 보내려면 Signal에서 연락처와 미디어를 사용하도록 허용해야 합니다. 내 기기에 저장된 연락처는 Signal의 비공개 연락처 검색을 통해 업로드됩니다. 모든 연락처가 단대단 암호화 처리되기 때문에 Signal 서비스에는 절대 표시되지 않습니다.</string>
-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal에서 친구를 추가하려면 연락처 접근 권한을 허용해야 합니다. 내 기기에 저장된 연락처는 Signal의 비공개 연락처 검색을 통해 업로드됩니다. 모든 연락처가 단대단 암호화 처리되기 때문에 Signal 서비스에는 절대 표시되지 않습니다.</string>
-    <string name="RegistrationActivity_rate_limited_to_service">이 전화번호를 등록하려고 너무 많이 시도했습니다. 나중에 다시 시도하세요.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">친구를 추가하고 메시지를 보내려면 Signal에서 연락처와 미디어를 사용하도록 허용해야 합니다. 연락처는 Signal의 익명 연락처 탐색 기술을 통해 업로드되므로 완전히 종단간 암호화되며, Signal 팀에서도 절대 확인할 수 없습니다.</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">친구를 추가하려면 Signal에서 연락처와 미디어를 사용하도록 허용해야 합니다. 연락처는 Signal의 익명 연락처 탐색 기술을 통해 업로드되므로 완전히 종단간 암호화되며, Signal 팀에서도 절대 확인할 수 없습니다.</string>
+    <string name="RegistrationActivity_rate_limited_to_service">등록 시도 횟수가 초과되었습니다. 나중에 다시 시도해 주세요.</string>
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
-    <string name="RegistrationActivity_rate_limited_to_try_again">이 번호를 등록하려고 너무 많이 시도했습니다. %1$s 후에 다시 시도해 주세요.</string>
-    <string name="RegistrationActivity_unable_to_connect_to_service">서비스에 연결할 수 없습니다. 네트워크 연결을 확인 후 다시 시도해 주세요.</string>
+    <string name="RegistrationActivity_rate_limited_to_try_again">등록 시도 횟수가 초과되었습니다. %1$s 후에 다시 시도해 주세요.</string>
+    <string name="RegistrationActivity_unable_to_connect_to_service">서비스에 연결할 수 없습니다. 네트워크 연결 확인 후 다시 시도해 주세요.</string>
     <!-- Dialog error message shown when we are unable to send an SMS to the user\'s number -->
     <string name="RegistrationActivity_sms_provider_error">해당 전화번호에 SMS를 전송할 수 없습니다. 몇 시간 정도 기다렸다가 다시 시도해 주세요.</string>
     <!-- A description text for an alert dialog when the entered phone number is not eligible for a verification SMS. -->
     <string name="RegistrationActivity_we_couldnt_send_you_a_verification_code">SMS를 통해 확인 코드를 보낼 수 없습니다. 음성 통화로 대신 받아보세요.</string>
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
-    <string name="RegistrationActivity_unable_to_request_verification_code">확인 코드를 요청하지 못했습니다. 네트워크 연결을 확인하고 다시 시도하세요.</string>
+    <string name="RegistrationActivity_unable_to_request_verification_code">인증 코드를 요청하지 못했습니다. 네트워크 연결을 확인하고 다시 시도해 주세요.</string>
     <string name="RegistrationActivity_non_standard_number_format">비표준 전화번호 형식</string>
     <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
-    <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">입력한 번호(%1$s)가 표준 형식이 아닙니다.\n\n혹시 입력하려던 번호가 %2$s인가요?</string>
+    <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">입력한 번호(%1$s)가 표준 형식이 아닙니다.\n\n혹시 입력하시려던 번호가 %2$s인가요?</string>
     <string name="RegistrationActivity_signal_android_phone_number_format">Signal Android - 전화번호 형식</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
     <string name="RegistrationActivity_call_requested">통화가 요청되었습니다</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
-    <string name="RegistrationActivity_sms_requested">SMS가 필요합니다.</string>
+    <string name="RegistrationActivity_sms_requested">SMS 요청됨</string>
     <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
-    <string name="RegistrationActivity_code_requested">확인 코드가 필요합니다.</string>
+    <string name="RegistrationActivity_code_requested">인증 코드가 요청됨</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="other">디버그 로그를 보내기까지 %1$d단계 남았습니다.</item>
     </plurals>
@@ -2797,21 +2797,21 @@
     <string name="RegistrationActivity_phone_number">전화번호</string>
     <!-- Subtitle of registration screen when asking for the users phone number -->
     <string name="RegistrationActivity_enter_your_phone_number_to_get_started">전화번호를 입력하여 시작하세요.</string>
-    <string name="RegistrationActivity_enter_the_code_we_sent_to_s">%1$s 번호로 보낸 코드를 입력해 주세요.</string>
+    <string name="RegistrationActivity_enter_the_code_we_sent_to_s">%1$s번으로 보낸 코드를 입력해 주세요</string>
 
     <string name="RegistrationActivity_phone_number_description">전화번호</string>
     <string name="RegistrationActivity_country_code_description">국가 번호</string>
     <string name="RegistrationActivity_call">전화</string>
-    <string name="RegistrationActivity_verification_code">확인 코드</string>
+    <string name="RegistrationActivity_verification_code">인증 코드</string>
     <string name="RegistrationActivity_resend_code">코드 다시 보내기</string>
     <!--    A title for a bottom sheet dialog offering to help a user having trouble entering their verification code.-->
-    <string name="RegistrationActivity_support_bottom_sheet_title">등록에 어려움이 있나요?</string>
+    <string name="RegistrationActivity_support_bottom_sheet_title">등록에 문제가 있으신가요?</string>
     <!--    A list of suggestions to try for a user having trouble entering their verification code.-->
     <string name="RegistrationActivity_support_bottom_sheet_body_suggestions">• SMS 수신이나 통화가 가능한 셀룰러 상태인지 확인하세요.\n • 해당 번호로 전화를 받을 수 있는지 확인하세요.\n • 올바른 전화번호를 입력했는지 확인하세요.</string>
     <!--    A call to action for a user having trouble entering the verification to seek further help. The first placeholder is RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring, the second is RegistrationActivity_support_bottom_sheet_cta_contact_support_substring -->
-    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">자세한 내용은 %1$s 또는 %2$s의 지침을 따르세요.</string>
+    <string name="RegistrationActivity_support_bottom_sheet_body_call_to_action">자세한 내용은 %1$s을 확인하시거나 %2$s하세요</string>
     <!--    A clickable piece of text that will take the user to our website with additional suggestions.-->
-    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">이 문제 해결 단계</string>
+    <string name="RegistrationActivity_support_bottom_sheet_cta_troubleshooting_steps_substring">문제 해결 방법</string>
     <!--    A clickable piece of text that will pre-fill a request for support email in the user\'s email app.-->
     <string name="RegistrationActivity_support_bottom_sheet_cta_contact_support_substring">지원팀에 문의</string>
 
@@ -3436,9 +3436,9 @@
     <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal에서 전화 기능을 사용하려면 마이크와 카메라 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
     <string name="WebRtcCallActivity__answered_on_a_linked_device">연결된 기기에서 응답했습니다.</string>
     <string name="WebRtcCallActivity__declined_on_a_linked_device">연결된 기기에서 거부했습니다.</string>
-    <string name="WebRtcCallActivity__busy_on_a_linked_device">연결된 기기에서 사용 중입니다.</string>
+    <string name="WebRtcCallActivity__busy_on_a_linked_device">연결된 기기에서 이미 통화 중입니다.</string>
     <!-- Tooltip message shown first time user is in a video call after switch camera button moved -->
-    <string name="WebRtcCallActivity__flip_camera_tooltip">카메라 전환이 여기로 이동했습니다. 영상을 탭하여 사용해 보세요.</string>
+    <string name="WebRtcCallActivity__flip_camera_tooltip">카메라 전환 기능이 여기로 이동했어요. 영상 화면을 탭하여 사용해 보세요.</string>
 
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">누군가 변경된 안전 번호로 통화에 참여했습니다.</string>
 
@@ -4235,7 +4235,7 @@
     <string name="preferences_data_and_storage__never">없음</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi 및 모바일 데이터</string>
     <string name="preferences_data_and_storage__mobile_data_only">모바일 데이터만</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">데이터를 적게 사용하면 잘못된 네트워크에서의 통화 품질이 향상될 수 있습니다.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">데이터 사용량을 줄이면 네트워크 상태가 좋지 않을 때 통화 품질이 향상될 수 있습니다.</string>
     <string name="preferences_notifications__in_chat_sounds">대화 내 사운드</string>
     <string name="preferences_notifications__show">표시</string>
     <string name="preferences_notifications__ringtone">알림 벨소리</string>
@@ -4845,7 +4845,7 @@
     <string name="RegistrationActivity_backup_failure_foreign_key">백업에 잘못된 형식의 데이터가 포함되어 있습니다.</string>
     <string name="RegistrationActivity_incorrect_backup_passphrase">백업 암호가 올바르지 않습니다</string>
     <string name="RegistrationActivity_checking">확인 중…</string>
-    <string name="RegistrationActivity_d_messages_so_far">현재 메시지 %1$d개 처리됨…</string>
+    <string name="RegistrationActivity_d_messages_so_far">현재 메시지 %1$d개 이전 완료</string>
     <string name="RegistrationActivity_restore_from_backup">백업에서 복원할까요?</string>
     <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">로컬 백업에서 메시지와 미디어를 복원합니다. 지금 복원하지 않으면 이후에는 복원할 수 없습니다.</string>
     <string name="RegistrationActivity_backup_size_s">백업 크기: %1$s</string>
@@ -4885,8 +4885,8 @@
     <string name="RegistrationActivity_call_me_instead_available_in">전화로 받기(%1$02d:%2$02d)</string>
     <!--    Countdown to when the user can request a new SMS code during registration.-->
     <string name="RegistrationActivity_resend_sms_available_in">코드 다시 보내기(%1$02d:%2$02d)</string>
-    <string name="RegistrationActivity_contact_signal_support">Signal 지원 팀에 문의</string>
-    <string name="RegistrationActivity_code_support_subject">Signal 등록 - 안드로이드용 인증 코드</string>
+    <string name="RegistrationActivity_contact_signal_support">Signal 지원팀에 문의</string>
+    <string name="RegistrationActivity_code_support_subject">Signal 등록 - Android용 인증 코드</string>
     <string name="RegistrationActivity_incorrect_code">올바르지 않은 코드</string>
     <string name="BackupUtil_never">없음</string>
     <!-- Subtext below last backup time when we do not know when the last backup was -->
@@ -4939,9 +4939,9 @@
     <string name="preferences_app_protection__registration_lock">등록 잠금</string>
     <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">등록 잠금 번호를 입력해야 합니다.</string>
     <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">PIN은 최소 %1$d자여야 합니다.</string>
-    <string name="RegistrationActivity_too_many_attempts">시도 횟수가 너무 많음</string>
+    <string name="RegistrationActivity_too_many_attempts">시도 횟수를 초과했습니다</string>
     <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">등록 잠금 PIN 입력 횟수를 초과했습니다. 하루 뒤에 다시 시도해 주세요.</string>
-    <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">많이 시도했습니다. 다시 시도해 주세요.</string>
+    <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">시도 횟수를 초과했습니다. 나중에 다시 시도해 주세요.</string>
     <string name="RegistrationActivity_error_connecting_to_service">서비스 연결 중 오류 발생</string>
     <string name="preferences_chats__backups">백업</string>
 
@@ -5088,9 +5088,9 @@
     <!-- DeviceTransferFragment -->
     <string name="DeviceTransfer__transferring_data">데이터 이전 중</string>
     <string name="DeviceTransfer__keep_both_devices_near_each_other">두 기기를 서로 가까이 두고 Signal을 계속 열어 두세요. 모든 과정은 종단간 암호화로 안전하게 보호됩니다.</string>
-    <string name="DeviceTransfer__d_messages_so_far">현재까지 메시지 %1$d개 이전 완료</string>
+    <string name="DeviceTransfer__d_messages_so_far">현재 메시지 %1$d개 이전 완료</string>
     <!-- Filled in with total percentage of messages transferred -->
-    <string name="DeviceTransfer__s_of_messages_so_far">현재까지 메시지 %1$s%% 이전 완료</string>
+    <string name="DeviceTransfer__s_of_messages_so_far">현재 메시지 %1$s%% 이전 완료</string>
     <string name="DeviceTransfer__cancel">취소</string>
     <string name="DeviceTransfer__try_again">다시 시도해 주세요.</string>
     <string name="DeviceTransfer__stop_transfer">이전 중단</string>
@@ -5903,11 +5903,11 @@
     <string name="DataAndStorageSettingsFragment__standard">기본</string>
     <string name="DataAndStorageSettingsFragment__calls">전화</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">백그라운드에서 연결 유지</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">백그라운드 상태에서도 연결을 유지하면 배터리 사용량이 증가할 수 있습니다. 대부분의 기기에서는 이 설정이 필요하지 않습니다. 알림 문제가 있는 경우에만 이 설정을 활성화하세요.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">활성화하기</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9198,7 +9198,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">기기 내 백업을 켜시겠어요?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">기기 내 백업을 계속 사용하려면 이 계정에서 백업을 활성화해야 합니다. 설정 &gt; 백업에서 언제든지 이 작업을 수행하실 수 있습니다.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">지금 켜기</string>

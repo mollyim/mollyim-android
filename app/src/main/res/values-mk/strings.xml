@@ -4358,7 +4358,7 @@
     <string name="preferences_data_and_storage__never">Никогаш</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi и податоци преку мобилен</string>
     <string name="preferences_data_and_storage__mobile_data_only">Податоци само преку мобилен</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Користење на помалку податоци може да ги подобри повиците на лоши мрежи.</string>
     <string name="preferences_notifications__in_chat_sounds">Звуци во разговор</string>
     <string name="preferences_notifications__show">Прикажи</string>
     <string name="preferences_notifications__ringtone">Звук за ѕвонење</string>
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">Стандарден</string>
     <string name="DataAndStorageSettingsFragment__calls">Повици</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Останете поврзани во позадина</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Ако останете поврзани во позадина, ќе има зголемено трошење на батеријата. Ова не е потребно на повеќето уреди. Овозможете ја оваа опција само ако имате проблеми со известувањата.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">Овозможи</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Да се вклучат резервни копиии на уредот?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">За да продолжите да користите резервни копии на уредот, треба да ги овозможите за оваа корисничка сметка. Ова можете да го направите во кое било време преку Поставувања &gt; Резервни копии.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Вклучи сега</string>

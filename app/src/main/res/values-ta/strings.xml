@@ -4358,7 +4358,7 @@
     <string name="preferences_data_and_storage__never">ஒருபோதுமில்லை</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">வைஃபை மற்றும் மொபைல் தரவு</string>
     <string name="preferences_data_and_storage__mobile_data_only">மொபைல் தரவு மட்டும்</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Using less data may improve calls on bad networks.</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">குறைந்த தரவைப் பயன்படுத்துவது மோசமான நெட்வொர்க்குகளில் அழைப்புகளை மேம்படுத்தலாம்.</string>
     <string name="preferences_notifications__in_chat_sounds">உள்-சாட் ஒலிகள்</string>
     <string name="preferences_notifications__show">காட்டு</string>
     <string name="preferences_notifications__ringtone">ரிங்டோன்</string>
@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">தரநிலை</string>
     <string name="DataAndStorageSettingsFragment__calls">அழைப்புகள்</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">பின்னணியில் இணைந்திரு</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">பின்னணியில் இணைந்திருப்பதால் பேட்டரி நுகர்வு அதிகரிக்கும். பெரும்பாலான சாதனங்களுக்கு இவ்வாறு செயல்பட வேண்டியதில்லை. அறிவிப்புச் சிக்கல்களைச் சந்தித்தால் மட்டுமே இதைச் செயல்படுத்துங்கள்.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">செயல்படுத்து</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">சாதனத்தில் உள்ள காப்புப்பிரதிகளை ஆன் செய்யவா?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">சாதனத்தில் உள்ள காப்புப்பிரதிகளைத் தொடர்ந்து பயன்படுத்த, இந்தக் கணக்கிற்கு அவற்றைச் செயல்படுத்த வேண்டும். அமைப்புகள் &gt; காப்புப்பிரதிகள் என்பதற்குச் சென்று எந்த நேரத்திலும் இதை நீங்கள் செய்யலாம்.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">இப்போதே ஆன் செய்க</string>

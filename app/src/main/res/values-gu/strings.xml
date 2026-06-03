@@ -6052,11 +6052,11 @@
     <string name="DataAndStorageSettingsFragment__standard">સ્ટાન્ડર્ડ</string>
     <string name="DataAndStorageSettingsFragment__calls">કૉલ્સ</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">બૅકગ્રાઉન્ડમાં કનેક્ટેડ રહો</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">બૅકગ્રાઉન્ડમાં હોય ત્યારે કનેક્ટેડ રહેવાથી બેટરી વધારાના વપરાશમાં પરિણમી શકે છે. આ મોટાભાગના ડિવાઇસ માટે જરૂરી નથી. જો તમે નોટિફિકેશન અંગે સમસ્યાઓનો અનુભવ કર્યો હોય તો જ આને ચાલુ કરો.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+    <string name="DataAndStorageSettingsFragment__enable">ચાલુ કરો</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -9397,7 +9397,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">ઓન-ડિવાઇસ બેકઅપ ચાલુ કરવા છે?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">ઓન-ડિવાઇસ બેકઅપનો ઉપયોગ કરવાનું ચાલુ રાખવા માટે, તમારે તેમને આ એકાઉન્ટ માટે ચાલુ કરવાની જરૂર પડશે. તમે આ કોઈ પણ સમયે સેટિંગ્સ &gt; બેકઅપમાં જઈને કરી શકો છો.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">અત્યારે ચાલુ કરો</string>
