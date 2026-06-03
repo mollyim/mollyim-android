@@ -64,7 +64,7 @@ internal fun LocalBackupRestoreLayout(
         },
         footer = {
           RegistrationScaffold.FooterSurface(
-            isContentScrolledUnder = scrollState.canScrollForward
+            isElevated = scrollState.canScrollForward
           ) {
             if (primaryButton != null || secondaryButton != null) {
               Column(
@@ -119,7 +119,7 @@ internal fun LocalBackupRestoreLayout(
         },
         footer = {
           RegistrationScaffold.FooterSurface(
-            isContentScrolledUnder = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
+            isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
           ) {
             if (primaryButton != null || secondaryButton != null) {
               Row(

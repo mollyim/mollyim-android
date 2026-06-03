@@ -154,13 +154,13 @@ object RegistrationScaffold {
 
   @Composable
   fun FooterSurface(
-    isContentScrolledUnder: Boolean,
+    isElevated: Boolean,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
   ) {
     Surface(
       modifier = modifier.fillMaxWidth(),
-      shadowElevation = if (isContentScrolledUnder) 8.dp else 0.dp,
+      shadowElevation = if (isElevated) 8.dp else 0.dp,
       content = content
     )
   }

@@ -75,18 +75,25 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, state: MessageS
 
   OnePaneRegistrationScaffold(
     params = params,
-    footer = { FooterContent(params = params, onEvent = onEvent) }
-  ) { paddingValues ->
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .verticalScroll(scrollState)
-        .padding(paddingValues)
-    ) {
-      FirstPaneContent(state)
-      SecondPaneContent()
+    content = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .verticalScroll(scrollState)
+          .padding(paddingValues)
+      ) {
+        FirstPaneContent(state)
+        SecondPaneContent()
+      }
+    },
+    footer = {
+      FooterContent(
+        params = params,
+        isElevated = scrollState.canScrollForward,
+        onEvent = onEvent
+      )
     }
-  }
+  )
 }
 
 @Composable
@@ -114,7 +121,13 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageS
           .padding(paddingValues)
       )
     },
-    footer = { FooterContent(params = params, onEvent = onEvent) }
+    footer = {
+      FooterContent(
+        params = params,
+        isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        onEvent = onEvent
+      )
+    }
   )
 }
 
@@ -180,15 +193,20 @@ private fun SecondPaneContent(
 @Composable
 private fun FooterContent(
   params: RegistrationScaffold.Params,
+  isElevated: Boolean,
   onEvent: (MessageSyncScreenEvent) -> Unit,
   modifier: Modifier = Modifier
 ) {
   val breakpoint = rememberWindowBreakpoint()
 
-  when (breakpoint) {
-    is WindowBreakpoint.Small -> StackedFooter(params, modifier, onEvent)
-    is WindowBreakpoint.Medium -> StackedFooter(params, modifier, onEvent)
-    is WindowBreakpoint.Large -> InlineFooter(modifier, onEvent)
+  RegistrationScaffold.FooterSurface(
+    isElevated = isElevated
+  ) {
+    when (breakpoint) {
+      is WindowBreakpoint.Small -> StackedFooter(params, modifier, onEvent)
+      is WindowBreakpoint.Medium -> StackedFooter(params, modifier, onEvent)
+      is WindowBreakpoint.Large -> InlineFooter(modifier, onEvent)
+    }
   }
 }
 

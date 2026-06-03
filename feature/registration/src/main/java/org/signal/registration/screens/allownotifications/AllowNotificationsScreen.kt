@@ -63,23 +63,25 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, permissionState
 
   OnePaneRegistrationScaffold(
     params = params,
+    content = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .verticalScroll(scrollState)
+          .padding(paddingValues)
+      ) {
+        FirstPaneContent()
+        SecondPaneContent()
+      }
+    },
     footer = {
       FooterContent(
         permissionState = permissionState,
+        isElevated = scrollState.canScrollForward,
         onProceed = onProceed
       )
     }
-  ) { paddingValues ->
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .verticalScroll(scrollState)
-        .padding(paddingValues)
-    ) {
-      FirstPaneContent()
-      SecondPaneContent()
-    }
-  }
+  )
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -111,6 +113,7 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, permissionState
     footer = {
       FooterContent(
         permissionState = permissionState,
+        isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
         onProceed = onProceed
       )
     }
@@ -151,32 +154,37 @@ private fun SecondPaneContent(
 @Composable
 private fun FooterContent(
   permissionState: PermissionState,
+  isElevated: Boolean,
   onProceed: () -> Unit
 ) {
-  Row(
-    horizontalArrangement = spacedBy(56.dp),
-    modifier = Modifier.padding(56.dp)
+  RegistrationScaffold.FooterSurface(
+    isElevated = isElevated
   ) {
-    Spacer(modifier = Modifier.weight(1f))
-
-    TextButton(
-      onClick = onProceed,
-      modifier = Modifier.testTag(TestTags.ALLOW_NOTIFICATIONS_NOT_NOW_BUTTON)
+    Row(
+      horizontalArrangement = spacedBy(56.dp),
+      modifier = Modifier.padding(56.dp)
     ) {
-      Text(text = stringResource(R.string.AllowNotificationsScreen__not_now))
-    }
+      Spacer(modifier = Modifier.weight(1f))
 
-    Buttons.LargeTonal(
-      onClick = {
-        if (permissionState.status.isGranted) {
-          onProceed()
-        } else {
-          permissionState.launchPermissionRequest()
-        }
-      },
-      modifier = Modifier.testTag(TestTags.ALLOW_NOTIFICATIONS_NEXT_BUTTON)
-    ) {
-      Text(text = stringResource(R.string.AllowNotificationsScreen__next))
+      TextButton(
+        onClick = onProceed,
+        modifier = Modifier.testTag(TestTags.ALLOW_NOTIFICATIONS_NOT_NOW_BUTTON)
+      ) {
+        Text(text = stringResource(R.string.AllowNotificationsScreen__not_now))
+      }
+
+      Buttons.LargeTonal(
+        onClick = {
+          if (permissionState.status.isGranted) {
+            onProceed()
+          } else {
+            permissionState.launchPermissionRequest()
+          }
+        },
+        modifier = Modifier.testTag(TestTags.ALLOW_NOTIFICATIONS_NEXT_BUTTON)
+      ) {
+        Text(text = stringResource(R.string.AllowNotificationsScreen__next))
+      }
     }
   }
 }

@@ -23,7 +23,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -157,7 +156,7 @@ private fun OnePaneLayout(
       ContinueButton(
         params = params,
         canSubmitPin = canSubmitPin,
-        showElevation = scrollState.canScrollForward,
+        isElevated = scrollState.canScrollForward,
         onContinue = { onEvent(PinEntryScreenEvents.PinEntered(pin)) }
       )
     }
@@ -234,7 +233,7 @@ private fun TwoPaneLayout(
       ContinueButton(
         params = params,
         canSubmitPin = canSubmitPin,
-        showElevation = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
         onContinue = { onEvent(PinEntryScreenEvents.PinEntered(pin)) }
       )
     }
@@ -361,13 +360,13 @@ private fun KeyboardToggleButton(
 private fun ContinueButton(
   params: RegistrationScaffold.Params,
   canSubmitPin: Boolean,
-  showElevation: Boolean,
+  isElevated: Boolean,
   onContinue: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  Surface(
-    modifier = modifier.fillMaxWidth(),
-    shadowElevation = if (showElevation) 8.dp else 0.dp
+  RegistrationScaffold.FooterSurface(
+    isElevated = isElevated,
+    modifier = modifier
   ) {
     Row(
       horizontalArrangement = Arrangement.End,

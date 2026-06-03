@@ -107,6 +107,7 @@ fun CaptchaScreen(
             CircularProgressIndicator(modifier = Modifier.size(48.dp))
           }
         }
+
         CaptchaLoadState.Error -> {
           Box(
             modifier = Modifier.fillMaxSize(),

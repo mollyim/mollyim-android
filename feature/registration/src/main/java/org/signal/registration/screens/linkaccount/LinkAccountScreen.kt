@@ -117,22 +117,28 @@ private fun OnePane(
 
   OnePaneRegistrationScaffold(
     params = params,
-    footer = { OnePaneFooterContent(onEvent = onEvent) }
-  ) { paddingValues ->
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = spacedBy(64.dp),
-      modifier = Modifier
-        .padding(paddingValues)
-        .verticalScroll(scrollState)
-    ) {
-      Title()
+    content = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = spacedBy(64.dp),
+        modifier = Modifier
+          .padding(paddingValues)
+          .verticalScroll(scrollState)
+      ) {
+        Title()
 
-      QrCodeContent(state = state, onEvent = onEvent)
+        QrCodeContent(state = state, onEvent = onEvent)
 
-      Steps(verticalArrangement = spacedBy(32.dp), onEvent)
+        Steps(verticalArrangement = spacedBy(32.dp), onEvent)
+      }
+    },
+    footer = {
+      OnePaneFooterContent(
+        isElevated = scrollState.canScrollForward,
+        onEvent = onEvent
+      )
     }
-  }
+  )
 }
 
 @Composable
@@ -160,7 +166,12 @@ private fun TwoPane(
           .padding(paddingValues)
       )
     },
-    footer = { TwoPaneFooterContent(onEvent = onEvent) }
+    footer = {
+      TwoPaneFooterContent(
+        isElevated = false,
+        onEvent = onEvent
+      )
+    }
   )
 }
 
@@ -454,37 +465,47 @@ fun getQrCodeSize(isInOverlay: Boolean): Dp {
 
 @Composable
 private fun OnePaneFooterContent(
+  isElevated: Boolean,
   onEvent: (LinkAccountScreenEvent) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  Column(
-    horizontalAlignment = Alignment.CenterHorizontally,
-    modifier = modifier
-      .padding(start = 36.dp, end = 36.dp, bottom = 16.dp)
-      .fillMaxWidth()
+  RegistrationScaffold.FooterSurface(
+    isElevated = isElevated
   ) {
-    Row {
-      DontHaveSignal()
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = modifier
+        .padding(start = 36.dp, end = 36.dp, bottom = 16.dp)
+        .fillMaxWidth()
+    ) {
+      Row {
+        DontHaveSignal()
+      }
+      CreateAccount(onEvent)
     }
-    CreateAccount(onEvent)
   }
 }
 
 @Composable
 private fun TwoPaneFooterContent(
+  isElevated: Boolean,
   onEvent: (LinkAccountScreenEvent) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  Row(
-    horizontalArrangement = spacedBy(8.dp),
-    modifier = modifier.padding(36.dp)
+  RegistrationScaffold.FooterSurface(
+    isElevated = isElevated
   ) {
-    Spacer(modifier = Modifier.weight(1f))
+    Row(
+      horizontalArrangement = spacedBy(8.dp),
+      modifier = modifier.padding(36.dp)
+    ) {
+      Spacer(modifier = Modifier.weight(1f))
 
-    DontHaveSignal()
-    CreateAccount(onEvent)
+      DontHaveSignal()
+      CreateAccount(onEvent)
 
-    Spacer(modifier = Modifier.weight(1f))
+      Spacer(modifier = Modifier.weight(1f))
+    }
   }
 }
 
