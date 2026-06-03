@@ -167,9 +167,11 @@ class CheckKeyTransparencyJob private constructor(
    * For others, it will only show once and only be cleared on the next successful verification.
    */
   private fun markFailure() {
-    SignalStore.misc.hasKeyTransparencyFailure = true
-    if (RemoteConfig.internalUser) {
-      SignalStore.misc.hasSeenKeyTransparencyFailure = false
+    if (SignalStore.account.isRegistered) {
+      SignalStore.misc.hasKeyTransparencyFailure = true
+      if (RemoteConfig.internalUser) {
+        SignalStore.misc.hasSeenKeyTransparencyFailure = false
+      }
     }
   }
 

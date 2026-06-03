@@ -435,7 +435,8 @@ public class ConversationListFragment extends MainFragment implements Conversati
       onSearchQueryUpdated(query);
     }
 
-    if (SignalStore.settings().getAutomaticVerificationEnabled() &&
+    if (SignalStore.account().isRegistered() &&
+        SignalStore.settings().getAutomaticVerificationEnabled() &&
         SignalStore.misc().getHasKeyTransparencyFailure() &&
         !SignalStore.misc().getHasSeenKeyTransparencyFailure()) {
       SelfVerificationFailureSheet.show(getParentFragmentManager());
