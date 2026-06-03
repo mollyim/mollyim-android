@@ -96,32 +96,32 @@ private fun ParticipantActionsSheetContent(
 ) {
   ParticipantHeader(recipient = recipient)
 
-  val hasAdminActions = isSelfAdmin && (callParticipant.isMicrophoneEnabled || isCallLink)
-
-  if (hasAdminActions) {
+  if (callParticipant.isMicrophoneEnabled) {
     Dividers.Default()
 
-    if (callParticipant.isMicrophoneEnabled) {
-      Rows.TextRow(
-        text = stringResource(id = R.string.CallParticipantSheet__mute_audio),
-        icon = painterResource(id = R.drawable.symbol_mic_slash_24),
-        onClick = {
-          onMuteAudio(callParticipant)
-          onDismiss()
-        }
-      )
+    Rows.TextRow(
+      text = stringResource(id = R.string.CallParticipantSheet__mute_audio),
+      icon = painterResource(id = R.drawable.symbol_mic_slash_24),
+      onClick = {
+        onMuteAudio(callParticipant)
+        onDismiss()
+      }
+    )
+  }
+
+  if (isSelfAdmin && isCallLink) {
+    if (!callParticipant.isMicrophoneEnabled) {
+      Dividers.Default()
     }
 
-    if (isCallLink) {
-      Rows.TextRow(
-        text = stringResource(id = R.string.CallParticipantSheet__remove_from_call),
-        icon = painterResource(id = R.drawable.symbol_minus_circle_24),
-        onClick = {
-          onRemoveFromCall(callParticipant)
-          onDismiss()
-        }
-      )
-    }
+    Rows.TextRow(
+      text = stringResource(id = R.string.CallParticipantSheet__remove_from_call),
+      icon = painterResource(id = R.drawable.symbol_minus_circle_24),
+      onClick = {
+        onRemoveFromCall(callParticipant)
+        onDismiss()
+      }
+    )
   }
 
   Dividers.Default()
