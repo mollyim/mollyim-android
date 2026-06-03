@@ -113,17 +113,18 @@ private fun OnePane(
   state: LinkAccountScreenState,
   onEvent: (LinkAccountScreenEvent) -> Unit
 ) {
+  val scrollState = rememberScrollState()
+
   OnePaneRegistrationScaffold(
     params = params,
     footer = { OnePaneFooterContent(onEvent = onEvent) }
-  ) {
-    val scroller = rememberScrollState()
+  ) { paddingValues ->
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = spacedBy(64.dp),
       modifier = Modifier
-        .padding(it)
-        .verticalScroll(scroller)
+        .padding(paddingValues)
+        .verticalScroll(scrollState)
     ) {
       Title()
 
@@ -142,21 +143,21 @@ private fun TwoPane(
 ) {
   TwoPaneRegistrationScaffold(
     params = params,
-    firstPane = {
+    firstPane = { paddingValues ->
       FirstPaneContent(
         onEvent = onEvent,
         modifier = Modifier
-          .padding(it)
+          .padding(paddingValues)
           .weight(1f)
       )
     },
-    secondPane = {
+    secondPane = { paddingValues ->
       QrCodeContent(
         state = state,
         onEvent = onEvent,
         modifier = Modifier
           .weight(1f)
-          .padding(it)
+          .padding(paddingValues)
       )
     },
     footer = { TwoPaneFooterContent(onEvent = onEvent) }

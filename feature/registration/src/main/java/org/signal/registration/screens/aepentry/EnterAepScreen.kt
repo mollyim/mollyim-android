@@ -78,6 +78,7 @@ private fun OnePaneLayout(
   modifier: Modifier = Modifier
 ) {
   val scrollState = rememberScrollState()
+
   OnePaneRegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     params = params,
@@ -129,7 +130,9 @@ private fun TwoPaneLayout(
   onEvent: (EnterAepEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val scrollState = rememberScrollState()
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
+
   TwoPaneRegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     params = params,
@@ -138,7 +141,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
-          .verticalScroll(scrollState)
+          .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
         Description()
@@ -149,7 +152,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
-          .verticalScroll(scrollState)
+          .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       ) {
         RecoveryKeyTextField(state, onEvent)
@@ -157,7 +160,7 @@ private fun TwoPaneLayout(
     },
     footer = {
       RegistrationScaffold.FooterSurface(
-        isContentScrolledUnder = scrollState.canScrollForward
+        isContentScrolledUnder = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward
       ) {
         Row(
           horizontalArrangement = Arrangement.End,

@@ -10,9 +10,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -68,13 +71,17 @@ fun MessageSyncScreen(
 
 @Composable
 private fun OnePane(params: RegistrationScaffold.Params.OnePane, state: MessageSyncScreenState, onEvent: (MessageSyncScreenEvent) -> Unit) {
+  val scrollState = rememberScrollState()
+
   OnePaneRegistrationScaffold(
     params = params,
     footer = { FooterContent(params = params, onEvent = onEvent) }
-  ) {
+  ) { paddingValues ->
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.padding(it)
+      modifier = Modifier
+        .verticalScroll(scrollState)
+        .padding(paddingValues)
     ) {
       FirstPaneContent(state)
       SecondPaneContent()
@@ -84,21 +91,27 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, state: MessageS
 
 @Composable
 private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageSyncScreenState, onEvent: (MessageSyncScreenEvent) -> Unit) {
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
+
   TwoPaneRegistrationScaffold(
     params = params,
-    firstPane = {
+    firstPane = { paddingValues ->
       FirstPaneContent(
         state = state,
         modifier = Modifier
-          .padding(it)
           .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(firstPaneScrollState)
+          .padding(paddingValues)
       )
     },
-    secondPane = {
+    secondPane = { paddingValues ->
       SecondPaneContent(
         modifier = Modifier
-          .padding(it)
           .weight(1f)
+          .verticalScroll(secondPaneScrollState)
+          .padding(paddingValues)
       )
     },
     footer = { FooterContent(params = params, onEvent = onEvent) }
@@ -253,7 +266,9 @@ private fun Notice(modifier: Modifier, onEvent: (MessageSyncScreenEvent) -> Unit
       textAlign = TextAlign.Center,
       style = MaterialTheme.typography.bodyMedium,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
-      modifier = Modifier.testTag(TestTags.MESSAGE_SYNC_LEARN_MORE_LINK).widthIn(max = 405.dp)
+      modifier = Modifier
+        .testTag(TestTags.MESSAGE_SYNC_LEARN_MORE_LINK)
+        .widthIn(max = 405.dp)
     )
 
     Spacer(modifier = Modifier.weight(1f))

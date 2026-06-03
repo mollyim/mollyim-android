@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,6 +59,8 @@ fun AllowNotificationsScreen(
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun OnePane(params: RegistrationScaffold.Params.OnePane, permissionState: PermissionState, onProceed: () -> Unit) {
+  val scrollState = rememberScrollState()
+
   OnePaneRegistrationScaffold(
     params = params,
     footer = {
@@ -64,10 +69,12 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, permissionState
         onProceed = onProceed
       )
     }
-  ) {
+  ) { paddingValues ->
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.padding(it)
+      modifier = Modifier
+        .verticalScroll(scrollState)
+        .padding(paddingValues)
     ) {
       FirstPaneContent()
       SecondPaneContent()
@@ -78,20 +85,27 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, permissionState
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, permissionState: PermissionState, onProceed: () -> Unit) {
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
+
   TwoPaneRegistrationScaffold(
     params = params,
-    firstPane = {
+    firstPane = { paddingValues ->
       FirstPaneContent(
         modifier = Modifier
-          .padding(it)
           .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(firstPaneScrollState)
+          .padding(paddingValues)
       )
     },
-    secondPane = {
+    secondPane = { paddingValues ->
       SecondPaneContent(
         modifier = Modifier
-          .padding(it)
           .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(secondPaneScrollState)
+          .padding(paddingValues)
       )
     },
     footer = {

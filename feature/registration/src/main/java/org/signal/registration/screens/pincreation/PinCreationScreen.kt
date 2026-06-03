@@ -170,7 +170,8 @@ private fun TwoPaneLayout(
   onEvent: (PinCreationScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val scrollState = rememberScrollState()
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
     modifier = modifier.fillMaxSize(),
@@ -180,6 +181,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
+          .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
         PinDescription(
@@ -193,7 +195,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
-          .verticalScroll(scrollState)
+          .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       ) {
         PinInputField(
@@ -219,7 +221,7 @@ private fun TwoPaneLayout(
       NextButton(
         params = params,
         canSubmitPin = canSubmitPin,
-        showElevation = scrollState.canScrollForward,
+        showElevation = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
         onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) }
       )
     }

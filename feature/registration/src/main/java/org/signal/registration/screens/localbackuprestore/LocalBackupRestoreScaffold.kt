@@ -44,6 +44,7 @@ internal fun LocalBackupRestoreLayout(
   when (val params = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> {
       val scrollState = rememberScrollState()
+
       OnePaneRegistrationScaffold(
         modifier = modifier.fillMaxSize(),
         params = params,
@@ -87,6 +88,7 @@ internal fun LocalBackupRestoreLayout(
     is RegistrationScaffold.Params.TwoPane -> {
       val firstPaneScrollState = rememberScrollState()
       val secondPaneScrollState = rememberScrollState()
+
       TwoPaneRegistrationScaffold(
         modifier = modifier
           .fillMaxSize()
