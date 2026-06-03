@@ -328,10 +328,6 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
     Network network = new Network(BuildConfig.LIBSIGNAL_NET_ENV, StandardUserAgentInterceptor.USER_AGENT, RemoteConfig.getLibsignalConfigs(), Network.BuildVariant.PRODUCTION);
     LibSignalNetworkExtensions.applyConfiguration(network, config);
 
-    if (RemoteConfig.enableReflectorsTest() && !config.getSignalProxy().isPresent() && !config.getSystemHttpProxy().isPresent()) {
-      network.INTERNAL_TESTING_setReflectorProxy(true);
-    }
-
     return network;
   }
 
