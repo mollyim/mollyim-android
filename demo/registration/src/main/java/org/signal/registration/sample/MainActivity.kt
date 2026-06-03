@@ -88,8 +88,8 @@ sealed interface SampleRoute : NavKey {
  */
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
     enableEdgeToEdge()
+    super.onCreate(savedInstanceState)
 
     setContent {
       SignalTheme {
@@ -108,11 +108,7 @@ class MainActivity : ComponentActivity() {
 fun AppScreen(registrationDependencies: RegistrationDependencies) {
   val backStack = rememberNavBackStack(SampleRoute.Main)
 
-  Box(
-    modifier = Modifier
-      .fillMaxSize()
-      .windowInsetsPadding(WindowInsets.safeDrawing)
-  ) {
+  Box(modifier = Modifier.fillMaxSize()) {
     SampleNavHost(
       backStack = backStack,
       registrationDependencies = registrationDependencies,

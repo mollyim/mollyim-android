@@ -7,14 +7,21 @@ package org.signal.registration.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
@@ -160,9 +167,14 @@ object RegistrationScaffold {
   ) {
     Surface(
       modifier = modifier.fillMaxWidth(),
-      shadowElevation = if (isElevated) 8.dp else 0.dp,
-      content = content
-    )
+      shadowElevation = if (isElevated) 8.dp else 0.dp
+    ) {
+      Box(
+        modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+      ) {
+        content()
+      }
+    }
   }
 }
 
@@ -176,7 +188,12 @@ fun RegistrationScaffold(
   topBar: (@Composable () -> Unit)? = null,
   footer: (@Composable () -> Unit)? = null
 ) {
-  SubcomposeLayout(modifier = modifier.imePadding()) { constraints ->
+  SubcomposeLayout(
+    modifier = modifier
+      .then(if (topBar == null) Modifier.windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top)) else Modifier)
+      .then(if (footer == null) Modifier.windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)) else Modifier)
+      .imePadding()
+  ) { constraints ->
     val footerPlaceables = footer?.let {
       subcompose("footer", it).map { m -> m.measure(constraints.copy(minWidth = 0, minHeight = 0)) }
     } ?: emptyList()
@@ -215,7 +232,15 @@ fun OnePaneRegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     topBar = topBar,
     footer = footer,
-    content = { content(params.panePadding(hasHeader = topBar != null)) }
+    content = {
+      Box(
+        modifier = Modifier
+          .fillMaxSize()
+          .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
+      ) {
+        content(params.panePadding(hasHeader = topBar != null))
+      }
+    }
   )
 }
 
@@ -238,7 +263,9 @@ fun TwoPaneRegistrationScaffold(
     content = {
       Row(
         horizontalArrangement = Arrangement.SpaceAround,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+          .fillMaxSize()
+          .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
       ) {
         firstPane(params.firstPanePadding(hasHeader = topBar != null))
         secondPane(params.secondPanePadding(hasHeader = topBar != null))
