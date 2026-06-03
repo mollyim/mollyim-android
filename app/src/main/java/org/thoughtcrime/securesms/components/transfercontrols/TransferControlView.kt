@@ -493,7 +493,7 @@ class TransferControlView @JvmOverloads constructor(context: Context, attrs: Att
   }
 
   private fun applyFocusableAndClickable(currentState: TransferControlViewState, activeViews: List<View>, inactiveViews: List<View>) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    if (Build.VERSION.SDK_INT >= 26) {
       val focusIntDef = if (currentState.isFocusable) View.FOCUSABLE else View.NOT_FOCUSABLE
       activeViews.forEach { it.focusable = focusIntDef }
       inactiveViews.forEach { it.focusable = View.NOT_FOCUSABLE }
