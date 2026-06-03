@@ -34,6 +34,8 @@ import org.signal.libsignal.protocol.SignalProtocolAddress
 import org.signal.libsignal.protocol.UntrustedIdentityException
 import org.signal.libsignal.protocol.ecc.ECPublicKey
 import org.signal.libsignal.protocol.kem.KEMPublicKey
+import org.signal.libsignal.protocol.message.PlaintextContent
+import org.signal.libsignal.protocol.message.PreKeySignalMessage
 import org.signal.libsignal.protocol.message.SignalMessage
 import org.signal.libsignal.protocol.state.PreKeyBundle
 import org.signal.network.api.KeysApiV2
@@ -45,6 +47,7 @@ import org.whispersystems.signalservice.api.crypto.SealedSenderAccess
 import org.whispersystems.signalservice.api.crypto.SignalServiceCipher
 import org.whispersystems.signalservice.api.crypto.SignalSessionBuilder
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
+import org.whispersystems.signalservice.internal.push.Envelope
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessage
 import java.io.IOException
 import kotlin.time.Duration
@@ -183,13 +186,7 @@ open class MessageService(
 
         val result = messageApi.sendSyncMessage(
           timestamp = timestamp,
-          contents = encryptedMessages.map {
-            SingleOutboundUnsealedMessage(
-              deviceId = it.destinationDeviceId,
-              registrationId = it.destinationRegistrationId,
-              message = SignalMessage(it.content.decodeBase64OrThrow())
-            )
-          },
+          contents = encryptedMessages.map { it.toUnsealedMessage() },
           urgent = urgent
         )
 
@@ -301,13 +298,7 @@ open class MessageService(
     val result = messageApi.sendUnsealedSenderMessage(
       serviceId = serviceId,
       timestamp = timestamp,
-      contents = encryptedMessages.map {
-        SingleOutboundUnsealedMessage(
-          deviceId = it.destinationDeviceId,
-          registrationId = it.destinationRegistrationId,
-          message = SignalMessage(it.content.decodeBase64OrThrow())
-        )
-      },
+      contents = encryptedMessages.map { it.toUnsealedMessage() },
       onlineOnly = online,
       urgent = urgent
     )
@@ -361,7 +352,7 @@ open class MessageService(
     }
   }
 
-  private fun Raise<SendError>.encryptForAllDevices(
+  private suspend fun Raise<SendError>.encryptForAllDevices(
     serviceId: ServiceId,
     envelopeContent: EnvelopeContent,
     sealedSenderAccess: SealedSenderAccess?
@@ -372,17 +363,36 @@ open class MessageService(
     }
   }
 
-  private fun Raise<SendError>.encryptContent(
+  private suspend fun Raise<SendError>.encryptContent(
     serviceId: ServiceId,
     address: SignalProtocolAddress,
     envelopeContent: EnvelopeContent,
     sealedSenderAccess: SealedSenderAccess?
   ): OutgoingPushMessage = try {
+    if (!protocolStore.containsSession(address)) {
+      initializeSession(serviceId, address, sealedSenderAccess)
+    }
     cipher.encrypt(address, sealedSenderAccess, envelopeContent)
   } catch (e: UntrustedIdentityException) {
     raise(SendError.IdentityMismatch(serviceId, e))
   } catch (e: InvalidKeyException) {
     raise(SendError.ApplicationError(e))
+  }
+
+  private fun OutgoingPushMessage.toUnsealedMessage(): SingleOutboundUnsealedMessage {
+    val bytes = content.decodeBase64OrThrow()
+    val message = when (type) {
+      Envelope.Type.PREKEY_MESSAGE.value -> PreKeySignalMessage(bytes)
+      Envelope.Type.DOUBLE_RATCHET.value -> SignalMessage(bytes)
+      Envelope.Type.PLAINTEXT_CONTENT.value -> PlaintextContent(bytes)
+      else -> throw AssertionError("Bad unsealed message type: $type")
+    }
+
+    return SingleOutboundUnsealedMessage(
+      deviceId = destinationDeviceId,
+      registrationId = destinationRegistrationId,
+      message = message
+    )
   }
 
   private fun targetDeviceIds(serviceId: ServiceId): List<Int> {

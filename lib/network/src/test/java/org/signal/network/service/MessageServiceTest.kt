@@ -91,6 +91,31 @@ class MessageServiceTest {
   }
 
   @Test
+  fun `missing default-device session initializes session before sending`() = runTest {
+    val service = newService()
+    val defaultAddress = SignalProtocolAddress(recipientAci.libSignalServiceId, SignalServiceAddress.DEFAULT_DEVICE_ID)
+    every { protocolStore.getSubDeviceSessions(recipientAci.toString()) } returns emptyList()
+    every { protocolStore.containsSession(defaultAddress) } returns false
+    every { cipher.encrypt(any(), any(), any()) } returns OutgoingPushMessage(1, 1, 100, "AAAA")
+    coEvery { keysApi.getPreKey(recipientAci.toString(), SignalServiceAddress.DEFAULT_DEVICE_ID, null) } returns
+      RequestResult.Success(KeysApiV2.PreKeyResponse(identityKey = ByteArray(0), devices = emptyList()))
+    coEvery { messageApi.sendSealedSenderMessage(any(), any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(Unit)
+
+    val result = service.sendMessage(recipientAci, envelopeContent, timestamp, sealedSenderAccess = null, story = true, isOnline = false)
+
+    val success = (result as Either.Right).value
+    assertThat(success.devices).isEqualTo(listOf(SignalServiceAddress.DEFAULT_DEVICE_ID))
+    coVerifyOrder {
+      keysApi.getPreKey(recipientAci.toString(), SignalServiceAddress.DEFAULT_DEVICE_ID, null)
+      messageApi.sendSealedSenderMessage(eq(recipientAci), any(), any(), any(), any(), any())
+    }
+    verify {
+      cipher.encrypt(defaultAddress, null, envelopeContent)
+    }
+  }
+
+  @Test
   fun `isOnline true is forwarded to the send request`() = runTest {
     val service = newService()
     every { protocolStore.getSubDeviceSessions(recipientAci.toString()) } returns emptyList()
@@ -483,6 +508,8 @@ class MessageServiceTest {
    * implementation would; happy path is a no-op.
    */
   private fun newService(maxContentSizeBytes: Long = 0L): MessageService {
+    every { protocolStore.containsSession(any()) } returns true
+
     val spy: MessageService = spyk(
       MessageService(
         localAddress = localAddress,
