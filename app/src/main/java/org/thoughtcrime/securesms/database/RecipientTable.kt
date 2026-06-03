@@ -424,6 +424,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     fun maskCapabilitiesToLong(capabilities: SignalServiceProfile.Capabilities): Long {
       var value: Long = 0
       value = Bitmask.update(value, Capabilities.STORAGE_SERVICE_ENCRYPTION_V2, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isStorageServiceEncryptionV2).serialize().toLong())
+      value = Bitmask.update(value, Capabilities.USERNAME_SYNC_MESSAGES, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isUsernameSyncMessages).serialize().toLong())
       return value
     }
   }
@@ -4953,8 +4954,9 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
 //    const val DELETE_SYNC = 9
 //    const val VERSIONED_EXPIRATION_TIMER = 10
     const val STORAGE_SERVICE_ENCRYPTION_V2 = 11
+    const val USERNAME_SYNC_MESSAGES = 12
 
-    // IMPORTANT: We cannot sore more than 32 capabilities in the bitmask.
+    // IMPORTANT: We cannot store more than 32 capabilities in the bitmask.
   }
 
   enum class VibrateState(val id: Int) {

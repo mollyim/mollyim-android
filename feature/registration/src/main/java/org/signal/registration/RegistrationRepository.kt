@@ -369,7 +369,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
         storage = true, // True initially -- can turn off later if users opt-out
         versionedExpirationTimer = true,
         attachmentBackfill = true,
-        spqr = true
+        spqr = true,
+        usernameChangeSyncMessage = false // TODO(michelle): Turn on once all clients support it
       ),
       name = null,
       pniRegistrationId = keyMaterial.pniRegistrationId,

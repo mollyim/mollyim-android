@@ -885,7 +885,8 @@ class DemoNetworkController(
         storage = !RegistrationPreferences.pinsOptedOut,
         versionedExpirationTimer = true,
         attachmentBackfill = true,
-        spqr = true
+        spqr = true,
+        usernameChangeSyncMessage = true
       ),
       name = null,
       pniRegistrationId = RegistrationPreferences.pniRegistrationId,
@@ -1127,7 +1128,8 @@ class DemoNetworkController(
       storage,
       versionedExpirationTimer,
       attachmentBackfill,
-      spqr
+      spqr,
+      usernameChangeSyncMessage
     )
   }
 

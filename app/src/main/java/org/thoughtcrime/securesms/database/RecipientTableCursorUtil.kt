@@ -10,6 +10,7 @@ import android.database.Cursor
 import com.google.protobuf.InvalidProtocolBufferException
 import org.signal.core.models.ServiceId
 import org.signal.core.util.Base64
+import org.signal.core.util.Bitmask
 import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.core.util.optionalBlob
@@ -174,7 +175,8 @@ object RecipientTableCursorUtil {
   fun readCapabilities(cursor: Cursor): RecipientRecord.Capabilities {
     val capabilities = cursor.requireLong(RecipientTable.CAPABILITIES)
     return RecipientRecord.Capabilities(
-      rawBits = capabilities
+      rawBits = capabilities,
+      usernameSyncMessages = Recipient.Capability.deserialize(Bitmask.read(capabilities, RecipientTable.Capabilities.USERNAME_SYNC_MESSAGES, RecipientTable.Capabilities.BIT_LENGTH).toInt())
     )
   }
 

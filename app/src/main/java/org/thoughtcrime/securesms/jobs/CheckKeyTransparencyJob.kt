@@ -117,11 +117,11 @@ class CheckKeyTransparencyJob private constructor(
       aciIdentityKey = SignalStore.account.aciIdentityKey.publicKey,
       e164 = recipient.e164!!,
       unidentifiedAccessKey = ProfileKeyUtil.profileKeyOrNull(recipient.profileKey).let { UnidentifiedAccess.deriveAccessKeyFrom(it) },
-      usernameHash = SignalStore.account.username?.let { Username(it).hash },
+      usernameHash = SignalStore.account.username?.let { Username(it).hash }.takeIf { Recipient.self().usernameSyncMessagesCapability.isSupported },
       keyTransparencyStore = KeyTransparencyStore
     )
 
-    Log.i(TAG, "Key transparency complete, result: $result")
+    Log.i(TAG, "Key transparency complete, result: $result. Included username in check: ${Recipient.self().usernameSyncMessagesCapability.isSupported}")
     return when (result) {
       is RequestResult.Success -> {
         SignalStore.misc.hasKeyTransparencyFailure = false
