@@ -53,6 +53,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 
 private const val PASSPHRASE_LENGTH = 30
 private const val CHUNK_SIZE = 5
@@ -200,16 +201,16 @@ private fun Description() {
   Text(
     text = stringResource(R.string.LocalBackupRestoreScreen__enter_backup_passphrase),
     style = MaterialTheme.typography.headlineMedium,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
-
-  Spacer(modifier = Modifier.size(8.dp))
 
   Text(
     text = stringResource(R.string.LocalBackupRestoreScreen__enter_the_30_digit_passphrase),
-    style = MaterialTheme.typography.bodyMedium,
+    style = MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.padding(top = 16.dp)
   )
 }
 

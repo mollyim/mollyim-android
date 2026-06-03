@@ -185,8 +185,7 @@ private fun OnePaneLayout(
         modifier = Modifier
           .fillMaxSize()
           .verticalScroll(scrollState)
-          .padding(paddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally
+          .padding(paddingValues)
       ) {
         Description(state, onEvent)
 
@@ -453,13 +452,11 @@ private fun Description(state: VerificationCodeState, onEvent: (VerificationCode
       .attachDebugLogHelper()
   )
 
-  Spacer(modifier = Modifier.height(16.dp))
-
   Text(
     text = stringResource(R.string.VerificationCodeScreen__enter_the_code_we_sent_to_s, state.e164),
-    style = MaterialTheme.typography.bodyMedium,
+    style = MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.padding(top = 16.dp)
   )
 
   Spacer(modifier = Modifier.height(8.dp))

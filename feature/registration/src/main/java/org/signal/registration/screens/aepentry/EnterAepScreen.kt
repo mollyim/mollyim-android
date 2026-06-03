@@ -187,13 +187,13 @@ private fun Description() {
       .attachDebugLogHelper()
   )
 
-  Spacer(modifier = Modifier.size(8.dp))
-
   Text(
     text = stringResource(R.string.EnterAepScreen__your_recovery_key_is_a_64_character_code),
-    style = MaterialTheme.typography.bodyMedium,
+    style = MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(top = 16.dp)
   )
 }
 

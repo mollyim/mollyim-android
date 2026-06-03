@@ -70,7 +70,7 @@ internal fun LocalBackupRestoreLayout(
               Column(
                 modifier = Modifier
                   .fillMaxWidth()
-                  .padding(horizontal = 24.dp, vertical = 16.dp),
+                  .padding(params.footerPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
               ) {
                 primaryButton?.invoke(Modifier.fillMaxWidth())
@@ -125,7 +125,7 @@ internal fun LocalBackupRestoreLayout(
               Row(
                 modifier = Modifier
                   .fillMaxWidth()
-                  .padding(horizontal = 24.dp, vertical = 16.dp),
+                  .padding(params.footerPadding),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
               ) {
@@ -153,13 +153,11 @@ internal fun Description(headline: String, body: String) {
       .attachDebugLogHelper()
   )
 
-  Spacer(modifier = Modifier.height(8.dp))
-
   Text(
     text = body,
-    style = MaterialTheme.typography.bodyMedium,
+    style = MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.padding(top = 16.dp)
   )
 }
 

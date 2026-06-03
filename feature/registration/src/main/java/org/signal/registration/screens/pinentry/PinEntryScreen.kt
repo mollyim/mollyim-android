@@ -256,18 +256,17 @@ private fun PinDescription(
       text = titleString,
       style = MaterialTheme.typography.headlineMedium,
       textAlign = TextAlign.Center,
-      modifier = Modifier.attachDebugLogHelper()
+      modifier = Modifier
+        .fillMaxWidth()
+        .attachDebugLogHelper()
     )
-
-    Spacer(modifier = Modifier.height(12.dp))
 
     Text(
       text = stringResource(R.string.PinEntryScreen__enter_the_pin_you_created),
-      style = MaterialTheme.typography.bodyLarge.copy(
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        textAlign = TextAlign.Start
-      ),
-      color = MaterialTheme.colorScheme.onSurfaceVariant
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurfaceVariant,
+      textAlign = TextAlign.Start,
+      modifier = Modifier.padding(top = 16.dp)
     )
   }
 }

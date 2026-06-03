@@ -57,7 +57,6 @@ import org.signal.registration.screens.attachDebugLogHelper
  * PIN creation screen for the registration flow.
  * Allows users to create a new PIN for their account.
  */
-@Suppress("AssignedValueIsNeverRead")
 @Composable
 fun PinCreationScreen(
   state: PinCreationState,
@@ -240,22 +239,17 @@ private fun PinDescription(
         else -> stringResource(R.string.PinCreationScreen__create_your_pin)
       },
       style = MaterialTheme.typography.headlineMedium,
-      textAlign = TextAlign.Start,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()
     )
 
-    Spacer(modifier = Modifier.height(16.dp))
-
     if (isConfirmEnabled) {
       Text(
         text = stringResource(R.string.PinCreationScreen__reenter_pin_description),
-        style = MaterialTheme.typography.bodyLarge.copy(
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
-          textAlign = TextAlign.Start
-        ),
-        modifier = Modifier.fillMaxWidth()
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = 16.dp)
       )
     } else {
       val descriptionText = buildAnnotatedString {
@@ -275,11 +269,10 @@ private fun PinDescription(
 
       ClickableText(
         text = descriptionText,
-        style = MaterialTheme.typography.bodyLarge.copy(
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
-          textAlign = TextAlign.Start
-        ),
-        modifier = Modifier.fillMaxWidth(),
+        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(top = 16.dp),
         onClick = { offset ->
           descriptionText.getStringAnnotations(tag = "LEARN_MORE", start = offset, end = offset)
             .firstOrNull()

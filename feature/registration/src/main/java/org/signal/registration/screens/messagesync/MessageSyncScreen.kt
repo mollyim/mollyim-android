@@ -48,6 +48,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.test.TestTags
 
 /**
@@ -139,15 +140,17 @@ private fun FirstPaneContent(
   Column(modifier = modifier) {
     Text(
       text = stringResource(R.string.MessageSyncScreen__syncing_messages),
-      style = MaterialTheme.typography.headlineLarge,
-      modifier = Modifier.padding(bottom = 12.dp)
+      style = MaterialTheme.typography.headlineMedium,
+      modifier = Modifier
+        .fillMaxWidth()
+        .attachDebugLogHelper()
     )
 
     Text(
       text = stringResource(R.string.MessageSyncScreen__this_may_take_a_few_minutes),
-      style = MaterialTheme.typography.titleMedium,
+      style = MaterialTheme.typography.bodyLarge,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
-      modifier = Modifier.padding(bottom = 47.dp)
+      modifier = Modifier.padding(top = 16.dp)
     )
 
     LinearProgressIndicator(
@@ -161,7 +164,7 @@ private fun FirstPaneContent(
       drawStopIndicator = {},
       gapSize = 0.dp,
       modifier = Modifier
-        .padding(bottom = 16.dp)
+        .padding(top = 48.dp, bottom = 16.dp)
         .widthIn(max = 415.dp)
         .fillMaxWidth()
     )
@@ -203,27 +206,31 @@ private fun FooterContent(
     isElevated = isElevated
   ) {
     when (breakpoint) {
-      is WindowBreakpoint.Small -> StackedFooter(params, modifier, onEvent)
-      is WindowBreakpoint.Medium -> StackedFooter(params, modifier, onEvent)
-      is WindowBreakpoint.Large -> InlineFooter(modifier, onEvent)
+      is WindowBreakpoint.Small, is WindowBreakpoint.Medium -> StackedFooter(params, modifier, onEvent)
+      is WindowBreakpoint.Large -> InlineFooter(params, modifier, onEvent)
     }
   }
 }
 
 @Composable
-private fun StackedFooter(params: RegistrationScaffold.Params, modifier: Modifier, onEvent: (MessageSyncScreenEvent) -> Unit) {
-  Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+private fun StackedFooter(
+  params: RegistrationScaffold.Params,
+  modifier: Modifier,
+  onEvent: (MessageSyncScreenEvent) -> Unit
+) {
+  Column(
+    modifier = modifier
+      .padding(params.footerPadding)
+      .fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
     Notice(
       onEvent = onEvent,
-      modifier = Modifier
-        .padding(horizontal = 58.dp)
-        .padding(bottom = 16.dp)
+      modifier = Modifier.padding(bottom = 16.dp)
     )
     Cancel(
       onEvent = onEvent,
       modifier = Modifier
-        .padding(horizontal = 56.dp)
-        .padding(bottom = 36.dp)
         .widthIn(max = params.maxButtonWidth)
         .fillMaxWidth()
     )
@@ -231,31 +238,47 @@ private fun StackedFooter(params: RegistrationScaffold.Params, modifier: Modifie
 }
 
 @Composable
-private fun InlineFooter(modifier: Modifier, onEvent: (MessageSyncScreenEvent) -> Unit) {
-  Box(modifier = modifier) {
-    Notice(
-      onEvent = onEvent,
-      modifier = Modifier
-        .padding(horizontal = 58.dp, vertical = 36.dp)
-    )
-    Cancel(
-      onEvent = onEvent,
-      modifier = Modifier
-        .padding(horizontal = 56.dp, vertical = 36.dp)
-        .align(Alignment.CenterEnd)
-    )
+private fun InlineFooter(
+  params: RegistrationScaffold.Params,
+  modifier: Modifier,
+  onEvent: (MessageSyncScreenEvent) -> Unit
+) {
+  Row(
+    modifier = modifier
+      .padding(params.footerPadding)
+      .fillMaxWidth(),
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    Spacer(modifier = Modifier.weight(1f))
+    Notice(onEvent = onEvent)
+
+    Box(
+      modifier = Modifier.weight(1f),
+      contentAlignment = Alignment.CenterEnd
+    ) {
+      Cancel(
+        onEvent = onEvent,
+        modifier = Modifier
+          .widthIn(max = params.maxButtonWidth)
+          .padding(start = 16.dp)
+      )
+    }
   }
 }
 
 @Composable
-private fun Notice(modifier: Modifier, onEvent: (MessageSyncScreenEvent) -> Unit) {
+private fun Notice(
+  modifier: Modifier = Modifier,
+  onEvent: (MessageSyncScreenEvent) -> Unit
+) {
   Row(modifier = modifier) {
-    Spacer(modifier = Modifier.weight(1f))
-
     Icon(
       imageVector = SignalIcons.Lock.imageVector,
       contentDescription = null,
-      tint = MaterialTheme.colorScheme.onSurfaceVariant
+      tint = MaterialTheme.colorScheme.onSurfaceVariant,
+      modifier = Modifier
+        .padding(end = 2.dp)
+        .align(Alignment.CenterVertically)
     )
 
     Text(
@@ -287,9 +310,8 @@ private fun Notice(modifier: Modifier, onEvent: (MessageSyncScreenEvent) -> Unit
       modifier = Modifier
         .testTag(TestTags.MESSAGE_SYNC_LEARN_MORE_LINK)
         .widthIn(max = 405.dp)
+        .align(Alignment.CenterVertically)
     )
-
-    Spacer(modifier = Modifier.weight(1f))
   }
 }
 

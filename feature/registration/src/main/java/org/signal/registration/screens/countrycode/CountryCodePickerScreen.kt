@@ -9,6 +9,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -42,6 +43,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -97,10 +99,23 @@ private fun OnePaneLayout(
         scrollBehavior = topBarScrollBehavior,
         onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
       )
+    },
+    content = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+      ) {
+        CountryList(
+          showTitle = true,
+          state = state,
+          onEvent = onEvent,
+          contentPadding = paddingValues,
+          modifier = Modifier.weight(1f)
+        )
+      }
     }
-  ) {
-    CountryList(state, onEvent)
-  }
+  )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -142,7 +157,11 @@ private fun TwoPaneLayout(
           .fillMaxHeight()
           .padding(paddingValues)
       ) {
-        CountryList(state, onEvent)
+        CountryList(
+          showTitle = false,
+          state = state,
+          onEvent = onEvent
+        )
       }
     }
   )
@@ -165,14 +184,35 @@ fun TopAppBar(
 }
 
 @Composable
-private fun CountryList(state: CountryCodeState, onEvent: (CountryCodePickerScreenEvents) -> Unit) {
+private fun CountryList(
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit,
+  modifier: Modifier = Modifier,
+  contentPadding: PaddingValues = PaddingValues(),
+  showTitle: Boolean
+) {
   val listState = rememberLazyListState()
   val coroutineScope = rememberCoroutineScope()
 
   LazyColumn(
+    modifier = modifier,
     state = listState,
+    contentPadding = contentPadding,
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
+    item {
+      if (showTitle) {
+        Text(
+          text = stringResource(R.string.CountryCodeSelectScreen__your_country),
+          style = MaterialTheme.typography.headlineMedium,
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 28.dp)
+            .attachDebugLogHelper()
+        )
+      }
+    }
+
     stickyHeader {
       SearchBar(
         text = state.query,
@@ -351,8 +391,6 @@ private fun SearchBar(
     shape = RoundedCornerShape(32.dp),
     modifier = modifier
       .background(MaterialTheme.colorScheme.background)
-      .padding(bottom = 18.dp)
-      .padding(horizontal = 16.dp)
       .fillMaxWidth()
       .defaultMinSize(minHeight = 54.dp)
       .focusRequester(focusRequester),

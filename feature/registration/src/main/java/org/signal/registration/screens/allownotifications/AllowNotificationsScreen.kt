@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -36,6 +37,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.util.MockPermissionsState
 import org.signal.registration.test.TestTags
 
@@ -76,6 +78,7 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, permissionState
     },
     footer = {
       FooterContent(
+        params = params,
         permissionState = permissionState,
         isElevated = scrollState.canScrollForward,
         onProceed = onProceed
@@ -88,7 +91,6 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, permissionState
 @Composable
 private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, permissionState: PermissionState, onProceed: () -> Unit) {
   val firstPaneScrollState = rememberScrollState()
-  val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
     params = params,
@@ -105,15 +107,14 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, permissionState
       SecondPaneContent(
         modifier = Modifier
           .weight(1f)
-          .fillMaxHeight()
-          .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       )
     },
     footer = {
       FooterContent(
+        params = params,
         permissionState = permissionState,
-        isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        isElevated = firstPaneScrollState.canScrollForward,
         onProceed = onProceed
       )
     }
@@ -127,13 +128,17 @@ private fun FirstPaneContent(
   Column(modifier = modifier) {
     Text(
       text = stringResource(R.string.AllowNotificationsScreen__allow_notifications),
-      style = MaterialTheme.typography.headlineLarge,
-      modifier = Modifier.padding(bottom = 12.dp)
+      style = MaterialTheme.typography.headlineMedium,
+      modifier = Modifier
+        .fillMaxWidth()
+        .attachDebugLogHelper()
     )
 
     Text(
       text = stringResource(R.string.AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission),
-      style = MaterialTheme.typography.titleMedium
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurfaceVariant,
+      modifier = Modifier.padding(top = 16.dp)
     )
   }
 }
@@ -153,6 +158,7 @@ private fun SecondPaneContent(
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun FooterContent(
+  params: RegistrationScaffold.Params,
   permissionState: PermissionState,
   isElevated: Boolean,
   onProceed: () -> Unit
@@ -162,7 +168,7 @@ private fun FooterContent(
   ) {
     Row(
       horizontalArrangement = spacedBy(56.dp),
-      modifier = Modifier.padding(56.dp)
+      modifier = Modifier.padding(params.footerPadding)
     ) {
       Spacer(modifier = Modifier.weight(1f))
 

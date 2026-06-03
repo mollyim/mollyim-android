@@ -69,6 +69,7 @@ import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.quickrestore.QrState
 import org.signal.registration.test.TestTags
 
@@ -122,8 +123,8 @@ private fun OnePane(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = spacedBy(64.dp),
         modifier = Modifier
-          .padding(paddingValues)
           .verticalScroll(scrollState)
+          .padding(paddingValues)
       ) {
         Title()
 
@@ -134,6 +135,7 @@ private fun OnePane(
     },
     footer = {
       OnePaneFooterContent(
+        params = params,
         isElevated = scrollState.canScrollForward,
         onEvent = onEvent
       )
@@ -168,6 +170,7 @@ private fun TwoPane(
     },
     footer = {
       TwoPaneFooterContent(
+        params = params,
         isElevated = false,
         onEvent = onEvent
       )
@@ -194,7 +197,10 @@ private fun FirstPaneContent(
 private fun Title() {
   Text(
     text = stringResource(R.string.LinkAccountScreen__scan_this_code_to_link_your_account),
-    style = MaterialTheme.typography.headlineLarge
+    style = MaterialTheme.typography.headlineMedium,
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
   )
 }
 
@@ -465,6 +471,7 @@ fun getQrCodeSize(isInOverlay: Boolean): Dp {
 
 @Composable
 private fun OnePaneFooterContent(
+  params: RegistrationScaffold.Params.OnePane,
   isElevated: Boolean,
   onEvent: (LinkAccountScreenEvent) -> Unit,
   modifier: Modifier = Modifier
@@ -475,8 +482,8 @@ private fun OnePaneFooterContent(
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = modifier
-        .padding(start = 36.dp, end = 36.dp, bottom = 16.dp)
         .fillMaxWidth()
+        .padding(params.footerPadding)
     ) {
       Row {
         DontHaveSignal()
@@ -488,6 +495,7 @@ private fun OnePaneFooterContent(
 
 @Composable
 private fun TwoPaneFooterContent(
+  params: RegistrationScaffold.Params.TwoPane,
   isElevated: Boolean,
   onEvent: (LinkAccountScreenEvent) -> Unit,
   modifier: Modifier = Modifier
@@ -497,7 +505,7 @@ private fun TwoPaneFooterContent(
   ) {
     Row(
       horizontalArrangement = spacedBy(8.dp),
-      modifier = modifier.padding(36.dp)
+      modifier = modifier.padding(params.footerPadding)
     ) {
       Spacer(modifier = Modifier.weight(1f))
 
