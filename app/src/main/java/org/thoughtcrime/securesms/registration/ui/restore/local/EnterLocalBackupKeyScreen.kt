@@ -48,7 +48,7 @@ import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
 
 @Composable
 fun EnterLocalBackupKeyScreen(
-  backupKey: String,
+  enteredText: String,
   isRegistrationInProgress: Boolean,
   isBackupKeyValid: Boolean,
   aepValidationError: AccountEntropyPoolVerification.AEPValidationError?,
@@ -95,7 +95,7 @@ fun EnterLocalBackupKeyScreen(
     }
   ) {
     TextField(
-      value = backupKey,
+      value = enteredText,
       onValueChange = { value ->
         onBackupKeyChanged(value)
         autoFillHelper.onValueChanged(value)
@@ -160,7 +160,7 @@ private fun ValidationErrorMessage(error: AccountEntropyPoolVerification.AEPVali
 private fun EnterLocalBackupKeyScreenPreview() {
   Previews.Preview {
     EnterLocalBackupKeyScreen(
-      backupKey = "",
+      enteredText = "",
       isRegistrationInProgress = false,
       isBackupKeyValid = false,
       aepValidationError = null,
