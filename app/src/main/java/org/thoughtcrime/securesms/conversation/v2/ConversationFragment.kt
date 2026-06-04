@@ -1172,7 +1172,7 @@ class ConversationFragment :
       .doOnSuccess { state ->
         SignalLocalMetrics.ConversationOpen.onDataLoaded()
         conversationItemDecorations.selfRecipientId = Recipient.self().id
-        conversationItemDecorations.setFirstUnreadCount(state.meta.unreadCount)
+        conversationItemDecorations.setUnreadState(state.meta.unreadCount, state.meta.firstUnreadId)
         colorizer.onGroupMembershipChanged(state.meta.groupMemberAcis)
       }
       .observeOn(AndroidSchedulers.mainThread())
@@ -3238,20 +3238,28 @@ class ConversationFragment :
       val toolbarOffset = rect.bottom
       binding.toolbar.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
-      val offset = when {
-        meta.getStartPosition() == 0 -> 0
-        meta.shouldJumpToMessage() -> (binding.conversationItemRecycler.height - toolbarOffset) / 4
-        meta.shouldScrollToLastSeen() -> binding.conversationItemRecycler.height - toolbarOffset
-        else -> binding.conversationItemRecycler.height
-      }
+      val startPosition = meta.getStartPosition()
+      Log.d(TAG, "Scrolling to start position $startPosition")
 
-      Log.d(TAG, "Scrolling to start position ${meta.getStartPosition()}")
-      layoutManager.scrollToPositionWithOffset(meta.getStartPosition(), offset) {
-        animationsAllowed = true
-        markReadHelper.stopIgnoringViewReveals(MarkReadHelper.getLatestTimestamp(adapter, layoutManager).orNull())
-        if (meta.shouldJumpToMessage()) {
-          binding.conversationItemRecycler.post {
-            adapter.pulseAtPosition(meta.getStartPosition())
+      if (meta.shouldScrollToFirstUnread()) {
+        // Land the divider just below the toolbar.
+        layoutManager.scrollToPositionTopAligned(startPosition, toolbarOffset) {
+          animationsAllowed = true
+          markReadHelper.stopIgnoringViewReveals(MarkReadHelper.getLatestTimestamp(adapter, layoutManager).orNull())
+        }
+      } else {
+        val offset = when {
+          startPosition == 0 -> 0
+          meta.shouldJumpToMessage() -> (binding.conversationItemRecycler.height - toolbarOffset) / 4
+          else -> binding.conversationItemRecycler.height
+        }
+        layoutManager.scrollToPositionWithOffset(startPosition, offset) {
+          animationsAllowed = true
+          markReadHelper.stopIgnoringViewReveals(MarkReadHelper.getLatestTimestamp(adapter, layoutManager).orNull())
+          if (meta.shouldJumpToMessage()) {
+            binding.conversationItemRecycler.post {
+              adapter.pulseAtPosition(startPosition)
+            }
           }
         }
       }

@@ -2670,6 +2670,30 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       }
   }
 
+  /**
+   * The oldest unread message as displayed in the thread (latest revision, not collapsed, not pinned), or null if there
+   * are none. Anchors the unread divider ([OldestUnread.id]) and its scroll position ([OldestUnread.dateReceived]); this
+   * is a separate query from the unread count and is not expected to select an identical row set.
+   */
+  fun getOldestUnread(threadId: Long): OldestUnread? {
+    val pinnedMessageClause = "($TYPE & ${MessageTypes.SPECIAL_TYPES_MASK}) != ${MessageTypes.SPECIAL_TYPE_PINNED_MESSAGE}"
+    // The redundant "($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1)" term lets the planner use the partial
+    // index to satisfy ORDER BY $DATE_RECEIVED without a sort (same trick as setMessagesReadSince).
+    return readableDatabase
+      .select(ID, DATE_RECEIVED)
+      .from("$TABLE_NAME INDEXED BY $INDEX_THREAD_DATE_RECEIVED_UNREAD")
+      .where("$THREAD_ID = ? AND $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND ($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1) AND $READ = 0 AND $SCHEDULED_DATE = -1 AND $LATEST_REVISION_ID IS NULL AND $COLLAPSED_STATE != ${CollapsedState.COLLAPSED.id} AND $pinnedMessageClause", threadId)
+      .orderBy("$DATE_RECEIVED ASC")
+      .limit(1)
+      .run()
+      .readToSingleObject { cursor ->
+        OldestUnread(
+          id = cursor.requireLong(ID),
+          dateReceived = cursor.requireLong(DATE_RECEIVED)
+        )
+      }
+  }
+
   fun getUnreadMentionCount(threadId: Long): Int {
     return readableDatabase
       .count()
@@ -6555,6 +6579,11 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val dateSent: Long,
     val fromRecipientId: Long,
     val threadId: Long
+  )
+
+  data class OldestUnread(
+    val id: Long,
+    val dateReceived: Long
   )
 
   data class Duplicate(

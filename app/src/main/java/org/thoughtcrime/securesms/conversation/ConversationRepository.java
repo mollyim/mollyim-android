@@ -50,8 +50,10 @@ public class ConversationRepository {
   public @NonNull ConversationData getConversationData(long threadId, @NonNull Recipient conversationRecipient, int jumpToPosition) {
     ThreadTable.ConversationMetadata    metadata                       = SignalDatabase.threads().getConversationMetadata(threadId);
     int                                 threadSize                     = SignalDatabase.messages().getMessageCountForThread(threadId);
-    long                                lastSeen                       = metadata.getLastSeen();
-    int                                 lastSeenPosition               = 0;
+    MessageTable.OldestUnread           oldestUnread                   = metadata.getUnreadCount() > 0 ? SignalDatabase.messages().getOldestUnread(threadId) : null;
+    long                                firstUnreadId                  = oldestUnread != null ? oldestUnread.getId() : -1;
+    long                                firstUnreadDateReceived        = oldestUnread != null ? oldestUnread.getDateReceived() : 0;
+    int                                 firstUnreadPosition            = 0;
     long                                lastScrolled                   = metadata.getLastScrolled();
     int                                 lastScrolledPosition           = 0;
     boolean                             isMessageRequestAccepted       = RecipientUtil.isMessageRequestAccepted(threadId);
@@ -59,15 +61,16 @@ public class ConversationRepository {
     ConversationData.MessageRequestData messageRequestData             = new ConversationData.MessageRequestData(isMessageRequestAccepted, isConversationHidden);
     boolean                             showUniversalExpireTimerUpdate = false;
 
-    if (lastSeen > 0) {
-      lastSeenPosition = SignalDatabase.messages().getMessagePositionByDateReceivedTimestamp(threadId, lastSeen, false);
+    if (firstUnreadDateReceived > 0) {
+      firstUnreadPosition = SignalDatabase.messages().getMessagePositionByDateReceivedTimestamp(threadId, firstUnreadDateReceived, false);
     }
 
-    if (lastSeenPosition <= 0) {
-      lastSeen = 0;
+    if (firstUnreadPosition <= 0) {
+      firstUnreadId           = -1;
+      firstUnreadDateReceived = 0;
     }
 
-    if (lastSeen == 0 && lastScrolled > 0) {
+    if (firstUnreadDateReceived == 0 && lastScrolled > 0) {
       lastScrolledPosition = SignalDatabase.messages().getMessagePositionByDateReceivedTimestamp(threadId, lastScrolled, true);
     }
 
@@ -108,7 +111,7 @@ public class ConversationRepository {
       showUniversalExpireTimerUpdate = true;
     }
 
-    return new ConversationData(conversationRecipient, threadId, lastSeen, lastSeenPosition, lastScrolledPosition, jumpToPosition, threadSize, messageRequestData, showUniversalExpireTimerUpdate, metadata.getUnreadCount(), groupMemberAcis);
+    return new ConversationData(conversationRecipient, threadId, firstUnreadId, firstUnreadPosition, lastScrolledPosition, jumpToPosition, threadSize, messageRequestData, showUniversalExpireTimerUpdate, metadata.getUnreadCount(), groupMemberAcis);
   }
 
   public void markGiftBadgeRevealed(long messageId) {
