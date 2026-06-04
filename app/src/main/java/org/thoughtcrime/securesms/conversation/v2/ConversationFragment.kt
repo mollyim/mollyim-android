@@ -3241,7 +3241,13 @@ class ConversationFragment :
       val startPosition = meta.getStartPosition()
       Log.d(TAG, "Scrolling to start position $startPosition")
 
-      if (meta.shouldScrollToFirstUnread()) {
+      if (!meta.messageRequestData.isMessageRequestAccepted) {
+        // Always scroll to the top to show header in MR state
+        layoutManager.scrollToPositionTopAligned(meta.threadSize, toolbarOffset) {
+          animationsAllowed = true
+          markReadHelper.stopIgnoringViewReveals(MarkReadHelper.getLatestTimestamp(adapter, layoutManager).orNull())
+        }
+      } else if (meta.shouldScrollToFirstUnread()) {
         // Land the divider just below the toolbar.
         layoutManager.scrollToPositionTopAligned(startPosition, toolbarOffset) {
           animationsAllowed = true
