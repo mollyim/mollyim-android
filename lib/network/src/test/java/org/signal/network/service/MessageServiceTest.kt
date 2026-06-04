@@ -229,6 +229,23 @@ class MessageServiceTest {
   }
 
   @Test
+  fun `local send with no other devices sends to own device`() = runTest {
+    val service = newService()
+    val localProtocolAddress = SignalProtocolAddress(localAci.libSignalServiceId, SignalServiceAddress.DEFAULT_DEVICE_ID)
+    every { protocolStore.getSubDeviceSessions(localAci.toString()) } returns emptyList()
+    every { cipher.encrypt(any(), any(), any()) } returns OutgoingPushMessage(1, 1, 100, "AAAA")
+
+    coEvery { messageApi.sendSealedSenderMessage(any(), any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(Unit)
+
+    val result = service.sendMessage(localAci, envelopeContent, timestamp, sealedSenderAccess = null, story = true, isOnline = false)
+
+    val success = (result as Either.Right).value
+    assertThat(success.devices).isEqualTo(listOf(SignalServiceAddress.DEFAULT_DEVICE_ID))
+    verify { cipher.encrypt(localProtocolAddress, null, envelopeContent) }
+  }
+
+  @Test
   fun `MismatchedDeviceException archives extras and fetches missing prekeys`() = runTest {
     val service = newService()
     every { protocolStore.getSubDeviceSessions(recipientAci.toString()) } returns emptyList()

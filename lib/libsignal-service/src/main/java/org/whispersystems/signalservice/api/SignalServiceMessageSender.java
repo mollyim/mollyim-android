@@ -2808,22 +2808,24 @@ public class SignalServiceMessageSender {
                                                        boolean                      story)
       throws IOException, InvalidKeyException, UntrustedIdentityException
   {
-    List<OutgoingPushMessage> messages = new LinkedList<>();
+    List<OutgoingPushMessage> messages   = new LinkedList<>();
+    List<Integer>             subDevices = aciStore.getSubDeviceSessions(recipient.getIdentifier());
+    Set<Integer>              deviceIds  = subDevices.stream()
+                                                     .filter((id) -> aciStore.containsSession(new SignalProtocolAddress(recipient.getIdentifier(), id)))
+                                                     .collect(Collectors.toSet());
 
-    List<Integer> subDevices = aciStore.getSubDeviceSessions(recipient.getIdentifier());
-
-    List<Integer> deviceIds = new ArrayList<>(subDevices.size() + 1);
     deviceIds.add(SignalServiceAddress.DEFAULT_DEVICE_ID);
-    deviceIds.addAll(subDevices);
 
     if (recipient.matches(localAddress)) {
-      deviceIds.remove(Integer.valueOf(localDeviceId));
+      deviceIds.remove(localDeviceId);
+
+      if (deviceIds.isEmpty()) {
+        deviceIds.add(localDeviceId);
+      }
     }
 
     for (int deviceId : deviceIds) {
-      if (deviceId == SignalServiceAddress.DEFAULT_DEVICE_ID || aciStore.containsSession(new SignalProtocolAddress(recipient.getIdentifier(), deviceId))) {
-        messages.add(getEncryptedMessage(recipient, sealedSenderAccess, deviceId, plaintext, story));
-      }
+      messages.add(getEncryptedMessage(recipient, sealedSenderAccess, deviceId, plaintext, story));
     }
 
     return new OutgoingPushMessageList(recipient.getIdentifier(), timestamp, messages, online, urgent);

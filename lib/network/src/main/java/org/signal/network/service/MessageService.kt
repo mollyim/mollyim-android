@@ -396,17 +396,20 @@ open class MessageService(
   }
 
   private fun targetDeviceIds(serviceId: ServiceId): List<Int> {
-    val subDevices: MutableSet<Int> = (protocolStore.getSubDeviceSessions(serviceId.toString()) + SignalServiceAddress.DEFAULT_DEVICE_ID).toMutableSet()
+    val devices: MutableSet<Int> = protocolStore.getSubDeviceSessions(serviceId.toString())
+      .filter { protocolStore.containsSession(SignalProtocolAddress(serviceId.libSignalServiceId, it)) }
+      .toMutableSet()
 
-    // When sending to self, skip our own device.
+    devices += SignalServiceAddress.DEFAULT_DEVICE_ID
+
     if (serviceId == localAddress.serviceId) {
-      subDevices -= localDeviceId
+      devices -= localDeviceId
+      if (devices.isEmpty()) {
+        devices += localDeviceId
+      }
     }
 
-    return subDevices
-      .filter { it == SignalServiceAddress.DEFAULT_DEVICE_ID || protocolStore.containsSession(SignalProtocolAddress(serviceId.libSignalServiceId, it)) }
-      .sorted()
-      .toList()
+    return devices.sorted()
   }
 
   /**
