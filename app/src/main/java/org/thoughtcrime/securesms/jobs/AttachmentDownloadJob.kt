@@ -399,8 +399,8 @@ class AttachmentDownloadJob private constructor(
     }
 
     return try {
-      val remoteId = SignalServiceAttachmentRemoteId.from(attachment.remoteLocation)
       val cdnNumber = attachment.cdn.cdnNumber
+      val remoteId = SignalServiceAttachmentRemoteId.from(attachment.remoteLocation, cdnNumber)
 
       val key = Base64.decode(attachment.remoteKey)
 

@@ -215,7 +215,7 @@ private fun Attachment.toAttachmentPointerProto(): Either<DataMessageError, Atta
     raise(DataMessageError.MissingAttachmentRemoteFields)
   }
 
-  val remoteIdResolved: SignalServiceAttachmentRemoteId = SignalServiceAttachmentRemoteId.from(remoteLocation)
+  val remoteIdResolved: SignalServiceAttachmentRemoteId = SignalServiceAttachmentRemoteId.from(remoteLocation, cdn.cdnNumber)
 
   val keyBytes: ByteArray = try {
     Base64.decode(remoteKey)

@@ -282,7 +282,7 @@ abstract class PushSendJob protected constructor(parameters: Parameters) : BaseJ
     }
 
     try {
-      val remoteId = SignalServiceAttachmentRemoteId.from(attachment.remoteLocation!!)
+      val remoteId = SignalServiceAttachmentRemoteId.from(attachment.remoteLocation!!, attachment.cdn.cdnNumber)
       val key = Base64.decode(attachment.remoteKey!!)
 
       var width = attachment.width
