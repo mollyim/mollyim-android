@@ -153,8 +153,8 @@ public class InputPanel extends ConstraintLayout
 
     this.composeContainer       = findViewById(R.id.compose_bubble);
     this.stickerSuggestion      = findViewById(R.id.input_panel_sticker_suggestion);
-    this.quoteViewStub          = new Stub<>(findViewById(R.id.quote_view_stub));
-    this.linkPreviewStub        = new Stub<>(findViewById(R.id.link_preview_stub));
+    this.quoteViewStub          = new Stub<>(findViewById(R.id.quote_view));
+    this.linkPreviewStub        = new Stub<>(findViewById(R.id.link_preview));
     this.mediaKeyboard          = findViewById(R.id.emoji_toggle);
     this.composeText            = findViewById(R.id.embedded_text_editor);
     this.composeTextContainer   = findViewById(R.id.embedded_text_editor_container);
