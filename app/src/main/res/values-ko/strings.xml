@@ -1702,7 +1702,7 @@
     <!-- When editing a message, label shown above the text input field in the composer -->
     <string name="InputPanel_edit_message">메시지 수정</string>
     <!-- Dialog title shown if users are about to discard their draft message -->
-    <string name="InputPanel__discard_draft">초안을 삭제할까요?</string>
+    <string name="InputPanel__discard_draft">작성 중인 메시지를 삭제할까요?</string>
     <!-- Dialog message explaining their action cannot be reversed -->
     <string name="InputPanel__this_action_cant_be_undone">이 작업은 취소할 수 없습니다.</string>
     <!-- Button inside an alert dialog confirming the deletion of their draft -->
@@ -2846,14 +2846,14 @@
   <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_share" translatable="false">Share</string> -->
 
     <!-- SharedContactDetailsActivity -->
-    <string name="SharedContactDetailsActivity_add_to_contacts">연락처에 추가</string>
-    <string name="SharedContactDetailsActivity_invite_to_signal">Signal로 초대</string>
+    <string name="SharedContactDetailsActivity_add_to_contacts">연락처에 추가하기</string>
+    <string name="SharedContactDetailsActivity_invite_to_signal">Signal로 초대하기</string>
     <string name="SharedContactDetailsActivity_signal_message">Signal 메시지</string>
     <string name="SharedContactDetailsActivity_signal_call">Signal 통화</string>
 
     <!-- SharedContactView -->
-    <string name="SharedContactView_add_to_contacts">연락처에 추가</string>
-    <string name="SharedContactView_invite_to_signal">Signal로 초대</string>
+    <string name="SharedContactView_add_to_contacts">연락처에 추가하기</string>
+    <string name="SharedContactView_invite_to_signal">Signal로 초대하기</string>
     <string name="SharedContactView_message">Signal 메시지</string>
 
     <!-- SignalBottomActionBar -->
@@ -2908,21 +2908,21 @@
     <!-- Sticker pack list section header for highlighted/"blessed" packs. -->
     <string name="StickerManagement_signal_artist_series_header">Signal 아티스트 시리즈</string>
     <!-- Title shown when sharing a sticker pack with another user. -->
-    <string name="StickerManagement_share_sheet_title">다른 사용자에게 전달</string>
+    <string name="StickerManagement_share_sheet_title">스티커 팩 전달하기</string>
     <!-- Bottom action bar option to select all sticker packs in the list. -->
     <string name="StickerManagement_action_select_all">모두 선택</string>
     <!-- Bottom action bar option to deselect all sticker packs in the list. -->
-    <string name="StickerManagement_action_deselect_all">모든 항목 선택 취소</string>
+    <string name="StickerManagement_action_deselect_all">모든 항목 선택 해제</string>
     <!-- Bottom action bar option to uninstall all selected sticker packs. -->
     <string name="StickerManagement_action_delete_selected">삭제</string>
     <!-- Confirmation message shown before uninstalling sticker packs. The placeholder is the number of items to delete. -->
     <plurals name="StickerManagement_delete_n_packs_confirmation">
-        <item quantity="other">스티커 팩 %1$s개 제거</item>
+        <item quantity="other">스티커 팩 %1$s개를 제거합니다.</item>
     </plurals>
     <!-- Message shown after installing a sticker pack. The placeholder is the name of the sticker pack that was installed. -->
     <string name="StickerManagement_installed_pack_s">%1$s 스티커 팩을 설치했습니다.</string>
     <!-- Message shown after uninstalling a sticker pack. The placeholder is the name of the sticker pack that was deleted. -->
-    <string name="StickerManagement_deleted_pack_s">%1$s 스티커를 제거했습니다.</string>
+    <string name="StickerManagement_deleted_pack_s">%1$s 스티커 팩을 제거했습니다.</string>
     <!-- Message shown after uninstalling sticker packs. The placeholder is the number of items that were deleted. -->
     <plurals name="StickerManagement_deleted_n_packs">
         <item quantity="other">스티커 팩 %1$s개를 제거했습니다.</item>
@@ -2954,7 +2954,7 @@
     <!-- Accessibility label for opening the screen specific dropdown menu. -->
     <string name="StickerManagement_accessibility_open_top_bar_menu">메뉴 열기</string>
     <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
-    <string name="StickerManagement_accessibility_open_context_menu">바로 가기 메뉴 열기</string>
+    <string name="StickerManagement_accessibility_open_context_menu">바로가기 메뉴 열기</string>
     <!-- Accessibility label for opening the context menu for a sticker pack row item. -->
     <string name="StickerManagement_accessibility_exit_multi_select_mode">선택 모드 종료 및 선택 항목 지우기</string>
 
@@ -3015,16 +3015,16 @@
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_registered" translatable="false">Registered:</string> -->
 
     <!-- ThreadRecord -->
-    <string name="ThreadRecord_group_updated">그룹이 업데이트됨</string>
+    <string name="ThreadRecord_group_updated">그룹이 업데이트되었습니다</string>
     <!-- Text shown you have left a group -->
-    <string name="ThreadRecord_left_the_group">그룹을 탈퇴함</string>
+    <string name="ThreadRecord_left_the_group">그룹을 나갔습니다</string>
     <string name="ThreadRecord_secure_session_reset">보안 세션이 초기화되었습니다.</string>
-    <string name="ThreadRecord_draft">초안:</string>
+    <string name="ThreadRecord_draft">작성 중:</string>
     <string name="ThreadRecord_media_message">미디어 메시지</string>
     <string name="ThreadRecord_sticker">스티커</string>
-    <string name="ThreadRecord_view_once_photo">한 번 볼 수 있는 이미지</string>
-    <string name="ThreadRecord_view_once_video">한 번 볼 수 있는 동영상</string>
-    <string name="ThreadRecord_view_once_media">한 번 볼 수 있는 미디어</string>
+    <string name="ThreadRecord_view_once_photo">한 번만 볼 수 있는 이미지</string>
+    <string name="ThreadRecord_view_once_video">한 번만 볼 수 있는 동영상</string>
+    <string name="ThreadRecord_view_once_media">한 번만 볼 수 있는 미디어</string>
     <!-- Thread preview when someone has deleted their own message -->
     <string name="ThreadRecord_this_message_was_deleted">삭제된 메시지입니다.</string>
     <!-- Thread preview when someone has deleted their own message. Placeholder is the name of the person. -->
@@ -3034,13 +3034,13 @@
     <!-- Thread preview when an admin has deleted a message -->
     <string name="ThreadRecord_admin_deleted_this_message">관리자 %1$s 님이 메시지를 삭제했습니다.</string>
     <!-- Displayed in the notification when the user sends a request to activate payments -->
-    <string name="ThreadRecord_you_sent_request">결제를 활성화해달라는 요청을 보냈습니다.</string>
+    <string name="ThreadRecord_you_sent_request">결제를 활성화해달라는 요청을 보냈습니다</string>
     <!-- Displayed in the notification when the recipient wants to activate payments -->
     <string name="ThreadRecord_wants_you_to_activate_payments">%1$s 님이 결제 활성화 요청을 보냈습니다</string>
     <!-- Displayed in the notification when the user activates payments -->
-    <string name="ThreadRecord_you_activated_payments">결제를 활성화했습니다.</string>
+    <string name="ThreadRecord_you_activated_payments">결제를 활성화했습니다</string>
     <!-- Displayed in the notification when the recipient can accept payments -->
-    <string name="ThreadRecord_can_accept_payments">%1$s 님이 이제 결제를 수락할 수 있습니다.</string>
+    <string name="ThreadRecord_can_accept_payments">%1$s 님이 이제 결제를 수락할 수 있습니다</string>
     <string name="ThreadRecord_s_is_on_signal">%1$s 님이 Signal에 가입했어요!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">자동 삭제 메시지 기능이 비활성화됨</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">자동 삭제 메시지 시간을 %1$s(으)로 설정했습니다.</string>
@@ -3048,11 +3048,11 @@
     <string name="ThreadRecord_your_safety_number_with_s_has_changed">%1$s 님과의 안전 번호가 변경되었습니다.</string>
     <string name="ThreadRecord_you_marked_verified">인증 완료로 표시했습니다.</string>
     <string name="ThreadRecord_you_marked_unverified">인증되지 않음으로 표시했습니다.</string>
-    <string name="ThreadRecord_message_could_not_be_processed">메시지를 처리할 수 없음</string>
-    <string name="ThreadRecord_delivery_issue">이슈 전송하기</string>
+    <string name="ThreadRecord_message_could_not_be_processed">메시지를 처리하지 못했습니다</string>
+    <string name="ThreadRecord_delivery_issue">전송 문제</string>
     <string name="ThreadRecord_message_request">메시지 요청</string>
     <!-- Thread preview for a recipient that has been hidden -->
-    <string name="ThreadRecord_hidden_recipient">이전에 숨겼던 사용자입니다. 해당 사용자에게 메시지를 보내면 사용자가 목록에 다시 추가됩니다.</string>
+    <string name="ThreadRecord_hidden_recipient">숨김 처리한 사용자입니다. 대화를 다시 시작하면 해당 사용자가 목록에 다시 추가됩니다.</string>
     <string name="ThreadRecord_photo">사진</string>
     <string name="ThreadRecord_gif">GIF</string>
     <string name="ThreadRecord_voice_message">음성 메시지</string>
@@ -3064,7 +3064,7 @@
     <!-- Displayed in the notification when the user sends a gift -->
     <string name="ThreadRecord__you_donated_for_s">%1$s 님을 대신해 후원했어요</string>
     <!-- Displayed in the notification when the user has opened a received gift -->
-    <string name="ThreadRecord__you_redeemed_a_badge">배지를 사용했습니다.</string>
+    <string name="ThreadRecord__you_redeemed_a_badge">배지를 사용했습니다</string>
     <!-- Displayed in the conversation list when someone reacted to your story -->
     <string name="ThreadRecord__reacted_s_to_your_story">내 스토리에 %1$s 이모지로 공감했어요</string>
     <!-- Displayed in the conversation list when you reacted to someone\'s story -->
@@ -3074,9 +3074,9 @@
     <!-- Displayed in the conversation list when your only message in a conversation is a scheduled send. -->
     <string name="ThreadRecord_scheduled_message">예약 메시지</string>
     <!--  Displayed in the conversation list when your message history has been merged -->
-    <string name="ThreadRecord_message_history_has_been_merged">메시지 기록을 병합했습니다.</string>
+    <string name="ThreadRecord_message_history_has_been_merged">메시지 기록을 병합했습니다</string>
     <!--  Displayed in the conversation list when identities have been merged. The first placeholder is a phone number, and the second is a person\'s name -->
-    <string name="ThreadRecord_s_belongs_to_s">%1$s번은 %2$s 님의 전화번호입니다.</string>
+    <string name="ThreadRecord_s_belongs_to_s">%1$s번은 %2$s 님의 전화번호입니다</string>
     <!-- Displayed in the conversation list when a person has been blocked -->
     <string name="ThreadRecord_blocked">차단한 사용자</string>
     <!-- Displayed in the conversation list when a group has been blocked -->
@@ -3111,8 +3111,8 @@
     <string name="UsernameEditFragment_successfully_removed_username">사용자 이름이 삭제되었습니다.</string>
     <string name="UsernameEditFragment_encountered_a_network_error">네트워크 오류가 발생했습니다.</string>
     <!-- Toast message shown if user exceeds the rate limit for reserving usernames -->
-    <string name="UsernameEditFragment_rate_limit_exceeded_error">너무 많이 시도했습니다. 나중에 다시 시도해 주세요.</string>
-    <string name="UsernameEditFragment_this_username_is_taken">사용 중인 사용자 이름입니다.</string>
+    <string name="UsernameEditFragment_rate_limit_exceeded_error">입력 횟수를 초과했습니다. 나중에 다시 시도해 주세요.</string>
+    <string name="UsernameEditFragment_this_username_is_taken">이미 사용 중인 이름입니다.</string>
     <string name="UsernameEditFragment_usernames_can_only_include">사용자 이름에는 a~Z, 0~9 및 밑줄만 포함할 수 있습니다.</string>
     <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">사용자 이름은 숫자로 시작할 수 없습니다.</string>
     <string name="UsernameEditFragment_username_is_invalid">잘못된 사용자 이름입니다.</string>
@@ -3127,13 +3127,13 @@
     <!-- Content description for done button -->
     <string name="UsernameEditFragment__done">확인</string>
     <!-- Displayed when the chosen discriminator is not available for the given nickname -->
-    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">이 사용자 이름은 사용할 수 없습니다. 다른 번호를 사용해 보세요.</string>
+    <string name="UsernameEditFragment__this_username_is_not_available_try_another_number">사용할 수 없는 사용자 이름입니다. 다른 번호를 입력해 보세요.</string>
     <!-- Displayed when the chosen discriminator is too short -->
-    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">사용자 이름이 잘못되었습니다. %1$d자 이상으로 입력해 주세요.</string>
+    <string name="UsernameEditFragment__invalid_username_enter_a_minimum_of_d_digits">잘못된 사용자 이름입니다. %1$d자 이상으로 입력해 주세요.</string>
     <!-- Displayed when the chosen discriminator is too long -->
-    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">사용자 이름이 잘못되었습니다. %1$d자 이하로 입력해 주세요.</string>
+    <string name="UsernameEditFragment__invalid_username_enter_a_maximum_of_d_digits">잘못된 사용자 이름입니다. %1$d자 이하로 입력해 주세요.</string>
     <!-- Displayed when the chosen discriminator is 00 -->
-    <string name="UsernameEditFragment__this_number_cant_be_00">이 번호는 00일 수 없습니다. 1–9 중 하나를 입력하세요.</string>
+    <string name="UsernameEditFragment__this_number_cant_be_00">00은 일련번호로 사용할 수 없습니다. 1~9 중 하나를 입력하세요.</string>
     <!-- Displayed when the chosen discriminator starts with 0 and has a length > 2 -->
     <string name="UsernameEditFragment__this_number_cant_start_with_0">세 자리 이상 숫자는 0으로 시작할 수 없습니다.</string>
     <!-- The body of an alert dialog asking the user to confirm that they want to recover their username -->
@@ -3152,17 +3152,17 @@
     <string name="UsernameShareBottomSheet__copy_or_share_a_username_link">사용자 이름 링크를 복사하거나 공유하세요.</string>
 
     <!-- VerifyIdentityActivity -->
-    <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">연락처는 호환되지 않는 QR 코드 형식의 상위 버전 Signal을 사용하고 있습니다. 앱을 업데이트하세요.</string>
-    <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">QR 코드가 올바른 안전 번호 인증 코드 형식이 아닌 것 같습니다. 다시 시도해 주세요.</string>
+    <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">상대방이 더 최신 버전의 Signal을 사용하고 있어 QR 코드 형식이 호환되지 않습니다. 코드 대조를 위해 앱을 업데이트해 주세요.</string>
+    <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">QR 코드가 올바른 안전 번호 인증 코드 형식이 아닙니다. 다시 스캔해 주세요.</string>
     <string name="VerifyIdentityActivity_share_safety_number_via">다음으로 안전 번호 공유:</string>
-    <string name="VerifyIdentityActivity_our_signal_safety_number">우리 Signal 안전 번호:</string>
+    <string name="VerifyIdentityActivity_our_signal_safety_number">우리의 Signal 안전 번호:</string>
     <string name="VerifyIdentityActivity_no_app_to_share_to">공유에 사용할 수 있는 앱이 없습니다.</string>
-    <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">클립보드에 비교할 수 있는 안전 번호가 없음</string>
+    <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">클립보드에서 대조할 안전 번호를 찾을 수 없습니다</string>
     <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
-    <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR 코드를 읽으려면 카메라 권한이 필요함</string>
-    <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s의 안전 번호를 보려면 먼저 메시지를 교환해야 합니다.</string>
+    <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR 코드를 스캔하려면 카메라 접근 권한이 필요합니다</string>
+    <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s 님의 안전 번호를 보려면 먼저 메시지를 주고받아야 합니다.</string>
     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
-    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">메시지를 주고받은 후 이 사용자와 안전 번호가 생성됩니다.</string>
+    <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">상대방과 메시지를 주고받으면 안전 번호가 생성됩니다.</string>
     <!-- Confirmation option for dialog explaining to user they must exchange messages first to create a safety number  -->
     <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_ok">확인</string>
     <!-- Learn more option for dialog explaining to user they must exchange messages first to create a safety number  -->
@@ -3205,7 +3205,7 @@
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">나</string>
     <string name="MediaPreviewActivity_unssuported_media_type">지원되지 않는 미디어 형식</string>
-    <string name="MediaPreviewActivity_draft">초안</string>
+    <string name="MediaPreviewActivity_draft">임시 저장</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">메시지를 삭제할까요?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">메시지를 영구적으로 삭제합니다.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s~%2$s</string>
@@ -3486,7 +3486,7 @@
     <!-- Row item title for refreshing contacts -->
     <string name="contact_selection_activity__refresh_contacts">연락처 새로 고침</string>
     <!-- Row item description for refreshing contacts -->
-    <string name="contact_selection_activity__missing_someone">안 보이는 사람이 있나요? 새로 고쳐보세요.</string>
+    <string name="contact_selection_activity__missing_someone">안 보이는 사람이 있나요? 페이지를 새로고침해 보세요.</string>
     <!-- Row item title for finding people on Signal via your contacts -->
     <string name="contact_selection_activity__find_people_you_know">Signal에서 내가 아는 사람을 찾아보세요.</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
@@ -3572,7 +3572,7 @@
     <string name="conversation_activity__message_failed_to_delete">메시지를 삭제할 수 없습니다.</string>
 
     <!-- conversation_input_panel -->
-    <string name="conversation_input_panel__slide_to_cancel">쓸어넘겨 취소</string>
+    <string name="conversation_input_panel__slide_to_cancel">밀어서 취소</string>
     <string name="conversation_input_panel__cancel">취소</string>
 
     <!-- conversation_item -->
@@ -3801,7 +3801,7 @@
     <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">멀티미디어와 그룹 메시지를 보내려면 확인을 터치하여 요구된 설정을 완료해야 합니다. 이동 통신사의 MMS 설정 정보를 찾으려면 \'이동 통신사 APN\'을 검색하세요.</string>
 
     <!-- BadDecryptLearnMoreDialog -->
-    <string name="BadDecryptLearnMoreDialog_delivery_issue">배송 문제</string>
+    <string name="BadDecryptLearnMoreDialog_delivery_issue">전송 문제</string>
     <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">%1$s 님이 개인 대화 또는 그룹 채팅에서 보낸 메시지, 스티커, 반응 또는 열람 확인이 전달되지 못했습니다.</string>
     <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">%1$s 님이 보낸 메시지, 스티커, 반응 또는 열람 확인이 전달되지 못했습니다.</string>
 
@@ -3874,7 +3874,7 @@
     <!-- Text shown when verification fails -->
     <string name="verify_display_fragment__encryption_unavailable">자동 인증을 사용할 수 없음</string>
     <!-- Caption text explaining more about automatic verification   -->
-    <string name="verify_display_fragment__auto_verify_not_available">모든 채팅에 자동 인증을 사용할 수 없습니다.</string>
+    <string name="verify_display_fragment__auto_verify_not_available">일부 채팅에서는 자동 인증을 사용할 수 없습니다.</string>
   <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__link" translatable="false">https://support.signal.org/hc/articles/10223569377562</string> -->
 
     <!-- Bottom sheet title when encryption is auto-verified -->
@@ -3882,7 +3882,7 @@
     <!-- Bottom sheet body when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__body_success">전화번호를 통해 연결된 사용자의 경우, Signal은 키 투명성이라는 프로세스를 사용하여 연결이 안전한지 자동으로 확인할 수 있습니다. 보안을 강화하려면 이전 화면의 숫자를 대조하거나, 상대방 기기의 코드를 스캔하여 종단간 암호화를 수동으로 인증해 주세요.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">이 채팅에 자동 인증을 사용할 수 없음</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">이 채팅에 자동 인증을 사용할 수 없습니다</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
     <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal이 이 채팅의 암호화를 자동으로 인증할 수 없습니다. %1$s 님이 전화번호 또는 전화번호 개인정보보호 설정을 변경하여 발생한 문제일 수 있습니다. 이전 화면의 숫자를 대조하거나, 상대방 기기의 코드를 스캔하여 종단간 암호화를 수동으로 인증해 주세요.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
@@ -4062,7 +4062,7 @@
     <string name="preferences_beta">베타</string>
     <string name="preferences__sms_mms">SMS 및 MMS</string>
     <string name="preferences__pref_use_address_book_photos">주소록 사진 사용하기</string>
-    <string name="preferences__display_contact_photos_from_your_address_book_if_available">가능할 경우 주소록에 있는 연락처 사진들을 보이기</string>
+    <string name="preferences__display_contact_photos_from_your_address_book_if_available">주소록에 등록된 연락처 사진이 있는 경우 표시합니다.</string>
     <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
     <string name="preferences__pref_keep_muted_chats_archived">음소거된 채팅 보관 상태로 유지</string>
     <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
@@ -7273,7 +7273,7 @@
     <!-- Button label to confirm understanding of story navigation -->
     <string name="StoryFirstTimeNagivationView__got_it">확인</string>
     <!-- Content description for vertical context menu button in safety number sheet rows -->
-    <string name="SafetyNumberRecipientRowItem__open_context_menu">바로 가기 메뉴 열기</string>
+    <string name="SafetyNumberRecipientRowItem__open_context_menu">바로가기 메뉴 열기</string>
     <!-- Sub-line when a user is verified. -->
     <string name="SafetyNumberRecipientRowItem__s_dot_verified">%1$s · 인증 완료</string>
     <!-- Sub-line when a user is verified. -->
@@ -7661,7 +7661,7 @@
 
     <!-- Username edit dialog -->
     <!-- Option to open username editor displayed as a list item in a dialog -->
-    <string name="UsernameEditDialog__edit_username">사용자 이름 편집</string>
+    <string name="UsernameEditDialog__edit_username">사용자 이름 수정</string>
     <!-- Option to delete username displayed as a list item in a dialog -->
     <string name="UsernameEditDialog__delete_username">사용자 이름 삭제</string>
 

@@ -316,7 +316,7 @@
     <!-- PIN creation screen title. -->
     <string name="PinCreationScreen__create_your_pin">Стварыце свой PIN-код</string>
     <!-- PIN creation screen title when confirming the new Signal PIN. -->
-    <string name="PinCreationScreen__confirm_your_pin">Confirm your PIN</string>
+    <string name="PinCreationScreen__confirm_your_pin">Пацвердзіце свой PIN-код</string>
     <!-- Describes how to confirm the new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin_description">Re-enter the PIN you just created</string>
     <!-- Describes the purpose of creating a Signal PIN. -->
@@ -330,11 +330,11 @@
     <!-- Labels the button to submit a new Signal PIN. -->
     <string name="PinCreationScreen__next">Далей</string>
     <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
-    <string name="PinCreationScreen__pin_at_least_4_digits">PIN must be at least 4 digits</string>
+    <string name="PinCreationScreen__pin_at_least_4_digits">PIN-код мусіць быць не менш за 4 лічбы</string>
     <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
-    <string name="PinCreationScreen__pin_at_least_4_characters">PIN must be at least 4 characters</string>
+    <string name="PinCreationScreen__pin_at_least_4_characters">PIN-код мусіць быць не меншы за 4 сімвалы</string>
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin">Re-enter PIN</string>
+    <string name="PinCreationScreen__reenter_pin">Увядзіце паўторна PIN-код</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">Блакіроўка рэгістрацыі</string>
@@ -344,10 +344,10 @@
     <string name="PinEntryScreen__enter_the_pin_you_created">Увядзіце PIN-код, які вы стварылі, калі ўпершыню ўсталёўвалі Signal</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
     <plurals name="PinEntryScreen__incorrect_pin">
-        <item quantity="one">Incorrect PIN. %1$d attempt remaining.</item>
-        <item quantity="few">Incorrect PIN. %1$d attempts remaining.</item>
-        <item quantity="many">Incorrect PIN. %1$d attempts remaining.</item>
-        <item quantity="other">Incorrect PIN. %1$d attempts remaining.</item>
+        <item quantity="one">Няправільны PIN-код. Застаецца %1$d спроба.</item>
+        <item quantity="few">Няправільны PIN-код. Застаецца %1$d спробы.</item>
+        <item quantity="many">Няправільны PIN-код. Застаецца %1$d спроб.</item>
+        <item quantity="other">Няправільны PIN-код. Застаецца %1$d спроб.</item>
     </plurals>
     <!-- Labels the button to get help with PIN entry. -->
     <string name="PinEntryScreen__need_help">Патрэбна дапамога?</string>
@@ -359,16 +359,16 @@
     <string name="PinEntryScreen__continue">Працягнуць</string>
 
     <!-- Title for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__allow_notifications">Allow Notifications</string>
+    <string name="AllowNotificationsScreen__allow_notifications">Дазволіць апавяшчэнні</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal would like to request the notification permission. This allows your device to display alerts when new messages arrive.</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
-    <string name="AllowNotificationsScreen__not_now">Not now</string>
+    <string name="AllowNotificationsScreen__not_now">Не зараз</string>
     <!-- Button label that proceeds with the notification permission request -->
-    <string name="AllowNotificationsScreen__next">Next</string>
+    <string name="AllowNotificationsScreen__next">Далей</string>
 
     <!-- Title shown while messages are syncing from the primary device -->
-    <string name="MessageSyncScreen__syncing_messages">Syncing messages</string>
+    <string name="MessageSyncScreen__syncing_messages">Сінхранізуем паведамленні</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
     <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
@@ -376,14 +376,14 @@
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
-    <string name="MessageSyncScreen__learn_more">Learn more</string>
+    <string name="MessageSyncScreen__learn_more">Даведацца больш</string>
     <!-- Button label that cancels the in-progress message sync -->
-    <string name="MessageSyncScreen__cancel">Cancel</string>
+    <string name="MessageSyncScreen__cancel">Скасаваць</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
-    <string name="LinkAccountScreen__open_signal_on_your_phone">Open Signal on your phone</string>
+    <string name="LinkAccountScreen__open_signal_on_your_phone">Адкрыць Signal на сваім тэлефоне</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
     <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tap your profile picture to open Signal Settings</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
@@ -401,5 +401,5 @@
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
     <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
-    <string name="LinkAccountScreen__create_account">Create account</string>
+    <string name="LinkAccountScreen__create_account">Стварыць уліковы запіс</string>
 </resources>
