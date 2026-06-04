@@ -40,6 +40,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
@@ -300,10 +301,11 @@ private fun PinInputField(
     textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
     singleLine = true,
     keyboardOptions = KeyboardOptions(
-      keyboardType = if (state.isAlphanumericKeyboard) KeyboardType.Password else KeyboardType.NumberPassword,
+      keyboardType = if (state.isAlphanumericKeyboard) KeyboardType.Text else KeyboardType.Number,
       imeAction = ImeAction.Done
     ),
-    keyboardActions = KeyboardActions(onDone = { if (canSubmitPin) onSubmit() })
+    keyboardActions = KeyboardActions(onDone = { if (canSubmitPin) onSubmit() }),
+    visualTransformation = PasswordVisualTransformation()
   )
 }
 

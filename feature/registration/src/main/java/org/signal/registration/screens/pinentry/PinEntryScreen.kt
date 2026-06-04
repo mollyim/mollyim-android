@@ -41,6 +41,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
@@ -292,11 +293,12 @@ private fun PinInputField(
       textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
       singleLine = true,
       keyboardOptions = KeyboardOptions(
-        keyboardType = if (state.isAlphanumericKeyboard) KeyboardType.Password else KeyboardType.NumberPassword,
+        keyboardType = if (state.isAlphanumericKeyboard) KeyboardType.Text else KeyboardType.Number,
         imeAction = ImeAction.Done
       ),
       keyboardActions = KeyboardActions(onDone = { if (canSubmitPin) onSubmit() }),
-      isError = state.triesRemaining != null
+      isError = state.triesRemaining != null,
+      visualTransformation = PasswordVisualTransformation()
     )
 
     if (state.triesRemaining != null) {
