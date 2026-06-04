@@ -4101,6 +4101,11 @@
     <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string>
     <string name="HelpFragment__could_not_upload_logs">Could not upload logs</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Please be as descriptive as possible to help us understand the issue.</string>
+    <!-- Error shown under the "tell us what's going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
+    <plurals name="HelpFragment__must_be_at_least_n_characters">
+        <item quantity="one">Must be at least %1$d character</item>
+        <item quantity="other">Must be at least %1$d characters</item>
+    </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>Please select an option</item>
         <item>Something\'s Not Working</item>
