@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.messagerequests.MessageRequestsBottomView
@@ -38,6 +39,10 @@ class DisabledInputView @JvmOverloads constructor(
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
+
+  companion object {
+    private val TAG = Log.tag(DisabledInputView::class.java)
+  }
 
   private val inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
 
@@ -93,30 +98,51 @@ class DisabledInputView @JvmOverloads constructor(
         setWallpaperEnabled(recipient.hasWallpaper)
 
         setAcceptOnClickListener {
+          Log.i(TAG, "[message-request] Accept tapped. isIndividual: ${messageRequestState.isIndividual}, isGroupV2Add: ${messageRequestState.isGroupV2Add}, listener present: ${listener != null}")
           if (messageRequestState.isIndividual) {
             val signalWillNever = context.getString(R.string.MessageRequestBottomView_signal_will_never)
             val body = context.getString(R.string.MessageRequestBottomView_accept_request_body, signalWillNever)
             MaterialAlertDialogBuilder(context)
               .setTitle(R.string.MessageRequestBottomView_accept_request)
               .setMessage(SpanUtil.boldSubstring(body, signalWillNever))
-              .setPositiveButton(R.string.MessageRequestBottomView_accept) { _, _ -> listener?.onAcceptMessageRequestClicked() }
-              .setNegativeButton(android.R.string.cancel, null)
+              .setCancelable(false)
+              .setPositiveButton(R.string.MessageRequestBottomView_accept) { _, _ ->
+                Log.i(TAG, "[message-request] Individual request confirmed. listener present: ${listener != null}")
+                listener?.onAcceptMessageRequestClicked()
+              }
+              .setNegativeButton(android.R.string.cancel) { _, _ -> Log.i(TAG, "[message-request] Individual request canceled.") }
               .show()
           } else if (messageRequestState.isGroupV2Add) {
             MaterialAlertDialogBuilder(context)
               .setTitle(R.string.MessageRequestBottomView_join_group)
               .setMessage(R.string.MessageRequestBottomView_review_requests_carefully_groups)
-              .setPositiveButton(R.string.MessageRequestBottomView_join) { _, _ -> listener?.onAcceptMessageRequestClicked() }
-              .setNegativeButton(android.R.string.cancel, null)
+              .setCancelable(false)
+              .setPositiveButton(R.string.MessageRequestBottomView_join) { _, _ ->
+                Log.i(TAG, "[message-request] Group join confirmed. listener present: ${listener != null}")
+                listener?.onAcceptMessageRequestClicked()
+              }
+              .setNegativeButton(android.R.string.cancel) { _, _ -> Log.i(TAG, "[message-request] Group join canceled.") }
               .show()
           } else {
             listener?.onAcceptMessageRequestClicked()
           }
         }
-        setDeleteOnClickListener { listener?.onDeleteClicked() }
-        setBlockOnClickListener { listener?.onBlockClicked() }
-        setUnblockOnClickListener { listener?.onUnblockClicked() }
-        setReportOnClickListener { listener?.onReportSpamClicked() }
+        setDeleteOnClickListener {
+          Log.i(TAG, "[message-request] Delete tapped. listener present: ${listener != null}")
+          listener?.onDeleteClicked()
+        }
+        setBlockOnClickListener {
+          Log.i(TAG, "[message-request] Block tapped. listener present: ${listener != null}")
+          listener?.onBlockClicked()
+        }
+        setUnblockOnClickListener {
+          Log.i(TAG, "[message-request] Unblock tapped. listener present: ${listener != null}")
+          listener?.onUnblockClicked()
+        }
+        setReportOnClickListener {
+          Log.i(TAG, "[message-request] Report tapped. listener present: ${listener != null}")
+          listener?.onReportSpamClicked()
+        }
       }
     )
   }

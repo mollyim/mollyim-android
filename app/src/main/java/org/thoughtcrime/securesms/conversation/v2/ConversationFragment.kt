@@ -2882,10 +2882,11 @@ class ConversationFragment :
       requireContext(),
       recipient,
       {
+        val disabledInput = binding.conversationDisabledInput
         messageRequestViewModel
           .onReportSpam()
-          .doOnSubscribe { binding.conversationDisabledInput.showBusy() }
-          .doOnTerminate { binding.conversationDisabledInput.hideBusy() }
+          .doOnSubscribe { disabledInput.showBusy() }
+          .doOnTerminate { disabledInput.hideBusy() }
           .subscribeBy {
             Log.d(TAG, "report spam complete")
             toast(R.string.ConversationFragment_reported_as_spam)
@@ -2895,10 +2896,11 @@ class ConversationFragment :
         null
       } else {
         Runnable {
+          val disabledInput = binding.conversationDisabledInput
           messageRequestViewModel
             .onBlockAndReportSpam()
-            .doOnSubscribe { binding.conversationDisabledInput.showBusy() }
-            .doOnTerminate { binding.conversationDisabledInput.hideBusy() }
+            .doOnSubscribe { disabledInput.showBusy() }
+            .doOnTerminate { disabledInput.hideBusy() }
             .subscribeBy { result ->
               when (result) {
                 is Result.Success -> {
@@ -2957,7 +2959,6 @@ class ConversationFragment :
     messageRequestViewModel
       .onAccept()
       .subscribeWithShowProgress("accept message request")
-      .addTo(disposables)
   }
 
   private fun onDeleteConversation() {
@@ -2976,8 +2977,9 @@ class ConversationFragment :
   }
 
   private fun Single<Result<Unit, GroupChangeFailureReason>>.subscribeWithShowProgress(logMessage: String): Disposable {
-    return doOnSubscribe { binding.conversationDisabledInput.showBusy() }
-      .doOnTerminate { binding.conversationDisabledInput.hideBusy() }
+    val disabledInput = binding.conversationDisabledInput
+    return doOnSubscribe { disabledInput.showBusy() }
+      .doOnTerminate { disabledInput.hideBusy() }
       .subscribeBy { result ->
         when (result) {
           is Result.Success -> Log.d(TAG, "$logMessage complete")
