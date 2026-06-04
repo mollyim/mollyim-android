@@ -209,13 +209,13 @@ public class SendViewedReceiptJob extends BaseJob {
                                                                                  messageSentTimestamps,
                                                                                  timestamp);
 
-    SendMessageResult result = messageSender.sendReceipt(remoteAddress,
-                                                         SealedSenderAccessUtil.getSealedSenderAccessFor(recipient,
-                                                                                                         () -> SignalDatabase.groups().getGroupSendFullToken(threadId, recipientId)),
-                                                         receiptMessage,
-                                                         recipient.getNeedsPniSignature());
+    SendMessageResult result = ReceiptSender.sendWithSessionRepair(recipientId, () -> messageSender.sendReceipt(remoteAddress,
+                                                                                                                SealedSenderAccessUtil.getSealedSenderAccessFor(recipient,
+                                                                                                                                                                () -> SignalDatabase.groups().getGroupSendFullToken(threadId, recipientId)),
+                                                                                                                receiptMessage,
+                                                                                                                recipient.getNeedsPniSignature()));
 
-    if (Util.hasItems(foundMessageIds)) {
+    if (result != null && Util.hasItems(foundMessageIds)) {
       SignalDatabase.messageLog().insertIfPossible(recipientId, timestamp, result, ContentHint.IMPLICIT, foundMessageIds, false);
     }
   }

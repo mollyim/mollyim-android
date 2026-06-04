@@ -191,13 +191,13 @@ public class SendReadReceiptJob extends BaseJob {
     SignalServiceAddress        remoteAddress  = RecipientUtil.toSignalServiceAddress(context, recipient);
     SignalServiceReceiptMessage receiptMessage = new SignalServiceReceiptMessage(SignalServiceReceiptMessage.Type.READ, messageSentTimestamps, timestamp);
 
-    SendMessageResult result = messageSender.sendReceipt(remoteAddress,
-                                                         SealedSenderAccessUtil.getSealedSenderAccessFor(recipient,
-                                                                                                         () -> SignalDatabase.groups().getGroupSendFullToken(threadId, recipientId)),
-                                                         receiptMessage,
-                                                         recipient.getNeedsPniSignature());
+    SendMessageResult result = ReceiptSender.sendWithSessionRepair(recipientId, () -> messageSender.sendReceipt(remoteAddress,
+                                                                                                                SealedSenderAccessUtil.getSealedSenderAccessFor(recipient,
+                                                                                                                                                                () -> SignalDatabase.groups().getGroupSendFullToken(threadId, recipientId)),
+                                                                                                                receiptMessage,
+                                                                                                                recipient.getNeedsPniSignature()));
 
-    if (Util.hasItems(messageIds)) {
+    if (result != null && Util.hasItems(messageIds)) {
       SignalDatabase.messageLog().insertIfPossible(recipientId, timestamp, result, ContentHint.IMPLICIT, messageIds, false);
     }
   }

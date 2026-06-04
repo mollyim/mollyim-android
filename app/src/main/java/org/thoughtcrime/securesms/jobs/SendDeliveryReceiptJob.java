@@ -125,12 +125,12 @@ public class SendDeliveryReceiptJob extends BaseJob {
                                                                                  Collections.singletonList(messageSentTimestamp),
                                                                                  timestamp);
 
-    SendMessageResult result = messageSender.sendReceipt(remoteAddress,
-                                                         SealedSenderAccessUtil.getSealedSenderAccessFor(recipient, this::getGroupSendFullToken),
-                                                         receiptMessage,
-                                                         recipient.getNeedsPniSignature());
+    SendMessageResult result = ReceiptSender.sendWithSessionRepair(recipientId, () -> messageSender.sendReceipt(remoteAddress,
+                                                                                                                SealedSenderAccessUtil.getSealedSenderAccessFor(recipient, this::getGroupSendFullToken),
+                                                                                                                receiptMessage,
+                                                                                                                recipient.getNeedsPniSignature()));
 
-    if (messageId != null) {
+    if (result != null && messageId != null) {
       SignalDatabase.messageLog().insertIfPossible(recipientId, timestamp, result, ContentHint.IMPLICIT, messageId, false);
     }
   }
