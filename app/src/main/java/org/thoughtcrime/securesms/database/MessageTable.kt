@@ -320,6 +320,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     private const val INDEX_STARRED = "message_starred_index"
     private const val INDEX_NOTIFICATION_STATE = "message_notification_state_index"
     private const val INDEX_RATE_LIMITED = "message_rate_limited_index"
+    private const val INDEX_SCHEDULED_NON_STORY = "message_scheduled_non_story_index"
 
     @JvmField
     val CREATE_INDEXS = arrayOf(
@@ -356,7 +357,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       "CREATE INDEX IF NOT EXISTS $INDEX_NOTIFICATION_STATE ON $TABLE_NAME ($DATE_RECEIVED) WHERE $NOTIFIED = 0 AND $STORY_TYPE = 0 AND $LATEST_REVISION_ID IS NULL",
       "CREATE INDEX IF NOT EXISTS message_expire_started_index ON $TABLE_NAME ($EXPIRE_STARTED) WHERE $EXPIRE_STARTED > 0",
       "CREATE INDEX IF NOT EXISTS message_view_once_index ON $TABLE_NAME ($VIEW_ONCE) WHERE $VIEW_ONCE > 0",
-      "CREATE INDEX IF NOT EXISTS $INDEX_RATE_LIMITED ON $TABLE_NAME ($ID) WHERE ($TYPE & ${MessageTypes.MESSAGE_RATE_LIMITED_BIT}) != 0"
+      "CREATE INDEX IF NOT EXISTS $INDEX_RATE_LIMITED ON $TABLE_NAME ($ID) WHERE ($TYPE & ${MessageTypes.MESSAGE_RATE_LIMITED_BIT}) != 0",
+      "CREATE INDEX IF NOT EXISTS $INDEX_SCHEDULED_NON_STORY ON $TABLE_NAME ($SCHEDULED_DATE) WHERE $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE != -1"
     )
 
     private val MMS_PROJECTION_BASE = arrayOf(
@@ -5722,8 +5724,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   fun getScheduledMessagesBefore(time: Long): List<MessageRecord> {
     val cursor = readableDatabase
       .select(*MMS_PROJECTION)
-      .from(TABLE_NAME)
-      .where("$STORY_TYPE = ? AND $PARENT_STORY_ID <= ? AND $SCHEDULED_DATE != ? AND $SCHEDULED_DATE <= ?", 0, 0, -1, time)
+      .from("$TABLE_NAME INDEXED BY $INDEX_SCHEDULED_NON_STORY")
+      .where("$STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE != -1 AND $SCHEDULED_DATE <= ?", time)
       .orderBy("$SCHEDULED_DATE ASC, $ID ASC")
       .run()
 
@@ -5735,8 +5737,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   fun getOldestScheduledSendTimestamp(): MessageRecord? {
     val cursor = readableDatabase
       .select(*MMS_PROJECTION)
-      .from(TABLE_NAME)
-      .where("$STORY_TYPE = ? AND $PARENT_STORY_ID <= ? AND $SCHEDULED_DATE != ?", 0, 0, -1)
+      .from("$TABLE_NAME INDEXED BY $INDEX_SCHEDULED_NON_STORY")
+      .where("$STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND $SCHEDULED_DATE != -1")
       .orderBy("$SCHEDULED_DATE ASC, $ID ASC")
       .limit(1)
       .run()
