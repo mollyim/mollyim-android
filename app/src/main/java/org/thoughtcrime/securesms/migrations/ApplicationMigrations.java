@@ -203,10 +203,11 @@ public class ApplicationMigrations {
     static final int READ_INDEX_DB_MIGRATION       = 159;
     // Need to skip 160 due to release ordering issues
     static final int SVR2_ENCLAVE_UPDATE_6         = 161;
-    static final int NOTIFICATION_INDEX__MIGRATION = 162;
+    static final int NOTIFICATION_INDEX_MIGRATION  = 162;
+    static final int NOTIFICATION_STATE_CLEANUP    = 163;
   }
 
-  public static final int CURRENT_VERSION = 162;
+  public static final int CURRENT_VERSION = 163;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -941,8 +942,12 @@ public class ApplicationMigrations {
       jobs.put(Version.SVR2_ENCLAVE_UPDATE_6, new Svr2MirrorMigrationJob());
     }
 
-    if (lastSeenVersion < Version.NOTIFICATION_INDEX__MIGRATION) {
-      jobs.put(Version.NOTIFICATION_INDEX__MIGRATION, new DatabaseMigrationJob());
+    if (lastSeenVersion < Version.NOTIFICATION_INDEX_MIGRATION) {
+      jobs.put(Version.NOTIFICATION_INDEX_MIGRATION, new DatabaseMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.NOTIFICATION_STATE_CLEANUP) {
+      jobs.put(Version.NOTIFICATION_STATE_CLEANUP, new BackfillNotifiedStateMigrationJob());
     }
 
     return jobs;
