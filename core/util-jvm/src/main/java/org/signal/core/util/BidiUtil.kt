@@ -109,8 +109,7 @@ object BidiUtil {
     var isolateCloseCount = 0
 
     var i = 0
-    val len = text.codePointCount(0, text.length)
-    while (i < len) {
+    while (i < text.length) {
       val codePoint = text.codePointAt(i)
 
       if (Bidi.OVERRIDES.contains(codePoint)) {
@@ -122,7 +121,7 @@ object BidiUtil {
       } else if (codePoint == Bidi.PDI) {
         isolateCloseCount++
       }
-      i++
+      i += Character.charCount(codePoint)
     }
 
     val suffix = StringBuilder()
@@ -133,7 +132,7 @@ object BidiUtil {
     }
 
     while (isolateCount > isolateCloseCount) {
-      suffix.appendCodePoint(Bidi.FSI)
+      suffix.appendCodePoint(Bidi.PDI)
       isolateCloseCount++
     }
 
