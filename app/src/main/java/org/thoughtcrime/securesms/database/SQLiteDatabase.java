@@ -398,7 +398,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   public Cursor rawQuery(String sql, String[] selectionArgs, int initialRead, int maxRead) {
     DatabaseMonitor.onSql(sql, selectionArgs);
-    return traceSql("rawQuery(4)", null, sql, false, () -> rawQuery(sql, selectionArgs, initialRead, maxRead));
+    return traceSql("rawQuery(4)", null, sql, false, () -> wrapped.rawQuery(sql, selectionArgs, initialRead, maxRead));
   }
 
   public long insert(String table, String nullColumnHack, ContentValues values) {
