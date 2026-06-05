@@ -703,7 +703,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
           peekGroupCallEraId,
           peekJoinedUuids,
           isCallFull,
-          call.event == Event.RINGING
+          call.event
         )
       } else {
         SignalDatabase.messages.insertGroupCall(
@@ -803,6 +803,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
       val call = getCallById(callId, groupRecipientId)
       if (call == null) {
         val direction = if (sender == Recipient.self().id) Direction.OUTGOING else Direction.INCOMING
+        val isMissedIncoming = direction == Direction.INCOMING && !isGroupCallActive && !didLocalUserJoin
 
         writableDatabase
           .insertInto(TABLE_NAME)
@@ -816,7 +817,8 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
             TIMESTAMP to timestamp,
             RINGER to null,
             LOCAL_JOINED to didLocalUserJoin,
-            GROUP_CALL_ACTIVE to isGroupCallActive
+            GROUP_CALL_ACTIVE to isGroupCallActive,
+            READ to ReadState.serialize(if (isMissedIncoming) ReadState.UNREAD else ReadState.READ)
           )
           .run(SQLiteDatabase.CONFLICT_ABORT)
 
@@ -839,6 +841,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     }
 
     AppDependencies.databaseObserver.notifyCallUpdateObservers()
+    AppDependencies.databaseObserver.notifyConversationListListeners()
   }
 
   /**
@@ -933,7 +936,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
   ): Boolean {
     val localJoined = call.didLocalUserJoin || hasLocalUserJoined
 
-    Log.d(TAG, "Updating group call state: localJoined: $localJoined, isGroupCallActive: $isGroupCallActive")
+    Log.d(TAG, "Updating group call state: localJoined: $localJoined, isGroupCallActive: $isGroupCallActive, call event: ${call.event}")
 
     val changed = writableDatabase.update(TABLE_NAME)
       .values(
@@ -955,6 +958,18 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
         .where("$CALL_ID = ?", call.callId)
         .run()
       Log.d(TAG, "[updateGroupCallState] Transitioned group call ${call.callId} from RINGING to ACCEPTED on local join")
+    }
+
+    val unanswered = call.event == Event.GENERIC_GROUP_CALL || call.event == Event.MISSED || call.event == Event.MISSED_NOTIFICATION_PROFILE
+    if (!isGroupCallActive && !localJoined && unanswered) {
+      val updated = writableDatabase.update(TABLE_NAME)
+        .values(
+          READ to ReadState.serialize(ReadState.UNREAD),
+          EVENT to Event.serialize(Event.MISSED)
+        )
+        .where("$CALL_ID = ?", call.callId)
+        .run()
+      Log.d(TAG, "[updateGroupCallState] Marking call as missed: $updated")
     }
 
     return changed
@@ -1079,6 +1094,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     }
 
     AppDependencies.databaseObserver.notifyCallUpdateObservers()
+    AppDependencies.databaseObserver.notifyConversationListListeners()
   }
 
   private fun updateEventFromRingState(
@@ -1146,7 +1162,8 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
           TYPE to Type.serialize(Type.GROUP_CALL),
           DIRECTION to Direction.serialize(direction),
           TIMESTAMP to timestamp,
-          RINGER to ringerRecipient.toLong()
+          RINGER to ringerRecipient.toLong(),
+          READ to ReadState.serialize(if (direction == Direction.INCOMING) ReadState.UNREAD else ReadState.READ)
         )
         .run(SQLiteDatabase.CONFLICT_ABORT)
     }

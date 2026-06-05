@@ -73,6 +73,7 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment.DisplayOrderCom
 import org.thoughtcrime.securesms.backup.v2.exporters.ChatItemArchiveExporter
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.conversation.MessageStyler
+import org.thoughtcrime.securesms.database.CallTable.Event
 import org.thoughtcrime.securesms.database.EarlyDeliveryReceiptCache.Receipt
 import org.thoughtcrime.securesms.database.MentionUtil.UpdatedBodyAndMentions
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.attachments
@@ -985,6 +986,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   ): MessageId {
     val recipient = Recipient.resolved(groupRecipientId)
     val threadId = threads.getOrCreateThreadIdFor(recipient)
+    val expiresIn = if (RemoteConfig.disappearMore) recipient.expiresInSeconds.seconds.inWholeMilliseconds else 0
     val messageId: MessageId = writableDatabase.withinTransaction { db ->
       val self = Recipient.self()
       val markRead = joinedUuids.contains(self.requireServiceId().rawUuid) || self.id == sender
@@ -1004,11 +1006,12 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         TO_RECIPIENT_ID to groupRecipientId.serialize(),
         DATE_RECEIVED to timestamp,
         DATE_SENT to timestamp,
-        READ to if (markRead) 1 else 0,
-        NOTIFIED to if (markRead) 1 else 0,
+        READ to 1,
+        NOTIFIED to 1,
         BODY to Base64.encodeWithPadding(updateDetails),
         TYPE to MessageTypes.GROUP_CALL_TYPE,
-        THREAD_ID to threadId
+        THREAD_ID to threadId,
+        EXPIRES_IN to expiresIn
       )
 
       val messageId = MessageId(db.insert(TABLE_NAME, null, values))
@@ -1016,9 +1019,14 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val isActiveCall = joinedUuids.isNotEmpty() || isIncomingGroupCallRingingOnLocalDevice
       if (!isActiveCall) {
         maybeCollapseMessage(db = db, messageId = messageId.id, threadId = threadId, dateReceived = timestamp, messageExtras = null, messageType = MessageTypes.GROUP_CALL_TYPE)
+        if (markRead && expiresIn != 0L) {
+          Log.d(TAG, "[insertGroupCall] Starting expiration timer for group call.")
+          val now = System.currentTimeMillis()
+          markExpireStarted(messageId.id, now)
+          AppDependencies.expiringMessageManager.scheduleDeletion(messageId.id, true, now, expiresIn)
+        }
       }
 
-      threads.incrementUnread(threadId, 1, 0)
       threads.update(threadId, true)
 
       messageId
@@ -1094,8 +1102,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     eraId: String,
     joinedUuids: Collection<UUID>,
     isCallFull: Boolean,
-    isRingingOnLocalDevice: Boolean
+    event: Event
   ): MessageId {
+    val isRingingOnLocalDevice = event == Event.RINGING
     writableDatabase.withinTransaction { db ->
       val message = try {
         getMessageRecord(messageId = messageId)
@@ -1113,7 +1122,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         BODY to body
       )
 
-      if (sameEraId && (containsSelf || updateDetail.localUserJoined)) {
+      val localJoined = sameEraId && (containsSelf || updateDetail.localUserJoined)
+      if (localJoined) {
         contentValues.put(READ, 1)
         contentValues.put(NOTIFIED, 1)
       }
@@ -1121,8 +1131,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val query = buildTrueUpdateQuery(ID_WHERE, buildArgs(messageId), contentValues)
       val updated = db.update(TABLE_NAME, contentValues, query.where, query.whereArgs) > 0
 
-      if (inCallUuids.isEmpty() && message.collapsedState == CollapsedState.NONE) {
-        maybeCollapseMessage(db = db, messageId = messageId, threadId = message.threadId, dateReceived = message.dateReceived, messageExtras = message.messageExtras, messageType = message.type)
+      if (inCallUuids.isEmpty()) {
+        val acknowledgedCall = localJoined || event == Event.DECLINED
+        finalizeEndedGroupCallMessage(db, message, acknowledgedCall, logPrefix = "[updateGroupCall]")
       }
 
       if (updated) {
@@ -1174,14 +1185,29 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         val query = buildTrueUpdateQuery(ID_WHERE, buildArgs(record.id), contentValues)
         val updated = db.update(TABLE_NAME, contentValues, query.where, query.whereArgs) > 0
 
-        if (inCallUuids.isEmpty() && record.collapsedState == CollapsedState.NONE) {
-          maybeCollapseMessage(db = db, messageId = record.id, threadId = record.threadId, dateReceived = record.dateReceived, messageExtras = record.messageExtras, messageType = record.type)
+        if (inCallUuids.isEmpty()) {
+          val acknowledgedCall = sameEraId && (containsSelf || groupCallUpdateDetails.localUserJoined)
+          finalizeEndedGroupCallMessage(db, record, acknowledgedCall, logPrefix = "[updatePreviousGroupCall]")
         }
 
         if (updated) {
           notifyConversationListeners(threadId)
         }
       }
+    }
+  }
+
+  fun finalizeEndedGroupCallMessage(db: SQLiteDatabase, message: MessageRecord, acknowledgedCall: Boolean, logPrefix: String) {
+    if (message.collapsedState == CollapsedState.NONE) {
+      maybeCollapseMessage(db = db, messageId = message.id, threadId = message.threadId, dateReceived = message.dateReceived, messageExtras = message.messageExtras, messageType = message.type)
+    }
+
+    val unstartedExpiration = message.expireStarted == 0L && message.expiresIn != 0L
+    if (unstartedExpiration && acknowledgedCall) {
+      Log.d(TAG, "$logPrefix Starting expiration after call has ended.")
+      val now = System.currentTimeMillis()
+      markExpireStarted(message.id, now)
+      AppDependencies.expiringMessageManager.scheduleDeletion(message.id, message.isMms, now, message.expiresIn)
     }
   }
 
