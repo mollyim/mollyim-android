@@ -2128,6 +2128,15 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     }
   }
 
+  fun isProfileSharing(groupId: GroupId): Boolean {
+    return readableDatabase
+      .select(PROFILE_SHARING)
+      .from(TABLE_NAME)
+      .where("$GROUP_ID = ?", groupId.toString())
+      .run()
+      .readToSingleBoolean(defaultValue = false)
+  }
+
   fun setNotificationChannel(id: RecipientId, notificationChannel: String?) {
     val contentValues = ContentValues(1).apply {
       put(NOTIFICATION_CHANNEL, notificationChannel)
