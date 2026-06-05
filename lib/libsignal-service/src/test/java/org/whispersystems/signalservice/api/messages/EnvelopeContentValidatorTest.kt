@@ -429,6 +429,71 @@ class EnvelopeContentValidatorTest {
   }
 
   @Test
+  fun `validate - ensure style body range missing start is marked invalid`() {
+    val content = Content(
+      dataMessage = DataMessage(
+        timestamp = 1234,
+        bodyRanges = listOf(
+          BodyRange(length = 1, style = BodyRange.Style.BOLD)
+        )
+      )
+    )
+
+    val result = EnvelopeContentValidator.validate(Envelope(clientTimestamp = 1234), content, SELF_ACI, CiphertextMessage.WHISPER_TYPE)
+    assert(result is EnvelopeContentValidator.Result.Invalid)
+  }
+
+  @Test
+  fun `validate - ensure style body range missing length is marked invalid`() {
+    val content = Content(
+      dataMessage = DataMessage(
+        timestamp = 1234,
+        bodyRanges = listOf(
+          BodyRange(start = 0, style = BodyRange.Style.BOLD)
+        )
+      )
+    )
+
+    val result = EnvelopeContentValidator.validate(Envelope(clientTimestamp = 1234), content, SELF_ACI, CiphertextMessage.WHISPER_TYPE)
+    assert(result is EnvelopeContentValidator.Result.Invalid)
+  }
+
+  @Test
+  fun `validate - ensure style body range with both start and length is marked valid`() {
+    val content = Content(
+      dataMessage = DataMessage(
+        timestamp = 1234,
+        body = "hello",
+        bodyRanges = listOf(
+          BodyRange(start = 0, length = 1, style = BodyRange.Style.BOLD)
+        )
+      )
+    )
+
+    val result = EnvelopeContentValidator.validate(Envelope(clientTimestamp = 1234), content, SELF_ACI, CiphertextMessage.WHISPER_TYPE)
+    assert(result is EnvelopeContentValidator.Result.Valid)
+  }
+
+  @Test
+  fun `validate - ensure quote style body range missing start is marked invalid`() {
+    val content = Content(
+      dataMessage = DataMessage(
+        timestamp = 1234,
+        quote = DataMessage.Quote(
+          id = 1000,
+          authorAci = OTHER_ACI.toString(),
+          bodyRanges = listOf(
+            BodyRange(length = 1, style = BodyRange.Style.BOLD)
+          )
+        )
+      )
+    )
+
+    val result = EnvelopeContentValidator.validate(Envelope(clientTimestamp = 1234), content, SELF_ACI, CiphertextMessage.WHISPER_TYPE)
+    assert(result is EnvelopeContentValidator.Result.Invalid)
+  }
+
+  @Test
   fun `validate - ensure sync blocked with invalid string aci and empty binary list is marked invalid`() {
     val envelope = Envelope(sourceServiceId = SELF_ACI.toString())
     val content = Content(

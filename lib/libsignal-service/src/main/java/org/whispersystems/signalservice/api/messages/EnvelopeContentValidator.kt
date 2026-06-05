@@ -97,6 +97,10 @@ object EnvelopeContentValidator {
       return Result.Invalid("[DataMessage] Invalid ACI on quote body range!")
     }
 
+    if (dataMessage.quote != null && dataMessage.quote.bodyRanges.any { it.isStyleRangeMissingOffsets() }) {
+      return Result.Invalid("[DataMessage] Style body range on quote is missing a start or length!")
+    }
+
     if (dataMessage.quote != null && dataMessage.quote.bodyRanges.hasInvalidBounds(dataMessage.quote.text)) {
       return Result.Invalid("[DataMessage] Quote body range with out-of-bounds start/length!")
     }
@@ -111,6 +115,10 @@ object EnvelopeContentValidator {
 
     if (dataMessage.bodyRanges.any { Util.anyNotNull(it.mentionAci, it.mentionAciBinary) && ACI.parseOrNull(it.mentionAci, it.mentionAciBinary).isNullOrInvalidServiceId() }) {
       return Result.Invalid("[DataMessage] Invalid ACI on body range!")
+    }
+
+    if (dataMessage.bodyRanges.any { it.isStyleRangeMissingOffsets() }) {
+      return Result.Invalid("[DataMessage] Style body range is missing a start or length!")
     }
 
     if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body)) {
@@ -363,6 +371,10 @@ object EnvelopeContentValidator {
       return Result.Invalid("[EditMessage] Invalid UUID on body range!")
     }
 
+    if (dataMessage.bodyRanges.any { it.isStyleRangeMissingOffsets() }) {
+      return Result.Invalid("[EditMessage] Style body range is missing a start or length!")
+    }
+
     if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body)) {
       return Result.Invalid("[EditMessage] Body range with out-of-bounds start/length!")
     }
@@ -387,6 +399,10 @@ object EnvelopeContentValidator {
 
       start < 0 || length < 0 || start + length > bodyLength
     }
+  }
+
+  private fun BodyRange.isStyleRangeMissingOffsets(): Boolean {
+    return this.style != null && (this.start == null || this.length == null)
   }
 
   private fun AttachmentPointer?.isNullOrInvalid(): Boolean {
