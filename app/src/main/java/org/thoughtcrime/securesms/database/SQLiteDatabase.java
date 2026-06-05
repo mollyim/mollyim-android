@@ -327,10 +327,10 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
           }
         });
         long waitMs = (System.nanoTime() - waitStartNs) / 1_000_000L;
-        if (waitMs >= IssueReporter.SLOW_WRITE_LOW_PRIORITY_MS) {
+        if (waitMs >= IssueReporter.SLOW_LOCK_LOW_PRIORITY_MS) {
           Throwable throwable = new Throwable();
           Log.w(TAG, "Slow write-lock acquire: waited " + waitMs + "ms to BEGIN", throwable);
-          IssueReporter.noteSlowDatabaseWrite("BEGIN", waitMs, throwable);
+          IssueReporter.noteSlowDatabaseLockAcquire(waitMs, throwable);
         }
         TRANSACTION_HOLD_START_NS.set(System.nanoTime());
       });

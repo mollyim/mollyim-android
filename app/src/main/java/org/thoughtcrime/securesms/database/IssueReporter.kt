@@ -40,11 +40,14 @@ object IssueReporter {
 
   const val ISSUE_SLOW_DATABASE_WRITE = "Slow Database Write"
   const val ISSUE_SLOW_DATABASE_READ = "Slow Database Read"
+  const val ISSUE_SLOW_DATABASE_LOCK = "Slow Database Lock"
 
   const val SLOW_WRITE_LOW_PRIORITY_MS = 1_000L
   const val SLOW_WRITE_MEDIUM_PRIORITY_MS = 5_000L
   const val SLOW_READ_LOW_PRIORITY_MS = 3_000L
   const val SLOW_READ_MEDIUM_PRIORITY_MS = 10_000L
+  const val SLOW_LOCK_LOW_PRIORITY_MS = 1_000L
+  const val SLOW_LOCK_MEDIUM_PRIORITY_MS = 5_000L
 
   private const val NON_INTERNAL_DEBOUNCE_MS = 5_000L
 
@@ -99,6 +102,25 @@ object IssueReporter {
     }
 
     report(ISSUE_SLOW_DATABASE_WRITE, query?.trim() ?: "", throwable, priority = priority, duration = durationMs)
+  }
+
+  /**
+   * Notes time spent waiting to acquire the write lock to begin a transaction. This is distinct from a slow write: the
+   * write itself may be fast, but it was blocked waiting on another holder of the lock (e.g. a long-running transaction).
+   */
+  @JvmStatic
+  fun noteSlowDatabaseLockAcquire(durationMs: Long, throwable: Throwable) {
+    if (isExpectedSlowDatabaseOperation()) {
+      return
+    }
+
+    val priority = when {
+      durationMs >= SLOW_LOCK_MEDIUM_PRIORITY_MS -> IssuePriority.MEDIUM
+      durationMs >= SLOW_LOCK_LOW_PRIORITY_MS -> IssuePriority.LOW
+      else -> return
+    }
+
+    report(ISSUE_SLOW_DATABASE_LOCK, "Long wait to acquire the write lock to BEGIN a transaction.", throwable, priority = priority, duration = durationMs)
   }
 
   @JvmStatic
