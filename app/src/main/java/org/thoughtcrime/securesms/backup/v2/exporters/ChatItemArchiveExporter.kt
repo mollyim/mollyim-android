@@ -852,8 +852,8 @@ private fun BackupMessageRecord.toRemotePaymentNotificationUpdate(db: SignalData
     PaymentNotification()
   } else {
     PaymentNotification(
-      amountMob = payment.amount.serializeAmountString(),
-      feeMob = payment.fee.serializeAmountString(),
+      amountMob = payment.amount.requireMobileCoin().amountDecimalString,
+      feeMob = payment.fee.requireMobileCoin().amountDecimalString,
       note = payment.note.takeUnless { it.isEmpty() },
       transactionDetails = payment.toRemoteTransactionDetails()
     )
