@@ -10,6 +10,9 @@ import java.util.regex.Pattern
 object BidiUtil {
   private val ALL_ASCII_PATTERN: Pattern = Pattern.compile("^[\\x00-\\x7F]*$")
 
+  /** The full set of Unicode bidirectional control characters (overrides, isolates, and indicators). */
+  private const val DIRECTIONAL_CHARACTERS = "[\\u200f\\u2066\\u2067\\u2068\\u2069\\u202a\\u202b\\u202c\\u202d\\u202e]"
+
   object BidiCodepoint {
     const val LRI = "\u2066"
 
@@ -160,6 +163,22 @@ object BidiUtil {
   }
 
   fun stripAllDirectionalCharacters(text: String): String {
-    return text.replace("[\\u200f\\u2066\\u2067\\u2068\\u2069\\u202a\\u202b\\u202c\\u202d\\u202e]".toRegex(), "")
+    return text.replace(DIRECTIONAL_CHARACTERS.toRegex(), "")
+  }
+
+  /**
+   * Neutralizes the full set of Unicode bidirectional control characters by replacing each one with
+   * the Unicode replacement character (U+FFFD).
+   *
+   * Unlike [stripAllDirectionalCharacters], this preserves a visible indication that a character was
+   * removed. This is useful when sanitizing strings for display where a directional override or
+   * isolate could otherwise be used to spoof content, such as faking an attachment's file extension
+   * (e.g. "document<RLO>txt.exe" rendering as "documentexe.txt").
+   */
+  @JvmStatic
+  fun replaceBidiCharacters(text: String?): String? {
+    if (text == null) return null
+
+    return text.replace(DIRECTIONAL_CHARACTERS.toRegex(), "�")
   }
 }
