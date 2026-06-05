@@ -5540,6 +5540,11 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       return emptySet()
     }
 
+    // Only allow updating receipts for a group message if the sender is actually a member (stories are excluded because a single story timestamp can map to multiple messages)
+    if (!receiptData.forIndividualChat && receiptData.storyType == StoryType.NONE && !groupReceipts.hasReceipt(receiptData.messageId, receiptAuthor)) {
+      return emptySet()
+    }
+
     if (!receiptData.marked) {
       // We set the receipt_timestamp to the max of the two values because that single column represents the timestamp of the last receipt of any type.
       // That means we want to update it for each new receipt type, but we never want the time to go backwards.
