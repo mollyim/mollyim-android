@@ -330,6 +330,11 @@ object DataMessageProcessor {
       return null
     }
 
+    if (Recipient.resolved(threadRecipientId).isGroup) {
+      warn(envelope.clientTimestamp!!, "Expiration update targeting a group recipient without group context. Ignoring.")
+      return null
+    }
+
     if (SignalDatabase.recipients.getExpiresInSeconds(threadRecipientId) == expiresIn.inWholeSeconds) {
       log(envelope.clientTimestamp!!, "No change in message expiry for group. Ignoring.")
       return null
