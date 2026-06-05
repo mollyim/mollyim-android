@@ -446,8 +446,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         title = DSLSettingsText.from("Run self-check key transparency"),
         summary = DSLSettingsText.from("Automatically enqueues a job to run KT against yourself without waiting for the elapsed time."),
         onClick = {
-          SignalStore.misc.lastKeyTransparencyTime = 0
-          CheckKeyTransparencyJob.enqueueIfNecessary(addDelay = false)
+          CheckKeyTransparencyJob.enqueueIfNecessary(addDelay = false, force = true)
         }
       )
 
