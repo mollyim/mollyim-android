@@ -230,7 +230,7 @@ public class ReactionSendJob extends BaseJob {
   {
     SignalServiceDataMessage.Builder dataMessageBuilder = SignalServiceDataMessage.newBuilder()
                                                                                   .withTimestamp(System.currentTimeMillis())
-                                                                                  .withReaction(buildReaction(context, reaction, remove, targetAuthor, targetSentTimestamp));
+                                                                                  .withReaction(buildReaction(reaction, remove, targetAuthor, targetSentTimestamp));
 
     if (conversationRecipient.isGroup()) {
       GroupUtil.setDataMessageGroupContext(context, dataMessageBuilder, conversationRecipient.requireGroupId().requirePush());
@@ -265,16 +265,14 @@ public class ReactionSendJob extends BaseJob {
     return groupResult.completed;
   }
 
-  private static SignalServiceDataMessage.Reaction buildReaction(@NonNull Context context,
-                                                                 @NonNull ReactionRecord reaction,
+  private static SignalServiceDataMessage.Reaction buildReaction(@NonNull ReactionRecord reaction,
                                                                  boolean remove,
                                                                  @NonNull Recipient targetAuthor,
                                                                  long targetSentTimestamp)
-      throws IOException
   {
     return new SignalServiceDataMessage.Reaction(reaction.getEmoji(),
                                                  remove,
-                                                 RecipientUtil.getOrFetchServiceId(context, targetAuthor),
+                                                 targetAuthor.requireServiceId(),
                                                  targetSentTimestamp);
   }
 
