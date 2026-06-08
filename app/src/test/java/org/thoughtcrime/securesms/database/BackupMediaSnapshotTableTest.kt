@@ -1,23 +1,29 @@
 package org.thoughtcrime.securesms.database
 
-import androidx.media3.common.util.Util
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.app.Application
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.util.count
 import org.signal.core.util.readToSingleInt
 import org.thoughtcrime.securesms.backup.v2.ArchivedMediaObject
 import org.thoughtcrime.securesms.database.BackupMediaSnapshotTable.MediaEntry
-import org.thoughtcrime.securesms.testing.SignalActivityRule
+import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
+import org.thoughtcrime.securesms.testutil.SignalDatabaseRule
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class BackupMediaSnapshotTableTest {
 
   @get:Rule
-  val harness = SignalActivityRule()
+  val appDependencies = MockAppDependenciesRule()
+
+  @get:Rule
+  val signalDatabaseRule = SignalDatabaseRule()
 
   @Test
   fun givenAnEmptyTable_whenIWriteToTable_thenIExpectEmptyTable() {
@@ -302,9 +308,18 @@ class BackupMediaSnapshotTableTest {
     return MediaEntry(
       mediaId = mediaId(seed, thumbnail),
       cdn = cdn,
-      plaintextHash = Util.toByteArray(seed),
-      remoteKey = Util.toByteArray(seed),
+      plaintextHash = intToByteArray(seed),
+      remoteKey = intToByteArray(seed),
       isThumbnail = thumbnail
+    )
+  }
+
+  private fun intToByteArray(value: Int): ByteArray {
+    return byteArrayOf(
+      (value shr 24).toByte(),
+      (value shr 16).toByte(),
+      (value shr 8).toByte(),
+      value.toByte()
     )
   }
 

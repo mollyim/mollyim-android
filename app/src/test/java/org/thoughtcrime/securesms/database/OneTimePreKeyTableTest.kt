@@ -5,10 +5,15 @@
 
 package org.thoughtcrime.securesms.database
 
+import android.app.Application
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
@@ -18,9 +23,19 @@ import org.signal.core.util.select
 import org.signal.core.util.update
 import org.signal.libsignal.protocol.ecc.ECKeyPair
 import org.signal.libsignal.protocol.state.PreKeyRecord
+import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
+import org.thoughtcrime.securesms.testutil.SignalDatabaseRule
 import java.util.UUID
 
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class OneTimePreKeyTableTest {
+
+  @get:Rule
+  val appDependencies = MockAppDependenciesRule()
+
+  @get:Rule
+  val signalDatabaseRule = SignalDatabaseRule()
 
   private val aci: ACI = ACI.from(UUID.randomUUID())
   private val pni: PNI = PNI.from(UUID.randomUUID())
@@ -117,7 +132,7 @@ class OneTimePreKeyTableTest {
       record = PreKeyRecord(id, ECKeyPair.generate())
     )
 
-    val count = SignalDatabase.rawDatabase
+    val count = SignalDatabase.writableDatabase
       .update(OneTimePreKeyTable.TABLE_NAME)
       .values(OneTimePreKeyTable.STALE_TIMESTAMP to staleTime)
       .where("${OneTimePreKeyTable.ACCOUNT_ID} = ? AND ${OneTimePreKeyTable.KEY_ID} = $id", account.toAccountId())
@@ -127,7 +142,7 @@ class OneTimePreKeyTableTest {
   }
 
   private fun getStaleTime(account: ServiceId, id: Int): Long? {
-    return SignalDatabase.rawDatabase
+    return SignalDatabase.writableDatabase
       .select(OneTimePreKeyTable.STALE_TIMESTAMP)
       .from(OneTimePreKeyTable.TABLE_NAME)
       .where("${OneTimePreKeyTable.ACCOUNT_ID} = ? AND ${OneTimePreKeyTable.KEY_ID} = $id", account.toAccountId())

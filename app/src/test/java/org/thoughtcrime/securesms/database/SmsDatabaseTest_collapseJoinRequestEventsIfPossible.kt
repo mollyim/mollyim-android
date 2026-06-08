@@ -1,13 +1,17 @@
 package org.thoughtcrime.securesms.database
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.app.Application
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
 import assertk.assertions.isPresent
+import io.mockk.every
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.Hex
@@ -26,11 +30,17 @@ import org.thoughtcrime.securesms.isAbsent
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.IncomingMessage
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.testutil.RecipientTestRule
+import org.whispersystems.signalservice.api.push.ServiceIds
 import java.util.UUID
 
 @Suppress("ClassName", "TestFunctionName")
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class SmsDatabaseTest_collapseJoinRequestEventsIfPossible {
+
+  @get:Rule
+  val recipientRule = RecipientTestRule()
 
   private lateinit var recipients: RecipientTable
   private lateinit var sms: MessageTable
@@ -48,8 +58,7 @@ class SmsDatabaseTest_collapseJoinRequestEventsIfPossible {
     recipients = SignalDatabase.recipients
     sms = SignalDatabase.messages
 
-    SignalStore.account.setAci(localAci)
-    SignalStore.account.setPni(localPni)
+    every { recipientRule.signalStore.account.getServiceIds() } returns ServiceIds(localAci, localPni)
 
     alice = recipients.getOrInsertFromServiceId(aliceServiceId)
     bob = recipients.getOrInsertFromServiceId(bobServiceId)

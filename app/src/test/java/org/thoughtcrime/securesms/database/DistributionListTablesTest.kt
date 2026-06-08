@@ -1,16 +1,27 @@
 package org.thoughtcrime.securesms.database
 
+import android.app.Application
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.models.ServiceId.ACI
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.database.model.DistributionListRecord
 import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.testutil.RecipientTestRule
 import java.util.UUID
 
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class DistributionListTablesTest {
+
+  @get:Rule
+  val recipients = RecipientTestRule()
 
   private lateinit var distributionDatabase: DistributionListTables
 
@@ -27,8 +38,7 @@ class DistributionListTablesTest {
 
   @Test
   fun getList_returnCorrectList() {
-    createRecipients(3)
-    val members: List<RecipientId> = recipientList(1, 2, 3)
+    val members: List<RecipientId> = createRecipients(3)
 
     val id: DistributionListId? = distributionDatabase.createList("test", members)
     Assert.assertNotNull(id)
@@ -42,8 +52,7 @@ class DistributionListTablesTest {
 
   @Test
   fun getMembers_returnsCorrectMembers() {
-    createRecipients(3)
-    val members: List<RecipientId> = recipientList(1, 2, 3)
+    val members: List<RecipientId> = createRecipients(3)
 
     val id: DistributionListId? = distributionDatabase.createList("test", members)
     Assert.assertNotNull(id)
@@ -77,8 +86,8 @@ class DistributionListTablesTest {
     Assert.fail("Expected an assertion error.")
   }
 
-  private fun createRecipients(count: Int) {
-    for (i in 0 until count) {
+  private fun createRecipients(count: Int): List<RecipientId> {
+    return (0 until count).map {
       SignalDatabase.recipients.getOrInsertFromServiceId(ACI.from(UUID.randomUUID()))
     }
   }

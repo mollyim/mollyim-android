@@ -1,37 +1,36 @@
 package org.thoughtcrime.securesms.database
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.app.Application
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.models.ServiceId.ACI
-import org.signal.core.models.ServiceId.PNI
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge
-import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.testutil.RecipientTestRule
 import java.util.UUID
 
 @Suppress("ClassName")
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class MessageTableTest_gifts {
-  private lateinit var mms: MessageTable
 
-  private val localAci = ACI.from(UUID.randomUUID())
-  private val localPni = PNI.from(UUID.randomUUID())
+  @get:Rule
+  val recipientTestRule = RecipientTestRule()
+
+  private lateinit var mms: MessageTable
 
   private lateinit var recipients: List<RecipientId>
 
   @Before
   fun setUp() {
     mms = SignalDatabase.messages
-
-    mms.deleteAllThreads()
-
-    SignalStore.account.setAci(localAci)
-    SignalStore.account.setPni(localPni)
 
     recipients = (0 until 5).map { SignalDatabase.recipients.getOrInsertFromServiceId(ACI.from(UUID.randomUUID())) }
   }

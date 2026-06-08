@@ -1,12 +1,14 @@
 package org.thoughtcrime.securesms.database
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.app.Application
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.util.deleteAll
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.mms.IncomingMessage
@@ -14,15 +16,18 @@ import org.thoughtcrime.securesms.polls.PollOption
 import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.polls.Voter
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.testing.SignalActivityRule
+import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.testutil.RecipientTestRule
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class PollTablesTest {
 
   @get:Rule
-  val harness = SignalActivityRule()
+  val recipients = RecipientTestRule()
 
   private lateinit var poll1: PollRecord
+  private lateinit var other0: RecipientId
 
   @Before
   fun setUp() {
@@ -44,8 +49,9 @@ class PollTablesTest {
     SignalDatabase.polls.writableDatabase.deleteAll(PollTables.PollOptionTable.TABLE_NAME)
     SignalDatabase.polls.writableDatabase.deleteAll(PollTables.PollVoteTable.TABLE_NAME)
 
-    val message = IncomingMessage(type = MessageType.NORMAL, from = harness.others[0], sentTimeMillis = 100, serverTimeMillis = 100, receivedTimeMillis = 100)
-    SignalDatabase.messages.insertMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(harness.others[0], isGroup = false))
+    other0 = recipients.createRecipient("Buddy #0")
+    val message = IncomingMessage(type = MessageType.NORMAL, from = other0, sentTimeMillis = 100, serverTimeMillis = 100, receivedTimeMillis = 100)
+    SignalDatabase.messages.insertMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(other0, isGroup = false))
   }
 
   @Test

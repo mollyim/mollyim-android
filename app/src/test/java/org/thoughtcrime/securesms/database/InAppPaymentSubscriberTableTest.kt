@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.database
 
+import android.app.Application
 import android.database.sqlite.SQLiteConstraintException
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -8,20 +9,34 @@ import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.util.count
 import org.signal.core.util.deleteAll
 import org.signal.core.util.readToSingleInt
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
-import org.thoughtcrime.securesms.testing.SignalActivityRule
+import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
+import org.thoughtcrime.securesms.testutil.MockSignalStoreRule
+import org.thoughtcrime.securesms.testutil.SignalDatabaseRule
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import java.util.Currency
 
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class InAppPaymentSubscriberTableTest {
+
   @get:Rule
-  val harness = SignalActivityRule()
+  val signalStore = MockSignalStoreRule()
+
+  @get:Rule
+  val appDependencies = MockAppDependenciesRule()
+
+  @get:Rule
+  val signalDatabaseRule = SignalDatabaseRule()
 
   @Before
   fun setUp() {

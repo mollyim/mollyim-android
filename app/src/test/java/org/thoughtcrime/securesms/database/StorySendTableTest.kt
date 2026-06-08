@@ -1,6 +1,6 @@
 package org.thoughtcrime.securesms.database
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.app.Application
 import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.hasSize
@@ -16,20 +16,23 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.signal.core.models.ServiceId.ACI
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.testing.SignalActivityRule
+import org.thoughtcrime.securesms.testutil.RecipientTestRule
 import org.whispersystems.signalservice.api.push.DistributionId
 import java.util.UUID
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE, application = Application::class)
 class StorySendTableTest {
 
   @get:Rule
-  val harness = SignalActivityRule(othersCount = 0, createGroup = false)
+  val recipients = RecipientTestRule()
 
   private val distributionId1 = DistributionId.from(UUID.randomUUID())
   private val distributionId2 = DistributionId.from(UUID.randomUUID())
