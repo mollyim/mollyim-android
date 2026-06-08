@@ -10,6 +10,7 @@ import org.signal.libsignal.zkgroup.InvalidInputException
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
 import org.whispersystems.signalservice.internal.push.AttachmentPointer
+import org.whispersystems.signalservice.internal.push.BodyRange
 import org.whispersystems.signalservice.internal.push.Content
 import org.whispersystems.signalservice.internal.push.DataMessage
 import org.whispersystems.signalservice.internal.push.EditMessage
@@ -96,6 +97,10 @@ object EnvelopeContentValidator {
       return Result.Invalid("[DataMessage] Invalid ACI on quote body range!")
     }
 
+    if (dataMessage.quote != null && dataMessage.quote.bodyRanges.hasInvalidBounds(dataMessage.quote.text)) {
+      return Result.Invalid("[DataMessage] Quote body range with out-of-bounds start/length!")
+    }
+
     if (dataMessage.contact.any { it.avatar != null && it.avatar.avatar.isPresentAndInvalid() }) {
       return Result.Invalid("[DataMessage] Invalid AttachmentPointer on DataMessage.contactList.avatar!")
     }
@@ -106,6 +111,10 @@ object EnvelopeContentValidator {
 
     if (dataMessage.bodyRanges.any { Util.anyNotNull(it.mentionAci, it.mentionAciBinary) && ACI.parseOrNull(it.mentionAci, it.mentionAciBinary).isNullOrInvalidServiceId() }) {
       return Result.Invalid("[DataMessage] Invalid ACI on body range!")
+    }
+
+    if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body)) {
+      return Result.Invalid("[DataMessage] Body range with out-of-bounds start/length!")
     }
 
     if (dataMessage.sticker != null && dataMessage.sticker.data_.isNullOrInvalid()) {
@@ -354,6 +363,10 @@ object EnvelopeContentValidator {
       return Result.Invalid("[EditMessage] Invalid UUID on body range!")
     }
 
+    if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body)) {
+      return Result.Invalid("[EditMessage] Body range with out-of-bounds start/length!")
+    }
+
     if (dataMessage.attachments.any { it.isNullOrInvalid() }) {
       return Result.Invalid("[EditMessage] Invalid attachments!")
     }
@@ -363,6 +376,17 @@ object EnvelopeContentValidator {
     }
 
     return Result.Valid
+  }
+
+  private fun List<BodyRange>.hasInvalidBounds(body: String?): Boolean {
+    val bodyLength: Long = (body?.length ?: 0).toLong()
+
+    return this.any { range ->
+      val start: Long = (range.start ?: 0).toLong()
+      val length: Long = (range.length ?: 0).toLong()
+
+      start < 0 || length < 0 || start + length > bodyLength
+    }
   }
 
   private fun AttachmentPointer?.isNullOrInvalid(): Boolean {
