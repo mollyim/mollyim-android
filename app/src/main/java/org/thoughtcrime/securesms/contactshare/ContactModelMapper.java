@@ -119,13 +119,15 @@ public class ContactModelMapper {
     if (contact.avatar != null && contact.avatar.avatar != null) {
       try {
         SignalServiceAttachmentPointer attachmentPointer = AttachmentPointerUtil.createSignalAttachmentPointer(contact.avatar.avatar);
-        Attachment                     attachment        = PointerAttachment.forPointer(Optional.of(attachmentPointer.asPointer())).get();
+        Optional<Attachment>           attachment        = PointerAttachment.forPointer(Optional.of(attachmentPointer.asPointer()));
 
-        if (attachment.cdn == Cdn.S3) {
+        if (!attachment.isPresent()) {
+          Log.w(TAG, "Unable to create avatar attachment for contact. Ignoring avatar.");
+        } else if (attachment.get().cdn == Cdn.S3) {
           Log.w(TAG, "Ignoring contact avatar that resolves to the internal release-channel CDN.");
         } else {
           boolean isProfile = Boolean.TRUE.equals(contact.avatar.isProfile);
-          avatar = new Avatar(null, attachment, isProfile);
+          avatar = new Avatar(null, attachment.get(), isProfile);
         }
       } catch (InvalidMessageStructureException e) {
         Log.w(TAG, "Unable to create avatar for contact", e);
