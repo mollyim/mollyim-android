@@ -10,6 +10,7 @@ import androidx.test.core.app.ApplicationProvider
 import arrow.core.left
 import arrow.core.right
 import assertk.assertThat
+import assertk.assertions.isEqualTo
 import assertk.assertions.isTrue
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -19,6 +20,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.runs
+import io.mockk.slot
 import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.After
@@ -423,6 +425,45 @@ class IndividualSendJobV2Test {
         onEncrypted = any()
       )
     }
+  }
+
+  @Test
+  fun `Given an edit of an already-edited message, when run, then target the edited revision's dateSent`() {
+    val editTargetMessageId = messageId + 1
+    val editRevisionSentTime = sentTime + 10_000L
+    // An edit revision inherits the original message's dateReceived, so getTimestamp() returns a value
+    // that is not the revision's actual sent timestamp. The edit target must use dateSent.
+    val inheritedTimestamp = sentTime - 2L
+
+    every { outgoingMessage.messageToEdit } returns editTargetMessageId
+
+    val editTargetRecord: MessageRecord = mockk(relaxed = true)
+    every { editTargetRecord.dateSent } returns editRevisionSentTime
+    every { editTargetRecord.timestamp } returns inheritedTimestamp
+    every { editTargetRecord.expireStarted } returns 0L
+    every { messages.getMessageRecordOrNull(editTargetMessageId) } returns editTargetRecord
+
+    val contentSlot = slot<EnvelopeContent>()
+    coEvery {
+      messageService.sendMessage(
+        serviceId = any(),
+        envelopeContent = capture(contentSlot),
+        timestamp = any(),
+        sealedSenderAccess = any(),
+        story = any(),
+        isOnline = any(),
+        urgent = any(),
+        onEncrypted = any()
+      )
+    } returns MessageService.SendSuccess(
+      envelopeContent = EnvelopeContent.encrypted(Content(dataMessage = dataMessage), ContentHint.RESENDABLE, Optional.empty()),
+      sentSealedSender = false,
+      devices = listOf(1)
+    ).right()
+
+    createAndRunJob()
+
+    assertThat(contentSlot.captured.content.get().editMessage!!.targetSentTimestamp).isEqualTo(editRevisionSentTime)
   }
 
   @Test
