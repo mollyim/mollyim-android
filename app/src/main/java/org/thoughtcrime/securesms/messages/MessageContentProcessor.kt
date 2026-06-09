@@ -279,6 +279,11 @@ open class MessageContentProcessor(private val context: Context) {
             Log.w(TAG, "Ignoring message from ${senderRecipient.id} because it has disallowed content, and they're not an admin in an announcement-only group.")
             return Gv2PreProcessResult.IGNORE
           }
+        } else if (content.editMessage?.dataMessage != null) {
+          if (content.editMessage!!.dataMessage!!.hasDisallowedAnnouncementOnlyContent) {
+            Log.w(TAG, "Ignoring edit message from ${senderRecipient.id} because it has disallowed content, and they're not an admin in an announcement-only group.")
+            return Gv2PreProcessResult.IGNORE
+          }
         } else if (content.typingMessage != null) {
           Log.w(TAG, "Ignoring typing indicator from ${senderRecipient.id} because they're not an admin in an announcement-only group.")
           return Gv2PreProcessResult.IGNORE
