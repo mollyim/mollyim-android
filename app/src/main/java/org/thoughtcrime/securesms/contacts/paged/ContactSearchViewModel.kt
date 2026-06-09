@@ -94,6 +94,8 @@ class ContactSearchViewModel(
   val isDisplayingContextMenu: StateFlow<Boolean> = internalDisplayingContextMenu
   val scrollRequests: SharedFlow<ScrollRequest> = internalScrollRequests
 
+  val query: StateFlow<String?> = rawQuery
+
   init {
     viewModelScope.launch {
       rawQuery.drop(1).debounce(300).collect { query ->
@@ -156,8 +158,6 @@ class ContactSearchViewModel(
     internalTotalCount.value = size
     pagedData.value = PagedData.createForStateFlow(pagedDataSource, pagingConfig)
   }
-
-  fun getQuery(): String? = rawQuery.value
 
   fun setQuery(query: String?) {
     rawQuery.value = query

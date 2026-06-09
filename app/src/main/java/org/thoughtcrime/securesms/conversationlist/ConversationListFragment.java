@@ -431,7 +431,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
     maybeScheduleRefreshProfileJob();
     ConversationListFragmentExtensionsKt.listenToEventBusWhileResumed(this, mainNavigationViewModel.getDetailLocation());
 
-    String query = contactSearchViewModel.getQuery();
+    String query = contactSearchViewModel.getQuery().getValue();
     if (query != null) {
       onSearchQueryUpdated(query);
     }
