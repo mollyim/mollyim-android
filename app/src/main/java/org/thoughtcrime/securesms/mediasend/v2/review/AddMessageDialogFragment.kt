@@ -20,6 +20,7 @@ import org.signal.core.ui.view.Stub
 import org.signal.core.util.ByteLimitInputFilter
 import org.signal.core.util.EditTextUtil
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.backup.v2.ui.warning.guardAgainstRecoveryKeyPaste
 import org.thoughtcrime.securesms.components.KeyboardAwareLinearLayout
 import org.thoughtcrime.securesms.components.KeyboardEntryDialogFragment
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -71,6 +72,7 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
   private lateinit var inlineQueryResultsController: InlineQueryResultsController
 
   private var requestedEmojiDrawer: Boolean = false
+  private var displayingRecoveryKeyWarning: Boolean = false
 
   private var recipient: Recipient? = null
 
@@ -97,6 +99,14 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
     binding.content.addAMessageInput.setText(requireArguments().getCharSequence(ARG_INITIAL_TEXT))
     binding.content.addAMessageInput.addTextChangedListener { viewModel.setMessage(it) }
     binding.content.addAMessageInput.filters += ByteLimitInputFilter(MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES)
+    binding.content.addAMessageInput.guardAgainstRecoveryKeyPaste(
+      host = this,
+      onWarningShown = { displayingRecoveryKeyWarning = true },
+      onWarningDismissed = {
+        displayingRecoveryKeyWarning = false
+        ViewUtil.focusAndShowKeyboard(binding.content.addAMessageInput)
+      }
+    )
 
     binding.content.emojiToggle.setOnClickListener { onEmojiToggleClicked() }
     if (requireArguments().getBoolean(ARG_INITIAL_EMOJI_TOGGLE) && view is KeyboardAwareLinearLayout) {
@@ -161,7 +171,7 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
   }
 
   override fun onKeyboardHidden() {
-    if (!requestedEmojiDrawer) {
+    if (!requestedEmojiDrawer && !displayingRecoveryKeyWarning) {
       super.onKeyboardHidden()
     }
   }
