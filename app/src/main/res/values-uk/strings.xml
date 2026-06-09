@@ -2408,7 +2408,7 @@
     <string name="MessageRequestProfileView_view">Показати</string>
     <string name="MessageRequestProfileView_member_of_one_group">Учасник «%1$s»</string>
     <string name="MessageRequestProfileView_member_of_two_groups">Учасник «%1$s» і «%2$s»</string>
-    <string name="MessageRequestProfileView_member_of_many_groups">Учасник «%1$s», «%2$s» і «%3$s»</string>
+    <string name="MessageRequestProfileView_member_of_many_groups">Учасник «%1$s», «%2$s» і %3$s</string>
     <plurals name="MessageRequestProfileView_members">
         <item quantity="one">%1$d учасник</item>
         <item quantity="few">%1$d учасники</item>
@@ -2431,10 +2431,10 @@
     </plurals>
     <!-- Describe the total number of groups, besides two groups, that you and a person have in common. Nested inside MessageRequestProfileView_member_of_many_groups -->
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
-        <item quantity="one">%1$d додаткова група</item>
-        <item quantity="few">%1$d додаткові групи</item>
-        <item quantity="many">%1$d додаткові групи</item>
-        <item quantity="other">%1$d додаткової групи</item>
+        <item quantity="one">ще %1$d групи</item>
+        <item quantity="few">ще %1$d груп</item>
+        <item quantity="many">ще %1$d груп</item>
+        <item quantity="other">ще %1$d групи</item>
     </plurals>
     <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
     <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>

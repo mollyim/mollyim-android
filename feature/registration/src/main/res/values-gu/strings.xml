@@ -316,7 +316,7 @@
     <!-- PIN creation screen title when confirming the new Signal PIN. -->
     <string name="PinCreationScreen__confirm_your_pin">તમારો પિન કન્ફર્મ કરો</string>
     <!-- Describes how to confirm the new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin_description">Re-enter the PIN you just created</string>
+    <string name="PinCreationScreen__reenter_pin_description">તમે હમણાં બનાવેલો પિન ફરીથી દાખલ કરો</string>
     <!-- Describes the purpose of creating a Signal PIN. -->
     <string name="PinCreationScreen__pins_can_help">જો તમે તમારો ફોન ગુમાવો, તો પિન તમને તમારું એકાઉન્ટ રિસ્ટોર કરવામાં મદદ કરી શકે છે. </string>
     <!-- Labels the button to learn more about Signal PINs. -->
@@ -328,11 +328,11 @@
     <!-- Labels the button to submit a new Signal PIN. -->
     <string name="PinCreationScreen__next">આગળ</string>
     <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
-    <string name="PinCreationScreen__pin_at_least_4_digits">PIN ઓછામાં ઓછો 4 અંકનો હોવો જોઈએ</string>
+    <string name="PinCreationScreen__pin_at_least_4_digits">પિન ઓછામાં ઓછો 4 અંકનો હોવો જોઈએ</string>
     <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
-    <string name="PinCreationScreen__pin_at_least_4_characters">PIN ઓછામાં ઓછા 4 અક્ષરોનો હોવો જોઈએ</string>
+    <string name="PinCreationScreen__pin_at_least_4_characters">પિન ઓછામાં ઓછા 4 અક્ષરોનો હોવો જોઈએ</string>
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin">PIN ફરીથી દાખલ કરો</string>
+    <string name="PinCreationScreen__reenter_pin">પિન ફરીથી દાખલ કરો</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">રજીસ્ટ્રેશન લૉક</string>
@@ -357,7 +357,7 @@
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">નોટિફિકેશનને પરવાનગી આપો</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal would like to request the notification permission. This allows your device to display alerts when new messages arrive.</string>
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal નોટિફિકેશન પરવાનગીઓની વિનંતી કરવા માંગે છે. આ જ્યારે નવા મેસેજ આવે ત્યારે તમારા ડિવાઇસને એલર્ટ દર્શાવવાની મંજૂરી આપે છે.</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
     <string name="AllowNotificationsScreen__not_now">અત્યારે નહીં</string>
     <!-- Button label that proceeds with the notification permission request -->
@@ -366,36 +366,36 @@
     <!-- Title shown while messages are syncing from the primary device -->
     <string name="MessageSyncScreen__syncing_messages">મેસેજ સિંક થઈ રહ્યાં છે</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
-    <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">આમાં થોડી મિનિટનો સમય લાગી શકે છે…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">%2$s માંથી %1$s ડાઉનલોડ થઈ રહ્યું છે</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
-    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">મેસેજ અને ચેટની માહિતી સિંક પ્રક્રિયા સહિત એન્ડ-ટૂ-એન્ડ એન્ક્રિપ્શન દ્વારા સુરક્ષિત છે.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
     <string name="MessageSyncScreen__learn_more">વધુ જાણો</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">રદ કરો</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
-    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">તમારા એકાઉન્ટને લિંક કરવા આ કોડ સ્કેન કરો</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
     <string name="LinkAccountScreen__open_signal_on_your_phone">તમારા ફોન પર Signal ખોલો</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
-    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tap your profile picture to open Signal Settings</string>
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Signal સેટિંગ્સ ખોલવા માટે તમારી પ્રોફાઇલ પર ટેપ કરો</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
-    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Tap \"Linked devices\" and \"Link new device\"</string>
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">\"લિંક કરેલું ડિવાઇસ\" અને પછી \"નવું ડિવાઇસ લિંક કરો\" પર ટેપ કરો</string>
     <!-- Step in the link-account instructions: aim the primary device\'s camera at the QR code displayed on this screen -->
-    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">Position the camera over this qr code</string>
+    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">આ QR કોડ પર કૅમેરા રાખો</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
-    <string name="LinkAccountScreen__get_help_with_these_steps">Get help with these steps</string>
+    <string name="LinkAccountScreen__get_help_with_these_steps">આ પગલાંમાં મદદ મેળવો</string>
     <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
-    <string name="LinkAccountScreen__maximize_qr_code">Maximize QR Code</string>
+    <string name="LinkAccountScreen__maximize_qr_code">QR કોડ મોટો કરો</string>
     <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
-    <string name="LinkAccountScreen__scanned">Scanned</string>
+    <string name="LinkAccountScreen__scanned">સ્કેન કર્યું</string>
     <!-- Error label shown in place of the QR code if it could not be generated -->
-    <string name="LinkAccountScreen__failed_to_generate_code">Failed to generate code</string>
+    <string name="LinkAccountScreen__failed_to_generate_code">કોડ જનરેટ કરવાનું નિષ્ફળ થયું</string>
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
-    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">અન્ય ડિવાઇસ પર Signal નથી?</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">એકાઉન્ટ બનાવો</string>
 </resources>

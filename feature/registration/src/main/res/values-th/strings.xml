@@ -315,7 +315,7 @@
     <!-- PIN creation screen title when confirming the new Signal PIN. -->
     <string name="PinCreationScreen__confirm_your_pin">ยืนยัน PIN ของคุณ</string>
     <!-- Describes how to confirm the new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin_description">Re-enter the PIN you just created</string>
+    <string name="PinCreationScreen__reenter_pin_description">ใส่ PIN ที่คุณเพิ่งสร้างอีกครั้ง</string>
     <!-- Describes the purpose of creating a Signal PIN. -->
     <string name="PinCreationScreen__pins_can_help">PIN ช่วยให้คุณสามารถกู้คืนบัญชีในกรณีที่ทำโทรศัพท์หาย </string>
     <!-- Labels the button to learn more about Signal PINs. -->
@@ -355,7 +355,7 @@
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">อนุญาตการแจ้งเตือน</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal would like to request the notification permission. This allows your device to display alerts when new messages arrive.</string>
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal ต้องการขออนุญาตสิทธิ์ในการแจ้งเตือน นี่จะทำให้อุปกรณ์ของคุณสามารถแสดงการแจ้งเตือนเมื่อได้รับข้อความใหม่</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
     <string name="AllowNotificationsScreen__not_now">ไว้ทีหลัง</string>
     <!-- Button label that proceeds with the notification permission request -->
@@ -364,36 +364,36 @@
     <!-- Title shown while messages are syncing from the primary device -->
     <string name="MessageSyncScreen__syncing_messages">กำลังซิงค์ข้อความ</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
-    <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">ขั้นตอนนี้อาจใช้เวลาสักครู่…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">กำลังดาวน์โหลด %1$s จาก %2$s</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
-    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">ปกป้องข้อความและข้อมูลการแชทด้วยการเข้ารหัสตั้งแต่ต้นทางถึงปลายทาง รวมถึงในขั้นตอนการซิงค์</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
     <string name="MessageSyncScreen__learn_more">เรียนรู้เพิ่มเติม</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">ยกเลิก</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
-    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">สแกนคิวอาร์โค้ดนี้เพื่อเชื่อมโยงบัญชีของคุณ</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
     <string name="LinkAccountScreen__open_signal_on_your_phone">เปิด Signal บนโทรศัพท์ของคุณ</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
-    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tap your profile picture to open Signal Settings</string>
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">แตะที่รูปโปรไฟล์ของคุณเพื่อเปิดการตั้งค่า Signal</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
-    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Tap \"Linked devices\" and \"Link new device\"</string>
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">แตะ \"อุปกรณ์ที่เชื่อมโยงอยู่\" และ \"เชื่อมโยงอุปกรณ์ใหม่\"</string>
     <!-- Step in the link-account instructions: aim the primary device\'s camera at the QR code displayed on this screen -->
-    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">Position the camera over this qr code</string>
+    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">ถือกล้องไว้เหนือคิวอาร์โค้ดนี้</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
-    <string name="LinkAccountScreen__get_help_with_these_steps">Get help with these steps</string>
+    <string name="LinkAccountScreen__get_help_with_these_steps">ความช่วยเหลือเพิ่มเติมเกี่ยวกับขั้นตอนนี้</string>
     <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
-    <string name="LinkAccountScreen__maximize_qr_code">Maximize QR Code</string>
+    <string name="LinkAccountScreen__maximize_qr_code">ขยายคิวอาร์โค้ด</string>
     <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
-    <string name="LinkAccountScreen__scanned">Scanned</string>
+    <string name="LinkAccountScreen__scanned">สแกนแล้ว</string>
     <!-- Error label shown in place of the QR code if it could not be generated -->
-    <string name="LinkAccountScreen__failed_to_generate_code">Failed to generate code</string>
+    <string name="LinkAccountScreen__failed_to_generate_code">สร้างคิวอาร์โค้ดไม่สำเร็จ</string>
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
-    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">หากอุปกรณ์อีกเครื่องยังไม่มีแอป Signal</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">สร้างบัญชีใหม่</string>
 </resources>

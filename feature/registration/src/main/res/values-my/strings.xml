@@ -313,9 +313,9 @@
     <!-- PIN creation screen title. -->
     <string name="PinCreationScreen__create_your_pin">သင်၏ PIN နံပါတ်ကို ဖန်တီးပါ</string>
     <!-- PIN creation screen title when confirming the new Signal PIN. -->
-    <string name="PinCreationScreen__confirm_your_pin">Confirm your PIN</string>
+    <string name="PinCreationScreen__confirm_your_pin">သင့် PIN ကို အတည်ပြုရန်</string>
     <!-- Describes how to confirm the new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin_description">Re-enter the PIN you just created</string>
+    <string name="PinCreationScreen__reenter_pin_description">သင်ဖန်တီးလိုက်သော PIN ကို ပြန်ရိုက်ထည့်ပါ</string>
     <!-- Describes the purpose of creating a Signal PIN. -->
     <string name="PinCreationScreen__pins_can_help">သင့်ဖုန်းပျောက်သွားပါက PIN သည် သင့်အကောင့်ကို ပြန်လည်ရယူရန် ကူညီပေးနိုင်ပါသည်။ </string>
     <!-- Labels the button to learn more about Signal PINs. -->
@@ -327,11 +327,11 @@
     <!-- Labels the button to submit a new Signal PIN. -->
     <string name="PinCreationScreen__next">ဆက်သွားမည်</string>
     <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
-    <string name="PinCreationScreen__pin_at_least_4_digits">PIN must be at least 4 digits</string>
+    <string name="PinCreationScreen__pin_at_least_4_digits">PIN သည် အနည်းဆုံး ဂဏန်း ၄ လုံးရှိရပါမည်</string>
     <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
-    <string name="PinCreationScreen__pin_at_least_4_characters">PIN must be at least 4 characters</string>
+    <string name="PinCreationScreen__pin_at_least_4_characters">PIN သည် အနည်းဆုံး အက္ခရာ ၄ လုံးရှိရပါမည်</string>
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin">Re-enter PIN</string>
+    <string name="PinCreationScreen__reenter_pin">PIN ကို ပြန်ရိုက်ထည့်ပါ</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">မှတ်ပုံတင်မှု ပိတ်ထားခြင်း</string>
@@ -341,7 +341,7 @@
     <string name="PinEntryScreen__enter_the_pin_you_created">Signal ကို ပထမဆုံးထည့်သွင်းစဥ်က ဖန်တီးခဲ့သည့် PIN ကို ရိုက်ထည့်ပါ။</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
     <plurals name="PinEntryScreen__incorrect_pin">
-        <item quantity="other">ပင်နံပါတ် မမှန်ကန်ပါ။​ ကြိုးစားရန် %1$d ကြိမ် ကျန်ရှိပါသည်။</item>
+        <item quantity="other">PIN မမှန်ကန်ပါ။ ကြိုးစားရန် %1$d ကြိမ် ကျန်ရှိပါသည်။</item>
     </plurals>
     <!-- Labels the button to get help with PIN entry. -->
     <string name="PinEntryScreen__need_help">အကူအညီ လိုအပ်ပါသလား?</string>
@@ -353,9 +353,9 @@
     <string name="PinEntryScreen__continue">ရှေ့ဆက်ပါ</string>
 
     <!-- Title for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__allow_notifications">Allow Notifications</string>
+    <string name="AllowNotificationsScreen__allow_notifications">အသိပေးချက်များကို ခွင့်ပြုရန်</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal would like to request the notification permission. This allows your device to display alerts when new messages arrive.</string>
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal မှ အသိပေးချက်များအား ခွင့်ပြုချက် တောင်းခံလိုပါသည်။ ၎င်းသည် မက်ဆေ့ချ်အသစ်များ ရောက်ရှိသည့်အခါ သင့်စက်ပေါ်တွင် အသိပေးချက်များကို ပြသနိုင်စေပါသည်။</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
     <string name="AllowNotificationsScreen__not_now">ယခု မလုပ်သေးပါ</string>
     <!-- Button label that proceeds with the notification permission request -->
@@ -364,36 +364,36 @@
     <!-- Title shown while messages are syncing from the primary device -->
     <string name="MessageSyncScreen__syncing_messages">မက်ဆေ့ချ်များကို တူအောင်ညှိနေသည်</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
-    <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">မိနစ်အနည်းငယ် ကြာနိုင်ပါသည်…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">%2$s မှ %1$s ကို ဒေါင်းလုဒ်လုပ်နေသည်</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
-    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">ချိန်ကိုက်မှု လုပ်ငန်းစဉ်အပါအဝင် မက်ဆေ့ချ်များနှင့် ချက်(တ်)အချက်အလက်ကို ဟိုဘက်သည်ဘက် ကုဒ်ပြောင်းဝှက်ခြင်းဖြင့် ကာကွယ်ထားသည်။</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
     <string name="MessageSyncScreen__learn_more">ပိုမိုလေ့လာရန်</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">မလုပ်တော့ပါ</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
-    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">သင့်အကောင့်ကို ချိတ်ဆက်ရန် ဤကုဒ်ကို စကင်န်ဖတ်ပါ</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
     <string name="LinkAccountScreen__open_signal_on_your_phone">သင့်ဖုန်းတွင် Signal ကို ဖွင့်ရန်</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
-    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tap your profile picture to open Signal Settings</string>
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Signal ဆက်တင်ကိုဖွင့်ရန် သင့်ပရိုဖိုင်ပုံကို နှိပ်ပါ</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
-    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Tap \"Linked devices\" and \"Link new device\"</string>
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">\"ချိတ်ထားသည့် စက်များ\" နှင့် \"စက်အသစ် ချိတ်ဆက်ရန်\" ကို နှိပ်ပါ</string>
     <!-- Step in the link-account instructions: aim the primary device\'s camera at the QR code displayed on this screen -->
-    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">Position the camera over this qr code</string>
+    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">ကင်မရာကို ဤ QR ကုဒ်ပေါ်တွင် ထားပါ</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
-    <string name="LinkAccountScreen__get_help_with_these_steps">Get help with these steps</string>
+    <string name="LinkAccountScreen__get_help_with_these_steps">ဤအဆင့်များအတိုင်း အကူအညီရယူပါ</string>
     <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
-    <string name="LinkAccountScreen__maximize_qr_code">Maximize QR Code</string>
+    <string name="LinkAccountScreen__maximize_qr_code">QR ကုဒ်ကို ချဲ့ပါ</string>
     <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
-    <string name="LinkAccountScreen__scanned">Scanned</string>
+    <string name="LinkAccountScreen__scanned">စကင်န်ဖတ်ပြီးပါပြီ</string>
     <!-- Error label shown in place of the QR code if it could not be generated -->
-    <string name="LinkAccountScreen__failed_to_generate_code">Failed to generate code</string>
+    <string name="LinkAccountScreen__failed_to_generate_code">ကုဒ်ထုတ်ပေးခြင်း မအောင်မြင်ပါ</string>
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
-    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">အခြားစက်တွင် Signal မရှိဘူးလား။</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">အကောင့် ဖန်တီးရန်</string>
 </resources>

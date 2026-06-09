@@ -315,7 +315,7 @@
     <!-- PIN creation screen title when confirming the new Signal PIN. -->
     <string name="PinCreationScreen__confirm_your_pin">確認你的 PIN碼</string>
     <!-- Describes how to confirm the new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin_description">Re-enter the PIN you just created</string>
+    <string name="PinCreationScreen__reenter_pin_description">請重新輸入你剛建立的 PIN 碼</string>
     <!-- Describes the purpose of creating a Signal PIN. -->
     <string name="PinCreationScreen__pins_can_help">如你遺失手機，PIN 碼可協助你還原帳戶。 </string>
     <!-- Labels the button to learn more about Signal PINs. -->
@@ -355,7 +355,7 @@
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">允許通知</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal would like to request the notification permission. This allows your device to display alerts when new messages arrive.</string>
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal 想請你開啟通知權限。這允許你的裝置能在收到新訊息時顯示通知提示。</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
     <string name="AllowNotificationsScreen__not_now">現在不要</string>
     <!-- Button label that proceeds with the notification permission request -->
@@ -364,36 +364,36 @@
     <!-- Title shown while messages are syncing from the primary device -->
     <string name="MessageSyncScreen__syncing_messages">同步訊息</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
-    <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">可能需要數分鐘…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">正在下載 %2$s 中的 %1$s</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
-    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">訊息和聊天資訊均受端對端加密的保護，包括同步過程。</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
     <string name="MessageSyncScreen__learn_more">了解更多</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">取消</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
-    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">掃描此二維碼以連結你的帳戶</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
     <string name="LinkAccountScreen__open_signal_on_your_phone">在手機上開啟 Signal</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
-    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tap your profile picture to open Signal Settings</string>
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">輕按個人資料圖像以打開「Signal 設定」</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
-    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Tap \"Linked devices\" and \"Link new device\"</string>
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">輕按「已連結裝置」和「連結新裝置」</string>
     <!-- Step in the link-account instructions: aim the primary device\'s camera at the QR code displayed on this screen -->
-    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">Position the camera over this qr code</string>
+    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">請將相機對準此二維碼</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
-    <string name="LinkAccountScreen__get_help_with_these_steps">Get help with these steps</string>
+    <string name="LinkAccountScreen__get_help_with_these_steps">若需協助，請參閱這些步驟</string>
     <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
-    <string name="LinkAccountScreen__maximize_qr_code">Maximize QR Code</string>
+    <string name="LinkAccountScreen__maximize_qr_code">將二維碼放大</string>
     <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
-    <string name="LinkAccountScreen__scanned">Scanned</string>
+    <string name="LinkAccountScreen__scanned">已掃描</string>
     <!-- Error label shown in place of the QR code if it could not be generated -->
-    <string name="LinkAccountScreen__failed_to_generate_code">Failed to generate code</string>
+    <string name="LinkAccountScreen__failed_to_generate_code">無法產生二維碼</string>
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
-    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">其他裝置上沒有安裝 Signal 嗎？</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">建立帳戶</string>
 </resources>

@@ -2431,10 +2431,10 @@
     </plurals>
     <!-- Describe the total number of groups, besides two groups, that you and a person have in common. Nested inside MessageRequestProfileView_member_of_many_groups -->
     <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
-        <item quantity="one">ещё %1$d группы</item>
-        <item quantity="few">ещё %1$d групп</item>
-        <item quantity="many">ещё %1$d групп</item>
-        <item quantity="other">ещё %1$d групп</item>
+        <item quantity="one">ещё в %1$d группе</item>
+        <item quantity="few">ещё в %1$d группах</item>
+        <item quantity="many">ещё в %1$d группах</item>
+        <item quantity="other">ещё в %1$d группах</item>
     </plurals>
     <!-- Describes the names of members in a group. MessageRequestProfileView_group_members_* is nested in the first parentheses. MessageRequestProfileView_invited is nested in the second -->
     <string name="MessageRequestProfileView_member_names_and_invited">%1$s (%2$s)</string>

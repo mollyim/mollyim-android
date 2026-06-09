@@ -315,7 +315,7 @@
     <!-- PIN creation screen title when confirming the new Signal PIN. -->
     <string name="PinCreationScreen__confirm_your_pin">PIN 확인</string>
     <!-- Describes how to confirm the new Signal PIN. -->
-    <string name="PinCreationScreen__reenter_pin_description">Re-enter the PIN you just created</string>
+    <string name="PinCreationScreen__reenter_pin_description">방금 생성한 PIN을 다시 입력하세요.</string>
     <!-- Describes the purpose of creating a Signal PIN. -->
     <string name="PinCreationScreen__pins_can_help">PIN을 설정해 두면 휴대폰을 분실했을 때 계정을 복구할 수 있습니다. </string>
     <!-- Labels the button to learn more about Signal PINs. -->
@@ -355,7 +355,7 @@
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">알림 허용</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal would like to request the notification permission. This allows your device to display alerts when new messages arrive.</string>
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal에서 알림 사용 권한을 요청합니다. 이 권한을 허용하면 새 메시지를 수신할 때 기기에서 알림을 표시할 수 있습니다.</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
     <string name="AllowNotificationsScreen__not_now">나중에</string>
     <!-- Button label that proceeds with the notification permission request -->
@@ -364,36 +364,36 @@
     <!-- Title shown while messages are syncing from the primary device -->
     <string name="MessageSyncScreen__syncing_messages">메시지를 동기화하는 중</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
-    <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">몇 분 정도 소요될 수 있습니다.</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">%1$s/%2$s 다운로드 중</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
-    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">동기화 프로세스를 비롯하여 메시지와 대화 정보는 종단간 암호화로 보호됩니다.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
     <string name="MessageSyncScreen__learn_more">자세히 알아보기</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">취소</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
-    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">이 코드를 스캔하여 계정을 연결하세요</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
-    <string name="LinkAccountScreen__open_signal_on_your_phone">휴대전화에서 Signal을 열어주세요</string>
+    <string name="LinkAccountScreen__open_signal_on_your_phone">휴대전화에서 Signal을 엽니다.</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
-    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tap your profile picture to open Signal Settings</string>
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">프로필 사진을 탭하여 Signal 설정을 엽니다.</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
-    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Tap \"Linked devices\" and \"Link new device\"</string>
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">\'연결된 기기\'와 \'새 기기 연결\'을 차례로 탭합니다.</string>
     <!-- Step in the link-account instructions: aim the primary device\'s camera at the QR code displayed on this screen -->
-    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">Position the camera over this qr code</string>
+    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">카메라로 이 QR 코드를 스캔합니다.</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
-    <string name="LinkAccountScreen__get_help_with_these_steps">Get help with these steps</string>
+    <string name="LinkAccountScreen__get_help_with_these_steps">도움이 필요하신가요?</string>
     <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
-    <string name="LinkAccountScreen__maximize_qr_code">Maximize QR Code</string>
+    <string name="LinkAccountScreen__maximize_qr_code">QR 코드 크게 보기</string>
     <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
-    <string name="LinkAccountScreen__scanned">Scanned</string>
+    <string name="LinkAccountScreen__scanned">스캔 완료</string>
     <!-- Error label shown in place of the QR code if it could not be generated -->
-    <string name="LinkAccountScreen__failed_to_generate_code">Failed to generate code</string>
+    <string name="LinkAccountScreen__failed_to_generate_code">코드 생성 실패</string>
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
-    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">다른 기기에 Signal이 설치되어 있지 않나요?</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">여기서 계정을 생성하세요</string>
 </resources>
