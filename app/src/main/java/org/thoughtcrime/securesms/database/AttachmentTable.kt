@@ -2088,6 +2088,10 @@ class AttachmentTable(
       if (duplicate != null) {
         val (duplicateAttachment, dataFileInfo) = duplicate
 
+        if (duplicateAttachment.attachmentId == attachmentId) {
+          return
+        }
+
         if (duplicateAttachment.remoteLocation != null && duplicateAttachment.remoteDigest != null && dataFileInfo != null) {
           Log.w(TAG, "[createRemoteKeyIfNecessary][$attachmentId] Found duplicate with full remote data. Copying all remote data.")
           writableDatabase
