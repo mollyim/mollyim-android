@@ -2,12 +2,15 @@ package org.thoughtcrime.securesms.components.settings.app
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import androidx.navigation.NavDirections
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import org.signal.core.util.getParcelableExtraCompat
+import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
@@ -34,6 +37,8 @@ private const val EXTRA_PERFORM_ACTION_ON_CREATE = "extra_perform_action_on_crea
 
 class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
 
+  private val TAG = Log.tag(AppSettingsActivity::class)
+
   private var wasConfigurationUpdated = false
 
   override val googlePayRepository: GooglePayRepository by lazy { GooglePayRepository(this) }
@@ -48,6 +53,9 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
 
     val startingAction: NavDirections? = if (intent?.categories?.contains(NOTIFICATION_CATEGORY) == true) {
       AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
+    } else if (Build.VERSION.SDK_INT >= 34 && getLaunchedFromUid() != Process.myUid()) {
+      Log.w(TAG, "Settings was launched by an external process. Ignoring starting route.")
+      null
     } else {
       when (val appSettingsRoute: AppSettingsRoute? = intent?.getParcelableExtraCompat(START_ROUTE, AppSettingsRoute::class.java)) {
         AppSettingsRoute.Empty -> null
