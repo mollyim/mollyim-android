@@ -258,7 +258,7 @@ class IncomingMessageObserver(
     val lastInteractionString = if (appVisibleSnapshot) "N/A" else timeIdle.toString() + " ms (" + (if (timeIdle < maxBackgroundTime) "within limit" else "over limit") + ")"
     val conclusion = registered &&
       !unauthorizedReceived &&
-      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !fcmEnabled) &&
+      (appVisibleSnapshot || timeIdle < maxBackgroundTime || !fcmEnabled || forceWebsocket) &&
       hasNetwork
 
     val needsConnectionString = if (conclusion) "Needs Connection" else "Does Not Need Connection"
