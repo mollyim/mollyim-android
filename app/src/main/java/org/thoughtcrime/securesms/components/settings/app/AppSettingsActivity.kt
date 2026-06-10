@@ -45,10 +45,6 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
   override val googlePayResultPublisher: Subject<GooglePayComponent.GooglePayResult> = PublishSubject.create()
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    if (intent?.hasExtra(ARG_NAV_GRAPH) != true) {
-      intent?.putExtra(ARG_NAV_GRAPH, R.navigation.app_settings_with_change_number)
-    }
-
     super.onCreate(savedInstanceState, ready)
 
     val startingAction: NavDirections? = if (intent?.categories?.contains(NOTIFICATION_CATEGORY) == true) {
@@ -151,6 +147,10 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
       setResult(MainActivity.RESULT_CONFIG_CHANGED)
     }
   }
+
+  override fun resolveNavGraphId(): Int = R.navigation.app_settings_with_change_number
+
+  override fun resolveStartBundle(): Bundle? = null
 
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
