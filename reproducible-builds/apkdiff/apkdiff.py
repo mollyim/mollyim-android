@@ -56,7 +56,19 @@ def compare(apk1, apk2) -> bool:
 
     entry_names = compare_entry_names(zip1, zip2)
     entry_contents = compare_entry_contents(zip1, zip2)
-    resources = compare_resources_arsc(apk1, apk2)
+
+    # Some splits (e.g. ABI config splits) contain no resource table. Compare when both APKs have one, treat both
+    # missing as a match, and fail if only one of them has it.
+    has_arsc_1 = "resources.arsc" in zip1.namelist()
+    has_arsc_2 = "resources.arsc" in zip2.namelist()
+
+    if has_arsc_1 and has_arsc_2:
+        resources = compare_resources_arsc(apk1, apk2)
+    elif has_arsc_1 != has_arsc_2:
+        print("resources.arsc is present in only one of the APKs!")
+        resources = False
+    else:
+        resources = True
 
     return entry_names and entry_contents and resources
 
@@ -200,11 +212,11 @@ def compare_resources_arsc(apk1: str, apk2: str) -> bool:
     else:
         print("resources.arsc files differ!")
         diff = difflib.unified_diff(
-            resources1, 
-            resources2, 
-            fromfile=apk1, 
-            tofile=apk2, 
-            lineterm=''
+            resources1,
+            resources2,
+            fromfile=apk1,
+            tofile=apk2,
+            lineterm="",
         )
         for line in diff:
             print(line)
