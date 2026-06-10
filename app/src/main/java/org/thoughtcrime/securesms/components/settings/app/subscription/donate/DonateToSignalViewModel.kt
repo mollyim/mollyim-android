@@ -18,6 +18,7 @@ import org.signal.core.util.money.PlatformCurrencyUtil
 import org.signal.core.util.orNull
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.badges.Badges
+import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatValue
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.OneTimeInAppPaymentRepository
@@ -265,15 +266,6 @@ class DonateToSignalViewModel(
         store.update { it.copy(oneTimeDonationState = it.oneTimeDonationState.copy(pendingOneTimeDonation = pendingOneTimeDonation.orNull())) }
       }
 
-    oneTimeDonationDisposables += oneTimeInAppPaymentRepository.getBoostBadge().subscribeBy(
-      onSuccess = { badge ->
-        store.update { it.copy(oneTimeDonationState = it.oneTimeDonationState.copy(badge = badge)) }
-      },
-      onError = {
-        Log.w(TAG, "Could not load boost badge", it)
-      }
-    )
-
     oneTimeDonationDisposables += oneTimeInAppPaymentRepository.getMinimumDonationAmounts().subscribeBy(
       onSuccess = { amountMap ->
         store.update { it.copy(oneTimeDonationState = it.oneTimeDonationState.copy(minimumDonationAmounts = amountMap)) }
@@ -283,10 +275,14 @@ class DonateToSignalViewModel(
       }
     )
 
-    val boosts: Observable<Map<Currency, List<Boost>>> = oneTimeInAppPaymentRepository.getBoosts().toObservable()
+    val boostsAndBadge: Observable<Pair<Map<Currency, List<Boost>>, Badge>> = Single.zip(
+      oneTimeInAppPaymentRepository.getBoosts(),
+      oneTimeInAppPaymentRepository.getBoostBadge()
+    ) { boosts, badge -> boosts to badge }.toObservable()
+
     val oneTimeCurrency: Observable<Currency> = SignalStore.inAppPayments.observableOneTimeCurrency
 
-    oneTimeDonationDisposables += Observable.combineLatest(boosts, oneTimeCurrency) { boostMap, currency ->
+    oneTimeDonationDisposables += Observable.combineLatest(boostsAndBadge, oneTimeCurrency) { (boostMap, badge), currency ->
       val boostList = if (currency in boostMap) {
         boostMap[currency]!!
       } else {
@@ -294,12 +290,13 @@ class DonateToSignalViewModel(
         listOf()
       }
 
-      Triple(boostList, currency, boostMap.keys)
+      OneTimeConfiguration(boostList, badge, currency, boostMap.keys)
     }.subscribeBy(
-      onNext = { (boostList, currency, availableCurrencies) ->
+      onNext = { (boostList, badge, currency, availableCurrencies) ->
         store.update { state ->
           state.copy(
             oneTimeDonationState = state.oneTimeDonationState.copy(
+              badge = badge,
               boosts = boostList,
               selectedBoost = null,
               selectedCurrency = currency,
@@ -320,6 +317,13 @@ class DonateToSignalViewModel(
       }
     )
   }
+
+  private data class OneTimeConfiguration(
+    val boosts: List<Boost>,
+    val badge: Badge,
+    val currency: Currency,
+    val availableCurrencies: Set<Currency>
+  )
 
   private fun initializeMonthlyDonationState(subscriptionsRepository: RecurringInAppPaymentRepository) {
     monitorLevelUpdateProcessing()
