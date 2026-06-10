@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -98,7 +97,7 @@ class ContactSearchViewModel(
 
   init {
     viewModelScope.launch {
-      rawQuery.drop(1).debounce(300).collect { query ->
+      rawQuery.drop(1).collect { query ->
         savedStateHandle[QUERY] = query
         internalConfigurationState.update { it.copy(query = query) }
       }
@@ -148,15 +147,17 @@ class ContactSearchViewModel(
   }
 
   suspend fun setConfiguration(contactSearchConfiguration: ContactSearchConfiguration) {
-    val pagedDataSource = ContactSearchPagedDataSource(
-      contactSearchConfiguration,
-      arbitraryRepository = arbitraryRepository,
-      searchRepository = searchRepository,
-      contactSearchPagedDataSourceRepository = contactSearchPagedDataSourceRepository
-    )
-    val size = withContext(Dispatchers.IO) { pagedDataSource.size() }
+    val (pagedDataSource, size) = withContext(Dispatchers.IO) {
+      val source = ContactSearchPagedDataSource(
+        contactSearchConfiguration,
+        arbitraryRepository = arbitraryRepository,
+        searchRepository = searchRepository,
+        contactSearchPagedDataSourceRepository = contactSearchPagedDataSourceRepository
+      )
+      source to source.size()
+    }
     internalTotalCount.value = size
-    pagedData.value = PagedData.createForStateFlow(pagedDataSource, pagingConfig)
+    pagedData.value = PagedData.createForStateFlow(pagedDataSource, pagingConfig, data.value)
   }
 
   fun setQuery(query: String?) {
