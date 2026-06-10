@@ -1611,6 +1611,8 @@ class ConversationFragment :
     }
 
     composeText.setMessageSendType(MessageSendType.SignalMessageSendType)
+
+    invalidateOptionsMenu()
   }
 
   private fun applyReleaseNotesLayout() {
