@@ -163,6 +163,8 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
 
   override fun exitFlow() = Unit
 
+  override fun navigateUp() = finish()
+
   override fun onSearchInputFocused() = Unit
 
   override fun setResult(bundle: Bundle) {
