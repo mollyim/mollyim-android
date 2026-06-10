@@ -23,6 +23,7 @@
   <!-- Removed by excludeNonTranslatables <string name="pending_transfer_url" translatable="false">https://support.signal.org/hc/articles/360031949872#pending</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_faq_url" translatable="false">https://support.signal.org/hc/articles/360031949872#donate</string> -->
   <!-- Removed by excludeNonTranslatables <string name="inactive_primary_support" translatable="false">https://support.signal.org/hc/articles/9021007554074</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="recovery_key_phishing_support_url" translatable="false">https://support.signal.org/hc/articles/9932566320410</string> -->
 
     <!-- First placeholder is productId, second placeholder is app package -->
     <string name="backup_subscription_management_url">https://play.google.com/store/account/subscriptions?sku=%1$s&amp;package=%2$s</string>
@@ -3198,9 +3199,9 @@
     <string name="MuteUntilTimePickerBottomSheet__timezone_disclaimer">모든 시간대 %2$s(%1$s)(으)로 설정</string>
 
     <!-- KeyCachingService -->
-    <string name="KeyCachingService_signal_passphrase_cached">터치하여 여세요.</string>
+    <string name="KeyCachingService_signal_passphrase_cached">앱을 열려면 터치하세요.</string>
     <string name="KeyCachingService_passphrase_cached">Signal이 잠금 해제됨</string>
-    <string name="KeyCachingService_lock">Signal 잠금</string>
+    <string name="KeyCachingService_lock">Signal 잠금 걸기</string>
 
     <!-- MediaPreviewActivity -->
     <string name="MediaPreviewActivity_you">나</string>
@@ -3208,7 +3209,7 @@
     <string name="MediaPreviewActivity_draft">임시 저장</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_title">메시지를 삭제할까요?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">메시지를 영구적으로 삭제합니다.</string>
-    <string name="MediaPreviewActivity_s_to_s">%1$s~%2$s</string>
+    <string name="MediaPreviewActivity_s_to_s">보낸 사람: %1$s 님, 받는 사람: %2$s</string>
     <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
     <string name="MediaPreviewActivity_you_to_s">보낸 사람: 나, 받는 사람: %1$s 님</string>
     <!-- All media preview title when viewing media sent by another recipient to you (allows changing of \'You\' based on context) -->
@@ -3222,13 +3223,13 @@
     <string name="MediaPreviewActivity_dismiss_due_to_error">닫기</string>
     <string name="MediaPreviewFragment_edit_media_error">미디어 오류</string>
     <!-- This is displayed as a toast notification when we encounter an error deleting a message, including potentially on other people\'s devices -->
-    <string name="MediaPreviewFragment_media_delete_error">메시지 삭제 중 오류가 발생했습니다. 메시지가 삭제되지 않았을 수 있습니다.</string>
+    <string name="MediaPreviewFragment_media_delete_error">메시지 삭제 오류: 메시지가 여전히 남아있을 수 있습니다</string>
     <!-- A suffix to be attached to truncated captions that the user may tap onto to view the entire text caption -->
     <string name="MediaPreviewFragment_read_more_overflow_text">더 보기</string>
 
     <!-- MessageNotifier -->
     <!-- Text shown in a system notification that is used to summarize your notification. The first placeholder is a pluralized string that describes how many messages (e.g. "3 messages"), and the second placeholder is a pluralized string that describes the number of unique chats those message appear in (e.g. "2 chats"). -->
-    <string name="MessageNotifier_s_in_s">%2$s 내 %1$s 님</string>
+    <string name="MessageNotifier_s_in_s">%2$s · %1$s</string>
     <!-- Text shown in a system notification that is used to summary how many messages you received. -->
     <plurals name="MessageNotifier_d_messages">
         <item quantity="other">메시지 %1$d개</item>
@@ -3247,18 +3248,18 @@
     <string name="MessageNotifier_group_story_title">보낸 사람: 나, 받는 사람: %1$s 님</string>
     <string name="MessageNotifier_failed_to_deliver_message">메시지 전송에 실패했습니다.</string>
     <string name="MessageNotifier_error_delivering_message">메시지 전송 중 오류가 발생했습니다.</string>
-    <string name="MessageNotifier_message_delivery_paused">메시지 전달이 일시 중지되었습니다.</string>
+    <string name="MessageNotifier_message_delivery_paused">메시지 전송이 일시 중지되었습니다.</string>
     <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal에서 메시지를 계속 보내려면 인증해 주세요.</string>
     <string name="MessageNotifier_mark_all_as_read">모두 읽음으로 표시</string>
     <string name="MessageNotifier_mark_read">읽음으로 표시</string>
     <string name="MessageNotifier_turn_off_these_notifications">이 알림 끄기</string>
-    <string name="MessageNotifier_view_once_photo">한 번 볼 수 있는 사진</string>
-    <string name="MessageNotifier_view_once_video">한 번 볼 수 있는 동영상</string>
+    <string name="MessageNotifier_view_once_photo">한 번만 볼 수 있는 사진</string>
+    <string name="MessageNotifier_view_once_video">한 번만 볼 수 있는 동영상</string>
     <string name="MessageNotifier_reply">답장</string>
     <string name="MessageNotifier_signal_message">Signal 메시지</string>
     <string name="MessageNotifier_contact_message">%1$s %2$s</string>
     <string name="MessageNotifier_unknown_contact_message">연락처</string>
-    <string name="MessageNotifier_reacted_s_to_s">\"%2$s\" 메시지에 %1$s 이모지로 공감했어요</string>
+    <string name="MessageNotifier_reacted_s_to_s">\"%2$s\" 메시지에 %1$s 이모지로 공감했어요.</string>
     <string name="MessageNotifier_reacted_s_to_your_video">내 동영상에 %1$s 이모지로 공감했어요.</string>
     <string name="MessageNotifier_reacted_s_to_your_image">내 이미지에 %1$s 이모지로 공감했어요.</string>
     <string name="MessageNotifier_reacted_s_to_your_gif">내 GIF에 %1$s 이모지로 공감했어요.</string>
@@ -3268,9 +3269,9 @@
     <!-- Body of notification shown to user when someone they sent a payment to reacts to it. Placeholder is the emoji used in the reaction. -->
     <string name="MessageNotifier_reacted_s_to_your_payment">내 결제에 %1$s 이모지로 공감했어요.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">내 스티커에 %1$s 이모지로 공감했어요.</string>
-    <string name="MessageNotifier_this_message_was_deleted">이 메시지는 삭제되었습니다.</string>
+    <string name="MessageNotifier_this_message_was_deleted">삭제된 메시지입니다.</string>
     <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
-    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s 님이 \"%3$s\" 설문조사에 투표했습니다.</string>
+    <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s 님이 \"%3$s\" 설문조사에 투표했어요</string>
 
     <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">연락처에 있는 사용자가 Signal에 가입할 때 발송되는 알림을 끄시겠어요? Signal &gt; 설정 &gt; 알림에서 다시 활성화하실 수 있습니다.</string>
 
@@ -3414,6 +3415,10 @@
     <string name="TransferControlView__processing">처리 중…</string>
     <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
     <string name="TransferControlView__download_progress_s_s">%1$s/%2$s</string>
+    <!-- Accessibility description for the button that starts downloading an attachment -->
+    <string name="TransferControlView__download">Download</string>
+    <!-- Accessibility description for the button that starts uploading an attachment -->
+    <string name="TransferControlView__upload">Upload</string>
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
@@ -3443,15 +3448,15 @@
     <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">누군가 변경된 안전 번호로 통화에 참여했습니다.</string>
 
     <!-- WebRtcCallScreen -->
-    <string name="WebRtcCallScreen_swipe_up_to_change_views">위로 스와이프하여 보기를 변경하세요.</string>
+    <string name="WebRtcCallScreen_swipe_up_to_change_views">위로 살짝 밀어 보기를 변경하세요</string>
 
     <!-- WebRtcCallScreen V2 -->
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallScreen__decline">거절</string>
+    <string name="WebRtcCallScreen__decline">거절하기</string>
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallScreen__answer">응답</string>
+    <string name="WebRtcCallScreen__answer">받기</string>
     <!-- Label with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
-    <string name="WebRtcCallScreen__answer_without_video">카메라 끄고 받기</string>
+    <string name="WebRtcCallScreen__answer_without_video">음성 통화로 받기</string>
 
     <!-- CallScreen -->
     <string name="CallScreen__change_camera_direction">카메라 방향 전환</string>
@@ -3481,10 +3486,10 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">새 암호 문구 다시 입력</string>
 
     <!-- contact_selection_activity -->
-    <string name="contact_selection_activity__invite_to_signal">Signal로 초대</string>
+    <string name="contact_selection_activity__invite_to_signal">Signal로 초대하기</string>
     <string name="contact_selection_activity__new_group">새 그룹</string>
     <!-- Row item title for refreshing contacts -->
-    <string name="contact_selection_activity__refresh_contacts">연락처 새로 고침</string>
+    <string name="contact_selection_activity__refresh_contacts">연락처 새로고침하기</string>
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">안 보이는 사람이 있나요? 페이지를 새로고침해 보세요.</string>
     <!-- Row item title for finding people on Signal via your contacts -->
@@ -3508,14 +3513,14 @@
 
     <!-- ContactSelectionListFragment-->
     <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal에서 연락처 정보를 표시하려면 연락처 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
-    <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">연락처를 가져오는 중 오류 발생, 네트워크 연결 확인</string>
+    <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">연락처 가져오기 오류: 네트워크 연결을 확인해 주세요</string>
     <string name="ContactSelectionListFragment_username_not_found">사용자 이름을 찾을 수 없음</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"\'%1$s\' 님은 Signal 사용자가 아닙니다. 사용자 이름을 확인하고 다시 시도해 주세요."</string>
-    <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">나 자신을 그룹에 추가할 필요가 없습니다.</string>
-    <string name="ContactSelectionListFragment_maximum_group_size_reached">최대 그룹 규모에 도달했습니다.</string>
-    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Signal 그룹에는 최대 %1$s명의 멤버가 있을 수 있습니다.</string>
-    <string name="ContactSelectionListFragment_recommended_member_limit_reached">권장 멤버 수 한도에 도달했습니다.</string>
-    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Signal 그룹은 %1$s명 이하의 멤버가 있을 때 가장 잘 작동합니다. 멤버를 더 많이 추가하면 메시지 송수신이 지연됩니다.</string>
+    <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">본인은 그룹에 추가하지 않으셔도 됩니다.</string>
+    <string name="ContactSelectionListFragment_maximum_group_size_reached">그룹 정원 한도에 도달했어요</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Signal 그룹의 최대 인원은 %1$s명입니다.</string>
+    <string name="ContactSelectionListFragment_recommended_member_limit_reached">권장 멤버 수 한도에 도달했어요</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_s_members_or_fewer">Signal 그룹은 멤버 수가 %1$s명 이하일 때 가장 원활하게 작동합니다. 멤버를 더 추가하면 메시지 송수신이 지연될 수 있습니다.</string>
     <plurals name="ContactSelectionListFragment_d_members">
         <item quantity="other">멤버 %1$d명</item>
     </plurals>
@@ -3530,9 +3535,9 @@
     <!-- Text on button prompting users to give Signal contact permissions -->
     <string name="ContactSelectionListFragment__allow_access">권한 허용</string>
     <!-- Text on button to dismiss Signal\'s request for contact permissions -->
-    <string name="ContactSelectionListFragment__no_thanks">아니요</string>
+    <string name="ContactSelectionListFragment__no_thanks">안 할래요</string>
     <!-- Text asking for user\'s contact permission -->
-    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">연락처 접근을 허용해 주세요. 연락처는 암호화되며 Signal 서비스에 표시되지 않습니다.</string>
+    <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">연락처 접근을 허용해 주세요. 연락처 정보는 암호화되며 Signal도 확인할 수 없습니다.</string>
 
     <!-- contact_selection_list_fragment -->
     <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
@@ -3540,11 +3545,11 @@
 
     <!-- contact_selection_list_item -->
     <plurals name="contact_selection_list_item__number_of_members">
-        <item quantity="other">%1$d명의 멤버</item>
+        <item quantity="other">멤버 %1$d명</item>
     </plurals>
     <!-- Displays number of viewers for a story -->
     <plurals name="contact_selection_list_item__number_of_viewers">
-        <item quantity="other">%1$d명 조회</item>
+        <item quantity="other">볼 수 있는 사람 %1$d명</item>
     </plurals>
 
     <!-- conversation_activity -->
@@ -3917,8 +3922,8 @@
     <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">연락처의 기기에서 QR 코드를 스캔하세요.</string>
 
     <!-- webrtc_answer_decline_button -->
-    <string name="webrtc_answer_decline_button__swipe_up_to_answer">쓸어 올려 받기</string>
-    <string name="webrtc_answer_decline_button__swipe_down_to_reject">쓸어 내려 거부</string>
+    <string name="webrtc_answer_decline_button__swipe_up_to_answer">위로 살짝 밀어 전화 받기</string>
+    <string name="webrtc_answer_decline_button__swipe_down_to_reject">아래로 살짝 밀어 거절하기</string>
 
     <!-- message_details_header -->
     <string name="message_details_header__issues_need_your_attention">문제가 발생하여 확인이 필요합니다.</string>
@@ -3976,6 +3981,10 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">로그를 업로드할 수 없습니다.</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">저희가 문제를 해결할 수 있도록 최대한으로 설명해 주세요.</string>
+    <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
+    <plurals name="HelpFragment__must_be_at_least_n_characters">
+        <item quantity="other">Must be at least %1$d characters</item>
+    </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>옵션을 선택하세요.</item>
         <item>오류 발생</item>
@@ -4508,7 +4517,7 @@
     <!-- contact_selection_list -->
     <!-- Displayed in a row on the new call screen when searching by phone number. -->
     <string name="contact_selection_list__new_call">다음 번호로 새 통화 시작</string>
-    <string name="contact_selection_list__unknown_contact">(연락처 없음)</string>
+    <string name="contact_selection_list__unknown_contact">다음 번호로 새 메시지 보내기</string>
     <string name="contact_selection_list__unknown_contact_block">사용자 차단</string>
     <string name="contact_selection_list__unknown_contact_add_to_group">그룹에 추가하기</string>
 
@@ -4690,7 +4699,7 @@
     <string name="media_preview_activity__media_content_description">미디어 미리 보기</string>
 
     <!-- new_conversation_activity -->
-    <string name="new_conversation_activity__refresh">새로 고침</string>
+    <string name="new_conversation_activity__refresh">새로고침</string>
     <!-- redphone_audio_popup_menu -->
 
     <!-- Edit KBS Pin -->
@@ -6988,7 +6997,7 @@
     <string name="MyStorySettingsFragment__only_share_with_selected_people">선택한 사용자와만 공유</string>
     <!-- Summary of clickable option displaying how many people you have included to send to in your story -->
     <plurals name="MyStorySettingsFragment__d_people">
-        <item quantity="other">조회할 수 있는 사람 %1$d명</item>
+        <item quantity="other">볼 수 있는 사람 %1$d명</item>
     </plurals>
     <!-- My story privacy fine print about what the privacy settings are for -->
     <string name="MyStorySettingsFragment__choose_who_can_view_your_story">스토리를 볼 수 있는 사람을 선택하세요. 이미 전송한 스토리에는 변경 내용이 적용되지 않습니다.</string>
@@ -9718,6 +9727,34 @@
     <string name="SafetyTipsBottomSheet__tip_3_body">Signal 등록 시 인증 코드와 함께 Signal PIN 입력 단계를 추가하여 계정을 보호하세요.</string>
     <!-- Button on the safety tips screen that opens account settings -->
     <string name="SafetyTipsBottomSheet__open_account_settings">계정 설정 열기</string>
+
+    <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Do not share your recovery key</string>
+    <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal will never message you</string>
+    <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">for your recovery key. Never respond to a chat pretending to be Signal. Store your recovery key somewhere safe and never share it with anyone.</string>
+    <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
+    <string name="RecoveryKeyWarningSheetContent__got_it">Got it</string>
+    <!-- Button opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more">Learn more</string>
+    <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
+    <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
+    <string name="RecoveryKeyWarningSheetContent__share_key">Share key</string>
+
+    <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Do not share recovery key</string>
+    <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Do not share your recovery key with anyone. This will let them take over your account.</string>
+    <!-- Bolded middle sentence of the final confirmation dialog body -->
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal will never message you for your recovery key.</string>
+    <!-- Final sentence of the final confirmation dialog body -->
+    <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Never respond to a chat pretending to be Signal.</string>
+    <!-- Button confirming the user wants to paste the recovery key -->
+    <string name="RecoveryKeyWarningDialog__paste_key">Paste key</string>
+    <!-- Button declining to paste the recovery key -->
+    <string name="RecoveryKeyWarningDialog__dont_share">Don\'t share</string>
 
     <!-- EOF -->
 </resources>
