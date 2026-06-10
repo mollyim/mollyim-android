@@ -1003,11 +1003,12 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       if (group != null &&
           group.isActive() &&
           !Recipient.resolved(group.getRecipientId()).isBlocked() &&
+          group.memberLevel(senderRecipient).isInGroup() &&
           (!group.isAnnouncementGroup() || group.isAdmin(senderRecipient)))
       {
         process((s, p) -> p.handleGroupCallRingUpdate(s, new RemotePeer(group.getRecipientId()), groupId, ringId, senderAci, ringUpdate));
       } else {
-        Log.w(TAG, "Unable to ring unknown/inactive/blocked group.");
+        Log.w(TAG, "Unable to ring unknown/inactive/blocked group, or sender is not a current member of the group.");
       }
     } catch (InvalidInputException e) {
       Log.w(TAG, "Unable to ring group due to invalid group id", e);
