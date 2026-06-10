@@ -115,10 +115,6 @@ public class VoiceNotePlaybackService extends MediaSessionService {
   @Nullable
   @Override
   public MediaSession onGetSession(@NonNull MediaSession.ControllerInfo controllerInfo) {
-    if (controllerInfo.getUid() != Process.myUid()) {
-      Log.w(TAG, "Denying session to external caller: " + controllerInfo.getPackageName());
-      return null;
-    }
     return mediaSession;
   }
 
