@@ -42,6 +42,7 @@ import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.text.ParseException
 import java.util.Currency
 import java.util.Optional
 
@@ -169,6 +170,8 @@ class DonateToSignalViewModel(
       try {
         decimalFormat.parse(amount) as BigDecimal
       } catch (e: NumberFormatException) {
+        BigDecimal.ZERO
+      } catch (e: ParseException) {
         BigDecimal.ZERO
       }
     }
