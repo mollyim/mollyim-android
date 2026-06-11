@@ -281,7 +281,8 @@ public final class ContactSelectionListFragment extends LoggingFragment {
             new ContactSelectionListAdapter.ArbitraryRepository(),
             new SearchRepository(requireContext().getString(R.string.note_to_self)),
             new ContactSearchPagedDataSourceRepository(requireContext()),
-            fixedContacts
+            fixedContacts,
+            false
         )
     ).get(ContactSearchViewModel.class);
 

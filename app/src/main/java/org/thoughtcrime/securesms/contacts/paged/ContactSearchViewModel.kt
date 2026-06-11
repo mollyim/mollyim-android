@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -63,11 +64,13 @@ class ContactSearchViewModel(
   val arbitraryRepository: ArbitraryRepository?,
   private val searchRepository: SearchRepository,
   private val contactSearchPagedDataSourceRepository: ContactSearchPagedDataSourceRepository,
-  val fixedContacts: Set<ContactSearchKey> = emptySet()
+  val fixedContacts: Set<ContactSearchKey> = emptySet(),
+  private val debounceSearch: Boolean = false
 ) : ViewModel() {
 
   companion object {
     private const val QUERY = "query"
+    private const val SEARCH_DEBOUNCE_MILLIS = 300L
   }
 
   private val safetyNumberRepository: SafetyNumberRepository by lazy { SafetyNumberRepository() }
@@ -97,7 +100,8 @@ class ContactSearchViewModel(
 
   init {
     viewModelScope.launch {
-      rawQuery.drop(1).collect { query ->
+      val querySource = if (debounceSearch) rawQuery.drop(1).debounce(SEARCH_DEBOUNCE_MILLIS) else rawQuery.drop(1)
+      querySource.collect { query ->
         savedStateHandle[QUERY] = query
         internalConfigurationState.update { it.copy(query = query) }
       }
@@ -266,7 +270,8 @@ class ContactSearchViewModel(
     private val arbitraryRepository: ArbitraryRepository?,
     private val searchRepository: SearchRepository,
     private val contactSearchPagedDataSourceRepository: ContactSearchPagedDataSourceRepository,
-    private val fixedContacts: Set<ContactSearchKey> = emptySet()
+    private val fixedContacts: Set<ContactSearchKey> = emptySet(),
+    private val debounceSearch: Boolean = false
   ) : AbstractSavedStateViewModelFactory() {
     override fun <T : ViewModel> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T {
       return modelClass.cast(
@@ -279,7 +284,8 @@ class ContactSearchViewModel(
           arbitraryRepository = arbitraryRepository,
           searchRepository = searchRepository,
           contactSearchPagedDataSourceRepository = contactSearchPagedDataSourceRepository,
-          fixedContacts = fixedContacts
+          fixedContacts = fixedContacts,
+          debounceSearch = debounceSearch
         )
       ) as T
     }
