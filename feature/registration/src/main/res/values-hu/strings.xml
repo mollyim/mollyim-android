@@ -402,83 +402,83 @@
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
     <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
-    <string name="DeviceTransferInstructions__continue">Continue</string>
+    <string name="DeviceTransferInstructions__continue">Folytatás</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">Preparing to connect to old Android device…</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">Előkészülés a régi Android eszközhöz csatlakozáshoz…</string>
     <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
     <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
     <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
     <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">The numbers do not match</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">A számok nem egyeznek</string>
     <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
     <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
     <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
     <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_location_services">Turn on location services</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">Helymeghatározás-szolgáltatások bekapcsolása</string>
     <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">Turn on Wi-Fi</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi bekapcsolása</string>
     <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
     <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
     <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
-    <string name="DeviceTransferSetup__retry">Retry</string>
+    <string name="DeviceTransferSetup__retry">Újra</string>
     <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
     <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
-    <string name="DeviceTransferSetup__try_again">Try again</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">The numbers do not match</string>
+    <string name="DeviceTransferSetup__try_again">Újra</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">A számok nem egyeznek</string>
     <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">Stop transfer</string>
+    <string name="DeviceTransferSetup__stop_transfer">Átvitel megszakítása</string>
 
     <!-- Device transfer: Progress screen -->
-    <string name="DeviceTransferProgress__transferring_data">Transferring data</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">%1$d messages so far</string>
-    <string name="DeviceTransferProgress__unable_to_transfer">Unable to transfer</string>
+    <string name="DeviceTransferProgress__transferring_data">Adat áttöltése</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">Eddig %1$d db üzenet</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Sikertelen az átvitel</string>
     <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
     <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
     <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
-    <string name="DeviceTransferProgress__try_again">Try again</string>
-    <string name="DeviceTransferProgress__cancel">Cancel</string>
-    <string name="DeviceTransferProgress__stop_transfer">Stop transfer?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">All transfer progress will be lost.</string>
+    <string name="DeviceTransferProgress__try_again">Próbáld újra</string>
+    <string name="DeviceTransferProgress__cancel">Mégse</string>
+    <string name="DeviceTransferProgress__stop_transfer">Átvitel megszakítása?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Az eddig áttöltött adatok el fognak veszni.</string>
 
     <!-- Device transfer: Complete screen -->
-    <string name="DeviceTransferComplete__transfer_complete">Transfer complete</string>
+    <string name="DeviceTransferComplete__transfer_complete">Átvitel kész</string>
     <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
-    <string name="DeviceTransferComplete__continue_registration">Continue</string>
+    <string name="DeviceTransferComplete__continue_registration">Folytatás</string>
 
     <!-- Create profile screen -->
     <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">Set up your profile</string>
+    <string name="CreateProfileScreen__set_up_your_profile">Profilod beállítása</string>
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Your profile and changes to it will be visible to people you message, contacts, and groups.</string>
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">A profilod és a módosításai azok számára lesznek láthatók, akiknek üzenetet küldesz, valamint, akik a névjegyeid és a csoportjaid között vannak.</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">First name (required)</string>
+    <string name="CreateProfileScreen__first_name_required">Keresztnév (kötelező)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">Last name (optional)</string>
+    <string name="CreateProfileScreen__last_name_optional">Vezetéknév (opcionális)</string>
     <!-- Action button text to advance from create-profile screen. -->
-    <string name="CreateProfileScreen__next">Next</string>
+    <string name="CreateProfileScreen__next">Tovább</string>
     <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">Set avatar</string>
+    <string name="CreateProfileScreen__set_avatar_description">Profilkép beállítása</string>
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Who can find me by number?</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Ki találhat meg a telefonszámom alapján?</string>
     <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Anyone who has your phone number will see you\'re on Signal and can start chats with you.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Bárki, aki tudja a telefonszámodat, látni fogja, hogy használod a Signalt, és csevegést kezdeményezhet veled.</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nobody will be able to see you\'re on Signal unless you message them or have an existing chat with them.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Senki sem láthatja, hogy használod a Signalt, hacsak nem küldesz valakinek üzenetet, vagy nem folytatsz csevegést valakivel.</string>
     <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">Everyone</string>
+    <string name="PhoneNumberPrivacy_everyone">Mindenki</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">Nobody</string>
+    <string name="PhoneNumberPrivacy_nobody">Senki</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Are you sure?</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Biztos vagy benne?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Setting \"Who can find me by number\" to \"Nobody\" will make it harder for people to find you on Signal.</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">A „Ki találhat meg a számom alapján” beállítása „Senki” opcióra nehezebbé teszi az emberek számára, hogy megtaláljanak téged a Signalon.</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->
-    <string name="PhoneNumberPrivacySettingsFragment__cancel">Cancel</string>
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Mégse</string>
     <!-- Save button on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__save">Save</string>
+    <string name="PhoneNumberDiscoverabilityScreen__save">Mentés</string>
     <!-- Content description for the back arrow on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__back">Back</string>
+    <string name="PhoneNumberDiscoverabilityScreen__back">Vissza</string>
 </resources>

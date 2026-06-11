@@ -400,83 +400,83 @@
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
     <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
-    <string name="DeviceTransferInstructions__continue">Continue</string>
+    <string name="DeviceTransferInstructions__continue">ทำต่อ</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">Preparing to connect to old Android device…</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">กำลังเตรียมเชื่อมต่อไปยังอุปกรณ์ Android เครื่องเก่า</string>
     <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
     <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
     <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
     <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">The numbers do not match</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">ตัวเลขไม่ตรงกัน</string>
     <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
     <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
     <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
     <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_location_services">Turn on location services</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">เปิดการใช้งานการเข้าถึงตำแหน่ง</string>
     <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">Turn on Wi-Fi</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">เปิดใช้งาน Wi-Fi</string>
     <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
     <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
     <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
-    <string name="DeviceTransferSetup__retry">Retry</string>
+    <string name="DeviceTransferSetup__retry">ลองใหม่</string>
     <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
     <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
-    <string name="DeviceTransferSetup__try_again">Try again</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">The numbers do not match</string>
+    <string name="DeviceTransferSetup__try_again">ลองอีกครั้ง</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">ตัวเลขไม่ตรงกัน</string>
     <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">Stop transfer</string>
+    <string name="DeviceTransferSetup__stop_transfer">หยุดการถ่ายโอน</string>
 
     <!-- Device transfer: Progress screen -->
-    <string name="DeviceTransferProgress__transferring_data">Transferring data</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">%1$d messages so far</string>
-    <string name="DeviceTransferProgress__unable_to_transfer">Unable to transfer</string>
+    <string name="DeviceTransferProgress__transferring_data">กำลังถ่ายโอนข้อมูล</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">%1$d ข้อความจนถึงตอนนี้</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">ไม่สามารถถ่ายโอนได้</string>
     <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
     <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
     <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
-    <string name="DeviceTransferProgress__try_again">Try again</string>
-    <string name="DeviceTransferProgress__cancel">Cancel</string>
-    <string name="DeviceTransferProgress__stop_transfer">Stop transfer?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">All transfer progress will be lost.</string>
+    <string name="DeviceTransferProgress__try_again">ลองอีกครั้ง</string>
+    <string name="DeviceTransferProgress__cancel">ยกเลิก</string>
+    <string name="DeviceTransferProgress__stop_transfer">หยุดการถ่ายโอนหรือไม่?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">คุณจะสูญเสียความคืบหน้าของการถ่ายโอนทั้งหมด</string>
 
     <!-- Device transfer: Complete screen -->
-    <string name="DeviceTransferComplete__transfer_complete">Transfer complete</string>
+    <string name="DeviceTransferComplete__transfer_complete">การถ่ายโอนสำเร็จ</string>
     <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
-    <string name="DeviceTransferComplete__continue_registration">Continue</string>
+    <string name="DeviceTransferComplete__continue_registration">ทำต่อ</string>
 
     <!-- Create profile screen -->
     <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">Set up your profile</string>
+    <string name="CreateProfileScreen__set_up_your_profile">สร้างโปรไฟล์ของคุณ</string>
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Your profile and changes to it will be visible to people you message, contacts, and groups.</string>
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">ผู้ติดต่อ กลุ่ม และคนที่คุณส่งข้อความหาจะเห็นโปรไฟล์และความเปลี่ยนแปลงที่เกิดขึ้นกับโปรไฟล์ของคุณ</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">First name (required)</string>
+    <string name="CreateProfileScreen__first_name_required">ชื่อ (ต้องมี)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">Last name (optional)</string>
+    <string name="CreateProfileScreen__last_name_optional">ชื่อสกุล (ไม่จำเป็น)</string>
     <!-- Action button text to advance from create-profile screen. -->
-    <string name="CreateProfileScreen__next">Next</string>
+    <string name="CreateProfileScreen__next">ดำเนินการต่อ</string>
     <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">Set avatar</string>
+    <string name="CreateProfileScreen__set_avatar_description">สร้างอวตาร</string>
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Who can find me by number?</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ใครบ้างที่สามารถค้นหาฉันด้วยหมายเลขโทรศัพท์ได้</string>
     <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Anyone who has your phone number will see you\'re on Signal and can start chats with you.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ผู้ใช้ที่มีหมายเลขโทรศัพท์ของคุณจะเห็นว่าคุณใช้งาน Signal และจะสามารถเริ่มแชทกับคุณได้</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nobody will be able to see you\'re on Signal unless you message them or have an existing chat with them.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">จะไม่มีใครเห็นว่าคุณใช้งาน Signal เว้นแต่ว่าคุณจะส่งข้อความหาหรือเคยแชทกับผู้ใช้คนนั้น</string>
     <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">Everyone</string>
+    <string name="PhoneNumberPrivacy_everyone">ทุกคน</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">Nobody</string>
+    <string name="PhoneNumberPrivacy_nobody">คนที่คุณไม่รู้จัก</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Are you sure?</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">ต้องการดำเนินการต่อหรือไม่</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Setting \"Who can find me by number\" to \"Nobody\" will make it harder for people to find you on Signal.</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">การตั้งค่า \"คนที่สามารถใช้หมายเลขโทรศัพท์ค้นหาฉันได้\" เป็น \"ไม่อนุญาตให้ใครค้นหา\" จะทำให้ผู้ใช้คนอื่นค้นหาคุณได้ยากขึ้นบน Signal</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->
-    <string name="PhoneNumberPrivacySettingsFragment__cancel">Cancel</string>
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">ยกเลิก</string>
     <!-- Save button on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__save">Save</string>
+    <string name="PhoneNumberDiscoverabilityScreen__save">บันทึก</string>
     <!-- Content description for the back arrow on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__back">Back</string>
+    <string name="PhoneNumberDiscoverabilityScreen__back">กลับ</string>
 </resources>
