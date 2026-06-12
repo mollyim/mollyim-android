@@ -1850,7 +1850,7 @@
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Ricordamelo più tardi</string>
     <string name="Megaphones_verify_your_signal_pin">Verifica il tuo PIN di Signal</string>
-    <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Occasionalmente ti chiederemo di verificare il tuo PIN in modo che te lo ricordi.</string>
+    <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Ti chiederemo periodicamente di verificare il tuo PIN per aiutarti a ricordarlo.</string>
     <string name="Megaphones_verify_pin">Verifica PIN</string>
     <string name="Megaphones_get_started">Iniziamo</string>
     <string name="Megaphones_new_group">Nuovo gruppo</string>
@@ -1882,8 +1882,8 @@
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Preparazione chiamata Signal</string>
     <!-- Temporary notification shown when starting the calling service -->
-    <string name="NotificationBarManager__starting_signal_call_service">Inizio chiamata su Signal in corso</string>
-    <string name="NotificationBarManager__stopping_signal_call_service">Interruzione del servizio di chiamata di Signal</string>
+    <string name="NotificationBarManager__starting_signal_call_service">Avvio chiamata su Signal</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">La chiamata su Signal si è interrotta</string>
     <string name="NotificationBarManager__cancel_call">Annulla chiamata</string>
 
     <!-- NotificationsMegaphone -->
@@ -1910,7 +1910,7 @@
     <!-- MessageRecord -->
     <string name="MessageRecord_unknown">Sconosciuto</string>
     <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Hai ricevuto un messaggio criptato usando una vecchia versione di Signal che non è più supportata. Per favore chiedi al mittente di aggiornare alla versione più recente e di inviare nuovamente il messaggio.</string>
-    <string name="MessageRecord_left_group">Hai lasciato il gruppo.</string>
+    <string name="MessageRecord_left_group">Hai abbandonato il gruppo.</string>
     <string name="MessageRecord_you_updated_group">Hai aggiornato il gruppo.</string>
     <string name="MessageRecord_the_group_was_updated">Il gruppo è stato aggiornato.</string>
     <!-- Update message shown a group is terminated, but the person that terminated it is unknown. -->
@@ -9941,6 +9941,8 @@
     <string name="RecoveryKeyWarningSheetContent__got_it">Capito</string>
     <!-- Button opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more">Scopri di più</string>
+    <!-- Inline link opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->

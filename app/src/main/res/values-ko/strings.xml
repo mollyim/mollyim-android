@@ -3561,20 +3561,20 @@
     <string name="conversation_activity__send">보내기</string>
     <string name="conversation_activity__compose_description">메시지 작성</string>
     <string name="conversation_activity__emoji_toggle_description">이모지 키보드 전환</string>
-    <string name="conversation_activity__attachment_thumbnail">첨부 파일 섬네일</string>
-    <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">빠른 카메라 첨부 파일 창 전환</string>
+    <string name="conversation_activity__attachment_thumbnail">첨부 파일 썸네일</string>
+    <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">사진 및 동영상 첨부를 위해 카메라 또는 갤러리 열기</string>
     <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">오디오 첨부 파일 녹음 후 보내기</string>
     <!-- Accessibility content description describing how a user can lock voice note recording. -->
     <string name="conversation_activity__quick_attachment_drawer_lock_record_description">오디오 첨부 파일 녹음 잠금</string>
-    <string name="conversation_activity__message_could_not_be_sent">메시지를 보낼 수 없습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="conversation_activity__message_could_not_be_sent">메시지를 보내지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
     <!-- Dialog body shown when tapping a failed message in a terminated group -->
     <string name="conversation_activity__send_failed_group_ended">그룹이 종료되어 더 이상 이 그룹에서 메시지를 주고받을 수 없습니다.</string>
     <!-- Dialog body shown when tapping a group action button (e.g. invite friends) in a terminated group -->
     <string name="conversation_activity__group_action_not_allowed_group_ended">그룹이 종료되어 해당 작업을 수행할 수 없습니다.</string>
     <!-- Dialog body when a message failed to delete and retry is possible. -->
-    <string name="conversation_activity__message_failed_to_delete_retry">메시지를 삭제할 수 없습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="conversation_activity__message_failed_to_delete_retry">메시지를 삭제하지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
     <!-- Dialog body when a message failed to delete. -->
-    <string name="conversation_activity__message_failed_to_delete">메시지를 삭제할 수 없습니다.</string>
+    <string name="conversation_activity__message_failed_to_delete">메시지를 삭제하지 못했습니다.</string>
 
     <!-- conversation_input_panel -->
     <string name="conversation_input_panel__slide_to_cancel">밀어서 취소</string>
@@ -9738,6 +9738,8 @@
     <string name="RecoveryKeyWarningSheetContent__got_it">확인</string>
     <!-- Button opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more">자세히 알아보기</string>
+    <!-- Inline link opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
