@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,16 +23,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.DayNightPreviews
-import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.horizontalGutters
 import org.thoughtcrime.securesms.R
@@ -64,17 +66,32 @@ fun RecoveryKeyWarningSheetContent(
       modifier = Modifier.padding(bottom = 12.dp)
     )
 
-    val signalWillNeverMessageYou = stringResource(R.string.RecoveryKeyWarningSheetContent__signal_will_never_message_you)
-    val recoveryKeyWarningBody = stringResource(R.string.RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond)
-
     Text(
       text = buildAnnotatedString {
         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-          append(signalWillNeverMessageYou)
+          append(stringResource(R.string.RecoveryKeyWarningSheetContent__signal_will_never_message_you))
         }
 
         append(" ")
-        append(recoveryKeyWarningBody)
+        append(stringResource(R.string.RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond))
+
+        if (clipStage == ClipStage.PASTE) {
+          append(" ")
+          withLink(
+            link = LinkAnnotation.Clickable(
+              tag = "learn-more",
+              styles = TextLinkStyles(
+                style = SpanStyle(
+                  color = MaterialTheme.colorScheme.primary
+                )
+              )
+            ) {
+              events(RecoveryKeyWarningSheetEvent.LearnMoreClick)
+            }
+          ) {
+            append(stringResource(R.string.RecoveryKeyWarningSheetContent__learn_more_period))
+          }
+        }
       },
       textAlign = TextAlign.Center,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -113,38 +130,16 @@ fun PasteActionButtons(events: (RecoveryKeyWarningSheetEvent) -> Unit) {
     Text(text = stringResource(R.string.RecoveryKeyWarningSheetContent__do_not_share_key))
   }
 
-  TextButton(onClick = {
-    events(RecoveryKeyWarningSheetEvent.ShareKeyClick)
-  }) {
+  TextButton(
+    colors = ButtonDefaults.textButtonColors(
+      contentColor = MaterialTheme.colorScheme.error
+    ),
+    onClick = {
+      events(RecoveryKeyWarningSheetEvent.ShareKeyClick)
+    }
+  ) {
     Text(text = stringResource(R.string.RecoveryKeyWarningSheetContent__share_key))
   }
-}
-
-@Composable
-fun RecoveryKeyWarningDialog(events: (RecoveryKeyWarningSheetEvent) -> Unit) {
-  val bodyIntro = stringResource(R.string.RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone)
-  val bodyEmphasis = stringResource(R.string.RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key)
-  val bodyOutro = stringResource(R.string.RecoveryKeyWarningDialog__never_respond_to_a_chat)
-
-  Dialogs.SimpleAlertDialog(
-    title = AnnotatedString(stringResource(R.string.RecoveryKeyWarningDialog__do_not_share_recovery_key)),
-    body = buildAnnotatedString {
-      append(bodyIntro)
-      append(" ")
-
-      withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-        append(bodyEmphasis)
-      }
-
-      append(" ")
-      append(bodyOutro)
-    },
-    confirm = AnnotatedString(stringResource(R.string.RecoveryKeyWarningDialog__paste_key)),
-    confirmColor = MaterialTheme.colorScheme.error,
-    dismiss = AnnotatedString(stringResource(R.string.RecoveryKeyWarningDialog__dont_share)),
-    onConfirm = { events(RecoveryKeyWarningSheetEvent.PasteKeyClick) },
-    onDeny = { events(RecoveryKeyWarningSheetEvent.DoNotShareClick) }
-  )
 }
 
 enum class ClipStage {
@@ -173,13 +168,5 @@ private fun RecoveryKeyWarningSheetContentPastePreview() {
       events = {},
       modifier = Modifier.fillMaxSize()
     )
-  }
-}
-
-@DayNightPreviews
-@Composable
-private fun RecoveryKeyWarningDialogPreview() {
-  Previews.Preview {
-    RecoveryKeyWarningDialog(events = {})
   }
 }

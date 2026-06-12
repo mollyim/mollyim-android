@@ -5,22 +5,16 @@
 
 package org.thoughtcrime.securesms.backup.v2.ui.warning
 
-import android.app.Dialog
 import android.content.DialogInterface
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.setFragmentResult
-import org.signal.core.ui.compose.BottomSheets
-import org.signal.core.ui.compose.ComposeFullScreenDialogFragment
+import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
+import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.backup.v2.ui.warning.RecoveryKeyPasteWarningFragment.Companion.REQUEST_KEY
+import org.thoughtcrime.securesms.util.CommunicationActions
 
 /**
  * Displayed via the [org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsFragment] whenever the user
@@ -30,20 +24,13 @@ import org.signal.core.ui.compose.ComposeFullScreenDialogFragment
  * indicating whether the user chose to proceed with the paste. The host can rely on this firing for
  * every dismissal path (paste, decline, or cancel) to restore its own state.
  */
-class RecoveryKeyPasteWarningFragment : ComposeFullScreenDialogFragment() {
+class RecoveryKeyPasteWarningFragment : ComposeBottomSheetDialogFragment() {
 
   companion object {
     const val REQUEST_KEY = "recovery_key_request"
   }
 
   private var shouldPaste = false
-
-  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    return super.onCreateDialog(savedInstanceState).apply {
-      window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-      window?.setWindowAnimations(0)
-    }
-  }
 
   override fun onDismiss(dialog: DialogInterface) {
     setFragmentResult(
@@ -56,10 +43,10 @@ class RecoveryKeyPasteWarningFragment : ComposeFullScreenDialogFragment() {
     super.onDismiss(dialog)
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  override fun DialogContent() {
-    var isDisplayingFinalWarningDialog by remember { mutableStateOf(false) }
+  override fun SheetContent() {
+    val context = LocalContext.current
+    val url = stringResource(R.string.recovery_key_phishing_support_url)
 
     val eventHandler: (RecoveryKeyWarningSheetEvent) -> Unit = {
       when (it) {
@@ -67,34 +54,25 @@ class RecoveryKeyPasteWarningFragment : ComposeFullScreenDialogFragment() {
           dismissAllowingStateLoss()
         }
 
-        RecoveryKeyWarningSheetEvent.GotItClick -> error("Not supported for paste")
-        RecoveryKeyWarningSheetEvent.LearnMoreClick -> error("Not supported for paste")
-        RecoveryKeyWarningSheetEvent.PasteKeyClick -> {
-          shouldPaste = true
+        RecoveryKeyWarningSheetEvent.GotItClick -> {
+          error("Not supported for paste")
+        }
+
+        RecoveryKeyWarningSheetEvent.LearnMoreClick -> {
+          CommunicationActions.openBrowserLink(context, url)
           dismissAllowingStateLoss()
         }
 
         RecoveryKeyWarningSheetEvent.ShareKeyClick -> {
-          isDisplayingFinalWarningDialog = true
+          shouldPaste = true
+          dismissAllowingStateLoss()
         }
       }
     }
 
-    if (isDisplayingFinalWarningDialog) {
-      RecoveryKeyWarningDialog(
-        events = eventHandler
-      )
-    } else {
-      ModalBottomSheet(
-        onDismissRequest = { dismissAllowingStateLoss() },
-        dragHandle = { BottomSheets.Handle() },
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-      ) {
-        RecoveryKeyWarningSheetContent(
-          clipStage = ClipStage.PASTE,
-          events = eventHandler
-        )
-      }
-    }
+    RecoveryKeyWarningSheetContent(
+      clipStage = ClipStage.PASTE,
+      events = eventHandler
+    )
   }
 }

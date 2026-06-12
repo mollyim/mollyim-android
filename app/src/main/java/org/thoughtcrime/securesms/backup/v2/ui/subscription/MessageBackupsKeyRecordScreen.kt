@@ -157,7 +157,6 @@ fun MessageBackupsKeyRecordScreen(
     val url = stringResource(R.string.recovery_key_phishing_support_url)
     val events: (RecoveryKeyWarningSheetEvent) -> Unit = {
       when (it) {
-        RecoveryKeyWarningSheetEvent.DoNotShareClick -> error("Not supported")
         RecoveryKeyWarningSheetEvent.GotItClick -> {
           onCopyToClipboardClick(backupKeyString)
           displayRecoveryKeyCopyWarning = false
@@ -167,7 +166,7 @@ fun MessageBackupsKeyRecordScreen(
           displayRecoveryKeyCopyWarning = false
         }
 
-        RecoveryKeyWarningSheetEvent.PasteKeyClick -> error("Not supported")
+        RecoveryKeyWarningSheetEvent.DoNotShareClick -> error("Not supported")
         RecoveryKeyWarningSheetEvent.ShareKeyClick -> error("Not supported")
       }
     }
