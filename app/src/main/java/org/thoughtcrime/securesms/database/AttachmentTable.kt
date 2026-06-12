@@ -29,6 +29,7 @@ import org.signal.archive.proto.BackupDebugInfo
 import org.signal.blurhash.BlurHash
 import org.signal.core.models.backup.MediaId
 import org.signal.core.models.backup.MediaName
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.models.media.TransformProperties
 import org.signal.core.ui.util.StorageUtil
 import org.signal.core.util.Base64
@@ -69,7 +70,6 @@ import org.signal.glide.decryptableuri.DecryptableUri
 import org.signal.network.api.AttachmentUploadResult
 import org.thoughtcrime.securesms.attachments.ArchivedAttachment
 import org.thoughtcrime.securesms.attachments.Attachment
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.LocalBackupKey

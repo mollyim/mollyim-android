@@ -18,12 +18,12 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.models.media.Media
 import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.database.MediaTable
 import org.thoughtcrime.securesms.database.SignalDatabase

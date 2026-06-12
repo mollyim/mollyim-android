@@ -8,6 +8,7 @@ import androidx.annotation.MainThread
 import okio.Source
 import okio.buffer
 import org.greenrobot.eventbus.EventBus
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
 import org.signal.core.util.Hex
 import org.signal.core.util.Util
@@ -17,7 +18,6 @@ import org.signal.libsignal.protocol.InvalidMessageException
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.signal.network.exceptions.PushNetworkException
 import org.thoughtcrime.securesms.attachments.Attachment
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.InvalidAttachmentException

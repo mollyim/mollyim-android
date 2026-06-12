@@ -28,6 +28,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import org.signal.core.models.ServiceId
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.JsonUtils
@@ -67,7 +68,6 @@ import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
 import org.signal.libsignal.protocol.IdentityKey
 import org.thoughtcrime.securesms.attachments.Attachment
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment.DisplayOrderComparator
 import org.thoughtcrime.securesms.backup.v2.exporters.ChatItemArchiveExporter

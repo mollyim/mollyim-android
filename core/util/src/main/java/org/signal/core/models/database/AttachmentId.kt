@@ -1,9 +1,13 @@
-package org.thoughtcrime.securesms.attachments
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.core.models.database
 
 import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.parcelize.Parcelize
-import org.signal.core.util.DatabaseId
 
 @Parcelize
 data class AttachmentId(
