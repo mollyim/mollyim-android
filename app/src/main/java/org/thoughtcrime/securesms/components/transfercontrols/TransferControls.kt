@@ -319,7 +319,11 @@ sealed interface TransferControlsRenderState {
     val showPlayButton: Boolean,
     val cancelable: Boolean,
     val label: TransferControls.ProgressLabel?
-  ) : TransferControlsRenderState
+  ) : TransferControlsRenderState {
+    fun isProgressOnlyDifference(other: TransferControlsRenderState): Boolean {
+      return other is InProgress && copy(progress = other.progress, label = other.label) == other
+    }
+  }
 
   data class Retry(
     val isUpload: Boolean

@@ -90,13 +90,22 @@ class TransferControlView @JvmOverloads constructor(context: Context, attrs: Att
     val newRender = TransferControls.deriveRenderState(newState)
     state = newState
 
-    if (oldRender != newRender) {
-      verboseLog { "render $oldRender -> $newRender slides=[${slidesAsLogString(newState.slides)}]" }
+    if (oldRender == newRender) {
+      return
+    }
+
+    verboseLog { "render $oldRender -> $newRender slides=[${slidesAsLogString(newState.slides)}]" }
+
+    if (oldRender is TransferControlsRenderState.InProgress && oldRender.isProgressOnlyDifference(newRender)) {
       progressUpdateDebouncer.publish {
         renderState = newRender
-        if (newRender !is TransferControlsRenderState.Gone) {
-          visibility = VISIBLE
-        }
+        visibility = VISIBLE
+      }
+    } else {
+      progressUpdateDebouncer.clear()
+      renderState = newRender
+      if (newRender !is TransferControlsRenderState.Gone) {
+        visibility = VISIBLE
       }
     }
   }
