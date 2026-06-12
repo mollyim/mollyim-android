@@ -383,7 +383,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
         versionedExpirationTimer = true,
         attachmentBackfill = true,
         spqr = true,
-        usernameChangeSyncMessage = false // TODO(michelle): Turn on once all clients support it
+        usernameChangeSyncMessage = true
       ),
       name = null,
       pniRegistrationId = keyMaterial.pniRegistrationId,
