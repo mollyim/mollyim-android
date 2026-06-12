@@ -65,10 +65,8 @@ public class ConversationRepository {
       firstUnreadPosition = SignalDatabase.messages().getMessagePositionByDateReceivedTimestamp(threadId, firstUnreadDateReceived, false);
     }
 
-    if (firstUnreadPosition <= 0) {
-      firstUnreadId           = -1;
-      firstUnreadDateReceived = 0;
-    }
+    // A position of 0 means the oldest unread message is the newest message in the thread (e.g. a single unread). That
+    // is a valid divider anchor, so we keep firstUnreadId; it just means we don't scroll up to reach it.
 
     if (firstUnreadDateReceived == 0 && lastScrolled > 0) {
       lastScrolledPosition = SignalDatabase.messages().getMessagePositionByDateReceivedTimestamp(threadId, lastScrolled, true);
