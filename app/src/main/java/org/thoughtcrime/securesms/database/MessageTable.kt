@@ -322,6 +322,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     private const val INDEX_NOTIFICATION_STATE = "message_notification_state_index"
     private const val INDEX_RATE_LIMITED = "message_rate_limited_index"
     private const val INDEX_SCHEDULED_NON_STORY = "message_scheduled_non_story_index"
+    private const val INDEX_MESSAGE_PINNED_UNTIL = "message_pinned_until_index"
 
     @JvmField
     val CREATE_INDEXS = arrayOf(
@@ -348,7 +349,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       // Partial index for marking messages read in a thread (see setMessagesReadSince). Only contains unread/unseen rows.
       "CREATE INDEX IF NOT EXISTS $INDEX_THREAD_DATE_RECEIVED_UNREAD ON $TABLE_NAME ($THREAD_ID, $DATE_RECEIVED) WHERE $STORY_TYPE = 0 AND $PARENT_STORY_ID <= 0 AND ($READ = 0 OR $REACTIONS_UNREAD = 1 OR $VOTES_UNREAD = 1)",
       "CREATE INDEX IF NOT EXISTS message_votes_unread_index ON $TABLE_NAME ($VOTES_UNREAD)",
-      "CREATE INDEX IF NOT EXISTS message_pinned_until_index ON $TABLE_NAME ($PINNED_UNTIL)",
+      "CREATE INDEX IF NOT EXISTS $INDEX_MESSAGE_PINNED_UNTIL ON $TABLE_NAME ($PINNED_UNTIL)",
       "CREATE INDEX IF NOT EXISTS message_pinned_at_index ON $TABLE_NAME ($PINNED_AT)",
       "CREATE INDEX IF NOT EXISTS message_deleted_by_index ON $TABLE_NAME ($DELETED_BY)",
       "CREATE INDEX IF NOT EXISTS $INDEX_ARCHIVED_STORY ON $TABLE_NAME ($STORY_ARCHIVED, $STORY_TYPE, $DATE_SENT) WHERE $STORY_TYPE > 0 AND $STORY_ARCHIVED > 0",
@@ -1582,7 +1583,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     writableDatabase.withinTransaction { db ->
       db.select(FROM_RECIPIENT_ID)
-        .from(TABLE_NAME)
+        .from("$TABLE_NAME INDEXED BY $INDEX_DATE_SENT_FROM_TO_THREAD")
         .where("$IS_STORY_CLAUSE AND $DATE_SENT IN ($timestamps) AND NOT ($outgoingTypeClause) AND $VIEWED_COLUMN > 0")
         .run()
         .readToList { cursor -> RecipientId.from(cursor.requireLong(FROM_RECIPIENT_ID)) }
@@ -2179,7 +2180,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       where = "$THREAD_ID = ? AND $PINNED_UNTIL > 0",
       arguments = buildArgs(threadId),
       reverse = true,
-      orderBy = if (orderByPinned) "$PINNED_AT ASC" else ""
+      orderBy = if (orderByPinned) "$PINNED_AT ASC" else "",
+      index = INDEX_MESSAGE_PINNED_UNTIL
     )
 
     return mmsReaderFor(cursor).use { reader ->
