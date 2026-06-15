@@ -2975,7 +2975,7 @@ class ConversationFragment :
     ConversationDialogs.displayDeleteDialog(requireContext(), recipient) {
       messageRequestViewModel
         .onDelete()
-        .doAfterSuccess { activity?.finish() }
+        .doAfterSuccess { chatRouter.exitDetailLocation() }
         .subscribeWithShowProgress("delete message request")
     }
   }
