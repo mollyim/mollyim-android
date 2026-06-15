@@ -96,7 +96,7 @@ public final class Wallet {
     return SignalStore.payments().mobileCoinLatestBalance();
   }
 
-  @AnyThread
+  @WorkerThread
   public @NonNull MobileCoinLedgerWrapper getCachedLedger() {
     return SignalStore.payments().mobileCoinLatestFullLedger();
   }

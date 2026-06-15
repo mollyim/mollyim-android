@@ -122,7 +122,7 @@ public class LongMessageFragment extends FullScreenDialogFragment {
       EmojiTextView          text   = bubble.findViewById(R.id.longmessage_text);
       ConversationItemFooter footer = bubble.findViewById(R.id.longmessage_footer);
 
-      SpannableString body = new SpannableString(getTrimmedBody(message.get().getFullBody(requireContext())));
+      SpannableString body = new SpannableString(getTrimmedBody(message.get().getFullBody()));
       V2ConversationItemUtils.linkifyUrlLinks(body,
                                               true,
                                               url -> CommunicationActions.handlePotentialGroupLinkUrl(requireActivity(), url) ||

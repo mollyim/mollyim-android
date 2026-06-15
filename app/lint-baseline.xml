@@ -36942,4 +36942,500 @@
             column="1"/>
     </issue>
 
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    presentConversationTitle(viewModel.recipientSnapshot)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt"
+            line="710"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="    updateMessageRequestAcceptedState(!viewModel.hasMessageRequestState)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt"
+            line="1767"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="      updateLinkPreviewState()"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt"
+            line="5014"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="    setBodyText(messageRecord, searchQuery, isMessageRequestAccepted);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="432"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="    setStoryReactionLabel(messageRecord);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="444"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method View.onMeasure(…) is allowing @{Main,Ui}Thread"
+        errorLine1="        getActiveFooter(messageRecord) == footer &amp;&amp;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="588"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method View.onMeasure(…) is allowing @{Main,Ui}Thread"
+        errorLine1="      ConversationItemFooter activeFooter   = getActiveFooter(messageRecord);"
+        errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="702"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method RecipientForeverObserver.onRecipientChanged(…) is allowing @{Main,Ui}Thread"
+        errorLine1="      setContactPhoto(modified);"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="769"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method RecipientForeverObserver.onRecipientChanged(…) is allowing @{Main,Ui}Thread"
+        errorLine1="      setSenderNameAndLabel(modified);"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="770"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      bodyText.setOverflowText(null);"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1159"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      if (hasExtraText(messageRecord)) {"
+        errorLine2="      ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1186"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      bodyText.setTextAsync(StringUtil.trim(styledText));"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1206"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="        setThumbnailCorners(messageRecord, previousRecord, nextRecord, isGroupThread);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1364"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Condition must run from @WorkerThread, while branches must run from @{Main,Ui}Thread"
+        errorLine1="    } else if (hasNoBubble(messageRecord)) {"
+        errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1476"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      mediaThumbnailStub.require().setImageResource(requestManager,"
+        errorLine2="      ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1503"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Branch must run from @WorkerThread, incompatible with the other that must run from @{Main,Ui}Thread"
+        errorLine1="    } else if (isGiftMessage(messageRecord)) {"
+        errorLine2="           ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="1543"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Branch must run from @WorkerThread, incompatible with the other that must run from @{Main,Ui}Thread"
+        errorLine1="      } else if (slide.getUri() != null) {"
+        errorLine2="             ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java"
+            line="2901"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="  {"
+        errorLine2="  ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversationlist/ConversationListItem.java"
+            line="232"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="  {"
+        errorLine2="  ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/ConversationUpdateItem.java"
+            line="194"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="  void submit() {"
+        errorLine2="                ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/delete/DeleteAccountViewModel.java"
+            line="71"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="      this.bodyView.setText(Recipient.self().getAbout());"
+        errorLine2="                                      ~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/profiles/manage/EditAboutFragment.java"
+            line="122"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="      onEmojiSelectedInternal(Optional.ofNullable(Recipient.self().getAboutEmoji()).orElse(&quot;&quot;));"
+        errorLine2="                                                            ~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/profiles/manage/EditAboutFragment.java"
+            line="123"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      if (TextUtils.isEmpty(initials)) {"
+        errorLine2="      ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/profiles/manage/EditProfileFragment.kt"
+            line="213"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="    if (avatarProgress == null &amp;&amp; avatarState.loadingState == EditProfileViewModel.LoadingState.LOADING) {"
+        errorLine2="    ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/profiles/manage/EditProfileFragment.kt"
+            line="226"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    this.givenName.setText(Recipient.self().getProfileName().getGivenName());"
+        errorLine2="                                     ~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/profiles/manage/EditProfileNameFragment.java"
+            line="54"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    this.familyName.setText(Recipient.self().getProfileName().getFamilyName());"
+        errorLine2="                                      ~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/profiles/manage/EditProfileNameFragment.java"
+            line="55"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method DialogFragment.onCreateDialog(…) is allowing @{Main,Ui}Thread"
+        errorLine1="      builder.setMessage(getString(R.string.GroupManagement_invite_single_user, recipient.getDisplayName(requireContext())));"
+        errorLine2="                                                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/groups/ui/managegroup/dialogs/GroupInviteSentDialog.java"
+            line="55"
+            column="91"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but context is allowing @AnyThread"
+        errorLine1="    if (!SignalStore.account().isRegistered() || SignalStore.account().getAci() == null || !Recipient.self().isRegistered()) {"
+        errorLine2="                                                                                                      ~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/jobs/GroupV2UpdateSelfProfileKeyJob.java"
+            line="86"
+            column="103"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but context is allowing @AnyThread"
+        errorLine1="    byte[] rawProfileKey = Recipient.self().getProfileKey();"
+        errorLine2="                                     ~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/jobs/GroupV2UpdateSelfProfileKeyJob.java"
+            line="96"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onCreate(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    MediaConstraints mediaConstraints = new PushMediaConstraints(SentMediaQuality.HIGH);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/scribbles/ImageEditorFragment.java"
+            line="218"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      text.setTextAsync(body);"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/longmessage/LongMessageFragment.java"
+            line="134"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      thumbnailView.setImageResource(requestManager, slide, false, false);"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/mediaoverview/MediaGalleryAllAdapter.java"
+            line="652"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      if (slide != null) {"
+        errorLine2="      ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/mediaoverview/MediaGalleryAllAdapter.java"
+            line="704"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="    bindTextViews(currentItem, currentState.showThread, currentState.messageBodies)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/mediapreview/MediaPreviewV2Fragment.kt"
+            line="270"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    videoEditorFragment = ensureVideoEditorFragment()"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/mediasend/v2/videos/MediaReviewVideoPageFragment.kt"
+            line="27"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @WorkerThread, incompatible with earlier code that must run from @{Main,Ui}Thread"
+        errorLine1="    if (initialMedia.isNotEmpty()) {"
+        errorLine2="    ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/mediasend/v2/MediaSelectionViewModel.kt"
+            line="105"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="        isJumboji = candidates != null &amp;&amp; candidates.allEmojis &amp;&amp; candidates.size() &lt;= JumboEmoji.MAX_JUMBOJI_COUNT &amp;&amp; (candidates.hasJumboForAll() || JumboEmoji.canDownloadJumbo(context));"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/database/model/MessageRecord.java"
+            line="918"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Activity.onCreate(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    routeApplicationState(locked);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/PassphraseRequiredActivity.java"
+            line="72"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="    setQuoteText(resolveBody(body, quoteType), slide, originalMissing, storyReaction, quoteTargetContentType);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/components/QuoteView.java"
+            line="234"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method RecipientForeverObserver.onRecipientChanged(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    setQuoteAuthor(recipient);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/components/QuoteView.java"
+            line="273"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="    for (Reaction reaction : reactions) {"
+        errorLine2="    ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/reactions/ReactionsConversationView.java"
+            line="133"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="      reaction.setImageEmoji(model.reaction.emoji)"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/stories/viewer/reply/group/StoryGroupReplyItem.kt"
+            line="273"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="        presentCaption(caption, largeCaption, largeCaptionOverlay, post)"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/stories/viewer/page/StoryViewerPageFragment.kt"
+            line="449"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Statement must run from @{Main,Ui}Thread, incompatible with earlier code that must run from @WorkerThread"
+        errorLine1="    if (record.hasExtraText()) {"
+        errorLine2="    ^">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/conversation/v2/items/V2ConversationItemTextOnlyViewHolder.kt"
+            line="422"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onViewCreated(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    if (!InAppDonations.hasAtLeastOnePaymentMethodAvailable()) {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/badges/view/ViewBadgeBottomSheetDialogFragment.kt"
+            line="60"
+            column="25"/>
+    </issue>
+
 </issues>
