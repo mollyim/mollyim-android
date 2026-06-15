@@ -1403,17 +1403,6 @@ object RemoteConfig {
   )
 
   /**
-   * Whether to use our custom [org.signal.core.util.Linkifier] for web URL detection.
-   */
-  @JvmStatic
-  @get:JvmName("useNewLinkifier")
-  val useNewLinkifier: Boolean by remoteBoolean(
-    key = "android.useNewLinkifier",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Whether screen sharing is available during calls.
    */
   @JvmStatic
