@@ -21,6 +21,8 @@ import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.util.MediaUtil
+import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
+import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 
 class TransferControlsTest {
 
@@ -187,22 +189,24 @@ class TransferControlsTest {
   }
 
   @Test
-  fun `download label uses fixed slide size as denominator, not network total`() {
+  fun `download label denominator is ciphertext size derived from slide, not network total`() {
     val slides = listOf(slide(AttachmentTable.TRANSFER_PROGRESS_STARTED, size = 1000))
-    // Network total (2000) is intentionally larger than the slide's fixed file size (1000) to prove the denominator
-    // comes from the slide size, which does not ramp up mid-transfer.
+    // Completed is reported in ciphertext bytes, so the denominator must be the matching ciphertext length derived from the
+    // slide's plaintext size. The network event's total (2000) is intentionally different to prove it is not the source.
     val state = stateOf(slides, networkProgress = progressOf(slides, completed = 500, total = 2000))
     val render = TransferControls.deriveRenderState(state) as TransferControlsRenderState.InProgress
-    assertEquals(TransferControls.ProgressLabel.Bytes(500L.bytes, 1000L.bytes), render.label)
+    val expectedTotal = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(1000))
+    assertEquals(TransferControls.ProgressLabel.Bytes(500L.bytes, expectedTotal.bytes), render.label)
   }
 
   @Test
-  fun `download label clamps completed to total`() {
+  fun `download label clamps completed to ciphertext total`() {
     val slides = listOf(slide(AttachmentTable.TRANSFER_PROGRESS_STARTED, size = 1000))
-    // Network bytes include encryption overhead, so completed can edge past the file size; it should clamp to total.
-    val state = stateOf(slides, networkProgress = progressOf(slides, completed = 1100, total = 1100))
+    val expectedTotal = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(1000))
+    // Incremental-MAC overhead means transmitted bytes can edge just past the computed ciphertext length; clamp to total.
+    val state = stateOf(slides, networkProgress = progressOf(slides, completed = expectedTotal + 100, total = expectedTotal + 100))
     val render = TransferControls.deriveRenderState(state) as TransferControlsRenderState.InProgress
-    assertEquals(TransferControls.ProgressLabel.Bytes(1000L.bytes, 1000L.bytes), render.label)
+    assertEquals(TransferControls.ProgressLabel.Bytes(expectedTotal.bytes, expectedTotal.bytes), render.label)
   }
 
   @Test

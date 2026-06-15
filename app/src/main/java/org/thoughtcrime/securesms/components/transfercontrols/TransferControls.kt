@@ -11,6 +11,8 @@ import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.util.MediaUtil
+import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
+import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 
 /**
  * Pure, Android-View-free logic for the transfer controls UI.
@@ -152,7 +154,7 @@ object TransferControls {
     } else if (state.isUpload) {
       ProgressLabel.Bytes(state.networkProgress.sumCompleted(), state.networkProgress.sumTotal())
     } else {
-      val total = state.slides.sumOf { it.fileSize }.bytes
+      val total = state.slides.sumOf { AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(it.fileSize)) }.bytes
       val completed = state.networkProgress.sumCompleted().let { if (it > total) total else it }
       ProgressLabel.Bytes(completed, total)
     }

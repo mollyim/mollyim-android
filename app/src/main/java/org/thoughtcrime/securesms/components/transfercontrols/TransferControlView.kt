@@ -120,25 +120,13 @@ class TransferControlView @JvmOverloads constructor(context: Context, attrs: Att
       }
 
       if (event.type == PartProgressEvent.Type.COMPRESSION) {
-        val mutableMap = it.compressionProgress.toMutableMap()
-        val updateEvent = Progress.fromEvent(event)
-        val existingEvent = mutableMap[attachment]
-        if (existingEvent == null || updateEvent.completed > existingEvent.completed) {
-          mutableMap[attachment] = updateEvent
-        } else if (updateEvent.completed < 0.bytes) {
-          mutableMap.remove(attachment)
-        }
-        return@updateState it.copy(compressionProgress = mutableMap.toMap())
+        val progress = it.compressionProgress.toMutableMap()
+        progress.applyProgress(attachment, Progress.fromEvent(event))
+        return@updateState it.copy(compressionProgress = progress.toMap())
       } else {
-        val mutableMap = it.networkProgress.toMutableMap()
-        val updateEvent = Progress.fromEvent(event)
-        val existingEvent = mutableMap[attachment]
-        if (existingEvent == null || updateEvent.completed > existingEvent.completed) {
-          mutableMap[attachment] = updateEvent
-        } else if (updateEvent.completed < 0.bytes) {
-          mutableMap.remove(attachment)
-        }
-        return@updateState it.copy(networkProgress = mutableMap.toMap())
+        val progress = it.networkProgress.toMutableMap()
+        progress.applyProgress(attachment, Progress.fromEvent(event))
+        return@updateState it.copy(networkProgress = progress.toMap())
       }
     }
   }
@@ -225,6 +213,14 @@ class TransferControlView @JvmOverloads constructor(context: Context, attrs: Att
   override fun setClickable(clickable: Boolean) {
     super.setClickable(false)
     updateState { it.copy(isClickable = clickable) }
+  }
+
+  private fun MutableMap<Attachment, Progress>.applyProgress(attachment: Attachment, update: Progress) {
+    if (update.completed < 0.bytes) {
+      remove(attachment)
+    } else {
+      put(attachment, update)
+    }
   }
 
   private inline fun verboseLog(message: () -> String) {
