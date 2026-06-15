@@ -1127,7 +1127,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       CallTable.Type type = isVideoOffer ? CallTable.Type.VIDEO_CALL : CallTable.Type.AUDIO_CALL;
 
       SignalDatabase.calls()
-                    .insertOneToOneCall(remotePeer.getCallId().longValue(), timestamp, remotePeer.getId(), type, CallTable.Direction.INCOMING, missedEvent);
+                    .insertOneToOneCall(remotePeer.getCallId().longValue(), timestamp, remotePeer.getId(), type, CallTable.Direction.INCOMING, missedEvent, false);
     }
   }
 
@@ -1139,7 +1139,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       CallTable.Type type = isVideoOffer ? CallTable.Type.VIDEO_CALL : CallTable.Type.AUDIO_CALL;
 
       SignalDatabase.calls()
-                    .insertOneToOneCall(remotePeer.getCallId().longValue(), System.currentTimeMillis(), remotePeer.getId(), type, CallTable.Direction.INCOMING, CallTable.Event.ACCEPTED);
+                    .insertOneToOneCall(remotePeer.getCallId().longValue(), System.currentTimeMillis(), remotePeer.getId(), type, CallTable.Direction.INCOMING, CallTable.Event.ACCEPTED, false);
     }
   }
 

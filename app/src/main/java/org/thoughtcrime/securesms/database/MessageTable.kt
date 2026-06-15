@@ -909,7 +909,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     return results
   }
 
-  fun insertOneToOneCallLog(recipientId: RecipientId, type: Long, timestamp: Long, outgoing: Boolean): InsertResult {
+  fun insertOneToOneCallLog(recipientId: RecipientId, type: Long, timestamp: Long, outgoing: Boolean, fromSync: Boolean = false): InsertResult {
     val recipient = Recipient.resolved(recipientId)
     val threadIdResult = threads.getOrCreateThreadIdResultFor(recipient.id, recipient.isGroup)
     val threadId = threadIdResult.threadId
@@ -937,6 +937,13 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
     notifyConversationListeners(threadId)
     TrimThreadJob.enqueueAsync(threadId)
+
+    // If inserting an outgoing call from a sync message, automatically start timer
+    if (expiresIn != 0L && outgoing && fromSync) {
+      Log.i(TAG, "Starting expiration timer after inserting a call from a sync message.")
+      markExpireStarted(messageId, timestamp)
+      AppDependencies.expiringMessageManager.scheduleDeletion(messageId, true, timestamp, expiresIn)
+    }
 
     return InsertResult(
       messageId = messageId,
