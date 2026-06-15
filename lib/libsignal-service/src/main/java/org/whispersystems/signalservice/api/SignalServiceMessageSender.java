@@ -1969,14 +1969,15 @@ public class SignalServiceMessageSender {
         return SendMessageResult.canceledFailure(recipient);
       }
 
+      OutgoingPushMessageList messages = null;
       try {
-        OutgoingPushMessageList messages = getEncryptedMessages(recipient,
-                                                                sealedSenderAccess,
-                                                                timestamp,
-                                                                content,
-                                                                online,
-                                                                urgent,
-                                                                story);
+        messages = getEncryptedMessages(recipient,
+                                        sealedSenderAccess,
+                                        timestamp,
+                                        content,
+                                        online,
+                                        urgent,
+                                        story);
         boolean isSentSyncTranscript = content.getContent().isPresent() && content.getContent().get().syncMessage != null && content.getContent().get().syncMessage.sent != null;
 
         if (i == 0 && sendEvents != null) {
@@ -2060,8 +2061,18 @@ public class SignalServiceMessageSender {
         }
       } catch (MismatchedDevicesException mde) {
         Log.w(TAG, "[sendMessage][" + timestamp + "] Handling mismatched devices. (" + mde.getMessage() + ")");
+
+        MismatchedDevices mismatchedDevices = mde.getMismatchedDevices();
+        boolean           sentOnlyToSelf    = recipient.matches(localAddress) && messages != null && messages.getDevices().equals(Collections.singletonList(localDeviceId));
+        if (sentOnlyToSelf && mismatchedDevices.getMissingDevices().isEmpty()) {
+          Log.w(TAG, "[sendMessage][" + timestamp + "] Sent only to our own device and the server reports no other devices. Marking as no longer multi-device and skipping send.");
+          archiveSessions(recipient, mismatchedDevices.getExtraDevices());
+          aciStore.setMultiDevice(false);
+          return SendMessageResult.success(recipient, Collections.emptyList(), false, false, System.currentTimeMillis() - startTime, content.getContent());
+        }
+
         try {
-          handleMismatchedDevices(recipient, mde.getMismatchedDevices());
+          handleMismatchedDevices(recipient, mismatchedDevices);
         } catch (InvalidPreKeyException e) {
           return SendMessageResult.invalidPreKeyFailure(recipient);
         }
