@@ -561,6 +561,7 @@ class MainActivity :
 
         val scope = rememberCoroutineScope()
         BackHandler(paneExpansionState.currentAnchor == detailOnlyAnchor) {
+          mainNavigationViewModel.goTo(MainNavigationDetailLocation.Empty)
           scope.launch {
             paneExpansionState.animateTo(listOnlyAnchor)
           }
