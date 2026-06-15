@@ -59,33 +59,44 @@ class MediaPreviewV2ViewModel : ViewModel() {
 
   fun fetchAttachments(context: Context, startingAttachmentId: AttachmentId, threadId: Long, sorting: MediaTable.Sorting, forceRefresh: Boolean = false) {
     if (store.state.loadState == MediaPreviewV2State.LoadState.INIT || forceRefresh) {
-      disposables += store.update(repository.getAttachments(context, startingAttachmentId, threadId, sorting)) { result: MediaPreviewRepository.Result, oldState: MediaPreviewV2State ->
-        val albums = result.records.fold(mutableMapOf()) { acc: MutableMap<Long, MutableList<Media>>, mediaRecord: MediaTable.MediaRecord ->
-          val attachment = mediaRecord.attachment
-          if (attachment != null) {
-            val convertedMedia = mediaRecord.toMedia() ?: return@fold acc
-            acc.getOrPut(attachment.mmsId) { mutableListOf() }.add(convertedMedia)
+      disposables += repository.getAttachments(context, startingAttachmentId, threadId, sorting).subscribe { result ->
+        store.update { oldState ->
+          val albums = result.records.fold(mutableMapOf()) { acc: MutableMap<Long, MutableList<Media>>, mediaRecord: MediaTable.MediaRecord ->
+            val attachment = mediaRecord.attachment
+            if (attachment != null) {
+              val convertedMedia = mediaRecord.toMedia() ?: return@fold acc
+              acc.getOrPut(attachment.mmsId) { mutableListOf() }.add(convertedMedia)
+            }
+            acc
           }
-          acc
+          if (oldState.leftIsRecent) {
+            oldState.copy(
+              position = result.initialPosition,
+              mediaRecords = result.records,
+              albums = albums,
+              loadState = MediaPreviewV2State.LoadState.DATA_LOADED
+            )
+          } else {
+            oldState.copy(
+              position = result.records.size - result.initialPosition - 1,
+              mediaRecords = result.records.reversed(),
+              albums = albums.mapValues { it.value.reversed() },
+              loadState = MediaPreviewV2State.LoadState.DATA_LOADED
+            )
+          }
         }
-        if (oldState.leftIsRecent) {
-          oldState.copy(
-            position = result.initialPosition,
-            mediaRecords = result.records,
-            messageBodies = result.messageBodies,
-            albums = albums,
-            loadState = MediaPreviewV2State.LoadState.DATA_LOADED
-          )
-        } else {
-          oldState.copy(
-            position = result.records.size - result.initialPosition - 1,
-            mediaRecords = result.records.reversed(),
-            messageBodies = result.messageBodies,
-            albums = albums.mapValues { it.value.reversed() },
-            loadState = MediaPreviewV2State.LoadState.DATA_LOADED
-          )
-        }
+        fetchMessageBodies(context, result.records)
       }
+    }
+  }
+
+  private fun fetchMessageBodies(context: Context, records: List<MediaTable.MediaRecord>) {
+    val messageIds = records.mapNotNull { it.attachment?.mmsId }.toSet()
+    if (messageIds.isEmpty()) {
+      return
+    }
+    disposables += repository.resolveMessageBodies(context, messageIds).subscribe { bodies ->
+      store.update { oldState -> oldState.copy(messageBodies = oldState.messageBodies + bodies) }
     }
   }
 
