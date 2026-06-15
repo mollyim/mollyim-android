@@ -46,6 +46,7 @@ fun ParticipantActionsSheet(
   callParticipant: CallParticipant,
   isSelfAdmin: Boolean,
   isCallLink: Boolean,
+  canRemoteMute: Boolean,
   onDismiss: () -> Unit,
   onMuteAudio: (CallParticipant) -> Unit,
   onRemoveFromCall: (CallParticipant) -> Unit,
@@ -71,6 +72,7 @@ fun ParticipantActionsSheet(
       callParticipant = callParticipant,
       isSelfAdmin = isSelfAdmin,
       isCallLink = isCallLink,
+      canRemoteMute = canRemoteMute,
       onDismiss = onDismiss,
       onMuteAudio = onMuteAudio,
       onRemoveFromCall = onRemoveFromCall,
@@ -87,6 +89,7 @@ private fun ParticipantActionsSheetContent(
   callParticipant: CallParticipant,
   isSelfAdmin: Boolean,
   isCallLink: Boolean,
+  canRemoteMute: Boolean,
   onDismiss: () -> Unit,
   onMuteAudio: (CallParticipant) -> Unit,
   onRemoveFromCall: (CallParticipant) -> Unit,
@@ -96,7 +99,7 @@ private fun ParticipantActionsSheetContent(
 ) {
   ParticipantHeader(recipient = recipient)
 
-  if (callParticipant.isMicrophoneEnabled) {
+  if (canRemoteMute && callParticipant.isMicrophoneEnabled) {
     Dividers.Default()
 
     Rows.TextRow(
@@ -110,7 +113,7 @@ private fun ParticipantActionsSheetContent(
   }
 
   if (isSelfAdmin && isCallLink) {
-    if (!callParticipant.isMicrophoneEnabled) {
+    if (!(canRemoteMute && callParticipant.isMicrophoneEnabled)) {
       Dividers.Default()
     }
 
@@ -207,6 +210,7 @@ private fun ParticipantActionsSheetAdminPreview() {
       ),
       isSelfAdmin = true,
       isCallLink = true,
+      canRemoteMute = true,
       onDismiss = {},
       onMuteAudio = {},
       onRemoveFromCall = {},
@@ -228,6 +232,7 @@ private fun ParticipantActionsSheetNonAdminPreview() {
       ),
       isSelfAdmin = false,
       isCallLink = false,
+      canRemoteMute = true,
       onDismiss = {},
       onMuteAudio = {},
       onRemoveFromCall = {},
