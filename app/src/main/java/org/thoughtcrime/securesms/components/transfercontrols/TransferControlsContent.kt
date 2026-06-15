@@ -65,7 +65,7 @@ fun TransferControls(
       is TransferControlsRenderState.Gone -> Unit
 
       is TransferControlsRenderState.Pending -> Content(
-        control = TransferProgressState.Ready(
+        state = TransferProgressState.Ready(
           icon = arrowIcon(state.isUpload),
           startButtonContentDesc = startContentDescription(state.isUpload),
           startButtonOnClickLabel = startContentDescription(state.isUpload),
@@ -79,7 +79,7 @@ fun TransferControls(
       )
 
       is TransferControlsRenderState.Retry -> Content(
-        control = TransferProgressState.Ready(
+        state = TransferProgressState.Ready(
           icon = arrowIcon(state.isUpload),
           startButtonContentDesc = startContentDescription(state.isUpload),
           startButtonOnClickLabel = startContentDescription(state.isUpload),
@@ -104,7 +104,7 @@ fun TransferControls(
         }
 
         Content(
-          control = TransferProgressState.InProgress(
+          state = TransferProgressState.InProgress(
             progress = state.progress,
             cancelAction = if (state.cancelable) {
               TransferProgressState.InProgress.CancelAction(
@@ -130,7 +130,7 @@ fun TransferControls(
 
 @Composable
 private fun BoxScope.Content(
-  control: TransferProgressState,
+  state: TransferProgressState,
   placement: TransferControls.Placement,
   showPlayButton: Boolean,
   centerLabel: String?,
@@ -142,12 +142,16 @@ private fun BoxScope.Content(
   val controlInCorner = placement == TransferControls.Placement.CORNER
 
   if (controlInCenter || showPlayButton || centerLabel != null) {
+    val centerStartReadyState = if (controlInCenter) state as? TransferProgressState.Ready else null
     Pill(
       modifier = Modifier.align(Alignment.Center),
-      cornerRadius = 24.dp
+      cornerRadius = 24.dp,
+      onClick = centerStartReadyState?.onStartClick,
+      onClickContentDescription = centerStartReadyState?.startButtonContentDesc,
+      onClickLabel = centerStartReadyState?.startButtonOnClickLabel
     ) {
       if (controlInCenter) {
-        OnMediaIndicator(control, CENTER_CONTROL_SIZE)
+        OnMediaIndicator(centerStartReadyState?.copy(onStartClick = null) ?: state, CENTER_CONTROL_SIZE)
       }
 
       if (showPlayButton) {
@@ -167,14 +171,18 @@ private fun BoxScope.Content(
   }
 
   if (controlInCorner || cornerText != null) {
+    val cornerStartReadyState = if (controlInCorner) state as? TransferProgressState.Ready else null
     Pill(
       modifier = Modifier
         .align(Alignment.TopStart)
         .padding(4.dp),
-      cornerRadius = 16.dp
+      cornerRadius = 16.dp,
+      onClick = cornerStartReadyState?.onStartClick,
+      onClickContentDescription = cornerStartReadyState?.startButtonContentDesc,
+      onClickLabel = cornerStartReadyState?.startButtonOnClickLabel
     ) {
       if (controlInCorner) {
-        OnMediaIndicator(control, 32.dp)
+        OnMediaIndicator(cornerStartReadyState?.copy(onStartClick = null) ?: state, 32.dp)
       }
 
       if (cornerText != null) {
@@ -195,12 +203,26 @@ private fun BoxScope.Content(
 private fun Pill(
   modifier: Modifier = Modifier,
   cornerRadius: Dp,
+  onClick: (() -> Unit)? = null,
+  onClickContentDescription: String? = null,
+  onClickLabel: String? = null,
   content: @Composable RowScope.() -> Unit
 ) {
   Row(
     modifier = modifier
       .clip(RoundedCornerShape(cornerRadius))
-      .background(colorResource(CoreUiR.color.signal_colorTransparentInverse4)),
+      .background(colorResource(CoreUiR.color.signal_colorTransparentInverse4))
+      .then(
+        if (onClick != null) {
+          Modifier.clickableContainer(
+            contentDescription = onClickContentDescription,
+            onClickLabel = onClickLabel ?: "",
+            onClick = onClick
+          )
+        } else {
+          Modifier
+        }
+      ),
     verticalAlignment = Alignment.CenterVertically
   ) {
     content()

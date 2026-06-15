@@ -84,10 +84,16 @@ private fun StartTransferButton(
 ) {
   Box(
     modifier = modifier
-      .clickableContainer(
-        contentDescription = state.startButtonContentDesc,
-        onClickLabel = state.startButtonOnClickLabel,
-        onClick = state.onStartClick
+      .then(
+        if (state.onStartClick != null) {
+          Modifier.clickableContainer(
+            contentDescription = state.startButtonContentDesc,
+            onClickLabel = state.startButtonOnClickLabel,
+            onClick = state.onStartClick
+          )
+        } else {
+          Modifier
+        }
       )
   ) {
     Icon(
@@ -165,8 +171,6 @@ private fun ProgressIndicator(
       )
     }
 
-    // When cancelable, draw the filled "stop" square in the center of the ring (matches the legacy view's
-    // IN_PROGRESS_CANCELABLE state). Sized as a fraction of the control so it scales with center/corner placements.
     if (state.cancelAction != null) {
       Box(
         modifier = Modifier
@@ -198,7 +202,7 @@ sealed interface TransferProgressState {
     val icon: ImageVector,
     val startButtonContentDesc: String,
     val startButtonOnClickLabel: String,
-    val onStartClick: () -> Unit
+    val onStartClick: (() -> Unit)?
   ) : TransferProgressState
 
   data class InProgress(
