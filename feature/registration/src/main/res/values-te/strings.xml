@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">ఖాతాను సృష్టించండి</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">మీ ఖాతాను బదిలీ చేయండి</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">మీ ఖాతాను బదిలీ చేయడానికి, మీ పాత Android పరికరంలో Signal ను తెరిచి, ఖాతాను బదిలీ చేయండిని ఎంచుకోండి.</string>
     <string name="DeviceTransferInstructions__continue">కొనసాగించు</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">పాత Android పరికరాన్ని కనెక్ట్ చేయడానికి సిద్ధం చేయడం…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">దీనికి కొంత సమయం పట్టవచ్చు. త్వరలోనే సిద్ధంగా ఉంటుంది.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">మీ పాత పరికరం అనుసంధానం అయ్యేందుకు వేచి ఉన్నాము…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">రెండు పరికరాలలోనూ సంఖ్యలు సరిపోలుతున్నాయా లేదా అనేది ధృవీకరించుకోండి</string>
+    <string name="DeviceTransferSetup__numbers_match">అవును, సంఖ్యలు సరిపోలుతున్నాయి</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">నెంబర్లు జతకావడం లేదు</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">మీ పాత పరికరాన్ని ధృవీకరించేందుకు వేచి ఉన్నాము…</string>
+    <string name="DeviceTransferSetup__location_permission_required">మీ పాత పరికరాన్ని కనుగొని, దానితో అనుసంధానం కావడానికి Signal కు ప్రదేశం అనుమతి అవసరం.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">అనుమతి ఇవ్వండి</string>
+    <string name="DeviceTransferSetup__location_services_required">మీ పాత పరికరాన్ని కనుగొని, దానితో అనుసంధానం కావడానికి ప్రదేశ సేవలు ప్రారంభించడం Signal కొరకు అవసరం.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">లొకేషన్ సర్వీస్‌లను ఆన్ చేయండి</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">మీ పాత పరికరాన్ని కనుగొని, దానితో అనుసంధానం అవ్వడానికి Wi-Fi ను ఆన్ చేసి ఉంచడం Signal కు అవసరం.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi టర్న్ ఆన్ చేయండి</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">క్షమించండి, మీ పరికరం Wi-Fi Direct కు మద్దతు ఇవ్వనట్లు కనిపిస్తోంది.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">బదులుగా బ్యాకప్‌ను పునరుద్ధరించండి</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">మీ పాత పరికరానికి అనుసంధానం చేయడానికి ప్రయత్నించేటప్పుడు ఊహించని పొరపాటు ఏర్పడింది.</string>
     <string name="DeviceTransferSetup__retry">మళ్ళీ ప్రయత్నించు</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">మీ పాత పరికరాన్ని కనుగొనలేకపోయాము</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• ప్రదేశం అనుమతులు మంజూరు చేయబడ్డాయని నిర్ధారించుకోండి.\n• Wi-Fi ఆన్‌లో ఉండేలా, అలాగే ఎటువంటి Wi-Fi Direct గ్రూపులు గుర్తుంచుకోబడలేదని నిర్ధారించుకోండి.\n• రెండు పరికరాలో Wi-Fi ని ఆన్ చేసి, ఆఫ్ చేయడం ద్వారా ప్రయత్నించండి.\n• రెండు పరికరాలు కూడా బదిలీ మోడ్‌లో ఉన్నట్లుగా నిర్ధారించుకోండి.</string>
     <string name="DeviceTransferSetup__try_again">మళ్ళీ ప్రయత్నించండి</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">నెంబర్లు జతకావడం లేదు</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">ఒకవేళ మీ పరికరాలలోని సంఖ్యలు సరిపోలకపోతే, మీరు తప్పు పరికరానికి కనెక్ట్ అయి ఉండే అవకాశం ఉంది.</string>
     <string name="DeviceTransferSetup__stop_transfer">బదిలీ చేయడం ఆపండి</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">డేటాని బదిలీ చేస్తోంది</string>
     <string name="DeviceTransferProgress__d_messages_so_far">ఇప్పటివరకు %1$d సందేశాలు</string>
     <string name="DeviceTransferProgress__unable_to_transfer">బదిలీ చేయలేకపోయింది</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal కొత్త వెర్షన్ నుంచి బదిలీ చేయలేము.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">డేటాబేస్ పరిమితి కారణంగా కొంత డేటాను బదిలీ చేయలేకపోయాము.</string>
+    <string name="DeviceTransferProgress__transfer_failed">బదిలీ విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
     <string name="DeviceTransferProgress__try_again">మళ్ళీ ప్రయత్నించండి</string>
     <string name="DeviceTransferProgress__cancel">రద్దు చేయండి</string>
     <string name="DeviceTransferProgress__stop_transfer">బదిలీని ఆపాలా?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">బదిలీ చేయడం పూర్తయింది</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">మీ ఖాతా ఇప్పుడు ఈ పరికరంలో ఉంది.</string>
     <string name="DeviceTransferComplete__continue_registration">కొనసాగించు</string>
 
     <!-- Create profile screen -->

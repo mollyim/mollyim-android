@@ -398,42 +398,42 @@
     <string name="LinkAccountScreen__create_account">建立帳戶</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">轉移你嘅帳戶</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">要轉移你嘅帳戶，請喺舊嘅 Android 機上面打開 Signal，然後揀「轉移帳戶」。</string>
     <string name="DeviceTransferInstructions__continue">繼續</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">準備緊同部舊嘅 Android 機連線…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">準備緊同部舊嘅 Android 機連線……</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">可能需要一啲時間。應該就快得㗎啦。</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">等緊部你舊機連線……</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">請確認兩部機上面嘅數字係咪一樣</string>
+    <string name="DeviceTransferSetup__numbers_match">係，數字一樣</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">啲數字唔夾</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">等緊你部舊機驗證……</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal 要攞「位置」權限，先可以探測同連接你部舊機。</string>
+    <string name="DeviceTransferSetup__grant_location_permission">授權</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal 要啟用定位服務，先可以探測同連接你部舊機。</string>
     <string name="DeviceTransferSetup__turn_on_location_services">開啟定位服務</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal 要開 Wi-Fi 先可以探測同連接你部舊機。</string>
     <string name="DeviceTransferSetup__turn_on_wifi">開啟 Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">唔好意思，你部機好似唔支援 Wi-Fi Direct。</string>
+    <string name="DeviceTransferSetup__restore_a_backup">改為還原備份</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">嘗試連接你部舊機嗰陣出現咗未知嘅錯誤。</string>
     <string name="DeviceTransferSetup__retry">再試一次</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">探測唔到部舊機</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• 請確認已經俾咗位置權限。\n• 請確認 Wi-Fi 已經開咗，同埋冇儲存任何 Wi-Fi Direct 群組。\n• 試下熄咗再開返 Wi-Fi，兩部機都係。\n• 請確保兩部機都行緊轉移模式。</string>
     <string name="DeviceTransferSetup__try_again">再試一次</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">啲數字唔夾</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">若果兩部機上面嘅數字唔一樣，咁可能係搭錯線駁咗落另一部機度。</string>
     <string name="DeviceTransferSetup__stop_transfer">停止轉移</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">轉移緊資料</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">%1$d messages so far</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">目前為止 %1$d 個訊息</string>
     <string name="DeviceTransferProgress__unable_to_transfer">轉移唔到</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">由新啲嘅 Signal 版本轉移過嚟係唔得嘅。</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">因為資料庫限制，有啲資料轉移唔到。</string>
+    <string name="DeviceTransferProgress__transfer_failed">轉移失敗。請再試多次。</string>
     <string name="DeviceTransferProgress__try_again">再試多次</string>
     <string name="DeviceTransferProgress__cancel">取消</string>
     <string name="DeviceTransferProgress__stop_transfer">係咪要停止轉移？</string>
@@ -441,14 +441,14 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">轉移完成</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">你嘅帳戶而家喺呢部機登入咗。</string>
     <string name="DeviceTransferComplete__continue_registration">繼續</string>
 
     <!-- Create profile screen -->
     <!-- Title displayed at the top of the create-profile screen during registration. -->
     <string name="CreateProfileScreen__set_up_your_profile">設定您嘅個人資料</string>
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">同你通訊嘅人、聯絡人同群組將會睇到你嘅個人檔案同埋相關更改。</string>
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">同你通訊嘅人、聯絡人同群組將會睇到你嘅個人檔案同埋相關嘅更改。</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
     <string name="CreateProfileScreen__first_name_required">名 (必填)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
@@ -462,7 +462,7 @@
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">邊個可以用電話號碼搵到我？</string>
     <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">任何有你電話冧把嘅人都會睇到你用緊 Signal，同埋可以開始聊天。</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">任何有你電話冧把嘅人都會睇到你用緊 Signal，同埋可以開始同你傾計。</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">除非你向對方傳送訊息或者雙方已經有聊天紀錄，如果唔係冇人會睇到你用緊 Signal。</string>
     <!-- Radio option label for "Everyone can find me by number". -->
@@ -472,7 +472,7 @@
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">你係咪確定？</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">將「邊個可以用電話號碼搵到我」設定為「邊個都唔得」，會令其他人更加難喺 Signal 度搵到你。</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">將「邊個可以用電話號碼搵到我」設定為「邊個都唔得」，會令其他人無咁容易喺 Signal 度搵到你。</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->
     <string name="PhoneNumberPrivacySettingsFragment__cancel">取消</string>
     <!-- Save button on the discoverability picker. -->

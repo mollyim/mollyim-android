@@ -4343,10 +4343,10 @@
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Kaip įmanoma išsamiau aprašykite problemą, kad lengviau ją suprastume.</string>
     <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
     <plurals name="HelpFragment__must_be_at_least_n_characters">
-        <item quantity="one">Must be at least %1$d character</item>
-        <item quantity="few">Must be at least %1$d characters</item>
-        <item quantity="many">Must be at least %1$d characters</item>
-        <item quantity="other">Must be at least %1$d characters</item>
+        <item quantity="one">Privalo būti bent %1$d simbolis</item>
+        <item quantity="few">Privalo būti bent %1$d simboliai</item>
+        <item quantity="many">Privalo būti bent %1$d simbolio</item>
+        <item quantity="other">Privalo būti bent %1$d simbolių</item>
     </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>Pasirink</item>
@@ -10340,9 +10340,9 @@
     <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Nesidalinkite savo atkūrimo raktu</string>
     <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
-    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal will never message you</string>
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">„Signal“ niekada nesiųs žinučių</string>
     <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
-    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">for your recovery key. Never respond to a chat pretending to be Signal. Store your recovery key somewhere safe and never share it with anyone.</string>
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">su prašymais pateikti atkūrimo raktą. Niekada neatsakykite į pokalbius, kuriuose apsimetama „Signal“. Išsaugokite atkūrimo raktą saugioje vietoje ir niekada nesidalykite juo su kitais.</string>
     <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
     <string name="RecoveryKeyWarningSheetContent__got_it">Supratau</string>
     <!-- Button opening a help article with more information about recovery key safety -->
@@ -10350,22 +10350,22 @@
     <!-- Inline link opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
-    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Nesidalinkite raktu</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
-    <string name="RecoveryKeyWarningSheetContent__share_key">Share key</string>
+    <string name="RecoveryKeyWarningSheetContent__share_key">Dalintis raktu</string>
 
     <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Do not share recovery key</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Nesidalinkite atkūrimo raktu</string>
     <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Do not share your recovery key with anyone. This will let them take over your account.</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Su niekuo nesidalinkite savo atkūrimo raktu. Antraip šie asmenys galės perimti jūsų paskyrą.</string>
     <!-- Bolded middle sentence of the final confirmation dialog body -->
-    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal will never message you for your recovery key.</string>
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">„Signal“ niekada neprašys jūsų pateikti atkūrimo raktą.</string>
     <!-- Final sentence of the final confirmation dialog body -->
     <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Niekada neatsakykite į pokalbius, kuriuose apsimetama „Signal“.</string>
     <!-- Button confirming the user wants to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__paste_key">Paste key</string>
+    <string name="RecoveryKeyWarningDialog__paste_key">Įklijuoti raktą</string>
     <!-- Button declining to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__dont_share">Don\'t share</string>
+    <string name="RecoveryKeyWarningDialog__dont_share">Nesidalinkite</string>
 
     <!-- EOF -->
 </resources>

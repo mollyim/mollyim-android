@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Hesab yaradın</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Hesabınızı köçürün</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Hesabınızı köçürmək üçün köhnə Android cihazınızda Signal tətbiqini açın və \"Hesabı köçür\" seçimini edin.</string>
     <string name="DeviceTransferInstructions__continue">Davam et</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Köhnə Android cihazınızla bağlantı qurmaq üçün hazırlanır…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Bu bir qədər çəkə bilər. Tezliklə hazır olmalıdır.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Köhnə cihazınızın qoşulması gözlənilir…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Hər iki cihazda nömrələrin uyğun gəldiyini təsdiqləyin</string>
+    <string name="DeviceTransferSetup__numbers_match">Bəli, nömrələr uyğundur</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Nömrələr uyğunlaşmır</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Köhnə cihazınızın təsdiqləməsi gözlənilir…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal köhnə cihazınızı aşkar etmək və onunla bağlantı qurmaq üçün məkan parametrlərinə giriş icazəsi tələb edir.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">İcazə ver</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal köhnə cihazınızı aşkarlamaq və onunla bağlantı qurmaq üçün məkan xidmətlərinin aktivləşdirilməsini tələb edir.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Yerləşmə xidmətlərini işə sal</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal köhnə cihazınızı aşkarlamaq və onunla bağlantı qurmaq üçün Wi-Fi-a qoşulu olmağı tələb edir.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">\"Wi-Fi\"ı açın</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Üzr istəyirik, görünür cihazınız Wi-Fi Direct-i dəstəkləmir.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Bunun əvəzinə ehtiyat nüsxəni bərpa edin</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Köhnə cihazınızla bağlantı qurmağa cəhd edilərkən gözlənilməz xəta baş verdi.</string>
     <string name="DeviceTransferSetup__retry">Yenidən sına</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Köhnə cihazınızı aşkarlamaq mümkün olmadı</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Məkan icazələrinin aktivləşdirildiyindən əmin olun.\n• Wi-Fi-ın yanılı olduğundan və heç bir Wi-Fi Direct qrupunun xatırlanmadığından əmin olun.\n• Hər iki cihazda \"Wi-Fi\"ı açıb-bağlamağa çalışın.\n• Hər iki cihazın da köçürmə rejimində olduğuna əmin olun.</string>
     <string name="DeviceTransferSetup__try_again">Yenidən sına</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Nömrələr uyğunlaşmır</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Cihazlarınızdakı nömrələr uyğun gəlmirsə, ehtimal ki, səhv cihaza qoşulmusunuz.</string>
     <string name="DeviceTransferSetup__stop_transfer">Köçürməni dayandır</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Verilənlər köçürülür</string>
     <string name="DeviceTransferProgress__d_messages_so_far">İndiyə qədər %1$d mesaj</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Köçürülə bilmir</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal-ın daha yeni versiyasından köçürmək olmur.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Verilənlər bazasının məhdudiyyəti səbəbilə bəzi məlumatları köçürmək mümkün olmadı.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Köçürmə baş tutmadı. Yenidən cəhd edin.</string>
     <string name="DeviceTransferProgress__try_again">Yenidən cəhd edin</string>
     <string name="DeviceTransferProgress__cancel">Ləğv et</string>
     <string name="DeviceTransferProgress__stop_transfer">Köçürmə dayandırılsın?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Köçürmə tamamlandı</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Hesabınız artıq bu cihazdadır.</string>
     <string name="DeviceTransferComplete__continue_registration">Davam et</string>
 
     <!-- Create profile screen -->

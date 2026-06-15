@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">അക്കൗണ്ട് സൃഷ്ടിക്കുക</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">നിങ്ങളുടെ അക്കൗണ്ട് കൈമാറുക</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">നിങ്ങളുടെ അക്കൗണ്ട് കൈമാറാൻ, നിങ്ങളുടെ പഴയ Android ഉപകരണത്തിൽ Signal തുറന്ന് \'അക്കൗണ്ട് കൈമാറുക\' തിരഞ്ഞെടുക്കുക.</string>
     <string name="DeviceTransferInstructions__continue">തുടരുക</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">പഴയ ആൻഡ്രോയിഡ് ഉപകരണവുമായി ബന്ധിപ്പിക്കാൻ തയ്യാറെടുക്കുന്നു…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">പഴയ Android ഉപകരണവുമായി ബന്ധിപ്പിക്കാൻ തയ്യാറെടുക്കുന്നു…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">ഇതിന് അല്പം സമയമെടുത്തേക്കാം. ഉടൻ തന്നെ തയ്യാറാകും.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">നിങ്ങളുടെ പഴയ ഉപകരണം കണക്ട് ആകുന്നതിനായി കാത്തിരിക്കുന്നു…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">രണ്ട് ഉപകരണങ്ങളിലും നമ്പറുകൾ പൊരുത്തപ്പെടുന്നുണ്ടെന്ന് പരിശോധിച്ചുറപ്പിക്കുക</string>
+    <string name="DeviceTransferSetup__numbers_match">അതെ, നമ്പറുകൾ പൊരുത്തപ്പെടുന്നുണ്ട്</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">അക്കങ്ങൾ പൊരുത്തപ്പെടുന്നില്ല</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">നിങ്ങളുടെ പഴയ ഉപകരണം പരിശോധിച്ചുറപ്പിക്കുന്നതിനായി കാത്തിരിക്കുന്നു…</string>
+    <string name="DeviceTransferSetup__location_permission_required">നിങ്ങളുടെ പഴയ ഉപകരണം കണ്ടെത്താനും അതുമായി കണക്റ്റ് ചെയ്യാനും Signal-ന് ലൊക്കേഷൻ അനുമതി ആവശ്യമാണ്.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">അനുമതി നൽകുക</string>
+    <string name="DeviceTransferSetup__location_services_required">നിങ്ങളുടെ പഴയ ഉപകരണം കണ്ടെത്താനും അതുമായി കണക്റ്റ് ചെയ്യാനും Signal-ന് ലൊക്കേഷൻ സേവനങ്ങൾ പ്രവർത്തനക്ഷമമാക്കേണ്ടതുണ്ട്.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">ലൊക്കേഷൻ സേവനങ്ങൾ ഓണാക്കുക</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">വൈ-ഫൈ ഓണാക്കുക</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">നിങ്ങളുടെ പഴയ ഉപകരണം കണ്ടെത്താനും അതുമായി കണക്റ്റ് ചെയ്യാനും Signal-ന് Wi-Fi ഓണാക്കേണ്ടതുണ്ട്.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi ഓണാക്കുക</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">ക്ഷമിക്കണം, നിങ്ങളുടെ ഉപകരണം Wi-Fi Direct പിന്തുണയ്ക്കുന്നില്ലെന്ന് തോന്നുന്നു.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">പകരം ഒരു ബാക്കപ്പ് പുനഃസ്ഥാപിക്കുക</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">നിങ്ങളുടെ പഴയ ഉപകരണവുമായി കണക്റ്റ് ചെയ്യാൻ ശ്രമിക്കുമ്പോൾ അപ്രതീക്ഷിത പിശക് സംഭവിച്ചു.</string>
     <string name="DeviceTransferSetup__retry">വീണ്ടും ശ്രമിക്കുക</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">നിങ്ങളുടെ പഴയ ഉപകരണം കണ്ടെത്താൻ കഴിഞ്ഞില്ല</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• ലൊക്കേഷൻ അനുമതികൾ നൽകിയിട്ടുണ്ടെന്ന് ഉറപ്പാക്കുക.\n• Wi-Fi ഓണാക്കിയിട്ടുണ്ടെന്നും Wi-Fi Direct ഗ്രൂപ്പുകളൊന്നും സംരക്ഷിച്ചിട്ടില്ലെന്നും ഉറപ്പാക്കുക.\n• രണ്ട് ഉപകരണങ്ങളിലും Wi-Fi ഓഫ് ചെയ്യാനും ഓണാക്കാനും ശ്രമിക്കുക.\n• രണ്ട് ഉപകരണങ്ങളും ട്രാൻസ്ഫർ മോഡിലാണെന്ന് ഉറപ്പാക്കുക.</string>
     <string name="DeviceTransferSetup__try_again">വീണ്ടും ശ്രമിക്കുക</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">അക്കങ്ങൾ പൊരുത്തപ്പെടുന്നില്ല</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">നിങ്ങളുടെ ഉപകരണങ്ങളിലെ അക്കങ്ങൾ പൊരുത്തപ്പെടുന്നില്ലെങ്കിൽ, നിങ്ങൾ തെറ്റായ ഉപകരണത്തിലേക്കായിരിക്കാം കണക്ട് ചെയ്തത്.</string>
     <string name="DeviceTransferSetup__stop_transfer">കൈമാറ്റം നിർത്തുക</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">ഡാറ്റ കൈമാറുന്നു</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d സന്ദേശങ്ങൾ ഇതുവരെ</string>
     <string name="DeviceTransferProgress__unable_to_transfer">കൈമാറാൻ കഴിഞ്ഞില്ല</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal-ന്റെ പുതിയ പതിപ്പിൽ നിന്ന് കൈമാറാൻ കഴിയില്ല.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">ഡാറ്റാബേസ് പരിമിതി കാരണം ചില ഡാറ്റ കൈമാറാൻ കഴിഞ്ഞില്ല.</string>
+    <string name="DeviceTransferProgress__transfer_failed">കൈമാറൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="DeviceTransferProgress__try_again">വീണ്ടും ശ്രമിക്കുക</string>
     <string name="DeviceTransferProgress__cancel">റദ്ദാക്കുക</string>
     <string name="DeviceTransferProgress__stop_transfer">കൈമാറ്റം നിർത്തണോ?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">കൈമാറ്റം പൂർത്തിയായി</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">നിങ്ങളുടെ അക്കൗണ്ട് ഇപ്പോൾ ഈ ഉപകരണത്തിലാണ്.</string>
     <string name="DeviceTransferComplete__continue_registration">തുടരുക</string>
 
     <!-- Create profile screen -->
@@ -470,7 +470,7 @@
     <!-- Radio option label for "Everyone can find me by number". -->
     <string name="PhoneNumberPrivacy_everyone">എല്ലാവരും</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">ആരുംതന്നെയില്ല</string>
+    <string name="PhoneNumberPrivacy_nobody">ആർക്കുമില്ല</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">ഉറപ്പാണോ?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->

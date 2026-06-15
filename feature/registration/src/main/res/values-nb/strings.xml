@@ -400,55 +400,55 @@
     <string name="LinkAccountScreen__create_account">Opprett en konto</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Overfør kontoen din</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Overfør kontoen din ved å åpne Signal på den gamle Android-enheten og velge «Overfør konto».</string>
     <string name="DeviceTransferInstructions__continue">Fortsett</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">Forbereder tilkobling til gammel Android enhet…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">Numrene stemmer ikke overens</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_location_services">Skru på lokasjonstjenester</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">Skru på Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">Forbereder tilkobling til gammel Android-enhet …</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Dette kan ta litt tid. Straks ferdig.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Venter på tilkobling til den gamle enheten …</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Sjekk om tallene stemmer overens på begge enhetene</string>
+    <string name="DeviceTransferSetup__numbers_match">Ja, tallene stemmer overens</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">Tallene stemmer ikke overens</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Venter på bekreftelse fra den gamle enheten …</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal trenger tilgang til posisjonen din for å oppdage og koble seg til den gamle enheten din.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Gi tillatelse</string>
+    <string name="DeviceTransferSetup__location_services_required">Posisjonstjenestene må være aktivert for at Signal skal kunne oppdage og koble seg til den gamle enheten din.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">Slå på posisjonstjenester</string>
+    <string name="DeviceTransferSetup__wifi_required">Wi-Fi må være slått på for at Signal skal kunne oppdage og koble seg til den gamle enheten din.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Slå på Wi-Fi</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Beklager, men enheten din støtter ikke Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Gjenopprett en sikkerhetskopi i stedet</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">En uventet feil oppsto da du forsøkte å koble deg til den gamle enheten din.</string>
     <string name="DeviceTransferSetup__retry">Prøv på nytt</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
-    <string name="DeviceTransferSetup__try_again">Prøv igjen</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">Numrene stemmer ikke overens</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">Stopp overføring</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Fant ikke den gamle enheten din</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Sørg for at posisjonstillatelse er gitt.\n• Sørg for at du er koblet til Wi-Fi og ikke har lagret noen Wi-Fi Direct-grupper.\n• Prøv å slå Wi-Fi av og på igjen på begge enhetene.\n• Sørg for at begge enhetene er i overføringsmodus.</string>
+    <string name="DeviceTransferSetup__try_again">Prøv på nytt</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">Tallene stemmer ikke overens</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Hvis tallene på enhetene ikke stemmer overens, kan det hende at du koblet til feil enhet.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Stopp overføringen</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Data overføres</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d meldinger så langt</string>
-    <string name="DeviceTransferProgress__unable_to_transfer">Ikke i stand til å overføre</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Kan ikke overføre</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Kan ikke overføre fra en nyere versjon av Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Enkelte data kunne ikke overføres grunnet en databasebegrensning.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Overføringen mislyktes. Prøv på nytt.</string>
     <string name="DeviceTransferProgress__try_again">Prøv på nytt</string>
     <string name="DeviceTransferProgress__cancel">Avbryt</string>
-    <string name="DeviceTransferProgress__stop_transfer">Stopp overføring?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">All dataoverføring vil gå tapt.</string>
+    <string name="DeviceTransferProgress__stop_transfer">Vil du stoppe overføringen?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">All fremdrift i overføringen vil gå tapt.</string>
 
     <!-- Device transfer: Complete screen -->
-    <string name="DeviceTransferComplete__transfer_complete">Overføring fullført</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__transfer_complete">Overføringen er fullført</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Kontoen din er nå på denne enheten.</string>
     <string name="DeviceTransferComplete__continue_registration">Fortsett</string>
 
     <!-- Create profile screen -->
     <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">Sett opp din profil</string>
+    <string name="CreateProfileScreen__set_up_your_profile">Konfigurer profilen din</string>
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
     <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Profilen din og endringene du gjør, kan ses av personene du sender meldinger til, kontaktene dine og gruppene dine.</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
@@ -458,11 +458,11 @@
     <!-- Action button text to advance from create-profile screen. -->
     <string name="CreateProfileScreen__next">Neste</string>
     <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">Sett avatar</string>
+    <string name="CreateProfileScreen__set_avatar_description">Velg avatar</string>
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Hvem kan søke meg opp med telefonnummeret mitt?</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Hvem kan finne meg ved å søke opp telefonnummeret mitt?</string>
     <!-- Description shown on the picker when "Everyone" is selected. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Alle som søker opp telefonnummeret ditt, kan se at du bruker Signal og kan starte samtaler med deg.</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
@@ -472,7 +472,7 @@
     <!-- Radio option label for "Nobody can find me by number". -->
     <string name="PhoneNumberPrivacy_nobody">Ingen</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Vil du gå videre?</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Er du sikker?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Hvis du velger «Ingen» under «Hvem kan finne meg ved å søke opp telefonnummeret mitt?», blir det vanskeligere for andre å finne deg på Signal.</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->

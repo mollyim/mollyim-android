@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">கணக்கை உருவாக்கவும்</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">உங்கள் கணக்கை மாற்றுங்கள்</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">உங்கள் கணக்கை மாற்ற, பழைய Android சாதனத்தில் சிக்னல் செயலியைத் திறந்து, கணக்கை இடமாற்றுக என்பதைத் தேர்ந்தெடுக்கவும்.</string>
     <string name="DeviceTransferInstructions__continue">தொடர்</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">பழைய Android சாதனத்துடன் இணைக்கத் தயாராகிறது…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">இதற்குச் சிறிது நேரம் ஆகலாம். விரைவில் தயாராகிவிடும்.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">இணைக்க, உங்கள் பழைய சாதனத்திற்காகக் காத்திருக்கிறது…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">இரு சாதனங்களிலும் எண்கள் பொருந்துகின்றனவா என்பதைச் சரிபார்க்கவும்</string>
+    <string name="DeviceTransferSetup__numbers_match">ஆம், எண்கள் பொருந்துகின்றன</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">எண்கள் பொருந்தவில்லை</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">சரிபார்க்க, உங்கள் பழைய சாதனத்திற்காகக் காத்திருக்கிறது…</string>
+    <string name="DeviceTransferSetup__location_permission_required">உங்களின் பழைய சாதனத்தைக் கண்டறிந்து அதனுடன் இணைக்க, சிக்னலுக்கு இருப்பிட அனுமதி தேவை.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">அனுமதியை வழங்குக</string>
+    <string name="DeviceTransferSetup__location_services_required">உங்களின் பழைய சாதனத்தைக் கண்டறிந்து அதனுடன் இணைக்க, சிக்னலுக்கு இருப்பிடச் சேவைகள் இயக்கப்பட்டிருக்க வேண்டும்.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">இயக்கவும் இருப்பிட சேவை</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">உங்களின் பழைய சாதனத்தைக் கண்டறிந்து அதனுடன் இணைக்க, சிக்னல் செயலிக்கு Wi-Fi ஆன் செய்யப்பட்டிருக்க வேண்டும்.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">இயக்கவும் வைஃபை</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">மன்னிக்கவும், உங்கள் சாதனம் Wi-Fi Direct-ஐ ஆதரிக்கவில்லை எனத் தெரிகிறது.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">அதற்குப் பதிலாக காப்புப்பிரதியை மீட்டமைக்கவும்</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">உங்களின் பழைய சாதனத்துடன் இணைக்க முயலும்போது எதிர்பாராத பிழை ஏற்பட்டது.</string>
     <string name="DeviceTransferSetup__retry">மீண்டும் முயற்சி செய்</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">உங்கள் பழைய சாதனத்தைக் கண்டறிய முடியவில்லை</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• இருப்பிட அனுமதிகள் வழங்கப்பட்டுள்ளதா என்பதை உறுதிப்படுத்தவும்.\n• Wi-Fi ஆன் செய்யப்பட்டிருப்பதையும், Wi-Fi Direct குழுக்கள் எதுவும் நினைவில் வைக்கப்படவில்லை என்பதையும் உறுதிப்படுத்தவும்.\n• இரு சாதனங்களிலும் Wi-Fi-ஐ ஆஃப் செய்துவிட்டு, மீண்டும் ஆன் செய்ய முயற்சிக்கவும்.\n• இரண்டு சாதனங்களும் இடமாற்றப் பயன்முறையில் உள்ளனவா என்பதை உறுதிப்படுத்தவும்.</string>
     <string name="DeviceTransferSetup__try_again">மீண்டும் முயற்சிக்கவும்</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">எண்கள் பொருந்தவில்லை</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">உங்கள் சாதனங்களில் உள்ள எண்கள் பொருந்தவில்லை எனில், நீங்கள் தவறான சாதனத்துடன் இணைத்திருக்க வாய்ப்புள்ளது.</string>
     <string name="DeviceTransferSetup__stop_transfer">நிறுத்து பரிமாற்றம்</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">இடமாற்றம் தகவல்கள்</string>
     <string name="DeviceTransferProgress__d_messages_so_far">இதுவரை 1%1$d செய்திகள்</string>
     <string name="DeviceTransferProgress__unable_to_transfer">முடியவில்லை பரிமாற்றம்</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">சிக்னலின் புதிய பதிப்பிலிருந்து இடமாற்ற முடியாது.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">தரவுத்தளக் கட்டுப்பாடு காரணமாகச் சில தரவுகளை இடமாற்ற முடியவில்லை.</string>
+    <string name="DeviceTransferProgress__transfer_failed">இடமாற்ற முடியவில்லை. மீண்டும் முயலுங்கள்.</string>
     <string name="DeviceTransferProgress__try_again">மீண்டும் முயற்சிக்கவும்</string>
     <string name="DeviceTransferProgress__cancel">ரத்துசெய்</string>
     <string name="DeviceTransferProgress__stop_transfer">நிறுத்து பரிமாற்றம்?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">இடமாற்றம் முழுமை</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">உங்கள் கணக்கு இப்போது இந்தச் சாதனத்தில் உள்ளது.</string>
     <string name="DeviceTransferComplete__continue_registration">தொடர்</string>
 
     <!-- Create profile screen -->

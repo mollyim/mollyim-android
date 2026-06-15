@@ -398,61 +398,61 @@
     <string name="LinkAccountScreen__create_account">បង្កើតគណនី</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">ផ្ទេរគណនីរបស់អ្នក</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">ដើម្បីផ្ទេរគណនីរបស់អ្នក សូមបើក Signal នៅលើឧបករណ៍ Android ចាស់របស់អ្នក ហើយជ្រើសរើសផ្ទេរគណនី។</string>
     <string name="DeviceTransferInstructions__continue">បន្ត</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">កំពុងរៀបចំតភ្ជាប់ទៅឧបករណ៍​ Android ចាស់…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">កំពុងរៀបចំភ្ជាប់ជាមួយឧបករណ៍ Android ចាស់…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">វាអាចចំណាយពេលមួយភ្លែត។ គួរតែរួចរាល់ឆាប់ៗនេះ។</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">កំពុងរង់ចាំឧបករណ៍ចាស់របស់អ្នកភ្ជាប់…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">ផ្ទៀងផ្ទាត់ថាលេខត្រូវគ្នានៅលើឧបករណ៍ទាំងពីរ</string>
+    <string name="DeviceTransferSetup__numbers_match">មែនហើយ លេខត្រូវគ្នា</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">លេខមិនត្រូវគ្នា</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">កំពុងរង់ចាំឧបករណ៍ចាស់របស់អ្នកដើម្បីផ្ទៀងផ្ទាត់…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal ត្រូវការការអនុញ្ញាតទីតាំង ដើម្បីស្វែងរក និងភ្ជាប់ជាមួយឧបករណ៍ចាស់របស់អ្នក។</string>
+    <string name="DeviceTransferSetup__grant_location_permission">ផ្តល់ការអនុញ្ញាត</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal ត្រូវការឱ្យបើកសេវាកម្មទីតាំង ដើម្បីស្វែងរក និងភ្ជាប់ជាមួយឧបករណ៍ចាស់របស់អ្នក។</string>
     <string name="DeviceTransferSetup__turn_on_location_services">បើកសេវាកម្មទីតាំង</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal ត្រូវការឱ្យបើក Wi-Fi ដើម្បីស្វែងរក និងភ្ជាប់ជាមួយឧបករណ៍ចាស់របស់អ្នក។</string>
     <string name="DeviceTransferSetup__turn_on_wifi">បើក Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">សូមអភ័យទោស ហាក់ដូចជាឧបករណ៍របស់អ្នកប្រើមិនបានជាមួយ Wi-Fi Direct ទេ។</string>
+    <string name="DeviceTransferSetup__restore_a_backup">ស្តារការបម្រុងទុកជំនួសវិញ</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">បញ្ហាមិនបានរំពឹងទុកមួយកើតឡើង ពេលកំពុងព្យាយាមភ្ជាប់ជាមួយឧបករណ៍ចាស់របស់អ្នក។</string>
     <string name="DeviceTransferSetup__retry">ព្យាយាមម្តងទៀត</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">មិនអាចរកឃើញឧបករណ៍ចាស់របស់អ្នកបានទេ</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• ត្រូវប្រាកដថាមានការអនុញ្ញាតទីតាំង។\n• ត្រូវប្រាកដថាបានបើក Wi-Fi ហើយមិនមានក្រុម Wi-Fi Direct ណាមួយត្រូវបានចងចាំទេ។\n• សាកល្បងបិទ និងបើក Wi-Fi នៅលើឧបករណ៍ទាំងពីរ។\n• ត្រូវប្រាកដថាឧបករណ៍ទាំងពីរស្ថិតនៅក្នុងមុខងារផ្ទេរ។</string>
     <string name="DeviceTransferSetup__try_again">ព្យាយាមម្តងទៀត</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">លេខមិនត្រូវគ្នា</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">ប្រសិនបើលេខនៅលើឧបករណ៍របស់អ្នកមិនត្រូវគ្នាទេ វាអាចមកពីអ្នកបានភ្ជាប់ខុសឧបករណ៍។</string>
     <string name="DeviceTransferSetup__stop_transfer">ឈប់ផ្ទេរ</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">កំពុងផ្ទេរទិន្នន័យ</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">ឥឡូវនេះសារ%1$d</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">មកដល់ពេលនេះ បាន %1$d សារ</string>
     <string name="DeviceTransferProgress__unable_to_transfer">មិនអាចផ្ទេរបាន</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">មិនអាចផ្ទេរចេញពី Signal កំណែថ្មីជាងនេះបានទេ។</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">ទិន្នន័យមួយចំនួនមិនអាចផ្ទេរបានទេដោយសារតែការរឹតបន្តឹងមូលដ្ឋានទិន្នន័យ។</string>
+    <string name="DeviceTransferProgress__transfer_failed">ការផ្ទេរមិនបានជោគជ័យទេ។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="DeviceTransferProgress__try_again">ព្យាយាមម្តងទៀត</string>
     <string name="DeviceTransferProgress__cancel">បោះបង់</string>
     <string name="DeviceTransferProgress__stop_transfer">ឈប់ផ្ទេរ?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">ដំណើរការផ្ទេរទាំងអស់នឹងបាត់បង់</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">វឌ្ឍនភាពនៃការផ្ទេរទាំងអស់នឹងត្រូវបាត់បង់។</string>
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">ការផ្ទេរបានបញ្ចប់</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">គណនីរបស់អ្នកឥឡូវនេះស្ថិតនៅលើឧបករណ៍នេះ។</string>
     <string name="DeviceTransferComplete__continue_registration">បន្ត</string>
 
     <!-- Create profile screen -->
     <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">បង្កើតប្រវត្តិរូបរបស់អ្នក</string>
+    <string name="CreateProfileScreen__set_up_your_profile">រៀបចំប្រូហ្វាល់របស់អ្នក</string>
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">ប្រូហ្វាល់ និងការផ្លាស់ប្តូររបស់អ្នកនឹងមើលឃើញដោយមនុស្សដែលអ្នកផ្ញើសារ បញ្ជីទំនាក់ទំនង និងក្រុម។</string>
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">ប្រូហ្វាល់ និងការផ្លាស់ប្តូរចំពោះប្រូហ្វាល់របស់អ្នកនឹងមើលឃើញដោយមនុស្សដែលអ្នកផ្ញើសារ ទំនាក់ទំនង និងក្រុមនានា។</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">ឈ្មោះ (ចាំបាច់)</string>
+    <string name="CreateProfileScreen__first_name_required">នាមខ្លួន (ចាំបាច់)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">ត្រកូល (ជម្រើស)</string>
+    <string name="CreateProfileScreen__last_name_optional">ត្រកូល (មិនតម្រូវ)</string>
     <!-- Action button text to advance from create-profile screen. -->
     <string name="CreateProfileScreen__next">បន្ទាប់</string>
     <!-- Content description for the avatar selection control. -->
@@ -460,7 +460,7 @@
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">តើនរណាខ្លះអាចរកខ្ញុំតាមលេខទូរសព្ទបាន?</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">តើនរណាខ្លះអាចរកខ្ញុំបានតាមលេខទូរសព្ទ?</string>
     <!-- Description shown on the picker when "Everyone" is selected. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">នរណាក៏ដោយដែលមានលេខទូរសព្ទរបស់អ្នកនឹងមើលឃើញអ្នកនៅលើ Signal ហើយអាចចាប់ផ្តើមជជែកជាមួយអ្នកបាន។</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
@@ -468,7 +468,7 @@
     <!-- Radio option label for "Everyone can find me by number". -->
     <string name="PhoneNumberPrivacy_everyone">អ្នករាល់គ្នា</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">គ្មាននរណា</string>
+    <string name="PhoneNumberPrivacy_nobody">គ្មាននរណាម្នាក់</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">តើអ្នកប្រាកដឬទេ?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->

@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">შექმენი ანგარიში</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">გადაიტანე შენი ანგარიში</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">შენი ანგარიშის გადმოსატანად, შედი Signal-ზე შენს ძველ Android მოწყობილობაზე და აირჩიე ანგარიშის გადატანა.</string>
     <string name="DeviceTransferInstructions__continue">გაგრძელება</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">ვემზადებით ძველ Android მოწყობილობასთან დასაკავშირებლად…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">შეიძლება ამას რამდენიმე წუთი დასჭირდეს. მალე მზად უნდა იყოს.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">ველოდებით შენს ძველ მოწყობილობას, რომ დავაკავშიროთ…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">დაადასტურე, რომ ნომრები ორივე მოწყობილობაზე ემთხვევა</string>
+    <string name="DeviceTransferSetup__numbers_match">დიახ, ნომრები ემთხვევა</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">ნომრები არ ემთხვევა</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">ველოდებით შენს ძველ მოწყობილობას, რომ დავადასტუროთ…</string>
+    <string name="DeviceTransferSetup__location_permission_required">შენი ძველი მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად, Signal-ს მდებარეობაზე წვდომის ნებართვა სჭირდება.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">ნებართვის მიცემა</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal-ს შენი ძველი მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად მდებარეობის სერვისების ჩართვა სჭირდება.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">ადგილმდებარეობის სერვისების ჩართა</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">შენი ძველი მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად, Signal-ს WI-Fi-ის ჩართვა სჭირდება.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi-ს ჩართვა</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">ვწუხვართ, როგორც ჩანს შენს მოწყობილობას Wi-Fi Direct-ის მხარდაჭერა არ აქვს.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">აღადგინე სათადარიგო ასლები</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">შენს ძველ Android მოწყობილობასთან დაკავშირების მცდელობისას მოხდა მოულოდნელი შეცდომა.</string>
     <string name="DeviceTransferSetup__retry">თავიდან ცდა</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">შენი ძველი მოწყობილობის მოძებნა ვერ მოხერხდა</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• დარწმუნდი, რომ მდებარეობაზე წვდომა ნებადართულია.\n• დარწმუნდი, რომ Wi-Fi ჩართულია და Wi-Fi Direct-ის არც ერთი ჯგუფი დამახსოვრებული არაა.\n• სცადე Wi-Fi-ის გამორთვა და ჩართვა ორივე მოწყობილობაზე.\n• დარწმუნდი, რომ ორივე მოწყობილობა გადატანის რეჟიმშია.</string>
     <string name="DeviceTransferSetup__try_again">სცადეთ ახლიდან</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">ნომრები არ ემთხვევა</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">თუ შენს მოწყობილობებზე ნომრები არ ემთხვევა, შესაძლოა არასწორ მოწყობილობას დაუკავშირდი.</string>
     <string name="DeviceTransferSetup__stop_transfer">გადატანის გაჩერება</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">მონაცემთა გადატანა</string>
     <string name="DeviceTransferProgress__d_messages_so_far">ჯერ-ჯერობით %1$d შეტყობინება</string>
     <string name="DeviceTransferProgress__unable_to_transfer">გადატანა შეუძლებელია</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal-ის უფრო ახალი ვერსიიდან გადატანა შეუძლებელია.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">მონაცემთა ნაწილის გადატანა მონაცემთა ბაზის შეზღუდვის გამო ვერ მოხერხდა.</string>
+    <string name="DeviceTransferProgress__transfer_failed">გადატანა ვერ მოხერხდა. გთხოვთ, თავიდან სცადო.</string>
     <string name="DeviceTransferProgress__try_again">ახლიდან სცადე</string>
     <string name="DeviceTransferProgress__cancel">გაუქმება</string>
     <string name="DeviceTransferProgress__stop_transfer">შევაჩეროთ გადატანა?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">გადატანა დასრულებულია</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">ახლა შენი ანგარიში ამ მოწყობილობაზეა.</string>
     <string name="DeviceTransferComplete__continue_registration">გაგრძელება</string>
 
     <!-- Create profile screen -->

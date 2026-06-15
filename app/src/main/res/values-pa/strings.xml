@@ -4103,8 +4103,8 @@
     <string name="HelpFragment__please_be_as_descriptive_as_possible">ਮਸਲੇ ਬਾਰੇ ਸਾਨੂੰ ਸਮਝਾਉਣ ਲਈ ਮਦਦ ਵਾਸਤੇ ਜਿੰਨਾ ਵੀ ਹੋ ਸਕੇ ਵੇਰਵਾ ਦਿਓ।</string>
     <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
     <plurals name="HelpFragment__must_be_at_least_n_characters">
-        <item quantity="one">Must be at least %1$d character</item>
-        <item quantity="other">Must be at least %1$d characters</item>
+        <item quantity="one">ਘੱਟੋ-ਘੱਟ %1$d ਅੱਖਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ</item>
+        <item quantity="other">ਘੱਟੋ-ਘੱਟ %1$d ਅੱਖਰ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ</item>
     </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>ਕਿਰਪਾ ਕਰਕੇ ਕੋਈ ਵਿਕਲਪ ਚੁਣੋ</item>
@@ -9932,11 +9932,11 @@
     <string name="SafetyTipsBottomSheet__open_account_settings">ਖਾਤੇ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹੋ</string>
 
     <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
-    <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Do not share your recovery key</string>
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">ਆਪਣੀ ਰਿਕਵਰੀ ਕੁੰਜੀ ਨੂੰ ਸਾਂਝਾ ਨਾ ਕਰੋ</string>
     <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
-    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal will never message you</string>
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਤੋਂ ਰਿਕਵਰੀ ਕੁੰਜੀ ਪੁੱਛਣ ਲਈ</string>
     <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
-    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">for your recovery key. Never respond to a chat pretending to be Signal. Store your recovery key somewhere safe and never share it with anyone.</string>
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">ਤੁਹਾਨੂੰ ਸੁਨੇਹਾ ਨਹੀਂ ਭੇਜੇਗਾ। ਕਦੇ ਵੀ Signal ਹੋਣ ਦਾ ਦਿਖਾਵਾ ਕਰਨ ਵਾਲੀਆਂ ਚੈਟਾਂ ਦਾ ਜਵਾਬ ਨਾ ਦਿਓ। ਆਪਣੀ ਰਿਕਵਰੀ ਕੁੰਜੀ ਨੂੰ ਕਿਸੇ ਸੁਰੱਖਿਅਤ ਥਾਂ \'ਤੇ ਸਟੋਰ ਕਰੋ ਅਤੇ ਕਦੇ ਵੀ ਇਸਨੂੰ ਦੂਜਿਆਂ ਨਾਲ ਸਾਂਝਾ ਨਾ ਕਰੋ।</string>
     <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
     <string name="RecoveryKeyWarningSheetContent__got_it">ਸਮਝ ਗਏ</string>
     <!-- Button opening a help article with more information about recovery key safety -->
@@ -9944,22 +9944,22 @@
     <!-- Inline link opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
-    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">ਕੁੰਜੀ ਨੂੰ ਸਾਂਝਾ ਨਾ ਕਰੋ</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
-    <string name="RecoveryKeyWarningSheetContent__share_key">Share key</string>
+    <string name="RecoveryKeyWarningSheetContent__share_key">ਕੁੰਜੀ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
 
     <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Do not share recovery key</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">ਰਿਕਵਰੀ ਕੁੰਜੀ ਨੂੰ ਸਾਂਝਾ ਨਾ ਕਰੋ</string>
     <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Do not share your recovery key with anyone. This will let them take over your account.</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">ਆਪਣੀ ਰਿਕਵਰੀ ਕੁੰਜੀ ਨੂੰ ਕਿਸੇ ਨਾਲ ਵੀ ਸਾਂਝਾ ਨਾ ਕਰੋ। ਅਜਿਹਾ ਕਰਨ ਨਾਲ ਉਹ ਤੁਹਾਡੇ ਖਾਤੇ \'ਤੇ ਕਬਜ਼ਾ ਕਰ ਲੈਣਗੇ।</string>
     <!-- Bolded middle sentence of the final confirmation dialog body -->
-    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal will never message you for your recovery key.</string>
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਤੋਂ ਰਿਕਵਰੀ ਕੁੰਜੀ ਪੁੱਛਣ ਲਈ ਤੁਹਾਨੂੰ ਸੁਨੇਹਾ ਨਹੀਂ ਭੇਜੇਗਾ।</string>
     <!-- Final sentence of the final confirmation dialog body -->
     <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">ਕਦੇ ਵੀ Signal ਹੋਣ ਦਾ ਦਿਖਾਵਾ ਕਰਨ ਵਾਲੀਆਂ ਚੈਟਾਂ ਦਾ ਜਵਾਬ ਨਾ ਦਿਓ।</string>
     <!-- Button confirming the user wants to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__paste_key">Paste key</string>
+    <string name="RecoveryKeyWarningDialog__paste_key">ਕੁੰਜੀ ਪੇਸਟ ਕਰੋ</string>
     <!-- Button declining to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__dont_share">Don\'t share</string>
+    <string name="RecoveryKeyWarningDialog__dont_share">ਸਾਂਝੀ ਨਾ ਕਰੋ</string>
 
     <!-- EOF -->
 </resources>

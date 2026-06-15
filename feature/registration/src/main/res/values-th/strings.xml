@@ -398,50 +398,50 @@
     <string name="LinkAccountScreen__create_account">สร้างบัญชีใหม่</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">ถ่ายโอนบัญชีของคุณ</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">ถ่ายโอนบัญชีของคุณโดยเปิด Signal บนอุปกรณ์ Android เครื่องเก่า แล้วเลือกถ่ายโอนบัญชี</string>
     <string name="DeviceTransferInstructions__continue">ทำต่อ</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">กำลังเตรียมเชื่อมต่อไปยังอุปกรณ์ Android เครื่องเก่า</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">จะพร้อมในไม่ช้า โปรดรอสักครู่</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">กำลังรอการเชื่อมต่อจากอุปกรณ์เครื่องเก่าของคุณ…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">ตรวจยืนยันว่าหมายเลขบนอุปกรณ์ทั้งสองเครื่องตรงกัน</string>
+    <string name="DeviceTransferSetup__numbers_match">หมายเลขตรงกัน</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">ตัวเลขไม่ตรงกัน</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">กำลังรอการตรวจยืนยันจากอุปกรณ์เครื่องเก่าของคุณ…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal จำเป็นต้องได้รับสิทธิ์การเข้าถึงตำแหน่งเพื่อค้นหาและเชื่อมต่อกับอุปกรณ์เครื่องเก่าของคุณ</string>
+    <string name="DeviceTransferSetup__grant_location_permission">อนุญาตสิทธิ์</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal จำเป็นต้องใช้บริการการเข้าถึงตำแหน่งเพื่อค้นหาและเชื่อมต่อกับอุปกรณ์เครื่องเก่าของคุณ</string>
     <string name="DeviceTransferSetup__turn_on_location_services">เปิดการใช้งานการเข้าถึงตำแหน่ง</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal จำเป็นต้องใช้ Wi-Fi เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์เครื่องเก่าของคุณ</string>
     <string name="DeviceTransferSetup__turn_on_wifi">เปิดใช้งาน Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct</string>
+    <string name="DeviceTransferSetup__restore_a_backup">กู้คืนจากข้อมูลสำรองแทน</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">เกิดข้อผิดพลาดที่ไม่คาดคิดขึ้นขณะพยายามเชื่อมต่อกับอุปกรณ์เครื่องเก่าของคุณ</string>
     <string name="DeviceTransferSetup__retry">ลองใหม่</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">ไม่สามารถค้นหาอุปกรณ์เครื่องเก่าของคุณ</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• ตรวจสอบว่าคุณอนุญาตคำขอสิทธิ์การเข้าถึงตำแหน่งแล้ว\n• ตรวจสอบว่า Wi-Fi เปิดอยู่และอุปกรณ์ไม่ได้บันทึกกลุ่ม Wi-Fi Direct ใดเอาไว้\n• ลองปิด Wi-Fi แล้วเปิดใหม่บนอุปกรณ์ทั้งสองเครื่อง\n• ตรวจสอบว่าอุปกรณ์ทั้งสองเครื่องอยู่ในโหมดถ่ายโอน</string>
     <string name="DeviceTransferSetup__try_again">ลองอีกครั้ง</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">ตัวเลขไม่ตรงกัน</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">หากหมายเลขบนอุปกรณ์ของคุณไม่ตรงกัน อาจเป็นไปได้ว่าคุณเชื่อมต่อกับอุปกรณ์ผิดเครื่อง</string>
     <string name="DeviceTransferSetup__stop_transfer">หยุดการถ่ายโอน</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">กำลังถ่ายโอนข้อมูล</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d ข้อความจนถึงตอนนี้</string>
     <string name="DeviceTransferProgress__unable_to_transfer">ไม่สามารถถ่ายโอนได้</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">ไม่สามารถถ่ายโอนจาก Signal รุ่นที่ใหม่กว่า</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">ไม่สามารถ่ายโอนข้อมูลบางส่วนเนื่องจากข้อจำกัดด้านฐานข้อมูล</string>
+    <string name="DeviceTransferProgress__transfer_failed">ถ่ายโอนไม่สำเร็จ โปรดลองอีกครั้ง</string>
     <string name="DeviceTransferProgress__try_again">ลองอีกครั้ง</string>
     <string name="DeviceTransferProgress__cancel">ยกเลิก</string>
-    <string name="DeviceTransferProgress__stop_transfer">หยุดการถ่ายโอนหรือไม่?</string>
+    <string name="DeviceTransferProgress__stop_transfer">หยุดการถ่ายโอนหรือไม่</string>
     <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">คุณจะสูญเสียความคืบหน้าของการถ่ายโอนทั้งหมด</string>
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">การถ่ายโอนสำเร็จ</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">ถ่ายโอนบัญชีของคุณมายังอุปกรณ์เครื่องนี้แล้ว</string>
     <string name="DeviceTransferComplete__continue_registration">ทำต่อ</string>
 
     <!-- Create profile screen -->

@@ -404,42 +404,42 @@
     <string name="LinkAccountScreen__create_account">Створіть акаунт</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Перенесення акаунту</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Щоб перенести акаунт, відкрийте Signal на старому пристрої Android і виберіть «Перенесення акаунту».</string>
     <string name="DeviceTransferInstructions__continue">Продовжити</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Підготовка до з\'єднання з вашим старим пристроєм з ОС Android…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Ще трохи. Скоро все буде готово.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Очікуйте з\'єднання зі старим пристроєм…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Перевірте, чи збігаються коди на пристроях</string>
+    <string name="DeviceTransferSetup__numbers_match">Так, коди збігаються</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Коди не збігаються</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Очікуємо підтвердження зі старого пристрою…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal потребує доступу до місцеположення, щоб виявити ваш старий пристрій і з\'єднатися з ним.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Надати дозвіл</string>
+    <string name="DeviceTransferSetup__location_services_required">Необхідно ввімкнути геодані, щоб Signal зміг виявити ваш старий пристрій і з\'єднатися з ним.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Увімкнути геодані</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Потрібно увімкнути Wi-Fi, щоб Signal міг виявити ваш старий пристрій і з\'єднатися з ним.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Увімкнути Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Схоже, ваш пристрій не підтримує Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Відновити з резервної копії</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Під час з\'єднання з вашим старим пристроєм сталася несподівана помилка.</string>
     <string name="DeviceTransferSetup__retry">Перенести ще раз</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Не вдалося знайти старий пристрій</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Переконайтеся, що надано дозволи для визначення місцеположення.\n• Переконайтеся, що Wi-Fi ввімкнено і немає збережених груп Wi-Fi Direct.\n• Спробуйте вимкнути та ввімкнути Wi-Fi на обох пристроях.\n• Переконайтеся, що на обох пристроях здійснюється перенесення.</string>
     <string name="DeviceTransferSetup__try_again">Повторити спробу</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Коди не збігаються</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Якщо коди на пристроях не збігаються, можливо, ви з\'єдналися не з тим пристроєм.</string>
     <string name="DeviceTransferSetup__stop_transfer">Зупинити перенесення</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Триває передача даних</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">Залишилось %1$d повідомлень</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">Кількість повідомлень: уже %1$d</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Неможливо перенести дані</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Неможливо перенести дані з новішої версії Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Деякі дані не вдалося перенести через обмеження бази даних.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Не вдалося перенести акаунт. Будь ласка, спробуйте ще раз.</string>
     <string name="DeviceTransferProgress__try_again">Повторити спробу</string>
     <string name="DeviceTransferProgress__cancel">Закрити</string>
     <string name="DeviceTransferProgress__stop_transfer">Зупинити перенесення?</string>
@@ -447,7 +447,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Перенесення завершено</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Тепер ваш акаунт на цьому пристрої.</string>
     <string name="DeviceTransferComplete__continue_registration">Продовжити</string>
 
     <!-- Create profile screen -->

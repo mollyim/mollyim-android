@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Skep rekening</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Dra jou rekening oor</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Om jou rekening oor te dra, maak Signal op jou ou Android-toestel oop en selekteer Dra Rekening Oor.</string>
     <string name="DeviceTransferInstructions__continue">Gaan voort</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Besig om voor te berei om aan ou Android-toestel te verbind…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Dit kan \'n paar oomblikke neem. Dit behoort binnekort gereed te wees.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Wag vir jou ou toestel om te verbind…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Verifieer dat die nommers op albei toestelle ooreenstem</string>
+    <string name="DeviceTransferSetup__numbers_match">Ja, die nommers stem ooreen</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Die nommers stem nie ooreen nie</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Wag vir jou ou toestel om te verifieer…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal benodig liggingstoestemming om jou ou toestel te ontdek en daaraan te verbind.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Verleen toestemming</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal benodig geaktiveerde liggingsdienste om jou ou toestel te ontdek en daaraan te verbind.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Skakel liggingsdienste aan</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal benodig die aanskakeling van Wi-Fi om jou ou toestel te ontdek en daaraan te verbind.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Skakel Wi-Fi aan</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Jammer, dit lyk nie of jou toestel Wi-Fi Direct ondersteun nie.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Herwin in plaas daarvan \'n rugsteunkopie</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">\'n Onverwagse fout het voorgekom terwyl daar gepoog is om met jou ou toestel te verbind.</string>
     <string name="DeviceTransferSetup__retry">Probeer weer</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Kan nie jou ou toestel ontdek nie</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Maak seker dat liggingstoestemmings verleen is.\n• Maak seker dat Wi-Fi aangeskakel is en dat geen Wi-Fi Direct-groepe onthou word nie.\nProbeer om Wi-Fi op albei toestelle af en aan te skakel.\nMaak seker beide toestelle is in oordragmodus.</string>
     <string name="DeviceTransferSetup__try_again">Probeer weer</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Die nommers stem nie ooreen nie</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">As die nommers op jou toestelle nie ooreenstem nie, is dit moontlik dat jy met die verkeerde toestel verbind het.</string>
     <string name="DeviceTransferSetup__stop_transfer">Stop oordrag</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Besig om data oor te dra</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d boodskappe tot dusver</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Kan nie oordra nie</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Kan nie van \'n nuwer weergawe van Signal af oordra nie.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Sommige data kon nie oorgedra word nie weens \'n databasisbeperking.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Die oordrag het misluk. Probeer asb. weer.</string>
     <string name="DeviceTransferProgress__try_again">Probeer weer</string>
     <string name="DeviceTransferProgress__cancel">Kanselleer</string>
     <string name="DeviceTransferProgress__stop_transfer">Stop oordrag?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Oordrag voltooi</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Jou rekening is nou op hierdie toestel.</string>
     <string name="DeviceTransferComplete__continue_registration">Gaan voort</string>
 
     <!-- Create profile screen -->

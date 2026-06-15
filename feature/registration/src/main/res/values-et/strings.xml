@@ -400,50 +400,50 @@
     <string name="LinkAccountScreen__create_account">Loo konto</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Konto edastamine</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Oma konto edastamiseks ava oma vanas Android-seadmes Signal ja vali Konto edastamine.</string>
     <string name="DeviceTransferInstructions__continue">Jätka</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">Valmistun ühenduma vanasse Android-seadmesse…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">Valmistun ühenduma vana Android-seadmega…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Selleks võib kuluda mõni hetk. Varsti saab valmis.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Ootan vana seadme ühendumist …</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Kontrolli, et mõlemas seadmes kuvatavad numbrid ühtiksid</string>
+    <string name="DeviceTransferSetup__numbers_match">Jah, numbrid ühtivad</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Numbrid ei ole samad</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Ootan vana seadme kinnitamist …</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal vajab sinu vana seadme leidmiseks ja sellega ühendamiseks juurdepääsu asukohainfole.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Anna luba</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal vajab sinu vana seadme leidmiseks ja sellega ühendumiseks ligipääsu asukohainfole.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Lülita sisse asukohateenused</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signalil on vaja su vana seadme leidmiseks ja sellega ühenduse loomiseks Wi-Fi ühendust.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Lülita Wi-Fi sisse</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Kahjuks tundub, et su seade ei toeta Wi-Fi Directi.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Taasta selle asemel varukoopia</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Sinu vana seadmega ühenduse loomisel tekkis ootamatu tõrge.</string>
     <string name="DeviceTransferSetup__retry">Proovi uuesti</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Sinu vana seadet ei õnnestunud leida</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Veendu, et asukohainfo jagamine on lubatud.\n• Veendu, et Wi-Fi on sisse lülitatud ja ühtegi Wi-Fi Directi rühma ei ole salvestatud.\n• Proovi mõlemas seadmes Wi-Fi välja ja uuesti sisse lülitada.\n• Veendu, et mõlemas seadmes oleks valitud edastuse režiim.</string>
     <string name="DeviceTransferSetup__try_again">Proovi uuesti</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Numbrid ei ole samad</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">Peata ülekanne</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Kui su seadmetel kuvatavad numbrid ei ühti, on võimalik, et ühendasid vale seadme.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Peata edastamine</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Andmete ülekandmine</string>
     <string name="DeviceTransferProgress__d_messages_so_far">Siiani leidsime %1$d sõnumit</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Ülekandmine ei ole võimalik</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Ülekandmine uuematest Signali versioonidest ei ole võimalik.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Andmebaasi piirangute tõttu ei õnnestunud osasid andmeid edastada.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Edastus ebaõnnestus. Palun proovi uuesti.</string>
     <string name="DeviceTransferProgress__try_again">Proovi uuesti</string>
     <string name="DeviceTransferProgress__cancel">Loobu</string>
     <string name="DeviceTransferProgress__stop_transfer">Kas peatada ülekanne?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Kogu ülekandmise progress läheb kaotsi.</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Seni edastatu läheb kaotsi.</string>
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Edastamine lõpetatud</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Sinu konto on nüüd selles seadmes.</string>
     <string name="DeviceTransferComplete__continue_registration">Jätka</string>
 
     <!-- Create profile screen -->

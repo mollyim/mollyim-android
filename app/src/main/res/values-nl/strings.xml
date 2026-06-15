@@ -4103,8 +4103,8 @@
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Probeer zo gedetailleerd mogelijk te beschrijven om ons te helpen het probleem te begrijpen.</string>
     <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
     <plurals name="HelpFragment__must_be_at_least_n_characters">
-        <item quantity="one">Must be at least %1$d character</item>
-        <item quantity="other">Must be at least %1$d characters</item>
+        <item quantity="one">Pincode moet uit ten minste %1$d karakter bestaan</item>
+        <item quantity="other">Pincode moet uit ten minste %1$d karakters bestaan</item>
     </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>Selecteer een optie</item>
@@ -5211,8 +5211,8 @@
     <string name="DeviceTransferSetup__location_permission">Toegang tot locatie</string>
     <string name="DeviceTransferSetup__location_services">Locatiebepaling</string>
     <string name="DeviceTransferSetup__wifi">Wifi</string>
-    <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">Verwijder in het WiFi Direct-scherm alle onthouden groepen en verbreek de verbinding met alle verbonden of uitgenodigde apparaten.</string>
-    <string name="DeviceTransferSetup__wifi_direct_screen">WiFi Direct-scherm</string>
+    <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">Verwijder in het Wi-Fi Direct-scherm alle onthouden groepen en verbreek de verbinding met alle verbonden of uitgenodigde apparaten.</string>
+    <string name="DeviceTransferSetup__wifi_direct_screen">Wi-Fi Direct-scherm</string>
     <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Schakel de wifi uit en weer in op beide apparaten.</string>
     <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Zorg ervoor dat Signal op beide apparaten in de modus ‘Account overzetten’ staat.</string>
     <string name="DeviceTransferSetup__go_to_support_page">Ga naar de ondersteuningspagina</string>
@@ -9934,9 +9934,9 @@
     <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Deel je herstelsleutel met niemand</string>
     <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
-    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal will never message you</string>
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal zal je nooit een bericht sturen</string>
     <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
-    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">for your recovery key. Never respond to a chat pretending to be Signal. Store your recovery key somewhere safe and never share it with anyone.</string>
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">om je herstelsleutel te vragen. Reageer niet op chats die afkomstig zijn van Signal. Bewaar je herstelsleutel op een veilige manier en deel deze niet met anderen.</string>
     <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
     <string name="RecoveryKeyWarningSheetContent__got_it">Begrepen</string>
     <!-- Button opening a help article with more information about recovery key safety -->
@@ -9944,22 +9944,22 @@
     <!-- Inline link opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
-    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Sleutel niet delen</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
-    <string name="RecoveryKeyWarningSheetContent__share_key">Share key</string>
+    <string name="RecoveryKeyWarningSheetContent__share_key">Sleutel delen</string>
 
     <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Do not share recovery key</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Deel je herstelsleutel niet</string>
     <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Do not share your recovery key with anyone. This will let them take over your account.</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Deel je herstelsleutel met niemand. Hiermee kan je account worden overgenomen.</string>
     <!-- Bolded middle sentence of the final confirmation dialog body -->
-    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal will never message you for your recovery key.</string>
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal zal je nooit een bericht sturen om je herstelsleutel vragen.</string>
     <!-- Final sentence of the final confirmation dialog body -->
     <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Reageer niet op chats die afkomstig zijn van Signal.</string>
     <!-- Button confirming the user wants to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__paste_key">Paste key</string>
+    <string name="RecoveryKeyWarningDialog__paste_key">Sleutel plakken</string>
     <!-- Button declining to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__dont_share">Don\'t share</string>
+    <string name="RecoveryKeyWarningDialog__dont_share">Niet delen</string>
 
     <!-- EOF -->
 </resources>

@@ -4103,8 +4103,8 @@
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Sii il più descrittivo possibile per aiutarci a capire il problema.</string>
     <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
     <plurals name="HelpFragment__must_be_at_least_n_characters">
-        <item quantity="one">Must be at least %1$d character</item>
-        <item quantity="other">Must be at least %1$d characters</item>
+        <item quantity="one">Deve essere lunga almeno %1$d carattere</item>
+        <item quantity="other">Deve essere lunga almeno %1$d caratteri</item>
     </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>Scegli un\'opzione</item>
@@ -9934,9 +9934,9 @@
     <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Non condividere la tua chiave di ripristino</string>
     <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
-    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal will never message you</string>
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal non ti chiederà mai</string>
     <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
-    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">for your recovery key. Never respond to a chat pretending to be Signal. Store your recovery key somewhere safe and never share it with anyone.</string>
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">la tua chiave di ripristino. Non rispondere mai a una chat che cerca di impersonare il team di Signal. Salva la tua chiave di ripristino in un posto sicuro e non condividerla mai con altre persone.</string>
     <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
     <string name="RecoveryKeyWarningSheetContent__got_it">Capito</string>
     <!-- Button opening a help article with more information about recovery key safety -->
@@ -9944,22 +9944,22 @@
     <!-- Inline link opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
-    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Non condividere la chiave</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
-    <string name="RecoveryKeyWarningSheetContent__share_key">Share key</string>
+    <string name="RecoveryKeyWarningSheetContent__share_key">Condividi la chiave</string>
 
     <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Do not share recovery key</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Non condividere la chiave di ripristino</string>
     <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Do not share your recovery key with anyone. This will let them take over your account.</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Non condividere la tua chiave di ripristino con altre persone. Se ne entrano in possesso, potranno prendere controllo del tuo account.</string>
     <!-- Bolded middle sentence of the final confirmation dialog body -->
-    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal will never message you for your recovery key.</string>
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal non ti invierà mai un messaggio per chiederti la chiave di ripristino.</string>
     <!-- Final sentence of the final confirmation dialog body -->
     <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Non rispondere mai a una chat che cerca di impersonare il team di Signal.</string>
     <!-- Button confirming the user wants to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__paste_key">Paste key</string>
+    <string name="RecoveryKeyWarningDialog__paste_key">Copia la chiave</string>
     <!-- Button declining to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__dont_share">Don\'t share</string>
+    <string name="RecoveryKeyWarningDialog__dont_share">Non condividere</string>
 
     <!-- EOF -->
 </resources>

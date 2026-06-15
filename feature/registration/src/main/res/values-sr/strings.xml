@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Креирајте налог</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Пренесите налог</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">За пренос налога отворите Signal на старом Android уређају и изаберите опцију „Пренесите налог“.</string>
     <string name="DeviceTransferInstructions__continue">Настави</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Припрема за повезивање са старим Android уређајем…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Потребно је мало времена. Требало би да буде спремно ускоро.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Чекање да се стари уређај повеже…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Потврдите да се бројеви на оба уређаја поклапају</string>
+    <string name="DeviceTransferSetup__numbers_match">Да, бројеви се поклапају</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Бројеви се не поклапају</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Чекање верификације на старом уређају…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal-у је потребна дозвола за приступ локацији да би могао да открије ваш стари уређај и повеже се са њим.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Одобрите</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal-у је потребно да локација буде укључена да би могао да открије ваш стари уређај и повеже се са њим.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Укључите локацију</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal-у је потребно да Wi-Fi буде укључен да би могао да открије ваш стари уређај и повеже се са њим.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Укључите Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Нажалост изгледа да ваш уређај не подржава Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Пробајте да вратите резервну копију</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Дошло је до неочекиване грешке приликом повезивања са вашим старим уређајем.</string>
     <string name="DeviceTransferSetup__retry">Пробај поново</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Ваш стари уређај није пронађен</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Проверите да ли сте дозволили приступ локацији.\n• Проверите да ли је Wi-Fi укључен и да нема запамћених група на Wi-Fi Direct-у.\n• Пробајте да искључите и укључите Wi-Fi на оба уређаја.\n• Проверите да ли су оба уређаја у режиму за пренос.</string>
     <string name="DeviceTransferSetup__try_again">Пробајте поново</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Бројеви се не поклапају</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Ако се бројеви на вашим уређајима не поклапају, могуће је да сте се повезали са погрешним уређајем.</string>
     <string name="DeviceTransferSetup__stop_transfer">Заустави пренос</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Преношење података</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d порука до сад</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Пренос није могућ</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Није могуће пренети податке из новије верзије Signal-а.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Није могуће пренети неке податке због ограничења у бази података.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Пренос није успео. Пробајте поново.</string>
     <string name="DeviceTransferProgress__try_again">Пробајте поново</string>
     <string name="DeviceTransferProgress__cancel">Откажи</string>
     <string name="DeviceTransferProgress__stop_transfer">Заустави пренос?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Пренос је завршен</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Налог вам је сада на овом уређају.</string>
     <string name="DeviceTransferComplete__continue_registration">Настави</string>
 
     <!-- Create profile screen -->

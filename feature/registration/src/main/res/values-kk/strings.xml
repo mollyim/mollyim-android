@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Аккаунт жасау</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Аккаунтыңызды тасымалдаңыз</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Аккаунтыңызды тасымалдау үшін ескі Android құрылғыңыздағы Signal қолданбасын ашып, \"Аккаунтты тасымалдау\" түймесін таңдаңыз.</string>
     <string name="DeviceTransferInstructions__continue">Жалғастыру</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Ескі Android құрылғысына қосылуға дайындалуда…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Оған біраз уақыт керек болуы мүмкін. Көп ұзамай дайын болып қалады.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Ескі құрылғыңыздың қосылғанын күтіп отырмыз…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Екі құрылғыда да сандар сәйкес келетінін тексеріңіз</string>
+    <string name="DeviceTransferSetup__numbers_match">Иә, сандар сәйкес келеді</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Сандар сәйкес келмейді</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Ескі құрылғыңыздың растағанын күтіп отырмыз…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Ескі құрылғыңызды анықтап, оған қосылу үшін Signal қолданбасына геолокация рұқсаты керек.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Рұқсат беру</string>
+    <string name="DeviceTransferSetup__location_services_required">Ескі құрылғыңызды анықтап, оған қосылу үшін Signal қолданбасы геолокация қызметтерін пайдалануы керек.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Локация қызметтерін қосу</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Ескі құрылғыңызды анықтап, оған қосылу үшін Signal қолданбасына Wi-Fi қосылып тұруы керек.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi қосу</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Кешіріңіз, құрылғыңызда Wi-Fi Direct істемейтін сияқты.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Сақтық көшірмені қалпына келтіру</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Ескі құрылғыңызға қосылып жатқанда, күтпеген қате пайда болды.</string>
     <string name="DeviceTransferSetup__retry">Қайтадан байқап көру</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Ескі құрылғыңызды анықтау мүмкін болмады</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Геолокация рұқсаттары берілгеніне көз жеткізіңіз.\n• Wi-Fi қосылып тұрғанына және Wi-Fi Direct топтары есте сақталмағанына көз жеткізіңіз.\n• Екі құрылғыда да Wi-Fi-ды өшіріп, қайта қосып көріңіз.\n• Екі құрылғы да тасымалдау режимінде екеніне көз жеткізіңіз.</string>
     <string name="DeviceTransferSetup__try_again">Қайталап көру</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Сандар сәйкес келмейді</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Құрылғыларыңыздағы сандар сәйкес келмесе, басқа құрылғыға қосылып кеткен болуыңыз мүмкін.</string>
     <string name="DeviceTransferSetup__stop_transfer">Тасымалдауды тоқтату</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Деректер тасымалдануда</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d хат қалды</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Тасымалдау мүмкін емес</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal-дың жаңа нұсқаларынан тасымалдау мүмкін емес.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Дерекқордағы шектеулерге байланысты кейбір деректер тасымалданбайды.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Тасымалданбады. Қайталап көріңіз.</string>
     <string name="DeviceTransferProgress__try_again">Қайталап көру</string>
     <string name="DeviceTransferProgress__cancel">Бас тарту</string>
     <string name="DeviceTransferProgress__stop_transfer">Тасымалдауды тоқтату керек пе?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Тасымалдау аяқталды</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Аккаунтыңыз қазір осы құрылғыда.</string>
     <string name="DeviceTransferComplete__continue_registration">Жалғастыру</string>
 
     <!-- Create profile screen -->

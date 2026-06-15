@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">ایجاد حساب</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">انتقال حساب</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">برای انتقال حساب خود، برنامه سیگنال را در دستگاه اندروید قدیمی خود باز کنید و گزینه «انتقال حساب» را انتخاب کنید.</string>
     <string name="DeviceTransferInstructions__continue">ادامه</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">در حال آماده شدن برای اتصال به دستگاه اندروید قدیمی…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">این کار ممکن است کمی طول بکشد. به زودی آماده می‌شود.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">در حال انتظار برای اتصال دستگاه قدیمی شما…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">تأیید کنید که شماره‌ها در هر دو دستگاه مطابقت دارند</string>
+    <string name="DeviceTransferSetup__numbers_match">بله، شماره‌ها مطابقت دارند</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">شماره‌ها همخوانی ندارند</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">در حال انتظار برای تأیید دستگاه قدیمی شما…</string>
+    <string name="DeviceTransferSetup__location_permission_required">سیگنال برای شناسایی و اتصال به دستگاه قدیمی شما، به مجوز موقعیت مکانی نیاز دارد.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">اعطای مجوز</string>
+    <string name="DeviceTransferSetup__location_services_required">سیگنال برای شناسایی و اتصال به دستگاه قدیمی شما، نیاز دارد که سرویس‌های موقعیت مکانی فعال باشد.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">سرویس‌های مکان را روشن کنید</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">سیگنال برای شناسایی و اتصال به دستگاه قدیمی شما، نیاز دارد که Wi-Fi روشن باشد.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">روشن کردن Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">متأسفانه به نظر می‌رسد دستگاه شما از Wi-Fi Direct پشتیبانی نمی‌کند.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">در عوض، یک نسخه پشتیبان را بازیابی کنید</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">هنگام اتصال به دستگاه قدیمی شما، خطای غیرمنتظره‌ای رخ داد.</string>
     <string name="DeviceTransferSetup__retry">تلاش مجدد</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">دستگاه قدیمی شما قابل شناسایی نیست</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• مطمئن شوید همه مجوزهای موقعیت مکانی اعطا شده‌اند.\n• مطمئن شوید Wi-Fi روشن است و هیچ گروه Wi-Fi Direct در حافظه ذخیره نشده است.\n• روی هر دو دستگاه، Wi-Fi را روشن و خاموش کنید.\n• مطمئن شوید هر دو دستگاه در حالت انتقال قرار دارند.</string>
     <string name="DeviceTransferSetup__try_again">دوباره امتحان کنید</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">شماره‌ها همخوانی ندارند</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">اگر شماره‌ها در دستگاه‌های شما همخوانی ندارند، ممکن است به دستگاه اشتباهی وصل شده باشید.</string>
     <string name="DeviceTransferSetup__stop_transfer">توقف انتقال</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">در حال انتقال داده‌ها</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d پیام تا به حال</string>
     <string name="DeviceTransferProgress__unable_to_transfer">انتقال ممکن نبود</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">انتقال از نسخه‌ٔ جدیدتر سیگنال ممکن نیست.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">به‌دلیل محدودیت پایگاه داده، برخی از داده‌ها منتقل نشد.</string>
+    <string name="DeviceTransferProgress__transfer_failed">انتقال انجام نشد. لطفاً دوباره امتحان کنید.</string>
     <string name="DeviceTransferProgress__try_again">دوباره امتحان کنید</string>
     <string name="DeviceTransferProgress__cancel">لغو</string>
     <string name="DeviceTransferProgress__stop_transfer">توقف انتقال؟</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">انتقال کامل شد</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">حساب شما اکنون در این دستگاه فعال است.</string>
     <string name="DeviceTransferComplete__continue_registration">ادامه</string>
 
     <!-- Create profile screen -->

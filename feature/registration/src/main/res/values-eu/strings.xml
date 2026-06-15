@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Sortu kontu bat</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Transferitu kontua</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Kontua transferitzeko, ireki Signal Android-eko gailu zaharrean eta hautatu Transferitu kontua.</string>
     <string name="DeviceTransferInstructions__continue">Jarraitu</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Android gailu zaharrera konektatzeko prestatzen…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Baliteke unetxo bat behar izatea. Laster egon beharko luke prest.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Gailu zaharra konektatzeko zain…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Egiaztatu zenbakiak bat datozela bi gailuetan</string>
+    <string name="DeviceTransferSetup__numbers_match">Bai, zenbakiak bat datoz</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Zenbakiak ez datoz bat</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Gailu zaharra egiaztatzeko zain…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal-ek kokapena atzitzeko baimena behar du gailu zaharra hautemateko eta harekin konektatzeko.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Eman baimena</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal-ek kokapen-zerbitzuak gaitzea behar du gailu zaharra hautemateko eta harekin konektatzeko.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Aktibatu kokapen zerbitzuak</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal-ek wifia aktibatzea behar du gailu zaharra hautemateko eta harekin konektatzeko.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Aktibatu Wi-Fi-a</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Dirudienez, zure gailua ez da bateragarria Wi-Fi Direct-ekin.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Horren ordez, leheneratu babeskopia bat</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Ustekabeko errore bat gertatu da gailu zaharrera konektatzean.</string>
     <string name="DeviceTransferSetup__retry">Berriro saiatu</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Ezin da hauteman gailu zaharra</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Ziurtatu kokapena atzitzeko baimenak emanda daudela.\n• Ziurtatu wifia aktibatuta dagoela eta ez dagoela Wi-Fi Direct-eko talderik gordeta.\n• Saiatu bi gailuetan wifia aktibatzen eta desaktibatzen.\n• Ziurtatu bi gailuak transferentzia moduan daudela.</string>
     <string name="DeviceTransferSetup__try_again">Saiatu berriro</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Zenbakiak ez datoz bat</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Zure gailuetako zenbakiak bat ez badatoz, baliteke gailu okerrera konektatu izatea.</string>
     <string name="DeviceTransferSetup__stop_transfer">Gelditu tranferentzia</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Datuak transferitzen</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d mezu orain arte</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Ezin da transferitu</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Ezin da transferitu Signal-en bertsio berriago batetik.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Datu-basearen murriztapen bat dela eta, ezin izan dira transferitu datu batzuk.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Transferentziak huts egin du. Saiatu berriro.</string>
     <string name="DeviceTransferProgress__try_again">Saiatu berriro</string>
     <string name="DeviceTransferProgress__cancel">Utzi</string>
     <string name="DeviceTransferProgress__stop_transfer">Gelditu tranferentzia?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Transferentzia amaituta</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Zure kontua gailu honetan dago orain.</string>
     <string name="DeviceTransferComplete__continue_registration">Jarraitu</string>
 
     <!-- Create profile screen -->

@@ -398,42 +398,42 @@
     <string name="LinkAccountScreen__create_account">アカウントを作成</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">アカウントの移行</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">アカウントを移行するには、以前のAndroid端末でSignalを開き、「アカウントの移行」を選択してください。</string>
     <string name="DeviceTransferInstructions__continue">続行</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">古いAndroid端末への接続を準備しています…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">一致しません</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">これには時間がかかることがあります。まもなく準備が完了します。</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">以前の端末の接続を待っています…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">両方の端末で番号が一致していることを確認してください</string>
+    <string name="DeviceTransferSetup__numbers_match">はい、番号は一致しています</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">番号が一致しません</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">以前の端末の確認を待っています…</string>
+    <string name="DeviceTransferSetup__location_permission_required">以前の端末を見つけて接続するには、Signalへの位置情報の権限が必要です。</string>
+    <string name="DeviceTransferSetup__grant_location_permission">権限を許可</string>
+    <string name="DeviceTransferSetup__location_services_required">以前の端末を見つけて接続するには、Signaの位置情報サービスを有効にする必要があります。</string>
     <string name="DeviceTransferSetup__turn_on_location_services">位置情報サービスを有効にする</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signalが以前の端末を見つけて接続するには、Wi-Fiを有効にする必要があります。</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fiを有効にしてください</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">申し訳ありませんが、ご利用の端末はWi-Fi Directに対応していないようです。</string>
+    <string name="DeviceTransferSetup__restore_a_backup">代わりにバックアップを復元</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">以前の端末への接続時に、予期しないエラーが発生しました。</string>
     <string name="DeviceTransferSetup__retry">再試行</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">以前の端末が見つかりません</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• 位置情報の権限が許可されていることを確認してください。\n• Wi-Fiが有効で、保存済みのWi-Fi Directグループがないことを確認してください。\n•両方の端末でWi-Fiのオフ、オンを試してください。\n•両方の端末が移行モードであることを確認してください。</string>
     <string name="DeviceTransferSetup__try_again">もう一度試す</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">一致しません</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">番号が一致しません</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">端末に表示されている番号が一致しない場合は、間違った端末に接続している可能性があります。</string>
     <string name="DeviceTransferSetup__stop_transfer">移行を停止</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">データを移行しています</string>
     <string name="DeviceTransferProgress__d_messages_so_far">これまで%1$d件のメッセージ</string>
     <string name="DeviceTransferProgress__unable_to_transfer">移行できません</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signalのバージョンが、移行先よりも新しい場合は移行できません</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">データベースの制限のため一部のデータは移行できませんでした。</string>
+    <string name="DeviceTransferProgress__transfer_failed">移行できませんでした。もう一度お試しください。</string>
     <string name="DeviceTransferProgress__try_again">もう一度試す</string>
     <string name="DeviceTransferProgress__cancel">キャンセル</string>
     <string name="DeviceTransferProgress__stop_transfer">移行を停止しますか？</string>
@@ -441,7 +441,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">移行が完了しました</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">アカウントがこの端末へ移行されました。</string>
     <string name="DeviceTransferComplete__continue_registration">続行</string>
 
     <!-- Create profile screen -->

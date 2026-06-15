@@ -398,50 +398,50 @@
     <string name="LinkAccountScreen__create_account">အကောင့် ဖန်တီးရန်</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">သင့်အကောင့်ကို လွှဲပြောင်းပါ</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">သင့်အကောင့်ကို လွှဲပြောင်းရန်အတွက် သင့် Android စက်ဟောင်းတွင် Signal ကိုဖွင့်ပြီး အကောင့်လွှဲပြောင်းရန် ကို ရွေးချယ်ပါ။</string>
     <string name="DeviceTransferInstructions__continue">ရှေ့ဆက်ပါ</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Android စက်အဟောင်းနှင့် ချိတ်ဆက်ရန် ပြင်ဆင်နေပါသည်…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">အချိန်ခဏ ကြာနိုင်ပါသည်။ မကြာမီရရှိပါမည်။</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">သင့်စက်အဟောင်းဖြင့် ချိတ်ဆက်ရန် စောင့်ဆိုင်းနေသည်…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">စက်နှစ်လုံးစလုံးတွင် နံပါတ်များ ကိုက်ညီမှုရှိမရှိ အတည်ပြုပါ</string>
+    <string name="DeviceTransferSetup__numbers_match">နံပါတ်များ ကိုက်ညီပါသည်</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">နံပါတ်များ မကိုက်ညီပါ</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_location_services">တည်နေရာဝန်ဆောင်မှုများ ဖွင့်မယ်</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">ဝိုင်ဖိုင်ဖွင့်မယ်</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">သင့်စက်အဟောင်းကို အတည်ပြုရန် စောင့်ဆိုင်းနေသည်…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal သည် သင့်စက်အဟောင်းဖြင့် ရှာဖွေချိတ်ဆက်ရန် တည်နေရာခွင့်ပြုချက် လိုအပ်ပါသည်။</string>
+    <string name="DeviceTransferSetup__grant_location_permission">ခွင့်ပြုချက်ပေးသည်</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal သည် သင့်စက်အဟောင်းဖြင့် ရှာဖွေချိတ်ဆက်ရန် တည်နေရာဝန်ဆောင်မှုများ ဖွင့်ထားရန် လိုအပ်ပါသည်။</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">တည်နေရာဝန်ဆောင်မှုများ ဖွင့်မည်</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal သည် သင့်စက်ဟောင်းဖြင့် ရှာဖွေချိတ်ဆက်ရန် Wi-Fi ဖွင့်ထားရန် လိုအပ်ပါသည်။</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">ဝိုင်ဖိုင်ဖွင့်မည်</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">ဝမ်းနည်းပါသည်။ သင့်စက်သည် Wi-Fi Direct ကို ပံ့ပိုးပုံမရပါ။</string>
+    <string name="DeviceTransferSetup__restore_a_backup">ဘက်ခ်အပ်ကို ပြန်လည်ရယူပါ</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">သင့်စက်အဟောင်းဖြင့် ချိတ်ဆက်ရန်ကြိုးစားနေစဥ် မမျှော်လင့်ထားသော ချို့ယွင်းချက်တစ်ခု ဖြစ်ခဲ့ပါသည်။</string>
     <string name="DeviceTransferSetup__retry">ထပ်ကြိုးစားပါ</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">သင့်စက်အဟောင်းကို ရှာမတွေ့ပါ</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• တည်နေရာခွင့်ပြုချက်များ ပေးထားကြောင်း သေချာပါစေ။\n• Wi-Fi ဖွင့်ထားပြီး Wi-Fi Direct အဖွဲ့များကို မမှတ်မိကြောင်း သေချာပါစေ။\n• စက်နှစ်လုံးစလုံးတွင် Wi-Fi အပိတ်အဖွင့် ပြုလုပ်ပေးပါ။\n• စက်နှစ်လုံးစလုံးတွင် လွှဲပြောင်းခြင်းအတွက် ပြင်ဆင်ထားကြောင်း သေချာပါစေ။</string>
     <string name="DeviceTransferSetup__try_again">ထပ်မံကြိုးစားမည်</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">နံပါတ်များ မကိုက်ညီပါ</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">လွှဲပြောင်းခြင်း ရပ်မယ်</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">သင့် စက်များပေါ်ရှိ နံပါတ်များ မကိုက်ညီပါက သင်သည် မှားယွင်းသော စက်နှင့် ချိတ်ဆက်မိခြင်း ဖြစ်နိုင်သည်။</string>
+    <string name="DeviceTransferSetup__stop_transfer">လွှဲပြောင်းခြင်း ရပ်မည်</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">ဒေတာများ လွှဲပြောင်းနေပါသည်</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">လက်ရှိအချိန်အထိ %1$d စာ ရှိပါသည်</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">လက်ရှိအချိန်အထိ မက်ဆေ့ချ် %1$d စောင်</string>
     <string name="DeviceTransferProgress__unable_to_transfer">လွှဲပြောင်း၍ မရပါ</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal ဗားရှင်းအသစ်မှ မလွှဲပြောင်းနိုင်ပါ။</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">ဒေတာဘေ့စ်ကန့်သတ်ချက်ကြောင့် ဒေတာအချို့ကို လွှဲပြောင်း၍မရပါ။</string>
+    <string name="DeviceTransferProgress__transfer_failed">လွှဲပြောင်းမှု မအောင်မြင်ပါ။ ထပ်ကြိုးစားကြည့်ပါ။</string>
     <string name="DeviceTransferProgress__try_again">ထပ်မံကြိုးစားမည်</string>
     <string name="DeviceTransferProgress__cancel">မလုပ်တော့ပါ</string>
-    <string name="DeviceTransferProgress__stop_transfer">လွှဲပြောင်းခြင်း ရပ်မည်လား?</string>
+    <string name="DeviceTransferProgress__stop_transfer">လွှဲပြောင်းခြင်း ရပ်မည်လား။</string>
     <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">ဆောင်ရွက်ပြီးသော လွှဲပြောင်းမှုများ ဆုံးရှုံးပါမည်။</string>
 
     <!-- Device transfer: Complete screen -->
-    <string name="DeviceTransferComplete__transfer_complete">လွှဲပြောင်းမှု ပြီးဆုံးပြီ</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__transfer_complete">လွှဲပြောင်းမှု ပြီးဆုံးပါပြီ</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">သင့်အကောင့်သည် ယခု ဤစက်တွင် ရှိသည်။</string>
     <string name="DeviceTransferComplete__continue_registration">ရှေ့ဆက်ပါ</string>
 
     <!-- Create profile screen -->
@@ -452,11 +452,11 @@
     <!-- Label/hint for the first-name field, indicating it is required. -->
     <string name="CreateProfileScreen__first_name_required">အမည်အစ (လိုအပ်သည်)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">အမည်အဆုံး (ထည့်ရန် မလိုအပ်ပါ)</string>
+    <string name="CreateProfileScreen__last_name_optional">အမည်အဆုံး (ရွေးချယ်နိုင်သည်)</string>
     <!-- Action button text to advance from create-profile screen. -->
     <string name="CreateProfileScreen__next">ဆက်သွားမည်</string>
     <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">ကိုယ်စားပြုရုပ်ပုံ ကိုသတ်မှတ်ပါ</string>
+    <string name="CreateProfileScreen__set_avatar_description">ရုပ်ပုံ သတ်မှတ်ပါ</string>
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
@@ -466,9 +466,9 @@
     <!-- Description shown on the picker when "Nobody" is selected. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">သင် ၎င်းတို့ကို မက်ဆေ့ချ်မပို့ပါက သို့မဟုတ် ၎င်းတို့နှင့် ပြောလက်စ ချက်(တ်)တစ်ခု မရှိပါက သင် Signal သုံးနေကြောင်း မည်သူမျှ မြင်တွေ့ရမည်မဟုတ်ပါ။</string>
     <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">လူသားတိုင်း</string>
+    <string name="PhoneNumberPrivacy_everyone">လူတိုင်း</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">ဘယ်သူမှ</string>
+    <string name="PhoneNumberPrivacy_nobody">မည်သူမျှ</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">သေချာပါသလား။</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->

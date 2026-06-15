@@ -400,73 +400,73 @@
     <string name="LinkAccountScreen__create_account">Hesap oluştur</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Hesabını aktar</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Hesabını aktarmak için eski Android cihazında Signal\'ı aç ve Hesabı Aktar\'ı seç.</string>
     <string name="DeviceTransferInstructions__continue">Devam et</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Eski Android cihaza bağlanmaya hazırlanılıyor…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Bu biraz zaman alabilir. Birazdan hazır olur.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Eski cihazının bağlanması bekleniyor…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Her iki cihazdaki numaraların eşleştiğini doğrula</string>
+    <string name="DeviceTransferSetup__numbers_match">Evet, numaralar eşleşiyor</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Numaralar eşleşmiyor</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Eski cihazının doğrulanması bekleniyor…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal, eski cihazını keşfetmek ve ona bağlanmak için konum iznine ihtiyaç duyar.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">İzin ver</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal, eski cihazını keşfetmek ve ona bağlanmak için konum hizmetlerinin etkinleştirilmesine ihtiyaç duyar.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Konum hizmetlerini aç</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">Kablosuzu aç</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal\'ın eski cihazını keşfetmesi ve ona bağlanması için Wi-Fi\'ın açık olması gerekir.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi\'ı aç</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Üzgünüz, cihazının Wi-Fi Direct\'i desteklemediği görülüyor.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Bunun yerine bir yedeklemeyi geri yükle</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Eski cihazına bağlanmaya çalışılırken beklenmedik bir hata oluştu.</string>
     <string name="DeviceTransferSetup__retry">Tekrar dene</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Eski cihazın keşfedilemedi</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Konum izinlerinin verildiğinden emin ol.\n• Wi-Fi\'ın açık olduğundan ve kayıtlı Wi-Fi Direct grupları bulunmadığından emin ol.\n• Wi-Fi\'ı her iki cihazda kapatıp açmayı dene.\n• Her iki cihazın da aktarım modunda olduğundan emin ol.</string>
     <string name="DeviceTransferSetup__try_again">Tekrar dene</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Numaralar eşleşmiyor</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Eğer cihazlarındaki numaralar eşleşmiyorsa, yanlış bir cihaza bağlanmış olabilirsin.</string>
     <string name="DeviceTransferSetup__stop_transfer">Aktarmayı durdur</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Veri aktarılıyor</string>
     <string name="DeviceTransferProgress__d_messages_so_far">Şimdiye kadar %1$d ileti</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Aktarım yapılamıyor</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Daha yeni bir Signal sürümünden aktarım yapılamaz.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Bazı veriler bir veritabanı kısıtı nedeniyle aktarılamadı.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Aktarım başarısız oldu. Lütfen tekrar dene.</string>
     <string name="DeviceTransferProgress__try_again">Tekrar dene</string>
     <string name="DeviceTransferProgress__cancel">İptal</string>
-    <string name="DeviceTransferProgress__stop_transfer">Aktarımı durdur?</string>
+    <string name="DeviceTransferProgress__stop_transfer">Aktarım durdurulsun mu?</string>
     <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Tüm aktarım süreci kaybolacaktır.</string>
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Aktarım tamamlandı</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Hesabın şimdi bu cihazda.</string>
     <string name="DeviceTransferComplete__continue_registration">Devam et</string>
 
     <!-- Create profile screen -->
     <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">Profilinizi ayarlayın</string>
+    <string name="CreateProfileScreen__set_up_your_profile">Profilini ayarla</string>
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Profilin ve profiline yaptığın değişiklikler, mesaj gönderdiğin kişiler, kişi listendekiler ve grupların tarafından görüntülenebilir.</string>
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Profilin ve profiline yaptığın değişiklikler; mesajlaştığın kişiler, kişi listendekiler ve grupların tarafından görüntülenebilir.</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
     <string name="CreateProfileScreen__first_name_required">Ad (gerekli)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">Soyad (isteğe bağlı)</string>
+    <string name="CreateProfileScreen__last_name_optional">Soyadı (isteğe bağlı)</string>
     <!-- Action button text to advance from create-profile screen. -->
     <string name="CreateProfileScreen__next">İleri</string>
     <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">Avatar seçin</string>
+    <string name="CreateProfileScreen__set_avatar_description">Avatar ayarla</string>
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Beni numaramdan kim bulabilir?</string>
     <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Telefon numaranı bilen herkes Signal\'de olduğunu görecek ve seninle sohbet başlatabilecektir.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Telefon numaranı bilen herkes Signal\'da olduğunu görecek ve seninle sohbet başlatabilecektir.</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ona mesaj göndermediğin veya mevcut bir sohbetin olmadığı sürece kimse Signal\'de olduğunu göremez.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ona mesaj göndermediğin veya mevcut bir sohbetin olmadığı sürece kimse Signal\'da olduğunu göremez.</string>
     <!-- Radio option label for "Everyone can find me by number". -->
     <string name="PhoneNumberPrivacy_everyone">Herkes</string>
     <!-- Radio option label for "Nobody can find me by number". -->
@@ -474,7 +474,7 @@
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Emin misin?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">\"Beni numaramla kimler bulabilir\" seçeneğini \"Hiç kimse\" olarak ayarlamak, insanların seni Signal\'de bulmasını zorlaştıracaktır.</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">\"Beni numaramla kimler bulabilir\" seçeneğini \"Hiç kimse\" olarak ayarlamak, insanların seni Signal\'da bulmasını zorlaştıracaktır.</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->
     <string name="PhoneNumberPrivacySettingsFragment__cancel">İptal</string>
     <!-- Save button on the discoverability picker. -->

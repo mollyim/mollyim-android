@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Fungua akaunti</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Hamisha akaunti yako</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Ili uhamishe akaunti yako, fungua Signal kwenye kifaa chako cha Android cha zamani kisha chagua Hamisha Akaunti.</string>
     <string name="DeviceTransferInstructions__continue">Endelea</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Inasubiri kuunganisha kwenye kifaa cha awali cha Android…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Kitendo hiki kinaweza kuchukua dakika kadhaa. Itakuwa tayari muda si mrefu.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Inasubiri kifaa chako cha zamani kiunganishe…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Thibitisha kuwa namba zinalingana kwenye vifaa vyote viwili</string>
+    <string name="DeviceTransferSetup__numbers_match">Ndio, namba zinalingana</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Nambari hazilingani</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Inasubiri kifaa chako cha zamani kithibitishe…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal inahitaji ruhusa ya kufikia data ya mahali ulipo ili kugundua na kuunganisha na kifaa chako cha zamani.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Ipe ruhusa</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal inahitaji idhini ya kufikia data ya mahali ulipo ili igundue na kuunganisha na kifaa chako cha awali cha Android.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Washa huduma za eneo</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal inahitaji W-Fi iwashwe ili iweze kugundua na kuunganisha kwenye kifaaa chako cha zamani.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Washa Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Samahani, inaonekana kifaa chako hakitumii Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Badala yake, rejesha nakala zilizohifadhiwa</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Hitilafu isiyotarajiwa imetokea wakati wa kujaribu kuunganisha kwenye kifaa chako cha awali cha Android.</string>
     <string name="DeviceTransferSetup__retry">Jaribu Upya</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Imeshindwa kugundua kifaa chako cha zamani</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Hakikisha umetoa ruhusa za data ya mahali.\n• Hakikisha Wi-Fi imewashwa na hakuna vikundi vya Wi-Fi Direct vinakumbukwa.\n• Jaribu kuzima na kuwasha Wi-Fi, kwenye vifaa vyote viwili.\n• Hakikisha vifaa vyote viko katika hali ya kuhamisha.</string>
     <string name="DeviceTransferSetup__try_again">Jaribu tena</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Nambari hazilingani</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Ikiwa namba kwenye kifaa chako hazilingani, inawezekana uliunganisha kwenye kifaa kisicho sahihi.</string>
     <string name="DeviceTransferSetup__stop_transfer">Simamisha mchakato wa kuhamisha</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Inahamisha data</string>
     <string name="DeviceTransferProgress__d_messages_so_far">1%1$d Jumbe hadi sasa</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Imeshindwa kuhamisha</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Haiwezi kuhamisha kutoka matoleo mapya ya Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Baadhi ya data imeshindwa kuhama kutokana na vikwazo vya hifadhidata.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Imeshindwa kuhamisha. Tafadhali jaribu tena.</string>
     <string name="DeviceTransferProgress__try_again">Jaribu tena</string>
     <string name="DeviceTransferProgress__cancel">Ghairi</string>
     <string name="DeviceTransferProgress__stop_transfer">Ungependa kusimamisha mchakato wa kuhamisha</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Mchakato wa kuhamisha umekamilika</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Akaunti yako sasa iko kwenye kifaa hiki.</string>
     <string name="DeviceTransferComplete__continue_registration">Endelea</string>
 
     <!-- Create profile screen -->

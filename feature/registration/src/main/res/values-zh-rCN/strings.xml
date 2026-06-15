@@ -398,42 +398,42 @@
     <string name="LinkAccountScreen__create_account">创建账户</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">转移您的账户</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">要转移您的账户，请在您的旧 Android 设备上打开 Signal，然后选择转移账户。</string>
     <string name="DeviceTransferInstructions__continue">继续</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">正在准备连接至旧的 Android 设备…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">代码不匹配</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">这可能需要一些时间。设置将很快准备就绪。</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">正在等待您的旧设备进行连接…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">验证两个设备上显示的数字是否一致</string>
+    <string name="DeviceTransferSetup__numbers_match">是的，数字一致</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">数字不一致</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">正在等待您的旧设备进行验证…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal 需要位置权限，以发现并连接您的旧设备。</string>
+    <string name="DeviceTransferSetup__grant_location_permission">授予权限</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal 需要启用位置服务，以发现并连接您的旧设备。</string>
     <string name="DeviceTransferSetup__turn_on_location_services">开启位置服务</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal 需要启用 Wi-Fi，以发现并连接您的旧设备。</string>
     <string name="DeviceTransferSetup__turn_on_wifi">开启 Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">抱歉，您的设备似乎不支持 Wi-Fi Direct。</string>
+    <string name="DeviceTransferSetup__restore_a_backup">改为恢复备份</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">尝试连接您的旧设备时发生意外错误。</string>
     <string name="DeviceTransferSetup__retry">重试</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">找不到您的旧设备</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• 确保已授予位置权限。\n• 确保 Wi-Fi 已开启，并且未记住任何 Wi-Fi Direct 群组。\n• 在两个设备上尝试关闭并重新开启 Wi-Fi。\n• 确保两个设备均处于转移模式。</string>
     <string name="DeviceTransferSetup__try_again">重试</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">代码不匹配</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">数字不一致</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">如果您的两个设备上显示的数字不一致，您可能连接到了错误的设备。</string>
     <string name="DeviceTransferSetup__stop_transfer">停止转移</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">正在转移数据</string>
     <string name="DeviceTransferProgress__d_messages_so_far">已处理 %1$d 条消息</string>
     <string name="DeviceTransferProgress__unable_to_transfer">无法转移</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">无法从较新版 Signal 转移。</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">由于数据库限制，部分数据无法转移。</string>
+    <string name="DeviceTransferProgress__transfer_failed">转移失败。请重试。</string>
     <string name="DeviceTransferProgress__try_again">重试</string>
     <string name="DeviceTransferProgress__cancel">取消</string>
     <string name="DeviceTransferProgress__stop_transfer">停止转移？</string>
@@ -441,7 +441,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">转移完成</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">您的账户现已在此设备上。</string>
     <string name="DeviceTransferComplete__continue_registration">继续</string>
 
     <!-- Create profile screen -->
@@ -470,7 +470,7 @@
     <!-- Radio option label for "Nobody can find me by number". -->
     <string name="PhoneNumberPrivacy_nobody">没有人</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">确定要恢复吗？</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">确定吗？</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">如果将“谁可以通过电话号码找到我”设置为“没有人”，这将会使其他用户更难在 Signal 上找到您。</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->

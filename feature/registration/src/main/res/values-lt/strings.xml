@@ -404,42 +404,42 @@
     <string name="LinkAccountScreen__create_account">Susikurkite paskyrą</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Perkelti paskyrą</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Norėdami perkelti paskyrą, atverkite „Signal“ senajame „Android“ įrenginyje ir pasirinkite „Perkelti paskyrą“.</string>
     <string name="DeviceTransferInstructions__continue">Tęsti</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Ruošiamasi prisijungti prie senojo „Android“ įrenginio…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Tai gali kiek užtrukti. Netrukus turėtų būti paruošta.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Laukiama, kol prisijungs senasis įrenginys…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Patikrinkite, ar numeriai sutampa abiejuose įrenginiuose</string>
+    <string name="DeviceTransferSetup__numbers_match">Taip, numeriai sutampa</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Skaitmenys nesutampa</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Laukiama, kol patvirtins jūsų senasis įrenginys…</string>
+    <string name="DeviceTransferSetup__location_permission_required">„Signal“ reikia įrenginio vietos leidimo, kad galėtų atrasti ir prisijungti prie jūsų senojo įrenginio.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Suteikti leidimą</string>
+    <string name="DeviceTransferSetup__location_services_required">„Signal“ reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų senojo įrenginio.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Įjungti vietos paslaugas</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">„Signal“ reikia įjungto „Wi-Fi“, kad galėtų atrasti ir prisijungti prie jūsų senojo įrenginio.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Įjungti belaidį (Wi-Fi)</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Deja, panašu, kad jūsų įrenginys nepalaiko „Wi-Fi Direct“.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Vietoje to atkurti atsarginę kopiją</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Įvyko netikėta klaida bandant prisijungti prie jūsų senojo įrenginio.</string>
     <string name="DeviceTransferSetup__retry">Bandyti dar kartą</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Nepavyko atrasti senojo įrenginio</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Pasirūpinkite, kad būtų suteiktas vietovės leidimas.\n• Pasirūpinkite, kad būtų įjungtas „Wi-Fi“ ir nebūtų prisimenama jokių „Wi-Fi Direct“ grupių.\n• Pabandykite abiejuose įrenginiuose išjungti ir vėl įjungti belaidį („Wi-Fi“) ryšį.\n• Įsitikinkite, kad abu įrenginiai yra perkėlimo veiksenoje.</string>
     <string name="DeviceTransferSetup__try_again">Bandykite dar kartą</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Skaitmenys nesutampa</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Jeigu skaitmenys jūsų įrenginiuose nesutampa, gali būti, kad prisijungėte prie neteisingo įrenginio.</string>
     <string name="DeviceTransferSetup__stop_transfer">Stabdyti perkėlimą</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Duomenų perkėlimas</string>
     <string name="DeviceTransferProgress__d_messages_so_far">Jau %1$d žinučių</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Nepavyko perkelti</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Negalima perkelti iš naujesnės „Signal“ versijos.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Kai kurių duomenų nepavyko perkelti dėl duomenų bazės apribojimo.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Perkėlimas nepavyko. Bandykite dar kartą.</string>
     <string name="DeviceTransferProgress__try_again">Bandykite dar kartą</string>
     <string name="DeviceTransferProgress__cancel">Atšaukti</string>
     <string name="DeviceTransferProgress__stop_transfer">Stabdyti perkėlimą?</string>
@@ -447,7 +447,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Perkėlimas užbaigtas</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Jūsų paskyra dabar yra šiame įrenginyje.</string>
     <string name="DeviceTransferComplete__continue_registration">Tęsti</string>
 
     <!-- Create profile screen -->

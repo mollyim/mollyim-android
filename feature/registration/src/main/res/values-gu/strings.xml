@@ -400,50 +400,50 @@
     <string name="LinkAccountScreen__create_account">એકાઉન્ટ બનાવો</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">તમારું એકાઉન્ટ ટ્રાન્સફર કરો</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">તમારા એકાઉન્ટને ટ્રાન્સફર કરવા, તમારા જૂના Android ડિવાઇસ પરથી SIgnal ખોલો અને એકાઉન્ટ ટ્રાન્સફર કરો પસંદ કરો.</string>
     <string name="DeviceTransferInstructions__continue">ચાલુ રાખો</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">જૂના Android ડિવાઇસ સાથે જોડાવાની તૈયારી કરી રહ્યાં છીએ…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">સંખ્યાઓ મેચ થતી નથી</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_location_services">સ્થાન સેવાઓ ચાલુ કરો</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">આમાં થોડી જ વાર લાગશે. ટૂંક સમયમાં તૈયાર થઈ જવું જોઈએ.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">તમારા જૂના ડિવાઇસને કનેક્ટ કરવાની રાહ જોઈ રહ્યા છીએ…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">વેરિફાય કરો કરો કે બંને ડિવાઇસ પર નંબર મેચ થાય છે</string>
+    <string name="DeviceTransferSetup__numbers_match">હા, નંબર મેચ થાય છે</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">નંબર મેચ થતાં નથી</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">તમારા જૂના ડિવાઇસને વેરિફાય કરવાની રાહ જોઈએ છીએ…</string>
+    <string name="DeviceTransferSetup__location_permission_required">તમારા જૂના ડિવાઇસને શોધવા અને કનેક્ટ કરવા માટે Signalને લોકેશન પરવાનગીની જરૂર છે.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">પરવાનગી આપો</string>
+    <string name="DeviceTransferSetup__location_services_required">તમારા જૂના ડિવાઇસને શોધવા અને કનેક્ટ કરવા માટે Signalને લોકેશન સેવાઓ સક્ષમ કરવાની જરૂર છે.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">લોકેશન સેવાઓ ચાલુ કરો</string>
+    <string name="DeviceTransferSetup__wifi_required">તમારા જૂના ડિવાઇસને શોધવા અને તેની સાથે કનેક્ટ કરવા Signal માટે જરૂરી છે કે Wi-Fi ચાલુ હોવું જોઈએ.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi ચાલુ કરો</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">માફ કરશો, એવું લાગે છે કે તમારું ડિવાઇસ Wi-Fi Directને સપોર્ટ કરતું નથી.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">તેના બદલે કોઈ બેકઅપ રિસ્ટોર કરો</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">તમારા જૂના ડિવાઇસ સાથે કનેક્ટ કરવાનો પ્રયાસ કરતી વખતે એક અનપેક્ષિત ભૂલ આવી.</string>
     <string name="DeviceTransferSetup__retry">ફરી પ્રયાસ કરો</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">તમારા જૂના ડિવાઇસને શોધવામાં અસમર્થ</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• ખાતરી કરો કે લોકેશન પરવાંગીઓ આપેલી હોય.\n• ખાતરી કરો કે Wi-Fi ચાલુ છે અને કોઈ Wi-Fi Direct ગ્રૂપ યાદ રાખેલા હોય.\nબંને ડિવાઇસ પર Wi-Fi બંધ અને ચાલુ કરવાનો પ્રયાસ કરો.\nખાતરી કરો કે બંને ડિવાઇસ ટ્રાન્સફર મોડમાં છે.</string>
     <string name="DeviceTransferSetup__try_again">ફરીથી પ્રયત્ન કરો</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">સંખ્યાઓ મેચ થતી નથી</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">નંબર મેચ થતાં નથી</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">જો તમારા ડિવાઇસ પરના નંબર મેચ થતાં ન હોય, તો શક્ય છે કે તમે ખોટા ડિવાઇસ સાથે કનેક્ટ થયા છો.</string>
     <string name="DeviceTransferSetup__stop_transfer">ટ્રાન્સફર રોકો</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">ડેટા ટ્રાન્સફર કરી રહ્યા છીએ</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d મેસેજ અત્યાર સુધી</string>
     <string name="DeviceTransferProgress__unable_to_transfer">ટ્રાન્સફર કરવામાં અસમર્થ</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signalના નવા વર્ઝનમાંથી ટ્રાન્સફર કરી શકાતું નથી</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">ડેટાબેઝના પ્રતિબંધને કારણે કેટલાક ડેટા ટ્રાન્સફર કરી શકાયા નથી.</string>
+    <string name="DeviceTransferProgress__transfer_failed">ટ્રાન્સફર નિષ્ફળ થયું. કૃપા કરીને ફરીથી પ્રયાસ કરો.</string>
     <string name="DeviceTransferProgress__try_again">ફરીથી પ્રયત્ન કરો</string>
     <string name="DeviceTransferProgress__cancel">રદ કરો</string>
-    <string name="DeviceTransferProgress__stop_transfer">ટ્રાન્સફર રોકો?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">તમામ ટ્રાન્સફર પ્રગતિ ખોવાઈ જશે.</string>
+    <string name="DeviceTransferProgress__stop_transfer">ટ્રાન્સફર રોકવું છે?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">તમામ ટ્રાન્સફર પ્રગતિ જતી રહેશે.</string>
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">ટ્રાન્સફર પૂર્ણ</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">તમારું એકાઉન્ટ હવે આ ડિવાઇસ પર છે.</string>
     <string name="DeviceTransferComplete__continue_registration">ચાલુ રાખો</string>
 
     <!-- Create profile screen -->
