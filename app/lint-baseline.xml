@@ -37438,4 +37438,16 @@
             column="25"/>
     </issue>
 
+
+    <issue
+        id="ThreadConstraint"
+        message="Call must be from @WorkerThread, but super method Fragment.onCreateView(…) is allowing @{Main,Ui}Thread"
+        errorLine1="    zoomingImageView.setImageUri(requestManager, uri, contentType, () -&gt; events.onMediaReady());"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/thoughtcrime/securesms/mediapreview/ImageMediaPreviewFragment.java"
+            line="53"
+            column="22"/>
+    </issue>
+
 </issues>
