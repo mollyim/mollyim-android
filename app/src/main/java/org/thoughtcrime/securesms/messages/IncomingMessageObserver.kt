@@ -155,10 +155,11 @@ class IncomingMessageObserver(
 
     MessageRetrievalThread().start()
 
-    if (!SignalStore.account.fcmEnabled || SignalStore.settings.forceWebsocketMode.isEnabled) {
+    val registered = SignalStore.account.isRegistered && !TextSecurePreferences.isUnauthorizedReceived(context)
+    if (registered && (!SignalStore.account.fcmEnabled || SignalStore.settings.forceWebsocketMode.isEnabled)) {
       try {
         ForegroundServiceUtil.start(context, Intent(context, ForegroundService::class.java))
-      } catch (e: UnableToStartException) {
+      } catch (_: UnableToStartException) {
         Log.w(TAG, "Unable to start foreground service for websocket. Deferring to background to try with blocking")
         SignalExecutors.UNBOUNDED.execute {
           try {
@@ -267,6 +268,10 @@ class IncomingMessageObserver(
       TAG,
       "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, WS Open or Keep-alives: $websocketAlreadyOpen, Registered: $registered, Unauthorized: $unauthorizedReceived, Proxy: $hasProxy, Force websocket: $forceWebsocket"
     )
+    if (!registered || unauthorizedReceived) {
+      stopForegroundService(context)
+    }
+
     return conclusion
   }
 
@@ -671,12 +676,20 @@ class IncomingMessageObserver(
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
       super.onStartCommand(intent, flags, startId)
 
-      postForegroundNotification()
-
-      return START_STICKY
+      return if (postForegroundNotification()) {
+        START_STICKY
+      } else {
+        START_NOT_STICKY
+      }
     }
 
-    private fun postForegroundNotification() {
+    private fun postForegroundNotification(): Boolean {
+      if (!SignalStore.account.isRegistered || TextSecurePreferences.isUnauthorizedReceived(applicationContext)) {
+        Log.i(TAG, "Stopping websocket foreground service because the user is unregistered or unauthorized.")
+        stopSelf()
+        return false
+      }
+
       val notification = NotificationCompat.Builder(applicationContext, NotificationChannels.getInstance().BACKGROUND)
         .setContentTitle(applicationContext.getString(R.string.MessageRetrievalService_signal))
         .setContentText(applicationContext.getString(R.string.MessageRetrievalService_background_connection_enabled))
@@ -686,6 +699,7 @@ class IncomingMessageObserver(
         .build()
 
       startForeground(FOREGROUND_ID, notification)
+      return true
     }
   }
 
