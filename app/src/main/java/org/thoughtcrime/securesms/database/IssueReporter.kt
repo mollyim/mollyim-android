@@ -152,7 +152,7 @@ object IssueReporter {
       return
     }
 
-    val notification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
+    val notification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().INTERNAL_ISSUES)
       .setSmallIcon(R.drawable.ic_notification)
       .setContentTitle("[Internal-only] Issue detected")
       .setContentText("$name (${priority.label}). Please tap to get a debug log.")
