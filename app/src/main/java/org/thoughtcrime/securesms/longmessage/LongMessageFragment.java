@@ -129,9 +129,10 @@ public class LongMessageFragment extends FullScreenDialogFragment {
                                                      CommunicationActions.handlePotentialProxyLinkUrl(requireActivity(), url));
 
       bubble.setVisibility(View.VISIBLE);
-      text.setMovementMethod(LongClickMovementMethod.getInstance(getContext()));
       text.setTextSize(TypedValue.COMPLEX_UNIT_SP, SignalStore.settings().getMessageFontSize());
       text.setTextAsync(body);
+      text.setTextIsSelectable(true);
+      text.setMovementMethod(LongClickMovementMethod.getInstance(getContext()));
 
       if (!message.get().getMessageRecord().isOutgoing()) {
         text.setMentionBackgroundTint(ContextCompat.getColor(requireContext(), ThemeUtil.isDarkTheme(requireActivity()) ? R.color.core_grey_60 : R.color.core_grey_20));
