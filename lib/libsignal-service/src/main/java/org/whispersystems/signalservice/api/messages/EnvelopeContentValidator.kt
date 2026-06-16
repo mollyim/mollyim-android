@@ -35,6 +35,7 @@ object EnvelopeContentValidator {
   private const val MAX_POLL_CHARACTER_LENGTH = 100
   private const val MIN_POLL_OPTIONS = 2
   private const val MAX_POLL_OPTIONS = 10
+  private const val LONG_TEXT_CONTENT_TYPE = "text/x-signal-plain"
 
   fun validate(envelope: Envelope, content: Content, localAci: ACI, ciphertextMessageType: Int): Result {
     if (envelope.type == Envelope.Type.PLAINTEXT_CONTENT || ciphertextMessageType == CiphertextMessage.PLAINTEXT_CONTENT_TYPE) {
@@ -121,7 +122,7 @@ object EnvelopeContentValidator {
       return Result.Invalid("[DataMessage] Style body range is missing a start or length!")
     }
 
-    if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body)) {
+    if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body, allowOutOfBounds = dataMessage.hasLongTextAttachment())) {
       return Result.Invalid("[DataMessage] Body range with out-of-bounds start/length!")
     }
 
@@ -375,7 +376,7 @@ object EnvelopeContentValidator {
       return Result.Invalid("[EditMessage] Style body range is missing a start or length!")
     }
 
-    if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body)) {
+    if (dataMessage.bodyRanges.hasInvalidBounds(dataMessage.body, allowOutOfBounds = dataMessage.hasLongTextAttachment())) {
       return Result.Invalid("[EditMessage] Body range with out-of-bounds start/length!")
     }
 
@@ -390,15 +391,19 @@ object EnvelopeContentValidator {
     return Result.Valid
   }
 
-  private fun List<BodyRange>.hasInvalidBounds(body: String?): Boolean {
+  private fun List<BodyRange>.hasInvalidBounds(body: String?, allowOutOfBounds: Boolean = false): Boolean {
     val bodyLength: Long = (body?.length ?: 0).toLong()
 
     return this.any { range ->
       val start: Long = (range.start ?: 0).toLong()
       val length: Long = (range.length ?: 0).toLong()
 
-      start < 0 || length < 0 || start + length > bodyLength
+      start < 0 || length < 0 || (!allowOutOfBounds && start + length > bodyLength)
     }
+  }
+
+  private fun DataMessage.hasLongTextAttachment(): Boolean {
+    return this.attachments.any { it.contentType == LONG_TEXT_CONTENT_TYPE }
   }
 
   private fun BodyRange.isStyleRangeMissingOffsets(): Boolean {
