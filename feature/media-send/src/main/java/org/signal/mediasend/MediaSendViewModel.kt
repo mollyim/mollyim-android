@@ -11,8 +11,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.serialization.saved
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.serialization.NavBackStackSerializer
+import androidx.navigation3.runtime.serialization.NavKeySerializer
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -74,6 +79,13 @@ class MediaSendViewModel(
     isContactSelectionRequired = args.mode == MediaSendActivityContract.Mode.ChooseAfterMediaSelection,
     sendType = args.sendType
   )
+
+  val backStack: NavBackStack<NavKey> by savedStateHandle.saved(
+    serializer = NavBackStackSerializer(NavKeySerializer()),
+    key = KEY_BACK_STACK
+  ) {
+    NavBackStack(if (args.isCameraFirst) MediaSendNavKey.Capture.Camera else MediaSendNavKey.Select.Folders)
+  }
 
   /**
    * Main UI state. Backed by [SavedStateHandle] for automatic process death survival.
@@ -155,12 +167,21 @@ class MediaSendViewModel(
       is MediaSelectScreenEvent.FolderClick -> onFolderClick(mediaSelectScreenEvent.mediaFolder)
       is MediaSelectScreenEvent.MediaClick -> onMediaClick(mediaSelectScreenEvent.media)
       is MediaSelectScreenEvent.SetFocusedMedia -> setFocusedMedia(mediaSelectScreenEvent.media)
+      MediaSelectScreenEvent.NavigateToEdit -> backStack.goToEdit()
+    }
+  }
+
+  override fun onMediaCaptureScreenEvent(mediaCaptureScreenEvent: MediaCaptureScreenEvent) {
+    when (mediaCaptureScreenEvent) {
+      MediaCaptureScreenEvent.ShowCamera -> backStack.goToCamera()
+      MediaCaptureScreenEvent.ShowTextStory -> backStack.goToTextStory()
     }
   }
 
   override fun onMediaEditScreenEvent(mediaEditScreenEvent: MediaEditScreenEvent) {
     when (mediaEditScreenEvent) {
       is MediaEditScreenEvent.FocusedMediaChanged -> setFocusedMedia(mediaEditScreenEvent.media)
+      MediaEditScreenEvent.NavigateToSend -> backStack.goToSend()
       is MediaEditScreenEvent.AddMessageClick -> {
         val snapshot: MediaSendState = state.value
 
@@ -176,6 +197,10 @@ class MediaSendViewModel(
   }
 
   private fun onFolderClick(mediaFolder: MediaFolder?) {
+    if (mediaFolder != null) {
+      backStack.goToFiles(mediaFolder)
+    }
+
     viewModelScope.launch {
       if (mediaFolder != null) {
         val media = repository.getMedia(mediaFolder.bucketId)
@@ -753,6 +778,7 @@ class MediaSendViewModel(
     private const val KEY_IDENTITY_CHANGES_SINCE = "media_send_vm_identity_changes_since"
     private const val KEY_STATE = "media_send_vm_state"
     private const val KEY_EDITED_VIDEO_URIS = "media_send_vm_edited_video_uris"
+    private const val KEY_BACK_STACK = "media_send_vm_back_stack"
   }
 
   /**

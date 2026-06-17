@@ -11,10 +11,12 @@ import org.signal.mediasend.select.MediaSelectScreenEvent
 interface MediaSendEventHandler {
   fun onMediaSelectScreenEvent(mediaSelectScreenEvent: MediaSelectScreenEvent)
   fun onMediaEditScreenEvent(mediaEditScreenEvent: MediaEditScreenEvent)
+  fun onMediaCaptureScreenEvent(mediaCaptureScreenEvent: MediaCaptureScreenEvent)
 
   object Empty : MediaSendEventHandler {
     override fun onMediaSelectScreenEvent(mediaSelectScreenEvent: MediaSelectScreenEvent) = Unit
     override fun onMediaEditScreenEvent(mediaEditScreenEvent: MediaEditScreenEvent) = Unit
+    override fun onMediaCaptureScreenEvent(mediaCaptureScreenEvent: MediaCaptureScreenEvent) = Unit
   }
 }
 

@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import org.signal.core.ui.compose.Buttons
@@ -23,15 +24,14 @@ import org.signal.core.ui.compose.Buttons
 @Composable
 fun MediaCaptureScreen(
   backStack: NavBackStack<NavKey>,
+  onEvent: (MediaCaptureScreenEvent) -> Unit,
   cameraSlot: @Composable () -> Unit,
   textStoryEditorSlot: @Composable () -> Unit
 ) {
   Box(modifier = Modifier.fillMaxSize()) {
-    val top = backStack.last()
-
-    when (top) {
-      is MediaSendNavKey.Capture.Camera -> cameraSlot()
+    when (backStack.last()) {
       is MediaSendNavKey.Capture.TextStory -> textStoryEditorSlot()
+      else -> cameraSlot()
     }
 
     Row(
@@ -39,20 +39,12 @@ fun MediaCaptureScreen(
         .fillMaxWidth()
         .align(Alignment.BottomCenter)
     ) {
-      Buttons.Small(onClick = {
-        if (top == MediaSendNavKey.Capture.TextStory) {
-          backStack.remove(top)
-        }
-      }) {
-        Text(text = "Camera")
+      Buttons.Small(onClick = { onEvent(MediaCaptureScreenEvent.ShowCamera) }) {
+        Text(text = stringResource(R.string.MediaCaptureScreen__camera))
       }
 
-      Buttons.Small(onClick = {
-        if (top == MediaSendNavKey.Capture.Camera) {
-          backStack.add(MediaSendNavKey.Capture.TextStory)
-        }
-      }) {
-        Text(text = "Text Story")
+      Buttons.Small(onClick = { onEvent(MediaCaptureScreenEvent.ShowTextStory) }) {
+        Text(text = stringResource(R.string.MediaCaptureScreen__text_story))
       }
     }
   }

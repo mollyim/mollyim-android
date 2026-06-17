@@ -18,4 +18,12 @@
   <string name="SentMediaQuality__high">High</string>
   <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
   <string name="SentMediaQuality__standard">Standard</string>
+  <!-- Title of the screen where the user browses their device gallery to pick media to send. -->
+  <string name="MediaSelectScreen__gallery">Gallery</string>
+  <!-- Accessibility description for the button that advances from media selection to the next step in the send flow. -->
+  <string name="MediaSelectScreen__next">Next</string>
+  <!-- Label for the button that switches the capture screen to the camera. -->
+  <string name="MediaCaptureScreen__camera">Camera</string>
+  <!-- Label for the button that switches the capture screen to the text story editor. -->
+  <string name="MediaCaptureScreen__text_story">Text Story</string>
 </resources>

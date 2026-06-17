@@ -25,9 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.rememberNavBackStack
 import kotlinx.coroutines.launch
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
@@ -35,15 +32,12 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.imageeditor.core.model.EditorModel
 import org.signal.mediasend.EditorState
-import org.signal.mediasend.MediaSendNavKey
 import org.signal.mediasend.MediaSendState
-import org.signal.mediasend.goToSend
 
 @Composable
 fun MediaEditScreen(
   state: MediaSendState,
   onEvent: (MediaEditScreenEvent) -> Unit,
-  backStack: NavBackStack<NavKey>,
   videoEditorSlot: @Composable () -> Unit = {}
 ) {
   val scope = rememberCoroutineScope()
@@ -143,7 +137,7 @@ fun MediaEditScreen(
         AddAMessageRow(
           message = state.message,
           onEvent = onEvent,
-          onNextClick = { backStack.goToSend() },
+          onNextClick = { onEvent(MediaEditScreenEvent.NavigateToSend) },
           modifier = Modifier
             .widthIn(max = 624.dp)
             .padding(horizontal = 16.dp)
@@ -179,7 +173,6 @@ private fun MediaEditScreenPreview() {
         )
       ),
       onEvent = {},
-      backStack = rememberNavBackStack(MediaSendNavKey.Edit),
       videoEditorSlot = {
         Box(
           modifier = Modifier

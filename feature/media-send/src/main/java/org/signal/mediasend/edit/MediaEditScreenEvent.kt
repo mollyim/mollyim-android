@@ -10,4 +10,5 @@ import org.signal.core.models.media.Media
 sealed interface MediaEditScreenEvent {
   data class FocusedMediaChanged(val media: Media) : MediaEditScreenEvent
   data class AddMessageClick(val startWithEmojiKeyboard: Boolean = false) : MediaEditScreenEvent
+  data object NavigateToSend : MediaEditScreenEvent
 }
