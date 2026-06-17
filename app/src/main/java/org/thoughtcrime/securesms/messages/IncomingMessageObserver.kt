@@ -268,9 +268,6 @@ class IncomingMessageObserver(
       TAG,
       "[$needsConnectionString] Network: $hasNetwork, Foreground: $appVisibleSnapshot, Time Since Last Interaction: $lastInteractionString, FCM: $fcmEnabled, WS Open or Keep-alives: $websocketAlreadyOpen, Registered: $registered, Unauthorized: $unauthorizedReceived, Proxy: $hasProxy, Force websocket: $forceWebsocket"
     )
-    if (!registered || unauthorizedReceived) {
-      stopForegroundService(context)
-    }
 
     return conclusion
   }
