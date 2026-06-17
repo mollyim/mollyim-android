@@ -400,50 +400,50 @@
     <string name="LinkAccountScreen__create_account">Gumawa ng account</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Ilipat ang account mo</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Para mailipat ang account mo, buksan ang Signal sa lumang Android device mo at piliin ang Ilipat ang Account.</string>
     <string name="DeviceTransferInstructions__continue">Magpatuloy</string>
 
     <!-- Device transfer: Setup screen -->
-    <string name="DeviceTransferSetup__preparing_to_connect">Preparing to connect to old Andoid device…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
-    <string name="DeviceTransferSetup__numbers_do_not_match">The numbers do not match</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_location_services">I-turn on ang location services</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__turn_on_wifi">I-turn on ang Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
-    <string name="DeviceTransferSetup__retry">Subukang muli</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
-    <string name="DeviceTransferSetup__try_again">Subukang muli</string>
-    <string name="DeviceTransferSetup__the_numbers_do_not_match">The numbers do not match</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">Stop transfer</string>
+    <string name="DeviceTransferSetup__preparing_to_connect">Naghahandang mag-connect sa lumang Andoid device…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Maaari itong tumagal ng ilang sandali. Malapit na itong maging handa.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Hinihintay na mag-connect ang lumang device mo…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">I-verify ang numbers sa parehong devices</string>
+    <string name="DeviceTransferSetup__numbers_match">Oo, magkapareho ang numbers</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">Hindi magkapareho ang numbers</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Hinihintay mag-verify ang lumang device mo…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Kailangan ng Signal ang location permission para ma-discover at maka-connect sa lumang device mo.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Bigyan ng pahintulot</string>
+    <string name="DeviceTransferSetup__location_services_required">Kailangang naka-enable ang location services para ma-discover at maka-connect sa lumang device mo ang Signal.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">I-on ang location services</string>
+    <string name="DeviceTransferSetup__wifi_required">Kailangang naka-on ang Wi-Fi para ma-discover at maka-connect sa lumang device mo ang Signal.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">I-on ang Wi-Fi</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Paumanhin, ngunit lumalabas na hindi suportado ng device mo ang Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Mag-restore na lang ng backup</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Nagkaroon ng hindi inaasahang error habang sinusubukang mag-connect sa lumang device mo.</string>
+    <string name="DeviceTransferSetup__retry">Subukan ulit</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Hindi ma-discover ang lumang device mo</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Siguraduhing naka-enable ang location permissions.\n• Siguraduhing naka-on ang Wi-Fi at walang Wi-Fi Direct groups ang natatandaan nito.\n• Subukang i-off at i-on ulit ang Wi-Fi sa parehong devices.\n• Siguraduhing nasa transfer mode ang parehong devices.</string>
+    <string name="DeviceTransferSetup__try_again">Subukan ulit</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">Hindi magkapareho ang numbers</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Kung hindi magkapareho ang numbers sa devices mo, posibleng naka-connect ka sa maling device.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Itigil ang paglipat</string>
 
     <!-- Device transfer: Progress screen -->
-    <string name="DeviceTransferProgress__transferring_data">Transferring data</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">%1$d mensahe sa ngayon</string>
-    <string name="DeviceTransferProgress__unable_to_transfer">Unable to transfer</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__transferring_data">Naglilipat ng data</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">%1$d messages sa ngayon</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Hindi makapaglipat ng data</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Hindi mailipat sa mas bagong version ng Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Hindi mailipat ang ibang data dahil sa limitasyon ng database.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Failed ang paglipat. Subukan ulit.</string>
     <string name="DeviceTransferProgress__try_again">Subukan ulit</string>
     <string name="DeviceTransferProgress__cancel">I-cancel</string>
-    <string name="DeviceTransferProgress__stop_transfer">Gusto mo bang itigil ang pag-transfer?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">All transfer progress will be lost.</string>
+    <string name="DeviceTransferProgress__stop_transfer">Gusto mo bang itigil ang paglipat?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Mawawala ang lahat ng nalipat mo na.</string>
 
     <!-- Device transfer: Complete screen -->
-    <string name="DeviceTransferComplete__transfer_complete">Transfer complete</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__transfer_complete">Tapos na ang paglipat</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Narito na sa device na ito ang iyong account.</string>
     <string name="DeviceTransferComplete__continue_registration">Magpatuloy</string>
 
     <!-- Create profile screen -->
@@ -452,13 +452,13 @@
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
     <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Makikita ng contacts, groups, at mga taong napadalhan mo na ng mensahe ang profile mo at ang mga pagbabago dito.</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">Pangalan (kailangan)</string>
+    <string name="CreateProfileScreen__first_name_required">Pangalan (kinailangan)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
     <string name="CreateProfileScreen__last_name_optional">Apelyido (opsyonal)</string>
     <!-- Action button text to advance from create-profile screen. -->
     <string name="CreateProfileScreen__next">Susunod</string>
     <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">Itakda ang avatar</string>
+    <string name="CreateProfileScreen__set_avatar_description">Mag-takda ang avatar</string>
 
     <!-- Phone number discoverability picker -->
     <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
@@ -468,9 +468,9 @@
     <!-- Description shown on the picker when "Nobody" is selected. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Walang makakakita na nasa Signal ka maliban sa mga taong minessage o naka-chat mo.</string>
     <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">Everyone</string>
+    <string name="PhoneNumberPrivacy_everyone">Lahat</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">Nobody</string>
+    <string name="PhoneNumberPrivacy_nobody">Wala</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Sigurado ka na ba?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->

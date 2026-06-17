@@ -400,42 +400,42 @@
     <string name="LinkAccountScreen__create_account">Criar conta</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Transferir sua conta</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Para transferir sua conta, abra o Signal no dispositivo Android antigo e selecione Transferir conta.</string>
     <string name="DeviceTransferInstructions__continue">Continuar</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Preparando a conexão com o aparelho Android antigo…</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Isso pode levar alguns instantes. Em breve estará pronto. </string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Aguardando a conexão do dispositivo antigo…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Verifique se os números correspondem nos dois dispositivos</string>
+    <string name="DeviceTransferSetup__numbers_match">Sim, os números correspondem</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Os números não correspondem</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Aguardando a verificação do dispositivo antigo…</string>
+    <string name="DeviceTransferSetup__location_permission_required">O Signal precisa de permissão de localização para encontrar e se conectar ao seu dispositivo antigo.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Conceder permissão</string>
+    <string name="DeviceTransferSetup__location_services_required">O Signal precisa que os serviços de localização estejam ativados para encontrar e se conectar ao seu dispositivo antigo.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Ativar os serviços de localização</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">O Signal precisa ativar o Wi-Fi para encontrar e se conectar com seu dispositivo antigo.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Ativar o Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Parece que seu dispositivo não é compatível com o Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Restaurar um backup</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Ocorreu um erro inesperado ao tentar se conectar ao seu dispositivo antigo.</string>
     <string name="DeviceTransferSetup__retry">Tente novamente</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Não foi possível encontrar seu dispositivo antigo</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Certifique-se de que todas as permissões de localização sejam concedidas.\n• Confira se o Wi-Fi está ativado e que nenhum grupo do Wi-Fi Direct está memorizado.\n• Tente desativar o Wi-Fi e ativá-lo novamente nos dois dispositivos.\n• Certifique-se de que ambos os dispositivos estejam no modo de transferência.</string>
     <string name="DeviceTransferSetup__try_again">Tentar novamente</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Os números não correspondem</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Se os números nos seus dispositivos não forem iguais, possivelmente você se conectou ao dispositivo errado.</string>
     <string name="DeviceTransferSetup__stop_transfer">Cancelar a transferência</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Transferindo dados</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d mensagens até agora</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Não foi possível transferir</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Não é possível transferir de uma versão mais recente do Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Não foi possível transferir alguns dados devido a uma restrição da base de dados.</string>
+    <string name="DeviceTransferProgress__transfer_failed">A transferência falhou. Tente novamente.</string>
     <string name="DeviceTransferProgress__try_again">Tentar novamente</string>
     <string name="DeviceTransferProgress__cancel">Cancelar</string>
     <string name="DeviceTransferProgress__stop_transfer">Cancelar a transferência?</string>
@@ -443,7 +443,7 @@
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Transferência concluída</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Sua conta agora está neste dispositivo.</string>
     <string name="DeviceTransferComplete__continue_registration">Continuar</string>
 
     <!-- Create profile screen -->

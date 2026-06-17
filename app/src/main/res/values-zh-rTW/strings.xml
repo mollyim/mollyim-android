@@ -3292,6 +3292,8 @@
     <string name="NotificationChannel_calls">通話</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">失敗</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">Internal Issues</string>
     <string name="NotificationChannel_backups">備份</string>
     <string name="NotificationChannel_locked_status">鎖定狀態</string>
     <string name="NotificationChannel_app_updates">應用程式更新</string>

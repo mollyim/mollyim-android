@@ -404,50 +404,50 @@
     <string name="LinkAccountScreen__create_account">Ustvari račun</string>
 
     <!-- Device transfer: Instructions screen -->
-    <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">To transfer your account, open Signal on your old Android device and select Transfer Account.</string>
+    <string name="DeviceTransferInstructions__transfer_your_account">Prenesite svoj račun</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Če želite prenesti svoj račun, odprite Signal na svoji stari napravi Android in izberite »Prenesi račun«.</string>
     <string name="DeviceTransferInstructions__continue">Nadaljuj</string>
 
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Priprava za povezavo s staro androidno napravo …</string>
-    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">This might take a moment. Should be ready soon.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Waiting for your old device to connect…</string>
-    <string name="DeviceTransferSetup__verify_numbers_match">Verify the numbers match on both devices</string>
-    <string name="DeviceTransferSetup__numbers_match">Yes, the numbers match</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">To lahko traja trenutek. Kmalu bo pripravljeno.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Čakanje na povezavo z vašo staro napravo …</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Preverite, ali se številki na obeh napravah ujemata</string>
+    <string name="DeviceTransferSetup__numbers_match">Da, številki se ujemata</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Številki se ne ujemata</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Waiting for your old device to verify…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal needs the location permission to discover and connect with your old device.</string>
-    <string name="DeviceTransferSetup__grant_location_permission">Grant permission</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal needs location services enabled to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Čakanje na potrditev z vaše stare naprave …</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal potrebuje dovoljenje za dostop do lokacije, da lahko najde in se poveže z vašo staro napravo.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Odobri dovoljenje</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal potrebuje omogočene lokacijske storitve, da lahko najde in se poveže z vašo staro napravo.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Vklopi lokacijske storitve</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal needs Wi-Fi turned on to discover and connect with your old device.</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal potrebuje vklopljen Wi-Fi, da lahko najde in se poveže z vašo staro napravo.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">Vklopi Wi-Fi</string>
-    <string name="DeviceTransferSetup__wifi_direct_unavailable">Sorry, it appears your device does not support Wi-Fi Direct.</string>
-    <string name="DeviceTransferSetup__restore_a_backup">Restore a backup instead</string>
-    <string name="DeviceTransferSetup__unexpected_error_connecting">An unexpected error occurred while attempting to connect to your old device.</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Videti je, da vaša naprava ne podpira funkcije Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Namesto tega obnovi iz varnostne kopije</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Pri povezovanju z vašo staro napravo je prišlo do nepričakovane napake.</string>
     <string name="DeviceTransferSetup__retry">Ponovno</string>
-    <string name="DeviceTransferSetup__unable_to_discover_old_device">Unable to discover your old device</string>
-    <string name="DeviceTransferSetup__troubleshooting_tips">• Make sure location permissions are granted.\n• Make sure Wi-Fi is on and no Wi-Fi Direct groups are remembered.\n• Try turning Wi-Fi off and on on both devices.\n• Make sure both devices are in transfer mode.</string>
-    <string name="DeviceTransferSetup__try_again">Poskusi znova</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Stare naprave ni bilo mogoče najti</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Prepričajte se, da je dovoljenje za dostop do lokacije omogočeno.\n• Prepričajte se, da je Wi-Fi vklopljen in da ni shranjenih skupin Wi-Fi Direct.\n• Poskusite izklopiti in ponovno vklopiti Wi-Fi v obeh napravah.\n• Prepričajte se, da sta obe napravi pripravljeni za prenos računa.</string>
+    <string name="DeviceTransferSetup__try_again">Poskusite znova</string>
     <string name="DeviceTransferSetup__the_numbers_do_not_match">Številki se ne ujemata</string>
-    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">If the numbers on your devices do not match, it\'s possible you connected to the wrong device.</string>
-    <string name="DeviceTransferSetup__stop_transfer">Prekini proces</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Če se številki v napravah ne ujemata, je mogoče, da ste se povezali z napačno napravo.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Prekini postopek</string>
 
     <!-- Device transfer: Progress screen -->
     <string name="DeviceTransferProgress__transferring_data">Poteka prenos podatkov</string>
-    <string name="DeviceTransferProgress__d_messages_so_far">%1$d sporočil zaenkrat</string>
-    <string name="DeviceTransferProgress__unable_to_transfer">Prenos ni bil mogoč</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Cannot transfer from a newer version of Signal.</string>
-    <string name="DeviceTransferProgress__failure_foreign_key">Some data could not be transferred due to a database constraint.</string>
-    <string name="DeviceTransferProgress__transfer_failed">The transfer failed. Please try again.</string>
-    <string name="DeviceTransferProgress__try_again">Poskusite znova</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">Št. sporočil zaenkrat: %1$d</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Prenos ni mogoč</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Prenos iz novejše različice Signala ni mogoč.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Nekaterih podatkov ni bilo mogoče prenesti zaradi omejitev v zbirki podatkov.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Prenos ni uspel. Poskusite znova.</string>
+    <string name="DeviceTransferProgress__try_again">Poskusi znova</string>
     <string name="DeviceTransferProgress__cancel">Prekliči</string>
-    <string name="DeviceTransferProgress__stop_transfer">Želite prekiniti proces?</string>
-    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Vsi do zdaj prenešeni podatki bodo izgubljeni.</string>
+    <string name="DeviceTransferProgress__stop_transfer">Želite prekiniti postopek?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Vsi do zdaj preneseni podatki bodo izgubljeni.</string>
 
     <!-- Device transfer: Complete screen -->
     <string name="DeviceTransferComplete__transfer_complete">Prenos je končan</string>
-    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Your account is now on this device.</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Vaš račun je zdaj v tej napravi.</string>
     <string name="DeviceTransferComplete__continue_registration">Nadaljuj</string>
 
     <!-- Create profile screen -->
@@ -456,7 +456,7 @@
     <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
     <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Vaš profil in spremembe na njem bodo vidne osebam, ki jim pošiljate sporočila, stikom in skupinam.</string>
     <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">Ime (zahtevano)</string>
+    <string name="CreateProfileScreen__first_name_required">Ime (obvezno)</string>
     <!-- Label/hint for the last-name field, indicating it is optional. -->
     <string name="CreateProfileScreen__last_name_optional">Priimek (neobvezno)</string>
     <!-- Action button text to advance from create-profile screen. -->
@@ -470,15 +470,15 @@
     <!-- Description shown on the picker when "Everyone" is selected. -->
     <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Vsak, ki ima vašo telefonsko številko, bo videl, da ste na Signalu, in bo lahko začel klepetati z vami.</string>
     <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nihče ne bo mogel videti, da ste na Signalu, razen če mu/ji ne pošljete sporočila ali že klepetate z njim/njo.</string>
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nihče ne bo mogel videti, da ste na Signalu, razen če mu/ji pošljete sporočilo ali že klepetate z njim/njo.</string>
     <!-- Radio option label for "Everyone can find me by number". -->
     <string name="PhoneNumberPrivacy_everyone">Kdorkoli</string>
     <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">Nikogar</string>
+    <string name="PhoneNumberPrivacy_nobody">Nihče</string>
     <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Ste prepričani?</string>
     <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Če nastavite \"Kdo me lahko najde po številki\" na \"Nihče\", vas bodo ljudje težje našli v Signalu.</string>
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Če nastavite »Kdo me lahko najde po številki« na »Nihče«, vas bodo ljudje težje našli v Signalu.</string>
     <!-- Cancel button on the "Nobody" confirmation dialog. -->
     <string name="PhoneNumberPrivacySettingsFragment__cancel">Prekliči</string>
     <!-- Save button on the discoverability picker. -->

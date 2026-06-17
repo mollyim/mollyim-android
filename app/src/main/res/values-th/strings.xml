@@ -3292,6 +3292,8 @@
     <string name="NotificationChannel_calls">การโทร</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">ความล้มเหลว</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">Internal Issues</string>
     <string name="NotificationChannel_backups">ข้อมูลสำรอง</string>
     <string name="NotificationChannel_locked_status">สถานะล็อก</string>
     <string name="NotificationChannel_app_updates">การปรับรุ่นแอป</string>

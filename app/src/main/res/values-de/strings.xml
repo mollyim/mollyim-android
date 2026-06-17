@@ -3393,6 +3393,8 @@
     <string name="NotificationChannel_calls">Anrufe</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Fehler</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">Internal Issues</string>
     <string name="NotificationChannel_backups">Backups</string>
     <string name="NotificationChannel_locked_status">Sperrstatus</string>
     <string name="NotificationChannel_app_updates">App-Aktualisierungen</string>
@@ -4103,8 +4105,8 @@
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Bitte beschreibe das Problem so genau wie möglich, damit wir es besser verstehen können.</string>
     <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
     <plurals name="HelpFragment__must_be_at_least_n_characters">
-        <item quantity="one">Must be at least %1$d character</item>
-        <item quantity="other">Must be at least %1$d characters</item>
+        <item quantity="one">Muss aus mindestens %1$d Zeichen bestehen</item>
+        <item quantity="other">Muss aus mindestens %1$d Zeichen bestehen</item>
     </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>Bitte wähle eine Option</item>
@@ -9934,9 +9936,9 @@
     <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Gib deinen Wiederherstellungsschlüssel nicht weiter</string>
     <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
-    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal will never message you</string>
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal wird dich nie per Nachricht</string>
     <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
-    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">for your recovery key. Never respond to a chat pretending to be Signal. Store your recovery key somewhere safe and never share it with anyone.</string>
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">nach deinem Wiederherstellungsschlüssel fragen. Reagiere niemals auf eine Chat-Nachricht, die vorgibt, von Signal zu sein. Speichere deinen Wiederherstellungsschlüssel an einem sicheren Ort und gib ihn an niemanden weiter.</string>
     <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
     <string name="RecoveryKeyWarningSheetContent__got_it">Verstanden</string>
     <!-- Button opening a help article with more information about recovery key safety -->
@@ -9944,22 +9946,22 @@
     <!-- Inline link opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more_period">Learn more.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
-    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Do not share key</string>
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Schlüssel nicht weitergeben</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
-    <string name="RecoveryKeyWarningSheetContent__share_key">Share key</string>
+    <string name="RecoveryKeyWarningSheetContent__share_key">Schlüssel weitergeben</string>
 
     <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Do not share recovery key</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Gib den Wiederherstellungsschlüssel nicht weiter</string>
     <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
-    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Do not share your recovery key with anyone. This will let them take over your account.</string>
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Gib deinen Wiederherstellungsschlüssel an niemanden weiter. Dadurch könnte jemand die Kontrolle über dein Konto übernehmen.</string>
     <!-- Bolded middle sentence of the final confirmation dialog body -->
-    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal will never message you for your recovery key.</string>
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal wird dich nie per Nachricht nach deinem Wiederherstellungsschlüssel fragen.</string>
     <!-- Final sentence of the final confirmation dialog body -->
-    <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Reagiere niemals auf eine Nachricht, die vorgibt, von Signal zu sein.</string>
+    <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Antworte niemals auf eine Nachricht, die vorgibt, von Signal zu sein.</string>
     <!-- Button confirming the user wants to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__paste_key">Paste key</string>
+    <string name="RecoveryKeyWarningDialog__paste_key">Schlüssel einfügen</string>
     <!-- Button declining to paste the recovery key -->
-    <string name="RecoveryKeyWarningDialog__dont_share">Don\'t share</string>
+    <string name="RecoveryKeyWarningDialog__dont_share">Nicht weitergeben</string>
 
     <!-- EOF -->
 </resources>

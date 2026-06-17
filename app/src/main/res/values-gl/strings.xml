@@ -3393,6 +3393,8 @@
     <string name="NotificationChannel_calls">Chamadas</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Erros</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">Internal Issues</string>
     <string name="NotificationChannel_backups">Copias de seguranza</string>
     <string name="NotificationChannel_locked_status">Bloquear estado</string>
     <string name="NotificationChannel_app_updates">Actualizacións da app</string>

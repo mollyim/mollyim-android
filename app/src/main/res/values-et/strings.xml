@@ -3393,6 +3393,8 @@
     <string name="NotificationChannel_calls">Kõned</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Ebaõnnestumised</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">Internal Issues</string>
     <string name="NotificationChannel_backups">Varukoopiad</string>
     <string name="NotificationChannel_locked_status">Luku olek</string>
     <string name="NotificationChannel_app_updates">Rakenduse uuendused</string>
