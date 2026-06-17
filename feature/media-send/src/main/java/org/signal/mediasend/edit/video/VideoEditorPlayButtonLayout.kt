@@ -1,13 +1,18 @@
-package org.thoughtcrime.securesms.scribbles
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.mediasend.edit.video
 
 import android.animation.Animator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import org.signal.core.util.logging.Log.tag
-import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.util.createDefaultCubicBezierInterpolator
+import org.signal.core.ui.view.createDefaultCubicBezierInterpolator
+import org.signal.core.util.logging.Log
+import org.signal.mediasend.R
 
 /**
  * The play button overlay for controlling playback in the video editor.
@@ -35,6 +40,7 @@ class VideoEditorPlayButtonLayout @JvmOverloads constructor(context: Context, at
         override fun onAnimationEnd(animation: Animator) {
           playOverlay.visibility = GONE
         }
+
         override fun onAnimationStart(animation: Animator) = Unit
         override fun onAnimationCancel(animation: Animator) = Unit
         override fun onAnimationRepeat(animation: Animator) = Unit
@@ -52,6 +58,6 @@ class VideoEditorPlayButtonLayout @JvmOverloads constructor(context: Context, at
 
   companion object {
     @Suppress("unused")
-    private val TAG = tag(VideoEditorPlayButtonLayout::class.java)
+    private val TAG = Log.tag(VideoEditorPlayButtonLayout::class.java)
   }
 }

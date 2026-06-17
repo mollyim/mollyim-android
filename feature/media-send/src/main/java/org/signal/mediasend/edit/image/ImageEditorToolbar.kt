@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.signal.mediasend.edit
+package org.signal.mediasend.edit.image
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
@@ -36,11 +36,13 @@ import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.core.util.next
 import org.signal.imageeditor.core.model.EditorModel
+import org.signal.mediasend.edit.ImageController
+import org.signal.mediasend.edit.MediaEditScreenDialogs
 import java.util.EnumMap
 
 @Composable
 fun ImageEditorToolbar(
-  imageEditorController: EditorController.Image,
+  imageEditorController: ImageController,
   modifier: Modifier = Modifier
 ) {
   when {
@@ -51,10 +53,10 @@ fun ImageEditorToolbar(
         modifier = modifier
       )
     }
-    imageEditorController.mode == EditorController.Image.Mode.NONE -> {
+    imageEditorController.mode == ImageController.Mode.NONE -> {
       ImageEditorNoneStateToolbar(imageEditorController, modifier)
     }
-    imageEditorController.mode == EditorController.Image.Mode.CROP -> {
+    imageEditorController.mode == ImageController.Mode.CROP -> {
       ImageEditorCropAndResizeToolbar(imageEditorController, modifier)
     }
     else -> {
@@ -68,7 +70,7 @@ fun ImageEditorToolbar(
  */
 @Composable
 private fun ImageEditorNoneStateToolbar(
-  imageEditorController: EditorController.Image,
+  imageEditorController: ImageController,
   modifier: Modifier = Modifier
 ) {
   OrientedImageEditorToolbar(modifier) {
@@ -101,7 +103,7 @@ private fun ImageEditorNoneStateToolbar(
 
 @Composable
 private fun ImageEditorDrawStateToolbar(
-  imageEditorController: EditorController.Image,
+  imageEditorController: ImageController,
   modifier: Modifier = Modifier
 ) {
   OrientedImageEditorToolbar(
@@ -157,7 +159,7 @@ private fun ImageEditorDrawStateToolbar(
 
 @Composable
 private fun ImageEditorCropAndResizeToolbar(
-  imageEditorController: EditorController.Image,
+  imageEditorController: ImageController,
   modifier: Modifier = Modifier
 ) {
   OrientedImageEditorToolbar(
@@ -203,7 +205,7 @@ private fun ImageEditorCropAndResizeToolbar(
 }
 
 @Composable
-private fun CommitButton(imageEditorController: EditorController.Image) {
+private fun CommitButton(imageEditorController: ImageController) {
   ImageEditorButton(
     imageVector = SignalIcons.Check.imageVector,
     onClick = imageEditorController::commitEdit,
@@ -214,9 +216,9 @@ private fun CommitButton(imageEditorController: EditorController.Image) {
 }
 
 @Composable
-private fun DiscardButton(imageEditorController: EditorController.Image) {
+private fun DiscardButton(imageEditorController: ImageController) {
   if (imageEditorController.showDiscardDialog) {
-    MediaSendDialogs.DiscardEditsConfirmationDialog(
+    MediaEditScreenDialogs.DiscardEditsConfirmationDialog(
       onDiscard = imageEditorController::confirmDiscardEdit,
       onDismiss = imageEditorController::dismissDiscardDialog
     )
@@ -334,7 +336,7 @@ private fun ImageEditorNoneStateToolbarPreview() {
   Previews.Preview {
     ImageEditorNoneStateToolbar(
       imageEditorController = remember {
-        EditorController.Image(EditorModel.create(0))
+        ImageController(EditorModel.create(0))
       }
     )
   }
@@ -349,7 +351,7 @@ private fun ImageEditorDrawStateToolbarPreview() {
   Previews.Preview {
     ImageEditorDrawStateToolbar(
       imageEditorController = remember {
-        EditorController.Image(EditorModel.create(0)).apply {
+        ImageController(EditorModel.create(0)).apply {
           enterDrawMode()
         }
       }
@@ -366,7 +368,7 @@ private fun ImageEditorCropAndResizeToolbarPreview() {
   Previews.Preview {
     ImageEditorCropAndResizeToolbar(
       imageEditorController = remember {
-        EditorController.Image(EditorModel.create(0)).apply {
+        ImageController(EditorModel.create(0)).apply {
           enterCropMode()
         }
       }

@@ -19,14 +19,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 
 import org.signal.core.util.logging.Log;
+import org.signal.glide.decryptableuri.DecryptableUri;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
-import org.signal.glide.decryptableuri.DecryptableUri;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mms.PartAuthority;
-import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.video.VideoPlayer;
+import org.signal.video.VideoPlayer;
 
 import java.util.concurrent.TimeUnit;
 
@@ -127,11 +127,10 @@ public class ViewOnceMessageActivity extends PassphraseRequiredActivity implemen
     image.setVisibility(View.GONE);
     duration.setVisibility(View.VISIBLE);
 
-    VideoSlide videoSlide = new VideoSlide(this, uri, 0, false);
-
     video.setWindow(getWindow());
     video.setPlayerStateCallbacks(this);
-    video.setVideoSource(videoSlide, true, TAG);
+    video.setExoPlayerPool(AppDependencies.getExoPlayerPool());
+    video.setVideoSource(uri, true, TAG);
 
     video.hideControls();
     video.loopForever();

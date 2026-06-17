@@ -1,4 +1,9 @@
-package org.thoughtcrime.securesms.video.videoconverter;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.mediasend.edit.video;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,12 +19,12 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.media.DecryptableUriMediaInput;
 import org.thoughtcrime.securesms.video.interfaces.MediaInput;
+import org.thoughtcrime.securesms.video.interfaces.MediaInputFactory;
+import org.thoughtcrime.securesms.video.videoconverter.VideoThumbnailsExtractor;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -27,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@RequiresApi(api = 23)
 abstract public class VideoThumbnailsView extends View {
 
   private static final String TAG           = Log.tag(VideoThumbnailsView.class);
@@ -62,18 +66,19 @@ abstract public class VideoThumbnailsView extends View {
   /**
    * @return Whether or not the current URI was changed.
    */
-  public boolean setInput(@NonNull Uri uri) throws IOException {
+  public boolean setInput(@NonNull Uri uri, @NonNull MediaInputFactory mediaInputFactory) throws IOException {
     if (uri.equals(this.currentUri)) {
       return false;
     }
 
     this.currentUri = uri;
-    this.input      = DecryptableUriMediaInput.createForUri(getContext(), uri);
+    this.input      = mediaInputFactory.createForUri(getContext(), uri);
     this.thumbnails = null;
     if (thumbnailsTask != null) {
       thumbnailsTask.cancel(true);
       thumbnailsTask = null;
     }
+    onInputChanged();
     invalidate();
     return true;
   }
@@ -180,6 +185,12 @@ abstract public class VideoThumbnailsView extends View {
   }
 
   abstract void afterDurationChange(long duration);
+
+  /**
+   * Invoked when {@link #setInput} swaps in a different video. Subclasses override to drop any per-video state so it
+   * is not carried over to the new input.
+   */
+  protected void onInputChanged() {}
 
   public long getDuration() {
     return duration;

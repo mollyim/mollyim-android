@@ -1,23 +1,26 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2026 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.thoughtcrime.securesms.mediasend.v2.videos
+package org.signal.mediasend.edit.video
 
 import android.os.Bundle
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.microseconds
 
 /**
  * This represents the editor state for the video trimmer.
  */
+@Parcelize
 data class VideoTrimData(
   val isDurationEdited: Boolean = false,
   val totalInputDurationUs: Long = 0,
   val startTimeUs: Long = 0,
   val endTimeUs: Long = 0
-) {
+) : Parcelable {
 
   fun getDuration(): Duration = (endTimeUs - startTimeUs).microseconds
 

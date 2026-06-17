@@ -43,6 +43,7 @@ import org.signal.imageeditor.core.model.EditorElement
 import org.signal.imageeditor.core.model.EditorModel
 import org.signal.imageeditor.core.renderers.UriGlideRenderer
 import org.signal.mediasend.edit.MediaEditScreenEvent
+import org.signal.mediasend.edit.video.VideoTrimData
 import org.signal.mediasend.preupload.PreUploadController
 import org.signal.mediasend.select.MediaSelectScreenEvent
 import java.util.Collections
@@ -182,6 +183,13 @@ class MediaSendViewModel(
     when (mediaEditScreenEvent) {
       is MediaEditScreenEvent.FocusedMediaChanged -> setFocusedMedia(mediaEditScreenEvent.media)
       MediaEditScreenEvent.NavigateToSend -> backStack.goToSend()
+      is MediaEditScreenEvent.VideoTrimChanged -> onEditVideoDuration(
+        totalDurationUs = mediaEditScreenEvent.videoTrimData.totalInputDurationUs,
+        startTimeUs = mediaEditScreenEvent.videoTrimData.startTimeUs,
+        endTimeUs = mediaEditScreenEvent.videoTrimData.endTimeUs,
+        touchEnabled = mediaEditScreenEvent.editingComplete
+      )
+      is MediaEditScreenEvent.VideoSeek -> error("VideoSeek is routed to the video player bus by MediaEditScreen and must not reach the view-model.")
       is MediaEditScreenEvent.AddMessageClick -> {
         val snapshot: MediaSendState = state.value
 
@@ -439,9 +447,9 @@ class MediaSendViewModel(
         val existingData = snapshot.editorStateMap[mediaItem.uri] as? EditorState.VideoTrim
         if (existingData != null) {
           onEditVideoDuration(
-            totalDurationUs = existingData.totalInputDurationUs,
-            startTimeUs = existingData.startTimeUs,
-            endTimeUs = existingData.endTimeUs,
+            totalDurationUs = existingData.videoTrimData.totalInputDurationUs,
+            startTimeUs = existingData.videoTrimData.startTimeUs,
+            endTimeUs = existingData.videoTrimData.endTimeUs,
             touchEnabled = true,
             uri = mediaItem.uri
           )
@@ -483,22 +491,22 @@ class MediaSendViewModel(
 
     val snapshot = state.value
     val existingData = snapshot.editorStateMap[uri] as? EditorState.VideoTrim
-      ?: EditorState.VideoTrim(totalInputDurationUs = totalDurationUs)
+      ?: EditorState.VideoTrim(VideoTrimData(totalInputDurationUs = totalDurationUs))
 
     val clampedStartTime = maxOf(startTimeUs, 0)
-    val unedited = !existingData.isDurationEdited
+    val unedited = !existingData.videoTrimData.isDurationEdited
     val durationEdited = clampedStartTime > 0 || endTimeUs < totalDurationUs
     val isEntireDuration = startTimeUs == 0L && endTimeUs == totalDurationUs
-    val endMoved = !isEntireDuration && existingData.endTimeUs != endTimeUs
+    val endMoved = !isEntireDuration && existingData.videoTrimData.endTimeUs != endTimeUs
     val maxVideoDurationUs = getMaxVideoDurationUs()
     val preserveStartTime = unedited || !endMoved
 
-    val newData = EditorState.VideoTrim(
+    val newData = VideoTrimData(
       isDurationEdited = durationEdited,
       totalInputDurationUs = totalDurationUs,
       startTimeUs = clampedStartTime,
       endTimeUs = endTimeUs
-    ).clampToMaxDuration(maxVideoDurationUs, preserveStartTime)
+    ).let { EditorState.VideoTrim(it) }.clampToMaxDuration(maxVideoDurationUs, preserveStartTime)
 
     // Cancel upload on first edit
     if (unedited && durationEdited) {

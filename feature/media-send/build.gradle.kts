@@ -44,6 +44,7 @@ dependencies {
 
   // Compose dependencies
   implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.fragment.compose)
   implementation(libs.androidx.compose.material3)
   implementation(libs.androidx.compose.ui.tooling.preview)
   debugImplementation(libs.androidx.compose.ui.tooling.core)
@@ -62,6 +63,9 @@ dependencies {
 
   // Permissions
   implementation(libs.accompanist.permissions)
+
+  // Media
+  implementation(libs.androidx.media3.exoplayer)
 
   // Testing
   testImplementation(testLibs.junit.junit)

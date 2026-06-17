@@ -4,9 +4,9 @@ import android.net.Uri
 import org.signal.core.models.media.Media
 import org.signal.mediasend.MediaConstraints
 import org.signal.mediasend.SentMediaQuality
+import org.signal.mediasend.edit.video.VideoTrimData
 import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.mediasend.v2.videos.VideoTrimData
 import org.thoughtcrime.securesms.mms.PushMediaConstraints
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.stories.Stories

@@ -35,7 +35,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mediasend.MediaRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaValidator
-import org.thoughtcrime.securesms.mediasend.v2.videos.VideoTrimData
 import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.mms.PushMediaConstraints
 import org.thoughtcrime.securesms.providers.BlobProvider
@@ -202,12 +201,7 @@ object MediaSendV3Repository : MediaSendRepository {
     return editorStateMap.mapNotNull { (uri, state) ->
       val legacyState: Any = when (state) {
         is EditorState.Image -> ImageEditorFragment.Data().apply { writeModel(state.model) }
-        is EditorState.VideoTrim -> VideoTrimData(
-          isDurationEdited = state.isDurationEdited,
-          totalInputDurationUs = state.totalInputDurationUs,
-          startTimeUs = state.startTimeUs,
-          endTimeUs = state.endTimeUs
-        )
+        is EditorState.VideoTrim -> state.videoTrimData
       }
       uri to legacyState
     }.toMap()

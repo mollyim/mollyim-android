@@ -39,7 +39,6 @@ fun MediaSendNavDisplay(
   modifier: Modifier = Modifier,
   cameraSlot: @Composable () -> Unit = {},
   textStoryEditorSlot: @Composable () -> Unit = {},
-  videoEditorSlot: @Composable () -> Unit = {},
   sendSlot: @Composable (MediaSendState) -> Unit = {}
 ) {
   NavDisplay(
@@ -91,7 +90,6 @@ fun MediaSendNavDisplay(
         val state by stateFlow.collectAsStateWithLifecycle()
         MediaEditScreen(
           state = state,
-          videoEditorSlot = videoEditorSlot,
           onEvent = eventHandler::onMediaEditScreenEvent
         )
       }
@@ -117,7 +115,6 @@ private fun MediaSendNavDisplayPreview() {
         eventHandler = MediaSendEventHandler.Empty,
         cameraSlot = { BoxWithText("Camera Slot") },
         textStoryEditorSlot = { BoxWithText("Text Story Editor Slot") },
-        videoEditorSlot = { BoxWithText("Video Editor Slot") },
         sendSlot = { _ -> BoxWithText("Send Slot") }
       )
     }

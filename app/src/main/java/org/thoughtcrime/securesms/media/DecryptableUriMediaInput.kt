@@ -8,6 +8,7 @@ import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.mms.PartUriParser
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.video.interfaces.MediaInput
+import org.thoughtcrime.securesms.video.interfaces.MediaInputFactory
 import org.thoughtcrime.securesms.video.videoconverter.mediadatasource.MediaDataSourceMediaInput
 import java.io.IOException
 
@@ -15,10 +16,9 @@ import java.io.IOException
  * A media input source that is decrypted on the fly.
  */
 @RequiresApi(api = 23)
-object DecryptableUriMediaInput {
-  @JvmStatic
+object DecryptableUriMediaInput : MediaInputFactory {
   @Throws(IOException::class)
-  fun createForUri(context: Context, uri: Uri): MediaInput {
+  override fun createForUri(context: Context, uri: Uri): MediaInput {
     if (BlobProvider.isAuthority(uri)) {
       return MediaDataSourceMediaInput(BlobProvider.getInstance().getMediaDataSource(context, uri))
     }

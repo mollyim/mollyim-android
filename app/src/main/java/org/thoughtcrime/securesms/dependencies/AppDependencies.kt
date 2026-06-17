@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.dependencies
 
 import android.annotation.SuppressLint
 import android.app.Application
+import androidx.media3.exoplayer.ExoPlayer
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
 import org.signal.core.ui.CoreUiDependencies
@@ -32,6 +33,7 @@ import org.signal.network.api.SvrBApi
 import org.signal.network.api.UsernameApi
 import org.signal.network.rest.SignalRestClient
 import org.signal.network.service.MessageService
+import org.signal.video.exo.ExoPlayerPool
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
@@ -61,7 +63,6 @@ import org.thoughtcrime.securesms.shakereport.ShakeToReport
 import org.thoughtcrime.securesms.util.EarlyMessageCache
 import org.thoughtcrime.securesms.util.FrameRateTracker
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache
-import org.thoughtcrime.securesms.video.exo.SimpleExoPlayerPool
 import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
 import org.whispersystems.signalservice.api.SignalServiceDataStore
@@ -219,7 +220,7 @@ object AppDependencies {
   }
 
   @JvmStatic
-  val exoPlayerPool: SimpleExoPlayerPool by lazy {
+  val exoPlayerPool: ExoPlayerPool<ExoPlayer> by lazy {
     provider.provideExoPlayerPool()
   }
 
@@ -476,7 +477,7 @@ object AppDependencies {
     fun providePendingRetryReceiptCache(): PendingRetryReceiptCache
     fun provideProtocolStore(): SignalServiceDataStoreImpl
     fun provideGiphyMp4Cache(): GiphyMp4Cache
-    fun provideExoPlayerPool(): SimpleExoPlayerPool
+    fun provideExoPlayerPool(): ExoPlayerPool<ExoPlayer>
     fun provideAndroidCallAudioManager(): AudioManagerCompat
     fun provideDonationsService(donationsApi: DonationsApi): DonationsService
     fun provideProfileService(profileOperations: ClientZkProfileOperations, authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): ProfileService

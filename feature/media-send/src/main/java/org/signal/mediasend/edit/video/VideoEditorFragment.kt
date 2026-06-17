@@ -1,33 +1,35 @@
-package org.thoughtcrime.securesms.mediasend
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.mediasend.edit.video
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import org.signal.core.util.Throttler
+import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.logging.Log
-import org.signal.mediasend.MediaConstraints
-import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionViewModel
-import org.thoughtcrime.securesms.mediasend.v2.videos.VideoTrimData
-import org.thoughtcrime.securesms.mms.VideoSlide
-import org.thoughtcrime.securesms.scribbles.VideoEditorPlayButtonLayout
-import org.thoughtcrime.securesms.util.visible
-import org.thoughtcrime.securesms.video.VideoPlayer
-import org.thoughtcrime.securesms.video.VideoPlayer.PlayerCallback
-import org.thoughtcrime.securesms.video.videoconverter.VideoThumbnailsRangeSelectorView
-import org.thoughtcrime.securesms.video.videoconverter.VideoThumbnailsRangeSelectorView.PositionDragListener
-import java.io.IOException
+import org.signal.mediasend.MediaSendDependencies
+import org.signal.mediasend.R
+import org.signal.video.VideoPlayer
 import kotlin.time.Duration.Companion.microseconds
 import kotlin.time.Duration.Companion.milliseconds
 
-class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragment {
-  private val sharedViewModel: MediaSelectionViewModel by viewModels(ownerProducer = { requireActivity() })
+class VideoEditorFragment : Fragment() {
   private val videoScanThrottle = Throttler(150)
   private val handler = Handler(Looper.getMainLooper())
 
@@ -37,17 +39,16 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
   private var wasPlayingBeforeEdit = false
   private var maxSend: Long = 0
   private lateinit var uri: Uri
-  private lateinit var controller: Controller
+  private lateinit var viewModel: VideoEditorViewModel
   private lateinit var player: VideoPlayer
   private lateinit var hud: VideoEditorPlayButtonLayout
-  private lateinit var videoTimeLine: VideoThumbnailsRangeSelectorView
 
   private val updatePosition = object : Runnable {
     override fun run() {
-      if (MediaConstraints.isVideoTranscodeAvailable()) {
+      if (IS_VIDEO_TRANSCODE_AVAILABLE) {
         val playbackPosition = player.truePlaybackPosition
         if (playbackPosition >= 0) {
-          videoTimeLine.setActualPosition(playbackPosition.milliseconds.inWholeMicroseconds)
+          viewModel.emitEvent(uri, VideoEditorViewModel.Event.ActualPositionChanged(playbackPosition.milliseconds.inWholeMicroseconds))
           handler.postDelayed(this, 100)
         }
       }
@@ -56,13 +57,7 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    controller = if (activity is Controller) {
-      activity as Controller
-    } else if (parentFragment is Controller) {
-      parentFragment as Controller
-    } else {
-      throw IllegalStateException("Parent must implement Controller interface.")
-    }
+    viewModel = ViewModelProvider(requireActivity())[VideoEditorViewModel::class.java]
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,31 +67,29 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    videoTimeLine = requireActivity().findViewById(R.id.video_timeline)
-
     player = view.findViewById(R.id.video_player)
     hud = view.findViewById(R.id.video_editor_hud)
 
-    uri = requireArguments().getParcelable(KEY_URI)!!
+    uri = requireArguments().getParcelableCompat(KEY_URI, Uri::class.java)!!
     isVideoGif = requireArguments().getBoolean(KEY_IS_VIDEO_GIF)
     maxSend = requireArguments().getLong(KEY_MAX_SEND)
 
-    val slide = VideoSlide(requireContext(), uri, 0, isVideoGif)
     player.setWindow(requireActivity().window)
-    player.setVideoSource(slide, isVideoGif, TAG)
+    player.setExoPlayerPool(MediaSendDependencies.exoPlayerPool)
+    player.setVideoSource(uri, isVideoGif, TAG)
 
-    hud.visible = !slide.isVideoGif
+    hud.isVisible = !isVideoGif
 
-    if (slide.isVideoGif) {
-      player.setPlayerCallback(object : PlayerCallback {
+    if (isVideoGif) {
+      player.setPlayerCallback(object : VideoPlayer.PlayerCallback {
         override fun onPlaying() {
-          controller.onPlayerReady()
+          viewModel.emitEvent(uri, VideoEditorViewModel.Event.PlayerReady)
         }
 
         override fun onStopped() = Unit
 
         override fun onError(e: Exception) {
-          controller.onPlayerError()
+          viewModel.emitEvent(uri, VideoEditorViewModel.Event.PlayerError)
         }
       })
       player.hideControls()
@@ -113,9 +106,9 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
         hud.showPlayButton()
       }
 
-      player.setPlayerCallback(object : PlayerCallback {
+      player.setPlayerCallback(object : VideoPlayer.PlayerCallback {
         override fun onReady() {
-          controller.onPlayerReady()
+          viewModel.emitEvent(uri, VideoEditorViewModel.Event.PlayerReady)
         }
 
         override fun onPlaying() {
@@ -127,66 +120,57 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
         }
 
         override fun onError(e: Exception) {
-          controller.onPlayerError()
+          viewModel.emitEvent(uri, VideoEditorViewModel.Event.PlayerError)
         }
       })
     }
 
-    sharedViewModel.state.observe(viewLifecycleOwner) { incomingState ->
-      val focusedUri = incomingState.focusedMedia?.uri
-      val currentlyFocused = focusedUri != null && focusedUri == uri
-      if (MediaConstraints.isVideoTranscodeAvailable()) {
-        if (currentlyFocused) {
-          if (isVideoGif) {
-            player.play()
-          } else {
-            if (!isFocused) {
-              bindVideoTimeline(incomingState.getOrCreateVideoTrimData(uri))
-            } else {
-              val videoTrimData = if (focusedUri != null) {
-                incomingState.getOrCreateVideoTrimData(focusedUri)
-              } else {
-                VideoTrimData()
-              }
-              hud.visible = incomingState.isTouchEnabled && !isVideoGif
-              onEditVideoDuration(videoTrimData, incomingState.isTouchEnabled)
-            }
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.commands(uri).collect { command ->
+          when (command) {
+            is VideoEditorViewModel.Command.PositionDrag -> onSeek(command.positionUs, dragComplete = false)
+            is VideoEditorViewModel.Command.EndPositionDrag -> onSeek(command.positionUs, dragComplete = true)
           }
-        } else {
-          stopPositionUpdates()
-          player.pause()
         }
       }
-      isFocused = currentlyFocused
     }
+  }
+
+  fun onStateUpdate(focusedUri: Uri?, isTouchEnabled: Boolean, getOrCreateVideoTrimData: (Uri) -> VideoTrimData) {
+    val currentlyFocused = focusedUri != null && focusedUri == uri
+    if (IS_VIDEO_TRANSCODE_AVAILABLE) {
+      if (currentlyFocused) {
+        if (isVideoGif) {
+          player.play()
+        } else {
+          if (!isFocused) {
+            bindVideoTimeline(getOrCreateVideoTrimData(uri))
+          } else {
+            val videoTrimData = getOrCreateVideoTrimData(focusedUri)
+            hud.isVisible = isTouchEnabled && !isVideoGif
+            onEditVideoDuration(videoTrimData, isTouchEnabled)
+          }
+        }
+      } else {
+        stopPositionUpdates()
+        player.pause()
+      }
+    }
+    isFocused = currentlyFocused
   }
 
   private fun bindVideoTimeline(data: VideoTrimData) {
     val autoplay = isVideoGif
-    val slide = VideoSlide(requireContext(), uri, 0, autoplay)
 
     if (data.isDurationEdited) {
       player.clip(data.startTimeUs, data.endTimeUs, autoplay)
     }
 
-    if (slide.hasVideo() && !autoplay) {
-      try {
-        videoTimeLine.registerPlayerDragListener(this)
-
-        hud.visibility = View.VISIBLE
-        startPositionUpdates()
-      } catch (e: IOException) {
-        Log.w(TAG, e)
-      }
+    if (!autoplay) {
+      hud.visibility = View.VISIBLE
+      startPositionUpdates()
     }
-  }
-
-  override fun onPositionDrag(position: Long) {
-    onSeek(position, false)
-  }
-
-  override fun onEndPositionDrag(position: Long) {
-    onSeek(position, true)
   }
 
   override fun onDestroyView() {
@@ -226,19 +210,7 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
     }
   }
 
-  override fun setUri(uri: Uri) {
-    this.uri = uri
-  }
-
-  override fun getUri(): Uri {
-    return uri
-  }
-
-  override fun saveState(): Any = Unit
-
-  override fun restoreState(state: Any) = Unit
-
-  override fun notifyHidden() {
+  private fun notifyHidden() {
     pausePlayback()
   }
 
@@ -295,31 +267,27 @@ class VideoEditorFragment : Fragment(), PositionDragListener, MediaSendPageFragm
     }
   }
 
-  interface Controller {
-    fun onPlayerReady()
-
-    fun onPlayerError()
-
-    fun onTouchEventsNeeded(needed: Boolean)
-  }
-
   companion object {
     private val TAG = Log.tag(VideoEditorFragment::class.java)
+
+    private val IS_VIDEO_TRANSCODE_AVAILABLE = Build.VERSION.SDK_INT >= 26
 
     private const val KEY_URI = "uri"
     private const val KEY_MAX_SEND = "max_send_size"
     private const val KEY_IS_VIDEO_GIF = "is_video_gif"
 
-    fun newInstance(uri: Uri, maxAttachmentSize: Long, isVideoGif: Boolean): VideoEditorFragment {
-      val args = Bundle()
-      args.putParcelable(KEY_URI, uri)
-      args.putLong(KEY_MAX_SEND, maxAttachmentSize)
-      args.putBoolean(KEY_IS_VIDEO_GIF, isVideoGif)
+    fun arguments(uri: Uri, maxAttachmentSize: Long, isVideoGif: Boolean): Bundle {
+      return Bundle().apply {
+        putParcelable(KEY_URI, uri)
+        putLong(KEY_MAX_SEND, maxAttachmentSize)
+        putBoolean(KEY_IS_VIDEO_GIF, isVideoGif)
+      }
+    }
 
-      val fragment = VideoEditorFragment()
-      fragment.arguments = args
-      fragment.setUri(uri)
-      return fragment
+    fun newInstance(uri: Uri, maxAttachmentSize: Long, isVideoGif: Boolean): VideoEditorFragment {
+      return VideoEditorFragment().apply {
+        arguments = arguments(uri, maxAttachmentSize, isVideoGif)
+      }
     }
   }
 }

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2026 Signal Messenger, LLC
+  ~ SPDX-License-Identifier: AGPL-3.0-only
+  -->
+
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,7 +11,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:background="@color/core_grey_60"
+    tools:background="@color/signal_dark_colorOutline"
     tools:parentTag="android.widget.FrameLayout"
     tools:viewBindingIgnore="true">
 
@@ -28,7 +33,7 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/ThumbnailView_Play_video_description"
+            android:contentDescription="@string/VideoEditorHud_play_video_description"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/exo_icon_play" />
 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.thoughtcrime.securesms.video.videoconverter;
+package org.signal.mediasend.edit.video;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -20,14 +20,12 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
-import androidx.annotation.RequiresApi;
 
 import org.signal.core.util.DimensionUnit;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-@RequiresApi(api = 23)
 public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView {
 
   private static final long  MINIMUM_SELECTABLE_RANGE    = TimeUnit.MILLISECONDS.toMicros(500);
@@ -143,6 +141,19 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
 
   public void unregisterDragListener() {
     this.playerDragListener = null;
+  }
+
+  /**
+   * Resets the selected range when the underlying video changes so a newly-set video does not inherit the previous
+   * video's trim. Without this the retained {@link #minValue}/{@link #maxValue} get re-emitted via
+   * {@link #afterDurationChange(long)} as the new video's default clip.
+   */
+  @Override
+  protected void onInputChanged() {
+    this.minValue         = null;
+    this.maxValue         = null;
+    this.externalMinValue = null;
+    this.externalMaxValue = null;
   }
 
   public void setActualPosition(long position) {

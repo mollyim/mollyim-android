@@ -22,7 +22,6 @@ fun MediaSendScreen(
   modifier: Modifier = Modifier,
   cameraSlot: @Composable () -> Unit = {},
   textStoryEditorSlot: @Composable () -> Unit = {},
-  videoEditorSlot: @Composable () -> Unit = {},
   sendSlot: @Composable (MediaSendState) -> Unit = {},
   onExternalHudCommand: (HudCommand) -> Unit = {}
 ) {
@@ -44,7 +43,6 @@ fun MediaSendScreen(
           modifier = modifier,
           cameraSlot = cameraSlot,
           textStoryEditorSlot = textStoryEditorSlot,
-          videoEditorSlot = videoEditorSlot,
           sendSlot = sendSlot
         )
       }

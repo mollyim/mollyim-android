@@ -12,7 +12,7 @@ import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.mediasend.R
 
-object MediaSendDialogs {
+object MediaEditScreenDialogs {
 
   @Composable
   fun DiscardEditsConfirmationDialog(
@@ -34,7 +34,7 @@ object MediaSendDialogs {
 @Composable
 private fun DiscardEditsConfirmationDialogPreview() {
   Previews.Preview {
-    MediaSendDialogs.DiscardEditsConfirmationDialog(
+    MediaEditScreenDialogs.DiscardEditsConfirmationDialog(
       onDiscard = {},
       onDismiss = {}
     )

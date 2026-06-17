@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.signal.mediasend.edit
+package org.signal.mediasend.edit.image
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.Previews
 import org.signal.imageeditor.core.model.EditorModel
+import org.signal.mediasend.edit.ImageController
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -58,7 +59,7 @@ private val MAJOR_INDICATOR_HEIGHT = 24.dp
 
 @Composable
 fun RotationDial(
-  imageEditorController: EditorController.Image,
+  imageEditorController: ImageController,
   modifier: Modifier = Modifier
 ) {
   val hapticFeedback = LocalHapticFeedback.current
@@ -239,7 +240,7 @@ fun RotationDialPreview() {
   Previews.Preview {
     RotationDial(
       imageEditorController = remember {
-        EditorController.Image(EditorModel.create(0))
+        ImageController(EditorModel.create(0))
       }
     )
   }

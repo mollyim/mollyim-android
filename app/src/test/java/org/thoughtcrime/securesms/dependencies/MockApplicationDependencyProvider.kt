@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.dependencies
 
+import androidx.media3.exoplayer.ExoPlayer
 import io.mockk.mockk
 import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
@@ -19,6 +20,7 @@ import org.signal.network.api.RemoteConfigApi
 import org.signal.network.api.SvrBApi
 import org.signal.network.api.UsernameApi
 import org.signal.network.rest.SignalRestClient
+import org.signal.video.exo.ExoPlayerPool
 import org.thoughtcrime.securesms.components.TypingStatusRepository
 import org.thoughtcrime.securesms.components.TypingStatusSender
 import org.thoughtcrime.securesms.crypto.storage.SignalServiceDataStoreImpl
@@ -45,7 +47,6 @@ import org.thoughtcrime.securesms.shakereport.ShakeToReport
 import org.thoughtcrime.securesms.util.EarlyMessageCache
 import org.thoughtcrime.securesms.util.FrameRateTracker
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache
-import org.thoughtcrime.securesms.video.exo.SimpleExoPlayerPool
 import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
 import org.whispersystems.signalservice.api.SignalServiceDataStore
@@ -204,7 +205,7 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk(relaxed = true)
   }
 
-  override fun provideExoPlayerPool(): SimpleExoPlayerPool {
+  override fun provideExoPlayerPool(): ExoPlayerPool<ExoPlayer> {
     return mockk(relaxed = true)
   }
 

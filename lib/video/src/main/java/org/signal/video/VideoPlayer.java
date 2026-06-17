@@ -1,26 +1,15 @@
 /*
- * Copyright (C) 2017 Whisper Systems
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.thoughtcrime.securesms.video;
+package org.signal.video;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -51,10 +40,7 @@ import androidx.media3.ui.PlayerView;
 
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.incrementalmac.InvalidMacException;
-import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.mediapreview.MediaPreviewPlayerControlView;
-import org.thoughtcrime.securesms.mms.VideoSlide;
+import org.signal.video.exo.ExoPlayerPool;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -70,6 +56,7 @@ public class VideoPlayer extends FrameLayout {
   private final DefaultMediaSourceFactory mediaSourceFactory;
 
   private ExoPlayer                           exoPlayer;
+  private ExoPlayerPool<ExoPlayer>            exoPlayerPool;
   private LegacyPlayerControlView             exoControls;
   private Window                              window;
   private PlayerStateCallback                 playerStateCallback;
@@ -231,13 +218,17 @@ public class VideoPlayer extends FrameLayout {
 
   private MediaItem mediaItem;
 
-  public void setVideoSource(@NonNull VideoSlide videoSource, boolean autoplay, String poolTag) {
-    setVideoSource(videoSource, autoplay, poolTag, 0, 0);
+  public void setExoPlayerPool(ExoPlayerPool<ExoPlayer> exoPlayerPool) {
+    this.exoPlayerPool = exoPlayerPool;
   }
 
-  public void setVideoSource(@NonNull VideoSlide videoSource, boolean autoplay, String poolTag, long clipStartMs, long clipEndMs) {
+  public void setVideoSource(@NonNull Uri uri, boolean autoplay, String poolTag) {
+    setVideoSource(uri, autoplay, poolTag, 0, 0);
+  }
+
+  public void setVideoSource(@NonNull Uri uri, boolean autoplay, String poolTag, long clipStartMs, long clipEndMs) {
     if (exoPlayer == null) {
-      exoPlayer = AppDependencies.getExoPlayerPool().require(poolTag);
+      exoPlayer = exoPlayerPool.require(poolTag);
       exoPlayer.addListener(exoPlayerListener);
       exoPlayer.addListener(playerListener);
       exoPlayer.addAnalyticsListener(analyticsListener);
@@ -248,7 +239,7 @@ public class VideoPlayer extends FrameLayout {
       }
     }
 
-    mediaItem = MediaItem.fromUri(Objects.requireNonNull(videoSource.getUri())).buildUpon()
+    mediaItem = MediaItem.fromUri(Objects.requireNonNull(uri)).buildUpon()
                          .setClippingConfiguration(getClippingConfiguration(clipStartMs, clipEndMs))
                          .build();
 
@@ -327,7 +318,7 @@ public class VideoPlayer extends FrameLayout {
     return this.exoControls;
   }
 
-  public void setControlView(MediaPreviewPlayerControlView controller) {
+  public void setControlView(LegacyPlayerControlView controller) {
     exoControls = controller;
     exoControls.setPlayer(exoPlayer);
   }
@@ -352,7 +343,7 @@ public class VideoPlayer extends FrameLayout {
       exoPlayer.removeListener(playerListener);
       exoPlayer.removeListener(exoPlayerListener);
 
-      AppDependencies.getExoPlayerPool().pool(exoPlayer);
+      exoPlayerPool.pool(exoPlayer);
       this.exoPlayer = null;
     }
   }

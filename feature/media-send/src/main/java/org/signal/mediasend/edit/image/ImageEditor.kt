@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.signal.mediasend.edit
+package org.signal.mediasend.edit.image
 
 import android.graphics.PointF
 import androidx.compose.foundation.Canvas
@@ -36,10 +36,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import org.signal.imageeditor.core.ImageEditorTouchHandler
+import org.signal.mediasend.edit.ImageController
 
 @Composable
 fun ImageEditor(
-  controller: EditorController.Image,
+  controller: ImageController,
   modifier: Modifier = Modifier
 ) {
   val context = LocalContext.current
@@ -78,7 +79,7 @@ fun ImageEditor(
 }
 
 @Composable
-private fun HiddenTextInput(controller: EditorController.Image) {
+private fun HiddenTextInput(controller: ImageController) {
   var text by remember { mutableStateOf(TextFieldValue("")) }
   val focusRequester = remember { FocusRequester() }
   val keyboardController = LocalSoftwareKeyboardController.current
@@ -106,7 +107,7 @@ private fun HiddenTextInput(controller: EditorController.Image) {
   }
 }
 
-private fun Modifier.imageEditorPointerInput(state: ImageEditorState, controller: EditorController.Image): Modifier {
+private fun Modifier.imageEditorPointerInput(state: ImageEditorState, controller: ImageController): Modifier {
   return this.pointerInput(controller, controller.textEditingElement) {
     val touchHandler = ImageEditorTouchHandler()
 
@@ -137,7 +138,7 @@ private fun Modifier.imageEditorPointerInput(state: ImageEditorState, controller
       }
 
       // In NONE mode with nothing hit, let the pager handle the gesture
-      if (controller.mode == EditorController.Image.Mode.NONE && !touchHandler.hasActiveSession()) {
+      if (controller.mode == ImageController.Mode.NONE && !touchHandler.hasActiveSession()) {
         return@awaitEachGesture
       }
 
