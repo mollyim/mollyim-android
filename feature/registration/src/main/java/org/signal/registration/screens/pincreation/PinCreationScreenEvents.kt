@@ -11,4 +11,5 @@ sealed class PinCreationScreenEvents : DebugLoggableModel() {
   data class PinSubmitted(val pin: String) : PinCreationScreenEvents()
   data object ToggleKeyboard : PinCreationScreenEvents()
   data object LearnMore : PinCreationScreenEvents()
+  data object OptOut : PinCreationScreenEvents()
 }

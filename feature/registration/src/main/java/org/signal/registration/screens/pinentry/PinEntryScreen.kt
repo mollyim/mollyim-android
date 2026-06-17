@@ -145,12 +145,14 @@ private fun OnePaneLayout(
           )
         }
 
-        SkipButton(
-          onSkip = { onEvent(PinEntryScreenEvents.Skip) },
-          modifier = Modifier
-            .align(Alignment.TopEnd)
-            .padding(params.edgeInset)
-        )
+        if (state.mode != PinEntryState.Mode.RegistrationLock) {
+          SkipButton(
+            onSkip = { onEvent(PinEntryScreenEvents.Skip) },
+            modifier = Modifier
+              .align(Alignment.TopEnd)
+              .padding(params.edgeInset)
+          )
+        }
       }
     },
     footer = {
@@ -222,12 +224,14 @@ private fun TwoPaneLayout(
           )
         }
 
-        SkipButton(
-          onSkip = { onEvent(PinEntryScreenEvents.Skip) },
-          modifier = Modifier
-            .align(Alignment.TopEnd)
-            .padding(params.edgeInset)
-        )
+        if (state.mode != PinEntryState.Mode.RegistrationLock) {
+          SkipButton(
+            onSkip = { onEvent(PinEntryScreenEvents.Skip) },
+            modifier = Modifier
+              .align(Alignment.TopEnd)
+              .padding(params.edgeInset)
+          )
+        }
       }
     },
     footer = {

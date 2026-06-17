@@ -87,6 +87,7 @@ import org.signal.registration.screens.phonenumber.PhoneNumberEntryScreenEvents
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryViewModel
 import org.signal.registration.screens.phonenumber.PhoneNumberScreen
 import org.signal.registration.screens.pincreation.PinCreationScreen
+import org.signal.registration.screens.pincreation.PinCreationScreenEvents
 import org.signal.registration.screens.pincreation.PinCreationViewModel
 import org.signal.registration.screens.pinentry.PinEntryForRegistrationLockViewModel
 import org.signal.registration.screens.pinentry.PinEntryForSmsBypassViewModel
@@ -250,6 +251,7 @@ private const val COUNTRY_CODE_RESULT = "country_code_result"
 private const val BACKUP_CREDENTIAL_RESULT = "backup_credential_result"
 private const val LOCAL_BACKUP_RESTORE_RESULT = "local_backup_restore_result"
 private const val PHONE_NUMBER_DISCOVERABILITY_RESULT = "phone_number_discoverability_result"
+private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/360007059792"
 
 /**
  * Sets up the navigation graph for the registration flow using Navigation 3.
@@ -584,10 +586,23 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
       )
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     PinCreationScreen(
       state = state,
-      onEvent = { viewModel.onEvent(it) }
+      onEvent = { event ->
+        when (event) {
+          PinCreationScreenEvents.LearnMore -> {
+            LinkActions.openUrl(context, PIN_LEARN_MORE_URL) { error ->
+              when (error) {
+                OpenUrlError.NoBrowserFound -> Toast.makeText(context, R.string.LinkActions_error_no_browser_found, Toast.LENGTH_SHORT).show()
+              }
+            }
+          }
+
+          else -> viewModel.onEvent(event)
+        }
+      }
     )
   }
 

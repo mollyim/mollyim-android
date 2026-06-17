@@ -218,6 +218,9 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         data.registrationLockEnabled,
         data.accountEntropyPool.isNotEmpty()
       )
+    } else if (data.pinOptedOut) {
+      Log.i(TAG, "[commitRegistrationData] User opted out of creating a PIN. Applying opt-out.")
+      SvrRepository.optOutOfPin(rotateAep = false)
     }
 
     Unit

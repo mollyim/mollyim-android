@@ -20,11 +20,13 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,7 +37,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
@@ -47,12 +52,17 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.DropdownMenus
+import org.signal.core.ui.compose.IconButtons.IconButton
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.core.ui.R as CoreR
 
 /**
  * PIN creation screen for the registration flow.
@@ -98,6 +108,7 @@ fun PinCreationScreen(
   }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun OnePaneLayout(
   params: RegistrationScaffold.Params.OnePane,
@@ -110,15 +121,23 @@ private fun OnePaneLayout(
   modifier: Modifier = Modifier
 ) {
   val scrollState = rememberScrollState()
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
   RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
+    topBar = {
+      PinCreationTopBar(
+        scrollBehavior = topBarScrollBehavior,
+        onEvent = onEvent
+      )
+    },
     content = {
       Column(
         modifier = Modifier
           .fillMaxSize()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
           .verticalScroll(scrollState)
-          .padding(params.panePadding(hasHeader = false))
+          .padding(params.panePadding(hasHeader = true))
       ) {
         PinDescription(
           isConfirmEnabled = state.isConfirmEnabled,
@@ -158,6 +177,7 @@ private fun OnePaneLayout(
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TwoPaneLayout(
   params: RegistrationScaffold.Params.TwoPane,
@@ -171,15 +191,23 @@ private fun TwoPaneLayout(
 ) {
   val firstPaneScrollState = rememberScrollState()
   val secondPaneScrollState = rememberScrollState()
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
   TwoPaneRegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     params = params,
+    topBar = {
+      PinCreationTopBar(
+        scrollBehavior = topBarScrollBehavior,
+        onEvent = onEvent
+      )
+    },
     firstPane = { paddingValues ->
       Column(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
@@ -194,6 +222,7 @@ private fun TwoPaneLayout(
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
           .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       ) {
@@ -350,6 +379,71 @@ private fun KeyboardToggleButton(
       }
     )
   }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun PinCreationTopBar(
+  scrollBehavior: TopAppBarScrollBehavior,
+  onEvent: (PinCreationScreenEvents) -> Unit
+) {
+  var showOptOutDialog by rememberSaveable { mutableStateOf(false) }
+
+  if (showOptOutDialog) {
+    Dialogs.SimpleAlertDialog(
+      title = stringResource(R.string.PinCreationScreen__warning),
+      body = stringResource(R.string.PinCreationScreen__disable_pin_warning),
+      confirm = stringResource(R.string.PinCreationScreen__disable_pin),
+      dismiss = stringResource(R.string.PinCreationScreen__cancel),
+      onConfirm = {
+        showOptOutDialog = false
+        onEvent(PinCreationScreenEvents.OptOut)
+      },
+      onDismiss = { showOptOutDialog = false }
+    )
+  }
+
+  Scaffolds.DefaultTopAppBar(
+    title = "",
+    titleContent = { _, _ -> },
+    onNavigationClick = { },
+    navigationIcon = null,
+    scrollBehavior = scrollBehavior,
+    actions = {
+      val menuController = remember { DropdownMenus.MenuController() }
+
+      IconButton(
+        onClick = { menuController.show() },
+        modifier = Modifier.padding(horizontal = 8.dp)
+      ) {
+        Icon(
+          imageVector = ImageVector.vectorResource(CoreR.drawable.symbol_more_vertical_24),
+          contentDescription = stringResource(R.string.RegistrationActivity_open_menu)
+        )
+      }
+
+      DropdownMenus.Menu(
+        controller = menuController,
+        offsetX = 24.dp,
+        offsetY = 0.dp
+      ) {
+        DropdownMenus.Item(
+          text = { Text(text = stringResource(R.string.PinCreationScreen__learn_more_about_pins)) },
+          onClick = {
+            menuController.hide()
+            onEvent(PinCreationScreenEvents.LearnMore)
+          }
+        )
+        DropdownMenus.Item(
+          text = { Text(text = stringResource(R.string.PinCreationScreen__disable_pin)) },
+          onClick = {
+            menuController.hide()
+            showOptOutDialog = true
+          }
+        )
+      }
+    }
+  )
 }
 
 @Composable

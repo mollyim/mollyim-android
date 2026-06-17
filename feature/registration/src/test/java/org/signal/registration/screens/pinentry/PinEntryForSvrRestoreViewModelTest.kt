@@ -222,6 +222,19 @@ class PinEntryForSvrRestoreViewModelTest {
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
   }
 
+  // ==================== Skip Tests ====================
+
+  @Test
+  fun `Skip records PIN opt-out and completes registration`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.Skip, parentEventEmitter, stateEmitter)
+
+    coVerify { mockRepository.setPinOptedOut() }
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+  }
+
   // ==================== ToggleKeyboard Tests ====================
 
   @Test

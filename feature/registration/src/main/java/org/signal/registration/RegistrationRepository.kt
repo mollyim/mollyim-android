@@ -513,6 +513,26 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     result
   }
 
+  /**
+   * Records that the user has chosen not to create a PIN.
+   *
+   * This does not perform the opt-out itself -- it simply notes the user's choice in the in-progress
+   * registration data and commits it. The app applies the actual opt-out (clearing PIN/registration lock
+   * state, refreshing attributes, etc.) when it persists the committed [org.signal.registration.proto.RegistrationData].
+   *
+   * Any previously-recorded PIN state is cleared so the persisted blob stays internally consistent.
+   */
+  suspend fun setPinOptedOut(): Unit = withContext(Dispatchers.IO) {
+    Log.i(TAG, "[setPinOptedOut] Recording PIN opt-out in registration data.")
+    storageController.updateInProgressRegistrationData {
+      this.pinOptedOut = true
+      this.pin = ""
+      this.pinIsAlphanumeric = false
+      this.registrationLockEnabled = false
+    }
+    storageController.commitRegistrationData()
+  }
+
   suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? {
     return storageController.getPreExistingRegistrationData()
   }

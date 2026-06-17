@@ -184,8 +184,9 @@ class PinEntryForRegistrationLockViewModel(
   }
 
   private fun handleSkip() {
-    Log.d(TAG, "Skip requested - this will result in account data loss after timeRemaining: $timeRemaining ms")
-    // TODO [registration] - Show confirmation dialog warning about data loss, then proceed without PIN
+    // Registration lock is enforced server-side, so there's no way to register without the PIN. The skip option is
+    // never shown in this mode, so reaching here indicates a bug.
+    throw NotImplementedError("Skip is not a valid action during registration lock PIN entry")
   }
 
   class Factory(

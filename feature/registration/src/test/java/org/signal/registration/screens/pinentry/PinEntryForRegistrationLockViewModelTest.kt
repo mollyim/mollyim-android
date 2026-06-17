@@ -5,6 +5,7 @@
 
 package org.signal.registration.screens.pinentry
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
@@ -304,6 +305,17 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+  }
+
+  // ==================== Skip Tests ====================
+
+  @Test
+  fun `Skip throws because skipping is not valid during registration lock`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    assertFailure {
+      viewModel.applyEvent(initialState, PinEntryScreenEvents.Skip, parentEventEmitter, stateEmitter)
+    }.isInstanceOf<NotImplementedError>()
   }
 
   // ==================== ToggleKeyboard Tests ====================

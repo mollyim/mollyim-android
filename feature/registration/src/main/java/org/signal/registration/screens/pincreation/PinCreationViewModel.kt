@@ -65,10 +65,19 @@ class PinCreationViewModel(
       }
 
       is PinCreationScreenEvents.LearnMore -> {
-        // TODO [registration] - Show learn more dialog or navigate to help screen
-        throw NotImplementedError("Show learn more dialog or navigate to help screen")
+        // Handled by the navigation layer, which opens the help URL directly.
+      }
+      is PinCreationScreenEvents.OptOut -> {
+        _state.value = state.copy(isConfirmEnabled = false)
+        applyOptOut()
       }
     }
+  }
+
+  private suspend fun applyOptOut() {
+    Log.i(TAG, "[OptOut] User opted out of creating a PIN. Recording choice and completing registration.")
+    repository.setPinOptedOut()
+    parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
   }
 
   @VisibleForTesting

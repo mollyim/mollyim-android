@@ -103,6 +103,19 @@ class PinCreationViewModelTest {
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
+  // ==================== OptOut Tests ====================
+
+  @Test
+  fun `OptOut records opt-out and completes registration`() = runTest(testDispatcher) {
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.OptOut)
+
+    coVerify { mockRepository.setPinOptedOut() }
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+  }
+
   // ==================== applyParentState Tests ====================
 
   @Test

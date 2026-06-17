@@ -34,6 +34,10 @@ message RegistrationData {
   bytes  temporaryMasterKey = 17;
   bool   registrationLockEnabled = 18;
 
+  // Whether the user chose not to create a PIN during registration. The app is responsible for applying the
+  // actual opt-out (clearing PIN/registration lock state, refreshing attributes, etc.) when it commits this data.
+  bool   pinOptedOut = 24;
+
   // SVR credentials (from appendSvrCredentials / getRestoredSvrCredentials)
   repeated SvrCredential svrCredentials = 19;
 
