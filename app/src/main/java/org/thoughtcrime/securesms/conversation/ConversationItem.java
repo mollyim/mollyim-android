@@ -1156,6 +1156,8 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   {
     boolean isMessageDetails = displayMode == ConversationItemDisplayMode.Detailed.INSTANCE;
 
+    bodyText.setTextSize(TypedValue.COMPLEX_UNIT_SP, SignalStore.settings().getMessageFontSize());
+
     bodyText.setTextIsSelectable(isMessageDetails);
     if (isMessageDetails) {
       bodyText.setOnTouchListener(null);
