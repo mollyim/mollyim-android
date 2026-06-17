@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.mediasend.v3
 
+import android.content.Context
 import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -17,12 +18,14 @@ import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
 import org.signal.core.util.logging.Log
 import org.signal.mediasend.EditorState
+import org.signal.mediasend.MediaConstraints
 import org.signal.mediasend.MediaFilterError
 import org.signal.mediasend.MediaFilterResult
 import org.signal.mediasend.MediaRecipientId
 import org.signal.mediasend.MediaSendRepository
 import org.signal.mediasend.SendRequest
 import org.signal.mediasend.SendResult
+import org.signal.mediasend.SentMediaQuality
 import org.signal.mediasend.StorySendRequirements
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.MessageSendType
@@ -33,14 +36,15 @@ import org.thoughtcrime.securesms.mediasend.MediaRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaValidator
 import org.thoughtcrime.securesms.mediasend.v2.videos.VideoTrimData
-import org.thoughtcrime.securesms.mms.MediaConstraints
-import org.thoughtcrime.securesms.mms.SentMediaQuality
+import org.thoughtcrime.securesms.mms.PartAuthority
+import org.thoughtcrime.securesms.mms.PushMediaConstraints
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.MediaUtil
+import java.io.InputStream
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.time.Duration.Companion.seconds
@@ -73,7 +77,7 @@ object MediaSendV3Repository : MediaSendRepository {
     isStory: Boolean
   ): MediaFilterResult = withContext(Dispatchers.IO) {
     val populated = MediaRepository().getPopulatedMedia(appContext, media)
-    val constraints = MediaConstraints.getPushMediaConstraints()
+    val constraints = PushMediaConstraints(null)
     val result = MediaValidator.filterMedia(appContext, populated, constraints, maxSelection, isStory)
 
     val error = mapFilterError(result.filterError, populated, constraints, maxSelection, isStory)
@@ -94,13 +98,12 @@ object MediaSendV3Repository : MediaSendRepository {
     }
 
     val legacyEditorStateMap = mapLegacyEditorState(request.editorStateMap)
-    val quality = SentMediaQuality.fromCode(request.quality)
 
     return@withContext try {
       legacyRepository.send(
         selectedMedia = request.selectedMedia,
         stateMap = legacyEditorStateMap,
-        quality = quality,
+        quality = request.quality,
         message = request.message,
         isViewOnce = request.isViewOnce,
         singleContact = null,
@@ -116,13 +119,13 @@ object MediaSendV3Repository : MediaSendRepository {
     }
   }
 
-  override fun getMaxVideoDurationUs(quality: Int, maxFileSizeBytes: Long): Long {
-    val preset = MediaConstraints.getPushMediaConstraints(SentMediaQuality.fromCode(quality)).videoTranscodingSettings
+  override fun getMaxVideoDurationUs(quality: SentMediaQuality, maxFileSizeBytes: Long): Long {
+    val preset = PushMediaConstraints(quality).videoTranscodingSettings
     return preset.calculateMaxVideoUploadDurationInSeconds(maxFileSizeBytes).seconds.inWholeMicroseconds
   }
 
   override fun getVideoMaxSizeBytes(): Long {
-    return MediaConstraints.getPushMediaConstraints().videoMaxSize
+    return PushMediaConstraints(null).videoMaxSize
   }
 
   override fun isVideoTranscodeAvailable(): Boolean {
@@ -174,6 +177,10 @@ object MediaSendV3Repository : MediaSendRepository {
         recipient.isGroup || recipient.isDistributionList || recipient.isRegistered
       }
       .distinctUntilChanged()
+  }
+
+  override fun getAttachmentStream(context: Context, uri: Uri): InputStream {
+    return PartAuthority.getAttachmentStream(context, uri)
   }
 
   private fun resolveSendType(sendType: Int): MessageSendType {

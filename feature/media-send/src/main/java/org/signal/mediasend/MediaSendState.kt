@@ -37,10 +37,7 @@ data class MediaSendState(
   val focusedMedia: Media? = null,
   val isMeteredConnection: Boolean = false,
   val isPreUploadEnabled: Boolean = false,
-  /**
-   * Int code to avoid depending on app-layer enums. Conventionally 0 == STANDARD.
-   */
-  val sentMediaQuality: Int = 0,
+  val sentMediaQuality: SentMediaQuality = SentMediaQuality.STANDARD,
   /**
    * Per-media editor state keyed by URI (video trim data, image editor data, etc.).
    */

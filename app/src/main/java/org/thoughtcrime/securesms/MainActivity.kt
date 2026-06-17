@@ -5,7 +5,6 @@
 
 package org.thoughtcrime.securesms
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -15,7 +14,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -162,7 +160,6 @@ import org.thoughtcrime.securesms.main.navigateToDetailLocation
 import org.thoughtcrime.securesms.main.rememberDetailNavHostController
 import org.thoughtcrime.securesms.main.rememberFocusRequester
 import org.thoughtcrime.securesms.main.storiesNavGraphBuilder
-import org.thoughtcrime.securesms.mediasend.camerax.CameraXRemoteConfig
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.mediasend.v3.mediaSendLauncher
 import org.thoughtcrime.securesms.megaphone.Megaphone
@@ -197,7 +194,6 @@ import org.thoughtcrime.securesms.window.NavigationType
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import kotlin.time.Duration.Companion.minutes
-import org.signal.core.ui.R as CoreUiR
 
 class MainActivity :
   PassphraseRequiredActivity(),
@@ -1176,24 +1172,7 @@ class MainActivity :
       }
     }
 
-    if (CameraXRemoteConfig.isSupported()) {
-      onGranted()
-    } else {
-      Permissions.with(this@MainActivity)
-        .request(Manifest.permission.CAMERA)
-        .ifNecessary()
-        .withRationaleDialog(getString(R.string.CameraXFragment_allow_access_camera), getString(R.string.CameraXFragment_to_capture_photos_and_video_allow_camera), CoreUiR.drawable.symbol_camera_24)
-        .withPermanentDenialDialog(
-          getString(R.string.CameraXFragment_signal_needs_camera_access_capture_photos),
-          null,
-          R.string.CameraXFragment_allow_access_camera,
-          R.string.CameraXFragment_to_capture_photos_videos,
-          supportFragmentManager
-        )
-        .onAllGranted(onGranted)
-        .onAnyDenied { Toast.makeText(this@MainActivity, R.string.CameraXFragment_signal_needs_camera_access_capture_photos, Toast.LENGTH_LONG).show() }
-        .execute()
-    }
+    onGranted()
   }
 
   inner class ToolbarCallback : MainToolbarCallback {

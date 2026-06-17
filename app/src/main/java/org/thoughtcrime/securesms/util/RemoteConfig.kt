@@ -841,13 +841,6 @@ object RemoteConfig {
     hotSwappable = true
   )
 
-  /** A comma-separated list of manufacturers that should *not* use CameraX.  */
-  val cameraXModelBlocklist: String by remoteString(
-    key = "android.cameraXModelBlockList.3",
-    defaultValue = "",
-    hotSwappable = true
-  )
-
   /** A comma-separated list of manufacturers that should *not* use CameraX mixed mode.  */
   val cameraXMixedModelBlocklist: String by remoteString(
     key = "android.cameraXMixedModelBlockList.3",

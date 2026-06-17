@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
 import androidx.camera.core.CameraSelector
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -60,9 +62,11 @@ import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.MemoryFileDescriptor
 import org.signal.core.util.asListContains
 import org.signal.core.util.logging.Log
+import org.signal.mediasend.MediaConstraints
+import org.signal.mediasend.capture.CameraFragment
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.R.string.CameraFragment__video_recording_is_not_supported_on_your_device
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.mms.MediaConstraints
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.video.VideoUtil
@@ -543,10 +547,12 @@ private fun handleHudEvent(
             }
           )
         } else {
-          CameraFragment.toastVideoRecordingNotAvailable(context)
+          makeText(context, CameraFragment__video_recording_is_not_supported_on_your_device, LENGTH_SHORT)
+            .show()
         }
       } else {
-        CameraFragment.toastVideoRecordingNotAvailable(context)
+        makeText(context, CameraFragment__video_recording_is_not_supported_on_your_device, LENGTH_SHORT)
+          .show()
       }
     }
 

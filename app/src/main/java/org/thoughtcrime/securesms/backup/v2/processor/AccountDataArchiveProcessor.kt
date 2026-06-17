@@ -17,6 +17,7 @@ import org.signal.core.util.UuidUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.toByteArray
 import org.signal.libsignal.zkgroup.backups.BackupLevel
+import org.signal.mediasend.SentMediaQuality
 import org.thoughtcrime.securesms.backup.v2.ExportState
 import org.thoughtcrime.securesms.backup.v2.ImportState
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
@@ -471,19 +472,19 @@ object AccountDataArchiveProcessor {
     }
   }
 
-  private fun org.thoughtcrime.securesms.mms.SentMediaQuality.toRemoteSentMediaQuality(): AccountData.SentMediaQuality {
+  private fun SentMediaQuality.toRemoteSentMediaQuality(): AccountData.SentMediaQuality {
     return when (this) {
-      org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD -> AccountData.SentMediaQuality.STANDARD
-      org.thoughtcrime.securesms.mms.SentMediaQuality.HIGH -> AccountData.SentMediaQuality.HIGH
+      SentMediaQuality.STANDARD -> AccountData.SentMediaQuality.STANDARD
+      SentMediaQuality.HIGH -> AccountData.SentMediaQuality.HIGH
     }
   }
 
-  private fun AccountData.SentMediaQuality?.toLocalSentMediaQuality(): org.thoughtcrime.securesms.mms.SentMediaQuality {
+  private fun AccountData.SentMediaQuality?.toLocalSentMediaQuality(): SentMediaQuality {
     return when (this) {
-      AccountData.SentMediaQuality.HIGH -> org.thoughtcrime.securesms.mms.SentMediaQuality.HIGH
-      AccountData.SentMediaQuality.STANDARD -> org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD
-      AccountData.SentMediaQuality.UNKNOWN_QUALITY -> org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD
-      null -> org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD
+      AccountData.SentMediaQuality.HIGH -> SentMediaQuality.HIGH
+      AccountData.SentMediaQuality.STANDARD -> SentMediaQuality.STANDARD
+      AccountData.SentMediaQuality.UNKNOWN_QUALITY -> SentMediaQuality.STANDARD
+      null -> SentMediaQuality.STANDARD
     }
   }
 

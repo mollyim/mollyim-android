@@ -1,6 +1,10 @@
-package org.thoughtcrime.securesms.util;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
-import android.content.Context;
+package org.signal.core.util.bitmaps;
+
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -11,28 +15,20 @@ import android.graphics.YuvImage;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import kotlin.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
 import androidx.exifinterface.media.ExifInterface;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.mms.MediaConstraints;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.microedition.khronos.egl.EGL10;
@@ -40,151 +36,11 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
+import kotlin.Pair;
+
 public class BitmapUtil {
 
   private static final String TAG = Log.tag(BitmapUtil.class);
-
-  private static final int MAX_COMPRESSION_QUALITY          = 90;
-  private static final int MIN_COMPRESSION_QUALITY          = 45;
-  private static final int MAX_COMPRESSION_ATTEMPTS         = 5;
-  private static final int MIN_COMPRESSION_QUALITY_DECREASE = 5;
-  private static final int MAX_IMAGE_HALF_SCALES            = 3;
-
-  /**
-   * @deprecated You probably want to use {@link ImageCompressionUtil} instead, which has a clearer
-   *             contract and handles mimetypes properly.
-   */
-  @Deprecated
-  @WorkerThread
-  public static <T> ScaleResult createScaledBytes(@NonNull Context context, @NonNull T model, @NonNull MediaConstraints constraints)
-      throws BitmapDecodingException
-  {
-    return createScaledBytes(context, model,
-                             constraints.getImageMaxWidth(context),
-                             constraints.getImageMaxHeight(context),
-                             constraints.getImageMaxSize(context));
-  }
-
-  /**
-   * @deprecated You probably want to use {@link ImageCompressionUtil} instead, which has a clearer
-   *             contract and handles mimetypes properly.
-   */
-  @Deprecated
-  @WorkerThread
-  public static <T> ScaleResult createScaledBytes(@NonNull Context context,
-                                                  @NonNull T model,
-                                                  final int maxImageWidth,
-                                                  final int maxImageHeight,
-                                                  final int maxImageSize)
-      throws BitmapDecodingException
-  {
-    return createScaledBytes(context, model, maxImageWidth, maxImageHeight, maxImageSize, CompressFormat.JPEG);
-  }
-
-  /**
-   * @deprecated You probably want to use {@link ImageCompressionUtil} instead, which has a clearer
-   *             contract and handles mimetypes properly.
-   */
-  @Deprecated
-  @WorkerThread
-  public static <T> ScaleResult createScaledBytes(Context context,
-                                                  T model,
-                                                  int maxImageWidth,
-                                                  int maxImageHeight,
-                                                  int maxImageSize,
-                                                  @NonNull CompressFormat format)
-      throws BitmapDecodingException
-  {
-    return createScaledBytes(context, model, maxImageWidth, maxImageHeight, maxImageSize, format, 1, 0);
-  }
-
-  @WorkerThread
-  private static <T> ScaleResult createScaledBytes(@NonNull Context context,
-                                                   @NonNull T model,
-                                                   final int maxImageWidth,
-                                                   final int maxImageHeight,
-                                                   final int maxImageSize,
-                                                   @NonNull CompressFormat format,
-                                                   final int sizeAttempt,
-                                                   int totalAttempts)
-      throws BitmapDecodingException
-  {
-    try {
-      int    quality  = MAX_COMPRESSION_QUALITY;
-      int    attempts = 0;
-      byte[] bytes;
-
-      Bitmap scaledBitmap = Glide.with(context.getApplicationContext())
-                                    .asBitmap()
-                                    .load(model)
-                                    .skipMemoryCache(true)
-                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                    .centerInside()
-                                    .submit(maxImageWidth, maxImageHeight)
-                                    .get();
-
-      if (scaledBitmap == null) {
-        throw new BitmapDecodingException("Unable to decode image");
-      }
-
-      Log.i(TAG, String.format(Locale.US,"Initial scaled bitmap has size of %d bytes.", scaledBitmap.getByteCount()));
-      Log.i(TAG, String.format(Locale.US, "Max dimensions %d x %d, %d bytes", maxImageWidth, maxImageHeight, maxImageSize));
-
-      try {
-        do {
-          totalAttempts++;
-          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-          scaledBitmap.compress(format, quality, baos);
-          bytes = baos.toByteArray();
-
-          Log.d(TAG, "iteration with quality " + quality + " size " + bytes.length + " bytes.");
-          if (quality == MIN_COMPRESSION_QUALITY) break;
-
-          int nextQuality = (int)Math.floor(quality * Math.sqrt((double)maxImageSize / bytes.length));
-          if (quality - nextQuality < MIN_COMPRESSION_QUALITY_DECREASE) {
-            nextQuality = quality - MIN_COMPRESSION_QUALITY_DECREASE;
-          }
-          quality = Math.max(nextQuality, MIN_COMPRESSION_QUALITY);
-        }
-        while (bytes.length > maxImageSize && attempts++ < MAX_COMPRESSION_ATTEMPTS);
-
-        if (bytes.length > maxImageSize) {
-          if (sizeAttempt <= MAX_IMAGE_HALF_SCALES) {
-            scaledBitmap.recycle();
-            scaledBitmap = null;
-
-            Log.i(TAG, "Halving dimensions and retrying.");
-            return createScaledBytes(context, model, maxImageWidth / 2, maxImageHeight / 2, maxImageSize, format, sizeAttempt + 1, totalAttempts);
-          } else {
-            throw new BitmapDecodingException("Unable to scale image below " + bytes.length + " bytes.");
-          }
-        }
-
-        if (bytes.length <= 0) {
-          throw new BitmapDecodingException("Decoding failed. Bitmap has a length of " + bytes.length + " bytes.");
-        }
-
-        Log.i(TAG, String.format(Locale.US, "createScaledBytes(%s) -> quality %d, %d attempt(s) over %d sizes.", model.getClass().getName(), quality, totalAttempts, sizeAttempt));
-
-        return new ScaleResult(bytes, scaledBitmap.getWidth(), scaledBitmap.getHeight());
-      } finally {
-        if (scaledBitmap != null) scaledBitmap.recycle();
-      }
-    } catch (InterruptedException | ExecutionException e) {
-      throw new BitmapDecodingException(e);
-    }
-  }
-
-  public static @NonNull CompressFormat getCompressFormatForContentType(@Nullable String contentType) {
-    if (contentType == null) return CompressFormat.JPEG;
-
-    switch (contentType) {
-      case MediaUtil.IMAGE_JPEG: return CompressFormat.JPEG;
-      case MediaUtil.IMAGE_PNG:  return CompressFormat.PNG;
-      case MediaUtil.IMAGE_WEBP: return CompressFormat.WEBP;
-      default:                   return CompressFormat.JPEG;
-    }
-  }
 
   private static BitmapFactory.Options getImageDimensions(InputStream inputStream)
       throws BitmapDecodingException

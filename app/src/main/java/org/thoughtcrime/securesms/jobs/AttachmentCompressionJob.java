@@ -28,13 +28,14 @@ import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec;
 import org.signal.glide.decryptableuri.DecryptableUri;
-import org.thoughtcrime.securesms.mms.MediaConstraints;
+import org.signal.mediasend.MediaConstraints;
 import org.thoughtcrime.securesms.mms.MediaStream;
 import org.thoughtcrime.securesms.mms.MmsException;
-import org.thoughtcrime.securesms.mms.SentMediaQuality;
+import org.signal.mediasend.SentMediaQuality;
+import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.service.AttachmentProgressService;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
-import org.thoughtcrime.securesms.util.BitmapDecodingException;
+import org.signal.core.util.bitmaps.BitmapDecodingException;
 import org.thoughtcrime.securesms.util.ImageCompressionUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.signal.core.util.MemoryFileDescriptor.MemoryFileException;
@@ -163,7 +164,7 @@ public final class AttachmentCompressionJob extends BaseJob {
       return;
     }
 
-    MediaConstraints mediaConstraints = MediaConstraints.getPushMediaConstraints(SentMediaQuality.fromCode(transformProperties.sentMediaQuality));
+    MediaConstraints mediaConstraints = new PushMediaConstraints(SentMediaQuality.fromCode(transformProperties.sentMediaQuality));
 
     compress(database, mediaConstraints, databaseAttachment);
   }
@@ -196,16 +197,16 @@ public final class AttachmentCompressionJob extends BaseJob {
       } else if (MediaUtil.isVideo(attachment)) {
         Log.i(TAG, "Compressing video.");
         attachment = transcodeVideoIfNeededToDatabase(context, attachmentDatabase, attachment, constraints, EventBus.getDefault(), this::isCanceled);
-        if (!constraints.isSatisfied(context, attachment)) {
+        if (!isConstraintsSatisfied(context, attachment, constraints)) {
           throw new UndeliverableMessageException("Size constraints could not be met on video!");
         }
-      } else if (constraints.canResize(attachment)) {
+      } else if (constraints.canResize(attachment.contentType)) {
         Log.i(TAG, "Compressing image.");
         try (MediaStream converted = compressImage(context, attachment, constraints)) {
           attachmentDatabase.updateAttachmentData(attachment, converted);
         }
         attachmentDatabase.markAttachmentAsTransformed(attachmentId, false);
-      } else if (constraints.isSatisfied(context, attachment)) {
+      } else if (isConstraintsSatisfied(context, attachment, constraints)) {
         Log.i(TAG, "Not compressing.");
         attachmentDatabase.markAttachmentAsTransformed(attachmentId, false);
       } else {
@@ -374,6 +375,17 @@ public final class AttachmentCompressionJob extends BaseJob {
       }
     }
     return attachment;
+  }
+
+  private static boolean isConstraintsSatisfied(@NonNull Context context,
+                                                @NonNull Attachment attachment,
+                                                @NonNull MediaConstraints mediaConstraints)
+  {
+    if (attachment.getUri() == null || attachment.contentType == null) {
+      return false;
+    }
+
+    return mediaConstraints.isSatisfied(context, attachment.getUri(), attachment.contentType, attachment.size);
   }
 
   /**

@@ -8,10 +8,8 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.annotation.WorkerThread
 import org.signal.core.models.media.Media
-import org.signal.core.ui.util.StorageUtil
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.concurrent.SignalExecutors
-import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.mediasend.MediaRepository
 import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.MediaUtil
@@ -21,24 +19,9 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.util.LinkedList
 
-private val TAG = Log.tag(MediaCaptureRepository::class.java)
-
 class MediaCaptureRepository(context: Context) {
 
   private val context: Context = context.applicationContext
-
-  fun getMostRecentItem(callback: (Media?) -> Unit) {
-    if (!StorageUtil.canReadAnyFromMediaStore()) {
-      Log.w(TAG, "Cannot read from storage.")
-      callback(null)
-      return
-    }
-
-    SignalExecutors.BOUNDED.execute {
-      val media: List<Media> = getMediaInBucket(context, Media.ALL_MEDIA_BUCKET_ID, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
-      callback(media.firstOrNull())
-    }
-  }
 
   fun renderImageToMedia(data: ByteArray, width: Int, height: Int, onMediaRendered: (Media) -> Unit, onFailedToRender: () -> Unit) {
     SignalExecutors.BOUNDED.execute {

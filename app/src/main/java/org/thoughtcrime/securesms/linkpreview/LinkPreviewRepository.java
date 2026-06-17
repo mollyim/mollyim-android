@@ -49,7 +49,7 @@ import org.thoughtcrime.securesms.service.webrtc.links.ReadCallLinkResult;
 import org.thoughtcrime.securesms.stickers.StickerRemoteUri;
 import org.thoughtcrime.securesms.stickers.StickerUrl;
 import org.thoughtcrime.securesms.util.AvatarUtil;
-import org.thoughtcrime.securesms.util.BitmapDecodingException;
+import org.signal.core.util.bitmaps.BitmapDecodingException;
 import org.signal.core.util.ByteUnit;
 import org.thoughtcrime.securesms.util.ImageCompressionUtil;
 import org.thoughtcrime.securesms.util.LinkUtil;

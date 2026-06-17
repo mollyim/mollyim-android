@@ -7,7 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.Util;
+import org.signal.mediasend.MediaConstraints;
+import org.signal.mediasend.SentMediaQuality;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
+import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.LocaleRemoteConfig;
 import org.thoughtcrime.securesms.util.RemoteConfig;
@@ -81,6 +84,11 @@ public class PushMediaConstraints extends MediaConstraints {
   @Override
   public long getDocumentMaxSize(Context context) {
     return getMaxAttachmentSize();
+  }
+
+  @Override
+  public long getMaxAttachmentSize() {
+    return AttachmentUploadJob.getMaxPlaintextSize();
   }
 
   @Override

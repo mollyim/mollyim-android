@@ -400,7 +400,7 @@ class MediaSendViewModel(
    *
    * Cancels all pre-uploads and re-initializes video trim data.
    */
-  fun setSentMediaQuality(sentMediaQuality: Int) {
+  fun setSentMediaQuality(sentMediaQuality: SentMediaQuality) {
     val snapshot = state.value
     if (snapshot.sentMediaQuality == sentMediaQuality) return
 

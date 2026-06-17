@@ -2,11 +2,12 @@ package org.thoughtcrime.securesms.mediasend.v2
 
 import android.net.Uri
 import org.signal.core.models.media.Media
+import org.signal.mediasend.MediaConstraints
+import org.signal.mediasend.SentMediaQuality
 import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mediasend.v2.videos.VideoTrimData
-import org.thoughtcrime.securesms.mms.MediaConstraints
-import org.thoughtcrime.securesms.mms.SentMediaQuality
+import org.thoughtcrime.securesms.mms.PushMediaConstraints
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.MediaUtil
@@ -35,7 +36,7 @@ data class MediaSelectionState(
 
   val isVideoTrimmingVisible: Boolean = focusedMedia != null && MediaUtil.isVideoType(focusedMedia.contentType) && MediaConstraints.isVideoTranscodeAvailable() && !focusedMedia.isVideoGif
 
-  val transcodingPreset: TranscodingPreset = MediaConstraints.getPushMediaConstraints(SentMediaQuality.fromCode(quality.code)).videoTranscodingSettings
+  val transcodingPreset: TranscodingPreset = PushMediaConstraints(SentMediaQuality.fromCode(quality.code)).videoTranscodingSettings
 
   val maxSelection = RemoteConfig.maxAttachmentCount
 

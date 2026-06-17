@@ -27,6 +27,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 
 import org.signal.core.util.ContentTypeUtil;
+import org.signal.core.util.bitmaps.BitmapDecodingException;
+import org.signal.core.util.bitmaps.BitmapUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.signal.core.models.database.AttachmentId;

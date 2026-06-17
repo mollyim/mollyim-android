@@ -3,7 +3,8 @@ package org.thoughtcrime.securesms.profiles;
 
 import android.content.Context;
 
-import org.thoughtcrime.securesms.mms.MediaConstraints;
+import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
+import org.signal.mediasend.MediaConstraints;
 
 public class ProfileMediaConstraints extends MediaConstraints {
   @Override
@@ -44,5 +45,10 @@ public class ProfileMediaConstraints extends MediaConstraints {
   @Override
   public long getDocumentMaxSize(Context context) {
     return 0;
+  }
+
+  @Override
+  public long getMaxAttachmentSize() {
+    return AttachmentUploadJob.getMaxPlaintextSize();
   }
 }
