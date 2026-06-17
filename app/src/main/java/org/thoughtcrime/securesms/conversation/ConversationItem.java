@@ -1074,7 +1074,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
    * Whether interactions like swipe-to-reply and direct media opening should be suppressed.
    */
   private boolean isSuppressedInteractionMode() {
-    return isCondensedMode() || displayMode instanceof ConversationItemDisplayMode.Starred;
+    return isCondensedMode() || displayMode instanceof ConversationItemDisplayMode.Starred || displayMode == ConversationItemDisplayMode.Detailed.INSTANCE;
   }
 
   private boolean isStoryReaction(MessageRecord messageRecord) {
@@ -1154,10 +1154,21 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
                            boolean messageRequestAccepted,
                            boolean hasWallpaper)
   {
-    bodyText.setClickable(false);
-    bodyText.setFocusable(false);
-    bodyText.setTextSize(TypedValue.COMPLEX_UNIT_SP, SignalStore.settings().getMessageFontSize());
-    bodyText.setMovementMethod(LongClickMovementMethod.getInstance(getContext()));
+    boolean isMessageDetails = displayMode == ConversationItemDisplayMode.Detailed.INSTANCE;
+
+    bodyText.setTextIsSelectable(isMessageDetails);
+    if (isMessageDetails) {
+      bodyText.setOnTouchListener(null);
+      bodyText.setOnLongClickListener(null);
+      bodyText.setOnClickListener(null);
+    } else {
+      bodyText.setClickable(false);
+      bodyText.setFocusable(false);
+      bodyText.setOnTouchListener(doubleTapEditTouchListener);
+      bodyText.setOnLongClickListener(passthroughClickListener);
+      bodyText.setOnClickListener(passthroughClickListener);
+      bodyText.setMovementMethod(LongClickMovementMethod.getInstance(getContext()));
+    }
 
     bodyText.setOverflowText(null);
     bodyText.setMaxLength(-1);
