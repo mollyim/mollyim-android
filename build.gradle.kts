@@ -112,6 +112,7 @@ gradle.projectsEvaluated {
       testTask?.let { dependsOn(it) }
 
       subproject.tasks.findByName("lintDebug")?.let { dependsOn(it) }
+      subproject.tasks.findByName("validateDebugScreenshotTest")?.let { dependsOn(it) }
     }
   }
 
