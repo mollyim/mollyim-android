@@ -208,12 +208,16 @@ public class ConversationListFragment extends MainFragment implements Conversati
 
   private static final String TAG = Log.tag(ConversationListFragment.class);
 
+  private static final long SEARCH_LOADING_SHOW_DELAY_MS = 150L;
+
   private static final int MAX_CHATS_ABOVE_FOLD             = 7;
   private static final int MAX_CONTACTS_ABOVE_FOLD          = 5;
   private static final int MAX_GROUP_MEMBERSHIPS_ABOVE_FOLD = 5;
   private View                                   coordinator;
   private RecyclerView                           chatFolderList;
   private RecyclerView                           list;
+  private View                                   searchLoading;
+  private boolean                                searchInProgress;
   private Stub<ComposeView>                      bannerView;
   private ConversationListFilterPullView         pullView;
   private AppBarLayout                           pullViewAppBarLayout;
@@ -221,6 +225,11 @@ public class ConversationListFragment extends MainFragment implements Conversati
   private RecyclerView.Adapter                   activeAdapter;
   private ConversationListAdapter                defaultAdapter;
   private PagingMappingAdapter<ContactSearchKey> searchAdapter;
+  private final Runnable                         showSearchLoadingRunnable = () -> {
+    if (searchLoading != null && searchInProgress && activeAdapter == searchAdapter) {
+      searchLoading.setVisibility(View.VISIBLE);
+    }
+  };
   private SnapToTopDataObserver                  snapToTopDataObserver;
   private Drawable                               archiveDrawable;
   private AppForegroundObserver.Listener         appForegroundObserver;
@@ -317,6 +326,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
 
     chatFolderList          = view.findViewById(R.id.chat_folder_list);
     list                    = view.findViewById(R.id.list);
+    searchLoading           = view.findViewById(R.id.search_loading);
     bottomActionBar         = view.findViewById(R.id.conversation_list_bottom_action_bar);
     bannerView              = new Stub<>(view.findViewById(R.id.banner_compose_view));
     voiceNotePlayerViewStub = new Stub<>(view.findViewById(R.id.voice_note_player));
@@ -352,6 +362,11 @@ public class ConversationListFragment extends MainFragment implements Conversati
     );
 
     ContactSearchViewModelKt.bindAdapterToLifecycle(contactSearchViewModel, getViewLifecycleOwner(), searchAdapter, this::mapSearchStateToConfiguration);
+    ContactSearchViewModelKt.bindSearchInProgressToLifecycle(contactSearchViewModel, getViewLifecycleOwner(), inProgress -> {
+      searchInProgress = inProgress;
+      updateSearchLoadingVisibility();
+      return Unit.INSTANCE;
+    });
 
     initializeSearchFilterListener();
 
@@ -516,6 +531,11 @@ public class ConversationListFragment extends MainFragment implements Conversati
     activeAdapter  = null;
     defaultAdapter = null;
     searchAdapter  = null;
+
+    if (searchLoading != null) {
+      searchLoading.removeCallbacks(showSearchLoadingRunnable);
+      searchLoading = null;
+    }
 
     dismissProgressDialog();
 
@@ -955,6 +975,25 @@ public class ConversationListFragment extends MainFragment implements Conversati
       defaultAdapter.registerAdapterDataObserver(snapToTopDataObserver);
     } else {
       defaultAdapter.unregisterAdapterDataObserver(snapToTopDataObserver);
+    }
+
+    updateSearchLoadingVisibility();
+  }
+
+  private void updateSearchLoadingVisibility() {
+    if (searchLoading == null) {
+      return;
+    }
+
+    boolean shouldShow = searchInProgress && activeAdapter == searchAdapter;
+    searchLoading.removeCallbacks(showSearchLoadingRunnable);
+
+    if (shouldShow) {
+      if (searchLoading.getVisibility() != View.VISIBLE) {
+        searchLoading.postDelayed(showSearchLoadingRunnable, SEARCH_LOADING_SHOW_DELAY_MS);
+      }
+    } else {
+      searchLoading.setVisibility(View.GONE);
     }
   }
 
