@@ -12,6 +12,7 @@ import assertk.assertions.isFalse
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import assertk.assertions.prop
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
@@ -22,9 +23,11 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.proto.RestoreDecision
 
 class ArchiveRestoreSelectionViewModelTest {
 
+  private lateinit var mockRepository: RegistrationRepository
   private lateinit var emittedParentEvents: MutableList<RegistrationFlowEvent>
   private lateinit var parentEventEmitter: (RegistrationFlowEvent) -> Unit
   private lateinit var emittedStates: MutableList<ArchiveRestoreSelectionState>
@@ -32,6 +35,7 @@ class ArchiveRestoreSelectionViewModelTest {
 
   @Before
   fun setup() {
+    mockRepository = mockk(relaxed = true)
     emittedParentEvents = mutableListOf()
     parentEventEmitter = { event -> emittedParentEvents.add(event) }
     emittedStates = mutableListOf()
@@ -49,7 +53,7 @@ class ArchiveRestoreSelectionViewModelTest {
     return ArchiveRestoreSelectionViewModel(
       restoreOptions = restoreOptions,
       isPreRegistration = isPreRegistration,
-      repository = mockk<RegistrationRepository>(relaxed = true),
+      repository = mockRepository,
       parentState = MutableStateFlow(RegistrationFlowState()),
       parentEventEmitter = parentEventEmitter
     )
@@ -192,6 +196,7 @@ class ArchiveRestoreSelectionViewModelTest {
 
     viewModel.applyEvent(initialState, ArchiveRestoreSelectionScreenEvents.ConfirmSkip, stateEmitter)
 
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first())
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()

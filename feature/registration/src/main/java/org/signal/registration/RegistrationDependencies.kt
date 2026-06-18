@@ -26,6 +26,7 @@ class RegistrationDependencies(
   companion object {
     lateinit var dependencies: RegistrationDependencies
 
+    @JvmStatic
     fun provide(registrationDependencies: RegistrationDependencies) {
       dependencies = registrationDependencies
       SensitiveLog.init(dependencies.sensitiveLogger)

@@ -29,6 +29,7 @@ import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
+import org.signal.registration.proto.RestoreDecision
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PinCreationViewModelTest {
@@ -72,6 +73,7 @@ class PinCreationViewModelTest {
 
     viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
 
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT) }
     coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
   }
 
@@ -112,6 +114,7 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(initialState, PinCreationScreenEvents.OptOut)
 
     coVerify { mockRepository.setPinOptedOut() }
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT) }
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
   }

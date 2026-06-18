@@ -24,6 +24,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.proto.RestoreDecision
 
 class PinEntryForSvrRestoreViewModelTest {
 
@@ -75,6 +76,7 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
   }
 
@@ -231,6 +233,7 @@ class PinEntryForSvrRestoreViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.Skip, parentEventEmitter, stateEmitter)
 
     coVerify { mockRepository.setPinOptedOut() }
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
   }

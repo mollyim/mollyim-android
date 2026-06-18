@@ -46,6 +46,7 @@ import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.libsignal.net.ChatServiceException;
 import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider;
+import org.signal.registration.RegistrationDependencies;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
@@ -102,6 +103,8 @@ import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.ratelimit.RateLimitUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil;
+import org.thoughtcrime.securesms.registration.v2.AppRegistrationNetworkController;
+import org.thoughtcrime.securesms.registration.v2.AppRegistrationStorageController;
 import org.thoughtcrime.securesms.ringrtc.RingRtcLogger;
 import org.thoughtcrime.securesms.service.AnalyzeDatabaseAlarmListener;
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener;
@@ -421,10 +424,10 @@ public class ApplicationContext extends Application implements AppForegroundObse
   }
 
   private void initializeRegistrationDependencies() {
-    org.signal.registration.RegistrationDependencies.Companion.provide(
-      new org.signal.registration.RegistrationDependencies(
-        new org.thoughtcrime.securesms.registration.v2.AppRegistrationNetworkController(this, AppDependencies.getPushServiceSocket()),
-        new org.thoughtcrime.securesms.registration.v2.AppRegistrationStorageController(this),
+    RegistrationDependencies.provide(
+      new RegistrationDependencies(
+        new AppRegistrationNetworkController(this, AppDependencies.getPushServiceSocket()),
+        new AppRegistrationStorageController(this),
         Environment.IS_LINK_AND_SYNC_AVAILABLE,
         null,
         context -> {

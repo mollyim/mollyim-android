@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.content.IntentCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.signal.core.ui.compose.theme.SignalTheme
 
@@ -17,14 +18,27 @@ import org.signal.core.ui.compose.theme.SignalTheme
  * Activity entry point for the registration flow.
  *
  * This activity can be launched from the main app to start the registration process.
- * Upon successful completion, it will return RESULT_OK.
+ * Upon successful completion, it will return RESULT_OK and, if provided via [createIntent], launch the next intent to
+ * route the user back into the main app.
  */
 class RegistrationActivity : ComponentActivity() {
 
   companion object {
+    private const val NEXT_INTENT_EXTRA = "next_intent"
+
+    /**
+     * @param nextIntent An optional intent to launch once registration completes successfully. This is how the caller
+     *   (which lives outside this module) routes the user back into the main app, since the launching activity will
+     *   typically have finished itself.
+     */
     @JvmStatic
-    fun createIntent(context: Context): Intent {
-      return Intent(context, RegistrationActivity::class.java)
+    @JvmOverloads
+    fun createIntent(context: Context, nextIntent: Intent? = null): Intent {
+      return Intent(context, RegistrationActivity::class.java).apply {
+        if (nextIntent != null) {
+          putExtra(NEXT_INTENT_EXTRA, nextIntent)
+        }
+      }
     }
   }
 
@@ -50,6 +64,7 @@ class RegistrationActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize(),
             onRegistrationComplete = {
               setResult(RESULT_OK)
+              IntentCompat.getParcelableExtra(intent, NEXT_INTENT_EXTRA, Intent::class.java)?.let { startActivity(it) }
               finish()
             }
           )

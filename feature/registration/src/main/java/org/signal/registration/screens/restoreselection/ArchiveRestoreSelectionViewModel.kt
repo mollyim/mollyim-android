@@ -23,6 +23,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.proto.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateTo
 
@@ -106,6 +107,7 @@ class ArchiveRestoreSelectionViewModel(
       }
       is ArchiveRestoreSelectionScreenEvents.ConfirmSkip -> {
         notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+        repository.setRestoreDecision(RestoreDecision.SKIPPED)
         parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
         state.copy(showSkipWarningDialog = false)
       }

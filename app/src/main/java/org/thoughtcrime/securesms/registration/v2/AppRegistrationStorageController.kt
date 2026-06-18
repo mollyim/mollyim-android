@@ -29,6 +29,7 @@ import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
 import org.signal.registration.proto.RegistrationData
+import org.signal.registration.proto.RestoreDecision
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.thoughtcrime.securesms.backup.FullBackupImporter
@@ -41,7 +42,12 @@ import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.LocalRegistrationMetadata
+import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
+import org.thoughtcrime.securesms.keyvalue.Completed
+import org.thoughtcrime.securesms.keyvalue.NewAccount
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.keyvalue.Skipped
+import org.thoughtcrime.securesms.keyvalue.isDecisionPending
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -158,6 +164,16 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   override suspend fun commitRegistrationData() = withContext(Dispatchers.IO) {
     val data = readInProgressRegistrationData()
 
+    // The account's master key is always the one derived from the AEP, which we expect to have by the time we commit.
+    // Restore it up-front so any master-key-derived state we touch below resolves against the correct value rather
+    // than lazily generating a new AEP.
+    val accountEntropyPool: AccountEntropyPool? = data.accountEntropyPool.takeIf { it.isNotEmpty() }?.let { AccountEntropyPool(it) }
+    if (accountEntropyPool != null) {
+      SignalStore.account.restoreAccountEntropyPool(accountEntropyPool)
+    }
+
+    val masterKey: MasterKey? = accountEntropyPool?.deriveMasterKey()
+
     // Build LocalRegistrationMetadata if we have enough data for account setup
     if (data.e164.isNotEmpty() && data.aci.isNotEmpty() && data.pni.isNotEmpty() && data.servicePassword.isNotEmpty()) {
       val profileKey = RegistrationRepository.getProfileKey(data.e164)
@@ -190,9 +206,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         hasPin = data.pin.isNotEmpty()
         if (data.pin.isNotEmpty()) {
           pin = data.pin
-        }
-        if (data.temporaryMasterKey.size > 0) {
-          masterKey = data.temporaryMasterKey
+          masterKey?.let { this.masterKey = it.serialize().toByteString() }
         }
         fcmEnabled = SignalStore.account.fcmEnabled
         fcmToken = SignalStore.account.fcmToken ?: ""
@@ -202,15 +216,10 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       // TODO [greyson] Should probably move this stuff into this file as we get closer to being done
       RegistrationRepository.registerAccountLocally(context, metadata)
       SignalStore.registration.localRegistrationMetadata = metadata
-
-      if (data.accountEntropyPool.isNotEmpty()) {
-        SignalStore.account.restoreAccountEntropyPool(AccountEntropyPool(data.accountEntropyPool))
-      }
     }
 
     // Handle PIN/master key
-    if (data.pin.isNotEmpty() && data.temporaryMasterKey.size > 0) {
-      val masterKey = MasterKey(data.temporaryMasterKey.toByteArray())
+    if (data.pin.isNotEmpty() && masterKey != null) {
       SvrRepository.onRegistrationComplete(
         masterKey,
         data.pin,
@@ -223,7 +232,35 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       SvrRepository.optOutOfPin(rotateAep = false)
     }
 
+    // The temporaryMasterKey is the one-time key restored from SVR during re-registration. The account's own master key
+    // is always the AEP-derived one above, so this is retained separately as the initial-restore key (used for the
+    // first storage service sync + recovery password). It must be set last, as onRegistrationComplete will have cleared
+    // the initial-restore key after recognizing the AEP-derived master key as our own.
+    if (data.temporaryMasterKey.size > 0) {
+      SignalStore.svr.masterKeyForInitialDataRestore = MasterKey(data.temporaryMasterKey.toByteArray())
+    }
+
+    applyRestoreDecision(data.restoreDecision)
+
     Unit
+  }
+
+  /**
+   * Translates the registration module's [RestoreDecision] into the app's [RestoreDecisionState] so the rest of the app
+   * knows whether we're a fresh account, skipped a restore, or successfully restored data. Only applied while the
+   * decision is still pending, since the state machine is otherwise terminal.
+   */
+  private fun applyRestoreDecision(decision: RestoreDecision) {
+    if (!SignalStore.registration.restoreDecisionState.isDecisionPending) {
+      return
+    }
+
+    SignalStore.registration.restoreDecisionState = when (decision) {
+      RestoreDecision.NEW_ACCOUNT -> RestoreDecisionState.NewAccount
+      RestoreDecision.SKIPPED -> RestoreDecisionState.Skipped
+      RestoreDecision.COMPLETED -> RestoreDecisionState.Completed
+      RestoreDecision.UNSET -> return
+    }
   }
 
   override fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = flow {

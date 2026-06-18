@@ -135,12 +135,8 @@ public abstract class PassphraseRequiredActivity extends BaseActivity implements
     Intent    intent           = getIntentForState(applicationState);
     if (intent != null) {
       Log.d(TAG, "routeApplicationState(), intent: " + intent.getComponent());
-      if (applicationState == STATE_WELCOME_PUSH_SCREEN && Environment.USE_NEW_REGISTRATION) {
-        startActivity(intent);
-      } else {
         startActivity(intent);
         finish();
-      }
     }
   }
 
@@ -227,7 +223,7 @@ public abstract class PassphraseRequiredActivity extends BaseActivity implements
 
   private Intent getPushRegistrationIntent() {
     if (Environment.USE_NEW_REGISTRATION) {
-      return org.signal.registration.RegistrationActivity.createIntent(this);
+      return org.signal.registration.RegistrationActivity.createIntent(this, MainActivity.clearTop(this));
     } else {
       return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
     }

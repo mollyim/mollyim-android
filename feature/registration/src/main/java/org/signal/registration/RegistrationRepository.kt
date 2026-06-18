@@ -41,6 +41,7 @@ import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.proto.ProvisioningData
+import org.signal.registration.proto.RestoreDecision
 import org.signal.registration.proto.SvrCredential
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
@@ -529,6 +530,19 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       this.pin = ""
       this.pinIsAlphanumeric = false
       this.registrationLockEnabled = false
+    }
+    storageController.commitRegistrationData()
+  }
+
+  /**
+   * Records the terminal restore decision the user reached (new account, skipped a restore, or successfully restored)
+   * and commits it. The app translates this into its own restore-decision state so the rest of the app knows what
+   * happened during registration.
+   */
+  suspend fun setRestoreDecision(decision: RestoreDecision): Unit = withContext(Dispatchers.IO) {
+    Log.i(TAG, "[setRestoreDecision] Recording restore decision: $decision")
+    storageController.updateInProgressRegistrationData {
+      this.restoreDecision = decision
     }
     storageController.commitRegistrationData()
   }

@@ -18,6 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
+import org.signal.registration.proto.RestoreDecision
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DeviceTransferCompleteViewModelTest {
@@ -57,6 +58,7 @@ class DeviceTransferCompleteViewModelTest {
       stateEmitter
     )
 
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
   }
 }

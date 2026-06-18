@@ -15,17 +15,31 @@ import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import assertk.assertions.prop
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.proto.RestoreDecision
 import java.time.LocalDateTime
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class LocalBackupRestoreViewModelTest {
+
+  private val testDispatcher = UnconfinedTestDispatcher()
 
   private lateinit var mockRepository: RegistrationRepository
   private lateinit var resultBus: ResultEventBus
@@ -38,12 +52,18 @@ class LocalBackupRestoreViewModelTest {
 
   @Before
   fun setup() {
+    Dispatchers.setMain(testDispatcher)
     mockRepository = mockk(relaxed = true)
     resultBus = ResultEventBus()
     emittedParentEvents = mutableListOf()
     parentEventEmitter = { event -> emittedParentEvents.add(event) }
     emittedStates = mutableListOf()
     stateEmitter = { state -> emittedStates.add(state) }
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   private fun createViewModel(isPreRegistration: Boolean): LocalBackupRestoreViewModel {
@@ -226,5 +246,26 @@ class LocalBackupRestoreViewModelTest {
     assertThat(resultBus.channelMap[resultKey]).isNull()
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
+  }
+
+  // ==================== Restore Completion Tests ====================
+
+  @Test
+  fun `successful V1 restore records COMPLETED restore decision and finishes registration`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
+
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete)
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
+    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
   }
 }

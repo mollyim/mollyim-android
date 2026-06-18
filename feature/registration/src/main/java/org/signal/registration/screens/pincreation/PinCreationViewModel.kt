@@ -21,6 +21,7 @@ import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
+import org.signal.registration.proto.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 
 /**
@@ -77,6 +78,7 @@ class PinCreationViewModel(
   private suspend fun applyOptOut() {
     Log.i(TAG, "[OptOut] User opted out of creating a PIN. Recording choice and completing registration.")
     repository.setPinOptedOut()
+    repository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
     parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
   }
 
@@ -99,6 +101,7 @@ class PinCreationViewModel(
     return when (val result = repository.setNewlyCreatedPin(pin, state.isAlphanumericKeyboard, masterKey)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[PinSubmitted] Successfully backed up master key to SVR.")
+        repository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
         repository.finishRegistrationOrCreateProfile(parentEventEmitter)
         state
       }
