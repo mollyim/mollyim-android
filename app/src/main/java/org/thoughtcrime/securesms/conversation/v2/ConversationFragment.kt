@@ -281,6 +281,7 @@ import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInfoBotto
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationSuggestionsDialog
 import org.thoughtcrime.securesms.groups.v2.GroupBlockJoinRequestResult
 import org.thoughtcrime.securesms.invites.InviteActions
+import org.thoughtcrime.securesms.jobs.AttachmentBackfill
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob
 import org.thoughtcrime.securesms.keyboard.KeyboardPage
 import org.thoughtcrime.securesms.keyboard.KeyboardPagerFragment
@@ -1403,6 +1404,16 @@ class ConversationFragment :
                 viewModel.onAvatarDownloadFailed()
               }
             }
+          }
+        }
+      }
+    }
+
+    lifecycleScope.launch {
+      lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+        AttachmentBackfill.failures.collect { failure ->
+          if (failure.threadId == args.threadId) {
+            showAttachmentBackfillFailureDialog(failure.reason)
           }
         }
       }
@@ -3102,6 +3113,19 @@ class ConversationFragment :
       .setPositiveButton(android.R.string.ok, null)
 
     dialogBuilder.show()
+  }
+
+  private fun showAttachmentBackfillFailureDialog(reason: AttachmentBackfill.FailureReason) {
+    val messageRes = when (reason) {
+      AttachmentBackfill.FailureReason.TIMEOUT -> R.string.ConversationFragment_attachment_backfill_timeout
+      AttachmentBackfill.FailureReason.NOT_FOUND -> R.string.ConversationFragment_attachment_backfill_not_found
+    }
+
+    MaterialAlertDialogBuilder(requireContext())
+      .setTitle(R.string.ConversationFragment_attachment_backfill_failed_title)
+      .setMessage(messageRes)
+      .setPositiveButton(android.R.string.ok, null)
+      .show()
   }
 
   private fun handleDisplayDetails(conversationMessage: ConversationMessage) {

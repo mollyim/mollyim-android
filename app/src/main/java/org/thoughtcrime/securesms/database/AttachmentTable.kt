@@ -1724,6 +1724,50 @@ class AttachmentTable(
   }
 
   /**
+   * Replaces the remote pointer fields on [attachmentId] with the values from a primary device's
+   * backfill response and resets the transfer state to pending so a fresh download can run.
+   */
+  fun updatePointerFromBackfill(attachmentId: AttachmentId, attachment: Attachment): Boolean {
+    val remoteLocation = attachment.remoteLocation
+    if (remoteLocation.isNullOrBlank()) {
+      Log.w(TAG, "[updatePointerFromBackfill] Attachment has no remote location for $attachmentId.")
+      return false
+    }
+
+    val remoteKey = attachment.remoteKey
+    if (remoteKey.isNullOrBlank()) {
+      Log.w(TAG, "[updatePointerFromBackfill] Attachment missing key for $attachmentId.")
+      return false
+    }
+
+    val remoteDigest = attachment.remoteDigest
+    if (remoteDigest == null) {
+      Log.w(TAG, "[updatePointerFromBackfill] Attachment missing digest for $attachmentId.")
+      return false
+    }
+
+    val values = contentValuesOf(
+      TRANSFER_STATE to TRANSFER_PROGRESS_PENDING,
+      CDN_NUMBER to attachment.cdn.cdnNumber,
+      REMOTE_LOCATION to remoteLocation,
+      REMOTE_KEY to remoteKey,
+      REMOTE_DIGEST to remoteDigest,
+      REMOTE_INCREMENTAL_DIGEST to attachment.incrementalDigest,
+      REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE to attachment.incrementalMacChunkSize,
+      DATA_SIZE to attachment.size,
+      UPLOAD_TIMESTAMP to attachment.uploadTimestamp
+    )
+
+    val updateCount = writableDatabase
+      .update(TABLE_NAME)
+      .values(values)
+      .where("$ID = ?", attachmentId.id)
+      .run()
+
+    return updateCount > 0
+  }
+
+  /**
    * Updates the attachment (and all attachments that share the same data file) with a new length.
    */
   fun updateAttachmentLength(attachmentId: AttachmentId, length: Long) {

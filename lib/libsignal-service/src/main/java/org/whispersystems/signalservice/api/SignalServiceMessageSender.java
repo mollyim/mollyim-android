@@ -766,6 +766,9 @@ public class SignalServiceMessageSender {
       content = createDeviceNameChangeContent(message.getDeviceNameChange().get());
     } else if (message.getAttachmentBackfillResponse().isPresent()) {
       content = createAttachmentBackfillResponseContent(message.getAttachmentBackfillResponse().get());
+    } else if (message.getAttachmentBackfillRequest().isPresent()) {
+      content = createAttachmentBackfillRequestContent(message.getAttachmentBackfillRequest().get());
+      urgent = true;
     } else {
       throw new IOException("Unsupported sync message!");
     }
@@ -1779,6 +1782,13 @@ public class SignalServiceMessageSender {
   private Content createAttachmentBackfillResponseContent(SyncMessage.AttachmentBackfillResponse proto) {
     Content.Builder     container = new Content.Builder();
     SyncMessage.Builder builder   = createSyncMessageBuilder().attachmentBackfillResponse(proto);
+
+    return container.syncMessage(builder.build()).build();
+  }
+
+  private Content createAttachmentBackfillRequestContent(SyncMessage.AttachmentBackfillRequest proto) {
+    Content.Builder     container = new Content.Builder();
+    SyncMessage.Builder builder   = createSyncMessageBuilder().attachmentBackfillRequest(proto);
 
     return container.syncMessage(builder.build()).build();
   }

@@ -210,6 +210,7 @@ public final class JobManagerFactories {
       put(MarkerJob.KEY,                               new MarkerJob.Factory());
       put(MessageSendLogCleanupJob.KEY,                new MessageSendLogCleanupJob.Factory());
       put(MultiDeviceAttachmentBackfillMissingJob.KEY, new MultiDeviceAttachmentBackfillMissingJob.Factory());
+      put(MultiDeviceAttachmentBackfillRequestJob.KEY, new MultiDeviceAttachmentBackfillRequestJob.Factory());
       put(MultiDeviceAttachmentBackfillUpdateJob.KEY,  new MultiDeviceAttachmentBackfillUpdateJob.Factory());
       put(MultiDeviceBlockedUpdateJob.KEY,             new MultiDeviceBlockedUpdateJob.Factory());
       put(MultiDeviceCallLinkSyncJob.KEY,              new MultiDeviceCallLinkSyncJob.Factory());
