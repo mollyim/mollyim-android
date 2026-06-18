@@ -34,6 +34,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.SignalTrace;
 import org.signal.core.util.Util;
 import org.signal.core.util.concurrent.SerialExecutor;
 
@@ -82,26 +83,36 @@ public class SearchRepository {
 
   @WorkerThread
   public @NonNull ThreadSearchResult queryThreadsSync(@NonNull String query, boolean unreadOnly) {
-    long                      start  = System.currentTimeMillis();
-    List<ThreadWithRecipient> result = queryConversations(query, unreadOnly);
+    SignalTrace.beginSection("ConversationListSearch-Threads");
+    try {
+      long                      start  = System.currentTimeMillis();
+      List<ThreadWithRecipient> result = queryConversations(query, unreadOnly);
 
-    Log.d(TAG, "[threads] Search took " + (System.currentTimeMillis() - start) + " ms");
+      Log.d(TAG, "[threads] Search took " + (System.currentTimeMillis() - start) + " ms");
 
-    return new ThreadSearchResult(result, query);
+      return new ThreadSearchResult(result, query);
+    } finally {
+      SignalTrace.endSection();
+    }
   }
 
   @WorkerThread
   public @NonNull MessageSearchResult queryMessagesSync(@NonNull String query, @NonNull SearchFilter filter) {
-    long start = System.currentTimeMillis();
+    SignalTrace.beginSection("ConversationListSearch-Messages");
+    try {
+      long start = System.currentTimeMillis();
 
-    List<MessageResult> messages         = queryMessages(query, filter);
-    List<MessageResult> mentionMessages  = queryMentions(convertMentionsQueryToTokens(query));
-    List<MessageResult> filteredMentions = filterMentionResults(mentionMessages, filter);
-    List<MessageResult> combined         = mergeMessagesAndMentions(messages, filteredMentions);
+      List<MessageResult> messages         = queryMessages(query, filter);
+      List<MessageResult> mentionMessages  = queryMentions(convertMentionsQueryToTokens(query));
+      List<MessageResult> filteredMentions = filterMentionResults(mentionMessages, filter);
+      List<MessageResult> combined         = mergeMessagesAndMentions(messages, filteredMentions);
 
-    Log.d(TAG, "[messages] Search took " + (System.currentTimeMillis() - start) + " ms");
+      Log.d(TAG, "[messages] Search took " + (System.currentTimeMillis() - start) + " ms");
 
-    return new MessageSearchResult(combined, query);
+      return new MessageSearchResult(combined, query);
+    } finally {
+      SignalTrace.endSection();
+    }
   }
 
   public void query(@NonNull String query, long threadId, @NonNull Callback<List<MessageResult>> callback) {
