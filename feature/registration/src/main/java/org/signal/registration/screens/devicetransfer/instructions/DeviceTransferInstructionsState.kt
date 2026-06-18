@@ -5,11 +5,8 @@
 
 package org.signal.registration.screens.devicetransfer.instructions
 
-import org.signal.registration.util.DebugLoggable
-import org.signal.registration.util.DebugLoggableModel
-
 data class DeviceTransferInstructionsState(
   val oneTimeEvent: OneTimeEvent? = null
-) : DebugLoggableModel() {
-  sealed interface OneTimeEvent : DebugLoggable
+) {
+  sealed interface OneTimeEvent
 }

@@ -12,7 +12,6 @@ import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.censor
 import org.signal.registration.util.AccountEntropyPoolParceler
-import org.signal.registration.util.DebugLoggableModel
 import org.signal.registration.util.MasterKeyParceler
 
 @Parcelize
@@ -54,8 +53,8 @@ data class RegistrationFlowState(
 
   /** If true, the ViewModel is still deciding whether to restore a previous flow or start fresh. */
   val isRestoringNavigationState: Boolean = true
-) : Parcelable, DebugLoggableModel() {
-  override fun toSafeString(): String {
+) : Parcelable {
+  override fun toString(): String {
     return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=${sessionMetadata.let { "present" }}, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.displayValue?.censor()}, restoreMethodToken=${restoreMethodToken?.censor()}, isRestoringNavigation=$isRestoringNavigationState)"
   }
 }

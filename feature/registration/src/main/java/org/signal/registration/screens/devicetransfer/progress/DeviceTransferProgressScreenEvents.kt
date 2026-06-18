@@ -5,9 +5,7 @@
 
 package org.signal.registration.screens.devicetransfer.progress
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class DeviceTransferProgressScreenEvents : DebugLoggableModel() {
+sealed class DeviceTransferProgressScreenEvents {
   data object CancelClicked : DeviceTransferProgressScreenEvents()
   data object CancelConfirmed : DeviceTransferProgressScreenEvents()
   data object CancelDismissed : DeviceTransferProgressScreenEvents()

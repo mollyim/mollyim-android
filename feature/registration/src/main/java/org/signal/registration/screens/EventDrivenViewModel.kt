@@ -10,14 +10,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import org.signal.core.util.logging.Log
-import org.signal.registration.util.DebugLoggable
 
 /**
  * Base view model that helps one implement an Elm-like architecture, where events are processed and
  * new models are emitted. In particular, this base class exists to setup the core event channel
  * to avoid gotcha's around threading and race conditions.
  */
-abstract class EventDrivenViewModel<E : DebugLoggable>(
+abstract class EventDrivenViewModel<E : Any>(
   private val tag: String
 ) : ViewModel() {
 

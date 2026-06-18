@@ -6,9 +6,8 @@
 package org.signal.registration.screens.linkaccount
 
 import org.signal.registration.screens.quickrestore.QrState
-import org.signal.registration.util.DebugLoggableModel
 
 data class LinkAccountScreenState(
   val qrCodeState: QrState = QrState.Loading,
   val displayQrOverlay: Boolean = false
-) : DebugLoggableModel()
+)

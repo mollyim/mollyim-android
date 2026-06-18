@@ -5,9 +5,6 @@
 
 package org.signal.registration.screens.createprofile
 
-import org.signal.registration.util.DebugLoggable
-import org.signal.registration.util.DebugLoggableModel
-
 data class CreateProfileState(
   val givenName: String = "",
   val familyName: String = "",
@@ -16,12 +13,12 @@ data class CreateProfileState(
   val isLoading: Boolean = true,
   val isSubmitting: Boolean = false,
   val oneTimeEvent: OneTimeEvent? = null
-) : DebugLoggableModel() {
+) {
 
   val isFormValid: Boolean
     get() = givenName.trim().isNotEmpty()
 
-  override fun toSafeString(): String {
+  override fun toString(): String {
     return "CreateProfileState(givenName=${givenName.length} chars, familyName=${familyName.length} chars, avatar=${avatar?.size ?: 0} bytes, discoverableByPhoneNumber=$discoverableByPhoneNumber, isLoading=$isLoading, isSubmitting=$isSubmitting, oneTimeEvent=$oneTimeEvent)"
   }
 
@@ -54,9 +51,7 @@ data class CreateProfileState(
     return result
   }
 
-  sealed interface OneTimeEvent : DebugLoggable {
-    data object UploadFailed : OneTimeEvent {
-      override fun toString(): String = "UploadFailed"
-    }
+  sealed interface OneTimeEvent {
+    data object UploadFailed : OneTimeEvent
   }
 }

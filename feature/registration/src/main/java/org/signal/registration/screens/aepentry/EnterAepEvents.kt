@@ -5,11 +5,13 @@
 
 package org.signal.registration.screens.aepentry
 
-import org.signal.registration.util.DebugLoggableModel
+import org.signal.core.util.censor
 
-sealed class EnterAepEvents : DebugLoggableModel() {
+sealed class EnterAepEvents {
   /** User changed the backup key text. */
-  data class BackupKeyChanged(val value: String) : EnterAepEvents()
+  data class BackupKeyChanged(val value: String) : EnterAepEvents() {
+    override fun toString(): String = "BackupKeyChanged(value=${value.censor()})"
+  }
 
   /** User submitted the backup key. */
   data object Submit : EnterAepEvents()

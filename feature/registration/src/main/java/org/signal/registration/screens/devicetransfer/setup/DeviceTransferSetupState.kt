@@ -5,9 +5,6 @@
 
 package org.signal.registration.screens.devicetransfer.setup
 
-import org.signal.registration.util.DebugLoggable
-import org.signal.registration.util.DebugLoggableModel
-
 data class DeviceTransferSetupState(
   val step: SetupStep = SetupStep.INITIAL,
   val authenticationCode: Int? = null,
@@ -15,9 +12,11 @@ data class DeviceTransferSetupState(
   val showVerifyRejectDialog: Boolean = false,
   val showErrorDialog: Boolean = false,
   val oneTimeEvent: OneTimeEvent? = null
-) : DebugLoggableModel() {
+) {
 
-  sealed interface OneTimeEvent : DebugLoggable {
+  override fun toString(): String = "DeviceTransferSetupState(step=$step, authenticationCode=${authenticationCode?.let { "present" }}, takingTooLong=$takingTooLong, showVerifyRejectDialog=$showVerifyRejectDialog, showErrorDialog=$showErrorDialog, oneTimeEvent=$oneTimeEvent)"
+
+  sealed interface OneTimeEvent {
     /** The screen should launch a runtime permission request. */
     data object RequestLocationPermission : OneTimeEvent
 

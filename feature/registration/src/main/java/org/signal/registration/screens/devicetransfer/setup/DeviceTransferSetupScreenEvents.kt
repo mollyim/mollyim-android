@@ -5,9 +5,7 @@
 
 package org.signal.registration.screens.devicetransfer.setup
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class DeviceTransferSetupScreenEvents : DebugLoggableModel() {
+sealed class DeviceTransferSetupScreenEvents {
   /** Kick off the full check-and-start sequence. Emitted once on initial composition and on retries. */
   data object CheckPermissions : DeviceTransferSetupScreenEvents()
 

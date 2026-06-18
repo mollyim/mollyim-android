@@ -11,8 +11,6 @@ import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.PendingRestoreOption
 import org.signal.registration.PreExistingRegistrationData
-import org.signal.registration.util.DebugLoggable
-import org.signal.registration.util.DebugLoggableModel
 import kotlin.time.Duration
 
 data class PhoneNumberEntryState(
@@ -30,8 +28,10 @@ data class PhoneNumberEntryState(
   val preExistingRegistrationData: PreExistingRegistrationData? = null,
   val restoredSvrCredentials: List<NetworkController.SvrCredentials> = emptyList(),
   val pendingRestoreOption: PendingRestoreOption? = null
-) : DebugLoggableModel() {
-  sealed interface OneTimeEvent : DebugLoggable {
+) {
+  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, showDialog=$showDialog, oneTimeEvent=$oneTimeEvent, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption)"
+
+  sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent
     data object UnknownError : OneTimeEvent
     data class RateLimited(val retryAfter: Duration) : OneTimeEvent

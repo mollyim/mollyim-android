@@ -5,9 +5,7 @@
 
 package org.signal.registration.screens.linkaccount
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class LinkAccountScreenEvent : DebugLoggableModel() {
+sealed class LinkAccountScreenEvent {
   data object GetHelpClick : LinkAccountScreenEvent()
   data object CreateAccountClick : LinkAccountScreenEvent()
   data object DisplayOverlayClick : LinkAccountScreenEvent()

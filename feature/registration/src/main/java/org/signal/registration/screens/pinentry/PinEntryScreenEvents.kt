@@ -5,10 +5,10 @@
 
 package org.signal.registration.screens.pinentry
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class PinEntryScreenEvents : DebugLoggableModel() {
-  data class PinEntered(val pin: String) : PinEntryScreenEvents()
+sealed class PinEntryScreenEvents {
+  data class PinEntered(val pin: String) : PinEntryScreenEvents() {
+    override fun toString(): String = "PinEntered(pin=${pin.length} chars)"
+  }
   data object ToggleKeyboard : PinEntryScreenEvents()
   data object NeedHelp : PinEntryScreenEvents()
   data object Skip : PinEntryScreenEvents()

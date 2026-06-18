@@ -5,9 +5,7 @@
 
 package org.signal.registration.screens.quickrestore
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class QuickRestoreQrEvents : DebugLoggableModel() {
+sealed class QuickRestoreQrEvents {
   data object RetryQrCode : QuickRestoreQrEvents()
   data object Cancel : QuickRestoreQrEvents()
   data object UseProxy : QuickRestoreQrEvents()
