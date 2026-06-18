@@ -5,6 +5,14 @@
 
 package org.signal.registration.screens.pincreation
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +37,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,9 +74,11 @@ import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.core.ui.R as CoreR
 
+private const val STEP_TRANSITION_DURATION = 250
+
 /**
  * PIN creation screen for the registration flow.
- * Allows users to create a new PIN for their account.
+ * Allows users to create a new PIN for their account, then confirm it.
  */
 @Composable
 fun PinCreationScreen(
@@ -74,18 +86,19 @@ fun PinCreationScreen(
   onEvent: (PinCreationScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  var pin by rememberSaveable { mutableStateOf("") }
-  val focusRequester = remember { FocusRequester() }
-  val canSubmitPin = pin.length >= 4
+  val activePin = remember { mutableStateOf("") }
+  val canSubmitPin = activePin.value.length >= 4
+
+  BackHandler(enabled = state.isConfirmEnabled) {
+    onEvent(PinCreationScreenEvents.BackToPinEntry)
+  }
 
   when (val params = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> OnePaneLayout(
       params = params,
       state = state,
-      pin = pin,
+      activePin = activePin,
       canSubmitPin = canSubmitPin,
-      focusRequester = focusRequester,
-      onPinChanged = { pin = it },
       onEvent = onEvent,
       modifier = modifier
     )
@@ -93,18 +106,11 @@ fun PinCreationScreen(
     is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(
       params = params,
       state = state,
-      pin = pin,
+      activePin = activePin,
       canSubmitPin = canSubmitPin,
-      focusRequester = focusRequester,
-      onPinChanged = { pin = it },
       onEvent = onEvent,
       modifier = modifier
     )
-  }
-
-  // autofocus PIN field on initial composition
-  LaunchedEffect(Unit) {
-    focusRequester.requestFocus()
   }
 }
 
@@ -113,10 +119,8 @@ fun PinCreationScreen(
 private fun OnePaneLayout(
   params: RegistrationScaffold.Params.OnePane,
   state: PinCreationState,
-  pin: String,
+  activePin: MutableState<String>,
   canSubmitPin: Boolean,
-  focusRequester: FocusRequester,
-  onPinChanged: (String) -> Unit,
   onEvent: (PinCreationScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -139,31 +143,23 @@ private fun OnePaneLayout(
           .verticalScroll(scrollState)
           .padding(params.panePadding(hasHeader = true))
       ) {
-        PinDescription(
-          isConfirmEnabled = state.isConfirmEnabled,
-          onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
-        )
+        PinStepTransition(isConfirmEnabled = state.isConfirmEnabled) { isConfirm ->
+          Column {
+            PinDescription(
+              isConfirmEnabled = isConfirm,
+              onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
+            )
 
-        Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-        PinInputField(
-          state = state,
-          pin = pin,
-          canSubmitPin = canSubmitPin,
-          focusRequester = focusRequester,
-          onPinChanged = onPinChanged,
-          onSubmit = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) },
-          modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-        PinInputLabel(state)
-        Spacer(modifier = Modifier.height(16.dp))
-
-        KeyboardToggleButton(
-          state = state,
-          onToggleKeyboard = { onEvent(PinCreationScreenEvents.ToggleKeyboard) }
-        )
+            PinInputSection(
+              state = state,
+              isConfirm = isConfirm,
+              activePin = activePin,
+              onEvent = onEvent
+            )
+          }
+        }
       }
     },
     footer = {
@@ -171,7 +167,7 @@ private fun OnePaneLayout(
         params = params,
         canSubmitPin = canSubmitPin,
         isElevated = scrollState.canScrollForward,
-        onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) }
+        onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(activePin.value)) }
       )
     }
   )
@@ -182,10 +178,8 @@ private fun OnePaneLayout(
 private fun TwoPaneLayout(
   params: RegistrationScaffold.Params.TwoPane,
   state: PinCreationState,
-  pin: String,
+  activePin: MutableState<String>,
   canSubmitPin: Boolean,
-  focusRequester: FocusRequester,
-  onPinChanged: (String) -> Unit,
   onEvent: (PinCreationScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -211,10 +205,12 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        PinDescription(
-          isConfirmEnabled = state.isConfirmEnabled,
-          onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
-        )
+        PinStepTransition(isConfirmEnabled = state.isConfirmEnabled) { isConfirm ->
+          PinDescription(
+            isConfirmEnabled = isConfirm,
+            onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
+          )
+        }
       }
     },
     secondPane = { paddingValues ->
@@ -226,23 +222,14 @@ private fun TwoPaneLayout(
           .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       ) {
-        PinInputField(
-          state = state,
-          pin = pin,
-          canSubmitPin = canSubmitPin,
-          focusRequester = focusRequester,
-          onPinChanged = onPinChanged,
-          onSubmit = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) },
-          modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-        PinInputLabel(state)
-        Spacer(modifier = Modifier.height(16.dp))
-        KeyboardToggleButton(
-          state = state,
-          onToggleKeyboard = { onEvent(PinCreationScreenEvents.ToggleKeyboard) }
-        )
+        PinStepTransition(isConfirmEnabled = state.isConfirmEnabled) { isConfirm ->
+          PinInputSection(
+            state = state,
+            isConfirm = isConfirm,
+            activePin = activePin,
+            onEvent = onEvent
+          )
+        }
       }
     },
     footer = {
@@ -250,10 +237,38 @@ private fun TwoPaneLayout(
         params = params,
         canSubmitPin = canSubmitPin,
         isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
-        onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) }
+        onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(activePin.value)) }
       )
     }
   )
+}
+
+/**
+ * Animates between the create and confirm steps with a horizontal slide, as if they were separate screens.
+ * Moving forward to the confirm step slides in from the right; returning to the create step slides in from the left.
+ */
+@Composable
+private fun PinStepTransition(
+  isConfirmEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  content: @Composable (isConfirm: Boolean) -> Unit
+) {
+  AnimatedContent(
+    targetState = isConfirmEnabled,
+    transitionSpec = {
+      if (targetState) {
+        (slideInHorizontally(animationSpec = tween(STEP_TRANSITION_DURATION)) { it } + fadeIn(tween(STEP_TRANSITION_DURATION))) togetherWith
+          (slideOutHorizontally(animationSpec = tween(STEP_TRANSITION_DURATION)) { -it } + fadeOut(tween(STEP_TRANSITION_DURATION)))
+      } else {
+        (slideInHorizontally(animationSpec = tween(STEP_TRANSITION_DURATION)) { -it } + fadeIn(tween(STEP_TRANSITION_DURATION))) togetherWith
+          (slideOutHorizontally(animationSpec = tween(STEP_TRANSITION_DURATION)) { it } + fadeOut(tween(STEP_TRANSITION_DURATION)))
+      }
+    },
+    label = "PinCreationStep",
+    modifier = modifier
+  ) { isConfirm ->
+    content(isConfirm)
+  }
 }
 
 @Composable
@@ -314,8 +329,54 @@ private fun PinDescription(
 }
 
 @Composable
-private fun PinInputField(
+private fun PinInputSection(
   state: PinCreationState,
+  isConfirm: Boolean,
+  activePin: MutableState<String>,
+  onEvent: (PinCreationScreenEvents) -> Unit,
+  modifier: Modifier = Modifier
+) {
+  var pin by remember { mutableStateOf("") }
+  val canSubmitPin = pin.length >= 4
+  val focusRequester = remember { FocusRequester() }
+
+  // Keep the footer's submit action in sync with the step currently on screen.
+  if (isConfirm == state.isConfirmEnabled) {
+    SideEffect { activePin.value = pin }
+  }
+
+  LaunchedEffect(Unit) {
+    focusRequester.requestFocus()
+  }
+
+  Column(modifier = modifier) {
+    PinInputField(
+      isAlphanumericKeyboard = state.isAlphanumericKeyboard,
+      pin = pin,
+      canSubmitPin = canSubmitPin,
+      focusRequester = focusRequester,
+      onPinChanged = { pin = it },
+      onSubmit = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) },
+      modifier = Modifier.fillMaxWidth()
+    )
+
+    Spacer(modifier = Modifier.height(8.dp))
+    PinInputLabel(
+      isConfirm = isConfirm,
+      isAlphanumericKeyboard = state.isAlphanumericKeyboard,
+      isMismatch = state.pinMismatch
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    KeyboardToggleButton(
+      isAlphanumericKeyboard = state.isAlphanumericKeyboard,
+      onToggleKeyboard = { onEvent(PinCreationScreenEvents.ToggleKeyboard) }
+    )
+  }
+}
+
+@Composable
+private fun PinInputField(
+  isAlphanumericKeyboard: Boolean,
   pin: String,
   canSubmitPin: Boolean,
   focusRequester: FocusRequester,
@@ -330,7 +391,7 @@ private fun PinInputField(
     textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
     singleLine = true,
     keyboardOptions = KeyboardOptions(
-      keyboardType = if (state.isAlphanumericKeyboard) KeyboardType.Text else KeyboardType.Number,
+      keyboardType = if (isAlphanumericKeyboard) KeyboardType.Text else KeyboardType.Number,
       imeAction = ImeAction.Done
     ),
     keyboardActions = KeyboardActions(onDone = { if (canSubmitPin) onSubmit() }),
@@ -340,25 +401,28 @@ private fun PinInputField(
 
 @Composable
 private fun PinInputLabel(
-  state: PinCreationState,
+  isConfirm: Boolean,
+  isAlphanumericKeyboard: Boolean,
+  isMismatch: Boolean,
   modifier: Modifier = Modifier
 ) {
   Text(
     text = when {
-      state.isConfirmEnabled -> stringResource(R.string.PinCreationScreen__reenter_pin)
-      state.isAlphanumericKeyboard -> stringResource(R.string.PinCreationScreen__pin_at_least_4_characters)
+      isConfirm -> stringResource(R.string.PinCreationScreen__reenter_pin)
+      isMismatch -> stringResource(R.string.PinCreationScreen__pins_dont_match)
+      isAlphanumericKeyboard -> stringResource(R.string.PinCreationScreen__pin_at_least_4_characters)
       else -> stringResource(R.string.PinCreationScreen__pin_at_least_4_digits)
     },
     style = MaterialTheme.typography.bodyMedium,
     textAlign = TextAlign.Center,
-    color = MaterialTheme.colorScheme.onSurfaceVariant,
+    color = if (!isConfirm && isMismatch) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = modifier.fillMaxWidth()
   )
 }
 
 @Composable
 private fun KeyboardToggleButton(
-  state: PinCreationState,
+  isAlphanumericKeyboard: Boolean,
   onToggleKeyboard: () -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -372,7 +436,7 @@ private fun KeyboardToggleButton(
       modifier = Modifier.padding(end = 8.dp)
     )
     Text(
-      text = if (state.isAlphanumericKeyboard) {
+      text = if (isAlphanumericKeyboard) {
         stringResource(R.string.PinCreationScreen__switch_to_numeric)
       } else {
         stringResource(R.string.PinCreationScreen__switch_to_alphanumeric)
@@ -507,6 +571,17 @@ private fun PinCreationScreenConfirmPreview() {
   Previews.Preview {
     PinCreationScreen(
       state = PinCreationState(isConfirmEnabled = true),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun PinCreationScreenMismatchPreview() {
+  Previews.Preview {
+    PinCreationScreen(
+      state = PinCreationState(pinMismatch = true),
       onEvent = {}
     )
   }

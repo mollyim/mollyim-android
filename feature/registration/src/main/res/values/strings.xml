@@ -333,6 +333,8 @@
     <string name="PinCreationScreen__pin_at_least_4_characters">PIN must be at least 4 characters</string>
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">Re-enter PIN</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">PINs don\'t match. Try again.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
     <string name="PinCreationScreen__learn_more_about_pins">Learn more about PINs</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->

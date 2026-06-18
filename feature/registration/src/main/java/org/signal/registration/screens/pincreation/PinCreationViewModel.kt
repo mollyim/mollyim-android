@@ -54,9 +54,24 @@ class PinCreationViewModel(
   suspend fun applyEvent(state: PinCreationState, event: PinCreationScreenEvents) {
     when (event) {
       is PinCreationScreenEvents.PinSubmitted -> {
-        _state.value = state.copy(isConfirmEnabled = false)
-        val result = applyPinSubmitted(state, event.pin)
-        _state.value = result
+        when {
+          !state.isConfirmEnabled -> {
+            Log.d(TAG, "[PinSubmitted] First PIN entered. Asking the user to confirm it.")
+            _state.value = state.copy(firstPin = event.pin, isConfirmEnabled = true, pinMismatch = false)
+          }
+
+          event.pin != state.firstPin -> {
+            Log.w(TAG, "[PinSubmitted] Confirmation PIN did not match. Returning to PIN creation.")
+            _state.value = state.copy(isConfirmEnabled = false, firstPin = null, pinMismatch = true)
+          }
+
+          else -> {
+            Log.d(TAG, "[PinSubmitted] Confirmation PIN matched.")
+            _state.value = state.copy(pinMismatch = false)
+            val result = applyPinSubmitted(state, event.pin)
+            _state.value = result
+          }
+        }
       }
 
       is PinCreationScreenEvents.ToggleKeyboard -> {
@@ -67,6 +82,10 @@ class PinCreationViewModel(
 
       is PinCreationScreenEvents.LearnMore -> {
         // Handled by the navigation layer, which opens the help URL directly.
+      }
+
+      is PinCreationScreenEvents.BackToPinEntry -> {
+        _state.value = state.copy(isConfirmEnabled = false, firstPin = null, pinMismatch = false)
       }
       is PinCreationScreenEvents.OptOut -> {
         _state.value = state.copy(isConfirmEnabled = false)

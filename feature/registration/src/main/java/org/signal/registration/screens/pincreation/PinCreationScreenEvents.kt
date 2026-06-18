@@ -12,4 +12,5 @@ sealed class PinCreationScreenEvents {
   data object ToggleKeyboard : PinCreationScreenEvents()
   data object LearnMore : PinCreationScreenEvents()
   data object OptOut : PinCreationScreenEvents()
+  data object BackToPinEntry : PinCreationScreenEvents()
 }

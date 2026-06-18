@@ -8,13 +8,17 @@ package org.signal.registration.screens.pincreation
 import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNull
+import assertk.assertions.isTrue
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -61,17 +65,73 @@ class PinCreationViewModelTest {
     Dispatchers.resetMain()
   }
 
+  private fun TestScope.collectStates(): List<PinCreationState> {
+    val states = mutableListOf<PinCreationState>()
+    backgroundScope.launch(testDispatcher) { viewModel.state.collect { states.add(it) } }
+    return states
+  }
+
+  // ==================== PIN Confirmation Tests ====================
+
+  @Test
+  fun `first PinSubmitted enters confirm mode and does not back up`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+
+    coVerify(exactly = 0) { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) }
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().isConfirmEnabled).isTrue()
+    assertThat(states.last().pinMismatch).isFalse()
+  }
+
+  @Test
+  fun `mismatched confirmation PIN returns to creation with error and does not back up`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val confirmState = PinCreationState(
+      accountEntropyPool = AccountEntropyPool.generate(),
+      isConfirmEnabled = true,
+      firstPin = "123456"
+    )
+
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("999999"))
+
+    coVerify(exactly = 0) { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) }
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().isConfirmEnabled).isFalse()
+    assertThat(states.last().pinMismatch).isTrue()
+    assertThat(states.last().firstPin).isNull()
+  }
+
+  @Test
+  fun `BackToPinEntry returns to creation step and clears the first PIN`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val confirmState = PinCreationState(
+      accountEntropyPool = AccountEntropyPool.generate(),
+      isConfirmEnabled = true,
+      firstPin = "123456",
+      pinMismatch = true
+    )
+
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.BackToPinEntry)
+
+    assertThat(states.last().isConfirmEnabled).isFalse()
+    assertThat(states.last().firstPin).isNull()
+    assertThat(states.last().pinMismatch).isFalse()
+  }
+
   // ==================== PinSubmitted Success Tests ====================
 
   @Test
-  fun `PinSubmitted with valid AEP and successful SVR backup hands off to finishRegistrationOrCreateProfile`() = runTest(testDispatcher) {
+  fun `matching confirmation PIN with valid AEP and successful SVR backup hands off to finishRegistrationOrCreateProfile`() = runTest(testDispatcher) {
     val aep = AccountEntropyPool.generate()
-    val initialState = PinCreationState(accountEntropyPool = aep)
+    val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
 
     coEvery { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) } returns
       RequestResult.Success(null)
 
-    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT) }
     coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
@@ -81,9 +141,9 @@ class PinCreationViewModelTest {
 
   @Test
   fun `PinSubmitted with null AEP emits ResetState`() = runTest(testDispatcher) {
-    val initialState = PinCreationState(accountEntropyPool = null)
+    val confirmState = PinCreationState(accountEntropyPool = null, isConfirmEnabled = true, firstPin = "123456")
 
-    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
@@ -94,12 +154,12 @@ class PinCreationViewModelTest {
   @Test
   fun `PinSubmitted with NotRegistered error emits ResetState`() = runTest(testDispatcher) {
     val aep = AccountEntropyPool.generate()
-    val initialState = PinCreationState(accountEntropyPool = aep)
+    val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
 
     coEvery { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) } returns
       RequestResult.NonSuccess(NetworkController.BackupMasterKeyError.NotRegistered)
 
-    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
