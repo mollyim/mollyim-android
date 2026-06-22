@@ -1346,7 +1346,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     writableDatabase.withinTransaction { db ->
       val messageIds: List<Long> = db.select(MESSAGE_ID)
         .from(TABLE_NAME)
-        .where("$EVENT = ? AND $MESSAGE_ID != NULL", Event.serialize(Event.RINGING))
+        .where("$EVENT = ? AND $MESSAGE_ID IS NOT NULL", Event.serialize(Event.RINGING))
         .run()
         .readToList { it.requireLong(MESSAGE_ID) }
 
