@@ -114,6 +114,7 @@ import org.thoughtcrime.securesms.service.webrtc.ActiveCallManager;
 import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppStartup;
+import org.thoughtcrime.securesms.util.BatterySnapshotTracker;
 import org.thoughtcrime.securesms.util.DeviceProperties;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.Environment;
@@ -259,6 +260,8 @@ public class ApplicationContext extends Application implements AppForegroundObse
     long startTime = System.currentTimeMillis();
     Log.i(TAG, "App is now visible. Battery: " + DeviceProperties.getBatteryLevel(this) + "% (charging: " + DeviceProperties.isCharging(this) + ")");
 
+    BatterySnapshotTracker.emit(this, "foreground");
+
     AppDependencies.getFrameRateTracker().start();
     AppDependencies.getMegaphoneRepository().onAppForegrounded();
     AppDependencies.getDeadlockDetector().start();
@@ -299,6 +302,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
   @Override
   public void onBackground() {
     Log.i(TAG, "App is no longer visible.");
+    BatterySnapshotTracker.emit(this, "background");
     KeyCachingService.onAppBackgrounded(this);
     AppDependencies.getMessageNotifier().clearVisibleThread();
     AppDependencies.getFrameRateTracker().stop();

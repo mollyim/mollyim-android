@@ -85,6 +85,7 @@ public class SubmitDebugLogRepository {
     if (Build.VERSION.SDK_INT >= 28) {
       add(new LogSectionPower());
     }
+    add(new LogSectionBattery());
     add(new LogSectionNotifications());
     add(new LogSectionNotificationProfiles());
     add(new LogSectionExoPlayerPool());
