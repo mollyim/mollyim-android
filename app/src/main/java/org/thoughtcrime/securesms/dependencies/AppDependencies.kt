@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.media3.exoplayer.ExoPlayer
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
+import org.signal.camera.CameraDependencies
 import org.signal.core.ui.CoreUiDependencies
 import org.signal.core.util.CoreUtilDependencies
 import org.signal.core.util.billing.BillingApi
@@ -118,6 +119,7 @@ object AppDependencies {
     )
     CoreUiDependencies.init(application, CoreUiDependenciesProvider)
     SignalGlideDependencies.init(application, SignalGlideDependenciesProvider)
+    CameraDependencies.init(application, CameraDependenciesProvider)
     MediaSendDependencies.init(application, MediaSendDependenciesProvider)
   }
 

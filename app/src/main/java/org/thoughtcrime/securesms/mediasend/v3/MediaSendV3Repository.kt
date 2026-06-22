@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.mediasend.v3
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -16,6 +17,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
+import org.signal.core.util.asListContains
 import org.signal.core.util.logging.Log
 import org.signal.mediasend.EditorState
 import org.signal.mediasend.MediaConstraints
@@ -32,6 +34,7 @@ import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.IdentityRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mediasend.MediaRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaValidator
@@ -43,6 +46,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.MediaUtil
+import org.thoughtcrime.securesms.util.RemoteConfig
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
@@ -57,6 +61,12 @@ object MediaSendV3Repository : MediaSendRepository {
   private val appContext = AppDependencies.application
   private val legacyRepository = MediaSelectionRepository(appContext)
   private val mediaRepository = MediaRepository()
+
+  override var isCameraFacingFront: Boolean
+    get() = SignalStore.misc.isCameraFacingFront
+    set(value) {
+      SignalStore.misc.isCameraFacingFront = value
+    }
 
   override suspend fun getFolders(): List<MediaFolder> = suspendCancellableCoroutine { continuation ->
     mediaRepository.getFolders(appContext) { folders ->
@@ -180,6 +190,10 @@ object MediaSendV3Repository : MediaSendRepository {
 
   override fun getAttachmentStream(context: Context, uri: Uri): InputStream {
     return PartAuthority.getAttachmentStream(context, uri)
+  }
+
+  override fun isMixedModeAvailable(): Boolean {
+    return !RemoteConfig.cameraXMixedModelBlocklist.asListContains(Build.MODEL)
   }
 
   private fun resolveSendType(sendType: Int): MessageSendType {

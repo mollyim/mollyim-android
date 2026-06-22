@@ -275,60 +275,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Got it</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Video recording is not supported on your device</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Tap for photo, hold for video</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Capture</string>
-    <string name="CameraXFragment_change_camera_description">Change camera</string>
-    <string name="CameraXFragment_open_gallery_description">Open gallery</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Allow access</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Failed to capture photo. Please try again.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Failed to process photo. Please try again.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Switch camera</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Flash off</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Flash on</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Flash auto</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Send</string>
 
     <string name="CameraContacts__menu_search">Search</string>
 
@@ -530,7 +476,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal needs the Camera permission to take photos or video, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal needs Camera permissions to take photos or video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Enable the microphone permission to capture videos with sound.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal needs microphone permissions to record videos, but they have been denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\" and \"Camera\".</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal needs microphone permissions to record videos.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>

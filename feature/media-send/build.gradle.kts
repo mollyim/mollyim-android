@@ -35,6 +35,7 @@ dependencies {
   implementation(project(":lib:image-editor"))
   implementation(project(":lib:glide"))
   implementation(project(":lib:video"))
+  implementation(project(":feature:camera"))
 
   // Compose BOM
   platform(libs.androidx.compose.bom).let { composeBom ->
@@ -66,6 +67,9 @@ dependencies {
 
   // Media
   implementation(libs.androidx.media3.exoplayer)
+
+  // CameraX
+  implementation(libs.androidx.camera.core)
 
   // Testing
   testImplementation(testLibs.junit.junit)

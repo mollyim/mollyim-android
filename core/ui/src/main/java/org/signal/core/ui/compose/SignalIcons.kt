@@ -64,6 +64,7 @@ enum class SignalIcons(private val icon: SignalIcon) : SignalIcon by icon {
   Link(icon(R.drawable.symbol_link_24)),
   Lock(icon(R.drawable.symbol_lock_24)),
   Maximize(icon(R.drawable.symbol_maximize_24)),
+  Mic(icon(R.drawable.symbol_mic_24)),
   MoreVertical(icon(R.drawable.symbol_more_vertical_24)),
   PersonCircle(icon(R.drawable.symbol_person_circle_24)),
   Phone(icon(R.drawable.symbol_phone_24)),

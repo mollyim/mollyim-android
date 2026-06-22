@@ -102,6 +102,10 @@ interface MediaSendRepository {
   fun observeRecipientValid(recipientId: MediaRecipientId): Flow<Boolean>
 
   fun getAttachmentStream(context: Context, uri: Uri): InputStream
+
+  fun isMixedModeAvailable(): Boolean
+
+  var isCameraFacingFront: Boolean
 }
 
 /**

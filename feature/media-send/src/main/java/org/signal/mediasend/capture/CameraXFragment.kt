@@ -1,4 +1,9 @@
-package org.thoughtcrime.securesms.mediasend
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.mediasend.capture
 
 import android.Manifest
 import android.content.Context
@@ -8,9 +13,9 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
+import android.system.Os
+import android.system.OsConstants
 import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import android.widget.Toast.makeText
 import androidx.camera.core.CameraSelector
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -41,10 +46,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.delay
 import org.signal.camera.CameraCaptureMode
+import org.signal.camera.CameraDependencies
+import org.signal.camera.CameraDisplay
 import org.signal.camera.CameraScreen
 import org.signal.camera.CameraScreenEvents
 import org.signal.camera.CameraScreenViewModel
@@ -57,19 +66,16 @@ import org.signal.camera.hud.StandardCameraHudEvents
 import org.signal.camera.hud.StringResources
 import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.compose.ComposeFragment
-import org.signal.core.ui.permissions.PermissionDeniedBottomSheet.Companion.showPermissionFragment
+import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.permissions.PermissionDeniedBottomSheet
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.MemoryFileDescriptor
-import org.signal.core.util.asListContains
 import org.signal.core.util.logging.Log
+import org.signal.mediasend.CameraFragment
 import org.signal.mediasend.MediaConstraints
-import org.signal.mediasend.capture.CameraFragment
-import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.R.string.CameraFragment__video_recording_is_not_supported_on_your_device
-import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.video.VideoUtil
+import org.signal.mediasend.MediaSendDependencies
+import org.signal.mediasend.R
+import org.signal.mediasend.VideoUtil
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -199,13 +205,13 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
         }
         .onSomePermanentlyDenied { deniedPermissions ->
           if (deniedPermissions.containsAll(listOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO))) {
-            showPermissionFragment(
+            PermissionDeniedBottomSheet.showPermissionFragment(
               R.string.CameraXFragment_allow_access_camera_microphone,
               R.string.CameraXFragment_to_capture_photos_videos,
               false
             ).show(parentFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
           } else if (deniedPermissions.contains(Manifest.permission.CAMERA)) {
-            showPermissionFragment(
+            PermissionDeniedBottomSheet.showPermissionFragment(
               R.string.CameraXFragment_allow_access_camera,
               R.string.CameraXFragment_to_capture_photos_videos,
               false
@@ -253,8 +259,14 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
     Permissions.with(this)
       .request(Manifest.permission.RECORD_AUDIO)
       .ifNecessary()
-      .withRationaleDialog(getString(R.string.CameraXFragment_allow_access_microphone), getString(R.string.CameraXFragment_to_capture_videos_with_sound), R.drawable.ic_mic_24)
-      .withPermanentDenialDialog(getString(R.string.ConversationActivity_signal_needs_the_recording_permissions_to_capture_video), null, R.string.CameraXFragment_allow_access_microphone, R.string.CameraXFragment_to_capture_videos, parentFragmentManager)
+      .withRationaleDialog(getString(R.string.CameraXFragment_allow_access_microphone), getString(R.string.CameraXFragment_to_capture_videos_with_sound), org.signal.core.ui.R.drawable.symbol_mic_24)
+      .withPermanentDenialDialog(
+        getString(R.string.CameraXFragment_signal_needs_the_recording_permissions_to_capture_video),
+        null,
+        R.string.CameraXFragment_allow_access_microphone,
+        R.string.CameraXFragment_to_capture_videos,
+        parentFragmentManager
+      )
       .onAnyDenied { Toast.makeText(requireContext(), R.string.CameraXFragment_signal_needs_microphone_access_video, Toast.LENGTH_LONG).show() }
       .execute()
   }
@@ -301,7 +313,7 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
 
     val isMixedModeSupported = isVideoSupported &&
       CameraXUtil.isMixedModeSupported(requireContext()) &&
-      !RemoteConfig.cameraXMixedModelBlocklist.asListContains(Build.MODEL)
+      MediaSendDependencies.mediaSendRepository.isMixedModeAvailable()
 
     return when {
       isMixedModeSupported -> CameraCaptureMode.ImageAndVideoSimultaneous
@@ -326,7 +338,7 @@ private fun CameraXScreen(
   createVideoFileDescriptor: () -> ParcelFileDescriptor?,
   getMaxVideoDurationInSeconds: () -> Int,
   cameraDisplay: CameraDisplay,
-  storiesEnabled: Boolean = Stories.isFeatureEnabled()
+  storiesEnabled: Boolean = CameraDependencies.isStoriesFeatureEnabled()
 ) {
   val context = LocalContext.current
   val cameraViewModel: CameraScreenViewModel = viewModel()
@@ -334,7 +346,7 @@ private fun CameraXScreen(
   var hasPermission by remember { mutableStateOf(hasCameraPermission()) }
 
   LaunchedEffect(cameraViewModel) {
-    val lensFacing = if (SignalStore.misc.isCameraFacingFront) {
+    val lensFacing = if (MediaSendDependencies.mediaSendRepository.isCameraFacingFront) {
       CameraSelector.LENS_FACING_FRONT
     } else {
       CameraSelector.LENS_FACING_BACK
@@ -345,7 +357,7 @@ private fun CameraXScreen(
   LaunchedEffect(cameraViewModel) {
     snapshotFlow { cameraState.lensFacing }
       .collect { lensFacing ->
-        SignalStore.misc.isCameraFacingFront = lensFacing == CameraSelector.LENS_FACING_FRONT
+        MediaSendDependencies.mediaSendRepository.isCameraFacingFront = lensFacing == CameraSelector.LENS_FACING_FRONT
       }
   }
 
@@ -365,7 +377,7 @@ private fun CameraXScreen(
 
   LaunchedEffect(Unit) {
     while (true) {
-      kotlinx.coroutines.delay(500)
+      delay(500)
       val newHasPermission = hasCameraPermission()
       if (newHasPermission != hasPermission) {
         hasPermission = newHasPermission
@@ -547,11 +559,11 @@ private fun handleHudEvent(
             }
           )
         } else {
-          makeText(context, CameraFragment__video_recording_is_not_supported_on_your_device, LENGTH_SHORT)
+          Toast.makeText(context, R.string.CameraFragment__video_recording_is_not_supported_on_your_device, Toast.LENGTH_SHORT)
             .show()
         }
       } else {
-        makeText(context, CameraFragment__video_recording_is_not_supported_on_your_device, LENGTH_SHORT)
+        Toast.makeText(context, R.string.CameraFragment__video_recording_is_not_supported_on_your_device, Toast.LENGTH_SHORT)
           .show()
       }
     }
@@ -605,7 +617,7 @@ private fun handleVideoCaptured(result: VideoCaptureResult, controller: CameraFr
       result.fileDescriptor?.let { parcelFd ->
         try {
           // Seek to beginning before reading
-          android.system.Os.lseek(parcelFd.fileDescriptor, 0, android.system.OsConstants.SEEK_SET)
+          Os.lseek(parcelFd.fileDescriptor, 0, OsConstants.SEEK_SET)
           controller?.onVideoCaptured(parcelFd.fileDescriptor)
         } catch (e: Exception) {
           Log.w(TAG, "Failed to seek video file descriptor", e)
@@ -621,7 +633,7 @@ private fun handleVideoCaptured(result: VideoCaptureResult, controller: CameraFr
   }
 }
 
-@androidx.compose.ui.tooling.preview.Preview(
+@Preview(
   name = "20:9 Display",
   showBackground = true,
   widthDp = 360,
@@ -629,7 +641,7 @@ private fun handleVideoCaptured(result: VideoCaptureResult, controller: CameraFr
 )
 @Composable
 private fun CameraXScreenPreview_20_9() {
-  org.signal.core.ui.compose.Previews.Preview {
+  Previews.Preview {
     CameraXScreen(
       controller = null,
       isVideoEnabled = true,
@@ -649,7 +661,7 @@ private fun CameraXScreenPreview_20_9() {
   }
 }
 
-@androidx.compose.ui.tooling.preview.Preview(
+@Preview(
   name = "19:9 Display",
   showBackground = true,
   widthDp = 360,
@@ -657,7 +669,7 @@ private fun CameraXScreenPreview_20_9() {
 )
 @Composable
 private fun CameraXScreenPreview_19_9() {
-  org.signal.core.ui.compose.Previews.Preview {
+  Previews.Preview {
     CameraXScreen(
       controller = null,
       isVideoEnabled = true,
@@ -677,7 +689,7 @@ private fun CameraXScreenPreview_19_9() {
   }
 }
 
-@androidx.compose.ui.tooling.preview.Preview(
+@Preview(
   name = "18:9 Display",
   showBackground = true,
   widthDp = 360,
@@ -685,7 +697,7 @@ private fun CameraXScreenPreview_19_9() {
 )
 @Composable
 private fun CameraXScreenPreview_18_9() {
-  org.signal.core.ui.compose.Previews.Preview {
+  Previews.Preview {
     CameraXScreen(
       controller = null,
       isVideoEnabled = true,
@@ -705,7 +717,7 @@ private fun CameraXScreenPreview_18_9() {
   }
 }
 
-@androidx.compose.ui.tooling.preview.Preview(
+@Preview(
   name = "16:9 Display",
   showBackground = true,
   widthDp = 360,
@@ -713,7 +725,7 @@ private fun CameraXScreenPreview_18_9() {
 )
 @Composable
 private fun CameraXScreenPreview_16_9() {
-  org.signal.core.ui.compose.Previews.Preview {
+  Previews.Preview {
     CameraXScreen(
       controller = null,
       isVideoEnabled = true,
@@ -733,7 +745,7 @@ private fun CameraXScreenPreview_16_9() {
   }
 }
 
-@androidx.compose.ui.tooling.preview.Preview(
+@Preview(
   name = "6:5 Display (Tablet)",
   showBackground = true,
   widthDp = 480,
@@ -741,7 +753,7 @@ private fun CameraXScreenPreview_16_9() {
 )
 @Composable
 private fun CameraXScreenPreview_6_5() {
-  org.signal.core.ui.compose.Previews.Preview {
+  Previews.Preview {
     CameraXScreen(
       controller = null,
       isVideoEnabled = true,

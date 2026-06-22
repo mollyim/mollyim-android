@@ -16,8 +16,8 @@ import org.junit.Assume
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.signal.core.util.video.TranscodingPreset
 import org.thoughtcrime.securesms.video.StreamingTranscoder
-import org.thoughtcrime.securesms.video.TranscodingPreset
 import org.thoughtcrime.securesms.video.exceptions.VideoSourceException
 import org.thoughtcrime.securesms.video.videoconverter.exceptions.CodecUnavailableException
 import org.thoughtcrime.securesms.video.videoconverter.exceptions.EncodingException

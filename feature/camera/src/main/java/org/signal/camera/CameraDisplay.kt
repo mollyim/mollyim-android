@@ -1,4 +1,9 @@
-package org.thoughtcrime.securesms.mediasend
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.camera
 
 import android.app.Activity
 import android.content.res.Resources
@@ -6,8 +11,6 @@ import androidx.annotation.Dimension
 import androidx.annotation.Px
 import androidx.window.layout.WindowMetricsCalculator
 import org.signal.core.util.dp
-import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.stories.Stories
 
 /**
  * Description of the Camera Viewport, Controls, and Toggle position information.
@@ -17,7 +20,7 @@ enum class CameraDisplay(
   val roundViewFinderCorners: Boolean,
   private val withTogglePositionInfo: PositionInfo,
   private val withoutTogglePositionInfo: PositionInfo,
-  @Dimension(unit = Dimension.DP) private val toggleBottomMargin: Int
+  @get:Dimension(unit = Dimension.DP) private val toggleBottomMargin: Int
 ) {
   DISPLAY_20_9(
     aspectRatio = 9f / 20f,
@@ -89,7 +92,7 @@ enum class CameraDisplay(
 
   @JvmOverloads
   @Px
-  fun getCameraCaptureMarginBottom(resources: Resources, storiesEnabled: Boolean = Stories.isFeatureEnabled()): Int {
+  fun getCameraCaptureMarginBottom(resources: Resources, storiesEnabled: Boolean = CameraDependencies.isStoriesFeatureEnabled()): Int {
     val positionInfo = if (storiesEnabled) withTogglePositionInfo else withoutTogglePositionInfo
 
     return positionInfo.cameraCaptureMarginBottomDp.dp - getCameraButtonSizeOffset(resources)
@@ -97,14 +100,14 @@ enum class CameraDisplay(
 
   @JvmOverloads
   @Px
-  fun getCameraViewportMarginBottom(storiesEnabled: Boolean = Stories.isFeatureEnabled()): Int {
+  fun getCameraViewportMarginBottom(storiesEnabled: Boolean = CameraDependencies.isStoriesFeatureEnabled()): Int {
     val positionInfo = if (storiesEnabled) withTogglePositionInfo else withoutTogglePositionInfo
 
     return positionInfo.cameraViewportMarginBottomDp.dp
   }
 
   @JvmOverloads
-  fun getCameraViewportGravity(storiesEnabled: Boolean = Stories.isFeatureEnabled()): CameraViewportGravity {
+  fun getCameraViewportGravity(storiesEnabled: Boolean = CameraDependencies.isStoriesFeatureEnabled()): CameraViewportGravity {
     val positionInfo = if (storiesEnabled) withTogglePositionInfo else withoutTogglePositionInfo
 
     return positionInfo.cameraViewportGravity

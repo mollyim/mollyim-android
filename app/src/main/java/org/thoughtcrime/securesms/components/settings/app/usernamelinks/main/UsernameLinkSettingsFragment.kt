@@ -79,6 +79,7 @@ import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.CommunicationActions
 import java.io.ByteArrayOutputStream
 import java.util.UUID
+import org.signal.mediasend.R as MediaSendR
 
 @OptIn(ExperimentalPermissionsApi::class)
 class UsernameLinkSettingsFragment : ComposeFragment() {
@@ -158,8 +159,8 @@ class UsernameLinkSettingsFragment : ComposeFragment() {
     Permissions.with(this)
       .request(Manifest.permission.CAMERA)
       .ifNecessary()
-      .withPermanentDenialDialog(getString(R.string.CameraXFragment_signal_needs_camera_access_scan_qr_code), null, R.string.CameraXFragment_allow_access_camera, R.string.CameraXFragment_to_scan_qr_codes, parentFragmentManager)
-      .onAnyDenied { Toast.makeText(requireContext(), R.string.CameraXFragment_signal_needs_camera_access_scan_qr_code, Toast.LENGTH_LONG).show() }
+      .withPermanentDenialDialog(getString(MediaSendR.string.CameraXFragment_signal_needs_camera_access_scan_qr_code), null, MediaSendR.string.CameraXFragment_allow_access_camera, MediaSendR.string.CameraXFragment_to_scan_qr_codes, parentFragmentManager)
+      .onAnyDenied { Toast.makeText(requireContext(), MediaSendR.string.CameraXFragment_signal_needs_camera_access_scan_qr_code, Toast.LENGTH_LONG).show() }
       .execute()
   }
 }

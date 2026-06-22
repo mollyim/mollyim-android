@@ -12,7 +12,6 @@ import org.thoughtcrime.securesms.util.BucketInfo
 import org.thoughtcrime.securesms.util.DeviceProperties
 import org.thoughtcrime.securesms.util.WakeLockUtil
 import java.util.Locale
-import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.milliseconds
 
 /**

@@ -1,10 +1,14 @@
-package org.thoughtcrime.securesms.video;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.mediasend;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.signal.mediasend.MediaConstraints;
 import org.thoughtcrime.securesms.video.videoconverter.utils.VideoConstants;
 
 public final class VideoUtil {

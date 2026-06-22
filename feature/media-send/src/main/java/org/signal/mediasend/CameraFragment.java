@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.signal.mediasend.capture;
+package org.signal.mediasend;
 
 import androidx.annotation.NonNull;
-
-import org.signal.mediasend.MediaConstraints;
 
 import java.io.FileDescriptor;
 

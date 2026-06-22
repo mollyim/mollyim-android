@@ -11,11 +11,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.logging.Log
+import org.signal.mediasend.CameraFragment
 import org.signal.mediasend.MediaConstraints
-import org.signal.mediasend.capture.CameraFragment
+import org.signal.mediasend.capture.CameraXFragment
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
-import org.thoughtcrime.securesms.mediasend.CameraXFragment
 import org.thoughtcrime.securesms.mediasend.v2.HudCommand
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionNavigator
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionViewModel
