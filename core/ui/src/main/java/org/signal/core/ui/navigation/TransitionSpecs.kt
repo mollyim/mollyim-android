@@ -7,6 +7,8 @@ package org.signal.core.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -17,6 +19,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.scene.Scene
+import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEvent
 
 /**
@@ -105,5 +108,15 @@ object TransitionSpecs {
           animationSpec = tween(DURATION)
         ) + fadeOut(animationSpec = tween(DURATION))
     }
+  }
+
+  /**
+   * No enter/exit animation.
+   */
+  object None {
+    val metadata: Map<String, Any> =
+      NavDisplay.transitionSpec { EnterTransition.None togetherWith ExitTransition.None } +
+        NavDisplay.popTransitionSpec { EnterTransition.None togetherWith ExitTransition.None } +
+        NavDisplay.predictivePopTransitionSpec { EnterTransition.None togetherWith ExitTransition.None }
   }
 }

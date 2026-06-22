@@ -348,11 +348,13 @@ class MainNavigationLaunchTest {
       await(description = "no new ConversationFragment after Empty detail intent") {
         recorder.createdArgs.size == baseline
       }
-      // The user-visible signal that we're "back on the list" is the chat list fragment
-      // being attached, not just the VM saying CHATS.
-      awaitListFragment(launched, MainNavigationListLocation.CHATS)
 
       val vm = runOnMainSync { launched.activity.mainNavigationViewModel() }
+
+      await(description = "conversation cleared from chats back stack after Empty detail intent") {
+        vm.chatsBackStackEntries.none { it is MainNavigationDetailLocation.Conversation }
+      }
+
       check(vm.mainNavigationState.value.currentListLocation == MainNavigationListLocation.CHATS) {
         "Expected CHATS, got ${vm.mainNavigationState.value.currentListLocation}"
       }

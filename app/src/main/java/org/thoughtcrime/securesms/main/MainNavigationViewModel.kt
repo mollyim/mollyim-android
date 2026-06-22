@@ -6,9 +6,12 @@
 package org.thoughtcrime.securesms.main
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
 import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +37,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.calls.log.CallLogRow
+import org.thoughtcrime.securesms.chats.ChatsBackStack
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfilesRepository
 import org.thoughtcrime.securesms.components.snackbars.SnackbarStateConsumerRegistry
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -46,6 +50,7 @@ import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.delegate
 import org.thoughtcrime.securesms.window.AppScaffoldNavigator
 import java.util.Optional
+import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 class MainNavigationViewModel(
@@ -74,16 +79,23 @@ class MainNavigationViewModel(
   private var navigator: AppScaffoldNavigator<Any>? = null
   private var navigatorScope: CoroutineScope? = null
 
+  private var captureChatListSnapshot: (suspend () -> Unit)? = null
+  private var isSplitPane: Boolean = false
+
+  private val chatsBackStack: ChatsBackStack = ChatsBackStack(savedStateHandle)
+  val chatsBackStackEntries: SnapshotStateList<MainNavigationDetailLocation>
+    get() = chatsBackStack.entries
+
   private val internalDetailLocation = MutableSharedFlow<MainNavigationDetailLocation>()
   val detailLocation: SharedFlow<MainNavigationDetailLocation> = internalDetailLocation
 
   private val internalIsFullScreenPane = MutableStateFlow(false)
   val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
 
-  private val internalActiveChatThreadId = MutableStateFlow(-1L)
-  val observableActiveChatThreadId: Observable<Long> = internalActiveChatThreadId.combine(isFullScreenPane) { id, expanded ->
-    if (expanded) -1L else id
-  }.asObservable()
+  val observableActiveChatThreadId: Observable<Long> =
+    snapshotFlow { chatsBackStack.activeConversationThreadId ?: -1L }
+      .combine(isFullScreenPane) { id, expanded -> if (expanded) -1L else id }
+      .asObservable()
 
   private val internalActiveCallId = MutableStateFlow<CallLogRow.Id?>(null)
   val observableActiveCallId: Observable<Optional<out CallLogRow.Id>> = internalActiveCallId.map { Optional.ofNullable(it) }.combine(isFullScreenPane) { id, expanded ->
@@ -153,6 +165,24 @@ class MainNavigationViewModel(
     internalIsFullScreenPane.update { isFullScreenPane }
   }
 
+  fun setChatListSnapshotCaptureProvider(capture: suspend () -> Unit) {
+    captureChatListSnapshot = capture
+  }
+
+  fun onSplitPaneChanged(isSplitPane: Boolean) {
+    this@MainNavigationViewModel.isSplitPane = isSplitPane
+    chatsBackStack.updateEmptyDetailForPaneMode(isSplitPane)
+
+    // if no conversation is selected, clear the empty detail pane when switching from split pane to single pane mode.
+    if (!isSplitPane &&
+      internalMainNavigationState.value.currentListLocation.isChatsTab &&
+      !chatsBackStack.hasConversation &&
+      navigator?.scaffoldValue?.primary == PaneAdaptedValue.Expanded
+    ) {
+      navigatorScope?.launch { navigator?.navigateBack() }
+    }
+  }
+
   /**
    * Sets the navigator on the view-model. This wraps the given navigator in our own delegating implementation
    * such that we can react to navigateTo/Back signals and maintain proper state for internalDetailLocation.
@@ -161,17 +191,21 @@ class MainNavigationViewModel(
     this.navigatorScope = composeScope
     this.navigator = Nav(threePaneScaffoldNavigator)
 
+    val pendingFocus = earlyFocusedPaneRequested
+    earlyFocusedPaneRequested = null
+
     earlyNavigationListLocationRequested?.let {
       goTo(it)
     }
 
     earlyNavigationListLocationRequested = null
 
-    earlyFocusedPaneRequested?.let {
-      setFocusedPane(it)
+    pendingFocus?.let { role ->
+      if (role == ThreePaneScaffoldRole.Primary) {
+        lockPaneToSecondary = false
+      }
+      setFocusedPane(role)
     }
-
-    earlyFocusedPaneRequested = null
 
     earlyNavigationDetailLocationRequested?.let { detail ->
       lockPaneToSecondary = false
@@ -213,24 +247,10 @@ class MainNavigationViewModel(
    * This does not update what panel is currently focused, so that we can perform actions (such as first
    * render) *before* swapping panes. This helps to prevent flashing / duplicate loads.
    */
-  override fun goTo(location: MainNavigationDetailLocation) {
-    when (location) {
-      is MainNavigationDetailLocation.Empty,
-      is MainNavigationDetailLocation.Chats.ConversationSettings,
-      is MainNavigationDetailLocation.Chats.MessageDetails,
-      is MainNavigationDetailLocation.CallLinkDetails,
-      is MainNavigationDetailLocation.Calls.CallLinks.EditCallLinkName -> setDetailLocation(location)
-
-      is MainNavigationDetailLocation.Conversation -> goToConversation(location)
-    }
-  }
+  override fun goTo(location: MainNavigationDetailLocation) = setDetailLocation(location)
 
   private fun updateActiveStateForLocation(location: MainNavigationDetailLocation) {
     when (location) {
-      is MainNavigationDetailLocation.Conversation -> {
-        internalActiveChatThreadId.update { location.controllerKey }
-      }
-
       is MainNavigationDetailLocation.CallLinkDetails -> {
         internalActiveCallId.update { location.controllerKey }
       }
@@ -243,14 +263,14 @@ class MainNavigationViewModel(
     }
   }
 
-  private fun goToConversation(location: MainNavigationDetailLocation.Conversation) = viewModelScope.launch {
-    val args = location.conversationArgs
+  private suspend fun MainNavigationDetailLocation.Conversation.withPreloadedWallpaper(): MainNavigationDetailLocation.Conversation {
+    val args = conversationArgs
     val liveRecipient = Recipient.live(args.recipientId)
     val recipientSnapshot = liveRecipient.get()
     val wallpaper = recipientSnapshot.wallpaper
 
     val updatedArgs = if (recipientSnapshot.isResolving || (wallpaper?.isPhoto == true && !wallpaper.isPrefetched)) {
-      withTimeoutOrNull(NAV_PREFETCH_TIMEOUT_MS) {
+      withTimeoutOrNull(NAV_PREFETCH_TIMEOUT_MS.milliseconds) {
         withContext(Dispatchers.Default) {
           val freshWallpaper = liveRecipient.resolve().wallpaper
           if (freshWallpaper?.prefetch(AppDependencies.application, NAV_PREFETCH_TIMEOUT_MS) == false) {
@@ -266,19 +286,68 @@ class MainNavigationViewModel(
       args.copy(hasWallpaper = wallpaper != null)
     }
 
-    setDetailLocation(MainNavigationDetailLocation.Conversation(updatedArgs))
+    return copy(conversationArgs = updatedArgs)
   }
 
   private fun setDetailLocation(location: MainNavigationDetailLocation) {
     lockPaneToSecondary = false
+    val currentListLocation = internalMainNavigationState.value.currentListLocation
 
-    if (navigator == null) {
-      earlyNavigationDetailLocationRequested = location
-      return
+    when (location) {
+      is MainNavigationDetailLocation.Empty if currentListLocation.isChatsTab -> chatsBackStack.reset(isSplitPane)
+      is MainNavigationDetailLocation.Chats -> pushChatsDetailLocation(location)
+      is MainNavigationDetailLocation.Conversation -> goToConversation(location)
+
+      is MainNavigationDetailLocation.Empty,
+      is MainNavigationDetailLocation.CallLinkDetails,
+      is MainNavigationDetailLocation.Calls.CallLinks.EditCallLinkName -> {
+        if (navigator == null) {
+          earlyNavigationDetailLocationRequested = location
+          return
+        }
+
+        viewModelScope.launch {
+          internalDetailLocation.emit(location)
+        }
+      }
     }
+  }
 
-    viewModelScope.launch {
-      internalDetailLocation.emit(location)
+  private fun goToConversation(location: MainNavigationDetailLocation.Conversation) {
+    val captureSnapshot = captureChatListSnapshot
+
+    if (captureSnapshot == null) {
+      // share intent or process restore - push synchronously, since there's no chat-list snapshot to capture and no need to preload a wallpaper
+      pushChatsDetailLocation(location)
+    } else {
+      viewModelScope.launch {
+        captureSnapshot()
+        pushChatsDetailLocation(location.withPreloadedWallpaper())
+      }
+    }
+  }
+
+  private fun pushChatsDetailLocation(location: MainNavigationDetailLocation) {
+    chatsBackStack.push(location)
+    updateActiveStateForLocation(location)
+    setFocusedPane(ThreePaneScaffoldRole.Primary)
+  }
+
+  /**
+   * Inverse of [pushChatsDetailLocation]. Pops the top chats detail entry and, if no conversation
+   * remains, records the user's intent to stay on the list pane (so a subsequent config change does
+   * not errantly restore them to the Primary/detail pane).
+   */
+  fun popChatsDetailLocation() {
+    chatsBackStack.pop()
+    if (!chatsBackStack.hasConversation) {
+      lockPaneToSecondary = true
+    }
+  }
+
+  fun onChatsDetailPaneCollapsed() {
+    if (!chatsBackStack.hasConversation) {
+      chatsBackStack.reset(isSplitPane)
     }
   }
 

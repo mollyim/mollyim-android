@@ -1,0 +1,92 @@
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.thoughtcrime.securesms.chats
+
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
+import androidx.lifecycle.viewmodel.compose.saveable
+import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
+
+/**
+ * Controls the navigation stack used by the chats screen.
+ */
+@OptIn(SavedStateHandleSaveableApi::class)
+class ChatsBackStack(savedStateHandle: SavedStateHandle) {
+
+  companion object {
+    private const val KEY = "chats_back_stack"
+
+    val saver: Saver<SnapshotStateList<MainNavigationDetailLocation>, ArrayList<MainNavigationDetailLocation>> = Saver(
+      save = { ArrayList(it) },
+      restore = { mutableStateListOf(*it.toTypedArray()) }
+    )
+  }
+
+  val entries: SnapshotStateList<MainNavigationDetailLocation> = savedStateHandle.saveable(
+    key = KEY,
+    saver = saver
+  ) {
+    mutableStateListOf()
+  }
+
+  val activeConversationThreadId: Long?
+    get() = entries
+      .filterIsInstance<MainNavigationDetailLocation.Conversation>()
+      .lastOrNull()
+      ?.controllerKey
+
+  val hasConversation: Boolean
+    get() = entries.any { it is MainNavigationDetailLocation.Conversation }
+
+  /**
+   * Pushes an entry onto the stack.
+   */
+  fun push(location: MainNavigationDetailLocation) {
+    when (location) {
+      is MainNavigationDetailLocation.Empty, entries.lastOrNull() -> Unit
+
+      is MainNavigationDetailLocation.Conversation -> {
+        entries.removeAll { it !is MainNavigationDetailLocation.Empty }
+        entries.add(location)
+      }
+
+      else -> entries.add(location)
+    }
+  }
+
+  /**
+   * Pops the top entry off the stack. Returns true if something was popped, false if the stack is already at its root.
+   */
+  fun pop(): Boolean {
+    if (entries.size <= 1) return false
+    entries.removeAt(entries.lastIndex)
+    return true
+  }
+
+  /**
+   * Resets the stack to its base empty state.
+   */
+  fun reset(isSplitPane: Boolean) {
+    entries.clear()
+    if (isSplitPane) {
+      entries.add(MainNavigationDetailLocation.Empty)
+    }
+  }
+
+  /**
+   * Ensures that [MainNavigationDetailLocation.Empty] is present in the stack iff isSplitPane=true.
+   */
+  fun updateEmptyDetailForPaneMode(isSplitPane: Boolean) {
+    val hasEmptyBase = entries.firstOrNull() is MainNavigationDetailLocation.Empty
+    when {
+      isSplitPane && !hasEmptyBase -> entries.add(0, MainNavigationDetailLocation.Empty)
+      !isSplitPane && hasEmptyBase -> entries.removeAll { it is MainNavigationDetailLocation.Empty }
+    }
+  }
+}

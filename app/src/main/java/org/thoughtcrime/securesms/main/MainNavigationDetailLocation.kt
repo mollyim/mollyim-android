@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.main
 
 import android.os.Parcelable
 import androidx.compose.runtime.saveable.SaverScope
+import androidx.navigation3.runtime.NavKey
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
@@ -23,7 +24,7 @@ import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
  */
 @Serializable
 @Parcelize
-sealed interface MainNavigationDetailLocation : Parcelable {
+sealed interface MainNavigationDetailLocation : Parcelable, NavKey {
 
   class Saver(
     val earlyLocation: MainNavigationDetailLocation?
