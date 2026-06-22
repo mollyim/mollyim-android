@@ -2558,6 +2558,9 @@ enum class BackupMode {
 
   val isLocalBackup: Boolean
     get() = this == LOCAL
+
+  val isPlaintextExport: Boolean
+    get() = this == PLAINTEXT_EXPORT
 }
 
 /**
