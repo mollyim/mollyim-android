@@ -298,7 +298,7 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
   }
 
   private fun getMaxVideoDurationInSeconds(): Int {
-    var maxDuration = VideoUtil.getMaxVideoRecordDurationInSeconds(requireContext(), controller!!.mediaConstraints)
+    var maxDuration = VideoUtil.getMaxVideoRecordDurationInSeconds(controller!!.mediaConstraints)
     val controllerMaxDuration = controller?.maxVideoDuration ?: 0
     if (controllerMaxDuration > 0) {
       maxDuration = controllerMaxDuration

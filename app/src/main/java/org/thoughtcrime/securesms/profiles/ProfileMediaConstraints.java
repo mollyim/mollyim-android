@@ -1,34 +1,32 @@
 package org.thoughtcrime.securesms.profiles;
 
 
-import android.content.Context;
-
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
 import org.signal.mediasend.MediaConstraints;
 
 public class ProfileMediaConstraints extends MediaConstraints {
   @Override
-  public int getImageMaxWidth(Context context) {
+  public int getImageMaxWidth() {
     return 640;
   }
 
   @Override
-  public int getImageMaxHeight(Context context) {
+  public int getImageMaxHeight() {
     return 640;
   }
 
   @Override
-  public int getImageMaxSize(Context context) {
+  public int getImageMaxSize() {
     return 5 * 1024 * 1024;
   }
 
   @Override
-  public int[] getImageDimensionTargets(Context context) {
-    return new int[] { getImageMaxWidth(context) };
+  public int[] getImageDimensionTargets() {
+    return new int[] { getImageMaxWidth() };
   }
 
   @Override
-  public long getGifMaxSize(Context context) {
+  public long getGifMaxSize() {
     return 0;
   }
 
@@ -38,12 +36,12 @@ public class ProfileMediaConstraints extends MediaConstraints {
   }
 
   @Override
-  public long getAudioMaxSize(Context context) {
+  public long getAudioMaxSize() {
     return 0;
   }
 
   @Override
-  public long getDocumentMaxSize(Context context) {
+  public long getDocumentMaxSize() {
     return 0;
   }
 

@@ -217,8 +217,8 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
 
     MediaConstraints mediaConstraints = new PushMediaConstraints(SentMediaQuality.HIGH);
 
-    imageMaxWidth  = mediaConstraints.getImageMaxWidth(requireContext());
-    imageMaxHeight = mediaConstraints.getImageMaxHeight(requireContext());
+    imageMaxWidth  = mediaConstraints.getImageMaxWidth();
+    imageMaxHeight = mediaConstraints.getImageMaxHeight();
   }
 
   @Nullable

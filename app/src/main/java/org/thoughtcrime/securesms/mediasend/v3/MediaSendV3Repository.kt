@@ -87,7 +87,7 @@ object MediaSendV3Repository : MediaSendRepository {
   ): MediaFilterResult = withContext(Dispatchers.IO) {
     val populated = MediaRepository().getPopulatedMedia(appContext, media)
     val constraints = PushMediaConstraints(null)
-    val result = MediaValidator.filterMedia(appContext, populated, constraints, maxSelection, isStory)
+    val result = MediaValidator.filterMedia(populated, constraints, maxSelection, isStory)
 
     val error = mapFilterError(result.filterError, populated, constraints, maxSelection, isStory)
     MediaFilterResult(result.filteredMedia, error)
@@ -134,7 +134,7 @@ object MediaSendV3Repository : MediaSendRepository {
   }
 
   override fun getVideoMaxSizeBytes(): Long {
-    return PushMediaConstraints(null).videoMaxSize
+    return PushMediaConstraints(null).getEditorVideoMaxSize()
   }
 
   override fun isVideoTranscodeAvailable(): Boolean {
@@ -263,10 +263,10 @@ object MediaSendV3Repository : MediaSendRepository {
       val size = item.size
 
       val isTooLarge = when {
-        MediaUtil.isGif(contentType) -> size > constraints.getGifMaxSize(appContext)
-        MediaUtil.isVideoType(contentType) -> size > constraints.getUncompressedVideoMaxSize(appContext)
-        MediaUtil.isImageType(contentType) -> size > constraints.getImageMaxSize(appContext)
-        MediaUtil.isDocumentType(contentType) -> size > constraints.getDocumentMaxSize(appContext)
+        MediaUtil.isGif(contentType) -> size > constraints.getGifMaxSize()
+        MediaUtil.isVideoType(contentType) -> size > constraints.getUncompressedVideoMaxSize()
+        MediaUtil.isImageType(contentType) -> size > constraints.getImageMaxSize()
+        MediaUtil.isDocumentType(contentType) -> size > constraints.getDocumentMaxSize()
         else -> true
       }
 

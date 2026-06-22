@@ -17,7 +17,6 @@ import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.video.TranscodingPreset;
 import org.thoughtcrime.securesms.video.videoconverter.utils.DeviceCapabilities;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
-import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 
 import java.util.Arrays;
 
@@ -33,27 +32,27 @@ public class PushMediaConstraints extends MediaConstraints {
   }
 
   @Override
-  public int getImageMaxWidth(Context context) {
+  public int getImageMaxWidth() {
     return currentConfig.imageSizeTargets[0];
   }
 
   @Override
-  public int getImageMaxHeight(Context context) {
-    return getImageMaxWidth(context);
+  public int getImageMaxHeight() {
+    return getImageMaxWidth();
   }
 
   @Override
-  public int getImageMaxSize(Context context) {
+  public int getImageMaxSize() {
     return (int) Math.min(currentConfig.maxImageFileSize, getMaxAttachmentSize());
   }
 
   @Override
-  public int[] getImageDimensionTargets(Context context) {
+  public int[] getImageDimensionTargets() {
     return currentConfig.imageSizeTargets;
   }
 
   @Override
-  public long getGifMaxSize(Context context) {
+  public long getGifMaxSize() {
     return Math.min(25 * MB, getMaxAttachmentSize());
   }
 
@@ -63,26 +62,25 @@ public class PushMediaConstraints extends MediaConstraints {
   }
 
   @Override
-  public long getUncompressedVideoMaxSize(Context context) {
+  public long getUncompressedVideoMaxSize() {
     return isVideoTranscodeAvailable() ? RemoteConfig.maxSourceTranscodeVideoSizeBytes()
                                        : getVideoMaxSize();
   }
 
   @Override
-  public long getCompressedVideoMaxSize(Context context) {
-    long maxCipherTextSize = RemoteConfig.videoTranscodeTargetSizeBytes();
-    long maxPaddedSize     = AttachmentCipherStreamUtil.getPlaintextLength(maxCipherTextSize);
+  public long getCompressedVideoMaxSize() {
+    long maxCompressedSize = AttachmentCipherStreamUtil.getMaxPlaintextSizeForCiphertext(RemoteConfig.videoTranscodeTargetSizeBytes());
 
-    return Math.min(PaddingInputStream.getMaxUnpaddedSize(maxPaddedSize), getMaxAttachmentSize());
+    return Math.min(maxCompressedSize, getMaxAttachmentSize());
   }
 
   @Override
-  public long getAudioMaxSize(Context context) {
+  public long getAudioMaxSize() {
     return getMaxAttachmentSize();
   }
 
   @Override
-  public long getDocumentMaxSize(Context context) {
+  public long getDocumentMaxSize() {
     return getMaxAttachmentSize();
   }
 
@@ -92,7 +90,7 @@ public class PushMediaConstraints extends MediaConstraints {
   }
 
   @Override
-  public int getImageCompressionQualitySetting(@NonNull Context context) {
+  public int getImageCompressionQualitySetting() {
     return currentConfig.qualitySetting;
   }
 

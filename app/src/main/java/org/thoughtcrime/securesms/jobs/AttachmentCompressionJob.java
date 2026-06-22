@@ -259,7 +259,7 @@ public final class AttachmentCompressionJob extends BaseJob {
           }
         }
 
-        StreamingTranscoder transcoder = new StreamingTranscoder(dataSource, options, constraints.getVideoTranscodingSettings(), constraints.getCompressedVideoMaxSize(context), RemoteConfig.allowAudioRemuxing());
+        StreamingTranscoder transcoder = new StreamingTranscoder(dataSource, options, constraints.getVideoTranscodingSettings(), constraints.getCompressedVideoMaxSize(), RemoteConfig.allowAudioRemuxing());
 
         if (transcoder.isTranscodeRequired()) {
           Log.i(TAG, "Compressing with streaming muxer");
@@ -407,13 +407,13 @@ public final class AttachmentCompressionJob extends BaseJob {
     ImageCompressionUtil.Result result = null;
 
     try {
-      for (int size : mediaConstraints.getImageDimensionTargets(context)) {
+      for (int size : mediaConstraints.getImageDimensionTargets()) {
         result = ImageCompressionUtil.compressWithinConstraints(context,
                                                                 attachment.contentType,
                                                                 new DecryptableUri(uri),
                                                                 size,
-                                                                mediaConstraints.getImageMaxSize(context),
-                                                                mediaConstraints.getImageCompressionQualitySetting(context));
+                                                                mediaConstraints.getImageMaxSize(),
+                                                                mediaConstraints.getImageCompressionQualitySetting());
         if (result != null) {
           break;
         }

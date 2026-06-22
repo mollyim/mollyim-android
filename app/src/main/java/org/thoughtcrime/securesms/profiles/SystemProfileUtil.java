@@ -41,13 +41,13 @@ public class SystemProfileUtil {
               try {
                 ImageCompressionUtil.Result result = null;
 
-                for (int size : mediaConstraints.getImageDimensionTargets(context)) {
+                for (int size : mediaConstraints.getImageDimensionTargets()) {
                   result = ImageCompressionUtil.compressWithinConstraints(context,
                                                                           ContentTypeUtil.IMAGE_JPEG,
                                                                           Uri.parse(photoUri),
                                                                           size,
-                                                                          mediaConstraints.getImageMaxSize(context),
-                                                                          mediaConstraints.getImageCompressionQualitySetting(context));
+                                                                          mediaConstraints.getImageMaxSize(),
+                                                                          mediaConstraints.getImageCompressionQualitySetting());
                   if (result != null) {
                     break;
                   }

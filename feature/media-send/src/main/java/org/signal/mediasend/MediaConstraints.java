@@ -28,9 +28,9 @@ import kotlin.Pair;
 public abstract class MediaConstraints {
   private static final String TAG = Log.tag(MediaConstraints.class);
 
-  public abstract int getImageMaxWidth(Context context);
-  public abstract int getImageMaxHeight(Context context);
-  public abstract int getImageMaxSize(Context context);
+  public abstract int getImageMaxWidth();
+  public abstract int getImageMaxHeight();
+  public abstract int getImageMaxSize();
 
   public TranscodingPreset getVideoTranscodingSettings() {
     return TranscodingPreset.LEVEL_1;
@@ -38,41 +38,43 @@ public abstract class MediaConstraints {
 
   /**
    * Provide a list of dimensions that should be attempted during compression. We will keep moving
-   * down the list until the image can be scaled to fit under {@link #getImageMaxSize(Context)}.
+   * down the list until the image can be scaled to fit under {@link #getImageMaxSize()}.
    * The first entry in the list should match your max width/height.
    */
-  public abstract int[] getImageDimensionTargets(Context context);
+  public abstract int[] getImageDimensionTargets();
 
-  public abstract long getGifMaxSize(Context context);
+  public abstract long getGifMaxSize();
   public abstract long getVideoMaxSize();
+  public abstract long getAudioMaxSize();
+  public abstract long getDocumentMaxSize();
+  public abstract long getMaxAttachmentSize();
 
-  public @IntRange(from = 0, to = 100) int getImageCompressionQualitySetting(@NonNull Context context) {
+  public @IntRange(from = 0, to = 100) int getImageCompressionQualitySetting() {
     return 70;
   }
 
-  public long getUncompressedVideoMaxSize(Context context) {
+  public long getUncompressedVideoMaxSize() {
     return getVideoMaxSize();
   }
 
-  public long getCompressedVideoMaxSize(Context context) {
+  public long getCompressedVideoMaxSize() {
     return getVideoMaxSize();
   }
 
-  public abstract long getAudioMaxSize(Context context);
-  public abstract long getDocumentMaxSize(Context context);
-
-  public abstract long getMaxAttachmentSize();
+  public long getEditorVideoMaxSize() {
+    return isVideoTranscodeAvailable() ? getCompressedVideoMaxSize() : getVideoMaxSize();
+  }
 
   public boolean isSatisfied(@NonNull Context context, @NonNull Uri uri, @NonNull String contentType, long size) {
     try {
       if (size > getMaxAttachmentSize()) {
         return false;
       }
-      return (ContentTypeUtil.isGif(contentType)       && size <= getGifMaxSize(context) && isWithinBounds(context, uri))   ||
-             (ContentTypeUtil.isImageType(contentType) && size <= getImageMaxSize(context) && isWithinBounds(context, uri)) ||
-             (ContentTypeUtil.isAudioType(contentType) && size <= getAudioMaxSize(context))                                 ||
-             (ContentTypeUtil.isVideoType(contentType) && size <= getVideoMaxSize())                                        ||
-             (ContentTypeUtil.isDocumentType(contentType) && size <= getDocumentMaxSize(context));
+      return (ContentTypeUtil.isGif(contentType)       && size <= getGifMaxSize() && isWithinBounds(context, uri))   ||
+             (ContentTypeUtil.isImageType(contentType) && size <= getImageMaxSize() && isWithinBounds(context, uri)) ||
+             (ContentTypeUtil.isAudioType(contentType) && size <= getAudioMaxSize())                                 ||
+             (ContentTypeUtil.isVideoType(contentType) && size <= getVideoMaxSize())                                 ||
+             (ContentTypeUtil.isDocumentType(contentType) && size <= getDocumentMaxSize());
     } catch (IOException ioe) {
       Log.w(TAG, "Failed to determine if media's constraints are satisfied.", ioe);
       return false;
@@ -81,10 +83,10 @@ public abstract class MediaConstraints {
 
   private boolean isWithinBounds(Context context, Uri uri) throws IOException {
     try {
-      InputStream is = MediaSendDependencies.INSTANCE.getMediaSendRepository().getAttachmentStream(context, uri);
+      InputStream            is         = MediaSendDependencies.INSTANCE.getMediaSendRepository().getAttachmentStream(context, uri);
       Pair<Integer, Integer> dimensions = BitmapUtil.getDimensions(is);
-return dimensions.getFirst()  > 0 && dimensions.getFirst()  <= getImageMaxWidth(context) &&
-              dimensions.getSecond() > 0 && dimensions.getSecond() <= getImageMaxHeight(context);
+      return dimensions.getFirst() > 0 && dimensions.getFirst() <= getImageMaxWidth() &&
+             dimensions.getSecond() > 0 && dimensions.getSecond() <= getImageMaxHeight();
     } catch (BitmapDecodingException e) {
       throw new IOException(e);
     }

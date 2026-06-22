@@ -68,7 +68,7 @@ class MediaSelectionRepository(context: Context) {
     return Single.fromCallable {
       val populatedMedia = mediaRepository.getPopulatedMedia(context, media)
 
-      val result = MediaValidator.filterMedia(context, populatedMedia, mediaConstraints, maxSelection, isStory)
+      val result = MediaValidator.filterMedia(populatedMedia, mediaConstraints, maxSelection, isStory)
       result
     }.subscribeOn(Schedulers.io())
   }
