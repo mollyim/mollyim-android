@@ -48,7 +48,6 @@ import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.MediaUtil
@@ -463,9 +462,9 @@ class BackupMessagesJob private constructor(
       }
     }
 
-    BlobProvider.getInstance().clearTemporaryBackupsDirectory(AppDependencies.application)
+    AppDependencies.blobs.clearTemporaryBackupsDirectory(AppDependencies.application)
 
-    val tempBackupFile = BlobProvider.getInstance().forTemporaryBackup(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forTemporaryBackup(AppDependencies.application)
 
     val outputStream = FileOutputStream(tempBackupFile)
     val backupKey = SignalStore.backup.messageBackupKey

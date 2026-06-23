@@ -24,6 +24,7 @@ import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.StreamUtil
+import org.signal.core.util.crypto.AttachmentSecretProvider
 import org.signal.core.util.logging.Log
 import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.StorageController
@@ -38,7 +39,7 @@ import org.thoughtcrime.securesms.backup.v2.RemoteRestoreResult
 import org.thoughtcrime.securesms.backup.v2.RestoreV2Event
 import org.thoughtcrime.securesms.backup.v2.local.LocalArchiver
 import org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.LocalRegistrationMetadata
@@ -278,7 +279,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       val database = SignalDatabase.backupDatabase
       FullBackupImporter.importFile(
         context,
-        AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret(),
+        AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore).getOrCreateAttachmentSecret(),
         database,
         uri,
         passphrase,

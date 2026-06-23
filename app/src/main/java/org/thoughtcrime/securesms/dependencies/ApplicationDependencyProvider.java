@@ -21,6 +21,7 @@ import org.signal.core.util.UptimeSleepTimer;
 import org.signal.core.util.billing.BillingApi;
 import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.contentproviders.BlobProvider;
 import org.signal.libsignal.net.Network;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
 import org.signal.libsignal.zkgroup.GenericServerPublicParams;
@@ -46,6 +47,7 @@ import org.signal.network.service.MessageService;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore;
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock;
 import org.thoughtcrime.securesms.crypto.storage.SignalBaseIdentityKeyStore;
 import org.thoughtcrime.securesms.crypto.storage.SignalIdentityKeyStore;
@@ -633,6 +635,10 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   @Override
   public @NonNull KeyTransparencyApi provideKeyTransparencyApi(@NonNull SignalWebSocket.UnauthenticatedWebSocket unauthWebSocket) {
     return new KeyTransparencyApi(unauthWebSocket);
+  }
+
+  @Override public @NotNull BlobProvider provideBlobs() {
+    return new BlobProvider(context, AppAttachmentSecretStore.INSTANCE);
   }
 
   @VisibleForTesting

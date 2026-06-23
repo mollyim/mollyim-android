@@ -10,8 +10,9 @@ import androidx.annotation.WorkerThread
 import org.signal.core.models.media.Media
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.concurrent.SignalExecutors
+import org.signal.core.util.contentproviders.BlobProvider
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mediasend.MediaRepository
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.video.videoconverter.utils.VideoConstants
 import java.io.FileDescriptor
@@ -72,7 +73,7 @@ class MediaCaptureRepository(context: Context) {
     return try {
       val data: T = dataSupplier()
       val length: Long = getLength(data)
-      val uri: Uri = createBlobBuilder(BlobProvider.getInstance(), data, length)
+      val uri: Uri = createBlobBuilder(AppDependencies.blobs, data, length)
         .withMimeType(mimeType)
         .createForSingleSessionOnDisk(context)
 

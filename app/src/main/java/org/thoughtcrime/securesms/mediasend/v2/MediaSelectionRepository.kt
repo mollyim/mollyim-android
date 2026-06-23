@@ -39,7 +39,6 @@ import org.thoughtcrime.securesms.mms.OutgoingMessage
 import org.thoughtcrime.securesms.mms.Slide
 import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.mms.VideoSlide
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
@@ -237,8 +236,8 @@ class MediaSelectionRepository(context: Context) {
   fun deleteBlobs(media: List<Media>) {
     media
       .map(Media::uri)
-      .filter(BlobProvider::isAuthority)
-      .forEach { BlobProvider.getInstance().delete(context, it) }
+      .filter { AppDependencies.blobs.isAuthority(it) }
+      .forEach { AppDependencies.blobs.delete(context, it) }
   }
 
   fun cleanUp(selectedMedia: List<Media>) {

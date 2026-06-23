@@ -20,10 +20,11 @@ import org.signal.mediasend.MediaConstraints;
 import org.signal.mediasend.CameraFragment;
 import org.signal.mediasend.capture.CameraXFragment;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mediasend.v2.gallery.MediaGalleryFragment;
 import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.providers.BlobProvider;
+import org.signal.core.util.contentproviders.BlobProvider;
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment;
 import org.thoughtcrime.securesms.util.MediaUtil;
 
@@ -79,10 +80,10 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
 
   @Override
   public void onImageCaptured(@NonNull byte[] data, int width, int height) {
-    Uri blobUri = BlobProvider.getInstance()
-                              .forData(data)
-                              .withMimeType(MediaUtil.IMAGE_JPEG)
-                              .createForSingleSessionInMemory();
+    Uri blobUri = AppDependencies.getBlobs()
+                                 .forData(data)
+                                 .withMimeType(MediaUtil.IMAGE_JPEG)
+                                 .createForSingleSessionInMemory();
 
     onMediaSelected(new Media(blobUri,
                               MediaUtil.IMAGE_JPEG,

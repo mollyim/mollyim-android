@@ -11,6 +11,7 @@ import org.signal.archive.proto.BackupDebugInfo
 import org.signal.archive.proto.FilePointer
 import org.signal.archive.stream.EncryptedBackupReader
 import org.signal.core.util.bytes
+import org.signal.core.util.contentproviders.BlobProvider
 import org.signal.core.util.decodeOrNull
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
@@ -23,7 +24,6 @@ import org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import java.io.IOException
 import java.text.SimpleDateFormat

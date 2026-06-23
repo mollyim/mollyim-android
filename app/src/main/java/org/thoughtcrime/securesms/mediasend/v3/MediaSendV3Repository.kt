@@ -40,7 +40,6 @@ import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaValidator
 import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.mms.PushMediaConstraints
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
@@ -96,8 +95,8 @@ object MediaSendV3Repository : MediaSendRepository {
   override suspend fun deleteBlobs(media: List<Media>) {
     media
       .map(Media::uri)
-      .filter(BlobProvider::isAuthority)
-      .forEach { BlobProvider.getInstance().delete(appContext, it) }
+      .filter { AppDependencies.blobs.isAuthority(it) }
+      .forEach { AppDependencies.blobs.delete(appContext, it) }
   }
 
   override suspend fun send(request: SendRequest): SendResult = withContext(Dispatchers.IO) {

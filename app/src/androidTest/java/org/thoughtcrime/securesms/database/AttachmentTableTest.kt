@@ -32,10 +32,10 @@ import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.attachments.PointerAttachment
 import org.thoughtcrime.securesms.attachments.UriAttachment
 import org.thoughtcrime.securesms.backup.v2.ArchivedMediaObject
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.IncomingMessage
 import org.thoughtcrime.securesms.mms.MediaStream
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.testing.SignalActivityRule
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherOutputStream
@@ -67,7 +67,7 @@ class AttachmentTableTest {
 
   @Test
   fun givenABlob_whenIInsert2AttachmentsForPreUpload_thenIExpectDistinctIdsButSameFileName() {
-    val blob = BlobProvider.getInstance().forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
+    val blob = AppDependencies.blobs.forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
     val highQualityProperties = createHighQualityTransformProperties()
     val highQualityImage = createAttachment(1, blob, highQualityProperties)
     val attachment = SignalDatabase.attachments.insertAttachmentForPreUpload(highQualityImage)
@@ -80,7 +80,7 @@ class AttachmentTableTest {
   @FlakyTest
   @Test
   fun givenABlobAndDifferentTransformQuality_whenIInsert2AttachmentsForPreUpload_thenIExpectDifferentFileInfos() {
-    val blob = BlobProvider.getInstance().forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
+    val blob = AppDependencies.blobs.forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
     val highQualityProperties = createHighQualityTransformProperties()
     val highQualityImage = createAttachment(1, blob, highQualityProperties)
     val lowQualityImage = createAttachment(1, blob, TransformProperties.empty())
@@ -107,7 +107,7 @@ class AttachmentTableTest {
   @Ignore("test is flaky")
   @Test
   fun givenIdenticalAttachmentsInsertedForPreUpload_whenIUpdateAttachmentDataAndSpecifyOnlyModifyThisAttachment_thenIExpectDifferentFileInfos() {
-    val blob = BlobProvider.getInstance().forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
+    val blob = AppDependencies.blobs.forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
     val highQualityProperties = createHighQualityTransformProperties()
     val highQualityImage = createAttachment(1, blob, highQualityProperties)
     val attachment = SignalDatabase.attachments.insertAttachmentForPreUpload(highQualityImage)
@@ -143,9 +143,9 @@ class AttachmentTableTest {
     val uncompressData = byteArrayOf(1, 2, 3, 4, 5)
     val compressedData = byteArrayOf(1, 2, 3)
 
-    val blobUncompressed = BlobProvider.getInstance().forData(uncompressData).createForSingleSessionInMemory()
+    val blobUncompressed = AppDependencies.blobs.forData(uncompressData).createForSingleSessionInMemory()
 
-    val previousAttachment = createAttachment(1, BlobProvider.getInstance().forData(compressedData).createForSingleSessionInMemory(), TransformProperties.empty())
+    val previousAttachment = createAttachment(1, AppDependencies.blobs.forData(compressedData).createForSingleSessionInMemory(), TransformProperties.empty())
     val previousDatabaseAttachmentId: AttachmentId = SignalDatabase.attachments.insertAttachmentsForMessage(1, listOf(previousAttachment), emptyList()).values.first()
 
     val standardQualityPreUpload = createAttachment(1, blobUncompressed, TransformProperties.empty())
@@ -178,7 +178,7 @@ class AttachmentTableTest {
   fun doNotDedupedFileIfUsedByAnotherAttachmentWithADifferentTransformProperties() {
     // GIVEN
     val uncompressData = byteArrayOf(1, 2, 3, 4, 5)
-    val blobUncompressed = BlobProvider.getInstance().forData(uncompressData).createForSingleSessionInMemory()
+    val blobUncompressed = AppDependencies.blobs.forData(uncompressData).createForSingleSessionInMemory()
 
     val standardQualityPreUpload = createAttachment(1, blobUncompressed, TransformProperties.empty())
     val standardDatabaseAttachment = SignalDatabase.attachments.insertAttachmentForPreUpload(standardQualityPreUpload)
@@ -204,7 +204,7 @@ class AttachmentTableTest {
   @Test
   fun resetArchiveTransferStateByPlaintextHashAndRemoteKey_singleMatch() {
     // Given an attachment with some plaintextHash+remoteKey
-    val blob = BlobProvider.getInstance().forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
+    val blob = AppDependencies.blobs.forData(byteArrayOf(1, 2, 3, 4, 5)).createForSingleSessionInMemory()
     val attachment = createAttachment(1, blob, TransformProperties.empty())
     val attachmentId = SignalDatabase.attachments.insertAttachmentsForMessage(-1L, listOf(attachment), emptyList()).values.first()
     SignalDatabase.attachments.finalizeAttachmentAfterUpload(attachmentId, AttachmentTableTestUtil.createUploadResult(attachmentId))
@@ -259,7 +259,7 @@ class AttachmentTableTest {
   fun givenAnAttachmentWithAMessageThatExpiresIn5Minutes_whenIGetAttachmentsThatNeedArchiveUpload_thenIDoNotExpectThatAttachment() {
     // GIVEN
     val uncompressData = byteArrayOf(1, 2, 3, 4, 5)
-    val blobUncompressed = BlobProvider.getInstance().forData(uncompressData).createForSingleSessionInMemory()
+    val blobUncompressed = AppDependencies.blobs.forData(uncompressData).createForSingleSessionInMemory()
     val attachment = createAttachment(1, blobUncompressed, TransformProperties.empty())
     val message = createIncomingMessage(serverTime = 0.days, attachment = attachment, expiresIn = 5.minutes)
     val messageId = SignalDatabase.messages.insertMessageInbox(message).map { it.messageId }.get()
@@ -278,7 +278,7 @@ class AttachmentTableTest {
   fun givenAnAttachmentWithAMessageThatExpiresIn5Days_whenIGetAttachmentsThatNeedArchiveUpload_thenIDoExpectThatAttachment() {
     // GIVEN
     val uncompressData = byteArrayOf(1, 2, 3, 4, 5)
-    val blobUncompressed = BlobProvider.getInstance().forData(uncompressData).createForSingleSessionInMemory()
+    val blobUncompressed = AppDependencies.blobs.forData(uncompressData).createForSingleSessionInMemory()
     val attachment = createAttachment(1, blobUncompressed, TransformProperties.empty())
     val message = createIncomingMessage(serverTime = 0.days, attachment = attachment, expiresIn = 5.days)
     val messageId = SignalDatabase.messages.insertMessageInbox(message).map { it.messageId }.get()
@@ -297,7 +297,7 @@ class AttachmentTableTest {
   fun givenAnAttachmentWithAMessageWithExpirationStartedThatExpiresIn5Days_whenIGetAttachmentsThatNeedArchiveUpload_thenIDoExpectThatAttachment() {
     // GIVEN
     val uncompressData = byteArrayOf(1, 2, 3, 4, 5)
-    val blobUncompressed = BlobProvider.getInstance().forData(uncompressData).createForSingleSessionInMemory()
+    val blobUncompressed = AppDependencies.blobs.forData(uncompressData).createForSingleSessionInMemory()
     val attachment = createAttachment(1, blobUncompressed, TransformProperties.empty())
     val message = createIncomingMessage(serverTime = 0.days, attachment = attachment, expiresIn = 5.days)
     val messageId = SignalDatabase.messages.insertMessageInbox(message).map { it.messageId }.get()
@@ -317,7 +317,7 @@ class AttachmentTableTest {
   fun givenAnAttachmentWithALongTextAttachment_whenIGetAttachmentsThatNeedArchiveUpload_thenIDoNotExpectThatAttachment() {
     // GIVEN
     val uncompressData = byteArrayOf(1, 2, 3, 4, 5)
-    val blobUncompressed = BlobProvider.getInstance().forData(uncompressData).createForSingleSessionInMemory()
+    val blobUncompressed = AppDependencies.blobs.forData(uncompressData).createForSingleSessionInMemory()
     val attachment = createAttachment(1, blobUncompressed, TransformProperties.empty(), contentType = MediaUtil.LONG_TEXT)
     val message = createIncomingMessage(serverTime = 0.days, attachment = attachment)
     val messageId = SignalDatabase.messages.insertMessageInbox(message).map { it.messageId }.get()

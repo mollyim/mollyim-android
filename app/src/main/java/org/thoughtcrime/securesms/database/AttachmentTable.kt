@@ -40,6 +40,10 @@ import org.signal.core.util.UuidUtil
 import org.signal.core.util.bitmaps.BitmapDecodingException
 import org.signal.core.util.copyTo
 import org.signal.core.util.count
+import org.signal.core.util.crypto.AttachmentSecret
+import org.signal.core.util.crypto.ClassicDecryptingPartInputStream
+import org.signal.core.util.crypto.ModernDecryptingPartInputStream
+import org.signal.core.util.crypto.ModernEncryptingPartOutputStream
 import org.signal.core.util.delete
 import org.signal.core.util.deleteAll
 import org.signal.core.util.drain
@@ -79,10 +83,6 @@ import org.thoughtcrime.securesms.attachments.WallpaperAttachment
 import org.thoughtcrime.securesms.audio.AudioHash
 import org.thoughtcrime.securesms.backup.v2.ArchivedMediaObject
 import org.thoughtcrime.securesms.backup.v2.exporters.ChatItemArchiveExporter
-import org.thoughtcrime.securesms.crypto.AttachmentSecret
-import org.thoughtcrime.securesms.crypto.ClassicDecryptingPartInputStream
-import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
-import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_FILE
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.DATA_HASH_END
 import org.thoughtcrime.securesms.database.AttachmentTable.Companion.PREUPLOAD_MESSAGE_ID

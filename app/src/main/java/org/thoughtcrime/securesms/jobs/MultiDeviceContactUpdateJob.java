@@ -10,15 +10,15 @@ import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.signal.core.ui.permissions.Permissions;
+import org.signal.core.util.AppForegroundObserver;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKey;
-import org.signal.libsignal.zkgroup.profiles.ProfileKey;
-import org.thoughtcrime.securesms.conversation.colors.ChatColorsMapper;
-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
+import org.signal.network.exceptions.PushNetworkException;
+import org.signal.network.service.CdnService;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
-import org.signal.network.service.CdnService;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
@@ -26,17 +26,13 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
-import org.signal.core.ui.permissions.Permissions;
-import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
-import org.signal.core.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
-import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream;
 import org.whispersystems.signalservice.api.messages.multidevice.ContactsMessage;
@@ -46,9 +42,9 @@ import org.whispersystems.signalservice.api.messages.multidevice.DeviceContactsO
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.VerifiedMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-import org.signal.network.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 import org.whispersystems.signalservice.api.util.InvalidNumberException;
+import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -177,10 +173,10 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
       out.close();
       updateUri = writeDetails.getUri();
 
-      long length = BlobProvider.getInstance().calculateFileSize(context, updateUri);
+      long length = AppDependencies.getBlobs().calculateFileSize(context, updateUri);
 
       sendUpdate(AppDependencies.getSignalServiceMessageSender(),
-                 BlobProvider.getInstance().getStream(context, updateUri),
+                 AppDependencies.getBlobs().getStream(context, updateUri),
                  length,
                  false);
 
@@ -188,7 +184,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
       Log.w(TAG, e);
     } finally {
       if (updateUri != null) {
-        BlobProvider.getInstance().delete(context, updateUri);
+        AppDependencies.getBlobs().delete(context, updateUri);
       }
     }
   }
@@ -253,17 +249,17 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
 
       updateUri = writeDetails.getUri();
 
-      long length = BlobProvider.getInstance().calculateFileSize(context, updateUri);
+      long length = AppDependencies.getBlobs().calculateFileSize(context, updateUri);
 
       sendUpdate(AppDependencies.getSignalServiceMessageSender(),
-                 BlobProvider.getInstance().getStream(context, updateUri),
+                 AppDependencies.getBlobs().getStream(context, updateUri),
                  length,
                  true);
     } catch(InterruptedException e) {
       Log.w(TAG, e);
     } finally {
       if (updateUri != null) {
-        BlobProvider.getInstance().delete(context, updateUri);
+        AppDependencies.getBlobs().delete(context, updateUri);
       }
     }
   }
@@ -377,7 +373,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
   private @NonNull WriteDetails createTempFile() throws IOException {
     ParcelFileDescriptor[] pipe        = ParcelFileDescriptor.createPipe();
     InputStream            inputStream = new ParcelFileDescriptor.AutoCloseInputStream(pipe[0]);
-    Future<Uri>            futureUri   = BlobProvider.getInstance()
+    Future<Uri>            futureUri   = AppDependencies.getBlobs()
                                                      .forData(inputStream, 0)
                                                      .withFileName("multidevice-contact-update")
                                                      .createForSingleSessionOnDiskAsync(context);

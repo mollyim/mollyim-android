@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import org.signal.core.models.media.Media
 import org.signal.core.util.Util
+import org.signal.core.util.contentproviders.BlobProvider
 import org.signal.core.util.getParcelableArrayListCompat
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.logging.Log
@@ -31,9 +32,9 @@ import org.thoughtcrime.securesms.components.mention.MentionAnnotation
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.conversation.MessageStyler
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult
 import org.thoughtcrime.securesms.mms.PushMediaConstraints
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
 import org.thoughtcrime.securesms.stories.Stories
@@ -472,7 +473,7 @@ class MediaSelectionViewModel(
       editorStates.forEach { it.writeToParcel(parcel, 0) }
       val serializedEditorState: ByteArray = parcel.marshall()
       parcel.recycle()
-      val blobUri = BlobProvider.getInstance().forData(serializedEditorState).createForSingleUseInMemory()
+      val blobUri = AppDependencies.blobs.forData(serializedEditorState).createForSingleUseInMemory()
       outState.putParcelable(STATE_EDITORS, blobUri)
     }
   }
@@ -496,7 +497,7 @@ class MediaSelectionViewModel(
     val cameraFirstCapture: Media? = savedInstanceState.getParcelableCompat(STATE_CAMERA_FIRST_CAPTURE, Media::class.java)
     val editorCount: Int = savedInstanceState.getInt(STATE_EDITOR_COUNT, 0)
     val blobUri: Uri? = savedInstanceState.getParcelableCompat(STATE_EDITORS, Uri::class.java)
-    val blobProvider: BlobProvider = BlobProvider.getInstance()
+    val blobProvider: BlobProvider = AppDependencies.blobs
     val editorStates: List<Bundle> = if (editorCount > 0 && blobUri != null && blobProvider.hasStream(context, blobUri)) {
       val accumulator: MutableList<Bundle> = mutableListOf()
       val blob: ByteArray = ByteStreams.toByteArray(blobProvider.getStream(context, blobUri))

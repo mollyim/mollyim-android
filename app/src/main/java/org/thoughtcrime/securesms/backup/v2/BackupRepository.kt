@@ -47,6 +47,7 @@ import org.signal.core.util.bytes
 import org.signal.core.util.concurrent.LimitedWorker
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.concurrent.SignalExecutors
+import org.signal.core.util.crypto.AttachmentSecretProvider
 import org.signal.core.util.decodeOrNull
 import org.signal.core.util.forceForeignKeyConstraintsEnabled
 import org.signal.core.util.fullWalCheckpoint
@@ -93,7 +94,7 @@ import org.thoughtcrime.securesms.backup.v2.ui.BackupAlert
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.subscription.RecurringInAppPaymentRepository
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.BackupMediaSnapshotTable.ArchiveMediaItem
@@ -140,7 +141,6 @@ import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogRepository
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.BackupMediaRestoreService
@@ -717,7 +717,7 @@ object BackupRepository {
       SignalDatabase(
         context = context,
         databaseSecret = DatabaseSecretProvider.getOrCreateDatabaseSecret(context),
-        attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret(),
+        attachmentSecret = AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore).getOrCreateAttachmentSecret(),
         name = "$baseName.db"
       )
     }
@@ -2235,7 +2235,7 @@ object BackupRepository {
     }
 
     Log.i(TAG, "[remoteRestore] Downloading backup")
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
     when (val result = downloadBackupFile(tempBackupFile, progressListener)) {
       is NetworkResult.Success -> Log.i(TAG, "[remoteRestore] Download successful")
       else -> {
@@ -2355,7 +2355,7 @@ object BackupRepository {
     }
 
     Log.i(TAG, "[restoreLinkAndSyncBackup] Downloading backup")
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
     when (val result = AppDependencies.signalServiceMessageReceiver.retrieveLinkAndSyncBackup(response.cdn, response.key, tempBackupFile, progressListener)) {
       is NetworkResult.Success -> Log.i(TAG, "[restoreLinkAndSyncBackup] Download successful")
       else -> {

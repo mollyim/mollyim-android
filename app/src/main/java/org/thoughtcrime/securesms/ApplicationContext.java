@@ -39,6 +39,7 @@ import org.signal.core.util.MemoryTracker;
 import org.signal.core.util.Util;
 import org.signal.core.util.concurrent.AnrDetector;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.crypto.AttachmentSecretProvider;
 import org.signal.core.util.logging.AndroidLogger;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
@@ -51,10 +52,10 @@ import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
 import org.thoughtcrime.securesms.backup.v2.BackupRepository;
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
+import org.thoughtcrime.securesms.conversation.drafts.DraftBlobs;
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
 import org.thoughtcrime.securesms.database.LogDatabase;
-import org.thoughtcrime.securesms.database.SQLiteDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.SqlCipherLibraryLoader;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -99,7 +100,6 @@ import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchRece
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.mms.SignalGlideModule;
-import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.ratelimit.RateLimitUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil;
@@ -175,7 +175,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
                 SqlCipherLibraryLoader.load();
                 SignalDatabase.init(this,
                                     DatabaseSecretProvider.getOrCreateDatabaseSecret(this),
-                                    AttachmentSecretProvider.getInstance(this).getOrCreateAttachmentSecret());
+                                    AttachmentSecretProvider.getInstance(this, AppAttachmentSecretStore.INSTANCE).getOrCreateAttachmentSecret());
                 Logger.setTarget(SqlCipherLogTarget.INSTANCE);
               })
               .addBlocking("signal-store", () -> SignalStore.init(this))
@@ -578,7 +578,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
 
   @WorkerThread
   private void initializeBlobProvider() {
-    BlobProvider.getInstance().initialize(this);
+    AppDependencies.getBlobs().initialize(this, DraftBlobs.INSTANCE::deleteOrphanedDraftFiles);
   }
 
   @WorkerThread

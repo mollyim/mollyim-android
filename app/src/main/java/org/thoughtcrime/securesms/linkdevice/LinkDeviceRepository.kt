@@ -27,7 +27,6 @@ import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository.createAndUploadArchive
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.whispersystems.signalservice.api.link.LinkedDeviceVerificationCodeResponse
 import org.whispersystems.signalservice.api.link.TransferArchiveError
@@ -281,7 +280,7 @@ object LinkDeviceRepository {
   fun createAndUploadArchive(ephemeralMessageBackupKey: MessageBackupKey, deviceId: Int, deviceRegistrationId: Int, cancellationSignal: () -> Boolean): LinkUploadArchiveResult {
     Log.d(TAG, "[createAndUploadArchive] Beginning process.")
     val stopwatch = Stopwatch("link-archive")
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
     val outputStream = FileOutputStream(tempBackupFile)
 
     try {

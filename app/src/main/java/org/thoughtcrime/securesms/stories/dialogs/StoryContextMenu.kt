@@ -28,7 +28,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.StoryTextPost
-import org.thoughtcrime.securesms.providers.BlobProvider
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.sharing.v2.ShareActivity
 import org.thoughtcrime.securesms.stories.StoryTextPostModel
 import org.thoughtcrime.securesms.stories.landing.StoriesLandingItem
@@ -88,7 +88,7 @@ object StoryContextMenu {
       bitmap.recycle()
 
       SaveAttachmentUtil.SaveAttachment(
-        uri = BlobProvider.getInstance().forData(jpeg.readBytes()).createForSingleUseInMemory(),
+        uri = AppDependencies.blobs.forData(jpeg.readBytes()).createForSingleUseInMemory(),
         contentType = MediaUtil.IMAGE_JPEG,
         date = messageRecord.dateSent,
         fileName = null

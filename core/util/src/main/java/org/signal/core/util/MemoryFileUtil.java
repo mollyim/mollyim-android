@@ -1,4 +1,9 @@
-package org.thoughtcrime.securesms.util;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.core.util;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -6,8 +11,6 @@ import android.os.MemoryFile;
 import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
-
-import org.thoughtcrime.securesms.dependencies.AppDependencies;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -23,7 +26,7 @@ public final class MemoryFileUtil {
       throws IOException
   {
     if (Build.VERSION.SDK_INT >= 26) {
-      return MemoryFileDescriptorProxy.create(AppDependencies.getApplication(), file);
+      return MemoryFileDescriptorProxy.create(CoreUtilDependencies.getApplication(), file);
     } else {
       return getParcelFileDescriptorLegacy(file);
     }

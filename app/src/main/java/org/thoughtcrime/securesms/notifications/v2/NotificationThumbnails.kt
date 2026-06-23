@@ -11,7 +11,6 @@ import org.signal.glide.decryptableuri.DecryptableUri
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mms.Slide
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.util.ImageCompressionUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.kb
@@ -127,8 +126,7 @@ object NotificationThumbnails {
         }
 
         if (result != null) {
-          val thumbnailUri = BlobProvider
-            .getInstance()
+          val thumbnailUri = AppDependencies.blobs
             .forData(result.data)
             .withMimeType(result.mimeType)
             .withFileName(result.hashCode().toString())
@@ -137,7 +135,7 @@ object NotificationThumbnails {
           synchronized(thumbnailCache) {
             if (thumbnailCache.size >= MAX_CACHE_SIZE) {
               thumbnailCache.remove(thumbnailCache.keys.first())?.uri?.let {
-                BlobProvider.getInstance().delete(context, it)
+                AppDependencies.blobs.delete(context, it)
               }
             }
             thumbnailCache[messageId] = CachedThumbnail(thumbnailUri, result.mimeType)

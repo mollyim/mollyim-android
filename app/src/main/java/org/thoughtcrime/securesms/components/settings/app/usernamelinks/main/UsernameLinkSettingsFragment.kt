@@ -75,7 +75,7 @@ import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeDa
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeState
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.UsernameQrCodeColorScheme
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.UsernameLinkSettingsState.ActiveTab
-import org.thoughtcrime.securesms.providers.BlobProvider
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.CommunicationActions
 import java.io.ByteArrayOutputStream
 import java.util.UUID
@@ -405,7 +405,7 @@ private fun shareQrBadge(activity: Activity, badge: Bitmap?) {
       badge.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
       byteArrayOutputStream.flush()
       val bytes = byteArrayOutputStream.toByteArray()
-      val shareUri = BlobProvider.getInstance()
+      val shareUri = AppDependencies.blobs
         .forData(bytes)
         .withMimeType("image/png")
         .withFileName("SignalUsernameQr.png")

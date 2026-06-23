@@ -1,4 +1,9 @@
-package org.thoughtcrime.securesms.crypto;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.core.util.crypto;
 
 
 import androidx.annotation.NonNull;
@@ -43,7 +48,7 @@ public class ModernDecryptingPartInputStream {
 
   private static InputStream createFor(@NonNull AttachmentSecret attachmentSecret, @NonNull byte[] random, @NonNull InputStream inputStream, long offset) throws IOException {
     try {
-      Mac mac  = Mac.getInstance("HmacSHA256");
+      Mac mac = Mac.getInstance("HmacSHA256");
       mac.init(new SecretKeySpec(attachmentSecret.getModernKey(), "HmacSHA256"));
 
       byte[] iv        = new byte[16];
@@ -74,12 +79,12 @@ public class ModernDecryptingPartInputStream {
   private static void readFully(InputStream in, byte[] buffer) throws IOException {
     int offset = 0;
 
-    for (;;) {
-      int read = in.read(buffer, offset, buffer.length-offset);
+    for (; ; ) {
+      int read = in.read(buffer, offset, buffer.length - offset);
 
-      if (read == -1)                         throw new IOException(PREMATURE_END_ERROR_MESSAGE);
+      if (read == -1) throw new IOException(PREMATURE_END_ERROR_MESSAGE);
       else if (read + offset < buffer.length) offset += read;
-      else                                    return;
+      else return;
     }
   }
 

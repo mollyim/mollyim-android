@@ -11,6 +11,7 @@ import org.signal.core.util.CoreUtilDependencies
 import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.concurrent.LatestValueObservable
+import org.signal.core.util.contentproviders.BlobProvider
 import org.signal.core.util.orNull
 import org.signal.core.util.resettableLazy
 import org.signal.glide.SignalGlideDependencies
@@ -259,6 +260,11 @@ object AppDependencies {
   @JvmStatic
   val billingApi: BillingApi by lazy {
     provider.provideBillingApi()
+  }
+
+  @JvmStatic
+  val blobs: BlobProvider by lazy {
+    provider.provideBlobs()
   }
 
   private val _webSocketObserver: BehaviorSubject<WebSocketConnectionState> = BehaviorSubject.create()
@@ -511,5 +517,6 @@ object AppDependencies {
     fun provideDonationsApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): DonationsApi
     fun provideSvrBApi(libSignalNetwork: Network): SvrBApi
     fun provideKeyTransparencyApi(unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): KeyTransparencyApi
+    fun provideBlobs(): BlobProvider
   }
 }

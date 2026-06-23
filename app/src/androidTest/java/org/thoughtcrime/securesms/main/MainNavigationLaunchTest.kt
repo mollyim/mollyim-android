@@ -32,8 +32,8 @@ import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.v2.ConversationFragment
 import org.thoughtcrime.securesms.conversationlist.ConversationListArchiveFragment
 import org.thoughtcrime.securesms.conversationlist.ConversationListFragment
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.landing.StoriesLandingFragment
@@ -571,7 +571,7 @@ class MainNavigationLaunchTest {
   }
 
   private fun realBlob(bytes: ByteArray, mimeType: String): Uri {
-    return BlobProvider.getInstance()
+    return AppDependencies.blobs
       .forData(bytes)
       .withMimeType(mimeType)
       .createForSingleSessionInMemory()

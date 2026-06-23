@@ -1,4 +1,9 @@
-package org.thoughtcrime.securesms.providers;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.core.util.contentproviders;
 
 import android.content.ContentProvider;
 import android.content.Context;

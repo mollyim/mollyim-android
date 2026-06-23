@@ -1,9 +1,13 @@
-package org.thoughtcrime.securesms.providers;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.core.util.contentproviders;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.UriMatcher;
-import android.media.MediaDataSource;
 import android.net.Uri;
 
 import androidx.annotation.AnyThread;
@@ -13,21 +17,17 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 
+import org.signal.core.util.CoreUtilDependencies;
+import org.signal.core.util.IOFunction;
 import org.signal.core.util.StreamUtil;
-import org.signal.core.util.concurrent.SignalExecutors;
-import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.components.voice.VoiceNoteDraft;
-import org.thoughtcrime.securesms.crypto.AttachmentSecret;
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
-import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
-import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream;
-import org.thoughtcrime.securesms.database.DraftTable;
-import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.util.IOFunction;
 import org.signal.core.util.Util;
-import org.thoughtcrime.securesms.video.ByteArrayMediaDataSource;
-import org.thoughtcrime.securesms.video.EncryptedMediaDataSource;
+import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.crypto.AttachmentSecret;
+import org.signal.core.util.crypto.AttachmentSecretProvider;
+import org.signal.core.util.crypto.AttachmentSecretStore;
+import org.signal.core.util.crypto.ModernDecryptingPartInputStream;
+import org.signal.core.util.crypto.ModernEncryptingPartOutputStream;
+import org.signal.core.util.logging.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -35,13 +35,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 /**
  * Allows for the creation and retrieval of blobs.
@@ -55,8 +53,6 @@ public class BlobProvider {
   private static final String SINGLE_SESSION_DIRECTORY    = "single_session_blobs";
   private static final String TEMP_BACKUPS_DIRECTORY      = "temp_backups";
 
-  public static final String AUTHORITY   = BuildConfig.APPLICATION_ID + ".blob";
-  public static final Uri    CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/blob");
   public static final String PATH        = "blob/*/*/*/*/*";
 
   private static final int STORAGE_TYPE_PATH_SEGMENT = 1;
@@ -64,21 +60,30 @@ public class BlobProvider {
   private static final int FILENAME_PATH_SEGMENT     = 3;
   private static final int FILESIZE_PATH_SEGMENT     = 4;
   private static final int ID_PATH_SEGMENT           = 5;
+  private static final int MATCH                     = 1;
 
-  private static final int        MATCH       = 1;
-  private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH) {{
-    addURI(AUTHORITY, PATH, MATCH);
-  }};
+  private final AttachmentSecretStore secretStore;
 
-  private static final BlobProvider INSTANCE = new BlobProvider();
+  private final String     authority;
+  private final Uri        contentUri;
+  private final UriMatcher uriMatcher;
 
   private final Map<Uri, byte[]> memoryBlobs = new HashMap<>();
 
   private volatile boolean initialized = false;
 
+  public BlobProvider(@NonNull Context appContext, @NonNull AttachmentSecretStore secretStore) {
+    this.secretStore = secretStore;
 
-  public static BlobProvider getInstance() {
-    return INSTANCE;
+    authority =  appContext.getPackageName() + ".blob";
+    contentUri = Uri.parse("content://" + authority + "/blob");
+    uriMatcher = new UriMatcher(UriMatcher.NO_MATCH) {{
+      addURI(authority, PATH, MATCH);
+    }};
+  }
+
+  public String getAuthority() {
+    return authority;
   }
 
   /**
@@ -139,7 +144,6 @@ public class BlobProvider {
    * @throws IOException If the stream fails to open or the spec of the URI doesn't match.
    */
   public synchronized @NonNull InputStream getStream(@NonNull Context context, @NonNull Uri uri, long position) throws IOException {
-    waitUntilInitialized();
     return getBlobRepresentation(context,
                                  uri,
                                  bytes -> {
@@ -154,20 +158,23 @@ public class BlobProvider {
                                                                                    position));
   }
 
-  public synchronized @NonNull MediaDataSource getMediaDataSource(@NonNull Context context, @NonNull Uri uri) throws IOException {
-    waitUntilInitialized();
-    return getBlobRepresentation(context,
-                                 uri,
-                                 ByteArrayMediaDataSource::new,
-                                 file -> EncryptedMediaDataSource.createForDiskBlob(getAttachmentSecret(context), file));
-  }
-
-  private synchronized @NonNull <T> T getBlobRepresentation(@NonNull Context context,
-                                                            @NonNull Uri uri,
-                                                            @NonNull IOFunction<byte[], T> getByteRepresentation,
-                                                            @NonNull IOFunction<File, T> getFileRepresentation)
+  /**
+   * Retreives a representation of a blob given the byte and file representations.
+   *
+   * @param context               The activity or application context for file access
+   * @param uri                   The URI to load the representation of
+   * @param getByteRepresentation A constructor for the byte representation
+   * @param getFileRepresentation A constructor for the file representation
+   * @return                      An instance of the desired object.
+   */
+  public synchronized @NonNull <T> T getBlobRepresentation(@NonNull Context context,
+                                                           @NonNull Uri uri,
+                                                           @NonNull IOFunction<byte[], T> getByteRepresentation,
+                                                           @NonNull IOFunction<File, T> getFileRepresentation)
       throws IOException
   {
+    waitUntilInitialized();
+
     if (isAuthority(uri)) {
       StorageType storageType = StorageType.decode(uri.getPathSegments().get(STORAGE_TYPE_PATH_SEGMENT));
 
@@ -195,7 +202,7 @@ public class BlobProvider {
   }
 
   private synchronized AttachmentSecret getAttachmentSecret(@NonNull Context context) {
-    return AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
+    return AttachmentSecretProvider.getInstance(context, secretStore).getOrCreateAttachmentSecret();
   }
 
   /**
@@ -238,7 +245,7 @@ public class BlobProvider {
    * background thread, so callers don't have to worry about it.
    */
   @AnyThread
-  public synchronized void initialize(@NonNull Context context) {
+  public synchronized void initialize(@NonNull Context context, @NonNull Consumer<File> clearDrafts) {
     SignalExecutors.BOUNDED.execute(() -> {
       synchronized (this) {
         File   directory = getOrCreateDirectory(context, SINGLE_SESSION_DIRECTORY);
@@ -256,7 +263,9 @@ public class BlobProvider {
           Log.w(TAG, "Null directory listing!");
         }
 
-        deleteOrphanedDraftFiles(context);
+        File draftDirectory = BlobProvider.getOrCreateDirectory(context, BlobProvider.DRAFT_ATTACHMENTS_DIRECTORY);
+
+        clearDrafts.accept(draftDirectory);
 
         Log.i(TAG, "Initialized.");
         initialized = true;
@@ -288,53 +297,21 @@ public class BlobProvider {
     return memoryBlobs.get(uri);
   }
 
-  private static void deleteOrphanedDraftFiles(@NonNull Context context) {
-    File   directory = getOrCreateDirectory(context, DRAFT_ATTACHMENTS_DIRECTORY);
-    File[] files     = directory.listFiles();
-
-    if (files == null || files.length == 0) {
-      Log.d(TAG, "No attachment drafts exist. Skipping.");
-      return;
-    }
-
-    DraftTable        draftDatabase   = SignalDatabase.drafts();
-    DraftTable.Drafts voiceNoteDrafts = draftDatabase.getAllVoiceNoteDrafts();
-
-    @SuppressWarnings("ConstantConditions")
-    List<String> draftFileNames = voiceNoteDrafts.stream()
-                                                 .map(VoiceNoteDraft::fromDraft)
-                                                 .map(VoiceNoteDraft::getUri)
-                                                 .map(BlobProvider::getId)
-                                                 .filter(Objects::nonNull)
-                                                 .map(BlobProvider::buildFileName)
-                                                 .collect(Collectors.toList());
-
-    for (final File file : files) {
-      if (!draftFileNames.contains(file.getName())) {
-        if (file.delete()) {
-          Log.d(TAG, "Deleted orphaned attachment draft: " + file.getName());
-        } else {
-          Log.d(TAG, "Failed to delete orphaned attachment draft: " + file.getName());
-        }
-      }
-    }
-  }
-
-  public static @Nullable String getMimeType(@NonNull Uri uri) {
+  public @Nullable String getMimeType(@NonNull Uri uri) {
     if (isAuthority(uri)) {
       return uri.getPathSegments().get(MIMETYPE_PATH_SEGMENT);
     }
     return null;
   }
 
-  public static @Nullable String getFileName(@NonNull Uri uri) {
+  public @Nullable String getFileName(@NonNull Uri uri) {
     if (isAuthority(uri)) {
       return uri.getPathSegments().get(FILENAME_PATH_SEGMENT);
     }
     return null;
   }
 
-  public static @Nullable Long getFileSize(@NonNull Uri uri) {
+  public @Nullable Long getFileSize(@NonNull Uri uri) {
     if (isAuthority(uri)) {
       try {
         return Long.parseLong(uri.getPathSegments().get(FILESIZE_PATH_SEGMENT));
@@ -345,7 +322,7 @@ public class BlobProvider {
     return null;
   }
 
-  private static @Nullable String getId(@NonNull Uri uri) {
+  private @Nullable String getId(@NonNull Uri uri) {
     if (isAuthority(uri)) {
       return Uri.encode(uri.getPathSegments().get(ID_PATH_SEGMENT));
     }
@@ -366,8 +343,15 @@ public class BlobProvider {
     }
   }
 
-  public static boolean isAuthority(@NonNull Uri uri) {
-    return URI_MATCHER.match(uri) == MATCH;
+  public boolean isAuthority(@NonNull Uri uri) {
+    return uriMatcher.match(uri) == MATCH;
+  }
+
+  @Nullable
+  public String buildFileName(@NonNull Uri uri) {
+    String id = getId(uri);
+
+    return id != null ? buildFileName(id) : null;
   }
 
   @WorkerThread
@@ -394,7 +378,7 @@ public class BlobProvider {
   private synchronized @NonNull Future<Uri> writeBlobSpecToDiskAsync(@NonNull Context context, @NonNull BlobSpec blobSpec)
       throws IOException
   {
-    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
+    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context, secretStore).getOrCreateAttachmentSecret();
     String           directory        = getDirectory(blobSpec.getStorageType());
     File             outputFile       = new File(getOrCreateDirectory(context, directory), buildFileName(blobSpec.id));
     OutputStream     outputStream     = ModernEncryptingPartOutputStream.createFor(attachmentSecret, outputFile, true).getSecond();
@@ -440,14 +424,14 @@ public class BlobProvider {
     return storageType == StorageType.MULTI_SESSION_DISK ? MULTI_SESSION_DIRECTORY : SINGLE_SESSION_DIRECTORY;
   }
 
-  private static @NonNull Uri buildUri(@NonNull BlobSpec blobSpec) {
-    return CONTENT_URI.buildUpon()
+  private @NonNull Uri buildUri(@NonNull BlobSpec blobSpec) {
+    return contentUri.buildUpon()
                       .appendPath(blobSpec.getStorageType().encode())
-                      .appendPath(blobSpec.getMimeType())
-                      .appendPath(blobSpec.getFileName())
-                      .appendEncodedPath(String.valueOf(blobSpec.getFileSize()))
-                      .appendPath(blobSpec.getId())
-                      .build();
+                     .appendPath(blobSpec.getMimeType())
+                     .appendPath(blobSpec.getFileName())
+                     .appendEncodedPath(String.valueOf(blobSpec.getFileSize()))
+                     .appendPath(blobSpec.getId())
+                     .build();
   }
 
   private static File getOrCreateDirectory(@NonNull Context context, @NonNull String directory) {

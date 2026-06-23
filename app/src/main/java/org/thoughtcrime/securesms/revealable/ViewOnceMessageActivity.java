@@ -20,13 +20,12 @@ import com.bumptech.glide.Glide;
 
 import org.signal.core.util.logging.Log;
 import org.signal.glide.decryptableuri.DecryptableUri;
+import org.signal.video.VideoPlayer;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mms.PartAuthority;
-import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.signal.video.VideoPlayer;
 
 import java.util.concurrent.TimeUnit;
 
@@ -88,7 +87,7 @@ public class ViewOnceMessageActivity extends PassphraseRequiredActivity implemen
     super.onStop();
     cancelDurationUpdate();
     video.cleanup();
-    BlobProvider.getInstance().delete(this, uri);
+    AppDependencies.getBlobs().delete(this, uri);
     finish();
   }
 

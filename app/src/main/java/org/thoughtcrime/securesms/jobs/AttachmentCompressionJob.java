@@ -10,16 +10,22 @@ import androidx.annotation.WorkerThread;
 import androidx.media3.common.MimeTypes;
 
 import org.greenrobot.eventbus.EventBus;
+import org.signal.core.models.database.AttachmentId;
+import org.signal.core.models.media.TransformProperties;
+import org.signal.core.util.MemoryFileDescriptor.MemoryFileException;
+import org.signal.core.util.bitmaps.BitmapDecodingException;
+import org.signal.core.util.crypto.AttachmentSecret;
+import org.signal.core.util.crypto.AttachmentSecretProvider;
+import org.signal.core.util.crypto.ModernDecryptingPartInputStream;
+import org.signal.core.util.crypto.ModernEncryptingPartOutputStream;
 import org.signal.core.util.logging.Log;
+import org.signal.glide.decryptableuri.DecryptableUri;
+import org.signal.mediasend.MediaConstraints;
+import org.signal.mediasend.SentMediaQuality;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.Attachment;
-import org.signal.core.models.database.AttachmentId;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
-import org.thoughtcrime.securesms.crypto.AttachmentSecret;
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
-import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
-import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream;
-import org.signal.core.models.media.TransformProperties;
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.events.PartProgressEvent;
@@ -27,18 +33,13 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec;
-import org.signal.glide.decryptableuri.DecryptableUri;
-import org.signal.mediasend.MediaConstraints;
 import org.thoughtcrime.securesms.mms.MediaStream;
 import org.thoughtcrime.securesms.mms.MmsException;
-import org.signal.mediasend.SentMediaQuality;
 import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.service.AttachmentProgressService;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
-import org.signal.core.util.bitmaps.BitmapDecodingException;
 import org.thoughtcrime.securesms.util.ImageCompressionUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.signal.core.util.MemoryFileDescriptor.MemoryFileException;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.video.StreamingTranscoder;
 import org.thoughtcrime.securesms.video.TranscoderOptions;
@@ -263,7 +264,7 @@ public final class AttachmentCompressionJob extends BaseJob {
 
         if (transcoder.isTranscodeRequired()) {
           Log.i(TAG, "Compressing with streaming muxer");
-          AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
+          AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore.INSTANCE).getOrCreateAttachmentSecret();
 
           File file = AttachmentTable.newDataFile(context);
           file.deleteOnExit();

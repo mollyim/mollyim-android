@@ -22,7 +22,6 @@ import org.thoughtcrime.securesms.database.UriAttachmentBuilder
 import org.thoughtcrime.securesms.database.transformPropertiesForSentMediaQuality
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.testing.SignalActivityRule
 import org.thoughtcrime.securesms.util.MediaUtil
 import java.util.Optional
@@ -40,7 +39,7 @@ class AttachmentCompressionJobTest {
       StreamUtil.readFully(it)
     }
 
-    val blob = BlobProvider.getInstance().forData(imageBytes).createForSingleSessionOnDisk(AppDependencies.application)
+    val blob = AppDependencies.blobs.forData(imageBytes).createForSingleSessionOnDisk(AppDependencies.application)
 
     val firstPreUpload = createAttachment(1, blob, TransformProperties.empty())
     val firstDatabaseAttachment = SignalDatabase.attachments.insertAttachmentForPreUpload(firstPreUpload)

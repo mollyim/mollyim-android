@@ -1,17 +1,20 @@
-package org.thoughtcrime.securesms.crypto;
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.core.util.crypto;
 
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
-
 import java.security.SecureRandom;
 
 /**
  * A provider that is responsible for creating or retrieving the AttachmentSecret model.
- *
+ * <p>
  * On modern Android, the serialized secrets are themselves encrypted using a key that lives
  * in the system KeyStore, for whatever that is worth.
  */
@@ -19,38 +22,34 @@ public class AttachmentSecretProvider {
 
   private static AttachmentSecretProvider provider;
 
-  public static synchronized AttachmentSecretProvider getInstance(@NonNull Context context) {
-    if (provider == null) provider = new AttachmentSecretProvider(context.getApplicationContext());
+  public static synchronized AttachmentSecretProvider getInstance(@NonNull Context context,@NonNull AttachmentSecretStore secretStore) {
+    if (provider == null) provider = new AttachmentSecretProvider(context.getApplicationContext(), secretStore);
     return provider;
   }
 
-  private final Context context;
+  private final Context               context;
+  private final AttachmentSecretStore secretStore;
 
   private AttachmentSecret attachmentSecret;
 
-  private AttachmentSecretProvider(@NonNull Context context) {
-    this.context = context.getApplicationContext();
+  private AttachmentSecretProvider(@NonNull Context context, @NonNull AttachmentSecretStore secretStore) {
+    this.context     = context.getApplicationContext();
+    this.secretStore = secretStore;
   }
 
+  /**
+   * Because we need this store when we initialize the database, we have a separate method here to allow the app to pass in the concrete [AttachmentSecretStore]
+   * so that we don't need to reply on [CoreUtilDependencies] which isn't initialized at the time.
+   */
   public synchronized AttachmentSecret getOrCreateAttachmentSecret() {
     if (attachmentSecret != null) return attachmentSecret;
 
-    String unencryptedSecret = TextSecurePreferences.getAttachmentUnencryptedSecret(context);
-    String encryptedSecret   = TextSecurePreferences.getAttachmentEncryptedSecret(context);
+    String unencryptedSecret = secretStore.getAttachmentUnencryptedSecret(context);
+    String encryptedSecret   = secretStore.getAttachmentEncryptedSecret(context);
 
     if      (unencryptedSecret != null) attachmentSecret = getUnencryptedAttachmentSecret(context, unencryptedSecret);
     else if (encryptedSecret != null)   attachmentSecret = getEncryptedAttachmentSecret(encryptedSecret);
     else                                attachmentSecret = createAndStoreAttachmentSecret(context);
-
-    return attachmentSecret;
-  }
-
-  public synchronized AttachmentSecret setClassicKey(@NonNull Context context, @NonNull byte[] classicCipherKey, @NonNull byte[] classicMacKey) {
-    AttachmentSecret currentSecret    = getOrCreateAttachmentSecret();
-    currentSecret.setClassicCipherKey(classicCipherKey);
-    currentSecret.setClassicMacKey(classicMacKey);
-
-    storeAttachmentSecret(context, attachmentSecret);
 
     return attachmentSecret;
   }
@@ -61,8 +60,8 @@ public class AttachmentSecretProvider {
 
     KeyStoreHelper.SealedData encryptedSecret = KeyStoreHelper.seal(attachmentSecret.serialize().getBytes());
 
-    TextSecurePreferences.setAttachmentEncryptedSecret(context, encryptedSecret.serialize());
-    TextSecurePreferences.setAttachmentUnencryptedSecret(context, null);
+    secretStore.setAttachmentEncryptedSecret(context, encryptedSecret.serialize());
+    secretStore.setAttachmentUnencryptedSecret(context, null);
 
     return attachmentSecret;
   }
@@ -85,6 +84,6 @@ public class AttachmentSecretProvider {
 
   private void storeAttachmentSecret(@NonNull Context context, @NonNull AttachmentSecret attachmentSecret) {
     KeyStoreHelper.SealedData encryptedSecret = KeyStoreHelper.seal(attachmentSecret.serialize().getBytes());
-    TextSecurePreferences.setAttachmentEncryptedSecret(context, encryptedSecret.serialize());
+    secretStore.setAttachmentEncryptedSecret(context, encryptedSecret.serialize());
   }
 }

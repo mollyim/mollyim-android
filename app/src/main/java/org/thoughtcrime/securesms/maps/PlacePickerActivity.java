@@ -31,12 +31,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
+import org.signal.core.util.bitmaps.BitmapUtil;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.location.SignalMapView;
-import org.thoughtcrime.securesms.providers.BlobProvider;
-import org.signal.core.util.bitmaps.BitmapUtil;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.MediaUtil;
@@ -196,7 +196,7 @@ public final class PlacePickerActivity extends AppCompatActivity {
       public void onSuccess(Bitmap result) {
         dismissibleDialog.dismiss();
         byte[] blob = BitmapUtil.toByteArray(result);
-        Uri uri = BlobProvider.getInstance()
+        Uri uri = AppDependencies.getBlobs()
                               .forData(blob)
                               .withMimeType(MediaUtil.IMAGE_JPEG)
                               .createForSingleSessionInMemory();
