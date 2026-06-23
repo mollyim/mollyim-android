@@ -12,6 +12,7 @@ plugins {
   alias(libs.plugins.compose.compiler) apply false
   alias(libs.plugins.ktlint)
   alias(benchmarkLibs.plugins.baselineprofile) apply false
+  id("dependency-verification")
 }
 
 buildscript {
