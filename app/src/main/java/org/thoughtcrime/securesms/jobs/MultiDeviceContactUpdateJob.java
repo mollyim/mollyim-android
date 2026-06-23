@@ -14,6 +14,9 @@ import org.signal.core.ui.permissions.Permissions;
 import org.signal.core.util.AppForegroundObserver;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.IdentityKey;
+import org.signal.libsignal.protocol.NoSessionException;
+import org.signal.network.exceptions.PushNetworkException;
+import org.signal.network.service.CdnService;
 import org.signal.network.exceptions.PushNetworkException;
 import org.signal.network.service.CdnService;
 import org.thoughtcrime.securesms.database.RecipientTable;
@@ -118,7 +121,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
 
   @Override
   public void onRun()
-      throws IOException, UntrustedIdentityException, NetworkException
+      throws IOException, UntrustedIdentityException, NetworkException, NoSessionException
   {
     if (!Recipient.self().isRegistered()) {
       throw new NotPushRegisteredException();
@@ -139,7 +142,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
   }
 
   private void generateSingleContactUpdate(@NonNull RecipientId recipientId)
-      throws IOException, UntrustedIdentityException, NetworkException
+      throws IOException, UntrustedIdentityException, NetworkException, NoSessionException
   {
     WriteDetails writeDetails = createTempFile();
 
@@ -190,7 +193,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
   }
 
   private void generateFullContactUpdate()
-      throws IOException, UntrustedIdentityException, NetworkException
+      throws IOException, UntrustedIdentityException, NetworkException, NoSessionException
   {
     boolean isAppVisible      = AppForegroundObserver.isForegrounded();
     long    timeSinceLastSync = System.currentTimeMillis() - TextSecurePreferences.getLastFullContactSyncTime(context);
@@ -277,7 +280,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
   }
 
   private void sendUpdate(SignalServiceMessageSender messageSender, InputStream stream, long length, boolean complete)
-      throws UntrustedIdentityException, NetworkException
+      throws UntrustedIdentityException, NetworkException, NoSessionException
   {
     if (length > 0) {
       try {
