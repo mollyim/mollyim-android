@@ -16,6 +16,7 @@ plugins {
   alias(libs.plugins.ktlint)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlinx.serialization)
+  alias(testLibs.plugins.compose.screenshot)
   alias(benchmarkLibs.plugins.baselineprofile)
   id("androidx.navigation.safeargs")
   id("kotlin-parcelize")
@@ -129,6 +130,8 @@ ktlint {
 
 android {
   namespace = "org.thoughtcrime.securesms"
+
+  experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
   buildToolsVersion = libs.versions.buildTools.get()
   compileSdkVersion(libs.versions.compileSdk.get())
@@ -712,6 +715,11 @@ dependencies {
   }
   implementation(libs.lottie)
   implementation(libs.lottie.compose)
+
+  // Compose screenshot testing
+  screenshotTestImplementation(testLibs.compose.screenshot.validation.api)
+  screenshotTestImplementation(libs.androidx.compose.ui.tooling.core)
+  screenshotTestImplementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.signal.android.database.sqlcipher)
   implementation(libs.androidx.sqlite)
   testImplementation(libs.androidx.sqlite.framework)
