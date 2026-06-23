@@ -190,9 +190,9 @@ class ArchiveRestoreSelectionViewModelTest {
   // ==================== ConfirmSkip Tests ====================
 
   @Test
-  fun `ConfirmSkip navigates to PinCreate and clears dialog`() = runTest {
+  fun `ConfirmSkip when not storage capable navigates to PinCreate and clears dialog`() = runTest {
     val viewModel = createViewModel(isPreRegistration = false)
-    val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true)
+    val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true, storageCapable = false)
 
     viewModel.applyEvent(initialState, ArchiveRestoreSelectionScreenEvents.ConfirmSkip, stateEmitter)
 
@@ -202,6 +202,22 @@ class ArchiveRestoreSelectionViewModelTest {
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isEqualTo(RegistrationRoute.PinCreate)
+    assertThat(emittedStates.last().showSkipWarningDialog).isFalse()
+  }
+
+  @Test
+  fun `ConfirmSkip when storage capable navigates to PinEntryForSvrRestore and clears dialog`() = runTest {
+    val viewModel = createViewModel(isPreRegistration = false)
+    val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true, storageCapable = true)
+
+    viewModel.applyEvent(initialState, ArchiveRestoreSelectionScreenEvents.ConfirmSkip, stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.PinEntryForSvrRestore)
     assertThat(emittedStates.last().showSkipWarningDialog).isFalse()
   }
 
@@ -248,5 +264,14 @@ class ArchiveRestoreSelectionViewModelTest {
     )
 
     assertThat(viewModel.state.value.showSkipButton).isTrue()
+  }
+
+  @Test
+  fun `applyParentState copies storageCapable from parent`() = runTest {
+    val viewModel = createViewModel()
+
+    val result = viewModel.applyParentState(ArchiveRestoreSelectionState(), RegistrationFlowState(storageCapable = true))
+
+    assertThat(result.storageCapable).isTrue()
   }
 }

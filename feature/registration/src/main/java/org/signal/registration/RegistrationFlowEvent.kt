@@ -25,9 +25,14 @@ sealed interface RegistrationFlowEvent {
   /** The e164 associated with this registration attempt has been updated.  */
   data class E164Chosen(val e164: String) : RegistrationFlowEvent
 
-  /** The user has successfully registered. */
-  data class Registered(val accountEntropyPool: AccountEntropyPool) : RegistrationFlowEvent {
-    override fun toString(): String = "Registered(accountEntropyPool=${accountEntropyPool.displayValue.censor()})"
+  /**
+   * The user has successfully registered.
+   *
+   * @param storageCapable Whether the server reports that this account already has SVR/PIN data, as returned in the
+   * registration response. Used later (e.g. when skipping a restore) to decide between PIN entry and PIN creation.
+   */
+  data class Registered(val accountEntropyPool: AccountEntropyPool, val storageCapable: Boolean) : RegistrationFlowEvent {
+    override fun toString(): String = "Registered(accountEntropyPool=${accountEntropyPool.displayValue.censor()}, storageCapable=$storageCapable)"
   }
 
   /** The master key has been restored from SVR. */

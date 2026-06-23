@@ -234,7 +234,7 @@ class PhoneNumberEntryViewModel(
           Log.i(TAG, "[Register] Successfully re-registered using RRP from pre-existing data.")
           val (response, keyMaterial) = registerResult.result
 
-          parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+          parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
 
           if (response.storageCapable) {
             parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
@@ -320,7 +320,7 @@ class PhoneNumberEntryViewModel(
         Log.i(TAG, "[LocalRestore] Successfully registered using RRP from restored AEP.")
         val (response, keyMaterial) = result.result
 
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
 
         if (response.storageCapable) {
           parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)

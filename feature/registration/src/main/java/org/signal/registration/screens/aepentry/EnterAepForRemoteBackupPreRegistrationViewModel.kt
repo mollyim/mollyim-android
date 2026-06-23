@@ -71,10 +71,10 @@ class EnterAepForRemoteBackupPreRegistrationViewModel(
     when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, existingAccountEntropyPool = aep)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[Submit] Successfully registered using RRP from user-supplied AEP.")
-        val (_, keyMaterial) = result.result
+        val (response, keyMaterial) = result.result
 
         stateEmitter(inputState.copy(isRegistering = false))
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
         parentEventEmitter.navigateTo(RegistrationRoute.RemoteRestore(aep))
       }
       is RequestResult.NonSuccess -> {

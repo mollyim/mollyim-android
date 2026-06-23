@@ -173,7 +173,7 @@ class VerificationCodeViewModel(
       is RequestResult.Success -> {
         val (response, keyMaterial) = registerResult.result
 
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
 
         when {
           response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegister())

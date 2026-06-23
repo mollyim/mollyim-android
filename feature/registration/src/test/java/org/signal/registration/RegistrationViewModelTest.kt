@@ -236,7 +236,7 @@ class RegistrationViewModelTest {
     val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
     advanceUntilIdle()
 
-    viewModel.onEvent(RegistrationFlowEvent.Registered(AccountEntropyPool.generate()))
+    viewModel.onEvent(RegistrationFlowEvent.Registered(AccountEntropyPool.generate(), storageCapable = false))
     advanceUntilIdle()
 
     coVerify(exactly = 0) { mockRepository.saveFlowState(any()) }
@@ -380,10 +380,11 @@ class RegistrationViewModelTest {
 
     val result = viewModel.applyEvent(
       RegistrationFlowState(),
-      RegistrationFlowEvent.Registered(aep)
+      RegistrationFlowEvent.Registered(aep, storageCapable = true)
     )
 
     assertThat(result.accountEntropyPool).isEqualTo(aep)
+    assertThat(result.storageCapable).isTrue()
   }
 
   @Test

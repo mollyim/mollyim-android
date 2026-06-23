@@ -112,7 +112,7 @@ class QuickRestoreQrViewModel(
       is RequestResult.Success -> {
         val (response, keyMaterial) = registerResult.result
         Log.i(TAG, "[Register] Success! reregistration: ${response.reregistration}")
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
         parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forQuickRestore(hasRemoteBackup = message.tier != null))
       }
       is RequestResult.NonSuccess -> {
