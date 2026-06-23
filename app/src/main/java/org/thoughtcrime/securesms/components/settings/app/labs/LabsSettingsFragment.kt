@@ -118,15 +118,6 @@ private fun LabsSettingsContent(
 
       item {
         Rows.ToggleRow(
-          checked = state.groupSuggestionsForMembers,
-          text = "Group Suggestions for Members",
-          label = "When creating a group, show existing groups that have the exact same members.",
-          onCheckChanged = { onEvent(LabsSettingsEvents.ToggleGroupSuggestionsForMembers(it)) }
-        )
-      }
-
-      item {
-        Rows.ToggleRow(
           checked = state.betterSearch,
           text = "Better Search",
           label = "Filter search results by date range and author. Adds a filter button to the search toolbar.",
