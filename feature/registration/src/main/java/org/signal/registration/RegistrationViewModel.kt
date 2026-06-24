@@ -137,34 +137,6 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
     )
   }
 
-  /**
-   * Returns the list of permissions to request based on the current API level.
-   */
-  fun getRequiredPermissions(): List<String> {
-    return buildList {
-      // Notifications (API 33+)
-      if (Build.VERSION.SDK_INT >= 33) {
-        add(Manifest.permission.POST_NOTIFICATIONS)
-      }
-
-      // Contacts
-      add(Manifest.permission.READ_CONTACTS)
-      add(Manifest.permission.WRITE_CONTACTS)
-
-      // Storage/Media
-      if (Build.VERSION.SDK_INT < 29) {
-        add(Manifest.permission.READ_EXTERNAL_STORAGE)
-        add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-      }
-
-      // Phone state
-      add(Manifest.permission.READ_PHONE_STATE)
-      if (Build.VERSION.SDK_INT >= 26) {
-        add(Manifest.permission.READ_PHONE_NUMBERS)
-      }
-    }
-  }
-
   fun getRequiredLinkedDevicePermission(): String? {
     return if (Build.VERSION.SDK_INT >= 33) {
       Manifest.permission.POST_NOTIFICATIONS

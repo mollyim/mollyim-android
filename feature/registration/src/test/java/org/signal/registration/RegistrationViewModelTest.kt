@@ -490,23 +490,6 @@ class RegistrationViewModelTest {
     coVerify { mockRepository.commitFinalRegistrationData() }
   }
 
-  // ==================== getRequiredPermissions Tests ====================
-
-  @Test
-  fun `getRequiredPermissions always includes contacts and phone state`() = runTest(testDispatcher) {
-    coEvery { mockRepository.restoreFlowState() } returns null
-    coEvery { mockRepository.getPreExistingRegistrationData() } returns null
-
-    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
-    advanceUntilIdle()
-
-    val permissions = viewModel.getRequiredPermissions()
-
-    assertThat(permissions.contains(android.Manifest.permission.READ_CONTACTS)).isTrue()
-    assertThat(permissions.contains(android.Manifest.permission.WRITE_CONTACTS)).isTrue()
-    assertThat(permissions.contains(android.Manifest.permission.READ_PHONE_STATE)).isTrue()
-  }
-
   // ==================== preExistingRegistrationData Load Test ====================
 
   @Test

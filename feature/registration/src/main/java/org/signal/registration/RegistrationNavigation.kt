@@ -364,11 +364,19 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val context = LocalContext.current
     val termsAndPrivacyUrl = stringResource(R.string.terms_and_privacy_policy_url)
 
+    val navigateRequestingPermissions = { nextRoute: RegistrationRoute ->
+      if (RegistrationPermissions.hasAllRequiredPermissions(context)) {
+        parentEventEmitter.navigateTo(nextRoute)
+      } else {
+        parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = nextRoute))
+      }
+    }
+
     WelcomeScreen(
       isLinkAndSyncAvailable = registrationRepository.isLinkAndSyncAvailable,
       onEvent = { event ->
         when (event) {
-          WelcomeScreenEvents.Continue -> parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry))
+          WelcomeScreenEvents.Continue -> navigateRequestingPermissions(RegistrationRoute.PhoneNumberEntry)
           WelcomeScreenEvents.LinkDevice -> {
             if (registrationViewModel.getRequiredLinkedDevicePermission().isNullOrBlank()) {
               parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount)
@@ -376,8 +384,8 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
               parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount))
             }
           }
-          WelcomeScreenEvents.HasOldPhone -> parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.QuickRestoreQrScan))
-          WelcomeScreenEvents.DoesNotHaveOldPhone -> parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.ArchiveRestoreSelection.forManualRestore()))
+          WelcomeScreenEvents.HasOldPhone -> navigateRequestingPermissions(RegistrationRoute.QuickRestoreQrScan)
+          WelcomeScreenEvents.DoesNotHaveOldPhone -> navigateRequestingPermissions(RegistrationRoute.ArchiveRestoreSelection.forManualRestore())
           WelcomeScreenEvents.ViewTermsAndPrivacy -> {
             LinkActions.openUrl(context, termsAndPrivacyUrl) { error ->
               when (error) {
@@ -392,9 +400,10 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
 
   // --- Permissions Screen
   entry<RegistrationRoute.Permissions> { key ->
+    val context = LocalContext.current
     val onProceed = { parentEventEmitter.navigateTo(key.nextRoute) }
     val localPermissionsState = permissionsState ?: rememberMultiplePermissionsState(
-      permissions = registrationViewModel.getRequiredPermissions(),
+      permissions = RegistrationPermissions.getRequiredPermissions(context),
       onPermissionsResult = { onProceed() }
     )
     PermissionsScreen(
