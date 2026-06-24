@@ -9,6 +9,7 @@ import im.molly.unifiedpush.model.RegistrationStatus
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
@@ -57,7 +58,7 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         summary = DSLSettingsText.from(getStatusSummary(state)),
       )
 
-      clickPref(
+      BuildConfig.SIGNAL_VAPID_KEY ?: clickPref(
         title = DSLSettingsText.from(R.string.UnifiedPushSettingsFragment__mollysocket_server),
         summary = DSLSettingsText.from(
           if (state.airGapped) {
@@ -87,40 +88,43 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
         )
       }
 
-      dividerPref()
+      if (BuildConfig.SIGNAL_VAPID_KEY.isNullOrBlank()) {
 
-      if (state.airGapped) {
-        val parameters = getServerParameters(state) ?: ""
+        dividerPref()
 
-        clickPref(
-          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
-          summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_copy_to_clipboard)),
-          iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
-          isEnabled = parameters.isNotEmpty(),
-          onClick = {
-            writeTextToClipboard(requireContext(), "Server parameters", parameters)
-          },
-        )
-      } else {
-        val aciOrUnknown = state.aci ?: getString(R.string.Recipient_unknown)
+        if (state.airGapped) {
+          val parameters = getServerParameters(state) ?: ""
 
-        clickPref(
-          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__account_id)),
-          summary = DSLSettingsText.from(aciOrUnknown),
-          iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
-          onClick = {
-            writeTextToClipboard(requireContext(), "Account ID", aciOrUnknown)
-          },
-        )
+          clickPref(
+            title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__server_parameters)),
+            summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_copy_to_clipboard)),
+            iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
+            isEnabled = parameters.isNotEmpty(),
+            onClick = {
+              writeTextToClipboard(requireContext(), "Server parameters", parameters)
+            },
+          )
+        } else {
+          val aciOrUnknown = state.aci ?: getString(R.string.Recipient_unknown)
 
-        clickPref(
-          title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__test_configuration)),
-          summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket)),
-          onClick = {
-            viewModel.pingMollySocket()
-            Toast.makeText(context, getString(R.string.UnifiedPushSettingsFragment__a_test_notification_should_appear_in_a_few_moments), Toast.LENGTH_SHORT).show()
-          },
-        )
+          clickPref(
+            title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__account_id)),
+            summary = DSLSettingsText.from(aciOrUnknown),
+            iconEnd = DSLSettingsIcon.from(R.drawable.symbol_copy_android_24),
+            onClick = {
+              writeTextToClipboard(requireContext(), "Account ID", aciOrUnknown)
+            },
+          )
+
+          clickPref(
+            title = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__test_configuration)),
+            summary = DSLSettingsText.from(getString(R.string.UnifiedPushSettingsFragment__tap_to_request_a_test_notification_from_mollysocket)),
+            onClick = {
+              viewModel.pingMollySocket()
+              Toast.makeText(context, getString(R.string.UnifiedPushSettingsFragment__a_test_notification_should_appear_in_a_few_moments), Toast.LENGTH_SHORT).show()
+            },
+          )
+        }
       }
     }
   }
@@ -139,8 +143,8 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
       state.selected == -1 -> R.string.UnifiedPushSettingsFragment__status_summary_distributor_not_selected
       state.selectedNotAck -> R.string.UnifiedPushSettingsFragment__status_summary_missing_endpoint
       state.endpoint == null -> R.string.UnifiedPushSettingsFragment__status_summary_missing_endpoint
-      state.mollySocketUrl == null && !state.airGapped -> R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing
-      state.device == null -> R.string.UnifiedPushSettingsFragment__status_summary_linked_device_error
+      BuildConfig.SIGNAL_VAPID_KEY == null && state.mollySocketUrl == null && !state.airGapped -> R.string.UnifiedPushSettingsFragment__status_summary_mollysocket_url_missing
+      BuildConfig.SIGNAL_VAPID_KEY == null && state.device == null -> R.string.UnifiedPushSettingsFragment__status_summary_linked_device_error
       else -> getRegistrationStatusSummary(state)
     }
   }

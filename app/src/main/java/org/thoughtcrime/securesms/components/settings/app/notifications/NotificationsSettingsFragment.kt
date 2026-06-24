@@ -425,7 +425,12 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
       NotificationDeliveryMethod.FCM -> viewModel.setPreferredNotificationMethod(method)
       NotificationDeliveryMethod.WEBSOCKET -> viewModel.setPreferredNotificationMethod(method)
       NotificationDeliveryMethod.UNIFIEDPUSH -> {
-        if (method != previousMethod) {
+        if (method == previousMethod) {
+          navigateToUnifiedPushSettings()
+        } else if (BuildConfig.SIGNAL_VAPID_KEY != null) {
+          viewModel.setPreferredNotificationMethod(NotificationDeliveryMethod.UNIFIEDPUSH)
+          linkDefaultDistributorLauncher.launch()
+        } else {
           MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.NotificationsSettingsFragment__mollysocket_server)
             .setMessage(R.string.NotificationsSettingsFragment__to_use_unifiedpush_you_need_access_to_a_mollysocket_server)
@@ -437,8 +442,6 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
               CommunicationActions.openBrowserLink(requireContext(), getString(R.string.mollysocket_setup_url))
             }
             .show()
-        } else {
-          navigateToUnifiedPushSettings()
         }
       }
     }

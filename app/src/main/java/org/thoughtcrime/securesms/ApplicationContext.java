@@ -539,7 +539,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
         Log.d(TAG, "FCM is already disabled.");
       }
       if (method == NotificationDeliveryMethod.UNIFIEDPUSH) {
-        if (SignalStore.account().isLinkedDevice()) {
+        if (BuildConfig.SIGNAL_VAPID_KEY == null && SignalStore.account().isLinkedDevice()) {
           Log.i(TAG, "UnifiedPush not supported in linked devices.");
           updateUnifiedPushStatus(false);
         } else if (!unifiedPushEnabled) {
@@ -587,7 +587,13 @@ public class ApplicationContext extends Application implements AppForegroundObse
   private void updateUnifiedPushStatus(boolean enabled) {
     SignalStore.unifiedpush().setEnabled(enabled);
     if (enabled) {
-      UnifiedPushDistributor.registerApp(SignalStore.unifiedpush().getMollySocketVapid());
+      String vapid;
+      if (BuildConfig.SIGNAL_VAPID_KEY != null) {
+        vapid = BuildConfig.SIGNAL_VAPID_KEY;
+      } else {
+        vapid = SignalStore.unifiedpush().getMollySocketVapid();
+      }
+      UnifiedPushDistributor.registerApp(vapid);
     } else {
       UnifiedPushDistributor.unregisterApp();
     }

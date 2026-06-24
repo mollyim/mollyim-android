@@ -1,0 +1,14 @@
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.whispersystems.signalservice.internal.push
+
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class WebPushSubscription(
+  @JsonProperty val endpoint: String,
+  @JsonProperty val publicKey: String,
+  @JsonProperty val auth: String
+)

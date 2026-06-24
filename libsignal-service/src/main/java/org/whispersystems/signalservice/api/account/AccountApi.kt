@@ -23,6 +23,7 @@ import org.whispersystems.signalservice.internal.push.ReserveUsernameResponse
 import org.whispersystems.signalservice.internal.push.SetUsernameLinkRequestBody
 import org.whispersystems.signalservice.internal.push.SetUsernameLinkResponseBody
 import org.whispersystems.signalservice.internal.push.VerifyAccountResponse
+import org.whispersystems.signalservice.internal.push.WebPushSubscription
 import org.whispersystems.signalservice.internal.push.WhoAmIResponse
 import org.whispersystems.signalservice.internal.put
 import org.whispersystems.signalservice.internal.websocket.WebSocketRequestMessage
@@ -62,6 +63,24 @@ class AccountApi(private val authWebSocket: SignalWebSocket.AuthenticatedWebSock
    */
   fun clearFcmToken(): NetworkResult<Unit> {
     val request = WebSocketRequestMessage.delete("/v1/accounts/gcm")
+    return NetworkResult.fromWebSocketRequest(authWebSocket, request)
+  }
+
+  /**
+   * PUT /v1/accounts/webpush
+   * - 200: Success
+   */
+  fun setWebPush(endpoint: String, publicKey: String, auth: String): NetworkResult<Unit> {
+    val request = WebSocketRequestMessage.put("/v1/accounts/webpush", WebPushSubscription(endpoint, publicKey, auth))
+    return NetworkResult.fromWebSocketRequest(authWebSocket, request)
+  }
+
+  /**
+   * DELETE /v1/account/webpush
+   * - 204: Success
+   */
+  fun clearWebPush(): NetworkResult<Unit> {
+    val request = WebSocketRequestMessage.delete("/v1/accounts/webpush")
     return NetworkResult.fromWebSocketRequest(authWebSocket, request)
   }
 
