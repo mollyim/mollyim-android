@@ -28,6 +28,11 @@ android {
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
+screenshotTests {
+  // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
+  imageDifferenceThreshold = 0.0001f
+}
+
 wire {
   kotlin {
     javaInterop = true

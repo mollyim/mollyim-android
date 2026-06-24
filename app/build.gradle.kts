@@ -128,6 +128,11 @@ ktlint {
   version.set("1.5.0")
 }
 
+screenshotTests {
+  // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
+  imageDifferenceThreshold = 0.0001f
+}
+
 android {
   namespace = "org.thoughtcrime.securesms"
 
