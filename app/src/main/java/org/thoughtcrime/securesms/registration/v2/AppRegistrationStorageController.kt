@@ -53,6 +53,7 @@ import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
+import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
@@ -243,7 +244,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     applyRestoreDecision(data.restoreDecision)
 
-    Unit
+    RegistrationUtil.maybeMarkRegistrationComplete()
   }
 
   /**
