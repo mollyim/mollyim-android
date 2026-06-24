@@ -53,6 +53,7 @@ import kotlin.time.Duration.Companion.seconds
 class MessageBackupsFlowViewModel(
   private val initialTierSelection: MessageBackupTier?,
   googlePlayApiAvailability: Int,
+  private val isCredentialManagerSupported: Boolean,
   startScreen: MessageBackupsStage = if (SignalStore.backup.backupTier == null) MessageBackupsStage.EDUCATION else MessageBackupsStage.TYPE_SELECTION
 ) : ViewModel(), BackupKeyCredentialManagerHandler {
 
@@ -238,8 +239,9 @@ class MessageBackupsFlowViewModel(
       when (it.stage) {
         MessageBackupsStage.CANCEL -> error("Unsupported state transition from terminal state CANCEL")
         MessageBackupsStage.EDUCATION -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_EDUCATION)
-        MessageBackupsStage.BACKUP_KEY_EDUCATION -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_RECORD)
-        MessageBackupsStage.BACKUP_KEY_RECORD -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_VERIFY)
+        MessageBackupsStage.BACKUP_KEY_EDUCATION -> it.copy(stage = if (isCredentialManagerSupported) MessageBackupsStage.BACKUP_KEY_RECORD else MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY)
+        MessageBackupsStage.BACKUP_KEY_RECORD -> it.copy(stage = MessageBackupsStage.TYPE_SELECTION)
+        MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_VERIFY)
         MessageBackupsStage.BACKUP_KEY_VERIFY -> it.copy(stage = MessageBackupsStage.TYPE_SELECTION)
         MessageBackupsStage.TYPE_SELECTION -> validateTypeAndUpdateState(it)
         MessageBackupsStage.CHECKOUT_SHEET -> it.copy(stage = MessageBackupsStage.PROCESS_PAYMENT)
@@ -262,7 +264,8 @@ class MessageBackupsFlowViewModel(
           MessageBackupsStage.EDUCATION -> MessageBackupsStage.CANCEL
           MessageBackupsStage.BACKUP_KEY_EDUCATION -> MessageBackupsStage.EDUCATION
           MessageBackupsStage.BACKUP_KEY_RECORD -> MessageBackupsStage.BACKUP_KEY_EDUCATION
-          MessageBackupsStage.BACKUP_KEY_VERIFY -> MessageBackupsStage.BACKUP_KEY_RECORD
+          MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY -> if (isCredentialManagerSupported) MessageBackupsStage.BACKUP_KEY_RECORD else MessageBackupsStage.BACKUP_KEY_EDUCATION
+          MessageBackupsStage.BACKUP_KEY_VERIFY -> MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY
           MessageBackupsStage.TYPE_SELECTION -> MessageBackupsStage.BACKUP_KEY_RECORD
           MessageBackupsStage.CHECKOUT_SHEET -> MessageBackupsStage.TYPE_SELECTION
           MessageBackupsStage.CREATING_IN_APP_PAYMENT -> MessageBackupsStage.CREATING_IN_APP_PAYMENT
@@ -274,6 +277,12 @@ class MessageBackupsFlowViewModel(
 
         it.copy(stage = previousScreen)
       }
+    }
+  }
+
+  fun goToRecordManually() {
+    internalStateFlow.update {
+      it.copy(stage = MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY)
     }
   }
 
