@@ -607,14 +607,6 @@ class MainActivity :
           }
         }
 
-        LaunchedEffect(wrappedNavigator.scaffoldValue.primary) {
-          if (wrappedNavigator.scaffoldValue.primary == PaneAdaptedValue.Hidden &&
-            mainNavigationState.currentListLocation.isChatsTab
-          ) {
-            mainNavigationViewModel.onChatsDetailPaneCollapsed()
-          }
-        }
-
         val noEnterTransitionFactory = remember {
           AppScaffoldAnimationStateFactory(
             enabledStates = AppScaffoldNavigator.NavigationState.entries.filterNot {
@@ -736,16 +728,14 @@ class MainActivity :
           primaryContent = {
             when (mainNavigationState.currentListLocation) {
               MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> {
-                if (mainNavigationViewModel.chatsBackStackEntries.isNotEmpty()) {
-                  NavDisplay(
-                    backStack = mainNavigationViewModel.chatsBackStackEntries,
-                    onBack = { mainNavigationViewModel.popChatsDetailLocation() },
-                    transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                    popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                    predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                    entryProvider = entryProvider { chatsNavEntries(convoTransitionState) }
-                  )
-                }
+                NavDisplay(
+                  backStack = mainNavigationViewModel.chatsBackStackEntries,
+                  onBack = { mainNavigationViewModel.popChatsDetailLocation() },
+                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
+                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
+                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
+                  entryProvider = entryProvider { chatsNavEntries(convoTransitionState) }
+                )
               }
 
               MainNavigationListLocation.CALLS -> {

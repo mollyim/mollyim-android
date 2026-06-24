@@ -6,7 +6,6 @@
 package org.thoughtcrime.securesms.main
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
 import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
@@ -172,15 +171,12 @@ class MainNavigationViewModel(
 
   fun onSplitPaneChanged(isSplitPane: Boolean) {
     this@MainNavigationViewModel.isSplitPane = isSplitPane
-    chatsBackStack.updateEmptyDetailForPaneMode(isSplitPane)
 
-    // if no conversation is selected, clear the empty detail pane when switching from split pane to single pane mode.
-    if (!isSplitPane &&
-      internalMainNavigationState.value.currentListLocation.isChatsTab &&
-      !chatsBackStack.hasConversation &&
-      navigator?.scaffoldValue?.primary == PaneAdaptedValue.Expanded
-    ) {
-      navigatorScope?.launch { navigator?.navigateBack() }
+    if (!isSplitPane) {
+      if (chatsBackStack.isEmpty) {
+        lockPaneToSecondary = true
+        setFocusedPane(ThreePaneScaffoldRole.Secondary)
+      }
     }
   }
 
@@ -295,7 +291,7 @@ class MainNavigationViewModel(
     val currentListLocation = internalMainNavigationState.value.currentListLocation
 
     when (location) {
-      is MainNavigationDetailLocation.Empty if currentListLocation.isChatsTab -> chatsBackStack.reset(isSplitPane)
+      is MainNavigationDetailLocation.Empty if currentListLocation.isChatsTab -> clearDetailLocation(chatsBackStack)
       is MainNavigationDetailLocation.Chats -> pushChatsDetailLocation(location)
       is MainNavigationDetailLocation.Conversation -> goToConversation(location)
 
@@ -329,26 +325,27 @@ class MainNavigationViewModel(
   }
 
   private fun pushChatsDetailLocation(location: MainNavigationDetailLocation) {
+    if (location is MainNavigationDetailLocation.Chats && chatsBackStack.activeRecipientId != location.controllerKey) {
+      chatsBackStack.reset()
+    }
+
     chatsBackStack.push(location)
-    updateActiveStateForLocation(location)
     setFocusedPane(ThreePaneScaffoldRole.Primary)
   }
 
-  /**
-   * Inverse of [pushChatsDetailLocation]. Pops the top chats detail entry and, if no conversation
-   * remains, records the user's intent to stay on the list pane (so a subsequent config change does
-   * not errantly restore them to the Primary/detail pane).
-   */
   fun popChatsDetailLocation() {
     chatsBackStack.pop()
-    if (!chatsBackStack.hasConversation) {
+    if (chatsBackStack.isEmpty) {
       lockPaneToSecondary = true
+      setFocusedPane(ThreePaneScaffoldRole.Secondary)
     }
   }
 
-  fun onChatsDetailPaneCollapsed() {
-    if (!chatsBackStack.hasConversation) {
-      chatsBackStack.reset(isSplitPane)
+  private fun clearDetailLocation(backStack: ChatsBackStack) {
+    backStack.reset()
+    if (!isSplitPane) {
+      lockPaneToSecondary = true
+      setFocusedPane(ThreePaneScaffoldRole.Secondary)
     }
   }
 

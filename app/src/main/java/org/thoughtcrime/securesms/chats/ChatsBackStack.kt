@@ -33,7 +33,7 @@ class ChatsBackStack(savedStateHandle: SavedStateHandle) {
     key = KEY,
     saver = saver
   ) {
-    mutableStateListOf()
+    mutableStateListOf(MainNavigationDetailLocation.Empty)
   }
 
   val activeRecipientId: RecipientId?
@@ -45,8 +45,8 @@ class ChatsBackStack(savedStateHandle: SavedStateHandle) {
       }
     }
 
-  val hasConversation: Boolean
-    get() = entries.any { it is MainNavigationDetailLocation.Conversation }
+  val isEmpty: Boolean
+    get() = entries.singleOrNull() is MainNavigationDetailLocation.Empty
 
   /**
    * Pushes an entry onto the stack.
@@ -76,21 +76,10 @@ class ChatsBackStack(savedStateHandle: SavedStateHandle) {
   /**
    * Resets the stack to its base empty state.
    */
-  fun reset(isSplitPane: Boolean) {
-    entries.clear()
-    if (isSplitPane) {
+  fun reset() {
+    entries.removeAll { it !is MainNavigationDetailLocation.Empty }
+    if (entries.isEmpty()) {
       entries.add(MainNavigationDetailLocation.Empty)
-    }
-  }
-
-  /**
-   * Ensures that [MainNavigationDetailLocation.Empty] is present in the stack iff isSplitPane=true.
-   */
-  fun updateEmptyDetailForPaneMode(isSplitPane: Boolean) {
-    val hasEmptyBase = entries.firstOrNull() is MainNavigationDetailLocation.Empty
-    when {
-      isSplitPane && !hasEmptyBase -> entries.add(0, MainNavigationDetailLocation.Empty)
-      !isSplitPane && hasEmptyBase -> entries.removeAll { it is MainNavigationDetailLocation.Empty }
     }
   }
 }
