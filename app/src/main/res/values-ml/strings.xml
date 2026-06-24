@@ -273,62 +273,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">മനസ്സിലായി</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">നിങ്ങളുടെ ഉപകരണത്തിൽ വീഡിയോ റെക്കോർഡിംഗ് പിന്തുണയില്ല</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">ഫോട്ടോയ്‌ക്കായി അമർത്തുക, വീഡിയോയ്‌ക്കായി പിടിക്കുക</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">ക്യാപ്‌ചർ ചെയ്യുക</string>
-    <string name="CameraXFragment_change_camera_description">ക്യാമറ മാറ്റുക</string>
-    <string name="CameraXFragment_open_gallery_description">ഗാലറി തുറക്കുക</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">ആക്സസ് അനുവദിക്കുക</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">നിങ്ങളുടെ ക്യാമറയിലേക്കും മൈക്രോഫോണിലേക്കും ആക്‌സസ് അനുവദിക്കുക</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">നിങ്ങളുടെ ക്യാമറയിലേക്ക് ആക്സസ് അനുവദിക്കുക</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">നിങ്ങളുടെ മൈക്രോഫോണിലേക്ക് ആക്‌സസ് അനുവദിക്കുക</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">ഫോട്ടോകൾ എടുക്കാൻ, ക്യാമറയിലേക്ക് Signal-ന് ആക്‌സസ് അനുവദിക്കുക.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">ഫോട്ടോകളും വീഡിയോയും എടുക്കാൻ ക്യാമറയിലേക്ക് Signal-ന് ആക്സസ് അനുവദിക്കുക.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">ഫോട്ടോകളും വീഡിയോയും എടുക്കാൻ, ക്യാമറയിലേക്കും മൈക്രോഫോണിലേക്കും Signal-ന് ആക്‌സസ് അനുവദിക്കുക.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">ശബ്ദത്തോടെ വീഡിയോകൾ എടുക്കാൻ, നിങ്ങളുടെ മൈക്രോഫോണിലേക്ക് Signal-ന് ആക്‌സസ് അനുവദിക്കുക.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">ഒരു QR കോഡ് സ്കാൻ ചെയ്യാൻ, ക്യാമറയിലേക്ക് Signal-ന് ആക്സസ് അനുവദിക്കുക.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">ഫോട്ടോകൾ എടുക്കാൻ Signal-ന് ക്യാമറ ആക്സസ് ആവശ്യമാണ്</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR കോഡുകൾ സ്കാൻ ചെയ്യാൻ Signal-ന് ക്യാമറ ആക്സസ് ആവശ്യമാണ്</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">വീഡിയോ ക്യാപ്‌ചർ ചെയ്യാൻ Signal-ന് മൈക്രോഫോൺ ആക്‌സസ് ആവശ്യമാണ്</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Signal-ൽ ഫോട്ടോകൾ എടുക്കാൻ:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Signal-ൽ ഫോട്ടോകളും വീഡിയോകളും എടുക്കാൻ:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">ശബ്ദത്തോടെ വീഡിയോകൾ എടുക്കാൻ:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">QR കോഡുകൾ സ്കാൻ ചെയ്യാൻ:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">ഫോട്ടോ എടുക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">ഫോട്ടോ പ്രോസസ്സ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">ക്യാമറ മാറുക</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">ഫ്ലാഷ് ഓഫാണ്</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">ഫ്ലാഷ് ഓണാണ്</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">ഫ്ലാഷ് ഓട്ടോ</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">അയയ്‌ക്കുക</string>
 
     <string name="CameraContacts__menu_search">തിരയൽ</string>
 
@@ -530,7 +474,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ഫോട്ടോകളോ വീഡിയോയോ എടുക്കാൻ Signal-ന് ക്യാമറാ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചിരിക്കുകയാണ്. ആപ്പ് ക്രമീകരണങ്ങളിൽ ചെന്ന്, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"ക്യാമറ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ഫോട്ടോകളോ വീഡിയോയോ എടുക്കാൻ Signal-ന് ക്യാമറ അനുമതി ആവശ്യമാണ്</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ശബ്‌ദം ഉപയോഗിച്ച് വീഡിയോകൾ പകർത്താൻ മൈക്രോഫോൺ അനുമതി പ്രവർത്തനക്ഷമമാക്കുക.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">വീഡിയോകൾ റെക്കോർഡുചെയ്യാൻ Signal-ന് മൈക്രോഫോൺ അനുമതി ആവശ്യമാണ്, പക്ഷേ അവ നിരസിക്കപ്പെട്ടു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"മൈക്രോഫോൺ\", \"ക്യാമറ\" എന്നിവ പ്രവർത്തനക്ഷമമാക്കുക.</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">വീഡിയോകൾ റെക്കോർഡുചെയ്യാൻ Signal-ന് മൈക്രോഫോൺ അനുമതി ആവശ്യമാണ്.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -721,6 +664,12 @@
     <string name="ConversationFragment_group_names">ഗ്രൂപ്പ് നാമങ്ങൾ</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">ഫോട്ടോ ഡൗൺലോഡ് ചെയ്യാനായില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">ഇത്രയും നേരം പിൻ ചെയ്‌ത് സൂക്ഷിക്കുക…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1021,7 +970,6 @@
     <string name="CustomDefaultPreference_none">ഒന്നുമില്ല</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">ഒരു ഫോട്ടോ എടുക്കുന്നതിന് ക്യാമറ അനുമതി ആവശ്യമാണ്.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">നിങ്ങളുടെ ഗാലറി കാണുന്നതിന് സ്റ്റോറേജ് അനുമതി ആവശ്യമാണ്.</string>
 
     <!-- DateUtils -->
@@ -1502,6 +1450,12 @@
     <string name="AddGroupDetailsFragment__remove">നീക്കം ചെയ്യൂ</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS കോൺടാക്റ്റ്</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">ഈ ഗ്രൂപ്പിൽ നിന്ന് %1$s എന്നയാളെ നീക്കം ചെയ്യണോ?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Signal ഗ്രൂപ്പുകളെ പിന്തുണയ്‌ക്കാത്ത ഒരു കോൺടാക്‌റ്റ് നിങ്ങൾ തിരഞ്ഞെടുത്തു, അതിനാൽ ഈ ഗ്രൂപ്പ് MMS ആയിരിക്കും. കസ്റ്റം MMS ഗ്രൂപ്പ് പേരുകളും ഫോട്ടോകളും നിങ്ങൾക്ക് മാത്രമേ ദൃശ്യമാകൂ.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3394,7 +3348,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">പരാജയങ്ങൾ</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">ആന്തരിക പ്രശ്നങ്ങൾ</string>
     <string name="NotificationChannel_backups">ബാക്കപ്പുകൾ</string>
     <string name="NotificationChannel_locked_status">ലോക്ക് നില</string>
     <string name="NotificationChannel_app_updates">അപ്ലിക്കേഷൻ അപ്‌ഡേറ്റുകൾ</string>
@@ -6058,10 +6012,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">ഉയർന്ന നിലവാരമുള്ള മീഡിയ അയയ്ക്കുന്നത് കൂടുതൽ ഡാറ്റ ഉപയോഗിക്കും.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">ശബ്ദ സന്ദേശങ്ങളും സ്റ്റിക്കറുകളും (%1$s-ൽ കുറവുള്ളവ) എല്ലായ്‌പ്പോഴും സ്വയം ഡൗൺലോഡ് ചെയ്യപ്പെടും.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">ഉയർന്നത്</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">സ്റ്റാൻഡേർഡ്</string>
     <string name="DataAndStorageSettingsFragment__calls">കോളുകൾ</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">പശ്ചാത്തലത്തിൽ കണക്റ്റ് ചെയ്ത് തുടരുക</string>
@@ -8769,7 +8719,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">ഓഫ്</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">പരിശോധിച്ചുറപ്പിക്കേണ്ടതുണ്ട്</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">പേയ്മെൻ്റ് ചരിത്രം</string>
     <!-- Section header for backup information -->
@@ -9159,6 +9109,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">നിങ്ങൾ ബാക്കപ്പുകൾ സജ്ജീകരിക്കുന്നത് പൂർത്തിയാക്കിയിട്ടില്ല, ഒരു ബാക്കപ്പും സൃഷ്ടിച്ചിട്ടില്ല. നിങ്ങൾക്ക് ക്രമീകരണങ്ങളിൽ ബാക്കപ്പുകൾ പ്രവർത്തനക്ഷമമാക്കാം.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ബാക്കപ്പ് സജ്ജീകരണത്തിൽ നിന്ന് പുറത്തുകടക്കുക</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9891,8 +9859,11 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">ഈ ഗ്രൂപ്പിൽ, നിങ്ങളുടെ ഫോട്ടോയ്ക്ക് സമീപം നിങ്ങളുടെ \'ആമുഖം\' എന്നതിന് പകരം നിങ്ങളുടെ മെമ്പര്‍ ലേബൽ പ്രദർശിപ്പിക്കും.</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="one">%1$d group with the same members</item>
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">ബാക്കപ്പ് പുനഃസ്ഥാപിക്കാൻ കഴിയില്ല</string>

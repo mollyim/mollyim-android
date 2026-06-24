@@ -271,62 +271,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">เข้าใจแล้ว</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">อุปกรณ์ของคุณไม่รองรับการบันทึกวิดีโอ</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">แตะสำหรับรูปภาพ กดค้างสำหรับวิดีโอ</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">ถ่ายรูป</string>
-    <string name="CameraXFragment_change_camera_description">เปลี่ยนกล้อง</string>
-    <string name="CameraXFragment_open_gallery_description">เปิดอัลบั้มภาพ</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">อนุญาตให้เข้าถึง</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">อนุญาตให้เข้าถึงกล้องและไมโครโฟนของคุณ</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">อนุญาตให้เข้าถึงกล้องของคุณ</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">อนุญาตให้เข้าถึงไมโครโฟนของคุณ</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">อนุญาตให้ Signal เข้าถึงกล้องเพื่อถ่ายภาพ</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">อนุญาต Signal ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">อนุญาตให้ Signal เข้าถึงกล้องและไมโครโฟนเพื่อถ่ายภาพและบันทึกวิดีโอ</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">อนุญาตให้ Signal เข้าถึงไมโครโฟนของคุณเพื่อบันทึกวิดีโอพร้อมเสียง</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">อนุญาตให้ Signal เข้าถึงกล้องเพื่อสแกนคิวอาร์โค้ด</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อถ่ายภาพ</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อสแกนคิวอาร์โค้ด</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อบันทึกวิดีโอ</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">เพื่อถ่ายภาพบน Signal:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">เพื่อถ่ายภาพและบันทึกวิดีโอบน Signal:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">เพื่อบันทึกวิดีโอพร้อมเสียง:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">เพื่อสแกนคิวอาร์โค้ด:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">ไม่สามารถถ่ายภาพได้ โปรดลองอีกครั้ง</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">ไม่สามารถประมวลผลรูปภาพได้ โปรดลองอีกครั้ง</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">สลับกล้อง</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">ปิดแฟลชอยู่</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">เปิดแฟลชอยู่</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">แฟลชอัตโนมัติ</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">ส่ง</string>
 
     <string name="CameraContacts__menu_search">ค้นหา</string>
 
@@ -526,7 +470,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Signal ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">อนุญาตให้เปิดใช้งานไมโครโฟนเพื่อถ่ายภาพวิดีโอพร้อมเสียง</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -707,6 +650,12 @@
     <string name="ConversationFragment_group_names">ชื่อกลุ่ม</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">ไม่สามารถดาวน์โหลดรูปภาพได้ โปรดลองอีกครั้ง</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">ปักหมุดไว้เป็นเวลา…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -997,7 +946,6 @@
     <string name="CustomDefaultPreference_none">ไม่มี</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">การถ่ายภาพจะต้องให้อนุญาตเข้าถึงกล้อง</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">การดูรูปภาพจะต้องให้อนุญาตการเข้าถึงพื้นที่เก็บข้อมูล</string>
 
     <!-- DateUtils -->
@@ -1458,6 +1406,12 @@
     <string name="AddGroupDetailsFragment__remove">ลบ</string>
     <string name="AddGroupDetailsFragment__sms_contact">ผู้ติดต่อ SMS</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">ลบ %1$s ออกจากกลุ่มนี้หรือไม่</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">คุณเลือกผู้ติดต่อที่ไม่รองรับการจับกลุ่มบน Signal กลุ่มนี้จึงจะเป็นกลุ่มแบบ MMS โดยชื่อกลุ่ม MMS ที่ตั้งขึ้นเองรวมทั้งรูปภาพจะปรากฏให้เห็นบนอุปกรณ์ของคุณเพียงคนเดียว</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3293,7 +3247,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">ความล้มเหลว</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">ปัญหาภายใน</string>
     <string name="NotificationChannel_backups">ข้อมูลสำรอง</string>
     <string name="NotificationChannel_locked_status">สถานะล็อก</string>
     <string name="NotificationChannel_app_updates">การปรับรุ่นแอป</string>
@@ -5908,10 +5862,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">การส่งสื่อคุณภาพสูงจะใช้ข้อมูลมากขึ้น</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">ระบบจะดาวน์โหลดข้อความเสียงและสติกเกอร์ (ต่ำกว่า %1$s) โดยอัตโนมัติเสมอ</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">สูง</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">มาตรฐาน</string>
     <string name="DataAndStorageSettingsFragment__calls">การโทร</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">เชื่อมต่อเสมอในพื้นหลัง</string>
@@ -8575,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">ปิด</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">ต้องใช้การรับรองความถูกต้อง</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">ประวัติการชำระเงิน</string>
     <!-- Section header for backup information -->
@@ -8961,6 +8911,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">คุณยังดำเนินการตั้งค่าการสำรองข้อมูลไม่เสร็จสิ้น และระบบยังไม่ได้สร้างข้อมูลสำรอง คุณสามารถเปิดใช้งานการสำรองข้อมูลได้ในการตั้งค่า</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ออกจากการตั้งค่าการสำรองข้อมูล</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9688,8 +9656,10 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">ป้ายกำกับสมาชิกของคุณในกลุ่มนี้จะแสดงแทนที่ข้อมูล “เกี่ยวกับ” ที่อยู่ข้างรูปภาพของคุณ</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">ไม่สามารถกู้คืนข้อมูลสำรอง</string>

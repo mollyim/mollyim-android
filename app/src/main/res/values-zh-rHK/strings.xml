@@ -271,62 +271,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">我知道了</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">你的裝置不支援錄製影片</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">輕觸拍攝照片，長按錄製影片</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">擷取</string>
-    <string name="CameraXFragment_change_camera_description">切換鏡頭</string>
-    <string name="CameraXFragment_open_gallery_description">開啟圖片庫</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">允許存取</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">允許存取你的相機及麥克風</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">允許存取你的相機</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">允許連接你的麥克風</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">要拍攝相片，請允許 Signal 存取相機。</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">要拍照或錄影，請允許Signal存取相機。</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">要拍照及錄影，請允許 Signal 存取相機及麥克風。</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">要錄製有聲影片，請允許 Signal 存取你的麥克風。</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">要掃描二維碼，請允許 Signal 存取相機。</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal 需要相機存取權限以拍攝相片</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal 需要相機存取權限以掃描二維碼</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal 需要麥克風存取權限以錄製影片</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">要在 Signal 拍攝相片：</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">要在 Signal 拍照及錄影：</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">要錄製有聲影片：</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">要掃描二維碼：</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">無法擷取相片。請重試。</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">無法處理相片。請重試。</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">切換鏡頭</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">關閉閃光燈</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">開啟閃光燈</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">閃光燈自動模式</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">傳送</string>
 
     <string name="CameraContacts__menu_search">搜尋</string>
 
@@ -526,7 +470,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal需要存取相機來拍照或錄影，但您已經永久拒絕。請前往應用程式設定功能表，按「權限」，然後開啟「相機」。</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal 需要「相機」權限以拍攝照片或影片</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">請啟用咪高峰權限以擷取現場收音的影片。</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal 需要「咪高峰」權限以錄製影片，但已被拒絕。請前往應用程式設定，選擇「權限」，然後啟用「咪高峰」和「相機」。</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal 需要咪高峰權限以錄製影片。</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -707,6 +650,12 @@
     <string name="ConversationFragment_group_names">群組名稱</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">下載相片失敗。請再試一次。</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">釘選時長…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -997,7 +946,6 @@
     <string name="CustomDefaultPreference_none">無</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">拍照需要相機權限。</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">檢視您的圖片庫需要儲存裝置權限。</string>
 
     <!-- DateUtils -->
@@ -1458,6 +1406,12 @@
     <string name="AddGroupDetailsFragment__remove">移除</string>
     <string name="AddGroupDetailsFragment__sms_contact">短訊聯絡人</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">要從此群組中移除 %1$s 嗎？</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">由於你已選擇一個不支援 Signal 群組的聯絡人，此群組將會使用多媒體短訊。只有你可以看見自訂多媒體短訊群組的名稱和相片。</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3293,7 +3247,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">失敗狀況</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">內部問題</string>
     <string name="NotificationChannel_backups">備份</string>
     <string name="NotificationChannel_locked_status">鎖定狀態</string>
     <string name="NotificationChannel_app_updates">應用程式更新</string>
@@ -5908,10 +5862,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">傳送高品質的媒體將會使用較多數據。</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">語音訊息及貼圖（小於 %1$s）每次都會自動下載。</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">高品質</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">標準</string>
     <string name="DataAndStorageSettingsFragment__calls">通話</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">在背景中保持連線</string>
@@ -8575,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">關閉</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">需要身份認證</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">付款紀錄</string>
     <!-- Section header for backup information -->
@@ -8961,6 +8911,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">你尚未完成設定備份，也未建立任何備份。你可以在「設定」中啟用備份。</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">退出備份設定</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9688,8 +9656,10 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">在這個群組中，你的成員標籤將顯示在相片旁邊，取代「關於」的位置。</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">無法還原備份</string>

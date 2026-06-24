@@ -273,62 +273,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Ek verstaan</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Jou toestel ondersteun nie video-opname nie</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Tik vir foto, hou vir video</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Vang</string>
-    <string name="CameraXFragment_change_camera_description">Verander kamera</string>
-    <string name="CameraXFragment_open_gallery_description">Maak galery oop</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Gee toegang</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Laat toegang tot jou kamera en mikrofoon toe</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Laat toegang tot jou kamera toe</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Laat toegang tot jou mikrofoon toe</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Laat Signal toegang tot die kamera toe om foto\'s te neem.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Laat Signal toegang tot die kamera om foto\'s en video op te neem.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Laat Signal toegang tot die kamera en mikrofoon toe om foto\'s en video\'s te neem.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Om video\'s met klank te neem, laat Signal toegang tot jou mikrofoon toe.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Om \'n QR-kode te skandeer, laat Signal toegang tot die kamera toe.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal benodig kameratoegang om foto\'s te neem</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal benodig kameratoegang om QR-kodes te skandeer</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal benodig mikrofoontoegang om video\'s te neem</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Om foto\'s in Signal te neem:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Om foto\'s en video\'s in Signal te neem:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Om video\'s met klank te neem:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">Om QR-kodes te skandeer:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Kon nie foto neem nie. Probeer asb. weer.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Kon nie foto verwerk nie. Probeer asb. weer.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Verander kamera</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Flits af</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Flits aan</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Outoflits</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Stuur</string>
 
     <string name="CameraContacts__menu_search">Soek</string>
 
@@ -530,7 +474,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal het die Kamera-toestemming nodig om foto\'s of video\'s te neem, maar dit is permanent geweier. Gaan asseblief na die programinstellings, kies \"Toestemmings\" en aktiveer \"Kamera\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal benodig toestemming om jou kamera te gebruik om foto\'s en videos te neem</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aktiveer die toestemming van die mikrofoon om videos met klank op te neem.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal het mikrofoontoestemmings nodig om video\'s op te neem, maar dit is geweier. Gaan asseblief na die programinstellings, kies \"Toestemmings\" en skakel \"Mikrofoon\" en \"Kamera\" aan.</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal mikrofoontoestemming nodig om videos op te neem.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -721,6 +664,12 @@
     <string name="ConversationFragment_group_names">Groepname</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Kon nie foto aflaai nie. Probeer weer.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Hou met speld gemerk vir…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1021,7 +970,6 @@
     <string name="CustomDefaultPreference_none">Geen</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Die neem van foto\'s benodig kamera-toestemming.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Om jou galery te sien, is bergingtoestemming nodig.</string>
 
     <!-- DateUtils -->
@@ -1502,6 +1450,12 @@
     <string name="AddGroupDetailsFragment__remove">Verwyder</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS-kontak</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Verwyder %1$s uit die groep?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Jy het \'n kontak gekies wat nie Signal-groepe ondersteun nie, dus sal hierdie groep \'n MMS-groep wees. Pasgemaakte MMS-groepname en foto\'s sal slegs vir jou sigbaar wees.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3394,7 +3348,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Mislukkings</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">Interne probleme</string>
     <string name="NotificationChannel_backups">Rugsteunkopieë</string>
     <string name="NotificationChannel_locked_status">Slotstatus</string>
     <string name="NotificationChannel_app_updates">Toepassingbywerkings</string>
@@ -6058,10 +6012,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Stuur van hoëkwaliteitmedia sal meer data gebruik.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Stemboodskappe en plakkers (onder %1$s) word altyd outomaties afgelaai.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Hoog</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Standaard</string>
     <string name="DataAndStorageSettingsFragment__calls">Oproepe</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Bly in die agtergrond verbind</string>
@@ -8769,7 +8719,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Af</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Bevestiging word vereis</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Betalingsgeskiedenis</string>
     <!-- Section header for backup information -->
@@ -9159,6 +9109,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Jy het nog nie die opstelling van rugsteun voltooi nie, en geen rugsteun is geskep nie. Jy kan rugsteun in Instellings aktiveer.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Verlaat rugsteunopstelling</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9891,8 +9859,11 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">In hierdie groep sal jou Lidfunksie-etiket langs jou foto vertoon word in plaas van jou \"Meer oor my\".</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="one">%1$d group with the same members</item>
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Kan nie rugsteun herwin nie</string>

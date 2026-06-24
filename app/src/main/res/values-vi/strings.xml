@@ -271,62 +271,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Đã hiểu</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Quay video không được hỗ trợ trên thiết bị của bạn</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Nhấn để chụp ảnh, giữ để quay video</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Chụp</string>
-    <string name="CameraXFragment_change_camera_description">Chuyển camera</string>
-    <string name="CameraXFragment_open_gallery_description">Mở bộ sưu tập</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Cho phép Truy cập</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Cho phép truy cập camera và microphone của bạn</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Cho phép truy cập camera của bạn</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Cho phép truy cập microphone của bạn</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Để chụp ảnh, hãy cho phép Signal truy cập camera của bạn.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Để chụp ảnh, hãy cho phép Signal truy cập máy ảnh.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Để chụp ảnh và quay video, hãy cho phép Signal truy cập camera của bạn.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Để quay video có âm thanh, hãy cho phép Signal truy cập microphone của bạn.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Để quét mã QR, hãy cho phép Signal truy cập camera của bạn.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal cần quyền truy cập camera của bạn để chụp ảnh</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal cần quyền truy cập camera của bạn để quét mã QR</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal cần quyền truy cập microphone của bạn để quay video</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Để chụp ảnh trong Signal:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Để chụp ảnh và quay video trong Signal:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Để quay video có âm thanh:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">Để quét mã QR:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Chụp ảnh không thành công. Vui lòng thử lại.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Xử lý ảnh không thành công. Vui lòng thử lại.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Chuyển camera</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Tắt flash</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Bật flash</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Flash tự động</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Gửi</string>
 
     <string name="CameraContacts__menu_search">Tìm kiếm</string>
 
@@ -526,7 +470,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal cần quyền truy cập Máy ảnh để chụp ảnh và quay video, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal cần quyền truy cập Máy ảnh để chụp ảnh và quay video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Cho phép quyền truy cập micro để ghi âm thanh khi quay video.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal cần quyền truy cập micro để quay video nhưng đã bị từ chối. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\".</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal cần quyền truy cập micro để quay video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
@@ -707,6 +650,12 @@
     <string name="ConversationFragment_group_names">Tên nhóm</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Tải ảnh không thành công. Thử lại.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Tiếp tục ghim trong…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -997,7 +946,6 @@
     <string name="CustomDefaultPreference_none">Không</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Cần quyền truy cập máy ảnh để chụp ảnh.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Cần quyền truy cập bộ nhớ để xem bộ sưu tập.</string>
 
     <!-- DateUtils -->
@@ -1458,6 +1406,12 @@
     <string name="AddGroupDetailsFragment__remove">Xóa</string>
     <string name="AddGroupDetailsFragment__sms_contact">Liên hệ SMS</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Xóa %1$s khỏi nhóm này?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Bạn đã chọn một liên hệ không thể tham gia nhóm Signal, vì vậy nhóm này sẽ là nhóm MMS. Tên và ảnh tùy chỉnh của nhóm MMS sẽ chỉ hiển thị cho bạn.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3293,7 +3247,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Thất bại</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">Vấn đề nội bộ</string>
     <string name="NotificationChannel_backups">Sao lưu</string>
     <string name="NotificationChannel_locked_status">Tình trạng khoá</string>
     <string name="NotificationChannel_app_updates">Cập nhật ứng dụng</string>
@@ -5908,10 +5862,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Việc gửi tập tin đa phương tiện chất lượng cao sẽ tốn nhiều lưu lượng hơn.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Tin nhắn thoại và nhãn dán (dưới %1$s) luôn được tự động tải xuống.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Cao</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Tiêu chuẩn</string>
     <string name="DataAndStorageSettingsFragment__calls">Cuộc gọi</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Duy trì kết nối ở chế độ nền</string>
@@ -8575,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Tắt</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Yêu cầu xác thực</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Lịch sử thanh toán</string>
     <!-- Section header for backup information -->
@@ -8961,6 +8911,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Bạn chưa hoàn tất thiết lập sao lưu và chưa tạo được bản sao lưu. Bạn có thể bật sao lưu trong Cài đặt.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Thoát thiết lập</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9688,8 +9656,10 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">Trong nhóm này, Nhãn thành viên của bạn sẽ được hiển thị bên cạnh ảnh của bạn thay cho nội dung Giới thiệu về bạn.</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Không thể khôi phục bản sao lưu</string>

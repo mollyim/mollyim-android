@@ -273,62 +273,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">அறிந்துகொண்டேன்</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">உங்கள் டிவைஸில் வீடியோ பதிவு ஆதரிக்கப்படவில்லை</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">புகைப்படத்திற்கு தட்டவும், காணொளிக்கு தொடர்ந்து அழுத்தவும்</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">பிடிப்பு</string>
-    <string name="CameraXFragment_change_camera_description">கேமராவை மாற்றவும்</string>
-    <string name="CameraXFragment_open_gallery_description">கேலரியை திற</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">அணுகலை அனுமதிக்கவும்</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">உங்கள் கேமரா மற்றும் மைக்ரோஃபோனை அணுக அனுமதிக்கவும்</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">உங்கள் கேமராவை அணுக அனுமதிக்கவும்</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">உங்கள் மைக்ரோஃபோனை அணுக அனுமதிக்கவும்</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">புகைப்படங்களை படமெடுக்க, கேமராவிற்கான சிக்னல் அணுகலை அனுமதிக்கவும்.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Signal-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">புகைப்படங்கள் மற்றும் வீடியோ படமெடுக்க, கேமரா மற்றும் மைக்ரோஃபோனை அணுக சிக்னலை அனுமதிக்கவும்.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">ஒலியுடன் வீடியோக்களை படமெடுக்க, மைக்ரோஃபோனை அணுக சிக்னலை அனுமதிக்கவும்.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR குறியீட்டை ஸ்கேன் செய்ய, கேமராவை அணுக சிக்னலை அனுமதிக்கவும்.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">படங்களை படமெடுக்க சிக்னலுக்கு கேமரா அணுகல் தேவை</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR குறியீடுகளை ஸ்கேன் செய்ய சிக்னலுக்கு கேமரா அணுகல் தேவை</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">வீடியோவை படமெடுக்க, சிக்னலுக்கு மைக்ரோஃபோன் அணுகல் தேவை</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">சிக்னலில் புகைப்படங்களை படமெடுக்க:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">சிக்னலில் புகைப்படங்கள் மற்றும் வீடியோக்களை படமெடுக்க:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">ஒலியுடன் வீடியோக்களை எடுக்க:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">QR குறியீடுகளை ஸ்கேன் செய்ய:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">படத்தை எடுக்க முடியவில்லை. மீண்டும் முயலுங்கள்.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">படத்தைச் செயலாக்க முடியவில்லை. மீண்டும் முயலுங்கள்.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">கேமராவை மாற்று</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">ஃபிளாஷ் ஆஃப் செய்</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">ஃபிளாஷ் ஆன் செய்</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">தானியங்கு ஃபிளாஷ்</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">அனுப்புக</string>
 
     <string name="CameraContacts__menu_search">தேடல்</string>
 
@@ -530,7 +474,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">புகைப்படங்கள் அல்லது வீடியோ எடுக்க Signal-க்கு கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\"-ஐ இயலச் செய்யவும்.</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">புகைப்படங்கள் அல்லது காணொளி எடுக்க Signal-க்கு கேமரா அனுமதி தேவை</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ஒலியுடன் காணொளிகளைப் பிடிக்க மைக்ரோஃபோன் அனுமதியை இயலச் செய்யவும்.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal-க்கு மைக்ரோஃபோன் அனுமதி தேவை.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -721,6 +664,12 @@
     <string name="ConversationFragment_group_names">குழுவின் பெயர்</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">படத்தைப் பதிவிறக்க முடியவில்லை. மீண்டும் முயலவும்.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">இதற்காகப் பின் செய்ததை பராமரிக்கவும்…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1021,7 +970,6 @@
     <string name="CustomDefaultPreference_none">எதுவும் இல்லை</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">புகைப்படம் எடுக்க புகைப்பட கருவி அனுமதி தேவை.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">உங்கள் கேலரியைப் பார்க்க சேமிப்பு அனுமதி தேவை.</string>
 
     <!-- DateUtils -->
@@ -1502,6 +1450,12 @@
     <string name="AddGroupDetailsFragment__remove">அகற்று</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS தொடர்பு</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">இந்த குழுவிலிருந்து %1$s ஐ அகற்ற வேண்டுமா?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">சிக்னல் குழுக்களை ஆதரிக்காத ஒரு தொடர்பை நீங்கள் தேர்ந்தெடுத்துள்ளீர்கள், எனவே இந்தக் குழு எம்.எம்.எஸ் ஆக இருக்கும். தனிப்பயன் எம்.எம்.எஸ் குழுப் பெயர்கள் மற்றும் புகைப்படங்கள் உங்களுக்கு மட்டுமே தெரியப்படும்.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3394,7 +3348,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">தோல்விகள்</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">உள்ளகச் சிக்கல்கள்</string>
     <string name="NotificationChannel_backups">காப்புப் பிரதிகள்</string>
     <string name="NotificationChannel_locked_status">பூட்டு நிலை</string>
     <string name="NotificationChannel_app_updates">பயன்பாடு புதுப்பிப்புகள்</string>
@@ -6058,10 +6012,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">உயர்தரத்தை அனுப்புகிறது ஊடகம் அதிக தரவைப் பயன்படுத்தும்.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">வாய்ஸ் மெசேஜ்கள் மற்றும் ஸ்டிக்கர்கள் (%1$s அளவின் கீழ் உள்ளவை) எப்போதும் தானாகவே பதிவிறக்கப்படுகின்றன.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">உயர்</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">தரநிலை</string>
     <string name="DataAndStorageSettingsFragment__calls">அழைப்புகள்</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">பின்னணியில் இணைந்திரு</string>
@@ -8769,7 +8719,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">ஆஃப்</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">அனுமதி தேவை</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">கட்டண வரலாறு</string>
     <!-- Section header for backup information -->
@@ -9159,6 +9109,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">நீங்கள் காப்புப்பிரதிகளை அமைப்பதை நிறைவு செய்யவில்லை, மேலும் காப்புப்பிரதி எதுவும் உருவாக்கப்படவில்லை. அமைப்புகளில் காப்புப்பிரதிகளை நீங்கள் செயல்படுத்தலாம்.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">காப்புப்பிரதி அமைவிலிருந்து வெளியேறுக</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9891,8 +9859,11 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">இந்தக் குழுவில், உங்களின் அறிமுகம் என்ற பகுதிக்குப் பதிலாக உங்கள் புகைப்படத்திற்கு அருகில் உங்கள் உறுப்பினரின் பதவி நிலை காட்டப்படும்.</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="one">%1$d group with the same members</item>
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">காப்புப்பிரதியை மீட்டெடுக்க முடியவில்லை</string>

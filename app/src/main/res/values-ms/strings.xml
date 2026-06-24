@@ -271,62 +271,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Faham</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Rakaman video tidak disokong pada peranti anda</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Ketik untuk foto, tekan untuk video</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Tangkap</string>
-    <string name="CameraXFragment_change_camera_description">Tukar kamera</string>
-    <string name="CameraXFragment_open_gallery_description">Buka geleri</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Benarkan akses</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Benarkan akses kepada kamera dan mikrofon anda</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Benarkan akses kepada kamera anda</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Benarkan akses kepada mikrofon anda</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Untuk menangkap foto, benarkan Signal untuk mengakses kamera.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Untuk menangkap foto dan video, benarkan Signal untuk mengakses kamera anda.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Untuk menangkap foto dan video, benarkan Signal untuk mengakses kamera dan mikrofon.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Untuk menangkap video dengan bunyi, benarkan Signal untuk mengakses mikrofon anda.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Untuk mengimbas kod QR, benarkan Signal untuk mengakses kamera.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal perlukan akses kamera untuk menangkap foto</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal perlu mengakses kamera untuk mengimbas kod QR</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signal perlu mengakses mikrofon untuk menangkap video</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Untuk menangkap foto dalam Signal:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Untuk menangkap foto dan video dalam Signal:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Untuk menangkap video dengan bunyi:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">Untuk mengimbas kod QR:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Gagal menangkap foto. Sila cuba lagi.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Gagal memproses foto. Sila cuba lagi.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Tukar kamera</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Denyar mati</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Denyar hidup</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Denyar auto</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Hantar</string>
 
     <string name="CameraContacts__menu_search">Cari</string>
 
@@ -526,7 +470,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal memerlukan kebenaran Kamera untuk menangkap foto dan video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal memerlukan kebenaran Kamera untuk menangkap foto dan video</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Dayakan kebenaran mikrofon untuk rakam video dengan bunyi</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal memerlukan kebenaran Mikrofon untuk merakam video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal memerlukan kebenaran mikrofon untuk merakam video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
@@ -707,6 +650,12 @@
     <string name="ConversationFragment_group_names">Nama kumpulan</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Foto gagal dimuat turun. Cuba lagi.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Kekalkan pin selama…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -997,7 +946,6 @@
     <string name="CustomDefaultPreference_none">Tiada</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Mengambil foto memerlukan kebenaran kamera.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Melihat galeri anda memerlukan kebenaran penyimpanan.</string>
 
     <!-- DateUtils -->
@@ -1458,6 +1406,12 @@
     <string name="AddGroupDetailsFragment__remove">Alih keluar</string>
     <string name="AddGroupDetailsFragment__sms_contact">Kenalan SMS</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Keluarkan %1$s daripada kumpulan ini?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Anda telah memilih kenalan yang tidak menyokong kumpulan Signal, jadi kumpulan ini akan menjadi MMS. MMS nama kumpulan dan foto tersuai hanya akan kelihatan kepada anda.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3293,7 +3247,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Kegagalan</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">Isu Dalaman</string>
     <string name="NotificationChannel_backups">Sandaran</string>
     <string name="NotificationChannel_locked_status">Status kunci</string>
     <string name="NotificationChannel_app_updates">Kemas kini aplikasi</string>
@@ -5908,10 +5862,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Menghantar media berkualiti tinggi akan menggunakan lebih banyak data.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Mesej suara dan pelekat (di bawah %1$s) sentiasa dimuat turun secara automatik.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Tinggi</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Standard</string>
     <string name="DataAndStorageSettingsFragment__calls">Panggilan</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Kekal bersambung di latar belakang</string>
@@ -8575,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Mati</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Pengesahan diperlukan</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Sejarah pembayaran</string>
     <!-- Section header for backup information -->
@@ -8961,6 +8911,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Anda belum selesai menetapkan sandaran, dan tiada sandaran telah dibuat. Anda boleh mendayakan sandaran dalam Tetapan.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Keluar daripada tetapan sandaran</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9688,8 +9656,10 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">Dalam kumpulan ini, Label Ahli anda akan dipaparkan di sebelah foto anda sebagai ganti Perihal anda.</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Tidak dapat memulihkan sandaran</string>

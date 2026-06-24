@@ -277,62 +277,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Razumijem</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Snimanje videozapisa nije podržano na vašem uređaju</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Dotaknite za fotografiju, držite pritisnutim za video</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Slikaj</string>
-    <string name="CameraXFragment_change_camera_description">Promijeni kameru</string>
-    <string name="CameraXFragment_open_gallery_description">Otvori galeriju</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Dozvoli pristup</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Dozvolite pristup kameri i mikrofonu</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Dozvolite pristup kameri</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Dozvolite pristup vašem mikrofonu</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Da snimite fotografije, dozvolite Signalu pristup kameri.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Da biste slikali i snimali, dozvolite Signalu da pristupi kameri.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Za snimanje fotografija i videozapisa, dozvolite Signalu pristup kameri i mikrofonu.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Za snimanje videozapisa sa zvukom, dozvolite Signalu pristup mikrofonu.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Da skenirate QR kod, dozvolite Signalu pristup kameri.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal treba pristup kameri za snimanje fotografija</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signalu treba pristup kameri za skeniranje QR kodova</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Signalu treba pristup mikrofonu za snimanje videa</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Za snimanje fotografija u Signalu:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Za snimanje fotografija i videozapisa u Signalu:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Za snimanje videozapisa sa zvukom:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">Za skeniranje QR kodova:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Snimanje fotografije nije uspjelo. Molimo pokušajte ponovno.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Obrada fotografije nije uspjela. Molimo pokušajte ponovno.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Prebaci kameru</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Blic je isključen</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Blic je uključen</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Automatski blic</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Šalji</string>
 
     <string name="CameraContacts__menu_search">Traži</string>
 
@@ -538,7 +482,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati.</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Omogućite pristup mikrofonu da biste snimali video sa zvukom.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati video, ali je ono uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati videozapise.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -749,6 +692,12 @@
     <string name="ConversationFragment_group_names">Naziv grupe</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Preuzimanje fotografije nije uspjelo. Pokušajte ponovo.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Ostavi zakačeno…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1069,7 +1018,6 @@
     <string name="CustomDefaultPreference_none">Nijedno</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Slikanje zahtijeva dopuštenje za pristup kameri.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Pregledanje Vaše galerije zahtijeva dopuštenje za pristup memoriji uređaja.</string>
 
     <!-- DateUtils -->
@@ -1590,6 +1538,12 @@
     <string name="AddGroupDetailsFragment__remove">Ukloni</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS kontakt</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Udalji %1$s iz ove grupe?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Odabrali ste kontakt koji ne podržava Signal grupe pa će ovo biti MMS grupa. Prilagođena MMS imena grupe i fotografije će biti vidljivi samo vama.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3596,7 +3550,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Greške</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">Interni problemi</string>
     <string name="NotificationChannel_backups">Rezervne kopije</string>
     <string name="NotificationChannel_locked_status">Status zaključavanja</string>
     <string name="NotificationChannel_app_updates">Nove verzije aplikacije</string>
@@ -6358,10 +6312,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Slanje visokokvalitetnih zapisa kreirat će veći protok.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Glasovne poruke i naljepnice (manje od %1$s) se uvijek automatski preuzimaju.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Visoki</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Standardni</string>
     <string name="DataAndStorageSettingsFragment__calls">Pozivi</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Omogući povezanost u pozadini</string>
@@ -9157,7 +9107,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Isključeno</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Potrebna je autentifikacija</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Historija plaćanja</string>
     <!-- Section header for backup information -->
@@ -9555,6 +9505,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Niste završili postavljanje sigurnosnih kopija i nijedna sigurnosna kopija nije kreirana. Sigurnosne kopije možete omogućiti u Postavkama.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Izlaz iz podešavanja sigurnosne kopije</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -10297,8 +10265,13 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">U ovoj grupi, vaša oznaka člana će biti prikazana pored vaše fotografije umjesto vaše stranice \"O meni\".</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="one">%1$d group with the same members</item>
+        <item quantity="few">%1$d groups with the same members</item>
+        <item quantity="many">%1$d groups with the same members</item>
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Nije moguće vratiti sigurnosnu kopiju</string>
@@ -10350,7 +10323,7 @@
     <!-- Button opening a help article with more information about recovery key safety -->
     <string name="RecoveryKeyWarningSheetContent__learn_more">Saznaj više</string>
     <!-- Inline link opening a help article with more information about recovery key safety -->
-    <string name="RecoveryKeyWarningSheetContent__learn_more_period">Saznajte više</string>
+    <string name="RecoveryKeyWarningSheetContent__learn_more_period">Saznajte više.</string>
     <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
     <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Ne dijelite ključ</string>
     <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->

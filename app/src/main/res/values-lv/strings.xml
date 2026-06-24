@@ -275,62 +275,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Skaidrs</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Jūsu ierīce neatbalsta video ierakstīšanu</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Pieskarieties, lai uzņemtu bildi, turiet, lai ierakstītu video</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Uzņemt</string>
-    <string name="CameraXFragment_change_camera_description">Nomainīt kameru</string>
-    <string name="CameraXFragment_open_gallery_description">Atvērt galeriju</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Atļaut piekļuvi</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Atļaujiet piekļuvi kamerai un mikrofonam</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Atļaujiet piekļuvi kamerai</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Atļaujiet piekļuvi mikrofonam</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Lai uzņemtu fotoattēlus, atļaujiet Signal piekļuvi kamerai.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Lai uzņemtu fotogrāfijas un video, ļaujiet Signal piekļūt kamerai.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Lai uzņemtu fotoattēlus un videoklipus, atļaujiet Signal piekļuvi kamerai un mikrofonam.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Lai ierakstītu videoklipus un skaņu, atļaujiet Signal piekļuvi mikrofonam.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Lai skenētu QR kodu, atļaujiet Signal piekļuvi kamerai.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Lai varētu uzņemtu fotoattēlus, Signal ir nepieciešama piekļuve kamerai</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Lai varētu skenēt QR kodus, Signal ir nepieciešama piekļuve kamerai</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Lai varētu uzņemt videoklipus, Signal ir nepieciešama piekļuve mikrofonam</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Lai uzņemtu fotoattēlus platformā Signal:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Lai uzņemtu fotoattēlus un videoklipus platformā Signal:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Lai uzņemtu videoklipus ar skaņu:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">Lai skenētu QR kodus:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Neizdevās uzņemt fotoattēlu. Lūdzu, mēģiniet vēlreiz.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Neizdevās apstrādāt fotoattēlu. Lūdzu, mēģiniet vēlreiz.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Pārslēgt kameru</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Zibspuldze izslēgta</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Zibspuldze ieslēgta</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Zibspuldzes automātiskais režīms</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Sūtīt</string>
 
     <string name="CameraContacts__menu_search">Meklēt</string>
 
@@ -534,7 +478,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Lai uzņemtu fotogrāfijas vai video, Signal nepieciešama atļauja piekļūt kamerai, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Lai uzņemtu fotogrāfijas vai video, Signal nepieciešama atļauja piekļūt kamerai</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Ļaujiet Signal piekļūt mikrofonam, lai video tiktu ierakstīts ar skaņu.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal ir vajadzīgas mikrofona atļaujas video ierakstīšanai, taču tās tika liegtas. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un iespējojiet “Mikrofons” un “Kamera”.</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal nepieciešamas mikrofona atļaujas, lai ierakstītu video.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -735,6 +678,12 @@
     <string name="ConversationFragment_group_names">Grupu nosaukumus</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Neizdevās lejupielādēt fotoattēlu. Mēģiniet vēlreiz.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Saglabāt piespraušanu…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1045,7 +994,6 @@
     <string name="CustomDefaultPreference_none">Neko</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Lai fotografētu, nepieciešama kameras lietošanas atļauja.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Lai skatītu galeriju, nepieciešama failu krātuves pieejas atļauja.</string>
 
     <!-- DateUtils -->
@@ -1546,6 +1494,12 @@
     <string name="AddGroupDetailsFragment__remove">Noņemt</string>
     <string name="AddGroupDetailsFragment__sms_contact">Īsziņu kontakts</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Vai dzēst %1$s no šīs grupas?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Jūs atzīmējāt kontaktu, kurš neatbalsta Signal grupas, tāpēc šī būs MMS grupa. Pielāgotos MMS grupu nosaukumus un attēlus redzēsiet tikai jūs.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3495,7 +3449,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Kļūmes</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">Iekšējās problēmas</string>
     <string name="NotificationChannel_backups">Rezerves kopijas</string>
     <string name="NotificationChannel_locked_status">Bloķēšanas (noslēgšanas) statuss</string>
     <string name="NotificationChannel_app_updates">Lietotnes aktualizējumi</string>
@@ -6208,10 +6162,6 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Sūtot augstas kvalitātes multivides saturu, tiks izmantots vairāk datu.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Balss ziņas un uzlīmes (mazākas par %1$s) vienmēr tiek lejupielādētas automātiski.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Augsta</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Standarta</string>
     <string name="DataAndStorageSettingsFragment__calls">Zvani</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
     <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Saglabāt savienojumu fonā</string>
@@ -8963,7 +8913,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Izslēgta</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Nepieciešama autentifikācija</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Maksājumu vēsture</string>
     <!-- Section header for backup information -->
@@ -9357,6 +9307,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Jūs neesat pabeiguši rezerves kopiju iestatīšanu, un nav izveidota neviena rezerves kopija. Rezerves kopijas varat iespējot sadaļā Iestatījumi.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Iziet no rezerves kopijas iestatīšanas</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -10094,8 +10062,12 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">Šajā grupā jūsu lietotāja emblēma būs redzama blakus jūsu fotoattēlam un aizstās informāciju, ko norādījāt sadaļā \"Par mani\".</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="zero">%1$d groups with the same members</item>
+        <item quantity="one">%1$d group with the same members</item>
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Nevar atjaunot rezerves kopiju</string>

@@ -277,62 +277,6 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Rozumiem</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Twoje urządzenie nie obsługuje nagrywania wideo</string>
-
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Dotknij, aby zrobić zdjęcie. Przytrzymaj, aby nagrać wideo.</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Zrób zdjęcie lub nagraj</string>
-    <string name="CameraXFragment_change_camera_description">Przełącz aparat</string>
-    <string name="CameraXFragment_open_gallery_description">Otwórz galerię</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Zezwól na dostęp</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Zezwól na dostęp do aparatu i mikrofonu</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Zezwól na dostęp do aparatu</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Zezwól na dostęp do mikrofonu</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Aby robić zdjęcia, zezwól aplikacji Signal na dostęp do aparatu.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Aby robić zdjęcia i nagrywać wideo, zezwól aplikacji Signal na dostęp do aparatu.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Aby robić zdjęcia i nagrywać wideo, zezwól aplikacji Signal na dostęp do aparatu i mikrofonu.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Aby nagrywać wideo z dźwiękiem, zezwól aplikacji Signal na dostęp do mikrofonu.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">Aby zeskanować kod QR, zezwól aplikacji Signal na dostęp do aparatu.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Aby robić zdjęcia, Signal potrzebuje dostępu do aparatu</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Aby skanować kody QR, Signal potrzebuje dostępu do aparatu</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Aby nagrywać wideo, Signal potrzebuje dostępu do mikrofonu</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Aby robić zdjęcia w aplikacji Signal:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Aby robić zdjęcia i nagrywać wideo w aplikacji Signal:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Aby nagrywać wideo z dźwiękiem:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">Aby skanować kody QR:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Nie udało się zrobić zdjęcia. Spróbuj ponownie.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Nie udało się przetworzyć zdjęcia. Spróbuj ponownie.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Przełącz aparat</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Lampa błyskowa wyłączona</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Lampa błyskowa włączona</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Automatyczna lampa błyskowa</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Udostępnij</string>
 
     <string name="CameraContacts__menu_search">Wyszukaj</string>
 
@@ -538,7 +482,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Aby robić zdjęcia lub nagrywać wideo, musisz zezwolić aplikacji Signal na dostęp do aparatu. Uprawnienie to zostało jednak na stałe wyłączone. Przejdź do menu ustawień aplikacji, otwórz sekcję „Uprawnienia” i włącz uprawnienie „Aparat”.</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Aby robić zdjęcia lub nagrywać wideo, Signal musi mieć dostęp do aparatu</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aby nagrywać wideo z dźwiękiem, zezwól na dostęp do mikrofonu.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Aby nagrywać wideo, musisz zezwolić aplikacji Signal na dostęp do mikrofonu i aparatu. Uprawnienia te zostały jednak na stałe wyłączone. Przejdź do menu ustawień aplikacji, otwórz sekcję „Uprawnienia” i włącz uprawnienia „Mikrofon” oraz „Aparat”.</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Aby nagrywać wideo, Signal musi mieć dostęp do mikrofonu.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -749,6 +692,12 @@
     <string name="ConversationFragment_group_names">Nazwy grup</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Nie udało się pobrać zdjęcia. Spróbuj ponownie.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Przypnij na…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1069,7 +1018,6 @@
     <string name="CustomDefaultPreference_none">Brak</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Aby zrobić zdjęcie, zezwól aplikacji na dostęp do aparatu.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Aby przeglądać galerię, zezwól aplikacji na dostęp do pamięci.</string>
 
     <!-- DateUtils -->
@@ -1590,6 +1538,12 @@
     <string name="AddGroupDetailsFragment__remove">Usuń</string>
     <string name="AddGroupDetailsFragment__sms_contact">Kontakt SMS</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Czy %1$s ma przestać należeć do grupy?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Discard</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Zaznaczyłeś kontakt, którego urządzenie nie obsługuje grup Signal, więc niniejsza grupa będzie grupą MMS-ową. Własne nazwy i zdjęcia grup MMS-owych będą widoczne tylko dla Ciebie.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3596,7 +3550,7 @@
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Nieudane działania</string>
     <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
-    <string name="NotificationChannel_internal_issues">Internal Issues</string>
+    <string name="NotificationChannel_internal_issues">Problemy wewnętrzne</string>
     <string name="NotificationChannel_backups">Kopie zapasowe</string>
     <string name="NotificationChannel_locked_status">Stan blokady</string>
     <string name="NotificationChannel_app_updates">Aktualizacje aplikacji</string>
@@ -6358,15 +6312,11 @@
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Wysyłanie multimediów w wysokiej jakości zużywa więcej danych.</string>
     <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
     <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Wiadomości głosowe i naklejki (poniżej %1$s) zawsze pobierają się automatycznie.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Wysoka</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Standardowa</string>
     <string name="DataAndStorageSettingsFragment__calls">Połączenia</string>
     <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Zachowaj połączenie z usługą w tle</string>
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Zachowuj połączenie w tle</string>
     <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Połączenie z usługą w tle prawdopodobnie spowoduje większe zużycie baterii. Nie dotyczy to wszystkich urządzeń. Włącz tę funkcję, jeśli nie otrzymujesz wszystkich powiadomień.</string>
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Połączenie w tle prawdopodobnie spowoduje większe zużycie baterii. Na większości urządzeń nie jest konieczne. Włącz tę funkcję tylko wtedy, gdy nie otrzymujesz wszystkich powiadomień.</string>
     <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
     <string name="DataAndStorageSettingsFragment__enable">Włącz</string>
 
@@ -9157,7 +9107,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Wyłączone</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Wymagane uwierzytelnienie</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Historia płatności</string>
     <!-- Section header for backup information -->
@@ -9555,6 +9505,24 @@
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Konfiguracja nie została zakończona i nie utworzono żadnej kopii zapasowej. Możesz włączyć tworzenie kopii zapasowych w sekcji „Ustawienia”.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Przerwij konfigurację</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9809,7 +9777,7 @@
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Włączyć tworzenie lokalnych kopii zapasowych?</string>
 
     <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Jeśli chcesz nadal tworzyć kopie zapasowe na urządzeniu, włącz tę opcję na tym koncie. Możesz to zrobić w dowolnym momencie – w tym celu przejdź do sekcji Ustawienia &gt; Kopie zapasowe.</string>
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Jeśli chcesz dalej tworzyć lokalne kopie zapasowe, włącz tę opcję na swoim koncie. Aby to zrobić, przejdź do sekcji Ustawienia &gt; Kopie zapasowe.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Włącz teraz</string>
@@ -10297,8 +10265,13 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">W tej grupie Twoja rola będzie wyświetlana obok Twojego zdjęcia – zamiast informacji z sekcji „O mnie”.</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="one">%1$d group with the same members</item>
+        <item quantity="few">%1$d groups with the same members</item>
+        <item quantity="many">%1$d groups with the same members</item>
+        <item quantity="other">%1$d groups with the same members</item>
+    </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Nie można przywrócić kopii zapasowej</string>
