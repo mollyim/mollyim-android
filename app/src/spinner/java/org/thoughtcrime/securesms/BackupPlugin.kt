@@ -11,7 +11,6 @@ import org.signal.archive.proto.BackupDebugInfo
 import org.signal.archive.proto.FilePointer
 import org.signal.archive.stream.EncryptedBackupReader
 import org.signal.core.util.bytes
-import org.signal.core.util.contentproviders.BlobProvider
 import org.signal.core.util.decodeOrNull
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
@@ -56,7 +55,7 @@ class BackupPlugin : Plugin {
 
   private fun getSelectedRemoteBackup(): String {
     Log.d(TAG, "Downloading file...")
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
     when (val result = BackupRepository.downloadBackupFile(tempBackupFile)) {
       is NetworkResult.Success -> Log.i(TAG, "Download successful")
