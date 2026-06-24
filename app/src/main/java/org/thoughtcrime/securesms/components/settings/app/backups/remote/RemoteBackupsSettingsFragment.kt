@@ -368,7 +368,7 @@ private fun RemoteBackupsSettingsContent(
     promptTitle = stringResource(R.string.RemoteBackupsSettingsFragment__unlock_to_view_backup_key),
     educationSheetMessage = stringResource(R.string.RemoteBackupsSettingsFragment__to_view_your_key),
     onAuthenticationFailed = {
-      Toast.makeText(context, R.string.RemoteBackupsSettingsFragment__authenticatino_required, Toast.LENGTH_SHORT).show()
+      Toast.makeText(context, R.string.RemoteBackupsSettingsFragment__authentication_required, Toast.LENGTH_SHORT).show()
     }
   )
 
