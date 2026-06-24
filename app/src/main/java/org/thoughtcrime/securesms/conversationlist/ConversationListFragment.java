@@ -1251,7 +1251,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
           protected Void doInBackground(Void... params) {
             Log.d(TAG, "[handleDelete] Deleting " + selectedConversations.size() + " chats");
             SignalDatabase.threads().deleteConversations(selectedConversations, true);
-            AppDependencies.getMessageNotifier().updateNotification(requireActivity());
+            AppDependencies.getMessageNotifier().updateNotification(AppDependencies.getApplication());
             Log.d(TAG, "[handleDelete] Delete complete");
             return null;
           }
