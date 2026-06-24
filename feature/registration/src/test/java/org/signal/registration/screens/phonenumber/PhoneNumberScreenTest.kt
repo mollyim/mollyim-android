@@ -94,7 +94,7 @@ class PhoneNumberScreenTest {
     composeTestRule.onNodeWithTag(TestTags.PHONE_NUMBER_NEXT_BUTTON).performClick()
 
     // Then
-    assert(emittedEvent is PhoneNumberEntryScreenEvents.PhoneNumberEntered) {
+    assert(emittedEvent is PhoneNumberEntryScreenEvents.NextClicked) {
       "Expected PhoneNumberEntered event but got $emittedEvent"
     }
   }

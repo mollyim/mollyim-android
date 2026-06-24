@@ -27,9 +27,10 @@ data class PhoneNumberEntryState(
   val oneTimeEvent: OneTimeEvent? = null,
   val preExistingRegistrationData: PreExistingRegistrationData? = null,
   val restoredSvrCredentials: List<NetworkController.SvrCredentials> = emptyList(),
-  val pendingRestoreOption: PendingRestoreOption? = null
+  val pendingRestoreOption: PendingRestoreOption? = null,
+  val initialized: Boolean = false
 ) {
-  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, showDialog=$showDialog, oneTimeEvent=$oneTimeEvent, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption)"
+  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, showDialog=$showDialog, oneTimeEvent=$oneTimeEvent, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized)"
 
   sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent

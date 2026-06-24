@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.i18n.phonenumbers.AsYouTypeFormatter
+import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -63,6 +65,14 @@ class PhoneNumberEntryViewModel(
         restoredSvrCredentials = repository.getRestoredSvrCredentials()
       )
       setDefaultCountry()
+
+      parentState.firstOrNull()?.preExistingRegistrationData?.e164?.let { preExistingE164 ->
+        if (state.value.formattedNumber.isEmpty()) {
+          _state.value = applyFullPhoneNumberEntered(_state.value, preExistingE164)
+        }
+      }
+
+      _state.update { it.copy(initialized = true) }
     }
   }
 
@@ -94,16 +104,20 @@ class PhoneNumberEntryViewModel(
       is PhoneNumberEntryScreenEvents.CountrySelected -> {
         stateEmitter(applyCountrySelected(state, event.countryCode, event.regionCode, event.countryName, event.countryEmoji))
       }
-      is PhoneNumberEntryScreenEvents.PhoneNumberChanged -> {
+      is PhoneNumberEntryScreenEvents.FullPhoneNumberEntered -> {
+        val populatedState = applyFullPhoneNumberEntered(state, event.e164)
+        stateEmitter(populatedState.copy(showDialog = event.autoConfirm && populatedState.isNumberPossible))
+      }
+      is PhoneNumberEntryScreenEvents.NationalNumberChanged -> {
         stateEmitter(applyPhoneNumberChanged(state, event.value))
       }
-      is PhoneNumberEntryScreenEvents.PhoneNumberEntered -> {
+      is PhoneNumberEntryScreenEvents.NextClicked -> {
         stateEmitter(state.copy(showDialog = true))
       }
       is PhoneNumberEntryScreenEvents.PhoneNumberCancelled -> {
         stateEmitter(state.copy(showDialog = false))
       }
-      is PhoneNumberEntryScreenEvents.PhoneNumberSubmitted -> {
+      is PhoneNumberEntryScreenEvents.PhoneNumberConfirmed -> {
         var localState = state.copy(showSpinner = true, showDialog = false)
         stateEmitter(localState)
         localState = applyPhoneNumberSubmitted(localState, parentEventEmitter)
@@ -163,6 +177,32 @@ class PhoneNumberEntryViewModel(
       regionCode = regionCode,
       countryName = countryName,
       countryEmoji = countryEmoji,
+      formattedNumber = formattedNumber
+    )
+  }
+
+  @VisibleForTesting
+  fun applyFullPhoneNumberEntered(state: PhoneNumberEntryState, e164: String): PhoneNumberEntryState {
+    val parsedNumber = try {
+      phoneNumberUtil.parse(e164, null)
+    } catch (e: NumberParseException) {
+      Log.w(TAG, "Failed to parse E164 used to populate phone number.", e)
+      return state
+    }
+
+    val countryCode = parsedNumber.countryCode
+    val nationalNumber = parsedNumber.nationalNumber.toString()
+    val regionCode = phoneNumberUtil.getRegionCodeForNumber(parsedNumber) ?: phoneNumberUtil.getRegionCodeForCountryCode(countryCode)
+
+    formatter = phoneNumberUtil.getAsYouTypeFormatter(regionCode)
+    val formattedNumber = formatNumber(nationalNumber)
+
+    return state.copy(
+      countryCode = countryCode.toString(),
+      regionCode = regionCode,
+      countryName = E164Util.getRegionDisplayName(regionCode).orElse(""),
+      countryEmoji = CountryUtils.countryToEmoji(regionCode).takeIf { regionCode != "ZZ" } ?: "",
+      nationalNumber = nationalNumber,
       formattedNumber = formattedNumber
     )
   }

@@ -9,12 +9,32 @@ import org.signal.core.util.censor
 import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResult
 
 sealed class PhoneNumberEntryScreenEvents {
+  /** The phone country code prefix (i.e. +1) was changed by the user. */
   data class CountryCodeChanged(val value: String) : PhoneNumberEntryScreenEvents()
-  data class PhoneNumberChanged(val value: String) : PhoneNumberEntryScreenEvents()
+
+  /** The national number (basically the number without the country code) was changed by the user. */
+  data class NationalNumberChanged(val value: String) : PhoneNumberEntryScreenEvents()
+
+  /** The user changed the country via the country picker. */
   data class CountrySelected(val countryCode: Int, val regionCode: String, val countryName: String, val countryEmoji: String) : PhoneNumberEntryScreenEvents()
-  data object PhoneNumberEntered : PhoneNumberEntryScreenEvents()
+
+  /**
+   * The user entered their full number all at once. This could be from the Google Play picker or autofilled using READ_PHONE_STATE permission.
+   *
+   * @param autoConfirm If true, we trust the entry enough to skip straight to the confirmation dialog (as if the user had clicked 'next').
+   */
+  data class FullPhoneNumberEntered(val e164: String, val autoConfirm: Boolean = false) : PhoneNumberEntryScreenEvents()
+
+  /** The user clicked the 'next' button. */
+  data object NextClicked : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed or otherwise canceled the dialog that was shown to confirm their phone number. */
   data object PhoneNumberCancelled : PhoneNumberEntryScreenEvents()
-  data object PhoneNumberSubmitted : PhoneNumberEntryScreenEvents()
+
+  /** The user confirmed their phone number in the dialog. */
+  data object PhoneNumberConfirmed : PhoneNumberEntryScreenEvents()
+
+  /** The user requested to open the country picker.  */
   data object CountryPicker : PhoneNumberEntryScreenEvents()
   data class CaptchaCompleted(val token: String) : PhoneNumberEntryScreenEvents() {
     override fun toString(): String = "CaptchaCompleted(token=${token.censor()})"

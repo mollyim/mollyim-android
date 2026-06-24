@@ -79,6 +79,9 @@ dependencies {
   // Phone number formatting
   implementation(libs.google.libphonenumber)
 
+  // Phone number hint
+  implementation(libs.google.play.services.auth)
+
   // Testing
   testImplementation(testFixtures(project(":core:ui")))
   testImplementation(testLibs.junit.junit)
