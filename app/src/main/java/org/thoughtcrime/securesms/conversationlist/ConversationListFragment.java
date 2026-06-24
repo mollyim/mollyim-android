@@ -44,7 +44,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import org.signal.core.ui.compose.Snackbars;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
@@ -66,7 +65,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.signal.core.ui.BottomSheetUtil;
+import org.signal.core.ui.WindowSizeClassExtensionsKt;
+import org.signal.core.ui.compose.Snackbars;
+import org.signal.core.ui.view.Stub;
+import org.signal.core.util.AppForegroundObserver;
 import org.signal.core.util.DimensionUnit;
+import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.Stopwatch;
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -88,13 +93,13 @@ import org.thoughtcrime.securesms.badges.self.expired.ExpiredOneTimeBadgeBottomS
 import org.thoughtcrime.securesms.badges.self.expired.MonthlyDonationCanceledBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.banner.Banner;
 import org.thoughtcrime.securesms.banner.BannerManager;
+import org.thoughtcrime.securesms.banner.banners.ArchiveRestoreStatusBanner;
 import org.thoughtcrime.securesms.banner.banners.ArchiveUploadStatusBanner;
 import org.thoughtcrime.securesms.banner.banners.CdsPermanentErrorBanner;
 import org.thoughtcrime.securesms.banner.banners.CdsTemporaryErrorBanner;
 import org.thoughtcrime.securesms.banner.banners.DeprecatedBuildBanner;
 import org.thoughtcrime.securesms.banner.banners.DeprecatedSdkBanner;
 import org.thoughtcrime.securesms.banner.banners.DozeBanner;
-import org.thoughtcrime.securesms.banner.banners.ArchiveRestoreStatusBanner;
 import org.thoughtcrime.securesms.banner.banners.OutdatedBuildBanner;
 import org.thoughtcrime.securesms.banner.banners.ServiceOutageBanner;
 import org.thoughtcrime.securesms.banner.banners.UnauthorizedBanner;
@@ -123,7 +128,6 @@ import org.thoughtcrime.securesms.contacts.paged.ContactSearchRepository;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchState;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchViewModel;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchViewModelKt;
-import org.thoughtcrime.securesms.search.SearchRepository;
 import org.thoughtcrime.securesms.contacts.selection.ContactSelectionArguments;
 import org.thoughtcrime.securesms.conversation.ConversationUpdateTick;
 import org.thoughtcrime.securesms.conversationlist.chatfilter.ConversationFilterRequest;
@@ -156,23 +160,19 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.search.MessageResult;
 import org.thoughtcrime.securesms.search.SearchFilter;
 import org.thoughtcrime.securesms.search.SearchFilterBottomSheet;
+import org.thoughtcrime.securesms.search.SearchRepository;
 import org.thoughtcrime.securesms.sms.MessageSender;
-import org.signal.core.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
-import org.signal.core.ui.BottomSheetUtil;
-import org.signal.core.ui.view.Stub;
 import org.thoughtcrime.securesms.util.CachedInflater;
 import org.thoughtcrime.securesms.util.ConversationUtil;
-import org.signal.core.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalProxyUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.adapter.mapping.PagingMappingAdapter;
 import org.thoughtcrime.securesms.verify.SelfVerificationFailureSheet;
-import org.signal.core.ui.WindowSizeClassExtensionsKt;
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
 
 import java.lang.ref.WeakReference;
@@ -479,11 +479,11 @@ public class ConversationListFragment extends MainFragment implements Conversati
                                                    }));
 
     if (isSplitPane(getResources())) {
-      lifecycleDisposable.add(mainNavigationViewModel.getObservableActiveChatThreadId()
+      lifecycleDisposable.add(mainNavigationViewModel.getObservableActiveRecipientId()
                                                      .subscribeOn(AndroidSchedulers.mainThread())
-                                                     .subscribe(defaultAdapter::setActiveThreadId));
+                                                     .subscribe(id -> defaultAdapter.setActiveRecipientId(id.orElse(null))));
     } else {
-      defaultAdapter.setActiveThreadId(0);
+      defaultAdapter.setActiveRecipientId(null);
     }
 
     requireCallback().bindScrollHelper(list, getViewLifecycleOwner(), chatFolderList, color -> {

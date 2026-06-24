@@ -12,6 +12,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
+import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Controls the navigation stack used by the chats screen.
@@ -35,11 +36,14 @@ class ChatsBackStack(savedStateHandle: SavedStateHandle) {
     mutableStateListOf()
   }
 
-  val activeConversationThreadId: Long?
-    get() = entries
-      .filterIsInstance<MainNavigationDetailLocation.Conversation>()
-      .lastOrNull()
-      ?.controllerKey
+  val activeRecipientId: RecipientId?
+    get() = entries.asReversed().firstNotNullOfOrNull {
+      when (it) {
+        is MainNavigationDetailLocation.Conversation -> it.conversationArgs.recipientId
+        is MainNavigationDetailLocation.Chats -> it.controllerKey
+        else -> null
+      }
+    }
 
   val hasConversation: Boolean
     get() = entries.any { it is MainNavigationDetailLocation.Conversation }

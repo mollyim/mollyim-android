@@ -46,6 +46,7 @@ import org.thoughtcrime.securesms.megaphone.Megaphone
 import org.thoughtcrime.securesms.megaphone.Megaphones
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.delegate
 import org.thoughtcrime.securesms.window.AppScaffoldNavigator
@@ -92,9 +93,9 @@ class MainNavigationViewModel(
   private val internalIsFullScreenPane = MutableStateFlow(false)
   val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
 
-  val observableActiveChatThreadId: Observable<Long> =
-    snapshotFlow { chatsBackStack.activeConversationThreadId ?: -1L }
-      .combine(isFullScreenPane) { id, expanded -> if (expanded) -1L else id }
+  val observableActiveRecipientId: Observable<Optional<out RecipientId>> =
+    snapshotFlow { chatsBackStack.activeRecipientId }
+      .combine(isFullScreenPane) { id, expanded -> if (expanded) Optional.ofNullable(null) else Optional.ofNullable(id) }
       .asObservable()
 
   private val internalActiveCallId = MutableStateFlow<CallLogRow.Id?>(null)
