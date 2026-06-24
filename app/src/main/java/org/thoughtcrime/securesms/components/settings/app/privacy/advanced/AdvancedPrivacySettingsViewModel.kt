@@ -105,7 +105,8 @@ class AdvancedPrivacySettingsViewModel(
         AppDependencies.application
       ),
       showProgressSpinner = false,
-      allowAutomaticKeyVerification = SignalStore.settings.automaticVerificationEnabled
+      allowAutomaticKeyVerification = SignalStore.settings.automaticVerificationEnabled,
+      isPrimaryDevice = SignalStore.account.isPrimaryDevice
     )
   }
 
