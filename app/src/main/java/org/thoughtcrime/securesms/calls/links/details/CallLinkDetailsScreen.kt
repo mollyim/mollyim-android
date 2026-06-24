@@ -221,7 +221,7 @@ fun CallLinkDetailsScreen(
         )
       }
 
-      if (state.callLink.credentials?.adminPassBytes != null) {
+      if (state.callLink.canModify) {
         item {
           Rows.TextRow(
             text = stringResource(
@@ -273,13 +273,15 @@ fun CallLinkDetailsScreen(
         )
       }
 
-      item {
-        Rows.TextRow(
-          text = stringResource(id = R.string.CallLinkDetailsFragment__delete_call_link),
-          icon = SignalIcons.Trash.imageVector,
-          foregroundTint = MaterialTheme.colorScheme.error,
-          onClick = callback::onDeleteClicked
-        )
+      if (state.callLink.canModify) {
+        item {
+          Rows.TextRow(
+            text = stringResource(id = R.string.CallLinkDetailsFragment__delete_call_link),
+            icon = SignalIcons.Trash.imageVector,
+            foregroundTint = MaterialTheme.colorScheme.error,
+            onClick = callback::onDeleteClicked
+          )
+        }
       }
     }
 
