@@ -142,6 +142,15 @@ private fun LabsSettingsContent(
           onCheckChanged = { onEvent(LabsSettingsEvents.ToggleStickerReplies(it)) }
         )
       }
+
+      item {
+        Rows.ToggleRow(
+          checked = state.muteBreakthroughNotifications,
+          text = "Improved Notification Management",
+          label = "Adds per-conversation controls to let calls and replies break through mute. New options in the sounds & notifications settings for a chat.",
+          onCheckChanged = { onEvent(LabsSettingsEvents.ToggleMuteBreakthroughNotifications(it)) }
+        )
+      }
     }
   }
 }

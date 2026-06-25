@@ -14,5 +14,6 @@ data class LabsSettingsState(
   val incognito: Boolean = false,
   val betterSearch: Boolean = false,
   val starredMessages: Boolean = false,
-  val stickerReplies: Boolean = false
+  val stickerReplies: Boolean = false,
+  val muteBreakthroughNotifications: Boolean = false
 )
