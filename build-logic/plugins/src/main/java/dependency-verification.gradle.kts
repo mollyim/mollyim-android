@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import org.gradle.api.artifacts.component.ProjectComponentIdentifier
-import org.gradle.api.plugins.BasePlugin
-import org.gradle.api.tasks.Exec
 import org.w3c.dom.Element
 import javax.xml.parsers.DocumentBuilderFactory
 
@@ -75,60 +72,16 @@ run {
     }
   }
 
-  // Builds tasks to get task dependencies without actually running them.
-  val resolveForVerification = tasks.register("resolveDependenciesForVerification") {
-    group = "Verification"
-    description = "Resolves all external dependencies on every resolvable configuration (including test/flavor variants) without building anything, so their checksums can be written to verification-metadata.xml."
-  }
-
-  allprojects {
-    // Only buildable modules (those applying the base plugin) have resolvable configurations and a clean
-    // task; skipping the rest avoids empty container projects like :core that have nothing to resolve.
-    plugins.withType<BasePlugin> {
-      val perProjectResolve = tasks.register<ResolveConfigurationsTask>("resolveConfigurationsForVerification") {
-        group = "Verification"
-        description = "Resolves the external dependencies of every resolvable configuration in $path without building."
-
-        val task = this
-        configurations.matching { it.isCanBeResolved }.all {
-          task.artifactFiles.from(
-            incoming.artifactView {
-              isLenient = true
-              componentFilter { it !is ProjectComponentIdentifier }
-            }.files
-          )
-        }
-      }
-      resolveForVerification.configure { dependsOn(perProjectResolve) }
-    }
-  }
-
   // Run when you need to update verification-metadata.
   // Has to be a little funny and call out to the shell so that we can pass in the proper args.
   val isWindows = System.getProperty("os.name").startsWith("Windows", ignoreCase = true)
   val wrapper = if (isWindows) listOf("cmd", "/c", "gradlew.bat") else listOf("./gradlew")
 
-  // Normal resolution
-  val writeHost = tasks.register<Exec>("writeHostVerificationMetadata") {
+  tasks.register<UpdateVerificationMetadataTask>("updateVerificationMetadata") {
     group = "Verification"
-    description = "Pass 1 of updateVerificationMetadata: resolves and writes checksums for dependencies on the host OS, without building."
-    workingDir = rootDir
-    commandLine = wrapper + listOf("--write-verification-metadata", "sha256", "resolveDependenciesForVerification", "--rerun-tasks")
-  }
-
-  // A follow-up tasks that detects platform-specific dependencies and fetches those you don't have (i.e. -linux, -osx, -windows variants)
-  val writeCrossPlatform = tasks.register<Exec>("writeCrossPlatformVerificationMetadata") {
-    group = "Verification"
-    description = "Pass 2 of updateVerificationMetadata: fills in the other OS variants (linux/osx/windows) of platform-specific dependencies."
-    workingDir = rootDir
-    commandLine = wrapper + listOf("--write-verification-metadata", "sha256", "syncCrossPlatformVerification", "--rerun-tasks")
-    mustRunAfter(writeHost)
-  }
-
-  // The actual task that executes all of the above
-  tasks.register("updateVerificationMetadata") {
-    group = "Verification"
-    description = "Updates gradle/verification-metadata.xml with checksums for the host platform and for every other OS variant (linux/osx/windows). Run this after adding or updating a dependency."
-    dependsOn(writeHost, writeCrossPlatform)
+    description = "Rebuilds gradle/verification-metadata.xml with checksums for all current dependencies on the host platform and every other OS variant (linux/osx/windows)."
+    metadataFile.set(rootProject.layout.projectDirectory.file("gradle/verification-metadata.xml"))
+    rootDirectory.set(rootProject.layout.projectDirectory)
+    wrapperCommand.set(wrapper)
   }
 }
