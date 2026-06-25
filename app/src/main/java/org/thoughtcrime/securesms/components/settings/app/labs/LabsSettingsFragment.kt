@@ -133,6 +133,15 @@ private fun LabsSettingsContent(
           onCheckChanged = { onEvent(LabsSettingsEvents.ToggleStarredMessages(it)) }
         )
       }
+
+      item {
+        Rows.ToggleRow(
+          checked = state.stickerReplies,
+          text = "Sticker Replies",
+          label = "Keep a pending quote when sending a sticker so the sticker is sent as a reply. Normally the quote is dropped when you send a sticker.",
+          onCheckChanged = { onEvent(LabsSettingsEvents.ToggleStickerReplies(it)) }
+        )
+      }
     }
   }
 }

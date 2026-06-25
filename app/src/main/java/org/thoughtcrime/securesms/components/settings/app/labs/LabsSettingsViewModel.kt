@@ -37,6 +37,10 @@ class LabsSettingsViewModel : ViewModel() {
         SignalStore.labs.starredMessages = event.enabled
         _state.value = _state.value.copy(starredMessages = event.enabled)
       }
+      is LabsSettingsEvents.ToggleStickerReplies -> {
+        SignalStore.labs.stickerReplies = event.enabled
+        _state.value = _state.value.copy(stickerReplies = event.enabled)
+      }
     }
   }
 
@@ -46,7 +50,8 @@ class LabsSettingsViewModel : ViewModel() {
       storyArchive = SignalStore.labs.storyArchive,
       incognito = SignalStore.labs.incognito,
       betterSearch = SignalStore.labs.betterSearch,
-      starredMessages = SignalStore.labs.starredMessages
+      starredMessages = SignalStore.labs.starredMessages,
+      stickerReplies = SignalStore.labs.stickerReplies
     )
   }
 }

@@ -2489,7 +2489,17 @@ class ConversationFragment :
         ?: MediaUtil.IMAGE_WEBP
     )
 
-    sendMessageWithoutComposeInput(slide = slide, clearCompose = clearCompose)
+    val quote = if (SignalStore.labs.stickerReplies) {
+      inputPanel.quote.orNull()
+    } else {
+      null
+    }
+
+    sendMessageWithoutComposeInput(slide = slide, quote = quote, clearCompose = clearCompose)
+
+    if (quote != null) {
+      inputPanel.clearQuote()
+    }
 
     viewModel.updateStickerLastUsedTime(stickerRecord, System.currentTimeMillis().milliseconds)
   }
