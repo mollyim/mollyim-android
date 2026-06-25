@@ -226,6 +226,7 @@ data class PreExistingRegistrationData(
   val servicePassword: String,
   val aep: AccountEntropyPool,
   val registrationLockEnabled: Boolean,
+  val unrestrictedUnidentifiedAccess: Boolean,
   val aciIdentityKeyPair: IdentityKeyPair,
   val pniIdentityKeyPair: IdentityKeyPair
 ) : Parcelable

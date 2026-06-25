@@ -214,7 +214,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       skipDeviceTransfer = skipDeviceTransfer,
       existingAccountEntropyPool = existingAccountEntropyPool ?: preExistingRegistrationData?.aep,
       existingAciIdentityKeyPair = preExistingRegistrationData?.aciIdentityKeyPair,
-      existingPniIdentityKeyPair = preExistingRegistrationData?.pniIdentityKeyPair
+      existingPniIdentityKeyPair = preExistingRegistrationData?.pniIdentityKeyPair,
+      unrestrictedUnidentifiedAccess = preExistingRegistrationData?.unrestrictedUnidentifiedAccess ?: false
     )
   }
 
@@ -330,7 +331,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     skipDeviceTransfer: Boolean = true,
     existingAccountEntropyPool: AccountEntropyPool? = null,
     existingAciIdentityKeyPair: IdentityKeyPair? = null,
-    existingPniIdentityKeyPair: IdentityKeyPair? = null
+    existingPniIdentityKeyPair: IdentityKeyPair? = null,
+    unrestrictedUnidentifiedAccess: Boolean = false
   ): RequestResult<Pair<RegisterAccountResponse, KeyMaterial>, RegisterAccountError> = withContext(Dispatchers.IO) {
     check(sessionId != null || recoveryPassword != null) { "Either sessionId or recoveryPassword must be provided" }
     check(sessionId == null || recoveryPassword == null) { "Either sessionId or recoveryPassword must be provided, but not both" }
@@ -377,7 +379,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       fetchesMessages = fcmToken == null,
       registrationLock = registrationLock,
       unidentifiedAccessKey = keyMaterial.unidentifiedAccessKey,
-      unrestrictedUnidentifiedAccess = false,
+      unrestrictedUnidentifiedAccess = unrestrictedUnidentifiedAccess,
       discoverableByPhoneNumber = false, // Important -- this should be false initially, and then the user should be given a choice as to whether to turn it on later
       capabilities = AccountAttributes.Capabilities(
         storage = true, // True initially -- can turn off later if users opt-out

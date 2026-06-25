@@ -42,6 +42,7 @@ object RegistrationPreferences {
   private const val KEY_PNI_IDENTITY_KEY = "pni_identity_key"
   private const val KEY_TEMPORARY_MASTER_KEY = "temporary_master_key"
   private const val KEY_REGISTRATION_LOCK_ENABLED = "registration_lock_enabled"
+  private const val KEY_UNRESTRICTED_UNIDENTIFIED_ACCESS = "unrestricted_unidentified_access"
   private const val KEY_PIN = "has_pin"
   private const val KEY_PIN_ALPHANUMERIC = "pin_alphanumeric"
   private const val KEY_PINS_OPTED_OUT = "pins_opted_out"
@@ -116,6 +117,10 @@ object RegistrationPreferences {
   var registrationLockEnabled: Boolean
     get() = prefs.getBoolean(KEY_REGISTRATION_LOCK_ENABLED, false)
     set(value) = prefs.edit { putBoolean(KEY_REGISTRATION_LOCK_ENABLED, value) }
+
+  var unrestrictedUnidentifiedAccess: Boolean
+    get() = prefs.getBoolean(KEY_UNRESTRICTED_UNIDENTIFIED_ACCESS, false)
+    set(value) = prefs.edit { putBoolean(KEY_UNRESTRICTED_UNIDENTIFIED_ACCESS, value) }
 
   val hasPin: Boolean
     get() = pin != null
@@ -197,6 +202,7 @@ object RegistrationPreferences {
       servicePassword = servicePassword,
       aep = aep,
       registrationLockEnabled = registrationLockEnabled,
+      unrestrictedUnidentifiedAccess = unrestrictedUnidentifiedAccess,
       aciIdentityKeyPair = aciIdentityKeyPair,
       pniIdentityKeyPair = pniIdentityKeyPair
     )
