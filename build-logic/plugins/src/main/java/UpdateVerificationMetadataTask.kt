@@ -63,6 +63,9 @@ constructor(
       // nested builds, which resolve plugin dependencies (e.g. junit BOMs) that no configuration walk or qa build
       // ever sees. Forcing a refresh re-downloads them through the verifier so their checksums get written.
       runGradle("--write-verification-metadata", "sha256", ":build-logic:plugins:generatePrecompiledScriptPluginAccessors", "--rerun-tasks", "--no-build-cache", "--refresh-dependencies")
+      // The IDE resolves the bundled Groovy module graph (via localGroovy) during sync's model-building phase, which
+      // no task graph reaches, so resolve it explicitly to capture those checksums.
+      runGradle("--write-verification-metadata", "sha256", ":build-logic:plugins:syncGroovyVerification", "--rerun-tasks", "--refresh-dependencies")
       runGradle("--write-verification-metadata", "sha256", "syncCrossPlatformVerification", "--rerun-tasks")
     } catch (failure: Throwable) {
       file.writeBytes(original)
