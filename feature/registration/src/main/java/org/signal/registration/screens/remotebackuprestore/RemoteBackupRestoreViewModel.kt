@@ -23,7 +23,7 @@ import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.proto.RestoreDecision
+import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateBack
 import kotlin.coroutines.CoroutineContext

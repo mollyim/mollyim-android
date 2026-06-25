@@ -18,7 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.proto.RestoreDecision
+import org.signal.registration.RestoreDecision
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DeviceTransferCompleteViewModelTest {

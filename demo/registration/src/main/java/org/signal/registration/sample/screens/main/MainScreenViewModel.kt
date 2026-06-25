@@ -74,7 +74,8 @@ class MainScreenViewModel(
             pinsOptedOut = RegistrationPreferences.pinsOptedOut,
             temporaryMasterKey = RegistrationPreferences.temporaryMasterKey?.let {
               Base64.encodeWithPadding(it.serialize())
-            }
+            },
+            restoreDecision = RegistrationPreferences.restoreDecision?.name
           )
         } else {
           null

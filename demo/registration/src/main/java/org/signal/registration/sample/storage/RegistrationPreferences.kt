@@ -19,6 +19,7 @@ import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.NetworkController
 import org.signal.registration.NewRegistrationData
 import org.signal.registration.PreExistingRegistrationData
+import org.signal.registration.RestoreDecision
 
 /**
  * SharedPreferences-based storage for registration data that doesn't need
@@ -58,6 +59,7 @@ object RegistrationPreferences {
   private const val KEY_PROFILE_FAMILY_NAME = "profile_family_name"
   private const val KEY_PROFILE_AVATAR = "profile_avatar"
   private const val KEY_PROFILE_DISCOVERABLE = "profile_discoverable"
+  private const val KEY_RESTORE_DECISION = "restore_decision"
 
   fun init(context: Application) {
     this.context = context
@@ -140,6 +142,10 @@ object RegistrationPreferences {
   var fetchesMessages: Boolean
     get() = prefs.getBoolean(KEY_FETCHES_MESSAGES, true)
     set(value) = prefs.edit { putBoolean(KEY_FETCHES_MESSAGES, value) }
+
+  var restoreDecision: RestoreDecision?
+    get() = prefs.getString(KEY_RESTORE_DECISION, null)?.let { runCatching { RestoreDecision.valueOf(it) }.getOrNull() }
+    set(value) = prefs.edit { putString(KEY_RESTORE_DECISION, value?.name) }
 
   var profileGivenName: String
     get() = prefs.getString(KEY_PROFILE_GIVEN_NAME, "") ?: ""

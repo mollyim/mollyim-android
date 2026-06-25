@@ -33,7 +33,7 @@ import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
-import org.signal.registration.proto.RestoreDecision
+import org.signal.registration.RestoreDecision
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalCoroutinesApi::class)

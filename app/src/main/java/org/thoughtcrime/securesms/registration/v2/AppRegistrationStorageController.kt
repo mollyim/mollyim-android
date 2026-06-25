@@ -27,10 +27,10 @@ import org.signal.core.util.StreamUtil
 import org.signal.core.util.crypto.AttachmentSecretProvider
 import org.signal.core.util.logging.Log
 import org.signal.registration.PreExistingRegistrationData
+import org.signal.registration.RestoreDecision
 import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
 import org.signal.registration.proto.RegistrationData
-import org.signal.registration.proto.RestoreDecision
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.thoughtcrime.securesms.backup.FullBackupImporter
@@ -244,26 +244,18 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       SignalStore.svr.masterKeyForInitialDataRestore = MasterKey(data.temporaryMasterKey.toByteArray())
     }
 
-    applyRestoreDecision(data.restoreDecision)
-
     RegistrationUtil.maybeMarkRegistrationComplete()
   }
 
-  /**
-   * Translates the registration module's [RestoreDecision] into the app's [RestoreDecisionState] so the rest of the app
-   * knows whether we're a fresh account, skipped a restore, or successfully restored data. Only applied while the
-   * decision is still pending, since the state machine is otherwise terminal.
-   */
-  private fun applyRestoreDecision(decision: RestoreDecision) {
+  override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.IO) {
     if (!SignalStore.registration.restoreDecisionState.isDecisionPending) {
-      return
+      return@withContext
     }
 
     SignalStore.registration.restoreDecisionState = when (decision) {
       RestoreDecision.NEW_ACCOUNT -> RestoreDecisionState.NewAccount
       RestoreDecision.SKIPPED -> RestoreDecisionState.Skipped
       RestoreDecision.COMPLETED -> RestoreDecisionState.Completed
-      RestoreDecision.UNSET -> return
     }
   }
 

@@ -27,7 +27,8 @@ data class MainScreenState(
     val pin: String?,
     val registrationLockEnabled: Boolean,
     val pinsOptedOut: Boolean,
-    val temporaryMasterKey: String?
+    val temporaryMasterKey: String?,
+    val restoreDecision: String?
   )
 
   data class ProfileState(

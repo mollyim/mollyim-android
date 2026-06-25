@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.proto.RestoreDecision
+import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 
 class DeviceTransferCompleteViewModel(

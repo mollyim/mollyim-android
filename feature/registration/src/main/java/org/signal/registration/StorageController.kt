@@ -84,6 +84,12 @@ interface StorageController {
   suspend fun commitRegistrationData()
 
   /**
+   * Persists the terminal [RestoreDecision] the user reached during registration directly to permanent app state,
+   * so the rest of the app knows whether we're a fresh account, skipped a restore, or successfully restored data.
+   */
+  suspend fun setRestoreDecision(decision: RestoreDecision)
+
+  /**
    * Begins restoring from a V1 (.backup) file identified by the given [uri].
    *
    * Returns a [Flow] of [LocalBackupRestoreProgress] that reports the state of the restore operation

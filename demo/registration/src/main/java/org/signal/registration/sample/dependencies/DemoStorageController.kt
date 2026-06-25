@@ -27,6 +27,7 @@ import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.NetworkController
 import org.signal.registration.NewRegistrationData
 import org.signal.registration.PreExistingRegistrationData
+import org.signal.registration.RestoreDecision
 import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
 import org.signal.registration.proto.ProvisioningData
@@ -194,6 +195,11 @@ class DemoStorageController(private val context: Context) : StorageController {
     }
 
     Unit
+  }
+
+  override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.IO) {
+    Log.i(TAG, "[setRestoreDecision] Recording restore decision: $decision")
+    RegistrationPreferences.restoreDecision = decision
   }
 
   override suspend fun scanLocalBackupFolder(folderUri: Uri): List<LocalBackupInfo> = withContext(Dispatchers.IO) {

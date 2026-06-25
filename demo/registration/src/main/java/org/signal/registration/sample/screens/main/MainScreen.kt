@@ -225,6 +225,7 @@ private fun RegistrationInfo(data: MainScreenState.ExistingRegistrationState) {
       RegistrationField(label = "PNI", value = data.pni)
       RegistrationField(label = "AEP", value = data.aep)
       RegistrationField(label = "Temporary Master Key", value = data.temporaryMasterKey ?: "null")
+      RegistrationField(label = "Restore Decision", value = data.restoreDecision ?: "(unset)")
       if (data.pinsOptedOut) {
         RegistrationField(label = "PINs Opted Out", value = "Yes")
       } else {
@@ -377,7 +378,8 @@ private fun MainScreenWithRegistrationPreview() {
           pin = "1234",
           registrationLockEnabled = true,
           pinsOptedOut = false,
-          temporaryMasterKey = null
+          temporaryMasterKey = null,
+          restoreDecision = "COMPLETED"
         ),
         profileState = MainScreenState.ProfileState(
           givenName = "Ada",

@@ -41,7 +41,6 @@ import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.proto.ProvisioningData
-import org.signal.registration.proto.RestoreDecision
 import org.signal.registration.proto.SvrCredential
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
@@ -543,10 +542,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    */
   suspend fun setRestoreDecision(decision: RestoreDecision): Unit = withContext(Dispatchers.IO) {
     Log.i(TAG, "[setRestoreDecision] Recording restore decision: $decision")
-    storageController.updateInProgressRegistrationData {
-      this.restoreDecision = decision
-    }
-    storageController.commitRegistrationData()
+    storageController.setRestoreDecision(decision)
   }
 
   suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? {

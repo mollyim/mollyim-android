@@ -21,7 +21,7 @@ import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.proto.RestoreDecision
+import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 
 /**
