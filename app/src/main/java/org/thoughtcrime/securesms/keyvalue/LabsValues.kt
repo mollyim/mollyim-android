@@ -8,7 +8,6 @@ class LabsValues internal constructor(store: KeyValueStore) : SignalStoreValues(
     const val STORY_ARCHIVE: String = "labs.story_archive"
     const val INCOGNITO: String = "labs.incognito"
     const val BETTER_SEARCH: String = "labs.better_search"
-    const val AUTO_LOWER_HAND: String = "labs.auto_lower_hand"
     const val STARRED_MESSAGES: String = "labs.starred_messages"
   }
 
@@ -23,8 +22,6 @@ class LabsValues internal constructor(store: KeyValueStore) : SignalStoreValues(
   var incognito by booleanValue(INCOGNITO, true).falseForExternalUsers()
 
   var betterSearch by booleanValue(BETTER_SEARCH, true).falseForExternalUsers()
-
-  var autoLowerHand by booleanValue(AUTO_LOWER_HAND, true).falseForExternalUsers()
 
   var starredMessages by booleanValue(STARRED_MESSAGES, true).falseForExternalUsers()
 

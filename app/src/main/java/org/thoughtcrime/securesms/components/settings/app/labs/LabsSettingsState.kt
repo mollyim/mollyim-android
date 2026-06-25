@@ -13,6 +13,5 @@ data class LabsSettingsState(
   val storyArchive: Boolean = false,
   val incognito: Boolean = false,
   val betterSearch: Boolean = false,
-  val autoLowerHand: Boolean = false,
   val starredMessages: Boolean = false
 )

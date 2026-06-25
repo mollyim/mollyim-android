@@ -127,15 +127,6 @@ private fun LabsSettingsContent(
 
       item {
         Rows.ToggleRow(
-          checked = state.autoLowerHand,
-          text = "Auto Lower Hand Suggestion",
-          label = "Show a prompt to lower your raised hand when you are speaking in a group call.",
-          onCheckChanged = { onEvent(LabsSettingsEvents.ToggleAutoLowerHand(it)) }
-        )
-      }
-
-      item {
-        Rows.ToggleRow(
           checked = state.starredMessages,
           text = "Starred Messages",
           label = "Enables starring messages for later reference. Adds star/unstar to the long-press menu and a starred messages screen accessible from conversation settings and the main menu.",

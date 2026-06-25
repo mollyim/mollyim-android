@@ -33,11 +33,6 @@ class LabsSettingsViewModel : ViewModel() {
         SignalStore.labs.betterSearch = event.enabled
         _state.value = _state.value.copy(betterSearch = event.enabled)
       }
-      is LabsSettingsEvents.ToggleAutoLowerHand -> {
-        SignalStore.labs.autoLowerHand = event.enabled
-        _state.value = _state.value.copy(autoLowerHand = event.enabled)
-      }
-
       is LabsSettingsEvents.ToggleStarredMessages -> {
         SignalStore.labs.starredMessages = event.enabled
         _state.value = _state.value.copy(starredMessages = event.enabled)
@@ -51,7 +46,6 @@ class LabsSettingsViewModel : ViewModel() {
       storyArchive = SignalStore.labs.storyArchive,
       incognito = SignalStore.labs.incognito,
       betterSearch = SignalStore.labs.betterSearch,
-      autoLowerHand = SignalStore.labs.autoLowerHand,
       starredMessages = SignalStore.labs.starredMessages
     )
   }
