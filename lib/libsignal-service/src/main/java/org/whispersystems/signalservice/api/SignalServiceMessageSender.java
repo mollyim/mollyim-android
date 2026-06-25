@@ -25,6 +25,7 @@ import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.protocol.IdentityKeyPair;
 import org.signal.libsignal.protocol.InvalidKeyException;
 import org.signal.libsignal.protocol.InvalidRegistrationIdException;
+import org.signal.libsignal.protocol.InvalidSessionException;
 import org.signal.libsignal.protocol.NoSessionException;
 import org.signal.libsignal.protocol.SessionBuilder;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
@@ -1971,7 +1972,9 @@ public class SignalServiceMessageSender {
   {
     enforceMaxEnvelopeContentSize(content);
 
-    long startTime = System.currentTimeMillis();
+    long    startTime             = System.currentTimeMillis();
+    boolean retriedInvalidSession = false;
+    boolean retriedNoSession      = false;
 
     for (int i = 0; i < RETRY_COUNT; i++) {
       if (cancelationSignal != null && cancelationSignal.isCanceled()) {
@@ -2088,6 +2091,24 @@ public class SignalServiceMessageSender {
       } catch (StaleDevicesException ste) {
         Log.w(TAG, "[sendMessage][" + timestamp + "] Handling stale devices. (" + ste.getMessage() + ")");
         handleStaleDevices(recipient, ste.getStaleDevices());
+      } catch (InvalidSessionException ise) {
+        if (retriedInvalidSession) {
+          Log.w(TAG, "[sendMessage][" + timestamp + "] Session still invalid after retry. Archiving sessions to force a rebuild.", ise);
+          List<Integer> devices = new ArrayList<>(aciStore.getSubDeviceSessions(recipient.getIdentifier()));
+          devices.add(SignalServiceAddress.DEFAULT_DEVICE_ID);
+          archiveSessions(recipient, devices);
+        } else {
+          Log.w(TAG, "[sendMessage][" + timestamp + "] Session was invalidated mid-send. Retrying.", ise);
+          retriedInvalidSession = true;
+        }
+      } catch (NoSessionException nse) {
+        if (retriedNoSession) {
+          Log.w(TAG, "[sendMessage][" + timestamp + "] Still no session after retry. Rethrowing.", nse);
+          throw nse;
+        }
+
+        Log.w(TAG, "[sendMessage][" + timestamp + "] No session mid-send. Retrying.", nse);
+        retriedNoSession = true;
       }
     }
 

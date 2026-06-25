@@ -29,6 +29,7 @@ import org.signal.libsignal.net.UserBasedAuthorization
 import org.signal.libsignal.net.UserBasedSendAuthorization
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.InvalidKeyException
+import org.signal.libsignal.protocol.InvalidSessionException
 import org.signal.libsignal.protocol.NoSessionException
 import org.signal.libsignal.protocol.SessionBuilder
 import org.signal.libsignal.protocol.SignalProtocolAddress
@@ -391,6 +392,10 @@ open class MessageService(
     raise(SendError.ApplicationError(e))
   } catch (e: NoSessionException) {
     Log.w(TAG, "Missing or corrupt session for $address. Archiving so the next attempt rebuilds it.", e)
+    protocolStore.archiveSession(address)
+    raise(SendError.ApplicationError(e))
+  } catch (e: InvalidSessionException) {
+    Log.w(TAG, "Invalid session for $address. Archiving so the next attempt rebuilds it.", e)
     protocolStore.archiveSession(address)
     raise(SendError.ApplicationError(e))
   }
