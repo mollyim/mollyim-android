@@ -22,10 +22,12 @@ import org.signal.core.util.billing.BillingApi;
 import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.contentproviders.BlobProvider;
+import org.signal.donations.permits.DonationPermitsRepository;
 import org.signal.libsignal.net.Network;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
 import org.signal.libsignal.zkgroup.GenericServerPublicParams;
 import org.signal.libsignal.zkgroup.InvalidInputException;
+import org.signal.libsignal.zkgroup.ServerPublicParams;
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations;
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations;
 import org.signal.network.api.ArchiveApi;
@@ -44,9 +46,12 @@ import org.signal.network.api.SvrBApi;
 import org.signal.network.api.UsernameApi;
 import org.signal.network.rest.SignalRestClient;
 import org.signal.network.service.MessageService;
+import org.signal.video.exo.ExoPlayerPool;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
+import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits;
+import org.thoughtcrime.securesms.components.settings.app.subscription.permits.NetworkDonationPermitIssuer;
 import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore;
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock;
 import org.thoughtcrime.securesms.crypto.storage.SignalBaseIdentityKeyStore;
@@ -108,9 +113,8 @@ import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.PreKeyBatcher;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.video.exo.SimpleExoPlayerPool;
-import org.signal.video.exo.ExoPlayerPool;
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache;
+import org.thoughtcrime.securesms.video.exo.SimpleExoPlayerPool;
 import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat;
 import org.whispersystems.signalservice.api.SignalServiceAccountDataStore;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
@@ -505,7 +509,16 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull DonationsService provideDonationsService(@NonNull DonationsApi donationsApi) {
-    return new DonationsService(donationsApi);
+    return new DonationsService(donationsApi, DonationPermits.INSTANCE);
+  }
+
+  @Override
+  public @NonNull DonationPermitsRepository provideDonationPermitsRepository(@NonNull byte[] zkGroupServerPublicParams) {
+    try {
+      return new DonationPermitsRepository(NetworkDonationPermitIssuer.INSTANCE, new ServerPublicParams(zkGroupServerPublicParams));
+    } catch (InvalidInputException e) {
+      throw new AssertionError(e);
+    }
   }
 
   @Override

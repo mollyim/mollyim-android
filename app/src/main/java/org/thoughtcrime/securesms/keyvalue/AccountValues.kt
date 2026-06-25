@@ -463,6 +463,10 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       clearLocalCredentials()
     }
 
+    if ((previous && !registered) || isAciChanged) {
+      AppDependencies.donationPermitsRepository.clearPermits()
+    }
+
     if (registered && (!previous || isAciChanged)) {
       registeredAtTimestamp = System.currentTimeMillis()
     } else if (!registered) {

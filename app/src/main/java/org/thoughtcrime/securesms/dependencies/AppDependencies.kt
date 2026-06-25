@@ -14,6 +14,7 @@ import org.signal.core.util.concurrent.LatestValueObservable
 import org.signal.core.util.contentproviders.BlobProvider
 import org.signal.core.util.orNull
 import org.signal.core.util.resettableLazy
+import org.signal.donations.permits.DonationPermitsRepository
 import org.signal.glide.SignalGlideDependencies
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
@@ -415,6 +416,11 @@ object AppDependencies {
   val donationsApi: DonationsApi
     get() = networkModule.donationsApi
 
+  @JvmStatic
+  val donationPermitsRepository: DonationPermitsRepository by lazy {
+    provider.provideDonationPermitsRepository(signalServiceNetworkAccess.getConfiguration().zkGroupServerPublicParams)
+  }
+
   val keyTransparencyApi: KeyTransparencyApi
     get() = networkModule.keyTransparencyApi
 
@@ -488,6 +494,7 @@ object AppDependencies {
     fun provideExoPlayerPool(): ExoPlayerPool<ExoPlayer>
     fun provideAndroidCallAudioManager(): AudioManagerCompat
     fun provideDonationsService(donationsApi: DonationsApi): DonationsService
+    fun provideDonationPermitsRepository(zkGroupServerPublicParams: ByteArray): DonationPermitsRepository
     fun provideProfileService(profileOperations: ClientZkProfileOperations, authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): ProfileService
     fun provideDeadlockDetector(): DeadlockDetector
     fun provideClientZkReceiptOperations(signalServiceConfiguration: SignalServiceConfiguration): ClientZkReceiptOperations
@@ -507,6 +514,7 @@ object AppDependencies {
     fun provideUsernameApi(unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): UsernameApi
     fun provideCallingApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket, pushServiceSocket: PushServiceSocket): CallingApi
     fun providePaymentsApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket): PaymentsApi
+
     fun provideCdsApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket): CdsApi
     fun provideRateLimitChallengeApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket): RateLimitChallengeApi
     fun provideMessageApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): MessageApi

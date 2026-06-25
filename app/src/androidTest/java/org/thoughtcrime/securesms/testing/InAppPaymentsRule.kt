@@ -37,6 +37,7 @@ class InAppPaymentsRule : ExternalResource() {
   private fun initialisePutSubscription() {
     AppDependencies.donationsApi.apply {
       every { putSubscription(any()) } returns NetworkResult.Success(Unit)
+      every { createSubscriber(any(), any()) } returns NetworkResult.Success(Unit)
     }
   }
 

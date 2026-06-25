@@ -5,6 +5,7 @@ import io.mockk.mockk
 import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.contentproviders.BlobProvider
+import org.signal.donations.permits.DonationPermitsRepository
 import org.signal.libsignal.net.Network
 import org.signal.libsignal.zkgroup.profiles.ClientZkProfileOperations
 import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations
@@ -215,6 +216,10 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
   }
 
   override fun provideDonationsService(donationsApi: DonationsApi): DonationsService {
+    return mockk(relaxed = true)
+  }
+
+  override fun provideDonationPermitsRepository(zkGroupServerPublicParams: ByteArray): DonationPermitsRepository {
     return mockk(relaxed = true)
   }
 
