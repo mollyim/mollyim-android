@@ -5,6 +5,7 @@
 
 package org.signal.mediasend.edit
 
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.snapping.SnapPosition
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -55,9 +57,27 @@ fun MediaEditScreen(
   val scope = rememberCoroutineScope()
 
   val pagerState = rememberPagerState(
-    initialPage = state.focusedMedia?.let { state.selectedMedia.indexOf(it) } ?: 0,
+    initialPage = state.focusedMedia?.let { state.selectedMedia.indexOf(it).coerceAtLeast(0) } ?: 0,
     pageCount = { state.selectedMedia.size }
   )
+
+  // Media captured from the camera is added to the selection asynchronously, so the Edit screen can compose before the
+  // new item lands in selectedMedia. Keep the pager aligned with focusedMedia once it does.
+  LaunchedEffect(state.focusedMedia, state.selectedMedia) {
+    val targetPage = state.focusedMedia?.let { state.selectedMedia.indexOf(it) } ?: -1
+    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+      pagerState.scrollToPage(targetPage)
+    }
+  }
+
+  // During a camera-first flow, backing out of edit when the only selection is the capture itself should discard the
+  // capture and return to the camera rather than leaving the empty editor on the back stack.
+  val isOnlyCameraFirstCapture = state.cameraFirstCapture != null &&
+    state.selectedMedia.size == 1 &&
+    state.selectedMedia.firstOrNull() == state.cameraFirstCapture
+  BackHandler(enabled = isOnlyCameraFirstCapture) {
+    onEvent(MediaEditScreenEvent.NavigateBack)
+  }
 
   Box(
     modifier = Modifier

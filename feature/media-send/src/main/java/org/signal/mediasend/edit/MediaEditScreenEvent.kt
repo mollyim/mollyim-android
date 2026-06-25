@@ -12,6 +12,7 @@ sealed interface MediaEditScreenEvent {
   data class FocusedMediaChanged(val media: Media) : MediaEditScreenEvent
   data class AddMessageClick(val startWithEmojiKeyboard: Boolean = false) : MediaEditScreenEvent
   data object NavigateToSend : MediaEditScreenEvent
+  data object NavigateBack : MediaEditScreenEvent
   data class VideoTrimChanged(val videoTrimData: VideoTrimData, val editingComplete: Boolean) : MediaEditScreenEvent
   data class VideoSeek(val positionUs: Long, val editingComplete: Boolean) : MediaEditScreenEvent
 }

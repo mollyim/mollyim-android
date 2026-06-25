@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.signal.mediasend
+package org.signal.mediasend.capture
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -17,6 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import org.signal.core.ui.compose.Buttons
+import org.signal.mediasend.MediaSendNavKey
+import org.signal.mediasend.MediaSendState
+import org.signal.mediasend.R
 
 /**
  * Screen that allows user to capture the media they will send using a camera or text story
@@ -24,14 +27,19 @@ import org.signal.core.ui.compose.Buttons
 @Composable
 fun MediaCaptureScreen(
   backStack: NavBackStack<NavKey>,
+  state: MediaSendState,
   onEvent: (MediaCaptureScreenEvent) -> Unit,
-  cameraSlot: @Composable () -> Unit,
   textStoryEditorSlot: @Composable () -> Unit
 ) {
   Box(modifier = Modifier.fillMaxSize()) {
     when (backStack.last()) {
       is MediaSendNavKey.Capture.TextStory -> textStoryEditorSlot()
-      else -> cameraSlot()
+      else -> {
+        MediaCameraCaptureScreen(
+          state = state,
+          onEvent = onEvent
+        )
+      }
     }
 
     Row(

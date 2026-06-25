@@ -1171,7 +1171,7 @@ class MainActivity :
       } else if (SignalStore.internal.useNewMediaActivity) {
         mediaSendLauncher.launch(
           MediaSendActivityContract.Args(
-            isCameraFirst = false,
+            isCameraFirst = true,
             isStory = destination == MainNavigationListLocation.STORIES
           )
         )

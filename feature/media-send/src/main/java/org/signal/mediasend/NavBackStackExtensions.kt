@@ -10,19 +10,15 @@ import androidx.navigation3.runtime.NavKey
 import org.signal.core.models.media.MediaFolder
 
 internal fun NavBackStack<NavKey>.goToEdit() {
-  if (contains(MediaSendNavKey.Edit)) {
-    popTo(MediaSendNavKey.Edit)
-  } else {
-    add(MediaSendNavKey.Edit)
-  }
+  goToSingle(MediaSendNavKey.Edit)
 }
 
 internal fun NavBackStack<NavKey>.goToSend() {
-  if (contains(MediaSendNavKey.Send)) {
-    popTo(MediaSendNavKey.Send)
-  } else {
-    add(MediaSendNavKey.Send)
-  }
+  goToSingle(MediaSendNavKey.Send)
+}
+
+internal fun NavBackStack<NavKey>.goToFolders() {
+  goToSingle(MediaSendNavKey.Select.Folders)
 }
 
 internal fun NavBackStack<NavKey>.goToFiles(mediaFolder: MediaFolder) {
@@ -30,18 +26,24 @@ internal fun NavBackStack<NavKey>.goToFiles(mediaFolder: MediaFolder) {
 }
 
 internal fun NavBackStack<NavKey>.goToTextStory() {
-  if (!contains(MediaSendNavKey.Capture.TextStory)) {
-    add(MediaSendNavKey.Capture.TextStory)
-  }
+  goToSingle(MediaSendNavKey.Capture.TextStory)
 }
 
 internal fun NavBackStack<NavKey>.goToCamera() {
-  remove(MediaSendNavKey.Capture.TextStory)
+  goToSingle(MediaSendNavKey.Capture.Camera)
 }
 
 internal fun NavBackStack<NavKey>.pop() {
   if (isNotEmpty()) {
     removeAt(size - 1)
+  }
+}
+
+private fun NavBackStack<NavKey>.goToSingle(key: NavKey) {
+  if (contains(key)) {
+    popTo(key)
+  } else {
+    add(key)
   }
 }
 

@@ -63,6 +63,9 @@ class MediaSendV3Activity : PassphraseRequiredActivity() {
                   }
                 )
               }
+
+              // TODO - QR HudCommands (GoToConversation, GoToLinkedDevices, GoToQuickTransfer) not yet wired up.
+              else -> Unit
             }
           }
         )

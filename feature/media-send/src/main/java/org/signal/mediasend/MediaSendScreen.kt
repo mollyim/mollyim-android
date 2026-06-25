@@ -20,7 +20,6 @@ import org.signal.core.ui.compose.theme.SignalTheme
 fun MediaSendScreen(
   contractArgs: MediaSendActivityContract.Args,
   modifier: Modifier = Modifier,
-  cameraSlot: @Composable () -> Unit = {},
   textStoryEditorSlot: @Composable () -> Unit = {},
   sendSlot: @Composable (MediaSendState) -> Unit = {},
   onExternalHudCommand: (HudCommand) -> Unit = {}
@@ -38,10 +37,10 @@ fun MediaSendScreen(
       Surface {
         MediaSendNavDisplay(
           stateFlow = viewModel.state,
+          snackbarEvents = viewModel.snackbarEvents,
           backStack = viewModel.backStack,
           eventHandler = viewModel,
           modifier = modifier,
-          cameraSlot = cameraSlot,
           textStoryEditorSlot = textStoryEditorSlot,
           sendSlot = sendSlot
         )

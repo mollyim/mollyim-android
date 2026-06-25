@@ -16,6 +16,7 @@ import android.os.ParcelFileDescriptor
 import android.system.Os
 import android.system.OsConstants
 import android.widget.Toast
+import androidx.activity.compose.LocalActivity
 import androidx.camera.core.CameraSelector
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -32,9 +33,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -49,8 +51,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import org.signal.camera.CameraCaptureMode
 import org.signal.camera.CameraDependencies
 import org.signal.camera.CameraDisplay
@@ -109,52 +114,46 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
         }
       }
     }
+
+    private fun readStateFromArgs(args: Bundle): CameraXScreenState {
+      return CameraXScreenState(
+        isVideoEnabled = args.getBoolean(IS_VIDEO_ENABLED, true),
+        isQrScanEnabled = args.getBoolean(IS_QR_SCAN_ENABLED, false)
+      )
+    }
   }
 
   private var controller: CameraFragment.Controller? = null
-  private var videoFileDescriptor: MemoryFileDescriptor? = null
-  private var captureMode: CameraCaptureMode = CameraCaptureMode.ImageOnly
 
-  private val isVideoEnabled: Boolean
-    get() = requireArguments().getBoolean(IS_VIDEO_ENABLED, true)
-
-  private val isQrScanEnabled: Boolean
-    get() = requireArguments().getBoolean(IS_QR_SCAN_ENABLED, false)
-
-  private var controlsVisible = mutableStateOf(true)
-  private var selectedMediaCount = mutableIntStateOf(0)
+  private val state by lazy {
+    MutableStateFlow(readStateFromArgs(requireArguments()))
+  }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     controller = when {
       activity is CameraFragment.Controller -> activity as CameraFragment.Controller
       parentFragment is CameraFragment.Controller -> parentFragment as CameraFragment.Controller
-      else -> throw IllegalStateException("Parent must implement Controller interface.")
+      else -> controller ?: throw IllegalStateException("Parent must implement Controller interface.")
     }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    captureMode = resolveCaptureMode()
-    Log.d(TAG, "Starting CameraX with capture mode $captureMode")
+    Log.d(TAG, "Starting CameraX")
   }
 
   @Composable
   override fun FragmentContent() {
+    val state by state.collectAsStateWithLifecycle()
+    val controller = controller
     CameraXScreen(
-      controller = controller,
-      isVideoEnabled = captureMode != CameraCaptureMode.ImageOnly,
-      isQrScanEnabled = isQrScanEnabled,
-      captureMode = captureMode,
-      controlsVisible = controlsVisible.value,
-      selectedMediaCount = selectedMediaCount.intValue,
-      onCheckPermissions = { checkPermissions(isVideoEnabled) },
+      state = state,
+      onEvent = { event -> controller?.onCameraXScreenEvent(event) },
+      maxVideoDurationSeconds = controller?.let { getMaxVideoDurationInSeconds(it.mediaConstraints, it.maxVideoDuration) } ?: 0,
+      onCheckPermissions = { checkPermissions(state.isVideoEnabled) },
       hasCameraPermission = { hasCameraPermission() },
-      onRequestMicPermission = { requestMicPermission() },
-      onGalleryClicked = { controller?.onGalleryClicked() },
-      createVideoFileDescriptor = { createVideoFileDescriptor() },
-      getMaxVideoDurationInSeconds = { getMaxVideoDurationInSeconds() },
-      cameraDisplay = CameraDisplay.getDisplay(requireActivity())
+      onRequestMicPermission = { requestMicPermission() }
     )
   }
 
@@ -165,7 +164,6 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
 
   override fun onDestroyView() {
     super.onDestroyView()
-    closeVideoFileDescriptor()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
@@ -178,17 +176,17 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
   }
 
   override fun presentHud(selectedMediaCount: Int) {
-    this.selectedMediaCount.intValue = selectedMediaCount
+    state.update { it.copy(selectedMediaCount = selectedMediaCount) }
   }
 
   override fun fadeOutControls(onEndAction: Runnable) {
-    controlsVisible.value = false
+    state.update { it.copy(controlsVisible = false) }
     // Post the end action after a short delay to allow animation to complete
     view?.postDelayed({ onEndAction.run() }, CONTROLS_ANIMATION_DURATION)
   }
 
   override fun fadeInControls() {
-    controlsVisible.value = true
+    state.update { it.copy(controlsVisible = true) }
   }
 
   private fun checkPermissions(includeAudio: Boolean) {
@@ -270,15 +268,67 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
       .onAnyDenied { Toast.makeText(requireContext(), R.string.CameraXFragment_signal_needs_microphone_access_video, Toast.LENGTH_LONG).show() }
       .execute()
   }
+}
 
-  private fun createVideoFileDescriptor(): ParcelFileDescriptor? {
+internal fun getMaxVideoDurationInSeconds(mediaConstraints: MediaConstraints, maxVideoDuration: Int): Int {
+  var maxDuration = VideoUtil.getMaxVideoRecordDurationInSeconds(mediaConstraints)
+  if (maxVideoDuration > 0) {
+    maxDuration = maxVideoDuration
+  }
+  return maxDuration
+}
+
+/**
+ * Bridges [CameraXScreenEvent]s emitted by [CameraXScreen] back onto the legacy [CameraFragment.Controller] callbacks
+ * for Fragment-based consumers.
+ */
+private fun CameraFragment.Controller.onCameraXScreenEvent(event: CameraXScreenEvent) {
+  when (event) {
+    is CameraXScreenEvent.ImageCaptured -> onImageCaptured(event.data, event.width, event.height)
+    is CameraXScreenEvent.VideoCaptured -> onVideoCaptured(event.fd)
+    is CameraXScreenEvent.QrCodeFound -> onQrCodeFound(event.data)
+    CameraXScreenEvent.VideoCaptureError -> onVideoCaptureError()
+    CameraXScreenEvent.GalleryClicked -> onGalleryClicked()
+    CameraXScreenEvent.CameraCountButtonClicked -> onCameraCountButtonClicked()
+  }
+}
+
+private fun resolveCaptureMode(context: Context, isVideoEnabled: Boolean): CameraCaptureMode {
+  val isVideoSupported = Build.VERSION.SDK_INT >= 26 &&
+    isVideoEnabled &&
+    MediaConstraints.isVideoTranscodeAvailable()
+
+  val isMixedModeSupported = isVideoSupported &&
+    CameraXUtil.isMixedModeSupported(context) &&
+    MediaSendDependencies.mediaSendRepository.isMixedModeAvailable()
+
+  return when {
+    isMixedModeSupported -> CameraCaptureMode.ImageAndVideoSimultaneous
+    isVideoSupported -> CameraCaptureMode.ImageAndVideoExclusive
+    else -> CameraCaptureMode.ImageOnly
+  }
+}
+
+data class CameraXScreenState(
+  val isVideoEnabled: Boolean = true,
+  val isQrScanEnabled: Boolean = false,
+  val controlsVisible: Boolean = true,
+  val selectedMediaCount: Int = 0
+)
+
+@Stable
+class VideoFileDescriptor(val context: Context) {
+
+  private var videoFileDescriptor: MemoryFileDescriptor? = null
+
+  fun create(): ParcelFileDescriptor? {
     if (Build.VERSION.SDK_INT < 26) {
       throw IllegalStateException("Video capture requires API 26 or higher")
     }
 
     return try {
-      closeVideoFileDescriptor()
-      videoFileDescriptor = CameraXUtil.createVideoFileDescriptor(requireContext())
+      destroy()
+      videoFileDescriptor = CameraXUtil.createVideoFileDescriptor(context)
       videoFileDescriptor?.parcelFd
     } catch (e: IOException) {
       Log.w(TAG, "Failed to create video file descriptor", e)
@@ -286,7 +336,7 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
     }
   }
 
-  private fun closeVideoFileDescriptor() {
+  fun destroy() {
     videoFileDescriptor?.let {
       try {
         it.close()
@@ -296,54 +346,32 @@ class CameraXFragment : ComposeFragment(), CameraFragment {
       videoFileDescriptor = null
     }
   }
-
-  private fun getMaxVideoDurationInSeconds(): Int {
-    var maxDuration = VideoUtil.getMaxVideoRecordDurationInSeconds(controller!!.mediaConstraints)
-    val controllerMaxDuration = controller?.maxVideoDuration ?: 0
-    if (controllerMaxDuration > 0) {
-      maxDuration = controllerMaxDuration
-    }
-    return maxDuration
-  }
-
-  private fun resolveCaptureMode(): CameraCaptureMode {
-    val isVideoSupported = Build.VERSION.SDK_INT >= 26 &&
-      isVideoEnabled &&
-      MediaConstraints.isVideoTranscodeAvailable()
-
-    val isMixedModeSupported = isVideoSupported &&
-      CameraXUtil.isMixedModeSupported(requireContext()) &&
-      MediaSendDependencies.mediaSendRepository.isMixedModeAvailable()
-
-    return when {
-      isMixedModeSupported -> CameraCaptureMode.ImageAndVideoSimultaneous
-      isVideoSupported -> CameraCaptureMode.ImageAndVideoExclusive
-      else -> CameraCaptureMode.ImageOnly
-    }
-  }
 }
 
 @Composable
-private fun CameraXScreen(
-  controller: CameraFragment.Controller?,
-  isVideoEnabled: Boolean,
-  isQrScanEnabled: Boolean,
-  captureMode: CameraCaptureMode,
-  controlsVisible: Boolean,
-  selectedMediaCount: Int,
+fun CameraXScreen(
+  state: CameraXScreenState,
+  onEvent: (CameraXScreenEvent) -> Unit,
+  maxVideoDurationSeconds: Int,
   onCheckPermissions: () -> Unit,
   hasCameraPermission: () -> Boolean,
   onRequestMicPermission: () -> Unit,
-  onGalleryClicked: () -> Unit,
-  createVideoFileDescriptor: () -> ParcelFileDescriptor?,
-  getMaxVideoDurationInSeconds: () -> Int,
-  cameraDisplay: CameraDisplay,
   storiesEnabled: Boolean = CameraDependencies.isStoriesFeatureEnabled()
 ) {
   val context = LocalContext.current
+  val activity = LocalActivity.current
+
+  val captureMode = remember { resolveCaptureMode(context, state.isVideoEnabled) }
+  val cameraDisplay = remember { CameraDisplay.getDisplay(activity!!) }
+  val videoFileDescriptor = remember { VideoFileDescriptor(context) }
+
   val cameraViewModel: CameraScreenViewModel = viewModel()
   val cameraState by cameraViewModel.state
   var hasPermission by remember { mutableStateOf(hasCameraPermission()) }
+
+  DisposableEffect(Unit) {
+    onDispose { videoFileDescriptor.destroy() }
+  }
 
   LaunchedEffect(cameraViewModel) {
     val lensFacing = if (MediaSendDependencies.mediaSendRepository.isCameraFacingFront) {
@@ -367,10 +395,10 @@ private fun CameraXScreen(
     }
   }
 
-  LaunchedEffect(cameraViewModel, isQrScanEnabled) {
-    if (isQrScanEnabled) {
+  LaunchedEffect(cameraViewModel, state.isQrScanEnabled) {
+    if (state.isQrScanEnabled) {
       cameraViewModel.qrCodeDetected.collect { qrCode ->
-        controller?.onQrCodeFound(qrCode)
+        onEvent(CameraXScreenEvent.QrCodeFound(qrCode))
       }
     }
   }
@@ -436,11 +464,11 @@ private fun CameraXScreen(
         roundCorners = cameraDisplay.roundViewFinderCorners,
         contentAlignment = cameraAlignment,
         captureMode = captureMode,
-        enableQrScanning = isQrScanEnabled,
+        enableQrScanning = state.isQrScanEnabled,
         modifier = Modifier.padding(bottom = viewportBottomMargin)
       ) {
         AnimatedVisibility(
-          visible = controlsVisible,
+          visible = state.controlsVisible,
           enter = fadeIn(animationSpec = tween(durationMillis = 150)),
           exit = fadeOut(animationSpec = tween(durationMillis = 150))
         ) {
@@ -448,18 +476,18 @@ private fun CameraXScreen(
             StandardCameraHud(
               state = cameraState,
               modifier = Modifier.padding(bottom = hudBottomPaddingInsideViewport),
-              maxRecordingDurationMs = getMaxVideoDurationInSeconds() * 1000L,
-              mediaSelectionCount = selectedMediaCount,
+              maxRecordingDurationMs = maxVideoDurationSeconds * 1000L,
+              mediaSelectionCount = state.selectedMediaCount,
               hasAudioPermission = { context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED },
               emitter = { event ->
                 handleHudEvent(
                   event = event,
                   context = context,
                   cameraViewModel = cameraViewModel,
-                  controller = controller,
-                  isVideoEnabled = isVideoEnabled,
+                  onEvent = onEvent,
+                  isVideoEnabled = captureMode != CameraCaptureMode.ImageOnly,
                   onRequestMicPermission = onRequestMicPermission,
-                  createVideoFileDescriptor = createVideoFileDescriptor
+                  createVideoFileDescriptor = { videoFileDescriptor.create() }
                 )
               },
               stringResources = StringResources(
@@ -472,9 +500,9 @@ private fun CameraXScreen(
       }
     } else {
       PermissionMissingContent(
-        isVideoEnabled = isVideoEnabled,
+        isVideoEnabled = captureMode != CameraCaptureMode.ImageOnly,
         onRequestPermissions = onCheckPermissions,
-        onGalleryClicked = onGalleryClicked,
+        onGalleryClicked = { onEvent(CameraXScreenEvent.GalleryClicked) },
         galleryButtonBottomPadding = hudBottomMargin + 16.dp
       )
     }
@@ -532,7 +560,7 @@ private fun handleHudEvent(
   event: StandardCameraHudEvents,
   context: Context,
   cameraViewModel: CameraScreenViewModel,
-  controller: CameraFragment.Controller?,
+  onEvent: (CameraXScreenEvent) -> Unit,
   isVideoEnabled: Boolean,
   onRequestMicPermission: () -> Unit,
   createVideoFileDescriptor: () -> ParcelFileDescriptor?
@@ -542,7 +570,7 @@ private fun handleHudEvent(
       cameraViewModel.capturePhoto(
         context = context,
         onPhotoCaptured = { bitmap ->
-          handlePhotoCaptured(bitmap, controller)
+          handlePhotoCaptured(bitmap, onEvent)
         }
       )
     }
@@ -555,7 +583,7 @@ private fun handleHudEvent(
             context = context,
             output = VideoOutput.FileDescriptorOutput(fileDescriptor),
             onVideoCaptured = { result ->
-              handleVideoCaptured(result, controller)
+              handleVideoCaptured(result, onEvent)
             }
           )
         } else {
@@ -573,11 +601,11 @@ private fun handleHudEvent(
     }
 
     is StandardCameraHudEvents.GalleryClick -> {
-      controller?.onGalleryClicked()
+      onEvent(CameraXScreenEvent.GalleryClicked)
     }
 
     is StandardCameraHudEvents.MediaSelectionClick -> {
-      controller?.onCameraCountButtonClicked()
+      onEvent(CameraXScreenEvent.CameraCountButtonClicked)
     }
 
     is StandardCameraHudEvents.ToggleFlash -> {
@@ -602,33 +630,33 @@ private fun handleHudEvent(
   }
 }
 
-private fun handlePhotoCaptured(bitmap: Bitmap, controller: CameraFragment.Controller?) {
+private fun handlePhotoCaptured(bitmap: Bitmap, onEvent: (CameraXScreenEvent) -> Unit) {
   // Convert bitmap to JPEG byte array
   val outputStream = ByteArrayOutputStream()
   bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
   val data = outputStream.toByteArray()
 
-  controller?.onImageCaptured(data, bitmap.width, bitmap.height)
+  onEvent(CameraXScreenEvent.ImageCaptured(data, bitmap.width, bitmap.height))
 }
 
-private fun handleVideoCaptured(result: VideoCaptureResult, controller: CameraFragment.Controller?) {
+private fun handleVideoCaptured(result: VideoCaptureResult, onEvent: (CameraXScreenEvent) -> Unit) {
   when (result) {
     is VideoCaptureResult.Success -> {
       result.fileDescriptor?.let { parcelFd ->
         try {
           // Seek to beginning before reading
           Os.lseek(parcelFd.fileDescriptor, 0, OsConstants.SEEK_SET)
-          controller?.onVideoCaptured(parcelFd.fileDescriptor)
+          onEvent(CameraXScreenEvent.VideoCaptured(parcelFd.fileDescriptor))
         } catch (e: Exception) {
           Log.w(TAG, "Failed to seek video file descriptor", e)
-          controller?.onVideoCaptureError()
+          onEvent(CameraXScreenEvent.VideoCaptureError)
         }
-      } ?: controller?.onVideoCaptureError()
+      } ?: onEvent(CameraXScreenEvent.VideoCaptureError)
     }
 
     is VideoCaptureResult.Error -> {
       Log.w(TAG, "Video capture failed: ${result.message}", result.throwable)
-      controller?.onVideoCaptureError()
+      onEvent(CameraXScreenEvent.VideoCaptureError)
     }
   }
 }
@@ -643,19 +671,12 @@ private fun handleVideoCaptured(result: VideoCaptureResult, controller: CameraFr
 private fun CameraXScreenPreview_20_9() {
   Previews.Preview {
     CameraXScreen(
-      controller = null,
-      isVideoEnabled = true,
-      isQrScanEnabled = false,
-      captureMode = CameraCaptureMode.ImageAndVideoSimultaneous,
-      controlsVisible = true,
-      selectedMediaCount = 0,
+      state = CameraXScreenState(),
+      onEvent = {},
+      maxVideoDurationSeconds = 0,
       onCheckPermissions = {},
       hasCameraPermission = { true },
       onRequestMicPermission = { },
-      onGalleryClicked = { },
-      createVideoFileDescriptor = { null },
-      getMaxVideoDurationInSeconds = { 60 },
-      cameraDisplay = CameraDisplay.DISPLAY_20_9,
       storiesEnabled = true
     )
   }
@@ -671,19 +692,12 @@ private fun CameraXScreenPreview_20_9() {
 private fun CameraXScreenPreview_19_9() {
   Previews.Preview {
     CameraXScreen(
-      controller = null,
-      isVideoEnabled = true,
-      isQrScanEnabled = false,
-      captureMode = CameraCaptureMode.ImageAndVideoSimultaneous,
-      controlsVisible = true,
-      selectedMediaCount = 0,
+      state = CameraXScreenState(),
+      onEvent = {},
+      maxVideoDurationSeconds = 0,
       onCheckPermissions = {},
       hasCameraPermission = { true },
       onRequestMicPermission = { },
-      onGalleryClicked = { },
-      createVideoFileDescriptor = { null },
-      getMaxVideoDurationInSeconds = { 60 },
-      cameraDisplay = CameraDisplay.DISPLAY_19_9,
       storiesEnabled = true
     )
   }
@@ -699,19 +713,12 @@ private fun CameraXScreenPreview_19_9() {
 private fun CameraXScreenPreview_18_9() {
   Previews.Preview {
     CameraXScreen(
-      controller = null,
-      isVideoEnabled = true,
-      isQrScanEnabled = false,
-      captureMode = CameraCaptureMode.ImageAndVideoSimultaneous,
-      controlsVisible = true,
-      selectedMediaCount = 0,
+      state = CameraXScreenState(),
+      onEvent = {},
+      maxVideoDurationSeconds = 0,
       onCheckPermissions = {},
       hasCameraPermission = { true },
       onRequestMicPermission = { },
-      onGalleryClicked = { },
-      createVideoFileDescriptor = { null },
-      getMaxVideoDurationInSeconds = { 60 },
-      cameraDisplay = CameraDisplay.DISPLAY_18_9,
       storiesEnabled = true
     )
   }
@@ -727,19 +734,12 @@ private fun CameraXScreenPreview_18_9() {
 private fun CameraXScreenPreview_16_9() {
   Previews.Preview {
     CameraXScreen(
-      controller = null,
-      isVideoEnabled = true,
-      isQrScanEnabled = false,
-      captureMode = CameraCaptureMode.ImageAndVideoSimultaneous,
-      controlsVisible = true,
-      selectedMediaCount = 0,
+      state = CameraXScreenState(),
+      onEvent = {},
+      maxVideoDurationSeconds = 0,
       onCheckPermissions = {},
       hasCameraPermission = { true },
       onRequestMicPermission = { },
-      onGalleryClicked = { },
-      createVideoFileDescriptor = { null },
-      getMaxVideoDurationInSeconds = { 60 },
-      cameraDisplay = CameraDisplay.DISPLAY_16_9,
       storiesEnabled = true
     )
   }
@@ -755,19 +755,12 @@ private fun CameraXScreenPreview_16_9() {
 private fun CameraXScreenPreview_6_5() {
   Previews.Preview {
     CameraXScreen(
-      controller = null,
-      isVideoEnabled = true,
-      isQrScanEnabled = false,
-      captureMode = CameraCaptureMode.ImageAndVideoSimultaneous,
-      controlsVisible = true,
-      selectedMediaCount = 0,
+      state = CameraXScreenState(),
+      onEvent = {},
+      maxVideoDurationSeconds = 0,
       onCheckPermissions = {},
       hasCameraPermission = { true },
       onRequestMicPermission = { },
-      onGalleryClicked = { },
-      createVideoFileDescriptor = { null },
-      getMaxVideoDurationInSeconds = { 60 },
-      cameraDisplay = CameraDisplay.DISPLAY_6_5,
       storiesEnabled = true
     )
   }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
 import java.io.InputStream
+import kotlin.time.Duration
 
 /**
  * Repository interface for media send operations that require app-layer implementation.
@@ -106,6 +107,10 @@ interface MediaSendRepository {
   fun isMixedModeAvailable(): Boolean
 
   var isCameraFacingFront: Boolean
+
+  fun getMediaConstraints(): MediaConstraints
+
+  var storyMaxVideoDuration: Duration
 }
 
 /**

@@ -5,6 +5,7 @@
 
 package org.signal.mediasend
 
+import org.signal.mediasend.capture.MediaCaptureScreenEvent
 import org.signal.mediasend.edit.MediaEditScreenEvent
 import org.signal.mediasend.select.MediaSelectScreenEvent
 
@@ -33,4 +34,8 @@ sealed interface HudCommand {
     val startWithEmojiKeyboard: Boolean,
     val isViewOnceAvailable: Boolean
   ) : HudCommand
+
+  data class GoToConversation(val recipientId: MediaRecipientId, val username: String) : HudCommand
+  data object GoToLinkedDevices : HudCommand
+  data class GoToQuickTransfer(val qrData: String) : HudCommand
 }

@@ -85,4 +85,9 @@
   <string name="CameraXFragment_send">Send</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal needs microphone permissions to record videos, but they have been denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\" and \"Camera\".</string>
+
+  <!-- Displayed when there is an error capturing video -->
+  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <!-- Displayed when there is an error capturing image -->
+  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
 </resources>
