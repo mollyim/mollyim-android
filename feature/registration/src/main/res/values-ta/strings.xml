@@ -334,17 +334,17 @@
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">பின்னை மீண்டும் உள்ளிடுக</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
-    <string name="PinCreationScreen__pins_dont_match">PINs don\'t match. Try again.</string>
+    <string name="PinCreationScreen__pins_dont_match">பின்-கள் பொருந்தவில்லை. மீண்டும் முயற்சி செய்க.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
-    <string name="PinCreationScreen__learn_more_about_pins">Learn more about PINs</string>
+    <string name="PinCreationScreen__learn_more_about_pins">பின்கள் பற்றி மேலும் அறிக</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__warning">Warning</string>
+    <string name="PinCreationScreen__warning">எச்சரிக்கை</string>
     <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin_warning">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You cannot turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinCreationScreen__disable_pin_warning">நீங்கள் PIN-ஐ முடக்கினால், நீங்கள் கைமுறையாக பேக்அப் செய்து மீட்டெடுக்காமல் Signalஐ மீண்டும் பதிவுசெய்யும்போது எல்லா தரவையும் இழப்பீர்கள். PIN முடக்கப்பட்டிருக்கும் போது நீங்கள் பதிவு பூட்டை இயக்க முடியாது.</string>
     <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin">Disable PIN</string>
+    <string name="PinCreationScreen__disable_pin">PIN-ஐ முடக்கு</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
-    <string name="PinCreationScreen__cancel">Cancel</string>
+    <string name="PinCreationScreen__cancel">ரத்துசெய்</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">பதிவு பூட்டு</string>

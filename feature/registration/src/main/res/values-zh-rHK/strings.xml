@@ -333,17 +333,17 @@
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">重新輸入 PIN 碼</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
-    <string name="PinCreationScreen__pins_dont_match">PINs don\'t match. Try again.</string>
+    <string name="PinCreationScreen__pins_dont_match">PIN 碼不匹配。請再試一次。</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
-    <string name="PinCreationScreen__learn_more_about_pins">Learn more about PINs</string>
+    <string name="PinCreationScreen__learn_more_about_pins">深入瞭解 PIN 碼</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__warning">Warning</string>
+    <string name="PinCreationScreen__warning">警告</string>
     <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin_warning">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You cannot turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinCreationScreen__disable_pin_warning">如果停用 PIN 碼，當你重新註冊 Signal 而沒有進行手動備份及還原的話，你將會遺失所有資料。PIN 碼停用時不可開啟註冊鎖定。</string>
     <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin">Disable PIN</string>
+    <string name="PinCreationScreen__disable_pin">停用 PIN 碼</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
-    <string name="PinCreationScreen__cancel">Cancel</string>
+    <string name="PinCreationScreen__cancel">取消</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">註冊鎖定</string>

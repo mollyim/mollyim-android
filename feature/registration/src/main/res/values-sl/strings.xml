@@ -336,17 +336,17 @@
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">Ponovno vnesite PIN</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
-    <string name="PinCreationScreen__pins_dont_match">PINs don\'t match. Try again.</string>
+    <string name="PinCreationScreen__pins_dont_match">PIN se ne ujema. Poskusite znova.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
-    <string name="PinCreationScreen__learn_more_about_pins">Learn more about PINs</string>
+    <string name="PinCreationScreen__learn_more_about_pins">Izvedite več o kodi PIN.</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__warning">Warning</string>
+    <string name="PinCreationScreen__warning">Opozorilo</string>
     <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin_warning">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You cannot turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinCreationScreen__disable_pin_warning">Z izklopom številke PIN boste ob ponovni prijavi v svoj račun Signal izgubili vse tam shranjene podatke, razen če prej sami ne ustvarite varnostne kopije. Brez PIN-a tudi ne morete vklopiti zaklepa registracije.</string>
     <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin">Disable PIN</string>
+    <string name="PinCreationScreen__disable_pin">Izklopi PIN</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
-    <string name="PinCreationScreen__cancel">Cancel</string>
+    <string name="PinCreationScreen__cancel">Prekliči</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">Zaklep registracije</string>

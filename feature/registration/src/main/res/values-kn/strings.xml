@@ -334,17 +334,17 @@
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">PIN ಅನ್ನು ಮರುನಮೂದಿಸಿ</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
-    <string name="PinCreationScreen__pins_dont_match">PINs don\'t match. Try again.</string>
+    <string name="PinCreationScreen__pins_dont_match">ಪಿನ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
-    <string name="PinCreationScreen__learn_more_about_pins">Learn more about PINs</string>
+    <string name="PinCreationScreen__learn_more_about_pins">ಪಿನ್‌ಗಳ ಕುರಿತು ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ.</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__warning">Warning</string>
+    <string name="PinCreationScreen__warning">ಎಚ್ಚರಿಕೆ</string>
     <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin_warning">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You cannot turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinCreationScreen__disable_pin_warning">ನೀವು PIN ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿದರೆ, ನೀವು Signal ಅನ್ನು ಮರುನೋಂದಾಯಿಸುವಾಗ ಮ್ಯಾನ್ಯುವಲ್ ಆಗಿ ಎಲ್ಲಾ ಡೇಟಾ ಬ್ಯಾಕಪ್ ಮತ್ತು ರಿಸ್ಟೋರ್ ಮಾಡದಿದ್ದರೆ, ನೀವು ಅದನ್ನು ಕಳೆದುಕೊಳ್ಳುತ್ತೀರಿ. PIN ನಿಷ್ಕ್ರಿಯವಾಗಿರುವಾಗ ನೀವು ನೋಂದಣಿ ಲಾಕ್ ಅನ್ನು ಆನ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ.</string>
     <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin">Disable PIN</string>
+    <string name="PinCreationScreen__disable_pin">ಪಿನ್ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
-    <string name="PinCreationScreen__cancel">Cancel</string>
+    <string name="PinCreationScreen__cancel">ರದ್ದುಮಾಡಿ</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">ನೋಂದಣಿ ಲಾಕ್</string>

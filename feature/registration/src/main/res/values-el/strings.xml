@@ -334,17 +334,17 @@
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">Ξαναγράψε το PIN</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
-    <string name="PinCreationScreen__pins_dont_match">PINs don\'t match. Try again.</string>
+    <string name="PinCreationScreen__pins_dont_match">Τα PIN δεν ταιριάζουν. Ξαναδοκίμασε.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
-    <string name="PinCreationScreen__learn_more_about_pins">Learn more about PINs</string>
+    <string name="PinCreationScreen__learn_more_about_pins">Μάθε περισσότερα για τα PIN</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__warning">Warning</string>
+    <string name="PinCreationScreen__warning">Προσοχή</string>
     <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin_warning">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You cannot turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinCreationScreen__disable_pin_warning">Αν απενεργοποιήσεις το PIN, θα χάσεις όλα τα δεδομένα όταν επανεγγραφείς στο Signal, εκτός εάν δημιουργήσεις χειροκίνητα αντίγραφο ασφαλείας και το ανακτήσεις. Δεν μπορείς να ενεργοποιήσεις το Κλείδωμα Εγγραφής όσο το PIN είναι απενεργοποιημένο.</string>
     <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin">Disable PIN</string>
+    <string name="PinCreationScreen__disable_pin">Απενεργοποίηση PIN</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
-    <string name="PinCreationScreen__cancel">Cancel</string>
+    <string name="PinCreationScreen__cancel">Ακύρωση</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">Κλείδωμα εγγραφής</string>

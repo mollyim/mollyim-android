@@ -1411,7 +1411,7 @@
     <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
     <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
     <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
-    <string name="AddGroupDetailsFragment__discard">Discard</string>
+    <string name="AddGroupDetailsFragment__discard">삭제하기</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Signal 그룹 기능을 지원하지 않는 연락처가 포함되어 이 그룹은 MMS로 전환됩니다. 설정한 MMS 그룹 이름과 사진은 나에게만 표시됩니다.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -3629,7 +3629,7 @@
 
     <!-- BubbleOptOutTooltip -->
     <!-- Message to inform the user of what Android chat bubbles are -->
-    <string name="BubbleOptOutTooltip__description">도움말 풍선은 Signal 대화에서 끌 수 있는 Android 기능입니다.</string>
+    <string name="BubbleOptOutTooltip__description">말풍선은 Signal 대화에서 끌 수 있는 Android 기능입니다.</string>
     <!-- Button to dismiss the tooltip for opting out of using Android bubbles -->
     <string name="BubbleOptOutTooltip__not_now">나중에</string>
     <!-- Button to move to the system settings to control the use of Android bubbles -->
@@ -4572,12 +4572,12 @@
 
     <!-- conversation -->
     <string name="conversation__menu_group_settings">그룹 설정</string>
-    <string name="conversation__menu_leave_group">그룹 탈퇴</string>
+    <string name="conversation__menu_leave_group">그룹 나가기</string>
     <string name="conversation__menu_view_all_media">모든 미디어</string>
     <string name="conversation__menu_conversation_settings">대화 설정</string>
     <string name="conversation__menu_add_shortcut">홈 화면에 추가</string>
   <!-- Removed by excludeNonTranslatables <string name="conversation__menu_export" translatable="false">Export (Labs)</string> -->
-    <string name="conversation__menu_create_bubble">거품 만들기</string>
+    <string name="conversation__menu_create_bubble">말풍선 만들기</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">텍스트 서식 지정</string>
 
@@ -8525,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">꺼짐</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">인증 필요</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">결제 기록</string>
     <!-- Section header for backup information -->

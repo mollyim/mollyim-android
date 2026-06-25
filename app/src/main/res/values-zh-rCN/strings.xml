@@ -1411,7 +1411,7 @@
     <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
     <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
     <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
-    <string name="AddGroupDetailsFragment__discard">Discard</string>
+    <string name="AddGroupDetailsFragment__discard">放弃</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">您选择了一个无法使用 Signal 群组的联系人，因此该群组将是一个多媒体信息群组。只有您能看到自定义多媒体信息群组的名称和照片。</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -8525,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">关</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">需要验证</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">付款历史</string>
     <!-- Section header for backup information -->

@@ -15,74 +15,74 @@
   <!-- Accessibility description for the button that advances to the next step in the media send flow. -->
   <string name="AddAMessageRow__next">ดำเนินการต่อ</string>
   <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-  <string name="SentMediaQuality__high">High</string>
+  <string name="SentMediaQuality__high">สูง</string>
   <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-  <string name="SentMediaQuality__standard">Standard</string>
+  <string name="SentMediaQuality__standard">มาตรฐาน</string>
   <!-- Title of the screen where the user browses their device gallery to pick media to send. -->
-  <string name="MediaSelectScreen__gallery">Gallery</string>
+  <string name="MediaSelectScreen__gallery">อัลบั้มภาพ</string>
   <!-- Accessibility description for the button that advances from media selection to the next step in the send flow. -->
-  <string name="MediaSelectScreen__next">Next</string>
+  <string name="MediaSelectScreen__next">ดำเนินการต่อ</string>
   <!-- Label for the button that switches the capture screen to the camera. -->
-  <string name="MediaCaptureScreen__camera">Camera</string>
+  <string name="MediaCaptureScreen__camera">กล้อง</string>
   <!-- Label for the button that switches the capture screen to the text story editor. -->
-  <string name="MediaCaptureScreen__text_story">Text Story</string>
+  <string name="MediaCaptureScreen__text_story">สตอรี่แบบข้อความ</string>
   <!-- Video editor play button content description -->
-  <string name="VideoEditorHud_play_video_description">Play video</string>
+  <string name="VideoEditorHud_play_video_description">เล่นวิดีโอ</string>
 
   <!-- CameraFragment -->
   <!-- Toasted when user device does not support video recording -->
-  <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Video recording is not supported on your device</string>
+  <string name="CameraFragment__video_recording_is_not_supported_on_your_device">อุปกรณ์ของคุณไม่รองรับการบันทึกวิดีโอ</string>
 
   <!-- CameraXFragment -->
-  <string name="CameraXFragment_tap_for_photo_hold_for_video">Tap for photo, hold for video</string>
+  <string name="CameraXFragment_tap_for_photo_hold_for_video">แตะสำหรับรูปภาพ กดค้างสำหรับวิดีโอ</string>
   <!-- Accessibility content description to describe the capture button when taking an image/video -->
-  <string name="CameraXFragment_capture_description">Capture</string>
-  <string name="CameraXFragment_change_camera_description">Change camera</string>
-  <string name="CameraXFragment_open_gallery_description">Open gallery</string>
+  <string name="CameraXFragment_capture_description">ถ่ายรูป</string>
+  <string name="CameraXFragment_change_camera_description">เปลี่ยนกล้อง</string>
+  <string name="CameraXFragment_open_gallery_description">เปิดอัลบั้มภาพ</string>
   <!-- Button text asking for access to camera permissions -->
-  <string name="CameraXFragment_allow_access">Allow access</string>
+  <string name="CameraXFragment_allow_access">อนุญาตให้เข้าถึง</string>
   <!-- Dialog title asking users for camera and microphone permission -->
-  <string name="CameraXFragment_allow_access_camera_microphone">Allow access to your camera and microphone</string>
+  <string name="CameraXFragment_allow_access_camera_microphone">อนุญาตให้เข้าถึงกล้องและไมโครโฟนของคุณ</string>
   <!-- Dialog title asking users for camera permission -->
-  <string name="CameraXFragment_allow_access_camera">Allow access to your camera</string>
+  <string name="CameraXFragment_allow_access_camera">อนุญาตให้เข้าถึงกล้องของคุณ</string>
   <!-- Dialog title asking users for microphone permission -->
-  <string name="CameraXFragment_allow_access_microphone">Allow access to your microphone</string>
+  <string name="CameraXFragment_allow_access_microphone">อนุญาตให้เข้าถึงไมโครโฟนของคุณ</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">To capture photos and video, allow Signal access to the camera.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">อนุญาต Signal ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">To capture photos and video, allow Signal access to the camera and microphone.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">อนุญาตให้ Signal เข้าถึงกล้องและไมโครโฟนเพื่อถ่ายภาพและบันทึกวิดีโอ</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">To capture videos with sound, allow Signal access to your microphone.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">อนุญาตให้ Signal เข้าถึงไมโครโฟนของคุณเพื่อบันทึกวิดีโอพร้อมเสียง</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">To scan a QR code, allow Signal access to the camera.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">อนุญาตให้ Signal เข้าถึงกล้องเพื่อสแกนคิวอาร์โค้ด</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal needs camera access to capture photos</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อถ่ายภาพ</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal needs camera access to scan QR codes</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อสแกนคิวอาร์โค้ด</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal needs microphone access to capture video</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อบันทึกวิดีโอ</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">To capture photos in Signal:</string>
+  <string name="CameraXFragment_to_capture_photos">เพื่อถ่ายภาพบน Signal:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">To capture photos and videos in Signal:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">เพื่อถ่ายภาพและบันทึกวิดีโอบน Signal:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
-  <string name="CameraXFragment_to_capture_videos">To capture videos with sound:</string>
+  <string name="CameraXFragment_to_capture_videos">เพื่อบันทึกวิดีโอพร้อมเสียง:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-  <string name="CameraXFragment_to_scan_qr_codes">To scan QR codes:</string>
+  <string name="CameraXFragment_to_scan_qr_codes">เพื่อสแกนคิวอาร์โค้ด:</string>
   <!-- Error message shown when we try to take a photo, but fail -->
-  <string name="CameraXFragment_photo_capture_failed">Failed to capture photo. Please try again.</string>
+  <string name="CameraXFragment_photo_capture_failed">ไม่สามารถถ่ายภาพได้ โปรดลองอีกครั้ง</string>
   <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-  <string name="CameraXFragment_photo_processing_failed">Failed to process photo. Please try again.</string>
+  <string name="CameraXFragment_photo_processing_failed">ไม่สามารถประมวลผลรูปภาพได้ โปรดลองอีกครั้ง</string>
   <!-- Accessibility label for the switch camera button -->
-  <string name="CameraXFragment_switch_camera">Switch camera</string>
+  <string name="CameraXFragment_switch_camera">สลับกล้อง</string>
   <!-- Accessibility label for flash button when flash is off -->
-  <string name="CameraXFragment_flash_off">Flash off</string>
+  <string name="CameraXFragment_flash_off">ปิดแฟลชอยู่</string>
   <!-- Accessibility label for flash button when flash is on -->
-  <string name="CameraXFragment_flash_on">Flash on</string>
+  <string name="CameraXFragment_flash_on">เปิดแฟลชอยู่</string>
   <!-- Accessibility label for flash button when flash is set to auto -->
-  <string name="CameraXFragment_flash_auto">Flash auto</string>
+  <string name="CameraXFragment_flash_auto">แฟลชอัตโนมัติ</string>
   <!-- Accessibility label for the send button in media selection -->
-  <string name="CameraXFragment_send">Send</string>
+  <string name="CameraXFragment_send">ส่ง</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal needs microphone permissions to record videos, but they have been denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\" and \"Camera\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Signal ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
 </resources>

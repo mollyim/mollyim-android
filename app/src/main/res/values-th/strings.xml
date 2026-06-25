@@ -1411,7 +1411,7 @@
     <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
     <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
     <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
-    <string name="AddGroupDetailsFragment__discard">Discard</string>
+    <string name="AddGroupDetailsFragment__discard">ยกเลิก</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">คุณเลือกผู้ติดต่อที่ไม่รองรับการจับกลุ่มบน Signal กลุ่มนี้จึงจะเป็นกลุ่มแบบ MMS โดยชื่อกลุ่ม MMS ที่ตั้งขึ้นเองรวมทั้งรูปภาพจะปรากฏให้เห็นบนอุปกรณ์ของคุณเพียงคนเดียว</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -8525,7 +8525,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">ปิด</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authentication_required">Authentication required</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">ต้องใช้การรับรองความถูกต้อง</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">ประวัติการชำระเงิน</string>
     <!-- Section header for backup information -->
