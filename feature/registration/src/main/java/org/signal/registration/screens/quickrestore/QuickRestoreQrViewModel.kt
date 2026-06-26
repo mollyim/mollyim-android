@@ -58,9 +58,6 @@ class QuickRestoreQrViewModel(
         parentEventEmitter.navigateBack()
         state
       }
-      is QuickRestoreQrEvents.UseProxy -> {
-        throw NotImplementedError("Proxy settings not implemented!")
-      }
       is QuickRestoreQrEvents.DismissError -> {
         startProvisioning()
         state.copy(showRegistrationError = false, errorMessage = null)

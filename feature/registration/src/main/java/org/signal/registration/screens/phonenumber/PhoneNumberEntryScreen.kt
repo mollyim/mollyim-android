@@ -78,6 +78,7 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
 import org.signal.registration.R
+import org.signal.registration.RegistrationDependencies
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
@@ -345,6 +346,8 @@ private fun TwoPaneLayout(
 fun TopAppBar(
   scrollBehavior: TopAppBarScrollBehavior
 ) {
+  val context = LocalContext.current
+
   Scaffolds.DefaultTopAppBar(
     title = "",
     titleContent = { _, _ -> },
@@ -372,7 +375,7 @@ fun TopAppBar(
         DropdownMenus.Item(
           text = { Text(text = stringResource(R.string.RegistrationActivity_use_proxy)) },
           onClick = {
-            TODO("Handle use proxy")
+            RegistrationDependencies.get().proxyConfigCallback?.invoke(context)
             menuController.hide()
           }
         )

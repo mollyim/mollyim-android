@@ -22,6 +22,8 @@ ENV ANDROID_BUILD_TOOLS_VERSION=36.0.0
 ENV ANDROID_HOME=/usr/local/android-sdk-linux
 ENV PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/bin
 
+ENV HOME=/tmp
+
 RUN cd /usr/local/
 RUN wget -q "https://dl.google.com/android/repository/${ANDROID_COMMAND_LINE_TOOLS_FILENAME}"
 RUN echo "${ANDROID_COMMAND_LINE_TOOLS_SHA256}  ${ANDROID_COMMAND_LINE_TOOLS_FILENAME}" | sha256sum -c -

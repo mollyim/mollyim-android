@@ -7,6 +7,7 @@ package org.signal.registration.sample
 
 import android.app.Application
 import android.os.Build
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.ui.CoreUiDependencies
@@ -62,6 +63,12 @@ class RegistrationApplication : Application() {
         storageController = storageController,
         sensitiveLogger = LogLogger,
         debugLogCallback = {},
+        proxyConfigCallback = { context ->
+          MaterialAlertDialogBuilder(context)
+            .setMessage("Proxy configuration not supported in the demo.")
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+        },
         isLinkAndSyncAvailable = false
       )
     )

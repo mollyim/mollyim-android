@@ -15,13 +15,15 @@ import org.signal.registration.util.SensitiveLog
  * @param sensitiveLogger A logger for logging sensitive material. The intention is this would only be used in the demo app for testing + debugging, while
  *   the actual app would just pass null.
  * @param debugLogCallback Callback to launch the debug log viewer. The actual app provides the real implementation.
+ * @param proxyConfigCallback Callback to launch the proxy configuration settings. The actual app provides the real implementation.
  */
 class RegistrationDependencies(
   val networkController: NetworkController,
   val storageController: StorageController,
   val isLinkAndSyncAvailable: Boolean,
   val sensitiveLogger: Log.Logger?,
-  val debugLogCallback: ((Context) -> Unit)?
+  val debugLogCallback: ((Context) -> Unit)?,
+  val proxyConfigCallback: ((Context) -> Unit)?
 ) {
   companion object {
     lateinit var dependencies: RegistrationDependencies
