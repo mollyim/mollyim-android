@@ -337,7 +337,7 @@ class MainNavigationViewModel(
     chatsBackStack.pop()
     if (chatsBackStack.isEmpty) {
       lockPaneToSecondary = true
-      setFocusedPane(ThreePaneScaffoldRole.Secondary)
+      popDetailPane()
     }
   }
 
@@ -345,7 +345,21 @@ class MainNavigationViewModel(
     backStack.reset()
     if (!isSplitPane) {
       lockPaneToSecondary = true
-      setFocusedPane(ThreePaneScaffoldRole.Secondary)
+      popDetailPane()
+    }
+  }
+
+  private fun popDetailPane() {
+    navigatorScope?.launch {
+      navigator?.let { scaffoldNavigator ->
+        if (scaffoldNavigator.canNavigateBack()) {
+          scaffoldNavigator.navigateBack()
+        }
+      }
+    }
+
+    viewModelScope.launch {
+      internalPaneFocusRequests.emit(ThreePaneScaffoldRole.Secondary)
     }
   }
 
