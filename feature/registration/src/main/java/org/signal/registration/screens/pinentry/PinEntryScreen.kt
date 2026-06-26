@@ -43,7 +43,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
@@ -52,6 +51,7 @@ import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
+import org.signal.registration.screens.PinVisualTransformation
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
@@ -326,7 +326,7 @@ private fun PinInputField(
       ),
       keyboardActions = KeyboardActions(onDone = { if (canSubmitPin) onSubmit() }),
       isError = state.triesRemaining != null,
-      visualTransformation = PasswordVisualTransformation()
+      visualTransformation = PinVisualTransformation
     )
 
     if (state.triesRemaining != null) {
