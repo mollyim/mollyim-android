@@ -217,7 +217,12 @@ sealed class ConversationListViewModel(
   private fun loadCurrentFolders() {
     viewModelScope.launch(Dispatchers.IO) {
       val folders = ChatFoldersRepository.getCurrentFolders()
-      val unreadCountAndEmptyAndMutedStatus = ChatFoldersRepository.getUnreadCountAndEmptyAndMutedStatusForFolders(folders)
+
+      val unreadCountAndEmptyAndMutedStatus: Map<Long, Triple<Int, Boolean, Boolean>> = if (folders.size > 1) {
+        ChatFoldersRepository.getUnreadCountAndEmptyAndMutedStatusForFolders(folders)
+      } else {
+        emptyMap()
+      }
 
       val selectedFolderId = if (currentFolder.id == -1L) {
         folders.firstOrNull()?.id
