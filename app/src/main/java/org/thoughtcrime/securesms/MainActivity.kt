@@ -1061,8 +1061,16 @@ class MainActivity :
         return
       }
 
+      val extras = intent.extras
+      if (extras == null) {
+        Log.w(TAG, "Received a conversation intent with no extras. Ignoring it.")
+        intent.action = null
+        setIntent(intent)
+        return
+      }
+
       mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS)
-      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Conversation(ConversationIntents.readArgsFromBundle(intent.extras!!)))
+      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Conversation(ConversationIntents.readArgsFromBundle(extras)))
       intent.action = null
       setIntent(intent)
     }
