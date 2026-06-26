@@ -88,6 +88,7 @@ class BackupSubscriptionCheckJobTest {
     every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
       createActiveSubscription()
     )
+    every { RecurringInAppPaymentRepository.ensureSubscriberIdSync(any(), any(), any()) } returns Unit
 
     mockkObject(BackupRepository)
     every { BackupRepository.getBackupTier() } answers {
