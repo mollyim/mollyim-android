@@ -365,6 +365,14 @@
     <string name="PinEntryScreen__skip">Skip</string>
     <!-- Labels the button to submit the PIN. -->
     <string name="PinEntryScreen__continue">Continue</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">Skip PIN entry?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">Create New PIN</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">Cancel</string>
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">Allow Notifications</string>

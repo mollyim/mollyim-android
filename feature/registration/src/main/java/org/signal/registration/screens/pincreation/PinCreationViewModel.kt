@@ -67,9 +67,9 @@ class PinCreationViewModel(
 
           else -> {
             Log.d(TAG, "[PinSubmitted] Confirmation PIN matched.")
-            _state.value = state.copy(pinMismatch = false)
+            _state.value = state.copy(pinMismatch = false, loading = true)
             val result = applyPinSubmitted(state, event.pin)
-            _state.value = result
+            _state.value = result.copy(loading = false)
           }
         }
       }

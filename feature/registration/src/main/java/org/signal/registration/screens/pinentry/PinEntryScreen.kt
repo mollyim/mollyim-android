@@ -15,11 +15,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -46,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
@@ -64,6 +67,7 @@ fun PinEntryScreen(
   modifier: Modifier = Modifier
 ) {
   var pin by rememberSaveable { mutableStateOf("") }
+  var showSkipDialog by rememberSaveable { mutableStateOf(false) }
   val focusRequester = remember { FocusRequester() }
   val canSubmitPin = pin.isNotEmpty()
 
@@ -75,6 +79,7 @@ fun PinEntryScreen(
       canSubmitPin = canSubmitPin,
       focusRequester = focusRequester,
       onPinChanged = { pin = it },
+      onSkip = { showSkipDialog = true },
       onEvent = onEvent,
       modifier = modifier
     )
@@ -86,8 +91,23 @@ fun PinEntryScreen(
       canSubmitPin = canSubmitPin,
       focusRequester = focusRequester,
       onPinChanged = { pin = it },
+      onSkip = { showSkipDialog = true },
       onEvent = onEvent,
       modifier = modifier
+    )
+  }
+
+  if (showSkipDialog) {
+    Dialogs.SimpleAlertDialog(
+      title = stringResource(R.string.PinEntryScreen__skip_pin_entry),
+      body = stringResource(R.string.PinEntryScreen__skip_pin_entry_message),
+      confirm = stringResource(R.string.PinEntryScreen__create_new_pin),
+      dismiss = stringResource(R.string.PinEntryScreen__cancel),
+      onConfirm = {
+        showSkipDialog = false
+        onEvent(PinEntryScreenEvents.Skip)
+      },
+      onDismiss = { showSkipDialog = false }
     )
   }
 
@@ -105,6 +125,7 @@ private fun OnePaneLayout(
   canSubmitPin: Boolean,
   focusRequester: FocusRequester,
   onPinChanged: (String) -> Unit,
+  onSkip: () -> Unit,
   onEvent: (PinEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -147,7 +168,7 @@ private fun OnePaneLayout(
 
         if (state.mode != PinEntryState.Mode.RegistrationLock) {
           SkipButton(
-            onSkip = { onEvent(PinEntryScreenEvents.Skip) },
+            onSkip = onSkip,
             modifier = Modifier
               .align(Alignment.TopEnd)
               .padding(params.edgeInset)
@@ -160,6 +181,7 @@ private fun OnePaneLayout(
         params = params,
         canSubmitPin = canSubmitPin,
         isElevated = scrollState.canScrollForward,
+        loading = state.loading,
         onContinue = { onEvent(PinEntryScreenEvents.PinEntered(pin)) }
       )
     }
@@ -174,6 +196,7 @@ private fun TwoPaneLayout(
   canSubmitPin: Boolean,
   focusRequester: FocusRequester,
   onPinChanged: (String) -> Unit,
+  onSkip: () -> Unit,
   onEvent: (PinEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -226,7 +249,7 @@ private fun TwoPaneLayout(
 
         if (state.mode != PinEntryState.Mode.RegistrationLock) {
           SkipButton(
-            onSkip = { onEvent(PinEntryScreenEvents.Skip) },
+            onSkip = onSkip,
             modifier = Modifier
               .align(Alignment.TopEnd)
               .padding(params.edgeInset)
@@ -239,6 +262,7 @@ private fun TwoPaneLayout(
         params = params,
         canSubmitPin = canSubmitPin,
         isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        loading = state.loading,
         onContinue = { onEvent(PinEntryScreenEvents.PinEntered(pin)) }
       )
     }
@@ -366,6 +390,7 @@ private fun ContinueButton(
   params: RegistrationScaffold.Params,
   canSubmitPin: Boolean,
   isElevated: Boolean,
+  loading: Boolean,
   onContinue: () -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -379,12 +404,20 @@ private fun ContinueButton(
     ) {
       Buttons.LargeTonal(
         onClick = onContinue,
-        enabled = canSubmitPin,
+        enabled = canSubmitPin && !loading,
         modifier = Modifier
           .widthIn(max = params.maxButtonWidth)
           .padding(params.footerPadding)
       ) {
-        Text(stringResource(R.string.PinEntryScreen__continue))
+        if (loading) {
+          CircularProgressIndicator(
+            modifier = Modifier.size(24.dp),
+            strokeWidth = 3.dp,
+            color = MaterialTheme.colorScheme.primary
+          )
+        } else {
+          Text(stringResource(R.string.PinEntryScreen__continue))
+        }
       }
     }
   }

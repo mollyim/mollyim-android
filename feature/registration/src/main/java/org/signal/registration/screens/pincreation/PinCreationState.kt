@@ -12,10 +12,11 @@ data class PinCreationState(
   val isAlphanumericKeyboard: Boolean = false,
   val isConfirmEnabled: Boolean = false,
   val pinMismatch: Boolean = false,
+  val loading: Boolean = false,
   val firstPin: String? = null,
   val accountEntropyPool: AccountEntropyPool? = null
 ) {
   override fun toString(): String {
-    return "PinCreationState(isAlphanumericKeyboard=$isAlphanumericKeyboard, isConfirmEnabled=$isConfirmEnabled, pinMismatch=$pinMismatch, firstPin=${firstPin?.let { "${it.length} chars" }}, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()})"
+    return "PinCreationState(isAlphanumericKeyboard=$isAlphanumericKeyboard, isConfirmEnabled=$isConfirmEnabled, pinMismatch=$pinMismatch, loading=$loading, firstPin=${firstPin?.let { "${it.length} chars" }}, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()})"
   }
 }

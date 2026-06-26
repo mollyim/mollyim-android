@@ -145,11 +145,9 @@ class PinEntryForSvrRestoreViewModel(
     }
   }
 
-  private suspend fun handleSkip() {
-    Log.i(TAG, "[Skip] User opted out of restoring data and creating a PIN. Recording choice and completing registration.")
-    repository.setPinOptedOut()
-    repository.setRestoreDecision(RestoreDecision.SKIPPED)
-    parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+  private fun handleSkip() {
+    Log.i(TAG, "[Skip] User opted to skip restoring their PIN. Navigating to PIN creation.")
+    parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
   }
 
   class Factory(

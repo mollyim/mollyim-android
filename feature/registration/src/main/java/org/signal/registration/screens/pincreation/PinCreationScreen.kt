@@ -22,12 +22,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -167,6 +169,7 @@ private fun OnePaneLayout(
         params = params,
         canSubmitPin = canSubmitPin,
         isElevated = scrollState.canScrollForward,
+        loading = state.loading,
         onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(activePin.value)) }
       )
     }
@@ -237,6 +240,7 @@ private fun TwoPaneLayout(
         params = params,
         canSubmitPin = canSubmitPin,
         isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        loading = state.loading,
         onNext = { onEvent(PinCreationScreenEvents.PinSubmitted(activePin.value)) }
       )
     }
@@ -515,6 +519,7 @@ private fun NextButton(
   params: RegistrationScaffold.Params,
   canSubmitPin: Boolean,
   isElevated: Boolean,
+  loading: Boolean,
   onNext: () -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -528,12 +533,20 @@ private fun NextButton(
     ) {
       Buttons.LargeTonal(
         onClick = onNext,
-        enabled = canSubmitPin,
+        enabled = canSubmitPin && !loading,
         modifier = Modifier
           .widthIn(max = params.maxButtonWidth)
           .padding(params.footerPadding)
       ) {
-        Text(stringResource(R.string.PinCreationScreen__next))
+        if (loading) {
+          CircularProgressIndicator(
+            modifier = Modifier.size(24.dp),
+            strokeWidth = 3.dp,
+            color = MaterialTheme.colorScheme.primary
+          )
+        } else {
+          Text(stringResource(R.string.PinCreationScreen__next))
+        }
       }
     }
   }
@@ -582,6 +595,17 @@ private fun PinCreationScreenMismatchPreview() {
   Previews.Preview {
     PinCreationScreen(
       state = PinCreationState(pinMismatch = true),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun PinCreationScreenLoadingPreview() {
+  Previews.Preview {
+    PinCreationScreen(
+      state = PinCreationState(isConfirmEnabled = true, loading = true),
       onEvent = {}
     )
   }

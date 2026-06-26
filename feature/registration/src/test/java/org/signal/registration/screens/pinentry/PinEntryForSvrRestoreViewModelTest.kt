@@ -227,15 +227,16 @@ class PinEntryForSvrRestoreViewModelTest {
   // ==================== Skip Tests ====================
 
   @Test
-  fun `Skip records PIN opt-out and completes registration`() = runTest {
+  fun `Skip navigates to PinCreate`() = runTest {
     val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore)
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.Skip, parentEventEmitter, stateEmitter)
 
-    coVerify { mockRepository.setPinOptedOut() }
-    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
     assertThat(emittedParentEvents).hasSize(1)
-    assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinCreate>()
   }
 
   // ==================== ToggleKeyboard Tests ====================
