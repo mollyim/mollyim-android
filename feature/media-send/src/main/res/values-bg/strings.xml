@@ -34,11 +34,11 @@
   <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Устройството ви не поддържа видеозаписване</string>
 
   <!-- CameraXFragment -->
-  <string name="CameraXFragment_tap_for_photo_hold_for_video">Натисни за снимка, задръж за видео</string>
+  <string name="CameraXFragment_tap_for_photo_hold_for_video">Докосване за снимка, задържане за видео</string>
   <!-- Accessibility content description to describe the capture button when taking an image/video -->
-  <string name="CameraXFragment_capture_description">Запечатване</string>
+  <string name="CameraXFragment_capture_description">Снимане</string>
   <string name="CameraXFragment_change_camera_description">Смяна на камерата</string>
-  <string name="CameraXFragment_open_gallery_description">Отвори галерията</string>
+  <string name="CameraXFragment_open_gallery_description">Отворяне на галерията</string>
   <!-- Button text asking for access to camera permissions -->
   <string name="CameraXFragment_allow_access">Разрешаване на достъп</string>
   <!-- Dialog title asking users for camera and microphone permission -->
@@ -84,5 +84,5 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Изпращане</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal се нуждае от достъп за правене на видеа, но той е отказан. Моля, отидете в настройки и изберете \"Достъп\" и активирайте \"Микрофон\" и \"Камера\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal се нуждае от достъп до микрофон, за да заснеме видео, но той е отказан. Моля, отидете в настройки и изберете \"Достъп\" и активирайте \"Микрофон\" и \"Камера\".</string>
 </resources>
