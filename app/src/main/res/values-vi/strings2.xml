@@ -3,7 +3,7 @@
     <string name="AppProtectionPreferenceFragment_instant">Ngay lập tức</string>
     <string name="BlockUnblockDialog_block_and_delete">Chặn và Xóa</string>
     <string name="prompt_passphrase_activity__molly_is_locked">Đã khóa Molly</string>
-    <string name="app_icon_label_zen">Zen</string>
+    <string name="app_icon_label_zen">Thiền</string>
     <string name="app_icon_label_moon">Mặt trăng</string>
     <string name="app_icon_label_music">Âm nhạc</string>
     <string name="arrays__on_inactivity_timeout">Sau một khoảng thời gian không mở khoá thiết bị</string>
@@ -44,7 +44,7 @@
     <string name="WipeMemoryService_secure_wipe_in_progress">Đang tiến hành dọn dẹp</string>
     <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">Đang xoá dữ liệu không mã hoá khỏi RAM</string>
     <string name="PrivacySettingsFragment_data_at_rest">Dữ liệu trong trạng thái nghỉ</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Giờ bạn có thể thiết lập một cụm mật khẩu để mã hoá dữ liệu. Cho đến khi nó được mở khoá, Molly không thể nhận thông báo hay cuộc gọi. Việc này giúp bảo vệ dữ liệu khi thiết bị bị mất hay bị đánh cắp.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Giờ bạn có thể thiết lập một cụm mật khẩu để mã hoá dữ liệu. Cho đến khi nó được mở khoá, Molly không thể nhận thông báo hay cuộc gọi. Việc này giúp bảo vệ dữ liệu khi thiết bị mất hoặc bị đánh cắp.</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Yêu cầu cụm mật khẩu để mở khoá Molly?</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Bật mã hoá dữ liệu</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Cụm mật khẩu yếu!</string>
@@ -74,7 +74,7 @@
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">Số lượng bản sao lưu giữ lại</string>
     <string name="MessageRetrievalService_ready_to_receive_messages">Sẵn sàng nhận tin nhắn</string>
     <string name="HelpSettingsFragment__molly_im_website">Trang chủ Molly.im</string>
-    <string name="DeviceAddFragment__link_without_scanning">Liên kết mà không cần quét</string>
+    <string name="DeviceAddFragment__link_without_scanning">Dùng liên kết thay vì quét</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Nếu như thiết bị của bạn không thể quét mã QR, bạn có thể tự nhập đường dẫn trích ra được từ mã QR.</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Xoá là tắt chế độ ghi lỗi?</string>
     <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Để cập nhật, kiểm tra cửa hành ứng dụng của bạn. Phiên bản này không bảo gồm trình cập nhật.</string>
@@ -82,8 +82,8 @@
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly cần quyền truy cập liên lạc để giúp bạn tìm bạn. Liên lạc của bạn được đăng tải qua hệ thống tìm kiếm liên lạc riêng tư của Signal, nghĩa là chúng được mã hoá đầu cuối và không bảo giờ hiện ra cho Signal xem.</string>
     <string name="DozeReminder_allow_molly_to_deliver_timely_notifications">Cho phép Molly gửi thông báo, kể cả khi thiết bị đang không hoạt động.</string>
     <string name="DozeReminder_disable_battery_restrictions">Tắt giới hạn pin</string>
-    <string name="BiometricDialogFragment__biometric_verification">Xác thực sinh trắc học</string>
-    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Hãy xác thật là bạn là người sử dụng Molly</string>
+    <string name="BiometricDialogFragment__biometric_verification">Xác minh danh tính</string>
+    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Vui lòng xác minh bạn là người đang sử dụng Molly</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Khoá Molly và chỉ cho phép truy cập với khoá vân tay hoặc khoá khuôn mặt</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Tính năng sinh trắc không có sẵn trên thiết bị này</string>
     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Hãy thiết lập sinh trắc học trong cài đặt Android trước</string>
@@ -117,16 +117,16 @@
     <string name="NotificationsSettingsFragment__receive_notifications_for_messages_or_missed_calls_when_the_app_is_locked">Nhận thông váo tin nhắn và cuộc gọi nhỡ khi ứng dụng bị khoá.</string>
     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">Xin lỗi, tính năng này cần dịch vụ thông báo đẩy như FCM hay UnifiedPush mà hiện tại không có.</string>
     <string name="AppUpdatesSettingsFragment__last_checked_s">Lần cuối kiểm tra: %s</string>
-    <string name="LinkDeviceFragment__use_molly_on_another_devices">Dùng Molly trên thiết bị khá. Tin nhắn của bạn sẽ đồng bộ với các thiết bị đã liên kết.</string>
+    <string name="LinkDeviceFragment__use_molly_on_another_devices">Dùng Molly trên thiết bị khác. Các tin nhắn của bạn sẽ đồng bộ với các thiết bị đã liên kết.</string>
     <string name="LinkDeviceFragment__molly_on_another_device">Molly trên thiết bị khác</string>
     <string name="LinkDeviceFragment__messaging_is_private_on_all_linked_devices">Tin nhắn trên tất cả các thiết bị là riêng tư.</string>
     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Một khi liên kết, tin nhắn mới sẽ được đồng bộ trên các thiết bị, nhưng sẽ không bảo gồm lịch sử tin nhắn cũ.</string>
     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly hỗ trợ liên kết với các thiết bị Android khác sử dụng Molly, cũng như là máy tính và iPad sử dụng Signal.</string>
     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Dành cho Android: Truy cập %s để cài đặt Molly.</string>
     <string name="GcmRefreshJob_unable_to_register_with_Google_Play_Services">Không thể đăng ký với Dịch vụ Google Play</string>
-    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Đổi sáng một dịch vụ thông báo đẩy khác trong Cài đặt &gt; Thông báo hoặc sửa lại Dịch vụ Google Play.</string>
+    <string name="GcmRefreshJob_switch_to_an_alternative_push_service_in_settings_notifications">Đổi sang một dịch vụ thông báo đẩy khác trong Cài đặt &gt; Thông báo hoặc sửa lại vấn đề với Dịch vụ Google Play.</string>
     <string name="NotificationsSettingsFragment__an_error_occurred_while_registering_for_push_notifications_s">Một lỗI đã xảy ra khi đăng ký dịch vụ thông báo đẩy. %s</string>
-    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Hãy kiểm tra xem nếu Dịch vụ Google Play đã cài đặt and bật chưa, hoặc đổi sáng dịch vụ thương báo đẩy khác.</string>
+    <string name="NotificationsSettingsFragment__please_check_if_google_play_services_is_installed_and_enabled">Hãy kiểm tra xem nếu Dịch vụ Google Play đã cài đặt và bật hay chưa, hoặc đổi sang dịch vụ thông báo đẩy khác.</string>
     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Phiên bản Dịch vụ Google Play được cài trên thiết bị này đã hết hạn.</string>
     <string name="NotificationsSettingsFragment__push_notifications">Thông báo đẩy</string>
     <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">Chọn dịch vụ thông báo đẩy mộng muốn. Nếu không có sẵn, ứng dụng sẽ tự động dùng Websocket để đảm bảo rằng thông báo được gửi đến.</string>
