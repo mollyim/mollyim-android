@@ -2147,6 +2147,7 @@ class AttachmentTable(
               REMOTE_INCREMENTAL_DIGEST to duplicateAttachment.incrementalDigest?.takeIf { it.isNotEmpty() },
               REMOTE_INCREMENTAL_DIGEST_CHUNK_SIZE to duplicateAttachment.incrementalMacChunkSize,
               UPLOAD_TIMESTAMP to duplicateAttachment.uploadTimestamp,
+              CDN_NUMBER to duplicateAttachment.cdn.serialize(),
               ARCHIVE_CDN to duplicateAttachment.archiveCdn,
               ARCHIVE_TRANSFER_STATE to duplicateAttachment.archiveTransferState.value,
               THUMBNAIL_FILE to dataFileInfo.thumbnailFile,
