@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.banner.ui.compose.Action
 import org.thoughtcrime.securesms.banner.ui.compose.DefaultBanner
 import org.thoughtcrime.securesms.banner.ui.compose.Importance
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
 import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 
@@ -51,6 +52,11 @@ private fun Banner(contentPadding: PaddingValues) {
     importance = Importance.ERROR,
     actions = listOf(
       Action(R.string.UnauthorizedReminder_reregister_action) {
+        if (SignalStore.misc.isOldDeviceTransferLocked) {
+          SignalStore.misc.isOldDeviceTransferLocked = false
+          DeviceTransferBlockingInterceptor.getInstance().unblockNetwork()
+        }
+
         val registrationIntent = RegistrationActivity.newIntentForReRegistration(context)
         context.startActivity(registrationIntent)
       }

@@ -60,6 +60,6 @@ public final class DeviceTransferBlockingInterceptor implements Interceptor {
 
   public void unblockNetwork() {
     blockNetworking = false;
-    SignalExecutors.UNBOUNDED.execute(AppDependencies::startNetwork);
+    AppDependencies.resetNetwork();
   }
 }
