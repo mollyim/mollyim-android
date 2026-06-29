@@ -52,7 +52,7 @@
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
   <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">사진이나 동영상을 찍으려면 Signal에 카메라와 마이크 접근을 허용해 주세요.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">소리와 함께 동영상을 찍으려면 Signal에 마이크 접근을 허용해 주세요.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">소리가 포함된 동영상을 촬영하려면 Signal에 마이크 접근을 허용해 주세요.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
   <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR 코드를 스캔하려면 Signal에 카메라 접근을 허용해 주세요.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
@@ -64,11 +64,11 @@
   <!-- Dialog description that explains the steps needed to give camera permission -->
   <string name="CameraXFragment_to_capture_photos">Signal에서 사진을 촬영하려면 다음 단계를 따라주세요.</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Signal에서 사진과 동영상을 찍으려면 다음을 수행하세요.</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Signal에서 사진과 동영상을 촬영하려면 다음 단계를 따라주세요.</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">소리가 포함된 동영상을 촬영하려면 다음 단계를 따라주세요.</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-  <string name="CameraXFragment_to_scan_qr_codes">QR 코드를 스캔하려면 다음을 수행하세요.</string>
+  <string name="CameraXFragment_to_scan_qr_codes">QR 코드를 스캔하려면 다음 단계를 따라주세요.</string>
   <!-- Error message shown when we try to take a photo, but fail -->
   <string name="CameraXFragment_photo_capture_failed">사진을 캡처하지 못했습니다. 다시 시도해 주세요.</string>
   <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
@@ -84,5 +84,5 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">전송</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal에서 동영상을 찍으려면 마이크 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\'를 허용해 주세요.</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal에서 동영상을 촬영하려면 마이크 권한이 필요하지만, 현재 권한이 차단되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\'를 허용해 주세요.</string>
 </resources>

@@ -27,7 +27,7 @@
   <!-- Label for the button that switches the capture screen to the text story editor. -->
   <string name="MediaCaptureScreen__text_story">စာသား စတိုရီ</string>
   <!-- Video editor play button content description -->
-  <string name="VideoEditorHud_play_video_description">ဗွီဒီယိုဖွင့်ပါ</string>
+  <string name="VideoEditorHud_play_video_description">ဗီဒီယိုဖွင့်ပါ</string>
 
   <!-- CameraFragment -->
   <!-- Toasted when user device does not support video recording -->
@@ -36,7 +36,7 @@
   <!-- CameraXFragment -->
   <string name="CameraXFragment_tap_for_photo_hold_for_video">ဓါတ်ပုံအတွက် နှိပ်ပါ။ ဗီဒီယိုအတွက် ဖိထားပါ</string>
   <!-- Accessibility content description to describe the capture button when taking an image/video -->
-  <string name="CameraXFragment_capture_description">ဓာတ်ပုံရိုက်သည်</string>
+  <string name="CameraXFragment_capture_description">ရိုက်ကူးရန်</string>
   <string name="CameraXFragment_change_camera_description">ကင်မရာပြောင်းရန်</string>
   <string name="CameraXFragment_open_gallery_description">ပုံပြခန်းကို ဖွင့်ပါ</string>
   <!-- Button text asking for access to camera permissions -->
@@ -46,19 +46,19 @@
   <!-- Dialog title asking users for camera permission -->
   <string name="CameraXFragment_allow_access_camera">သင့်ကင်မရာ အသုံးပြုခွင့်ပေးပါ</string>
   <!-- Dialog title asking users for microphone permission -->
-  <string name="CameraXFragment_allow_access_microphone">သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ကိုပေးပါ</string>
+  <string name="CameraXFragment_allow_access_microphone">သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Signal မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးပါ။</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Signal ကို ကင်မရာအသုံးပြုခွင့် ပေးပါ။</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
   <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">ဓာတ်ပုံနှင့် ဗီဒီယိုရိုက်ကူးရန် Signal ကို ကင်မရာနှင့် မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">ဗီဒီယိုကို အသံဖြင့်ရိုက်ကူးရန် Signal ကို သင့်မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">ဗီဒီယိုကို အသံဖြင့်ရိုက်ကူးရန် Signal ကို မိုက်ခရိုဖုန်း အသုံးပြုခွင့်ပေးပါ။</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR ကုဒ်ကို စကင်န်ဖတ်ရန် Signal ကို ကင်မရာအသုံးပြုခွင့်ပေးပါ။</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR ကုဒ်ကို စကင်န်ဖတ်ရန် Signal ကို ကင်မရာ အသုံးပြုခွင့်ပေးပါ။</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
   <string name="CameraXFragment_signal_needs_camera_access_capture_photos">ဓာတ်ပုံရိုက်ကူးရန် Signal သည် ကင်မရာအသုံးပြုခွင့် လိုအပ်ပါသည်</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal သည် QR ကုဒ်များကို စကင်န်ဖတ်ရန် ကင်မရာအသုံးပြုခွင့် လိုအပ်ပါသည်</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR ကုဒ်များကို စကင်န်ဖတ်ရန် Signal သည် ကင်မရာအသုံးပြုခွင့် လိုအပ်ပါသည်</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
   <string name="CameraXFragment_signal_needs_microphone_access_video">ဗီဒီယိုရိုက်ကူးရန်အတွက် Signal သည် မိုက်ခရိုဖုန်းအသုံးပြုခွင့် လိုအပ်ပါသည်</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
@@ -84,5 +84,5 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">ပို့ပါ</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">ဗွီဒီယိုရိုက်ကူးရန် မိုက်ကရိုဖုန်းခွင့်ပြုချက်လိုအပ်ပါသည်။ သို့သော် ငြင်းဆိုခံရပါက အက်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ \"ခွင့်ပြုချက်များ\" ကို ရွေးချယ်ကာ \"မိုက်ခရိုဖုန်း\" နှင့် \"ကင်မရာ\" ကို အသုံးပြုနိုင်အောင် လုပ်ပါ။</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">ဗီဒီယိုရိုက်ကူးရန် မိုက်ခရိုဖုန်း ခွင့်ပြုချက်များ လိုအပ်ပြီး ယင်းတို့ကို ငြင်းဆိုခြင်း ခံထားရပါသည်။ အက်ပလီကေးရှင်း ဆက်တင်သို့ သွား၍ \"ခွင့်ပြုချက်များ\" ကို ရွေးချယ်ကာ \"မိုက်ခရိုဖုန်း\" နှင့် \"ကင်မရာ\" ကို ဖွင့်ပါ။</string>
 </resources>

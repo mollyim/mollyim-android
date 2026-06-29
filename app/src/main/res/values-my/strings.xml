@@ -651,11 +651,11 @@
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">ဓာတ်ပုံကို ဒေါင်းလုဒ်လုပ်၍မရပါ။ ထပ်မံကြိုးစားပါ။</string>
     <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
-    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <string name="ConversationFragment_attachment_backfill_failed_title">မီဒီယာကို ဒေါင်းလုဒ်လုပ်၍မရပါ</string>
     <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
-    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <string name="ConversationFragment_attachment_backfill_timeout">ဤစက်နှင့် သင့်ဖုန်း၏ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။ သင့်ဖုန်းတွင် Signal ကိုဖွင့်ပြီးနောက် ထပ်မံဒေါင်းလုဒ်လုပ်ကြည့်ပါ။</string>
     <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
-    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
+    <string name="ConversationFragment_attachment_backfill_not_found">ဤမီဒီယာသည် သင့်ဖုန်းတွင် မရရှိတော့သဖြင့် ဒေါင်းလုဒ်လုပ်၍မရပါ။</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">ပင်တွဲရန်…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -1407,9 +1407,9 @@
     <string name="AddGroupDetailsFragment__sms_contact">SMS နှင့်ဆက်သွယ်ပါ</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">%1$s ကို အဖွဲ့မှ ဖယ်ရှားမည်လား။</string>
     <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
-    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <string name="AddGroupDetailsFragment__discard_group">အဖွဲ့ကို ပယ်ဖျက်မည်လား။</string>
     <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
-    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">\"%1$s\" အဖွဲ့တွင် ဆက်လက်ပါဝင်ပါက သင်၏ပြောင်းလဲမှုများကို သိမ်းဆည်းမည်မဟုတ်ပါ။</string>
     <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
     <string name="AddGroupDetailsFragment__discard">ပယ်ဖျက်မည်</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
@@ -8912,23 +8912,23 @@
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ဘက်ခ်အပ် စီစဥ်သတ်မှတ်ခြင်းမှ ထွက်ပါမည်</string>
     <!-- Screen title when saving your recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">သင့် ပြန်လည်ရယူရေးကီးကို သိမ်းဆည်းပါ</string>
     <!-- Screen subtitle for the recovery key screen -->
-    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">သင့်ပြန်လည်ရယူရေးကီးသည် သင့်ဘက်ခ်အပ်ကို ပြန်လည်ရယူနိုင်စေမည့် စာလုံး 64 လုံးပါ ကုဒ်တစ်ခုဖြစ်သည်။ သင့်ကီးကို မေ့သွားပါက သင့်အကောင့်ကို ပြန်လည်ရယူနိုင်မည်မဟုတ်ပါ။</string>
     <!-- Hint text to see the full recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">ကီး အပြည့်အစုံကိုကြည့်ရန်</string>
     <!-- Bottom sheet caption to confirm your recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">သင့်ပြန်လည်ရယူရေးကီးကို မှန်ကန်စွာ မှတ်တမ်းတင်ထားကြောင်း အတည်ပြုပါ။ နောက်တစ်ဆင့်တွင် သင်သိမ်းဆည်းထားသည့် စကားဝှက်ကို ဖြည့်ရန် တောင်းဆိုလာလိမ့်မည်။</string>
     <!-- Button to confirm the recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">ပြန်လည်ရယူရေးကီးကို အတည်ပြုရန်</string>
     <!-- Toast shown when the key is confirmed -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">ပြန်လည်ရယူရေးကီး အတည်ပြုပြီး</string>
     <!-- Dialog title shown when the recovery key fails to confirm -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">ပြန်လည်ရယူရေးကီးကို အတည်ပြုရာတွင် ချို့ယွင်းချက်ရှိနေသည်</string>
     <!-- Dialog body shown when the recovery key fails to confirm -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">သင့် ပြန်လည်ရယူရေးကီးကို အတည်ပြု၍မရပါ။ ၎င်းကို သင့်စကားဝှက်စီမံရေးတွင် သိမ်းဆည်းထားကြောင်း သေချာပါစေ၊ သို့မဟုတ် ၎င်းကို ကိုယ်တိုင်သိမ်းဆည်းပါ။</string>
     <!-- Button option to save the key manually -->
-    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">ကီးကို ကိုယ်တိုင်သိမ်းဆည်းရန်</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9658,7 +9658,7 @@
 
     <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
     <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
-        <item quantity="other">%1$d groups with the same members</item>
+        <item quantity="other">အဖွဲ့ဝင်တူသော အဖွဲ့ %1$d ဖွဲ့</item>
     </plurals>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->

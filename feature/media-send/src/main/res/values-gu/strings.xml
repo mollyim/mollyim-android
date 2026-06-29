@@ -27,28 +27,28 @@
   <!-- Label for the button that switches the capture screen to the text story editor. -->
   <string name="MediaCaptureScreen__text_story">ટેક્સ્ટ સ્ટોરી</string>
   <!-- Video editor play button content description -->
-  <string name="VideoEditorHud_play_video_description">વિડિયો ચલાવો</string>
+  <string name="VideoEditorHud_play_video_description">વીડિયો વગાડો</string>
 
   <!-- CameraFragment -->
   <!-- Toasted when user device does not support video recording -->
   <string name="CameraFragment__video_recording_is_not_supported_on_your_device">તમારા ડિવાઇસ પર વીડિયો રેકોર્ડિંગ સપોર્ટેડ નથી</string>
 
   <!-- CameraXFragment -->
-  <string name="CameraXFragment_tap_for_photo_hold_for_video">ફોટો માટે ટેપ કરો, વિડિયો માટે પકડી રાખો</string>
+  <string name="CameraXFragment_tap_for_photo_hold_for_video">ફોટો માટે ટેપ કરો, વીડિયો માટે પકડી રાખો</string>
   <!-- Accessibility content description to describe the capture button when taking an image/video -->
-  <string name="CameraXFragment_capture_description">કેપ્ચર</string>
-  <string name="CameraXFragment_change_camera_description">કેમેરો બદલો</string>
+  <string name="CameraXFragment_capture_description">કેપ્ચર કરો</string>
+  <string name="CameraXFragment_change_camera_description">કૅમેરા બદલો</string>
   <string name="CameraXFragment_open_gallery_description">ગેલેરી ખોલો</string>
   <!-- Button text asking for access to camera permissions -->
   <string name="CameraXFragment_allow_access">ઍક્સેસ આપો</string>
   <!-- Dialog title asking users for camera and microphone permission -->
-  <string name="CameraXFragment_allow_access_camera_microphone">તમારા કૅમેરા અને માઇક્રોફોનની ઍક્સેસ આપો</string>
+  <string name="CameraXFragment_allow_access_camera_microphone">તમારા કૅમેરા અને માઇક્રોફોનનું ઍક્સેસ આપો</string>
   <!-- Dialog title asking users for camera permission -->
   <string name="CameraXFragment_allow_access_camera">તમારા કૅમેરા પર ઍક્સેસની મંજૂરી આપો</string>
   <!-- Dialog title asking users for microphone permission -->
-  <string name="CameraXFragment_allow_access_microphone">તમારા માઇક્રોફોનનો ઍક્સેસ આપો</string>
+  <string name="CameraXFragment_allow_access_microphone">તમારા માઇક્રોફોનનું ઍક્સેસ આપો</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">ફોટા અને વિડિયો મેળવવા માટે, કેમેરામાં Signal એક્સેસની મંજૂરી આપો.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">ફોટા અને વીડિયો મેળવવા માટે, કૅમેરામાં Signal ઍક્સેસની મંજૂરી આપો.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
   <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">ફોટા અને વીડિયો કેપ્ચર કરવા માટે, કૅમેરા અને માઇક્રોફોન પર Signal ઍક્સેસની મંજૂરી આપો.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
@@ -58,7 +58,7 @@
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
   <string name="CameraXFragment_signal_needs_camera_access_capture_photos">ફોટા કેપ્ચર કરવા માટે Signalને કૅમેરા ઍક્સેસની જરૂર છે</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR કોડ સ્કેન કરવા માટે Signalને કૅમેરાની ઍક્સેસની જરૂર છે</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">QR કોડ સ્કેન કરવા માટે Signalને કૅમેરા ઍક્સેસની જરૂર છે</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
   <string name="CameraXFragment_signal_needs_microphone_access_video">વીડિયો કેપ્ચર કરવા માટે Signalને માઇક્રોફોન ઍક્સેસની જરૂર છે</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
@@ -84,5 +84,5 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">મોકલો</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">વિડિયોને રેકોર્ડ કરવા માટે Signal ને માઇક્રોફોન પરવાનગીની જરૂર છે, પરંતુ તે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરા\" સક્ષમ કરો.</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">વીડિયો રેકોર્ડ કરવા માટે Signalને માઇક્રોફોન પરવાનગીની જરૂર છે, પરંતુ તે નકારવામાં આવી છે. કૃપા કરીને ઍપ સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કૅમેરા\" સક્ષમ કરો.</string>
 </resources>

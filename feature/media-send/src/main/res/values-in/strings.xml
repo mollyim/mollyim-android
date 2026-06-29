@@ -25,7 +25,7 @@
   <!-- Label for the button that switches the capture screen to the camera. -->
   <string name="MediaCaptureScreen__camera">Kamera</string>
   <!-- Label for the button that switches the capture screen to the text story editor. -->
-  <string name="MediaCaptureScreen__text_story">Cerita teks</string>
+  <string name="MediaCaptureScreen__text_story">Story Teks</string>
   <!-- Video editor play button content description -->
   <string name="VideoEditorHud_play_video_description">Putar video</string>
 
@@ -46,7 +46,7 @@
   <!-- Dialog title asking users for camera permission -->
   <string name="CameraXFragment_allow_access_camera">Izinkan akses ke kamera</string>
   <!-- Dialog title asking users for microphone permission -->
-  <string name="CameraXFragment_allow_access_microphone">Izinkan akses ke mikrofon Anda</string>
+  <string name="CameraXFragment_allow_access_microphone">Izinkan akses ke mikrofon</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
   <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Untuk mengambil foto dan video, izinkan Signal mengakses kamera.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
@@ -84,5 +84,5 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Kirim</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Anda harus mengizinkan Signal untuk menggunakan mikrofon untuk dapat merekam video. Harap buka pengaturan aplikasi Anda, pilih \"Perizinan\", lalu izinkan Signal untuk menggunakan \"Mikrofon\" dan \"Kamera\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Anda harus mengizinkan Signal menggunakan mikrofon untuk dapat merekam video. Harap buka pengaturan aplikasi Anda, pilih \"Perizinan\", lalu aktifkan izin \"Mikrofon\" dan \"Kamera\".</string>
 </resources>
