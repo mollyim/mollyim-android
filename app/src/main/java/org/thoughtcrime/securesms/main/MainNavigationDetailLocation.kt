@@ -114,7 +114,10 @@ sealed interface MainNavigationDetailLocation : Parcelable, NavKey {
     @Parcelize
     sealed class CallLinks : Calls {
       @Serializable
-      data class EditCallLinkName(val callLinkRoomId: CallLinkRoomId) : CallLinks() {
+      data class EditCallLinkName(
+        val callLinkRoomId: CallLinkRoomId,
+        val currentName: String = ""
+      ) : CallLinks() {
         @Transient
         @IgnoredOnParcel
         override val controllerKey: CallLogRow.Id = CallLogRow.Id.CallLink(callLinkRoomId)

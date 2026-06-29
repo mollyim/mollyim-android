@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
@@ -35,6 +34,7 @@ import kotlinx.coroutines.rx3.asObservable
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.calls.CallsBackStack
 import org.thoughtcrime.securesms.calls.log.CallLogRow
 import org.thoughtcrime.securesms.chats.ChatsBackStack
 import org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfilesRepository
@@ -86,6 +86,20 @@ class MainNavigationViewModel(
   val chatsBackStackEntries: SnapshotStateList<MainNavigationDetailLocation>
     get() = chatsBackStack.entries
 
+  private val callsBackStack: CallsBackStack = CallsBackStack(savedStateHandle)
+  val callsBackStackEntries: SnapshotStateList<MainNavigationDetailLocation>
+    get() = callsBackStack.entries
+
+  private val currentTabBackStack: MainDetailBackStack?
+    get() {
+      val currentListLocation = internalMainNavigationState.value.currentListLocation
+      return when {
+        currentListLocation.isChatsTab -> chatsBackStack
+        currentListLocation == MainNavigationListLocation.CALLS -> callsBackStack
+        else -> null
+      }
+    }
+
   private val internalDetailLocation = MutableSharedFlow<MainNavigationDetailLocation>()
   val detailLocation: SharedFlow<MainNavigationDetailLocation> = internalDetailLocation
 
@@ -97,10 +111,10 @@ class MainNavigationViewModel(
       .combine(isFullScreenPane) { id, expanded -> if (expanded) Optional.ofNullable(null) else Optional.ofNullable(id) }
       .asObservable()
 
-  private val internalActiveCallId = MutableStateFlow<CallLogRow.Id?>(null)
-  val observableActiveCallId: Observable<Optional<out CallLogRow.Id>> = internalActiveCallId.map { Optional.ofNullable(it) }.combine(isFullScreenPane) { id, expanded ->
-    if (expanded) Optional.ofNullable(null) else id
-  }.asObservable()
+  val observableActiveCallId: Observable<Optional<out CallLogRow.Id>> =
+    snapshotFlow { callsBackStack.activeCallId }
+      .combine(isFullScreenPane) { id, expanded -> if (expanded) Optional.ofNullable(null) else Optional.ofNullable(id) }
+      .asObservable()
 
   private val internalMegaphone = MutableStateFlow(Megaphone.NONE)
   val megaphone: StateFlow<Megaphone> = internalMegaphone
@@ -153,12 +167,6 @@ class MainNavigationViewModel(
     performStoreUpdate(MainNavigationRepository.getHasFailedOutgoingStories()) { hasFailedStories, state ->
       state.copy(storyFailure = hasFailedStories)
     }
-
-    viewModelScope.launch {
-      internalDetailLocation.collect { location ->
-        updateActiveStateForLocation(location)
-      }
-    }
   }
 
   fun onPaneAnchorChanged(isFullScreenPane: Boolean) {
@@ -173,7 +181,7 @@ class MainNavigationViewModel(
     this@MainNavigationViewModel.isSplitPane = isSplitPane
 
     if (!isSplitPane) {
-      if (chatsBackStack.isEmpty) {
+      if (currentTabBackStack?.isEmpty == true) {
         lockPaneToSecondary = true
         setFocusedPane(ThreePaneScaffoldRole.Secondary)
       }
@@ -204,9 +212,8 @@ class MainNavigationViewModel(
       setFocusedPane(role)
     }
 
-    earlyNavigationDetailLocationRequested?.let { detail ->
+    earlyNavigationDetailLocationRequested?.let {
       lockPaneToSecondary = false
-      updateActiveStateForLocation(detail)
     }
 
     return this.navigator!!
@@ -246,20 +253,6 @@ class MainNavigationViewModel(
    */
   override fun goTo(location: MainNavigationDetailLocation) = setDetailLocation(location)
 
-  private fun updateActiveStateForLocation(location: MainNavigationDetailLocation) {
-    when (location) {
-      is MainNavigationDetailLocation.CallLinkDetails -> {
-        internalActiveCallId.update { location.controllerKey }
-      }
-
-      is MainNavigationDetailLocation.Calls -> {
-        internalActiveCallId.update { location.controllerKey }
-      }
-
-      else -> Unit
-    }
-  }
-
   private suspend fun MainNavigationDetailLocation.Conversation.withPreloadedWallpaper(): MainNavigationDetailLocation.Conversation {
     val args = conversationArgs
     val liveRecipient = Recipient.live(args.recipientId)
@@ -292,12 +285,13 @@ class MainNavigationViewModel(
 
     when (location) {
       is MainNavigationDetailLocation.Empty if currentListLocation.isChatsTab -> clearDetailLocation(chatsBackStack)
+      is MainNavigationDetailLocation.Empty if currentListLocation == MainNavigationListLocation.CALLS -> clearDetailLocation(callsBackStack)
       is MainNavigationDetailLocation.Chats -> pushChatsDetailLocation(location)
       is MainNavigationDetailLocation.Conversation -> goToConversation(location)
+      is MainNavigationDetailLocation.Calls, is MainNavigationDetailLocation.CallLinkDetails -> pushCallsDetailLocation(location)
 
       is MainNavigationDetailLocation.Empty,
-      is MainNavigationDetailLocation.CallLinkDetails,
-      is MainNavigationDetailLocation.Calls.CallLinks.EditCallLinkName -> {
+      is MainNavigationDetailLocation.Stories -> {
         if (navigator == null) {
           earlyNavigationDetailLocationRequested = location
           return
@@ -333,15 +327,29 @@ class MainNavigationViewModel(
     setFocusedPane(ThreePaneScaffoldRole.Primary)
   }
 
-  fun popChatsDetailLocation() {
-    chatsBackStack.pop()
-    if (chatsBackStack.isEmpty) {
+  fun popChatsDetailLocation() = popDetailLocation(chatsBackStack)
+
+  private fun pushCallsDetailLocation(location: MainNavigationDetailLocation) {
+    if (location is MainNavigationDetailLocation.Calls && callsBackStack.activeCallId != location.controllerKey) {
+      callsBackStack.reset()
+    }
+
+    callsBackStack.push(location)
+    setFocusedPane(ThreePaneScaffoldRole.Primary)
+  }
+
+  fun popCallsDetailLocation() = popDetailLocation(callsBackStack)
+
+  private fun popDetailLocation(backStack: MainDetailBackStack) {
+    backStack.pop()
+
+    if (backStack.isEmpty) {
       lockPaneToSecondary = true
       popDetailPane()
     }
   }
 
-  private fun clearDetailLocation(backStack: ChatsBackStack) {
+  private fun clearDetailLocation(backStack: MainDetailBackStack) {
     backStack.reset()
     if (!isSplitPane) {
       lockPaneToSecondary = true

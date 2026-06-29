@@ -113,7 +113,12 @@ class DefaultCallLinkDetailsCallback(
   }
 
   override fun onEditNameClicked() {
-    router.goToCallDetail(MainNavigationDetailLocation.Calls.CallLinks.EditCallLinkName(callLinkRoomId = viewModel.recipientSnapshot!!.requireCallLinkRoomId()))
+    router.goToCallDetail(
+      MainNavigationDetailLocation.Calls.CallLinks.EditCallLinkName(
+        callLinkRoomId = viewModel.recipientSnapshot!!.requireCallLinkRoomId(),
+        currentName = viewModel.nameSnapshot
+      )
+    )
   }
 
   override fun onShareClicked() {
