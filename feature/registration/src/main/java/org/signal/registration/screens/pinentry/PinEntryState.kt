@@ -11,6 +11,7 @@ data class PinEntryState(
   val showNeedHelp: Boolean = false,
   val isAlphanumericKeyboard: Boolean = false,
   val loading: Boolean = false,
+  val showNoDataToRestoreDialog: Boolean = false,
   val triesRemaining: Int? = null,
   val mode: Mode = Mode.SvrRestore,
   val oneTimeEvent: OneTimeEvent? = null,

@@ -72,6 +72,15 @@ class PinEntryForSvrRestoreViewModel(
       is PinEntryScreenEvents.Skip -> {
         handleSkip()
       }
+      is PinEntryScreenEvents.CreateNewPin -> {
+        Log.i(TAG, "[CreateNewPin] User opted to create a new PIN after no data was found. Navigating to PIN creation.")
+        stateEmitter(state.copy(showNoDataToRestoreDialog = false))
+        parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+      }
+      is PinEntryScreenEvents.ContactSupport -> {
+        Log.i(TAG, "[ContactSupport] User opted to contact support after no data was found.")
+        stateEmitter(state.copy(showNoDataToRestoreDialog = false))
+      }
       is PinEntryScreenEvents.ToggleKeyboard,
       is PinEntryScreenEvents.NeedHelp -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
@@ -128,9 +137,8 @@ class PinEntryForSvrRestoreViewModel(
             state.copy(triesRemaining = error.triesRemaining)
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
-            Log.w(TAG, "[PinEntered] No SVR data found. Need to create a PIN instead.")
-            parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
-            state
+            Log.w(TAG, "[PinEntered] No SVR data found. Prompting user to create a new PIN.")
+            state.copy(showNoDataToRestoreDialog = true)
           }
         }
       }

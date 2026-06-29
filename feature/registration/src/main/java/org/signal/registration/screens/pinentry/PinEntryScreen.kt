@@ -45,6 +45,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
@@ -108,6 +109,22 @@ fun PinEntryScreen(
         onEvent(PinEntryScreenEvents.Skip)
       },
       onDismiss = { showSkipDialog = false }
+    )
+  }
+
+  if (state.showNoDataToRestoreDialog) {
+    Dialogs.SimpleAlertDialog(
+      title = "",
+      body = stringResource(R.string.PinEntryScreen__no_data_could_be_found),
+      confirm = stringResource(R.string.PinEntryScreen__create_new_pin),
+      dismiss = stringResource(R.string.PinEntryScreen__contact_support),
+      onConfirm = { onEvent(PinEntryScreenEvents.CreateNewPin) },
+      onDeny = { onEvent(PinEntryScreenEvents.ContactSupport) },
+      onDismissRequest = { onEvent(PinEntryScreenEvents.ContactSupport) },
+      properties = DialogProperties(
+        dismissOnBackPress = false,
+        dismissOnClickOutside = false
+      )
     )
   }
 

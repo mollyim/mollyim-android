@@ -163,7 +163,7 @@ class PinEntryForSvrRestoreViewModelTest {
   }
 
   @Test
-  fun `PinEntered with no SVR data navigates to PinCreate`() = runTest {
+  fun `PinEntered with no SVR data shows the no-data-to-restore dialog without navigating`() = runTest {
     val svrCredentials = NetworkController.SvrCredentials(
       username = "test-username",
       password = "test-password"
@@ -179,11 +179,34 @@ class PinEntryForSvrRestoreViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(emittedStates.last().showNoDataToRestoreDialog).isEqualTo(true)
+  }
+
+  // ==================== No Data To Restore Dialog Tests ====================
+
+  @Test
+  fun `CreateNewPin dismisses the dialog and navigates to PinCreate`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore, showNoDataToRestoreDialog = true)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.CreateNewPin, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().showNoDataToRestoreDialog).isEqualTo(false)
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first())
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.PinCreate>()
+  }
+
+  @Test
+  fun `ContactSupport dismisses the dialog without navigating`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore, showNoDataToRestoreDialog = true)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.ContactSupport, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().showNoDataToRestoreDialog).isEqualTo(false)
+    assertThat(emittedParentEvents).hasSize(0)
   }
 
   @Test

@@ -76,6 +76,8 @@ class PinEntryForSmsBypassViewModel(
       is PinEntryScreenEvents.Skip -> {
         handleSkip()
       }
+      is PinEntryScreenEvents.CreateNewPin,
+      is PinEntryScreenEvents.ContactSupport -> Unit
       is PinEntryScreenEvents.ToggleKeyboard,
       is PinEntryScreenEvents.NeedHelp -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))

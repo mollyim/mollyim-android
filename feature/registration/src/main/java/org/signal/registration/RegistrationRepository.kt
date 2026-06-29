@@ -289,6 +289,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
         backupSizeBytes = provisioningMessage.backupSizeBytes ?: 0,
         backupVersion = provisioningMessage.backupVersion
       )
+      pin = provisioningMessage.pin ?: ""
+      pinIsAlphanumeric = provisioningMessage.pin?.any { !it.isDigit() } == true
     }
 
     val aep = AccountEntropyPool(provisioningMessage.accountEntropyPool)
