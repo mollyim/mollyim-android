@@ -86,6 +86,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
     coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -102,6 +103,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().triesRemaining).isEqualTo(triesRemaining)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -122,6 +124,7 @@ class PinEntryForRegistrationLockViewModelTest {
       .isInstanceOf<RegistrationRoute.AccountLocked>()
       .prop(RegistrationRoute.AccountLocked::timeRemainingMs)
       .isEqualTo(testTimeRemaining)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -135,6 +138,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -148,6 +152,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -233,6 +238,7 @@ class PinEntryForRegistrationLockViewModelTest {
       .isInstanceOf<PinEntryState.OneTimeEvent.RateLimited>()
       .prop(PinEntryState.OneTimeEvent.RateLimited::retryAfter)
       .isEqualTo(retryAfter)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -252,6 +258,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -271,6 +278,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -288,6 +296,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -305,6 +314,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   // ==================== Skip Tests ====================

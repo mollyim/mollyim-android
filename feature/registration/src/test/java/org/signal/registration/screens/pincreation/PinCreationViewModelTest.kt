@@ -125,6 +125,7 @@ class PinCreationViewModelTest {
 
   @Test
   fun `matching confirmation PIN with valid AEP and successful SVR backup hands off to finishRegistrationOrCreateProfile`() = runTest(testDispatcher) {
+    val states = collectStates()
     val aep = AccountEntropyPool.generate()
     val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
 
@@ -135,6 +136,7 @@ class PinCreationViewModelTest {
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT) }
     coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(states.last().loading).isTrue()
   }
 
   // ==================== PinSubmitted Missing AEP Test ====================

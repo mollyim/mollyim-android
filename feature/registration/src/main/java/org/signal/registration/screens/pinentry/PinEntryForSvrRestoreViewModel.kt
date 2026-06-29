@@ -64,10 +64,9 @@ class PinEntryForSvrRestoreViewModel(
   ) {
     when (event) {
       is PinEntryScreenEvents.PinEntered -> {
-        var localState = state.copy(loading = true)
+        val localState = state.copy(loading = true)
         stateEmitter(localState)
-        localState = applyPinEntered(localState, event, parentEventEmitter)
-        stateEmitter(localState.copy(loading = false))
+        stateEmitter(applyPinEntered(localState, event, parentEventEmitter))
       }
       is PinEntryScreenEvents.Skip -> {
         handleSkip()
@@ -114,10 +113,10 @@ class PinEntryForSvrRestoreViewModel(
         }
       }
       is RequestResult.RetryableNetworkError -> {
-        return state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
-        return state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
 
@@ -134,21 +133,21 @@ class PinEntryForSvrRestoreViewModel(
         when (val error = result.error) {
           is NetworkController.RestoreMasterKeyError.WrongPin -> {
             Log.w(TAG, "[PinEntered] Wrong PIN. Tries remaining: ${error.triesRemaining}")
-            state.copy(triesRemaining = error.triesRemaining)
+            state.copy(loading = false, triesRemaining = error.triesRemaining)
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
             Log.w(TAG, "[PinEntered] No SVR data found. Prompting user to create a new PIN.")
-            state.copy(showNoDataToRestoreDialog = true)
+            state.copy(loading = false, showNoDataToRestoreDialog = true)
           }
         }
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key.", result.networkError)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key.", result.cause)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
   }

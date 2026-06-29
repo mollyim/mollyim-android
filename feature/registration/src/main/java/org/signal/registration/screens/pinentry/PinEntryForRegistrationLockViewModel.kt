@@ -61,10 +61,9 @@ class PinEntryForRegistrationLockViewModel(
   suspend fun applyEvent(state: PinEntryState, event: PinEntryScreenEvents, parentEventEmitter: (RegistrationFlowEvent) -> Unit, stateEmitter: (PinEntryState) -> Unit) {
     when (event) {
       is PinEntryScreenEvents.PinEntered -> {
-        var localState = state.copy(loading = true)
+        val localState = state.copy(loading = true)
         stateEmitter(localState)
-        localState = applyPinEntered(localState, event, parentEventEmitter)
-        stateEmitter(localState.copy(loading = false))
+        stateEmitter(applyPinEntered(localState, event, parentEventEmitter))
       }
       is PinEntryScreenEvents.Skip -> {
         handleSkip()
@@ -92,7 +91,7 @@ class PinEntryForRegistrationLockViewModel(
         return when (val error = restoreResult.error) {
           is NetworkController.RestoreMasterKeyError.WrongPin -> {
             Log.w(TAG, "[PinEntered] Wrong PIN. Tries remaining: ${error.triesRemaining}")
-            state.copy(triesRemaining = error.triesRemaining)
+            state.copy(loading = false, triesRemaining = error.triesRemaining)
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
             Log.w(TAG, "[PinEntered] No SVR data found. Account is locked.")
@@ -103,11 +102,11 @@ class PinEntryForRegistrationLockViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key.", restoreResult.networkError)
-        return state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key.", restoreResult.cause)
-        return state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
 
@@ -157,15 +156,15 @@ class PinEntryForRegistrationLockViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[PinEntered] Rate limited when registering. Retry After: ${error.retryAfter}")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
           }
           is NetworkController.RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[PinEntered] Invalid request when registering: ${error.message}")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
           }
           is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
             Log.w(TAG, "[PinEntered] Device transfer possible. This shouldn't happen when skipDeviceTransfer is true.")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${error.message}")
@@ -176,11 +175,11 @@ class PinEntryForRegistrationLockViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when registering.", registerResult.networkError)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when registering.", registerResult.cause)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
   }
