@@ -923,7 +923,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       DATE_RECEIVED to dateReceived,
       DATE_SENT to timestamp,
       READ to 1,
-      NOTIFIED to 1,
+      NOTIFIED to if (MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)) 0 else 1,
       TYPE to type,
       THREAD_ID to threadId,
       EXPIRES_IN to expiresIn
@@ -959,7 +959,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       .values(
         TYPE to type,
         READ to 1,
-        NOTIFIED to 1
+        NOTIFIED to if (MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)) 0 else 1
       )
       .where("$ID = ?", messageId)
       .run()
