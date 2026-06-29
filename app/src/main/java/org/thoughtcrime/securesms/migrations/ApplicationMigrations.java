@@ -206,9 +206,10 @@ public class ApplicationMigrations {
     static final int NOTIFICATION_INDEX_MIGRATION  = 162;
     static final int NOTIFICATION_STATE_CLEANUP    = 163;
     static final int KT_USERNAME_CAPABILITY        = 164;
+    static final int FIX_CHANGE_NUMBER_ERROR_2     = 165;
   }
 
-  public static final int CURRENT_VERSION = 164;
+  public static final int CURRENT_VERSION = 165;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -845,6 +846,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.FIX_CHANGE_NUMBER_ERROR) {
       jobs.put(Version.FIX_CHANGE_NUMBER_ERROR, new FixChangeNumberErrorMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.FIX_CHANGE_NUMBER_ERROR_2) {
+      jobs.put(Version.FIX_CHANGE_NUMBER_ERROR_2, new FixChangeNumberErrorMigrationJob());
     }
 
     if (lastSeenVersion < Version.CHAT_FOLDER_STORAGE_SYNC) {
