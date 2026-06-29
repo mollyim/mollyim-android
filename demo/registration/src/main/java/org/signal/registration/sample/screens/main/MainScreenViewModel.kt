@@ -89,6 +89,16 @@ class MainScreenViewModel(
           )
         },
         pendingFlowState = loadPendingFlowState(),
+        linkedDeviceState = if (RegistrationPreferences.linkedDeviceId > 0) {
+          MainScreenState.LinkedDeviceState(
+            deviceId = RegistrationPreferences.linkedDeviceId,
+            linkAndSyncOffered = RegistrationPreferences.ephemeralBackupKey != null,
+            linkAndSyncFrameCount = RegistrationPreferences.linkAndSyncFrameCount,
+            linkAndSyncDownloadedBytes = RegistrationPreferences.linkAndSyncDownloadedBytes
+          )
+        } else {
+          null
+        },
         registrationExpired = false
       )
 

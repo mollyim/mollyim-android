@@ -52,6 +52,11 @@ message RegistrationData {
 
   // JSON-serialized flow state snapshot (from saveFlowState/restoreFlowState)
   string flowStateJson = 21;
+
+  // Registration data provided by the primary+server to register as a linked device
+  LinkedDeviceData linkedDeviceData = 25;
+
+  // Next: 26
 }
 
 message SvrCredential {
@@ -78,4 +83,12 @@ message ProvisioningData {
   int64    backupTimestampMs = 4;
   int64    backupSizeBytes = 5;
   int64    backupVersion = 6;
+}
+
+message LinkedDeviceData {
+  uint32 deviceId = 1;
+  string deviceName = 2;
+  optional bytes ephemeralBackupKey = 3;
+  optional bytes mediaRootBackupKey = 4;
+  optional bool readReceipts = 5;
 }

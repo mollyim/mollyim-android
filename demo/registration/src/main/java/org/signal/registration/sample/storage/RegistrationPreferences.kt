@@ -60,6 +60,10 @@ object RegistrationPreferences {
   private const val KEY_PROFILE_AVATAR = "profile_avatar"
   private const val KEY_PROFILE_DISCOVERABLE = "profile_discoverable"
   private const val KEY_RESTORE_DECISION = "restore_decision"
+  private const val KEY_LINKED_DEVICE_ID = "linked_device_id"
+  private const val KEY_EPHEMERAL_BACKUP_KEY = "ephemeral_backup_key"
+  private const val KEY_LINK_AND_SYNC_FRAME_COUNT = "link_and_sync_frame_count"
+  private const val KEY_LINK_AND_SYNC_DOWNLOADED_BYTES = "link_and_sync_downloaded_bytes"
 
   fun init(context: Application) {
     this.context = context
@@ -87,7 +91,7 @@ object RegistrationPreferences {
 
   var aep: AccountEntropyPool?
     get() = prefs.getString(KEY_AEP, null)?.let { AccountEntropyPool(it) }
-    set(value) = prefs.edit { putString(KEY_AEP, value?.toString()) }
+    set(value) = prefs.edit { putString(KEY_AEP, value?.value) }
 
   var profileKey: ProfileKey?
     get() = prefs.getString(KEY_PROFILE_KEY, null)?.let { ProfileKey(Base64.decode(it)) }
@@ -164,6 +168,22 @@ object RegistrationPreferences {
     set(value) = prefs.edit {
       if (value == null) remove(KEY_PROFILE_DISCOVERABLE) else putBoolean(KEY_PROFILE_DISCOVERABLE, value)
     }
+
+  var linkedDeviceId: Int
+    get() = prefs.getInt(KEY_LINKED_DEVICE_ID, -1)
+    set(value) = prefs.edit { putInt(KEY_LINKED_DEVICE_ID, value) }
+
+  var ephemeralBackupKey: ByteArray?
+    get() = prefs.getString(KEY_EPHEMERAL_BACKUP_KEY, null)?.let { Base64.decode(it) }
+    set(value) = prefs.edit { putString(KEY_EPHEMERAL_BACKUP_KEY, value?.let { Base64.encodeWithPadding(it) }) }
+
+  var linkAndSyncFrameCount: Int
+    get() = prefs.getInt(KEY_LINK_AND_SYNC_FRAME_COUNT, -1)
+    set(value) = prefs.edit { putInt(KEY_LINK_AND_SYNC_FRAME_COUNT, value) }
+
+  var linkAndSyncDownloadedBytes: Long
+    get() = prefs.getLong(KEY_LINK_AND_SYNC_DOWNLOADED_BYTES, -1L)
+    set(value) = prefs.edit { putLong(KEY_LINK_AND_SYNC_DOWNLOADED_BYTES, value) }
 
   var restoredSvr2Credentials: List<NetworkController.SvrCredentials>
     get() = prefs.getStringSet(KEY_SVR2_CREDENTIALS, emptySet())?.mapNotNull { parseCredential(it) } ?: emptyList()

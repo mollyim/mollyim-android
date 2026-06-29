@@ -57,6 +57,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
+import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.IconButtons
 import org.signal.core.ui.compose.LocalAnimateVisibilityScope
 import org.signal.core.ui.compose.LocalSharedTransitionScope
@@ -105,6 +107,32 @@ fun LinkAccountScreen(
         }
       }
     }
+
+    StateDialogs(state = state, onEvent = onEvent)
+  }
+}
+
+@Composable
+private fun StateDialogs(
+  state: LinkAccountScreenState,
+  onEvent: (LinkAccountScreenEvent) -> Unit
+) {
+  if (state.isRegistering) {
+    Dialogs.IndeterminateProgressDialog(
+      message = stringResource(R.string.LinkAccountScreen__linking_device)
+    )
+  } else if (state.isWaitingForPrimary) {
+    Dialogs.IndeterminateProgressDialog(
+      message = stringResource(R.string.LinkAccountScreen__waiting_for_your_other_device)
+    )
+  }
+
+  if (state.showError) {
+    Dialogs.SimpleMessageDialog(
+      message = stringResource(R.string.LinkAccountScreen__error_linking_device),
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { onEvent(LinkAccountScreenEvent.DismissError) }
+    )
   }
 }
 
@@ -299,7 +327,7 @@ private fun QrCodeContent(
             modifier = Modifier.fillMaxSize()
           ) {
             when (target) {
-              QrState.Failed -> QrCodeFailed()
+              QrState.Failed -> QrCodeFailed(onEvent)
               is QrState.Loaded -> QrCodeDisplay(target.qrCodeData, state.displayQrOverlay, sharedTransitionScope, animatedVisibilityScope)
               QrState.Loading -> QrCodeLoading()
               QrState.Scanned -> QrCodeScanned()
@@ -383,7 +411,9 @@ private fun QrCodeScanned() {
 }
 
 @Composable
-private fun QrCodeFailed() {
+private fun QrCodeFailed(
+  onEvent: (LinkAccountScreenEvent) -> Unit
+) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = spacedBy(8.dp)
@@ -399,6 +429,9 @@ private fun QrCodeFailed() {
       style = MaterialTheme.typography.bodyMedium,
       color = colorResource(org.signal.core.ui.R.color.signal_light_colorError)
     )
+    Buttons.Small(onClick = { onEvent(LinkAccountScreenEvent.RetryQrCode) }) {
+      Text(text = stringResource(R.string.LinkAccountScreen__retry))
+    }
   }
 }
 
@@ -421,7 +454,10 @@ fun QrCodeOverlay(
         onClick = { onEvent(LinkAccountScreenEvent.HideOverlayClick) },
         modifier = Modifier.testTag(TestTags.LINK_ACCOUNT_HIDE_OVERLAY_BUTTON)
       ) {
-        Icon(imageVector = SignalIcons.X.imageVector, contentDescription = null) // TODO 'close'
+        Icon(
+          imageVector = SignalIcons.X.imageVector,
+          contentDescription = stringResource(R.string.LinkAccountScreen__close_qr_code)
+        )
       }
     }
   }
@@ -574,6 +610,8 @@ private fun LinkAccountScreenPreview() {
           LinkAccountScreenEvent.DisplayOverlayClick -> displayQrOverlay = true
           LinkAccountScreenEvent.GetHelpClick -> Unit
           LinkAccountScreenEvent.HideOverlayClick -> displayQrOverlay = false
+          LinkAccountScreenEvent.RetryQrCode -> Unit
+          LinkAccountScreenEvent.DismissError -> Unit
         }
       }
     )

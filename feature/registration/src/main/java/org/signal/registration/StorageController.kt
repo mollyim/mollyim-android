@@ -19,6 +19,7 @@ import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.registration.proto.RegistrationData
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
+import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.signal.registration.util.ACIParceler
 import org.signal.registration.util.AccountEntropyPoolParceler
@@ -54,6 +55,12 @@ interface StorageController {
    * Clears all stored registration data, including key material and account information.
    */
   suspend fun clearAllData()
+
+  /**
+   * Wipes **all** local app data and attempts to relaunch the app into a fresh state. Used when the primary
+   * asks a freshly-linked device to re-link.
+   */
+  suspend fun clearLocalDataAndRestart()
 
   /**
    * Reads the persisted [RegistrationData] proto that is currently in the process of being worked on.
@@ -116,6 +123,15 @@ interface StorageController {
    *   from download through import, completion, or error.
    */
   fun restoreRemoteBackup(aep: AccountEntropyPool): Flow<RemoteBackupRestoreProgress>
+
+  /**
+   * Downloads and imports the link-and-sync message backup from the given CDN location ([cdn]/[key]). The ephemeral
+   * backup key needed to decrypt the backup is read from the locally persisted registration metadata committed
+   * during registration.
+   *
+   * @return A [Flow] of [LinkAndSyncProgress] reporting progress through completion or error.
+   */
+  fun restoreLinkAndSyncBackup(cdn: Int, key: String): Flow<LinkAndSyncProgress>
 
   /**
    * Scans the given folder URI for local backup files, checking for both modern

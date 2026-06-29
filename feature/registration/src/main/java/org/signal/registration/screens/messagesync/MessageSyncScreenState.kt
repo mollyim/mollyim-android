@@ -10,5 +10,6 @@ import org.signal.core.util.bytes
 
 data class MessageSyncScreenState(
   val downloadedBytes: ByteSize = 0.bytes,
-  val totalBytes: ByteSize = 0.bytes
+  val totalBytes: ByteSize = 0.bytes,
+  val isFinishing: Boolean = false
 )

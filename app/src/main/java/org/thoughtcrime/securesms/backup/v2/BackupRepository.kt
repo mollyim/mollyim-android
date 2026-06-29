@@ -2322,7 +2322,7 @@ object BackupRepository {
     return RemoteRestoreResult.Success
   }
 
-  suspend fun restoreLinkAndSyncBackup(response: TransferArchiveResponse, ephemeralBackupKey: MessageBackupKey) {
+  suspend fun restoreLinkAndSyncBackup(response: TransferArchiveResponse, ephemeralBackupKey: MessageBackupKey): RemoteRestoreResult {
     val context = AppDependencies.application
     ArchiveRestoreProgress.onRestorePending()
 
@@ -2354,9 +2354,16 @@ object BackupRepository {
       override fun shouldCancel() = cancellationSignal()
     }
 
+    val cdn = response.cdn
+    val key = response.key
+    if (cdn == null || key == null) {
+      Log.w(TAG, "[restoreLinkAndSyncBackup] Response has no archive location (error=${response.error}); nothing to download.")
+      return RemoteRestoreResult.Failure
+    }
+
     Log.i(TAG, "[restoreLinkAndSyncBackup] Downloading backup")
     val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
-    when (val result = AppDependencies.signalServiceMessageReceiver.retrieveLinkAndSyncBackup(response.cdn, response.key, tempBackupFile, progressListener)) {
+    when (val result = AppDependencies.signalServiceMessageReceiver.retrieveLinkAndSyncBackup(cdn, key, tempBackupFile, progressListener)) {
       is NetworkResult.Success -> Log.i(TAG, "[restoreLinkAndSyncBackup] Download successful")
       else -> {
         Log.w(TAG, "[restoreLinkAndSyncBackup] Failed to download backup file", result.getCause())

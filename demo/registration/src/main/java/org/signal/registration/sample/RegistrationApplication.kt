@@ -69,7 +69,7 @@ class RegistrationApplication : Application() {
             .setPositiveButton(android.R.string.ok, null)
             .show()
         },
-        isLinkAndSyncAvailable = false
+        isLinkAndSyncAvailable = true
       )
     )
 

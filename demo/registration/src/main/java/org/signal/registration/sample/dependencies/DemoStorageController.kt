@@ -8,22 +8,31 @@ package org.signal.registration.sample.dependencies
 import android.content.Context
 import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.archive.LocalBackupRestoreProgress
+import org.signal.archive.stream.EncryptedBackupReader
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
+import org.signal.core.models.backup.MessageBackupKey
+import org.signal.core.util.AppUtil
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
+import org.signal.network.NetworkResult
 import org.signal.registration.NetworkController
 import org.signal.registration.NewRegistrationData
 import org.signal.registration.PreExistingRegistrationData
@@ -32,10 +41,17 @@ import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
 import org.signal.registration.proto.ProvisioningData
 import org.signal.registration.proto.RegistrationData
+import org.signal.registration.sample.RegistrationApplication
 import org.signal.registration.sample.storage.RegistrationDatabase
 import org.signal.registration.sample.storage.RegistrationPreferences
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
+import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
+import org.whispersystems.signalservice.api.SignalServiceMessageReceiver
+import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
+import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
+import org.whispersystems.signalservice.internal.push.PushServiceSocket
+import org.whispersystems.signalservice.internal.util.StaticCredentialsProvider
 import java.io.File
 import java.time.LocalDateTime
 
@@ -49,6 +65,7 @@ class DemoStorageController(private val context: Context) : StorageController {
     private val TAG = Log.tag(DemoStorageController::class)
     private const val TEMP_PROTO_FILENAME = "registration_data.pb"
     private const val SIMULATED_STAGE_DELAY_MS = 500L
+    private const val USER_AGENT = "Signal-Android-Registration-Sample"
     private val MODERN_BACKUP_PATTERN = Regex("^signal-backup-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})$")
     private val LEGACY_BACKUP_PATTERN = Regex("^signal-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})\\.backup$")
   }
@@ -73,6 +90,14 @@ class DemoStorageController(private val context: Context) : StorageController {
     RegistrationPreferences.clearAll()
     RegistrationPreferences.clearRestoredSvr2Credentials()
     db.clearAllPreKeys()
+  }
+
+  override suspend fun clearLocalDataAndRestart() {
+    Log.w(TAG, "[clearLocalDataAndRestart] Relink requested; clearing demo data and restarting.")
+    clearAllData()
+    withContext(Dispatchers.Main) {
+      AppUtil.restart(context)
+    }
   }
 
   override suspend fun readInProgressRegistrationData(): RegistrationData = withContext(Dispatchers.IO) {
@@ -148,6 +173,13 @@ class DemoStorageController(private val context: Context) : StorageController {
           aep = AccountEntropyPool(data.accountEntropyPool)
         )
       )
+    }
+
+    // Linked-device data (persisted so the link-and-sync step can authenticate as this device and the
+    // home screen can show the linked account).
+    data.linkedDeviceData?.let { linkData ->
+      RegistrationPreferences.linkedDeviceId = linkData.deviceId
+      RegistrationPreferences.ephemeralBackupKey = linkData.ephemeralBackupKey?.toByteArray()
     }
 
     // PIN data
@@ -323,6 +355,89 @@ class DemoStorageController(private val context: Context) : StorageController {
     emit(RemoteBackupRestoreProgress.Complete)
     Log.d(TAG, "Simulated remote restore complete.")
   }.flowOn(Dispatchers.IO)
+
+  /**
+   * Performs a real link-and-sync restore against the (staging) service. The demo
+   * stops short of actually persisting any sync data but does read through the frames.
+   */
+  override fun restoreLinkAndSyncBackup(cdn: Int, key: String): Flow<LinkAndSyncProgress> = callbackFlow {
+    val aci = RegistrationPreferences.aci
+    val pni = RegistrationPreferences.pni
+    val e164 = RegistrationPreferences.e164
+    val password = RegistrationPreferences.servicePassword
+    val deviceId = RegistrationPreferences.linkedDeviceId
+    val ephemeralBackupKeyBytes = RegistrationPreferences.ephemeralBackupKey
+
+    if (aci == null || e164 == null || password == null || deviceId <= 0 || ephemeralBackupKeyBytes == null) {
+      Log.i(TAG, "[restoreLinkAndSyncBackup] No link-and-sync backup expected; nothing to restore.")
+      trySend(LinkAndSyncProgress.Complete)
+      close()
+      return@callbackFlow
+    }
+
+    val job = launch(Dispatchers.IO) {
+      val tempFile = File.createTempFile("link-and-sync", ".backup", context.cacheDir)
+      try {
+        val configuration = RegistrationApplication.serviceConfiguration
+        val credentialsProvider = StaticCredentialsProvider(aci, pni, e164, deviceId, password)
+
+        // Download the encrypted backup file from the CDN (cdn/key obtained from awaitLinkAndSyncArchive on the
+        // network side), reporting progress.
+        Log.i(TAG, "[restoreLinkAndSyncBackup] Downloading backup from CDN $cdn...")
+        val messageReceiver = SignalServiceMessageReceiver(PushServiceSocket(configuration, credentialsProvider, USER_AGENT, true))
+        val progressListener = object : SignalServiceAttachment.ProgressListener {
+          override fun onAttachmentProgress(progress: AttachmentTransferProgress) {
+            trySend(LinkAndSyncProgress.Downloading(progress.transmitted, progress.total))
+          }
+
+          override fun shouldCancel(): Boolean = !isActive
+        }
+
+        val download = messageReceiver.retrieveLinkAndSyncBackup(cdn, key, tempFile, progressListener)
+        if (download !is NetworkResult.Success) {
+          Log.w(TAG, "[restoreLinkAndSyncBackup] Failed to download backup file.")
+          trySend(LinkAndSyncProgress.Failed())
+          return@launch
+        }
+
+        // Decrypt + parse the backup proto to prove the round-trip worked. We intentionally do NOT
+        // import the frames into a database -- that is the app's full backup-restore pipeline.
+        trySend(LinkAndSyncProgress.Restoring)
+        val downloadedBytes = tempFile.length()
+        var frameCount = 0
+        EncryptedBackupReader.createForLocalOrLinking(
+          key = MessageBackupKey(ephemeralBackupKeyBytes),
+          aci = aci,
+          length = downloadedBytes,
+          dataStream = { tempFile.inputStream() }
+        ).use { reader ->
+          val hasHeader = reader.getHeader() != null
+          while (reader.hasNext()) {
+            reader.next()
+            frameCount++
+          }
+          Log.i(TAG, "[restoreLinkAndSyncBackup] Decrypted backup proto (header=$hasHeader, frames=$frameCount). Not importing to a database (out of scope for the demo).")
+        }
+
+        // Persist a summary so the demo's home screen can display the link-and-sync result.
+        RegistrationPreferences.linkAndSyncFrameCount = frameCount
+        RegistrationPreferences.linkAndSyncDownloadedBytes = downloadedBytes
+
+        trySend(LinkAndSyncProgress.Complete)
+      } catch (e: CancellationException) {
+        Log.d(TAG, "[restoreLinkAndSyncBackup] Restore cancelled, aborting.")
+        throw e
+      } catch (e: Exception) {
+        Log.w(TAG, "[restoreLinkAndSyncBackup] Link-and-sync restore failed.", e)
+        trySend(LinkAndSyncProgress.Failed(e))
+      } finally {
+        tempFile.delete()
+        close()
+      }
+    }
+
+    awaitClose { job.cancel() }
+  }
 
   private suspend fun writeRegistrationData(data: RegistrationData) = withContext(Dispatchers.IO) {
     val file = File(context.filesDir, TEMP_PROTO_FILENAME)

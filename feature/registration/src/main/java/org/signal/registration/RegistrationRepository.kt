@@ -11,14 +11,20 @@ import android.net.Uri
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okio.ByteString.Companion.toByteString
 import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.Base64
+import org.signal.core.util.Hex
 import org.signal.core.util.Util
+import org.signal.core.util.crypto.DeviceNameCipher
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.libsignal.protocol.IdentityKeyPair
@@ -30,6 +36,7 @@ import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.NetworkController.AccountAttributes
 import org.signal.registration.NetworkController.CreateSessionError
+import org.signal.registration.NetworkController.DeviceAttributes
 import org.signal.registration.NetworkController.MasterKeyResponse
 import org.signal.registration.NetworkController.PreKeyCollection
 import org.signal.registration.NetworkController.ProvisioningEvent
@@ -40,11 +47,14 @@ import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.UpdateSessionError
+import org.signal.registration.proto.LinkedDeviceData
 import org.signal.registration.proto.ProvisioningData
 import org.signal.registration.proto.SvrCredential
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
+import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.signal.registration.util.SensitiveLog
+import java.nio.charset.StandardCharsets
 import java.security.SecureRandom
 import java.util.Locale
 import javax.crypto.Cipher
@@ -251,6 +261,160 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
+   * Starts a provisioning session for QR-based device linking.
+   * See [NetworkController.startLinkDeviceProvisioning].
+   */
+  fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> {
+    return networkController.startLinkDeviceProvisioning()
+  }
+
+  /**
+   * Registers this device as a linked (secondary) device using data from the primary.
+   * See [NetworkController.registerAsLinkedDevice].
+   */
+  suspend fun registerAsLinkedDevice(
+    message: NetworkController.LinkDeviceProvisioningMessage,
+    deviceName: String
+  ): RequestResult<LinkedDeviceResult, NetworkController.RegisterAsLinkedDeviceError> = withContext(Dispatchers.IO) {
+    checkNotNull(message.accountEntropyPool) { "Link provisioning message missing account entropy pool" }
+
+    val e164 = message.e164
+    val accountEntropyPool = AccountEntropyPool(message.accountEntropyPool)
+    val aci = ACI.parseOrThrow(message.aci)
+    val pni = PNI.parseOrThrow(message.pni)
+    val aciIdentityKeyPair = message.aciIdentityKeyPair
+    val pniIdentityKeyPair = message.pniIdentityKeyPair
+    val profileKey = ProfileKey(message.profileKey)
+    val provisioningCode = message.provisioningCode
+
+    val keyMaterial = generateKeyMaterial(
+      existingAccountEntropyPool = accountEntropyPool,
+      existingAciIdentityKeyPair = aciIdentityKeyPair,
+      existingPniIdentityKeyPair = pniIdentityKeyPair,
+      profileKey = profileKey
+    )
+
+    storageController.updateInProgressRegistrationData {
+      this.aciIdentityKeyPair = keyMaterial.aciIdentityKeyPair.serialize().toByteString()
+      this.pniIdentityKeyPair = keyMaterial.pniIdentityKeyPair.serialize().toByteString()
+      this.aciSignedPreKey = keyMaterial.aciSignedPreKey.serialize().toByteString()
+      this.pniSignedPreKey = keyMaterial.pniSignedPreKey.serialize().toByteString()
+      this.aciLastResortKyberPreKey = keyMaterial.aciLastResortKyberPreKey.serialize().toByteString()
+      this.pniLastResortKyberPreKey = keyMaterial.pniLastResortKyberPreKey.serialize().toByteString()
+      this.aciRegistrationId = keyMaterial.aciRegistrationId
+      this.pniRegistrationId = keyMaterial.pniRegistrationId
+      this.unidentifiedAccessKey = keyMaterial.unidentifiedAccessKey.toByteString()
+      this.profileKey = keyMaterial.profileKey.toByteString()
+      this.servicePassword = keyMaterial.servicePassword
+      this.accountEntropyPool = keyMaterial.accountEntropyPool.value
+    }
+
+    val fcmToken = networkController.getFcmToken()
+
+    storageController.updateInProgressRegistrationData {
+      this.fetchesMessages = fcmToken == null
+    }
+
+    val encryptedDeviceName = DeviceNameCipher.encryptDeviceName(deviceName.toByteArray(StandardCharsets.UTF_8), aciIdentityKeyPair)
+
+    val deviceAttributes = DeviceAttributes(
+      fetchesMessages = fcmToken == null,
+      registrationId = keyMaterial.aciRegistrationId,
+      pniRegistrationId = keyMaterial.pniRegistrationId,
+      name = Base64.encodeWithPadding(encryptedDeviceName),
+      capabilities = getAccountCapabilities()
+    )
+
+    val aciPreKeys = PreKeyCollection(
+      identityKey = keyMaterial.aciIdentityKeyPair.publicKey,
+      signedPreKey = keyMaterial.aciSignedPreKey,
+      lastResortKyberPreKey = keyMaterial.aciLastResortKyberPreKey
+    )
+
+    val pniPreKeys = PreKeyCollection(
+      identityKey = keyMaterial.pniIdentityKeyPair.publicKey,
+      signedPreKey = keyMaterial.pniSignedPreKey,
+      lastResortKyberPreKey = keyMaterial.pniLastResortKyberPreKey
+    )
+
+    val result = networkController.registerAsLinkedDevice(
+      e164 = e164,
+      password = keyMaterial.servicePassword,
+      provisioningCode = provisioningCode,
+      deviceAttributes = deviceAttributes,
+      aciPreKeys = aciPreKeys,
+      pniPreKeys = pniPreKeys,
+      fcmToken = fcmToken
+    )
+
+    if (result is RequestResult.Success) {
+      storageController.updateInProgressRegistrationData {
+        this.e164 = e164
+        this.aci = aci.toString()
+        this.pni = pni.toString()
+        this.linkedDeviceData = LinkedDeviceData(
+          deviceId = result.result.deviceId.toInt(),
+          deviceName = deviceName,
+          ephemeralBackupKey = message.ephemeralBackupKey,
+          mediaRootBackupKey = message.mediaRootBackupKey,
+          readReceipts = message.readReceipts
+        )
+      }
+
+      // Commits the account locally (writes keys, identity, the LinkedDeviceInfo and read-receipts pref built from linkedDeviceData).
+      storageController.commitRegistrationData()
+
+      // Network post-registration work: refresh remote config and request the initial sync from the primary.
+      // The link-and-sync backup restore and storage-service restore are sequenced separately by the caller.
+      networkController.onLinkedDeviceRegistered()
+    }
+
+    result.map { LinkedDeviceResult(hasLinkAndSyncBackup = message.ephemeralBackupKey != null) }
+  }
+
+  /**
+   * Restores the link-and-sync message backup made available by the primary device, surfacing progress.
+   * See [StorageController.restoreLinkAndSyncBackup].
+   */
+  fun restoreLinkAndSyncBackup(): Flow<LinkAndSyncProgress> = flow {
+    emit(LinkAndSyncProgress.Waiting)
+    when (val result = networkController.awaitLinkAndSyncArchive()) {
+      is LinkAndSyncWaitResult.ArchiveAvailable -> emitAll(storageController.restoreLinkAndSyncBackup(result.cdn, result.key))
+      LinkAndSyncWaitResult.ContinueWithoutBackup -> {
+        Log.w(TAG, "[restoreLinkAndSyncBackup] Primary declined to provide a backup; continuing without one.")
+        emit(LinkAndSyncProgress.Complete)
+      }
+      LinkAndSyncWaitResult.RelinkRequired -> {
+        Log.w(TAG, "[restoreLinkAndSyncBackup] Primary requested re-link; local registration is invalid.")
+        emit(LinkAndSyncProgress.RelinkRequired)
+      }
+    }
+  }
+
+  /**
+   * Waits for the primary to make a link-and-sync archive available.
+   */
+  suspend fun awaitLinkAndSyncArchive(): LinkAndSyncWaitResult = withContext(Dispatchers.IO) {
+    val ephemeralBackupKey = storageController.readInProgressRegistrationData().linkedDeviceData?.ephemeralBackupKey
+    if (ephemeralBackupKey == null) {
+      Log.i(TAG, "[awaitLinkAndSyncArchive] No ephemeral backup key in registration data; no archive expected.")
+      return@withContext LinkAndSyncWaitResult.ContinueWithoutBackup
+    }
+    networkController.awaitLinkAndSyncArchive()
+  }
+
+  /**
+   * Restores account data from the storage service after linking. Call immediately after linking when there
+   * is no link-and-sync backup, or only after the backup has been applied when there is one.
+   *
+   * See [NetworkController.restoreLinkedDeviceFromStorageService].
+   */
+  suspend fun restoreLinkedDeviceFromStorageService() = withContext(Dispatchers.IO) {
+    networkController.restoreLinkedDeviceFromStorageService()
+    setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
+  }
+
+  /**
    * Reports the user's chosen restore method to the server so the old (quick-restore) device's UI can update.
    * See [NetworkController.setRestoreMethod].
    */
@@ -370,7 +534,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     val newMasterKey = keyMaterial.accountEntropyPool.deriveMasterKey()
     val newRecoveryPassword = newMasterKey.deriveRegistrationRecoveryPassword()
 
-    SensitiveLog.d(TAG, "[registerAccount] Using master key [${org.signal.core.util.Hex.toStringCondensed(newMasterKey.serialize())}] and RRP [$newRecoveryPassword]")
+    SensitiveLog.d(TAG, "[registerAccount] Using master key [${Hex.toStringCondensed(newMasterKey.serialize())}] and RRP [$newRecoveryPassword]")
 
     val accountAttributes = AccountAttributes(
       signalingKey = null,
@@ -382,14 +546,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       unidentifiedAccessKey = keyMaterial.unidentifiedAccessKey,
       unrestrictedUnidentifiedAccess = unrestrictedUnidentifiedAccess,
       discoverableByPhoneNumber = false, // Important -- this should be false initially, and then the user should be given a choice as to whether to turn it on later
-      capabilities = AccountAttributes.Capabilities(
-        storage = true, // True initially -- can turn off later if users opt-out
-        versionedExpirationTimer = true,
-        attachmentBackfill = true,
-        spqr = true,
-        usernameChangeSyncMessage = true
-      ),
-      name = null,
+      capabilities = getAccountCapabilities(),
       pniRegistrationId = keyMaterial.pniRegistrationId,
       recoveryPassword = newRecoveryPassword
     )
@@ -595,6 +752,14 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
+   * Wipes all local app data and relaunches the app. Used when the primary asks a freshly-linked device to
+   * re-link, which leaves this device's partial local registration invalid.
+   */
+  suspend fun clearLocalDataAndRestart() {
+    storageController.clearLocalDataAndRestart()
+  }
+
+  /**
    * Clears any persisted flow state JSON from the in-progress registration data.
    */
   suspend fun clearFlowState() = withContext(Dispatchers.IO) {
@@ -666,7 +831,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   private fun generateKeyMaterial(
     existingAccountEntropyPool: AccountEntropyPool? = null,
     existingAciIdentityKeyPair: IdentityKeyPair? = null,
-    existingPniIdentityKeyPair: IdentityKeyPair? = null
+    existingPniIdentityKeyPair: IdentityKeyPair? = null,
+    profileKey: ProfileKey? = null
   ): KeyMaterial {
     val accountEntropyPool = existingAccountEntropyPool ?: AccountEntropyPool.generate()
     val aciIdentityKeyPair = existingAciIdentityKeyPair ?: IdentityKeyPair.generate()
@@ -679,7 +845,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     val aciLastResortKyberPreKey = generateKyberPreKey(generatePreKeyId(), timestamp, aciIdentityKeyPair)
     val pniLastResortKyberPreKey = generateKyberPreKey(generatePreKeyId(), timestamp, pniIdentityKeyPair)
 
-    val profileKey = generateProfileKey()
+    val profileKey = profileKey ?: generateProfileKey()
 
     return KeyMaterial(
       aciIdentityKeyPair = aciIdentityKeyPair,
@@ -729,6 +895,16 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     return Base64.encodeWithPadding(passwordBytes)
   }
 
+  fun getAccountCapabilities(): AccountAttributes.Capabilities {
+    return AccountAttributes.Capabilities(
+      storage = true, // True initially -- can turn off later if users opt-out
+      versionedExpirationTimer = true,
+      attachmentBackfill = true,
+      spqr = true,
+      usernameChangeSyncMessage = true
+    )
+  }
+
   private fun deriveUnidentifiedAccessKey(profileKey: ProfileKey): ByteArray {
     val nonce = ByteArray(12)
     val input = ByteArray(16)
@@ -740,3 +916,13 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     return ciphertext.copyOf(16)
   }
 }
+
+/**
+ * Result of registering as a linked (secondary) device.
+ *
+ * @param hasLinkAndSyncBackup Whether the primary provided an ephemeral backup key, meaning the caller should
+ *   wait for and apply a link-and-sync message backup before finishing.
+ */
+data class LinkedDeviceResult(
+  val hasLinkAndSyncBackup: Boolean
+)

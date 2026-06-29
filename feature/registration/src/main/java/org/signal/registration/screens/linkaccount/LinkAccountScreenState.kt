@@ -9,5 +9,8 @@ import org.signal.registration.screens.quickrestore.QrState
 
 data class LinkAccountScreenState(
   val qrCodeState: QrState = QrState.Loading,
-  val displayQrOverlay: Boolean = false
+  val displayQrOverlay: Boolean = false,
+  val isRegistering: Boolean = false,
+  val isWaitingForPrimary: Boolean = false,
+  val showError: Boolean = false
 )

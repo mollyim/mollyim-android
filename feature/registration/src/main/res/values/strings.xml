@@ -393,6 +393,10 @@
     <string name="MessageSyncScreen__this_may_take_a_few_minutes">This may take a few minutes…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">Downloading %1$s of %2$s</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">Preparing…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">Finishing…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Messages and chat info are protected by end-to-end encryption, including the syncing process.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -422,6 +426,16 @@
     <string name="LinkAccountScreen__dont_have_signal_on_another_device">Don\'t have Signal on another device?</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">Create account</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">Retry</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">Linking device…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
 
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">Transfer your account</string>

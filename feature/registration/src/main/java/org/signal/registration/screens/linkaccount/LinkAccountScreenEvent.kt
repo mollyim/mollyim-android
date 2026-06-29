@@ -10,4 +10,6 @@ sealed class LinkAccountScreenEvent {
   data object CreateAccountClick : LinkAccountScreenEvent()
   data object DisplayOverlayClick : LinkAccountScreenEvent()
   data object HideOverlayClick : LinkAccountScreenEvent()
+  data object RetryQrCode : LinkAccountScreenEvent()
+  data object DismissError : LinkAccountScreenEvent()
 }

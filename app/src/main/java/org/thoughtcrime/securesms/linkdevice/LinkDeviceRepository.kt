@@ -4,6 +4,8 @@ import android.net.Uri
 import org.signal.core.models.backup.MessageBackupKey
 import org.signal.core.util.Base64
 import org.signal.core.util.Stopwatch
+import org.signal.core.util.crypto.DeviceName
+import org.signal.core.util.crypto.DeviceNameCipher
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
 import org.signal.core.util.logging.logD
@@ -20,14 +22,12 @@ import org.thoughtcrime.securesms.backup.v2.ArchiveValidator
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.devicelist.protos.DeviceName
 import org.thoughtcrime.securesms.jobs.DeviceNameChangeJob
 import org.thoughtcrime.securesms.jobs.E164FormattingJob
 import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository.createAndUploadArchive
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
 import org.whispersystems.signalservice.api.link.LinkedDeviceVerificationCodeResponse
 import org.whispersystems.signalservice.api.link.TransferArchiveError
 import org.whispersystems.signalservice.api.link.WaitForLinkedDeviceResponse

@@ -151,6 +151,11 @@ fun MainScreen(
 
       RegistrationInfo(state.existingRegistrationState)
 
+      if (state.linkedDeviceState != null) {
+        Spacer(modifier = Modifier.height(16.dp))
+        LinkedDeviceInfo(state.linkedDeviceState)
+      }
+
       if (state.profileState != null) {
         Spacer(modifier = Modifier.height(16.dp))
         ProfileInfo(state.profileState)
@@ -232,6 +237,40 @@ private fun RegistrationInfo(data: MainScreenState.ExistingRegistrationState) {
         RegistrationField(label = "PIN", value = data.pin ?: "(not set)")
         RegistrationField(label = "Registration Lock", value = if (data.registrationLockEnabled) "Enabled" else "Disabled")
       }
+    }
+  }
+}
+
+@Composable
+private fun LinkedDeviceInfo(data: MainScreenState.LinkedDeviceState) {
+  Card(
+    modifier = Modifier.fillMaxWidth(),
+    colors = CardDefaults.cardColors(
+      containerColor = MaterialTheme.colorScheme.surfaceVariant
+    )
+  ) {
+    Column(
+      modifier = Modifier.padding(16.dp)
+    ) {
+      Text(
+        text = "Linked Device",
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+      )
+
+      HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+      RegistrationField(label = "Device Type", value = "Linked (secondary)")
+      RegistrationField(label = "Device ID", value = data.deviceId.toString())
+      RegistrationField(label = "Link & Sync Offered", value = if (data.linkAndSyncOffered) "Yes" else "No")
+      RegistrationField(
+        label = "Link & Sync Backup",
+        value = when {
+          !data.linkAndSyncOffered -> "Not offered by primary"
+          data.linkAndSyncFrameCount >= 0 -> "Downloaded ${data.linkAndSyncDownloadedBytes} bytes, ${data.linkAndSyncFrameCount} frames (not imported)"
+          else -> "Offered, not completed"
+        }
+      )
     }
   }
 }

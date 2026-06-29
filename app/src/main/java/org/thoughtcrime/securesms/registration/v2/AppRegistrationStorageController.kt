@@ -8,6 +8,7 @@ package org.thoughtcrime.securesms.registration.v2
 import android.content.Context
 import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +24,9 @@ import org.greenrobot.eventbus.ThreadMode
 import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.backup.MessageBackupKey
+import org.signal.core.util.AppUtil
+import org.signal.core.util.Result
 import org.signal.core.util.StreamUtil
 import org.signal.core.util.crypto.AttachmentSecretProvider
 import org.signal.core.util.logging.Log
@@ -32,6 +36,7 @@ import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
 import org.signal.registration.proto.RegistrationData
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
+import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.thoughtcrime.securesms.backup.FullBackupImporter
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
@@ -42,10 +47,12 @@ import org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem
 import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.databaseprotos.LinkedDeviceInfo
 import org.thoughtcrime.securesms.database.model.databaseprotos.LocalRegistrationMetadata
 import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
 import org.thoughtcrime.securesms.keyvalue.Completed
 import org.thoughtcrime.securesms.keyvalue.NewAccount
+import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.Skipped
 import org.thoughtcrime.securesms.keyvalue.isDecisionPending
@@ -55,6 +62,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
@@ -105,6 +113,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     Unit
   }
 
+  override suspend fun clearLocalDataAndRestart() = withContext(Dispatchers.Main) {
+    Log.w(TAG, "[clearLocalDataAndRestart] Wiping all local app data and attempting to relaunch.")
+    AppUtil.clearAllDataAndRestart(context)
+  }
+
   override suspend fun getStoredProfileData(): StoredProfileData = withContext(Dispatchers.IO) {
     if (!SignalStore.account.isRegistered) {
       return@withContext StoredProfileData()
@@ -125,9 +138,9 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
 
     val discoverable: Boolean? = when (SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode) {
-      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.DISCOVERABLE -> true
-      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE -> false
-      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.UNDECIDED -> null
+      PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.DISCOVERABLE -> true
+      PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE -> false
+      PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.UNDECIDED -> null
     }
 
     StoredProfileData(
@@ -173,7 +186,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     // than lazily generating a new AEP.
     val accountEntropyPool: AccountEntropyPool? = data.accountEntropyPool.takeIf { it.isNotEmpty() }?.let { AccountEntropyPool(it) }
     if (accountEntropyPool != null) {
-      SignalStore.account.restoreAccountEntropyPool(accountEntropyPool)
+      if (data.linkedDeviceData != null) {
+        SignalStore.account.setAccountEntropyPoolFromPrimaryDevice(accountEntropyPool)
+      } else {
+        SignalStore.account.restoreAccountEntropyPool(accountEntropyPool)
+      }
     }
 
     val masterKey: MasterKey? = accountEntropyPool?.deriveMasterKey()
@@ -215,15 +232,27 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         fcmEnabled = SignalStore.account.fcmEnabled
         fcmToken = SignalStore.account.fcmToken ?: ""
         reglockEnabled = data.registrationLockEnabled
+
+        data.linkedDeviceData?.let { linkData ->
+          linkedDeviceInfo = LinkedDeviceInfo(
+            deviceId = linkData.deviceId,
+            deviceName = linkData.deviceName,
+            ephemeralBackupKey = linkData.ephemeralBackupKey,
+            accountEntropyPool = data.accountEntropyPool,
+            mediaRootBackupKey = linkData.mediaRootBackupKey
+          )
+        }
       }.build()
 
       // TODO [greyson] Should probably move this stuff into this file as we get closer to being done
       RegistrationRepository.registerAccountLocally(context, metadata)
       SignalStore.registration.localRegistrationMetadata = metadata
+
+      data.linkedDeviceData?.readReceipts?.let { TextSecurePreferences.setReadReceiptsEnabled(context, it) }
     }
 
     // Handle PIN/master key
-    if (data.pin.isNotEmpty() && masterKey != null) {
+    if (data.pin.isNotEmpty() && masterKey != null && data.linkedDeviceData == null) {
       SvrRepository.onRegistrationComplete(
         masterKey,
         data.pin,
@@ -321,11 +350,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       val snapshotFileSystem = SnapshotFileSystem(context, backupDir)
 
       when (val result = LocalArchiver.import(snapshotFileSystem, selfData, messageBackupKey)) {
-        is org.signal.core.util.Result.Success -> {
+        is Result.Success -> {
           emit(LocalBackupRestoreProgress.Complete)
           Log.d(TAG, "V2 restore complete.")
         }
-        is org.signal.core.util.Result.Failure -> {
+        is Result.Failure -> {
           Log.w(TAG, "V2 restore failed: ${result.failure}")
           emit(LocalBackupRestoreProgress.Error(IOException("V2 restore failed: ${result.failure}")))
         }
@@ -441,6 +470,56 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       } catch (e: Exception) {
         Log.w(TAG, "Remote restore failed", e)
         send(RemoteBackupRestoreProgress.GenericError(e))
+      } finally {
+        channel.close()
+      }
+    }
+
+    awaitClose {
+      EventBus.getDefault().unregister(subscriber)
+    }
+  }
+
+  override fun restoreLinkAndSyncBackup(cdn: Int, key: String): Flow<LinkAndSyncProgress> = callbackFlow {
+    val ephemeralBackupKeyBytes = SignalStore.registration.localRegistrationMetadata?.linkedDeviceInfo?.ephemeralBackupKey?.toByteArray()
+
+    if (ephemeralBackupKeyBytes == null) {
+      Log.i(TAG, "[restoreLinkAndSyncBackup] No ephemeral backup key present; nothing to restore.")
+      trySend(LinkAndSyncProgress.Complete)
+      channel.close()
+      return@callbackFlow
+    }
+
+    val subscriber = object {
+      @Subscribe(threadMode = ThreadMode.POSTING)
+      fun onRestoreEvent(event: RestoreV2Event) {
+        val progress = when (event.type) {
+          RestoreV2Event.Type.PROGRESS_DOWNLOAD -> LinkAndSyncProgress.Downloading(event.count, event.estimatedTotalCount)
+          RestoreV2Event.Type.PROGRESS_RESTORE -> LinkAndSyncProgress.Restoring
+          RestoreV2Event.Type.PROGRESS_FINALIZING -> LinkAndSyncProgress.Restoring
+        }
+        trySend(progress)
+      }
+    }
+
+    EventBus.getDefault().register(subscriber)
+
+    launch(Dispatchers.IO) {
+      try {
+        when (val result = BackupRepository.restoreLinkAndSyncBackup(TransferArchiveResponse(cdn = cdn, key = key), MessageBackupKey(ephemeralBackupKeyBytes))) {
+          RemoteRestoreResult.Success -> send(LinkAndSyncProgress.Complete)
+          RemoteRestoreResult.Canceled -> Log.i(TAG, "[restoreLinkAndSyncBackup] Restore canceled.")
+          else -> {
+            Log.w(TAG, "[restoreLinkAndSyncBackup] Link-and-sync restore did not succeed: $result")
+            send(LinkAndSyncProgress.Failed())
+          }
+        }
+      } catch (e: CancellationException) {
+        Log.d(TAG, "[restoreLinkAndSyncBackup] Restore cancelled, aborting.")
+        throw e
+      } catch (e: Exception) {
+        Log.w(TAG, "[restoreLinkAndSyncBackup] Link-and-sync restore failed.", e)
+        send(LinkAndSyncProgress.Failed(e))
       } finally {
         channel.close()
       }

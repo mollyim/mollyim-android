@@ -91,6 +91,7 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, state: MessageS
       FooterContent(
         params = params,
         isElevated = scrollState.canScrollForward,
+        canCancel = !state.isFinishing,
         onEvent = onEvent
       )
     }
@@ -126,6 +127,7 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageS
       FooterContent(
         params = params,
         isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        canCancel = !state.isFinishing,
         onEvent = onEvent
       )
     }
@@ -153,28 +155,33 @@ private fun FirstPaneContent(
       modifier = Modifier.padding(top = 16.dp)
     )
 
-    LinearProgressIndicator(
-      progress = {
-        if (state.totalBytes.bytes > 0) {
-          state.downloadedBytes.bytes.toFloat() / state.totalBytes.bytes.toFloat()
-        } else {
-          0f
-        }
-      },
-      drawStopIndicator = {},
-      gapSize = 0.dp,
-      modifier = Modifier
-        .padding(top = 48.dp, bottom = 16.dp)
-        .widthIn(max = 415.dp)
-        .fillMaxWidth()
-    )
+    val showDownloadProgress = state.totalBytes.bytes > 0 && !state.isFinishing
+    val progressModifier = Modifier
+      .padding(top = 48.dp, bottom = 16.dp)
+      .widthIn(max = 415.dp)
+      .fillMaxWidth()
+
+    if (showDownloadProgress) {
+      LinearProgressIndicator(
+        progress = { state.downloadedBytes.percentageOf(state.totalBytes) },
+        drawStopIndicator = {},
+        gapSize = 0.dp,
+        modifier = progressModifier
+      )
+    } else {
+      LinearProgressIndicator(modifier = progressModifier)
+    }
 
     Text(
-      text = stringResource(
-        R.string.MessageSyncScreen__downloading_s_of_s,
-        state.downloadedBytes.toUnitString(),
-        state.totalBytes.toUnitString()
-      ),
+      text = when {
+        state.isFinishing -> stringResource(R.string.MessageSyncScreen__finishing)
+        showDownloadProgress -> stringResource(
+          R.string.MessageSyncScreen__downloading_s_of_s,
+          state.downloadedBytes.toUnitString(),
+          state.totalBytes.toUnitString()
+        )
+        else -> stringResource(R.string.MessageSyncScreen__preparing)
+      },
       style = MaterialTheme.typography.bodyMedium,
       color = MaterialTheme.colorScheme.onSurfaceVariant
     )
@@ -197,6 +204,7 @@ private fun SecondPaneContent(
 private fun FooterContent(
   params: RegistrationScaffold.Params,
   isElevated: Boolean,
+  canCancel: Boolean,
   onEvent: (MessageSyncScreenEvent) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -206,8 +214,8 @@ private fun FooterContent(
     isElevated = isElevated
   ) {
     when (breakpoint) {
-      is WindowBreakpoint.Small, is WindowBreakpoint.Medium -> StackedFooter(params, modifier, onEvent)
-      is WindowBreakpoint.Large -> InlineFooter(params, modifier, onEvent)
+      is WindowBreakpoint.Small, is WindowBreakpoint.Medium -> StackedFooter(params, canCancel, modifier, onEvent)
+      is WindowBreakpoint.Large -> InlineFooter(params, canCancel, modifier, onEvent)
     }
   }
 }
@@ -215,6 +223,7 @@ private fun FooterContent(
 @Composable
 private fun StackedFooter(
   params: RegistrationScaffold.Params,
+  canCancel: Boolean,
   modifier: Modifier,
   onEvent: (MessageSyncScreenEvent) -> Unit
 ) {
@@ -229,6 +238,7 @@ private fun StackedFooter(
       modifier = Modifier.padding(bottom = 16.dp)
     )
     Cancel(
+      enabled = canCancel,
       onEvent = onEvent,
       modifier = Modifier
         .widthIn(max = params.maxButtonWidth)
@@ -240,6 +250,7 @@ private fun StackedFooter(
 @Composable
 private fun InlineFooter(
   params: RegistrationScaffold.Params,
+  canCancel: Boolean,
   modifier: Modifier,
   onEvent: (MessageSyncScreenEvent) -> Unit
 ) {
@@ -257,6 +268,7 @@ private fun InlineFooter(
       contentAlignment = Alignment.CenterEnd
     ) {
       Cancel(
+        enabled = canCancel,
         onEvent = onEvent,
         modifier = Modifier
           .widthIn(max = params.maxButtonWidth)
@@ -316,9 +328,10 @@ private fun Notice(
 }
 
 @Composable
-private fun Cancel(onEvent: (MessageSyncScreenEvent) -> Unit, modifier: Modifier = Modifier) {
+private fun Cancel(onEvent: (MessageSyncScreenEvent) -> Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
   Buttons.LargeTonal(
     onClick = { onEvent(MessageSyncScreenEvent.CancelClick) },
+    enabled = enabled,
     modifier = modifier.testTag(TestTags.MESSAGE_SYNC_CANCEL_BUTTON)
   ) {
     Text(text = stringResource(R.string.MessageSyncScreen__cancel))

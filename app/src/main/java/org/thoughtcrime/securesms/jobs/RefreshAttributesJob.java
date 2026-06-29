@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.Base64;
+import org.signal.core.util.crypto.DeviceNameCipher;
 import org.signal.core.util.logging.Log;
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
 import org.thoughtcrime.securesms.AppCapabilities;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -16,13 +18,11 @@ import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberD
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.keyvalue.SvrValues;
 import org.thoughtcrime.securesms.net.SignalNetwork;
-import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher;
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.NetworkResultUtil;
 import org.whispersystems.signalservice.api.account.AccountAttributes;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
-import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

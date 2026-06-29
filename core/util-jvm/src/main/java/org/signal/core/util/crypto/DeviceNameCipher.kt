@@ -1,4 +1,4 @@
-package org.thoughtcrime.securesms.registration.secondary
+package org.signal.core.util.crypto
 
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.logging.Log
@@ -7,8 +7,6 @@ import org.signal.libsignal.protocol.InvalidKeyException
 import org.signal.libsignal.protocol.ecc.ECKeyPair
 import org.signal.libsignal.protocol.ecc.ECPrivateKey
 import org.signal.libsignal.protocol.ecc.ECPublicKey
-import org.signal.libsignal.protocol.util.ByteUtil
-import org.thoughtcrime.securesms.devicelist.protos.DeviceName
 import java.nio.charset.Charset
 import java.security.GeneralSecurityException
 import java.security.MessageDigest
@@ -22,7 +20,7 @@ import javax.crypto.spec.SecretKeySpec
  */
 object DeviceNameCipher {
 
-  private val TAG = Log.tag(DeviceNameCipher::class.java)
+  private val TAG = Log.tag(DeviceNameCipher::class)
 
   private const val SYNTHETIC_IV_LENGTH = 16
 
@@ -35,7 +33,7 @@ object DeviceNameCipher {
     val cipherKey: ByteArray = computeCipherKey(masterSecret, syntheticIv)
 
     val cipher = Cipher.getInstance("AES/CTR/NoPadding")
-    cipher.init(Cipher.ENCRYPT_MODE, SecretKeySpec(cipherKey, "AES"), IvParameterSpec(createEmptyByteArray(16)))
+    cipher.init(Cipher.ENCRYPT_MODE, SecretKeySpec(cipherKey, "AES"), IvParameterSpec(ByteArray(16)))
     val cipherText = cipher.doFinal(plaintext)
 
     return DeviceName(
@@ -61,23 +59,13 @@ object DeviceNameCipher {
       val ephemeralPublic = ECPublicKey(deviceName.ephemeralPublic.toByteArray())
       val masterSecret = identityKey.calculateAgreement(ephemeralPublic)
 
-      val mac = Mac.getInstance("HmacSHA256")
-      mac.init(SecretKeySpec(masterSecret, "HmacSHA256"))
-      val cipherKeyPart1 = mac.doFinal("cipher".toByteArray())
-
-      mac.init(SecretKeySpec(cipherKeyPart1, "HmacSHA256"))
-      val cipherKey = mac.doFinal(syntheticIv)
+      val cipherKey = computeCipherKey(masterSecret, syntheticIv)
 
       val cipher = Cipher.getInstance("AES/CTR/NoPadding")
       cipher.init(Cipher.DECRYPT_MODE, SecretKeySpec(cipherKey, "AES"), IvParameterSpec(ByteArray(16)))
       val plaintext = cipher.doFinal(cipherText)
 
-      mac.init(SecretKeySpec(masterSecret, "HmacSHA256"))
-      val verificationPart1 = mac.doFinal("auth".toByteArray())
-
-      mac.init(SecretKeySpec(verificationPart1, "HmacSHA256"))
-      val verificationPart2 = mac.doFinal(plaintext)
-      val ourSyntheticIv = ByteUtil.trim(verificationPart2, 16)
+      val ourSyntheticIv = computeSyntheticIv(masterSecret, plaintext)
 
       if (!MessageDigest.isEqual(ourSyntheticIv, syntheticIv)) {
         throw GeneralSecurityException("The computed syntheticIv didn't match the actual syntheticIv.")
@@ -116,6 +104,4 @@ object DeviceNameCipher {
     ivMac.init(SecretKeySpec(syntheticIvKey, "HmacSHA256"))
     return ivMac.doFinal(plaintext).sliceArray(0 until SYNTHETIC_IV_LENGTH)
   }
-
-  private fun createEmptyByteArray(length: Int): ByteArray = ByteArray(length)
 }

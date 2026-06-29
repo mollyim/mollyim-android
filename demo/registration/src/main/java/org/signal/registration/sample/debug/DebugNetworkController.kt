@@ -10,12 +10,14 @@ import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
+import org.signal.registration.LinkAndSyncWaitResult
 import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.AccountAttributes
 import org.signal.registration.NetworkController.BackupMasterKeyError
 import org.signal.registration.NetworkController.CheckSvrCredentialsError
 import org.signal.registration.NetworkController.CheckSvrCredentialsResponse
 import org.signal.registration.NetworkController.CreateSessionError
+import org.signal.registration.NetworkController.DeviceAttributes
 import org.signal.registration.NetworkController.GetBackupInfoError
 import org.signal.registration.NetworkController.GetBackupInfoResponse
 import org.signal.registration.NetworkController.GetSessionStatusError
@@ -246,7 +248,35 @@ class DebugNetworkController(
     return delegate.startProvisioning()
   }
 
-  override fun startNewDeviceTransferServer(context: android.content.Context, aep: org.signal.core.models.AccountEntropyPool) {
+  override fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> {
+    return delegate.startLinkDeviceProvisioning()
+  }
+
+  override suspend fun registerAsLinkedDevice(
+    e164: String,
+    password: String,
+    provisioningCode: String,
+    deviceAttributes: DeviceAttributes,
+    aciPreKeys: PreKeyCollection,
+    pniPreKeys: PreKeyCollection,
+    fcmToken: String?
+  ): RequestResult<NetworkController.LinkDeviceResponse, NetworkController.RegisterAsLinkedDeviceError> {
+    return delegate.registerAsLinkedDevice(e164, password, provisioningCode, deviceAttributes, aciPreKeys, pniPreKeys, fcmToken)
+  }
+
+  override suspend fun onLinkedDeviceRegistered() {
+    delegate.onLinkedDeviceRegistered()
+  }
+
+  override suspend fun awaitLinkAndSyncArchive(): LinkAndSyncWaitResult {
+    return delegate.awaitLinkAndSyncArchive()
+  }
+
+  override suspend fun restoreLinkedDeviceFromStorageService() {
+    delegate.restoreLinkedDeviceFromStorageService()
+  }
+
+  override fun startNewDeviceTransferServer(context: android.content.Context, aep: AccountEntropyPool) {
     if (NetworkDebugState.fakeDeviceTransfer.value) {
       Log.d(TAG, "[startNewDeviceTransferServer] Fake device transfer enabled (debug override)")
       org.signal.registration.sample.dependencies.FakeDeviceTransferRunner.start()
