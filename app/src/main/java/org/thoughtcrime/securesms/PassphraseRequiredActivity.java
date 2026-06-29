@@ -222,11 +222,7 @@ public abstract class PassphraseRequiredActivity extends BaseActivity implements
   }
 
   private Intent getPushRegistrationIntent() {
-    if (Environment.USE_NEW_REGISTRATION) {
-      return org.signal.registration.RegistrationActivity.createIntent(this, MainActivity.clearTop(this));
-    } else {
-      return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
-    }
+    return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
   }
 
   private Intent getEnterSignalPinIntent() {

@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.registration.sms.SmsRetrieverReceiver
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+import org.thoughtcrime.securesms.util.Environment
 
 /**
  * Activity to hold the entire registration process.
@@ -82,16 +83,24 @@ class RegistrationActivity : BaseActivity() {
 
     @JvmStatic
     fun newIntentForNewRegistration(context: Context, originalIntent: Intent): Intent {
-      return Intent(context, RegistrationActivity::class.java).apply {
-        putExtra(RE_REGISTRATION_EXTRA, false)
-        setData(originalIntent.data)
+      return if (Environment.USE_NEW_REGISTRATION) {
+        org.signal.registration.RegistrationActivity.createIntent(context, MainActivity.clearTop(context))
+      } else {
+        Intent(context, RegistrationActivity::class.java).apply {
+          putExtra(RE_REGISTRATION_EXTRA, false)
+          setData(originalIntent.data)
+        }
       }
     }
 
     @JvmStatic
     fun newIntentForReRegistration(context: Context): Intent {
-      return Intent(context, RegistrationActivity::class.java).apply {
-        putExtra(RE_REGISTRATION_EXTRA, true)
+      return if (Environment.USE_NEW_REGISTRATION) {
+        org.signal.registration.RegistrationActivity.createIntent(context, MainActivity.clearTop(context))
+      } else {
+        Intent(context, RegistrationActivity::class.java).apply {
+          putExtra(RE_REGISTRATION_EXTRA, true)
+        }
       }
     }
   }
