@@ -7,6 +7,9 @@ package org.signal.registration.screens.devicetransfer.instructions
 
 import assertk.assertThat
 import assertk.assertions.containsExactly
+import assertk.assertions.hasSize
+import assertk.assertions.isEmpty
+import assertk.assertions.isNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -55,6 +58,7 @@ class DeviceTransferInstructionsViewModelTest {
     )
 
     assertThat(emittedEvents).containsExactly(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.DeviceTransferSetup))
+    assertThat(emittedStates).isEmpty()
   }
 
   @Test
@@ -65,6 +69,37 @@ class DeviceTransferInstructionsViewModelTest {
       parentEventEmitter,
       stateEmitter
     )
+
+    assertThat(emittedEvents).containsExactly(RegistrationFlowEvent.NavigateBack)
+    assertThat(emittedStates).isEmpty()
+  }
+
+  @Test
+  fun `ConsumeOneTimeEvent clears the one-time event and emits no navigation`() = runTest {
+    viewModel.applyEvent(
+      DeviceTransferInstructionsState(),
+      DeviceTransferInstructionsScreenEvents.ConsumeOneTimeEvent,
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    assertThat(emittedStates.last().oneTimeEvent).isNull()
+    assertThat(emittedEvents).isEmpty()
+  }
+
+  @Test
+  fun `ContinueClicked through the real event channel navigates to Setup`() = runTest {
+    viewModel.onEvent(DeviceTransferInstructionsScreenEvents.ContinueClicked)
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    assertThat(emittedEvents).containsExactly(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.DeviceTransferSetup))
+  }
+
+  @Test
+  fun `BackClicked through the real event channel navigates back`() = runTest {
+    viewModel.onEvent(DeviceTransferInstructionsScreenEvents.BackClicked)
+    testDispatcher.scheduler.advanceUntilIdle()
 
     assertThat(emittedEvents).containsExactly(RegistrationFlowEvent.NavigateBack)
   }
