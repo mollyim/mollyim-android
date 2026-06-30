@@ -1896,11 +1896,6 @@ object SyncMessageProcessor {
       return
     }
 
-    if (SignalStore.account.pni == PNI(pni)) {
-      log(timestamp, "PniChangeNumber sync already applied locally. Skipping.")
-      return
-    }
-
     val identityKeyPairBytes = pniChangeNumber.identityKeyPair
     val signedPreKeyBytes = pniChangeNumber.signedPreKey
     val registrationId = pniChangeNumber.registrationId
@@ -1934,8 +1929,6 @@ object SyncMessageProcessor {
       pniRegistrationId = registrationId
     )
 
-    SignalStore.misc.lastAppliedPniChangeServerTimestamp = envelopeServerTimestamp
-
     // The primary already submitted these per-device prekeys to the server as part of the
     // change-number request, so they are registered server-side from this device's perspective.
     val pniMetadataStore = SignalStore.account.pniPreKeys
@@ -1947,6 +1940,8 @@ object SyncMessageProcessor {
     // Rotate the primary-generated keys as soon as possible so we don't rely on them long-term.
     SignalStore.misc.forcePniSignedPreKeyRotation = true
     AppDependencies.jobManager.add(PreKeysSyncJob.create(forceRotationRequested = true))
+
+    SignalStore.misc.lastAppliedPniChangeServerTimestamp = envelopeServerTimestamp
   }
 
   private fun applyAttachmentData(
