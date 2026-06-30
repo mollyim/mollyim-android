@@ -120,6 +120,7 @@ class RemoteBackupRestoreViewModel(
               restoreProgress = null
             )
             parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepVerified(aep))
+            repository.persistRemoteBackupRestoredState(progress.restoredSvrPin, progress.restoredProfileKey)
             repository.setRestoreDecision(RestoreDecision.COMPLETED)
             repository.finishRegistrationOrCreateProfile(parentEventEmitter)
           }

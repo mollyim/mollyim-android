@@ -336,7 +336,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
 
     viewModelScope.launch {
       when (val result = BackupRepository.restoreRemoteBackup()) {
-        RemoteRestoreResult.Success -> {
+        is RemoteRestoreResult.Success -> {
           _state.value = _state.value.copy(statusMessage = "Import complete!")
           ThreadUtil.runOnMain { afterDbRestoreCallback() }
         }

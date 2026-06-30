@@ -349,7 +349,7 @@ class RemoteBackupRestoreViewModelTest {
   @Test
   fun `Complete progress emits UserSuppliedAepVerified and hands off to finishRegistrationOrCreateProfile`() = runTest(testDispatcher) {
     every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
-      RemoteBackupRestoreProgress.Complete
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
     )
 
     val viewModel = createViewModel()
@@ -370,7 +370,7 @@ class RemoteBackupRestoreViewModelTest {
   @Test
   fun `Complete progress moves restore state to Restored and clears progress`() = runTest(testDispatcher) {
     every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
-      RemoteBackupRestoreProgress.Complete
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
     )
     val viewModel = createViewModel()
     val states = collectStatesOf(viewModel)
@@ -454,7 +454,7 @@ class RemoteBackupRestoreViewModelTest {
       RemoteBackupRestoreProgress.Downloading(bytesDownloaded = 10, totalBytes = 100),
       RemoteBackupRestoreProgress.Restoring(bytesRead = 60, totalBytes = 100),
       RemoteBackupRestoreProgress.Finalizing,
-      RemoteBackupRestoreProgress.Complete
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
     )
     val viewModel = createViewModel()
     val states = collectStatesOf(viewModel)

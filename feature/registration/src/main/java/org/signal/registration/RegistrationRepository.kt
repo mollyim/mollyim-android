@@ -175,7 +175,6 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       if (it is RequestResult.Success) {
         storageController.updateInProgressRegistrationData {
           this.pin = pin
-          this.pinIsAlphanumeric = isAlphanumeric
           this.temporaryMasterKey = it.result.masterKey.serialize().toByteString()
           this.registrationLockEnabled = forRegistrationLock
           this.svrCredentials += SvrCredential(username = svrCredentials.username, password = svrCredentials.password)
@@ -454,7 +453,6 @@ class RegistrationRepository(val context: Context, val networkController: Networ
         backupVersion = provisioningMessage.backupVersion
       )
       pin = provisioningMessage.pin ?: ""
-      pinIsAlphanumeric = provisioningMessage.pin?.any { !it.isDigit() } == true
     }
 
     val aep = AccountEntropyPool(provisioningMessage.accountEntropyPool)
@@ -663,7 +661,6 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     if (result is RequestResult.Success) {
       storageController.updateInProgressRegistrationData {
         this.pin = pin
-        this.pinIsAlphanumeric = isAlphanumeric
         result.result?.let { credential ->
           this.svrCredentials += SvrCredential(username = credential.username, password = credential.password)
         }
@@ -688,10 +685,20 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     storageController.updateInProgressRegistrationData {
       this.pinOptedOut = true
       this.pin = ""
-      this.pinIsAlphanumeric = false
       this.registrationLockEnabled = false
     }
     storageController.commitRegistrationData()
+  }
+
+  /**
+   * Persist any data in our scratch storage that was restored as part of a remote backup so that we don't accidentally overwrite it
+   * when we commit it.
+   */
+  suspend fun persistRemoteBackupRestoredState(restoredPin: String?, restoredProfileKey: ProfileKey?) {
+    storageController.updateInProgressRegistrationData {
+      pin = restoredPin ?: pin
+      profileKey = restoredProfileKey?.serialize()?.toByteString() ?: profileKey
+    }
   }
 
   /**

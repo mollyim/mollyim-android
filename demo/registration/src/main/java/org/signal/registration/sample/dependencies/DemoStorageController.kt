@@ -185,7 +185,7 @@ class DemoStorageController(private val context: Context) : StorageController {
     // PIN data
     if (data.pin.isNotEmpty()) {
       RegistrationPreferences.pin = data.pin
-      RegistrationPreferences.pinAlphanumeric = data.pinIsAlphanumeric
+      RegistrationPreferences.pinAlphanumeric = data.pin.any { !it.isDigit() }
     }
     if (data.temporaryMasterKey.size > 0) {
       RegistrationPreferences.temporaryMasterKey = MasterKey(data.temporaryMasterKey.toByteArray())
@@ -352,7 +352,7 @@ class DemoStorageController(private val context: Context) : StorageController {
     emit(RemoteBackupRestoreProgress.Finalizing)
     delay(250)
 
-    emit(RemoteBackupRestoreProgress.Complete)
+    emit(RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
     Log.d(TAG, "Simulated remote restore complete.")
   }.flowOn(Dispatchers.IO)
 

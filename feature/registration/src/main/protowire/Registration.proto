@@ -10,53 +10,36 @@ package signal;
 option java_package = "org.signal.registration.proto";
 
 message RegistrationData {
-  // Key material (from generateAndStoreKeyMaterial)
-  bytes  aciIdentityKeyPair = 1;
-  bytes  pniIdentityKeyPair = 2;
-  bytes  aciSignedPreKey = 3;
-  bytes  pniSignedPreKey = 4;
-  bytes  aciLastResortKyberPreKey = 5;
-  bytes  pniLastResortKyberPreKey = 6;
-  int32  aciRegistrationId = 7;
-  int32  pniRegistrationId = 8;
-  bytes  unidentifiedAccessKey = 9;
-  string servicePassword = 10;
-  string accountEntropyPool = 11;
+  bytes aciIdentityKeyPair = 1;
+  bytes pniIdentityKeyPair = 2;
+  bytes aciSignedPreKey = 3;
+  bytes pniSignedPreKey = 4;
+  bytes aciLastResortKyberPreKey = 5;
+  bytes pniLastResortKyberPreKey = 6;
+  int32 aciRegistrationId = 7;
+  int32 pniRegistrationId = 8;
 
-  // Account identity (from saveNewRegistrationData / getPreExistingRegistrationData)
-  string e164 = 12;
-  string aci = 13;
-  string pni = 14;
+  string aci = 9;
+  string pni = 10;
+  string e164 = 11;
+  string servicePassword = 12;
+  string accountEntropyPool = 13;
 
-  // PIN data (from saveValidatedPinAndTemporaryMasterKey / saveNewlyCreatedPin)
-  string pin = 15;
-  bool   pinIsAlphanumeric = 16;
-  bytes  temporaryMasterKey = 17;
-  bool   registrationLockEnabled = 18;
+  string pin = 14;
+  bool pinOptedOut = 15;
+  bool registrationLockEnabled = 16;
 
-  // Whether the user chose not to create a PIN during registration. The app is responsible for applying the
-  // actual opt-out (clearing PIN/registration lock state, refreshing attributes, etc.) when it commits this data.
-  bool   pinOptedOut = 24;
+  bytes profileKey = 17;
+  bytes unidentifiedAccessKey = 18;
+  bytes temporaryMasterKey = 19;
 
-  // SVR credentials (from appendSvrCredentials / getRestoredSvrCredentials)
-  repeated SvrCredential svrCredentials = 19;
+  repeated SvrCredential svrCredentials = 20;
+  ProvisioningData provisioningData = 21;
+  LinkedDeviceData linkedDeviceData = 22;
+  bool fetchesMessages = 23;
 
-  // Provisioning data (from saveProvisioningData)
-  ProvisioningData provisioningData = 20;
-
-  // Profile key (used to derive unidentified access key)
-  bytes  profileKey = 22;
-
-  // Whether this device fetches messages (true if no FCM token)
-  bool   fetchesMessages = 23;
-
-  // JSON-serialized flow state snapshot (from saveFlowState/restoreFlowState)
-  string flowStateJson = 21;
-
-  // Registration data provided by the primary+server to register as a linked device
-  LinkedDeviceData linkedDeviceData = 25;
-
-  // Next: 26
+  string flowStateJson = 24;
+  // Next: 25
 }
 
 message SvrCredential {
@@ -77,12 +60,12 @@ message ProvisioningData {
     PAID = 2;
   }
 
-  string   restoreMethodToken = 1;
+  string restoreMethodToken = 1;
   Platform platform = 2;
-  Tier     tier = 3;
-  int64    backupTimestampMs = 4;
-  int64    backupSizeBytes = 5;
-  int64    backupVersion = 6;
+  Tier tier = 3;
+  int64 backupTimestampMs = 4;
+  int64 backupSizeBytes = 5;
+  int64 backupVersion = 6;
 }
 
 message LinkedDeviceData {

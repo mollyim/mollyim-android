@@ -30,6 +30,7 @@ import org.signal.core.util.Result
 import org.signal.core.util.StreamUtil
 import org.signal.core.util.crypto.AttachmentSecretProvider
 import org.signal.core.util.logging.Log
+import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.RestoreDecision
 import org.signal.registration.StorageController
@@ -446,9 +447,14 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     launch(Dispatchers.IO) {
       try {
-        when (BackupRepository.restoreRemoteBackup()) {
-          RemoteRestoreResult.Success -> {
-            send(RemoteBackupRestoreProgress.Complete)
+        when (val result = BackupRepository.restoreRemoteBackup()) {
+          is RemoteRestoreResult.Success -> {
+            send(
+              RemoteBackupRestoreProgress.Complete(
+                restoredSvrPin = SignalStore.svr.pin,
+                restoredProfileKey = SignalDatabase.recipients.getRecord(result.selfRecipientId).profileKey?.let { ProfileKey(it) }
+              )
+            )
           }
           RemoteRestoreResult.NetworkError -> {
             send(RemoteBackupRestoreProgress.NetworkError())
@@ -507,7 +513,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     launch(Dispatchers.IO) {
       try {
         when (val result = BackupRepository.restoreLinkAndSyncBackup(TransferArchiveResponse(cdn = cdn, key = key), MessageBackupKey(ephemeralBackupKeyBytes))) {
-          RemoteRestoreResult.Success -> send(LinkAndSyncProgress.Complete)
+          is RemoteRestoreResult.Success -> send(LinkAndSyncProgress.Complete)
           RemoteRestoreResult.Canceled -> Log.i(TAG, "[restoreLinkAndSyncBackup] Restore canceled.")
           else -> {
             Log.w(TAG, "[restoreLinkAndSyncBackup] Link-and-sync restore did not succeed: $result")
