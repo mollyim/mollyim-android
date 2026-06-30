@@ -74,7 +74,7 @@ public abstract class MediaConstraints {
              (ContentTypeUtil.isImageType(contentType) && size <= getImageMaxSize() && isWithinBounds(context, uri)) ||
              (ContentTypeUtil.isAudioType(contentType) && size <= getAudioMaxSize())                                 ||
              (ContentTypeUtil.isVideoType(contentType) && size <= getVideoMaxSize())                                 ||
-             (ContentTypeUtil.isDocumentType(contentType) && size <= getDocumentMaxSize());
+             ((ContentTypeUtil.isDocumentType(contentType) || ContentTypeUtil.isLongTextType(contentType)) && size <= getDocumentMaxSize());
     } catch (IOException ioe) {
       Log.w(TAG, "Failed to determine if media's constraints are satisfied.", ioe);
       return false;
