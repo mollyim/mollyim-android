@@ -35,7 +35,7 @@ sealed interface HudCommand {
     val isViewOnceAvailable: Boolean
   ) : HudCommand
 
-  data class GoToConversation(val recipientId: MediaRecipientId, val username: String) : HudCommand
+  data class GoToConversation(val recipientId: MediaRecipientId) : HudCommand
   data object GoToLinkedDevices : HudCommand
   data class GoToQuickTransfer(val qrData: String) : HudCommand
 }

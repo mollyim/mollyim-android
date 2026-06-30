@@ -24,6 +24,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +33,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -40,9 +40,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
+import org.signal.core.ui.compose.DialogController
+import org.signal.core.ui.compose.DialogResult
 import org.signal.core.util.ContentTypeUtil
 import org.signal.core.util.StringUtil
-import org.signal.core.util.throttleLatest
 import org.signal.imageeditor.core.model.EditorElement
 import org.signal.imageeditor.core.model.EditorModel
 import org.signal.imageeditor.core.renderers.UriGlideRenderer
@@ -101,10 +102,10 @@ class MediaSendViewModel(
   private val internalSnackbarEvents: Channel<SnackbarEvent> = Channel(Channel.BUFFERED)
   internal val snackbarEvents: Flow<SnackbarEvent> = internalSnackbarEvents.receiveAsFlow()
 
-  private val internalDialogEvents: Channel<DialogEvent> = Channel(Channel.BUFFERED)
-  internal val dialogEvents: Flow<DialogEvent> = internalDialogEvents.receiveAsFlow()
+  internal val usernameScannedDialog = DialogController<String>()
+  internal val linkedDeviceScannedDialog = DialogController<Unit>()
 
-  private val qrCheckRequest: MutableStateFlow<String> = MutableStateFlow("")
+  private val qrCheckRequest: Channel<String> = Channel(Channel.RENDEZVOUS)
 
   /**
    * Main UI state. Backed by [SavedStateHandle] for automatic process death survival.
@@ -142,14 +143,35 @@ class MediaSendViewModel(
       }
     }
 
-    viewModelScope.launch(Dispatchers.IO) {
-      qrCheckRequest.throttleLatest(5.seconds).filter { it.isNotEmpty() }.collect {
-        when (MediaSendDependencies.qrRepository.checkQrData(it)) {
-          MediaSendQrRepository.QrCheckResult.LinkDevice -> Unit // TODO() // dialog -> linked devices activity -> finish
-          MediaSendQrRepository.QrCheckResult.None -> Unit
-          is MediaSendQrRepository.QrCheckResult.ReRegistration -> Unit // TODO() // quick transfer activity -> finish
-          is MediaSendQrRepository.QrCheckResult.Username -> Unit // TODO() // dialog -> start conversation -> finish
+    viewModelScope.launch(Dispatchers.Default) {
+      for (qrData in qrCheckRequest) {
+        if (qrData.isEmpty()) {
+          continue
         }
+
+        val result = MediaSendDependencies.qrRepository.checkQrData(qrData)
+        if (result == MediaSendQrRepository.QrCheckResult.None) {
+          continue
+        }
+
+        when (result) {
+          MediaSendQrRepository.QrCheckResult.LinkDevice -> {
+            when (linkedDeviceScannedDialog.show(Unit)) {
+              DialogResult.POSITIVE -> sendHudCommand(HudCommand.GoToLinkedDevices)
+              else -> Unit
+            }
+          }
+          MediaSendQrRepository.QrCheckResult.None -> Unit
+          is MediaSendQrRepository.QrCheckResult.ReRegistration -> sendHudCommand(HudCommand.GoToQuickTransfer(qrData))
+          is MediaSendQrRepository.QrCheckResult.Username -> {
+            when (usernameScannedDialog.show(result.username)) {
+              DialogResult.POSITIVE -> sendHudCommand(HudCommand.GoToConversation(result.recipientId))
+              else -> Unit
+            }
+          }
+        }
+
+        delay(5.seconds)
       }
     }
 
@@ -215,7 +237,7 @@ class MediaSendViewModel(
       CameraXScreenEvent.GalleryClicked -> backStack.goToFolders()
       is CameraXScreenEvent.ImageCaptured -> handleImageCaptured(event)
       is CameraXScreenEvent.VideoCaptured -> handleVideoCaptured(event)
-      is CameraXScreenEvent.QrCodeFound -> qrCheckRequest.update { event.data }
+      is CameraXScreenEvent.QrCodeFound -> qrCheckRequest.trySend(event.data)
       CameraXScreenEvent.VideoCaptureError -> {
         internalSnackbarEvents.trySend(SnackbarEvent(message = R.string.MediaSendViewModel__error_recording_video))
       }
@@ -894,14 +916,6 @@ class MediaSendViewModel(
     }
 
     return result
-  }
-
-  //endregion
-
-  //region HUD Commands
-
-  fun sendCommand(command: HudCommand) {
-    hudCommandChannel.trySend(command)
   }
 
   //endregion
