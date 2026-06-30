@@ -24,7 +24,7 @@ object Environment {
 
   @JvmField
   val USE_NEW_REGISTRATION: Boolean = BuildConfig.DEBUG
-  const val IS_LINK_AND_SYNC_AVAILABLE: Boolean = false
+  val IS_LINK_AND_SYNC_AVAILABLE: Boolean = BuildConfig.DEBUG
 
   object Backups {
     @JvmStatic
