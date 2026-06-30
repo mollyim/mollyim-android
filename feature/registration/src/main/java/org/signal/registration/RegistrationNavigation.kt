@@ -107,6 +107,7 @@ import org.signal.registration.screens.verificationcode.VerificationCodeViewMode
 import org.signal.registration.screens.welcome.WelcomeScreen
 import org.signal.registration.screens.welcome.WelcomeScreenEvents
 import org.signal.registration.util.AccountEntropyPoolParceler
+import org.signal.registration.util.RegistrationCredentialManager
 
 /**
  * Navigation routes for the registration flow.
@@ -756,11 +757,13 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
 
   // -- Enter AEP
   entry<RegistrationRoute.EnterAepForLocalBackup> {
+    val context = LocalContext.current
     val viewModel: EnterAepForLocalBackupViewModel = viewModel(
       factory = EnterAepForLocalBackupViewModel.Factory(
         parentEventEmitter = registrationViewModel::onEvent,
         resultBus = registrationViewModel.resultBus,
-        resultKey = BACKUP_CREDENTIAL_RESULT
+        resultKey = BACKUP_CREDENTIAL_RESULT,
+        isPasswordManagerAvailable = RegistrationCredentialManager.isSupported(context)
       )
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -772,11 +775,13 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   }
 
   entry<RegistrationRoute.EnterAepForRemoteBackupPreRegistration> { key ->
+    val context = LocalContext.current
     val viewModel: EnterAepForRemoteBackupPreRegistrationViewModel = viewModel(
       factory = EnterAepForRemoteBackupPreRegistrationViewModel.Factory(
         e164 = key.e164,
         repository = registrationRepository,
-        parentEventEmitter = registrationViewModel::onEvent
+        parentEventEmitter = registrationViewModel::onEvent,
+        isPasswordManagerAvailable = RegistrationCredentialManager.isSupported(context)
       )
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -788,9 +793,11 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   }
 
   entry<RegistrationRoute.EnterAepForRemoteBackupPostRegistration> {
+    val context = LocalContext.current
     val viewModel: EnterAepForRemoteBackupPostRegistrationViewModel = viewModel(
       factory = EnterAepForRemoteBackupPostRegistrationViewModel.Factory(
-        parentEventEmitter = registrationViewModel::onEvent
+        parentEventEmitter = registrationViewModel::onEvent,
+        isPasswordManagerAvailable = RegistrationCredentialManager.isSupported(context)
       )
     )
     val state by viewModel.state.collectAsStateWithLifecycle()

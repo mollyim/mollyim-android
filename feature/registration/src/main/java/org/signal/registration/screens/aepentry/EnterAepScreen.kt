@@ -29,12 +29,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -46,6 +48,7 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
@@ -57,6 +60,7 @@ import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.localbackuprestore.attachBackupKeyAutoFillHelper
 import org.signal.registration.screens.localbackuprestore.backupKeyAutoFillHelper
+import org.signal.registration.util.RegistrationCredentialManager
 
 @Composable
 fun EnterAepScreen(
@@ -93,6 +97,9 @@ private fun OnePaneLayout(
         Description()
         Spacer(modifier = Modifier.size(24.dp))
         RecoveryKeyTextField(state, onEvent)
+        if (state.isPasswordManagerAvailable) {
+          FillFromPasswordManagerButton(onEvent)
+        }
       }
     },
     footer = {
@@ -156,6 +163,9 @@ private fun TwoPaneLayout(
           .padding(paddingValues)
       ) {
         RecoveryKeyTextField(state, onEvent)
+        if (state.isPasswordManagerAvailable) {
+          FillFromPasswordManagerButton(onEvent)
+        }
       }
     },
     footer = {
@@ -260,6 +270,26 @@ private fun RecoveryKeyTextField(state: EnterAepState, onEvent: (EnterAepEvents)
 }
 
 @Composable
+private fun FillFromPasswordManagerButton(onEvent: (EnterAepEvents) -> Unit, modifier: Modifier = Modifier) {
+  val context = LocalContext.current
+  val coroutineScope = rememberCoroutineScope()
+
+  Buttons.MediumTonal(
+    modifier = modifier,
+    onClick = {
+      coroutineScope.launch {
+        val password = RegistrationCredentialManager.getPasswordCredential(context)
+        if (password != null) {
+          onEvent(EnterAepEvents.BackupKeyChanged(password))
+        }
+      }
+    }
+  ) {
+    Text(text = stringResource(R.string.EnterAepScreen__fill_from_password_manager))
+  }
+}
+
+@Composable
 private fun NoRecoverKeyButton(onEvent: (EnterAepEvents) -> Unit, modifier: Modifier = Modifier) {
   TextButton(
     modifier = modifier,
@@ -324,7 +354,7 @@ internal class AepVisualTransformation(private val chunkSize: Int) : VisualTrans
 private fun EnterAepScreenPreview() {
   Previews.Preview {
     EnterAepScreen(
-      state = EnterAepState(),
+      state = EnterAepState(isPasswordManagerAvailable = true),
       onEvent = {}
     )
   }
@@ -338,7 +368,8 @@ private fun EnterAepScreenFilledPreview() {
       state = EnterAepState(
         enteredText = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         backupKey = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
-        isBackupKeyValid = true
+        isBackupKeyValid = true,
+        isPasswordManagerAvailable = true
       ),
       onEvent = {}
     )
@@ -354,7 +385,8 @@ private fun EnterAepScreenErrorPreview() {
         enteredText = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         backupKey = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         isBackupKeyValid = false,
-        aepValidationError = AepValidationError.Invalid
+        aepValidationError = AepValidationError.Invalid,
+        isPasswordManagerAvailable = true
       ),
       onEvent = {}
     )

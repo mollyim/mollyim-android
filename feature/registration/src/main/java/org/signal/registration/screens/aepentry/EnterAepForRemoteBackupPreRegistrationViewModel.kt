@@ -24,14 +24,15 @@ import org.signal.registration.screens.util.navigateTo
 class EnterAepForRemoteBackupPreRegistrationViewModel(
   private val e164: String,
   private val repository: RegistrationRepository,
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  isPasswordManagerAvailable: Boolean = false
 ) : EventDrivenViewModel<EnterAepEvents>(TAG) {
 
   companion object {
     private val TAG = Log.tag(EnterAepForRemoteBackupPreRegistrationViewModel::class)
   }
 
-  private val _state = MutableStateFlow(EnterAepState())
+  private val _state = MutableStateFlow(EnterAepState(isPasswordManagerAvailable = isPasswordManagerAvailable))
 
   val state: StateFlow<EnterAepState> = _state.asStateFlow()
 
@@ -80,7 +81,7 @@ class EnterAepForRemoteBackupPreRegistrationViewModel(
       is RequestResult.NonSuccess -> {
         when (val error = result.error) {
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
-            Log.w(TAG, "[Submit] RRP incorrect.")
+            Log.w(TAG, "[Submit] RRP incorrect. Message: ${error.message}")
             stateEmitter(
               inputState.copy(
                 isRegistering = false,
@@ -134,10 +135,11 @@ class EnterAepForRemoteBackupPreRegistrationViewModel(
   class Factory(
     private val e164: String,
     private val repository: RegistrationRepository,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+    private val isPasswordManagerAvailable: Boolean = false
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return EnterAepForRemoteBackupPreRegistrationViewModel(e164, repository, parentEventEmitter) as T
+      return EnterAepForRemoteBackupPreRegistrationViewModel(e164, repository, parentEventEmitter, isPasswordManagerAvailable) as T
     }
   }
 }

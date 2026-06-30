@@ -87,6 +87,10 @@ dependencies {
   // Phone number hint
   implementation(libs.google.play.services.auth)
 
+  // Credential Manager (password manager retrieval)
+  implementation(libs.androidx.credentials)
+  implementation(libs.androidx.credentials.compat)
+
   // Testing
   testImplementation(testFixtures(project(":core:ui")))
   testImplementation(testLibs.junit.junit)

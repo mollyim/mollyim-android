@@ -19,14 +19,15 @@ import org.signal.registration.screens.util.navigateBack
 class EnterAepForLocalBackupViewModel(
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
   private val resultBus: ResultEventBus,
-  private val resultKey: String
+  private val resultKey: String,
+  isPasswordManagerAvailable: Boolean = false
 ) : ViewModel() {
 
   companion object {
     private val TAG = Log.tag(EnterAepForLocalBackupViewModel::class)
   }
 
-  private val _state = MutableStateFlow(EnterAepState())
+  private val _state = MutableStateFlow(EnterAepState(isPasswordManagerAvailable = isPasswordManagerAvailable))
   val state: StateFlow<EnterAepState> = _state.asStateFlow()
 
   fun onEvent(event: EnterAepEvents) {
@@ -53,10 +54,11 @@ class EnterAepForLocalBackupViewModel(
   class Factory(
     private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
     private val resultBus: ResultEventBus,
-    private val resultKey: String
+    private val resultKey: String,
+    private val isPasswordManagerAvailable: Boolean = false
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return EnterAepForLocalBackupViewModel(parentEventEmitter, resultBus, resultKey) as T
+      return EnterAepForLocalBackupViewModel(parentEventEmitter, resultBus, resultKey, isPasswordManagerAvailable) as T
     }
   }
 }

@@ -16,9 +16,11 @@ data class EnterAepState(
   val aepValidationError: AepValidationError? = null,
   val chunkLength: Int = 4,
   val isRegistering: Boolean = false,
-  val registrationError: RegistrationError? = null
+  val registrationError: RegistrationError? = null,
+  /** Whether a password manager / credential provider is available to fill the recovery key. */
+  val isPasswordManagerAvailable: Boolean = false
 ) {
-  override fun toString(): String = "EnterAepState(enteredText=${enteredText.censor()}, backupKey=${backupKey.censor()}, isBackupKeyValid=$isBackupKeyValid, aepValidationError=$aepValidationError, chunkLength=$chunkLength, isRegistering=$isRegistering, registrationError=$registrationError)"
+  override fun toString(): String = "EnterAepState(enteredText=${enteredText.censor()}, backupKey=${backupKey.censor()}, isBackupKeyValid=$isBackupKeyValid, aepValidationError=$aepValidationError, chunkLength=$chunkLength, isRegistering=$isRegistering, registrationError=$registrationError, isPasswordManagerAvailable=$isPasswordManagerAvailable)"
 }
 
 sealed interface AepValidationError {

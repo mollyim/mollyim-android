@@ -18,14 +18,15 @@ import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.util.navigateTo
 
 class EnterAepForRemoteBackupPostRegistrationViewModel(
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  isPasswordManagerAvailable: Boolean = false
 ) : ViewModel() {
 
   companion object {
     private val TAG = Log.tag(EnterAepForRemoteBackupPostRegistrationViewModel::class)
   }
 
-  private val _state = MutableStateFlow(EnterAepState())
+  private val _state = MutableStateFlow(EnterAepState(isPasswordManagerAvailable = isPasswordManagerAvailable))
   val state: StateFlow<EnterAepState> = _state.asStateFlow()
 
   fun onEvent(event: EnterAepEvents) {
@@ -51,10 +52,11 @@ class EnterAepForRemoteBackupPostRegistrationViewModel(
   }
 
   class Factory(
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+    private val isPasswordManagerAvailable: Boolean = false
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return EnterAepForRemoteBackupPostRegistrationViewModel(parentEventEmitter) as T
+      return EnterAepForRemoteBackupPostRegistrationViewModel(parentEventEmitter, isPasswordManagerAvailable) as T
     }
   }
 }
