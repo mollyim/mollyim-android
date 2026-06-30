@@ -253,11 +253,6 @@ private fun Steps(
       text = stringResource(R.string.LinkAccountScreen__tap_linked_devices_and_link_new_device)
     )
 
-    Step(
-      icon = SignalIcons.QrCode.imageVector,
-      text = stringResource(R.string.LinkAccountScreen__position_the_camera_over_this_qr_code)
-    )
-
     GetHelp(onEvent)
   }
 }
