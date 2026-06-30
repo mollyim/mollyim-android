@@ -2,11 +2,13 @@
  * Copyright 2026 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+@file:JvmName("RequestResultUtil")
 
 package org.whispersystems.signalservice.api
 
 import org.signal.core.util.concurrent.safeBlockingGet
 import org.signal.libsignal.net.RequestResult
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.signal.network.exceptions.PushNetworkException
 import org.signal.network.rest.RestStatusCodeError
 import org.signal.network.util.JsonUtil
@@ -46,6 +48,25 @@ fun <T : Any> SignalWebSocket.fromWebSocketRequest(
     RequestResult.RetryableNetworkError(PushNetworkException(e))
   } catch (e: Throwable) {
     RequestResult.ApplicationError(e)
+  }
+}
+
+/**
+ * Unwraps a [RequestResult] to its success value, or throws an [IOException]. Useful for callers bridging the
+ * libsignal [RequestResult] surface back into legacy, exception-based code.
+ *
+ * All non-2xx responses become a [NonSuccessfulResponseCodeException].
+ */
+@Throws(IOException::class)
+fun <T : Any> RequestResult<T, RestStatusCodeError>.successOrThrow(): T {
+  return when (this) {
+    is RequestResult.Success -> result
+    is RequestResult.RetryableNetworkError -> throw networkError
+    is RequestResult.NonSuccess -> throw NonSuccessfulResponseCodeException(error.statusCode, "StatusCode: ${error.statusCode}", error.body, error.headers)
+    is RequestResult.ApplicationError -> throw when (val error = cause) {
+      is IOException, is RuntimeException -> error
+      else -> RuntimeException(error)
+    }
   }
 }
 

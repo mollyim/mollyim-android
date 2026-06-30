@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.net.SignalNetwork;
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.NetworkResultUtil;
+import org.whispersystems.signalservice.api.RequestResultUtil;
 import org.whispersystems.signalservice.api.account.AccountAttributes;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
 
@@ -95,12 +96,26 @@ public class RefreshAttributesJob extends BaseJob {
       return;
     }
 
+    SvrValues svrValues = SignalStore.svr();
+
+    AccountAttributes.Capabilities capabilities = AppCapabilities.getCapabilities(svrValues.hasPin() && !svrValues.hasOptedOut());
+
+    if (SignalStore.account().isPrimaryDevice()) {
+      setPrimaryDeviceAttributes(svrValues, capabilities);
+    } else {
+      Log.i(TAG, "Linked device, refreshing device capabilities only. Capabilities: " + capabilities);
+      RequestResultUtil.successOrThrow(SignalNetwork.account().setCapabilities(capabilities));
+    }
+
+    hasRefreshedThisAppCycle = true;
+  }
+
+  private void setPrimaryDeviceAttributes(@NonNull SvrValues svrValues, @NonNull AccountAttributes.Capabilities capabilities) throws IOException {
     int       registrationId              = SignalStore.account().getRegistrationId();
     boolean   fetchesMessages             = !SignalStore.account().isFcmEnabled() || SignalStore.settings().getForceWebsocketMode().isEnabled();
     byte[]    unidentifiedAccessKey       = UnidentifiedAccess.deriveAccessKeyFrom(ProfileKeyUtil.getSelfProfileKey());
     boolean   universalUnidentifiedAccess = TextSecurePreferences.isUniversalUnidentifiedAccess(context);
     String    registrationLockV2          = null;
-    SvrValues svrValues                   = SignalStore.svr();
     int       pniRegistrationId           = RegistrationRepository.getPniRegistrationId();
     String    recoveryPassword            = svrValues.getMasterKey().deriveRegistrationRecoveryPassword();
 
@@ -113,7 +128,6 @@ public class RefreshAttributesJob extends BaseJob {
     String deviceName = SignalStore.account().getDeviceName();
     byte[] encryptedDeviceName = (deviceName == null) ? null : DeviceNameCipher.encryptDeviceName(deviceName.getBytes(StandardCharsets.UTF_8), SignalStore.account().getAciIdentityKey());
 
-    AccountAttributes.Capabilities capabilities = AppCapabilities.getCapabilities(svrValues.hasPin() && !svrValues.hasOptedOut());
     Log.i(TAG, "Calling setAccountAttributes() reglockV2? " + !TextUtils.isEmpty(registrationLockV2) + ", pin? " + svrValues.hasPin() + ", restoredAEP? " + SignalStore.account().restoredAccountEntropyPool() +
                "\n    Recovery password? " + !TextUtils.isEmpty(recoveryPassword) +
                "\n    Phone number discoverable : " + phoneNumberDiscoverable +
@@ -135,8 +149,6 @@ public class RefreshAttributesJob extends BaseJob {
     );
 
     NetworkResultUtil.toBasicLegacy(SignalNetwork.account().setAccountAttributes(accountAttributes));
-
-    hasRefreshedThisAppCycle = true;
   }
 
   @Override
