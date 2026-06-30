@@ -26,8 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -224,6 +226,17 @@ object ContactSearchModels {
           { view -> ChatTypeViewHolder(view, callbacks::onChatTypeClicked) },
           R.layout.contact_search_chat_type_item
         ).createViewHolder(FrameLayout(ctx))
+      }
+      entry<EmptyModel>(
+        key = { "EmptyModel" }
+      ) { model ->
+        Text(
+          text = stringResource(R.string.SearchFragment_no_results, model.empty.query ?: ""),
+          textAlign = TextAlign.Center,
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+        )
       }
     }.build()
   }
@@ -566,9 +579,11 @@ object ContactSearchModels {
     override fun getRecipient(model: RecipientModel): Recipient = model.knownRecipient.recipient
     override fun bindNumberField(model: RecipientModel) {
       val recipient = getRecipient(model)
-      if (model.knownRecipient.sectionKey == ContactSearchConfiguration.SectionKey.GROUP_MEMBERS) {
+      if (model.knownRecipient.sectionKey == ContactSearchConfiguration.SectionKey.GROUP_MEMBERS && displayOptions.displaySecondaryInformation != ContactSearchAdapter.DisplaySecondaryInformation.NEVER) {
         number.text = model.knownRecipient.groupsInCommon.toDisplayText(context, displayGroupsLimit = 2)
         number.visible = true
+      } else if (model.knownRecipient.sectionKey == ContactSearchConfiguration.SectionKey.GROUP_MEMBERS) {
+        number.visible = false
       } else if (model.shortSummary && recipient.isGroup) {
         val count = recipient.participantIds.size
         number.text = context.resources.getQuantityString(R.plurals.ContactSearchItems__group_d_members, count, count)

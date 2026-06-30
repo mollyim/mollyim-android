@@ -830,7 +830,19 @@ class ConversationSettingsFragment :
           } else {
             resources.getQuantityString(R.plurals.ContactSelectionListFragment_d_members, memberCount, memberCount)
           }
-          sectionHeaderPref(DSLSettingsText.from(memberHeaderText))
+
+          if (RemoteConfig.internalUser) {
+            sectionHeaderPref(
+              title = DSLSettingsText.from(memberHeaderText),
+              iconEnd = DSLSettingsIcon.from(CoreUiR.drawable.symbol_search_24),
+              onClick = {
+                val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId)
+                navController.safeNavigate(action)
+              }
+            )
+          } else {
+            sectionHeaderPref(DSLSettingsText.from(memberHeaderText))
+          }
         }
 
         if (groupState.canAddToGroup && !groupState.isTerminated && !state.isDeprecatedOrUnregistered) {

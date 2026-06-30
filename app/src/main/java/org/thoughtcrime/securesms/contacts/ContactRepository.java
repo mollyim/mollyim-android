@@ -5,12 +5,14 @@ import android.database.CursorWrapper;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchSortOrder;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.util.SignalE164Util;
 import org.signal.core.util.Util;
 
@@ -118,9 +120,15 @@ public class ContactRepository {
   }
 
   @WorkerThread
-  public @NonNull Cursor queryGroupMemberContacts(@NonNull String query) {
-    Cursor cursor = TextUtils.isEmpty(query) ? recipientTable.getGroupMemberContacts()
-                                             : recipientTable.queryGroupMemberContacts(query);
+  public @NonNull Cursor queryGroupMemberContacts(@NonNull String query, @Nullable GroupId groupId) {
+    Cursor cursor;
+    if (groupId != null) {
+      cursor = recipientTable.queryGroupMemberContactsForGroup(groupId, query);
+    } else if (TextUtils.isEmpty(query)) {
+      cursor = recipientTable.getGroupMemberContacts();
+    } else {
+      cursor = recipientTable.queryGroupMemberContacts(query);
+    }
 
     return new SearchCursorWrapper(cursor, SEARCH_CURSOR_MAPPERS);
   }

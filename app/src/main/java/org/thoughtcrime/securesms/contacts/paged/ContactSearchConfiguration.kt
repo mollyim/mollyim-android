@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.contacts.paged
 
 import org.thoughtcrime.securesms.contacts.HeaderAction
 import org.thoughtcrime.securesms.database.RecipientTable
+import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.search.SearchFilter
 
 /**
@@ -131,7 +132,10 @@ class ContactSearchConfiguration private constructor(
      */
     data class GroupMembers(
       override val includeHeader: Boolean = true,
-      override val expandConfig: ExpandConfig? = null
+      override val expandConfig: ExpandConfig? = null,
+      val includeLetterHeaders: Boolean = false,
+      val showGroupsInCommon: Boolean = true,
+      val groupId: GroupId? = null
     ) : Section(SectionKey.GROUP_MEMBERS)
 
     /**

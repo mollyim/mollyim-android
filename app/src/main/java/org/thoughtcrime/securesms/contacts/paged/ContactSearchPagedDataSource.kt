@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.database.model.GroupRecord
 import org.thoughtcrime.securesms.database.model.ThreadWithRecipient
+import org.thoughtcrime.securesms.groups.GroupsInCommonSummary
 import org.thoughtcrime.securesms.keyvalue.StorySend
 import org.thoughtcrime.securesms.phonenumbers.NumberUtil
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -135,7 +136,7 @@ class ContactSearchPagedDataSource(
       is ContactSearchConfiguration.Section.Recents -> getRecentsSearchIterator(section, query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Stories -> getStoriesSearchIterator(query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Arbitrary -> arbitraryRepository?.getSize(section, query) ?: error("Invalid arbitrary section.")
-      is ContactSearchConfiguration.Section.GroupMembers -> getGroupMembersSearchIterator(query).getCollectionSizeAndClose(section, query, null)
+      is ContactSearchConfiguration.Section.GroupMembers -> getGroupMembersSearchIterator(section, query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Chats -> getThreadData(query, section.isUnreadOnly).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Messages -> getMessageData(query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.GroupsWithMembers -> getGroupsWithMembersIterator(query).getCollectionSizeAndClose(section, query, null)
@@ -296,8 +297,8 @@ class ContactSearchPagedDataSource(
     return CursorSearchIterator(contactSearchPagedDataSourceRepository.getRecents(section))
   }
 
-  private fun getGroupMembersSearchIterator(query: String?): ContactSearchIterator<Cursor> {
-    return CursorSearchIterator(contactSearchPagedDataSourceRepository.queryGroupMemberContacts(query))
+  private fun getGroupMembersSearchIterator(section: ContactSearchConfiguration.Section.GroupMembers, query: String?): ContactSearchIterator<Cursor> {
+    return CursorSearchIterator(contactSearchPagedDataSourceRepository.queryGroupMemberContacts(section, query))
   }
 
   private fun <R> readContactData(
@@ -445,7 +446,7 @@ class ContactSearchPagedDataSource(
 
   @WorkerThread
   private fun getGroupMembersContactData(section: ContactSearchConfiguration.Section.GroupMembers, query: String?, startIndex: Int, endIndex: Int): List<ContactSearchData> {
-    return getGroupMembersSearchIterator(query).use { records ->
+    return getGroupMembersSearchIterator(section, query).use { records ->
       readContactData(
         records = records,
         recordsPredicate = null,
@@ -454,8 +455,9 @@ class ContactSearchPagedDataSource(
         endIndex = endIndex,
         recordMapper = {
           val recipient = contactSearchPagedDataSourceRepository.getRecipientFromSearchCursor(it)
-          val groupsInCommon = contactSearchPagedDataSourceRepository.getGroupsInCommon(recipient)
-          ContactSearchData.KnownRecipient(section.sectionKey, recipient, groupsInCommon = groupsInCommon)
+          val groupsInCommon = if (section.showGroupsInCommon) contactSearchPagedDataSourceRepository.getGroupsInCommon(recipient) else GroupsInCommonSummary(listOf())
+          val headerLetter = if (section.includeLetterHeaders) getHeaderLetterForCurrentRow(it) else null
+          ContactSearchData.KnownRecipient(section.sectionKey, recipient, groupsInCommon = groupsInCommon, headerLetter = headerLetter)
         }
       )
     }

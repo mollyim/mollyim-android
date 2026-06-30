@@ -43,8 +43,8 @@ open class ContactSearchPagedDataSourceRepository(
     return contactRepository.querySignalContacts(contactsSearchQuery)
   }
 
-  open fun queryGroupMemberContacts(query: String?): Cursor? {
-    return contactRepository.queryGroupMemberContacts(query ?: "")
+  open fun queryGroupMemberContacts(section: ContactSearchConfiguration.Section.GroupMembers, query: String?): Cursor? {
+    return contactRepository.queryGroupMemberContacts(query ?: "", section.groupId)
   }
 
   open fun getGroupSearchIterator(

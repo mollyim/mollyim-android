@@ -3712,6 +3712,26 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     return readableDatabase.query(TABLE_NAME, searchProjection(IncludeSelfMode.Exclude), selection, args, null, null, orderBy)
   }
 
+  fun queryGroupMemberContactsForGroup(groupId: GroupId, inputQuery: String): Cursor? {
+    val orderBy = orderByPreferringAlphaOverNumeric(SORT_NAME) + ", " + E164
+    val queryFilter = if (inputQuery.isNotEmpty()) "AND ($SORT_NAME GLOB ? OR $USERNAME GLOB ?)" else ""
+
+    val selection = """
+      $ID != ? AND
+      $ID IN (SELECT ${GroupTable.MembershipTable.RECIPIENT_ID} FROM ${GroupTable.MembershipTable.TABLE_NAME} WHERE ${GroupTable.MembershipTable.GROUP_ID} = ?)
+      $queryFilter
+    """
+
+    val args = if (queryFilter.isBlank()) {
+      mutableListOf(Recipient.self().id.serialize(), groupId.toString())
+    } else {
+      val query = SqlUtil.buildCaseInsensitiveGlobPattern(inputQuery)
+      mutableListOf(Recipient.self().id.serialize(), groupId.toString(), query, query)
+    }
+
+    return readableDatabase.query(TABLE_NAME, searchProjection(IncludeSelfMode.Exclude), selection, args.toTypedArray(), null, null, orderBy)
+  }
+
   fun queryAllContacts(inputQuery: String, includeSelfMode: IncludeSelfMode): Cursor? {
     val query = SqlUtil.buildCaseInsensitiveGlobPattern(inputQuery)
     val selection =
