@@ -12,7 +12,7 @@ RUN apt install -oAcquire::https::Verify-Peer=false -y ca-certificates
 
 # Back to normal, verification back on
 RUN apt update
-RUN apt install -y git openjdk-17-jdk unzip wget
+RUN apt install -y git openjdk-21-jdk-headless unzip wget
 
 ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME=commandlinetools-linux-10406996_latest.zip
 ENV ANDROID_COMMAND_LINE_TOOLS_SHA256=8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540
@@ -31,7 +31,7 @@ RUN unzip ${ANDROID_COMMAND_LINE_TOOLS_FILENAME} -d /usr/local/android-sdk-linux
 RUN rm ${ANDROID_COMMAND_LINE_TOOLS_FILENAME}
 
 RUN yes | sdkmanager --update --sdk_root="${ANDROID_HOME}"
-RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" "platforms;${ANDROID_API_LEVELS}" "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" "extras;google;m2repository" "extras;android;m2repository" "extras;google;google_play_services" "ndk;28.0.13004108" "cmake;3.22.1"
+RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" "platform-tools" "platforms;${ANDROID_API_LEVELS}" "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" "extras;google;m2repository" "extras;android;m2repository" "extras;google;google_play_services" "ndk;28.0.13004108" "cmake;3.22.1"
 
 RUN yes | sdkmanager --licenses --sdk_root="${ANDROID_HOME}"
 
