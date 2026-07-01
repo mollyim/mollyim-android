@@ -772,16 +772,19 @@ object Dialogs {
           .clip(AlertDialogDefaults.shape)
       ) {
         Column(modifier = Modifier.padding(24.dp)) {
-          Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge
-          )
+          if (title.isNotEmpty()) {
+            Text(
+              text = title,
+              style = MaterialTheme.typography.titleLarge,
+              modifier = Modifier.padding(bottom = 16.dp)
+            )
+          }
 
           Text(
             text = body,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(vertical = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp)
           )
 
           Column(
