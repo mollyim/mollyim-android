@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -52,6 +53,7 @@ import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
+import org.signal.registration.RegistrationDependencies
 import org.signal.registration.screens.PinVisualTransformation
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
@@ -67,10 +69,13 @@ fun PinEntryScreen(
   onEvent: (PinEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  val context = LocalContext.current
   var pin by rememberSaveable { mutableStateOf("") }
   var showSkipDialog by rememberSaveable { mutableStateOf(false) }
   val focusRequester = remember { FocusRequester() }
   val canSubmitPin = pin.isNotEmpty()
+  val supportEmailSubject = stringResource(R.string.PinEntryScreen__contact_support_email_subject)
+  val onContactSupport: () -> Unit = { RegistrationDependencies.get().contactSupportCallback?.invoke(context, supportEmailSubject) }
 
   when (val params = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> OnePaneLayout(
@@ -81,6 +86,7 @@ fun PinEntryScreen(
       focusRequester = focusRequester,
       onPinChanged = { pin = it },
       onSkip = { showSkipDialog = true },
+      onContactSupport = onContactSupport,
       onEvent = onEvent,
       modifier = modifier
     )
@@ -93,6 +99,7 @@ fun PinEntryScreen(
       focusRequester = focusRequester,
       onPinChanged = { pin = it },
       onSkip = { showSkipDialog = true },
+      onContactSupport = onContactSupport,
       onEvent = onEvent,
       modifier = modifier
     )
@@ -119,7 +126,10 @@ fun PinEntryScreen(
       confirm = stringResource(R.string.PinEntryScreen__create_new_pin),
       dismiss = stringResource(R.string.PinEntryScreen__contact_support),
       onConfirm = { onEvent(PinEntryScreenEvents.CreateNewPin) },
-      onDeny = { onEvent(PinEntryScreenEvents.ContactSupport) },
+      onDeny = {
+        onContactSupport()
+        onEvent(PinEntryScreenEvents.ContactSupport)
+      },
       onDismissRequest = { onEvent(PinEntryScreenEvents.ContactSupport) },
       properties = DialogProperties(
         dismissOnBackPress = false,
@@ -143,6 +153,7 @@ private fun OnePaneLayout(
   focusRequester: FocusRequester,
   onPinChanged: (String) -> Unit,
   onSkip: () -> Unit,
+  onContactSupport: () -> Unit,
   onEvent: (PinEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -174,7 +185,7 @@ private fun OnePaneLayout(
             focusRequester = focusRequester,
             onPinChanged = onPinChanged,
             onSubmit = { onEvent(PinEntryScreenEvents.PinEntered(pin)) },
-            onNeedsHelp = { onEvent(PinEntryScreenEvents.NeedHelp) },
+            onNeedsHelp = onContactSupport,
             modifier = Modifier.fillMaxWidth()
           )
 
@@ -214,6 +225,7 @@ private fun TwoPaneLayout(
   focusRequester: FocusRequester,
   onPinChanged: (String) -> Unit,
   onSkip: () -> Unit,
+  onContactSupport: () -> Unit,
   onEvent: (PinEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
@@ -255,7 +267,7 @@ private fun TwoPaneLayout(
             focusRequester = focusRequester,
             onPinChanged = onPinChanged,
             onSubmit = { onEvent(PinEntryScreenEvents.PinEntered(pin)) },
-            onNeedsHelp = { onEvent(PinEntryScreenEvents.NeedHelp) },
+            onNeedsHelp = onContactSupport,
             modifier = Modifier.fillMaxWidth()
           )
 

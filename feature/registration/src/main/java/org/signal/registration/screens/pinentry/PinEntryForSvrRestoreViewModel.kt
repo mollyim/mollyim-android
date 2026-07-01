@@ -80,8 +80,7 @@ class PinEntryForSvrRestoreViewModel(
         Log.i(TAG, "[ContactSupport] User opted to contact support after no data was found.")
         stateEmitter(state.copy(showNoDataToRestoreDialog = false))
       }
-      is PinEntryScreenEvents.ToggleKeyboard,
-      is PinEntryScreenEvents.NeedHelp -> {
+      is PinEntryScreenEvents.ToggleKeyboard -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }

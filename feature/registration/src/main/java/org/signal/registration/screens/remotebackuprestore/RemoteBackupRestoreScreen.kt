@@ -46,6 +46,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.registration.R
+import org.signal.registration.RegistrationDependencies
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
@@ -296,6 +297,9 @@ private fun RestoreStateDialogs(
   state: RemoteBackupRestoreState,
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit
 ) {
+  val context = LocalContext.current
+  val contactSupportEmailSubject = stringResource(R.string.RemoteRestoreScreen__contact_support_email_subject)
+
   when (state.restoreState) {
     RemoteBackupRestoreState.RestoreState.None -> Unit
     RemoteBackupRestoreState.RestoreState.InProgress -> {
@@ -330,7 +334,10 @@ private fun RestoreStateDialogs(
         body = stringResource(R.string.RemoteRestoreScreen__your_backup_is_not_recoverable),
         confirm = stringResource(R.string.RemoteRestoreScreen__contact_support),
         dismiss = stringResource(android.R.string.ok),
-        onConfirm = { onEvent(RemoteBackupRestoreScreenEvents.DismissError) },
+        onConfirm = {
+          RegistrationDependencies.get().contactSupportCallback?.invoke(context, contactSupportEmailSubject)
+          onEvent(RemoteBackupRestoreScreenEvents.DismissError)
+        },
         onDismiss = { onEvent(RemoteBackupRestoreScreenEvents.DismissError) }
       )
     }

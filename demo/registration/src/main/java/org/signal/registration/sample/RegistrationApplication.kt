@@ -69,6 +69,12 @@ class RegistrationApplication : Application() {
             .setPositiveButton(android.R.string.ok, null)
             .show()
         },
+        contactSupportCallback = { context, subject ->
+          MaterialAlertDialogBuilder(context)
+            .setMessage("Contact support not supported in the demo. Subject: $subject")
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+        },
         isLinkAndSyncAvailable = true
       )
     )

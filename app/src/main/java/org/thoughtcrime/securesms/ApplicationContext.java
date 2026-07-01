@@ -119,6 +119,7 @@ import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.BatterySnapshotTracker;
+import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DeviceProperties;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.Environment;
@@ -127,6 +128,7 @@ import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.SqlCipherLogTarget;
+import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
@@ -437,6 +439,11 @@ public class ApplicationContext extends Application implements AppForegroundObse
         },
         context -> {
           context.startActivity(AppSettingsActivity.proxy(context));
+          return Unit.INSTANCE;
+        },
+        (context, subject) -> {
+          String body = SupportEmailUtil.generateSupportEmailBody(context, subject, null, null);
+          CommunicationActions.openEmail(context, SupportEmailUtil.getSupportEmailAddress(context), subject, body);
           return Unit.INSTANCE;
         }
       )

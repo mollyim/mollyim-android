@@ -70,8 +70,7 @@ class PinEntryForRegistrationLockViewModel(
       }
       is PinEntryScreenEvents.CreateNewPin,
       is PinEntryScreenEvents.ContactSupport -> Unit
-      is PinEntryScreenEvents.ToggleKeyboard,
-      is PinEntryScreenEvents.NeedHelp -> {
+      is PinEntryScreenEvents.ToggleKeyboard -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }

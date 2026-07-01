@@ -270,6 +270,8 @@
     <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">An error occurred while restoring your backup. Your backup is not recoverable. Please contact support for help.</string>
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">Contact support</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+    <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string>
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">Downloading backup…</string>
     <!-- Shown while restoring messages from the downloaded backup -->
@@ -379,6 +381,8 @@
     <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">Contact support</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+    <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string>
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">Allow Notifications</string>
