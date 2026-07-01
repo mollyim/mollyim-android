@@ -2631,6 +2631,8 @@ class AttachmentTable(
         REMOTE_KEY to Base64.encodeWithPadding(Util.getSecretBytes(64)),
         REMOTE_DIGEST to Util.getSecretBytes(64)
       )
+      .where("$ID = ?", attachmentId.id)
+      .run()
   }
 
   private fun deleteDataFiles(filePaths: Set<String>, contentTypes: Set<String>) {
