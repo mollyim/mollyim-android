@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -23,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
@@ -57,10 +59,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.rememberFragmentState
@@ -185,7 +190,6 @@ import org.thoughtcrime.securesms.util.AppStartup
 import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
-import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
 import org.thoughtcrime.securesms.util.SplashScreenUtil
 import org.thoughtcrime.securesms.util.TopToastPopup
@@ -198,6 +202,7 @@ import org.thoughtcrime.securesms.window.NavigationType
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import kotlin.time.Duration.Companion.minutes
+import org.signal.core.ui.R as CoreUiR
 
 class MainActivity :
   PassphraseRequiredActivity(),
@@ -288,14 +293,6 @@ class MainActivity :
     }
 
     AppStartup.getInstance().onCriticalRenderEventStart()
-
-    enableEdgeToEdge(
-      navigationBarStyle = if (DynamicTheme.isDarkTheme(this)) {
-        SystemBarStyle.dark(0)
-      } else {
-        SystemBarStyle.light(0, 0)
-      }
-    )
 
     super.onCreate(savedInstanceState, ready)
     navigator = MainNavigator(this, mainNavigationViewModel)
@@ -835,6 +832,23 @@ class MainActivity :
           MaterialTheme.colorScheme.surface
         } else {
           SignalTheme.colors.colorSurface1
+        }
+
+        val context = LocalContext.current
+        val isDarkTheme = isSystemInDarkTheme()
+        val navBarColor = if (isSplitPane) backgroundColor.toArgb() else ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface2)
+        LaunchedEffect(isDarkTheme, navBarColor) {
+          if (Build.VERSION.SDK_INT >= 26) {
+            enableEdgeToEdge(
+              navigationBarStyle = if (isDarkTheme) {
+                SystemBarStyle.dark(navBarColor)
+              } else {
+                SystemBarStyle.light(navBarColor, navBarColor)
+              }
+            )
+          } else {
+            enableEdgeToEdge()
+          }
         }
 
         val modifier = when {
