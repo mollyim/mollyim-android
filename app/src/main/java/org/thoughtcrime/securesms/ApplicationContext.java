@@ -186,9 +186,9 @@ public class ApplicationContext extends Application implements AppForegroundObse
                 initializeLogging();
                 Log.i(TAG, "onCreate()");
               })
+              .addBlocking("security-provider", this::initializeSecurityProvider)
               .addBlocking("app-dependencies", this::initializeAppDependencies)
               .addBlocking("anr-detector", this::startAnrDetector)
-              .addBlocking("security-provider", this::initializeSecurityProvider)
               .addBlocking("crash-handling", this::initializeCrashHandling)
               .addBlocking("rx-init", this::initializeRx)
               .addBlocking("event-bus", () -> EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus())
