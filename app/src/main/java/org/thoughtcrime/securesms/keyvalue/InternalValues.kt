@@ -144,7 +144,7 @@ class InternalValues internal constructor(store: KeyValueStore) : SignalStoreVal
   /**
    * Whether or not to override the audio settings from the remote configuration.
    */
-  var callingSetAudioConfig by booleanValue(CALLING_SET_AUDIO_CONFIG, true).falseForExternalUsers()
+  var callingSetAudioConfig by booleanValue(CALLING_SET_AUDIO_CONFIG, false).falseForExternalUsers()
 
   /**
    * If overriding the audio settings, use the Oboe ADM or not.
